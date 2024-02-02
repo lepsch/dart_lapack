@@ -1,3 +1,67 @@
+# FOTRAN to Dart
+
+## Regex Helpers
+
+### DOUBLE PRECISION -> double
+```
+^\s(.*)DOUBLE PRECISION(.*)$
+$1$2double          $3
+```
+
+### INTEGER -> int
+```
+^\s(.*)\bINTEGER\b(.*)$
+$1$2int    $3
+```
+
+### LOGICAL -> bool
+```
+^\s(.*)\bLOGICAL\b(.*)$
+$1$2bool   $3
+```
+
+### CHARACTER -> String
+```
+^\s(.*)\bCHARACTER\b(.*)$
+$1$2String   $3
+```
+
+### Comment out INTRINSIC
+```
+^     ( \bINTRINSIC\b.*)$
+//    $1
+```
+
+### Comment out EXTERNAL
+```
+^     ( \bEXTERNAL\b.*)$
+//    $1
+```
+
+### PARAMETER (...) -> const ...
+```
+^\s     \bPARAMETER\b(\s+)\((.*)\)\s*$
+      const    $1$2;
+```
+
+### Line continuations
+```
+^[^*cC]     (.+)$(\n[^*cC]    [^\s]\s*(.*$))
+      $1 $3
+```
+
+### SUBROUTINE -> void
+```
+^[^*cC]     SUBROUTINE\s+(\w+)\s*\((.*)$
+      void $1($2 {
+```
+
+### Comments -> aligned //
+```
+^\*(     \s*)(.*)$
+$1 // $2
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)
