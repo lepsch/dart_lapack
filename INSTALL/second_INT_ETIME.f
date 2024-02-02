@@ -1,36 +1,3 @@
-*> \brief \b SECOND Using the INTERNAL function ETIME.
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Definition:
-*  ===========
-*
-*      REAL FUNCTION SECOND( )
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*>  SECOND returns the user time for a process in seconds.
-*>  This version gets the time from the INTERNAL function ETIME.
-*> \endverbatim
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \ingroup second
-*
-*  =====================================================================
       REAL FUNCTION SECOND( )
 *
 *  -- LAPACK auxiliary routine --

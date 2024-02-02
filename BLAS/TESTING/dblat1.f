@@ -1,38 +1,3 @@
-*> \brief \b DBLAT1
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Definition:
-*  ===========
-*
-*       PROGRAM DBLAT1
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*>    Test program for the DOUBLE PRECISION Level 1 BLAS.
-*>
-*>    Based upon the original BLAS test routine together with:
-*>    F06EAF Example Program Text
-*> \endverbatim
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \ingroup double_blas_testing
-*
-*  =====================================================================
       PROGRAM DBLAT1
 *
 *  -- Reference BLAS test routine --

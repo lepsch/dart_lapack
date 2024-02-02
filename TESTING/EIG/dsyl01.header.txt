@@ -1,0 +1,84 @@
+*> \brief \b DSYL01
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE DSYL01( THRESH, NFAIL, RMAX, NINFO, KNT )
+*
+*       .. Scalar Arguments ..
+*       INTEGER            KNT
+*       DOUBLE PRECISION   THRESH
+*       ..
+*       .. Array Arguments ..
+*       INTEGER            NFAIL( 3 ), NINFO( 2 )
+*       DOUBLE PRECISION   RMAX( 2 )
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> DSYL01 tests DTRSYL and DTRSYL3, routines for solving the Sylvester matrix
+*> equation
+*>
+*>    op(A)*X + ISGN*X*op(B) = scale*C,
+*>
+*> A and B are assumed to be in Schur canonical form, op() represents an
+*> optional transpose, and ISGN can be -1 or +1.  Scale is an output
+*> less than or equal to 1, chosen to avoid overflow in X.
+*>
+*> The test code verifies that the following residual does not exceed
+*> the provided threshold:
+*>
+*>    norm(op(A)*X + ISGN*X*op(B) - scale*C) /
+*>        (EPS*max(norm(A),norm(B))*norm(X))
+*>
+*> This routine complements DGET35 by testing with larger,
+*> random matrices, of which some require rescaling of X to avoid overflow.
+*>
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] THRESH
+*> \verbatim
+*>          THRESH is DOUBLE PRECISION
+*>          A test will count as "failed" if the residual, computed as
+*>          described above, exceeds THRESH.
+*> \endverbatim
+*>
+*> \param[out] NFAIL
+*> \verbatim
+*>          NFAIL is INTEGER array, dimension (3)
+*>          NFAIL(1) = No. of times residual DTRSYL exceeds threshold THRESH
+*>          NFAIL(2) = No. of times residual DTRSYL3 exceeds threshold THRESH
+*>          NFAIL(3) = No. of times DTRSYL3 and DTRSYL deviate
+*> \endverbatim
+*>
+*> \param[out] RMAX
+*> \verbatim
+*>          RMAX is DOUBLE PRECISION, dimension (2)
+*>          RMAX(1) = Value of the largest test ratio of DTRSYL
+*>          RMAX(2) = Value of the largest test ratio of DTRSYL3
+*> \endverbatim
+*>
+*> \param[out] NINFO
+*> \verbatim
+*>          NINFO is INTEGER array, dimension (2)
+*>          NINFO(1) = No. of times DTRSYL returns an expected INFO
+*>          NINFO(2) = No. of times DTRSYL3 returns an expected INFO
+*> \endverbatim
+*>
+*> \param[out] KNT
+*> \verbatim
+*>          KNT is INTEGER
+*>          Total number of examples tested.
+*> \endverbatim

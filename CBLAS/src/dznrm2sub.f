@@ -1,8 +1,3 @@
-c     dznrm2sub.f
-c
-c     The program is a fortran wrapper for dznrm2.
-c     Witten by Keita Teranishi.  2/11/1998
-c
       subroutine dznrm2sub(n,x,incx,nrm2)
 c
       external dznrm2

@@ -1,8 +1,3 @@
-c     dzasumsub.f
-c
-c     The program is a fortran wrapper for dzasum.
-c     Witten by Keita Teranishi.  2/11/1998
-c
       subroutine dzasumsub(n,x,incx,asum)
 c
       external dzasum

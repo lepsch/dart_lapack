@@ -1,0 +1,53 @@
+*> \brief \b DCHKBK
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE DCHKBK( NIN, NOUT )
+*
+*       .. Scalar Arguments ..
+*       INTEGER            NIN, NOUT
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> DCHKBK tests DGEBAK, a routine for backward transformation of
+*> the computed right or left eigenvectors if the original matrix
+*> was preprocessed by balance subroutine DGEBAL.
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] NIN
+*> \verbatim
+*>          NIN is INTEGER
+*>          The logical unit number for input.  NIN > 0.
+*> \endverbatim
+*>
+*> \param[in] NOUT
+*> \verbatim
+*>          NOUT is INTEGER
+*>          The logical unit number for output.  NOUT > 0.
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup double_eig
+*
+*  =====================================================================

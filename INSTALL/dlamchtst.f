@@ -1,34 +1,3 @@
-*> \brief \b DLAMCHTST
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Definition:
-*  ===========
-*
-*      PROGRAM DLAMCHTST
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \ingroup auxOTHERauxiliary
-*
-*  =====================================================================      PROGRAM DLAMCHTST
-*
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
-* =====================================================================
-*
-*     .. Local Scalars ..
       DOUBLE PRECISION   BASE, EMAX, EMIN, EPS, PREC, RMAX, RMIN, RND,
      $                   SFMIN, T
 *     ..

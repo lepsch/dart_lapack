@@ -1,38 +1,3 @@
-*> \brief \b ZBLAT1
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Definition:
-*  ===========
-*
-*       PROGRAM ZBLAT1
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*>    Test program for the COMPLEX*16 Level 1 BLAS.
-*>
-*>    Based upon the original BLAS test routine together with:
-*>    F06GAF Example Program Text
-*> \endverbatim
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \ingroup complex16_blas_testing
-*
-*  =====================================================================
       PROGRAM ZBLAT1
 *
 *  -- Reference BLAS test routine --

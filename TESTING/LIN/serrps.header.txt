@@ -1,0 +1,53 @@
+*> \brief \b SERRPS
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE SERRPS( PATH, NUNIT )
+*
+*       .. Scalar Arguments ..
+*       INTEGER            NUNIT
+*       CHARACTER*3        PATH
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> SERRPS tests the error exits for the REAL routines
+*> for SPSTRF..
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] PATH
+*> \verbatim
+*>          PATH is CHARACTER*3
+*>          The LAPACK path name for the routines to be tested.
+*> \endverbatim
+*>
+*> \param[in] NUNIT
+*> \verbatim
+*>          NUNIT is INTEGER
+*>          The unit number for output.
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup single_lin
+*
+*  =====================================================================

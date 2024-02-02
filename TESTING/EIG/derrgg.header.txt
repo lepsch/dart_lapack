@@ -1,0 +1,55 @@
+*> \brief \b DERRGG
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE DERRGG( PATH, NUNIT )
+*
+*       .. Scalar Arguments ..
+*       CHARACTER*3        PATH
+*       INTEGER            NUNIT
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> DERRGG tests the error exits for DGGES, DGGESX, DGGEV,  DGGEVX,
+*> DGGGLM, DGGHRD, DGGLSE, DGGQRF, DGGRQF, DGGSVD3,
+*> DGGSVP3, DHGEQZ, DORCSD, DTGEVC, DTGEXC, DTGSEN, DTGSJA, DTGSNA,
+*> DGGES3, DGGEV3, and DTGSYL.
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] PATH
+*> \verbatim
+*>          PATH is CHARACTER*3
+*>          The LAPACK path name for the routines to be tested.
+*> \endverbatim
+*>
+*> \param[in] NUNIT
+*> \verbatim
+*>          NUNIT is INTEGER
+*>          The unit number for output.
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup double_eig
+*
+*  =====================================================================

@@ -1,0 +1,118 @@
+*> \brief \b CUNHR_COL02
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE CUNHR_COL02( M, N, MB1, NB1, NB2, RESULT )
+*
+*       .. Scalar Arguments ..
+*       INTEGER           M, N, MB1, NB1, NB2
+*       .. Return values ..
+*       REAL              RESULT(6)
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> CUNHR_COL02 tests CUNGTSQR_ROW and CUNHR_COL inside CGETSQRHRT
+*> (which calls CLATSQR, CUNGTSQR_ROW and CUNHR_COL) using CGEMQRT.
+*> Therefore, CLATSQR (part of CGEQR), CGEMQRT (part of CGEMQR)
+*> have to be tested before this test.
+*>
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] M
+*> \verbatim
+*>          M is INTEGER
+*>          Number of rows in test matrix.
+*> \endverbatim
+*> \param[in] N
+*> \verbatim
+*>          N is INTEGER
+*>          Number of columns in test matrix.
+*> \endverbatim
+*> \param[in] MB1
+*> \verbatim
+*>          MB1 is INTEGER
+*>          Number of row in row block in an input test matrix.
+*> \endverbatim
+*>
+*> \param[in] NB1
+*> \verbatim
+*>          NB1 is INTEGER
+*>          Number of columns in column block an input test matrix.
+*> \endverbatim
+*>
+*> \param[in] NB2
+*> \verbatim
+*>          NB2 is INTEGER
+*>          Number of columns in column block in an output test matrix.
+*> \endverbatim
+*>
+*> \param[out] RESULT
+*> \verbatim
+*>          RESULT is REAL array, dimension (6)
+*>          Results of each of the six tests below.
+*>
+*>            A is a m-by-n test input matrix to be factored.
+*>            so that A = Q_gr * ( R )
+*>                               ( 0 ),
+*>
+*>            Q_qr is an implicit m-by-m unitary Q matrix, the result
+*>            of factorization in blocked WY-representation,
+*>            stored in CGEQRT output format.
+*>
+*>            R is a n-by-n upper-triangular matrix,
+*>
+*>            0 is a (m-n)-by-n zero matrix,
+*>
+*>            Q is an explicit m-by-m unitary matrix Q = Q_gr * I
+*>
+*>            C is an m-by-n random matrix,
+*>
+*>            D is an n-by-m random matrix.
+*>
+*>          The six tests are:
+*>
+*>          RESULT(1) = |R - (Q**H) * A| / ( eps * m * |A| )
+*>            is equivalent to test for | A - Q * R | / (eps * m * |A|),
+*>
+*>          RESULT(2) = |I - (Q**H) * Q| / ( eps * m ),
+*>
+*>          RESULT(3) = | Q_qr * C - Q * C | / (eps * m * |C|),
+*>
+*>          RESULT(4) = | (Q_gr**H) * C - (Q**H) * C | / (eps * m * |C|)
+*>
+*>          RESULT(5) = | D * Q_qr - D * Q | / (eps * m * |D|)
+*>
+*>          RESULT(6) = | D * (Q_qr**H) - D * (Q**H) | / (eps * m * |D|),
+*>
+*>          where:
+*>            Q_qr * C, (Q_gr**H) * C, D * Q_qr, D * (Q_qr**H) are
+*>            computed using CGEMQRT,
+*>
+*>            Q * C, (Q**H) * C, D * Q, D * (Q**H)  are
+*>            computed using CGEMM.
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup complex_lin
+*
+*  =====================================================================

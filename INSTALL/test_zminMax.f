@@ -1,36 +1,3 @@
-*> \brief zminMax tests the robustness and precision of the double-valued intrinsic operators MIN and MAX
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Authors:
-*  ========
-*
-*> \author Weslley S. Pereira, University of Colorado Denver, U.S.
-*
-*> \verbatim
-*>
-*> Tests with pairs of numbers (x,y):
-*> Inf inputs where x < y:
-*>    (1) (-Inf,   0)
-*>    (2) ( 0  , Inf)
-*>    (3) (-Inf, Inf)
-*> Inf inputs where x > y:
-*>    (4) ( 0  ,-Inf)
-*>    (5) ( Inf,   0)
-*>    (6) ( Inf,-Inf)
-*> NaN inputs to test NaN propagation:
-*>    (7) ( 0  , NaN)
-*>    (8) ( NaN,   0)
-*> The program tests MIN(x,y) and MAX(x,y) for every pair
-*>
-*> \endverbatim
-*
-*> \ingroup auxOTHERauxiliary
-*
-*  =====================================================================
       program zmul
 *
 *  -- LAPACK test routine --

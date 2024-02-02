@@ -1,0 +1,58 @@
+*> \brief \b SLARMM
+*
+* Definition:
+* ===========
+*
+*      REAL FUNCTION SLARMM( ANORM, BNORM, CNORM )
+*
+*     .. Scalar Arguments ..
+*      REAL               ANORM, BNORM, CNORM
+*     ..
+*
+*>  \par Purpose:
+*  =======
+*>
+*> \verbatim
+*>
+*> SLARMM returns a factor s in (0, 1] such that the linear updates
+*>
+*>    (s * C) - A * (s * B)  and  (s * C) - (s * A) * B
+*>
+*> cannot overflow, where A, B, and C are matrices of conforming
+*> dimensions.
+*>
+*> This is an auxiliary routine so there is no argument checking.
+*> \endverbatim
+*
+*  Arguments:
+*  =========
+*
+*> \param[in] ANORM
+*> \verbatim
+*>          ANORM is REAL
+*>          The infinity norm of A. ANORM >= 0.
+*>          The number of rows of the matrix A.  M >= 0.
+*> \endverbatim
+*>
+*> \param[in] BNORM
+*> \verbatim
+*>          BNORM is REAL
+*>          The infinity norm of B. BNORM >= 0.
+*> \endverbatim
+*>
+*> \param[in] CNORM
+*> \verbatim
+*>          CNORM is REAL
+*>          The infinity norm of C. CNORM >= 0.
+*> \endverbatim
+*>
+*>
+*  =====================================================================
+*>  References:
+*>    C. C. Kjelgaard Mikkelsen and L. Karlsson, Blocked Algorithms for
+*>    Robust Solution of Triangular Linear Systems. In: International
+*>    Conference on Parallel Processing and Applied Mathematics, pages
+*>    68--78. Springer, 2017.
+*>
+*> \ingroup larmm
+*  =====================================================================

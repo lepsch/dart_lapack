@@ -1,0 +1,45 @@
+*> \brief \b DERRAB
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE DERRAB( NUNIT )
+*
+*       .. Scalar Arguments ..
+*       INTEGER            NUNIT
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> DERRAB tests the error exits for DSGESV.
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] NUNIT
+*> \verbatim
+*>          NUNIT is INTEGER
+*>          The unit number for output.
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup double_lin
+*
+*  =====================================================================

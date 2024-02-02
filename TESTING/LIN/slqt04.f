@@ -1,74 +1,3 @@
-*> \brief \b SLQT04
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE SLQT04(M,N,NB,RESULT)
-*
-*       .. Scalar Arguments ..
-*       INTEGER M, N, NB, LDT
-*       .. Return values ..
-*       REAL RESULT(6)
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*> SLQT04 tests SGELQT and SGEMLQT.
-*> \endverbatim
-*
-*  Arguments:
-*  ==========
-*
-*> \param[in] M
-*> \verbatim
-*>          M is INTEGER
-*>          Number of rows in test matrix.
-*> \endverbatim
-*>
-*> \param[in] N
-*> \verbatim
-*>          N is INTEGER
-*>          Number of columns in test matrix.
-*> \endverbatim
-*>
-*> \param[in] NB
-*> \verbatim
-*>          NB is INTEGER
-*>          Block size of test matrix.  NB <= Min(M,N).
-*> \endverbatim
-*>
-*> \param[out] RESULT
-*> \verbatim
-*>          RESULT is REAL array, dimension (6)
-*>          Results of each of the six tests below.
-*>
-*>          RESULT(1) = | A - L Q |
-*>          RESULT(2) = | I - Q Q^H |
-*>          RESULT(3) = | Q C - Q C |
-*>          RESULT(4) = | Q^H C - Q^H C |
-*>          RESULT(5) = | C Q - C Q |
-*>          RESULT(6) = | C Q^H - C Q^H |
-*> \endverbatim
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \ingroup double_lin
-*
-*  =====================================================================
       SUBROUTINE SLQT04(M,N,NB,RESULT)
       IMPLICIT NONE
 *
@@ -253,4 +182,3 @@
 *
       RETURN
       END
-

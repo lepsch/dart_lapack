@@ -1,0 +1,82 @@
+*> \brief \b DTSQR01
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE DTSQR01(TSSW, M,N, MB, NB, RESULT)
+*
+*       .. Scalar Arguments ..
+*       INTEGER M, N, MB
+*       .. Return values ..
+*       DOUBLE PRECISION RESULT(6)
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> DTSQR01 tests DGEQR , DGELQ, DGEMLQ and DGEMQR.
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] TSSW
+*> \verbatim
+*>          TSSW is CHARACTER
+*>          'TS' for testing tall skinny QR
+*>               and anything else for testing short wide LQ
+*> \endverbatim
+*> \param[in] M
+*> \verbatim
+*>          M is INTEGER
+*>          Number of rows in test matrix.
+*> \endverbatim
+*>
+*> \param[in] N
+*> \verbatim
+*>          N is INTEGER
+*>          Number of columns in test matrix.
+*> \endverbatim
+*> \param[in] MB
+*> \verbatim
+*>          MB is INTEGER
+*>          Number of row in row block in test matrix.
+*> \endverbatim
+*>
+*> \param[in] NB
+*> \verbatim
+*>          NB is INTEGER
+*>          Number of columns in column block test matrix.
+*> \endverbatim
+*>
+*> \param[out] RESULT
+*> \verbatim
+*>          RESULT is DOUBLE PRECISION array, dimension (6)
+*>          Results of each of the six tests below.
+*>
+*>          RESULT(1) = | A - Q R | or | A - L Q |
+*>          RESULT(2) = | I - Q^H Q | or | I - Q Q^H |
+*>          RESULT(3) = | Q C - Q C |
+*>          RESULT(4) = | Q^H C - Q^H C |
+*>          RESULT(5) = | C Q - C Q |
+*>          RESULT(6) = | C Q^H - C Q^H |
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup double_lin
+*
+*  =====================================================================

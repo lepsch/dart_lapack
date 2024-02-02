@@ -1,0 +1,120 @@
+*> \brief \b CLA_SYRPVGRW computes the reciprocal pivot growth factor norm(A)/norm(U) for a symmetric indefinite matrix.
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*> \htmlonly
+*> Download CLA_SYRPVGRW + dependencies
+*> <a href="http://www.netlib.org/cgi-bin/netlibfiles.tgz?format=tgz&filename=/lapack/lapack_routine/cla_syrpvgrw.f">
+*> [TGZ]</a>
+*> <a href="http://www.netlib.org/cgi-bin/netlibfiles.zip?format=zip&filename=/lapack/lapack_routine/cla_syrpvgrw.f">
+*> [ZIP]</a>
+*> <a href="http://www.netlib.org/cgi-bin/netlibfiles.txt?format=txt&filename=/lapack/lapack_routine/cla_syrpvgrw.f">
+*> [TXT]</a>
+*> \endhtmlonly
+*
+*  Definition:
+*  ===========
+*
+*       REAL FUNCTION CLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV,
+*                                   WORK )
+*
+*       .. Scalar Arguments ..
+*       CHARACTER*1        UPLO
+*       INTEGER            N, INFO, LDA, LDAF
+*       ..
+*       .. Array Arguments ..
+*       COMPLEX            A( LDA, * ), AF( LDAF, * )
+*       REAL               WORK( * )
+*       INTEGER            IPIV( * )
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*>
+*> CLA_SYRPVGRW computes the reciprocal pivot growth factor
+*> norm(A)/norm(U). The "max absolute element" norm is used. If this is
+*> much less than 1, the stability of the LU factorization of the
+*> (equilibrated) matrix A could be poor. This also means that the
+*> solution X, estimated condition numbers, and error bounds could be
+*> unreliable.
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] UPLO
+*> \verbatim
+*>          UPLO is CHARACTER*1
+*>       = 'U':  Upper triangle of A is stored;
+*>       = 'L':  Lower triangle of A is stored.
+*> \endverbatim
+*>
+*> \param[in] N
+*> \verbatim
+*>          N is INTEGER
+*>     The number of linear equations, i.e., the order of the
+*>     matrix A.  N >= 0.
+*> \endverbatim
+*>
+*> \param[in] INFO
+*> \verbatim
+*>          INFO is INTEGER
+*>     The value of INFO returned from CSYTRF, .i.e., the pivot in
+*>     column INFO is exactly 0.
+*> \endverbatim
+*>
+*> \param[in] A
+*> \verbatim
+*>          A is COMPLEX array, dimension (LDA,N)
+*>     On entry, the N-by-N matrix A.
+*> \endverbatim
+*>
+*> \param[in] LDA
+*> \verbatim
+*>          LDA is INTEGER
+*>     The leading dimension of the array A.  LDA >= max(1,N).
+*> \endverbatim
+*>
+*> \param[in] AF
+*> \verbatim
+*>          AF is COMPLEX array, dimension (LDAF,N)
+*>     The block diagonal matrix D and the multipliers used to
+*>     obtain the factor U or L as computed by CSYTRF.
+*> \endverbatim
+*>
+*> \param[in] LDAF
+*> \verbatim
+*>          LDAF is INTEGER
+*>     The leading dimension of the array AF.  LDAF >= max(1,N).
+*> \endverbatim
+*>
+*> \param[in] IPIV
+*> \verbatim
+*>          IPIV is INTEGER array, dimension (N)
+*>     Details of the interchanges and the block structure of D
+*>     as determined by CSYTRF.
+*> \endverbatim
+*>
+*> \param[out] WORK
+*> \verbatim
+*>          WORK is REAL array, dimension (2*N)
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup la_herpvgrw
+*
+*  =====================================================================

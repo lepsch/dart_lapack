@@ -1,32 +1,3 @@
-*> \brief \b SECONDTST
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \ingroup test_second
-*
-*  =====================================================================      PROGRAM SECONDTST
-*
-*  -- LAPACK test routine --
-*
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
-* =====================================================================
-*
-*     .. Parameters ..
       INTEGER            NMAX, ITS
       PARAMETER          ( NMAX = 1000, ITS = 50000 )
 *     ..

@@ -1,0 +1,37 @@
+!   This is a test program for checking the implementations of
+!   the implementations of the following subroutines
+!
+!   CGEDMD,  for computation of the
+!            Dynamic Mode Decomposition (DMD)
+!   CGEDMDQ, for computation of a
+!            QR factorization based compressed DMD
+!
+!   Developed and supported by:
+!   ===========================
+!   Developed and coded by Zlatko Drmac, Faculty of Science,
+!   University of Zagreb;  drmac@math.hr
+!   In cooperation with
+!   AIMdyn Inc., Santa Barbara, CA.
+!   ========================================================
+!   How to run the code (compiler, link info)
+!   ========================================================
+!   Compile as FORTRAN 90 (or later) and link with BLAS and
+!   LAPACK libraries.
+!   NOTE: The code is developed and tested on top of the
+!   Intel MKL library (versions 2022.0.3 and 2022.2.0),
+!   using the Intel Fortran compiler.
+!
+!   For developers of the C++ implementation
+!   ========================================================
+!   See the LAPACK++ and Template Numerical Toolkit (TNT)
+!
+!   Note on a development of the GPU HP implementation
+!   ========================================================
+!   Work in progress. See CUDA, MAGMA, SLATE.
+!   NOTE: The four SVD subroutines used in this code are
+!   included as a part of R&D and for the completeness.
+!   This was also an opportunity to test those SVD codes.
+!   If the scaling option is used all four are essentially
+!   equally good. For implementations on HP platforms,
+!   one can use whichever SVD is available.
+!............................................................

@@ -1,0 +1,52 @@
+*> \brief \b SCHKEQ
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE SCHKEQ( THRESH, NOUT )
+*
+*       .. Scalar Arguments ..
+*       INTEGER            NOUT
+*       REAL               THRESH
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> SCHKEQ tests SGEEQU, SGBEQU, SPOEQU, SPPEQU and SPBEQU
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] THRESH
+*> \verbatim
+*>          THRESH is REAL
+*>          Threshold for testing routines. Should be between 2 and 10.
+*> \endverbatim
+*>
+*> \param[in] NOUT
+*> \verbatim
+*>          NOUT is INTEGER
+*>          The unit number for output.
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup single_lin
+*
+*  =====================================================================

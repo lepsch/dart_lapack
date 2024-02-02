@@ -1,8 +1,3 @@
-c     sdsdotsub.f
-c
-c     The program is a fortran wrapper for sdsdot.
-c     Witten by Keita Teranishi.  2/11/1998
-c
       subroutine sdsdotsub(n,sb,x,incx,y,incy,dot)
 c
       external sdsdot

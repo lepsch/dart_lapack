@@ -1,4 +1,3 @@
-module LA_XISNAN
    interface LA_ISNAN
 
    module procedure SISNAN

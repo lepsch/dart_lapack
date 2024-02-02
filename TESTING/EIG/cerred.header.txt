@@ -1,0 +1,68 @@
+*> \brief \b CERRED
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE CERRED( PATH, NUNIT )
+*
+*       .. Scalar Arguments ..
+*       CHARACTER*3        PATH
+*       INTEGER            NUNIT
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> CERRED tests the error exits for the eigenvalue driver routines for
+*> REAL matrices:
+*>
+*> PATH  driver   description
+*> ----  ------   -----------
+*> CEV   CGEEV    find eigenvalues/eigenvectors for nonsymmetric A
+*> CES   CGEES    find eigenvalues/Schur form for nonsymmetric A
+*> CVX   CGEEVX   CGEEV + balancing and condition estimation
+*> CSX   CGEESX   CGEES + balancing and condition estimation
+*> CBD   CGESVD   compute SVD of an M-by-N matrix A
+*>       CGESDD   compute SVD of an M-by-N matrix A(by divide and
+*>                conquer)
+*>       CGEJSV   compute SVD of an M-by-N matrix A where M >= N
+*>       CGESVDX  compute SVD of an M-by-N matrix A(by bisection
+*>                and inverse iteration)
+*>       CGESVDQ  compute SVD of an M-by-N matrix A(with a 
+*>                QR-Preconditioned )
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] PATH
+*> \verbatim
+*>          PATH is CHARACTER*3
+*>          The LAPACK path name for the routines to be tested.
+*> \endverbatim
+*>
+*> \param[in] NUNIT
+*> \verbatim
+*>          NUNIT is INTEGER
+*>          The unit number for output.
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup complex_eig
+*
+*  =====================================================================

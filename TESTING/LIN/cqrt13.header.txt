@@ -1,0 +1,89 @@
+*> \brief \b CQRT13
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE CQRT13( SCALE, M, N, A, LDA, NORMA, ISEED )
+*
+*       .. Scalar Arguments ..
+*       INTEGER            LDA, M, N, SCALE
+*       REAL               NORMA
+*       ..
+*       .. Array Arguments ..
+*       INTEGER            ISEED( 4 )
+*       COMPLEX            A( LDA, * )
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> CQRT13 generates a full-rank matrix that may be scaled to have large
+*> or small norm.
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] SCALE
+*> \verbatim
+*>          SCALE is INTEGER
+*>          SCALE = 1: normally scaled matrix
+*>          SCALE = 2: matrix scaled up
+*>          SCALE = 3: matrix scaled down
+*> \endverbatim
+*>
+*> \param[in] M
+*> \verbatim
+*>          M is INTEGER
+*>          The number of rows of the matrix A.
+*> \endverbatim
+*>
+*> \param[in] N
+*> \verbatim
+*>          N is INTEGER
+*>          The number of columns of A.
+*> \endverbatim
+*>
+*> \param[out] A
+*> \verbatim
+*>          A is COMPLEX array, dimension (LDA,N)
+*>          The M-by-N matrix A.
+*> \endverbatim
+*>
+*> \param[in] LDA
+*> \verbatim
+*>          LDA is INTEGER
+*>          The leading dimension of the array A.
+*> \endverbatim
+*>
+*> \param[out] NORMA
+*> \verbatim
+*>          NORMA is REAL
+*>          The one-norm of A.
+*> \endverbatim
+*>
+*> \param[in,out] ISEED
+*> \verbatim
+*>          ISEED is integer array, dimension (4)
+*>          Seed for random number generator
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup complex_lin
+*
+*  =====================================================================

@@ -1,0 +1,63 @@
+*> \brief \b SLAHD2
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE SLAHD2( IOUNIT, PATH )
+*
+*       .. Scalar Arguments ..
+*       CHARACTER*3        PATH
+*       INTEGER            IOUNIT
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> SLAHD2 prints header information for the different test paths.
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] IOUNIT
+*> \verbatim
+*>          IOUNIT is INTEGER.
+*>          On entry, IOUNIT specifies the unit number to which the
+*>          header information should be printed.
+*> \endverbatim
+*>
+*> \param[in] PATH
+*> \verbatim
+*>          PATH is CHARACTER*3.
+*>          On entry, PATH contains the name of the path for which the
+*>          header information is to be printed.  Current paths are
+*>
+*>             SHS, CHS:  Non-symmetric eigenproblem.
+*>             SST, CST:  Symmetric eigenproblem.
+*>             SSG, CSG:  Symmetric Generalized eigenproblem.
+*>             SBD, CBD:  Singular Value Decomposition (SVD)
+*>             SBB, CBB:  General Banded reduction to bidiagonal form
+*>
+*>          These paths also are supplied in double precision (replace
+*>          leading S by D and leading C by Z in path names).
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup single_eig
+*
+*  =====================================================================

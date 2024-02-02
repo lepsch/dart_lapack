@@ -1,30 +1,3 @@
-*> \brief \b SLAMCHTST
-*
-*  =========== DOCUMENTATION ===========
-*
-* Online html documentation available at
-*            http://www.netlib.org/lapack/explore-html/
-*
-*
-*  Authors:
-*  ========
-*
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
-*
-*> \ingroup auxOTHERcomputational
-*
-*  =====================================================================      PROGRAM SLAMCHTST
-*
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-*
-* =====================================================================
-*
-*     .. Local Scalars ..
       REAL               BASE, EMAX, EMIN, EPS, RMAX, RMIN, RND, SFMIN,
      $                   T, PREC
 *     ..

@@ -1,0 +1,88 @@
+*> \brief \b ALAREQ
+*
+*  =========== DOCUMENTATION ===========
+*
+* Online html documentation available at
+*            http://www.netlib.org/lapack/explore-html/
+*
+*  Definition:
+*  ===========
+*
+*       SUBROUTINE ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+*
+*       .. Scalar Arguments ..
+*       CHARACTER*3        PATH
+*       INTEGER            NIN, NMATS, NOUT, NTYPES
+*       ..
+*       .. Array Arguments ..
+*       LOGICAL            DOTYPE( * )
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*> ALAREQ handles input for the LAPACK test program.  It is called
+*> to evaluate the input line which requested NMATS matrix types for
+*> PATH.  The flow of control is as follows:
+*>
+*> IF NMATS = NTYPES THEN
+*>    DOTYPE(1:NTYPES) = .TRUE.
+*> ELSE
+*>    Read the next input line for NMATS matrix types
+*>    Set DOTYPE(I) = .TRUE. for each valid type I
+*> END IF
+*> \endverbatim
+*
+*  Arguments:
+*  ==========
+*
+*> \param[in] PATH
+*> \verbatim
+*>          PATH is CHARACTER*3
+*>          An LAPACK path name for testing.
+*> \endverbatim
+*>
+*> \param[in] NMATS
+*> \verbatim
+*>          NMATS is INTEGER
+*>          The number of matrix types to be used in testing this path.
+*> \endverbatim
+*>
+*> \param[out] DOTYPE
+*> \verbatim
+*>          DOTYPE is LOGICAL array, dimension (NTYPES)
+*>          The vector of flags indicating if each type will be tested.
+*> \endverbatim
+*>
+*> \param[in] NTYPES
+*> \verbatim
+*>          NTYPES is INTEGER
+*>          The maximum number of matrix types for this path.
+*> \endverbatim
+*>
+*> \param[in] NIN
+*> \verbatim
+*>          NIN is INTEGER
+*>          The unit number for input.  NIN >= 1.
+*> \endverbatim
+*>
+*> \param[in] NOUT
+*> \verbatim
+*>          NOUT is INTEGER
+*>          The unit number for output.  NOUT >= 1.
+*> \endverbatim
+*
+*  Authors:
+*  ========
+*
+*> \author Univ. of Tennessee
+*> \author Univ. of California Berkeley
+*> \author Univ. of Colorado Denver
+*> \author NAG Ltd.
+*
+*> \ingroup aux_lin
+*
+*  =====================================================================

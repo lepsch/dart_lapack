@@ -1,8 +1,3 @@
-c     scasumsub.f
-c
-c     The program is a fortran wrapper for scasum.
-c     Witten by Keita Teranishi.  2/11/1998
-c
       subroutine scasumsub(n,x,incx,asum)
 c
       external scasum
