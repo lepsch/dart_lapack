@@ -57,7 +57,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (INFO.NE.0) RETURN;
+      if (INFO != 0) RETURN;
       TRANS = CHLA_TRANSTYPE(TRANS_TYPE)
       EPS = SLAMCH( 'Epsilon' )
       HUGEVAL = SLAMCH( 'Overflow' )
@@ -119,9 +119,9 @@
                YK = CABS1( Y( I, J ) )
                DYK = CABS1( DY( I ) )
 
-               if ( YK .NE. 0.0E+0 ) {
+               if ( YK != 0.0E+0 ) {
                   DZ_Z = MAX( DZ_Z, DYK / YK )
-               } else if ( DYK .NE. 0.0 ) {
+               } else if ( DYK != 0.0 ) {
                   DZ_Z = HUGEVAL
                }
 
@@ -138,7 +138,7 @@
                }
             }
 
-            if ( NORMX .NE. 0.0 ) {
+            if ( NORMX != 0.0 ) {
                DX_X = NORMDX / NORMX
             } else if ( NORMDX == 0.0 ) {
                DX_X = 0.0
@@ -157,7 +157,7 @@
                if (DX_X .LE. EPS) {
                   X_STATE = CONV_STATE
                } else if ( DXRAT .GT. RTHRESH ) {
-                  if ( Y_PREC_STATE .NE. EXTRA_Y ) {
+                  if ( Y_PREC_STATE != EXTRA_Y ) {
                      INCR_PREC = true;
                   } else {
                      X_STATE = NOPROG_STATE
@@ -176,7 +176,7 @@
                   DZRATMAX = 0.0
                   FINAL_DZ_Z = HUGEVAL
                } else if ( DZRAT .GT. RTHRESH ) {
-                  if ( Y_PREC_STATE .NE. EXTRA_Y ) {
+                  if ( Y_PREC_STATE != EXTRA_Y ) {
                      INCR_PREC = true;
                   } else {
                      Z_STATE = NOPROG_STATE
@@ -191,7 +191,7 @@
             // but if componentwise is unstable, let it go at least two
             // iterations.
 
-            if ( X_STATE.NE.WORKING_STATE ) {
+            if ( X_STATE != WORKING_STATE ) {
                if (IGNORE_CWISE) GOTO 666;
                if (Z_STATE == NOPROG_STATE .OR. Z_STATE == CONV_STATE) GOTO 666;
                if (Z_STATE == UNSTABLE_STATE .AND. CNT.GT.1) GOTO 666;

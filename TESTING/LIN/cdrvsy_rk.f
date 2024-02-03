@@ -122,7 +122,7 @@
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
                UPLO = UPLOS( IUPLO )
 
-               if ( IMAT.NE.NTYPES ) {
+               if ( IMAT != NTYPES ) {
 
                   // Begin generate the test matrix A.
 
@@ -138,7 +138,7 @@
 
                   // Check error code from CLATMS and handle error.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 160
                   }
@@ -290,11 +290,11 @@
                      if ( K.GT.0 ) {
                         } // 100
                         if ( IWORK( K ).LT.0 ) {
-                           if ( IWORK( K ).NE.-K ) {
+                           if ( IWORK( K ) != -K ) {
                               K = -IWORK( K )
                               GO TO 100
                            }
-                        } else if ( IWORK( K ).NE.K ) {
+                        } else if ( IWORK( K ) != K ) {
                            K = IWORK( K )
                            GO TO 100
                         }
@@ -302,10 +302,10 @@
 
                      // Check error code from CSYSV_RK and handle error.
 
-                     if ( INFO.NE.K ) {
+                     if ( INFO != K ) {
                         alaerh(PATH, 'CSYSV_RK', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
-                     } else if ( INFO.NE.0 ) {
+                     } else if ( INFO != 0 ) {
                         GO TO 120
                      }
 

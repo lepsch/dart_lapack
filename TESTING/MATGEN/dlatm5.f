@@ -154,7 +154,7 @@
             if ( I.LE.4 ) {
                A( I, I ) = ONE
                if (I.GT.2) A( I, I ) = ONE + REEPS;
-               if ( MOD( I, 2 ).NE.0 .AND. I.LT.M ) {
+               if ( MOD( I, 2 ) != 0 .AND. I.LT.M ) {
                   A( I, I+1 ) = IMEPS
                } else if ( I.GT.1 ) {
                   A( I, I-1 ) = -IMEPS
@@ -165,14 +165,14 @@
                } else {
                   A( I, I ) = -REEPS
                }
-               if ( MOD( I, 2 ).NE.0 .AND. I.LT.M ) {
+               if ( MOD( I, 2 ) != 0 .AND. I.LT.M ) {
                   A( I, I+1 ) = ONE
                } else if ( I.GT.1 ) {
                   A( I, I-1 ) = -ONE
                }
             } else {
                A( I, I ) = ONE
-               if ( MOD( I, 2 ).NE.0 .AND. I.LT.M ) {
+               if ( MOD( I, 2 ) != 0 .AND. I.LT.M ) {
                   A( I, I+1 ) = IMEPS*2
                } else if ( I.GT.1 ) {
                   A( I, I-1 ) = -IMEPS*2
@@ -185,7 +185,7 @@
             if ( I.LE.4 ) {
                B( I, I ) = -ONE
                if (I.GT.2) B( I, I ) = ONE - REEPS;
-               if ( MOD( I, 2 ).NE.0 .AND. I.LT.N ) {
+               if ( MOD( I, 2 ) != 0 .AND. I.LT.N ) {
                   B( I, I+1 ) = IMEPS
                } else if ( I.GT.1 ) {
                   B( I, I-1 ) = -IMEPS
@@ -196,14 +196,14 @@
                } else {
                   B( I, I ) = -REEPS
                }
-               if ( MOD( I, 2 ).NE.0 .AND. I.LT.N ) {
+               if ( MOD( I, 2 ) != 0 .AND. I.LT.N ) {
                   B( I, I+1 ) = ONE + IMEPS
                } else if ( I.GT.1 ) {
                   B( I, I-1 ) = -ONE - IMEPS
                }
             } else {
                B( I, I ) = ONE - REEPS
-               if ( MOD( I, 2 ).NE.0 .AND. I.LT.N ) {
+               if ( MOD( I, 2 ) != 0 .AND. I.LT.N ) {
                   B( I, I+1 ) = IMEPS*2
                } else if ( I.GT.1 ) {
                   B( I, I-1 ) = -IMEPS*2

@@ -45,7 +45,7 @@
       } else if (INCX == 0) {
           INFO = 7
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('DTPMV ',INFO);
           RETURN
       }
@@ -61,7 +61,7 @@
 
       if (INCX.LE.0) {
           KX = 1 - (N-1)*INCX
-      } else if (INCX.NE.1) {
+      } else if (INCX != 1) {
           KX = 1
       }
 
@@ -76,7 +76,7 @@
               KK = 1
               if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 20
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           TEMP = X(J)
                           K = KK
                           for (I = 1; I <= J - 1; I++) { // 10
@@ -90,7 +90,7 @@
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 40
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           TEMP = X(JX)
                           IX = KX
                           for (K = KK; K <= KK + J - 2; K++) { // 30
@@ -107,7 +107,7 @@
               KK = (N* (N+1))/2
               if (INCX == 1) {
                   DO 60 J = N,1,-1
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           TEMP = X(J)
                           K = KK
                           DO 50 I = N,J + 1,-1
@@ -122,7 +122,7 @@
                   KX = KX + (N-1)*INCX
                   JX = KX
                   DO 80 J = N,1,-1
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           TEMP = X(JX)
                           IX = KX
                           DO 70 K = KK,KK - (N- (J+1)),-1

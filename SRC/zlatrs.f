@@ -68,7 +68,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZLATRS', -INFO );
          RETURN
       }
@@ -202,7 +202,7 @@
             JINC = 1
          }
 
-         if ( TSCAL.NE.ONE ) {
+         if ( TSCAL != ONE ) {
             GROW = ZERO
             GO TO 60
          }
@@ -284,7 +284,7 @@
             JINC = -1
          }
 
-         if ( TSCAL.NE.ONE ) {
+         if ( TSCAL != ONE ) {
             GROW = ZERO
             GO TO 90
          }
@@ -755,7 +755,7 @@
 
       // Scale the column norms by 1/TSCAL for return.
 
-      if ( TSCAL.NE.ONE ) {
+      if ( TSCAL != ONE ) {
          dscal(N, ONE / TSCAL, CNORM, 1 );
       }
 

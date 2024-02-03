@@ -81,7 +81,7 @@
          WORK( 1 ) = CMPLX( LWKOPT )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGGSVD3', -INFO );
          RETURN
       }
@@ -126,7 +126,7 @@
                SMAX = TEMP
             }
          } // 10
-         if ( ISUB.NE.I ) {
+         if ( ISUB != I ) {
             RWORK( K+ISUB ) = RWORK( K+I )
             RWORK( K+I ) = SMAX
             IWORK( K+I ) = K + ISUB

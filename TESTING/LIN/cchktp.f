@@ -124,7 +124,7 @@
 
                // Check error code from CTPTRI.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'CTPTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'CTPTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                // Compute the infinity-norm condition number of A.
 
@@ -179,7 +179,7 @@
 
                   // Check error code from CTPTRS.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CTPTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CTPTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      ctpt02(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) );
 
@@ -197,7 +197,7 @@
 
                   // Check error code from CTPRFS.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CTPRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CTPRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                      ctpt05(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -231,7 +231,7 @@
 
                   // Check error code from CTPCON.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CTPCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CTPCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ctpt06(RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RESULT( 7 ) );
 
@@ -279,7 +279,7 @@
 
                   // Check error code from CLATPS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CLATPS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CLATPS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ctpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
@@ -291,7 +291,7 @@
 
                   // Check error code from CLATPS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CLATPS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CLATPS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ctpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) );
 

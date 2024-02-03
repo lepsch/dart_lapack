@@ -100,7 +100,7 @@
          INFO = -21
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CDRVEV', -INFO );
          RETURN
       }
@@ -124,7 +124,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE )
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -267,7 +267,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9993 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -295,7 +295,7 @@
 
                clacpy('F', N, N, A, LDA, H, LDA );
                cgeev('V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR, WORK, NNWORK, RWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV1', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -344,7 +344,7 @@
 
                clacpy('F', N, N, A, LDA, H, LDA );
                cgeev('N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1, WORK, NNWORK, RWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV2', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -354,14 +354,14 @@
                // Do Test (5)
 
                for (J = 1; J <= N; J++) { // 150
-                  IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
+                  IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV
                } // 150
 
                // Compute eigenvalues and right eigenvectors, and test them
 
                clacpy('F', N, N, A, LDA, H, LDA );
                cgeev('N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE, WORK, NNWORK, RWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV3', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -371,14 +371,14 @@
                // Do Test (5) again
 
                for (J = 1; J <= N; J++) { // 160
-                  IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
+                  IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV
                } // 160
 
                // Do Test (6)
 
                for (J = 1; J <= N; J++) { // 180
                   for (JJ = 1; JJ <= N; JJ++) { // 170
-                     IF( VR( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
+                     IF( VR( J, JJ ) != LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
                   } // 170
                } // 180
 
@@ -386,7 +386,7 @@
 
                clacpy('F', N, N, A, LDA, H, LDA );
                cgeev('V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1, WORK, NNWORK, RWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV4', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -396,14 +396,14 @@
                // Do Test (5) again
 
                for (J = 1; J <= N; J++) { // 190
-                  IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
+                  IF( W( J ) != W1( J ) ) RESULT( 5 ) = ULPINV
                } // 190
 
                // Do Test (7)
 
                for (J = 1; J <= N; J++) { // 210
                   for (JJ = 1; JJ <= N; JJ++) { // 200
-                     IF( VL( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
+                     IF( VL( J, JJ ) != LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
                   } // 200
                } // 210
 

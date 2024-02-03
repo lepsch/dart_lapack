@@ -46,7 +46,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTFTTR', -INFO );
          RETURN
       }

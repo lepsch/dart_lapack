@@ -64,7 +64,7 @@
          INFO = -10
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETRD_HE2HB', -INFO );
          RETURN
       } else if ( LQUERY ) {

@@ -106,7 +106,7 @@
          INFO = -18
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZDRVES', -INFO );
          RETURN
       }
@@ -130,7 +130,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 240
          N = NN( JSIZE )
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -274,7 +274,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -313,7 +313,7 @@
 
                   zlacpy('F', N, N, A, LDA, H, LDA );
                   zgees('V', SORT, ZSLECT, N, H, LDA, SDIM, W, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      RESULT( 1+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'ZGEES1', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -325,7 +325,7 @@
                   RESULT( 1+RSUB ) = ZERO
                   for (J = 1; J <= N - 1; J++) { // 120
                      for (I = J + 1; I <= N; I++) { // 110
-                        IF( H( I, J ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
+                        IF( H( I, J ) != ZERO ) RESULT( 1+RSUB ) = ULPINV
                      } // 110
                   } // 120
 
@@ -340,14 +340,14 @@
 
                   RESULT( 4+RSUB ) = ZERO
                   for (I = 1; I <= N; I++) { // 130
-                     IF( H( I, I ).NE.W( I ) ) RESULT( 4+RSUB ) = ULPINV
+                     IF( H( I, I ) != W( I ) ) RESULT( 4+RSUB ) = ULPINV
                   } // 130
 
                   // Do Test (5) or Test (11)
 
                   zlacpy('F', N, N, A, LDA, HT, LDA );
                   zgees('N', SORT, ZSLECT, N, HT, LDA, SDIM, WT, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      RESULT( 5+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'ZGEES2', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -357,7 +357,7 @@
                   RESULT( 5+RSUB ) = ZERO
                   for (J = 1; J <= N; J++) { // 150
                      for (I = 1; I <= N; I++) { // 140
-                        IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
+                        IF( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
                      } // 140
                   } // 150
 
@@ -365,7 +365,7 @@
 
                   RESULT( 6+RSUB ) = ZERO
                   for (I = 1; I <= N; I++) { // 160
-                     IF( W( I ).NE.WT( I ) ) RESULT( 6+RSUB ) = ULPINV
+                     IF( W( I ) != WT( I ) ) RESULT( 6+RSUB ) = ULPINV
                   } // 160
 
                   // Do Test (13)
@@ -379,7 +379,7 @@
                            IF( ZSLECT( W( I+1 ) ) .AND. ( .NOT.ZSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                         }
                      } // 170
-                     if (SDIM.NE.KNTEIG) RESULT( 13 ) = ULPINV;
+                     if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;
                   }
 
                } // 180

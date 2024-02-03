@@ -50,7 +50,7 @@
          INFO = -1
       } else if ( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'T' ) .AND. .NOT. LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      } else if ( ISGN.NE.1 .AND. ISGN.NE.-1 ) {
+      } else if ( ISGN != 1 .AND. ISGN != -1 ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -63,7 +63,7 @@
       } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STRSYL', -INFO );
          RETURN
       }
@@ -109,7 +109,7 @@
                L1 = L
                L2 = L
             } else {
-               if ( B( L+1, L ).NE.ZERO ) {
+               if ( B( L+1, L ) != ZERO ) {
                   L1 = L
                   L2 = L + 1
                   LNEXT = L + 2
@@ -130,7 +130,7 @@
                   K1 = K
                   K2 = K
                } else {
-                  if ( A( K, K-1 ).NE.ZERO ) {
+                  if ( A( K, K-1 ) != ZERO ) {
                      K1 = K - 1
                      K2 = K
                      KNEXT = K - 2
@@ -160,7 +160,7 @@
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 10
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 10
@@ -168,7 +168,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1 == L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 == L2 .AND. K1 != K2 ) {
 
                   SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -179,9 +179,9 @@
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
                   slaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 20
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 20
@@ -190,7 +190,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1 == K2 ) {
+               } else if ( L1 != L2 .AND. K1 == K2 ) {
 
                   SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -201,9 +201,9 @@
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
                   slaln2( true , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 40
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 40
@@ -212,7 +212,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K1, L2 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 != L2 .AND. K1 != K2 ) {
 
                   SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -231,9 +231,9 @@
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
                   slasy2( false , false , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 50
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 50
@@ -273,7 +273,7 @@
                L1 = L
                L2 = L
             } else {
-               if ( B( L+1, L ).NE.ZERO ) {
+               if ( B( L+1, L ) != ZERO ) {
                   L1 = L
                   L2 = L + 1
                   LNEXT = L + 2
@@ -294,7 +294,7 @@
                   K1 = K
                   K2 = K
                } else {
-                  if ( A( K+1, K ).NE.ZERO ) {
+                  if ( A( K+1, K ) != ZERO ) {
                      K1 = K
                      K2 = K + 1
                      KNEXT = K + 2
@@ -324,7 +324,7 @@
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 80
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 80
@@ -332,7 +332,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1 == L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 == L2 .AND. K1 != K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -343,9 +343,9 @@
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
                   slaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 90
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 90
@@ -354,7 +354,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1 == K2 ) {
+               } else if ( L1 != L2 .AND. K1 == K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -365,9 +365,9 @@
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
                   slaln2( true , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 100
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 100
@@ -376,7 +376,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K1, L2 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 != L2 .AND. K1 != K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -395,9 +395,9 @@
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
                   slasy2( true , false , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 110
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 110
@@ -436,7 +436,7 @@
                L1 = L
                L2 = L
             } else {
-               if ( B( L, L-1 ).NE.ZERO ) {
+               if ( B( L, L-1 ) != ZERO ) {
                   L1 = L - 1
                   L2 = L
                   LNEXT = L - 2
@@ -457,7 +457,7 @@
                   K1 = K
                   K2 = K
                } else {
-                  if ( A( K+1, K ).NE.ZERO ) {
+                  if ( A( K+1, K ) != ZERO ) {
                      K1 = K
                      K2 = K + 1
                      KNEXT = K + 2
@@ -487,7 +487,7 @@
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 140
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 140
@@ -495,7 +495,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1 == L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 == L2 .AND. K1 != K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
@@ -506,9 +506,9 @@
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
                   slaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 150
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 150
@@ -517,7 +517,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1 == K2 ) {
+               } else if ( L1 != L2 .AND. K1 == K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
@@ -528,9 +528,9 @@
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
                   slaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 160
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 160
@@ -539,7 +539,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K1, L2 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 != L2 .AND. K1 != K2 ) {
 
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
@@ -558,9 +558,9 @@
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
                   slasy2( true , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 170
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 170
@@ -599,7 +599,7 @@
                L1 = L
                L2 = L
             } else {
-               if ( B( L, L-1 ).NE.ZERO ) {
+               if ( B( L, L-1 ) != ZERO ) {
                   L1 = L - 1
                   L2 = L
                   LNEXT = L - 2
@@ -620,7 +620,7 @@
                   K1 = K
                   K2 = K
                } else {
-                  if ( A( K, K-1 ).NE.ZERO ) {
+                  if ( A( K, K-1 ) != ZERO ) {
                      K1 = K - 1
                      K2 = K
                      KNEXT = K - 2
@@ -649,7 +649,7 @@
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 200
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 200
@@ -657,7 +657,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1 == L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 == L2 .AND. K1 != K2 ) {
 
                   SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -666,9 +666,9 @@
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
                   slaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 210
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 210
@@ -677,7 +677,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1 == K2 ) {
+               } else if ( L1 != L2 .AND. K1 == K2 ) {
 
                   SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) )
@@ -686,9 +686,9 @@
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
                   slaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 220
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 220
@@ -697,7 +697,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K1, L2 ) = X( 2, 1 )
 
-               } else if ( L1.NE.L2 .AND. K1.NE.K2 ) {
+               } else if ( L1 != L2 .AND. K1 != K2 ) {
 
                   SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -712,9 +712,9 @@
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
                   slasy2( false , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 1;
+                  if (IERR != 0) INFO = 1;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (J = 1; J <= N; J++) { // 230
                         sscal(M, SCALOC, C( 1, J ), 1 );
                      } // 230

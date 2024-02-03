@@ -90,7 +90,7 @@
       } else if ( LDWORK.LT.1 .OR. ( WANTSP .AND. LDWORK.LT.N ) ) {
          INFO = -16
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTRSNA', -INFO );
          RETURN
       }
@@ -159,7 +159,7 @@
             } // 30
             clacn2(N-1, WORK( 1, N+1 ), WORK, EST, KASE, ISAVE );
 
-            if ( KASE.NE.0 ) {
+            if ( KASE != 0 ) {
                if ( KASE == 1 ) {
 
                   // Solve C**H*x = scale*b
@@ -172,7 +172,7 @@
                   clatrs('Upper', 'No transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR );
                }
                NORMIN = 'Y'
-               if ( SCALE.NE.ONE ) {
+               if ( SCALE != ONE ) {
 
                   // Multiply by 1/SCALE if doing so will not cause
                   // overflow.

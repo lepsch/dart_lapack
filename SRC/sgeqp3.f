@@ -62,7 +62,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGEQP3', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -73,8 +73,8 @@
 
       NFXD = 1
       for (J = 1; J <= N; J++) { // 10
-         if ( JPVT( J ).NE.0 ) {
-            if ( J.NE.NFXD ) {
+         if ( JPVT( J ) != 0 ) {
+            if ( J != NFXD ) {
                sswap(M, A( 1, J ), 1, A( 1, NFXD ), 1 );
                JPVT( J ) = JPVT( NFXD )
                JPVT( NFXD ) = J

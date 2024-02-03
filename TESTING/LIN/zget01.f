@@ -93,7 +93,7 @@
       RESID = ZLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
 
       if ( ANORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       }

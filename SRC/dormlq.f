@@ -79,7 +79,7 @@
          WORK( 1 ) = LWKOPT
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DORMLQ', -INFO );
          RETURN
       } else if ( LQUERY ) {

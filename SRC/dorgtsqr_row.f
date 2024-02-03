@@ -63,7 +63,7 @@
 
       // Handle error in the input parameters and handle the workspace query.
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DORGTSQR_ROW', -INFO );
          RETURN
       } else if ( LQUERY ) {

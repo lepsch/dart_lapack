@@ -88,7 +88,7 @@
       } else if ( ( ILZ .AND. LDZ.LT.N ) .OR. LDZ.LT.1 ) {
          INFO = -13
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGGHRD', -INFO );
          RETURN
       }

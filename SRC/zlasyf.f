@@ -160,7 +160,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KKW of W.
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -324,7 +324,7 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
-            if (JP.NE.JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
+            if (JP != JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -431,7 +431,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KK of W.
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -597,7 +597,7 @@
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
-            if (JP.NE.JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
+            if (JP != JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

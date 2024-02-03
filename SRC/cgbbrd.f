@@ -68,7 +68,7 @@
       } else if ( LDC.LT.1 .OR. WANTC .AND. LDC.LT.MAX( 1, M ) ) {
          INFO = -16
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGBBRD', -INFO );
          RETURN
       }
@@ -299,7 +299,7 @@
       for (I = 1; I <= MINMN; I++) { // 120
          ABST = ABS( T )
          D( I ) = ABST
-         if ( ABST.NE.ZERO ) {
+         if ( ABST != ZERO ) {
             T = T / ABST
          } else {
             T = CONE
@@ -317,7 +317,7 @@
                }
                ABST = ABS( T )
                E( I ) = ABST
-               if ( ABST.NE.ZERO ) {
+               if ( ABST != ZERO ) {
                   T = T / ABST
                } else {
                   T = CONE

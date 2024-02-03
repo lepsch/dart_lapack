@@ -108,7 +108,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGEEV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -216,9 +216,9 @@
          chseqr('E', 'N', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
       }
 
-      // If INFO .NE. 0 from CHSEQR, then quit
+      // If INFO != 0 from CHSEQR, then quit
 
-      if (INFO.NE.0) GO TO 50;
+      if (INFO != 0) GO TO 50;
 
       if ( WANTVL .OR. WANTVR ) {
 

@@ -429,7 +429,7 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 300
                slarnv(2, ISEED, J, A( 1, J ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   A( J, J ) = SIGN( TWO, A( J, J ) )
                } else {
                   A( J, J ) = ZERO
@@ -438,7 +438,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 310
                slarnv(2, ISEED, N-J+1, A( J, J ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   A( J, J ) = SIGN( TWO, A( J, J ) )
                } else {
                   A( J, J ) = ZERO

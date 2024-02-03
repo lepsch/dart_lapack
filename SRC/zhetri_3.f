@@ -53,7 +53,7 @@
          INFO = -8
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETRI_3', -INFO );
          RETURN
       } else if ( LQUERY ) {

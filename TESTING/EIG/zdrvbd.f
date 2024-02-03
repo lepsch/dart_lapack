@@ -108,7 +108,7 @@
          INFO = -21
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZDRVBD', -INFO );
          RETURN
       }
@@ -134,7 +134,7 @@
          N = NN( JSIZE )
          MNMIN = MIN( M, N )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -176,7 +176,7 @@
 
                if (JTYPE == 3) ANORM = ONE                IF( JTYPE == 4 ) ANORM = UNFL / ULP                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
                zlatms(M, N, 'U', ISEED, 'N', S, 4, DBLE( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -207,7 +207,7 @@
                if (IWSPC.GT.1) CALL ZLACPY( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'ZGESVD'
                zgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -216,7 +216,7 @@
                // Do tests 1--4
 
                zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 1 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) );
                   zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) );
                }
@@ -295,7 +295,7 @@
                zlacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'ZGESDD'
                zgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -304,7 +304,7 @@
                // Do tests 1--4
 
                zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 8 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) );
                   zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) );
                }
@@ -392,7 +392,7 @@
                   LIWORK = MAX( N, 1 )
                   zgesvdq('H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO );
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'ZGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -401,7 +401,7 @@
                   // Do tests 36--39
 
                   zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 36 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) );
                      zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) );
                   }
@@ -442,7 +442,7 @@
                      }
                   }
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'GESVJ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -451,7 +451,7 @@
                   // Do tests 15--18
 
                   zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 15 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) );
                      zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) );
                   }
@@ -491,7 +491,7 @@
   132                END DO
   133             END DO
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'GEJSV', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -500,7 +500,7 @@
                   // Do tests 19--22
 
                   zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 19 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) );
                      zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) );
                   }
@@ -520,7 +520,7 @@
                zlacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'ZGESVDX'
                zgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -532,7 +532,7 @@
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
                zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 23 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) );
                   zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) );
                }
@@ -611,7 +611,7 @@
                zlacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'ZGESVDX'
                zgesvdx('V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -621,7 +621,7 @@
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
                zbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   zunt01('Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) );
                   zunt01('Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) );
                }
@@ -629,12 +629,12 @@
                // Do tests 11--13
 
                if ( MNMIN.GT.0 .AND. NSI.GT.1 ) {
-                  if ( IL.NE.1 ) {
+                  if ( IL != 1 ) {
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                   } else {
                      VU = SSAV( 1 ) + MAX( HALF*ABS( SSAV( NS )-SSAV( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                   }
-                  if ( IU.NE.NS ) {
+                  if ( IU != NS ) {
                      VL = SSAV( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( IU+1 )-SSAV( IU ) ) )
                   } else {
                      VL = SSAV( NS ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( NS )-SSAV( 1 ) ) )
@@ -649,7 +649,7 @@
                zlacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'ZGESVDX'
                zgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -659,7 +659,7 @@
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
                zbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   zunt01('Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) );
                   zunt01('Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) );
                }

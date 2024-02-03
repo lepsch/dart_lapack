@@ -48,7 +48,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZPOTRF2', -INFO );
          RETURN
       }
@@ -82,7 +82,7 @@
          // Factor A11
 
          zpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = IINFO
             RETURN
          }
@@ -99,7 +99,7 @@
 
             zherk(UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
             zpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                INFO = IINFO + N1
                RETURN
             }
@@ -116,7 +116,7 @@
 
             zherk(UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
             zpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                INFO = IINFO + N1
                RETURN
             }

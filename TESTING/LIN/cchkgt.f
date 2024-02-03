@@ -108,7 +108,7 @@
 
                // Check the error code from CLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
@@ -130,7 +130,7 @@
                   // imaginary parts are from [-1,1].
 
                   clarnv(2, ISEED, N+2*M, A );
-                  if (ANORM.NE.ONE) CALL CSSCAL( N+2*M, ANORM, A, 1 );
+                  if (ANORM != ONE) CALL CSSCAL( N+2*M, ANORM, A, 1 );
                } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
@@ -189,8 +189,8 @@
 
             // Check error code from CGTTRF.
 
-            if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
-            TRFCON = INFO.NE.0
+            if (INFO != IZERO) CALL ALAERH( PATH, 'CGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
+            TRFCON = INFO != 0
 
             cgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
 
@@ -252,7 +252,7 @@
 
                // Check error code from CGTCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'CGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'CGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 7 ) = SGET06( RCOND, RCONDC )
 
@@ -301,7 +301,7 @@
 
                // Check error code from CGTTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -319,7 +319,7 @@
 
                // Check error code from CGTRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                   cgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );

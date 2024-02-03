@@ -56,7 +56,7 @@
       } else if ( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SPTEQR', -INFO );
          RETURN
       }
@@ -74,7 +74,7 @@
       // Call SPTTRF to factor the matrix.
 
       spttrf(N, D, E, INFO );
-      if (INFO.NE.0) RETURN;
+      if (INFO != 0) RETURN;
       for (I = 1; I <= N; I++) { // 10
          D( I ) = SQRT( D( I ) )
       } // 10

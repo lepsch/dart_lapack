@@ -68,7 +68,7 @@
          INFO = -15
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STPMLQT', -INFO );
          RETURN
       }

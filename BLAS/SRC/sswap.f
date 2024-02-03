@@ -29,7 +29,7 @@
         // clean-up loop
 
          M = MOD(N,3)
-         if (M.NE.0) {
+         if (M != 0) {
             for (I = 1; I <= M; I++) {
                STEMP = SX(I)
                SX(I) = SY(I)

@@ -68,7 +68,7 @@
 
          for (J = 1; J <= NN; J++) {
             N = NVAL( J )
-              if (MIN(M,N).NE.0) {
+              if (MIN(M,N) != 0) {
               for (INB = 1; INB <= NNB; INB++) {
                 MB = NBVAL( INB )
                   xlaenv(1, MB );
@@ -105,7 +105,7 @@
 
          for (J = 1; J <= NN; J++) {
             N = NVAL( J )
-            if (MIN(M,N).NE.0) {
+            if (MIN(M,N) != 0) {
               for (INB = 1; INB <= NNB; INB++) {
                 MB = NBVAL( INB )
                   xlaenv(1, MB );

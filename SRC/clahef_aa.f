@@ -118,7 +118,7 @@
 
             // Apply hermitian pivot
 
-            if ( (I2.NE.2) .AND. (PIV.NE.0) ) {
+            if ( (I2 != 2) .AND. (PIV != 0) ) {
 
                // Swap WORK(I1) and WORK(I2)
 
@@ -175,7 +175,7 @@
              // where A(J, J+1) = T(J, J+1) and A(J+2:N, J) = L(J+2:N, J+1)
 
             if ( J.LT.(M-1) ) {
-               if ( A( K, J+1 ).NE.ZERO ) {
+               if ( A( K, J+1 ) != ZERO ) {
                   ALPHA = ONE / A( K, J+1 )
                   ccopy(M-J-1, WORK( 3 ), 1, A( K, J+2 ), LDA );
                   cscal(M-J-1, ALPHA, A( K, J+2 ), LDA );
@@ -262,7 +262,7 @@
 
             // Apply hermitian pivot
 
-            if ( (I2.NE.2) .AND. (PIV.NE.0) ) {
+            if ( (I2 != 2) .AND. (PIV != 0) ) {
 
                // Swap WORK(I1) and WORK(I2)
 
@@ -319,7 +319,7 @@
              // where A(J, J+1) = T(J, J+1) and A(J+2:N, J) = L(J+2:N, J+1)
 
             if ( J.LT.(M-1) ) {
-               if ( A( J+1, K ).NE.ZERO ) {
+               if ( A( J+1, K ) != ZERO ) {
                   ALPHA = ONE / A( J+1, K )
                   ccopy(M-J-1, WORK( 3 ), 1, A( J+2, K ), 1 );
                   cscal(M-J-1, ALPHA, A( J+2, K ), 1 );

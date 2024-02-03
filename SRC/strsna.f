@@ -97,7 +97,7 @@
             INFO = -16
          }
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STRSNA', -INFO );
          RETURN
       }
@@ -130,7 +130,7 @@
             PAIR = false;
             GO TO 60
          } else {
-            if (K.LT.N) PAIR = T( K+1, K ).NE.ZERO;
+            if (K.LT.N) PAIR = T( K+1, K ) != ZERO;
          }
 
          // Determine whether condition numbers are required for the k-th
@@ -251,7 +251,7 @@
                KASE = 0
                } // 50
                slacn2(NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK, EST, KASE, ISAVE );
-               if ( KASE.NE.0 ) {
+               if ( KASE != 0 ) {
                   if ( KASE == 1 ) {
                      if ( N2 == 1 ) {
 

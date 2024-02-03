@@ -63,7 +63,7 @@
       } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DORMR2', -INFO );
          RETURN
       }

@@ -108,7 +108,7 @@
       EPS = DLAMCH( 'Precision' )
 
       if ( BNORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS )

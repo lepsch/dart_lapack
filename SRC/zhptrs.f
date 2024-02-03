@@ -48,7 +48,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHPTRS', -INFO );
          RETURN
       }
@@ -82,7 +82,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K )
-            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in column K of A.
@@ -101,7 +101,7 @@
             // Interchange rows K-1 and -IPIV(K).
 
             KP = -IPIV( K )
-            if (KP.NE.K-1) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K-1) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in columns K-1 and K of A.
@@ -157,7 +157,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K )
-            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             KC = KC + K
             K = K + 1
          } else {
@@ -180,7 +180,7 @@
             // Interchange rows K and -IPIV(K).
 
             KP = -IPIV( K )
-            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             KC = KC + 2*K + 1
             K = K + 2
          }
@@ -212,7 +212,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K )
-            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in column K of A.
@@ -232,7 +232,7 @@
             // Interchange rows K+1 and -IPIV(K).
 
             KP = -IPIV( K )
-            if (KP.NE.K+1) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K+1) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in columns K and K+1 of A.
@@ -291,7 +291,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K )
-            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K - 1
          } else {
 
@@ -313,7 +313,7 @@
             // Interchange rows K and -IPIV(K).
 
             KP = -IPIV( K )
-            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             KC = KC - ( N-K+2 )
             K = K - 2
          }

@@ -50,7 +50,7 @@
          // Determine ith pivot column and swap if necessary
 
          PVT = ( K-1 ) + ISAMAX( N-K+1, VN1( K ), 1 )
-         if ( PVT.NE.K ) {
+         if ( PVT != K ) {
             sswap(M, A( 1, PVT ), 1, A( 1, K ), 1 );
             sswap(K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF );
             ITEMP = JPVT( PVT )
@@ -113,7 +113,7 @@
 
          if ( RK.LT.LASTRK ) {
             for (J = K + 1; J <= N; J++) { // 30
-               if ( VN1( J ).NE.ZERO ) {
+               if ( VN1( J ) != ZERO ) {
 
                   // NOTE: The following 4 lines follow from the analysis in
                   // Lapack Working Note 176.

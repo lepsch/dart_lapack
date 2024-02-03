@@ -70,7 +70,7 @@
          INFO = -15
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTPMQRT', -INFO );
          RETURN
       }

@@ -104,7 +104,7 @@
       // Compute norm(L*U - A) / (norm(A) * EPS)
 
       if ( ANORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( RESID / ANORM ) / EPS
       }

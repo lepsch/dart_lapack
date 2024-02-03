@@ -80,7 +80,7 @@
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGGSVD3', -INFO );
          RETURN
       }
@@ -127,7 +127,7 @@
                SMAX = TEMP
             }
          } // 10
-         if ( ISUB.NE.I ) {
+         if ( ISUB != I ) {
             WORK( K+ISUB ) = WORK( K+I )
             WORK( K+I ) = SMAX
             IWORK( K+I ) = K + ISUB

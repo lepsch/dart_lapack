@@ -77,7 +77,7 @@
                   T = WORK( IW )
                   daxpy(IL, T, AFAC( KD+1, I ), 1, WORK( IW+1 ), 1 );
                   IP = IPIV( I )
-                  if ( I.NE.IP ) {
+                  if ( I != IP ) {
                      IP = IP - J + JU + 1
                      WORK( IW ) = WORK( IP )
                      WORK( IP ) = T
@@ -99,7 +99,7 @@
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 
       if ( ANORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       }

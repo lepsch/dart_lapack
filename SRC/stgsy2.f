@@ -76,7 +76,7 @@
             INFO = -16
          }
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STGSY2', -INFO );
          RETURN
       }
@@ -91,7 +91,7 @@
       P = P + 1
       IWORK( P ) = I
       if (I == M) GO TO 20;
-      if ( A( I+1, I ).NE.ZERO ) {
+      if ( A( I+1, I ) != ZERO ) {
          I = I + 2
       } else {
          I = I + 1
@@ -109,7 +109,7 @@
       Q = Q + 1
       IWORK( Q ) = J
       if (J == N) GO TO 40;
-      if ( B( J+1, J ).NE.ZERO ) {
+      if ( B( J+1, J ) != ZERO ) {
          J = J + 2
       } else {
          J = J + 1
@@ -162,7 +162,7 @@
 
                   if ( IJOB == 0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                     if ( SCALOC.NE.ONE ) {
+                     if ( SCALOC != ONE ) {
                         for (K = 1; K <= N; K++) { // 50
                            sscal(M, SCALOC, C( 1, K ), 1 );
                            sscal(M, SCALOC, F( 1, K ), 1 );
@@ -229,7 +229,7 @@
 
                   if ( IJOB == 0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                     if ( SCALOC.NE.ONE ) {
+                     if ( SCALOC != ONE ) {
                         for (K = 1; K <= N; K++) { // 60
                            sscal(M, SCALOC, C( 1, K ), 1 );
                            sscal(M, SCALOC, F( 1, K ), 1 );
@@ -298,7 +298,7 @@
                   if (IERR.GT.0) INFO = IERR;
                   if ( IJOB == 0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                     if ( SCALOC.NE.ONE ) {
+                     if ( SCALOC != ONE ) {
                         for (K = 1; K <= N; K++) { // 70
                            sscal(M, SCALOC, C( 1, K ), 1 );
                            sscal(M, SCALOC, F( 1, K ), 1 );
@@ -387,7 +387,7 @@
                   if (IERR.GT.0) INFO = IERR;
                   if ( IJOB == 0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                     if ( SCALOC.NE.ONE ) {
+                     if ( SCALOC != ONE ) {
                         for (K = 1; K <= N; K++) { // 90
                            sscal(M, SCALOC, C( 1, K ), 1 );
                            sscal(M, SCALOC, F( 1, K ), 1 );
@@ -468,7 +468,7 @@
                   if (IERR.GT.0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (K = 1; K <= N; K++) { // 130
                         sscal(M, SCALOC, C( 1, K ), 1 );
                         sscal(M, SCALOC, F( 1, K ), 1 );
@@ -533,7 +533,7 @@
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   if (IERR.GT.0) INFO = IERR;
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (K = 1; K <= N; K++) { // 140
                         sscal(M, SCALOC, C( 1, K ), 1 );
                         sscal(M, SCALOC, F( 1, K ), 1 );
@@ -599,7 +599,7 @@
                   if (IERR.GT.0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (K = 1; K <= N; K++) { // 150
                         sscal(M, SCALOC, C( 1, K ), 1 );
                         sscal(M, SCALOC, F( 1, K ), 1 );
@@ -686,7 +686,7 @@
                   if (IERR.GT.0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (K = 1; K <= N; K++) { // 170
                         sscal(M, SCALOC, C( 1, K ), 1 );
                         sscal(M, SCALOC, F( 1, K ), 1 );

@@ -91,7 +91,7 @@
         WORK( 1 ) = LWMIN
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('DGEMQR', -INFO );
         RETURN
       } else if ( LQUERY ) {

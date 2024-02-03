@@ -92,7 +92,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSTEDC', -INFO );
          RETURN
       } else if (LQUERY) {
@@ -103,7 +103,7 @@
 
       if (N == 0) RETURN;
       if ( N == 1 ) {
-         if (ICOMPZ.NE.0) Z( 1, 1 ) = ONE;
+         if (ICOMPZ != 0) Z( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -196,7 +196,7 @@
                   STRTRW = START
                }
                slaed0(ICOMPZ, N, M, D( START ), E( START ), Z( STRTRW, START ), LDZ, WORK( 1 ), N, WORK( STOREZ ), IWORK, INFO );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1
                   GO TO 50
                }
@@ -220,7 +220,7 @@
                } else {
                   ssterf(M, D( START ), E( START ), INFO );
                }
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   INFO = START*( N+1 ) + FINISH
                   GO TO 50
                }
@@ -252,7 +252,7 @@
                     P = D( J )
                  }
               } // 30
-              if ( K.NE.I ) {
+              if ( K != I ) {
                  D( K ) = D( I )
                  D( I ) = P
                  sswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );

@@ -188,14 +188,14 @@ void main() {
       TRANS = 'N'
       zmvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LZE( YY, YT, N )
-      if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
+      if ( .NOT.SAME.OR.ERR != RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
       TRANS = 'T'
       zmvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LZE( YY, YT, N )
-      if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
+      if ( .NOT.SAME.OR.ERR != RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
@@ -2356,7 +2356,7 @@ void main() {
                } else {
                   A( I, J ) = ZERO
                }
-               if ( I.NE.J ) {
+               if ( I != J ) {
                   if ( SYM ) {
                      A( J, I ) = DCONJG( A( I, J ) )
                   } else if ( TRI ) {
@@ -2576,7 +2576,7 @@ void main() {
       ERR = ZERO
       for (I = 1; I <= ML; I++) { // 50
          ERRI = ABS( YT( I ) - YY( 1 + ( I - 1 )*ABS( INCY ) ) )/EPS
-         IF( G( I ).NE.RZERO ) ERRI = ERRI/G( I )
+         IF( G( I ) != RZERO ) ERRI = ERRI/G( I )
          ERR = MAX( ERR, ERRI )
          IF( ERR*SQRT( EPS ).GE.RONE ) GO TO 60
       } // 50
@@ -2622,7 +2622,7 @@ void main() {
       int                I;
       // .. Executable Statements ..
       for (I = 1; I <= LR; I++) { // 10
-         IF( RI( I ).NE.RJ( I ) ) GO TO 20
+         IF( RI( I ) != RJ( I ) ) GO TO 20
       } // 10
       LZE = true;
       GO TO 30
@@ -2659,7 +2659,7 @@ void main() {
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = M + 1; I <= LDA; I++) { // 10
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 10
          } // 20
       } else if ( TYPE == 'HE' ) {
@@ -2672,10 +2672,10 @@ void main() {
                IEND = N
             }
             for (I = 1; I <= IBEG - 1; I++) { // 30
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 30
             for (I = IEND + 1; I <= LDA; I++) { // 40
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 40
          } // 50
       }
@@ -2845,15 +2845,15 @@ void main() {
       // COMMON /SRNAMC/SRNAMT
       // .. Executable Statements ..
       LERR = true;
-      if ( INFO.NE.INFOT ) {
-         if ( INFOT.NE.0 ) {
+      if ( INFO != INFOT ) {
+         if ( INFOT != 0 ) {
             WRITE( NOUT, FMT = 9999 )INFO, INFOT
          } else {
             WRITE( NOUT, FMT = 9997 )INFO
          }
          OK = false;
       }
-      if ( SRNAME.NE.SRNAMT ) {
+      if ( SRNAME != SRNAMT ) {
          WRITE( NOUT, FMT = 9998 )SRNAME, SRNAMT
          OK = false;
       }

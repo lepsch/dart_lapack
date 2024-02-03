@@ -65,7 +65,7 @@
       } else if ( ( IRC == 0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC == 1 .AND. LDV.LT.MAX( 1, N ) ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CUNT03', -INFO );
          RETURN
       }

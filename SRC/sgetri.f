@@ -51,7 +51,7 @@
       } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGETRI', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -128,7 +128,7 @@
 
       DO 60 J = N - 1, 1, -1
          JP = IPIV( J )
-         if (JP.NE.J) CALL SSWAP( N, A( 1, J ), 1, A( 1, JP ), 1 );
+         if (JP != J) CALL SSWAP( N, A( 1, J ), 1, A( 1, JP ), 1 );
       } // 60
 
       WORK( 1 ) = SROUNDUP_LWORK( IWS )

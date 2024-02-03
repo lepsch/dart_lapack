@@ -60,7 +60,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGGBAL', -INFO );
          RETURN
       }
@@ -103,7 +103,7 @@
 
       } // 20
       L = LM1
-      if (L.NE.1) GO TO 30;
+      if (L != 1) GO TO 30;
 
       RSCALE( 1 ) = ONE
       LSCALE( 1 ) = ONE
@@ -114,14 +114,14 @@
       DO 80 I = L, 1, -1
          for (J = 1; J <= LM1; J++) { // 40
             JP1 = J + 1
-            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 50
+            IF( A( I, J ) != CZERO .OR. B( I, J ) != CZERO ) GO TO 50
          } // 40
          J = L
          GO TO 70
 
          } // 50
          for (J = JP1; J <= L; J++) { // 60
-            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 80
+            IF( A( I, J ) != CZERO .OR. B( I, J ) != CZERO ) GO TO 80
          } // 60
          J = JP1 - 1
 
@@ -141,13 +141,13 @@
       for (J = K; J <= L; J++) { // 150
          for (I = K; I <= LM1; I++) { // 110
             IP1 = I + 1
-            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 120
+            IF( A( I, J ) != CZERO .OR. B( I, J ) != CZERO ) GO TO 120
          } // 110
          I = L
          GO TO 140
          } // 120
          for (I = IP1; I <= L; I++) { // 130
-            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 150
+            IF( A( I, J ) != CZERO .OR. B( I, J ) != CZERO ) GO TO 150
          } // 130
          I = IP1 - 1
          } // 140
@@ -250,7 +250,7 @@
       } // 260
 
       GAMMA = COEF*GAMMA - COEF2*( EW**2+EWC**2 ) - COEF5*( EW-EWC )**2
-      if (GAMMA == ZERO) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA;
+      if (GAMMA == ZERO) GO TO 350       IF( IT != 1 ) BETA = GAMMA / PGAMMA;
       T = COEF5*( EWC-THREE*EW )
       TC = COEF5*( EW-THREE*EWC )
 

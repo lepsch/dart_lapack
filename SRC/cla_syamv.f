@@ -48,7 +48,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( UPLO.NE.ILAUPLO( 'U' ) .AND. UPLO.NE.ILAUPLO( 'L' ) ) {
+      if ( UPLO != ILAUPLO( 'U' ) .AND. UPLO != ILAUPLO( 'L' ) ) {
          INFO = 1
       } else if ( N.LT.0 ) {
          INFO = 2
@@ -59,7 +59,7 @@
       } else if ( INCY == 0 ) {
          INFO = 10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLA_SYAMV', INFO );
          RETURN
       }
@@ -106,7 +106,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. ZERO ) {
+               if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
@@ -135,7 +135,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. ZERO ) {
+               if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
@@ -167,7 +167,7 @@
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                JX = KX
-               if ( ALPHA .NE. ZERO ) {
+               if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
@@ -199,7 +199,7 @@
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                JX = KX
-               if ( ALPHA .NE. ZERO ) {
+               if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )

@@ -105,7 +105,7 @@
          INFO = -27
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZCHKBD', -INFO );
          RETURN
       }
@@ -133,7 +133,7 @@
          MNMIN = MIN( M, N )
          AMNINV = ONE / MAX( M, N, 1 )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -280,7 +280,7 @@
 
             // Error Exit
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -300,7 +300,7 @@
 
                // Check error code from ZGEBRD.
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'ZGEBRD', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -321,7 +321,7 @@
 
                // Check error code from ZUNGBR.
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'ZUNGBR(Q)', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -333,7 +333,7 @@
 
                // Check error code from ZUNGBR.
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'ZUNGBR(P)', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -365,7 +365,7 @@
 
             // Check error code from ZBDSQR.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'ZBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -386,7 +386,7 @@
 
             // Check error code from ZBDSQR.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'ZBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {

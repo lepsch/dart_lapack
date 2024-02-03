@@ -121,7 +121,7 @@
 
                      // Check error code from DLATMS.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         alaerh('DPF', 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
                         GO TO 100
                      }
@@ -188,7 +188,7 @@
 
                         dpotri(UPLO, N, A, LDA, INFO );
 
-                        if ( N .NE. 0 ) {
+                        if ( N != 0 ) {
 
                            // Compute the 1-norm condition number of A.
 
@@ -221,7 +221,7 @@
 
                      // Check error code from DPFTRF.
 
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
 
                         // LANGOU: there is a small hick here: IZERO should
                         // always be INFO however if INFO is ZERO, ALAERH does not
@@ -233,7 +233,7 @@
 
                      // Skip the tests if INFO is not 0.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         GO TO 100
                      }
 
@@ -266,7 +266,7 @@
 
                      // Check error code from DPFTRI.
 
-                     if (INFO.NE.0) CALL ALAERH( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      dpot03(UPLO, N, A, LDA, AINV, LDA, D_TEMP_DPOT03, LDA, D_WORK_DPOT03, RCONDC, RESULT( 2 ) );
 

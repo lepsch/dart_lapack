@@ -42,12 +42,12 @@
 
       // Insure a correct ISEED
 
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 
       // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
       // and RCOND
 
-      if ( ITYPE.NE.0 ) {
+      if ( ITYPE != 0 ) {
          if ( ABS( ITYPE ).GE.4 ) {
             KBEG = MAX( 1, MIN( N, NZ1+1 ) )
             KEND = MAX( KBEG, MIN( N, N-NZ2 ) )
@@ -176,12 +176,12 @@
 
          if ( ISIGN.GT.0 ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
-               if ( REAL( A( JD, JD ) ).NE.ZERO ) {
+               if ( REAL( A( JD, JD ) ) != ZERO ) {
                   IF( SLARAN( ISEED ).GT.HALF ) A( JD, JD ) = -A( JD, JD )
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
-               if ( REAL( A( JD+1, JD ) ).NE.ZERO ) {
+               if ( REAL( A( JD+1, JD ) ) != ZERO ) {
                   IF( SLARAN( ISEED ).GT.HALF ) A( JD+1, JD ) = -A( JD+1, JD )
                }
             } // 260
@@ -205,7 +205,7 @@
          // If ISIGN = 2, and no subdiagonals already, then apply
          // random rotations to make 2x2 blocks.
 
-         if ( ISIGN == 2 .AND. ITYPE.NE.2 .AND. ITYPE.NE.3 ) {
+         if ( ISIGN == 2 .AND. ITYPE != 2 .AND. ITYPE != 3 ) {
             SAFMIN = SLAMCH( 'S' )
             DO 290 JD = KBEG, KEND - 1, 2
                if ( SLARAN( ISEED ).GT.HALF ) {
@@ -242,8 +242,8 @@
 
       // Fill in upper triangle (except for 2x2 blocks)
 
-      if ( TRIANG.NE.ZERO ) {
-         if ( ISIGN.NE.2 .OR. ITYPE == 2 .OR. ITYPE == 3 ) {
+      if ( TRIANG != ZERO ) {
+         if ( ISIGN != 2 .OR. ITYPE == 2 .OR. ITYPE == 3 ) {
             IOFF = 1
          } else {
             IOFF = 2

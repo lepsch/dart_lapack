@@ -91,7 +91,7 @@
          WORK( 1 ) = LWKOPT
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZUNMBR', -INFO );
          RETURN
       } else if ( LQUERY ) {

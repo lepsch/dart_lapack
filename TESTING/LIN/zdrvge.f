@@ -122,7 +122,7 @@
 
             // Check error code from ZLATMS.
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 80
             }
@@ -286,7 +286,7 @@
 
                         // Check error code from ZGESV .
 
-                        if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) CALL ALAERH( PATH, 'ZGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -338,12 +338,12 @@
 
                      // Check the error code from ZGESVX.
 
-                     if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) CALL ALAERH( PATH, 'ZGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare RWORK(2*NRHS+1) from ZGESVX with the
                      // computed reciprocal pivot growth factor RPVGRW
 
-                     if ( INFO.NE.0 .AND. INFO.LE.N) {
+                     if ( INFO != 0 .AND. INFO.LE.N) {
                         RPVGRW = ZLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, RDUM )
                         if ( RPVGRW == ZERO ) {
                            RPVGRW = ONE

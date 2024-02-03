@@ -176,7 +176,7 @@
          if (LWORK.LT.MINWRK .AND. .NOT.LQUERY) INFO = -12;
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGELSS', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -297,7 +297,7 @@
            // compute right singular vectors in A
          // (Workspace: need BDSPAC)
 
-         CALL DBDSQR( 'U', N, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
+         CALL DBDSQR( 'U', N, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70
 
          // Multiply B by reciprocals of singular values
 
@@ -377,7 +377,7 @@
             // multiplying B by transpose of left singular vectors
          // (Workspace: need M*M+M+BDSPAC)
 
-         CALL DBDSQR( 'U', M, M, 0, NRHS, S, WORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, WORK( IWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
+         CALL DBDSQR( 'U', M, M, 0, NRHS, S, WORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70
 
          // Multiply B by reciprocals of singular values
 
@@ -452,7 +452,7 @@
             // multiplying B by transpose of left singular vectors
          // (Workspace: need BDSPAC)
 
-         CALL DBDSQR( 'L', M, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
+         CALL DBDSQR( 'L', M, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70
 
          // Multiply B by reciprocals of singular values
 

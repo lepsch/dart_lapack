@@ -113,7 +113,7 @@
 
                // Check error code from CLATMT.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                     alaerh(PATH, 'CLATMT', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 120
                   }
@@ -137,14 +137,14 @@
 
                   // Check error code from CPSTRF.
 
-                     IF( (INFO.LT.IZERO) .OR.(INFO.NE.IZERO.AND.RANK == N) .OR.(INFO.LE.IZERO.AND.RANK.LT.N) ) THEN;
+                     IF( (INFO.LT.IZERO) .OR.(INFO != IZERO.AND.RANK == N) .OR.(INFO.LE.IZERO.AND.RANK.LT.N) ) THEN;
                         alaerh(PATH, 'CPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 110
                      }
 
                   // Skip the test if INFO is not 0.
 
-                     if (INFO.NE.0) GO TO 110;
+                     if (INFO != 0) GO TO 110;
 
                   // Reconstruct matrix from factors and compute residual.
 

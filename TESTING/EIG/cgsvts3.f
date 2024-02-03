@@ -152,7 +152,7 @@
       scopy(N, ALPHA, 1, RWORK, 1 );
       DO 110 I = K + 1, MIN( K+L, M )
          J = IWORK( I )
-         if ( I.NE.J ) {
+         if ( I != J ) {
             TEMP = RWORK( I )
             RWORK( I ) = RWORK( J )
             RWORK( J ) = TEMP

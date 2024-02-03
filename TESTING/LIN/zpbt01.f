@@ -60,14 +60,14 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
-            if ( DIMAG( AFAC( KD+1, J ) ).NE.ZERO ) {
+            if ( DIMAG( AFAC( KD+1, J ) ) != ZERO ) {
                RESID = ONE / EPS
                RETURN
             }
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
-            if ( DIMAG( AFAC( 1, J ) ).NE.ZERO ) {
+            if ( DIMAG( AFAC( 1, J ) ) != ZERO ) {
                RESID = ONE / EPS
                RETURN
             }

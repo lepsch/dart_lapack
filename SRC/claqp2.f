@@ -51,7 +51,7 @@
 
          PVT = ( I-1 ) + ISAMAX( N-I+1, VN1( I ), 1 )
 
-         if ( PVT.NE.I ) {
+         if ( PVT != I ) {
             cswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
             ITEMP = JPVT( PVT )
             JPVT( PVT ) = JPVT( I )
@@ -81,7 +81,7 @@
          // Update partial column norms.
 
          for (J = I + 1; J <= N; J++) { // 10
-            if ( VN1( J ).NE.ZERO ) {
+            if ( VN1( J ) != ZERO ) {
 
                // NOTE: The following 4 lines follow from the analysis in
                // Lapack Working Note 176.

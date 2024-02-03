@@ -36,7 +36,7 @@
       APPLYLEFT = LSAME( SIDE, 'L' )
       LASTV = 0
       LASTC = 0
-      if ( TAU.NE.ZERO ) {
+      if ( TAU != ZERO ) {
       // Set up variables for scanning V.  LASTV begins pointing to the end
       // of V.
          if ( APPLYLEFT ) {

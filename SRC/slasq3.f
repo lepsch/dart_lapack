@@ -75,7 +75,7 @@
          Z( NN-7 ) = S
       }
       T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) )
-      if ( Z( NN-5 ).GT.Z( NN-3 )*TOL2.AND.T.NE.ZERO ) {
+      if ( Z( NN-5 ).GT.Z( NN-3 )*TOL2.AND.T != ZERO ) {
          S = Z( NN-3 )*( Z( NN-5 ) / T )
          if ( S.LE.T ) {
             S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )

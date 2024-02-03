@@ -43,7 +43,7 @@
       } else if ( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) {
          INFO = -3
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLASD1', -INFO );
          RETURN
       }
@@ -93,7 +93,7 @@
 
       // Report the possible convergence failure.
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          RETURN
       }
 

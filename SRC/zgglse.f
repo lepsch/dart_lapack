@@ -72,7 +72,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGGLSE', -INFO );
          RETURN
       } else if ( LQUERY ) {

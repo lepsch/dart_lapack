@@ -60,7 +60,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CSYTF2_ROOK', -INFO );
          RETURN
       }
@@ -138,7 +138,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = IMAX + ICAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
                   } else {
@@ -195,7 +195,7 @@
 
             // First swap
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Interchange rows and column K and P in the leading
                // submatrix A(1:k,1:k) if we have a 2-by-2 pivot
@@ -209,7 +209,7 @@
             // Second swap
 
             KK = K - KSTEP + 1
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
@@ -392,7 +392,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = K - 1 + ICAMAX( IMAX-K, A( IMAX, K ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
                   } else {
@@ -449,7 +449,7 @@
 
             // First swap
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Interchange rows and column K and P in the trailing
                // submatrix A(k:n,k:n) if we have a 2-by-2 pivot
@@ -463,7 +463,7 @@
             // Second swap
 
             KK = K + KSTEP - 1
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)

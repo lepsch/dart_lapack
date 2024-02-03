@@ -80,7 +80,7 @@
          INFO = -28
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DCHKHS', -INFO );
          RETURN
       }
@@ -111,7 +111,7 @@
          N1 = MAX( 1, N )
          ANINV = ONE / DBLE( N1 )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -258,7 +258,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -277,7 +277,7 @@
 
             dgehrd(N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO );
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'DGEHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -307,7 +307,7 @@
             RESULT( 3 ) = ULPINV
 
             dhseqr('E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEQR(E)', IINFO, N, JTYPE, IOLDSD
                if ( IINFO.LE.N+2 ) {
                   INFO = ABS( IINFO )
@@ -320,7 +320,7 @@
             dlacpy(' ', N, N, H, LDA, T2, LDA );
 
             dhseqr('S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
+            if ( IINFO != 0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -333,7 +333,7 @@
             dlacpy(' ', N, N, U, LDU, UZ, LDU );
 
             dhseqr('S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
+            if ( IINFO != 0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -403,7 +403,7 @@
             if (J.GT.0) GO TO 140;
 
             dtrevc('Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -421,7 +421,7 @@
             // they agree with previous right eigenvectors
 
             dtrevc('Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -432,15 +432,15 @@
             for (J = 1; J <= N; J++) { // 170
                if ( SELECT( J ) .AND. WI1( J ) == ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 150
-                     if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) ) {
+                     if ( EVECTR( JJ, J ) != EVECTL( JJ, K ) ) {
                         MATCH = false;
                         GO TO 180
                      }
                   } // 150
                   K = K + 1
-               } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
+               } else if ( SELECT( J ) .AND. WI1( J ) != ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 160
-                     if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) .OR. EVECTR( JJ, J+1 ).NE.EVECTL( JJ, K+1 ) ) {
+                     if ( EVECTR( JJ, J ) != EVECTL( JJ, K ) .OR. EVECTR( JJ, J+1 ) != EVECTL( JJ, K+1 ) ) {
                         MATCH = false;
                         GO TO 180
                      }
@@ -456,7 +456,7 @@
             NTEST = 10
             RESULT( 10 ) = ULPINV
             dtrevc('Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -474,7 +474,7 @@
             // they agree with previous left eigenvectors
 
             dtrevc('Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -485,15 +485,15 @@
             for (J = 1; J <= N; J++) { // 210
                if ( SELECT( J ) .AND. WI1( J ) == ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 190
-                     if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) ) {
+                     if ( EVECTL( JJ, J ) != EVECTR( JJ, K ) ) {
                         MATCH = false;
                         GO TO 220
                      }
                   } // 190
                   K = K + 1
-               } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
+               } else if ( SELECT( J ) .AND. WI1( J ) != ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 200
-                     if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) .OR. EVECTL( JJ, J+1 ).NE.EVECTR( JJ, K+1 ) ) {
+                     if ( EVECTL( JJ, J ) != EVECTR( JJ, K ) .OR. EVECTL( JJ, J+1 ) != EVECTR( JJ, K+1 ) ) {
                         MATCH = false;
                         GO TO 220
                      }
@@ -513,7 +513,7 @@
             } // 230
 
             dhsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if (IINFO.LT.0) GO TO 250;
@@ -538,7 +538,7 @@
             } // 240
 
             dhsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if (IINFO.LT.0) GO TO 250;
@@ -560,7 +560,7 @@
             RESULT( 13 ) = ULPINV
 
             dormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORMHR(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if (IINFO.LT.0) GO TO 250;
@@ -579,7 +579,7 @@
             RESULT( 14 ) = ULPINV
 
             dormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if (IINFO.LT.0) GO TO 250;
@@ -602,7 +602,7 @@
             dlacpy(' ', N, N, UZ, LDU, EVECTR, LDU );
 
             dtrevc3('Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC3(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -626,7 +626,7 @@
             dlacpy(' ', N, N, UZ, LDU, EVECTL, LDU );
 
             dtrevc3('Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC3(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250

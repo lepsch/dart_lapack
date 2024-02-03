@@ -108,7 +108,7 @@
          INFO = -21
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CDRVBD', -INFO );
          RETURN
       }
@@ -134,7 +134,7 @@
          N = NN( JSIZE )
          MNMIN = MIN( M, N )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -176,7 +176,7 @@
 
                if (JTYPE == 3) ANORM = ONE                IF( JTYPE == 4 ) ANORM = UNFL / ULP                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
                clatms(M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -207,7 +207,7 @@
                if (IWSPC.GT.1) CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVD'
                cgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -216,7 +216,7 @@
                // Do tests 1--4
 
                cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 1 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) );
                   cunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) );
                }
@@ -295,7 +295,7 @@
                clacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESDD'
                cgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -304,7 +304,7 @@
                // Do tests 1--4
 
                cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 8 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) );
                   cunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) );
                }
@@ -393,7 +393,7 @@
                   LIWORK = MAX( N, 1 )
                   cgesvdq('H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO );
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'CGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -402,7 +402,7 @@
                   // Do tests 36--39
 
                   cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 36 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) );
                      cunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) );
                   }
@@ -443,7 +443,7 @@
                      }
                   }
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'GESVJ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -452,7 +452,7 @@
                   // Do tests 15--18
 
                   cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 15 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) );
                      cunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) );
                   }
@@ -492,7 +492,7 @@
   132                END DO
   133             END DO
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'GEJSV', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -501,7 +501,7 @@
                   // Do tests 19--22
 
                   cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 19 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) );
                      cunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) );
                   }
@@ -521,7 +521,7 @@
                clacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVDX'
                cgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -533,7 +533,7 @@
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
                cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 23 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) );
                   cunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) );
                }
@@ -612,7 +612,7 @@
                clacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVDX'
                cgesvdx('V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -622,7 +622,7 @@
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
                cbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   cunt01('Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) );
                   cunt01('Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) );
                }
@@ -630,12 +630,12 @@
                // Do tests 11--13
 
                if ( MNMIN.GT.0 .AND. NSI.GT.1 ) {
-                  if ( IL.NE.1 ) {
+                  if ( IL != 1 ) {
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                   } else {
                      VU = SSAV( 1 ) + MAX( HALF*ABS( SSAV( NS )-SSAV( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                   }
-                  if ( IU.NE.NS ) {
+                  if ( IU != NS ) {
                      VL = SSAV( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( IU+1 )-SSAV( IU ) ) )
                   } else {
                      VL = SSAV( NS ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( NS )-SSAV( 1 ) ) )
@@ -650,7 +650,7 @@
                clacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVDX'
                cgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -660,7 +660,7 @@
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
                cbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   cunt01('Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) );
                   cunt01('Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) );
                }

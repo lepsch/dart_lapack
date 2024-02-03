@@ -73,7 +73,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSPGVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -87,7 +87,7 @@
       // Form a Cholesky factorization of BP.
 
       dpptrf(UPLO, N, BP, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = N + INFO
          RETURN
       }

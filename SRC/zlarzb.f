@@ -43,7 +43,7 @@
       } else if ( .NOT.LSAME( STOREV, 'R' ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZLARZB', -INFO );
          RETURN
       }

@@ -37,7 +37,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGTSV ', -INFO );
          RETURN
       }
@@ -50,7 +50,7 @@
 
                // No row interchange required
 
-               if ( D( I ).NE.ZERO ) {
+               if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   B( I+1, 1 ) = B( I+1, 1 ) - FACT*B( I, 1 )
@@ -78,7 +78,7 @@
          if ( N.GT.1 ) {
             I = N - 1
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
-               if ( D( I ).NE.ZERO ) {
+               if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   B( I+1, 1 ) = B( I+1, 1 ) - FACT*B( I, 1 )
@@ -107,7 +107,7 @@
 
                // No row interchange required
 
-               if ( D( I ).NE.ZERO ) {
+               if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   for (J = 1; J <= NRHS; J++) { // 20
@@ -139,7 +139,7 @@
          if ( N.GT.1 ) {
             I = N - 1
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
-               if ( D( I ).NE.ZERO ) {
+               if ( D( I ) != ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   for (J = 1; J <= NRHS; J++) { // 50

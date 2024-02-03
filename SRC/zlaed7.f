@@ -43,7 +43,7 @@
       } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZLAED7', -INFO );
          RETURN
       }
@@ -94,11 +94,11 @@
 
       // Solve Secular Equation.
 
-      if ( K.NE.0 ) {
+      if ( K != 0 ) {
          dlaed9(K, 1, K, N, D, RWORK( IQ ), K, RHO, RWORK( IDLMDA ), RWORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO );
          zlacrm(QSIZ, K, WORK, QSIZ, QSTORE( QPTR( CURR ) ), K, Q, LDQ, RWORK( IQ ) );
          QPTR( CURR+1 ) = QPTR( CURR ) + K**2
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RETURN
          }
 

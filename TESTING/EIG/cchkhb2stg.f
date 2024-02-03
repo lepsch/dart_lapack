@@ -94,7 +94,7 @@
          INFO = -17
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CCHKHB2STG', -INFO );
          RETURN
       }
@@ -126,7 +126,7 @@
             if (K.GT.N) GO TO 180;
             K = MAX( 0, MIN( N-1, K ) )
 
-            if ( NSIZES.NE.1 ) {
+            if ( NSIZES != 1 ) {
                MTYPES = MIN( MAXTYP, NTYPES )
             } else {
                MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -252,7 +252,7 @@
                   IINFO = 1
                }
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -267,7 +267,7 @@
                NTEST = 1
                chbtrd('V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHBTRD(U)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -298,7 +298,7 @@
                if (N.GT.0) CALL SCOPY( N-1, SE, 1, RWORK, 1 );
 
                csteqr('N', N, D1, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -327,7 +327,7 @@
                if (N.GT.0) CALL SCOPY( N-1, SE, 1, RWORK, 1 );
 
                csteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -359,7 +359,7 @@
                NTEST = 3
                chbtrd('V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHBTRD(L)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -393,7 +393,7 @@
                if (N.GT.0) CALL SCOPY( N-1, SE, 1, RWORK, 1 );
 
                csteqr('N', N, D3, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {

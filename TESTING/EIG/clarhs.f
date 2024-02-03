@@ -75,7 +75,7 @@
       } else if ( ( NOTRAN .AND. LDB.LT.MAX( 1, M ) ) .OR. ( TRAN .AND. LDB.LT.MAX( 1, N ) ) ) {
          INFO = -15
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLARHS', -INFO );
          RETURN
       }

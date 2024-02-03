@@ -90,7 +90,7 @@
          WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHETRD_HB2ST', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -178,7 +178,7 @@
                   ABSTMP = ABS( TMP )
                   AB( ABOFDPOS, I+1 ) = ABSTMP
                   E( I ) = ABSTMP
-                  if ( ABSTMP.NE.RZERO ) {
+                  if ( ABSTMP != RZERO ) {
                      TMP = TMP / ABSTMP
                   } else {
                      TMP = ONE
@@ -194,7 +194,7 @@
                  ABSTMP = ABS( TMP )
                  AB( ABOFDPOS, I ) = ABSTMP
                  E( I ) = ABSTMP
-                 if ( ABSTMP.NE.RZERO ) {
+                 if ( ABSTMP != RZERO ) {
                     TMP = TMP / ABSTMP
                  } else {
                     TMP = ONE
@@ -275,7 +275,7 @@
                           // Call the kernel
 
 #if defined(_OPENMP) && _OPENMP >= 201307
-                          if ( TTYPE.NE.1 ) {
+                          if ( TTYPE != 1 ) {
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 !$OMP$     DEPEND(in:WORK(MYID-1))
 !$OMP$     DEPEND(out:WORK(MYID))

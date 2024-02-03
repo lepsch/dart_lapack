@@ -67,21 +67,21 @@
          INFO = -5
       } else if ( M.LT.0 ) {
          INFO = -6
-      } else if ( N.LT.0 .OR. ( ITYPE == 4 .AND. N.NE.M ) .OR. ( ITYPE == 5 .AND. N.NE.M ) ) {
+      } else if ( N.LT.0 .OR. ( ITYPE == 4 .AND. N != M ) .OR. ( ITYPE == 5 .AND. N != M ) ) {
          INFO = -7
       } else if ( ITYPE.LE.3 .AND. LDA.LT.MAX( 1, M ) ) {
          INFO = -9
       } else if ( ITYPE.GE.4 ) {
          if ( KL.LT.0 .OR. KL.GT.MAX( M-1, 0 ) ) {
             INFO = -2
-         } else if ( KU.LT.0 .OR. KU.GT.MAX( N-1, 0 ) .OR. ( ( ITYPE == 4 .OR. ITYPE == 5 ) .AND. KL.NE.KU ) ) {
+         } else if ( KU.LT.0 .OR. KU.GT.MAX( N-1, 0 ) .OR. ( ( ITYPE == 4 .OR. ITYPE == 5 ) .AND. KL != KU ) ) {
             INFO = -3
          } else if ( ( ITYPE == 4 .AND. LDA.LT.KL+1 ) .OR. ( ITYPE == 5 .AND. LDA.LT.KU+1 ) .OR. ( ITYPE == 6 .AND. LDA.LT.2*KL+KU+1 ) ) {
             INFO = -9
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLASCL', -INFO );
          RETURN
       }
@@ -114,7 +114,7 @@
             MUL = CTOC
             DONE = true;
             CFROMC = ONE
-         } else if ( ABS( CFROM1 ).GT.ABS( CTOC ) .AND. CTOC.NE.ZERO ) {
+         } else if ( ABS( CFROM1 ).GT.ABS( CTOC ) .AND. CTOC != ZERO ) {
             MUL = SMLNUM
             DONE = false;
             CFROMC = CFROM1

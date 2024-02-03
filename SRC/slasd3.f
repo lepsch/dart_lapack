@@ -42,7 +42,7 @@
          INFO = -1
       } else if ( NR.LT.1 ) {
          INFO = -2
-      } else if ( ( SQRE.NE.1 ) .AND. ( SQRE.NE.0 ) ) {
+      } else if ( ( SQRE != 1 ) .AND. ( SQRE != 0 ) ) {
          INFO = -3
       }
 
@@ -64,7 +64,7 @@
       } else if ( LDVT2.LT.M ) {
          INFO = -16
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLASD3', -INFO );
          RETURN
       }
@@ -101,7 +101,7 @@
 
          // If the zero finder fails, report the convergence failure.
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RETURN
          }
       } // 30

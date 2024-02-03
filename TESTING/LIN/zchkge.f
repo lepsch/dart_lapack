@@ -117,7 +117,7 @@
 
                // Check error code from ZLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
@@ -165,7 +165,7 @@
 
                   // Check error code from ZGETRF.
 
-                  if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) CALL ALAERH( PATH, 'ZGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   TRFCON = false;
 
 *+    TEST 1
@@ -188,7 +188,7 @@
 
                      // Check error code from ZGETRI.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZGETRI', INFO, 0, ' ', N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'ZGETRI', INFO, 0, ' ', N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for the matrix times its
                      // inverse.  Also compute the 1-norm condition number
@@ -230,10 +230,10 @@
                   NRUN = NRUN + NT
 
                   // Skip the remaining tests if this is not the first
-                  // block size or if M .ne. N.  Skip the solve tests if
+                  // block size or if M != N.  Skip the solve tests if
                   // the matrix is singular.
 
-                  if (INB.GT.1 .OR. M.NE.N) GO TO 90                   IF( TRFCON ) GO TO 70;
+                  if (INB.GT.1 .OR. M != N) GO TO 90                   IF( TRFCON ) GO TO 70;
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
                      NRHS = NSVAL( IRHS )
@@ -260,7 +260,7 @@
 
                         // Check error code from ZGETRS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'ZGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'ZGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         zget02(TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -279,7 +279,7 @@
 
                         // Check error code from ZGERFS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'ZGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'ZGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                         zget07(TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, true , RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -316,7 +316,7 @@
 
                         // Check error code from ZGECON.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZGECON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'ZGECON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                         // This line is needed on a Sun SPARCstation.
 

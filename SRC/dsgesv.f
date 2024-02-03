@@ -61,7 +61,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSGESV', -INFO );
          RETURN
       }
@@ -94,7 +94,7 @@
 
       dlag2s(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -2
          GO TO 40
       }
@@ -104,7 +104,7 @@
 
       dlag2s(N, N, A, LDA, SWORK( PTSA ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -2
          GO TO 40
       }
@@ -113,7 +113,7 @@
 
       sgetrf(N, N, SWORK( PTSA ), N, IPIV, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -3
          GO TO 40
       }
@@ -156,7 +156,7 @@
 
          dlag2s(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             ITER = -2
             GO TO 40
          }
@@ -214,7 +214,7 @@
 
       dgetrf(N, N, A, LDA, IPIV, INFO );
 
-      if (INFO.NE.0) RETURN;
+      if (INFO != 0) RETURN;
 
       dlacpy('All', N, NRHS, B, LDB, X, LDX );
       dgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );

@@ -85,7 +85,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHPEVD', -INFO );
          RETURN
       } else if ( LQUERY ) {

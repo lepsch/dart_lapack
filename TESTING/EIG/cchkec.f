@@ -71,13 +71,13 @@
       }
 
       cget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN );
-      if ( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) {
+      if ( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ) != 0 .OR. NTRSNA( 2 ) != 0 .OR. NTRSNA( 3 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9997 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       }
 
       cget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN );
-      if ( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) {
+      if ( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ) != 0 .OR. NTRSEN( 2 ) != 0 .OR. NTRSEN( 3 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9996 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       }

@@ -88,7 +88,7 @@
       } else if ( LDP.LT.MAX( 1, N ) ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTGEVC', -INFO );
          RETURN
       }
@@ -104,7 +104,7 @@
                GO TO 10
             }
             if ( J.LT.N ) {
-               IF( S( J+1, J ).NE.ZERO ) ILCPLX = true;
+               IF( S( J+1, J ) != ZERO ) ILCPLX = true;
             }
             if ( ILCPLX ) {
                IF( SELECT( J ) .OR. SELECT( J+1 ) ) IM = IM + 2
@@ -121,10 +121,10 @@
       ILABAD = false;
       ILBBAD = false;
       for (J = 1; J <= N - 1; J++) { // 20
-         if ( S( J+1, J ).NE.ZERO ) {
-            IF( P( J, J ) == ZERO .OR. P( J+1, J+1 ) == ZERO .OR. P( J, J+1 ).NE.ZERO )ILBBAD = true;
+         if ( S( J+1, J ) != ZERO ) {
+            IF( P( J, J ) == ZERO .OR. P( J+1, J+1 ) == ZERO .OR. P( J, J+1 ) != ZERO )ILBBAD = true;
             if ( J.LT.N-1 ) {
-               IF( S( J+2, J+1 ).NE.ZERO ) ILABAD = true;
+               IF( S( J+2, J+1 ) != ZERO ) ILABAD = true;
             }
          }
       } // 20
@@ -140,7 +140,7 @@
       } else if ( MM.LT.IM ) {
          INFO = -13
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTGEVC', -INFO );
          RETURN
       }
@@ -216,7 +216,7 @@
             }
             NW = 1
             if ( JE.LT.N ) {
-               if ( S( JE+1, JE ).NE.ZERO ) {
+               if ( S( JE+1, JE ) != ZERO ) {
                   ILCPLX = true;
                   NW = 2
                }
@@ -310,7 +310,7 @@
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
                if (ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
-               if ( SCALE.NE.ONE ) {
+               if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
                   BCOEFR = SCALE*BCOEFR
@@ -357,7 +357,7 @@
                NA = 1
                BDIAG( 1 ) = P( J, J )
                if ( J.LT.N ) {
-                  if ( S( J+1, J ).NE.ZERO ) {
+                  if ( S( J+1, J ) != ZERO ) {
                      IL2BY2 = true;
                      BDIAG( 2 ) = P( J+1, J+1 )
                      NA = 2
@@ -494,7 +494,7 @@
             }
             NW = 1
             if ( JE.GT.1 ) {
-               if ( S( JE, JE-1 ).NE.ZERO ) {
+               if ( S( JE, JE-1 ) != ZERO ) {
                   ILCPLX = true;
                   NW = 2
                }
@@ -596,7 +596,7 @@
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
                if (ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
-               if ( SCALE.NE.ONE ) {
+               if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
                   BCOEFR = SCALE*BCOEFR
@@ -651,7 +651,7 @@
                // next iteration to process it (when it will be j:j+1)
 
                if ( .NOT.IL2BY2 .AND. J.GT.1 ) {
-                  if ( S( J, J-1 ).NE.ZERO ) {
+                  if ( S( J, J-1 ) != ZERO ) {
                      IL2BY2 = true;
                      GO TO 370
                   }

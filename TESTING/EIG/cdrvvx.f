@@ -101,7 +101,7 @@
          INFO = -30
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CDRVVX', -INFO );
          RETURN
       }
@@ -125,7 +125,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 150
          N = NN( JSIZE )
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -268,7 +268,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN

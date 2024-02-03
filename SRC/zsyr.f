@@ -47,7 +47,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = 7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZSYR  ', INFO );
          RETURN
       }
@@ -60,7 +60,7 @@
 
       if ( INCX.LE.0 ) {
          KX = 1 - ( N-1 )*INCX
-      } else if ( INCX.NE.1 ) {
+      } else if ( INCX != 1 ) {
          KX = 1
       }
 
@@ -74,7 +74,7 @@
 
          if ( INCX == 1 ) {
             for (J = 1; J <= N; J++) { // 20
-               if ( X( J ).NE.ZERO ) {
+               if ( X( J ) != ZERO ) {
                   TEMP = ALPHA*X( J )
                   for (I = 1; I <= J; I++) { // 10
                      A( I, J ) = A( I, J ) + X( I )*TEMP
@@ -84,7 +84,7 @@
          } else {
             JX = KX
             for (J = 1; J <= N; J++) { // 40
-               if ( X( JX ).NE.ZERO ) {
+               if ( X( JX ) != ZERO ) {
                   TEMP = ALPHA*X( JX )
                   IX = KX
                   for (I = 1; I <= J; I++) { // 30
@@ -101,7 +101,7 @@
 
          if ( INCX == 1 ) {
             for (J = 1; J <= N; J++) { // 60
-               if ( X( J ).NE.ZERO ) {
+               if ( X( J ) != ZERO ) {
                   TEMP = ALPHA*X( J )
                   for (I = J; I <= N; I++) { // 50
                      A( I, J ) = A( I, J ) + X( I )*TEMP
@@ -111,7 +111,7 @@
          } else {
             JX = KX
             for (J = 1; J <= N; J++) { // 80
-               if ( X( JX ).NE.ZERO ) {
+               if ( X( JX ) != ZERO ) {
                   TEMP = ALPHA*X( JX )
                   IX = JX
                   for (I = J; I <= N; I++) { // 70

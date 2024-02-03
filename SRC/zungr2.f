@@ -40,7 +40,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZUNGR2', -INFO );
          RETURN
       }

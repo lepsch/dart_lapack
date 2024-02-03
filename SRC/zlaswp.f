@@ -38,12 +38,12 @@
       }
 
       N32 = ( N / 32 )*32
-      if ( N32.NE.0 ) {
+      if ( N32 != 0 ) {
          DO 30 J = 1, N32, 32
             IX = IX0
             DO 20 I = I1, I2, INC
                IP = IPIV( IX )
-               if ( IP.NE.I ) {
+               if ( IP != I ) {
                   for (K = J; K <= J + 31; K++) { // 10
                      TEMP = A( I, K )
                      A( I, K ) = A( IP, K )
@@ -54,12 +54,12 @@
             } // 20
          } // 30
       }
-      if ( N32.NE.N ) {
+      if ( N32 != N ) {
          N32 = N32 + 1
          IX = IX0
          DO 50 I = I1, I2, INC
             IP = IPIV( IX )
-            if ( IP.NE.I ) {
+            if ( IP != I ) {
                for (K = N32; K <= N; K++) { // 40
                   TEMP = A( I, K )
                   A( I, K ) = A( IP, K )

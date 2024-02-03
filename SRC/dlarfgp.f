@@ -53,7 +53,7 @@
             TAU = ZERO
          } else {
             // However, the application routines rely on explicit
-            // zero checks when TAU.ne.ZERO, and we must clear X.
+            // zero checks when TAU != ZERO, and we must clear X.
             TAU = TWO
             for (J = 1; J <= N-1; J++) {
                X( 1 + (J-1)*INCX ) = 0

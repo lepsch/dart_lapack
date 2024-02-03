@@ -42,7 +42,7 @@
       } else if ( N.LT.0 ) {
          INFO = -2
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSPTRD', -INFO );
          RETURN
       }
@@ -65,7 +65,7 @@
             slarfg(I, AP( I1+I-1 ), AP( I1 ), 1, TAUI );
             E( I ) = AP( I1+I-1 )
 
-            if ( TAUI.NE.ZERO ) {
+            if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
@@ -107,7 +107,7 @@
             slarfg(N-I, AP( II+1 ), AP( II+2 ), 1, TAUI );
             E( I ) = AP( II+1 )
 
-            if ( TAUI.NE.ZERO ) {
+            if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 

@@ -75,7 +75,7 @@
 
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
-               if ( I.NE.J ) {
+               if ( I != J ) {
                   TMP = ZERO
                } else {
                   TMP = ONE
@@ -91,7 +91,7 @@
 
          for (J = 1; J <= M; J++) { // 40
             for (I = 1; I <= J; I++) { // 30
-               if ( I.NE.J ) {
+               if ( I != J ) {
                   TMP = ZERO
                } else {
                   TMP = ONE

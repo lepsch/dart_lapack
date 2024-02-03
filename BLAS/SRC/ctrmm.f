@@ -67,7 +67,7 @@
       } else if (LDB.LT.MAX(1,M)) {
           INFO = 11
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('CTRMM ',INFO);
           RETURN
       }
@@ -97,7 +97,7 @@
               if (UPPER) {
                   for (J = 1; J <= N; J++) { // 50
                       for (K = 1; K <= M; K++) { // 40
-                          if (B(K,J).NE.ZERO) {
+                          if (B(K,J) != ZERO) {
                               TEMP = ALPHA*B(K,J)
                               for (I = 1; I <= K - 1; I++) { // 30
                                   B(I,J) = B(I,J) + TEMP*A(I,K)
@@ -110,7 +110,7 @@
               } else {
                   for (J = 1; J <= N; J++) { // 80
                       DO 70 K = M,1,-1
-                          if (B(K,J).NE.ZERO) {
+                          if (B(K,J) != ZERO) {
                               TEMP = ALPHA*B(K,J)
                               B(K,J) = TEMP
                               if (NOUNIT) B(K,J) = B(K,J)*A(K,K);
@@ -176,7 +176,7 @@
                           B(I,J) = TEMP*B(I,J)
                       } // 170
                       for (K = 1; K <= J - 1; K++) { // 190
-                          if (A(K,J).NE.ZERO) {
+                          if (A(K,J) != ZERO) {
                               TEMP = ALPHA*A(K,J)
                               for (I = 1; I <= M; I++) { // 180
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
@@ -192,7 +192,7 @@
                           B(I,J) = TEMP*B(I,J)
                       } // 210
                       for (K = J + 1; K <= N; K++) { // 230
-                          if (A(K,J).NE.ZERO) {
+                          if (A(K,J) != ZERO) {
                               TEMP = ALPHA*A(K,J)
                               for (I = 1; I <= M; I++) { // 220
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
@@ -208,7 +208,7 @@
               if (UPPER) {
                   for (K = 1; K <= N; K++) { // 280
                       for (J = 1; J <= K - 1; J++) { // 260
-                          if (A(J,K).NE.ZERO) {
+                          if (A(J,K) != ZERO) {
                               if (NOCONJ) {
                                   TEMP = ALPHA*A(J,K)
                               } else {
@@ -227,7 +227,7 @@
                               TEMP = TEMP*CONJG(A(K,K))
                           }
                       }
-                      if (TEMP.NE.ONE) {
+                      if (TEMP != ONE) {
                           for (I = 1; I <= M; I++) { // 270
                               B(I,K) = TEMP*B(I,K)
                           } // 270
@@ -236,7 +236,7 @@
               } else {
                   DO 320 K = N,1,-1
                       for (J = K + 1; J <= N; J++) { // 300
-                          if (A(J,K).NE.ZERO) {
+                          if (A(J,K) != ZERO) {
                               if (NOCONJ) {
                                   TEMP = ALPHA*A(J,K)
                               } else {
@@ -255,7 +255,7 @@
                               TEMP = TEMP*CONJG(A(K,K))
                           }
                       }
-                      if (TEMP.NE.ONE) {
+                      if (TEMP != ONE) {
                           for (I = 1; I <= M; I++) { // 310
                               B(I,K) = TEMP*B(I,K)
                           } // 310

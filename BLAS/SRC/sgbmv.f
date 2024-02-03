@@ -54,7 +54,7 @@
       } else if (INCY == 0) {
           INFO = 13
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('SGBMV ',INFO);
           RETURN
       }
@@ -89,7 +89,7 @@
 
       // First form  y := beta*y.
 
-      if (BETA.NE.ONE) {
+      if (BETA != ONE) {
           if (INCY == 1) {
               if (BETA == ZERO) {
                   for (I = 1; I <= LENY; I++) { // 10

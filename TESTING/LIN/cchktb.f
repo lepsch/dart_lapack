@@ -199,7 +199,7 @@
 
                      // Check error code from CTBTRS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'CTBTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'CTBTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         ctbt02(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, B, LDA, WORK, RWORK, RESULT( 1 ) );
 
@@ -217,7 +217,7 @@
 
                      // Check error code from CTBRFS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'CTBRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'CTBRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         ctbt05(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
@@ -251,7 +251,7 @@
 
                      // Check error code from CTBCON.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CTBCON', INFO, 0, NORM // UPLO // DIAG, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CTBCON', INFO, 0, NORM // UPLO // DIAG, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      ctbt06(RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, RWORK, RESULT( 6 ) );
 
@@ -299,7 +299,7 @@
 
                      // Check error code from CLATBS.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CLATBS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CLATBS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      ctbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 7 ) );
 
@@ -311,7 +311,7 @@
 
                      // Check error code from CLATBS.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CLATBS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CLATBS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      ctbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 

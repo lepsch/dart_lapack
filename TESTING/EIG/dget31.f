@@ -121,7 +121,7 @@
                               }
                               RES = RES / DEN
                               IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) )RES = ZERO
-                              if (SCALE.GT.ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                               IF( INFO.NE.0 .AND. INFO.NE.1 ) RES = RES + ONE / EPS;
+                              if (SCALE.GT.ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                               IF( INFO != 0 .AND. INFO != 1 ) RES = RES + ONE / EPS;
                               KNT = KNT + 1
                               if ( RES.GT.RMAX ) {
                                  LMAX = KNT
@@ -160,7 +160,7 @@
                                  RES = RES / DEN
                                  IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 1, 2 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) ) RES = ZERO
                                  if (SCALE.GT.ONE) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- ABS( X( 1, 1 ) )- ABS( X( 1, 2 ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
-                                 if (INFO.NE.0 .AND. INFO.NE.1) RES = RES + ONE / EPS;
+                                 if (INFO != 0 .AND. INFO != 1) RES = RES + ONE / EPS;
                                  KNT = KNT + 1
                                  if ( RES.GT.RMAX ) {
                                     LMAX = KNT
@@ -204,7 +204,7 @@
                               RES = RES / DEN
                               IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 2, 1 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) )+ABS( B( 2, 1 ) ).LE. SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) ) RES = ZERO
                               if (SCALE.GT.ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
-                              if (INFO.NE.0 .AND. INFO.NE.1) RES = RES + ONE / EPS;
+                              if (INFO != 0 .AND. INFO != 1) RES = RES + ONE / EPS;
                               KNT = KNT + 1
                               if ( RES.GT.RMAX ) {
                                  LMAX = KNT
@@ -255,7 +255,7 @@
                                  RES = RES / DEN
                                  IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 2, 1 ) ).LT.UNFL .AND. ABS( X( 1, 2 ) ).LT.UNFL .AND. ABS( X( 2, 2 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) )+ ABS( B( 2, 1 ) ).LE.SMLNUM* ( ABS( CA*A( 1, 1 )-WR*D1 )+ ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 )+ABS( WI* D1 ) ) )RES = ZERO
                                  if (SCALE.GT.ONE) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) )+ABS( X( 2, 2 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
-                                 if (INFO.NE.0 .AND. INFO.NE.1) RES = RES + ONE / EPS;
+                                 if (INFO != 0 .AND. INFO != 1) RES = RES + ONE / EPS;
                                  KNT = KNT + 1
                                  if ( RES.GT.RMAX ) {
                                     LMAX = KNT

@@ -59,7 +59,7 @@
       } else if ( ( NCC == 0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
          INFO = -14
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLASDQ', -INFO );
          RETURN
       }
@@ -165,7 +165,7 @@
                SMIN = D( J )
             }
          } // 30
-         if ( ISUB.NE.I ) {
+         if ( ISUB != I ) {
 
             // Swap singular values and vectors.
 

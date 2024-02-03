@@ -108,7 +108,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHEEVR', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -321,7 +321,7 @@
                }
             } // 40
 
-            if ( I.NE.0 ) {
+            if ( I != 0 ) {
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )

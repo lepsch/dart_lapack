@@ -52,7 +52,7 @@
       } else if (INCX == 0) {
           INFO = 9
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('CTBMV ',INFO);
           RETURN
       }
@@ -69,7 +69,7 @@
 
       if (INCX.LE.0) {
           KX = 1 - (N-1)*INCX
-      } else if (INCX.NE.1) {
+      } else if (INCX != 1) {
           KX = 1
       }
 
@@ -84,7 +84,7 @@
               KPLUS1 = K + 1
               if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 20
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           TEMP = X(J)
                           L = KPLUS1 - J
                           DO 10 I = MAX(1,J-K),J - 1
@@ -96,7 +96,7 @@
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 40
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           TEMP = X(JX)
                           IX = KX
                           L = KPLUS1 - J
@@ -113,7 +113,7 @@
           } else {
               if (INCX == 1) {
                   DO 60 J = N,1,-1
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           TEMP = X(J)
                           L = 1 - J
                           DO 50 I = MIN(N,J+K),J + 1,-1
@@ -126,7 +126,7 @@
                   KX = KX + (N-1)*INCX
                   JX = KX
                   DO 80 J = N,1,-1
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           TEMP = X(JX)
                           IX = KX
                           L = 1 - J

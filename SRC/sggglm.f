@@ -73,7 +73,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGGGLM', -INFO );
          RETURN
       } else if ( LQUERY ) {

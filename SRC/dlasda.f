@@ -44,7 +44,7 @@
       } else if ( LDGCOL.LT.N ) {
          INFO = -17
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLASDA', -INFO );
          RETURN
       }
@@ -117,7 +117,7 @@
             dcopy(NLP1, VT( NLF, 1 ), 1, WORK( VFI ), 1 );
             dcopy(NLP1, VT( NLF, NLP1 ), 1, WORK( VLI ), 1 );
          }
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RETURN
          }
          for (J = 1; J <= NL; J++) { // 10
@@ -145,7 +145,7 @@
             dcopy(NRP1, VT( NRF, 1 ), 1, WORK( VFI ), 1 );
             dcopy(NRP1, VT( NRF, NRP1 ), 1, WORK( VLI ), 1 );
          }
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RETURN
          }
          for (J = 1; J <= NR; J++) { // 20
@@ -192,7 +192,7 @@
                J = J - 1
                dlasd6(ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK( NWORK1 ), IWORK( IWK ), INFO );
             }
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                RETURN
             }
          } // 40

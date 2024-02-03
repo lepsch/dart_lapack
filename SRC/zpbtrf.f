@@ -53,7 +53,7 @@
       } else if ( LDAB.LT.KD+1 ) {
          INFO = -5
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZPBTRF', -INFO );
          RETURN
       }
@@ -102,7 +102,7 @@
                // Factorize the diagonal block
 
                zpotf2(UPLO, IB, AB( KD+1, I ), LDAB-1, II );
-               if ( II.NE.0 ) {
+               if ( II != 0 ) {
                   INFO = I + II - 1
                   GO TO 150
                }
@@ -190,7 +190,7 @@
                // Factorize the diagonal block
 
                zpotf2(UPLO, IB, AB( 1, I ), LDAB-1, II );
-               if ( II.NE.0 ) {
+               if ( II != 0 ) {
                   INFO = I + II - 1
                   GO TO 150
                }

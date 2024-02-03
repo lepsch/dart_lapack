@@ -182,7 +182,7 @@
 
                         // Check the error code from ZLATMS.
 
-                        if ( INFO.NE.0 ) {
+                        if ( INFO != 0 ) {
                            alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 120
                         }
@@ -249,7 +249,7 @@
 
                         // Check error code from ZGBTRF.
 
-                        if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGBTRF', INFO, IZERO, ' ', M, N, KL, KU, NB, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) CALL ALAERH( PATH, 'ZGBTRF', INFO, IZERO, ' ', M, N, KL, KU, NB, IMAT, NFAIL, NERRS, NOUT );
                         TRFCON = false;
 
 *+    TEST 1
@@ -268,9 +268,9 @@
                         NRUN = NRUN + 1
 
                         // Skip the remaining tests if this is not the
-                        // first block size or if M .ne. N.
+                        // first block size or if M != N.
 
-                        if (INB.GT.1 .OR. M.NE.N) GO TO 110;
+                        if (INB.GT.1 .OR. M != N) GO TO 110;
 
                         ANORMO = ZLANGB( 'O', N, KL, KU, A, LDA, RWORK )
                         ANORMI = ZLANGB( 'I', N, KL, KU, A, LDA, RWORK )
@@ -305,7 +305,7 @@
                            }
                         } else {
 
-                           // Do only the condition estimate if INFO.NE.0.
+                           // Do only the condition estimate if INFO != 0.
 
                            TRFCON = true;
                            RCONDO = ZERO
@@ -343,7 +343,7 @@
 
                               // Check error code from ZGBTRS.
 
-                              if (INFO.NE.0) CALL ALAERH( PATH, 'ZGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
+                              if (INFO != 0) CALL ALAERH( PATH, 'ZGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
                               zlacpy('Full', N, NRHS, B, LDB, WORK, LDB );
                               zgbt02(TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
@@ -363,7 +363,7 @@
 
                               // Check error code from ZGBRFS.
 
-                              if (INFO.NE.0) CALL ALAERH( PATH, 'ZGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                              if (INFO != 0) CALL ALAERH( PATH, 'ZGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               zget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) );
                               zgbt05(TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -400,7 +400,7 @@
 
                               // Check error code from ZGBCON.
 
-                           if (INFO.NE.0) CALL ALAERH( PATH, 'ZGBCON', INFO, 0, NORM, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != 0) CALL ALAERH( PATH, 'ZGBCON', INFO, 0, NORM, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
                            RESULT( 7 ) = DGET06( RCOND, RCONDC )
 

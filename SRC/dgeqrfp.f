@@ -53,7 +53,7 @@
       } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
          INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGEQRFP', -INFO );
          RETURN
       } else if ( LQUERY ) {

@@ -72,7 +72,7 @@
       dtrexc('N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1 );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I == J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS
+            IF( I == J .AND. Q( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J .AND. Q( I, J ) != ZERO ) RES = RES + ONE / EPS
          } // 30
       } // 40
 
@@ -85,14 +85,14 @@
 
       for (I = 1; I <= N; I++) { // 60
          for (J = 1; J <= N; J++) { // 50
-            IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS
+            IF( T1( I, J ) != T2( I, J ) ) RES = RES + ONE / EPS
          } // 50
       } // 60
-      if (IFST1.NE.IFST2) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( INFO1.NE.INFO2 ) RES = RES + ONE / EPS;
+      if (IFST1 != IFST2) RES = RES + ONE / EPS       IF( ILST1 != ILST2 ) RES = RES + ONE / EPS       IF( INFO1 != INFO2 ) RES = RES + ONE / EPS;
 
       // Test for successful reordering of T2
 
-      if ( INFO2.NE.0 ) {
+      if ( INFO2 != 0 ) {
          NINFO( INFO2 ) = NINFO( INFO2 ) + 1
       } else {
          IF( ABS( IFST2-IFSTSV ).GT.1 ) RES = RES + ONE / EPS          IF( ABS( ILST2-ILSTSV ).GT.1 ) RES = RES + ONE / EPS
@@ -107,13 +107,13 @@
 
       LOC = 1
       } // 70
-      if ( T2( LOC+1, LOC ).NE.ZERO ) {
+      if ( T2( LOC+1, LOC ) != ZERO ) {
 
          // 2 by 2 block
 
-         IF( T2( LOC, LOC+1 ) == ZERO .OR. T2( LOC, LOC ).NE. T2( LOC+1, LOC+1 ) .OR. SIGN( ONE, T2( LOC, LOC+1 ) ) == SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
+         IF( T2( LOC, LOC+1 ) == ZERO .OR. T2( LOC, LOC ) != T2( LOC+1, LOC+1 ) .OR. SIGN( ONE, T2( LOC, LOC+1 ) ) == SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
          for (I = LOC + 2; I <= N; I++) { // 80
-            IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES             IF( T2( I, LOC+1 ).NE.ZERO ) RES = RES + ONE / RES
+            IF( T2( I, LOC ) != ZERO ) RES = RES + ONE / RES             IF( T2( I, LOC+1 ) != ZERO ) RES = RES + ONE / RES
          } // 80
          LOC = LOC + 2
       } else {
@@ -121,7 +121,7 @@
          // 1 by 1 block
 
          for (I = LOC + 1; I <= N; I++) { // 90
-            IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES
+            IF( T2( I, LOC ) != ZERO ) RES = RES + ONE / RES
          } // 90
          LOC = LOC + 1
       }

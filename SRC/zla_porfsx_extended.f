@@ -60,7 +60,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (INFO.NE.0) RETURN;
+      if (INFO != 0) RETURN;
       EPS = DLAMCH( 'Epsilon' )
       HUGEVAL = DLAMCH( 'Overflow' )
       // Force HUGEVAL to Inf
@@ -127,9 +127,9 @@
                YK = CABS1(Y(I, J))
                DYK = CABS1(DY(I))
 
-               if (YK .NE. 0.0D+0) {
+               if (YK != 0.0D+0) {
                   DZ_Z = MAX( DZ_Z, DYK / YK )
-               } else if (DYK .NE. 0.0D+0) {
+               } else if (DYK != 0.0D+0) {
                   DZ_Z = HUGEVAL
                }
 
@@ -146,7 +146,7 @@
                }
             }
 
-            if (NORMX .NE. 0.0D+0) {
+            if (NORMX != 0.0D+0) {
                DX_X = NORMDX / NORMX
             } else if (NORMDX == 0.0D+0) {
                DX_X = 0.0D+0
@@ -165,7 +165,7 @@
                if (DX_X .LE. EPS) {
                   X_STATE = CONV_STATE
                } else if (DXRAT .GT. RTHRESH) {
-                  if (Y_PREC_STATE .NE. EXTRA_Y) {
+                  if (Y_PREC_STATE != EXTRA_Y) {
                      INCR_PREC = true;
                   } else {
                      X_STATE = NOPROG_STATE
@@ -184,7 +184,7 @@
                   DZRATMAX = 0.0D+0
                   FINAL_DZ_Z = HUGEVAL
                } else if (DZRAT .GT. RTHRESH) {
-                  if (Y_PREC_STATE .NE. EXTRA_Y) {
+                  if (Y_PREC_STATE != EXTRA_Y) {
                      INCR_PREC = true;
                   } else {
                      Z_STATE = NOPROG_STATE
@@ -194,7 +194,7 @@
                }
                if (Z_STATE .GT. WORKING_STATE) FINAL_DZ_Z = DZ_Z;
             }
-             IF ( X_STATE.NE.WORKING_STATE.AND. (IGNORE_CWISE.OR.Z_STATE.NE.WORKING_STATE) ) GOTO 666
+             IF ( X_STATE != WORKING_STATE.AND. (IGNORE_CWISE.OR.Z_STATE != WORKING_STATE) ) GOTO 666
 
             if (INCR_PREC) {
                INCR_PREC = false;

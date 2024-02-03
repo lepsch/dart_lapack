@@ -108,7 +108,7 @@
 
                // Check the error code from ZLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110
                }
@@ -216,7 +216,7 @@
 
             // Check error code from ZPTTRF.
 
-            if ( INFO.NE.IZERO ) {
+            if ( INFO != IZERO ) {
                alaerh(PATH, 'ZPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 110
             }
@@ -286,7 +286,7 @@
 
                // Check error code from ZPTTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   zptt02(UPLO, N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -304,7 +304,7 @@
 
                // Check error code from ZPTRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                   zptt05(N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -333,7 +333,7 @@
 
             // Check error code from ZPTCON.
 
-            if (INFO.NE.0) CALL ALAERH( PATH, 'ZPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+            if (INFO != 0) CALL ALAERH( PATH, 'ZPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
             RESULT( 7 ) = DGET06( RCOND, RCONDC )
 

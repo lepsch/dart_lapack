@@ -133,7 +133,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
 
          xerbla('SSTEMR', -INFO );
 
@@ -192,8 +192,8 @@
                   Z( 2, M ) = CS
                }
                // Note: At most one of SN and CS can be zero.
-               if (SN.NE.ZERO) {
-                  if (CS.NE.ZERO) {
+               if (SN != ZERO) {
+                  if (CS != ZERO) {
                      ISUPPZ(2*M-1) = 1
                      ISUPPZ(2*M) = 2
                   } else {
@@ -218,8 +218,8 @@
                   Z( 2, M ) = SN
                }
                // Note: At most one of SN and CS can be zero.
-               if (SN.NE.ZERO) {
-                  if (CS.NE.ZERO) {
+               if (SN != ZERO) {
+                  if (CS != ZERO) {
                      ISUPPZ(2*M-1) = 1
                      ISUPPZ(2*M) = 2
                   } else {
@@ -261,7 +261,7 @@
          } else if ( TNRM.GT.RMAX ) {
             SCALE = RMAX / TNRM
          }
-         if ( SCALE.NE.ONE ) {
+         if ( SCALE != ONE ) {
             sscal(N, SCALE, D, 1 );
             sscal(N-1, SCALE, E, 1 );
             TNRM = TNRM*SCALE
@@ -320,11 +320,11 @@
             RTOL2 = MAX( SQRT(EPS)*5.0E-3, FOUR * EPS )
          }
          slarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = 10 + ABS( IINFO )
             RETURN
          }
-         // Note that if RANGE .NE. 'V', SLARRE computes bounds on the desired
+         // Note that if RANGE != 'V', SLARRE computes bounds on the desired
          // part of the spectrum. All desired eigenvalues are contained in
          // (WL,WU]
 
@@ -335,7 +335,7 @@
             // eigenvalues
 
             slarrv(N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                INFO = 20 + ABS( IINFO )
                RETURN
             }
@@ -386,7 +386,7 @@
 
          // If matrix was scaled, then rescale eigenvalues appropriately.
 
-         if ( SCALE.NE.ONE ) {
+         if ( SCALE != ONE ) {
             sscal(M, ONE / SCALE, W, 1 );
          }
       }
@@ -397,7 +397,7 @@
       if ( NSPLIT.GT.1 .OR. N == 2 ) {
          if ( .NOT. WANTZ ) {
             slasrt('I', M, W, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                INFO = 3
                RETURN
             }
@@ -411,7 +411,7 @@
                      TMP = W( JJ )
                   }
                } // 50
-               if ( I.NE.0 ) {
+               if ( I != 0 ) {
                   W( I ) = W( J )
                   W( J ) = TMP
                   if ( WANTZ ) {

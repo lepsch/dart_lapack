@@ -62,7 +62,7 @@
       } else if (LDC.LT.MAX(1,N)) {
           INFO = 12
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('ZSYR2K',INFO);
           RETURN
       }
@@ -118,13 +118,13 @@
                       for (I = 1; I <= J; I++) { // 90
                           C(I,J) = ZERO
                       } // 90
-                  } else if (BETA.NE.ONE) {
+                  } else if (BETA != ONE) {
                       for (I = 1; I <= J; I++) { // 100
                           C(I,J) = BETA*C(I,J)
                       } // 100
                   }
                   for (L = 1; L <= K; L++) { // 120
-                      if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
+                      if ((A(J,L) != ZERO) .OR. (B(J,L) != ZERO)) {
                           TEMP1 = ALPHA*B(J,L)
                           TEMP2 = ALPHA*A(J,L)
                           for (I = 1; I <= J; I++) { // 110
@@ -139,13 +139,13 @@
                       for (I = J; I <= N; I++) { // 140
                           C(I,J) = ZERO
                       } // 140
-                  } else if (BETA.NE.ONE) {
+                  } else if (BETA != ONE) {
                       for (I = J; I <= N; I++) { // 150
                           C(I,J) = BETA*C(I,J)
                       } // 150
                   }
                   for (L = 1; L <= K; L++) { // 170
-                      if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
+                      if ((A(J,L) != ZERO) .OR. (B(J,L) != ZERO)) {
                           TEMP1 = ALPHA*B(J,L)
                           TEMP2 = ALPHA*A(J,L)
                           for (I = J; I <= N; I++) { // 160

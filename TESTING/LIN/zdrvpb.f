@@ -150,7 +150,7 @@
 
                      // Check error code from ZLATMS.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 80
                      }
@@ -320,10 +320,10 @@
 
                            // Check error code from ZPBSV .
 
-                           if ( INFO.NE.IZERO ) {
+                           if ( INFO != IZERO ) {
                               alaerh(PATH, 'ZPBSV ', INFO, IZERO, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
                               GO TO 40
-                           } else if ( INFO.NE.0 ) {
+                           } else if ( INFO != 0 ) {
                               GO TO 40
                            }
 
@@ -375,7 +375,7 @@
 
                         // Check the error code from ZPBSVX.
 
-                        if ( INFO.NE.IZERO ) {
+                        if ( INFO != IZERO ) {
                            alaerh(PATH, 'ZPBSVX', INFO, IZERO, FACT // UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 60
                         }

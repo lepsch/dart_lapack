@@ -145,7 +145,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGGESX', -INFO );
          RETURN
       } else if (LQUERY) {
@@ -242,7 +242,7 @@
 
       IWRK = ITAU
       shgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR );
-      if ( IERR.NE.0 ) {
+      if ( IERR != 0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
          } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
@@ -312,7 +312,7 @@
 
       if ( ILASCL ) {
          for (I = 1; I <= N; I++) { // 20
-            if ( ALPHAI( I ).NE.ZERO ) {
+            if ( ALPHAI( I ) != ZERO ) {
                if ( ( ALPHAR( I ) / SAFMAX ).GT.( ANRMTO / ANRM ) .OR. ( SAFMIN / ALPHAR( I ) ).GT.( ANRM / ANRMTO ) ) {
                   WORK( 1 ) = ABS( A( I, I ) / ALPHAR( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
@@ -330,7 +330,7 @@
 
       if ( ILBSCL ) {
          for (I = 1; I <= N; I++) { // 25
-            if ( ALPHAI( I ).NE.ZERO ) {
+            if ( ALPHAI( I ) != ZERO ) {
                if ( ( BETA( I ) / SAFMAX ).GT.( BNRMTO / BNRM ) .OR. ( SAFMIN / BETA( I ) ).GT.( BNRM / BNRMTO ) ) {
                   WORK( 1 ) = ABS( B( I, I ) / BETA( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )

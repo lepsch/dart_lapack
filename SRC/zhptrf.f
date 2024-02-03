@@ -56,7 +56,7 @@
       } else if ( N.LT.0 ) {
          INFO = -2
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHPTRF', -INFO );
          RETURN
       }
@@ -154,7 +154,7 @@
 
             KK = K - KSTEP + 1
             if (KSTEP == 2) KNC = KNC - K + 1;
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
@@ -344,7 +344,7 @@
 
             KK = K + KSTEP - 1
             if (KSTEP == 2) KNC = KNC + N - K + 1;
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)

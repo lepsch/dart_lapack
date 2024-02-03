@@ -92,7 +92,7 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CUNMBR', -INFO );
          RETURN
       } else if ( LQUERY ) {

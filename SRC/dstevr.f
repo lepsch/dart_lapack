@@ -90,7 +90,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSTEVR', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -240,7 +240,7 @@
                }
             } // 20
 
-            if ( I.NE.0 ) {
+            if ( I != 0 ) {
                ITMP1 = IWORK( I )
                W( I ) = W( J )
                IWORK( I ) = IWORK( J )

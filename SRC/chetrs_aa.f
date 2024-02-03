@@ -59,7 +59,7 @@
       } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHETRS_AA', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -84,7 +84,7 @@
             K = 1
             DO WHILE ( K.LE.N )
                KP = IPIV( K )
-               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+               if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1
             }
 
@@ -118,7 +118,7 @@
             K = N
             DO WHILE ( K.GE.1 )
                KP = IPIV( K )
-               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+               if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1
             }
          }
@@ -136,7 +136,7 @@
             K = 1
             DO WHILE ( K.LE.N )
                KP = IPIV( K )
-               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+               if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1
             }
 
@@ -170,7 +170,7 @@
             K = N
             DO WHILE ( K.GE.1 )
                KP = IPIV( K )
-               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+               if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1
             }
          }

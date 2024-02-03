@@ -44,7 +44,7 @@
       } else if ( LDDIFR.LT.K ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLASD8', -INFO );
          RETURN
       }
@@ -87,7 +87,7 @@
 
          // If the root finder fails, report the convergence failure.
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RETURN
          }
          WORK( IWK3I+J ) = WORK( IWK3I+J )*WORK( J )*WORK( IWK2I+J )

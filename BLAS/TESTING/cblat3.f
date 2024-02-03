@@ -162,14 +162,14 @@ void main() {
       TRANSB = 'N'
       cmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
+      if ( .NOT.SAME.OR.ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'C'
       cmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
+      if ( .NOT.SAME.OR.ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
@@ -184,14 +184,14 @@ void main() {
       TRANSB = 'N'
       cmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
+      if ( .NOT.SAME.OR.ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'C'
       cmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LCE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
+      if ( .NOT.SAME.OR.ERR != RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
@@ -2597,7 +2597,7 @@ void main() {
          for (I = 1; I <= M; I++) { // 10
             if ( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) {
                A( I, J ) = CBEG( RESET ) + TRANSL
-               if ( I.NE.J ) {
+               if ( I != J ) {
                   // Set some elements to zero
                   if (N.GT.3.AND.J == N/2) A( I, J ) = ZERO;
                   if ( HER ) {
@@ -2797,7 +2797,7 @@ void main() {
          ERR = ZERO
          for (I = 1; I <= M; I++) { // 210
             ERRI = ABS1( CT( I ) - CC( I, J ) )/EPS
-            IF( G( I ).NE.RZERO ) ERRI = ERRI/G( I )
+            IF( G( I ) != RZERO ) ERRI = ERRI/G( I )
             ERR = MAX( ERR, ERRI )
             IF( ERR*SQRT( EPS ).GE.RONE ) GO TO 230
          } // 210
@@ -2850,7 +2850,7 @@ void main() {
       int                I;
       // .. Executable Statements ..
       for (I = 1; I <= LR; I++) { // 10
-         IF( RI( I ).NE.RJ( I ) ) GO TO 20
+         IF( RI( I ) != RJ( I ) ) GO TO 20
       } // 10
       LCE = true;
       GO TO 30
@@ -2889,7 +2889,7 @@ void main() {
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = M + 1; I <= LDA; I++) { // 10
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 10
          } // 20
       } else if ( TYPE == 'HE'.OR.TYPE == 'SY' ) {
@@ -2902,10 +2902,10 @@ void main() {
                IEND = N
             }
             for (I = 1; I <= IBEG - 1; I++) { // 30
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 30
             for (I = IEND + 1; I <= LDA; I++) { // 40
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 40
          } // 50
       }
@@ -3052,15 +3052,15 @@ void main() {
       // COMMON /SRNAMC/SRNAMT
       // .. Executable Statements ..
       LERR = true;
-      if ( INFO.NE.INFOT ) {
-         if ( INFOT.NE.0 ) {
+      if ( INFO != INFOT ) {
+         if ( INFOT != 0 ) {
             WRITE( NOUT, FMT = 9999 )INFO, INFOT
          } else {
             WRITE( NOUT, FMT = 9997 )INFO
          }
          OK = false;
       }
-      if ( SRNAME.NE.SRNAMT ) {
+      if ( SRNAME != SRNAMT ) {
          WRITE( NOUT, FMT = 9998 )SRNAME, SRNAMT
          OK = false;
       }

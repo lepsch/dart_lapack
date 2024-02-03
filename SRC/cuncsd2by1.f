@@ -218,7 +218,7 @@
             INFO = -21
          }
       }
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('CUNCSD2BY1', -INFO );
          RETURN
       } else if ( LQUERY ) {

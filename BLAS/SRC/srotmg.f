@@ -100,7 +100,7 @@
          }
 
       // PROCEDURE..SCALE-CHECK
-         if (SD1.NE.ZERO) {
+         if (SD1 != ZERO) {
             DO WHILE ((SD1.LE.RGAMSQ) .OR. (SD1.GE.GAMSQ))
                if (SFLAG == ZERO) {
                   SH11 = ONE
@@ -125,7 +125,7 @@
             }
          }
 
-         if (SD2.NE.ZERO) {
+         if (SD2 != ZERO) {
             DO WHILE ( (ABS(SD2).LE.RGAMSQ) .OR. (ABS(SD2).GE.GAMSQ) )
                if (SFLAG == ZERO) {
                   SH11 = ONE

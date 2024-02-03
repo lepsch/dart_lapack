@@ -120,7 +120,7 @@
 
                // Check error code from DLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 150
                }
@@ -206,11 +206,11 @@
                if ( K.GT.0 ) {
                   } // 100
                   if ( IWORK( K ).LT.0 ) {
-                     if ( IWORK( K ).NE.-K ) {
+                     if ( IWORK( K ) != -K ) {
                         K = -IWORK( K )
                         GO TO 100
                      }
-                  } else if ( IWORK( K ).NE.K ) {
+                  } else if ( IWORK( K ) != K ) {
                      K = IWORK( K )
                      GO TO 100
                   }
@@ -218,8 +218,8 @@
 
                // Check error code from DSPTRF.
 
-               if (INFO.NE.K) CALL ALAERH( PATH, 'DSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-               if ( INFO.NE.0 ) {
+               if (INFO != K) CALL ALAERH( PATH, 'DSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if ( INFO != 0 ) {
                   TRFCON = true;
                } else {
                   TRFCON = false;
@@ -241,7 +241,7 @@
 
                // Check error code from DSPTRI.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'DSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'DSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   dppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                   NT = 2
@@ -280,7 +280,7 @@
 
                // Check error code from DSPTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'DSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'DSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   dppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -298,7 +298,7 @@
 
                // Check error code from DSPRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'DSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'DSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                   dppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -325,7 +325,7 @@
 
                // Check error code from DSPCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'DSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'DSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = DGET06( RCOND, RCONDC )
 

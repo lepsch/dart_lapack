@@ -67,7 +67,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTRRFS', -INFO );
          RETURN
       }
@@ -244,7 +244,7 @@
          KASE = 0
          } // 210
          dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
-         if ( KASE.NE.0 ) {
+         if ( KASE != 0 ) {
             if ( KASE == 1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
@@ -271,7 +271,7 @@
          for (I = 1; I <= N; I++) { // 240
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
          } // 240
-         if (LSTRES.NE.ZERO) FERR( J ) = FERR( J ) / LSTRES;
+         if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 
       } // 250
 

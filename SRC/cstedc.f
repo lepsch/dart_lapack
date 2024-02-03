@@ -98,7 +98,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CSTEDC', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -109,7 +109,7 @@
 
       if (N == 0) RETURN;
       if ( N == 1 ) {
-         if (ICOMPZ.NE.0) Z( 1, 1 ) = ONE;
+         if (ICOMPZ != 0) Z( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -235,7 +235,7 @@
                  P = D( J )
               }
            } // 50
-           if ( K.NE.I ) {
+           if ( K != I ) {
               D( K ) = D( I )
               D( I ) = P
               cswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );

@@ -83,7 +83,7 @@
          INFO = 0
       }
 
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
         // #:(
          xerbla('SGEJSV', - INFO );
          RETURN
@@ -151,7 +151,7 @@
       AAQQ = BIG
       for (p = 1; p <= N; p++) { // 4781
          AAPP = MAX( AAPP, SVA(p) )
-         IF ( SVA(p) .NE. ZERO ) AAQQ = MIN( AAQQ, SVA(p) )
+         IF ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) )
       } // 4781
 
       // Quick return for zero M x N matrix
@@ -195,7 +195,7 @@
             slascl('G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR );
             slacpy('A', M, 1, A, LDA, U, LDU );
             // computing all M left singular vectors of the M x 1 matrix
-            if ( N1 .NE. N  ) {
+            if ( N1 != N  ) {
                sgeqrf(M, N, U,LDU, WORK, WORK(N+1),LWORK-N,IERR );
                sorgqr(M,N1,1, U,LDU,WORK,WORK(N+1),LWORK-N,IERR );
                scopy(M, A(1,1), 1, U(1,1), 1 );
@@ -210,7 +210,7 @@
          }
          WORK(1) = ONE / SCALEM
          WORK(2) = ONE
-         if ( SVA(1) .NE. ZERO ) {
+         if ( SVA(1) != ZERO ) {
             IWORK(1) = 1
             if ( ( SVA(1) / SCALEM) .GE. SFMIN ) {
                IWORK(2) = 1
@@ -257,7 +257,7 @@
                WORK(M+N+p)  = XSC * SCALEM
                WORK(N+p)    = XSC * (SCALEM*SQRT(TEMP1))
                AATMAX = MAX( AATMAX, WORK(N+p) )
-               IF (WORK(N+p) .NE. ZERO) AATMIN = MIN(AATMIN,WORK(N+p))
+               IF (WORK(N+p) != ZERO) AATMIN = MIN(AATMIN,WORK(N+p))
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
@@ -288,7 +288,7 @@
          ENTRA = ZERO
          for (p = 1; p <= N; p++) { // 1113
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1
-            if (BIG1 .NE. ZERO) ENTRA = ENTRA + BIG1 * ALOG(BIG1);
+            if (BIG1 != ZERO) ENTRA = ENTRA + BIG1 * ALOG(BIG1);
          } // 1113
          ENTRA = - ENTRA / ALOG(FLOAT(N))
 
@@ -301,7 +301,7 @@
          ENTRAT = ZERO
          for (p = N+1; p <= N+M; p++) { // 1114
             BIG1 = ( ( WORK(p) / XSC )**2 ) * TEMP1
-            if (BIG1 .NE. ZERO) ENTRAT = ENTRAT + BIG1 * ALOG(BIG1);
+            if (BIG1 != ZERO) ENTRAT = ENTRAT + BIG1 * ALOG(BIG1);
          } // 1114
          ENTRAT = - ENTRAT / ALOG(FLOAT(M))
 
@@ -412,7 +412,7 @@
          for (p = 1; p <= M - 1; p++) { // 1952
             q = ISAMAX( M-p+1, WORK(M+N+p), 1 ) + p - 1
             IWORK(2*N+p) = q
-            if ( p .NE. q ) {
+            if ( p != q ) {
                TEMP1       = WORK(M+N+p)
                WORK(M+N+p) = WORK(M+N+q)
                WORK(M+N+q) = TEMP1
@@ -798,7 +798,7 @@
                   } // 3959
                }
 
-               if (NR .NE. N) CALL SLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N );
+               if (NR != N) CALL SLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N );
                // .. save ...
 
             // .. this transposed copy should be better than naive

@@ -46,7 +46,7 @@
          INFO = -1
       } else if ( NR.LT.1 ) {
          INFO = -2
-      } else if ( ( SQRE.NE.1 ) .AND. ( SQRE.NE.0 ) ) {
+      } else if ( ( SQRE != 1 ) .AND. ( SQRE != 0 ) ) {
          INFO = -3
       }
 
@@ -62,7 +62,7 @@
       } else if ( LDVT2.LT.M ) {
          INFO = -17
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLASD2', -INFO );
          RETURN
       }
@@ -206,7 +206,7 @@
             }
             drot(N, U( 1, IDXJP ), 1, U( 1, IDXJ ), 1, C, S );
             drot(M, VT( IDXJP, 1 ), LDVT, VT( IDXJ, 1 ), LDVT, C, S );
-            if ( COLTYP( J ).NE.COLTYP( JPREV ) ) {
+            if ( COLTYP( J ) != COLTYP( JPREV ) ) {
                COLTYP( J ) = 3
             }
             COLTYP( JPREV ) = 4

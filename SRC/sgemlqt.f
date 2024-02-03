@@ -66,7 +66,7 @@
          INFO = -12
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGEMLQT', -INFO );
          RETURN
       }

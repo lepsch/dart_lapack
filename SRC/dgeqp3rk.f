@@ -121,7 +121,7 @@
        // NOTE: The optimal workspace size is returned in WORK(1), if
              // the input parameters M, N, NRHS, KMAX, LDA are valid.
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGEQP3RK', -INFO );
          RETURN
       } else if ( LQUERY ) {

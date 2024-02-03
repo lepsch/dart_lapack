@@ -101,7 +101,7 @@
             INFO = -11
          }
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTREVC', -INFO );
          RETURN
       }
@@ -160,7 +160,7 @@
 
             WR = T( KI, KI )
             WI = ZERO
-            if (IP.NE.0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
+            if (IP != 0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
             if ( IP == 0 ) {
@@ -185,7 +185,7 @@
                   J2 = J
                   JNXT = J - 1
                   if ( J.GT.1 ) {
-                     if ( T( J, J-1 ).NE.ZERO ) {
+                     if ( T( J, J-1 ) != ZERO ) {
                         J1 = J - 1
                         JNXT = J - 2
                      }
@@ -209,7 +209,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE.NE.ONE) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 );
+                     if (SCALE != ONE) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 );
                      WORK( J+N ) = X( 1, 1 )
 
                      // Update right-hand side
@@ -236,7 +236,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE.NE.ONE) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 );
+                     if (SCALE != ONE) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 );
                      WORK( J-1+N ) = X( 1, 1 )
                      WORK( J+N ) = X( 2, 1 )
 
@@ -302,7 +302,7 @@
                   J2 = J
                   JNXT = J - 1
                   if ( J.GT.1 ) {
-                     if ( T( J, J-1 ).NE.ZERO ) {
+                     if ( T( J, J-1 ) != ZERO ) {
                         J1 = J - 1
                         JNXT = J - 2
                      }
@@ -327,7 +327,7 @@
 
                      // Scale if necessary
 
-                     if ( SCALE.NE.ONE ) {
+                     if ( SCALE != ONE ) {
                         dscal(KI, SCALE, WORK( 1+N ), 1 );
                         dscal(KI, SCALE, WORK( 1+N2 ), 1 );
                      }
@@ -362,7 +362,7 @@
 
                      // Scale if necessary
 
-                     if ( SCALE.NE.ONE ) {
+                     if ( SCALE != ONE ) {
                         dscal(KI, SCALE, WORK( 1+N ), 1 );
                         dscal(KI, SCALE, WORK( 1+N2 ), 1 );
                      }
@@ -421,7 +421,7 @@
             }
 
             IS = IS - 1
-            if (IP.NE.0) IS = IS - 1;
+            if (IP != 0) IS = IS - 1;
             } // 130
             if (IP == 1) IP = 0             IF( IP == -1 ) IP = 1;
          } // 140
@@ -447,7 +447,7 @@
 
             WR = T( KI, KI )
             WI = ZERO
-            if (IP.NE.0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
+            if (IP != 0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
             if ( IP == 0 ) {
@@ -475,7 +475,7 @@
                   J2 = J
                   JNXT = J + 1
                   if ( J.LT.N ) {
-                     if ( T( J+1, J ).NE.ZERO ) {
+                     if ( T( J+1, J ) != ZERO ) {
                         J2 = J + 1
                         JNXT = J + 2
                      }
@@ -503,7 +503,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE.NE.ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 );
+                     if (SCALE != ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 );
                      WORK( J+N ) = X( 1, 1 )
                      VMAX = MAX( ABS( WORK( J+N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
@@ -535,7 +535,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE.NE.ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 );
+                     if (SCALE != ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 );
                      WORK( J+N ) = X( 1, 1 )
                      WORK( J+1+N ) = X( 2, 1 )
 
@@ -606,7 +606,7 @@
                   J2 = J
                   JNXT = J + 1
                   if ( J.LT.N ) {
-                     if ( T( J+1, J ).NE.ZERO ) {
+                     if ( T( J+1, J ) != ZERO ) {
                         J2 = J + 1
                         JNXT = J + 2
                      }
@@ -635,7 +635,7 @@
 
                      // Scale if necessary
 
-                     if ( SCALE.NE.ONE ) {
+                     if ( SCALE != ONE ) {
                         dscal(N-KI+1, SCALE, WORK( KI+N ), 1 );
                         dscal(N-KI+1, SCALE, WORK( KI+N2 ), 1 );
                      }
@@ -676,7 +676,7 @@
 
                      // Scale if necessary
 
-                     if ( SCALE.NE.ONE ) {
+                     if ( SCALE != ONE ) {
                         dscal(N-KI+1, SCALE, WORK( KI+N ), 1 );
                         dscal(N-KI+1, SCALE, WORK( KI+N2 ), 1 );
                      }
@@ -730,7 +730,7 @@
             }
 
             IS = IS + 1
-            if (IP.NE.0) IS = IS + 1;
+            if (IP != 0) IS = IS + 1;
             } // 250
             if (IP == -1) IP = 0             IF( IP == 1 ) IP = -1;
 

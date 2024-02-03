@@ -57,7 +57,7 @@
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYTRF_RK', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -125,7 +125,7 @@
          if ( K.LT.N ) {
             DO I = K, ( K - KB + 1 ), -1
                IP = ABS( IPIV( I ) )
-               if ( IP.NE.I ) {
+               if ( IP != I ) {
                   sswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
                }
             }
@@ -199,7 +199,7 @@
          if ( K.GT.1 ) {
             DO I = K, ( K + KB - 1 ), 1
                IP = ABS( IPIV( I ) )
-               if ( IP.NE.I ) {
+               if ( IP != I ) {
                   sswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                }
             }

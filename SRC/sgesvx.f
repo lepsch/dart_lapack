@@ -110,7 +110,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGESVX', -INFO );
          RETURN
       }

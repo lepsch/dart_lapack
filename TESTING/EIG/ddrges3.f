@@ -103,7 +103,7 @@
 
       if (LWORK.LT.MINWRK) INFO = -20;
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DDRGES3', -INFO );
          RETURN
       }
@@ -135,7 +135,7 @@
          RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 )
          RMAGN( 3 ) = SAFMIN*ULPINV*DBLE( N1 )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -191,7 +191,7 @@
 
                if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  if (IN.NE.N) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
+                  if (IN != N) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
                   IN = N
                }
@@ -203,13 +203,13 @@
 
                if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  if (IN.NE.N) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
+                  if (IN != N) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
                   IN = N
                }
                dlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               if (IADD.NE.0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
+               if (IADD != 0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
 
                if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
 
@@ -244,10 +244,10 @@
                         A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC )
                      } // 60
                   } // 70
-                  CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
-                  CALL DORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
-                  CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
-                  CALL DORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
+                  CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
+                  CALL DORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
+                  CALL DORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
+                  CALL DORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100
                }
             } else {
 
@@ -262,7 +262,7 @@
 
             } // 100
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -300,7 +300,7 @@
                NTEST = 1 + RSUB + ISORT
                RESULT( 1+RSUB+ISORT ) = ULPINV
                dgges3('V', 'V', SORT, DLCTES, N, S, LDA, T, LDA, SDIM, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, BWORK, IINFO );
-               if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
+               if ( IINFO != 0 .AND. IINFO != N+2 ) {
                   RESULT( 1+RSUB+ISORT ) = ULPINV
                   WRITE( NOUNIT, FMT = 9999 )'DGGES3', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -333,13 +333,13 @@
                      TEMP2 = ( ABS( ALPHAR( J )-S( J, J ) ) / MAX( SAFMIN, ABS( ALPHAR( J ) ), ABS( S( J, J ) ) )+ABS( BETA( J )-T( J, J ) ) / MAX( SAFMIN, ABS( BETA( J ) ), ABS( T( J, J ) ) ) ) / ULP
 
                      if ( J.LT.N ) {
-                        if ( S( J+1, J ).NE.ZERO ) {
+                        if ( S( J+1, J ) != ZERO ) {
                            ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
                      }
                      if ( J.GT.1 ) {
-                        if ( S( J, J-1 ).NE.ZERO ) {
+                        if ( S( J, J-1 ) != ZERO ) {
                            ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
@@ -354,12 +354,12 @@
                      if ( I1.LE.0 .OR. I1.GE.N ) {
                         ILABAD = true;
                      } else if ( I1.LT.N-1 ) {
-                        if ( S( I1+2, I1+1 ).NE.ZERO ) {
+                        if ( S( I1+2, I1+1 ) != ZERO ) {
                            ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
                      } else if ( I1.GT.1 ) {
-                        if ( S( I1, I1-1 ).NE.ZERO ) {
+                        if ( S( I1, I1-1 ) != ZERO ) {
                            ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
@@ -394,12 +394,12 @@
                         KNTEIG = KNTEIG + 1
                      }
                      if ( I.LT.N ) {
-                        if ( ( DLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) .OR. DLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) .AND. ( .NOT.( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) .OR. DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) .AND. IINFO.NE.N+2 ) {
+                        if ( ( DLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) .OR. DLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) .AND. ( .NOT.( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) .OR. DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) .AND. IINFO != N+2 ) {
                            RESULT( 12 ) = ULPINV
                         }
                      }
                   } // 140
-                  if ( SDIM.NE.KNTEIG ) {
+                  if ( SDIM != KNTEIG ) {
                      RESULT( 12 ) = ULPINV
                   }
                }

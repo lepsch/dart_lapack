@@ -32,7 +32,7 @@
 
       DTHRESH = EPS*(SIGMA+TAU)
       if (TAU.LT.DTHRESH*HALF) TAU = ZERO;
-      if ( TAU.NE.ZERO ) {
+      if ( TAU != ZERO ) {
       J4 = 4*I0 + PP - 3
       EMIN = Z( J4+4 )
       D = Z( J4 ) - TAU

@@ -117,7 +117,7 @@
                   } // 30
                }
 
-               if ( TAU( J ).NE.CZERO ) {
+               if ( TAU( J ) != CZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = CONE
                   zhpmv('L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 );
@@ -140,7 +140,7 @@
                   } // 50
                }
 
-               if ( TAU( J ).NE.CZERO ) {
+               if ( TAU( J ) != CZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = CONE
                   zhpmv('U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 );
@@ -164,7 +164,7 @@
          if (N.LT.2) RETURN;
          zlacpy(' ', N, N, U, LDU, WORK, N );
          zupmtr('R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             RESULT( 1 ) = TEN / ULP
             RETURN
          }

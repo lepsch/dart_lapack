@@ -64,7 +64,7 @@
       } else if (LDC.LT.MAX(1,M)) {
           INFO = 12
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('ZSYMM ',INFO);
           RETURN
       }

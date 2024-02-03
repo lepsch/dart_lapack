@@ -56,7 +56,7 @@
       } else if ( ANORM.LT.ZERO ) {
          INFO = -5
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DPOCON', -INFO );
          RETURN
       }
@@ -79,7 +79,7 @@
       NORMIN = 'N'
       } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
-      if ( KASE.NE.0 ) {
+      if ( KASE != 0 ) {
          if ( UPPER ) {
 
             // Multiply by inv(U**T).
@@ -105,7 +105,7 @@
          // Multiply by 1/SCALE if doing so will not cause overflow.
 
          SCALE = SCALEL*SCALEU
-         if ( SCALE.NE.ONE ) {
+         if ( SCALE != ONE ) {
             IX = IDAMAX( N, WORK, 1 )
             IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 20
             drscl(N, SCALE, WORK, 1 );
@@ -115,7 +115,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM.NE.ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
+      if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       } // 20
       RETURN

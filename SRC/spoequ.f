@@ -38,7 +38,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -3
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SPOEQU', -INFO );
          RETURN
       }

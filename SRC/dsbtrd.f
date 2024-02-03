@@ -59,7 +59,7 @@
       } else if ( LDQ.LT.MAX( 1, N ) .AND. WANTQ ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSBTRD', -INFO );
          RETURN
       }

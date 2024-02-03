@@ -48,7 +48,7 @@
       } else if ( N.LT.0 ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTFTRI', -INFO );
          RETURN
       }

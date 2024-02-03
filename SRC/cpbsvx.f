@@ -94,7 +94,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CPBSVX', -INFO );
          RETURN
       }

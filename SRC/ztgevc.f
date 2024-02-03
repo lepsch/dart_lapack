@@ -95,7 +95,7 @@
       } else if ( LDP.LT.MAX( 1, N ) ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTGEVC', -INFO );
          RETURN
       }
@@ -115,7 +115,7 @@
 
       ILBBAD = false;
       for (J = 1; J <= N; J++) { // 20
-         IF( DIMAG( P( J, J ) ).NE.ZERO ) ILBBAD = true;
+         IF( DIMAG( P( J, J ) ) != ZERO ) ILBBAD = true;
       } // 20
 
       if ( ILBBAD ) {
@@ -127,7 +127,7 @@
       } else if ( MM.LT.IM ) {
          INFO = -13
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTGEVC', -INFO );
          RETURN
       }

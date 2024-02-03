@@ -102,7 +102,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYEVR', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -316,7 +316,7 @@
                }
             } // 40
 
-            if ( I.NE.0 ) {
+            if ( I != 0 ) {
                W( I ) = W( J )
                W( J ) = TMP1
                sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );

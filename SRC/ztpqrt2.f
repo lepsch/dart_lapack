@@ -45,7 +45,7 @@
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTPQRT2', -INFO );
          RETURN
       }

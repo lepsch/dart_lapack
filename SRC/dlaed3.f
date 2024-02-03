@@ -46,7 +46,7 @@
       } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLAED3', -INFO );
          RETURN
       }
@@ -61,7 +61,7 @@
 
          // If the zero finder fails, the computation is terminated.
 
-         if (INFO.NE.0) GO TO 120;
+         if (INFO != 0) GO TO 120;
       } // 20
 
       if (K == 1) GO TO 110;
@@ -119,14 +119,14 @@
 
       dlacpy('A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 );
       IQ2 = N1*N12 + 1
-      if ( N23.NE.0 ) {
+      if ( N23 != 0 ) {
          dgemm('N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ );
       } else {
          dlaset('A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ );
       }
 
       dlacpy('A', N12, K, Q, LDQ, S, N12 );
-      if ( N12.NE.0 ) {
+      if ( N12 != 0 ) {
          dgemm('N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ );
       } else {
          dlaset('A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ );

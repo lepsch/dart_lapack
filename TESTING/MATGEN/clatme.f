@@ -121,7 +121,7 @@
          INFO = -2
       } else if ( ABS( MODE ).GT.6 ) {
          INFO = -5
-      } else if ( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) {
+      } else if ( ( MODE != 0 .AND. ABS( MODE ) != 6 ) .AND. COND.LT.ONE ) {
          INFO = -6
       } else if ( IRSIGN == -1 ) {
          INFO = -9
@@ -133,7 +133,7 @@
          INFO = -12
       } else if ( ISIM == 1 .AND. ABS( MODES ).GT.5 ) {
          INFO = -13
-      } else if ( ISIM == 1 .AND. MODES.NE.0 .AND. CONDS.LT.ONE ) {
+      } else if ( ISIM == 1 .AND. MODES != 0 .AND. CONDS.LT.ONE ) {
          INFO = -14
       } else if ( KL.LT.1 ) {
          INFO = -15
@@ -143,7 +143,7 @@
          INFO = -19
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLATME', -INFO );
          RETURN
       }
@@ -154,18 +154,18 @@
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
       } // 20
 
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 
       // 2)      Set up diagonal of A
 
               // Compute D according to COND and MODE
 
       clatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO );
-      if ( IINFO.NE.0 ) {
+      if ( IINFO != 0 ) {
          INFO = 1
          RETURN
       }
-      if ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) {
+      if ( MODE != 0 .AND. ABS( MODE ) != 6 ) {
 
          // Scale by DMAX
 
@@ -190,7 +190,7 @@
 
       // 3)      If UPPER='T', set upper triangle of A to random numbers.
 
-      if ( IUPPER.NE.0 ) {
+      if ( IUPPER != 0 ) {
          for (JC = 2; JC <= N; JC++) { // 40
             clarnv(IDIST, ISEED, JC-1, A( 1, JC ) );
          } // 40
@@ -203,13 +203,13 @@
 
               // it is  U S V A V' (1/S) U'
 
-      if ( ISIM.NE.0 ) {
+      if ( ISIM != 0 ) {
 
          // Compute S (singular values of the eigenvector matrix)
          // according to CONDS and MODES
 
          slatm1(MODES, CONDS, 0, 0, ISEED, DS, N, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = 3
             RETURN
          }
@@ -217,7 +217,7 @@
          // Multiply by V and V'
 
          clarge(N, A, LDA, ISEED, WORK, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = 4
             RETURN
          }
@@ -226,7 +226,7 @@
 
          for (J = 1; J <= N; J++) { // 50
             csscal(N, DS( J ), A( J, 1 ), LDA );
-            if ( DS( J ).NE.ZERO ) {
+            if ( DS( J ) != ZERO ) {
                csscal(N, ONE / DS( J ), A( 1, J ), 1 );
             } else {
                INFO = 5
@@ -237,7 +237,7 @@
          // Multiply by U and U'
 
          clarge(N, A, LDA, ISEED, WORK, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = 4
             RETURN
          }

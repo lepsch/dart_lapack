@@ -494,7 +494,7 @@
             JC = 1
             for (J = 1; J <= N; J++) { // 340
                slarnv(2, ISEED, J, A( JC ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
                } else {
                   A( JC+J-1 ) = ZERO
@@ -505,7 +505,7 @@
             JC = 1
             for (J = 1; J <= N; J++) { // 350
                slarnv(2, ISEED, N-J+1, A( JC ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   A( JC ) = SIGN( TWO, A( JC ) )
                } else {
                   A( JC ) = ZERO

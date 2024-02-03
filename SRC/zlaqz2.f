@@ -49,7 +49,7 @@
          INFO = -26
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZLAQZ2', -INFO );
          RETURN
       }
@@ -85,7 +85,7 @@
       zlaset('FULL', JW, JW, CZERO, CONE, ZC, LDZC );
       zlaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK( 2*JW**2+1 ), LWORK-2*JW**2, RWORK, REC+1, QZ_SMALL_INFO );
 
-      if ( QZ_SMALL_INFO .NE. 0 ) {
+      if ( QZ_SMALL_INFO != 0 ) {
          // Convergence failure, restore the window and exit
          ND = 0
          NS = JW-QZ_SMALL_INFO
@@ -132,7 +132,7 @@
          K = K+1
       }
 
-      if ( KWTOP .NE. ILO .AND. S .NE. CZERO ) {
+      if ( KWTOP != ILO .AND. S != CZERO ) {
          // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 ) *DCONJG( QC( 1, 1:JW-ND ) )
          DO K = KWBOT-1, KWTOP, -1

@@ -48,7 +48,7 @@
 
       OK = true;
       sget31(RLALN2, LLALN2, NLALN2, KLALN2 );
-      if ( RLALN2.GT.THRESH .OR. NLALN2( 1 ).NE.0 ) {
+      if ( RLALN2.GT.THRESH .OR. NLALN2( 1 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9999 )RLALN2, LLALN2, NLALN2, KLALN2
       }
@@ -60,13 +60,13 @@
       }
 
       sget33(RLANV2, LLANV2, NLANV2, KLANV2 );
-      if ( RLANV2.GT.THRESH .OR. NLANV2.NE.0 ) {
+      if ( RLANV2.GT.THRESH .OR. NLANV2 != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9997 )RLANV2, LLANV2, NLANV2, KLANV2
       }
 
       sget34(RLAEXC, LLAEXC, NLAEXC, KLAEXC );
-      if ( RLAEXC.GT.THRESH .OR. NLAEXC( 2 ).NE.0 ) {
+      if ( RLAEXC.GT.THRESH .OR. NLAEXC( 2 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9996 )RLAEXC, LLAEXC, NLAEXC, KLAEXC
       }
@@ -98,13 +98,13 @@
       }
 
       sget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN );
-      if ( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) {
+      if ( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ) != 0 .OR. NTRSNA( 2 ) != 0 .OR. NTRSNA( 3 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9993 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       }
 
       sget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN );
-      if ( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) {
+      if ( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ) != 0 .OR. NTRSEN( 2 ) != 0 .OR. NTRSEN( 3 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9992 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       }

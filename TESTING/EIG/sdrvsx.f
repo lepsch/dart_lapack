@@ -104,7 +104,7 @@
          INFO = -24
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SDRVSX', -INFO );
          RETURN
       }
@@ -128,7 +128,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 140
          N = NN( JSIZE )
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -272,7 +272,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9991 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN

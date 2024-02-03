@@ -98,7 +98,7 @@
       } else if ( LRWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -16
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTREVC3', -INFO );
          RETURN
       } else if ( LQUERY ) {

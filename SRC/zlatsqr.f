@@ -62,7 +62,7 @@
       if ( INFO == 0 ) {
         WORK( 1 ) = LWMIN
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('ZLATSQR', -INFO );
         RETURN
       } else if ( LQUERY ) {

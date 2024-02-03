@@ -74,10 +74,10 @@
 
             zgeequ(M, N, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                RESLTS( 1 ) = ONE
             } else {
-               if ( N.NE.0 .AND. M.NE.0 ) {
+               if ( N != 0 .AND. M != 0 ) {
                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( RCOND-RPOW( M ) ) / RPOW( M ) ) )                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( CCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+ 1 ) ) )
                   for (I = 1; I <= M; I++) { // 50
                      RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( R( I )-RPOW( I+N+1 ) ) / RPOW( I+N+1 ) ) )
@@ -97,7 +97,7 @@
          A( MAX( NSZ-1, 1 ), J ) = CZERO
       } // 90
       zgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
-      IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
+      IF( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
 
       for (J = 1; J <= NSZ; J++) { // 100
          A( MAX( NSZ-1, 1 ), J ) = CONE
@@ -106,7 +106,7 @@
          A( I, MAX( NSZ-1, 1 ) ) = CZERO
       } // 110
       zgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
-      IF( INFO.NE.NSZ+MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
+      IF( INFO != NSZ+MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
       RESLTS( 1 ) = RESLTS( 1 ) / EPS
 
       // Test ZGBEQU
@@ -130,12 +130,12 @@
 
                   zgbequ(M, N, KL, KU, AB, NSZB, R, C, RCOND, CCOND, NORM, INFO );
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      if ( .NOT.( ( N+KL.LT.M .AND. INFO == N+KL+1 ) .OR. ( M+KU.LT.N .AND. INFO == 2*M+KU+1 ) ) ) {
                         RESLTS( 2 ) = ONE
                      }
                   } else {
-                     if ( N.NE.0 .AND. M.NE.0 ) {
+                     if ( N != 0 .AND. M != 0 ) {
 
                         RCMIN = R( 1 )
                         RCMAX = R( 1 )
@@ -202,10 +202,10 @@
 
          zpoequ(N, A, NSZ, R, RCOND, NORM, INFO );
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RESLTS( 3 ) = ONE
          } else {
-            if ( N.NE.0 ) {
+            if ( N != 0 ) {
                RESLTS( 3 ) = MAX( RESLTS( 3 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 3 ) = MAX( RESLTS( 3 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                for (I = 1; I <= N; I++) { // 280
                   RESLTS( 3 ) = MAX( RESLTS( 3 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) )
@@ -215,7 +215,7 @@
       } // 290
       A( MAX( NSZ-1, 1 ), MAX( NSZ-1, 1 ) ) = -CONE
       zpoequ(NSZ, A, NSZ, R, RCOND, NORM, INFO );
-      IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE
+      IF( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE
       RESLTS( 3 ) = RESLTS( 3 ) / EPS
 
       // Test ZPPEQU
@@ -233,10 +233,10 @@
 
          zppequ('U', N, AP, R, RCOND, NORM, INFO );
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RESLTS( 4 ) = ONE
          } else {
-            if ( N.NE.0 ) {
+            if ( N != 0 ) {
                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                for (I = 1; I <= N; I++) { // 320
                   RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) )
@@ -257,10 +257,10 @@
 
          zppequ('L', N, AP, R, RCOND, NORM, INFO );
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RESLTS( 4 ) = ONE
          } else {
-            if ( N.NE.0 ) {
+            if ( N != 0 ) {
                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                for (I = 1; I <= N; I++) { // 350
                   RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) )
@@ -272,7 +272,7 @@
       I = ( NSZ*( NSZ+1 ) ) / 2 - 2
       AP( I ) = -CONE
       zppequ('L', NSZ, AP, R, RCOND, NORM, INFO );
-      IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE
+      IF( INFO != MAX( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE
       RESLTS( 4 ) = RESLTS( 4 ) / EPS
 
       // Test ZPBEQU
@@ -293,20 +293,20 @@
 
             zpbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                RESLTS( 5 ) = ONE
             } else {
-               if ( N.NE.0 ) {
+               if ( N != 0 ) {
                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                   for (I = 1; I <= N; I++) { // 400
                      RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+1 ) ) )
                   } // 400
                }
             }
-            if ( N.NE.0 ) {
+            if ( N != 0 ) {
                AB( KL+1, MAX( N-1, 1 ) ) = -CONE
                zpbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
-               IF( INFO.NE.MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE
+               IF( INFO != MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE
             }
 
             // Test lower triangular storage
@@ -322,20 +322,20 @@
 
             zpbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                RESLTS( 5 ) = ONE
             } else {
-               if ( N.NE.0 ) {
+               if ( N != 0 ) {
                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                   for (I = 1; I <= N; I++) { // 440
                      RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+1 ) ) )
                   } // 440
                }
             }
-            if ( N.NE.0 ) {
+            if ( N != 0 ) {
                AB( 1, MAX( N-1, 1 ) ) = -CONE
                zpbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
-               IF( INFO.NE.MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE
+               IF( INFO != MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE
             }
          } // 450
       } // 460

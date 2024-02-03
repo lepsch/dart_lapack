@@ -61,7 +61,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DORGQL', -INFO );
          RETURN
       } else if ( LQUERY ) {

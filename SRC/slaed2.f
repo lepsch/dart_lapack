@@ -50,7 +50,7 @@
       } else if ( MIN( 1, ( N / 2 ) ).GT.N1 .OR. ( N / 2 ).LT.N1 ) {
          INFO = -3
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLAED2', -INFO );
          RETURN
       }
@@ -179,7 +179,7 @@
 
             Z( NJ ) = TAU
             Z( PJ ) = ZERO
-            IF( COLTYP( NJ ).NE.COLTYP( PJ ) ) COLTYP( NJ ) = 2
+            IF( COLTYP( NJ ) != COLTYP( PJ ) ) COLTYP( NJ ) = 2
             COLTYP( PJ ) = 4
             srot(N, Q( 1, PJ ), 1, Q( 1, NJ ), 1, C, S );
             T = D( PJ )*C**2 + D( NJ )*S**2

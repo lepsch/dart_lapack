@@ -49,7 +49,7 @@
       } else if ( LDAB.LT.KD+1 ) {
          INFO = -5
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SPBEQU', -INFO );
          RETURN
       }

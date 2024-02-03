@@ -119,9 +119,9 @@
 
       // Scale the matrix
 
-      if ( SCALE.NE.1 ) {
+      if ( SCALE != 1 ) {
          NORMA = DLANGE( 'Max', M, N, A, LDA, DUMMY )
-         if ( NORMA.NE.ZERO ) {
+         if ( NORMA != ZERO ) {
             if ( SCALE == 2 ) {
 
                // matrix scaled up

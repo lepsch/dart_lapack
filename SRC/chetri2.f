@@ -57,7 +57,7 @@
          INFO = -7
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHETRI2', -INFO );
          RETURN
       } else if ( LQUERY ) {

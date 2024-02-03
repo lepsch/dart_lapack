@@ -89,7 +89,7 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTRSEN', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -112,7 +112,7 @@
 
             // Swap the K-th eigenvalue to position KS.
 
-            if (K.NE.KS) CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR );
+            if (K != KS) CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR );
          }
       } // 20
 
@@ -144,7 +144,7 @@
          KASE = 0
          } // 30
          clacn2(NN, WORK( NN+1 ), WORK, EST, KASE, ISAVE );
-         if ( KASE.NE.0 ) {
+         if ( KASE != 0 ) {
             if ( KASE == 1 ) {
 
                // Solve T11*R - R*T22 = scale*X.

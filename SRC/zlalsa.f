@@ -51,7 +51,7 @@
       } else if ( LDGCOL.LT.N ) {
          INFO = -19
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZLALSA', -INFO );
          RETURN
       }

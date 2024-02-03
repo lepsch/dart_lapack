@@ -85,7 +85,7 @@
          ISCL = 1
       }
 
-      if ( ANRM.NE.ZERO ) {
+      if ( ANRM != ZERO ) {
 
          // Compute SVD of work
 
@@ -113,7 +113,7 @@
       daxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
       ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
 
-      if (NRMSVL.NE.ZERO) ZQRT12 = ZQRT12 / NRMSVL;
+      if (NRMSVL != ZERO) ZQRT12 = ZQRT12 / NRMSVL;
 
       RETURN
 

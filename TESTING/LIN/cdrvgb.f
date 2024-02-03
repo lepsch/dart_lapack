@@ -176,7 +176,7 @@
 
                   // Check the error code from CLATMS.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 120
                   }
@@ -345,7 +345,7 @@
 
                               // Check error code from CGBSV .
 
-                              if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                              if (INFO != IZERO) CALL ALAERH( PATH, 'CGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               // Reconstruct matrix from factors and
                               // compute residual.
@@ -399,11 +399,11 @@
 
                            // Check the error code from CGBSVX.
 
-                           if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != IZERO) CALL ALAERH( PATH, 'CGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            // Compare RWORK(2*NRHS+1) from CGBSVX with the
                            // computed reciprocal pivot growth RPVGRW
 
-                           if ( INFO.NE.0 .AND. INFO.LE.N) {
+                           if ( INFO != 0 .AND. INFO.LE.N) {
                               ANRMPV = ZERO
                               for (J = 1; J <= INFO; J++) { // 70
                                  DO 60 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )                                     ANRMPV = MAX( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) )

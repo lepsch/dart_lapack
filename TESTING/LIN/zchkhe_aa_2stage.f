@@ -140,7 +140,7 @@
 
                // Check error code from ZLATMS and handle error.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Skip all tests for this generated matrix
@@ -272,7 +272,7 @@
 
                   // Check error code from CHETRF and handle error.
 
-                  if ( INFO.NE.K ) {
+                  if ( INFO != K ) {
                      alaerh(PATH, 'ZHETRF_AA_2STAGE', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   }
 
@@ -299,7 +299,7 @@
 
                   // Skip solver test if INFO is not 0.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      GO TO 140
                   }
 
@@ -324,7 +324,7 @@
 
                      // Check error code from ZHETRS and handle error.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         if ( IZERO == 0 ) {
                            alaerh(PATH, 'ZHETRS_AA_2STAGE', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         }

@@ -43,7 +43,7 @@
       } else if ( ANORM.LT.ZERO ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CPTCON', -INFO );
          RETURN
       }
@@ -67,7 +67,7 @@
       // Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
 
          // m(i,j) =  abs(A(i,j)), i = j,
-         // m(i,j) = -abs(A(i,j)), i .ne. j,
+         // m(i,j) = -abs(A(i,j)), i != j,
 
       // and e = [ 1, 1, ..., 1 ]**T.  Note M(A) = M(L)*D*M(L)**H.
 
@@ -92,7 +92,7 @@
 
       // Compute the reciprocal condition number.
 
-      if (AINVNM.NE.ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
+      if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       RETURN
 

@@ -67,7 +67,7 @@
          INFO = -1
       } else if ( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'T' ) .AND. .NOT. LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      } else if ( ISGN.NE.1 .AND. ISGN.NE.-1 ) {
+      } else if ( ISGN != 1 .AND. ISGN != -1 ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -84,7 +84,7 @@
       } else if ( .NOT.LQUERY .AND. LDSWORK.LT.MAX( NBA, NBB ) ) {
          INFO = -16
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STRSYL3', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -127,7 +127,7 @@
                 // A( M, M ) is a 1-by-1 block
                 CYCLE
              }
-             if ( A( L, L+1 ).NE.ZERO .AND. A( L+1, L ).NE.ZERO ) {
+             if ( A( L, L+1 ) != ZERO .AND. A( L+1, L ) != ZERO ) {
                 // Check if 2-by-2 block is split
                 if ( L + 1 == IWORK( K + 1 ) ) {
                    IWORK( K + 1 ) = IWORK( K + 1 ) + 1
@@ -163,7 +163,7 @@
                 // B( N, N ) is a 1-by-1 block
                 CYCLE
              }
-             if ( B( L, L+1 ).NE.ZERO .AND. B( L+1, L ).NE.ZERO ) {
+             if ( B( L, L+1 ) != ZERO .AND. B( L+1, L ) != ZERO ) {
                 // Check if 2-by-2 block is split
                 if ( L + 1 == IWORK( PC + K + 1 ) ) {
                    IWORK( PC + K + 1 ) = IWORK( PC + K + 1 ) + 1
@@ -318,14 +318,14 @@
                   // consistency scaling factor to C( I, L ) and C( K, L ).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  if (SCAL .NE. ONE) {
+                  if (SCAL != ONE) {
                       for (JJ = L1; JJ <= L2-1; JJ++) {
                          sscal(K2-K1, SCAL, C( K1, JJ ), 1);
                       }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
-                  if (SCAL .NE. ONE) {
+                  if (SCAL != ONE) {
                       for (LL = L1; LL <= L2-1; LL++) {
                          sscal(I2-I1, SCAL, C( I1, LL ), 1);
                       }
@@ -374,14 +374,14 @@
                   // consistency scaling factor to C( K, J ) and C( K, L).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  if ( SCAL .NE. ONE ) {
+                  if ( SCAL != ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         sscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
-                  if ( SCAL .NE. ONE ) {
+                  if ( SCAL != ONE ) {
                       for (JJ = J1; JJ <= J2-1; JJ++) {
                          sscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                       }
@@ -489,14 +489,14 @@
                   // consistency scaling factor to to C( I, L ) and C( K, L ).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  if (SCAL .NE. ONE) {
+                  if (SCAL != ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         sscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
-                  if (SCAL .NE. ONE) {
+                  if (SCAL != ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         sscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      }
@@ -544,14 +544,14 @@
                   // consistency scaling factor to to C( K, J ) and C( K, L ).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  if ( SCAL .NE. ONE ) {
+                  if ( SCAL != ONE ) {
                       for (LL = L1; LL <= L2-1; LL++) {
                          sscal(K2-K1, SCAL, C( K1, LL ), 1 );
                       }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
-                  if ( SCAL .NE. ONE ) {
+                  if ( SCAL != ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         sscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      }
@@ -659,14 +659,14 @@
                   // consistency scaling factor to C( I, L ) and C( K, L ).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  if (SCAL .NE. ONE) {
+                  if (SCAL != ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         sscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
-                  if (SCAL .NE. ONE) {
+                  if (SCAL != ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         sscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      }
@@ -714,14 +714,14 @@
                   // consistency scaling factor to C( K, J ) and C( K, L ).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  if ( SCAL .NE. ONE ) {
+                  if ( SCAL != ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         sscal(K2-K1, SCAL, C( K1, LL ), 1);
                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
-                  if ( SCAL .NE. ONE ) {
+                  if ( SCAL != ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         sscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      }
@@ -829,14 +829,14 @@
                   // consistency scaling factor to C( I, L ) and C( K, L ).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  if (SCAL .NE. ONE) {
+                  if (SCAL != ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         sscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
-                  if (SCAL .NE. ONE) {
+                  if (SCAL != ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         sscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      }
@@ -885,14 +885,14 @@
                   // consistency scaling factor to C( K, J ) and C( K, L ).
 
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
-                  if ( SCAL .NE. ONE ) {
+                  if ( SCAL != ONE ) {
                      for (JJ = L1; JJ <= L2-1; JJ++) {
                         sscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
-                  if ( SCAL .NE. ONE ) {
+                  if ( SCAL != ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         sscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      }
@@ -940,7 +940,7 @@
             L1 = IWORK( PC + L )
             L2 = IWORK( PC + L + 1 )
             SCAL = SCALE / SWORK( K, L )
-            if ( SCAL .NE. ONE ) {
+            if ( SCAL != ONE ) {
                for (LL = L1; LL <= L2-1; LL++) {
                   sscal(K2-K1, SCAL, C( K1, LL ), 1 );
                }
@@ -948,7 +948,7 @@
          }
       }
 
-      if ( BUF .NE. ONE .AND. BUF.GT.ZERO ) {
+      if ( BUF != ONE .AND. BUF.GT.ZERO ) {
 
          // Decrease SCALE as much as possible.
 
@@ -957,7 +957,7 @@
          SCALE = SCALE / SCALOC
       }
 
-      if ( BUF.NE.ONE .AND. BUF.GT.ZERO ) {
+      if ( BUF != ONE .AND. BUF.GT.ZERO ) {
 
          // In case of overly aggressive scaling during the computation,
          // flushing of the global scale factor may be prevented by

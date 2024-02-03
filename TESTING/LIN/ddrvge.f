@@ -121,7 +121,7 @@
 
             // Check error code from DLATMS.
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                alaerh(PATH, 'DLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 80
             }
@@ -285,7 +285,7 @@
 
                         // Check error code from DGESV .
 
-                        if (INFO.NE.IZERO) CALL ALAERH( PATH, 'DGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) CALL ALAERH( PATH, 'DGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -337,12 +337,12 @@
 
                      // Check the error code from DGESVX.
 
-                     if (INFO.NE.IZERO) CALL ALAERH( PATH, 'DGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) CALL ALAERH( PATH, 'DGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare WORK(1) from DGESVX with the computed
                      // reciprocal pivot growth factor RPVGRW
 
-                     if ( INFO.NE.0 .AND. INFO.LE.N) {
+                     if ( INFO != 0 .AND. INFO.LE.N) {
                         RPVGRW = DLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, WORK )
                         if ( RPVGRW == ZERO ) {
                            RPVGRW = ONE

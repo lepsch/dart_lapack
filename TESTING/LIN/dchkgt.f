@@ -106,7 +106,7 @@
 
                // Check the error code from DLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
@@ -127,7 +127,7 @@
                   // Generate a matrix with elements from [-1,1].
 
                   dlarnv(2, ISEED, N+2*M, A );
-                  if (ANORM.NE.ONE) CALL DSCAL( N+2*M, ANORM, A, 1 );
+                  if (ANORM != ONE) CALL DSCAL( N+2*M, ANORM, A, 1 );
                } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
@@ -186,8 +186,8 @@
 
             // Check error code from DGTTRF.
 
-            if (INFO.NE.IZERO) CALL ALAERH( PATH, 'DGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
-            TRFCON = INFO.NE.0
+            if (INFO != IZERO) CALL ALAERH( PATH, 'DGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
+            TRFCON = INFO != 0
 
             dgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
 
@@ -250,7 +250,7 @@
 
                // Check error code from DGTCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'DGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'DGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 7 ) = DGET06( RCOND, RCONDC )
 
@@ -299,7 +299,7 @@
 
                   // Check error code from DGTTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'DGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'DGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   dgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -317,7 +317,7 @@
 
                   // Check error code from DGTRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'DGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'DGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                   dgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );

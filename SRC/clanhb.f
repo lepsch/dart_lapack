@@ -119,7 +119,7 @@
             L = 1
          }
          for (J = 1; J <= N; J++) { // 130
-            if ( REAL( AB( L, J ) ).NE.ZERO ) {
+            if ( REAL( AB( L, J ) ) != ZERO ) {
                ABSA = ABS( REAL( AB( L, J ) ) )
                if ( SCALE.LT.ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2

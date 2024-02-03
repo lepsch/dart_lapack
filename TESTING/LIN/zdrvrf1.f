@@ -121,7 +121,7 @@
 
                   // Check error code from ZTRTTF
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      if ( NFAIL == 0 .AND. NERRS == 0 ) {
                         WRITE( NOUT, * )
                         WRITE( NOUT, FMT = 9999 )
@@ -163,7 +163,7 @@
       } else {
          WRITE( NOUT, FMT = 9995 ) 'ZLANHF', NFAIL, NRUN
       }
-      if ( NERRS.NE.0 ) {
+      if ( NERRS != 0 ) {
          WRITE( NOUT, FMT = 9994 ) NERRS, 'ZLANHF'
       }
 

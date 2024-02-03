@@ -46,7 +46,7 @@
       } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHPGV ', -INFO );
          RETURN
       }
@@ -58,7 +58,7 @@
       // Form a Cholesky factorization of B.
 
       zpptrf(UPLO, N, BP, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = N + INFO
          RETURN
       }

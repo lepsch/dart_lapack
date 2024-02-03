@@ -54,7 +54,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGBTRS', -INFO );
          RETURN
       }
@@ -81,7 +81,7 @@
             for (J = 1; J <= N - 1; J++) { // 10
                LM = MIN( KL, N-J )
                L = IPIV( J )
-               if (L.NE.J) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
+               if (L != J) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
                zgeru(LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB );
             } // 10
          }
@@ -111,7 +111,7 @@
                LM = MIN( KL, N-J )
                zgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                L = IPIV( J )
-               if (L.NE.J) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
+               if (L != J) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
             } // 40
          }
 
@@ -135,7 +135,7 @@
                zgemv('Conjugate transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                zlacgv(NRHS, B( J, 1 ), LDB );
                L = IPIV( J )
-               if (L.NE.J) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
+               if (L != J) CALL ZSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
             } // 60
          }
       }

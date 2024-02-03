@@ -36,7 +36,7 @@
       } else if ( LDT.LT.MB ) {
          INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGELQT', -INFO );
          RETURN
       }

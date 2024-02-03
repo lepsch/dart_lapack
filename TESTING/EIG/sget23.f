@@ -75,7 +75,7 @@
          INFO = -31
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGET23', -INFO );
          RETURN
       }
@@ -105,9 +105,9 @@
       }
       slacpy('F', N, N, A, LDA, H, LDA );
       sgeevx(BALANC, 'V', 'V', SENSE, N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO );
-      if ( IINFO.NE.0 ) {
+      if ( IINFO != 0 ) {
          RESULT( 1 ) = ULPINV
-         if ( JTYPE.NE.22 ) {
+         if ( JTYPE != 22 ) {
             WRITE( NOUNIT, FMT = 9998 )'SGEEVX1', IINFO, N, JTYPE, BALANC, ISEED
          } else {
             WRITE( NOUNIT, FMT = 9999 )'SGEEVX1', IINFO, N, ISEED( 1 )
@@ -178,9 +178,9 @@
 
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeevx(BALANC, 'N', 'N', SENSE, N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             RESULT( 1 ) = ULPINV
-            if ( JTYPE.NE.22 ) {
+            if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX2', IINFO, N, JTYPE, BALANC, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX2', IINFO, N, ISEED( 1 )
@@ -192,23 +192,23 @@
          // Do Test (5)
 
          for (J = 1; J <= N; J++) { // 60
-            IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
+            IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
          } // 60
 
          // Do Test (8)
 
          if ( .NOT.NOBAL ) {
             for (J = 1; J <= N; J++) { // 70
-               IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
+               IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 70
-            if (ILO.NE.ILO1) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV;
+            if (ILO != ILO1) RESULT( 8 ) = ULPINV             IF( IHI != IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9)
 
          if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 80
-               IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
+               IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 80
          }
 
@@ -216,9 +216,9 @@
 
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeevx(BALANC, 'N', 'V', SENSE, N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             RESULT( 1 ) = ULPINV
-            if ( JTYPE.NE.22 ) {
+            if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX3', IINFO, N, JTYPE, BALANC, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX3', IINFO, N, ISEED( 1 )
@@ -230,14 +230,14 @@
          // Do Test (5) again
 
          for (J = 1; J <= N; J++) { // 90
-            IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
+            IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
          } // 90
 
          // Do Test (6)
 
          for (J = 1; J <= N; J++) { // 110
             for (JJ = 1; JJ <= N; JJ++) { // 100
-               IF( VR( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
+               IF( VR( J, JJ ) != LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
             } // 100
          } // 110
 
@@ -245,16 +245,16 @@
 
          if ( .NOT.NOBAL ) {
             for (J = 1; J <= N; J++) { // 120
-               IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
+               IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 120
-            if (ILO.NE.ILO1) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV;
+            if (ILO != ILO1) RESULT( 8 ) = ULPINV             IF( IHI != IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9) again
 
          if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 130
-               IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
+               IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 130
          }
 
@@ -262,9 +262,9 @@
 
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeevx(BALANC, 'V', 'N', SENSE, N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             RESULT( 1 ) = ULPINV
-            if ( JTYPE.NE.22 ) {
+            if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX4', IINFO, N, JTYPE, BALANC, ISEED
             } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX4', IINFO, N, ISEED( 1 )
@@ -276,14 +276,14 @@
          // Do Test (5) again
 
          for (J = 1; J <= N; J++) { // 140
-            IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
+            IF( WR( J ) != WR1( J ) .OR. WI( J ) != WI1( J ) ) RESULT( 5 ) = ULPINV
          } // 140
 
          // Do Test (7)
 
          for (J = 1; J <= N; J++) { // 160
             for (JJ = 1; JJ <= N; JJ++) { // 150
-               IF( VL( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
+               IF( VL( J, JJ ) != LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
             } // 150
          } // 160
 
@@ -291,16 +291,16 @@
 
          if ( .NOT.NOBAL ) {
             for (J = 1; J <= N; J++) { // 170
-               IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
+               IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 170
-            if (ILO.NE.ILO1) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV;
+            if (ILO != ILO1) RESULT( 8 ) = ULPINV             IF( IHI != IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM != ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9) again
 
          if ( ISENS == 2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 180
-               IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
+               IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 180
          }
 
@@ -313,7 +313,7 @@
       if ( COMP ) {
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeevx('N', 'V', 'V', 'B', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             RESULT( 1 ) = ULPINV
             WRITE( NOUNIT, FMT = 9999 )'SGEEVX5', IINFO, N, ISEED( 1 )
             INFO = ABS( IINFO )

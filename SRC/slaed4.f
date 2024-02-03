@@ -494,7 +494,7 @@
                ZZ( 3 ) = Z( IIP1 )*Z( IIP1 )
             }
             ZZ( 2 ) = Z( II )*Z( II )
-            CALL SLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )             IF( INFO.NE.0 ) GO TO 250
+            CALL SLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )             IF( INFO != 0 ) GO TO 250
          }
 
          // Note, eta should be positive if w is negative, and
@@ -642,7 +642,7 @@
                      ZZ( 3 ) = Z( IIP1 )*Z( IIP1 )
                   }
                }
-               CALL SLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )                IF( INFO.NE.0 ) GO TO 250
+               CALL SLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )                IF( INFO != 0 ) GO TO 250
             }
 
             // Note, eta should be positive if w is negative, and

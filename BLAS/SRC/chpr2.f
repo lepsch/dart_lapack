@@ -46,7 +46,7 @@
       } else if (INCY == 0) {
           INFO = 7
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('CHPR2 ',INFO);
           RETURN
       }
@@ -58,7 +58,7 @@
       // Set up the start points in X and Y if the increments are not both
       // unity.
 
-      if ((INCX.NE.1) .OR. (INCY.NE.1)) {
+      if ((INCX != 1) .OR. (INCY != 1)) {
           if (INCX.GT.0) {
               KX = 1
           } else {
@@ -83,7 +83,7 @@
 
           if ((INCX == 1) .AND. (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 20
-                  if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
+                  if ((X(J) != ZERO) .OR. (Y(J) != ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(J))
                       TEMP2 = CONJG(ALPHA*X(J))
                       K = KK
@@ -99,7 +99,7 @@
               } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
-                  if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
+                  if ((X(JX) != ZERO) .OR. (Y(JY) != ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(JY))
                       TEMP2 = CONJG(ALPHA*X(JX))
                       IX = KX
@@ -124,7 +124,7 @@
 
           if ((INCX == 1) .AND. (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 60
-                  if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
+                  if ((X(J) != ZERO) .OR. (Y(J) != ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(J))
                       TEMP2 = CONJG(ALPHA*X(J))
                       AP(KK) = REAL(AP(KK)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
@@ -140,7 +140,7 @@
               } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
-                  if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
+                  if ((X(JX) != ZERO) .OR. (Y(JY) != ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(JY))
                       TEMP2 = CONJG(ALPHA*X(JX))
                       AP(KK) = REAL(AP(KK)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)

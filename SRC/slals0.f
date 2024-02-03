@@ -63,7 +63,7 @@
       } else if ( K.LT.1 ) {
          INFO = -20
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLALS0', -INFO );
          RETURN
       }

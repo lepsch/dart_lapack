@@ -59,7 +59,7 @@
       } else if ( LDB.LT.MAX( 1, M ) ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTFSM ', -INFO );
          RETURN
       }

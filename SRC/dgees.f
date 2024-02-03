@@ -99,7 +99,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGEES ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -225,7 +225,7 @@
                   if ( A( I+1, I ) == ZERO ) {
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
-                  } else if ( A( I+1, I ).NE.ZERO .AND. A( I, I+1 ) == ZERO ) {
+                  } else if ( A( I+1, I ) != ZERO .AND. A( I, I+1 ) == ZERO ) {
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
                      if (I.GT.1) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N.GT.I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );

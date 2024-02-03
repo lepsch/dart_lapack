@@ -87,7 +87,7 @@
       } else if ( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) {
          INFO = -17
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLAQZ0', -INFO );
          RETURN
       }
@@ -148,7 +148,7 @@
       } else if ( LWORK .LT. LWORKREQ ) {
          INFO = -19
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLAQZ0', INFO );
          RETURN
       }
@@ -330,7 +330,7 @@
          // This ensures that we don't split up a double shift
 
          DO I = SHIFTPOS, SHIFTPOS+N_UNDEFLATED-1, 2
-            if ( ALPHAI( I ).NE.-ALPHAI( I+1 ) ) {
+            if ( ALPHAI( I ) != -ALPHAI( I+1 ) ) {
 
                SWAP = ALPHAR( I )
                ALPHAR( I ) = ALPHAR( I+1 )

@@ -120,7 +120,7 @@
 
                // Check error code from SLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 150
                }
@@ -206,11 +206,11 @@
                if ( K.GT.0 ) {
                   } // 100
                   if ( IWORK( K ).LT.0 ) {
-                     if ( IWORK( K ).NE.-K ) {
+                     if ( IWORK( K ) != -K ) {
                         K = -IWORK( K )
                         GO TO 100
                      }
-                  } else if ( IWORK( K ).NE.K ) {
+                  } else if ( IWORK( K ) != K ) {
                      K = IWORK( K )
                      GO TO 100
                   }
@@ -218,8 +218,8 @@
 
                // Check error code from SSPTRF.
 
-               if (INFO.NE.K) CALL ALAERH( PATH, 'SSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-               if ( INFO.NE.0 ) {
+               if (INFO != K) CALL ALAERH( PATH, 'SSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if ( INFO != 0 ) {
                   TRFCON = true;
                } else {
                   TRFCON = false;
@@ -241,7 +241,7 @@
 
                // Check error code from SSPTRI.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'SSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'SSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   sppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                   NT = 2
@@ -280,7 +280,7 @@
 
                // Check error code from SSPTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'SSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'SSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   sppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -298,7 +298,7 @@
 
                // Check error code from SSPRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'SSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'SSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                   sppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -325,7 +325,7 @@
 
                // Check error code from SSPCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'SSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'SSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = SGET06( RCOND, RCONDC )
 

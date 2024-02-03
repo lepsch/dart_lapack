@@ -54,7 +54,7 @@
       } else if ( LDQ2.LT.MAX( 1, N ) ) {
          INFO = -14
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLAED8', -INFO );
          RETURN
       }

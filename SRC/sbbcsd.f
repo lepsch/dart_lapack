@@ -98,7 +98,7 @@
          }
       }
 
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('SBBCSD', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -134,14 +134,14 @@
 
       IMAX = Q
       DO WHILE( IMAX .GT. 1 )
-         if ( PHI(IMAX-1) .NE. ZERO ) {
+         if ( PHI(IMAX-1) != ZERO ) {
             EXIT
          }
          IMAX = IMAX - 1
       }
       IMIN = IMAX - 1
       if ( IMIN .GT. 1 ) {
-         DO WHILE( PHI(IMIN-1) .NE. ZERO )
+         DO WHILE( PHI(IMIN-1) != ZERO )
             IMIN = IMIN - 1
             if (IMIN .LE. 1) EXIT;
          }
@@ -178,7 +178,7 @@
          if ( ITER .GT. MAXIT ) {
             INFO = 0
             for (I = 1; I <= Q; I++) {
-               IF( PHI(I) .NE. ZERO ) INFO = INFO + 1
+               IF( PHI(I) != ZERO ) INFO = INFO + 1
             }
             RETURN
          }
@@ -581,7 +581,7 @@
          }
          if (IMIN .GT. IMAX - 1) IMIN = IMAX - 1;
          if (IMIN .GT. 1) {
-            DO WHILE (PHI(IMIN-1) .NE. ZERO)
+            DO WHILE (PHI(IMIN-1) != ZERO)
                 IMIN = IMIN - 1
                 if (IMIN .LE. 1) EXIT;
             }
@@ -604,7 +604,7 @@
             }
          }
 
-         if ( MINI .NE. I ) {
+         if ( MINI != I ) {
             THETA(MINI) = THETA(I)
             THETA(I) = THETAMIN
             if ( COLMAJOR ) {

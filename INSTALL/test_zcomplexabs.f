@@ -108,11 +108,11 @@ void main() {
                 print *, "!! [a] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 Y = DCMPLX( Xj, 0.0d0 )
                 R = ABS( Y )
-                if (R .ne. Xj) {
+                if (R != Xj) {
                     caseAFails = caseAFails + 1
                     if (caseAFails == 1) {
                         print *, "!! Some ABS(x+0*I) differ from ABS(x)"
@@ -133,11 +133,11 @@ void main() {
                 print *, "!! [b] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 Y = DCMPLX( 0.0d0, Xj )
                 R = ABS( Y )
-                if (R .ne. Xj) {
+                if (R != Xj) {
                     caseBFails = caseBFails + 1
                     if (caseBFails == 1) {
                         print *, "!! Some ABS(0+x*I) differ from ABS(x)"
@@ -163,12 +163,12 @@ void main() {
                 print *, "!! [c] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 answerC = fiveFourth * Xj
                 Y = DCMPLX( threeFourth * Xj, Xj )
                 R = ABS( Y )
-                if (R .ne. answerC) {
+                if (R != answerC) {
                     caseCFails = caseCFails + 1
                     if (caseCFails == 1) {
                         print *,  "!! Some ABS(x*(3/4+I)) differ from (5/4)*ABS(x)"
@@ -193,7 +193,7 @@ void main() {
                 print *, "!! [d] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 answerD = (oneHalf * Xj) * SQRT(2.0d0)
                 if (answerD == 0.0d0) {
                     subnormalTreatedAs0 = subnormalTreatedAs0 + 1

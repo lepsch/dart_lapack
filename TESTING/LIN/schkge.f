@@ -116,7 +116,7 @@
 
                // Check error code from SLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
@@ -164,7 +164,7 @@
 
                   // Check error code from SGETRF.
 
-                  if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) CALL ALAERH( PATH, 'SGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   TRFCON = false;
 
 *+    TEST 1
@@ -187,7 +187,7 @@
 
                      // Check error code from SGETRI.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'SGETRI', INFO, 0, ' ', N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'SGETRI', INFO, 0, ' ', N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for the matrix times its
                      // inverse.  Also compute the 1-norm condition number
@@ -229,10 +229,10 @@
                   NRUN = NRUN + NT
 
                   // Skip the remaining tests if this is not the first
-                  // block size or if M .ne. N.  Skip the solve tests if
+                  // block size or if M != N.  Skip the solve tests if
                   // the matrix is singular.
 
-                  if (INB.GT.1 .OR. M.NE.N) GO TO 90                   IF( TRFCON ) GO TO 70;
+                  if (INB.GT.1 .OR. M != N) GO TO 90                   IF( TRFCON ) GO TO 70;
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
                      NRHS = NSVAL( IRHS )
@@ -259,7 +259,7 @@
 
                         // Check error code from SGETRS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'SGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'SGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         sget02(TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -278,7 +278,7 @@
 
                         // Check error code from SGERFS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'SGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'SGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                         sget07(TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, true , RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -315,7 +315,7 @@
 
                         // Check error code from SGECON.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'SGECON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'SGECON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                         // This line is needed on a Sun SPARCstation.
 

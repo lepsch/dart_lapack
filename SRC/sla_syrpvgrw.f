@@ -78,7 +78,7 @@
             if ( IPIV( K ).GT.0 ) {
                // 1x1 pivot
                KP = IPIV( K )
-               if ( KP .NE. K ) {
+               if ( KP != K ) {
                   TMP = WORK( N+K )
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
@@ -105,7 +105,7 @@
          DO WHILE ( K .LE. N )
             if ( IPIV( K ).GT.0 ) {
                KP = IPIV( K )
-               if ( KP .NE. K ) {
+               if ( KP != K ) {
                   TMP = WORK( N+K )
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
@@ -125,7 +125,7 @@
             if ( IPIV( K ).GT.0 ) {
                // 1x1 pivot
                KP = IPIV( K )
-               if ( KP .NE. K ) {
+               if ( KP != K ) {
                   TMP = WORK( N+K )
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
@@ -152,7 +152,7 @@
          DO WHILE ( K .GE. 1 )
             if ( IPIV( K ).GT.0 ) {
                KP = IPIV( K )
-               if ( KP .NE. K ) {
+               if ( KP != K ) {
                   TMP = WORK( N+K )
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP

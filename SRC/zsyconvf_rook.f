@@ -44,7 +44,7 @@
          INFO = -5
 
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZSYCONVF_ROOK', -INFO );
          RETURN
       }
@@ -96,7 +96,7 @@
 
                   IP = IPIV( I )
                   if ( I.LT.N ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         zswap(N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA );
                      }
                   }
@@ -111,10 +111,10 @@
                   IP = -IPIV( I )
                   IP2 = -IPIV( I-1 )
                   if ( I.LT.N ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         zswap(N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA );
                      }
-                     if ( IP2.NE.(I-1) ) {
+                     if ( IP2 != (I-1) ) {
                         zswap(N-I, A( I-1, I+1 ), LDA, A( IP2, I+1 ), LDA );
                      }
                   }
@@ -144,7 +144,7 @@
 
                   IP = IPIV( I )
                   if ( I.LT.N ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         zswap(N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA );
                      }
                   }
@@ -160,10 +160,10 @@
                   IP = -IPIV( I )
                   IP2 = -IPIV( I-1 )
                   if ( I.LT.N ) {
-                     if ( IP2.NE.(I-1) ) {
+                     if ( IP2 != (I-1) ) {
                         zswap(N-I, A( IP2, I+1 ), LDA, A( I-1, I+1 ), LDA );
                      }
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         zswap(N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA );
                      }
                   }
@@ -231,7 +231,7 @@
 
                   IP = IPIV( I )
                   if ( I.GT.1 ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         zswap(I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                      }
                   }
@@ -246,10 +246,10 @@
                   IP = -IPIV( I )
                   IP2 = -IPIV( I+1 )
                   if ( I.GT.1 ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         zswap(I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                      }
-                     if ( IP2.NE.(I+1) ) {
+                     if ( IP2 != (I+1) ) {
                         zswap(I-1, A( I+1, 1 ), LDA, A( IP2, 1 ), LDA );
                      }
                   }
@@ -279,7 +279,7 @@
 
                   IP = IPIV( I )
                   if ( I.GT.1 ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         zswap(I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA );
                      }
                   }
@@ -295,10 +295,10 @@
                   IP = -IPIV( I )
                   IP2 = -IPIV( I+1 )
                   if ( I.GT.1 ) {
-                     if ( IP2.NE.(I+1) ) {
+                     if ( IP2 != (I+1) ) {
                         zswap(I-1, A( IP2, 1 ), LDA, A( I+1, 1 ), LDA );
                      }
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         zswap(I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA );
                      }
                   }

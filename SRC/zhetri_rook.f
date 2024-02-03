@@ -50,7 +50,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETRI_ROOK', -INFO );
          RETURN
       }
@@ -140,7 +140,7 @@
             // submatrix A(1:k,1:k)
 
             KP = IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
 
                if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
@@ -164,7 +164,7 @@
             // (1) Interchange rows and columns K and -IPIV(K)
 
             KP = -IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
 
                if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
@@ -189,7 +189,7 @@
 
             K = K + 1
             KP = -IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
 
                if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
@@ -272,7 +272,7 @@
             // submatrix A(k:n,k:n)
 
             KP = IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
 
                if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
@@ -296,7 +296,7 @@
             // (1) Interchange rows and columns K and -IPIV(K)
 
             KP = -IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
 
                if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
@@ -321,7 +321,7 @@
 
             K = K - 1
             KP = -IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
 
                if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 

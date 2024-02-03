@@ -93,7 +93,7 @@
          INFO = -30
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DCHKGG', -INFO );
          RETURN
       }
@@ -125,7 +125,7 @@
          RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 )
          RMAGN( 3 ) = SAFMIN*ULPINV*N1
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -179,7 +179,7 @@
 
                if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  if (IN.NE.N) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
+                  if (IN != N) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
                   IN = N
                }
@@ -191,13 +191,13 @@
 
                if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  if (IN.NE.N) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
+                  if (IN != N) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
                   IN = N
                }
                dlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               if (IADD.NE.0 .AND. IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
+               if (IADD != 0 .AND. IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
 
                if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
 
@@ -232,10 +232,10 @@
                         A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC )
                      } // 60
                   } // 70
-                  CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
-                  CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
-                  CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
-                  CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
+                  CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
+                  CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
+                  CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100;
+                  CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO != 0 ) GO TO 100
                }
             } else {
 
@@ -253,7 +253,7 @@
 
             } // 100
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -269,14 +269,14 @@
             RESULT( 1 ) = ULPINV
 
             dgeqr2(N, N, T, LDA, WORK, WORK( N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DGEQR2', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
             dorm2r('L', 'T', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -284,14 +284,14 @@
 
             dlaset('Full', N, N, ZERO, ONE, U, LDU );
             dorm2r('R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
             dgghrd('V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DGGHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -317,7 +317,7 @@
             RESULT( 5 ) = ULPINV
 
             dhgeqz('E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR3, ALPHI3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHGEQZ(E)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -329,7 +329,7 @@
             dlacpy(' ', N, N, T, LDA, P2, LDA );
 
             dhgeqz('S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHGEQZ(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -341,7 +341,7 @@
             dlacpy(' ', N, N, T, LDA, P1, LDA );
 
             dhgeqz('S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHGEQZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -376,7 +376,7 @@
             } // 130
 
             dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(L,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -391,7 +391,7 @@
             } // 150
 
             dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, DUMMA, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(L,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -410,7 +410,7 @@
             RESULT( 10 ) = ULPINV
             dlacpy('F', N, N, Q, LDU, EVECTL, LDU );
             dtgevc('L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -440,7 +440,7 @@
             } // 170
 
             dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(R,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -455,7 +455,7 @@
             } // 190
 
             dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(R,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
@@ -474,7 +474,7 @@
             RESULT( 12 ) = ULPINV
             dlacpy('F', N, N, Z, LDU, EVECTR, LDU );
             dtgevc('R', 'B', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210

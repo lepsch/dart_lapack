@@ -90,7 +90,7 @@
       } else if ( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) {
          INFO = -17
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLAQZ0', -INFO );
          RETURN
       }
@@ -151,7 +151,7 @@
       } else if ( LWORK .LT. LWORKREQ ) {
          INFO = -19
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLAQZ0', INFO );
          RETURN
       }

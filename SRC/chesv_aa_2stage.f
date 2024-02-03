@@ -63,7 +63,7 @@
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHESV_AA_2STAGE', -INFO );
          RETURN
       } else if ( WQUERY .OR. TQUERY ) {

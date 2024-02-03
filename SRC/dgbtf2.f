@@ -52,7 +52,7 @@
       } else if ( LDAB.LT.KL+KV+1 ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGBTF2', -INFO );
          RETURN
       }
@@ -92,12 +92,12 @@
          KM = MIN( KL, M-J )
          JP = IDAMAX( KM+1, AB( KV+1, J ), 1 )
          IPIV( J ) = JP + J - 1
-         if ( AB( KV+JP, J ).NE.ZERO ) {
+         if ( AB( KV+JP, J ) != ZERO ) {
             JU = MAX( JU, MIN( J+KU+JP-1, N ) )
 
             // Apply interchange to columns J to JU.
 
-            if (JP.NE.1) CALL DSWAP( JU-J+1, AB( KV+JP, J ), LDAB-1, AB( KV+1, J ), LDAB-1 );
+            if (JP != 1) CALL DSWAP( JU-J+1, AB( KV+JP, J ), LDAB-1, AB( KV+1, J ), LDAB-1 );
 
             if ( KM.GT.0 ) {
 

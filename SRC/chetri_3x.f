@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHETRI_3X', -INFO );
          RETURN
       }
@@ -262,7 +262,7 @@
 
          for (I = 1; I <= N; I++) {
              IP = ABS( IPIV( I ) )
-             if ( IP.NE.I ) {
+             if ( IP != I ) {
                 if (I .LT. IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP );
                 if (I .GT. IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I );
              }
@@ -446,7 +446,7 @@
 
          DO I = N, 1, -1
              IP = ABS( IPIV( I ) )
-             if ( IP.NE.I ) {
+             if ( IP != I ) {
                 if (I .LT. IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP );
                 if (I .GT. IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I );
              }

@@ -106,7 +106,7 @@
          INFO = -21
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DDRVBD', -INFO );
          RETURN
       }
@@ -131,7 +131,7 @@
          N = NN( JSIZE )
          MNMIN = MIN( M, N )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -166,7 +166,7 @@
 
                if (JTYPE == 3) ANORM = ONE                IF( JTYPE == 4 ) ANORM = UNFL / ULP                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
                dlatms(M, N, 'U', ISEED, 'N', S, 4, DBLE( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -195,7 +195,7 @@
                if (IWS.GT.1) CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'DGESVD'
                dgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -204,7 +204,7 @@
                // Do tests 1--4
 
                dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 1 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) );
                   dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
                }
@@ -281,7 +281,7 @@
                dlacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'DGESDD'
                dgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -290,7 +290,7 @@
                // Do tests 8--11
 
                dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 8 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) );
                   dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
                }
@@ -378,7 +378,7 @@
                   LIWORK = MAX( N, 1 )
                   dgesvdq('H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO );
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUT, FMT = 9995 )'DGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -387,7 +387,7 @@
                   // Do tests 36--39
 
                   dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 36 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) );
                      dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
                   }
@@ -427,7 +427,7 @@
                      }
                   }
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUT, FMT = 9995 )'GESVJ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -436,7 +436,7 @@
                   // Do tests 15--18
 
                   dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 15 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) );
                      dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
                   }
@@ -475,7 +475,7 @@
   130                END DO
   140             END DO
 
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUT, FMT = 9995 )'GEJSV', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                      INFO = ABS( IINFO )
                      RETURN
@@ -484,7 +484,7 @@
                   // Do tests 19--22
 
                   dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 19 ) );
-                  if ( M.NE.0 .AND. N.NE.0 ) {
+                  if ( M != 0 .AND. N != 0 ) {
                      dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) );
                      dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
                   }
@@ -501,7 +501,7 @@
 
                dlacpy('F', M, N, ASAV, LDA, A, LDA );
                dgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -513,7 +513,7 @@
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
                dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 23 ) );
-               if ( M.NE.0 .AND. N.NE.0 ) {
+               if ( M != 0 .AND. N != 0 ) {
                   dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) );
                   dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
                }
@@ -590,7 +590,7 @@
                }
                dlacpy('F', M, N, ASAV, LDA, A, LDA );
                dgesvdx('V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -606,12 +606,12 @@
                // Do tests 33--35: DGESVDX( 'V', 'V', 'V' )
 
                if ( MNMIN.GT.0 .AND. NSI.GT.1 ) {
-                  if ( IL.NE.1 ) {
+                  if ( IL != 1 ) {
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                   } else {
                      VU = SSAV( 1 ) + MAX( HALF*ABS( SSAV( NS )-SSAV( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                   }
-                  if ( IU.NE.NS ) {
+                  if ( IU != NS ) {
                      VL = SSAV( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( IU+1 )-SSAV( IU ) ) )
                   } else {
                      VL = SSAV( NS ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( NS )-SSAV( 1 ) ) )
@@ -625,7 +625,7 @@
                }
                dlacpy('F', M, N, ASAV, LDA, A, LDA );
                dgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN

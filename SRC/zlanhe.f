@@ -111,7 +111,7 @@
          }
          SUM = 2*SUM
          for (I = 1; I <= N; I++) { // 130
-            if ( DBLE( A( I, I ) ).NE.ZERO ) {
+            if ( DBLE( A( I, I ) ) != ZERO ) {
                ABSA = ABS( DBLE( A( I, I ) ) )
                if ( SCALE.LT.ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2

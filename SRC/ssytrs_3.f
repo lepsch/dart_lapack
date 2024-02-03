@@ -49,7 +49,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYTRS_3', -INFO );
          RETURN
       }
@@ -75,7 +75,7 @@
 
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                sswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          }
@@ -121,7 +121,7 @@
 
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                sswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          }
@@ -142,7 +142,7 @@
 
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                sswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          }
@@ -188,7 +188,7 @@
 
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                sswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          }

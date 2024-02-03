@@ -59,7 +59,7 @@
       } else if (LDC.LT.MAX(1,N)) {
           INFO = 10
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('CHERK ',INFO);
           RETURN
       }
@@ -117,7 +117,7 @@
                       for (I = 1; I <= J; I++) { // 90
                           C(I,J) = ZERO
                       } // 90
-                  } else if (BETA.NE.ONE) {
+                  } else if (BETA != ONE) {
                       for (I = 1; I <= J - 1; I++) { // 100
                           C(I,J) = BETA*C(I,J)
                       } // 100
@@ -126,7 +126,7 @@
                       C(J,J) = REAL(C(J,J))
                   }
                   for (L = 1; L <= K; L++) { // 120
-                      if (A(J,L).NE.CMPLX(ZERO)) {
+                      if (A(J,L) != CMPLX(ZERO)) {
                           TEMP = ALPHA*CONJG(A(J,L))
                           for (I = 1; I <= J - 1; I++) { // 110
                               C(I,J) = C(I,J) + TEMP*A(I,L)
@@ -141,7 +141,7 @@
                       for (I = J; I <= N; I++) { // 140
                           C(I,J) = ZERO
                       } // 140
-                  } else if (BETA.NE.ONE) {
+                  } else if (BETA != ONE) {
                       C(J,J) = BETA*REAL(C(J,J))
                       for (I = J + 1; I <= N; I++) { // 150
                           C(I,J) = BETA*C(I,J)
@@ -150,7 +150,7 @@
                       C(J,J) = REAL(C(J,J))
                   }
                   for (L = 1; L <= K; L++) { // 170
-                      if (A(J,L).NE.CMPLX(ZERO)) {
+                      if (A(J,L) != CMPLX(ZERO)) {
                           TEMP = ALPHA*CONJG(A(J,L))
                           C(J,J) = REAL(C(J,J)) + REAL(TEMP*A(J,L))
                           for (I = J + 1; I <= N; I++) { // 160

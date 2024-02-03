@@ -105,7 +105,7 @@
 
                // Check the error code from SLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110
                }
@@ -278,7 +278,7 @@
 
                   // Check error code from SPTSV .
 
-                  if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) CALL ALAERH( PATH, 'SPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                   NT = 0
                   if ( IZERO == 0 ) {
 
@@ -333,7 +333,7 @@
 
                // Check the error code from SPTSVX.
 
-               if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != IZERO) CALL ALAERH( PATH, 'SPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                if ( IZERO == 0 ) {
                   if ( IFACT == 2 ) {
 

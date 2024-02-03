@@ -45,7 +45,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGETF2', -INFO );
          RETURN
       }
@@ -64,11 +64,11 @@
 
          JP = J - 1 + IZAMAX( M-J+1, A( J, J ), 1 )
          IPIV( J ) = JP
-         if ( A( JP, J ).NE.ZERO ) {
+         if ( A( JP, J ) != ZERO ) {
 
             // Apply the interchange to columns 1:N.
 
-            if (JP.NE.J) CALL ZSWAP( N, A( J, 1 ), LDA, A( JP, 1 ), LDA );
+            if (JP != J) CALL ZSWAP( N, A( J, 1 ), LDA, A( JP, 1 ), LDA );
 
             // Compute elements J+1:M of J-th column.
 

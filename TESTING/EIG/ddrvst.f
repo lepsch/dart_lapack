@@ -89,7 +89,7 @@
          INFO = -21
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DDRVST', -INFO );
          RETURN
       }
@@ -133,7 +133,7 @@
          }
          ANINV = ONE / DBLE( MAX( 1, N ) )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -255,7 +255,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -289,7 +289,7 @@
                } // 130
                SRNAMT = 'DSTEV'
                dstev('V', N, D1, D2, Z, LDU, WORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEV(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -318,7 +318,7 @@
                } // 160
                SRNAMT = 'DSTEV'
                dstev('N', N, D3, D4, Z, LDU, WORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEV(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -351,7 +351,7 @@
                } // 200
                SRNAMT = 'DSTEVX'
                dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -385,7 +385,7 @@
                } // 230
                SRNAMT = 'DSTEVX'
                dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -417,7 +417,7 @@
                } // 270
                SRNAMT = 'DSTEVR'
                dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -450,7 +450,7 @@
                } // 300
                SRNAMT = 'DSTEVR'
                dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -483,7 +483,7 @@
                } // 340
                SRNAMT = 'DSTEVX'
                dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -513,7 +513,7 @@
                } // 370
                SRNAMT = 'DSTEVX'
                dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -534,12 +534,12 @@
 
                NTEST = 12
                if ( N.GT.0 ) {
-                  if ( IL.NE.1 ) {
+                  if ( IL != 1 ) {
                      VL = WA1( IL ) - MAX( HALF* ( WA1( IL )-WA1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else {
                      VL = WA1( 1 ) - MAX( HALF*( WA1( N )-WA1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
-                  if ( IU.NE.N ) {
+                  if ( IU != N ) {
                      VU = WA1( IU ) + MAX( HALF* ( WA1( IU+1 )-WA1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else {
                      VU = WA1( N ) + MAX( HALF*( WA1( N )-WA1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
@@ -557,7 +557,7 @@
                } // 400
                SRNAMT = 'DSTEVX'
                dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -593,7 +593,7 @@
                } // 430
                SRNAMT = 'DSTEVX'
                dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -621,7 +621,7 @@
                } // 460
                SRNAMT = 'DSTEVD'
                dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVD(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -650,7 +650,7 @@
                } // 490
                SRNAMT = 'DSTEVD'
                dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVD(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -682,7 +682,7 @@
                } // 530
                SRNAMT = 'DSTEVR'
                dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -712,7 +712,7 @@
                } // 560
                SRNAMT = 'DSTEVR'
                dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -733,12 +733,12 @@
 
                NTEST = 21
                if ( N.GT.0 ) {
-                  if ( IL.NE.1 ) {
+                  if ( IL != 1 ) {
                      VL = WA1( IL ) - MAX( HALF* ( WA1( IL )-WA1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else {
                      VL = WA1( 1 ) - MAX( HALF*( WA1( N )-WA1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
-                  if ( IU.NE.N ) {
+                  if ( IU != N ) {
                      VU = WA1( IU ) + MAX( HALF* ( WA1( IU+1 )-WA1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else {
                      VU = WA1( N ) + MAX( HALF*( WA1( N )-WA1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
@@ -756,7 +756,7 @@
                } // 590
                SRNAMT = 'DSTEVR'
                dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -792,7 +792,7 @@
                } // 620
                SRNAMT = 'DSTEVR'
                dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -838,7 +838,7 @@
                NTEST = NTEST + 1
                SRNAMT = 'DSYEV'
                dsyev('V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -860,7 +860,7 @@
                NTEST = NTEST + 2
                SRNAMT = 'DSYEV'
                dsyev('N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -888,12 +888,12 @@
 
                if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) )
-                  if ( IL.NE.1 ) {
+                  if ( IL != 1 ) {
                      VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else if ( N.GT.0 ) {
                      VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
-                  if ( IU.NE.N ) {
+                  if ( IU != N ) {
                      VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else if ( N.GT.0 ) {
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
@@ -906,7 +906,7 @@
 
                SRNAMT = 'DSYEVX'
                dsyevx('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -928,7 +928,7 @@
                NTEST = NTEST + 2
                SRNAMT = 'DSYEVX'
                dsyevx('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -955,7 +955,7 @@
                dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVX'
                dsyevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -978,7 +978,7 @@
                dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVX'
                dsyevx('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1000,7 +1000,7 @@
                dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVX'
                dsyevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1023,7 +1023,7 @@
                dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVX'
                dsyevx('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1080,7 +1080,7 @@
                NTEST = NTEST + 1
                SRNAMT = 'DSPEV'
                dspev('V', UPLO, N, WORK, D1, Z, LDU, V, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1118,7 +1118,7 @@
                NTEST = NTEST + 2
                SRNAMT = 'DSPEV'
                dspev('N', UPLO, N, WORK, D3, Z, LDU, V, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1165,12 +1165,12 @@
 
                if ( N.GT.0 ) {
                   TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) )
-                  if ( IL.NE.1 ) {
+                  if ( IL != 1 ) {
                      VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else if ( N.GT.0 ) {
                      VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
-                  if ( IU.NE.N ) {
+                  if ( IU != N ) {
                      VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else if ( N.GT.0 ) {
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
@@ -1183,7 +1183,7 @@
 
                SRNAMT = 'DSPEVX'
                dspevx('V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1222,7 +1222,7 @@
 
                SRNAMT = 'DSPEVX'
                dspevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1266,7 +1266,7 @@
 
                SRNAMT = 'DSPEVX'
                dspevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1305,7 +1305,7 @@
 
                SRNAMT = 'DSPEVX'
                dspevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1355,7 +1355,7 @@
 
                SRNAMT = 'DSPEVX'
                dspevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1394,7 +1394,7 @@
 
                SRNAMT = 'DSPEVX'
                dspevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1453,7 +1453,7 @@
                NTEST = NTEST + 1
                SRNAMT = 'DSBEV'
                dsbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1487,7 +1487,7 @@
                NTEST = NTEST + 2
                SRNAMT = 'DSBEV'
                dsbev('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1529,7 +1529,7 @@
                NTEST = NTEST + 1
                SRNAMT = 'DSBEVX'
                dsbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1564,7 +1564,7 @@
 
                SRNAMT = 'DSBEVX'
                dsbevx('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1603,7 +1603,7 @@
 
                SRNAMT = 'DSBEVX'
                dsbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1638,7 +1638,7 @@
 
                SRNAMT = 'DSBEVX'
                dsbevx('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1678,7 +1678,7 @@
 
                SRNAMT = 'DSBEVX'
                dsbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1713,7 +1713,7 @@
 
                SRNAMT = 'DSBEVX'
                dsbevx('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1749,7 +1749,7 @@
                NTEST = NTEST + 1
                SRNAMT = 'DSYEVD'
                dsyevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1771,7 +1771,7 @@
                NTEST = NTEST + 2
                SRNAMT = 'DSYEVD'
                dsyevd('N', UPLO, N, A, LDU, D3, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1822,7 +1822,7 @@
                NTEST = NTEST + 1
                SRNAMT = 'DSPEVD'
                dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1861,7 +1861,7 @@
                NTEST = NTEST + 2
                SRNAMT = 'DSPEVD'
                dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1913,7 +1913,7 @@
                NTEST = NTEST + 1
                SRNAMT = 'DSBEVD'
                dsbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1947,7 +1947,7 @@
                NTEST = NTEST + 2
                SRNAMT = 'DSBEVD'
                dsbevd('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1975,7 +1975,7 @@
                NTEST = NTEST + 1
                SRNAMT = 'DSYEVR'
                dsyevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1997,7 +1997,7 @@
                NTEST = NTEST + 2
                SRNAMT = 'DSYEVR'
                dsyevr('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -2024,7 +2024,7 @@
                dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVR'
                dsyevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -2047,7 +2047,7 @@
                dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVR'
                dsyevr('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -2069,7 +2069,7 @@
                dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVR'
                dsyevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -2092,7 +2092,7 @@
                dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVR'
                dsyevr('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {

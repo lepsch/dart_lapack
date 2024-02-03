@@ -144,9 +144,9 @@
       // ..
       // .. Executable Statements ..
 
-      if ( R.NE.ZERO ) {
+      if ( R != ZERO ) {
          BR = B * R
-         if ( BR.NE.ZERO ) {
+         if ( BR != ZERO ) {
             DLADIV2 = (A + BR) * T
          } else {
             DLADIV2 = A * T + (B * T) * R

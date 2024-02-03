@@ -112,7 +112,7 @@
          IWORK( 1 ) = LIWMIN
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTRSEN', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -136,7 +136,7 @@
          } else {
             SWAP = SELECT( K )
             if ( K.LT.N ) {
-               if ( T( K+1, K ).NE.ZERO ) {
+               if ( T( K+1, K ) != ZERO ) {
                   PAIR = true;
                   SWAP = SWAP .OR. SELECT( K+1 )
                }
@@ -148,7 +148,7 @@
 
                IERR = 0
                KK = K
-               if (K.NE.KS) CALL DTREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR );
+               if (K != KS) CALL DTREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR );
                if ( IERR == 1 .OR. IERR == 2 ) {
 
                   // Blocks too close to swap: exit.
@@ -190,7 +190,7 @@
          KASE = 0
          } // 30
          dlacn2(NN, WORK( NN+1 ), WORK, IWORK, EST, KASE, ISAVE );
-         if ( KASE.NE.0 ) {
+         if ( KASE != 0 ) {
             if ( KASE == 1 ) {
 
                // Solve  T11*R - R*T22 = scale*X.
@@ -217,7 +217,7 @@
          WI( K ) = ZERO
       } // 50
       for (K = 1; K <= N - 1; K++) { // 60
-         if ( T( K+1, K ).NE.ZERO ) {
+         if ( T( K+1, K ) != ZERO ) {
             WI( K ) = SQRT( ABS( T( K, K+1 ) ) )* SQRT( ABS( T( K+1, K ) ) )
             WI( K+1 ) = -WI( K )
          }

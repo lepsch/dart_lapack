@@ -105,7 +105,7 @@
 
                   // Check error code from ZLATMS.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT );
                      CYCLE
                   }
@@ -166,7 +166,7 @@
 
                   // Check error code from ZLATMS.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      CYCLE
                   }
@@ -286,7 +286,7 @@
 
                   // Check error code from ZLATMS.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      CYCLE
                   }

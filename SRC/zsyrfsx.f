@@ -128,7 +128,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
         INFO = -14
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('ZSYRFSX', -INFO );
         RETURN
       }
@@ -183,7 +183,7 @@
 
       // Perform refinement on each right-hand side
 
-      if ( REF_TYPE .NE. 0 ) {
+      if ( REF_TYPE != 0 ) {
 
          PREC_TYPE = ILAPREC( 'E' )
           zla_syrfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );

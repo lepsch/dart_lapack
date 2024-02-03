@@ -86,11 +86,11 @@
 
       DO J = N, 1, -1
          I = IPIV( J )
-         if (I.NE.J) CALL ZSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
+         if (I != J) CALL ZSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
       }
       DO J = N, 1, -1
          I = IPIV( J )
-         if (I.NE.J) CALL ZSWAP( N, C( 1, J ), 1, C( 1, I ), 1 );
+         if (I != J) CALL ZSWAP( N, C( 1, J ), 1, C( 1, I ), 1 );
       }
 
 
@@ -115,7 +115,7 @@
       RESID = ZLANSY( '1', UPLO, N, C, LDC, RWORK )
 
       if ( ANORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       }

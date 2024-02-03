@@ -88,7 +88,7 @@
       dsvdct(N, S, E, UPPER, NUMU );
       COUNT = NUMU - NUML
       if (LOWER.LT.ZERO) COUNT = COUNT / 2;
-      if ( COUNT.NE.BPNT-TPNT+1 ) {
+      if ( COUNT != BPNT-TPNT+1 ) {
 
          // Wrong number of singular values in interval
 

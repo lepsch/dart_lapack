@@ -70,7 +70,7 @@
          } // 30
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CSTEIN', -INFO );
          RETURN
       }
@@ -135,7 +135,7 @@
          } // 60
          JBLK = 0
          for (J = J1; J <= M; J++) { // 170
-            if ( IBLOCK( J ).NE.NBLK ) {
+            if ( IBLOCK( J ) != NBLK ) {
                J1 = J
                GO TO 180
             }
@@ -197,7 +197,7 @@
             // close enough.
 
             if (JBLK == 1) GO TO 110             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J;
-            if ( GPIND.NE.J ) {
+            if ( GPIND != J ) {
                for (I = GPIND; I <= J - 1; I++) { // 100
                   CTR = ZERO
                   for (JR = 1; JR <= BLKSIZ; JR++) { // 80

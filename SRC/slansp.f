@@ -119,7 +119,7 @@
          SUM = 2*SUM
          K = 1
          for (I = 1; I <= N; I++) { // 130
-            if ( AP( K ).NE.ZERO ) {
+            if ( AP( K ) != ZERO ) {
                ABSA = ABS( AP( K ) )
                if ( SCALE.LT.ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2

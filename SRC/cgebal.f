@@ -50,7 +50,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGEBAL', -INFO );
          RETURN
       }
@@ -90,7 +90,7 @@
             DO I = L, 1, -1
                CANSWAP = true;
                for (J = 1; J <= L; J++) {
-                  if ( I.NE.J .AND. ( REAL( A( I, J ) ).NE.ZERO .OR. AIMAG( A( I, J ) ).NE.ZERO ) ) {
+                  if ( I != J .AND. ( REAL( A( I, J ) ) != ZERO .OR. AIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT
                   }
@@ -98,7 +98,7 @@
 
                if ( CANSWAP ) {
                   SCALE( L ) = I
-                  if ( I.NE.L ) {
+                  if ( I != L ) {
                      cswap(L, A( 1, I ), 1, A( 1, L ), 1 );
                      cswap(N-K+1, A( I, K ), LDA, A( L, K ), LDA );
                   }
@@ -125,7 +125,7 @@
             for (J = K; J <= L; J++) {
                CANSWAP = true;
                for (I = K; I <= L; I++) {
-                  if ( I.NE.J .AND. ( REAL( A( I, J ) ).NE.ZERO .OR. AIMAG( A( I, J ) ).NE.ZERO ) ) {
+                  if ( I != J .AND. ( REAL( A( I, J ) ) != ZERO .OR. AIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT
                   }
@@ -133,7 +133,7 @@
 
                if ( CANSWAP ) {
                   SCALE( K ) = J
-                  if ( J.NE.K ) {
+                  if ( J != K ) {
                      cswap(L, A( 1, J ), 1, A( 1, K ), 1 );
                      cswap(N-K+1, A( J, K ), LDA, A( K, K ), LDA );
                   }

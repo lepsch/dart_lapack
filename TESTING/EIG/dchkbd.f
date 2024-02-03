@@ -102,7 +102,7 @@
          INFO = -27
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DCHKBD', -INFO );
          RETURN
       }
@@ -131,7 +131,7 @@
          MNMIN = MIN( M, N )
          AMNINV = ONE / MAX( M, N, 1 )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -278,7 +278,7 @@
 
             // Error Exit
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -298,7 +298,7 @@
 
                // Check error code from DGEBRD.
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'DGEBRD', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -319,7 +319,7 @@
 
                // Check error code from DORGBR.
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'DORGBR(Q)', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -331,7 +331,7 @@
 
                // Check error code from DORGBR.
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'DORGBR(P)', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -363,7 +363,7 @@
 
             // Check error code from DBDSQR.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -384,7 +384,7 @@
 
             // Check error code from DBDSQR.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -473,7 +473,7 @@
 
             // Check error code from DBDSDC.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSDC(vects)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -494,7 +494,7 @@
 
             // Check error code from DBDSDC.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSDC(values)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -561,7 +561,7 @@
 
             // Check error code from DBDSVDX.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,A)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -598,7 +598,7 @@
 
             // Check error code from DBDSVDX.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,A)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -667,7 +667,7 @@
 
             // Check error code from DBDSVDX.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,I)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -696,7 +696,7 @@
 
             // Check error code from DBDSVDX.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,I)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -740,12 +740,12 @@
             dcopy(MNMIN, WORK( IWBS ), 1, S1, 1 );
 
             if ( MNMIN.GT.0 ) {
-               if ( IL.NE.1 ) {
+               if ( IL != 1 ) {
                   VU = S1( IL ) + MAX( HALF*ABS( S1( IL )-S1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                } else {
                   VU = S1( 1 ) + MAX( HALF*ABS( S1( MNMIN )-S1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                }
-               if ( IU.NE.NS1 ) {
+               if ( IU != NS1 ) {
                   VL = S1( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( IU+1 )-S1( IU ) ) )
                } else {
                   VL = S1( NS1 ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( MNMIN )-S1( 1 ) ) )
@@ -765,7 +765,7 @@
 
             // Check error code from DBDSVDX.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,V)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -794,7 +794,7 @@
 
             // Check error code from DBDSVDX.
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,V)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {

@@ -58,7 +58,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETF2', -INFO );
          RETURN
       }
@@ -156,7 +156,7 @@
             // ============================================================
 
             KK = K - KSTEP + 1
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
@@ -344,7 +344,7 @@
             // ============================================================
 
             KK = K + KSTEP - 1
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)

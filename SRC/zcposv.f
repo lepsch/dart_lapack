@@ -71,7 +71,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZCPOSV', -INFO );
          RETURN
       }
@@ -104,7 +104,7 @@
 
       zlag2c(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -2
          GO TO 40
       }
@@ -114,7 +114,7 @@
 
       zlat2c(UPLO, N, A, LDA, SWORK( PTSA ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -2
          GO TO 40
       }
@@ -123,7 +123,7 @@
 
       cpotrf(UPLO, N, SWORK( PTSA ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -3
          GO TO 40
       }
@@ -166,7 +166,7 @@
 
          zlag2c(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             ITER = -2
             GO TO 40
          }
@@ -224,7 +224,7 @@
 
       zpotrf(UPLO, N, A, LDA, INFO );
 
-      if (INFO.NE.0) RETURN;
+      if (INFO != 0) RETURN;
 
       zlacpy('All', N, NRHS, B, LDB, X, LDX );
       zpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO );

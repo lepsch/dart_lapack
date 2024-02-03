@@ -102,7 +102,7 @@
 
                // Check error code from ZLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 50
                }
@@ -185,7 +185,7 @@
 
                            // Check error code from ZGELS.
 
-                           if (INFO.NE.0) CALL ALAERH( PATH, 'ZGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != 0) CALL ALAERH( PATH, 'ZGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                            zget02('No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) );
                            NT = NT + 1

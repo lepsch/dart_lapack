@@ -77,7 +77,7 @@
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -18
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSBEVX', -INFO );
          RETURN
       }
@@ -235,14 +235,14 @@
                }
             } // 40
 
-            if ( I.NE.0 ) {
+            if ( I != 0 ) {
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
                sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )
                   IFAIL( J ) = ITMP1

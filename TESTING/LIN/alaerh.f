@@ -53,16 +53,16 @@
          // xGE:  General matrices
 
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9988 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9975 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, N5, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT
@@ -70,7 +70,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9992 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9997 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
@@ -106,16 +106,16 @@
          // xGB:  General band matrices
 
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9989 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, KL, KU, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9976 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, KU, N5, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9986 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, KL, KU, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9972 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, KL, KU, N5, IMAT
@@ -123,7 +123,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9993 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, KU, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9998 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, KU, N5, IMAT
@@ -147,16 +147,16 @@
          // xGT:  General tridiagonal matrices
 
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9987 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, IMAT
             } else {
                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT
@@ -164,7 +164,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9992 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9997 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
@@ -185,16 +185,16 @@
 
          UPLO = OPTS( 1: 1 )
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9980 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9956 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT
@@ -202,7 +202,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
@@ -227,16 +227,16 @@
 
          UPLO = OPTS( 1: 1 )
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9980 )SUBNAM, INFO, INFOE, UPLO, M, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9956 )SUBNAM, INFO, UPLO, M, N5, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9979 )SUBNAM, INFO, INFOE, UPLO, N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9955 )SUBNAM, INFO, UPLO, N, N5, IMAT
@@ -244,7 +244,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9990 )SUBNAM, INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9995 )SUBNAM, INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
@@ -284,16 +284,16 @@
 
          UPLO = OPTS( 1: 1 )
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9980 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9956 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 2, C3, 'SV' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT
@@ -301,7 +301,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
@@ -322,16 +322,16 @@
 
          UPLO = OPTS( 1: 1 )
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9983 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, IMAT
             } else {
                WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT
@@ -339,7 +339,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
@@ -360,16 +360,16 @@
 
          UPLO = OPTS( 1: 1 )
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9982 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, KL, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9958 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, KL, N5, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9981 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, KL, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9957 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, KL, N5, IMAT
@@ -377,7 +377,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9991 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9996 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, N5, IMAT
@@ -397,16 +397,16 @@
          // xPT:  Positive definite tridiagonal matrices
 
          if ( LSAMEN( 3, C3, 'TRF' ) ) {
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9987 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, IMAT
             } else {
                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, IMAT
             }
-            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
+            if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT
@@ -414,7 +414,7 @@
 
          } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
 
-            if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+            if ( INFO != INFOE .AND. INFOE != 0 ) {
                WRITE( NOUT, FMT = 9994 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), N, N5, IMAT
             } else {
                WRITE( NOUT, FMT = 9999 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), N, N5, IMAT
@@ -524,7 +524,7 @@
 
       } else if ( LSAMEN( 2, P2, 'LU' ) ) {
 
-         if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+         if ( INFO != INFOE .AND. INFOE != 0 ) {
             WRITE( NOUT, FMT = 9988 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, N5, IMAT
          } else {
             WRITE( NOUT, FMT = 9975 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, N5, IMAT
@@ -532,7 +532,7 @@
 
       } else if ( LSAMEN( 2, P2, 'CH' ) ) {
 
-         if ( INFO.NE.INFOE .AND. INFOE.NE.0 ) {
+         if ( INFO != INFOE .AND. INFOE != 0 ) {
             WRITE( NOUT, FMT = 9985 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N5, IMAT
          } else {
             WRITE( NOUT, FMT = 9971 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N5, IMAT

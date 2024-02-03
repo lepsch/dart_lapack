@@ -51,7 +51,7 @@
       } else if (( ILST.LT.1 .OR. ILST.GT.N ).AND.( N.GT.0 )) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STREXC', -INFO );
          RETURN
       }
@@ -64,22 +64,22 @@
       // and find out it is 1 by 1 or 2 by 2.
 
       if ( IFST.GT.1 ) {
-         IF( T( IFST, IFST-1 ).NE.ZERO ) IFST = IFST - 1
+         IF( T( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1
       }
       NBF = 1
       if ( IFST.LT.N ) {
-         IF( T( IFST+1, IFST ).NE.ZERO ) NBF = 2
+         IF( T( IFST+1, IFST ) != ZERO ) NBF = 2
       }
 
       // Determine the first row of the final block
       // and find out it is 1 by 1 or 2 by 2.
 
       if ( ILST.GT.1 ) {
-         IF( T( ILST, ILST-1 ).NE.ZERO ) ILST = ILST - 1
+         IF( T( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1
       }
       NBL = 1
       if ( ILST.LT.N ) {
-         IF( T( ILST+1, ILST ).NE.ZERO ) NBL = 2
+         IF( T( ILST+1, ILST ) != ZERO ) NBL = 2
       }
 
       if (IFST == ILST) RETURN;
@@ -102,10 +102,10 @@
 
             NBNEXT = 1
             if ( HERE+NBF+1.LE.N ) {
-               IF( T( HERE+NBF+1, HERE+NBF ).NE.ZERO ) NBNEXT = 2
+               IF( T( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                ILST = HERE
                RETURN
             }
@@ -124,10 +124,10 @@
 
             NBNEXT = 1
             if ( HERE+3.LE.N ) {
-               IF( T( HERE+3, HERE+2 ).NE.ZERO ) NBNEXT = 2
+               IF( T( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                ILST = HERE
                RETURN
             }
@@ -147,7 +147,7 @@
                   // 2 by 2 Block did not split
 
                   slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      ILST = HERE
                      RETURN
                   }
@@ -177,10 +177,10 @@
 
             NBNEXT = 1
             if ( HERE.GE.3 ) {
-               IF( T( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
+               IF( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                ILST = HERE
                RETURN
             }
@@ -199,10 +199,10 @@
 
             NBNEXT = 1
             if ( HERE.GE.3 ) {
-               IF( T( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
+               IF( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                ILST = HERE
                RETURN
             }
@@ -222,7 +222,7 @@
                   // 2 by 2 Block did not split
 
                   slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-1, 2, 1, WORK, INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      ILST = HERE
                      RETURN
                   }

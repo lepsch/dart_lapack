@@ -36,7 +36,7 @@
       } else if ( LDT .LT. MAX( 1, M ) ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGELQT3', -INFO );
          RETURN
       }

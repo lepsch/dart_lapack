@@ -140,7 +140,7 @@
 
                      // Check error code from CLATMS.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60
                      }
@@ -224,14 +224,14 @@
 
                      // Check error code from CPBTRF.
 
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
                         alaerh(PATH, 'CPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 50
                      }
 
                      // Skip the tests if INFO is not 0.
 
-                     if (INFO.NE.0) GO TO 50;
+                     if (INFO != 0) GO TO 50;
 
 *+    TEST 1
                      // Reconstruct matrix from factors and compute
@@ -284,7 +284,7 @@
 
                      // Check error code from CPBTRS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'CPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'CPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         cpbt02(UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
@@ -302,7 +302,7 @@
 
                      // Check error code from CPBRFS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'CPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'CPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                         cpbt05(UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -327,7 +327,7 @@
 
                      // Check error code from CPBCON.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      RESULT( 7 ) = SGET06( RCOND, RCONDC )
 

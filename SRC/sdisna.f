@@ -65,7 +65,7 @@
          }
          IF( .NOT.( INCR .OR. DECR ) ) INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SDISNA', -INFO );
          RETURN
       }

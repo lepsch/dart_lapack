@@ -71,7 +71,7 @@
       SRZT01 = SLANGE( 'One-norm', M, N, WORK, M, RWORK )
 
       SRZT01 = SRZT01 / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )
-      if (NORMA.NE.ZERO) SRZT01 = SRZT01 / NORMA;
+      if (NORMA != ZERO) SRZT01 = SRZT01 / NORMA;
 
       RETURN
 

@@ -22,7 +22,7 @@
       if ( D == ZERO ) {
          SLCTES = ( ZR.LT.ZERO )
       } else {
-         SLCTES = ( SIGN( ONE, ZR ).NE.SIGN( ONE, D ) )
+         SLCTES = ( SIGN( ONE, ZR ) != SIGN( ONE, D ) )
       }
 
       RETURN

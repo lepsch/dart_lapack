@@ -11,6 +11,6 @@
 *  =====================================================================
 
 *  .. Executable Statements ..
-      DLAISNAN = (DIN1.NE.DIN2)
+      DLAISNAN = (DIN1 != DIN2)
       RETURN
       }

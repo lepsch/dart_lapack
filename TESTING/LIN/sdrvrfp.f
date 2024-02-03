@@ -121,7 +121,7 @@
 
                      // Check error code from SLATMS.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         alaerh('SPF', 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
                         GO TO 100
                      }
@@ -188,7 +188,7 @@
 
                         spotri(UPLO, N, A, LDA, INFO );
 
-                        if ( N .NE. 0 ) {
+                        if ( N != 0 ) {
 
                            // Compute the 1-norm condition number of A.
 
@@ -221,7 +221,7 @@
 
                      // Check error code from SPFTRF.
 
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
 
                         // LANGOU: there is a small hick here: IZERO should
                         // always be INFO however if INFO is ZERO, ALAERH does not
@@ -233,7 +233,7 @@
 
                      // Skip the tests if INFO is not 0.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         GO TO 100
                      }
 
@@ -266,7 +266,7 @@
 
                      // Check error code from SPFTRI.
 
-                     if (INFO.NE.0) CALL ALAERH( 'SPO', 'SPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( 'SPO', 'SPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      spot03(UPLO, N, A, LDA, AINV, LDA, S_TEMP_SPOT03, LDA, S_WORK_SPOT03, RCONDC, RESULT( 2 ) );
 

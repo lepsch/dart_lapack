@@ -75,7 +75,7 @@
                EMIN = WORK( J )
             }
          } // 30
-         if ( ISUB.NE.N+1-I ) {
+         if ( ISUB != N+1-I ) {
             WORK( ISUB ) = WORK( N+1-I )
             WORK( N+1-I ) = EMIN
          }
@@ -112,7 +112,7 @@
       dstect(N, A, B, LOWER, NUML );
       dstect(N, A, B, UPPER, NUMU );
       COUNT = NUMU - NUML
-      if ( COUNT.NE.BPNT-TPNT+1 ) {
+      if ( COUNT != BPNT-TPNT+1 ) {
 
          // Wrong number of singular values in interval
 

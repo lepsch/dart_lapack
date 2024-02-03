@@ -91,7 +91,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STGSYL', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -103,7 +103,7 @@
       if ( M == 0 .OR. N == 0 ) {
          SCALE = 1
          if ( NOTRAN ) {
-            if ( IJOB.NE.0 ) {
+            if ( IJOB != 0 ) {
                DIF = 0
             }
          }
@@ -137,7 +137,7 @@
             DSUM = ONE
             PQ = 0
             stgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, IWORK, PQ, INFO );
-            if ( DSCALE.NE.ZERO ) {
+            if ( DSCALE != ZERO ) {
                if ( IJOB == 1 .OR. IJOB == 3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
@@ -173,7 +173,7 @@
       P = P + 1
       IWORK( P ) = I
       I = I + MB
-      if (I.GE.M) GO TO 50       IF( A( I, I-1 ).NE.ZERO ) I = I + 1;
+      if (I.GE.M) GO TO 50       IF( A( I, I-1 ) != ZERO ) I = I + 1;
       GO TO 40
       } // 50
 
@@ -189,7 +189,7 @@
       Q = Q + 1
       IWORK( Q ) = J
       J = J + NB
-      if (J.GE.N) GO TO 70       IF( B( J, J-1 ).NE.ZERO ) J = J + 1;
+      if (J.GE.N) GO TO 70       IF( B( J, J-1 ) != ZERO ) J = J + 1;
       GO TO 60
       } // 70
 
@@ -222,7 +222,7 @@
                   if (LINFO.GT.0) INFO = LINFO;
 
                   PQ = PQ + PPQQ
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (K = 1; K <= JS - 1; K++) { // 80
                         sscal(M, SCALOC, C( 1, K ), 1 );
                         sscal(M, SCALOC, F( 1, K ), 1 );
@@ -255,7 +255,7 @@
                   }
                } // 120
             } // 130
-            if ( DSCALE.NE.ZERO ) {
+            if ( DSCALE != ZERO ) {
                if ( IJOB == 1 .OR. IJOB == 3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
@@ -296,7 +296,7 @@
                NB = JE - JS + 1
                stgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, IWORK( Q+2 ), PPQQ, LINFO );
                if (LINFO.GT.0) INFO = LINFO;
-               if ( SCALOC.NE.ONE ) {
+               if ( SCALOC != ONE ) {
                   for (K = 1; K <= JS - 1; K++) { // 160
                      sscal(M, SCALOC, C( 1, K ), 1 );
                      sscal(M, SCALOC, F( 1, K ), 1 );

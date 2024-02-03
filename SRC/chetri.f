@@ -50,7 +50,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHETRI', -INFO );
          RETURN
       }
@@ -134,7 +134,7 @@
          }
 
          KP = ABS( IPIV( K ) )
-         if ( KP.NE.K ) {
+         if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the leading
             // submatrix A(1:k+1,1:k+1)
@@ -216,7 +216,7 @@
          }
 
          KP = ABS( IPIV( K ) )
-         if ( KP.NE.K ) {
+         if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the trailing
             // submatrix A(k-1:n,k-1:n)

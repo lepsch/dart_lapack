@@ -69,7 +69,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHEGV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -83,7 +83,7 @@
       // Form a Cholesky factorization of B.
 
       cpotrf(UPLO, N, B, LDB, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = N + INFO
          RETURN
       }

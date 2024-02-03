@@ -62,7 +62,7 @@
       // an error code if any are nonzero.
 
       for (J = 1; J <= N; J++) { // 100
-         if ( AIMAG( AFAC( J, J ) ).NE.ZERO ) {
+         if ( AIMAG( AFAC( J, J ) ) != ZERO ) {
             RESID = ONE / EPS
             RETURN
          }

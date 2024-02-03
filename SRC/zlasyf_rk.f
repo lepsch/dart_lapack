@@ -156,7 +156,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = IMAX + IZAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, KW-1 ) )
                   } else {
@@ -228,7 +228,7 @@
 
             KKW = NB + KK - N
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -244,7 +244,7 @@
 
             // Updated column KP is already stored in column KKW of W
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP
 
@@ -274,7 +274,7 @@
                   if ( CABS1( A( K, K ) ).GE.SFMIN ) {
                      R1 = CONE / A( K, K )
                      zscal(K-1, R1, A( 1, K ), 1 );
-                  } else if ( A( K, K ).NE.CZERO ) {
+                  } else if ( A( K, K ) != CZERO ) {
                      for (II = 1; II <= K - 1; II++) { // 14
                         A( II, K ) = A( II, K ) / A( K, K )
                      } // 14
@@ -455,7 +455,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = K - 1 + IZAMAX( IMAX-K, W( K, K+1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, K+1 ) )
                   } else {
@@ -523,7 +523,7 @@
 
             KK = K + KSTEP - 1
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -539,7 +539,7 @@
 
             // Updated column KP is already stored in column KK of W
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP
 
@@ -568,7 +568,7 @@
                   if ( CABS1( A( K, K ) ).GE.SFMIN ) {
                      R1 = CONE / A( K, K )
                      zscal(N-K, R1, A( K+1, K ), 1 );
-                  } else if ( A( K, K ).NE.CZERO ) {
+                  } else if ( A( K, K ) != CZERO ) {
                      for (II = K + 1; II <= N; II++) { // 74
                         A( II, K ) = A( II, K ) / A( K, K )
                      } // 74

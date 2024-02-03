@@ -62,7 +62,7 @@
       } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZUPMTR', -INFO );
          RETURN
       }

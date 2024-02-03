@@ -79,7 +79,7 @@
       dtgexc( false , false , N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO ( 1 ) );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I == J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS             IF( I == J .AND. Z( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Z( I, J ).NE.ZERO ) RES = RES + ONE / EPS
+            IF( I == J .AND. Q( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J .AND. Q( I, J ) != ZERO ) RES = RES + ONE / EPS             IF( I == J .AND. Z( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J .AND. Z( I, J ) != ZERO ) RES = RES + ONE / EPS
          } // 30
       } // 40
 
@@ -93,10 +93,10 @@
 
       for (I = 1; I <= N; I++) { // 60
          for (J = 1; J <= N; J++) { // 50
-            IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS             IF( S1( I, J ).NE.S2( I, J ) ) RES = RES + ONE / EPS
+            IF( T1( I, J ) != T2( I, J ) ) RES = RES + ONE / EPS             IF( S1( I, J ) != S2( I, J ) ) RES = RES + ONE / EPS
          } // 50
       } // 60
-      if (IFST1.NE.IFST2) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( NINFO( 1 ).NE.NINFO( 2 ) ) RES = RES + ONE / EPS;
+      if (IFST1 != IFST2) RES = RES + ONE / EPS       IF( ILST1 != ILST2 ) RES = RES + ONE / EPS       IF( NINFO( 1 ) != NINFO( 2 ) ) RES = RES + ONE / EPS;
 
       // Test orthogonality of Q and Z and backward error on T2 and S2
 

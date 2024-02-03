@@ -44,7 +44,7 @@
       } else if ( .NOT.LQUERY ) {
          IF( LWORK.LE.0 .OR. ( N.GT.0 .AND. LWORK.LT.MAX( 1, M ) ) ) INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGELQF', -INFO );
          RETURN
       } else if ( LQUERY ) {

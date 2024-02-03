@@ -110,7 +110,7 @@
                   PACKIT = 'R'
                }
 
-               if ( IMAT.NE.NTYPES ) {
+               if ( IMAT != NTYPES ) {
 
                   // Set up parameters with ZLATB4 and generate a test
                   // matrix with ZLATMS.
@@ -122,7 +122,7 @@
 
                   // Check error code from ZLATMS.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150
                   }
@@ -216,11 +216,11 @@
                if ( K.GT.0 ) {
                   } // 100
                   if ( IWORK( K ).LT.0 ) {
-                     if ( IWORK( K ).NE.-K ) {
+                     if ( IWORK( K ) != -K ) {
                         K = -IWORK( K )
                         GO TO 100
                      }
-                  } else if ( IWORK( K ).NE.K ) {
+                  } else if ( IWORK( K ) != K ) {
                      K = IWORK( K )
                      GO TO 100
                   }
@@ -228,8 +228,8 @@
 
                // Check error code from ZSPTRF.
 
-               if (INFO.NE.K) CALL ALAERH( PATH, 'ZSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-               if ( INFO.NE.0 ) {
+               if (INFO != K) CALL ALAERH( PATH, 'ZSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if ( INFO != 0 ) {
                   TRFCON = true;
                } else {
                   TRFCON = false;
@@ -251,7 +251,7 @@
 
                // Check error code from ZSPTRI.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   zspt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                   NT = 2
@@ -290,7 +290,7 @@
 
                // Check error code from ZSPTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   zspt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -308,7 +308,7 @@
 
                // Check error code from ZSPRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                   zppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -335,7 +335,7 @@
 
                // Check error code from ZSPCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'ZSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'ZSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = DGET06( RCOND, RCONDC )
 

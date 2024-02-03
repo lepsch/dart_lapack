@@ -77,7 +77,7 @@
 
       if (LWORK.LT.MINWRK) INFO = -23;
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CDRGVX', -INFO );
          RETURN
       }
@@ -118,7 +118,7 @@
                      clacpy('F', N, N, B, LDA, BI, LDA );
 
                      cggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO );
-                     if ( LINFO.NE.0 ) {
+                     if ( LINFO != 0 ) {
                         WRITE( NOUT, FMT = 9999 )'CGGEVX', LINFO, N, IPTYPE, IWA, IWB, IWX, IWY
                         GO TO 30
                      }
@@ -245,7 +245,7 @@
 
       cggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO );
 
-      if ( LINFO.NE.0 ) {
+      if ( LINFO != 0 ) {
          WRITE( NOUT, FMT = 9987 )'CGGEVX', LINFO, N, NPTKNT
          GO TO 140
       }

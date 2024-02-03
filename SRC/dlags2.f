@@ -60,7 +60,7 @@
 
             // zero (1,2) elements of U**T *A and V**T *B
 
-            if ( ( ABS( UA11R )+ABS( UA12 ) ).NE.ZERO ) {
+            if ( ( ABS( UA11R )+ABS( UA12 ) ) != ZERO ) {
                if ( AUA12 / ( ABS( UA11R )+ABS( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS( VB12 ) ) ) {
                   dlartg(-UA11R, UA12, CSQ, SNQ, R );
                } else {
@@ -91,7 +91,7 @@
 
             // zero (2,2) elements of U**T*A and V**T*B, and then swap.
 
-            if ( ( ABS( UA21 )+ABS( UA22 ) ).NE.ZERO ) {
+            if ( ( ABS( UA21 )+ABS( UA22 ) ) != ZERO ) {
                if ( AUA22 / ( ABS( UA21 )+ABS( UA22 ) ).LE.AVB22 / ( ABS( VB21 )+ABS( VB22 ) ) ) {
                   dlartg(-UA21, UA22, CSQ, SNQ, R );
                } else {
@@ -142,7 +142,7 @@
 
             // zero (2,1) elements of U**T *A and V**T *B.
 
-            if ( ( ABS( UA21 )+ABS( UA22R ) ).NE.ZERO ) {
+            if ( ( ABS( UA21 )+ABS( UA22R ) ) != ZERO ) {
                if ( AUA21 / ( ABS( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS( VB21 )+ABS( VB22R ) ) ) {
                   dlartg(UA22R, UA21, CSQ, SNQ, R );
                } else {
@@ -173,7 +173,7 @@
 
             // zero (1,1) elements of U**T*A and V**T*B, and then swap.
 
-            if ( ( ABS( UA11 )+ABS( UA12 ) ).NE.ZERO ) {
+            if ( ( ABS( UA11 )+ABS( UA12 ) ) != ZERO ) {
                if ( AUA11 / ( ABS( UA11 )+ABS( UA12 ) ).LE.AVB11 / ( ABS( VB11 )+ABS( VB12 ) ) ) {
                   dlartg(UA12, UA11, CSQ, SNQ, R );
                } else {

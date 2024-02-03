@@ -62,13 +62,13 @@
             WORK( I, J ) = ZERO
             for (K = 1; K <= N; K++) { // 20
                AUKJ = AD( K )*U( K, J )
-               if (K.NE.N) AUKJ = AUKJ + AE( K )*U( K+1, J )                IF( K.NE.1 ) AUKJ = AUKJ + AE( K-1 )*U( K-1, J );
+               if (K != N) AUKJ = AUKJ + AE( K )*U( K+1, J )                IF( K != 1 ) AUKJ = AUKJ + AE( K-1 )*U( K-1, J );
                WORK( I, J ) = WORK( I, J ) + U( K, I )*AUKJ
             } // 20
          } // 30
          WORK( I, I ) = WORK( I, I ) - SD( I )
          if ( KBAND == 1 ) {
-            if (I.NE.1) WORK( I, I-1 ) = WORK( I, I-1 ) - SE( I-1 )             IF( I.NE.N ) WORK( I, I+1 ) = WORK( I, I+1 ) - SE( I );
+            if (I != 1) WORK( I, I-1 ) = WORK( I, I-1 ) - SE( I-1 )             IF( I != N ) WORK( I, I+1 ) = WORK( I, I+1 ) - SE( I );
          }
       } // 40
 

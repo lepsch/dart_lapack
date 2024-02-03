@@ -58,7 +58,7 @@
       JC = 1
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
-            if ( DIMAG( AFAC( JC ) ).NE.ZERO ) {
+            if ( DIMAG( AFAC( JC ) ) != ZERO ) {
                RESID = ONE / EPS
                RETURN
             }
@@ -66,7 +66,7 @@
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
-            if ( DIMAG( AFAC( JC ) ).NE.ZERO ) {
+            if ( DIMAG( AFAC( JC ) ) != ZERO ) {
                RESID = ONE / EPS
                RETURN
             }
@@ -113,7 +113,7 @@
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 
       if ( ANORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       }

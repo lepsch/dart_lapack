@@ -84,7 +84,7 @@
          ISCL = 1
       }
 
-      if ( ANRM.NE.ZERO ) {
+      if ( ANRM != ZERO ) {
 
          // Compute SVD of work
 
@@ -110,7 +110,7 @@
       // Compare s and singular values of work
 
       saxpy(MN, -ONE, S, 1, WORK( M*N+1 ), 1 );
-      SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL.NE.ZERO ) SQRT12 = SQRT12 / NRMSVL
+      SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL != ZERO ) SQRT12 = SQRT12 / NRMSVL
 
       RETURN
 

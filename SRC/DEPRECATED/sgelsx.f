@@ -56,7 +56,7 @@
          INFO = -7
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGELSX', -INFO );
          RETURN
       }
@@ -200,7 +200,7 @@
          } // 60
          for (I = 1; I <= N; I++) { // 80
             if ( WORK( 2*MN+I ) == NTDONE ) {
-               if ( JPVT( I ).NE.I ) {
+               if ( JPVT( I ) != I ) {
                   K = I
                   T1 = B( K, J )
                   T2 = B( JPVT( K ), J )
@@ -210,7 +210,7 @@
                   T1 = T2
                   K = JPVT( K )
                   T2 = B( JPVT( K ), J )
-                  IF( JPVT( K ).NE.I ) GO TO 70
+                  IF( JPVT( K ) != I ) GO TO 70
                   B( I, J ) = T1
                   WORK( 2*MN+K ) = DONE
                }

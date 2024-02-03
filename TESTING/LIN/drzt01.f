@@ -71,7 +71,7 @@
       DRZT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK )
 
       DRZT01 = DRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
-      if (NORMA.NE.ZERO) DRZT01 = DRZT01 / NORMA;
+      if (NORMA != ZERO) DRZT01 = DRZT01 / NORMA;
 
       RETURN
 

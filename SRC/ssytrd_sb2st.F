@@ -87,7 +87,7 @@
          WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYTRD_SB2ST', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -246,7 +246,7 @@
                           // Call the kernel
 
 #if defined(_OPENMP) && _OPENMP >= 201307
-                          if ( TTYPE.NE.1 ) {
+                          if ( TTYPE != 1 ) {
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 !$OMP$     DEPEND(in:WORK(MYID-1))
 !$OMP$     DEPEND(out:WORK(MYID))

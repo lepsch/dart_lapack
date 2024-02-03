@@ -217,7 +217,7 @@
             INFO = -21
          }
       }
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZUNCSD2BY1', -INFO );
          RETURN
       } else if ( LQUERY ) {

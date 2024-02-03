@@ -48,7 +48,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSYTRI_ROOK', -INFO );
          RETURN
       }
@@ -137,7 +137,7 @@
             // submatrix A(1:k+1,1:k+1)
 
             KP = IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                if (KP.GT.1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
@@ -150,7 +150,7 @@
             // -IPIV(K+1)in the leading submatrix A(1:k+1,1:k+1)
 
             KP = -IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                if (KP.GT.1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
 
@@ -164,7 +164,7 @@
 
             K = K + 1
             KP = -IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                if (KP.GT.1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
@@ -238,7 +238,7 @@
             // submatrix A(k-1:n,k-1:n)
 
             KP = IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                if (KP.LT.N) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                dswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K )
@@ -251,7 +251,7 @@
             // -IPIV(K-1) in the trailing submatrix A(k-1:n,k-1:n)
 
             KP = -IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                if (KP.LT.N) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                dswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
 
@@ -265,7 +265,7 @@
 
             K = K - 1
             KP = -IPIV( K )
-            if ( KP.NE.K ) {
+            if ( KP != K ) {
                if (KP.LT.N) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                dswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K )

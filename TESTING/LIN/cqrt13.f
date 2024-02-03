@@ -51,7 +51,7 @@
 
       // scaled versions
 
-      if ( SCALE.NE.1 ) {
+      if ( SCALE != 1 ) {
          NORMA = CLANGE( 'Max', M, N, A, LDA, DUMMY )
          SMLNUM = SLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM

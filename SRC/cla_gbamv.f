@@ -64,7 +64,7 @@
       } else if ( INCY == 0 ) {
          INFO = 11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLA_GBAMV ', INFO );
          RETURN
       }
@@ -121,7 +121,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. 0.0 ) {
+               if ( ALPHA != 0.0 ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = CABS1( AB( KD+I-J, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
@@ -144,7 +144,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. 0.0 ) {
+               if ( ALPHA != 0.0 ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = CABS1( AB( KE-I+J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
@@ -169,7 +169,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. 0.0 ) {
+               if ( ALPHA != 0.0 ) {
                   JX = KX
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = CABS1( AB( KD+I-J, J ) )
@@ -194,7 +194,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. 0.0 ) {
+               if ( ALPHA != 0.0 ) {
                   JX = KX
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = CABS1( AB( KE-I+J, I ) )

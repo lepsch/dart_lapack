@@ -140,7 +140,7 @@
 
                      // Check error code from ZLATMS.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60
                      }
@@ -224,14 +224,14 @@
 
                      // Check error code from ZPBTRF.
 
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
                         alaerh(PATH, 'ZPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 50
                      }
 
                      // Skip the tests if INFO is not 0.
 
-                     if (INFO.NE.0) GO TO 50;
+                     if (INFO != 0) GO TO 50;
 
 *+    TEST 1
                      // Reconstruct matrix from factors and compute
@@ -284,7 +284,7 @@
 
                      // Check error code from ZPBTRS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'ZPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'ZPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         zpbt02(UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
@@ -302,7 +302,7 @@
 
                      // Check error code from ZPBRFS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'ZPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'ZPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                         zpbt05(UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -327,7 +327,7 @@
 
                      // Check error code from ZPBCON.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'ZPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      RESULT( 7 ) = DGET06( RCOND, RCONDC )
 

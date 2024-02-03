@@ -95,7 +95,7 @@
          INFO = -29
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZCHKST2STG', -INFO );
          RETURN
       }
@@ -138,7 +138,7 @@
          NAP = ( N*( N+1 ) ) / 2
          ANINV = ONE / DBLE( MAX( 1, N ) )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -265,7 +265,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -281,7 +281,7 @@
             NTEST = 1
             zhetrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO );
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHETRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -296,7 +296,7 @@
 
             NTEST = 2
             zungtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUNGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -323,7 +323,7 @@
             if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
             zsteqr('N', N, D1, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -353,7 +353,7 @@
 
             NTEST = 3
             zsteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -381,7 +381,7 @@
 
             NTEST = 4
             zsteqr('N', N, D3, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -428,7 +428,7 @@
             NTEST = 5
             zhptrd('U', N, VP, SD, SE, TAU, IINFO );
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHPTRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -441,7 +441,7 @@
 
             NTEST = 6
             zupgtr('U', N, VP, TAU, U, LDU, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUPGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -474,7 +474,7 @@
             NTEST = 7
             zhptrd('L', N, VP, SD, SE, TAU, IINFO );
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHPTRD(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -487,7 +487,7 @@
 
             NTEST = 8
             zupgtr('L', N, VP, TAU, U, LDU, WORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUPGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -511,7 +511,7 @@
 
             NTEST = 9
             zsteqr('V', N, D1, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -529,7 +529,7 @@
 
             NTEST = 11
             zsteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -547,7 +547,7 @@
 
             NTEST = 12
             dsterf(N, D3, RWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTERF', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -607,7 +607,7 @@
 
                NTEST = 14
                zpteqr('V', N, D4, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZPTEQR(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -629,7 +629,7 @@
 
                NTEST = 16
                zpteqr('N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZPTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -669,7 +669,7 @@
                NTEST = 17
                ABSTOL = UNFL + UNFL
                dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -699,7 +699,7 @@
             NTEST = 18
             ABSTOL = UNFL + UNFL
             dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -739,7 +739,7 @@
             }
 
             dstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -754,12 +754,12 @@
             // eigenvalues and ask for all eigenvalues in this range.
 
             if ( N.GT.0 ) {
-               if ( IL.NE.1 ) {
+               if ( IL != 1 ) {
                   VL = WA1( IL ) - MAX( HALF*( WA1( IL )-WA1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                } else {
                   VL = WA1( 1 ) - MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                }
-               if ( IU.NE.N ) {
+               if ( IU != N ) {
                   VU = WA1( IU ) + MAX( HALF*( WA1( IU+1 )-WA1( IU ) ), ULP*ANORM, TWO*RTUNFL )
                } else {
                   VU = WA1( N ) + MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
@@ -770,7 +770,7 @@
             }
 
             dstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -781,7 +781,7 @@
                }
             }
 
-            if ( M3 == 0 .AND. N.NE.0 ) {
+            if ( M3 == 0 .AND. N != 0 ) {
                RESULT( 19 ) = ULPINV
                GO TO 280
             }
@@ -804,7 +804,7 @@
 
             NTEST = 21
             dstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -817,7 +817,7 @@
             }
 
             zstein(N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEIN', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -845,7 +845,7 @@
 
             NTEST = 22
             zstedc('I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -870,7 +870,7 @@
 
             NTEST = 24
             zstedc('V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -895,7 +895,7 @@
 
             NTEST = 26
             zstedc('N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if ( IINFO.LT.0 ) {
@@ -935,7 +935,7 @@
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
                   zstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      if ( IINFO.LT.0 ) {
@@ -970,7 +970,7 @@
                      ABSTOL = UNFL + UNFL
                      zstemr('V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
 
-                     if ( IINFO.NE.0 ) {
+                     if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         if ( IINFO.LT.0 ) {
@@ -1017,7 +1017,7 @@
                      IL = ITEMP
                   }
                   zstemr('V', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      if ( IINFO.LT.0 ) {
@@ -1039,7 +1039,7 @@
 
                   NTEST = 31
                   zstemr('N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      if ( IINFO.LT.0 ) {
@@ -1073,12 +1073,12 @@
                   NTEST = 32
 
                   if ( N.GT.0 ) {
-                     if ( IL.NE.1 ) {
+                     if ( IL != 1 ) {
                         VL = D2( IL ) - MAX( HALF* ( D2( IL )-D2( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                      } else {
                         VL = D2( 1 ) - MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                      }
-                     if ( IU.NE.N ) {
+                     if ( IU != N ) {
                         VU = D2( IU ) + MAX( HALF* ( D2( IU+1 )-D2( IU ) ), ULP*ANORM, TWO*RTUNFL )
                      } else {
                         VU = D2( N ) + MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL )
@@ -1089,7 +1089,7 @@
                   }
 
                   zstemr('V', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, M, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      if ( IINFO.LT.0 ) {
@@ -1113,7 +1113,7 @@
 
                   NTEST = 34
                   zstemr('N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      if ( IINFO.LT.0 ) {
@@ -1154,7 +1154,7 @@
                NTEST = 35
 
                zstemr('V', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -1178,7 +1178,7 @@
 
                NTEST = 37
                zstemr('N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {

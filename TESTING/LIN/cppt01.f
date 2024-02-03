@@ -61,7 +61,7 @@
       KC = 1
       if ( LSAME( UPLO, 'U' ) ) {
          for (K = 1; K <= N; K++) { // 10
-            if ( AIMAG( AFAC( KC ) ).NE.ZERO ) {
+            if ( AIMAG( AFAC( KC ) ) != ZERO ) {
                RESID = ONE / EPS
                RETURN
             }
@@ -69,7 +69,7 @@
          } // 10
       } else {
          for (K = 1; K <= N; K++) { // 20
-            if ( AIMAG( AFAC( KC ) ).NE.ZERO ) {
+            if ( AIMAG( AFAC( KC ) ) != ZERO ) {
                RESID = ONE / EPS
                RETURN
             }

@@ -186,7 +186,7 @@
          dlacpy('Full', N1, N2, T( 1, N1+1 ), LDST, LI, LDST );
          dlacpy('Full', N1, N2, S( 1, N1+1 ), LDST, IR( N2+1, N1+1 ), LDST );
          dtgsy2('N', 0, N1, N2, S, LDST, S( N1+1, N1+1 ), LDST, IR( N2+1, N1+1 ), LDST, T, LDST, T( N1+1, N1+1 ), LDST, LI, LDST, SCALE, DSUM, DSCALE, IWORK, IDUM, LINFO );
-         if (LINFO.NE.0) GO TO 70;
+         if (LINFO != 0) GO TO 70;
 
          // Compute orthogonal matrix QL:
 
@@ -201,9 +201,9 @@
             LI( N1+I, I ) = SCALE
          } // 10
          dgeqr2(M, N2, LI, LDST, TAUL, WORK, LINFO );
-         if (LINFO.NE.0) GO TO 70;
+         if (LINFO != 0) GO TO 70;
          dorg2r(M, M, N2, LI, LDST, TAUL, WORK, LINFO );
-         if (LINFO.NE.0) GO TO 70;
+         if (LINFO != 0) GO TO 70;
 
          // Compute orthogonal matrix RQ:
 
@@ -215,9 +215,9 @@
             IR( N2+I, I ) = SCALE
          } // 20
          dgerq2(N1, M, IR( N2+1, 1 ), LDST, TAUR, WORK, LINFO );
-         if (LINFO.NE.0) GO TO 70;
+         if (LINFO != 0) GO TO 70;
          dorgr2(M, M, N1, IR, LDST, TAUR, WORK, LINFO );
-         if (LINFO.NE.0) GO TO 70;
+         if (LINFO != 0) GO TO 70;
 
          // Perform the swapping tentatively:
 
@@ -234,9 +234,9 @@
          // Apply transformation (from left) to A-part, giving S.
 
          dgerq2(M, M, T, LDST, TAUR, WORK, LINFO );
-         if (LINFO.NE.0) GO TO 70;
-         CALL DORMR2( 'R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70;
-         CALL DORMR2( 'L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70;
+         if (LINFO != 0) GO TO 70;
+         CALL DORMR2( 'R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO )          IF( LINFO != 0 ) GO TO 70;
+         CALL DORMR2( 'L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO )          IF( LINFO != 0 ) GO TO 70;
 
          // Compute F-norm(S21) in BRQA21. (T21 is 0.)
 
@@ -251,9 +251,9 @@
          // Apply transformation (from right) to A-part, giving S.
 
          dgeqr2(M, M, TCPY, LDST, TAUL, WORK, LINFO );
-         if (LINFO.NE.0) GO TO 70;
+         if (LINFO != 0) GO TO 70;
          dorm2r('L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO );
-         CALL DORM2R( 'R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO )          IF( LINFO.NE.0 ) GO TO 70;
+         CALL DORM2R( 'R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO )          IF( LINFO != 0 ) GO TO 70;
 
          // Compute F-norm(S21) in BQRA21. (T21 is 0.)
 

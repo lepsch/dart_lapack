@@ -44,7 +44,7 @@
          INFO = -5
 
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSYCONVF', -INFO );
          RETURN
       }
@@ -96,7 +96,7 @@
 
                   IP = IPIV( I )
                   if ( I.LT.N ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         dswap(N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA );
                      }
                   }
@@ -109,7 +109,7 @@
 
                   IP = -IPIV( I )
                   if ( I.LT.N ) {
-                     if ( IP.NE.(I-1) ) {
+                     if ( IP != (I-1) ) {
                         dswap(N-I, A( I-1, I+1 ), LDA, A( IP, I+1 ), LDA );
                      }
                   }
@@ -147,7 +147,7 @@
 
                   IP = IPIV( I )
                   if ( I.LT.N ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         dswap(N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA );
                      }
                   }
@@ -161,7 +161,7 @@
                   I = I + 1
                   IP = -IPIV( I )
                   if ( I.LT.N ) {
-                     if ( IP.NE.(I-1) ) {
+                     if ( IP != (I-1) ) {
                         dswap(N-I, A( IP, I+1 ), LDA, A( I-1, I+1 ), LDA );
                      }
                   }
@@ -236,7 +236,7 @@
 
                   IP = IPIV( I )
                   if ( I.GT.1 ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         dswap(I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                      }
                   }
@@ -249,7 +249,7 @@
 
                   IP = -IPIV( I )
                   if ( I.GT.1 ) {
-                     if ( IP.NE.(I+1) ) {
+                     if ( IP != (I+1) ) {
                         dswap(I-1, A( I+1, 1 ), LDA, A( IP, 1 ), LDA );
                      }
                   }
@@ -287,7 +287,7 @@
 
                   IP = IPIV( I )
                   if ( I.GT.1 ) {
-                     if ( IP.NE.I ) {
+                     if ( IP != I ) {
                         dswap(I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA );
                      }
                   }
@@ -301,7 +301,7 @@
                   I = I - 1
                   IP = -IPIV( I )
                   if ( I.GT.1 ) {
-                     if ( IP.NE.(I+1) ) {
+                     if ( IP != (I+1) ) {
                         dswap(I-1, A( IP, 1 ), LDA, A( I+1, 1 ), LDA );
                      }
                   }

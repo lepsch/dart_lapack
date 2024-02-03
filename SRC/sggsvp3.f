@@ -97,7 +97,7 @@
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGGSVP3', -INFO );
          RETURN
       }
@@ -150,7 +150,7 @@
          slapmt(FORWRD, N, N, Q, LDQ, IWORK );
       }
 
-      if ( P.GE.L .AND. N.NE.L ) {
+      if ( P.GE.L .AND. N != L ) {
 
          // RQ factorization of (S11 S12): ( S11 S12 ) = ( 0 S12 )*Z
 

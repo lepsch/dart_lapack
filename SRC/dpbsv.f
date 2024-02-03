@@ -42,7 +42,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DPBSV ', -INFO );
          RETURN
       }

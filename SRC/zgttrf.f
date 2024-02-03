@@ -61,7 +61,7 @@
 
             // No row interchange required, eliminate DL(I)
 
-            if ( CABS1( D( I ) ).NE.ZERO ) {
+            if ( CABS1( D( I ) ) != ZERO ) {
                FACT = DL( I ) / D( I )
                DL( I ) = FACT
                D( I+1 ) = D( I+1 ) - FACT*DU( I )
@@ -84,7 +84,7 @@
       if ( N.GT.1 ) {
          I = N - 1
          if ( CABS1( D( I ) ).GE.CABS1( DL( I ) ) ) {
-            if ( CABS1( D( I ) ).NE.ZERO ) {
+            if ( CABS1( D( I ) ) != ZERO ) {
                FACT = DL( I ) / D( I )
                DL( I ) = FACT
                D( I+1 ) = D( I+1 ) - FACT*DU( I )

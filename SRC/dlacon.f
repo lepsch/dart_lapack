@@ -98,7 +98,7 @@
       ESTOLD = EST
       EST = DASUM( N, V, 1 )
       for (I = 1; I <= N; I++) { // 80
-         IF( NINT( SIGN( ONE, X( I ) ) ).NE.ISGN( I ) ) GO TO 90
+         IF( NINT( SIGN( ONE, X( I ) ) ) != ISGN( I ) ) GO TO 90
       } // 80
       // REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120
@@ -121,7 +121,7 @@
       } // 110
       JLAST = J
       J = IDAMAX( N, X, 1 )
-      if ( ( X( JLAST ).NE.ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
+      if ( ( X( JLAST ) != ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
          ITER = ITER + 1
          GO TO 50
       }

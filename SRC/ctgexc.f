@@ -42,7 +42,7 @@
       } else if ( ILST.LT.1 .OR. ILST.GT.N ) {
          INFO = -13
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTGEXC', -INFO );
          RETURN
       }
@@ -60,7 +60,7 @@
          // Swap with next one below
 
          ctgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             ILST = HERE
             RETURN
          }
@@ -75,7 +75,7 @@
          // Swap with next one above
 
          ctgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             ILST = HERE
             RETURN
          }

@@ -138,7 +138,7 @@
 
                // Check error code from SLATMS and handle error.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Skip all tests for this generated matrix
@@ -265,7 +265,7 @@ c  100                CONTINUE
 
                   // Check error code from SSYTRF and handle error.
 
-                  if ( INFO.NE.K ) {
+                  if ( INFO != K ) {
                      alaerh(PATH, 'SSYTRF_AA', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   }
 
@@ -289,7 +289,7 @@ c  100                CONTINUE
 
                   // Skip solver test if INFO is not 0.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      GO TO 140
                   }
 
@@ -314,7 +314,7 @@ c  100                CONTINUE
 
                      // Check error code from SSYTRS and handle error.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         if ( IZERO == 0 ) {
                            alaerh(PATH, 'SSYTRS_AA', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         }

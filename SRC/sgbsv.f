@@ -38,7 +38,7 @@
       } else if ( LDB.LT.MAX( N, 1 ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGBSV ', -INFO );
          RETURN
       }

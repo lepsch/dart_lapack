@@ -132,7 +132,7 @@
 
                // Begin generate test matrix A.
 
-               if ( IMAT.NE.NTYPES ) {
+               if ( IMAT != NTYPES ) {
 
                   // Set up parameters with CLATB4 for the matrix generator
                   // based on the type of matrix to be generated.
@@ -146,7 +146,7 @@
 
                   // Check error code from CLATMS and handle error.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Skip all tests for this generated matrix
@@ -268,11 +268,11 @@
                   if ( K.GT.0 ) {
                      } // 100
                      if ( IWORK( K ).LT.0 ) {
-                        if ( IWORK( K ).NE.-K ) {
+                        if ( IWORK( K ) != -K ) {
                            K = -IWORK( K )
                            GO TO 100
                         }
-                     } else if ( IWORK( K ).NE.K ) {
+                     } else if ( IWORK( K ) != K ) {
                         K = IWORK( K )
                         GO TO 100
                      }
@@ -280,11 +280,11 @@
 
                   // Check error code from CSYTRF_RK and handle error.
 
-                  if (INFO.NE.K) CALL ALAERH( PATH, 'CSYTRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != K) CALL ALAERH( PATH, 'CSYTRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      TRFCON = true;
                   } else {
                      TRFCON = false;
@@ -315,7 +315,7 @@
 
                      // Check error code from CSYTRI_3 and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CSYTRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CSYTRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -545,7 +545,7 @@
 
                      // Check error code from CSYTRS_3 and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -583,7 +583,7 @@
 
                   // Check error code from CSYCON_3 and handle error.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CSYCON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CSYCON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the test ratio to compare values of RCOND
 

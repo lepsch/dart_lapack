@@ -60,7 +60,7 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYTRD', -INFO );
          RETURN
       } else if ( LQUERY ) {

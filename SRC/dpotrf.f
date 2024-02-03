@@ -46,7 +46,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DPOTRF', -INFO );
          RETURN
       }
@@ -79,7 +79,7 @@
                JB = MIN( NB, N-J+1 )
                dsyrk('Upper', 'Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA );
                dpotrf2('Upper', JB, A( J, J ), LDA, INFO );
-               if (INFO.NE.0) GO TO 30;
+               if (INFO != 0) GO TO 30;
                if ( J+JB.LE.N ) {
 
                   // Compute the current block row.
@@ -101,7 +101,7 @@
                JB = MIN( NB, N-J+1 )
                dsyrk('Lower', 'No transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA );
                dpotrf2('Lower', JB, A( J, J ), LDA, INFO );
-               if (INFO.NE.0) GO TO 30;
+               if (INFO != 0) GO TO 30;
                if ( J+JB.LE.N ) {
 
                   // Compute the current block column.

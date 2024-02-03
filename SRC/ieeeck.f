@@ -30,7 +30,7 @@
       }
 
       NEGZRO = ONE / ( NEGINF+ONE )
-      if ( NEGZRO.NE.ZERO ) {
+      if ( NEGZRO != ZERO ) {
          IEEECK = 0
          RETURN
       }
@@ -42,7 +42,7 @@
       }
 
       NEWZRO = NEGZRO + ZERO
-      if ( NEWZRO.NE.ZERO ) {
+      if ( NEWZRO != ZERO ) {
          IEEECK = 0
          RETURN
       }

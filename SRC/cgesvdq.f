@@ -279,7 +279,7 @@
       if (INFO == 0 .AND. LRWORK .LT. RMINWRK .AND. .NOT. LQUERY) {
          INFO = -21
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGESVDQ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -311,7 +311,7 @@
                 // [[CLANGE will return NaN if an entry of the p-th row is Nan]]
                 RWORK(p) = CLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY )
                 // .. check for NaN's and Inf's
-                if ( ( RWORK(p) .NE. RWORK(p) ) .OR. ( (RWORK(p)*ZERO) .NE. ZERO ) ) {
+                if ( ( RWORK(p) != RWORK(p) ) .OR. ( (RWORK(p)*ZERO) != ZERO ) ) {
                     INFO = - 8
                     xerbla('CGESVDQ', -INFO );
                     RETURN
@@ -320,7 +320,7 @@
             for (p = 1; p <= M - 1; p++) { // 1952
             q = ISAMAX( M-p+1, RWORK(p), 1 ) + p - 1
             IWORK(N+p) = q
-            if ( p .NE. q ) {
+            if ( p != q ) {
                RTMP     = RWORK(p)
                RWORK(p) = RWORK(q)
                RWORK(q) = RTMP
@@ -367,7 +367,7 @@
 
       if ( .NOT.ROWPRM ) {
           RTMP = CLANGE( 'M', M, N, A, LDA, RWORK )
-          if ( ( RTMP .NE. RTMP ) .OR. ( (RTMP*ZERO) .NE. ZERO ) ) {
+          if ( ( RTMP != RTMP ) .OR. ( (RTMP*ZERO) != ZERO ) ) {
                INFO = - 8
                xerbla('CGESVDQ', -INFO );
                RETURN

@@ -68,7 +68,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTRCON', -INFO );
          RETURN
       }
@@ -103,7 +103,7 @@
          KASE = 0
          } // 10
          zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
-         if ( KASE.NE.0 ) {
+         if ( KASE != 0 ) {
             if ( KASE == KASE1 ) {
 
                // Multiply by inv(A).
@@ -119,7 +119,7 @@
 
             // Multiply by 1/SCALE if doing so will not cause overflow.
 
-            if ( SCALE.NE.ONE ) {
+            if ( SCALE != ONE ) {
                IX = IZAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
                if (SCALE.LT.XNORM*SMLNUM .OR. SCALE == ZERO) GO TO 20;
@@ -130,7 +130,7 @@
 
          // Compute the estimate of the reciprocal condition number.
 
-         if (AINVNM.NE.ZERO) RCOND = ( ONE / ANORM ) / AINVNM;
+         if (AINVNM != ZERO) RCOND = ( ONE / ANORM ) / AINVNM;
       }
 
       } // 20

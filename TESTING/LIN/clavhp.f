@@ -50,7 +50,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLAVHP ', -INFO );
          RETURN
       }
@@ -98,7 +98,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KC + K
                K = K + 1
@@ -135,7 +135,7 @@
                   // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KCNEXT + K + 1
                K = K + 2
@@ -169,7 +169,7 @@
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
-               if ( K.NE.N ) {
+               if ( K != N ) {
                   KP = IPIV( K )
 
                   // Apply the transformation.
@@ -179,7 +179,7 @@
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
 
-                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 1
 
@@ -206,7 +206,7 @@
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
-               if ( K.NE.N ) {
+               if ( K != N ) {
 
                   // Apply the transformation.
 
@@ -217,7 +217,7 @@
                   // K-th step of the factorization.
 
                   KP = ABS( IPIV( K ) )
-                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KCNEXT
                K = K - 2
@@ -253,7 +253,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation:
                      // y := y - B' * conjg(x)
@@ -275,7 +275,7 @@
                   // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  if (KP.NE.K-1) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K-1) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations.
 
@@ -329,7 +329,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
@@ -350,7 +350,7 @@
                // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  if (KP.NE.K+1) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K+1) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 

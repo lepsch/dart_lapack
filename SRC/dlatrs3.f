@@ -101,7 +101,7 @@
       } else if ( .NOT.LQUERY .AND. LWORK.LT.LWMIN ) {
          INFO = -14
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLATRS3', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -362,13 +362,13 @@
                   // consistency scaling factor to B( I, KK ) and B( J, KK ).
 
                   SCAL = ( SCAMIN / WORK( I+KK*LDS) )*SCALOC
-                  if ( SCAL.NE.ONE ) {
+                  if ( SCAL != ONE ) {
                      dscal(I2-I1, SCAL, X( I1, RHS ), 1 );
                      WORK( I+KK*LDS ) = SCAMIN*SCALOC
                   }
 
                   SCAL = ( SCAMIN / WORK( J+KK*LDS ) )*SCALOC
-                  if ( SCAL.NE.ONE ) {
+                  if ( SCAL != ONE ) {
                      dscal(J2-J1, SCAL, X( J1, RHS ), 1 );
                      WORK( J+KK*LDS ) = SCAMIN*SCALOC
                   }
@@ -401,12 +401,12 @@
 
          for (KK = 1; KK <= K2-K1; KK++) {
             RHS = K1 + KK - 1
-            if ( SCALE( RHS ).NE.ONE .AND. SCALE( RHS ).NE. ZERO ) {
+            if ( SCALE( RHS ) != ONE .AND. SCALE( RHS ) != ZERO ) {
                for (I = 1; I <= NBA; I++) {
                   I1 = (I-1)*NB + 1
                   I2 = MIN( I*NB, N ) + 1
                   SCAL = SCALE( RHS ) / WORK( I+KK*LDS )
-                  if (SCAL.NE.ONE) CALL DSCAL( I2-I1, SCAL, X( I1, RHS ), 1 );
+                  if (SCAL != ONE) CALL DSCAL( I2-I1, SCAL, X( I1, RHS ), 1 );
                }
             }
          }

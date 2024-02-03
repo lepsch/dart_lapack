@@ -56,7 +56,7 @@
       // an error code if any are nonzero.
 
       for (J = 1; J <= N; J++) { // 10
-         if ( DIMAG( AFAC( J, J ) ).NE.ZERO ) {
+         if ( DIMAG( AFAC( J, J ) ) != ZERO ) {
             RESID = ONE / EPS
             RETURN
          }
@@ -97,7 +97,7 @@
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 
       if ( ANORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID/DBLE( N ) )/ANORM ) / EPS
       }

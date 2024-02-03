@@ -53,7 +53,7 @@
       } else if ( LWORK.LT.MAX( 1, M, P, N ) .AND. .NOT.LQUERY ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGGRQF', -INFO );
          RETURN
       } else if ( LQUERY ) {

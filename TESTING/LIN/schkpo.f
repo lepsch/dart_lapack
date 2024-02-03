@@ -115,7 +115,7 @@
 
                // Check error code from SLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
@@ -173,14 +173,14 @@
 
                   // Check error code from SPOTRF.
 
-                  if ( INFO.NE.IZERO ) {
+                  if ( INFO != IZERO ) {
                      alaerh(PATH, 'SPOTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 90
                   }
 
                   // Skip the tests if INFO is not 0.
 
-                  if (INFO.NE.0) GO TO 90;
+                  if (INFO != 0) GO TO 90;
 
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
@@ -197,7 +197,7 @@
 
                   // Check error code from SPOTRI.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'SPOTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'SPOTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   spot03(UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
@@ -215,7 +215,7 @@
                   // Skip the rest of the tests unless this is the first
                   // blocksize.
 
-                  if (INB.NE.1) GO TO 90;
+                  if (INB != 1) GO TO 90;
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
                      NRHS = NSVAL( IRHS )
@@ -232,7 +232,7 @@
 
                   // Check error code from SPOTRS.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'SPOTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'SPOTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                      spot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -250,7 +250,7 @@
 
                   // Check error code from SPORFS.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'SPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'SPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                      spot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -276,7 +276,7 @@
 
                   // Check error code from SPOCON.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'SPOCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'SPOCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   RESULT( 8 ) = SGET06( RCOND, RCONDC )
 

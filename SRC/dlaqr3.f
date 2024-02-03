@@ -146,7 +146,7 @@
          if ( NS == 1 ) {
             BULGE = false;
          } else {
-            BULGE = T( NS, NS-1 ).NE.ZERO
+            BULGE = T( NS, NS-1 ) != ZERO
          }
 
          // ==== Small spike tip test for deflation ====
@@ -289,7 +289,7 @@
       }
 
       if ( NS.LT.JW .OR. S == ZERO ) {
-         if ( NS.GT.1 .AND. S.NE.ZERO ) {
+         if ( NS.GT.1 .AND. S != ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====
 
@@ -316,7 +316,7 @@
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
 
-         if (NS.GT.1 .AND. S.NE.ZERO) CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
+         if (NS.GT.1 .AND. S != ZERO) CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
 
          // ==== Update vertical slab in H ====
 

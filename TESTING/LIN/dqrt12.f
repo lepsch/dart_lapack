@@ -84,7 +84,7 @@
          ISCL = 1
       }
 
-      if ( ANRM.NE.ZERO ) {
+      if ( ANRM != ZERO ) {
 
          // Compute SVD of work
 
@@ -113,7 +113,7 @@
 
       DQRT12 = DASUM( MN, WORK( M*N+1 ), 1 ) / ( DLAMCH('Epsilon') * DBLE( MAX( M, N ) ) )
 
-      if (NRMSVL.NE.ZERO) DQRT12 = DQRT12 / NRMSVL;
+      if (NRMSVL != ZERO) DQRT12 = DQRT12 / NRMSVL;
 
       RETURN
 

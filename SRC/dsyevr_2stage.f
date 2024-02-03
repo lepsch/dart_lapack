@@ -107,7 +107,7 @@
          IWORK( 1 ) = LIWMIN
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSYEVR_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -319,7 +319,7 @@
                }
             } // 40
 
-            if ( I.NE.0 ) {
+            if ( I != 0 ) {
                W( I ) = W( J )
                W( J ) = TMP1
                dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );

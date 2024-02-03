@@ -50,7 +50,7 @@
       } else if ( LDGNUM.LT.N ) {
          INFO = -16
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLASD6', -INFO );
          RETURN
       }
@@ -91,7 +91,7 @@
 
       // Report the possible convergence failure.
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          RETURN
       }
 

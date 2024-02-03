@@ -70,7 +70,7 @@
          WORK( 1 ) = LWKOPT
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSYTRF_AA', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -130,7 +130,7 @@
 
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
-            if ( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
+            if ( (J2 != IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
                dswap(J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 );
             }
          }
@@ -237,7 +237,7 @@
 
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
-            if ( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
+            if ( (J2 != IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
                dswap(J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA );
             }
          }

@@ -108,7 +108,7 @@
 
                // Check the error code from CLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110
                }
@@ -216,7 +216,7 @@
 
             // Check error code from CPTTRF.
 
-            if ( INFO.NE.IZERO ) {
+            if ( INFO != IZERO ) {
                alaerh(PATH, 'CPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 110
             }
@@ -286,7 +286,7 @@
 
                // Check error code from CPTTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cptt02(UPLO, N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -304,7 +304,7 @@
 
                // Check error code from CPTRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                   cptt05(N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -333,7 +333,7 @@
 
             // Check error code from CPTCON.
 
-            if (INFO.NE.0) CALL ALAERH( PATH, 'CPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+            if (INFO != 0) CALL ALAERH( PATH, 'CPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
             RESULT( 7 ) = SGET06( RCOND, RCONDC )
 

@@ -52,7 +52,7 @@
          INFO = -1
       } else if ( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      } else if ( ISGN.NE.1 .AND. ISGN.NE.-1 ) {
+      } else if ( ISGN != 1 .AND. ISGN != -1 ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -65,7 +65,7 @@
       } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTRSYL', -INFO );
          RETURN
       }
@@ -120,7 +120,7 @@
                }
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
 
-               if ( SCALOC.NE.ONE ) {
+               if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 10
                      zdscal(M, SCALOC, C( 1, J ), 1 );
                   } // 10
@@ -167,7 +167,7 @@
 
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
 
-               if ( SCALOC.NE.ONE ) {
+               if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 40
                      zdscal(M, SCALOC, C( 1, J ), 1 );
                   } // 40
@@ -217,7 +217,7 @@
 
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
 
-               if ( SCALOC.NE.ONE ) {
+               if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 70
                      zdscal(M, SCALOC, C( 1, J ), 1 );
                   } // 70
@@ -263,7 +263,7 @@
 
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
 
-               if ( SCALOC.NE.ONE ) {
+               if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 100
                      zdscal(M, SCALOC, C( 1, J ), 1 );
                   } // 100

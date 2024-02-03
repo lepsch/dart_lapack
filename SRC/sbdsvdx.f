@@ -78,7 +78,7 @@
          IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N*2 ) ) INFO = -14
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SBDSVDX', -INFO );
          RETURN
       }
@@ -128,7 +128,7 @@
       // Compute threshold for neglecting D's and E's.
 
       SMIN = ABS( D( 1 ) )
-      if ( SMIN.NE.ZERO ) {
+      if ( SMIN != ZERO ) {
          MU = SMIN
          for (I = 2; I <= N; I++) {
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
@@ -284,7 +284,7 @@
                      SVEQ0 = true;
                      NRU = (IDEND-ISPLT)/2 + 1
                      NRV = NRU
-                     if ( ISPLT.NE.IDBEG ) {
+                     if ( ISPLT != IDBEG ) {
                         NRU = NRU + 1
                      }
                   } else {
@@ -346,7 +346,7 @@
                   // IWORK( 1: ): 2*6*NTGK
 
                   sstevx(JOBZ, RNGVX, NTGK, WORK( IDTGK+ISPLT-1 ), WORK( IETGK+ISPLT-1 ), VLTGK, VUTGK, ILTGK, IUTGK, ABSTOL, NSL, S( ISBEG ), Z( IROWZ,ICOLZ ), LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      // Exit with the error code from SSTEVX.
                      RETURN
                   }
@@ -383,7 +383,7 @@
                            INFO = N*2 + 1
                            RETURN
                         }
-                        CALL SSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU.NE.ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
+                        CALL SSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU != ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -SDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
                               saxpy(NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
@@ -398,7 +398,7 @@
                            INFO = N*2 + 1
                            RETURN
                         }
-                        CALL SSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV.NE.ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
+                        CALL SSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV != ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -SDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
                               saxpy(NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
@@ -472,7 +472,7 @@
                SMIN = S( J )
             }
          }
-         if ( K.NE.NS+1-I ) {
+         if ( K != NS+1-I ) {
             S( K ) = S( NS+1-I )
             S( NS+1-I ) = SMIN
             if (WANTZ) CALL SSWAP( N*2, Z( 1,K ), 1, Z( 1,NS+1-I ), 1 );

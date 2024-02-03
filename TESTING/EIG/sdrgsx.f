@@ -97,7 +97,7 @@
 
       if (LWORK.LT.MINWRK) INFO = -19;
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SDRGSX', -INFO );
          RETURN
       }
@@ -164,7 +164,7 @@
 
                   sggesx('V', 'V', 'S', SLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO );
 
-                  if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
+                  if ( LINFO != 0 .AND. LINFO != MPLUSN+2 ) {
                      RESULT( 1 ) = ULPINV
                      WRITE( NOUT, FMT = 9999 )'SGGESX', LINFO, MPLUSN, PRTYPE
                      INFO = LINFO
@@ -196,13 +196,13 @@
                      if ( ALPHAI( J ) == ZERO ) {
                         TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
                         if ( J.LT.MPLUSN ) {
-                           if ( AI( J+1, J ).NE.ZERO ) {
+                           if ( AI( J+1, J ) != ZERO ) {
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
                         }
                         if ( J.GT.1 ) {
-                           if ( AI( J, J-1 ).NE.ZERO ) {
+                           if ( AI( J, J-1 ) != ZERO ) {
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
@@ -216,12 +216,12 @@
                         if ( I1.LE.0 .OR. I1.GE.MPLUSN ) {
                            ILABAD = true;
                         } else if ( I1.LT.MPLUSN-1 ) {
-                           if ( AI( I1+2, I1+1 ).NE.ZERO ) {
+                           if ( AI( I1+2, I1+1 ) != ZERO ) {
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
                         } else if ( I1.GT.1 ) {
-                           if ( AI( I1, I1-1 ).NE.ZERO ) {
+                           if ( AI( I1, I1-1 ) != ZERO ) {
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
@@ -249,7 +249,7 @@
                   RESULT( 7 ) = ZERO
                   if ( LINFO == MPLUSN+3 ) {
                      RESULT( 7 ) = ULPINV
-                  } else if ( MM.NE.N ) {
+                  } else if ( MM != N ) {
                      RESULT( 7 ) = ULPINV
                   }
                   NTEST = NTEST + 1
@@ -281,7 +281,7 @@
 
                   RESULT( 9 ) = ZERO
                   if ( LINFO == ( MPLUSN+2 ) ) {
-                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
+                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) .AND. ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
                      NTEST = NTEST + 1
                   }
 
@@ -355,7 +355,7 @@
 
       sggesx('V', 'V', 'S', SLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO );
 
-      if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
+      if ( LINFO != 0 .AND. LINFO != MPLUSN+2 ) {
          RESULT( 1 ) = ULPINV
          WRITE( NOUT, FMT = 9998 )'SGGESX', LINFO, MPLUSN, NPTKNT
          GO TO 130
@@ -385,13 +385,13 @@
          if ( ALPHAI( J ) == ZERO ) {
             TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
             if ( J.LT.MPLUSN ) {
-               if ( AI( J+1, J ).NE.ZERO ) {
+               if ( AI( J+1, J ) != ZERO ) {
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
             }
             if ( J.GT.1 ) {
-               if ( AI( J, J-1 ).NE.ZERO ) {
+               if ( AI( J, J-1 ) != ZERO ) {
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
@@ -405,12 +405,12 @@
             if ( I1.LE.0 .OR. I1.GE.MPLUSN ) {
                ILABAD = true;
             } else if ( I1.LT.MPLUSN-1 ) {
-               if ( AI( I1+2, I1+1 ).NE.ZERO ) {
+               if ( AI( I1+2, I1+1 ) != ZERO ) {
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
             } else if ( I1.GT.1 ) {
-               if ( AI( I1, I1-1 ).NE.ZERO ) {
+               if ( AI( I1, I1-1 ) != ZERO ) {
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
@@ -454,7 +454,7 @@
       NTEST = 9
       RESULT( 9 ) = ZERO
       if ( LINFO == ( MPLUSN+2 ) ) {
-         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
+         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) .AND. ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
       }
 
       // Test (10): compare the estimated value of PL and it true value.

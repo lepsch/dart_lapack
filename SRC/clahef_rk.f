@@ -167,7 +167,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = IMAX + ICAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, KW-1 ) )
                   } else {
@@ -251,7 +251,7 @@
             // Interchange rows and columns P and K.
             // Updated column P is already stored in column KW of W.
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Copy non-updated column K to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -275,7 +275,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KKW of W.
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -589,7 +589,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = K - 1 + ICAMAX( IMAX-K, W( K, K+1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, K+1 ) )
                   } else {
@@ -669,7 +669,7 @@
             // Interchange rows and columns P and K (only for 2-by-2 pivot).
             // Updated column P is already stored in column K of W.
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Copy non-updated column KK-1 to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -693,7 +693,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KK of W.
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K

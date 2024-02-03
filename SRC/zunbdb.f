@@ -93,7 +93,7 @@
             INFO = -21
          }
       }
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('xORBDB', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -316,7 +316,7 @@
             zlarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
             X22(P+I,Q+I) = ONE
 
-            if ( M-P-Q .NE. I ) {
+            if ( M-P-Q != I ) {
                zlarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, DCONJG(TAUQ2(P+I)), X22(P+I,Q+I+1), LDX22, WORK );
             }
 

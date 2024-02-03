@@ -86,7 +86,7 @@
       } else if ( MM.LT.M ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTREVC', -INFO );
          RETURN
       }

@@ -59,7 +59,7 @@
          TM = M
          TI = I
          R = MOD(TM, TI)
-         DO WHILE (R .NE. 0)
+         DO WHILE (R != 0)
             TM = TI
             TI = R
             R = MOD(TM, TI)

@@ -48,7 +48,7 @@
       } else if ( LDAB.LT.KL+KU+1 ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGBEQU', -INFO );
          RETURN
       }

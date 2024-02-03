@@ -95,7 +95,7 @@
         WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('SGEMLQ', -INFO );
         RETURN
       } else if ( LQUERY ) {

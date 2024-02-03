@@ -118,7 +118,7 @@
       } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -18
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHGEQZ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -383,7 +383,7 @@
          // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
          // magnitude)
 
-         if ( ( IITER / 10 )*10.NE.IITER ) {
+         if ( ( IITER / 10 )*10 != IITER ) {
 
             // The Wilkinson shift (AEP p.512), i.e., the eigenvalue of
             // the bottom-right 2x2 block of A inv(B) which is nearest to
@@ -399,7 +399,7 @@
             SHIFT = ABI22
             CTEMP = SQRT( ABI12 )*SQRT( AD21 )
             TEMP = ABS1( CTEMP )
-            if ( CTEMP.NE.ZERO ) {
+            if ( CTEMP != ZERO ) {
                X = HALF*( AD11-SHIFT )
                TEMP2 = ABS1( X )
                TEMP = MAX( TEMP, ABS1( X ) )
@@ -428,7 +428,7 @@
             TEMP = ABS1( CTEMP )
             TEMP2 = ASCALE*ABS1( H( J+1, J ) )
             TEMPR = MAX( TEMP, TEMP2 )
-            if ( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) {
+            if ( TEMPR.LT.ONE .AND. TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             }

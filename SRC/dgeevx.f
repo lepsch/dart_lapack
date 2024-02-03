@@ -130,7 +130,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGEEVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -244,9 +244,9 @@
          dhseqr(JOB, 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
       }
 
-      // If INFO .NE. 0 from DHSEQR, then quit
+      // If INFO != 0 from DHSEQR, then quit
 
-      if (INFO.NE.0) GO TO 50;
+      if (INFO != 0) GO TO 50;
 
       if ( WANTVL .OR. WANTVR ) {
 

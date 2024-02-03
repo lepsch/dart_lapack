@@ -133,7 +133,7 @@
 
                // Check error code from ZLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 160
                }
@@ -251,10 +251,10 @@
 
                      // Check error code from ZSYSV_AA .
 
-                     if ( INFO.NE.K ) {
+                     if ( INFO != K ) {
                         alaerh(PATH, 'ZSYSV_AA ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
-                     } else if ( INFO.NE.0 ) {
+                     } else if ( INFO != 0 ) {
                         GO TO 120
                      }
 

@@ -175,7 +175,7 @@
 
                   // Check the error code from SLATMS.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'SLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 120
                   }
@@ -344,7 +344,7 @@
 
                               // Check error code from SGBSV .
 
-                              if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                              if (INFO != IZERO) CALL ALAERH( PATH, 'SGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               // Reconstruct matrix from factors and
                               // compute residual.
@@ -398,12 +398,12 @@
 
                            // Check the error code from SGBSVX.
 
-                           if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != IZERO) CALL ALAERH( PATH, 'SGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                            // Compare WORK(1) from SGBSVX with the computed
                            // reciprocal pivot growth factor RPVGRW
 
-                           if ( INFO.NE.0 .AND. INFO.LE.N) {
+                           if ( INFO != 0 .AND. INFO.LE.N) {
                               ANRMPV = ZERO
                               for (J = 1; J <= INFO; J++) { // 70
                                  DO 60 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )                                     ANRMPV = MAX( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) )

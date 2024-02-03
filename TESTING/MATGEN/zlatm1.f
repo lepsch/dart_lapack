@@ -49,9 +49,9 @@
 
       if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
          INFO = -1
-      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. ( IRSIGN.NE.0 .AND. IRSIGN.NE.1 ) ) {
+      } else if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. ( IRSIGN != 0 .AND. IRSIGN != 1 ) ) {
          INFO = -2
-      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) {
+      } else if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. COND.LT.ONE ) {
          INFO = -3
       } else if ( ( MODE == 6 .OR. MODE == -6 ) .AND. ( IDIST.LT.1 .OR. IDIST.GT.4 ) ) {
          INFO = -4
@@ -59,14 +59,14 @@
          INFO = -7
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZLATM1', -INFO );
          RETURN
       }
 
       // Compute D according to COND and MODE
 
-      if ( MODE.NE.0 ) {
+      if ( MODE != 0 ) {
          GO TO ( 10, 30, 50, 70, 90, 110 )ABS( MODE )
 
          // One large D value:
@@ -131,7 +131,7 @@
          // If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
          // random signs to D
 
-         if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN == 1 ) {
+         if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. IRSIGN == 1 ) {
             for (I = 1; I <= N; I++) { // 130
                CTEMP = ZLARND( 3, ISEED )
                D( I ) = D( I )*( CTEMP / ABS( CTEMP ) )

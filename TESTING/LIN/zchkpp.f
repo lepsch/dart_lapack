@@ -115,7 +115,7 @@
 
                // Check error code from ZLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
@@ -176,14 +176,14 @@
 
                // Check error code from ZPPTRF.
 
-               if ( INFO.NE.IZERO ) {
+               if ( INFO != IZERO ) {
                   alaerh(PATH, 'ZPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
                // Skip the tests if INFO is not 0.
 
-               if (INFO.NE.0) GO TO 90;
+               if (INFO != 0) GO TO 90;
 
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
@@ -200,7 +200,7 @@
 
                // Check error code from ZPPTRI.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'ZPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'ZPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                zppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
@@ -230,7 +230,7 @@
 
                // Check error code from ZPPTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   zppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -248,7 +248,7 @@
 
                // Check error code from ZPPRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                   zppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -274,7 +274,7 @@
 
                // Check error code from ZPPCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'ZPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'ZPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = DGET06( RCOND, RCONDC )
 

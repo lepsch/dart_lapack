@@ -49,7 +49,7 @@
          B = -C
          C = ZERO
 
-      } else if ( (A-D) == ZERO .AND. SIGN( ONE, B ).NE. SIGN( ONE, C ) ) {
+      } else if ( (A-D) == ZERO .AND. SIGN( ONE, B ) != SIGN( ONE, C ) ) {
          CS = ONE
          SN = ZERO
 
@@ -126,8 +126,8 @@
             A = TEMP
             D = TEMP
 
-            if ( C.NE.ZERO ) {
-               if ( B.NE.ZERO ) {
+            if ( C != ZERO ) {
+               if ( B != ZERO ) {
                   if ( SIGN( ONE, B ) == SIGN( ONE, C ) ) {
 
                      // Real eigenvalues: reduce to upper triangular form

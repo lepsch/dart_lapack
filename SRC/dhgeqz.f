@@ -106,7 +106,7 @@
       } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -19
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DHGEQZ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -246,7 +246,7 @@
                   TEMP = ABS( H( J, J-1 ) )
                   TEMP2 = ABS( H( J, J ) )
                   TEMPR = MAX( TEMP, TEMP2 )
-                  if ( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) {
+                  if ( TEMPR.LT.ONE .AND. TEMPR != ZERO ) {
                      TEMP = TEMP / TEMPR
                      TEMP2 = TEMP2 / TEMPR
                   }
@@ -410,7 +410,7 @@
                S2 = TEMP
             }
             TEMP = MAX( S1, SAFMIN*MAX( ONE, ABS( WR ), ABS( WI ) ) )
-            if (WI.NE.ZERO) GO TO 200;
+            if (WI != ZERO) GO TO 200;
          }
 
          // Fiddle with shift to avoid overflow
@@ -434,7 +434,7 @@
             TEMP = ABS( S1*H( J, J-1 ) )
             TEMP2 = ABS( S1*H( J, J )-WR*T( J, J ) )
             TEMPR = MAX( TEMP, TEMP2 )
-            if ( TEMPR.LT.ONE .AND. TEMPR.NE.ZERO ) {
+            if ( TEMPR.LT.ONE .AND. TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             }

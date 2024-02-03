@@ -62,7 +62,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SORGRQ', -INFO );
          RETURN
       } else if ( LQUERY ) {

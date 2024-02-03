@@ -53,7 +53,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHEGS2', -INFO );
          RETURN
       }

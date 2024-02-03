@@ -91,7 +91,7 @@
         WORK( 1 ) = LW
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('ZGEMLQ', -INFO );
         RETURN
       } else if ( LQUERY ) {

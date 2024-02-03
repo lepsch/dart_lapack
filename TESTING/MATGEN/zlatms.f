@@ -150,7 +150,7 @@
 
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( M.NE.N .AND. ISYM.NE.1 ) {
+      } else if ( M != N .AND. ISYM != 1 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -160,19 +160,19 @@
          INFO = -5
       } else if ( ABS( MODE ).GT.6 ) {
          INFO = -7
-      } else if ( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) {
+      } else if ( ( MODE != 0 .AND. ABS( MODE ) != 6 ) .AND. COND.LT.ONE ) {
          INFO = -8
       } else if ( KL.LT.0 ) {
          INFO = -10
-      } else if ( KU.LT.0 .OR. ( ISYM.NE.1 .AND. KL.NE.KU ) ) {
+      } else if ( KU.LT.0 .OR. ( ISYM != 1 .AND. KL != KU ) ) {
          INFO = -11
-      } else if ( IPACK == -1 .OR. ( ISYMPK == 1 .AND. ISYM == 1 ) .OR. ( ISYMPK == 2 .AND. ISYM == 1 .AND. KL.GT.0 ) .OR. ( ISYMPK == 3 .AND. ISYM == 1 .AND. KU.GT.0 ) .OR. ( ISYMPK.NE.0 .AND. M.NE.N ) ) {
+      } else if ( IPACK == -1 .OR. ( ISYMPK == 1 .AND. ISYM == 1 ) .OR. ( ISYMPK == 2 .AND. ISYM == 1 .AND. KL.GT.0 ) .OR. ( ISYMPK == 3 .AND. ISYM == 1 .AND. KU.GT.0 ) .OR. ( ISYMPK != 0 .AND. M != N ) ) {
          INFO = -12
       } else if ( LDA.LT.MAX( 1, MINLDA ) ) {
          INFO = -14
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZLATMS', -INFO );
          RETURN
       }
@@ -183,14 +183,14 @@
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
       } // 10
 
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 
       // 2)      Set up D  if indicated.
 
               // Compute D according to COND and MODE
 
       dlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, IINFO );
-      if ( IINFO.NE.0 ) {
+      if ( IINFO != 0 ) {
          INFO = 1
          RETURN
       }
@@ -204,7 +204,7 @@
          TOPDWN = false;
       }
 
-      if ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) {
+      if ( MODE != 0 .AND. ABS( MODE ) != 6 ) {
 
          // Scale by DMAX
 
@@ -564,7 +564,7 @@
                // If we need lower triangle, copy from upper. Note that
                // the order of copying is chosen to work for 'q' -> 'b'
 
-               if ( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) {
+               if ( IPACK != IPACKG .AND. IPACK != 3 ) {
                   for (JC = 1; JC <= N; JC++) { // 230
                      IROW = IOFFST - ISKEW*JC
                      if ( ZSYM ) {
@@ -654,7 +654,7 @@
                // If we need upper triangle, copy from lower. Note that
                // the order of copying is chosen to work for 'b' -> 'q'
 
-               if ( IPACK.NE.IPACKG .AND. IPACK.NE.4 ) {
+               if ( IPACK != IPACKG .AND. IPACK != 4 ) {
                   DO 320 JC = N, 1, -1
                      IROW = IOFFST - ISKEW*JC
                      if ( ZSYM ) {
@@ -719,7 +719,7 @@
             }
          }
 
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = 3
             RETURN
          }
@@ -727,7 +727,7 @@
 
       // 5)      Pack the matrix
 
-      if ( IPACK.NE.IPACKG ) {
+      if ( IPACK != IPACKG ) {
          if ( IPACK == 1 ) {
 
             // 'U' -- Upper triangular, not packed

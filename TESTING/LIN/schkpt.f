@@ -105,7 +105,7 @@
 
                // Check the error code from SLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
@@ -213,7 +213,7 @@
 
             // Check error code from SPTTRF.
 
-            if ( INFO.NE.IZERO ) {
+            if ( INFO != IZERO ) {
                alaerh(PATH, 'SPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 100
             }
@@ -277,7 +277,7 @@
 
             // Check error code from SPTTRS.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'SPTTRS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'SPTTRS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                sptt02(N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -295,7 +295,7 @@
 
             // Check error code from SPTRFS.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'SPTRFS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'SPTRFS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                sptt05(N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -322,7 +322,7 @@
 
             // Check error code from SPTCON.
 
-            if (INFO.NE.0) CALL ALAERH( PATH, 'SPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+            if (INFO != 0) CALL ALAERH( PATH, 'SPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
             RESULT( 7 ) = SGET06( RCOND, RCONDC )
 

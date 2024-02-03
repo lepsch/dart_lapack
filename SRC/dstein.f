@@ -67,7 +67,7 @@
          } // 30
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSTEIN', -INFO );
          RETURN
       }
@@ -132,7 +132,7 @@
          } // 60
          JBLK = 0
          for (J = J1; J <= M; J++) { // 150
-            if ( IBLOCK( J ).NE.NBLK ) {
+            if ( IBLOCK( J ) != NBLK ) {
                J1 = J
                GO TO 160
             }
@@ -194,7 +194,7 @@
             // close enough.
 
             if (JBLK == 1) GO TO 90             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J;
-            if ( GPIND.NE.J ) {
+            if ( GPIND != J ) {
                for (I = GPIND; I <= J - 1; I++) { // 80
                   ZTR = -DDOT( BLKSIZ, WORK( INDRV1+1 ), 1, Z( B1, I ), 1 );
                   daxpy(BLKSIZ, ZTR, Z( B1, I ), 1, WORK( INDRV1+1 ), 1 );

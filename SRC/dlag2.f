@@ -166,7 +166,7 @@
 
       WABS = ABS( WR1 ) + ABS( WI )
       WSIZE = MAX( SAFMIN, C1, FUZZY1*( WABS*C2+C3 ), MIN( C4, HALF*MAX( WABS, C5 ) ) )
-      if ( WSIZE.NE.ONE ) {
+      if ( WSIZE != ONE ) {
          WSCALE = ONE / WSIZE
          if ( WSIZE.GT.ONE ) {
             SCALE1 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
@@ -174,7 +174,7 @@
             SCALE1 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )
          }
          WR1 = WR1*WSCALE
-         if ( WI.NE.ZERO ) {
+         if ( WI != ZERO ) {
             WI = WI*WSCALE
             WR2 = WR1
             SCALE2 = SCALE1
@@ -188,7 +188,7 @@
 
       if ( WI == ZERO ) {
          WSIZE = MAX( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ), MIN( C4, HALF*MAX( ABS( WR2 ), C5 ) ) )
-         if ( WSIZE.NE.ONE ) {
+         if ( WSIZE != ONE ) {
             WSCALE = ONE / WSIZE
             if ( WSIZE.GT.ONE ) {
                SCALE2 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )

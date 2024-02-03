@@ -83,7 +83,7 @@
                   // Generate M by N matrix A
 
                   dlatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
                      GO TO 30
@@ -92,7 +92,7 @@
                   // Generate P by N matrix B
 
                   dlatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
                      GO TO 30
@@ -127,7 +127,7 @@
                   // Generate N-by-M matrix  A
 
                   dlatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
                      GO TO 30
@@ -136,7 +136,7 @@
                   // Generate N-by-P matrix  B
 
                   dlatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
-                  if ( IINFO.NE.0 ) {
+                  if ( IINFO != 0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
                      GO TO 30

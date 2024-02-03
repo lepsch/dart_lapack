@@ -112,7 +112,7 @@
                   } // 30
                }
 
-               if ( TAU( J ).NE.ZERO ) {
+               if ( TAU( J ) != ZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = ONE
                   dspmv('L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 );
@@ -134,7 +134,7 @@
                   } // 50
                }
 
-               if ( TAU( J ).NE.ZERO ) {
+               if ( TAU( J ) != ZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = ONE
                   dspmv('U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 );
@@ -158,7 +158,7 @@
          if (N.LT.2) RETURN;
          dlacpy(' ', N, N, U, LDU, WORK, N );
          dopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             RESULT( 1 ) = TEN / ULP
             RETURN
          }

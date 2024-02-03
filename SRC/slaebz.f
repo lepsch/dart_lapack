@@ -153,7 +153,7 @@
                      }
                   }
                } // 70
-               if (INFO.NE.0) RETURN;
+               if (INFO != 0) RETURN;
                KL = KLNEW
             } else {
 

@@ -37,7 +37,7 @@
       } else if ( MIN( 1, N / 2 ).GT.CUTPNT .OR. ( N / 2 ).LT.CUTPNT ) {
          INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLAED1', -INFO );
          RETURN
       }
@@ -72,14 +72,14 @@
 
       slaed2(K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ), WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ), IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ), IWORK( COLTYP ), INFO );
 
-      if (INFO.NE.0) GO TO 20;
+      if (INFO != 0) GO TO 20;
 
       // Solve Secular Equation.
 
-      if ( K.NE.0 ) {
+      if ( K != 0 ) {
          IS = ( IWORK( COLTYP )+IWORK( COLTYP+1 ) )*CUTPNT + ( IWORK( COLTYP+1 )+IWORK( COLTYP+2 ) )*( N-CUTPNT ) + IQ2;
          slaed3(K, N, CUTPNT, D, Q, LDQ, RHO, WORK( IDLMDA ), WORK( IQ2 ), IWORK( INDXC ), IWORK( COLTYP ), WORK( IW ), WORK( IS ), INFO );
-         if (INFO.NE.0) GO TO 20;
+         if (INFO != 0) GO TO 20;
 
       // Prepare the INDXQ sorting permutation.
 

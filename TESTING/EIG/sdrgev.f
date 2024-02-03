@@ -103,7 +103,7 @@
 
       if (LWORK.LT.MINWRK) INFO = -25;
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SDRGEV', -INFO );
          RETURN
       }
@@ -135,7 +135,7 @@
          RMAGN( 2 ) = SAFMAX*ULP / REAL( N1 )
          RMAGN( 3 ) = SAFMIN*ULPINV*N1
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -182,7 +182,7 @@
 
                if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  if (IN.NE.N) CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
+                  if (IN != N) CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
                   IN = N
                }
@@ -194,13 +194,13 @@
 
                if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  if (IN.NE.N) CALL SLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
+                  if (IN != N) CALL SLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
                   IN = N
                }
                slatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               if (IADD.NE.0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
+               if (IADD != 0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
 
                if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
 
@@ -235,10 +235,10 @@
                         A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC )
                      } // 50
                   } // 60
-                  CALL SORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90;
-                  CALL SORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90;
-                  CALL SORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90;
-                  CALL SORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90
+                  CALL SORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
+                  CALL SORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
+                  CALL SORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90;
+                  CALL SORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR != 0 ) GO TO 90
                }
             } else {
 
@@ -253,7 +253,7 @@
 
             } // 90
 
-            if ( IERR.NE.0 ) {
+            if ( IERR != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                RETURN
@@ -270,7 +270,7 @@
             slacpy(' ', N, N, A, LDA, S, LDA );
             slacpy(' ', N, N, B, LDA, T, LDA );
             sggev('V', 'V', N, S, LDA, T, LDA, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, IERR );
-            if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
+            if ( IERR != 0 .AND. IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV1', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -296,7 +296,7 @@
             slacpy(' ', N, N, A, LDA, S, LDA );
             slacpy(' ', N, N, B, LDA, T, LDA );
             sggev('N', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, IERR );
-            if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
+            if ( IERR != 0 .AND. IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV2', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -304,7 +304,7 @@
             }
 
             for (J = 1; J <= N; J++) { // 120
-               IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) ) RESULT( 5 ) = ULPINV
+               IF( ALPHAR( J ) != ALPHR1( J ) .OR. ALPHAI( J ) != ALPHI1( J ) .OR. BETA( J ) != BETA1( J ) ) RESULT( 5 ) = ULPINV
             } // 120
 
             // Do the test (6): Compute eigenvalues and left eigenvectors,
@@ -313,7 +313,7 @@
             slacpy(' ', N, N, A, LDA, S, LDA );
             slacpy(' ', N, N, B, LDA, T, LDA );
             sggev('V', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, IERR );
-            if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
+            if ( IERR != 0 .AND. IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV3', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -321,12 +321,12 @@
             }
 
             for (J = 1; J <= N; J++) { // 130
-               IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) ) RESULT( 6 ) = ULPINV
+               IF( ALPHAR( J ) != ALPHR1( J ) .OR. ALPHAI( J ) != ALPHI1( J ) .OR. BETA( J ) != BETA1( J ) ) RESULT( 6 ) = ULPINV
             } // 130
 
             for (J = 1; J <= N; J++) { // 150
                for (JC = 1; JC <= N; JC++) { // 140
-                  IF( Q( J, JC ).NE.QE( J, JC ) ) RESULT( 6 ) = ULPINV
+                  IF( Q( J, JC ) != QE( J, JC ) ) RESULT( 6 ) = ULPINV
                } // 140
             } // 150
 
@@ -336,7 +336,7 @@
             slacpy(' ', N, N, A, LDA, S, LDA );
             slacpy(' ', N, N, B, LDA, T, LDA );
             sggev('N', 'V', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, IERR );
-            if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
+            if ( IERR != 0 .AND. IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV4', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -344,12 +344,12 @@
             }
 
             for (J = 1; J <= N; J++) { // 160
-               IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) ) RESULT( 7 ) = ULPINV
+               IF( ALPHAR( J ) != ALPHR1( J ) .OR. ALPHAI( J ) != ALPHI1( J ) .OR. BETA( J ) != BETA1( J ) ) RESULT( 7 ) = ULPINV
             } // 160
 
             for (J = 1; J <= N; J++) { // 180
                for (JC = 1; JC <= N; JC++) { // 170
-                  IF( Z( J, JC ).NE.QE( J, JC ) ) RESULT( 7 ) = ULPINV
+                  IF( Z( J, JC ) != QE( J, JC ) ) RESULT( 7 ) = ULPINV
                } // 170
             } // 180
 

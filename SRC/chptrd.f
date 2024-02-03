@@ -46,7 +46,7 @@
       } else if ( N.LT.0 ) {
          INFO = -2
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHPTRD', -INFO );
          RETURN
       }
@@ -71,7 +71,7 @@
             clarfg(I, ALPHA, AP( I1 ), 1, TAUI );
             E( I ) = REAL( ALPHA )
 
-            if ( TAUI.NE.ZERO ) {
+            if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
@@ -115,7 +115,7 @@
             clarfg(N-I, ALPHA, AP( II+2 ), 1, TAUI );
             E( I ) = REAL( ALPHA )
 
-            if ( TAUI.NE.ZERO ) {
+            if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 

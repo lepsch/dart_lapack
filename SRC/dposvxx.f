@@ -104,7 +104,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DPOSVXX', -INFO );
          RETURN
       }
@@ -136,7 +136,7 @@
 
          // Return if INFO is non-zero.
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
 
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the

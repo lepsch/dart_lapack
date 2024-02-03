@@ -72,7 +72,7 @@
       } else if ( ( NCC == 0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
          INFO = -13
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CBDSQR', -INFO );
          RETURN
       }
@@ -89,7 +89,7 @@
 
       // If INFO equals 2, dqds didn't finish, try to finish
 
-         if (INFO .NE. 2) RETURN;
+         if (INFO != 2) RETURN;
          INFO = 0
       }
 
@@ -511,7 +511,7 @@
                SMIN = D( J )
             }
          } // 180
-         if ( ISUB.NE.N+1-I ) {
+         if ( ISUB != N+1-I ) {
 
             // Swap singular values and vectors
 
@@ -528,7 +528,7 @@
       } // 200
       INFO = 0
       for (I = 1; I <= N - 1; I++) { // 210
-         IF( E( I ).NE.ZERO ) INFO = INFO + 1
+         IF( E( I ) != ZERO ) INFO = INFO + 1
       } // 210
       } // 220
       RETURN

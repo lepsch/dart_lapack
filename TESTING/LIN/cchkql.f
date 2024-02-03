@@ -102,7 +102,7 @@
 
                // Check error code from CLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'CLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 50
                }
@@ -179,7 +179,7 @@
 
                            // Check error code from CGEQLS.
 
-                           if (INFO.NE.0) CALL ALAERH( PATH, 'CGEQLS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != 0) CALL ALAERH( PATH, 'CGEQLS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                            cget02('No transpose', M, N, NRHS, A, LDA, X( M-N+1 ), LDA, B, LDA, RWORK, RESULT( 7 ) );
                            NT = NT + 1

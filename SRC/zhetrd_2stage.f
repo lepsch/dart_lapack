@@ -69,7 +69,7 @@
          WORK( 1 )  = LWMIN
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETRD_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -90,12 +90,12 @@
       ABPOS = 1
       WPOS  = ABPOS + LDAB*N
       zhetrd_he2hb(UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETRD_HE2HB', -INFO );
          RETURN
       }
       zhetrd_hb2st('Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETRD_HB2ST', -INFO );
          RETURN
       }

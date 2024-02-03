@@ -38,7 +38,7 @@
       for (J = 1; J <= NRHS; J++) {
          BERR(J) = 0.0D+0
          for (I = 1; I <= N; I++) {
-            if (AYB(I,J) .NE. 0.0D+0) {
+            if (AYB(I,J) != 0.0D+0) {
                TMP = (SAFE1+ABS(RES(I,J)))/AYB(I,J)
                BERR(J) = MAX( BERR(J), TMP )
             }

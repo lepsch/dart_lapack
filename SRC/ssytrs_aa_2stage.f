@@ -51,7 +51,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYTRS_AA_2STAGE', -INFO );
          RETURN
       }

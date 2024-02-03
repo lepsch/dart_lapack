@@ -47,7 +47,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZPOTRF', -INFO );
          RETURN
       }
@@ -85,7 +85,7 @@
                // for non-positive-definiteness.
 
                zpotrf2('Upper', JB, A( J, J ), LDA, INFO );
-               if (INFO.NE.0) GO TO 30;
+               if (INFO != 0) GO TO 30;
 
             } // 10
 
@@ -106,7 +106,7 @@
                // for non-positive-definiteness.
 
                zpotrf2('Lower', JB, A( J, J ), LDA, INFO );
-               if (INFO.NE.0) GO TO 30;
+               if (INFO != 0) GO TO 30;
 
             } // 20
          }

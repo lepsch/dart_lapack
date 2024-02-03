@@ -45,7 +45,7 @@
       } else if ( MIN( 1, N ).GT.CUTPNT .OR. N.LT.CUTPNT ) {
          INFO = -12
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLAED7', -INFO );
          RETURN
       }
@@ -103,8 +103,8 @@
 
       // Solve Secular Equation.
 
-      if ( K.NE.0 ) {
-         CALL SLAED9( K, 1, K, N, D, WORK( IS ), K, RHO, WORK( IDLMDA ), WORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO )          IF( INFO.NE.0 ) GO TO 30
+      if ( K != 0 ) {
+         CALL SLAED9( K, 1, K, N, D, WORK( IS ), K, RHO, WORK( IDLMDA ), WORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO )          IF( INFO != 0 ) GO TO 30
          if ( ICOMPQ == 1 ) {
             sgemm('N', 'N', QSIZ, K, K, ONE, WORK( IQ2 ), LDQ2, QSTORE( QPTR( CURR ) ), K, ZERO, Q, LDQ );
          }

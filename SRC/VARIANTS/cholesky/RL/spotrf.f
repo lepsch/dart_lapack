@@ -46,7 +46,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SPOTRF', -INFO );
          RETURN
       }
@@ -79,7 +79,7 @@
                JB = MIN( NB, N-J+1 )
 
                spotrf2('Upper', JB, A( J, J ), LDA, INFO );
-                if (INFO.NE.0) GO TO 30;
+                if (INFO != 0) GO TO 30;
 
                if ( J+JB.LE.N ) {
 
@@ -102,7 +102,7 @@
                JB = MIN( NB, N-J+1 )
 
                spotrf2('Lower', JB, A( J, J ), LDA, INFO );
-                if (INFO.NE.0) GO TO 30;
+                if (INFO != 0) GO TO 30;
 
                if ( J+JB.LE.N ) {
 

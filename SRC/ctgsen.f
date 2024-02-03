@@ -65,7 +65,7 @@
          INFO = -15
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTGSEN', -INFO );
          RETURN
       }
@@ -81,7 +81,7 @@
       // subspaces.
 
       M = 0
-      if ( .NOT.LQUERY .OR. IJOB.NE.0 ) {
+      if ( .NOT.LQUERY .OR. IJOB != 0 ) {
       for (K = 1; K <= N; K++) { // 10
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
@@ -113,7 +113,7 @@
          INFO = -23
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTGSEN', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -155,7 +155,7 @@
             // Swap the K-th block to position KS. Compute unitary Q
             // and Z that will swap adjacent diagonal blocks in (A, B).
 
-            if (K.NE.KS) CALL CTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, K, KS, IERR );
+            if (K != KS) CALL CTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, K, KS, IERR );
 
             if ( IERR.GT.0 ) {
 
@@ -245,7 +245,7 @@
 
             } // 40
             clacn2(MN2, WORK( MN2+1 ), WORK, DIF( 1 ), KASE, ISAVE );
-            if ( KASE.NE.0 ) {
+            if ( KASE != 0 ) {
                if ( KASE == 1 ) {
 
                   // Solve generalized Sylvester equation
@@ -265,7 +265,7 @@
 
             } // 50
             clacn2(MN2, WORK( MN2+1 ), WORK, DIF( 2 ), KASE, ISAVE );
-            if ( KASE.NE.0 ) {
+            if ( KASE != 0 ) {
                if ( KASE == 1 ) {
 
                   // Solve generalized Sylvester equation

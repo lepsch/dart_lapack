@@ -125,7 +125,7 @@
       } // 90
       JLAST = J
       J = ICMAX1( N, X, 1 )
-      if ( ( ABS( X( JLAST ) ).NE.ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
+      if ( ( ABS( X( JLAST ) ) != ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
          ITER = ITER + 1
          GO TO 50
       }

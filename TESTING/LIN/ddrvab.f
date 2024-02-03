@@ -104,7 +104,7 @@
 
             // Check error code from DLATMS.
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 100
             }
@@ -155,12 +155,12 @@
                // Check error code from DSGESV. This should be the same as
                // the one of DGETRF.
 
-               if ( INFO.NE.IZERO ) {
+               if ( INFO != IZERO ) {
 
                   if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
                   NERRS = NERRS + 1
 
-                  if ( INFO.NE.IZERO .AND. IZERO.NE.0 ) {
+                  if ( INFO != IZERO .AND. IZERO != 0 ) {
                      WRITE( NOUT, FMT = 9988 )'DSGESV',INFO, IZERO,M,IMAT
                   } else {
                      WRITE( NOUT, FMT = 9975 )'DSGESV',INFO, M, IMAT
@@ -169,7 +169,7 @@
 
                // Skip the remaining test if the matrix is singular.
 
-               if (INFO.NE.0) GO TO 100;
+               if (INFO != 0) GO TO 100;
 
                // Check the quality of the solution
 

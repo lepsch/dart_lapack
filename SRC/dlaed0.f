@@ -49,7 +49,7 @@
       } else if ( LDQS.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLAED0', -INFO );
          RETURN
       }
@@ -92,7 +92,7 @@
       } // 40
 
       INDXQ = 4*N + 3
-      if ( ICOMPQ.NE.2 ) {
+      if ( ICOMPQ != 2 ) {
 
          // Set up workspaces for eigenvalues only/accumulate new vectors
          // routine
@@ -132,10 +132,10 @@
             MATSIZ = IWORK( I+1 ) - IWORK( I )
          }
          if ( ICOMPQ == 2 ) {
-            CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, WORK, INFO )             IF( INFO.NE.0 ) GO TO 130
+            CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, WORK, INFO )             IF( INFO != 0 ) GO TO 130
          } else {
             dsteqr('I', MATSIZ, D( SUBMAT ), E( SUBMAT ), WORK( IQ-1+IWORK( IQPTR+CURR ) ), MATSIZ, WORK, INFO );
-            if (INFO.NE.0) GO TO 130;
+            if (INFO != 0) GO TO 130;
             if ( ICOMPQ == 1 ) {
                dgemm('N', 'N', QSIZ, MATSIZ, MATSIZ, ONE, Q( 1, SUBMAT ), LDQ, WORK( IQ-1+IWORK( IQPTR+ CURR ) ), MATSIZ, ZERO, QSTORE( 1, SUBMAT ), LDQS );
             }
@@ -184,7 +184,7 @@
             } else {
                dlaed7(ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), WORK( IGIVNM ), WORK( IWREM ), IWORK( SUBPBS+1 ), INFO );
             }
-            if (INFO.NE.0) GO TO 130;
+            if (INFO != 0) GO TO 130;
             IWORK( I / 2+1 ) = IWORK( I+2 )
          } // 90
          SUBPBS = SUBPBS / 2

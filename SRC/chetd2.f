@@ -48,7 +48,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHETD2', -INFO );
          RETURN
       }
@@ -71,7 +71,7 @@
             clarfg(I, ALPHA, A( 1, I+1 ), 1, TAUI );
             E( I ) = REAL( ALPHA )
 
-            if ( TAUI.NE.ZERO ) {
+            if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
@@ -113,7 +113,7 @@
             clarfg(N-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAUI );
             E( I ) = REAL( ALPHA )
 
-            if ( TAUI.NE.ZERO ) {
+            if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 

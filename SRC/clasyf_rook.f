@@ -146,7 +146,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = IMAX + ICAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, KW-1 ) )
                   } else {
@@ -218,7 +218,7 @@
 
             KKW = NB + KK - N
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -234,7 +234,7 @@
 
             // Updated column KP is already stored in column KKW of W
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP
 
@@ -264,7 +264,7 @@
                   if ( CABS1( A( K, K ) ).GE.SFMIN ) {
                      R1 = CONE / A( K, K )
                      cscal(K-1, R1, A( 1, K ), 1 );
-                  } else if ( A( K, K ).NE.CZERO ) {
+                  } else if ( A( K, K ) != CZERO ) {
                      for (II = 1; II <= K - 1; II++) { // 14
                         A( II, K ) = A( II, K ) / A( K, K )
                      } // 14
@@ -356,9 +356,9 @@
             }
 
             J = J + 1
-            if (JP2.NE.JJ .AND. J.LE.N) CALL CSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
+            if (JP2 != JJ .AND. J.LE.N) CALL CSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = J - 1
-            if (JP1.NE.JJ .AND. KSTEP == 2) CALL CSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LE.N ) GO TO 60;
+            if (JP1 != JJ .AND. KSTEP == 2) CALL CSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LE.N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -445,7 +445,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = K - 1 + ICAMAX( IMAX-K, W( K, K+1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, K+1 ) )
                   } else {
@@ -513,7 +513,7 @@
 
             KK = K + KSTEP - 1
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -529,7 +529,7 @@
 
             // Updated column KP is already stored in column KK of W
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP
 
@@ -558,7 +558,7 @@
                   if ( CABS1( A( K, K ) ).GE.SFMIN ) {
                      R1 = CONE / A( K, K )
                      cscal(N-K, R1, A( K+1, K ), 1 );
-                  } else if ( A( K, K ).NE.CZERO ) {
+                  } else if ( A( K, K ) != CZERO ) {
                      for (II = K + 1; II <= N; II++) { // 74
                         A( II, K ) = A( II, K ) / A( K, K )
                      } // 74
@@ -649,9 +649,9 @@
             }
 
             J = J - 1
-            if (JP2.NE.JJ .AND. J.GE.1) CALL CSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
+            if (JP2 != JJ .AND. J.GE.1) CALL CSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
             JJ = J + 1
-            if (JP1.NE.JJ .AND. KSTEP == 2) CALL CSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GE.1 ) GO TO 120;
+            if (JP1 != JJ .AND. KSTEP == 2) CALL CSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GE.1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

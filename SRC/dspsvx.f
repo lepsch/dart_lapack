@@ -54,7 +54,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSPSVX', -INFO );
          RETURN
       }

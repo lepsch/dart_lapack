@@ -228,13 +228,13 @@
                }
             } // 60
          } // 70
-         if ( IPSV.NE.I ) {
+         if ( IPSV != I ) {
             sswap(4, T16( IPSV, 1 ), 4, T16( I, 1 ), 4 );
             TEMP = BTMP( I )
             BTMP( I ) = BTMP( IPSV )
             BTMP( IPSV ) = TEMP
          }
-         if (JPSV.NE.I) CALL SSWAP( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 );
+         if (JPSV != I) CALL SSWAP( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 );
          JPIV( I ) = JPSV
          if ( ABS( T16( I, I ) ).LT.SMIN ) {
             INFO = 1
@@ -269,7 +269,7 @@
          } // 110
       } // 120
       for (I = 1; I <= 3; I++) { // 130
-         if ( JPIV( 4-I ).NE.4-I ) {
+         if ( JPIV( 4-I ) != 4-I ) {
             TEMP = TMP( 4-I )
             TMP( 4-I ) = TMP( JPIV( 4-I ) )
             TMP( JPIV( 4-I ) ) = TEMP

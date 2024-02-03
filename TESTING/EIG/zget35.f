@@ -109,7 +109,7 @@
                            } // 100
                            KNT = KNT + 1
                            ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT, SCALE, INFO );
-                           if (INFO.NE.0) NINFO = NINFO + 1;
+                           if (INFO != 0) NINFO = NINFO + 1;
                            XNRM = ZLANGE( 'M', M, N, C, LDT, DUM )
                            RMUL = CONE
                            if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {

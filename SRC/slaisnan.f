@@ -11,6 +11,6 @@
 *  =====================================================================
 
 *  .. Executable Statements ..
-      SLAISNAN = (SIN1.NE.SIN2)
+      SLAISNAN = (SIN1 != SIN2)
       RETURN
       }

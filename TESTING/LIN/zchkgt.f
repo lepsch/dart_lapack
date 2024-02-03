@@ -108,7 +108,7 @@
 
                // Check the error code from ZLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
@@ -130,7 +130,7 @@
                   // imaginary parts are from [-1,1].
 
                   zlarnv(2, ISEED, N+2*M, A );
-                  if (ANORM.NE.ONE) CALL ZDSCAL( N+2*M, ANORM, A, 1 );
+                  if (ANORM != ONE) CALL ZDSCAL( N+2*M, ANORM, A, 1 );
                } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
@@ -189,8 +189,8 @@
 
             // Check error code from ZGTTRF.
 
-            if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
-            TRFCON = INFO.NE.0
+            if (INFO != IZERO) CALL ALAERH( PATH, 'ZGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
+            TRFCON = INFO != 0
 
             zgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
 
@@ -252,7 +252,7 @@
 
                // Check error code from ZGTCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'ZGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'ZGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 7 ) = DGET06( RCOND, RCONDC )
 
@@ -301,7 +301,7 @@
 
                // Check error code from ZGTTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   zgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -319,7 +319,7 @@
 
                // Check error code from ZGTRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                   zgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );

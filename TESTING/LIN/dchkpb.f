@@ -140,7 +140,7 @@
 
                      // Check error code from DLATMS.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60
                      }
@@ -216,14 +216,14 @@
 
                      // Check error code from DPBTRF.
 
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
                         alaerh(PATH, 'DPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 50
                      }
 
                      // Skip the tests if INFO is not 0.
 
-                     if (INFO.NE.0) GO TO 50;
+                     if (INFO != 0) GO TO 50;
 
 *+    TEST 1
                      // Reconstruct matrix from factors and compute
@@ -276,7 +276,7 @@
 
                      // Check error code from DPBTRS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'DPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'DPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         dpbt02(UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
@@ -294,7 +294,7 @@
 
                      // Check error code from DPBRFS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'DPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'DPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                         dpbt05(UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -319,7 +319,7 @@
 
                      // Check error code from DPBCON.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'DPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'DPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      RESULT( 7 ) = DGET06( RCOND, RCONDC )
 

@@ -70,7 +70,7 @@
       } else if ( LDAB.LT.KD+1 ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLATBS', -INFO );
          RETURN
       }
@@ -148,7 +148,7 @@
             MAIND = 1
          }
 
-         if ( TSCAL.NE.ONE ) {
+         if ( TSCAL != ONE ) {
             GROW = ZERO
             GO TO 60
          }
@@ -232,7 +232,7 @@
             MAIND = 1
          }
 
-         if ( TSCAL.NE.ONE ) {
+         if ( TSCAL != ONE ) {
             GROW = ZERO
             GO TO 90
          }
@@ -713,7 +713,7 @@
 
       // Scale the column norms by 1/TSCAL for return.
 
-      if ( TSCAL.NE.ONE ) {
+      if ( TSCAL != ONE ) {
          sscal(N, ONE / TSCAL, CNORM, 1 );
       }
 

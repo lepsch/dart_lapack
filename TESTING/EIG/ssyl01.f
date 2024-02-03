@@ -129,7 +129,7 @@
                         slacpy('All', M, N, C, MAXM, X, MAXM);
                         slacpy('All', M, N, C, MAXM, CC, MAXM);
                         strsyl(TRANA, TRANB, ISGN, M, N,  A, MAXM, B, MAXN, X, MAXM, SCALE, IINFO );
-                        if (IINFO.NE.0) NINFO( 1 ) = NINFO( 1 ) + 1;
+                        if (IINFO != 0) NINFO( 1 ) = NINFO( 1 ) + 1;
                         XNRM = SLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = ONE
                         if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
@@ -145,7 +145,7 @@
                         slacpy('All', M, N, C, MAXM, X, MAXM );
                         slacpy('All', M, N, C, MAXM, CC, MAXM );
                         strsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE3, IWORK, LIWORK, SWORK, LDSWORK, INFO);
-                        if (INFO.NE.0) NINFO( 2 ) = NINFO( 2 ) + 1;
+                        if (INFO != 0) NINFO( 2 ) = NINFO( 2 ) + 1;
                         XNRM = SLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = ONE
                         if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
@@ -159,7 +159,7 @@
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but
                         // there may be cases where TRSYL3 avoid flushing).
-                        if ( SCALE3 == ZERO .AND. SCALE.GT.ZERO .OR.  IINFO.NE.INFO ) {
+                        if ( SCALE3 == ZERO .AND. SCALE.GT.ZERO .OR.  IINFO != INFO ) {
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         }
                         IF( RES.GT.THRESH .OR. SISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES.GT.RMAX( 2 ) ) RMAX( 2 ) = RES

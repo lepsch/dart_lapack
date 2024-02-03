@@ -54,7 +54,7 @@
       BNORM = SLANGE( '1', M, N, B, LDB, WORK )
 
       if ( BNORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( REALMN*EPS )

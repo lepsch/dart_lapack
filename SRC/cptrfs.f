@@ -67,7 +67,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CPTRFS', -INFO );
          RETURN
       }
@@ -226,7 +226,7 @@
          // Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
 
             // m(i,j) =  abs(A(i,j)), i = j,
-            // m(i,j) = -abs(A(i,j)), i .ne. j,
+            // m(i,j) = -abs(A(i,j)), i != j,
 
          // and e = [ 1, 1, ..., 1 ]**T.  Note M(A) = M(L)*D*M(L)**H.
 
@@ -255,7 +255,7 @@
          for (I = 1; I <= N; I++) { // 90
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
          } // 90
-         if (LSTRES.NE.ZERO) FERR( J ) = FERR( J ) / LSTRES;
+         if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 
       } // 100
 

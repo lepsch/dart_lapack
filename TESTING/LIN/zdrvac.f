@@ -110,7 +110,7 @@
 
                // Check error code from ZLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
@@ -183,12 +183,12 @@
 
                   // Check error code from ZCPOSV .
 
-                  if ( INFO.NE.IZERO ) {
+                  if ( INFO != IZERO ) {
 
                      if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
                      NERRS = NERRS + 1
 
-                     if ( INFO.NE.IZERO .AND. IZERO.NE.0 ) {
+                     if ( INFO != IZERO .AND. IZERO != 0 ) {
                         WRITE( NOUT, FMT = 9988 )'ZCPOSV',INFO,IZERO,N, IMAT
                      } else {
                         WRITE( NOUT, FMT = 9975 )'ZCPOSV',INFO,N,IMAT
@@ -197,7 +197,7 @@
 
                   // Skip the remaining test if the matrix is singular.
 
-                  if (INFO.NE.0) GO TO 110;
+                  if (INFO != 0) GO TO 110;
 
                   // Check the quality of the solution
 

@@ -61,7 +61,7 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( N1.LT.0 .OR. N1+N2.NE.NQ ) {
+      } else if ( N1.LT.0 .OR. N1+N2 != NQ ) {
          INFO = -5
       } else if ( N2.LT.0 ) {
          INFO = -6
@@ -78,7 +78,7 @@
          WORK( 1 ) = DBLE( LWKOPT )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DORM22', -INFO );
          RETURN
       } else if ( LQUERY ) {

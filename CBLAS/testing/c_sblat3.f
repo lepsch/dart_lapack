@@ -214,14 +214,14 @@ void main() {
       TRANSB = 'N'
       smmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LSE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
+      if ( .NOT.SAME.OR.ERR != ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'T'
       smmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LSE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
+      if ( .NOT.SAME.OR.ERR != ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
@@ -236,14 +236,14 @@ void main() {
       TRANSB = 'N'
       smmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LSE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
+      if ( .NOT.SAME.OR.ERR != ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'T'
       smmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LSE( CC, CT, N )
-      if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
+      if ( .NOT.SAME.OR.ERR != ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
@@ -1819,7 +1819,7 @@ void main() {
          for (I = 1; I <= M; I++) { // 10
             if ( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) {
                A( I, J ) = SBEG( RESET ) + TRANSL
-               if ( I.NE.J ) {
+               if ( I != J ) {
                   // Set some elements to zero
                   if (N.GT.3.AND.J == N/2) A( I, J ) = ZERO;
                   if ( SYM ) {
@@ -1958,7 +1958,7 @@ void main() {
          ERR = ZERO
          for (I = 1; I <= M; I++) { // 110
             ERRI = ABS( CT( I ) - CC( I, J ) )/EPS
-            IF( G( I ).NE.ZERO ) ERRI = ERRI/G( I )
+            IF( G( I ) != ZERO ) ERRI = ERRI/G( I )
             ERR = MAX( ERR, ERRI )
             IF( ERR*SQRT( EPS ).GE.ONE ) GO TO 130
          } // 110
@@ -2011,7 +2011,7 @@ void main() {
       int                I;
       // .. Executable Statements ..
       for (I = 1; I <= LR; I++) { // 10
-         IF( RI( I ).NE.RJ( I ) ) GO TO 20
+         IF( RI( I ) != RJ( I ) ) GO TO 20
       } // 10
       LSE = true;
       GO TO 30
@@ -2050,7 +2050,7 @@ void main() {
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = M + 1; I <= LDA; I++) { // 10
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 10
          } // 20
       } else if ( TYPE == 'SY' ) {
@@ -2063,10 +2063,10 @@ void main() {
                IEND = N
             }
             for (I = 1; I <= IBEG - 1; I++) { // 30
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 30
             for (I = IEND + 1; I <= LDA; I++) { // 40
-               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
             } // 40
          } // 50
       }

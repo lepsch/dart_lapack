@@ -97,7 +97,7 @@
          // Compute Schur form
 
          dgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 160
@@ -111,7 +111,7 @@
          // Compute Schur form
 
          dhseqr('S', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
             GO TO 160
@@ -153,7 +153,7 @@
          dlacpy('F', N, N, Q, LDT, QSAV, LDT );
          dlacpy('F', N, N, T, LDT, TSAV1, LDT );
          dtrsen('B', 'V', SELECT, N, T, LDT, Q, LDT, WRTMP, WITMP, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 160
@@ -285,15 +285,15 @@
          SEPTMP = -ONE
          STMP = -ONE
          dtrsen('E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 160
          }
-         if (S.NE.STMP) VMAX = ONE / EPS          IF( -ONE.NE.SEPTMP ) VMAX = ONE / EPS;
+         if (S != STMP) VMAX = ONE / EPS          IF( -ONE != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 90
             for (J = 1; J <= N; J++) { // 80
-               IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
+               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS
             } // 80
          } // 90
 
@@ -305,15 +305,15 @@
          SEPTMP = -ONE
          STMP = -ONE
          dtrsen('V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 160
          }
-         if (-ONE.NE.STMP) VMAX = ONE / EPS          IF( SEP.NE.SEPTMP ) VMAX = ONE / EPS;
+         if (-ONE != STMP) VMAX = ONE / EPS          IF( SEP != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 110
             for (J = 1; J <= N; J++) { // 100
-               IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
+               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS
             } // 100
          } // 110
 
@@ -325,15 +325,15 @@
          SEPTMP = -ONE
          STMP = -ONE
          dtrsen('E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 160
          }
-         if (S.NE.STMP) VMAX = ONE / EPS          IF( -ONE.NE.SEPTMP ) VMAX = ONE / EPS;
+         if (S != STMP) VMAX = ONE / EPS          IF( -ONE != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 130
             for (J = 1; J <= N; J++) { // 120
-               IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
+               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS
             } // 120
          } // 130
 
@@ -345,15 +345,15 @@
          SEPTMP = -ONE
          STMP = -ONE
          dtrsen('V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 160
          }
-         if (-ONE.NE.STMP) VMAX = ONE / EPS          IF( SEP.NE.SEPTMP ) VMAX = ONE / EPS;
+         if (-ONE != STMP) VMAX = ONE / EPS          IF( SEP != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 150
             for (J = 1; J <= N; J++) { // 140
-               IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
+               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS
             } // 140
          } // 150
          if ( VMAX.GT.RMAX( 1 ) ) {

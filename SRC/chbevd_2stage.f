@@ -96,7 +96,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHBEVD_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {

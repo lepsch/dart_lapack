@@ -52,7 +52,7 @@
       } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
          INFO = -12
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHBGV', -INFO );
          RETURN
       }
@@ -64,7 +64,7 @@
       // Form a split Cholesky factorization of B.
 
       zpbstf(UPLO, N, KB, BB, LDBB, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = N + INFO
          RETURN
       }

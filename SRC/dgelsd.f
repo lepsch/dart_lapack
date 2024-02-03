@@ -127,7 +127,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGELSD', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -246,7 +246,7 @@
          // Solve the bidiagonal least squares problem.
 
          dlalsd('U', SMLSIZ, N, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             GO TO 10
          }
 
@@ -292,7 +292,7 @@
          // Solve the bidiagonal least squares problem.
 
          dlalsd('U', SMLSIZ, M, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             GO TO 10
          }
 
@@ -332,7 +332,7 @@
          // Solve the bidiagonal least squares problem.
 
          dlalsd('L', SMLSIZ, M, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             GO TO 10
          }
 

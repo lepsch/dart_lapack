@@ -81,7 +81,7 @@
 
             if ( IMAT == 1 ) {
                zlaror('L', 'I', M, M, X, LDX, ISEED, WORK, IINFO );
-               if ( M .NE. 0 .AND. IINFO .NE. 0 ) {
+               if ( M != 0 .AND. IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9999 ) M, IINFO
                   INFO = ABS( IINFO )
                   GO TO 20
@@ -113,7 +113,7 @@
                zlaset('F', M, M, ZERO, ONE, X, LDX );
                for (I = 1; I <= M; I++) {
                   J = INT( DLARAN( ISEED ) * M ) + 1
-                  if ( J .NE. I ) {
+                  if ( J != I ) {
                      zdrot(M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1, REALZERO, REALONE );
                   }
                }

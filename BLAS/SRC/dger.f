@@ -43,7 +43,7 @@
       } else if (LDA.LT.MAX(1,M)) {
           INFO = 9
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('DGER  ',INFO);
           RETURN
       }
@@ -62,7 +62,7 @@
       }
       if (INCX == 1) {
           for (J = 1; J <= N; J++) { // 20
-              if (Y(JY).NE.ZERO) {
+              if (Y(JY) != ZERO) {
                   TEMP = ALPHA*Y(JY)
                   for (I = 1; I <= M; I++) { // 10
                       A(I,J) = A(I,J) + X(I)*TEMP
@@ -77,7 +77,7 @@
               KX = 1 - (M-1)*INCX
           }
           for (J = 1; J <= N; J++) { // 40
-              if (Y(JY).NE.ZERO) {
+              if (Y(JY) != ZERO) {
                   TEMP = ALPHA*Y(JY)
                   IX = KX
                   for (I = 1; I <= M; I++) { // 30

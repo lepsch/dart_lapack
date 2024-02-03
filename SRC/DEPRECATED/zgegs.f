@@ -98,7 +98,7 @@
          WORK( 1 ) = LOPT
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGEGS ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -130,7 +130,7 @@
 
       if ( ILASCL ) {
          zlascl('G', -1, -1, ANRM, ANRMTO, N, N, A, LDA, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 9
             RETURN
          }
@@ -150,7 +150,7 @@
 
       if ( ILBSCL ) {
          zlascl('G', -1, -1, BNRM, BNRMTO, N, N, B, LDB, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 9
             RETURN
          }
@@ -163,7 +163,7 @@
       IRWORK = IRIGHT + N
       IWORK = 1
       zggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWORK ), IINFO );
-      if ( IINFO.NE.0 ) {
+      if ( IINFO != 0 ) {
          INFO = N + 1
          GO TO 10
       }
@@ -175,14 +175,14 @@
       ITAU = IWORK
       IWORK = ITAU + IROWS
       zgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
-      if ( IINFO.NE.0 ) {
+      if ( IINFO != 0 ) {
          INFO = N + 2
          GO TO 10
       }
 
       zunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
-      if ( IINFO.NE.0 ) {
+      if ( IINFO != 0 ) {
          INFO = N + 3
          GO TO 10
       }
@@ -192,7 +192,7 @@
          zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL );
          zungqr(IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
          if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 4
             GO TO 10
          }
@@ -203,7 +203,7 @@
       // Reduce to generalized Hessenberg form
 
       zgghrd(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IINFO );
-      if ( IINFO.NE.0 ) {
+      if ( IINFO != 0 ) {
          INFO = N + 5
          GO TO 10
       }
@@ -213,7 +213,7 @@
       IWORK = ITAU
       zhgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO );
       if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
-      if ( IINFO.NE.0 ) {
+      if ( IINFO != 0 ) {
          if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
             INFO = IINFO
          } else if ( IINFO.GT.N .AND. IINFO.LE.2*N ) {
@@ -228,14 +228,14 @@
 
       if ( ILVSL ) {
          zggbak('P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 7
             GO TO 10
          }
       }
       if ( ILVSR ) {
          zggbak('P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 8
             GO TO 10
          }
@@ -245,12 +245,12 @@
 
       if ( ILASCL ) {
          zlascl('U', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 9
             RETURN
          }
          zlascl('G', -1, -1, ANRMTO, ANRM, N, 1, ALPHA, N, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 9
             RETURN
          }
@@ -258,12 +258,12 @@
 
       if ( ILBSCL ) {
          zlascl('U', -1, -1, BNRMTO, BNRM, N, N, B, LDB, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 9
             RETURN
          }
          zlascl('G', -1, -1, BNRMTO, BNRM, N, 1, BETA, N, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = N + 9
             RETURN
          }

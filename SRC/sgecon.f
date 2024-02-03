@@ -58,7 +58,7 @@
       } else if ( ANORM.LT.ZERO ) {
          INFO = -5
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGECON', -INFO );
          RETURN
       }
@@ -94,7 +94,7 @@
       KASE = 0
       } // 10
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
-      if ( KASE.NE.0 ) {
+      if ( KASE != 0 ) {
          if ( KASE == KASE1 ) {
 
             // Multiply by inv(L).
@@ -119,7 +119,7 @@
 
          SCALE = SL*SU
          NORMIN = 'Y'
-         if ( SCALE.NE.ONE ) {
+         if ( SCALE != ONE ) {
             IX = ISAMAX( N, WORK, 1 )
             IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 20
             srscl(N, SCALE, WORK, 1 );
@@ -129,7 +129,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if ( AINVNM.NE.ZERO ) {
+      if ( AINVNM != ZERO ) {
          RCOND = ( ONE / AINVNM ) / ANORM
       } else {
          INFO = 1

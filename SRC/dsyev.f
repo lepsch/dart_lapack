@@ -62,7 +62,7 @@
          IF( LWORK.LT.MAX( 1, 3*N-1 ) .AND. .NOT.LQUERY ) INFO = -8
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSYEV ', -INFO );
          RETURN
       } else if ( LQUERY ) {

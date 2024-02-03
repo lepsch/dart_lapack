@@ -28,7 +28,7 @@
          // clean-up loop
 
          M = MOD(N,7)
-         if (M.NE.0) {
+         if (M != 0) {
             for (I = 1; I <= M; I++) {
                DY(I) = DX(I)
             }

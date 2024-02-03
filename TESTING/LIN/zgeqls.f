@@ -41,7 +41,7 @@
       } else if ( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGEQLS', -INFO );
          RETURN
       }

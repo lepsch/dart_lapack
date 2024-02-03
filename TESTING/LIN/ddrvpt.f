@@ -105,7 +105,7 @@
 
                // Check the error code from DLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110
                }
@@ -278,7 +278,7 @@
 
                   // Check error code from DPTSV .
 
-                  if (INFO.NE.IZERO) CALL ALAERH( PATH, 'DPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) CALL ALAERH( PATH, 'DPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                   NT = 0
                   if ( IZERO == 0 ) {
 
@@ -333,7 +333,7 @@
 
                // Check the error code from DPTSVX.
 
-               if (INFO.NE.IZERO) CALL ALAERH( PATH, 'DPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != IZERO) CALL ALAERH( PATH, 'DPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                if ( IZERO == 0 ) {
                   if ( IFACT == 2 ) {
 

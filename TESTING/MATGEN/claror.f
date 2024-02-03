@@ -60,12 +60,12 @@
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -3
-      } else if ( N.LT.0 .OR. ( ITYPE == 3 .AND. N.NE.M ) ) {
+      } else if ( N.LT.0 .OR. ( ITYPE == 3 .AND. N != M ) ) {
          INFO = -4
       } else if ( LDA.LT.M ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLAROR', -INFO );
          RETURN
       }
@@ -104,7 +104,7 @@
 
          XNORM = SCNRM2( IXFRM, X( KBEG ), 1 )
          XABS = ABS( X( KBEG ) )
-         if ( XABS.NE.CZERO ) {
+         if ( XABS != CZERO ) {
             CSIGN = X( KBEG ) / XABS
          } else {
             CSIGN = CONE
@@ -148,7 +148,7 @@
 
       X( 1 ) = CLARND( 3, ISEED )
       XABS = ABS( X( 1 ) )
-      if ( XABS.NE.ZERO ) {
+      if ( XABS != ZERO ) {
          CSIGN = X( 1 ) / XABS
       } else {
          CSIGN = CONE

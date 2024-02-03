@@ -400,7 +400,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGESVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -2810,7 +2810,7 @@
       // If DBDSQR failed to converge, copy unconverged superdiagonals
       // to WORK( 2:MINMN )
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          if ( IE.GT.2 ) {
             for (I = 1; I <= MINMN - 1; I++) { // 50
                WORK( I+1 ) = WORK( I+IE-1 )
@@ -2826,7 +2826,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 .AND. ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 .AND. ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

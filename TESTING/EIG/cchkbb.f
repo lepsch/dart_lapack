@@ -107,7 +107,7 @@
          INFO = -26
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CCHKBB', -INFO );
          RETURN
       }
@@ -142,7 +142,7 @@
             KL = MAX( 0, MIN( M-1, K ) )
             KU = MAX( 0, MIN( N-1, K ) )
 
-            if ( NSIZES.NE.1 ) {
+            if ( NSIZES != 1 ) {
                MTYPES = MIN( MAXTYP, NTYPES )
             } else {
                MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -242,7 +242,7 @@
 
                clatmr(M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IDUMMA, M, NRHS, ZERO, ONE, 'NO', C, LDC, IDUMMA, IINFO );
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -266,7 +266,7 @@
 
                cgbbrd('B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE, Q, LDQ, P, LDP, CC, LDC, WORK, RWORK, IINFO );
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CGBBRD', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {

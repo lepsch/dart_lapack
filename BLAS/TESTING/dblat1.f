@@ -896,7 +896,7 @@ void main() {
             // for YMIN == YMAX avoids further computation if both
             // are infinity.
 
-            if ((Y1.NE.Y1).OR.(Y2.NE.Y2)) {
+            if ((Y1 != Y1).OR.(Y2 != Y2)) {
                // Add to propagate NaN
                YNRM = Y1 + Y2
             } else if (YMAX == ZERO) {
@@ -934,8 +934,8 @@ void main() {
 
             // The tests for NaN rely on the compiler not being overly
             // aggressive and removing the statements altogether.
-            if ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) {
-               if ((SNRM.NE.SNRM).NEQV.(ZNRM.NE.ZNRM)) {
+            if ((SNRM != SNRM).OR.(ZNRM != ZNRM)) {
+               if ((SNRM != SNRM).NEQV.(ZNRM != ZNRM)) {
                   TRAT = ONE / ULP
                } else {
                   TRAT = ZERO
@@ -947,7 +947,7 @@ void main() {
             } else {
                TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (DBLE(N)*ULP)
             }
-            if ((TRAT.NE.TRAT).OR.(TRAT.GE.THRESH)) {
+            if ((TRAT != TRAT).OR.(TRAT.GE.THRESH)) {
                if (FIRST) {
                   FIRST = false;
                   WRITE(NOUT,99999)

@@ -187,7 +187,7 @@
 
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( M.NE.N .AND. ( ISYM == 0 .OR. ISYM == 2 ) ) {
+      } else if ( M != N .AND. ( ISYM == 0 .OR. ISYM == 2 ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -197,39 +197,39 @@
          INFO = -5
       } else if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
          INFO = -7
-      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) {
+      } else if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. COND.LT.ONE ) {
          INFO = -8
-      } else if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN == -1 ) {
+      } else if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. IRSIGN == -1 ) {
          INFO = -10
-      } else if ( IGRADE == -1 .OR. ( IGRADE == 4 .AND. M.NE.N ) .OR. ( ( IGRADE == 1 .OR. IGRADE == 2 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 6 ) .AND. ISYM == 0 ) .OR. ( ( IGRADE == 1 .OR. IGRADE == 2 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) .AND. ISYM == 2 ) ) {
+      } else if ( IGRADE == -1 .OR. ( IGRADE == 4 .AND. M != N ) .OR. ( ( IGRADE == 1 .OR. IGRADE == 2 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 6 ) .AND. ISYM == 0 ) .OR. ( ( IGRADE == 1 .OR. IGRADE == 2 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) .AND. ISYM == 2 ) ) {
          INFO = -11
       } else if ( IGRADE == 4 .AND. DZERO ) {
          INFO = -12
       } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 .OR. IGRADE == 6 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
          INFO = -13
-      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 .OR. IGRADE == 6 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND. MODEL.NE.6 ) .AND. CONDL.LT.ONE ) {
+      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 .OR. IGRADE == 6 ) .AND. ( MODEL != -6 .AND. MODEL != 0 .AND. MODEL != 6 ) .AND. CONDL.LT.ONE ) {
          INFO = -14
       } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
          INFO = -16
-      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND. CONDR.LT.ONE ) {
+      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER != -6 .AND. MODER != 0 .AND. MODER != 6 ) .AND. CONDR.LT.ONE ) {
          INFO = -17
-      } else if ( IPVTNG == -1 .OR. ( IPVTNG == 3 .AND. M.NE.N ) .OR. ( ( IPVTNG == 1 .OR. IPVTNG == 2 ) .AND. ( ISYM == 0 .OR. ISYM == 2 ) ) ) {
+      } else if ( IPVTNG == -1 .OR. ( IPVTNG == 3 .AND. M != N ) .OR. ( ( IPVTNG == 1 .OR. IPVTNG == 2 ) .AND. ( ISYM == 0 .OR. ISYM == 2 ) ) ) {
          INFO = -18
-      } else if ( IPVTNG.NE.0 .AND. BADPVT ) {
+      } else if ( IPVTNG != 0 .AND. BADPVT ) {
          INFO = -19
       } else if ( KL.LT.0 ) {
          INFO = -20
-      } else if ( KU.LT.0 .OR. ( ( ISYM == 0 .OR. ISYM == 2 ) .AND. KL.NE. KU ) ) {
+      } else if ( KU.LT.0 .OR. ( ( ISYM == 0 .OR. ISYM == 2 ) .AND. KL != KU ) ) {
          INFO = -21
       } else if ( SPARSE.LT.ZERO .OR. SPARSE.GT.ONE ) {
          INFO = -22
-      } else if ( IPACK == -1 .OR. ( ( IPACK == 1 .OR. IPACK == 2 .OR. IPACK == 5 .OR. IPACK == 6 ) .AND. ISYM == 1 ) .OR. ( IPACK == 3 .AND. ISYM == 1 .AND. ( KL.NE.0 .OR. M.NE. N ) ) .OR. ( IPACK == 4 .AND. ISYM == 1 .AND. ( KU.NE. 0 .OR. M.NE.N ) ) ) {
+      } else if ( IPACK == -1 .OR. ( ( IPACK == 1 .OR. IPACK == 2 .OR. IPACK == 5 .OR. IPACK == 6 ) .AND. ISYM == 1 ) .OR. ( IPACK == 3 .AND. ISYM == 1 .AND. ( KL != 0 .OR. M != N ) ) .OR. ( IPACK == 4 .AND. ISYM == 1 .AND. ( KU != 0 .OR. M != N ) ) ) {
          INFO = -24
       } else if ( ( ( IPACK == 0 .OR. IPACK == 1 .OR. IPACK == 2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK == 3 .OR. IPACK == 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK == 5 .OR. IPACK == 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK == 7 .AND. LDA.LT.KLL+KUU+1 ) ) {
          INFO = -26
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLATMR', -INFO );
          RETURN
       }
@@ -252,11 +252,11 @@
               // Compute D according to COND and MODE
 
       clatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = 1
          RETURN
       }
-      if ( MODE.NE.0 .AND. MODE.NE.-6 .AND. MODE.NE.6 ) {
+      if ( MODE != 0 .AND. MODE != -6 .AND. MODE != 6 ) {
 
          // Scale by DMAX
 
@@ -264,11 +264,11 @@
          for (I = 2; I <= MNMIN; I++) { // 40
             TEMP = MAX( TEMP, ABS( D( I ) ) )
          } // 40
-         if ( TEMP == ZERO .AND. DMAX.NE.CZERO ) {
+         if ( TEMP == ZERO .AND. DMAX != CZERO ) {
             INFO = 2
             RETURN
          }
-         if ( TEMP.NE.ZERO ) {
+         if ( TEMP != ZERO ) {
             CALPHA = DMAX / TEMP
          } else {
             CALPHA = CONE
@@ -291,7 +291,7 @@
 
       if ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 .OR. IGRADE == 6 ) {
          clatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             INFO = 3
             RETURN
          }
@@ -301,7 +301,7 @@
 
       if ( IGRADE == 2 .OR. IGRADE == 3 ) {
          clatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             INFO = 4
             RETURN
          }
@@ -378,7 +378,7 @@
                   } else {
                      A( MNSUB, MXSUB ) = CTEMP
                   }
-                  if (MNSUB.NE.MXSUB) A( MXSUB, MNSUB ) = CZERO;
+                  if (MNSUB != MXSUB) A( MXSUB, MNSUB ) = CZERO;
                } // 160
             } // 170
 
@@ -394,7 +394,7 @@
                   } else {
                      A( MXSUB, MNSUB ) = CTEMP
                   }
-                  if (MNSUB.NE.MXSUB) A( MNSUB, MXSUB ) = CZERO;
+                  if (MNSUB != MXSUB) A( MNSUB, MXSUB ) = CZERO;
                } // 180
             } // 190
 
@@ -489,7 +489,7 @@
 
          } else if ( IPACK == 7 ) {
 
-            if ( ISYM.NE.1 ) {
+            if ( ISYM != 1 ) {
                for (J = 1; J <= N; J++) { // 290
                   for (I = J - KUU; I <= J; I++) { // 280
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -501,7 +501,7 @@
                      } else {
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = CTEMP
                      }
-                     if ( I.GE.1 .AND. MNSUB.NE.MXSUB ) {
+                     if ( I.GE.1 .AND. MNSUB != MXSUB ) {
                         if ( MNSUB == ISUB .AND. ISYM == 0 ) {
                            A( MXSUB-MNSUB+1+KUU, MNSUB ) = CONJG( CTEMP )
                         } else {
@@ -552,7 +552,7 @@
 
             for (J = 1; J <= N; J++) { // 390
                for (I = 1; I <= J; I++) { // 380
-                  A( I, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I.NE.J ) A( J, I ) = CZERO
+                  A( I, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I != J ) A( J, I ) = CZERO
                } // 380
             } // 390
 
@@ -565,7 +565,7 @@
                   } else {
                      A( J, I ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   }
-                  if (I.NE.J) A( I, J ) = CZERO;
+                  if (I != J) A( I, J ) = CZERO;
                } // 400
             } // 410
 
@@ -648,12 +648,12 @@
 
          } else if ( IPACK == 7 ) {
 
-            if ( ISYM.NE.1 ) {
+            if ( ISYM != 1 ) {
                for (J = 1; J <= N; J++) { // 530
                   for (I = J - KUU; I <= J; I++) { // 520
                      A( I-J+KUU+1, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      if (I.LT.1) A( J-I+1+KUU, I+N ) = CZERO;
-                     if ( I.GE.1 .AND. I.NE.J ) {
+                     if ( I.GE.1 .AND. I != J ) {
                         if ( ISYM == 0 ) {
                            A( J-I+1+KUU, I ) = CONJG( A( I-J+KUU+1, J ) )
                         } else {

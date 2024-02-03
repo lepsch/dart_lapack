@@ -63,7 +63,7 @@
       } else if ( LDQ.LT.MAX( 1, N ) .AND. WANTQ ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHBTRD', -INFO );
          RETURN
       }
@@ -243,7 +243,7 @@
                ABST = ABS( T )
                AB( KD, I+1 ) = ABST
                E( I ) = ABST
-               if ( ABST.NE.ZERO ) {
+               if ( ABST != ZERO ) {
                   T = T / ABST
                } else {
                   T = CONE
@@ -427,7 +427,7 @@
                ABST = ABS( T )
                AB( 2, I ) = ABST
                E( I ) = ABST
-               if ( ABST.NE.ZERO ) {
+               if ( ABST != ZERO ) {
                   T = T / ABST
                } else {
                   T = CONE

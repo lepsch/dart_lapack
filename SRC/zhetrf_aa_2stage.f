@@ -57,7 +57,7 @@
          INFO = -10
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETRF_AA_2STAGE', -INFO );
          RETURN
       }
@@ -188,7 +188,7 @@
                // Factorize panel
 
                zgetrf(N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO );
-                // IF( IINFO.NE.0 .AND. INFO == 0 ) THEN
+                // IF( IINFO != 0 .AND. INFO == 0 ) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
 
@@ -232,7 +232,7 @@
 
                   I1 = (J+1)*NB+K
                   I2 = IPIV( (J+1)*NB+K )
-                  if ( I1.NE.I2 ) {
+                  if ( I1 != I2 ) {
                      // > Apply pivots to previous columns of L
                      zswap(K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
@@ -328,7 +328,7 @@
                // Factorize panel
 
                zgetrf(N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO );
-                // IF( IINFO.NE.0 .AND. INFO == 0 ) THEN
+                // IF( IINFO != 0 .AND. INFO == 0 ) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
 
@@ -359,7 +359,7 @@
 
                   I1 = (J+1)*NB+K
                   I2 = IPIV( (J+1)*NB+K )
-                  if ( I1.NE.I2 ) {
+                  if ( I1 != I2 ) {
                      // > Apply pivots to previous columns of L
                      zswap(K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)

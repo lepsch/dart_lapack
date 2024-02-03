@@ -77,7 +77,7 @@
 
       if (LWORK.LT.MINWRK) INFO = -24;
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SDRGVX', -INFO );
          RETURN
       }
@@ -118,7 +118,7 @@
                      slacpy('F', N, N, B, LDA, BI, LDA );
 
                      sggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
-                     if ( LINFO.NE.0 ) {
+                     if ( LINFO != 0 ) {
                         RESULT( 1 ) = ULPINV
                         WRITE( NOUT, FMT = 9999 )'SGGEVX', LINFO, N, IPTYPE
                         GO TO 30
@@ -246,7 +246,7 @@
 
       sggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
 
-      if ( LINFO.NE.0 ) {
+      if ( LINFO != 0 ) {
          RESULT( 1 ) = ULPINV
          WRITE( NOUT, FMT = 9987 )'SGGEVX', LINFO, N, NPTKNT
          GO TO 140

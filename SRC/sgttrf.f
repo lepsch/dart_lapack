@@ -55,7 +55,7 @@
 
             // No row interchange required, eliminate DL(I)
 
-            if ( D( I ).NE.ZERO ) {
+            if ( D( I ) != ZERO ) {
                FACT = DL( I ) / D( I )
                DL( I ) = FACT
                D( I+1 ) = D( I+1 ) - FACT*DU( I )
@@ -78,7 +78,7 @@
       if ( N.GT.1 ) {
          I = N - 1
          if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
-            if ( D( I ).NE.ZERO ) {
+            if ( D( I ) != ZERO ) {
                FACT = DL( I ) / D( I )
                DL( I ) = FACT
                D( I+1 ) = D( I+1 ) - FACT*DU( I )

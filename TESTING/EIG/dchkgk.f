@@ -79,7 +79,7 @@
       dlacpy('FULL', N, N, B, LDB, BF, LDB );
 
       dggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
       }
@@ -88,13 +88,13 @@
       dlacpy('FULL', N, M, VR, LDVR, VRF, LDVR );
 
       dggbak('B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       }
 
       dggbak('B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          NINFO = NINFO + 1
          LMAX( 3 ) = KNT
       }

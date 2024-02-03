@@ -434,7 +434,7 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 300
                clarnv(4, ISEED, J-1, A( 1, J ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   A( J, J ) = CLARND( 5, ISEED )*TWO
                } else {
                   A( J, J ) = ZERO
@@ -443,7 +443,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 310
                if (J.LT.N) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   A( J, J ) = CLARND( 5, ISEED )*TWO
                } else {
                   A( J, J ) = ZERO

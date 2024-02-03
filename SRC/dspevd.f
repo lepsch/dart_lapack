@@ -76,7 +76,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSPEVD', -INFO );
          RETURN
       } else if ( LQUERY ) {

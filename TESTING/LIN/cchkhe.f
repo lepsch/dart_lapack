@@ -130,7 +130,7 @@
 
                // Check error code from CLATMS and handle error.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Skip all tests for this generated matrix
@@ -246,11 +246,11 @@
                   if ( K.GT.0 ) {
                      } // 100
                      if ( IWORK( K ).LT.0 ) {
-                        if ( IWORK( K ).NE.-K ) {
+                        if ( IWORK( K ) != -K ) {
                            K = -IWORK( K )
                            GO TO 100
                         }
-                     } else if ( IWORK( K ).NE.K ) {
+                     } else if ( IWORK( K ) != K ) {
                         K = IWORK( K )
                         GO TO 100
                      }
@@ -258,11 +258,11 @@
 
                   // Check error code from CHETRF and handle error.
 
-                  if (INFO.NE.K) CALL ALAERH( PATH, 'CHETRF', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != K) CALL ALAERH( PATH, 'CHETRF', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      TRFCON = true;
                   } else {
                      TRFCON = false;
@@ -288,7 +288,7 @@
 
                      // Check error code from CHETRI2 and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CHETRI2', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CHETRI2', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -340,7 +340,7 @@
 
                      // Check error code from CHETRS and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CHETRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CHETRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -363,7 +363,7 @@
 
                      // Check error code from CHETRS2 and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CHETRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CHETRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -384,7 +384,7 @@
 
                      // Check error code from CHERFS and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'CHERFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'CHERFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) );
                      cpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) );
@@ -414,7 +414,7 @@
 
                   // Check error code from CHECON and handle error.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CHECON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CHECON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the test ratio to compare values of RCOND
 

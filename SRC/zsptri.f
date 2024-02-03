@@ -46,7 +46,7 @@
       } else if ( N.LT.0 ) {
          INFO = -2
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZSPTRI', -INFO );
          RETURN
       }
@@ -137,7 +137,7 @@
          }
 
          KP = ABS( IPIV( K ) )
-         if ( KP.NE.K ) {
+         if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the leading
             // submatrix A(1:k+1,1:k+1)
@@ -226,7 +226,7 @@
          }
 
          KP = ABS( IPIV( K ) )
-         if ( KP.NE.K ) {
+         if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the trailing
             // submatrix A(k-1:n,k-1:n)

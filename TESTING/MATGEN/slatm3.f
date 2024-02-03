@@ -94,7 +94,7 @@
          TEMP = TEMP*DR( J )
       } else if ( IGRADE == 3 ) {
          TEMP = TEMP*DL( I )*DR( J )
-      } else if ( IGRADE == 4 .AND. I.NE.J ) {
+      } else if ( IGRADE == 4 .AND. I != J ) {
          TEMP = TEMP*DL( I ) / DL( J )
       } else if ( IGRADE == 5 ) {
          TEMP = TEMP*DL( I )*DL( J )

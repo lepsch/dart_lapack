@@ -65,7 +65,7 @@
                      GO TO 80
                   }
                }
-               if ( LINE( I: I ).NE.' ' .AND. LINE( I: I ).NE.',' ) {
+               if ( LINE( I: I ) != ' ' .AND. LINE( I: I ) != ',' ) {
                   I1 = I
                   C1 = LINE( I1: I1 )
 

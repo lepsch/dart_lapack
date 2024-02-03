@@ -42,7 +42,7 @@
       } else if ( SMLSIZ.LT.3 ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLASD0', -INFO );
          RETURN
       }
@@ -86,7 +86,7 @@
          NRF = IC + 1
          SQREI = 1
          slasdq('U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, NLF ), LDVT, U( NLF, NLF ), LDU, U( NLF, NLF ), LDU, WORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RETURN
          }
          ITEMP = IDXQ + NLF - 2
@@ -100,7 +100,7 @@
          }
          NRP1 = NR + SQREI
          slasdq('U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, NRF ), LDVT, U( NRF, NRF ), LDU, U( NRF, NRF ), LDU, WORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RETURN
          }
          ITEMP = IDXQ + IC
@@ -141,7 +141,7 @@
 
       // Report the possible convergence failure.
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                RETURN
             }
          } // 40

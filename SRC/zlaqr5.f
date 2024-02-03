@@ -190,7 +190,7 @@
                // .    unnecessary. ====
 
                if ( K.GE.KTOP ) {
-                  if ( H( K+1, K ).NE.ZERO ) {
+                  if ( H( K+1, K ) != ZERO ) {
                      TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                      if ( TST1 == RZERO ) {
                         if (K.GE.KTOP+1) TST1 = TST1 + CABS1( H( K, K-1 ) )                         IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                         IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) );
@@ -257,7 +257,7 @@
                   // .    underflow case, try the two-small-subdiagonals
                   // .    trick to try to reinflate the bulge.  ====
 
-                  if ( H( K+3, K ).NE.ZERO .OR. H( K+3, K+1 ).NE. ZERO .OR. H( K+3, K+2 ) == ZERO ) {
+                  if ( H( K+3, K ) != ZERO .OR. H( K+3, K+1 ) != ZERO .OR. H( K+3, K+2 ) == ZERO ) {
 
                      // ==== Typical case: not collapsed (yet). ====
 
@@ -343,7 +343,7 @@
                // .    unnecessary. ====
 
                if (K.LT.KTOP) CYCLE;
-               if ( H( K+1, K ).NE.ZERO ) {
+               if ( H( K+1, K ) != ZERO ) {
                   TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                   if ( TST1 == RZERO ) {
                      if (K.GE.KTOP+1) TST1 = TST1 + CABS1( H( K, K-1 ) )                      IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                      IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) );

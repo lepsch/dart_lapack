@@ -41,7 +41,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( IJOB.NE.2 ) {
+      if ( IJOB != 2 ) {
 
          // Apply permutations IPIV to RHS
 

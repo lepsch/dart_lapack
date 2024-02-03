@@ -136,7 +136,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGGEVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -257,7 +257,7 @@
       }
 
       dhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, IERR );
-      if ( IERR.NE.0 ) {
+      if ( IERR != 0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
          } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
@@ -286,7 +286,7 @@
             }
 
             dtgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK, IERR );
-            if ( IERR.NE.0 ) {
+            if ( IERR != 0 ) {
                INFO = N + 2
                GO TO 130
             }
@@ -311,7 +311,7 @@
                }
                MM = 1
                if ( I.LT.N ) {
-                  if ( A( I+1, I ).NE.ZERO ) {
+                  if ( A( I+1, I ) != ZERO ) {
                      PAIR = true;
                      MM = 2
                   }
@@ -335,7 +335,7 @@
 
                if ( WANTSE .OR. WANTSB ) {
                   dtgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, MM, M, WORK( IWRK1 ), IERR );
-                  if ( IERR.NE.0 ) {
+                  if ( IERR != 0 ) {
                      INFO = N + 2
                      GO TO 130
                   }

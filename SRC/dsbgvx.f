@@ -82,7 +82,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSBGVX', -INFO );
          RETURN
       }
@@ -95,7 +95,7 @@
       // Form a split Cholesky factorization of B.
 
       dpbstf(UPLO, N, KB, BB, LDBB, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = N + INFO
          RETURN
       }
@@ -188,14 +188,14 @@
                }
             } // 40
 
-            if ( I.NE.0 ) {
+            if ( I != 0 ) {
                ITMP1 = IWORK( 1 + I-1 )
                W( I ) = W( J )
                IWORK( 1 + I-1 ) = IWORK( 1 + J-1 )
                W( J ) = TMP1
                IWORK( 1 + J-1 ) = ITMP1
                dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )
                   IFAIL( J ) = ITMP1

@@ -94,7 +94,7 @@
 
       // Handle error in the input parameters and return workspace query.
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGETSQRHRT', -INFO );
          RETURN
       } else if ( LQUERY ) {

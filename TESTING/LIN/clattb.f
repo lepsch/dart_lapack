@@ -377,7 +377,7 @@
             for (J = 1; J <= N; J++) { // 280
                LENJ = MIN( J, KD+1 )
                clarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   AB( KD+1, J ) = CLARND( 5, ISEED )*TWO
                } else {
                   AB( KD+1, J ) = ZERO
@@ -387,7 +387,7 @@
             for (J = 1; J <= N; J++) { // 290
                LENJ = MIN( N-J+1, KD+1 )
                clarnv(4, ISEED, LENJ, AB( 1, J ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   AB( 1, J ) = CLARND( 5, ISEED )*TWO
                } else {
                   AB( 1, J ) = ZERO

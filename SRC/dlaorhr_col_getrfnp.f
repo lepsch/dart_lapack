@@ -43,7 +43,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLAORHR_COL_GETRFNP', -INFO );
          RETURN
       }

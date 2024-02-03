@@ -69,7 +69,7 @@
       KNT = KNT + 1
       zgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
       }

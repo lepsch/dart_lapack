@@ -102,7 +102,7 @@
          INFO = -20
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SDRVES', -INFO );
          RETURN
       }
@@ -267,7 +267,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -306,7 +306,7 @@
 
                   slacpy('F', N, N, A, LDA, H, LDA );
                   sgees('V', SORT, SSLECT, N, H, LDA, SDIM, WR, WI, VS, LDVS, WORK, NNWORK, BWORK, IINFO );
-                  if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
+                  if ( IINFO != 0 .AND. IINFO != N+2 ) {
                      RESULT( 1+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'SGEES1', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -318,15 +318,15 @@
                   RESULT( 1+RSUB ) = ZERO
                   for (J = 1; J <= N - 2; J++) { // 120
                      for (I = J + 2; I <= N; I++) { // 110
-                        IF( H( I, J ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
+                        IF( H( I, J ) != ZERO ) RESULT( 1+RSUB ) = ULPINV
                      } // 110
                   } // 120
                   for (I = 1; I <= N - 2; I++) { // 130
-                     IF( H( I+1, I ).NE.ZERO .AND. H( I+2, I+1 ).NE. ZERO )RESULT( 1+RSUB ) = ULPINV
+                     IF( H( I+1, I ) != ZERO .AND. H( I+2, I+1 ) != ZERO )RESULT( 1+RSUB ) = ULPINV
                   } // 130
                   for (I = 1; I <= N - 1; I++) { // 140
-                     if ( H( I+1, I ).NE.ZERO ) {
-                        IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ) == ZERO .OR. SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
+                     if ( H( I+1, I ) != ZERO ) {
+                        IF( H( I, I ) != H( I+1, I+1 ) .OR. H( I, I+1 ) == ZERO .OR. SIGN( ONE, H( I+1, I ) ) == SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
                      }
                   } // 140
 
@@ -341,16 +341,16 @@
 
                   RESULT( 4+RSUB ) = ZERO
                   for (I = 1; I <= N; I++) { // 150
-                     IF( H( I, I ).NE.WR( I ) ) RESULT( 4+RSUB ) = ULPINV
+                     IF( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV
                   } // 150
                   if ( N.GT.1 ) {
-                     IF( H( 2, 1 ) == ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ) == ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
+                     IF( H( 2, 1 ) == ZERO .AND. WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ) == ZERO .AND. WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV
                   }
                   for (I = 1; I <= N - 1; I++) { // 160
-                     if ( H( I+1, I ).NE.ZERO ) {
+                     if ( H( I+1, I ) != ZERO ) {
                         TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, UNFL ) )
                      } else if ( I.GT.1 ) {
-                        IF( H( I+1, I ) == ZERO .AND. H( I, I-1 ) == ZERO .AND. WI( I ).NE.ZERO )RESULT( 4+RSUB ) = ULPINV
+                        IF( H( I+1, I ) == ZERO .AND. H( I, I-1 ) == ZERO .AND. WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV
                      }
                   } // 160
 
@@ -358,7 +358,7 @@
 
                   slacpy('F', N, N, A, LDA, HT, LDA );
                   sgees('N', SORT, SSLECT, N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, WORK, NNWORK, BWORK, IINFO );
-                  if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
+                  if ( IINFO != 0 .AND. IINFO != N+2 ) {
                      RESULT( 5+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'SGEES2', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -368,7 +368,7 @@
                   RESULT( 5+RSUB ) = ZERO
                   for (J = 1; J <= N; J++) { // 180
                      for (I = 1; I <= N; I++) { // 170
-                        IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
+                        IF( H( I, J ) != HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
                      } // 170
                   } // 180
 
@@ -376,7 +376,7 @@
 
                   RESULT( 6+RSUB ) = ZERO
                   for (I = 1; I <= N; I++) { // 190
-                     IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
+                     IF( WR( I ) != WRT( I ) .OR. WI( I ) != WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
                   } // 190
 
                   // Do Test (13)
@@ -387,10 +387,10 @@
                      for (I = 1; I <= N; I++) { // 200
                         IF( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) KNTEIG = KNTEIG + 1
                         if ( I.LT.N ) {
-                           IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) .OR. SSLECT( WR( I+1 ), -WI( I+1 ) ) ) .AND. ( .NOT.( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) ) .AND. IINFO.NE.N+2 ) RESULT( 13 ) = ULPINV
+                           IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) .OR. SSLECT( WR( I+1 ), -WI( I+1 ) ) ) .AND. ( .NOT.( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) ) .AND. IINFO != N+2 ) RESULT( 13 ) = ULPINV
                         }
                      } // 200
-                     if ( SDIM.NE.KNTEIG ) {
+                     if ( SDIM != KNTEIG ) {
                         RESULT( 13 ) = ULPINV
                      }
                   }

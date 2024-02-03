@@ -113,7 +113,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGEESX', -INFO );
          RETURN
       } else if ( LQUERY ) {

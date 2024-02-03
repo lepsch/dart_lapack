@@ -33,7 +33,7 @@
 
       if (N == 0) RETURN;
 
-      // Multiply B by BETA if BETA.NE.1.
+      // Multiply B by BETA if BETA != 1.
 
       if ( BETA == ZERO ) {
          for (J = 1; J <= NRHS; J++) { // 20

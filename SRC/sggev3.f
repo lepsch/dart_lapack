@@ -113,7 +113,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGGEV3 ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -216,7 +216,7 @@
          CHTEMP = 'E'
       }
       slaqz0(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR );
-      if ( IERR.NE.0 ) {
+      if ( IERR != 0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
          } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
@@ -240,7 +240,7 @@
             CHTEMP = 'R'
          }
          stgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), IERR );
-         if ( IERR.NE.0 ) {
+         if ( IERR != 0 ) {
             INFO = N + 2
             GO TO 110
          }

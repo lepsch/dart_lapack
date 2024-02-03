@@ -93,7 +93,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTGSYL', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -105,7 +105,7 @@
       if ( M == 0 .OR. N == 0 ) {
          SCALE = 1
          if ( NOTRAN ) {
-            if ( IJOB.NE.0 ) {
+            if ( IJOB != 0 ) {
                DIF = 0
             }
          }
@@ -140,7 +140,7 @@
             DSUM = ONE
             PQ = M*N
             ctgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, INFO );
-            if ( DSCALE.NE.ZERO ) {
+            if ( DSCALE != ZERO ) {
                if ( IJOB == 1 .OR. IJOB == 3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
@@ -222,7 +222,7 @@
                   ctgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
                   if (LINFO.GT.0) INFO = LINFO;
                   PQ = PQ + MB*NB
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (K = 1; K <= JS - 1; K++) { // 80
                         cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
                         cscal(M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
@@ -254,7 +254,7 @@
                   }
                } // 120
             } // 130
-            if ( DSCALE.NE.ZERO ) {
+            if ( DSCALE != ZERO ) {
                if ( IJOB == 1 .OR. IJOB == 3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
                } else {
@@ -294,7 +294,7 @@
                NB = JE - JS + 1
                ctgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
                if (LINFO.GT.0) INFO = LINFO;
-               if ( SCALOC.NE.ONE ) {
+               if ( SCALOC != ONE ) {
                   for (K = 1; K <= JS - 1; K++) { // 160
                      cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
                      cscal(M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );

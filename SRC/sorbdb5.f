@@ -56,7 +56,7 @@
          INFO = -13
       }
 
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('SORBDB5', -INFO );
          RETURN
       }
@@ -83,7 +83,7 @@
 
          // If the projection is nonzero, then return
 
-         if ( SNRM2(M1,X1,INCX1) .NE. REALZERO .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) {
+         if ( SNRM2(M1,X1,INCX1) != REALZERO .OR. SNRM2(M2,X2,INCX2) != REALZERO ) {
             RETURN
          }
       }
@@ -99,7 +99,7 @@
          for (J = 1; J <= M2; J++) {
             X2(J) = ZERO
          }
-         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SNRM2(M1,X1,INCX1) .NE. REALZERO .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
+         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SNRM2(M1,X1,INCX1) != REALZERO .OR. SNRM2(M2,X2,INCX2) != REALZERO ) THEN
             RETURN
          }
       }
@@ -115,7 +115,7 @@
             X2(J) = ZERO
          }
          X2(I) = ONE
-         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SNRM2(M1,X1,INCX1) .NE. REALZERO .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
+         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SNRM2(M1,X1,INCX1) != REALZERO .OR. SNRM2(M2,X2,INCX2) != REALZERO ) THEN
             RETURN
          }
       }

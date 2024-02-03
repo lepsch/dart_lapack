@@ -121,7 +121,7 @@
 
             // Check error code from SLATMS.
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                alaerh(PATH, 'SLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 80
             }
@@ -285,7 +285,7 @@
 
                         // Check error code from SGESV .
 
-                        if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) CALL ALAERH( PATH, 'SGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -337,12 +337,12 @@
 
                      // Check the error code from SGESVX.
 
-                     if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) CALL ALAERH( PATH, 'SGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare WORK(1) from SGESVX with the computed
                      // reciprocal pivot growth factor RPVGRW
 
-                     if ( INFO.NE.0 .AND. INFO.LE.N) {
+                     if ( INFO != 0 .AND. INFO.LE.N) {
                         RPVGRW = SLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, WORK )
                         if ( RPVGRW == ZERO ) {
                            RPVGRW = ONE

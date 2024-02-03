@@ -117,7 +117,7 @@
 
                // Check error code from SLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 120
                }
@@ -260,10 +260,10 @@
 
                         // Check error code from SPPSV .
 
-                        if ( INFO.NE.IZERO ) {
+                        if ( INFO != IZERO ) {
                            alaerh(PATH, 'SPPSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 70
-                        } else if ( INFO.NE.0 ) {
+                        } else if ( INFO != 0 ) {
                            GO TO 70
                         }
 
@@ -315,7 +315,7 @@
 
                      // Check the error code from SPPSVX.
 
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
                         alaerh(PATH, 'SPPSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90
                      }

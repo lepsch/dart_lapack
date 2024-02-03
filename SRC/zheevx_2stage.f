@@ -95,7 +95,7 @@
          if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) INFO = -17;
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHEEVX_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -258,14 +258,14 @@
                }
             } // 50
 
-            if ( I.NE.0 ) {
+            if ( I != 0 ) {
                ITMP1 = IWORK( INDIBL+I-1 )
                W( I ) = W( J )
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
                zswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )
                   IFAIL( J ) = ITMP1

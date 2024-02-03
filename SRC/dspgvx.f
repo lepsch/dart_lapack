@@ -71,7 +71,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSPGVX', -INFO );
          RETURN
       }
@@ -84,7 +84,7 @@
       // Form a Cholesky factorization of B.
 
       dpptrf(UPLO, N, BP, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = N + INFO
          RETURN
       }

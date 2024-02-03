@@ -77,7 +77,7 @@
       }
 
       // #:(
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGSVJ0', -INFO );
          RETURN
       }
@@ -120,7 +120,7 @@
       // parameters of the computer's memory.
 
       NBL = N / KBL
-      IF( ( NBL*KBL ).NE.N )NBL = NBL + 1
+      IF( ( NBL*KBL ) != N )NBL = NBL + 1
 
       BLSKIP = KBL**2
 *[TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
@@ -168,7 +168,7 @@
       // .. de Rijk's pivoting
 
                   q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-                  if ( p.NE.q ) {
+                  if ( p != q ) {
                      zswap(M, A( 1, p ), 1, A( 1, q ), 1 );
                      if (RSVEC) CALL ZSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
                      TEMP1 = SVA( p )
@@ -598,7 +598,7 @@
       // Sort the vector SVA() of column norms.
       for (p = 1; p <= N - 1; p++) { // 5991
          q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-         if ( p.NE.q ) {
+         if ( p != q ) {
             TEMP1 = SVA( p )
             SVA( p ) = SVA( q )
             SVA( q ) = TEMP1

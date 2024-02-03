@@ -120,7 +120,7 @@
          SUM = 2*SUM
          K = 1
          for (I = 1; I <= N; I++) { // 130
-            if ( REAL( AP( K ) ).NE.ZERO ) {
+            if ( REAL( AP( K ) ) != ZERO ) {
                ABSA = ABS( REAL( AP( K ) ) )
                if ( SCALE.LT.ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2
@@ -129,7 +129,7 @@
                   SUM = SUM + ( ABSA / SCALE )**2
                }
             }
-            if ( AIMAG( AP( K ) ).NE.ZERO ) {
+            if ( AIMAG( AP( K ) ) != ZERO ) {
                ABSA = ABS( AIMAG( AP( K ) ) )
                if ( SCALE.LT.ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2

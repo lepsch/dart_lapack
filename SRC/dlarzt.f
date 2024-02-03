@@ -38,7 +38,7 @@
       } else if ( .NOT.LSAME( STOREV, 'R' ) ) {
          INFO = -2
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLARZT', -INFO );
          RETURN
       }

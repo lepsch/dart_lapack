@@ -97,7 +97,7 @@
       }
 
       // #:(
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGESVJ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -259,7 +259,7 @@
       AAPP = ZERO
       AAQQ = BIG
       for (p = 1; p <= N; p++) { // 4781
-         IF( SVA( p ).NE.ZERO )AAQQ = MIN( AAQQ, SVA( p ) )
+         IF( SVA( p ) != ZERO )AAQQ = MIN( AAQQ, SVA( p ) )
          AAPP = MAX( AAPP, SVA( p ) )
       } // 4781
 
@@ -320,11 +320,11 @@
 
       // Scale, if necessary
 
-      if ( TEMP1.NE.ONE ) {
+      if ( TEMP1 != ONE ) {
          slascl('G', 0, 0, ONE, TEMP1, N, 1, SVA, N, IERR );
       }
       SKL = TEMP1*SKL
-      if ( SKL.NE.ONE ) {
+      if ( SKL != ONE ) {
          slascl(JOBA, 0, 0, ONE, SKL, M, N, A, LDA, IERR );
          SKL = ONE / SKL
       }
@@ -359,7 +359,7 @@
       // parameters of the computer's memory.
 
       NBL = N / KBL
-      IF( ( NBL*KBL ).NE.N )NBL = NBL + 1
+      IF( ( NBL*KBL ) != N )NBL = NBL + 1
 
       BLSKIP = KBL**2
 *[TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
@@ -456,7 +456,7 @@
       // .. de Rijk's pivoting
 
                   q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-                  if ( p.NE.q ) {
+                  if ( p != q ) {
                      sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
                      if (RSVEC) CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
                      TEMP1 = SVA( p )
@@ -972,7 +972,7 @@
       N4 = 0
       for (p = 1; p <= N - 1; p++) { // 5991
          q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-         if ( p.NE.q ) {
+         if ( p != q ) {
             TEMP1 = SVA( p )
             SVA( p ) = SVA( q )
             SVA( q ) = TEMP1
@@ -982,12 +982,12 @@
             sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
             if (RSVEC) CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
-         if ( SVA( p ).NE.ZERO ) {
+         if ( SVA( p ) != ZERO ) {
             N4 = N4 + 1
             IF( SVA( p )*SKL.GT.SFMIN )N2 = N2 + 1
          }
       } // 5991
-      if ( SVA( N ).NE.ZERO ) {
+      if ( SVA( N ) != ZERO ) {
          N4 = N4 + 1
          IF( SVA( N )*SKL.GT.SFMIN )N2 = N2 + 1
       }
@@ -1024,7 +1024,7 @@
       }
 
       WORK( 1 ) = SKL
-      // The singular values of A are SKL*SVA(1:N). If SKL.NE.ONE
+      // The singular values of A are SKL*SVA(1:N). If SKL != ONE
       // then some of the singular values may overflow or underflow and
       // the spectrum is given in this factored representation.
 

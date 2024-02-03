@@ -79,15 +79,15 @@
       // compute and properly scale error
 
       ERR = CLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
-      if (NORMA.NE.ZERO) ERR = ERR / NORMA;
+      if (NORMA != ZERO) ERR = ERR / NORMA;
 
       if (ISCL == 1) ERR = ERR*NORMRS;
 
       if ( IRESID == 1 ) {
          NORMB = CLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
-         if (NORMB.NE.ZERO) ERR = ERR / NORMB;
+         if (NORMB != ZERO) ERR = ERR / NORMB;
       } else {
-         if (NORMRS.NE.ZERO) ERR = ERR / NORMRS;
+         if (NORMRS != ZERO) ERR = ERR / NORMRS;
       }
 
       CQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N, NRHS ) ) )

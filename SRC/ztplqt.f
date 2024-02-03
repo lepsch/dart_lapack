@@ -40,7 +40,7 @@
       } else if ( LDT.LT.MB ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTPLQT', -INFO );
          RETURN
       }

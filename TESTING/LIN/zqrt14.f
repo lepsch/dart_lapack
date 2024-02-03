@@ -67,7 +67,7 @@
 
       zlacpy('All', M, N, A, LDA, WORK, LDWORK );
       ANRM = ZLANGE( 'M', M, N, WORK, LDWORK, RWORK )
-      if (ANRM.NE.ZERO) CALL ZLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO );
+      if (ANRM != ZERO) CALL ZLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO );
 
       // Copy X or X' into the right place and scale it
 
@@ -75,7 +75,7 @@
 
          // Copy X into columns n+1:n+nrhs of work
 
-         zlacpy('All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ), LDWORK )          XNRM = ZLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK, RWORK )          IF( XNRM.NE.ZERO ) CALL ZLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS, WORK( N*LDWORK+1 ), LDWORK, INFO );
+         zlacpy('All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ), LDWORK )          XNRM = ZLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK, RWORK )          IF( XNRM != ZERO ) CALL ZLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS, WORK( N*LDWORK+1 ), LDWORK, INFO );
 
          // Compute QR factorization of X
 
@@ -102,7 +102,7 @@
          } // 40
 
          XNRM = ZLANGE( 'M', NRHS, N, WORK( M+1 ), LDWORK, RWORK )
-         if (XNRM.NE.ZERO) CALL ZLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO );
+         if (XNRM != ZERO) CALL ZLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO );
 
          // Compute LQ factorization of work
 

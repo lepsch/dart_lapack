@@ -73,7 +73,7 @@
             INFO = -16
          }
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTGSY2', -INFO );
          RETURN
       }
@@ -108,7 +108,7 @@
                if (IERR.GT.0) INFO = IERR;
                if ( IJOB == 0 ) {
                   zgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      for (K = 1; K <= N; K++) { // 10
                         zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
                         zscal(M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
@@ -168,7 +168,7 @@
                zgetc2(LDZ, Z, LDZ, IPIV, JPIV, IERR );
                if (IERR.GT.0) INFO = IERR;
                zgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
-               if ( SCALOC.NE.ONE ) {
+               if ( SCALOC != ONE ) {
                   for (K = 1; K <= N; K++) { // 40
                      zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
                      zscal(M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );

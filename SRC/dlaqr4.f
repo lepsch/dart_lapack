@@ -74,7 +74,7 @@
          // ==== Tiny matrices must use DLAHQR. ====
 
          LWKOPT = 1
-         if (LWORK.NE.-1) CALL DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO );
+         if (LWORK != -1) CALL DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO );
       } else {
 
          // ==== Use small bulge multi-shift QR with aggressive early
@@ -360,7 +360,7 @@
                   // .    they are.)  ====
 
                   DO 70 I = KBOT, KS + 2, -2
-                     if ( WI( I ).NE.-WI( I-1 ) ) {
+                     if ( WI( I ) != -WI( I-1 ) ) {
 
                         SWAP = WR( I )
                         WR( I ) = WR( I-1 )

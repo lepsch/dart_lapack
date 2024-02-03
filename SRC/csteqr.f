@@ -60,7 +60,7 @@
       } else if ( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CSTEQR', -INFO );
          RETURN
       }
@@ -148,7 +148,7 @@
          // Look for small subdiagonal element.
 
          } // 40
-         if ( L.NE.LEND ) {
+         if ( L != LEND ) {
             LENDM1 = LEND - 1
             for (M = L; M <= LENDM1; M++) { // 50
                TST = ABS( E( M ) )**2
@@ -203,7 +203,7 @@
             F = S*E( I )
             B = C*E( I )
             slartg(G, F, C, S, R );
-            if (I.NE.M-1) E( I+1 ) = R;
+            if (I != M-1) E( I+1 ) = R;
             G = D( I+1 ) - P
             R = ( D( I )-G )*S + TWO*C*B
             P = S*R
@@ -246,7 +246,7 @@
          // Look for small superdiagonal element.
 
          } // 90
-         if ( L.NE.LEND ) {
+         if ( L != LEND ) {
             LENDP1 = LEND + 1
             DO 100 M = L, LENDP1, -1
                TST = ABS( E( M-1 ) )**2
@@ -301,7 +301,7 @@
             F = S*E( I )
             B = C*E( I )
             slartg(G, F, C, S, R );
-            if (I.NE.M) E( I-1 ) = R;
+            if (I != M) E( I-1 ) = R;
             G = D( I ) - P
             R = ( D( I+1 )-G )*S + TWO*C*B
             P = S*R
@@ -355,7 +355,7 @@
 
       if ( JTOT == NMAXIT ) {
          for (I = 1; I <= N - 1; I++) { // 150
-            IF( E( I ).NE.ZERO ) INFO = INFO + 1
+            IF( E( I ) != ZERO ) INFO = INFO + 1
          } // 150
          RETURN
       }
@@ -384,7 +384,7 @@
                   P = D( J )
                }
             } // 170
-            if ( K.NE.I ) {
+            if ( K != I ) {
                D( K ) = D( I )
                D( I ) = P
                cswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );

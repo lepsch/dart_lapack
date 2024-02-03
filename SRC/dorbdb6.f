@@ -55,7 +55,7 @@
          INFO = -13
       }
 
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('DORBDB6', -INFO );
          RETURN
       }

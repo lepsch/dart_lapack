@@ -59,7 +59,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETF2_ROOK', -INFO );
          RETURN
       }
@@ -142,7 +142,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = IMAX + IZAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
                   } else {
@@ -211,7 +211,7 @@
             // For only a 2x2 pivot, interchange rows and columns K and P
             // in the leading submatrix A(1:k,1:k)
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
                // (1) Swap columnar parts
                if (P.GT.1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                // (2) Swap and conjugate middle parts
@@ -231,7 +231,7 @@
             // For both 1x1 and 2x2 pivots, interchange rows and
             // columns KK and KP in the leading submatrix A(1:k,1:k)
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
                // (1) Swap columnar parts
                if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                // (2) Swap and conjugate middle parts
@@ -442,7 +442,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = K - 1 + IZAMAX( IMAX-K, A( IMAX, K ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
                   } else {
@@ -512,7 +512,7 @@
             // For only a 2x2 pivot, interchange rows and columns K and P
             // in the trailing submatrix A(k:n,k:n)
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
                // (1) Swap columnar parts
                if (P.LT.N) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
                // (2) Swap and conjugate middle parts
@@ -532,7 +532,7 @@
             // For both 1x1 and 2x2 pivots, interchange rows and
             // columns KK and KP in the trailing submatrix A(k:n,k:n)
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
                // (1) Swap columnar parts
                if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                // (2) Swap and conjugate middle parts

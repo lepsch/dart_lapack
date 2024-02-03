@@ -296,7 +296,7 @@
           IF ( LRWORK .LT. MINRWRK .AND. (.NOT.LQUERY) ) INFO = - 19
       }
 
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
         // #:(
          xerbla('CGEJSV', - INFO );
          RETURN
@@ -370,7 +370,7 @@
       AAQQ = BIG
       for (p = 1; p <= N; p++) { // 4781
          AAPP = MAX( AAPP, SVA(p) )
-         IF ( SVA(p) .NE. ZERO ) AAQQ = MIN( AAQQ, SVA(p) )
+         IF ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) )
       } // 4781
 
       // Quick return for zero M x N matrix
@@ -415,7 +415,7 @@
             clascl('G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR );
             clacpy('A', M, 1, A, LDA, U, LDU );
             // computing all M left singular vectors of the M x 1 matrix
-            if ( N1 .NE. N  ) {
+            if ( N1 != N  ) {
               cgeqrf(M, N, U,LDU, CWORK, CWORK(N+1),LWORK-N,IERR );
               cungqr(M,N1,1, U,LDU,CWORK,CWORK(N+1),LWORK-N,IERR );
               ccopy(M, A(1,1), 1, U(1,1), 1 );
@@ -430,7 +430,7 @@
          }
          RWORK(1) = ONE / SCALEM
          RWORK(2) = ONE
-         if ( SVA(1) .NE. ZERO ) {
+         if ( SVA(1) != ZERO ) {
             IWORK(1) = 1
             if ( ( SVA(1) / SCALEM) .GE. SFMIN ) {
                IWORK(2) = 1
@@ -477,7 +477,7 @@
                RWORK(M+p)  = XSC * SCALEM
                RWORK(p)    = XSC * (SCALEM*SQRT(TEMP1))
                AATMAX = MAX( AATMAX, RWORK(p) )
-               IF (RWORK(p) .NE. ZERO)  AATMIN = MIN(AATMIN,RWORK(p))
+               IF (RWORK(p) != ZERO)  AATMIN = MIN(AATMIN,RWORK(p))
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
@@ -508,7 +508,7 @@
          ENTRA = ZERO
          for (p = 1; p <= N; p++) { // 1113
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1
-            if (BIG1 .NE. ZERO) ENTRA = ENTRA + BIG1 * ALOG(BIG1);
+            if (BIG1 != ZERO) ENTRA = ENTRA + BIG1 * ALOG(BIG1);
          } // 1113
          ENTRA = - ENTRA / ALOG(REAL(N))
 
@@ -521,7 +521,7 @@
          ENTRAT = ZERO
          for (p = 1; p <= M; p++) { // 1114
             BIG1 = ( ( RWORK(p) / XSC )**2 ) * TEMP1
-            if (BIG1 .NE. ZERO) ENTRAT = ENTRAT + BIG1 * ALOG(BIG1);
+            if (BIG1 != ZERO) ENTRAT = ENTRAT + BIG1 * ALOG(BIG1);
          } // 1114
          ENTRAT = - ENTRAT / ALOG(REAL(M))
 
@@ -644,7 +644,7 @@
          for (p = 1; p <= M - 1; p++) { // 1952
             q = ISAMAX( M-p+1, RWORK(M+p), 1 ) + p - 1
             IWORK(IWOFF+p) = q
-            if ( p .NE. q ) {
+            if ( p != q ) {
                TEMP1      = RWORK(M+p)
                RWORK(M+p) = RWORK(M+q)
                RWORK(M+q) = TEMP1
@@ -779,7 +779,7 @@
                cpocon('U', N, CWORK, N, ONE, TEMP1, CWORK(N*N+1), RWORK, IERR );
 
             }
-            if ( TEMP1 .NE. ZERO ) {
+            if ( TEMP1 != ZERO ) {
                SCONDA = ONE / SQRT(TEMP1)
             } else {
                SCONDA = - ONE
@@ -875,7 +875,7 @@
             NUMRANK = NINT(RWORK(2))
 
 
-      } else if ( ( RSVEC .AND. ( .NOT. LSVEC ) .AND. ( .NOT. JRACC ) )  .OR. ( JRACC .AND. ( .NOT. LSVEC ) .AND. ( NR .NE. N ) ) ) {
+      } else if ( ( RSVEC .AND. ( .NOT. LSVEC ) .AND. ( .NOT. JRACC ) )  .OR. ( JRACC .AND. ( .NOT. LSVEC ) .AND. ( NR != N ) ) ) {
 
          // -> Singular Values and Right Singular Vectors <-
 
@@ -1068,7 +1068,7 @@
                   } // 3959
                }
 
-               if (NR .NE. N) CALL CLACPY( 'A', N, NR, V, LDV, CWORK(2*N+1), N );
+               if (NR != N) CALL CLACPY( 'A', N, NR, V, LDV, CWORK(2*N+1), N );
                // .. save ...
 
             // .. this transposed copy should be better than naive

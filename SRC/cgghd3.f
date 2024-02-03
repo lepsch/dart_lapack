@@ -80,7 +80,7 @@
       } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
          INFO = -15
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGGHD3', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -565,7 +565,7 @@
 
       COMPQ2 = COMPQ
       COMPZ2 = COMPZ
-      if ( JCOL.NE.ILO ) {
+      if ( JCOL != ILO ) {
          if (WANTQ) COMPQ2 = 'V'          IF ( WANTZ ) COMPZ2 = 'V';
       }
 

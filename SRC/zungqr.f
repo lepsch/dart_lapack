@@ -51,7 +51,7 @@
       } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZUNGQR', -INFO );
          RETURN
       } else if ( LQUERY ) {

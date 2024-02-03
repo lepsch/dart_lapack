@@ -146,7 +146,7 @@
          // RIGHT-LEFT.LT.RTOL*MAX(ABS(LEFT),ABS(RIGHT))
          // DLARRD needs a WORK of size 4*N, IWORK of size 3*N
          dlarrd(RANGE, 'B', N, VL, VU, IL, IU, GERS, BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, MM, W, WERR, VL, VU, IBLOCK, INDEXW, WORK, IWORK, IINFO );
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             INFO = -1
             RETURN
          }
@@ -241,13 +241,13 @@
             // Case of DQDS
             // Find approximations to the extremal eigenvalues of the block
             dlarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                INFO = -1
                RETURN
             }
             ISLEFT = MAX(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1))
              dlarrk(IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                INFO = -1
                RETURN
             }
@@ -466,7 +466,7 @@
             } // 135
             // use bisection to find EV from INDL to INDU
             dlarrb(IN, D(IBEGIN), WORK(IBEGIN), INDL, INDU, RTOL1, RTOL2, INDL-1, W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM, IN, IINFO );
-            if ( IINFO .NE. 0 ) {
+            if ( IINFO != 0 ) {
                INFO = -4
                RETURN
             }
@@ -500,7 +500,7 @@
             WORK( 2*IN-1 ) = ABS( D( IEND ) )
             WORK( 2*IN ) = ZERO
             dlasq2(IN, WORK, IINFO );
-            if ( IINFO .NE. 0 ) {
+            if ( IINFO != 0 ) {
                // If IINFO = -5 then an index is part of a tight cluster
                // and should be changed. The index is in IWORK(1) and the
                // gap is in WORK(N+1)

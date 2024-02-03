@@ -73,7 +73,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYGV_2STAGE ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -87,7 +87,7 @@
       // Form a Cholesky factorization of B.
 
       spotrf(UPLO, N, B, LDB, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = N + INFO
          RETURN
       }

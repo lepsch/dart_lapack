@@ -138,7 +138,7 @@
 
                // Check error code from SLATMS and handle error.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Skip all tests for this generated matrix
@@ -250,11 +250,11 @@
                   if ( K.GT.0 ) {
                      } // 100
                      if ( IWORK( K ).LT.0 ) {
-                        if ( IWORK( K ).NE.-K ) {
+                        if ( IWORK( K ) != -K ) {
                            K = -IWORK( K )
                            GO TO 100
                         }
-                     } else if ( IWORK( K ).NE.K ) {
+                     } else if ( IWORK( K ) != K ) {
                         K = IWORK( K )
                         GO TO 100
                      }
@@ -262,11 +262,11 @@
 
                   // Check error code from SSYTRF_ROOK and handle error.
 
-                  if (INFO.NE.K) CALL ALAERH( PATH, 'SSYTRF_ROOK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != K) CALL ALAERH( PATH, 'SSYTRF_ROOK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      TRFCON = true;
                   } else {
                      TRFCON = false;
@@ -291,7 +291,7 @@
 
                      // Check error code from SSYTRI_ROOK and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'SSYTRI_ROOK', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'SSYTRI_ROOK', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -523,7 +523,7 @@
 
                      // Check error code from SSYTRS_ROOK and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'SSYTRS_ROOK', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'SSYTRS_ROOK', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -561,7 +561,7 @@
 
                   // Check error code from SSYCON_ROOK and handle error.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'SSYCON_ROOK', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'SSYCON_ROOK', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the test ratio to compare values of RCOND
 

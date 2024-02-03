@@ -41,7 +41,7 @@
       if ( N.LT.0 ) {
          INFO = -2
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLA_PORCOND', -INFO );
          RETURN
       }
@@ -119,7 +119,7 @@
       KASE = 0
       } // 10
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
-      if ( KASE.NE.0 ) {
+      if ( KASE != 0 ) {
          if ( KASE == 2 ) {
 
             // Multiply by R.
@@ -176,7 +176,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM .NE. 0.0) SLA_PORCOND = ( 1.0 / AINVNM );
+      if (AINVNM != 0.0) SLA_PORCOND = ( 1.0 / AINVNM );
 
       RETURN
 

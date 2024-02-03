@@ -84,7 +84,7 @@
       } else if ( MM.LT.M ) {
          INFO = -13
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHSEIN', -INFO );
          RETURN
       }
@@ -142,7 +142,7 @@
                }
             }
 
-            if ( KL.NE.KLN ) {
+            if ( KL != KLN ) {
                KLN = KL
 
                // Compute infinity-norm of submatrix H(KL:KR,KL:KR) if it

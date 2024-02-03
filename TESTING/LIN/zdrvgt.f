@@ -107,7 +107,7 @@
 
                // Check the error code from ZLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 130
                }
@@ -128,7 +128,7 @@
                   // Generate a matrix with elements from [-1,1].
 
                   zlarnv(2, ISEED, N+2*M, A );
-                  if (ANORM.NE.ONE) CALL ZDSCAL( N+2*M, ANORM, A, 1 );
+                  if (ANORM != ONE) CALL ZDSCAL( N+2*M, ANORM, A, 1 );
                } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
@@ -282,7 +282,7 @@
 
                      // Check error code from ZGTSV .
 
-                     if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) CALL ALAERH( PATH, 'ZGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      NT = 1
                      if ( IZERO == 0 ) {
 
@@ -329,7 +329,7 @@
 
                   // Check the error code from ZGTSVX.
 
-                  if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) CALL ALAERH( PATH, 'ZGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   if ( IFACT.GE.2 ) {
 

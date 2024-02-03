@@ -66,7 +66,7 @@
       } else if ( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ == 2 ) .AND. ( LDVT.LT. N ) ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DBDSDC', -INFO );
          RETURN
       }
@@ -223,7 +223,7 @@
             } else {
                dlasda(ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ), E( START ), Q( START+( IU+QSTART-2 )*N ), N, Q( START+( IVT+QSTART-2 )*N ), IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )* N ), Q( START+( DIFR+QSTART-2 )*N ), Q( START+( Z+QSTART-2 )*N ), Q( START+( POLES+QSTART-2 )*N ), IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ), N, IQ( START+PERM*N ), Q( START+( GIVNUM+QSTART-2 )*N ), Q( START+( IC+QSTART-2 )*N ), Q( START+( IS+QSTART-2 )*N ), WORK( WSTART ), IWORK, INFO );
             }
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                RETURN
             }
             START = I + 1
@@ -247,7 +247,7 @@
                P = D( J )
             }
          } // 50
-         if ( KK.NE.I ) {
+         if ( KK != I ) {
             D( KK ) = D( I )
             D( I ) = P
             if ( ICOMPQ == 1 ) {

@@ -44,18 +44,18 @@
          INFO = -3
       } else if ( ILO.LT.1 ) {
          INFO = -4
-      } else if ( N == 0 .AND. IHI == 0 .AND. ILO.NE.1 ) {
+      } else if ( N == 0 .AND. IHI == 0 .AND. ILO != 1 ) {
          INFO = -4
       } else if ( N.GT.0 .AND. ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) ) {
          INFO = -5
-      } else if ( N == 0 .AND. ILO == 1 .AND. IHI.NE.0 ) {
+      } else if ( N == 0 .AND. ILO == 1 .AND. IHI != 0 ) {
          INFO = -5
       } else if ( M.LT.0 ) {
          INFO = -8
       } else if ( LDV.LT.MAX( 1, N ) ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGGBAK', -INFO );
          RETURN
       }

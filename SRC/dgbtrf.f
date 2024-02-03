@@ -58,7 +58,7 @@
       } else if ( LDAB.LT.KL+KV+1 ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGBTRF', -INFO );
          RETURN
       }
@@ -154,9 +154,9 @@
                KM = MIN( KL, M-JJ )
                JP = IDAMAX( KM+1, AB( KV+1, JJ ), 1 )
                IPIV( JJ ) = JP + JJ - J
-               if ( AB( KV+JP, JJ ).NE.ZERO ) {
+               if ( AB( KV+JP, JJ ) != ZERO ) {
                   JU = MAX( JU, MIN( JJ+KU+JP-1, N ) )
-                  if ( JP.NE.1 ) {
+                  if ( JP != 1 ) {
 
                      // Apply interchange to columns J to J+JB-1
 
@@ -222,7 +222,7 @@
                   JJ = K2 + I
                   for (II = J + I - 1; II <= J + JB - 1; II++) { // 100
                      IP = IPIV( II )
-                     if ( IP.NE.II ) {
+                     if ( IP != II ) {
                         TEMP = AB( KV+1+II-JJ, JJ )
                         AB( KV+1+II-JJ, JJ ) = AB( KV+1+IP-JJ, JJ )
                         AB( KV+1+IP-JJ, JJ ) = TEMP
@@ -305,7 +305,7 @@
 
             DO 170 JJ = J + JB - 1, J, -1
                JP = IPIV( JJ ) - JJ + 1
-               if ( JP.NE.1 ) {
+               if ( JP != 1 ) {
 
                   // Apply interchange to columns J to JJ-1
 

@@ -76,7 +76,7 @@
 
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGELST ', -INFO );
          RETURN
       } else if ( LQUERY ) {

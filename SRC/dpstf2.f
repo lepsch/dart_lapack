@@ -49,7 +49,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DPSTF2', -INFO );
          RETURN
       }
@@ -123,7 +123,7 @@
                }
             }
 
-            if ( J.NE.PVT ) {
+            if ( J != PVT ) {
 
                // Pivot OK, so can now swap pivot rows and columns
 
@@ -183,7 +183,7 @@
                }
             }
 
-            if ( J.NE.PVT ) {
+            if ( J != PVT ) {
 
                // Pivot OK, so can now swap pivot rows and columns
 

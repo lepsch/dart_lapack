@@ -50,7 +50,7 @@
       } else if (INCX == 0) {
           INFO = 8
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('DTRSV ',INFO);
           RETURN
       }
@@ -66,7 +66,7 @@
 
       if (INCX.LE.0) {
           KX = 1 - (N-1)*INCX
-      } else if (INCX.NE.1) {
+      } else if (INCX != 1) {
           KX = 1
       }
 
@@ -80,7 +80,7 @@
           if (LSAME(UPLO,'U')) {
               if (INCX == 1) {
                   DO 20 J = N,1,-1
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           if (NOUNIT) X(J) = X(J)/A(J,J);
                           TEMP = X(J)
                           DO 10 I = J - 1,1,-1
@@ -91,7 +91,7 @@
               } else {
                   JX = KX + (N-1)*INCX
                   DO 40 J = N,1,-1
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           if (NOUNIT) X(JX) = X(JX)/A(J,J);
                           TEMP = X(JX)
                           IX = JX
@@ -106,7 +106,7 @@
           } else {
               if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 60
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           if (NOUNIT) X(J) = X(J)/A(J,J);
                           TEMP = X(J)
                           for (I = J + 1; I <= N; I++) { // 50
@@ -117,7 +117,7 @@
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 80
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           if (NOUNIT) X(JX) = X(JX)/A(J,J);
                           TEMP = X(JX)
                           IX = JX

@@ -49,7 +49,7 @@
       } else if (( ILST.LT.1 .OR. ILST.GT.N ).AND.( N.GT.0 )) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZTREXC', -INFO );
          RETURN
       }

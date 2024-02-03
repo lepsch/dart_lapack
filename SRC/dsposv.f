@@ -64,7 +64,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSPOSV', -INFO );
          RETURN
       }
@@ -97,7 +97,7 @@
 
       dlag2s(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -2
          GO TO 40
       }
@@ -107,7 +107,7 @@
 
       dlat2s(UPLO, N, A, LDA, SWORK( PTSA ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -2
          GO TO 40
       }
@@ -116,7 +116,7 @@
 
       spotrf(UPLO, N, SWORK( PTSA ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -3
          GO TO 40
       }
@@ -159,7 +159,7 @@
 
          dlag2s(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             ITER = -2
             GO TO 40
          }
@@ -217,7 +217,7 @@
 
       dpotrf(UPLO, N, A, LDA, INFO );
 
-      if (INFO.NE.0) RETURN;
+      if (INFO != 0) RETURN;
 
       dlacpy('All', N, NRHS, B, LDB, X, LDX );
       dpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO );

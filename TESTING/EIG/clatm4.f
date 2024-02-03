@@ -45,12 +45,12 @@
 
       // Insure a correct ISEED
 
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 
       // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
       // and RCOND
 
-      if ( ITYPE.NE.0 ) {
+      if ( ITYPE != 0 ) {
          if ( ABS( ITYPE ).GE.4 ) {
             KBEG = MAX( 1, MIN( N, NZ1+1 ) )
             KEND = MAX( KBEG, MIN( N, N-NZ2 ) )
@@ -179,14 +179,14 @@
 
          if ( RSIGN ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
-               if ( REAL( A( JD, JD ) ).NE.ZERO ) {
+               if ( REAL( A( JD, JD ) ) != ZERO ) {
                   CTEMP = CLARND( 3, ISEED )
                   CTEMP = CTEMP / ABS( CTEMP )
                   A( JD, JD ) = CTEMP*REAL( A( JD, JD ) )
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
-               if ( REAL( A( JD+1, JD ) ).NE.ZERO ) {
+               if ( REAL( A( JD+1, JD ) ) != ZERO ) {
                   CTEMP = CLARND( 3, ISEED )
                   CTEMP = CTEMP / ABS( CTEMP )
                   A( JD+1, JD ) = CTEMP*REAL( A( JD+1, JD ) )
@@ -213,7 +213,7 @@
 
       // Fill in upper triangle
 
-      if ( TRIANG.NE.ZERO ) {
+      if ( TRIANG != ZERO ) {
          for (JC = 2; JC <= N; JC++) { // 300
             for (JR = 1; JR <= JC - 1; JR++) { // 290
                A( JR, JC ) = TRIANG*CLARND( IDIST, ISEED )

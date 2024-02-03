@@ -48,7 +48,7 @@
          INFO = -26
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLAQZ3', -INFO );
          RETURN
       }
@@ -85,7 +85,7 @@
       slaset('FULL', JW, JW, ZERO, ONE, ZC, LDZC );
       slaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK( 2*JW**2+1 ), LWORK-2*JW**2, REC+1, QZ_SMALL_INFO );
 
-      if ( QZ_SMALL_INFO .NE. 0 ) {
+      if ( QZ_SMALL_INFO != 0 ) {
          // Convergence failure, restore the window and exit
          ND = 0
          NS = JW-QZ_SMALL_INFO
@@ -104,7 +104,7 @@
          DO WHILE ( K .LE. JW )
             BULGE = false;
             if ( KWBOT-KWTOP+1 .GE. 2 ) {
-               BULGE = A( KWBOT, KWBOT-1 ) .NE. ZERO
+               BULGE = A( KWBOT, KWBOT-1 ) != ZERO
             }
             if ( BULGE ) {
 
@@ -155,7 +155,7 @@
       DO WHILE ( K .LE. IHI )
          BULGE = false;
          if ( K .LT. IHI ) {
-            if ( A( K+1, K ) .NE. ZERO ) {
+            if ( A( K+1, K ) != ZERO ) {
                BULGE = true;
             }
          }
@@ -173,7 +173,7 @@
          }
       }
 
-      if ( KWTOP .NE. ILO .AND. S .NE. ZERO ) {
+      if ( KWTOP != ILO .AND. S != ZERO ) {
          // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 )*QC( 1, 1:JW-ND )
          DO K = KWBOT-1, KWTOP, -1
@@ -191,7 +191,7 @@
          ISTOPM = IHI
          K = KWBOT-1
          DO WHILE ( K .GE. KWTOP )
-            if ( ( K .GE. KWTOP+1 ) .AND. A( K+1, K-1 ) .NE. ZERO ) {
+            if ( ( K .GE. KWTOP+1 ) .AND. A( K+1, K-1 ) != ZERO ) {
 
                // Move double pole block down and remove it
                for (K2 = K-1; K2 <= KWBOT-2; K2++) {

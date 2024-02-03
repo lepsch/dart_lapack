@@ -198,15 +198,15 @@
             for (I = 1; I <= N; I++) {
                NORMT = MAX(CABS1(INVHILB(I, K)), NORMT)
                NORMDIF = MAX(CABS1(X(I,K) - INVHILB(I,K)), NORMDIF)
-               if (INVHILB(I,K) .NE. 0.0D+0) {
+               if (INVHILB(I,K) != 0.0D+0) {
                   CWISE_ERR = MAX(CABS1(X(I,K) - INVHILB(I,K)) /CABS1(INVHILB(I,K)), CWISE_ERR)
-               } else if (X(I, K) .NE. 0.0D+0) {
+               } else if (X(I, K) != 0.0D+0) {
                   CWISE_ERR = DLAMCH('OVERFLOW')
                }
             }
-            if (NORMT .NE. 0.0D+0) {
+            if (NORMT != 0.0D+0) {
                NWISE_ERR = NORMDIF / NORMT
-            } else if (NORMDIF .NE. 0.0D+0) {
+            } else if (NORMDIF != 0.0D+0) {
                NWISE_ERR = DLAMCH('OVERFLOW')
             } else {
                NWISE_ERR = 0.0D+0
@@ -245,9 +245,9 @@
                if (NWISE_BND .GT. ERRTHRESH) {
                   TSTRAT(1) = 1/(2.0D+0*EPS)
                } else {
-                  if (NWISE_BND .NE. 0.0D+0) {
+                  if (NWISE_BND != 0.0D+0) {
                      TSTRAT(1) = NWISE_ERR / NWISE_BND
-                  } else if (NWISE_ERR .NE. 0.0D+0) {
+                  } else if (NWISE_ERR != 0.0D+0) {
                      TSTRAT(1) = 1/(16.0*EPS)
                   } else {
                      TSTRAT(1) = 0.0D+0
@@ -272,9 +272,9 @@
                if (CWISE_BND .GT. ERRTHRESH) {
                   TSTRAT(2) = 1/(2.0D+0*EPS)
                } else {
-                  if (CWISE_BND .NE. 0.0D+0) {
+                  if (CWISE_BND != 0.0D+0) {
                      TSTRAT(2) = CWISE_ERR / CWISE_BND
-                  } else if (CWISE_ERR .NE. 0.0D+0) {
+                  } else if (CWISE_ERR != 0.0D+0) {
                      TSTRAT(2) = 1/(16.0D+0*EPS)
                   } else {
                      TSTRAT(2) = 0.0D+0

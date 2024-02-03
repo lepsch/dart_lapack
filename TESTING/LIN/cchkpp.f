@@ -115,7 +115,7 @@
 
                // Check error code from CLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
@@ -176,14 +176,14 @@
 
                // Check error code from CPPTRF.
 
-               if ( INFO.NE.IZERO ) {
+               if ( INFO != IZERO ) {
                   alaerh(PATH, 'CPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
                // Skip the tests if INFO is not 0.
 
-               if (INFO.NE.0) GO TO 90;
+               if (INFO != 0) GO TO 90;
 
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
@@ -200,7 +200,7 @@
 
                // Check error code from CPPTRI.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'CPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'CPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                cppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
@@ -230,7 +230,7 @@
 
                // Check error code from CPPTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -248,7 +248,7 @@
 
                // Check error code from CPPRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'CPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'CPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                   cppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -274,7 +274,7 @@
 
                // Check error code from CPPCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'CPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'CPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = SGET06( RCOND, RCONDC )
 

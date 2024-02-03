@@ -57,7 +57,7 @@
       // Quick return if possible
 
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSYTRI2X', -INFO );
          RETURN
       }

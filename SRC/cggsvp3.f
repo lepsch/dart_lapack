@@ -96,7 +96,7 @@
          WORK( 1 ) = CMPLX( LWKOPT )
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGGSVP3', -INFO );
          RETURN
       }
@@ -149,7 +149,7 @@
          clapmt(FORWRD, N, N, Q, LDQ, IWORK );
       }
 
-      if ( P.GE.L .AND. N.NE.L ) {
+      if ( P.GE.L .AND. N != L ) {
 
          // RQ factorization of ( S11 S12 ) = ( 0 S12 )*Z
 

@@ -111,7 +111,7 @@
             INFO = -11
          }
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STREVC3', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -204,7 +204,7 @@
 
             WR = T( KI, KI )
             WI = ZERO
-            if (IP.NE.0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
+            if (IP != 0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
             if ( IP == 0 ) {
@@ -230,7 +230,7 @@
                   J2 = J
                   JNXT = J - 1
                   if ( J.GT.1 ) {
-                     if ( T( J, J-1 ).NE.ZERO ) {
+                     if ( T( J, J-1 ) != ZERO ) {
                         J1   = J - 1
                         JNXT = J - 2
                      }
@@ -254,7 +254,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE.NE.ONE) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 );
+                     if (SCALE != ONE) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 );
                      WORK( J+IV*N ) = X( 1, 1 )
 
                      // Update right-hand side
@@ -281,7 +281,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE.NE.ONE) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 );
+                     if (SCALE != ONE) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 );
                      WORK( J-1+IV*N ) = X( 1, 1 )
                      WORK( J  +IV*N ) = X( 2, 1 )
 
@@ -362,7 +362,7 @@
                   J2 = J
                   JNXT = J - 1
                   if ( J.GT.1 ) {
-                     if ( T( J, J-1 ).NE.ZERO ) {
+                     if ( T( J, J-1 ) != ZERO ) {
                         J1   = J - 1
                         JNXT = J - 2
                      }
@@ -387,7 +387,7 @@
 
                      // Scale if necessary
 
-                     if ( SCALE.NE.ONE ) {
+                     if ( SCALE != ONE ) {
                         sscal(KI, SCALE, WORK( 1+(IV-1)*N ), 1 );
                         sscal(KI, SCALE, WORK( 1+(IV  )*N ), 1 );
                      }
@@ -422,7 +422,7 @@
 
                      // Scale if necessary
 
-                     if ( SCALE.NE.ONE ) {
+                     if ( SCALE != ONE ) {
                         sscal(KI, SCALE, WORK( 1+(IV-1)*N ), 1 );
                         sscal(KI, SCALE, WORK( 1+(IV  )*N ), 1 );
                      }
@@ -537,7 +537,7 @@
             END IF ! blocked back-transform
 
             IS = IS - 1
-            if (IP.NE.0) IS = IS - 1;
+            if (IP != 0) IS = IS - 1;
          } // 140
       }
 
@@ -579,7 +579,7 @@
 
             WR = T( KI, KI )
             WI = ZERO
-            if (IP.NE.0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
+            if (IP != 0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
             if ( IP == 0 ) {
@@ -608,7 +608,7 @@
                   J2 = J
                   JNXT = J + 1
                   if ( J.LT.N ) {
-                     if ( T( J+1, J ).NE.ZERO ) {
+                     if ( T( J+1, J ) != ZERO ) {
                         J2 = J + 1
                         JNXT = J + 2
                      }
@@ -636,7 +636,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE.NE.ONE) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
+                     if (SCALE != ONE) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
                      WORK( J+IV*N ) = X( 1, 1 )
                      VMAX = MAX( ABS( WORK( J+IV*N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
@@ -668,7 +668,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE.NE.ONE) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
+                     if (SCALE != ONE) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
                      WORK( J  +IV*N ) = X( 1, 1 )
                      WORK( J+1+IV*N ) = X( 2, 1 )
 
@@ -752,7 +752,7 @@
                   J2 = J
                   JNXT = J + 1
                   if ( J.LT.N ) {
-                     if ( T( J+1, J ).NE.ZERO ) {
+                     if ( T( J+1, J ) != ZERO ) {
                         J2 = J + 1
                         JNXT = J + 2
                      }
@@ -781,7 +781,7 @@
 
                      // Scale if necessary
 
-                     if ( SCALE.NE.ONE ) {
+                     if ( SCALE != ONE ) {
                         sscal(N-KI+1, SCALE, WORK(KI+(IV  )*N), 1);
                         sscal(N-KI+1, SCALE, WORK(KI+(IV+1)*N), 1);
                      }
@@ -822,7 +822,7 @@
 
                      // Scale if necessary
 
-                     if ( SCALE.NE.ONE ) {
+                     if ( SCALE != ONE ) {
                         sscal(N-KI+1, SCALE, WORK(KI+(IV  )*N), 1);
                         sscal(N-KI+1, SCALE, WORK(KI+(IV+1)*N), 1);
                      }
@@ -934,7 +934,7 @@
             END IF ! blocked back-transform
 
             IS = IS + 1
-            if (IP.NE.0) IS = IS + 1;
+            if (IP != 0) IS = IS + 1;
          } // 260
       }
 

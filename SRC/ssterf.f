@@ -120,7 +120,7 @@
          // Look for small subdiagonal element.
 
          } // 50
-         if ( L.NE.LEND ) {
+         if ( L != LEND ) {
             for (M = L; M <= LEND - 1; M++) { // 60
                IF( ABS( E( M ) ).LE.EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70
             } // 60
@@ -166,7 +166,7 @@
          DO 80 I = M - 1, L, -1
             BB = E( I )
             R = P + BB
-            if (I.NE.M-1) E( I+1 ) = S*R;
+            if (I != M-1) E( I+1 ) = S*R;
             OLDC = C
             C = P / R
             S = BB / R
@@ -174,7 +174,7 @@
             ALPHA = D( I )
             GAMMA = C*( ALPHA-SIGMA ) - S*OLDGAM
             D( I+1 ) = OLDGAM + ( ALPHA-GAMMA )
-            if ( C.NE.ZERO ) {
+            if ( C != ZERO ) {
                P = ( GAMMA*GAMMA ) / C
             } else {
                P = OLDC*BB
@@ -245,7 +245,7 @@
          for (I = M; I <= L - 1; I++) { // 130
             BB = E( I )
             R = P + BB
-            if (I.NE.M) E( I-1 ) = S*R;
+            if (I != M) E( I-1 ) = S*R;
             OLDC = C
             C = P / R
             S = BB / R
@@ -253,7 +253,7 @@
             ALPHA = D( I+1 )
             GAMMA = C*( ALPHA-SIGMA ) - S*OLDGAM
             D( I ) = OLDGAM + ( ALPHA-GAMMA )
-            if ( C.NE.ZERO ) {
+            if ( C != ZERO ) {
                P = ( GAMMA*GAMMA ) / C
             } else {
                P = OLDC*BB
@@ -285,7 +285,7 @@
 
       if (JTOT.LT.NMAXIT) GO TO 10;
       for (I = 1; I <= N - 1; I++) { // 160
-         IF( E( I ).NE.ZERO ) INFO = INFO + 1
+         IF( E( I ) != ZERO ) INFO = INFO + 1
       } // 160
       GO TO 180
 

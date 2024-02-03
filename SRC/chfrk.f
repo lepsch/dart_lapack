@@ -66,14 +66,14 @@
       } else if ( LDA.LT.MAX( 1, NROWA ) ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHFRK ', -INFO );
          RETURN
       }
 
       // Quick return if possible.
 
-      // The quick return case: ((ALPHA == 0).AND.(BETA.NE.ZERO)) is not
+      // The quick return case: ((ALPHA == 0).AND.(BETA != ZERO)) is not
       // done (it is in CHERK for example) and left in the general case.
 
       IF( ( N == 0 ) .OR. ( ( ( ALPHA == ZERO ) .OR. ( K == 0 ) ) .AND. ( BETA == ONE ) ) )RETURN

@@ -145,7 +145,7 @@
             // Do complex/real division explicitly with two real divisions
             SN = DCMPLX( DBLE( R ) / D, DIMAG( R ) / D )
             SN = SN*DCONJG( GS )
-            if ( COUNT.NE.0 ) {
+            if ( COUNT != 0 ) {
                if ( COUNT.GT.0 ) {
                   for (J = 1; J <= COUNT; J++) { // 30
                      R = R*SAFMX2

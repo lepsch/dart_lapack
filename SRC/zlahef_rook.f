@@ -157,7 +157,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = IMAX + IZAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, KW-1 ) )
                   } else {
@@ -241,7 +241,7 @@
             // Interchange rows and columns P and K.
             // Updated column P is already stored in column KW of W.
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Copy non-updated column K to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -265,7 +265,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KKW of W.
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -484,9 +484,9 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
-            if (JP2.NE.JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
+            if (JP2 != JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = JJ + 1
-            if (KSTEP == 2 .AND. JP1.NE.JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
+            if (KSTEP == 2 .AND. JP1 != JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -587,7 +587,7 @@
                   // element in row IMAX, and ROWMAX is its absolute value.
                   // Determine both ROWMAX and JMAX.
 
-                  if ( IMAX.NE.K ) {
+                  if ( IMAX != K ) {
                      JMAX = K - 1 + IZAMAX( IMAX-K, W( K, K+1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, K+1 ) )
                   } else {
@@ -667,7 +667,7 @@
             // Interchange rows and columns P and K (only for 2-by-2 pivot).
             // Updated column P is already stored in column K of W.
 
-            if ( ( KSTEP == 2 ) .AND. ( P.NE.K ) ) {
+            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
 
                // Copy non-updated column KK-1 to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -691,7 +691,7 @@
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KK of W.
 
-            if ( KP.NE.KK ) {
+            if ( KP != KK ) {
 
                // Copy non-updated column KK to column KP of submatrix A
                // at step K. No need to copy element into column K
@@ -910,9 +910,9 @@
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
-            if (JP2.NE.JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
+            if (JP2 != JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
             JJ = JJ -1
-            if (KSTEP == 2 .AND. JP1.NE.JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
+            if (KSTEP == 2 .AND. JP1 != JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

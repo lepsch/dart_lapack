@@ -40,7 +40,7 @@
       } else if ( LDT.LT.NB ) {
          INFO = -10
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTPQRT', -INFO );
          RETURN
       }

@@ -64,7 +64,7 @@
       } // 10
 
       if ( ANORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM.GE.RESID ) {
             RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS )

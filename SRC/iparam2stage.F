@@ -46,7 +46,7 @@
 #endif
        // WRITE(*,*) 'IPARAM VOICI NTHREADS ISPEC ',NTHREADS, ISPEC
 
-      if ( ISPEC .NE. 19 ) {
+      if ( ISPEC != 19 ) {
 
          // Convert NAME to upper case if the first character is lower case.
 

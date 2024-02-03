@@ -70,7 +70,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -15
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGTRFS', -INFO );
          RETURN
       }
@@ -211,7 +211,7 @@
          KASE = 0
          } // 70
          clacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
-         if ( KASE.NE.0 ) {
+         if ( KASE != 0 ) {
             if ( KASE == 1 ) {
 
                // Multiply by diag(W)*inv(op(A)**H).
@@ -238,7 +238,7 @@
          for (I = 1; I <= N; I++) { // 100
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
          } // 100
-         if (LSTRES.NE.ZERO) FERR( J ) = FERR( J ) / LSTRES;
+         if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 
       } // 110
 

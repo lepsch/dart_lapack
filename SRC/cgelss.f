@@ -168,7 +168,7 @@
          if (LWORK.LT.MINWRK .AND. .NOT.LQUERY) INFO = -12;
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGELSS', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -295,7 +295,7 @@
          // (CWorkspace: none)
          // (RWorkspace: need BDSPAC)
 
-         CALL CBDSQR( 'U', N, N, 0, NRHS, S, RWORK( IE ), A, LDA, DUM, 1, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
+         CALL CBDSQR( 'U', N, N, 0, NRHS, S, RWORK( IE ), A, LDA, DUM, 1, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO != 0 ) GO TO 70
 
          // Multiply B by reciprocals of singular values
 
@@ -383,7 +383,7 @@
          // (CWorkspace: need M*M)
          // (RWorkspace: need BDSPAC)
 
-         CALL CBDSQR( 'U', M, M, 0, NRHS, S, RWORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
+         CALL CBDSQR( 'U', M, M, 0, NRHS, S, RWORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO != 0 ) GO TO 70
 
          // Multiply B by reciprocals of singular values
 
@@ -464,7 +464,7 @@
          // (CWorkspace: none)
          // (RWorkspace: need BDSPAC)
 
-         CALL CBDSQR( 'L', M, N, 0, NRHS, S, RWORK( IE ), A, LDA, DUM, 1, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
+         CALL CBDSQR( 'L', M, N, 0, NRHS, S, RWORK( IE ), A, LDA, DUM, 1, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO != 0 ) GO TO 70
 
          // Multiply B by reciprocals of singular values
 

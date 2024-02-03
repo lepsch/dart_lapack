@@ -525,7 +525,7 @@
             DD( 3 ) = DTIIP
             slaed6(NITER, ORGATI, C, DD, ZZ, W, ETA, INFO );
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
 
                // If INFO is not 0, i.e., SLAED6 failed, switch back
                // to 2 pole interpolation.
@@ -736,7 +736,7 @@
                DD( 3 ) = DTIIP
                slaed6(NITER, ORGATI, C, DD, ZZ, W, ETA, INFO );
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
 
                   // If INFO is not 0, i.e., SLAED6 failed, switch
                   // back to two pole interpolation

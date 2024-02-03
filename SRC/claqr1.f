@@ -37,7 +37,7 @@
 
       // Quick return if possible
 
-      if ( N.NE.2 .AND. N.NE.3 ) {
+      if ( N != 2 .AND. N != 3 ) {
          RETURN
       }
 

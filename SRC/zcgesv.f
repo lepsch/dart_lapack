@@ -69,7 +69,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZCGESV', -INFO );
          RETURN
       }
@@ -102,7 +102,7 @@
 
       zlag2c(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -2
          GO TO 40
       }
@@ -112,7 +112,7 @@
 
       zlag2c(N, N, A, LDA, SWORK( PTSA ), N, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -2
          GO TO 40
       }
@@ -121,7 +121,7 @@
 
       cgetrf(N, N, SWORK( PTSA ), N, IPIV, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          ITER = -3
          GO TO 40
       }
@@ -164,7 +164,7 @@
 
          zlag2c(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
 
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             ITER = -2
             GO TO 40
          }
@@ -222,7 +222,7 @@
 
       zgetrf(N, N, A, LDA, IPIV, INFO );
 
-      if (INFO.NE.0) RETURN;
+      if (INFO != 0) RETURN;
 
       zlacpy('All', N, NRHS, B, LDB, X, LDX );
       zgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );

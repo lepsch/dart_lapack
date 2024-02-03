@@ -150,7 +150,7 @@
       dcopy(N, ALPHA, 1, WORK, 1 );
       DO 110 I = K + 1, MIN( K+L, M )
          J = IWORK( I )
-         if ( I.NE.J ) {
+         if ( I != J ) {
             TEMP = WORK( I )
             WORK( I ) = WORK( J )
             WORK( J ) = TEMP

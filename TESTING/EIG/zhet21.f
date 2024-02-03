@@ -156,7 +156,7 @@
          } else {
             zunm2l('R', 'C', N, N-1, N-1, V( 1, 2 ), LDV, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          }
-         if ( IINFO.NE.0 ) {
+         if ( IINFO != 0 ) {
             RESULT( 1 ) = TEN / ULP
             RETURN
          }

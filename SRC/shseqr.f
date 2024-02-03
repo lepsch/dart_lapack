@@ -81,7 +81,7 @@
          INFO = -13
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
 
          // ==== Quick return in case of invalid argument. ====
 
@@ -168,14 +168,14 @@
                   slacpy('A', N, N, H, LDH, HL, NL );
                   HL( N+1, N ) = ZERO
                   slaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
-                  slaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH );
+                  slaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO != 0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH );
                }
             }
          }
 
          // ==== Clear out the trash, if necessary. ====
 
-         IF( ( WANTT .OR. INFO.NE.0 ) .AND. N.GT.2 ) CALL SLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
+         IF( ( WANTT .OR. INFO != 0 ) .AND. N.GT.2 ) CALL SLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====

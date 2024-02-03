@@ -48,7 +48,7 @@
       } else if ( ( LDB.LT.1 ) .OR. ( LDB.LT.N ) ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLALSD', -INFO );
          RETURN
       }
@@ -125,7 +125,7 @@
          NWORK = 1 + N*N
          dlaset('A', N, N, ZERO, ONE, WORK, N );
          dlasdq('U', 0, N, N, 0, NRHS, D, E, WORK, N, WORK, N, B, LDB, WORK( NWORK ), INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             RETURN
          }
          TOL = RCND*ABS( D( IDAMAX( N, D, 1 ) ) )
@@ -232,7 +232,7 @@
 
                dlaset('A', NSIZE, NSIZE, ZERO, ONE, WORK( VT+ST1 ), N );
                dlasdq('U', 0, NSIZE, NSIZE, 0, NRHS, D( ST ), E( ST ), WORK( VT+ST1 ), N, WORK( NWORK ), N, B( ST, 1 ), LDB, WORK( NWORK ), INFO );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   RETURN
                }
                dlacpy('A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N );
@@ -241,12 +241,12 @@
                // A large problem. Solve it using divide and conquer.
 
                dlasda(ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   RETURN
                }
                BXST = BX + ST1
                dlalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BXST ), N, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   RETURN
                }
             }
@@ -286,7 +286,7 @@
             dgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, WORK( VT+ST1 ), N, WORK( BXST ), N, ZERO, B( ST, 1 ), LDB );
          } else {
             dlalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                RETURN
             }
          }

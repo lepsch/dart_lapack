@@ -144,7 +144,7 @@
             // Do complex/real division explicitly with two real divisions
             SN = CMPLX( REAL( R ) / D, AIMAG( R ) / D )
             SN = SN*CONJG( GS )
-            if ( COUNT.NE.0 ) {
+            if ( COUNT != 0 ) {
                if ( COUNT.GT.0 ) {
                   for (J = 1; J <= COUNT; J++) { // 30
                      R = R*SAFMX2

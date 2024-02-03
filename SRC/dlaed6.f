@@ -218,7 +218,7 @@
          DF = ZERO
          DDF = ZERO
          for (I = 1; I <= 3; I++) { // 40
-            if ( ( DSCALE( I )-TAU ).NE.ZERO ) {
+            if ( ( DSCALE( I )-TAU ) != ZERO ) {
                TEMP = ONE / ( DSCALE( I )-TAU )
                TEMP1 = ZSCALE( I )*TEMP
                TEMP2 = TEMP1*TEMP

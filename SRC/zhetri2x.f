@@ -58,7 +58,7 @@
       // Quick return if possible
 
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHETRI2X', -INFO );
          RETURN
       }

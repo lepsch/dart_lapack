@@ -126,7 +126,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
         INFO = -13
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('SPORFSX', -INFO );
         RETURN
       }
@@ -181,7 +181,7 @@
 
       // Perform refinement on each right-hand side
 
-      if ( REF_TYPE .NE. 0 ) {
+      if ( REF_TYPE != 0 ) {
 
          PREC_TYPE = ILAPREC( 'D' )
           sla_porfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK( N+1 ), WORK( 1 ), WORK( 2*N+1 ), WORK( 1 ), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );

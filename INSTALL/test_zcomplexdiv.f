@@ -113,11 +113,11 @@ void main() {
                 print *, "!! [a] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 Y = DCMPLX( Xj, 0.0d0 )
                 R = Y / Y
-                if (R .ne. 1.0D0) {
+                if (R != 1.0D0) {
                     caseAFails = caseAFails + 1
                     if (caseAFails == 1) {
                         print *, "!! Some (x+0*I)/(x+0*I) differ from 1"
@@ -138,11 +138,11 @@ void main() {
                 print *, "!! [b] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 Y = DCMPLX( 0.0d0, Xj )
                 R = Y / Y
-                if (R .ne. 1.0D0) {
+                if (R != 1.0D0) {
                     caseBFails = caseBFails + 1
                     if (caseBFails == 1) {
                         print *, "!! Some (0+x*I)/(0+x*I) differ from 1"
@@ -163,11 +163,11 @@ void main() {
                 print *, "!! [c] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 Y = DCMPLX( Xj, Xj )
                 R = Y / Y
-                if (R .ne. 1.0D0) {
+                if (R != 1.0D0) {
                     caseCFails = caseCFails + 1
                     if (caseCFails == 1) {
                         print *, "!! Some (x+x*I)/(x+x*I) differ from 1"
@@ -188,12 +188,12 @@ void main() {
                 print *, "!! [d] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 Y  = DCMPLX( 0.0d0, Xj )
                 Y2 = DCMPLX( Xj, 0.0d0 )
                 R = Y / Y2
-                if ( R .ne. DCMPLX(0.0D0,1.0D0) ) {
+                if ( R != DCMPLX(0.0D0,1.0D0) ) {
                     caseDFails = caseDFails + 1
                     if (caseDFails == 1) {
                         print *, "!! Some (0+x*I)/(x+0*I) differ from I"
@@ -214,12 +214,12 @@ void main() {
                 print *, "!! [e] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 Y  = DCMPLX( 0.0d0, Xj )
                 Y2 = DCMPLX( Xj, 0.0d0 )
                 R = Y2 / Y
-                if ( R .ne. DCMPLX(0.0D0,-1.0D0) ) {
+                if ( R != DCMPLX(0.0D0,-1.0D0) ) {
                     caseEFails = caseEFails + 1
                     if (caseEFails == 1) {
                         print *,"!! Some (x+0*I)/(0+x*I) differ from -I"
@@ -240,11 +240,11 @@ void main() {
                 print *, "!! [f] fl( subnormal ) may be 0"
             }
         } else {
-            do while( Xj .ne. limX(i) )
+            do while( Xj != limX(i) )
                 nTests = nTests + 1
                 Y  = DCMPLX( Xj, Xj )
                 R = Y / DCONJG( Y )
-                if ( R .ne. DCMPLX(0.0D0,1.0D0) ) {
+                if ( R != DCMPLX(0.0D0,1.0D0) ) {
                     caseFFails = caseFFails + 1
                     if (caseFFails == 1) {
                         print *, "!! Some (x+x*I)/(x-x*I) differ from I"
@@ -261,12 +261,12 @@ void main() {
           nTests = nTests + 3
           Y = cInf(i)
           R = czero / Y
-          if ( (R .ne. czero) .and. (R == R) ) {
+          if ( (R != czero) .and. (R == R) ) {
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ia',i, czero, Y, R, 'NaN and 0'
           }
           R = cone / Y
-          if ( (R .ne. czero) .and. (R == R) ) {
+          if ( (R != czero) .and. (R == R) ) {
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R, 'NaN and 0'
           }

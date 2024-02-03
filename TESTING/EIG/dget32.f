@@ -77,14 +77,14 @@
                         B( 1, 1 ) = VAL( IB )
                         KNT = KNT + 1
                         dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
-                        if (INFO.NE.0) NINFO = NINFO + 1                         RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )-SCALE*B( 1, 1 ) );
+                        if (INFO != 0) NINFO = NINFO + 1                         RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )-SCALE*B( 1, 1 ) );
                         if ( INFO == 0 ) {
                            DEN = MAX( EPS*( ( ABS( TR( 1, 1 ) )+ABS( TL( 1, 1 ) ) )*ABS( X( 1, 1 ) ) ), SMLNUM )
                         } else {
                            DEN = SMLNUM*MAX( ABS( X( 1, 1 ) ), ONE )
                         }
                         RES = RES / DEN
-                        if (SCALE.GT.ONE) RES = RES + ONE / EPS                         RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                         IF( INFO.NE.0 .AND. INFO.NE.1 ) RES = RES + ONE / EPS;
+                        if (SCALE.GT.ONE) RES = RES + ONE / EPS                         RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                         IF( INFO != 0 .AND. INFO != 1 ) RES = RES + ONE / EPS;
                         if ( RES.GT.RMAX ) {
                            LMAX = KNT
                            RMAX = RES
@@ -106,7 +106,7 @@
                               TR( 1, 1 ) = VAL( ITR )
                               KNT = KNT + 1
                               dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
-                              if (INFO.NE.0) NINFO = NINFO + 1;
+                              if (INFO != 0) NINFO = NINFO + 1;
                               if ( LTRANL ) {
                                  TMP = TL( 1, 2 )
                                  TL( 1, 2 ) = TL( 2, 1 )
@@ -139,7 +139,7 @@
                               TL( 1, 1 ) = VAL( ITL )
                               KNT = KNT + 1
                               dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
-                              if (INFO.NE.0) NINFO = NINFO + 1;
+                              if (INFO != 0) NINFO = NINFO + 1;
                               if ( LTRANR ) {
                                  TMP = TR( 1, 2 )
                                  TR( 1, 2 ) = TR( 2, 1 )
@@ -177,7 +177,7 @@
                                     TR( 1, 1 ) = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                                     TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                                     TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                                     TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL )                                     TL( 1, 1 ) = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                                     TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                                     TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                                     TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL )
                                     KNT = KNT + 1
                                     dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
-                                    if (INFO.NE.0) NINFO = NINFO + 1;
+                                    if (INFO != 0) NINFO = NINFO + 1;
                                     if ( LTRANR ) {
                                        TMP = TR( 1, 2 )
                                        TR( 1, 2 ) = TR( 2, 1 )

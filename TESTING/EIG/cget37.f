@@ -94,7 +94,7 @@
          // Compute eigenvalues and eigenvectors
 
          cgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 260
@@ -108,7 +108,7 @@
          // Compute Schur form
 
          chseqr('S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK, LWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
             GO TO 260
@@ -124,7 +124,7 @@
          // Compute condition numbers
 
          ctrsna('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
@@ -295,13 +295,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('E', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
          for (I = 1; I <= N; I++) { // 160
-            IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS
          } // 160
 
          // Compute eigenvector condition numbers only and compare
@@ -309,13 +309,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('V', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
          for (I = 1; I <= N; I++) { // 170
-            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS
          } // 170
 
          // Compute all condition numbers using SELECT and compare
@@ -326,13 +326,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
          for (I = 1; I <= N; I++) { // 190
-            IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
+            IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS
          } // 190
 
          // Compute eigenvalue condition numbers using SELECT and compare
@@ -340,13 +340,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
          for (I = 1; I <= N; I++) { // 200
-            IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS
          } // 200
 
          // Compute eigenvector condition numbers using SELECT and compare
@@ -354,13 +354,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
          for (I = 1; I <= N; I++) { // 210
-            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS
          } // 210
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
@@ -393,14 +393,14 @@
          scopy(ICMP, DUM, 0, STMP, 1 );
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          ctrsna('B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
          for (I = 1; I <= ICMP; I++) { // 230
             J = LCMP( I )
-            IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
+            IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ) != S( J ) ) VMAX = ONE / EPS
          } // 230
 
          // Compute selected eigenvalue condition numbers
@@ -408,14 +408,14 @@
          scopy(ICMP, DUM, 0, STMP, 1 );
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          ctrsna('E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
          for (I = 1; I <= ICMP; I++) { // 240
             J = LCMP( I )
-            IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS
          } // 240
 
          // Compute selected eigenvector condition numbers
@@ -423,14 +423,14 @@
          scopy(ICMP, DUM, 0, STMP, 1 );
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          ctrsna('V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
          for (I = 1; I <= ICMP; I++) { // 250
             J = LCMP( I )
-            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS
          } // 250
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX

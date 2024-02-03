@@ -36,7 +36,7 @@
       if ( N.LT.0 ) {
          INFO = -1
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLAEDA', -INFO );
          RETURN
       }

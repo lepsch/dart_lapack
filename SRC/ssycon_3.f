@@ -53,7 +53,7 @@
       } else if ( ANORM.LT.ZERO ) {
          INFO = -7
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYCON_3', -INFO );
          RETURN
       }
@@ -91,7 +91,7 @@
       KASE = 0
       } // 30
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
-      if ( KASE.NE.0 ) {
+      if ( KASE != 0 ) {
 
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
@@ -101,7 +101,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM.NE.ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
+      if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       RETURN
 

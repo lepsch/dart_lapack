@@ -114,7 +114,7 @@
 
                // Check error code from SLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
@@ -167,14 +167,14 @@
 
                // Check error code from SPPTRF.
 
-               if ( INFO.NE.IZERO ) {
+               if ( INFO != IZERO ) {
                   alaerh(PATH, 'SPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
                // Skip the tests if INFO is not 0.
 
-               if (INFO.NE.0) GO TO 90;
+               if (INFO != 0) GO TO 90;
 
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
@@ -191,7 +191,7 @@
 
                // Check error code from SPPTRI.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'SPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'SPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                sppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
@@ -221,7 +221,7 @@
 
                // Check error code from SPPTRS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'SPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'SPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   sppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -239,7 +239,7 @@
 
                // Check error code from SPPRFS.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'SPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'SPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                   sppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -265,7 +265,7 @@
 
                // Check error code from SPPCON.
 
-               if (INFO.NE.0) CALL ALAERH( PATH, 'SPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) CALL ALAERH( PATH, 'SPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = SGET06( RCOND, RCONDC )
 

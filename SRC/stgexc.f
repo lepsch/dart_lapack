@@ -67,7 +67,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STGEXC', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -82,22 +82,22 @@
       // if it is 1-by-1 or 2-by-2.
 
       if ( IFST.GT.1 ) {
-         IF( A( IFST, IFST-1 ).NE.ZERO ) IFST = IFST - 1
+         IF( A( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1
       }
       NBF = 1
       if ( IFST.LT.N ) {
-         IF( A( IFST+1, IFST ).NE.ZERO ) NBF = 2
+         IF( A( IFST+1, IFST ) != ZERO ) NBF = 2
       }
 
       // Determine the first row of the final block
       // and find out if it is 1-by-1 or 2-by-2.
 
       if ( ILST.GT.1 ) {
-         IF( A( ILST, ILST-1 ).NE.ZERO ) ILST = ILST - 1
+         IF( A( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1
       }
       NBL = 1
       if ( ILST.LT.N ) {
-         IF( A( ILST+1, ILST ).NE.ZERO ) NBL = 2
+         IF( A( ILST+1, ILST ) != ZERO ) NBL = 2
       }
       if (IFST == ILST) RETURN;
 
@@ -119,10 +119,10 @@
 
             NBNEXT = 1
             if ( HERE+NBF+1.LE.N ) {
-               IF( A( HERE+NBF+1, HERE+NBF ).NE.ZERO ) NBNEXT = 2
+               IF( A( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                ILST = HERE
                RETURN
             }
@@ -141,10 +141,10 @@
 
             NBNEXT = 1
             if ( HERE+3.LE.N ) {
-               IF( A( HERE+3, HERE+2 ).NE.ZERO ) NBNEXT = 2
+               IF( A( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                ILST = HERE
                RETURN
             }
@@ -153,7 +153,7 @@
                // Swap two 1-by-1 blocks.
 
                stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   ILST = HERE
                   RETURN
                }
@@ -169,7 +169,7 @@
                   // 2-by-2 block did not split.
 
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, NBNEXT, WORK, LWORK, INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      ILST = HERE
                      RETURN
                   }
@@ -179,13 +179,13 @@
                   // 2-by-2 block did split.
 
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      ILST = HERE
                      RETURN
                   }
                   HERE = HERE + 1
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      ILST = HERE
                      RETURN
                   }
@@ -208,10 +208,10 @@
 
             NBNEXT = 1
             if ( HERE.GE.3 ) {
-               IF( A( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
+               IF( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK, INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                ILST = HERE
                RETURN
             }
@@ -230,10 +230,10 @@
 
             NBNEXT = 1
             if ( HERE.GE.3 ) {
-               IF( A( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
+               IF( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK, INFO );
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                ILST = HERE
                RETURN
             }
@@ -242,7 +242,7 @@
                // Swap two 1-by-1 blocks.
 
                stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBNEXT, 1, WORK, LWORK, INFO );
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   ILST = HERE
                   RETURN
                }
@@ -257,7 +257,7 @@
                   // 2-by-2 block did not split.
 
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-1, 2, 1, WORK, LWORK, INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      ILST = HERE
                      RETURN
                   }
@@ -267,13 +267,13 @@
                   // 2-by-2 block did split.
 
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      ILST = HERE
                      RETURN
                   }
                   HERE = HERE - 1
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      ILST = HERE
                      RETURN
                   }

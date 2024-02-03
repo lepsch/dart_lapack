@@ -87,7 +87,7 @@
       zlacpy('FULL', N, N, B, LDB, BF, LDB );
 
       zggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
       }
@@ -96,13 +96,13 @@
       zlacpy('FULL', N, M, VR, LDVR, VRF, LDVR );
 
       zggbak('B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       }
 
       zggbak('B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          NINFO = NINFO + 1
          LMAX( 3 ) = KNT
       }

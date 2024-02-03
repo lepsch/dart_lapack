@@ -497,7 +497,7 @@
             JC = 1
             for (J = 1; J <= N; J++) { // 340
                clarnv(4, ISEED, J, AP( JC ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   AP( JC+J-1 ) = CLARND( 5, ISEED )*TWO
                } else {
                   AP( JC+J-1 ) = ZERO
@@ -508,7 +508,7 @@
             JC = 1
             for (J = 1; J <= N; J++) { // 350
                clarnv(4, ISEED, N-J+1, AP( JC ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   AP( JC ) = CLARND( 5, ISEED )*TWO
                } else {
                   AP( JC ) = ZERO

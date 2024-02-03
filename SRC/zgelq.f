@@ -43,8 +43,8 @@
       MINT = false;
       MINW = false;
       if ( TSIZE == -2 .OR. LWORK == -2 ) {
-        if (TSIZE.NE.-1) MINT = true ;
-        if (LWORK.NE.-1) MINW = true ;
+        if (TSIZE != -1) MINT = true ;
+        if (LWORK != -1) MINW = true ;
       }
 
       // Determine the block size
@@ -122,7 +122,7 @@
           WORK( 1 ) = LWREQ
         }
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('ZGELQ', -INFO );
         RETURN
       } else if ( LQUERY ) {

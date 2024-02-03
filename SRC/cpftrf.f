@@ -46,7 +46,7 @@
       } else if ( N.LT.0 ) {
          INFO = -3
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CPFTRF', -INFO );
          RETURN
       }

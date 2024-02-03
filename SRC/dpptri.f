@@ -42,7 +42,7 @@
       } else if ( N.LT.0 ) {
          INFO = -2
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DPPTRI', -INFO );
          RETURN
       }

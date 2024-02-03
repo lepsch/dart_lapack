@@ -52,7 +52,7 @@
          INFO = -7
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHPEV ', -INFO );
          RETURN
       }

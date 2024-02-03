@@ -45,7 +45,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGEQPF', -INFO );
          RETURN
       }
@@ -57,8 +57,8 @@
 
       ITEMP = 1
       for (I = 1; I <= N; I++) { // 10
-         if ( JPVT( I ).NE.0 ) {
-            if ( I.NE.ITEMP ) {
+         if ( JPVT( I ) != 0 ) {
+            if ( I != ITEMP ) {
                dswap(M, A( 1, I ), 1, A( 1, ITEMP ), 1 );
                JPVT( I ) = JPVT( ITEMP )
                JPVT( ITEMP ) = I
@@ -100,7 +100,7 @@
 
             PVT = ( I-1 ) + IDAMAX( N-I+1, WORK( I ), 1 )
 
-            if ( PVT.NE.I ) {
+            if ( PVT != I ) {
                dswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
                ITEMP = JPVT( PVT )
                JPVT( PVT ) = JPVT( I )
@@ -130,7 +130,7 @@
             // Update partial column norms
 
             for (J = I + 1; J <= N; J++) { // 30
-               if ( WORK( J ).NE.ZERO ) {
+               if ( WORK( J ) != ZERO ) {
 
                   // NOTE: The following 4 lines follow from the analysis in
                   // Lapack Working Note 176.

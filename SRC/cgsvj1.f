@@ -74,7 +74,7 @@
       }
 
       // #:(
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CGSVJ1', -INFO );
          RETURN
       }
@@ -106,12 +106,12 @@
 
       KBL = MIN( 8, N )
       NBLR = N1 / KBL
-      IF( ( NBLR*KBL ).NE.N1 )NBLR = NBLR + 1
+      IF( ( NBLR*KBL ) != N1 )NBLR = NBLR + 1
 
       // .. the tiling is nblr-by-nblc [tiles]
 
       NBLC = ( N-N1 ) / KBL
-      IF( ( NBLC*KBL ).NE.( N-N1 ) )NBLC = NBLC + 1
+      IF( ( NBLC*KBL ) != ( N-N1 ) )NBLC = NBLC + 1
       BLSKIP = ( KBL**2 ) + 1
 *[TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
@@ -390,7 +390,7 @@
       // Sort the vector SVA() of column norms.
       for (p = 1; p <= N - 1; p++) { // 5991
          q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
-         if ( p.NE.q ) {
+         if ( p != q ) {
             TEMP1 = SVA( p )
             SVA( p ) = SVA( q )
             SVA( q ) = TEMP1

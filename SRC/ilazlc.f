@@ -25,13 +25,13 @@
       // Quick test for the common case where one corner is non-zero.
       if ( N == 0 ) {
          ILAZLC = N
-      } else if ( A(1, N).NE.ZERO .OR. A(M, N).NE.ZERO ) {
+      } else if ( A(1, N) != ZERO .OR. A(M, N) != ZERO ) {
          ILAZLC = N
       } else {
       // Now scan each column from the end, returning with the first non-zero.
          DO ILAZLC = N, 1, -1
             for (I = 1; I <= M; I++) {
-               IF( A(I, ILAZLC).NE.ZERO ) RETURN
+               IF( A(I, ILAZLC) != ZERO ) RETURN
             }
          }
       }

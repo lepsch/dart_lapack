@@ -122,7 +122,7 @@
 
                      // Check error code from ZLATMS.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         alaerh('ZPF', 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
                         GO TO 100
                      }
@@ -193,7 +193,7 @@
 
                         zpotri(UPLO, N, A, LDA, INFO );
 
-                        if ( N .NE. 0 ) {
+                        if ( N != 0 ) {
 
                            // Compute the 1-norm condition number of A.
 
@@ -226,7 +226,7 @@
 
                      // Check error code from ZPFTRF.
 
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
 
                         // LANGOU: there is a small hick here: IZERO should
                         // always be INFO however if INFO is ZERO, ALAERH does not
@@ -238,7 +238,7 @@
 
                       // Skip the tests if INFO is not 0.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         GO TO 100
                      }
 
@@ -271,7 +271,7 @@
 
                      // Check error code from ZPFTRI.
 
-                     if (INFO.NE.0) CALL ALAERH( 'ZPO', 'ZPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( 'ZPO', 'ZPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      zpot03(UPLO, N, A, LDA, AINV, LDA, Z_WORK_ZPOT03, LDA, D_WORK_ZPOT03, RCONDC, RESULT( 2 ) );
 

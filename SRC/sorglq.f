@@ -52,7 +52,7 @@
       } else if ( LWORK.LT.MAX( 1, M ) .AND. .NOT.LQUERY ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SORGLQ', -INFO );
          RETURN
       } else if ( LQUERY ) {

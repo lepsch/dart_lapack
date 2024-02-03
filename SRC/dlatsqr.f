@@ -61,7 +61,7 @@
         WORK( 1 ) = LWMIN
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('DLATSQR', -INFO );
         RETURN
       } else if ( LQUERY ) {

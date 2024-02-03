@@ -32,7 +32,7 @@
          INFO = -25
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLAQZ4', -INFO );
          RETURN
       }
@@ -61,7 +61,7 @@
       // another
 
       DO I = 1, NSHIFTS-2, 2
-         if ( SI( I ).NE.-SI( I+1 ) ) {
+         if ( SI( I ) != -SI( I+1 ) ) {
 
             SWAP = SR( I )
             SR( I ) = SR( I+1 )

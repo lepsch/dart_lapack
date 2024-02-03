@@ -63,7 +63,7 @@
       } else if ( ANORM.LT.ZERO ) {
          INFO = -5
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZPOCON', -INFO );
          RETURN
       }
@@ -86,7 +86,7 @@
       NORMIN = 'N'
       } // 10
       zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
-      if ( KASE.NE.0 ) {
+      if ( KASE != 0 ) {
          if ( UPPER ) {
 
             // Multiply by inv(U**H).
@@ -112,7 +112,7 @@
          // Multiply by 1/SCALE if doing so will not cause overflow.
 
          SCALE = SCALEL*SCALEU
-         if ( SCALE.NE.ONE ) {
+         if ( SCALE != ONE ) {
             IX = IZAMAX( N, WORK, 1 )
             IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 20
             zdrscl(N, SCALE, WORK, 1 );
@@ -122,7 +122,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM.NE.ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
+      if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       } // 20
       RETURN

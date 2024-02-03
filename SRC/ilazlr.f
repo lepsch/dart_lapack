@@ -25,7 +25,7 @@
       // Quick test for the common case where one corner is non-zero.
       if ( M == 0 ) {
          ILAZLR = M
-      } else if ( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) {
+      } else if ( A(M, 1) != ZERO .OR. A(M, N) != ZERO ) {
          ILAZLR = M
       } else {
       // Scan up each column tracking the last zero row seen.

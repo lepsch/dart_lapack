@@ -55,7 +55,7 @@
       }
 
       // Compute scale factors as in Kahan's report
-      // At this point, MX .NE. 0 so we can divide by it
+      // At this point, MX != 0 so we can divide by it
 
       SUN = SQRT( UNFL )
       SSUN = SQRT( SUN )

@@ -107,7 +107,7 @@
 
       if (LWORK.LT.MINWRK) INFO = -18;
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZDRGSX', -INFO );
          RETURN
       }
@@ -174,7 +174,7 @@
 
                   zggesx('V', 'V', 'S', ZLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
-                  if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
+                  if ( LINFO != 0 .AND. LINFO != MPLUSN+2 ) {
                      RESULT( 1 ) = ULPINV
                      WRITE( NOUT, FMT = 9999 )'ZGGESX', LINFO, MPLUSN, PRTYPE
                      INFO = LINFO
@@ -206,13 +206,13 @@
                      ILABAD = false;
                      TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) / MAX( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+ ABS1( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) ) / ULP
                      if ( J.LT.MPLUSN ) {
-                        if ( AI( J+1, J ).NE.ZERO ) {
+                        if ( AI( J+1, J ) != ZERO ) {
                            ILABAD = true;
                            RESULT( 5 ) = ULPINV
                         }
                      }
                      if ( J.GT.1 ) {
-                        if ( AI( J, J-1 ).NE.ZERO ) {
+                        if ( AI( J, J-1 ) != ZERO ) {
                            ILABAD = true;
                            RESULT( 5 ) = ULPINV
                         }
@@ -230,7 +230,7 @@
                   RESULT( 7 ) = ZERO
                   if ( LINFO == MPLUSN+3 ) {
                      RESULT( 7 ) = ULPINV
-                  } else if ( MM.NE.N ) {
+                  } else if ( MM != N ) {
                      RESULT( 7 ) = ULPINV
                   }
                   NTEST = NTEST + 1
@@ -262,7 +262,7 @@
 
                   RESULT( 9 ) = ZERO
                   if ( LINFO == ( MPLUSN+2 ) ) {
-                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
+                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) .AND. ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
                      NTEST = NTEST + 1
                   }
 
@@ -336,7 +336,7 @@
 
       zggesx('V', 'V', 'S', ZLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
-      if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
+      if ( LINFO != 0 .AND. LINFO != MPLUSN+2 ) {
          RESULT( 1 ) = ULPINV
          WRITE( NOUT, FMT = 9998 )'ZGGESX', LINFO, MPLUSN, NPTKNT
          GO TO 130
@@ -365,13 +365,13 @@
          ILABAD = false;
          TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) / MAX( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+ ABS1( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) ) / ULP
          if ( J.LT.MPLUSN ) {
-            if ( AI( J+1, J ).NE.ZERO ) {
+            if ( AI( J+1, J ) != ZERO ) {
                ILABAD = true;
                RESULT( 5 ) = ULPINV
             }
          }
          if ( J.GT.1 ) {
-            if ( AI( J, J-1 ).NE.ZERO ) {
+            if ( AI( J, J-1 ) != ZERO ) {
                ILABAD = true;
                RESULT( 5 ) = ULPINV
             }
@@ -405,7 +405,7 @@
       NTEST = 9
       RESULT( 9 ) = ZERO
       if ( LINFO == ( MPLUSN+2 ) ) {
-         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
+         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) .AND. ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
       }
 
       // Test (10): compare the estimated value of PL and it true value.

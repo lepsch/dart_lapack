@@ -123,7 +123,7 @@
       } // 90
       JLAST = ISAVE( 2 )
       ISAVE( 2 ) = IZMAX1( N, X, 1 )
-      if ( ( ABS( X( JLAST ) ).NE.ABS( X( ISAVE( 2 ) ) ) ) .AND. ( ISAVE( 3 ).LT.ITMAX ) ) {
+      if ( ( ABS( X( JLAST ) ) != ABS( X( ISAVE( 2 ) ) ) ) .AND. ( ISAVE( 3 ).LT.ITMAX ) ) {
          ISAVE( 3 ) = ISAVE( 3 ) + 1
          GO TO 50
       }

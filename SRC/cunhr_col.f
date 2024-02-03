@@ -46,7 +46,7 @@
 
       // Handle error in the input parameters.
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CUNHR_COL', -INFO );
          RETURN
       }

@@ -48,7 +48,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGETRF', -INFO );
          RETURN
       }
@@ -73,7 +73,7 @@
          IPIV( J ) = JP
 
          // Permute just this column.
-         if (JP .NE. J) {
+         if (JP != J) {
             TMP = A( J, J )
             A( J, J ) = A( JP, J )
             A( JP, J ) = TMP
@@ -94,7 +94,7 @@
          dlaswp(KCOLS, A( 1,J+1 ), LDA, KSTART, J, IPIV, 1 );
 
          // Factor the current column
-         if ( A( J, J ).NE.ZERO .AND. .NOT.DISNAN( A( J, J ) ) ) {
+         if ( A( J, J ) != ZERO .AND. .NOT.DISNAN( A( J, J ) ) ) {
                if ( ABS(A( J, J )) .GE. SFMIN ) {
                   dscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {

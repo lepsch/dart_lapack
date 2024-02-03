@@ -52,7 +52,7 @@
       } else if ( LDQ2.LT.MAX( 1, N ) ) {
          INFO = -12
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLAED8', -INFO );
          RETURN
       }

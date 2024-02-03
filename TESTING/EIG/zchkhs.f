@@ -83,7 +83,7 @@
          INFO = -26
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZCHKHS', -INFO );
          RETURN
       }
@@ -114,7 +114,7 @@
          N1 = MAX( 1, N )
          ANINV = ONE / DBLE( N1 )
 
-         if ( NSIZES.NE.1 ) {
+         if ( NSIZES != 1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
          } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -259,7 +259,7 @@
                IINFO = 1
             }
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
@@ -277,7 +277,7 @@
 
             zgehrd(N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO );
 
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGEHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -307,7 +307,7 @@
             RESULT( 3 ) = ULPINV
 
             zhseqr('E', 'N', N, ILO, IHI, T2, LDA, W3, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEQR(E)', IINFO, N, JTYPE, IOLDSD
                if ( IINFO.LE.N+2 ) {
                   INFO = ABS( IINFO )
@@ -320,7 +320,7 @@
             zlacpy(' ', N, N, H, LDA, T2, LDA );
 
             zhseqr('S', 'N', N, ILO, IHI, T2, LDA, W1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
+            if ( IINFO != 0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240
@@ -332,7 +332,7 @@
             zlacpy(' ', N, N, U, LDU, UZ, LDU );
 
             zhseqr('S', 'V', N, ILO, IHI, T1, LDA, W1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
+            if ( IINFO != 0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240
@@ -384,7 +384,7 @@
                SELECT( J ) = true;
             } // 150
             ztrevc('Right', 'All', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTREVC(R,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240
@@ -402,7 +402,7 @@
             // they agree with previous right eigenvectors
 
             ztrevc('Right', 'Some', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTL, LDU, N, IN, WORK, RWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTREVC(R,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240
@@ -413,7 +413,7 @@
             for (J = 1; J <= N; J++) { // 170
                if ( SELECT( J ) ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 160
-                     if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) ) {
+                     if ( EVECTR( JJ, J ) != EVECTL( JJ, K ) ) {
                         MATCH = false;
                         GO TO 180
                      }
@@ -429,7 +429,7 @@
             NTEST = 10
             RESULT( 10 ) = ULPINV
             ztrevc('Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTREVC(L,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240
@@ -447,7 +447,7 @@
             // they agree with previous left eigenvectors
 
             ztrevc('Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTREVC(L,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240
@@ -458,7 +458,7 @@
             for (J = 1; J <= N; J++) { // 200
                if ( SELECT( J ) ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 190
-                     if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) ) {
+                     if ( EVECTL( JJ, J ) != EVECTR( JJ, K ) ) {
                         MATCH = false;
                         GO TO 210
                      }
@@ -478,7 +478,7 @@
             } // 220
 
             zhsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, CDUMMA, LDU, EVECTX, LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if (IINFO.LT.0) GO TO 240;
@@ -503,7 +503,7 @@
             } // 230
 
             zhsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, EVECTY, LDU, CDUMMA, LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if (IINFO.LT.0) GO TO 240;
@@ -525,7 +525,7 @@
             RESULT( 13 ) = ULPINV
 
             zunmhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUNMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if (IINFO.LT.0) GO TO 240;
@@ -544,7 +544,7 @@
             RESULT( 14 ) = ULPINV
 
             zunmhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUNMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                if (IINFO.LT.0) GO TO 240;
@@ -567,7 +567,7 @@
             zlacpy(' ', N, N, UZ, LDU, EVECTR, LDU );
 
             ztrevc3('Right', 'Back', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, RWORK, N, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTREVC3(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -591,7 +591,7 @@
             zlacpy(' ', N, N, UZ, LDU, EVECTL, LDU );
 
             ztrevc3('Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, NWORK, RWORK, N, IINFO );
-            if ( IINFO.NE.0 ) {
+            if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZTREVC3(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250

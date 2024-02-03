@@ -100,7 +100,7 @@
          }
 
       // PROCEDURE..SCALE-CHECK
-         if (DD1.NE.ZERO) {
+         if (DD1 != ZERO) {
             DO WHILE ((DD1.LE.RGAMSQ) .OR. (DD1.GE.GAMSQ))
                if (DFLAG == ZERO) {
                   DH11 = ONE
@@ -125,7 +125,7 @@
             }
          }
 
-         if (DD2.NE.ZERO) {
+         if (DD2 != ZERO) {
             DO WHILE ( (DABS(DD2).LE.RGAMSQ) .OR. (DABS(DD2).GE.GAMSQ) )
                if (DFLAG == ZERO) {
                   DH11 = ONE

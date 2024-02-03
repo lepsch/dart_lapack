@@ -60,7 +60,7 @@
       } else if ( ANORM.LT.ZERO ) {
          INFO = -8
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGBCON', -INFO );
          RETURN
       }
@@ -91,7 +91,7 @@
       KASE = 0
       } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
-      if ( KASE.NE.0 ) {
+      if ( KASE != 0 ) {
          if ( KASE == KASE1 ) {
 
             // Multiply by inv(L).
@@ -101,7 +101,7 @@
                   LM = MIN( KL, N-J )
                   JP = IPIV( J )
                   T = WORK( JP )
-                  if ( JP.NE.J ) {
+                  if ( JP != J ) {
                      WORK( JP ) = WORK( J )
                      WORK( J ) = T
                   }
@@ -125,7 +125,7 @@
                   LM = MIN( KL, N-J )
                   WORK( J ) = WORK( J ) - DDOT( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
                   JP = IPIV( J )
-                  if ( JP.NE.J ) {
+                  if ( JP != J ) {
                      T = WORK( JP )
                      WORK( JP ) = WORK( J )
                      WORK( J ) = T
@@ -137,7 +137,7 @@
          // Divide X by 1/SCALE if doing so will not cause overflow.
 
          NORMIN = 'Y'
-         if ( SCALE.NE.ONE ) {
+         if ( SCALE != ONE ) {
             IX = IDAMAX( N, WORK, 1 )
             IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE == ZERO ) GO TO 40
             drscl(N, SCALE, WORK, 1 );
@@ -147,7 +147,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM.NE.ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
+      if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       } // 40
       RETURN

@@ -93,7 +93,7 @@
             INFO = -21
          }
       }
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('xORBDB', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -315,7 +315,7 @@
             cscal(M-P-Q-I+1, CMPLX( Z2*Z4, 0.0E0 ), X22(P+I,Q+I), 1 );
             clarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
             X22(P+I,Q+I) = ONE
-            if ( M-P-Q .NE. I ) {
+            if ( M-P-Q != I ) {
                clarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, CONJG(TAUQ2(P+I)), X22(P+I,Q+I+1), LDX22, WORK );
             }
          }

@@ -77,7 +77,7 @@
          JHI = IHI
       }
       for (I = ILO + 1; I <= IHI; I++) { // 20
-         if ( DIMAG( H( I, I-1 ) ).NE.RZERO ) {
+         if ( DIMAG( H( I, I-1 ) ) != RZERO ) {
             // ==== The following redundant normalization
             // .    avoids problems with both gradual and
             // .    sudden underflow in ABS(H(I,I-1)) ====
@@ -195,7 +195,7 @@
             T = H( I, I )
             U = SQRT( H( I-1, I ) )*SQRT( H( I, I-1 ) )
             S = CABS1( U )
-            if ( S.NE.RZERO ) {
+            if ( S != RZERO ) {
                X = HALF*( H( I-1, I-1 )-T )
                SX = CABS1( X )
                S = MAX( S, CABS1( X ) )
@@ -304,7 +304,7 @@
                H( M+1, M ) = H( M+1, M )*DCONJG( TEMP )
                if (M+2.LE.I) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP;
                for (J = M; J <= I; J++) { // 110
-                  if ( J.NE.M+1 ) {
+                  if ( J != M+1 ) {
                      if (I2.GT.J) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH );
                      zscal(J-I1, DCONJG( TEMP ), H( I1, J ), 1 );
                      if ( WANTZ ) {
@@ -318,7 +318,7 @@
          // Ensure that H(I,I-1) is real.
 
          TEMP = H( I, I-1 )
-         if ( DIMAG( TEMP ).NE.RZERO ) {
+         if ( DIMAG( TEMP ) != RZERO ) {
             RTEMP = ABS( TEMP )
             H( I, I-1 ) = RTEMP
             TEMP = TEMP / RTEMP

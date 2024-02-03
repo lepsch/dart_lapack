@@ -67,7 +67,7 @@
       } else if (LDB.LT.MAX(1,M)) {
           INFO = 11
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('CTRSM ',INFO);
           RETURN
       }
@@ -96,13 +96,13 @@
 
               if (UPPER) {
                   for (J = 1; J <= N; J++) { // 60
-                      if (ALPHA.NE.ONE) {
+                      if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 30
                               B(I,J) = ALPHA*B(I,J)
                           } // 30
                       }
                       DO 50 K = M,1,-1
-                          if (B(K,J).NE.ZERO) {
+                          if (B(K,J) != ZERO) {
                               if (NOUNIT) B(K,J) = B(K,J)/A(K,K);
                               for (I = 1; I <= K - 1; I++) { // 40
                                   B(I,J) = B(I,J) - B(K,J)*A(I,K)
@@ -112,13 +112,13 @@
                   } // 60
               } else {
                   for (J = 1; J <= N; J++) { // 100
-                      if (ALPHA.NE.ONE) {
+                      if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 70
                               B(I,J) = ALPHA*B(I,J)
                           } // 70
                       }
                       for (K = 1; K <= M; K++) { // 90
-                          if (B(K,J).NE.ZERO) {
+                          if (B(K,J) != ZERO) {
                               if (NOUNIT) B(K,J) = B(K,J)/A(K,K);
                               for (I = K + 1; I <= M; I++) { // 80
                                   B(I,J) = B(I,J) - B(K,J)*A(I,K)
@@ -177,13 +177,13 @@
 
               if (UPPER) {
                   for (J = 1; J <= N; J++) { // 230
-                      if (ALPHA.NE.ONE) {
+                      if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 190
                               B(I,J) = ALPHA*B(I,J)
                           } // 190
                       }
                       for (K = 1; K <= J - 1; K++) { // 210
-                          if (A(K,J).NE.ZERO) {
+                          if (A(K,J) != ZERO) {
                               for (I = 1; I <= M; I++) { // 200
                                   B(I,J) = B(I,J) - A(K,J)*B(I,K)
                               } // 200
@@ -198,13 +198,13 @@
                   } // 230
               } else {
                   DO 280 J = N,1,-1
-                      if (ALPHA.NE.ONE) {
+                      if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 240
                               B(I,J) = ALPHA*B(I,J)
                           } // 240
                       }
                       for (K = J + 1; K <= N; K++) { // 260
-                          if (A(K,J).NE.ZERO) {
+                          if (A(K,J) != ZERO) {
                               for (I = 1; I <= M; I++) { // 250
                                   B(I,J) = B(I,J) - A(K,J)*B(I,K)
                               } // 250
@@ -236,7 +236,7 @@
                           } // 290
                       }
                       for (J = 1; J <= K - 1; J++) { // 310
-                          if (A(J,K).NE.ZERO) {
+                          if (A(J,K) != ZERO) {
                               if (NOCONJ) {
                                   TEMP = A(J,K)
                               } else {
@@ -247,7 +247,7 @@
                               } // 300
                           }
                       } // 310
-                      if (ALPHA.NE.ONE) {
+                      if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 320
                               B(I,K) = ALPHA*B(I,K)
                           } // 320
@@ -266,7 +266,7 @@
                           } // 340
                       }
                       for (J = K + 1; J <= N; J++) { // 360
-                          if (A(J,K).NE.ZERO) {
+                          if (A(J,K) != ZERO) {
                               if (NOCONJ) {
                                   TEMP = A(J,K)
                               } else {
@@ -277,7 +277,7 @@
                               } // 350
                           }
                       } // 360
-                      if (ALPHA.NE.ONE) {
+                      if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 370
                               B(I,K) = ALPHA*B(I,K)
                           } // 370

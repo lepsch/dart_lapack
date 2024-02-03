@@ -62,7 +62,7 @@
          INFO = -16
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTGSEN', -INFO );
          RETURN
       }
@@ -83,7 +83,7 @@
 
       M = 0
       PAIR = false;
-      if ( .NOT.LQUERY .OR. IJOB.NE.0 ) {
+      if ( .NOT.LQUERY .OR. IJOB != 0 ) {
       for (K = 1; K <= N; K++) { // 10
          if ( PAIR ) {
             PAIR = false;
@@ -122,7 +122,7 @@
          INFO = -24
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTGSEN', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -160,7 +160,7 @@
 
             SWAP = SELECT( K )
             if ( K.LT.N ) {
-               if ( A( K+1, K ).NE.ZERO ) {
+               if ( A( K+1, K ) != ZERO ) {
                   PAIR = true;
                   SWAP = SWAP .OR. SELECT( K+1 )
                }
@@ -175,7 +175,7 @@
                // Q and Z accordingly (if requested):
 
                KK = K
-               if (K.NE.KS) CALL DTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK, LWORK, IERR );
+               if (K != KS) CALL DTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK, LWORK, IERR );
 
                if ( IERR.GT.0 ) {
 
@@ -269,7 +269,7 @@
 
             } // 40
             dlacn2(MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 1 ), KASE, ISAVE );
-            if ( KASE.NE.0 ) {
+            if ( KASE != 0 ) {
                if ( KASE == 1 ) {
 
                   // Solve generalized Sylvester equation.
@@ -289,7 +289,7 @@
 
             } // 50
             dlacn2(MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 2 ), KASE, ISAVE );
-            if ( KASE.NE.0 ) {
+            if ( KASE != 0 ) {
                if ( KASE == 1 ) {
 
                   // Solve generalized Sylvester equation.
@@ -320,7 +320,7 @@
          } else {
 
             if ( K.LT.N ) {
-               if ( A( K+1, K ).NE.ZERO ) {
+               if ( A( K+1, K ) != ZERO ) {
                   PAIR = true;
                }
             }

@@ -52,7 +52,7 @@
       } else if (INCX == 0) {
           INFO = 9
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('DTBSV ',INFO);
           RETURN
       }
@@ -68,7 +68,7 @@
 
       if (INCX.LE.0) {
           KX = 1 - (N-1)*INCX
-      } else if (INCX.NE.1) {
+      } else if (INCX != 1) {
           KX = 1
       }
 
@@ -83,7 +83,7 @@
               KPLUS1 = K + 1
               if (INCX == 1) {
                   DO 20 J = N,1,-1
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           L = KPLUS1 - J
                           if (NOUNIT) X(J) = X(J)/A(KPLUS1,J);
                           TEMP = X(J)
@@ -97,7 +97,7 @@
                   JX = KX
                   DO 40 J = N,1,-1
                       KX = KX - INCX
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           IX = KX
                           L = KPLUS1 - J
                           if (NOUNIT) X(JX) = X(JX)/A(KPLUS1,J);
@@ -113,7 +113,7 @@
           } else {
               if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 60
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           L = 1 - J
                           if (NOUNIT) X(J) = X(J)/A(1,J);
                           TEMP = X(J)
@@ -126,7 +126,7 @@
                   JX = KX
                   for (J = 1; J <= N; J++) { // 80
                       KX = KX + INCX
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           IX = KX
                           L = 1 - J
                           if (NOUNIT) X(JX) = X(JX)/A(1,J);

@@ -32,7 +32,7 @@
 
          // Form  H * C
 
-         if ( TAU.NE.ZERO ) {
+         if ( TAU != ZERO ) {
 
             // w( 1:n ) = C( 1, 1:n )
 
@@ -56,7 +56,7 @@
 
          // Form  C * H
 
-         if ( TAU.NE.ZERO ) {
+         if ( TAU != ZERO ) {
 
             // w( 1:m ) = C( 1:m, 1 )
 

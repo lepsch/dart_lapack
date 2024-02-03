@@ -91,7 +91,7 @@
          INFO = -17
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DCHKSB', -INFO );
          RETURN
       }
@@ -123,7 +123,7 @@
             if (K.GT.N) GO TO 180;
             K = MAX( 0, MIN( N-1, K ) )
 
-            if ( NSIZES.NE.1 ) {
+            if ( NSIZES != 1 ) {
                MTYPES = MIN( MAXTYP, NTYPES )
             } else {
                MTYPES = MIN( MAXTYP+1, NTYPES )
@@ -249,7 +249,7 @@
                   IINFO = 1
                }
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
@@ -264,7 +264,7 @@
                NTEST = 1
                dsbtrd('V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(U)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {
@@ -300,7 +300,7 @@
                NTEST = 3
                dsbtrd('V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
-               if ( IINFO.NE.0 ) {
+               if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(L)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   if ( IINFO.LT.0 ) {

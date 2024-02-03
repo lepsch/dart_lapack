@@ -45,7 +45,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGETRF2', -INFO );
          RETURN
       }
@@ -75,11 +75,11 @@
 
          I = ISAMAX( M, A( 1, 1 ), 1 )
          IPIV( 1 ) = I
-         if ( A( I, 1 ).NE.ZERO ) {
+         if ( A( I, 1 ) != ZERO ) {
 
             // Apply the interchange
 
-            if ( I.NE.1 ) {
+            if ( I != 1 ) {
                TEMP = A( 1, 1 )
                A( 1, 1 ) = A( I, 1 )
                A( I, 1 ) = TEMP

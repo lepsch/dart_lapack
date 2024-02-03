@@ -55,7 +55,7 @@
       } else if ( LDGNUM.LT.N ) {
          INFO = -24
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLASD7', -INFO );
          RETURN
       }

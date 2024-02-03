@@ -173,7 +173,7 @@
 
       // Abort if any illegal arguments
 
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('CUNCSD', -INFO );
          RETURN
       } else if ( LQUERY .OR. LRQUERY ) {

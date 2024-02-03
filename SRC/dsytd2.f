@@ -47,7 +47,7 @@
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSYTD2', -INFO );
          RETURN
       }
@@ -68,7 +68,7 @@
             dlarfg(I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI );
             E( I ) = A( I, I+1 )
 
-            if ( TAUI.NE.ZERO ) {
+            if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
@@ -106,7 +106,7 @@
             dlarfg(N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAUI );
             E( I ) = A( I+1, I )
 
-            if ( TAUI.NE.ZERO ) {
+            if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 

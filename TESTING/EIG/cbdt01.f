@@ -45,11 +45,11 @@
       // Compute A - Q * B * P**H one column at a time.
 
       RESID = ZERO
-      if ( KD.NE.0 ) {
+      if ( KD != 0 ) {
 
          // B is bidiagonal.
 
-         if ( KD.NE.0 .AND. M.GE.N ) {
+         if ( KD != 0 .AND. M.GE.N ) {
 
             // B is upper bidiagonal and M >= N.
 
@@ -120,7 +120,7 @@
       EPS = SLAMCH( 'Precision' )
 
       if ( ANORM.LE.ZERO ) {
-         if (RESID.NE.ZERO) RESID = ONE / EPS;
+         if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM.GE.RESID ) {
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )

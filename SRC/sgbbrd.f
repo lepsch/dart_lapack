@@ -64,7 +64,7 @@
       } else if ( LDC.LT.1 .OR. WANTC .AND. LDC.LT.MAX( 1, M ) ) {
          INFO = -16
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SGBBRD', -INFO );
          RETURN
       }

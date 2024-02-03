@@ -133,7 +133,7 @@
 
                   // Check error code from DLATMS and handle error.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 160
                   }
@@ -256,10 +256,10 @@
 
                      // Check error code from DSYSV_AA .
 
-                     if ( INFO.NE.K ) {
+                     if ( INFO != K ) {
                         alaerh(PATH, 'DSYSV_AA', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
-                     } else if ( INFO.NE.0 ) {
+                     } else if ( INFO != 0 ) {
                         GO TO 120
                      }
 

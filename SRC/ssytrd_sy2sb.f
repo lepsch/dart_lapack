@@ -65,7 +65,7 @@
          INFO = -10
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSYTRD_SY2SB', -INFO );
          RETURN
       } else if ( LQUERY ) {

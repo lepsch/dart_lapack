@@ -81,7 +81,7 @@
          INFO = -7
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          RETURN
       }
 
@@ -161,7 +161,7 @@
          IWORK( 6 ) = IU
 
          slaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, E2, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO );
-         if ( IINFO .NE. 0 ) {
+         if ( IINFO != 0 ) {
             INFO = IINFO
             RETURN
          }
@@ -310,7 +310,7 @@
             WORK( N+1 ) = GL
             WORK( N+IN+1 ) = GU
             slaebz(1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO );
-            if ( IINFO .NE. 0 ) {
+            if ( IINFO != 0 ) {
                INFO = IINFO
                RETURN
             }
@@ -322,7 +322,7 @@
             // Compute Eigenvalues
             ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2;
             slaebz(2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO );
-            if ( IINFO .NE. 0 ) {
+            if ( IINFO != 0 ) {
                INFO = IINFO
                RETURN
             }
@@ -415,7 +415,7 @@
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 90
-                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 .AND. ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -428,7 +428,7 @@
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 110
-                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GE.WKILL .OR. IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 .AND. ( W( JE ).GE.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -439,7 +439,7 @@
             // Now erase all eigenvalues with IBLOCK set to zero
             IM = 0
             for (JE = 1; JE <= M; JE++) { // 130
-               if ( IBLOCK( JE ).NE.0 ) {
+               if ( IBLOCK( JE ) != 0 ) {
                   IM = IM + 1
                   W( IM ) = W( JE )
                   WERR( IM ) = WERR( JE )
@@ -454,7 +454,7 @@
          }
       }
 
-      if (( IRANGE == ALLRNG .AND. M.NE.N ).OR. ( IRANGE == INDRNG .AND. M.NE.IU-IL+1 ) ) {
+      if (( IRANGE == ALLRNG .AND. M != N ).OR. ( IRANGE == INDRNG .AND. M != IU-IL+1 ) ) {
          TOOFEW = true;
       }
 
@@ -472,7 +472,7 @@
                   TMP1 = W( J )
                }
             } // 140
-            if ( IE.NE.0 ) {
+            if ( IE != 0 ) {
                TMP2 = WERR( IE )
                ITMP1 = IBLOCK( IE )
                ITMP2 = INDEXW( IE )

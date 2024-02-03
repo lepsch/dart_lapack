@@ -47,7 +47,7 @@
       } else if ( LDS.LT.MAX( 1, K ) ) {
          INFO = -12
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLAED9', -INFO );
          RETURN
       }
@@ -61,7 +61,7 @@
 
          // If the zero finder fails, the computation is terminated.
 
-         if (INFO.NE.0) GO TO 120;
+         if (INFO != 0) GO TO 120;
       } // 20
 
       if ( K == 1 .OR. K == 2 ) {

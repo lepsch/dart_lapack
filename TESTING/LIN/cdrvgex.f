@@ -122,7 +122,7 @@
 
             // Check error code from CLATMS.
 
-            if ( INFO.NE.0 ) {
+            if ( INFO != 0 ) {
                alaerh(PATH, 'CLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 80
             }
@@ -284,7 +284,7 @@
 
                         // Check error code from CGESV .
 
-                        if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) CALL ALAERH( PATH, 'CGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -336,12 +336,12 @@
 
                      // Check the error code from CGESVX.
 
-                     if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) CALL ALAERH( PATH, 'CGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare RWORK(2*NRHS+1) from CGESVX with the
                      // computed reciprocal pivot growth factor RPVGRW
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         RPVGRW = CLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, RDUM )
                         if ( RPVGRW == ZERO ) {
                            RPVGRW = ONE
@@ -479,7 +479,7 @@
                      // Check the error code from CGESVXX.
 
                      if (INFO == N+1) GOTO 50;
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
                         alaerh(PATH, 'CGESVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GOTO 50
                      }

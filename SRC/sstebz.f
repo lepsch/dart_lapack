@@ -84,7 +84,7 @@
          INFO = -7
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SSTEBZ', -INFO );
          RETURN
       }
@@ -391,7 +391,7 @@
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 90
-                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 .AND. ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -405,7 +405,7 @@
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 110
-                     if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GT.WKILL .OR. IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 .AND. ( W( JE ).GT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -415,7 +415,7 @@
             }
             IM = 0
             for (JE = 1; JE <= M; JE++) { // 130
-               if ( IBLOCK( JE ).NE.0 ) {
+               if ( IBLOCK( JE ) != 0 ) {
                   IM = IM + 1
                   W( IM ) = W( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
@@ -443,7 +443,7 @@
                }
             } // 140
 
-            if ( IE.NE.0 ) {
+            if ( IE != 0 ) {
                ITMP1 = IBLOCK( IE )
                W( IE ) = W( JE )
                IBLOCK( IE ) = IBLOCK( JE )

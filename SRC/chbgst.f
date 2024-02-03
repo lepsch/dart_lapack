@@ -62,7 +62,7 @@
       } else if ( LDX.LT.1 .OR. WANTX .AND. LDX.LT.MAX( 1, N ) ) {
          INFO = -11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CHBGST', -INFO );
          RETURN
       }

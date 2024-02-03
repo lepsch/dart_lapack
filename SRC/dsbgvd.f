@@ -80,7 +80,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DSBGVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -94,7 +94,7 @@
       // Form a split Cholesky factorization of B.
 
       dpbstf(UPLO, N, KB, BB, LDBB, INFO );
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          INFO = N + INFO
          RETURN
       }

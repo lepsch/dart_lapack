@@ -70,7 +70,7 @@
          if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) INFO = -8;
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHEEV_2STAGE ', -INFO );
          RETURN
       } else if ( LQUERY ) {

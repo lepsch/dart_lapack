@@ -30,7 +30,7 @@
          // clean-up loop
 
          M = MOD(N,4)
-         if (M.NE.0) {
+         if (M != 0) {
             for (I = 1; I <= M; I++) {
                SY(I) = SY(I) + SA*SX(I)
             }

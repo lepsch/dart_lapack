@@ -55,7 +55,7 @@
       // Quick return if possible
 
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CSYTRI2', -INFO );
          RETURN
       } else if ( LQUERY ) {

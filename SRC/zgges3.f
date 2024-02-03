@@ -126,7 +126,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGGES3 ', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -219,7 +219,7 @@
 
       IWRK = ITAU
       zlaqz0('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR );
-      if ( IERR.NE.0 ) {
+      if ( IERR != 0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
          } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {

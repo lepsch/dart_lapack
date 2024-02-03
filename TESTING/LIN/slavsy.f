@@ -52,7 +52,7 @@
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('SLAVSY ', -INFO );
          RETURN
       }
@@ -95,10 +95,10 @@
 
                   sger(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
 
-                  // Interchange if P(K) .ne. I.
+                  // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  if (KP.NE.K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 1
             } else {
@@ -129,10 +129,10 @@
                   sger(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
                   sger(K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
-                  // Interchange if P(K) .ne. I.
+                  // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  if (KP.NE.K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 2
             }
@@ -163,7 +163,7 @@
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
-               if ( K.NE.N ) {
+               if ( K != N ) {
                   KP = IPIV( K )
 
                   // Apply the transformation.
@@ -173,7 +173,7 @@
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
 
-                  if (KP.NE.K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 1
 
@@ -198,7 +198,7 @@
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
-               if ( K.NE.N ) {
+               if ( K != N ) {
 
                   // Apply the transformation.
 
@@ -209,7 +209,7 @@
                   // K-th step of the factorization.
 
                   KP = ABS( IPIV( K ) )
-                  if (KP.NE.K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 2
             }
@@ -240,10 +240,10 @@
             if ( IPIV( K ).GT.0 ) {
                if ( K.GT.1 ) {
 
-                  // Interchange if P(K) .ne. I.
+                  // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  if (KP.NE.K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
@@ -257,10 +257,10 @@
             } else {
                if ( K.GT.2 ) {
 
-                  // Interchange if P(K) .ne. I.
+                  // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  if (KP.NE.K-1) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K-1) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations
 
@@ -304,10 +304,10 @@
             if ( IPIV( K ).GT.0 ) {
                if ( K.LT.N ) {
 
-                  // Interchange if P(K) .ne. I.
+                  // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  if (KP.NE.K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
@@ -321,10 +321,10 @@
             } else {
                if ( K.LT.N-1 ) {
 
-               // Interchange if P(K) .ne. I.
+               // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  if (KP.NE.K+1) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K+1) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 

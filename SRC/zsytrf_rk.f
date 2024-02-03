@@ -56,7 +56,7 @@
          WORK( 1 ) = LWKOPT
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZSYTRF_RK', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -124,7 +124,7 @@
          if ( K.LT.N ) {
             DO I = K, ( K - KB + 1 ), -1
                IP = ABS( IPIV( I ) )
-               if ( IP.NE.I ) {
+               if ( IP != I ) {
                   zswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
                }
             }
@@ -198,7 +198,7 @@
          if ( K.GT.1 ) {
             DO I = K, ( K + KB - 1 ), 1
                IP = ABS( IPIV( I ) )
-               if ( IP.NE.I ) {
+               if ( IP != I ) {
                   zswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                }
             }

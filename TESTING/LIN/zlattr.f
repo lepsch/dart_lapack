@@ -434,7 +434,7 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 300
                zlarnv(4, ISEED, J-1, A( 1, J ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   A( J, J ) = ZLARND( 5, ISEED )*TWO
                } else {
                   A( J, J ) = ZERO
@@ -443,7 +443,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 310
                if (J.LT.N) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) );
-               if ( J.NE.IY ) {
+               if ( J != IY ) {
                   A( J, J ) = ZLARND( 5, ISEED )*TWO
                } else {
                   A( J, J ) = ZERO

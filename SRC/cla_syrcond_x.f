@@ -57,7 +57,7 @@
       } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -6
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CLA_SYRCOND_X', -INFO );
          RETURN
       }
@@ -109,7 +109,7 @@
       KASE = 0
       } // 10
       clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
-      if ( KASE.NE.0 ) {
+      if ( KASE != 0 ) {
          if ( KASE == 2 ) {
 
             // Multiply by R.
@@ -154,7 +154,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM .NE. 0.0E+0) CLA_SYRCOND_X = 1.0E+0 / AINVNM;
+      if (AINVNM != 0.0E+0) CLA_SYRCOND_X = 1.0E+0 / AINVNM;
 
       RETURN
 

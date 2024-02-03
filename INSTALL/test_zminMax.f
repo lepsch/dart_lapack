@@ -34,12 +34,12 @@ void main() {
       for (i = 1; i <= 3; i++) { // 10
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
-          if ( R .ne. X(i) ) {
+          if ( R != X(i) ) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R
           }
           R = MAX( X(i), Y(i) )
-          if ( R .ne. Y(i) ) {
+          if ( R != Y(i) ) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           }
@@ -47,12 +47,12 @@ void main() {
       for (i = 4; i <= 6; i++) { // 20
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
-          if ( R .ne. Y(i) ) {
+          if ( R != Y(i) ) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R
           }
           R = MAX( X(i), Y(i) )
-          if ( R .ne. X(i) ) {
+          if ( R != X(i) ) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           }

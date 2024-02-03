@@ -157,7 +157,7 @@
 
       // Abort if any illegal arguments
 
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('DORCSD', -INFO );
          RETURN
       } else if ( LQUERY ) {

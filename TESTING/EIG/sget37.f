@@ -97,7 +97,7 @@
          // Compute eigenvalues and eigenvectors
 
          sgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
             GO TO 240
@@ -111,7 +111,7 @@
          // Compute Schur form
 
          shseqr('S', 'N', N, 1, N, T, LDT, WR, WI, DUM, 1, WORK, LWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
             GO TO 240
@@ -124,7 +124,7 @@
          // Compute condition numbers
 
          strsna('Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
@@ -282,13 +282,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Eigcond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
          for (I = 1; I <= N; I++) { // 130
-            IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS
          } // 130
 
          // Compute eigenvector condition numbers only and compare
@@ -296,13 +296,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Veccond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
          for (I = 1; I <= N; I++) { // 140
-            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS
          } // 140
 
          // Compute all condition numbers using SELECT and compare
@@ -313,13 +313,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
          for (I = 1; I <= N; I++) { // 160
-            IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
+            IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS
          } // 160
 
          // Compute eigenvalue condition numbers using SELECT and compare
@@ -327,13 +327,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
          for (I = 1; I <= N; I++) { // 170
-            IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS
          } // 170
 
          // Compute eigenvector condition numbers using SELECT and compare
@@ -341,13 +341,13 @@
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
          for (I = 1; I <= N; I++) { // 180
-            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS
          } // 180
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
@@ -382,7 +382,7 @@
             LCMP( 2 ) = 2
             IFND = 0
             for (I = 3; I <= N; I++) { // 200
-               if ( IFND == 1 .OR. WI( I ).NE.ZERO ) {
+               if ( IFND == 1 .OR. WI( I ) != ZERO ) {
                   SELECT( I ) = false;
                } else {
                   LCMP( 3 ) = I
@@ -403,14 +403,14 @@
          scopy(ICMP, DUM, 0, STMP, 1 );
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          strsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
          for (I = 1; I <= ICMP; I++) { // 210
             J = LCMP( I )
-            IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
+            IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ) != S( J ) ) VMAX = ONE / EPS
          } // 210
 
          // Compute selected eigenvalue condition numbers
@@ -418,14 +418,14 @@
          scopy(ICMP, DUM, 0, STMP, 1 );
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          strsna('Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
          for (I = 1; I <= ICMP; I++) { // 220
             J = LCMP( I )
-            IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS
          } // 220
 
          // Compute selected eigenvector condition numbers
@@ -433,14 +433,14 @@
          scopy(ICMP, DUM, 0, STMP, 1 );
          scopy(ICMP, DUM, 0, SEPTMP, 1 );
          strsna('Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
-         if ( INFO.NE.0 ) {
+         if ( INFO != 0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
          for (I = 1; I <= ICMP; I++) { // 230
             J = LCMP( I )
-            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
+            IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS
          } // 230
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX

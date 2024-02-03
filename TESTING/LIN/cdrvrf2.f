@@ -91,7 +91,7 @@
                if ( LOWER ) {
                   for (J = 1; J <= N; J++) {
                      for (I = J; I <= N; I++) {
-                        if ( A(I,J).NE.ASAV(I,J) ) {
+                        if ( A(I,J) != ASAV(I,J) ) {
                            OK1 = false;
                         }
                      }
@@ -99,7 +99,7 @@
                } else {
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= J; I++) {
-                        if ( A(I,J).NE.ASAV(I,J) ) {
+                        if ( A(I,J) != ASAV(I,J) ) {
                            OK1 = false;
                         }
                      }
@@ -121,7 +121,7 @@
                if ( LOWER ) {
                   for (J = 1; J <= N; J++) {
                      for (I = J; I <= N; I++) {
-                        if ( A(I,J).NE.ASAV(I,J) ) {
+                        if ( A(I,J) != ASAV(I,J) ) {
                            OK2 = false;
                         }
                      }
@@ -129,7 +129,7 @@
                } else {
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= J; I++) {
-                        if ( A(I,J).NE.ASAV(I,J) ) {
+                        if ( A(I,J) != ASAV(I,J) ) {
                            OK2 = false;
                         }
                      }

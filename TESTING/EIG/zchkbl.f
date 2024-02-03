@@ -72,12 +72,12 @@
       KNT = KNT + 1
       zgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO );
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
       }
 
-      if ( ILO.NE.ILOIN .OR. IHI.NE.IHIIN ) {
+      if ( ILO != ILOIN .OR. IHI != IHIIN ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       }

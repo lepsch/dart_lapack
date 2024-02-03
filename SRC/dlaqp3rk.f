@@ -287,7 +287,7 @@
          // 4) Save the pivot interchange with the indices relative to the
             // the original matrix A_orig, not the block A(1:M,1:N).
 
-         if ( KP.NE.K ) {
+         if ( KP != K ) {
             dswap(M, A( 1, KP ), 1, A( 1, K ), 1 );
             dswap(K-1, F( KP, 1 ), LDF, F( K, 1 ), LDF );
             VN1( KP ) = VN1( K )
@@ -419,7 +419,7 @@
          if ( K.LT.MINMNFACT ) {
 
             for (J = K + 1; J <= N; J++) {
-               if ( VN1( J ).NE.ZERO ) {
+               if ( VN1( J ) != ZERO ) {
 
                   // NOTE: The following lines follow from the analysis in
                   // Lapack Working Note 176.

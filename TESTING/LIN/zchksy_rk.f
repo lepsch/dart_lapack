@@ -195,7 +195,7 @@
 
                // Begin generate test matrix A.
 
-               if ( IMAT.NE.NTYPES ) {
+               if ( IMAT != NTYPES ) {
 
                   // Set up parameters with ZLATB4 for the matrix generator
                   // based on the type of matrix to be generated.
@@ -209,7 +209,7 @@
 
                   // Check error code from ZLATMS and handle error.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Skip all tests for this generated matrix
@@ -331,11 +331,11 @@
                   if ( K.GT.0 ) {
                      } // 100
                      if ( IWORK( K ).LT.0 ) {
-                        if ( IWORK( K ).NE.-K ) {
+                        if ( IWORK( K ) != -K ) {
                            K = -IWORK( K )
                            GO TO 100
                         }
-                     } else if ( IWORK( K ).NE.K ) {
+                     } else if ( IWORK( K ) != K ) {
                         K = IWORK( K )
                         GO TO 100
                      }
@@ -343,11 +343,11 @@
 
                   // Check error code from ZSYTRF_RK and handle error.
 
-                  if (INFO.NE.K) CALL ALAERH( PATH, 'ZSYTRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != K) CALL ALAERH( PATH, 'ZSYTRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
-                  if ( INFO.NE.0 ) {
+                  if ( INFO != 0 ) {
                      TRFCON = true;
                   } else {
                      TRFCON = false;
@@ -378,7 +378,7 @@
 
                      // Check error code from ZSYTRI_3 and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZSYTRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'ZSYTRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -608,7 +608,7 @@
 
                      // Check error code from ZSYTRS_3 and handle error.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'ZSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -646,7 +646,7 @@
 
                   // Check error code from ZSYCON_3 and handle error.
 
-                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZSYCON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) CALL ALAERH( PATH, 'ZSYCON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the test ratio to compare values of RCOND
 

@@ -72,7 +72,7 @@
          INFO = -12
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZGELSY', -INFO );
          RETURN
       } else if ( LQUERY ) {

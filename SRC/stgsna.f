@@ -112,7 +112,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('STGSNA', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -138,7 +138,7 @@
             PAIR = false;
             GO TO 20
          } else {
-            if (K.LT.N) PAIR = A( K+1, K ).NE.ZERO;
+            if (K.LT.N) PAIR = A( K+1, K ) != ZERO;
          }
 
          // Determine whether condition numbers are required for the k-th
@@ -260,7 +260,7 @@
                // and compute estimate of Difl((A11,B11), (A22, B22)).
 
                N1 = 1
-               IF( WORK( 2 ).NE.ZERO ) N1 = 2
+               IF( WORK( 2 ) != ZERO ) N1 = 2
                N2 = N - N1
                if ( N2 == 0 ) {
                   DIF( KS ) = COND

@@ -128,7 +128,7 @@
 
                // Check error code from CLATMS.
 
-               if ( INFO.NE.0 ) {
+               if ( INFO != 0 ) {
                   alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 160
                }
@@ -271,11 +271,11 @@
                      if ( K.GT.0 ) {
                         } // 100
                         if ( IWORK( K ).LT.0 ) {
-                           if ( IWORK( K ).NE.-K ) {
+                           if ( IWORK( K ) != -K ) {
                               K = -IWORK( K )
                               GO TO 100
                            }
-                        } else if ( IWORK( K ).NE.K ) {
+                        } else if ( IWORK( K ) != K ) {
                            K = IWORK( K )
                            GO TO 100
                         }
@@ -283,10 +283,10 @@
 
                      // Check error code from CHPSV .
 
-                     if ( INFO.NE.K ) {
+                     if ( INFO != K ) {
                         alaerh(PATH, 'CHPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
-                     } else if ( INFO.NE.0 ) {
+                     } else if ( INFO != 0 ) {
                         GO TO 120
                      }
 
@@ -336,11 +336,11 @@
                   if ( K.GT.0 ) {
                      } // 130
                      if ( IWORK( K ).LT.0 ) {
-                        if ( IWORK( K ).NE.-K ) {
+                        if ( IWORK( K ) != -K ) {
                            K = -IWORK( K )
                            GO TO 130
                         }
-                     } else if ( IWORK( K ).NE.K ) {
+                     } else if ( IWORK( K ) != K ) {
                         K = IWORK( K )
                         GO TO 130
                      }
@@ -348,7 +348,7 @@
 
                   // Check the error code from CHPSVX.
 
-                  if ( INFO.NE.K ) {
+                  if ( INFO != K ) {
                      alaerh(PATH, 'CHPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150
                   }

@@ -71,7 +71,7 @@
       CRZT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK )
 
       CRZT01 = CRZT01 / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )
-      if (NORMA.NE.ZERO) CRZT01 = CRZT01 / NORMA;
+      if (NORMA != ZERO) CRZT01 = CRZT01 / NORMA;
 
       RETURN
 

@@ -194,7 +194,7 @@
             INFO = -19
          }
       }
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('DORCSD2BY1', -INFO );
          RETURN
       } else if ( LQUERY ) {

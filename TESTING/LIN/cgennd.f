@@ -28,7 +28,7 @@
       K = MIN( M, N )
       for (I = 1; I <= K; I++) {
          AII = A( I, I )
-         if ( REAL( AII ).LT.ZERO.OR.AIMAG( AII ).NE.ZERO ) {
+         if ( REAL( AII ).LT.ZERO.OR.AIMAG( AII ) != ZERO ) {
             CGENND = false;
             RETURN
          }

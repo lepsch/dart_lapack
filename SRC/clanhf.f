@@ -842,7 +842,7 @@
                   for (I = 0; I <= K - 2; I++) {
                      AA = REAL( A( L ) )
                      // U(k+i,k+i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -852,7 +852,7 @@
                      }
                      AA = REAL( A( L+1 ) )
                      // U(i,i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -864,7 +864,7 @@
                   }
                   AA = REAL( A( L ) )
                   // U(n-1,n-1)
-                  if ( AA.NE.ZERO ) {
+                  if ( AA != ZERO ) {
                      if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
@@ -886,7 +886,7 @@
                   // double s for the off diagonal elements
                   AA = REAL( A( 0 ) )
                   // L(0,0) at A(0,0)
-                  if ( AA.NE.ZERO ) {
+                  if ( AA != ZERO ) {
                      if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
@@ -899,7 +899,7 @@
                   for (I = 1; I <= K - 1; I++) {
                      AA = REAL( A( L ) )
                      // L(k-1+i,k-1+i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -909,7 +909,7 @@
                      }
                      AA = REAL( A( L+1 ) )
                      // L(i,i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -942,7 +942,7 @@
                   // -> U(k-1,k-1) at A(0,k-1)
                   AA = REAL( A( L ) )
                   // U(k-1,k-1)
-                  if ( AA.NE.ZERO ) {
+                  if ( AA != ZERO ) {
                      if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
@@ -955,7 +955,7 @@
                   for (J = K; J <= N - 1; J++) {
                      AA = REAL( A( L ) )
                      // -> U(j-k,j-k)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -965,7 +965,7 @@
                      }
                      AA = REAL( A( L+1 ) )
                      // -> U(j,j)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -996,7 +996,7 @@
                   for (I = 0; I <= K - 2; I++) {
                      AA = REAL( A( L ) )
                      // L(i,i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1006,7 +1006,7 @@
                      }
                      AA = REAL( A( L+1 ) )
                      // L(k+i,k+i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1019,7 +1019,7 @@
                   // L-> k-1 + (k-1)*lda or L(k-1,k-1) at A(k-1,k-1)
                   AA = REAL( A( L ) )
                   // L(k-1,k-1) at A(k-1,k-1)
-                  if ( AA.NE.ZERO ) {
+                  if ( AA != ZERO ) {
                      if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
@@ -1050,7 +1050,7 @@
                   for (I = 0; I <= K - 1; I++) {
                      AA = REAL( A( L ) )
                      // U(k+i,k+i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1060,7 +1060,7 @@
                      }
                      AA = REAL( A( L+1 ) )
                      // U(i,i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1087,7 +1087,7 @@
                   for (I = 0; I <= K - 1; I++) {
                      AA = REAL( A( L ) )
                      // L(k-1+i,k-1+i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1097,7 +1097,7 @@
                      }
                      AA = REAL( A( L+1 ) )
                      // L(i,i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1130,7 +1130,7 @@
                   // -> U(k,k) at A(0,k)
                   AA = REAL( A( L ) )
                   // U(k,k)
-                  if ( AA.NE.ZERO ) {
+                  if ( AA != ZERO ) {
                      if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
@@ -1143,7 +1143,7 @@
                   for (J = K + 1; J <= N - 1; J++) {
                      AA = REAL( A( L ) )
                      // -> U(j-k-1,j-k-1)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1153,7 +1153,7 @@
                      }
                      AA = REAL( A( L+1 ) )
                      // -> U(j,j)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1167,7 +1167,7 @@
                   // -> U(k-1,k-1) at A(k-1,n)
                   AA = REAL( A( L ) )
                   // U(k,k)
-                  if ( AA.NE.ZERO ) {
+                  if ( AA != ZERO ) {
                      if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
@@ -1195,7 +1195,7 @@
                   // -> L(k,k) at A(0,0)
                   AA = REAL( A( L ) )
                   // L(k,k) at A(0,0)
-                  if ( AA.NE.ZERO ) {
+                  if ( AA != ZERO ) {
                      if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
@@ -1208,7 +1208,7 @@
                   for (I = 0; I <= K - 2; I++) {
                      AA = REAL( A( L ) )
                      // L(i,i)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1218,7 +1218,7 @@
                      }
                      AA = REAL( A( L+1 ) )
                      // L(k+i+1,k+i+1)
-                     if ( AA.NE.ZERO ) {
+                     if ( AA != ZERO ) {
                         if ( SCALE.LT.AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
@@ -1231,7 +1231,7 @@
                   // L-> k - 1 + k*lda or L(k-1,k-1) at A(k-1,k)
                   AA = REAL( A( L ) )
                   // L(k-1,k-1) at A(k-1,k)
-                  if ( AA.NE.ZERO ) {
+                  if ( AA != ZERO ) {
                      if ( SCALE.LT.AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA

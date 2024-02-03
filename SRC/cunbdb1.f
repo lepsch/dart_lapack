@@ -86,7 +86,7 @@
            INFO = -14
          }
       }
-      if ( INFO .NE. 0 ) {
+      if ( INFO != 0 ) {
          xerbla('CUNBDB1', -INFO );
          RETURN
       } else if ( LQUERY ) {

@@ -52,7 +52,7 @@
       } else if ( INCY == 0 ) {
          INFO = 11
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DLA_GEAMV ', INFO );
          RETURN
       }
@@ -107,7 +107,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. ZERO ) {
+               if ( ALPHA != ZERO ) {
                   for (J = 1; J <= LENX; J++) {
                      TEMP = ABS( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
@@ -130,7 +130,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. ZERO ) {
+               if ( ALPHA != ZERO ) {
                   for (J = 1; J <= LENX; J++) {
                      TEMP = ABS( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
@@ -155,7 +155,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. ZERO ) {
+               if ( ALPHA != ZERO ) {
                   JX = KX
                   for (J = 1; J <= LENX; J++) {
                      TEMP = ABS( A( I, J ) )
@@ -180,7 +180,7 @@
                   SYMB_ZERO = false;
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
-               if ( ALPHA .NE. ZERO ) {
+               if ( ALPHA != ZERO ) {
                   JX = KX
                   for (J = 1; J <= LENX; J++) {
                      TEMP = ABS( A( J, I ) )

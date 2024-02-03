@@ -101,7 +101,7 @@
 
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('SGETSLS', -INFO );
         RETURN
       }

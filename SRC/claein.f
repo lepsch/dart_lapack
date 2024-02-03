@@ -107,7 +107,7 @@
 
                IF( B( I, I ) == ZERO ) B( I, I ) = EPS3
                X = CLADIV( EI, B( I, I ) )
-               if ( X.NE.ZERO ) {
+               if ( X != ZERO ) {
                   for (J = I + 1; J <= N; J++) { // 50
                      B( I+1, J ) = B( I+1, J ) - X*B( I, J )
                   } // 50
@@ -142,7 +142,7 @@
 
                IF( B( J, J ) == ZERO ) B( J, J ) = EPS3
                X = CLADIV( EJ, B( J, J ) )
-               if ( X.NE.ZERO ) {
+               if ( X != ZERO ) {
                   for (I = 1; I <= J - 1; I++) { // 80
                      B( I, J-1 ) = B( I, J-1 ) - X*B( I, J )
                   } // 80

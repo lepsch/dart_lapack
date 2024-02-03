@@ -35,7 +35,7 @@
          INFO = -25
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZLAQZ3', -INFO );
          RETURN
       }

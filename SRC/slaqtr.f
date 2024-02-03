@@ -99,7 +99,7 @@
                J2 = J
                JNEXT = J - 1
                if ( J.GT.1 ) {
-                  if ( T( J, J-1 ).NE.ZERO ) {
+                  if ( T( J, J-1 ) != ZERO ) {
                      J1 = J - 1
                      JNEXT = J - 2
                   }
@@ -160,9 +160,9 @@
                   D( 1, 1 ) = X( J1 )
                   D( 2, 1 ) = X( J2 )
                   slaln2( false , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 2;
+                  if (IERR != 0) INFO = 2;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      sscal(N, SCALOC, X, 1 );
                      SCALE = SCALE*SCALOC
                   }
@@ -205,7 +205,7 @@
                J2 = J
                JNEXT = J + 1
                if ( J.LT.N ) {
-                  if ( T( J+1, J ).NE.ZERO ) {
+                  if ( T( J+1, J ) != ZERO ) {
                      J2 = J + 1
                      JNEXT = J + 2
                   }
@@ -270,9 +270,9 @@
                   D( 1, 1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - SDOT( J1-1, T( 1, J2 ), 1, X, 1 )
 
                   slaln2( true , 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 2;
+                  if (IERR != 0) INFO = 2;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      sscal(N, SCALOC, X, 1 );
                      SCALE = SCALE*SCALOC
                   }
@@ -298,7 +298,7 @@
                J2 = J
                JNEXT = J - 1
                if ( J.GT.1 ) {
-                  if ( T( J, J-1 ).NE.ZERO ) {
+                  if ( T( J, J-1 ) != ZERO ) {
                      J1 = J - 1
                      JNEXT = J - 2
                   }
@@ -369,9 +369,9 @@
                   D( 1, 2 ) = X( N+J1 )
                   D( 2, 2 ) = X( N+J2 )
                   slaln2( false , 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 2;
+                  if (IERR != 0) INFO = 2;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      sscal(2*N, SCALOC, X, 1 );
                      SCALE = SCALOC*SCALE
                   }
@@ -423,7 +423,7 @@
                J2 = J
                JNEXT = J + 1
                if ( J.LT.N ) {
-                  if ( T( J+1, J ).NE.ZERO ) {
+                  if ( T( J+1, J ) != ZERO ) {
                      J2 = J + 1
                      JNEXT = J + 2
                   }
@@ -505,9 +505,9 @@
                   D( 2, 2 ) = D( 2, 2 ) + B( J2 )*X( 1 )
 
                   slaln2( true , 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR );
-                  if (IERR.NE.0) INFO = 2;
+                  if (IERR != 0) INFO = 2;
 
-                  if ( SCALOC.NE.ONE ) {
+                  if ( SCALOC != ONE ) {
                      sscal(N2, SCALOC, X, 1 );
                      SCALE = SCALOC*SCALE
                   }

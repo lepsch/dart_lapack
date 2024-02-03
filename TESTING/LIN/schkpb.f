@@ -140,7 +140,7 @@
 
                      // Check error code from SLATMS.
 
-                     if ( INFO.NE.0 ) {
+                     if ( INFO != 0 ) {
                         alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60
                      }
@@ -216,14 +216,14 @@
 
                      // Check error code from SPBTRF.
 
-                     if ( INFO.NE.IZERO ) {
+                     if ( INFO != IZERO ) {
                         alaerh(PATH, 'SPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 50
                      }
 
                      // Skip the tests if INFO is not 0.
 
-                     if (INFO.NE.0) GO TO 50;
+                     if (INFO != 0) GO TO 50;
 
 *+    TEST 1
                      // Reconstruct matrix from factors and compute
@@ -276,7 +276,7 @@
 
                      // Check error code from SPBTRS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'SPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'SPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         spbt02(UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
@@ -294,7 +294,7 @@
 
                      // Check error code from SPBRFS.
 
-                        if (INFO.NE.0) CALL ALAERH( PATH, 'SPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) CALL ALAERH( PATH, 'SPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                         spbt05(UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -319,7 +319,7 @@
 
                      // Check error code from SPBCON.
 
-                     if (INFO.NE.0) CALL ALAERH( PATH, 'SPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) CALL ALAERH( PATH, 'SPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      RESULT( 7 ) = SGET06( RCOND, RCONDC )
 

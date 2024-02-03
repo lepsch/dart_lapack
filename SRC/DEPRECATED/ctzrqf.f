@@ -39,7 +39,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('CTZRQF', -INFO );
          RETURN
       }
@@ -65,7 +65,7 @@
             A( K, K ) = ALPHA
             TAU( K ) = CONJG( TAU( K ) )
 
-            if ( TAU( K ).NE.CZERO .AND. K.GT.1 ) {
+            if ( TAU( K ) != CZERO .AND. K.GT.1 ) {
 
                // We now perform the operation  A := A*P( k )**H.
 

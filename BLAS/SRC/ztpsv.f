@@ -48,7 +48,7 @@
       } else if (INCX == 0) {
           INFO = 7
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('ZTPSV ',INFO);
           RETURN
       }
@@ -65,7 +65,7 @@
 
       if (INCX.LE.0) {
           KX = 1 - (N-1)*INCX
-      } else if (INCX.NE.1) {
+      } else if (INCX != 1) {
           KX = 1
       }
 
@@ -80,7 +80,7 @@
               KK = (N* (N+1))/2
               if (INCX == 1) {
                   DO 20 J = N,1,-1
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           if (NOUNIT) X(J) = X(J)/AP(KK);
                           TEMP = X(J)
                           K = KK - 1
@@ -94,7 +94,7 @@
               } else {
                   JX = KX + (N-1)*INCX
                   DO 40 J = N,1,-1
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           if (NOUNIT) X(JX) = X(JX)/AP(KK);
                           TEMP = X(JX)
                           IX = JX
@@ -111,7 +111,7 @@
               KK = 1
               if (INCX == 1) {
                   for (J = 1; J <= N; J++) { // 60
-                      if (X(J).NE.ZERO) {
+                      if (X(J) != ZERO) {
                           if (NOUNIT) X(J) = X(J)/AP(KK);
                           TEMP = X(J)
                           K = KK + 1
@@ -125,7 +125,7 @@
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 80
-                      if (X(JX).NE.ZERO) {
+                      if (X(JX) != ZERO) {
                           if (NOUNIT) X(JX) = X(JX)/AP(KK);
                           TEMP = X(JX)
                           IX = JX

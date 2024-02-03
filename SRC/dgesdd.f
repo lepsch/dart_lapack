@@ -328,7 +328,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DGESDD', -INFO );
          RETURN
       } else if ( LQUERY ) {

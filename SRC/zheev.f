@@ -65,7 +65,7 @@
          IF( LWORK.LT.MAX( 1, 2*N-1 ) .AND. .NOT.LQUERY ) INFO = -8
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('ZHEEV ', -INFO );
          RETURN
       } else if ( LQUERY ) {

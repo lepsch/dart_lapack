@@ -44,7 +44,7 @@
       } else if (INCX == 0) {
           INFO = 5
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('ZHPR  ',INFO);
           RETURN
       }
@@ -57,7 +57,7 @@
 
       if (INCX.LE.0) {
           KX = 1 - (N-1)*INCX
-      } else if (INCX.NE.1) {
+      } else if (INCX != 1) {
           KX = 1
       }
 
@@ -71,7 +71,7 @@
 
           if (INCX == 1) {
               for (J = 1; J <= N; J++) { // 20
-                  if (X(J).NE.ZERO) {
+                  if (X(J) != ZERO) {
                       TEMP = ALPHA*DCONJG(X(J))
                       K = KK
                       for (I = 1; I <= J - 1; I++) { // 10
@@ -87,7 +87,7 @@
           } else {
               JX = KX
               for (J = 1; J <= N; J++) { // 40
-                  if (X(JX).NE.ZERO) {
+                  if (X(JX) != ZERO) {
                       TEMP = ALPHA*DCONJG(X(JX))
                       IX = KX
                       for (K = KK; K <= KK + J - 2; K++) { // 30
@@ -108,7 +108,7 @@
 
           if (INCX == 1) {
               for (J = 1; J <= N; J++) { // 60
-                  if (X(J).NE.ZERO) {
+                  if (X(J) != ZERO) {
                       TEMP = ALPHA*DCONJG(X(J))
                       AP(KK) = DBLE(AP(KK)) + DBLE(TEMP*X(J))
                       K = KK + 1
@@ -124,7 +124,7 @@
           } else {
               JX = KX
               for (J = 1; J <= N; J++) { // 80
-                  if (X(JX).NE.ZERO) {
+                  if (X(JX) != ZERO) {
                       TEMP = ALPHA*DCONJG(X(JX))
                       AP(KK) = DBLE(AP(KK)) + DBLE(TEMP*X(JX))
                       IX = JX

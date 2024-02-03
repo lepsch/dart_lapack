@@ -64,7 +64,7 @@
          }
       }
 
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DTZRZF', -INFO );
          RETURN
       } else if ( LQUERY ) {

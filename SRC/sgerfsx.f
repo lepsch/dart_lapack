@@ -129,7 +129,7 @@
       } else if ( LDX.LT.MAX( 1, N ) ) {
         INFO = -15
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
         xerbla('SGERFSX', -INFO );
         RETURN
       }
@@ -188,7 +188,7 @@
 
       // Perform refinement on each right-hand side
 
-      if ( REF_TYPE .NE. 0 ) {
+      if ( REF_TYPE != 0 ) {
 
          PREC_TYPE = ILAPREC( 'D' )
 

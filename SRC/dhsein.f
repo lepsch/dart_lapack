@@ -88,7 +88,7 @@
       } else if ( MM.LT.M ) {
          INFO = -14
       }
-      if ( INFO.NE.0 ) {
+      if ( INFO != 0 ) {
          xerbla('DHSEIN', -INFO );
          RETURN
       }
@@ -147,7 +147,7 @@
                }
             }
 
-            if ( KL.NE.KLN ) {
+            if ( KL != KLN ) {
                KLN = KL
 
                // Compute infinity-norm of submatrix H(KL:KR,KL:KR) if it
@@ -179,7 +179,7 @@
             } // 70
             WR( K ) = WKR
 
-            PAIR = WKI.NE.ZERO
+            PAIR = WKI != ZERO
             if ( PAIR ) {
                KSI = KSR + 1
             } else {

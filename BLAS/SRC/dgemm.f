@@ -72,7 +72,7 @@
       } else if (LDC.LT.MAX(1,M)) {
           INFO = 13
       }
-      if (INFO.NE.0) {
+      if (INFO != 0) {
           xerbla('DGEMM ',INFO);
           RETURN
       }
@@ -112,7 +112,7 @@
                       for (I = 1; I <= M; I++) { // 50
                           C(I,J) = ZERO
                       } // 50
-                  } else if (BETA.NE.ONE) {
+                  } else if (BETA != ONE) {
                       for (I = 1; I <= M; I++) { // 60
                           C(I,J) = BETA*C(I,J)
                       } // 60
@@ -152,7 +152,7 @@
                       for (I = 1; I <= M; I++) { // 130
                           C(I,J) = ZERO
                       } // 130
-                  } else if (BETA.NE.ONE) {
+                  } else if (BETA != ONE) {
                       for (I = 1; I <= M; I++) { // 140
                           C(I,J) = BETA*C(I,J)
                       } // 140
