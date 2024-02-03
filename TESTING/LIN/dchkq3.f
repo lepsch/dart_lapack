@@ -10,7 +10,8 @@
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
-      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * );;
+      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * );
+      double             A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================

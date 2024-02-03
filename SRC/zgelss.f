@@ -23,7 +23,8 @@
       // ..
       // .. Local Scalars ..
       bool               LQUERY;
-      int                BL, CHUNK, I, IASCL, IBSCL, IE, IL, IRWORK, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       int                LWORK_ZGEQRF, LWORK_ZUNMQR, LWORK_ZGEBRD, LWORK_ZUNMBR, LWORK_ZUNGBR, LWORK_ZUNMLQ, LWORK_ZGELQF;
+      int                BL, CHUNK, I, IASCL, IBSCL, IE, IL, IRWORK, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR;
+      int                LWORK_ZGEQRF, LWORK_ZUNMQR, LWORK_ZGEBRD, LWORK_ZUNMBR, LWORK_ZUNGBR, LWORK_ZUNMLQ, LWORK_ZGELQF;
       double             ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
       // ..
       // .. Local Arrays ..

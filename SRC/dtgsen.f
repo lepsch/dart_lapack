@@ -24,7 +24,8 @@
       const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       // ..
       // .. Local Scalars ..
-      bool               LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2, WANTP       int                I, IERR, IJB, K, KASE, KK, KS, LIWMIN, LWMIN, MN2, N1, N2;;
+      bool               LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2, WANTP;
+      int                I, IERR, IJB, K, KASE, KK, KS, LIWMIN, LWMIN, MN2, N1, N2;
       double             DSCALE, DSUM, EPS, RDSCAL, SMLNUM;
       // ..
       // .. Local Arrays ..

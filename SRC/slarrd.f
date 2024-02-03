@@ -10,7 +10,8 @@
       REAL                PIVMIN, RELTOL, VL, VU, WL, WU
       // ..
       // .. Array Arguments ..
-      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
+      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * );
+      REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
       // ..
 
 *  =====================================================================

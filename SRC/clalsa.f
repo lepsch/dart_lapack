@@ -8,7 +8,8 @@
       int                ICOMPQ, INFO, LDB, LDBX, LDGCOL, LDU, N, NRHS, SMLSIZ;
       // ..
       // .. Array Arguments ..
-      int                GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       REAL               C( * ), DIFL( LDU, * ), DIFR( LDU, * ), GIVNUM( LDU, * ), POLES( LDU, * ), RWORK( * ), S( * ), U( LDU, * ), VT( LDU, * ), Z( LDU, * );
+      int                GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * );
+      REAL               C( * ), DIFL( LDU, * ), DIFR( LDU, * ), GIVNUM( LDU, * ), POLES( LDU, * ), RWORK( * ), S( * ), U( LDU, * ), VT( LDU, * ), Z( LDU, * );
       COMPLEX            B( LDB, * ), BX( LDBX, * )
       // ..
 

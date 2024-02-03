@@ -9,7 +9,8 @@
       double             RHO;
       // ..
       // .. Array Arguments ..
-      int                COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ), INDXQ( * )       double             D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * );;
+      int                COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ), INDXQ( * );
+      double             D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * );
       // ..
 
 *  =====================================================================

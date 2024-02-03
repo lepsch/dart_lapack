@@ -28,7 +28,8 @@
       // ..
       // .. Local Scalars ..
       String             TRANA, TRANB;
-      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N       double             ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM;;
+      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N;
+      double             ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
       COMPLEX*16         RMUL
       // ..
       // .. Local Arrays ..

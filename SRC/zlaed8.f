@@ -9,7 +9,8 @@
       double             RHO;
       // ..
       // .. Array Arguments ..
-      int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       double             D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ), Z( * );;
+      int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * );
+      double             D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ), Z( * );
       COMPLEX*16         Q( LDQ, * ), Q2( LDQ2, * )
       // ..
 

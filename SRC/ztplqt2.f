@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       COMPLEX*16  ONE, ZERO
-      PARAMETER( ZERO = ( 0.0D+0, 0.0D+0 ),ONE  = ( 1.0D+0, 0.0D+0 ) )
+      const    ZERO = ( 0.0D+0, 0.0D+0 ),ONE  = ( 1.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       int       I, J, P, MP, NP;

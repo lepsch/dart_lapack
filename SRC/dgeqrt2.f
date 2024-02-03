@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       double            ONE, ZERO;
-      PARAMETER( ONE = 1.0D+00, ZERO = 0.0D+00 )
+      const    ONE = 1.0D+00, ZERO = 0.0D+00 ;
       // ..
       // .. Local Scalars ..
       int       I, K;

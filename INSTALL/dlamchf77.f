@@ -363,7 +363,8 @@
 
       // .. Local Scalars ..
       bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
-      int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       double             A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;;
+      int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN;
+      double             A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;
       // ..
       // .. External Functions ..
       double             DLAMC3;

@@ -21,7 +21,8 @@
       // ..
       // .. Local Scalars ..
       bool               WANTZ;
-      int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWRK, ISCALE       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWRK, ISCALE;
+      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       bool               LSAME;

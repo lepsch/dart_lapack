@@ -21,7 +21,8 @@
       const              NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       double             EPS, ERR, THRESH;
-      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;;
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA;
+      bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;
       String             TRANS;
       String             SNAMET;
       String             SNAPS, SUMMRY;

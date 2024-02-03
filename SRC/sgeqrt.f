@@ -17,7 +17,7 @@
       // .. Local Scalars ..
       int        I, IB, IINFO, K;
       bool       USE_RECURSIVE_QR;
-      PARAMETER( USE_RECURSIVE_QR=.TRUE. )
+      const    USE_RECURSIVE_QR=.TRUE. ;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEQRT2, SGEQRT3, SLARFB, XERBLA

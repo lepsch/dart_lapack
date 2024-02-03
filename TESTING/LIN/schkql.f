@@ -11,7 +11,8 @@
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
-      int                MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       REAL               A( * ), AC( * ), AF( * ), AL( * ), AQ( * ), B( * ), RWORK( * ), TAU( * ), WORK( * ), X( * ), XACT( * );
+      int                MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * );
+      REAL               A( * ), AC( * ), AF( * ), AL( * ), AQ( * ), B( * ), RWORK( * ), TAU( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================

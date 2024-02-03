@@ -11,7 +11,8 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       double             S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
+      double             A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * );;
+      double             S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 *  ==================================================================

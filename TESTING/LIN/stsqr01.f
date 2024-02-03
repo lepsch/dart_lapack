@@ -19,7 +19,7 @@
 
       // .. Parameters ..
       REAL     ONE, ZERO
-      PARAMETER( ZERO = 0.0, ONE = 1.0 )
+      const    ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool    TESTZEROS, TS;

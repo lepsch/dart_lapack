@@ -24,7 +24,8 @@
       bool               UPPER;
       String             DIST, PACKIT, TYPE;
       String             PATH;
-      int                I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       double             ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;;
+      int                I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE;
+      double             ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
       COMPLEX*16         CTEMP, PLUS1, PLUS2, RA, RB, S, STAR1
       // ..
       // .. External Functions ..

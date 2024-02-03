@@ -21,7 +21,8 @@
       // ..
       // .. Local Arrays ..
       int                I1( NMAX ), I2( NMAX ), I3( NMAX ), IW( LIW );
-      double             D( NMAX ), E( NMAX ), R( LW ), RW( LW ), X( NMAX )       COMPLEX*16         A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX );
+      double             D( NMAX ), E( NMAX ), R( LW ), RW( LW ), X( NMAX );
+      COMPLEX*16         A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;

@@ -13,7 +13,7 @@
       COMPLEX         CZERO, CONE
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL :: ZERO, ONE, HALF
-      PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
+      const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local Scalars
       int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, CTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;

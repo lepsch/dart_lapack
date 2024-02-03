@@ -1,5 +1,5 @@
       PROGRAM DCBLAT1
-      // Test program for the DOUBLE PRECISION Level 1 CBLAS.
+      // Test program for the double           Level 1 CBLAS.;
       // Based upon the original CBLAS test routine together with:
       // F06EAF Example Program Text
       // .. Parameters ..

@@ -9,7 +9,8 @@
       double             MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU;
       // ..
       // .. Array Arguments ..
-      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * )       double             D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );;
+      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * );
+      double             D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
       double            Z( LDZ, * );
       // ..
 

@@ -11,7 +11,8 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      DOUBLE PRECISION   AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
+      double             AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * );;
+      double             R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 *  ==================================================================
@@ -27,7 +28,8 @@
       const              COMPONENTWISE_DEFAULT = 1.0D+0 ;
       const              RTHRESH_DEFAULT = 0.5D+0 ;
       const              DZTHRESH_DEFAULT = 0.25D+0 ;
-      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 );
+      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I;
+      const              LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 ;
       const              LA_LINRX_CWISE_I = 3 ;
       int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       const              LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 ;

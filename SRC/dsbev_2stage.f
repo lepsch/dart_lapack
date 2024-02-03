@@ -22,7 +22,8 @@
       // ..
       // .. Local Scalars ..
       bool               LOWER, WANTZ, LQUERY;
-      int                IINFO, IMAX, INDE, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS       double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;;
+      int                IINFO, IMAX, INDE, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS;
+      double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       bool               LSAME;

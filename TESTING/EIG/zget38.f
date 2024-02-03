@@ -31,7 +31,8 @@
       // .. Local Arrays ..
       bool               SELECT( LDT );
       int                IPNT( LDT ), ISELEC( LDT );
-      double             RESULT( 2 ), RWORK( LDT ), VAL( 3 ), WSRT( LDT )       COMPLEX*16         Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT );
+      double             RESULT( 2 ), RWORK( LDT ), VAL( 3 ), WSRT( LDT );
+      COMPLEX*16         Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT );
       // ..
       // .. External Functions ..
       double             DLAMCH, ZLANGE;

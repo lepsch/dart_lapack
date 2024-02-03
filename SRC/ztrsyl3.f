@@ -18,7 +18,8 @@
       // ..
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY;
-      int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB       double             ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;;
+      int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB;
+      double             ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
       COMPLEX*16         CSGN
       // ..
       // .. Local Arrays ..
@@ -849,7 +850,7 @@
 
          // The magnitude of the largest entry of the solution is larger
         t // han the product of BIGNUM**2 and cannot be represented in the
-         // form (1/SCALE)*X if SCALE is DOUBLE PRECISION. Set SCALE to
+         // form (1/SCALE)*X if SCALE is double          . Set SCALE to;
          // zero and give up.
 
          SWORK(1,1) = MAX( NBA, NBB )

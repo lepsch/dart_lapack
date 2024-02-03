@@ -9,7 +9,8 @@
       double             THRESH;
       // ..
       // .. Array Arguments ..
-      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * )       double             A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * );;
+      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * );
+      double             A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * );
       // ..
 
 *  =====================================================================

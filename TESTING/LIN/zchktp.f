@@ -31,7 +31,8 @@
       // .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
-      int                I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN       double             AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;;
+      int                I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN;
+      double             AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
       // ..
       // .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );

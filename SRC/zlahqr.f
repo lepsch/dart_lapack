@@ -26,7 +26,9 @@
       const              KEXSH = 10 ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         CDUM, H11, H11S, H22, SC, SUM, T, T1, TEMP, U, V2, X, Y       double             AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX, SAFMIN, SMLNUM, SX, T2, TST, ULP       int                I, I1, I2, ITS, ITMAX, J, JHI, JLO, K, L, M, NH, NZ, KDEFL;;
+      COMPLEX*16         CDUM, H11, H11S, H22, SC, SUM, T, T1, TEMP, U, V2, X, Y;
+      double             AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX, SAFMIN, SMLNUM, SX, T2, TST, ULP;
+      int                I, I1, I2, ITS, ITMAX, J, JHI, JLO, K, L, M, NH, NZ, KDEFL;
       // ..
       // .. Local Arrays ..
       COMPLEX*16         V( 2 )

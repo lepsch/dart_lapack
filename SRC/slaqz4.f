@@ -10,7 +10,7 @@
 
       // Parameters
       REAL :: ZERO, ONE, HALF
-      PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
+      const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local scalars
       int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS;

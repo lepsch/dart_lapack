@@ -9,7 +9,8 @@
       REAL               RHO
       // ..
       // .. Array Arguments ..
-      int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       REAL               D( * ), DLAMBDA( * ), GIVNUM( 2, * ), Q( LDQ, * ), Q2( LDQ2, * ), W( * ), Z( * );
+      int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * );
+      REAL               D( * ), DLAMBDA( * ), GIVNUM( 2, * ), Q( LDQ, * ), Q2( LDQ2, * ), W( * ), Z( * );
       // ..
 
 *  =====================================================================

@@ -8,7 +8,7 @@
 
       // Parameters
       REAL :: ZERO, ONE, HALF
-      PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
+      const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local variables
       REAL :: H( 2, 3 ), C1, S1, C2, S2, TEMP

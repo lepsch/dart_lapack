@@ -19,7 +19,8 @@
       // ..
       // .. Local Scalars ..
       String             TRANA, TRANB;
-      int                I, IMA, IMB, IMLDA1, IMLDA2, IMLDB1, IMLOFF, INFO, ISGN, ITRANA, ITRANB, J, M, N       REAL               BIGNUM, CNRM, EPS, RES, RES1, RMUL, SCALE, SMLNUM, TNRM, XNRM;
+      int                I, IMA, IMB, IMLDA1, IMLDA2, IMLDB1, IMLOFF, INFO, ISGN, ITRANA, ITRANB, J, M, N;
+      REAL               BIGNUM, CNRM, EPS, RES, RES1, RMUL, SCALE, SMLNUM, TNRM, XNRM;
       // ..
       // .. Local Arrays ..
       int                IDIM( 8 ), IVAL( 6, 6, 8 );

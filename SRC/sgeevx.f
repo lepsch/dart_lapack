@@ -24,7 +24,8 @@
       // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV;
       String             JOB, SIDE;
-      int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT       REAL               ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN;
+      int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
+      REAL               ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN;
       // ..
       // .. Local Arrays ..
       bool               SELECT( 1 );

@@ -7,7 +7,8 @@
 
       // .. Scalar Arguments ..
       bool               DONE;
-      int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
+      int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS;
+      REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
       // ..
       // .. Array Arguments ..
       int                IWORK( * ), JPIV( * );

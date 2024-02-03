@@ -18,7 +18,8 @@
       const              ZERO = 0.0D0, ONE = 1.0D0 ;
       // ..
       // .. Local Scalars ..
-      int                I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM       double             BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;;
+      int                I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM;
+      double             BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;
       // ..
       // .. External Functions ..
       int                IDAMAX;

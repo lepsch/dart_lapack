@@ -20,7 +20,8 @@
       const              MAXIT = 30 ;
       // ..
       // .. Local Scalars ..
-      int                I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT       double             ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN, RMAX;;
+      int                I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT;
+      double             ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN, RMAX;
       // ..
       // .. External Functions ..
       double             DLAMCH, DLANST, DLAPY2;

@@ -27,7 +27,8 @@
       // ..
       // .. Local Scalars ..
       bool               DONE;
-      int                IMAX, ITEMP, II, J, JB, JJ, JMAX, K, KK, KKW, KP, KSTEP, KW, P       double             ABSAKK, ALPHA, COLMAX, DTEMP, R1, ROWMAX, T, SFMIN;;
+      int                IMAX, ITEMP, II, J, JB, JJ, JMAX, K, KK, KKW, KP, KSTEP, KW, P;
+      double             ABSAKK, ALPHA, COLMAX, DTEMP, R1, ROWMAX, T, SFMIN;
       COMPLEX*16         D11, D21, D22, Z
       // ..
       // .. External Functions ..

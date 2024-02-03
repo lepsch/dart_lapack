@@ -10,7 +10,8 @@
       REAL               PIVMIN, RTOL1, RTOL2, SPLTOL, VL, VU
       // ..
       // .. Array Arguments ..
-      int                IBLOCK( * ), ISPLIT( * ), IWORK( * ), INDEXW( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * );
+      int                IBLOCK( * ), ISPLIT( * ), IWORK( * ), INDEXW( * );
+      REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -22,7 +23,8 @@
       // ..
       // .. Local Scalars ..
       bool               FORCEB, NOREP, USEDQD;
-      int                CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO, IN, INDL, INDU, IRANGE, J, JBLK, MB, MM, WBEGIN, WEND       REAL               AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1;
+      int                CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO, IN, INDL, INDU, IRANGE, J, JBLK, MB, MM, WBEGIN, WEND;
+      REAL               AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1;
 
 
       // ..

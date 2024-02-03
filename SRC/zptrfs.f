@@ -9,7 +9,8 @@
       int                INFO, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      double             BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
+      double             BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * );
+      COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================

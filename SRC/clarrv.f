@@ -9,7 +9,8 @@
       REAL               MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU
       // ..
       // .. Array Arguments ..
-      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * )       REAL               D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
+      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * );
+      REAL               D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
       COMPLEX           Z( LDZ, * )
       // ..
 

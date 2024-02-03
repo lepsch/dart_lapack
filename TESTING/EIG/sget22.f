@@ -20,7 +20,8 @@
       // ..
       // .. Local Scalars ..
       String             NORMA, NORME;
-      int                IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC       REAL               ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
+      int                IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC;
+      REAL               ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
       // ..
       // .. Local Arrays ..
       REAL               WMAT( 2, 2 )

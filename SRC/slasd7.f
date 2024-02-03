@@ -9,7 +9,8 @@
       REAL               ALPHA, BETA, C, S
       // ..
       // .. Array Arguments ..
-      int                GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ), IDXQ( * ), PERM( * )       REAL               D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ), VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ), ZW( * );
+      int                GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ), IDXQ( * ), PERM( * );
+      REAL               D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ), VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ), ZW( * );
       // ..
 
 *  =====================================================================

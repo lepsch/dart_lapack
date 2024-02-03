@@ -9,7 +9,8 @@
       double             ALPHA, BETA, C, S;
       // ..
       // .. Array Arguments ..
-      int                GIVCOL( LDGCOL, * ), IDXQ( * ), IWORK( * ), PERM( * )       double             D( * ), DIFL( * ), DIFR( * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), VF( * ), VL( * ), WORK( * ), Z( * );;
+      int                GIVCOL( LDGCOL, * ), IDXQ( * ), IWORK( * ), PERM( * );
+      double             D( * ), DIFL( * ), DIFR( * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), VF( * ), VL( * ), WORK( * ), Z( * );
       // ..
 
 *  =====================================================================

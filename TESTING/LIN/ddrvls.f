@@ -11,7 +11,8 @@
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
-      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), B( * ), C( * ), COPYA( * ), COPYB( * ), COPYS( * ), S( * );;
+      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * );
+      double             A( * ), B( * ), C( * ), COPYA( * ), COPYB( * ), COPYS( * ), S( * );
       // ..
 
 *  =====================================================================

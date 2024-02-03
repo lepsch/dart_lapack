@@ -60,7 +60,8 @@
       const              NIDMAX = 9, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       REAL               EPS, ERR, THRESH
-      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;;
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT;
+      bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;
       String             TRANSA, TRANSB;
       String             SNAMET;
       String             SNAPS;

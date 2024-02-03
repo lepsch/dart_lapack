@@ -26,7 +26,8 @@
       const              ZERO = 0.0D0, ONE = 1.0D0 ;
       // ..
       // .. Local Scalars ..
-      bool               CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, LIWRK, LWRK, MAXWRK, MINWRK;;
+      bool               CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS;
+      int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, LIWRK, LWRK, MAXWRK, MINWRK;
       double             ANRM, BIGNUM, CSCALE, EPS, SMLNUM;
       // ..
       // .. Local Arrays ..

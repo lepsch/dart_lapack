@@ -11,7 +11,8 @@
       double             ABNRM;
       // ..
       // .. Array Arguments ..
-      double             RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * )       COMPLEX*16         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
+      double             RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * );
+      COMPLEX*16         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
       // ..
 
 *  =====================================================================

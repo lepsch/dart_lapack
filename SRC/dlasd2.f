@@ -9,7 +9,8 @@
       double             ALPHA, BETA;
       // ..
       // .. Array Arguments ..
-      int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * )       double             D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );;
+      int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * );
+      double             D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
       // ..
 
 *  =====================================================================

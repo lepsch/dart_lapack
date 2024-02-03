@@ -12,7 +12,8 @@
       // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
-      double             LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), RWORK( * )       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      double             LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), RWORK( * );
+      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -26,7 +27,8 @@
       // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL, WANTSB, WANTSE, WANTSN, WANTSV;
       String             CHTEMP;
-      int                I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;;
+      int                I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK;
+      double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
       COMPLEX*16         X
       // ..
       // .. Local Arrays ..

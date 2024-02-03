@@ -21,7 +21,8 @@
       const              ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1, TNTH = 1.0E-1, HALF = 0.5E+0 ;
       // ..
       // .. Local Scalars ..
-      int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT       REAL               ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;
+      int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT;
+      REAL               ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;
       // ..
       // .. Local Arrays ..
       COMPLEX            WEIGHT( 5 )

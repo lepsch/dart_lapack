@@ -18,7 +18,8 @@
       const              ZERO = 0.0d0, ONE = 1.0d0 ;
       // ..
       // .. Local Scalars ..
-      double             AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S, SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP       int                I, IFST, ILST, INFO, INFQR, J, JW, K, KCOL, KEND, KLN, KROW, KWTOP, LTOP, LWK1, LWK2, LWKOPT;;
+      double             AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S, SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP;
+      int                I, IFST, ILST, INFO, INFQR, J, JW, K, KCOL, KEND, KLN, KROW, KWTOP, LTOP, LWK1, LWK2, LWKOPT;
       bool               BULGE, SORTED;
       // ..
       // .. External Functions ..

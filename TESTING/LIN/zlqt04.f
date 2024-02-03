@@ -20,8 +20,8 @@
       // .. Parameters ..
       double           ZERO;
       COMPLEX*16 ONE, CZERO
-      PARAMETER( ZERO = 0.0)
-      PARAMETER( ONE = (1.0,0.0), CZERO=(0.0,0.0) )
+      const    ZERO = 0.0;
+      const    ONE = (1.0,0.0), CZERO=(0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       int     INFO, J, K, LL, LWORK, LDT;

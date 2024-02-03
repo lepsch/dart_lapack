@@ -20,7 +20,7 @@
       // .. Parameters ..
       REAL ZERO
       COMPLEX       ONE, CZERO
-      PARAMETER( ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) )
+      const    ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       int     INFO, J, K, N2, NP1,i;
