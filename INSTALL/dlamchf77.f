@@ -30,7 +30,7 @@
       SAVE               FIRST, EPS, SFMIN, BASE, T, RND, EMIN, RMIN, EMAX, RMAX, PREC;
       // ..
       // .. Data statements ..
-      DATA               FIRST / true /;
+      const FIRST = true;
       // ..
       // .. Executable Statements ..
 
@@ -163,7 +163,7 @@
       SAVE               FIRST, LIEEE1, LBETA, LRND, LT;
       // ..
       // .. Data statements ..
-      DATA               FIRST / true /;
+      const FIRST = true;
       // ..
       // .. Executable Statements ..
 

@@ -35,7 +35,7 @@
       SAVE               EPS, SMALL, LARGE, BADC1, BADC2, FIRST;
       // ..
       // .. Data statements ..
-      DATA               FIRST / true /;
+      const FIRST = true;
       // ..
       // .. Executable Statements ..
 

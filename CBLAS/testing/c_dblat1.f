@@ -16,7 +16,7 @@
       // .. Common blocks ..
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Data statements ..
-      DATA             SFAC/9.765625e-4/;
+      const SFAC = 9.765625e-4;
       // .. Executable Statements ..
       WRITE (NOUT,99999);
       for (IC = 1; IC <= 10; IC++) { // 20
@@ -223,7 +223,7 @@
       // .. Common blocks ..
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Data statements ..
-      DATA              SA/0.3/;
+      const SA = 0.3;
       DATA              INCXS/1, 2, -2, -1/;
       DATA              INCYS/1, -2, 1, -2/;
       DATA              LENS/1, 1, 2, 4, 1, 1, 3, 7/;
