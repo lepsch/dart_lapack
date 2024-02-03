@@ -39,7 +39,7 @@
       EXTERNAL           DGEMV, DLACPY, DLAG2, DTGEXC, DTGSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT
+      // INTRINSIC MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

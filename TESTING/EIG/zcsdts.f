@@ -35,7 +35,7 @@
       EXTERNAL           ZGEMM, ZHERK, ZLACPY, ZLASET, ZUNCSD, ZUNCSD2BY1
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          COS, DBLE, DCMPLX, MAX, MIN, REAL, SIN
+      // INTRINSIC COS, DBLE, DCMPLX, MAX, MIN, REAL, SIN
 *     ..
 *     .. Executable Statements ..
 *

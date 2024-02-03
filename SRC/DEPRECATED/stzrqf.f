@@ -21,7 +21,7 @@
       int                I, K, M1;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SAXPY, SCOPY, SGEMV, SGER, SLARFG, XERBLA

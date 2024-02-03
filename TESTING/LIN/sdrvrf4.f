@@ -39,7 +39,7 @@
       EXTERNAL           SSYRK, SSFRK, STFTTR, STRTTF
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

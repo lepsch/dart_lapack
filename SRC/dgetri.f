@@ -30,7 +30,7 @@
       EXTERNAL           DGEMM, DGEMV, DSWAP, DTRSM, DTRTRI, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -34,7 +34,7 @@
       EXTERNAL           CCOPY, CLACPY, CLAQHP, CPPCON, CPPEQU, CPPRFS, CPPTRF, CPPTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

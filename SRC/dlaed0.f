@@ -30,7 +30,7 @@
       EXTERNAL           ILAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, INT, LOG, MAX
+      // INTRINSIC ABS, DBLE, INT, LOG, MAX
 *     ..
 *     .. Executable Statements ..
 *

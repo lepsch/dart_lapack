@@ -35,7 +35,7 @@
       EXTERNAL           ALASVM, CGET52, CGGEVX, CLACPY, CLATM6, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX, SQRT
+      // INTRINSIC ABS, CMPLX, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

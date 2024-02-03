@@ -27,7 +27,7 @@
       EXTERNAL           XERBLA, DSYTRF_RK, DSYTRS_3
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

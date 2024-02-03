@@ -41,7 +41,7 @@
       EXTERNAL           CBDT01, CBDT02, CGBBRD, CLACPY, CLASET, CLATMR, CLATMS, CUNT01, SLAHD2, SLASUM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*6, 3*9 /

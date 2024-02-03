@@ -21,7 +21,7 @@
       PARAMETER (ONE=1.0D+0)
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC MOD
+      // INTRINSIC MOD
 *     ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. DA.EQ.ONE) RETURN
       IF (INCX.EQ.1) THEN

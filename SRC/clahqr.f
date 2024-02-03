@@ -43,7 +43,7 @@
       REAL               CABS1
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CONJG, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) )

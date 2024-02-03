@@ -22,7 +22,7 @@
       REAL               TEMP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, LOG, MAX, REAL
+      // INTRINSIC INT, LOG, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

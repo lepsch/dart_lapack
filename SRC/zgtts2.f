@@ -19,7 +19,7 @@
       COMPLEX*16         TEMP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG
+      // INTRINSIC DCONJG
 *     ..
 *     .. Executable Statements ..
 *

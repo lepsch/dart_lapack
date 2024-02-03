@@ -18,7 +18,7 @@
       EXTERNAL           XERBLA, ZGBTRF, ZGBTRS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

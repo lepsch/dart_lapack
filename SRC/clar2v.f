@@ -20,7 +20,7 @@
       COMPLEX            SI, T2, T3, T4, ZI
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, CMPLX, CONJG, REAL
+      // INTRINSIC AIMAG, CMPLX, CONJG, REAL
 *     ..
 *     .. Executable Statements ..
 *

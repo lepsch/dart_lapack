@@ -32,7 +32,7 @@
       int                I, ICOMPZ, NRU;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

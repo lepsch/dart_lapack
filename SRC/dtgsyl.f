@@ -36,7 +36,7 @@
       EXTERNAL           DGEMM, DLACPY, DLASET, DSCAL, DTGSY2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, SQRT
+      // INTRINSIC DBLE, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

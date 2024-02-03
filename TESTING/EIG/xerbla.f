@@ -17,7 +17,7 @@
       int                INFOT, NOUT;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          LEN_TRIM
+      // INTRINSIC LEN_TRIM
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

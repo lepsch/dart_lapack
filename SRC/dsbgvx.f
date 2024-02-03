@@ -34,7 +34,7 @@
       EXTERNAL           DCOPY, DGEMV, DLACPY, DPBSTF, DSBGST, DSBTRD, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

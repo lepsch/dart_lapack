@@ -50,7 +50,7 @@
       EXTERNAL           CLATMR, CLACPY, CGEMM, CTRSYL, CTRSYL3
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, MAX
+      // INTRINSIC ABS, REAL, MAX
 *     ..
 *     .. Allocate memory dynamically ..
       ALLOCATE ( A( MAXM, MAXM ), STAT = AllocateStatus )

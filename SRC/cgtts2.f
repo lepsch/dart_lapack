@@ -19,7 +19,7 @@
       COMPLEX            TEMP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG
+      // INTRINSIC CONJG
 *     ..
 *     .. Executable Statements ..
 *

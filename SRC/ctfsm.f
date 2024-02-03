@@ -31,7 +31,7 @@
       EXTERNAL           XERBLA, CGEMM, CTRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MOD
+      // INTRINSIC MAX, MOD
 *     ..
 *     .. Executable Statements ..
 *

@@ -31,7 +31,7 @@
       EXTERNAL           DSCAL, DTRMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

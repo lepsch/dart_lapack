@@ -29,7 +29,7 @@
       EXTERNAL           SLASYF, SSYTF2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           SGEMM, SLACPY, SLASCL, SSCAL, SSTEDC, SSTERF, XERBLA, SSYTRD_SB2ST
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SQRT
+      // INTRINSIC SQRT
 *     ..
 *     .. Executable Statements ..
 *

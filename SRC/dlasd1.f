@@ -28,7 +28,7 @@
       EXTERNAL           DLAMRG, DLASCL, DLASD2, DLASD3, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

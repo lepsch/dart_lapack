@@ -38,7 +38,7 @@
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SIGN, SQRT
+      // INTRINSIC MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

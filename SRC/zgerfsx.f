@@ -48,7 +48,7 @@
       EXTERNAL           XERBLA, ZGECON, ZLA_GERFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT, TRANSFER
+      // INTRINSIC MAX, SQRT, TRANSFER
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, ILATRANS, ILAPREC

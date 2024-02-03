@@ -31,7 +31,7 @@
       EXTERNAL           SLASSQ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SQRT
+      // INTRINSIC ABS, SQRT
 *     ..
 *     .. Executable Statements ..
 *

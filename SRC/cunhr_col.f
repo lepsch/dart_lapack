@@ -25,7 +25,7 @@
       EXTERNAL           CCOPY, CLAUNHR_COL_GETRFNP, CSCAL, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

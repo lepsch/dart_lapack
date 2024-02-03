@@ -37,7 +37,7 @@
       EXTERNAL           SLACPY, SLASCL, SORMTR, SSCAL, SSTEDC, SSTERF, SSYTRD_2STAGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

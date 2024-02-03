@@ -33,7 +33,7 @@
       EXTERNAL           DGEQPF, DLAIC1, DLASCL, DLASET, DLATZM, DORM2R, DTRSM, DTZRQF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

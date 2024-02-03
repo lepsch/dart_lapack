@@ -32,7 +32,7 @@
       EXTERNAL           ILAENV, DZNRM2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MAX, MIN
+      // INTRINSIC INT, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

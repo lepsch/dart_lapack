@@ -38,7 +38,7 @@
       EXTERNAL           XERBLA, ZLAEIN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX
+      // INTRINSIC ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

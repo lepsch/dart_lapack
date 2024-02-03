@@ -37,7 +37,7 @@
 *     ..
 *     .. External Functions
       EXTERNAL CLASET, LSAMEN
-      INTRINSIC REAL
+      // INTRINSIC REAL
       bool    LSAMEN;
 *     ..
 *     .. Executable Statements ..

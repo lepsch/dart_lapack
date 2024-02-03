@@ -28,7 +28,7 @@
       EXTERNAL           CLASET, CUNM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, REAL
+      // INTRINSIC CMPLX, REAL
 *     ..
 *     .. Local Arrays ..
       REAL               RDUMMY( 1 )

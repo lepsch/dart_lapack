@@ -34,7 +34,7 @@
       EXTERNAL           CAXPY, CCOPY, CSSCAL, CTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX, REAL
+      // INTRINSIC ABS, CMPLX, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

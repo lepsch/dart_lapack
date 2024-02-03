@@ -43,7 +43,7 @@
       EXTERNAL           CCOPY, CGEESX, CGEMM, CLACPY, CUNT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );

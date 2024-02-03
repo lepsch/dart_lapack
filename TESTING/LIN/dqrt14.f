@@ -35,7 +35,7 @@
       EXTERNAL           DGELQ2, DGEQR2, DLACPY, DLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN
+      // INTRINSIC ABS, DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

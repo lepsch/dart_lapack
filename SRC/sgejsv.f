@@ -26,7 +26,7 @@
       bool    ALMORT, DEFR,   ERREST, GOSCAL, JRACC,  KILL,   LSVEC, L2ABER, L2KILL, L2PERT, L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS, ALOG, MAX, MIN, FLOAT, NINT, SIGN, SQRT
+      // INTRINSIC ABS, ALOG, MAX, MIN, FLOAT, NINT, SIGN, SQRT
 *     ..
 *     .. External Functions ..
       REAL      SLAMCH, SNRM2

@@ -26,7 +26,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, DIMAG, MAX, MIN
+      // INTRINSIC ABS, REAL, DIMAG, MAX, MIN
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

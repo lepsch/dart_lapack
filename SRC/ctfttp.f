@@ -30,7 +30,7 @@
       EXTERNAL           XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG
+      // INTRINSIC CONJG
 *     ..
 *     .. Intrinsic Functions ..
 *     ..

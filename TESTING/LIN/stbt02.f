@@ -32,7 +32,7 @@
       EXTERNAL           SAXPY, SCOPY, STBMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

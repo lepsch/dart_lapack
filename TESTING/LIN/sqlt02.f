@@ -31,7 +31,7 @@
       EXTERNAL           SGEMM, SLACPY, SLASET, SORGQL, SSYRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, REAL
+      // INTRINSIC MAX, REAL
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

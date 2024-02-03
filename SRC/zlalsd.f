@@ -36,7 +36,7 @@
       EXTERNAL           DGEMM, DLARTG, DLASCL, DLASDA, DLASDQ, DLASET, DLASRT, XERBLA, ZCOPY, ZDROT, ZLACPY, ZLALSA, ZLASCL, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, INT, LOG, SIGN
+      // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, INT, LOG, SIGN
 *     ..
 *     .. Executable Statements ..
 *

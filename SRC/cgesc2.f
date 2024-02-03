@@ -33,7 +33,7 @@
       EXTERNAL           ICAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, REAL
+      // INTRINSIC ABS, CMPLX, REAL
 *     ..
 *     .. Executable Statements ..
 *

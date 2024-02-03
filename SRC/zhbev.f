@@ -33,7 +33,7 @@
       EXTERNAL           DSCAL, DSTERF, XERBLA, ZHBTRD, ZLASCL, ZSTEQR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SQRT
+      // INTRINSIC SQRT
 *     ..
 *     .. Executable Statements ..
 *

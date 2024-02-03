@@ -22,7 +22,7 @@
       double             TEMP;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, INT, LOG, MAX
+      // INTRINSIC DBLE, INT, LOG, MAX
 *     ..
 *     .. Executable Statements ..
 *

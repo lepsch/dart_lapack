@@ -35,7 +35,7 @@
       EXTERNAL           ZCOPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DIMAG
+      // INTRINSIC ABS, DBLE, DCMPLX, DIMAG
 *     ..
 *     .. Save statement ..
       SAVE

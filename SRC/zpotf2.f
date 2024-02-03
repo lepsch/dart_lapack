@@ -34,7 +34,7 @@
       EXTERNAL           XERBLA, ZDSCAL, ZGEMV, ZLACGV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, SQRT
+      // INTRINSIC DBLE, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

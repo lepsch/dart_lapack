@@ -40,7 +40,7 @@
       EXTERNAL           CAXPY, CCOPY, CGEMM, CHPMV, CHPR, CHPR2, CLACPY, CLASET, CUPMTR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN, REAL
+      // INTRINSIC CMPLX, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

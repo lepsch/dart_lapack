@@ -11,7 +11,7 @@
 * =====================================================================
 *
 *     .. Intrinsic Functions ..
-      INTRINSIC ICHAR
+      // INTRINSIC ICHAR
 *     ..
 *     .. Local Scalars ..
       int     INTA,INTB,ZCODE;

@@ -26,7 +26,7 @@
       COMPLEX            ALPHA, COSINE, SINE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, SQRT
+      // INTRINSIC ABS, CONJG, MAX, SQRT
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH

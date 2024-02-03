@@ -36,7 +36,7 @@
       EXTERNAL           ZLASET, ZLAVSY_ROOK, ZSYCONVF_ROOK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..
 *

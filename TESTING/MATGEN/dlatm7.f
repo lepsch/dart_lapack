@@ -35,7 +35,7 @@
       EXTERNAL           DLARNV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, EXP, LOG
+      // INTRINSIC ABS, DBLE, EXP, LOG
 *     ..
 *     .. Executable Statements ..
 *

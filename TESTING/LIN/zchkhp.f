@@ -47,7 +47,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, ZCOPY, ZERRSY, ZGET04, ZHPCON, ZHPRFS, ZHPT01, ZHPTRF, ZHPTRI, ZHPTRS, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPPT02, ZPPT03, ZPPT05
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

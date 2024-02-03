@@ -18,7 +18,7 @@
       int     I,IX;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC DABS
+      // INTRINSIC DABS
 *     ..
       IDAMAX = 0
       IF (N.LT.1 .OR. INCX.LE.0) RETURN

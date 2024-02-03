@@ -34,7 +34,7 @@
       EXTERNAL           ZLACN2, ZGBTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

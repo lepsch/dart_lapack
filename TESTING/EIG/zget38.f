@@ -41,7 +41,7 @@
       EXTERNAL           ZDSCAL, ZGEHRD, ZHSEQR, ZHST01, ZLACPY, ZTRSEN, ZUNGHR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DIMAG, MAX, SQRT
+      // INTRINSIC DBLE, DIMAG, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -33,7 +33,7 @@
       EXTERNAL           SLASY2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, SQRT
+      // INTRINSIC ABS, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               ITVAL / 8, 4, 2, 1, 4, 8, 1, 2, 2, 1, 8, 4, 1, 2, 4, 8, 9, 4, 2, 1, 4, 9, 1, 2, 2, 1, 9, 4, 1, 2, 4, 9 /

@@ -29,7 +29,7 @@
       EXTERNAL           CLARF, CLARFG, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MIN, SQRT
+      // INTRINSIC ABS, CONJG, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
       int                ISAMAX;

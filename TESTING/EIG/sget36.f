@@ -35,7 +35,7 @@
       EXTERNAL           SHST01, SLACPY, SLASET, STREXC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN
+      // INTRINSIC ABS, SIGN
 *     ..
 *     .. Executable Statements ..
 *

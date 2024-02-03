@@ -30,7 +30,7 @@
       EXTERNAL           LSAME, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

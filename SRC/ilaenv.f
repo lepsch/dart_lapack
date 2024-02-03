@@ -17,7 +17,7 @@
       String             C1*1, C2*2, C4*2, C3*3, SUBNAM*16;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CHAR, ICHAR, INT, MIN, REAL
+      // INTRINSIC CHAR, ICHAR, INT, MIN, REAL
 *     ..
 *     .. External Functions ..
       int                IEEECK, IPARMQ, IPARAM2STAGE;

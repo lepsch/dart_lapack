@@ -28,7 +28,7 @@
       double             A, CLT, CRT, D, FA, FT, GA, GT, HA, HT, L, M, MM, R, S, SLT, SRT, T, TEMP, TSIGN, TT;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN, SQRT
+      // INTRINSIC ABS, SIGN, SQRT
 *     ..
 *     .. External Functions ..
       double             DLAMCH;

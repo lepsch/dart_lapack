@@ -32,7 +32,7 @@
       EXTERNAL           CSCAL, CSWAP, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

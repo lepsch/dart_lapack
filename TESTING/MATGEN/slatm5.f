@@ -23,7 +23,7 @@
       REAL               IMEPS, REEPS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD, REAL, SIN
+      // INTRINSIC MOD, REAL, SIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGEMM

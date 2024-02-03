@@ -21,7 +21,7 @@
       EXTERNAL           ZGEQR2, ZLARFB, ZLARFT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, MAX, MIN, REAL
+      // INTRINSIC CEILING, MAX, MIN, REAL
 *     ..
 *     .. External Functions ..
       int                ILAENV;

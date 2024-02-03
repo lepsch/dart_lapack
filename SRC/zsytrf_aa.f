@@ -35,7 +35,7 @@
       EXTERNAL           ZLASYF_AA, ZGEMM, ZGEMV, ZSCAL, ZCOPY, ZSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

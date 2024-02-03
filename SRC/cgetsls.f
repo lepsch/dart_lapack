@@ -36,7 +36,7 @@
       EXTERNAL           CGEQR, CGEMQR, CLASCL, CLASET, CTRTRS, XERBLA, CGELQ, CGEMLQ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, INT
+      // INTRINSIC MAX, MIN, INT
 *     ..
 *     .. Executable Statements ..
 *

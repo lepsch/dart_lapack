@@ -45,7 +45,7 @@
       EXTERNAL           SLARTG, SLAS2, SLASQ1, SLASR, SLASV2, SROT, SSCAL, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SIGN, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

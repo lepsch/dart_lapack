@@ -35,7 +35,7 @@
       EXTERNAL           DAXPY, DCOPY, DGEMV, DLALN2, DSCAL, XERBLA, DGEMM, DLASET, DLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Local Arrays ..
       double             X( 2, 2 );

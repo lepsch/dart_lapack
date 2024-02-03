@@ -33,7 +33,7 @@
       EXTERNAL           SAXPY, SGEMV, SSCAL, SCOPY, SSWAP, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

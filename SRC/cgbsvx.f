@@ -38,7 +38,7 @@
       EXTERNAL           CCOPY, CGBCON, CGBEQU, CGBRFS, CGBTRF, CGBTRS, CLACPY, CLAQGB, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

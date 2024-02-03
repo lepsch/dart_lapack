@@ -32,7 +32,7 @@
       EXTERNAL           CUNGQL, CUNGQR, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

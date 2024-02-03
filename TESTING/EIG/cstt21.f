@@ -32,7 +32,7 @@
       EXTERNAL           CGEMM, CHER, CHER2, CLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX, MIN, REAL
+      // INTRINSIC ABS, CMPLX, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

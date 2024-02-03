@@ -32,7 +32,7 @@
       EXTERNAL           SGEMM, SSYSWAPR, STRTRI, STRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MOD
+      // INTRINSIC ABS, MAX, MOD
 *     ..
 *     .. Executable Statements ..
 *

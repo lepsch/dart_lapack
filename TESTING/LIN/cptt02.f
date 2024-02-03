@@ -29,7 +29,7 @@
       EXTERNAL           CLANHT, SCASUM, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CLAPTM

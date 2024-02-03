@@ -33,7 +33,7 @@
       EXTERNAL           DGEMM, DLACPY, DLARFY, DLASET, DORM2L, DORM2R, DSYR, DSYR2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN
+      // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

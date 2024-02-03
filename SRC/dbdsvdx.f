@@ -38,7 +38,7 @@
       EXTERNAL           DSTEVX, DCOPY, DLASET, DSCAL, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, SIGN, SQRT
+      // INTRINSIC ABS, DBLE, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

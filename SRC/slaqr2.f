@@ -29,7 +29,7 @@
       EXTERNAL           SCOPY, SGEHRD, SGEMM, SLACPY, SLAHQR, SLANV2, SLARF, SLARFG, SLASET, SORMHR, STREXC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, INT, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

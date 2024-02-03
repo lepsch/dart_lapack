@@ -41,7 +41,7 @@
       EXTERNAL           ALASUM, SBDSDC, SBDSQR, SBDSVDX, SBDT01, SBDT02, SBDT03, SBDT04, SCOPY, SGEBRD, SGEMM, SLACPY, SLAHD2, SLASET, SLATMR, SLATMS, SORGBR, SORT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, EXP, INT, LOG, MAX, MIN, SQRT
+      // INTRINSIC ABS, EXP, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

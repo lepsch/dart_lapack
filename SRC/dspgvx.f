@@ -29,7 +29,7 @@
       EXTERNAL           DPPTRF, DSPEVX, DSPGST, DTPMV, DTPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

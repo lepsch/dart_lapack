@@ -48,7 +48,7 @@
       EXTERNAL           ALADHD, ALAERH, ALASVM, DERRVX, DGEEQU, DGESV, DGESVX, DGET01, DGET02, DGET04, DGET07, DGETRF, DGETRI, DLACPY, DLAQGE, DLARHS, DLASET, DLATB4, DLATMS, XLAENV, DGESVXX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

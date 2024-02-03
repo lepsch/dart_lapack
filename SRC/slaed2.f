@@ -34,7 +34,7 @@
       EXTERNAL           SCOPY, SLACPY, SLAMRG, SROT, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, SQRT
+      // INTRINSIC ABS, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

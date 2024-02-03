@@ -30,7 +30,7 @@
       EXTERNAL           CSYTRF_AA_2STAGE,  CSYTRS_AA_2STAGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

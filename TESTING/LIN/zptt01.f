@@ -29,7 +29,7 @@
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, MAX
+      // INTRINSIC ABS, DBLE, DCONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

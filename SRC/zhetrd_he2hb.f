@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA, ZHER2K, ZHEMM, ZGEMM, ZCOPY, ZLARFT, ZGELQF, ZGEQRF, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

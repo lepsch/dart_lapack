@@ -35,7 +35,7 @@
       EXTERNAL           CAXPY, CCOPY, CLACN2, CTBMV, CTBSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
 *     ..
 *     .. External Functions ..
       bool               LSAME;

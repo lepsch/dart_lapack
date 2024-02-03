@@ -29,7 +29,7 @@
       EXTERNAL           DLAMCH, DZASUM, ZLANHT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZLAPTM

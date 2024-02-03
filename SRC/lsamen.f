@@ -19,7 +19,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          LEN
+      // INTRINSIC LEN
 *     ..
 *     .. Executable Statements ..
 *

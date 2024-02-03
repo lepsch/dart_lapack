@@ -27,7 +27,7 @@
       EXTERNAL           DASUM, DLAMCH, DLANST
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLAPTM

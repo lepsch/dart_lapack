@@ -38,7 +38,7 @@
       EXTERNAL   CLANGE, LSAME, ISAMAX, SCNRM2, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC   ABS, CONJG, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, CONJG, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

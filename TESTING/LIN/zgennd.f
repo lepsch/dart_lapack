@@ -22,7 +22,7 @@
       COMPLEX*16 AII
 *     ..
 *     .. Intrinsics ..
-      INTRINSIC MIN, DBLE, DIMAG
+      // INTRINSIC MIN, DBLE, DIMAG
 *     ..
 *     .. Executable Statements ..
       K = MIN( M, N )

@@ -27,7 +27,7 @@
       EXTERNAL           SASUM, SLAMCH, SLANST
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLAPTM

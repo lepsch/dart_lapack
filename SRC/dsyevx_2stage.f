@@ -38,7 +38,7 @@
       EXTERNAL           DCOPY, DLACPY, DORGTR, DORMTR, DSCAL, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA, DSYTRD_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT
+      // INTRINSIC MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

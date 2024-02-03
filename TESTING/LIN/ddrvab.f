@@ -43,7 +43,7 @@
       EXTERNAL           ALAERH, ALAHD, DGET08, DLACPY, DLARHS, DLASET, DLATB4, DLATMS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN, SQRT
+      // INTRINSIC DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

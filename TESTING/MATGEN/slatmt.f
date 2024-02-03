@@ -38,7 +38,7 @@
       EXTERNAL           SLATM7, SCOPY, SLAGGE, SLAGSY, SLAROT, SLARTG, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, COS, MAX, MIN, MOD, REAL, SIN
+      // INTRINSIC ABS, COS, MAX, MIN, MOD, REAL, SIN
 *     ..
 *     .. Executable Statements ..
 *

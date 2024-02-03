@@ -36,7 +36,7 @@
       EXTERNAL           ZLASET, ZLAVHP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DIMAG
+      // INTRINSIC DBLE, DIMAG
 *     ..
 *     .. Executable Statements ..
 *

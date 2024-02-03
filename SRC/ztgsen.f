@@ -37,7 +37,7 @@
       EXTERNAL           XERBLA, ZLACN2, ZLACPY, ZLASSQ, ZSCAL, ZTGEXC, ZTGSYL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, DCONJG, MAX, SQRT
+      // INTRINSIC ABS, DCMPLX, DCONJG, MAX, SQRT
 *     ..
 *     .. External Functions ..
       double             DLAMCH;

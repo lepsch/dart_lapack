@@ -23,7 +23,7 @@
       double             FACT, TEMP;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS
+      // INTRINSIC ABS
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA

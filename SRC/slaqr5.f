@@ -28,7 +28,7 @@
 *     ..
 *     .. Intrinsic Functions ..
 *
-      INTRINSIC          ABS, MAX, MIN, MOD, REAL
+      // INTRINSIC ABS, MAX, MIN, MOD, REAL
 *     ..
 *     .. Local Arrays ..
       REAL               VT( 3 )

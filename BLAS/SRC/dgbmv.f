@@ -31,7 +31,7 @@
       EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC MAX,MIN
+      // INTRINSIC MAX,MIN
 *     ..
 *
 *     Test the input parameters.

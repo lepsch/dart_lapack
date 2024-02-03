@@ -29,7 +29,7 @@
       EXTERNAL           CHER2K, CHETD2, CLATRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

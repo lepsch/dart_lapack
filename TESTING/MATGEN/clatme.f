@@ -47,7 +47,7 @@
       EXTERNAL           CCOPY, CGEMV, CGERC, CLACGV, CLARFG, CLARGE, CLARNV, CLATM1, CLASET, CSCAL, CSSCAL, SLATM1, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MOD
+      // INTRINSIC ABS, CONJG, MAX, MOD
 *     ..
 *     .. Executable Statements ..
 *

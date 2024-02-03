@@ -35,7 +35,7 @@
       EXTERNAL           SCOPY, SLAGS2, SLAPLL, SLARTG, SLASET, SROT, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, HUGE
+      // INTRINSIC ABS, MAX, MIN, HUGE
       PARAMETER          ( HUGENUM = HUGE(ZERO) )
 *     ..
 *     .. Executable Statements ..

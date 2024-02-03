@@ -35,7 +35,7 @@
       EXTERNAL           XERBLA, ZGELQ2, ZGEQR2, ZLACPY, ZLASCL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, MAX, MIN
+      // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

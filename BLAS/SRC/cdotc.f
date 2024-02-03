@@ -18,7 +18,7 @@
       int     I,IX,IY;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC CONJG
+      // INTRINSIC CONJG
 *     ..
       CTEMP = (0.0,0.0)
       CDOTC = (0.0,0.0)

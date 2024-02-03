@@ -26,7 +26,7 @@
       EXTERNAL           ZCOPY, ZLATSQR, ZUNGTSQR_ROW, ZUNHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC CEILING, DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -46,7 +46,7 @@
       EXTERNAL           ALADHD, ALAERH, ALASVM, DCOPY, DLARNV, DSCAL, ZCOPY, ZDSCAL, ZERRVX, ZGET04, ZLACPY, ZLAPTM, ZLARNV, ZLASET, ZLATB4, ZLATMS, ZPTSV, ZPTSVX, ZPTT01, ZPTT02, ZPTT05, ZPTTRF, ZPTTRS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, MAX
+      // INTRINSIC ABS, DCMPLX, MAX
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

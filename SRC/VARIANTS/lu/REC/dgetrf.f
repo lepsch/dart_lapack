@@ -34,7 +34,7 @@
       EXTERNAL           DTRSM, DSCAL, XERBLA, DLASWP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, IAND
+      // INTRINSIC MAX, MIN, IAND
 *     ..
 *     .. Executable Statements ..
 *

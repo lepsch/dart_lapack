@@ -35,7 +35,7 @@
       EXTERNAL           SISNAN, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL
+      // INTRINSIC ABS, REAL
 *     ..
 *     .. Executable Statements ..
 *

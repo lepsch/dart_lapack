@@ -35,7 +35,7 @@
       EXTERNAL           XERBLA, DCOPY, DLACPY, DLASET, DGBTRF, DGEMM,  DGETRF, DSYGST, DSWAP, DTRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. Executable Statements ..
 *

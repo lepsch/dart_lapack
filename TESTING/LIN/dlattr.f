@@ -36,7 +36,7 @@
       EXTERNAL           DCOPY, DLARNV, DLATB4, DLATMS, DROT, DROTG, DSCAL, DSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, SIGN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

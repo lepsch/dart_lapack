@@ -24,7 +24,7 @@
 *     .. EXTERNAL SUBROUTINES ..
       EXTERNAL           DGEQRT, DTPQRT, XERBLA
 *     .. INTRINSIC FUNCTIONS ..
-      INTRINSIC          MAX, MIN, MOD
+      // INTRINSIC MAX, MIN, MOD
 *     ..
 *     .. EXECUTABLE STATEMENTS ..
 *

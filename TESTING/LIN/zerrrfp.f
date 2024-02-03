@@ -28,7 +28,7 @@
       int                INFOT, NOUT;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX
+      // INTRINSIC DCMPLX
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

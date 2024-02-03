@@ -36,7 +36,7 @@
       EXTERNAL     CLAHEF_AA, CGEMM, CCOPY, CSWAP, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC    REAL, CONJG, MAX
+      // INTRINSIC REAL, CONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

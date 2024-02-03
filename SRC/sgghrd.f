@@ -31,7 +31,7 @@
       EXTERNAL           SLARTG, SLASET, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

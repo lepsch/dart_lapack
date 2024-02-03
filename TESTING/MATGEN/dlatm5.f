@@ -23,7 +23,7 @@
       double             IMEPS, REEPS;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MOD, SIN
+      // INTRINSIC DBLE, MOD, SIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMM

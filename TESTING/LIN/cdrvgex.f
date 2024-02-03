@@ -49,7 +49,7 @@
       EXTERNAL           ALADHD, ALAERH, ALASVM, CERRVX, CGEEQU, CGESV, CGESVX, CGET01, CGET02, CGET04, CGET07, CGETRF, CGETRI, CLACPY, CLAQGE, CLARHS, CLASET, CLATB4, CLATMS, XLAENV, CGESVXX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX
+      // INTRINSIC ABS, CMPLX, MAX
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

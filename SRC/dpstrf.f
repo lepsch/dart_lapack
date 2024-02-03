@@ -35,7 +35,7 @@
       EXTERNAL           DGEMV, DPSTF2, DSCAL, DSWAP, DSYRK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT, MAXLOC
+      // INTRINSIC MAX, MIN, SQRT, MAXLOC
 *     ..
 *     .. Executable Statements ..
 *

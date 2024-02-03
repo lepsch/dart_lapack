@@ -37,7 +37,7 @@
       EXTERNAL           DLACPY, DLARNV, DLASET, DGETSQRHRT, DSCAL, DGEMM, DGEMQRT, DSYRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, DBLE, MAX, MIN
+      // INTRINSIC CEILING, DBLE, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       String   (LEN=32)  SRNAMT;

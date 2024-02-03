@@ -37,7 +37,7 @@
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

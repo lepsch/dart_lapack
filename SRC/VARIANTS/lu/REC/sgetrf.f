@@ -34,7 +34,7 @@
       EXTERNAL           STRSM, SSCAL, XERBLA, SLASWP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, IAND
+      // INTRINSIC MAX, MIN, IAND
 *     ..
 *     .. Executable Statements ..
 *

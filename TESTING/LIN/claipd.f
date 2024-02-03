@@ -22,7 +22,7 @@
       EXTERNAL           SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, REAL
+      // INTRINSIC CMPLX, REAL
 *     ..
 *     .. Executable Statements ..
 *

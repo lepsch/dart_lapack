@@ -32,7 +32,7 @@
       EXTERNAL           LSAME, CLANGE, CLANSP, SLAMCH, CDOTU
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

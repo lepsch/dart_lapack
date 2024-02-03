@@ -43,7 +43,7 @@
       EXTERNAL           XERBLA, ZCOPY, ZGEESX, ZGEMM, ZLACPY, ZUNT01
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN
+      // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );

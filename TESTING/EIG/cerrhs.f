@@ -33,7 +33,7 @@
       EXTERNAL           CHKXER, CGEBAK, CGEBAL, CGEHRD, CHSEIN, CHSEQR, CUNGHR, CUNMHR, CTREVC, CTREVC3, CGEHD2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

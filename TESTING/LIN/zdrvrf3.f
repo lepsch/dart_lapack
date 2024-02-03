@@ -44,7 +44,7 @@
       EXTERNAL           ZTRTTF, ZGEQRF, ZGEQLF, ZTFSM, ZTRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

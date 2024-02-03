@@ -32,7 +32,7 @@
       EXTERNAL           SLARFB, SLARFT, SORM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

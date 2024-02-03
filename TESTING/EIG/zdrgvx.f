@@ -35,7 +35,7 @@
       EXTERNAL           ALASVM, XERBLA, ZGET52, ZGGEVX, ZLACPY, ZLATM6
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, MAX, SQRT
+      // INTRINSIC ABS, DCMPLX, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

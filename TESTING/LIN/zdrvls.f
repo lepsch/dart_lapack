@@ -52,7 +52,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASVM, DAXPY, ZERRLS, ZGELS, ZGELSD, ZGELSS, ZGELST, ZGELSY, ZGEMM, ZGETSLS, ZLACPY, ZLARNV, ZQRT13, ZQRT15, ZQRT16, ZDSCAL, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN, INT, SQRT
+      // INTRINSIC DBLE, MAX, MIN, INT, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

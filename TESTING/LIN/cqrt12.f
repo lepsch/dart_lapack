@@ -33,7 +33,7 @@
       EXTERNAL           CGEBD2, CLASCL, CLASET, SAXPY, SBDSQR, SLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN, REAL
+      // INTRINSIC CMPLX, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

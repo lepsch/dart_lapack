@@ -49,7 +49,7 @@
       EXTERNAL           DLACPY, DLAHQR, DLAQR0, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN
+      // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

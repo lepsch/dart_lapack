@@ -42,7 +42,7 @@
       EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZLACPY, ZLASCL, ZSTEIN, ZSTEQR, ZSWAP, ZHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN, SQRT
+      // INTRINSIC DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

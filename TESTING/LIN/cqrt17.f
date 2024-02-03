@@ -34,7 +34,7 @@
       EXTERNAL           CGEMM, CLACPY, CLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, REAL
+      // INTRINSIC CMPLX, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

@@ -51,7 +51,7 @@
       EXTERNAL           XERBLA, ZCOPY, ZLACPY, ZLAHQR, ZLAQR0, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

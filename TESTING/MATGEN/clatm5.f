@@ -23,7 +23,7 @@
       COMPLEX            IMEPS, REEPS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MOD, SIN
+      // INTRINSIC CMPLX, MOD, SIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGEMM

@@ -35,7 +35,7 @@
       EXTERNAL           XERBLA, ZHEGST, ZPOTRF, ZTRMM, ZTRSM, ZHEEV_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

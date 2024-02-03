@@ -33,7 +33,7 @@
       EXTERNAL           DGEQR, DGEMQR, DLASCL, DLASET, DTRTRS, XERBLA, DGELQ, DGEMLQ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN, INT
+      // INTRINSIC DBLE, MAX, MIN, INT
 *     ..
 *     .. Executable Statements ..
 *

@@ -27,7 +27,7 @@
       EXTERNAL           SLARAN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, EXP, LOG, SQRT
+      // INTRINSIC CMPLX, EXP, LOG, SQRT
 *     ..
 *     .. Executable Statements ..
 *

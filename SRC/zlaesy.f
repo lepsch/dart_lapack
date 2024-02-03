@@ -27,7 +27,7 @@
       COMPLEX*16         S, T, TMP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

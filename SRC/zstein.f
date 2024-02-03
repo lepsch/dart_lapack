@@ -39,7 +39,7 @@
       EXTERNAL           DCOPY, DLAGTF, DLAGTS, DLARNV, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, MAX, SQRT
+      // INTRINSIC ABS, DBLE, DCMPLX, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

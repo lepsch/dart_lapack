@@ -38,7 +38,7 @@
       EXTERNAL           CLANGE, ILAENV, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, CMPLX
+      // INTRINSIC ABS, MAX, MIN, REAL, CMPLX
 *     ..
 *     .. Executable Statements ..
 *

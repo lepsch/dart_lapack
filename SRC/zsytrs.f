@@ -32,7 +32,7 @@
       EXTERNAL           XERBLA, ZGEMV, ZGERU, ZSCAL, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

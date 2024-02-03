@@ -44,7 +44,7 @@
       EXTERNAL           CGEEVX, CGET22, CLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
 *     ..
 *     .. Data statements ..
       DATA               SENS / 'N', 'V' /

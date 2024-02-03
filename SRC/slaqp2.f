@@ -26,7 +26,7 @@
       EXTERNAL           SLARF, SLARFG, SSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, SQRT
+      // INTRINSIC ABS, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
       int                ISAMAX;

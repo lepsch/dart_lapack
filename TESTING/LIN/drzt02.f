@@ -31,7 +31,7 @@
       EXTERNAL           DLASET, DORMRZ, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX
+      // INTRINSIC DBLE, MAX
 *     ..
 *     .. Executable Statements ..
 *

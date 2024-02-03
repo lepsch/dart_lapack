@@ -35,7 +35,7 @@
       EXTERNAL           SGECON, SGEEQU, SGERFS, SGETRF, SGETRS, SLACPY, SLAQGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -32,7 +32,7 @@
       EXTERNAL           CGEMV, CLACGV, CSSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, REAL
+      // INTRINSIC CMPLX, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

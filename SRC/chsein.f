@@ -38,7 +38,7 @@
       EXTERNAL           CLAEIN, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, REAL
+      // INTRINSIC ABS, AIMAG, MAX, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

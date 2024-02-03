@@ -20,7 +20,7 @@
       String             PREC*1, ALGO*3, STAG*5, SUBNAM*12, VECT*1;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CHAR, ICHAR, MAX
+      // INTRINSIC CHAR, ICHAR, MAX
 *     ..
 *     .. External Functions ..
       int                ILAENV;

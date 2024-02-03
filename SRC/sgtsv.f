@@ -22,7 +22,7 @@
       REAL               FACT, TEMP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA

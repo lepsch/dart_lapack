@@ -30,7 +30,7 @@
       EXTERNAL           CCOPY, CGEMM, CLACGV, CTRMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG
+      // INTRINSIC CONJG
 *     ..
 *     .. Executable Statements ..
 *

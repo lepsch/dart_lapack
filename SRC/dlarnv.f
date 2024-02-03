@@ -29,7 +29,7 @@
       double             U( LV );
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          COS, LOG, MIN, SQRT
+      // INTRINSIC COS, LOG, MIN, SQRT
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLARUV

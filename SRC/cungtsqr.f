@@ -26,7 +26,7 @@
       EXTERNAL           CCOPY, CLAMTSQR, CLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN
+      // INTRINSIC CMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

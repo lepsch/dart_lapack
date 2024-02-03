@@ -30,7 +30,7 @@
       EXTERNAL           CUNG2L, CUNG2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

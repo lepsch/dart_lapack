@@ -32,7 +32,7 @@
       EXTERNAL           CHKXER, DGEBAK, DGEBAL, DGEHRD, DHSEIN, DHSEQR, DORGHR, DORMHR, DTREVC, DTREVC3, DGEHD2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

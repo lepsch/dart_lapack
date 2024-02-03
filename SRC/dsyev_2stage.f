@@ -34,7 +34,7 @@
       EXTERNAL           DLASCL, DORGTR, DSCAL, DSTEQR, DSTERF, XERBLA, DSYTRD_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

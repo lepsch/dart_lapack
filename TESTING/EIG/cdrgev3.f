@@ -46,7 +46,7 @@
       EXTERNAL           ALASVM, CGET52, CGGEV3, CLACPY, CLARFG, CLASET, CLATM4, CUNM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MIN, REAL, SIGN
+      // INTRINSIC ABS, CONJG, MAX, MIN, REAL, SIGN
 *     ..
 *     .. Data statements ..
       DATA               KCLASS / 15*1, 10*2, 1*3 /

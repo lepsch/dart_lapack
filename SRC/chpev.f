@@ -32,7 +32,7 @@
       EXTERNAL           CHPTRD, CSSCAL, CSTEQR, CUPGTR, SSCAL, SSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SQRT
+      // INTRINSIC SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -26,7 +26,7 @@
       EXTERNAL           DGEMV, DGER, DLARNV, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SIGN
+      // INTRINSIC MAX, MIN, SIGN
 *     ..
 *     .. External Functions ..
       double             DNRM2;

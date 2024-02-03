@@ -40,7 +40,7 @@
       EXTERNAL           SGBEQUB, SGBTRF, SGBTRS, SLACPY, SLAQGB, XERBLA, SLASCL2, SGBRFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

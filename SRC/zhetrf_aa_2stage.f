@@ -35,7 +35,7 @@
       EXTERNAL           XERBLA, ZCOPY, ZLACGV, ZLACPY, ZLASET, ZGBTRF, ZGEMM,  ZGETRF, ZHEGST, ZSWAP, ZTRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG, MIN, MAX
+      // INTRINSIC DCONJG, MIN, MAX
 *     ..
 *     .. Executable Statements ..
 *

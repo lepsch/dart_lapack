@@ -41,7 +41,7 @@
       EXTERNAL           LSAME, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL, CMPLX, CONJG, AIMAG, MAX, SQRT
+      // INTRINSIC REAL, CMPLX, CONJG, AIMAG, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

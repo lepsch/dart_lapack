@@ -49,7 +49,7 @@
       EXTERNAL           DCOPY, DGEESX, DGEMM, DLACPY, DORT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SIGN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

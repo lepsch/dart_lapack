@@ -26,7 +26,7 @@
       bool               LSAME;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, DIMAG
+      // INTRINSIC ABS, MAX, MIN, REAL, DIMAG
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

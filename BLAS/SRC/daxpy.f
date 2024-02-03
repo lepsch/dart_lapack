@@ -18,7 +18,7 @@
       int     I,IX,IY,M,MP1;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC MOD
+      // INTRINSIC MOD
 *     ..
       IF (N.LE.0) RETURN
       IF (DA.EQ.0.0d0) RETURN

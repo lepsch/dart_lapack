@@ -30,7 +30,7 @@
       EXTERNAL           SGEMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

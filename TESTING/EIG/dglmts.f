@@ -31,7 +31,7 @@
       EXTERNAL           DCOPY, DGEMV, DGGGLM, DLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -15,7 +15,7 @@
       double            aInf, aNaN, OV, R, X(n), Y(n);
 *
 *     .. Intrinsic Functions ..
-      intrinsic         HUGE, MIN, MAX
+      // intrinsic HUGE, MIN, MAX
 
 *
 *     .. Initialize error counts ..

@@ -36,7 +36,7 @@
       EXTERNAL           CLAVSP, CLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

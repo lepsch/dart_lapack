@@ -33,7 +33,7 @@
       EXTERNAL           DCOPY, ZGEMM, ZGGSVD3, ZHERK, ZLACPY, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN
+      // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

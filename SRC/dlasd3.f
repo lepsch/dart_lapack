@@ -30,7 +30,7 @@
       EXTERNAL           DCOPY, DGEMM, DLACPY, DLASCL, DLASD4, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN, SQRT
+      // INTRINSIC ABS, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

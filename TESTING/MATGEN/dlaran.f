@@ -24,7 +24,7 @@
       double             RNDOUT;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MOD
+      // INTRINSIC DBLE, MOD
 *     ..
 *     .. Executable Statements ..
   10  CONTINUE

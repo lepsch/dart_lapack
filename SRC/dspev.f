@@ -32,7 +32,7 @@
       EXTERNAL           DOPGTR, DSCAL, DSPTRD, DSTEQR, DSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SQRT
+      // INTRINSIC SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -38,7 +38,7 @@
       EXTERNAL           CGGHRD, CLARTG, CLASET, CUNM22, CROT, CGEMM, CGEMV, CTRMV, CLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL, CMPLX, CONJG, MAX
+      // INTRINSIC REAL, CMPLX, CONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

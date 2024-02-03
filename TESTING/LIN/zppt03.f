@@ -32,7 +32,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANGE, ZLANHP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCONJG
+      // INTRINSIC DBLE, DCONJG
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZCOPY, ZHPMV

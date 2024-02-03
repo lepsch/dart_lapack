@@ -36,7 +36,7 @@
       EXTERNAL           XERBLA, ZHECON, ZHERFS, ZHETRF, ZHETRS, ZLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

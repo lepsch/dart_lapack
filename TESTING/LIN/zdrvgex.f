@@ -49,7 +49,7 @@
       EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGEEQU, ZGESV, ZGESVX, ZGET01, ZGET02, ZGET04, ZGET07, ZGETRF, ZGETRI, ZLACPY, ZLAQGE, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZGESVXX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, MAX, DBLE, DIMAG
+      // INTRINSIC ABS, DCMPLX, MAX, DBLE, DIMAG
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

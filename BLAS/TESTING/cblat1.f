@@ -108,7 +108,7 @@
 *     .. External Subroutines ..
       EXTERNAL          CB1NRM2, CSCAL, CSSCAL, CTEST, ITEST1, STEST1
 *     .. Intrinsic Functions ..
-      INTRINSIC         MAX
+      // INTRINSIC MAX
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -239,7 +239,7 @@
 *     .. External Subroutines ..
       EXTERNAL          CAXPY, CCOPY, CSWAP, CTEST
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -357,7 +357,7 @@
       REAL             SDIFF
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
-      INTRINSIC        ABS
+      // INTRINSIC ABS
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Executable Statements ..
@@ -445,7 +445,7 @@
 *     .. External Subroutines ..
       EXTERNAL         STEST
 *     .. Intrinsic Functions ..
-      INTRINSIC        AIMAG, REAL
+      // INTRINSIC AIMAG, REAL
 *     .. Executable Statements ..
       DO 20 I = 1, LEN
          SCOMP(2*I-1) = REAL(CCOMP(I))
@@ -535,7 +535,7 @@
       REAL              SCNRM2
       EXTERNAL          SCNRM2
 *     .. Intrinsic Functions ..
-      INTRINSIC         AIMAG, ABS, CMPLX, MAX, MIN, REAL, SQRT
+      // INTRINSIC AIMAG, ABS, CMPLX, MAX, MIN, REAL, SQRT
 *     .. Model parameters ..
       REAL              BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP
       PARAMETER         (BIGNUM=0.1014120480E+32, SAFMAX=0.8507059173E+38, SAFMIN=0.1175494351E-37, SMLNUM=0.9860761315E-31, ULP=0.1192092896E-06)
@@ -709,7 +709,7 @@
 *     .. Local Scalars ..
       REAL              X, Y, YY, Z
 *     .. Intrinsic Functions ..
-      INTRINSIC         HUGE
+      // INTRINSIC HUGE
 *     .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY

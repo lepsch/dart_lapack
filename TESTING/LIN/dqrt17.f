@@ -34,7 +34,7 @@
       EXTERNAL           DGEMM, DLACPY, DLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX
+      // INTRINSIC DBLE, MAX
 *     ..
 *     .. Executable Statements ..
 *

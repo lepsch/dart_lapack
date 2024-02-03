@@ -31,7 +31,7 @@
       EXTERNAL           DLAMC3, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

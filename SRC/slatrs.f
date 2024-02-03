@@ -37,7 +37,7 @@
       EXTERNAL           SAXPY, SSCAL, STRSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

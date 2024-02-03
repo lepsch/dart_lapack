@@ -40,7 +40,7 @@
       EXTERNAL           CGEEQUB, CGETRF, CGETRS, CLACPY, CLAQGE, XERBLA, CLASCL2, CGERFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

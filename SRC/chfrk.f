@@ -35,7 +35,7 @@
       EXTERNAL           CGEMM, CHERK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, CMPLX
+      // INTRINSIC MAX, CMPLX
 *     ..
 *     .. Executable Statements ..
 *

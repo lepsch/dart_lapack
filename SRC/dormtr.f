@@ -27,7 +27,7 @@
       EXTERNAL           DORMQL, DORMQR, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

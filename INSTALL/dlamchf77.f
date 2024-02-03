@@ -373,7 +373,7 @@
       EXTERNAL           DLAMC1, DLAMC4, DLAMC5
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Save statement ..
       SAVE               FIRST, IWARN, LBETA, LEMAX, LEMIN, LEPS, LRMAX, LRMIN, LT
@@ -743,7 +743,7 @@
       EXTERNAL           DLAMC3
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD
+      // INTRINSIC MOD
 *     ..
 *     .. Executable Statements ..
 *

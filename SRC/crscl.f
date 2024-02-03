@@ -30,7 +30,7 @@
       EXTERNAL           CSCAL, CSSCAL, CSRSCL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS
+      // INTRINSIC ABS
 *     ..
 *     .. Executable Statements ..
 *

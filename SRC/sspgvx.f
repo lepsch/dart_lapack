@@ -29,7 +29,7 @@
       EXTERNAL           SPPTRF, SSPEVX, SSPGST, STPMV, STPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

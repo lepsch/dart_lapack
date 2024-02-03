@@ -42,7 +42,7 @@
       EXTERNAL           SCOPY, SGEMV, SGER, SLARFG, SLARGE, SLARNV, SLATM1, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MOD
+      // INTRINSIC ABS, MAX, MOD
 *     ..
 *     .. Executable Statements ..
 *

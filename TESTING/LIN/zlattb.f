@@ -39,7 +39,7 @@
       EXTERNAL           DLARNV, ZCOPY, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

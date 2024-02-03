@@ -38,7 +38,7 @@
       EXTERNAL           SLADIV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Equivalences ..
       EQUIVALENCE        ( CI( 1, 1 ), CIV( 1 ) ), ( CR( 1, 1 ), CRV( 1 ) )

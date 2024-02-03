@@ -40,7 +40,7 @@
       EXTERNAL           ILAENV, LSAME, CLANGE, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, INT, MAX, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, INT, MAX, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1

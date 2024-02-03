@@ -34,7 +34,7 @@
       EXTERNAL           DGEMM, DGGBAK, DGGBAL, DLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

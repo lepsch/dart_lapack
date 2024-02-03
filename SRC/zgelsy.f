@@ -38,7 +38,7 @@
       EXTERNAL           ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

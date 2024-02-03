@@ -38,7 +38,7 @@
       EXTERNAL           XERBLA, ZDSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX, MIN
+      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

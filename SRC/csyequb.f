@@ -37,7 +37,7 @@
       EXTERNAL           CLASSQ, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, INT, LOG, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, INT, LOG, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

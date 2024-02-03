@@ -33,7 +33,7 @@
       EXTERNAL           SGEMM, STRSYL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL, SIN, SQRT
+      // INTRINSIC ABS, MAX, REAL, SIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               IDIM / 1, 2, 3, 4, 3, 3, 6, 4 /

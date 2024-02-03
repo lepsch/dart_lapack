@@ -40,7 +40,7 @@
       EXTERNAL           SLACPY, SLASUM, SLATMR, SLATMS, SLASET, SSBT21, SSBTRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8 /

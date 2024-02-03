@@ -46,7 +46,7 @@
       EXTERNAL           XERBLA, CPOCON, CLA_PORFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT, TRANSFER
+      // INTRINSIC MAX, SQRT, TRANSFER
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, ILAPREC

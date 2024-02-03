@@ -34,7 +34,7 @@
       EXTERNAL           SLASCL, SSCAL, SSTEQR, SSTERF, XERBLA, SSYTRD_SB2ST
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SQRT
+      // INTRINSIC SQRT
 *     ..
 *     .. Executable Statements ..
 *

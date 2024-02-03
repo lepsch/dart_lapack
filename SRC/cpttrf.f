@@ -26,7 +26,7 @@
       EXTERNAL           XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, CMPLX, MOD, REAL
+      // INTRINSIC AIMAG, CMPLX, MOD, REAL
 *     ..
 *     .. Executable Statements ..
 *

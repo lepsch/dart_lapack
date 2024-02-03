@@ -40,7 +40,7 @@
       EXTERNAL           SLAEBZ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, LOG, MAX, MIN
+      // INTRINSIC ABS, INT, LOG, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

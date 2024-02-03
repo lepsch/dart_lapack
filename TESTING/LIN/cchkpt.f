@@ -48,7 +48,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, CCOPY, CERRGT, CGET04, CLACPY, CLAPTM, CLARNV, CLATB4, CLATMS, CPTCON, CPTRFS, CPTT01, CPTT02, CPTT05, CPTTRF, CPTTRS, CSSCAL, SCOPY, SLARNV, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL
+      // INTRINSIC ABS, MAX, REAL
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

@@ -36,7 +36,7 @@
       EXTERNAL           CGEMM, CLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CONJG, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

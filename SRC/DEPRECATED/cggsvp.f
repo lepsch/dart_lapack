@@ -34,7 +34,7 @@
       EXTERNAL           CGEQPF, CGEQR2, CGERQ2, CLACPY, CLAPMT, CLASET, CUNG2R, CUNM2R, CUNMR2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

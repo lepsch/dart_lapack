@@ -17,7 +17,7 @@
       int                I, IOFF;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG
+      // INTRINSIC CONJG
 *     ..
 *     .. Executable Statements ..
 *

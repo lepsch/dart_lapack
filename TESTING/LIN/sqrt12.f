@@ -29,7 +29,7 @@
       EXTERNAL           SAXPY, SBDSQR, SGEBD2, SLASCL, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL
+      // INTRINSIC MAX, MIN, REAL
 *     ..
 *     .. Local Arrays ..
       REAL               DUMMY( 1 )

@@ -41,7 +41,7 @@
       EXTERNAL           ZHERK, ZHFRK, ZTFTTR, ZTRTTF
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DABS, MAX
+      // INTRINSIC DABS, MAX
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

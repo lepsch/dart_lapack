@@ -35,7 +35,7 @@
       EXTERNAL           SLACPY, SSYCON, SSYRFS, SSYTRF, SSYTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           SGBEQU, SGEEQU, SPBEQU, SPOEQU, SPPEQU
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

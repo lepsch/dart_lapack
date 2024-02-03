@@ -37,7 +37,7 @@
       EXTERNAL           ZTRSM, ZSCAL, XERBLA, ZLASWP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, IAND, ABS
+      // INTRINSIC MAX, MIN, IAND, ABS
 *     ..
 *     .. Executable Statements ..
 *

@@ -22,7 +22,7 @@
       REAL               H21S, H31S, S
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS
+      // INTRINSIC ABS
 *     ..
 *     .. Executable Statements ..
 *

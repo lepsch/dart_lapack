@@ -35,7 +35,7 @@
       EXTERNAL           ZHPR, ZSCAL, ZTPMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DIMAG
+      // INTRINSIC DBLE, DIMAG
 *     ..
 *     .. Executable Statements ..
 *

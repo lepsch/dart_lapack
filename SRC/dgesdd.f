@@ -38,7 +38,7 @@
       EXTERNAL           DLAMCH, DLANGE, LSAME, DISNAN,  DROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MAX, MIN, SQRT
+      // INTRINSIC INT, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

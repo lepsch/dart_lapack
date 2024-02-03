@@ -32,7 +32,7 @@
       EXTERNAL           STRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

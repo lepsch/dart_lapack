@@ -41,7 +41,7 @@
       EXTERNAL           ZLACPY, ZLARTG, ZLASSQ, ZROT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, MAX, SQRT
+      // INTRINSIC ABS, DBLE, DCONJG, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -30,7 +30,7 @@
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SIGN
+      // INTRINSIC ABS, DBLE, MAX, MIN, SIGN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DORT01, XERBLA

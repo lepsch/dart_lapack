@@ -39,7 +39,7 @@
       EXTERNAL           CGEMM, CTRMM, CHESWAPR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

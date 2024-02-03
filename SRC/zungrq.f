@@ -25,7 +25,7 @@
       EXTERNAL           XERBLA, ZLARFB, ZLARFT, ZUNGR2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;

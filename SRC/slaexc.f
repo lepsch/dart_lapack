@@ -37,7 +37,7 @@
       EXTERNAL           SLACPY, SLANV2, SLARFG, SLARFX, SLARTG, SLASY2, SROT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

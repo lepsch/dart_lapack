@@ -32,7 +32,7 @@
       EXTERNAL           XERBLA, ZDSCAL, ZHPR, ZTPSV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, SQRT
+      // INTRINSIC DBLE, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -19,7 +19,7 @@
       int                I, J;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. External Functions ..
       EXTERNAL           SLAMCH

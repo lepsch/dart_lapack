@@ -22,7 +22,7 @@
       EXTERNAL           DLARTG, DLASV2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS
+      // INTRINSIC ABS
 *     ..
 *     .. Executable Statements ..
 *

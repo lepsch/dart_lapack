@@ -37,8 +37,8 @@
       EXTERNAL           DZNRM2, LSAME
 *     ..
 *     .. Intrinsic Functions
-      INTRINSIC          ATAN2, COS, MAX, MIN, SIN
-      INTRINSIC          DCMPLX, DCONJG
+      // INTRINSIC ATAN2, COS, MAX, MIN, SIN
+      // INTRINSIC DCMPLX, DCONJG
 *     ..
 *     .. Executable Statements ..
 *

@@ -37,7 +37,7 @@
       EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME, ILAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC  MAX, MIN
+      // INTRINSIC MAX, MIN
 *     .. Scalars in Common ..
       String             srnamt;
 *     ..

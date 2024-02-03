@@ -24,7 +24,7 @@
       EXTERNAL           DGEMV, DLARFG, DSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

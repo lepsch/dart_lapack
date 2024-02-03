@@ -38,7 +38,7 @@
       EXTERNAL           XERBLA, ZGELQF, ZGEQRF, ZLASCL, ZLASET, ZTRTRS, ZUNMLQ, ZUNMQR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN
+      // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

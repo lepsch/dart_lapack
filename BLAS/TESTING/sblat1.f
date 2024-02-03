@@ -199,7 +199,7 @@
 *     .. External Subroutines ..
       EXTERNAL          ITEST1, SB1NRM2, SSCAL, STEST, STEST1
 *     .. Intrinsic Functions ..
-      INTRINSIC         MAX
+      // INTRINSIC MAX
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -287,7 +287,7 @@
 *     .. External Subroutines ..
       EXTERNAL          SAXPY, SCOPY, SROTM, SSWAP, STEST, STEST1
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -444,7 +444,7 @@
 *     .. External Subroutines ..
       EXTERNAL          SROT, STEST
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -614,7 +614,7 @@
       REAL             SDIFF
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
-      INTRINSIC        ABS
+      // INTRINSIC ABS
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Executable Statements ..
@@ -760,7 +760,7 @@
       REAL              SNRM2
       EXTERNAL          SNRM2
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SQRT
 *     .. Model parameters ..
       REAL              BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP
       PARAMETER         (BIGNUM=0.1014120480E+32, SAFMAX=0.8507059173E+38, SAFMIN=0.1175494351E-37, SMLNUM=0.9860761315E-31, ULP=0.1192092896E-06)
@@ -919,7 +919,7 @@
 *     .. Local Scalars ..
       REAL              X, Y, YY, Z
 *     .. Intrinsic Functions ..
-      INTRINSIC         HUGE
+      // INTRINSIC HUGE
 *     .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY

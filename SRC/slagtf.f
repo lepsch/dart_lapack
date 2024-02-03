@@ -24,7 +24,7 @@
       REAL               EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH

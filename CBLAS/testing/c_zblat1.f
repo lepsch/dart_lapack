@@ -97,7 +97,7 @@
 *     .. External Subroutines ..
       EXTERNAL          ZSCALTEST, ZDSCALTEST, CTEST, ITEST1, STEST1
 *     .. Intrinsic Functions ..
-      INTRINSIC         MAX
+      // INTRINSIC MAX
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -202,7 +202,7 @@
 *     .. External Subroutines ..
       EXTERNAL          ZAXPYTEST, ZCOPYTEST, ZSWAPTEST, CTEST
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -290,7 +290,7 @@
       double           SDIFF;
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
-      INTRINSIC        ABS
+      // INTRINSIC ABS
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Executable Statements ..
@@ -369,7 +369,7 @@
 *     .. External Subroutines ..
       EXTERNAL         STEST
 *     .. Intrinsic Functions ..
-      INTRINSIC        DIMAG, DBLE
+      // INTRINSIC DIMAG, DBLE
 *     .. Executable Statements ..
       DO 20 I = 1, LEN
          SCOMP(2*I-1) = DBLE(CCOMP(I))

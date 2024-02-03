@@ -41,7 +41,7 @@
       EXTERNAL           ALAHDG, ALAREQ, ALASUM, CCSDTS, CLACSG, CLAROR, CLASET, CSROT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MIN
+      // INTRINSIC ABS, MIN
 *     ..
 *     .. External Functions ..
       REAL               SLARAN, SLARND

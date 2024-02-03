@@ -29,7 +29,7 @@
       COMPLEX*16         WORK( 26 ), Z( 8, 8 )
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CDABS, DBLE, DCMPLX, DCONJG, SQRT
+      // INTRINSIC CDABS, DBLE, DCMPLX, DCONJG, SQRT
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZGESVD, ZLACPY, ZLAKF2

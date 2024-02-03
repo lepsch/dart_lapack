@@ -40,8 +40,8 @@
 
 ### Comment out INTRINSIC
 ```
-^     ( \bINTRINSIC\b.*)$
-//    $1
+^\s     (\bINTRINSIC\b)\s*(.*)$
+      // $1 $2
 ```
 
 ### Comment out EXTERNAL

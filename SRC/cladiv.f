@@ -17,7 +17,7 @@
       EXTERNAL           SLADIV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, CMPLX, REAL
+      // INTRINSIC AIMAG, CMPLX, REAL
 *     ..
 *     .. Executable Statements ..
 *

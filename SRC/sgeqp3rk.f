@@ -37,7 +37,7 @@
       EXTERNAL           SISNAN, SLAMCH, SNRM2, ISAMAX, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL, MAX, MIN
+      // INTRINSIC REAL, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

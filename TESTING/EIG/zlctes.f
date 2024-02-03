@@ -21,7 +21,7 @@
       double             ZMAX;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX, SIGN
+      // INTRINSIC ABS, DBLE, DIMAG, MAX, SIGN
 *     ..
 *     .. Executable Statements ..
 *

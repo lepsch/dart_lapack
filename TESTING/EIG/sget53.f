@@ -26,7 +26,7 @@
       EXTERNAL           SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

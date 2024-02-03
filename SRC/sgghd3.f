@@ -36,7 +36,7 @@
       EXTERNAL           SGGHRD, SLARTG, SLASET, SORM22, SROT, SGEMM, SGEMV, STRMV, SLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

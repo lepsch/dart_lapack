@@ -34,7 +34,7 @@
       EXTERNAL           SCOPY, SLAR1V, SLARRB, SLARRF, SLASET, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS, REAL, MAX, MIN
+      // INTRINSIC ABS, REAL, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *     ..

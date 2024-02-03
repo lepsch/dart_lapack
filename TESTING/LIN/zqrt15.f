@@ -37,7 +37,7 @@
       EXTERNAL           DLAORD, DLASCL, XERBLA, ZDSCAL, ZGEMM, ZLARF, ZLARNV, ZLAROR, ZLASCL, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, MAX, MIN
+      // INTRINSIC ABS, DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

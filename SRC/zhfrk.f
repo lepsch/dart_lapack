@@ -34,7 +34,7 @@
       EXTERNAL           XERBLA, ZGEMM, ZHERK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, DCMPLX
+      // INTRINSIC MAX, DCMPLX
 *     ..
 *     .. Executable Statements ..
 *

@@ -24,7 +24,7 @@
       EXTERNAL           CLARTG, SLASV2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, CONJG, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1

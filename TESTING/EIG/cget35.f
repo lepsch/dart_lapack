@@ -38,7 +38,7 @@
       EXTERNAL           CGEMM, CTRSYL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL, SQRT
+      // INTRINSIC ABS, MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

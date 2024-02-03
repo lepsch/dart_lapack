@@ -49,7 +49,7 @@
       EXTERNAL           SCOPY, SLASUM, SSTEBZ, SSTECH, SSTERF, XERBLA, CCOPY, CHET21, CHETRD, CHPT21, CHPTRD, CLACPY, CLASET, CLATMR, CLATMS, CPTEQR, CSTEDC, CSTEMR, CSTEIN, CSTEQR, CSTT21, CSTT22, CUNGTR, CUPGTR, CHETRD_2STAGE, SLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, CONJG, INT, LOG, MAX, MIN, SQRT
+      // INTRINSIC ABS, REAL, CONJG, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10 /       DATA               KMAGN / 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1 /       DATA               KMODE / 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3 /

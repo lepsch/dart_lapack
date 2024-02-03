@@ -18,7 +18,7 @@
       int     I,NINCX;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS,AIMAG,REAL
+      // INTRINSIC ABS,AIMAG,REAL
 *     ..
       SCASUM = 0.0e0
       STEMP = 0.0e0

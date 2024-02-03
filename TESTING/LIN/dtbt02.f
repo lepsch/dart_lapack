@@ -32,7 +32,7 @@
       EXTERNAL           DAXPY, DCOPY, DTBMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

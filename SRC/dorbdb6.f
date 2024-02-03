@@ -30,7 +30,7 @@
       EXTERNAL           DGEMV, DLASSQ, XERBLA
 *     ..
 *     .. Intrinsic Function ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

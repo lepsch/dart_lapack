@@ -40,7 +40,7 @@
       EXTERNAL           SLAEBZ, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, LOG, MAX, MIN, SQRT
+      // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

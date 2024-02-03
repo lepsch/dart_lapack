@@ -36,7 +36,7 @@
       EXTERNAL           XERBLA, SCOPY, SLACPY, SLASET, SGBTRF, SGEMM,  SGETRF, SSYGST, SSWAP, STRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. Executable Statements ..
 *

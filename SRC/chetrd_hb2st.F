@@ -37,7 +37,7 @@
       EXTERNAL           CHB2ST_KERNELS, CLACPY, CLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX, CEILING, REAL
+      // INTRINSIC MIN, MAX, CEILING, REAL
 *     ..
 *     .. External Functions ..
       bool               LSAME;

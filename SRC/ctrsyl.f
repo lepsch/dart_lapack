@@ -38,7 +38,7 @@
       EXTERNAL           CSSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

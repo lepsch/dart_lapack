@@ -38,7 +38,7 @@
       EXTERNAL           CCOPY, CSSCAL, CGEMM, CGEMV, CLACGV, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, AIMAG, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, CONJG, AIMAG, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

@@ -40,7 +40,7 @@
       EXTERNAL           ZHEEQUB, ZHETRF, ZHETRS, ZLACPY, ZLAQHE, XERBLA, ZLASCL2, ZHERFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

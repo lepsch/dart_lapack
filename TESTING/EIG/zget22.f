@@ -36,7 +36,7 @@
       EXTERNAL           ZGEMM, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX, MIN
+      // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

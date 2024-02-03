@@ -39,7 +39,7 @@
       EXTERNAL           CSCAL, CSWAP, CSYR, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT, AIMAG, REAL
+      // INTRINSIC ABS, MAX, SQRT, AIMAG, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

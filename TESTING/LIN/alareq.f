@@ -25,7 +25,7 @@
       int                NREQ( 100 );
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          LEN
+      // INTRINSIC LEN
 *     ..
 *     .. Data statements ..
       DATA               INTSTR / '0123456789' /

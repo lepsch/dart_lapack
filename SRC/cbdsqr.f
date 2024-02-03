@@ -46,7 +46,7 @@
       EXTERNAL           CLASR, CSROT, CSSCAL, CSWAP, SLARTG, SLAS2, SLASQ1, SLASV2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SIGN, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

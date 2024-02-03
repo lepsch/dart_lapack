@@ -35,7 +35,7 @@
       EXTERNAL           CHPR, CSCAL, CTPMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, REAL
+      // INTRINSIC AIMAG, REAL
 *     ..
 *     .. Executable Statements ..
 *

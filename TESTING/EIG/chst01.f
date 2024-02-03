@@ -30,7 +30,7 @@
       EXTERNAL           CGEMM, CLACPY, CUNT01
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN
+      // INTRINSIC CMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

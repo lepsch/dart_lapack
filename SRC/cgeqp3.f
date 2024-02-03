@@ -32,7 +32,7 @@
       EXTERNAL           ILAENV, SCNRM2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MAX, MIN
+      // INTRINSIC INT, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

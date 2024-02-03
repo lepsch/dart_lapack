@@ -30,7 +30,7 @@
       EXTERNAL           LSAME, SLAMCH, SISNAN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA

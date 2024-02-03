@@ -40,7 +40,7 @@
       EXTERNAL           DSYEQUB, DSYTRF, DSYTRS, DLACPY, DLAQSY, XERBLA, DLASCL2, DSYRFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

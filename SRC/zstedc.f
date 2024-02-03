@@ -35,7 +35,7 @@
       EXTERNAL           DLASCL, DLASET, DSTEDC, DSTEQR, DSTERF, XERBLA, ZLACPY, ZLACRM, ZLAED0, ZSTEQR, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, INT, LOG, MAX, MOD, SQRT
+      // INTRINSIC ABS, DBLE, INT, LOG, MAX, MOD, SQRT
 *     ..
 *     .. Executable Statements ..
 *

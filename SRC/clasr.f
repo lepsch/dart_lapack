@@ -25,7 +25,7 @@
       COMPLEX            TEMP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

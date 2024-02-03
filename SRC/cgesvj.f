@@ -31,7 +31,7 @@
 *     ..
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS, MAX, MIN, CONJG, REAL, SIGN, SQRT
+      // INTRINSIC ABS, MAX, MIN, CONJG, REAL, SIGN, SQRT
 *     ..
 *     .. External Functions ..
 *     ..

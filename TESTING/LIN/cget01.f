@@ -36,7 +36,7 @@
       EXTERNAL           CGEMV, CLASWP, CSCAL, CTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, REAL
+      // INTRINSIC MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

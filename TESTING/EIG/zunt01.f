@@ -36,7 +36,7 @@
       EXTERNAL           ZHERK, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, MAX, MIN
+      // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, MAX, MIN
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

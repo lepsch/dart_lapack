@@ -35,7 +35,7 @@
       EXTERNAL           CGELQ2, CGEQR2, CLACPY, CLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MIN, REAL
+      // INTRINSIC ABS, CONJG, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

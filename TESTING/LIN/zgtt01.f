@@ -30,7 +30,7 @@
       EXTERNAL           DLAMCH, ZLANGT, ZLANHS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZAXPY, ZSWAP

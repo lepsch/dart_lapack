@@ -19,7 +19,7 @@
       COMPLEX*16         ZDUM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, ABS, REAL, DIMAG
+      // INTRINSIC MAX, MIN, ABS, REAL, DIMAG
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

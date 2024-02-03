@@ -30,7 +30,7 @@
       EXTERNAL           SCOPY, SGEMM, SGGSVD3, SLACPY, SLASET, SSYRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL
+      // INTRINSIC MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

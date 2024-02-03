@@ -34,7 +34,7 @@
       EXTERNAL           DCOPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, NINT
+      // INTRINSIC ABS, DBLE, NINT
 *     ..
 *     .. Executable Statements ..
 *

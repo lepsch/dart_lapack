@@ -28,7 +28,7 @@
       EXTERNAL           XERBLA, CSYTRF_ROOK, CSYTRS_ROOK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

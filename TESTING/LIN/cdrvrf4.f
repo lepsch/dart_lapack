@@ -41,7 +41,7 @@
       EXTERNAL           CHERK, CHFRK, CTFTTR, CTRTTF
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

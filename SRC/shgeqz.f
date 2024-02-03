@@ -34,7 +34,7 @@
       EXTERNAL           SLAG2, SLARFG, SLARTG, SLASET, SLASV2, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

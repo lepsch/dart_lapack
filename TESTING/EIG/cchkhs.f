@@ -43,7 +43,7 @@
       EXTERNAL           CCOPY, CGEHRD, CGEMM, CGET10, CGET22, CHSEIN, CHSEQR, CHST01, CLACPY, CLASET, CLATME, CLATMR, CLATMS, CTREVC, CTREVC3, CUNGHR, CUNMHR, SLAFTS, SLASUM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /

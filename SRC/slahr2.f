@@ -25,7 +25,7 @@
       EXTERNAL           SAXPY, SCOPY, SGEMM, SGEMV, SLACPY, SLARFG, SSCAL, STRMM, STRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

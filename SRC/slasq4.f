@@ -25,7 +25,7 @@
       REAL               A2, B1, B2, GAM, GAP1, GAP2, S
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT
+      // INTRINSIC MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

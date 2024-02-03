@@ -32,7 +32,7 @@
       EXTERNAL           CLARTG, CLASET, CROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, MAX
+      // INTRINSIC CONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

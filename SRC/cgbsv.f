@@ -18,7 +18,7 @@
       EXTERNAL           CGBTRF, CGBTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           CLASET, CLAVHE_ROOK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, REAL
+      // INTRINSIC AIMAG, REAL
 *     ..
 *     .. Executable Statements ..
 *

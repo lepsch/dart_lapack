@@ -45,7 +45,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, DERRSY, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPOT02, DPOT03, DPOT05, DSYCON, DSYRFS, DSYT01, DSYTRF, DSYTRI2, DSYTRS, DSYTRS2, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

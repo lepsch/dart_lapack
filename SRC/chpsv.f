@@ -23,7 +23,7 @@
       EXTERNAL           CHPTRF, CHPTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

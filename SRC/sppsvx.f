@@ -34,7 +34,7 @@
       EXTERNAL           SCOPY, SLACPY, SLAQSP, SPPCON, SPPEQU, SPPRFS, SPPTRF, SPPTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

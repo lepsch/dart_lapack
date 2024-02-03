@@ -19,7 +19,7 @@
       COMPLEX*16         XI, YI
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG
+      // INTRINSIC DCONJG
 *     ..
 *     .. Executable Statements ..
 *

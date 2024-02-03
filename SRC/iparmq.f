@@ -23,7 +23,7 @@
       String             SUBNAM*6;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          LOG, MAX, MOD, NINT, REAL
+      // INTRINSIC LOG, MAX, MOD, NINT, REAL
 *     ..
 *     .. Executable Statements ..
       IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) THEN

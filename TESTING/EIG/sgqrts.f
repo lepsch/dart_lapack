@@ -31,7 +31,7 @@
       EXTERNAL           SGEMM, SLACPY, SLASET, SORGQR, SORGRQ, SSYRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL
+      // INTRINSIC MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

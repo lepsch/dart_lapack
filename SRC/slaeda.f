@@ -25,7 +25,7 @@
       EXTERNAL           SCOPY, SGEMV, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, REAL, SQRT
+      // INTRINSIC INT, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

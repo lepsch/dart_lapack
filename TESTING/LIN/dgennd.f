@@ -21,7 +21,7 @@
       int     I, K;
 *     ..
 *     .. Intrinsics ..
-      INTRINSIC MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
       K = MIN( M, N )

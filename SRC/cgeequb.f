@@ -32,7 +32,7 @@
       EXTERNAL           XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, LOG, REAL, AIMAG
+      // INTRINSIC ABS, MAX, MIN, LOG, REAL, AIMAG
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

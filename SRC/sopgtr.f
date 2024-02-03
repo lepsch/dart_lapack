@@ -30,7 +30,7 @@
       EXTERNAL           SORG2L, SORG2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

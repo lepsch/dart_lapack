@@ -35,7 +35,7 @@
       EXTERNAL           CCOPY, CHPMV, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, REAL
+      // INTRINSIC ABS, CONJG, REAL
 *     ..
 *     .. Executable Statements ..
 *

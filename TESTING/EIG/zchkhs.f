@@ -43,7 +43,7 @@
       EXTERNAL           DLAFTS, DLASUM, XERBLA, ZCOPY, ZGEHRD, ZGEMM, ZGET10, ZGET22, ZHSEIN, ZHSEQR, ZHST01, ZLACPY, ZLASET, ZLATME, ZLATMR, ZLATMS, ZTREVC, ZTREVC3, ZUNGHR, ZUNMHR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /

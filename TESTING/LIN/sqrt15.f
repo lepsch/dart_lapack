@@ -34,7 +34,7 @@
       EXTERNAL           SGEMM, SLAORD, SLARF, SLARNV, SLAROR, SLASCL, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

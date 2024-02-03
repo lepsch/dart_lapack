@@ -36,7 +36,7 @@
       EXTERNAL           CLANGE, SLAMCH, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, LOG, MAX, MIN, REAL
+      // INTRINSIC INT, LOG, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

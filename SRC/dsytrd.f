@@ -26,7 +26,7 @@
       EXTERNAL           DLATRD, DSYR2K, DSYTD2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

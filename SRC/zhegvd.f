@@ -33,7 +33,7 @@
       EXTERNAL           XERBLA, ZHEEVD, ZHEGST, ZPOTRF, ZTRMM, ZTRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX
+      // INTRINSIC DBLE, MAX
 *     ..
 *     .. Executable Statements ..
 *

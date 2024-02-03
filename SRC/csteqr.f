@@ -36,7 +36,7 @@
       EXTERNAL           CLASET, CLASR, CSWAP, SLAE2, SLAEV2, SLARTG, SLASCL, SLASRT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SIGN, SQRT
+      // INTRINSIC ABS, MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

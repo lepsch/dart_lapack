@@ -32,7 +32,7 @@
       EXTERNAL           ZAXPY, ZCOPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

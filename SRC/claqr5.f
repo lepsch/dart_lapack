@@ -31,7 +31,7 @@
 *     ..
 *     .. Intrinsic Functions ..
 *
-      INTRINSIC          ABS, AIMAG, CONJG, MAX, MIN, MOD, REAL
+      // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, MOD, REAL
 *     ..
 *     .. Local Arrays ..
       COMPLEX            VT( 3 )

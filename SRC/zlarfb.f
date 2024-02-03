@@ -30,7 +30,7 @@
       EXTERNAL           ZCOPY, ZGEMM, ZLACGV, ZTRMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG
+      // INTRINSIC DCONJG
 *     ..
 *     .. Executable Statements ..
 *

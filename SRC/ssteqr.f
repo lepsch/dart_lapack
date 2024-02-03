@@ -33,7 +33,7 @@
       EXTERNAL           SLAE2, SLAEV2, SLARTG, SLASCL, SLASET, SLASR, SLASRT, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SIGN, SQRT
+      // INTRINSIC ABS, MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -31,7 +31,7 @@
       EXTERNAL           DCOPY, DGEMM, DLACPY, DLAED4, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SIGN, SQRT
+      // INTRINSIC MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

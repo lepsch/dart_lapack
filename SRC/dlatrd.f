@@ -31,7 +31,7 @@
       EXTERNAL           LSAME, DDOT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

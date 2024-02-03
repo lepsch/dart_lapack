@@ -47,7 +47,7 @@
       EXTERNAL           XERBLA, ZAXPY, ZCOPY, ZGEMV, ZGETRS, ZLACN2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX
+      // INTRINSIC ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

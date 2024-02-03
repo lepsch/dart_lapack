@@ -36,7 +36,7 @@
       EXTERNAL           XERBLA, ZGEMV, ZGERC, ZLACGV, ZLASET, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, DCONJG
+      // INTRINSIC ABS, DCMPLX, DCONJG
 *     ..
 *     .. Executable Statements ..
 *

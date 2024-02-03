@@ -30,7 +30,7 @@
       EXTERNAL           XERBLA, ZTFTRI, ZLAUUM, ZTRMM, ZHERK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD
+      // INTRINSIC MOD
 *     ..
 *     .. Executable Statements ..
 *

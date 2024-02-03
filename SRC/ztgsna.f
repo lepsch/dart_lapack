@@ -41,7 +41,7 @@
       EXTERNAL           XERBLA, ZGEMV, ZLACPY, ZTGEXC, ZTGSYL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, MAX
+      // INTRINSIC ABS, DCMPLX, MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -38,7 +38,7 @@
       EXTERNAL           ZHER, ZSCAL, ZTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCONJG, DIMAG
+      // INTRINSIC DBLE, DCONJG, DIMAG
 *     ..
 *     .. Executable Statements ..
 *

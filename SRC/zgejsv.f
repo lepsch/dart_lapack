@@ -37,7 +37,7 @@
       double             RDUMMY(1);
 *
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS, DCMPLX, CONJG, DLOG, MAX, MIN, DBLE, NINT, SQRT
+      // INTRINSIC ABS, DCMPLX, CONJG, DLOG, MAX, MIN, DBLE, NINT, SQRT
 *     ..
 *     .. External Functions ..
       double                DLAMCH, DZNRM2;

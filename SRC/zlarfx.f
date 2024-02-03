@@ -31,7 +31,7 @@
       EXTERNAL           ZLARF
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG
+      // INTRINSIC DCONJG
 *     ..
 *     .. Executable Statements ..
 *

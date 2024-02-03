@@ -25,7 +25,7 @@
       COMPLEX            A11, A12, A22, C, TAU
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG
+      // INTRINSIC ABS, CONJG
 *     ..
 *     .. External Functions ..
       COMPLEX            CDOTC

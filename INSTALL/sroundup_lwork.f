@@ -11,7 +11,7 @@
 * =====================================================================
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC         EPSILON, REAL, INT
+      // INTRINSIC EPSILON, REAL, INT
 *     ..
 *     .. Executable Statements ..
 *     ..

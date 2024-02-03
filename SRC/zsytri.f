@@ -33,7 +33,7 @@
       EXTERNAL           XERBLA, ZCOPY, ZSWAP, ZSYMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

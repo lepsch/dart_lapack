@@ -38,7 +38,7 @@
       EXTERNAL           CGEMM, CTRMM, CSYSWAPR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

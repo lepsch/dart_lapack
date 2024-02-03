@@ -27,7 +27,7 @@
       EXTERNAL           SLAMCH, SLANTB
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

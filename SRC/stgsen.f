@@ -38,7 +38,7 @@
       EXTERNAL           SLAMCH, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SIGN, SQRT
+      // INTRINSIC MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

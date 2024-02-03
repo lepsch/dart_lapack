@@ -40,7 +40,7 @@
       EXTERNAL           CLACPY, CLARNV, CLASET, CGETSQRHRT, CSCAL, CGEMM, CGEMQRT, CHERK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, REAL, MAX, MIN
+      // INTRINSIC CEILING, REAL, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       String   (LEN=32)  SRNAMT;

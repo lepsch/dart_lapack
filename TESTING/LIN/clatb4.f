@@ -33,7 +33,7 @@
       EXTERNAL           LSAMEN, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Save statement ..
       SAVE               EPS, SMALL, LARGE, BADC1, BADC2, FIRST

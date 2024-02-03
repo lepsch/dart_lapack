@@ -40,7 +40,7 @@
       EXTERNAL           ALASVM, SGET52, SGGEV, SLACPY, SLARFG, SLASET, SLATM4, SORM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SIGN
+      // INTRINSIC ABS, MAX, MIN, REAL, SIGN
 *     ..
 *     .. Data statements ..
       DATA               KCLASS / 15*1, 10*2, 1*3 /

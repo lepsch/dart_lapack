@@ -34,7 +34,7 @@
       EXTERNAL           DSLECT, LSAMEN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          LEN_TRIM
+      // INTRINSIC LEN_TRIM
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );

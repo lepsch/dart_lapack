@@ -37,7 +37,7 @@
       EXTERNAL           CLARTG, CLASET, CROT, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1

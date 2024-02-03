@@ -39,7 +39,7 @@
       EXTERNAL           DLALN2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Data statements ..
       DATA               LTRANS / .FALSE., .TRUE. /

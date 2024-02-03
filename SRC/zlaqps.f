@@ -29,7 +29,7 @@
       EXTERNAL           ZGEMM, ZGEMV, ZLARFG, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, MAX, MIN, NINT, SQRT
+      // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, NINT, SQRT
 *     ..
 *     .. External Functions ..
       int                IDAMAX;

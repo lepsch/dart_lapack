@@ -22,7 +22,7 @@
       int                I, J, L;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, CMPLX, REAL
+      // INTRINSIC AIMAG, CMPLX, REAL
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGEMM

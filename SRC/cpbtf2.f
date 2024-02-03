@@ -31,7 +31,7 @@
       EXTERNAL           CHER, CLACGV, CSSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL, SQRT
+      // INTRINSIC MAX, MIN, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

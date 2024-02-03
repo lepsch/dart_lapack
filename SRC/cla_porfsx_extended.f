@@ -45,7 +45,7 @@
       REAL               SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, AIMAG, MAX, MIN
+      // INTRINSIC ABS, REAL, AIMAG, MAX, MIN
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

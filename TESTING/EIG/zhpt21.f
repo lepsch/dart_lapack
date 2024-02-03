@@ -40,7 +40,7 @@
       EXTERNAL           ZAXPY, ZCOPY, ZGEMM, ZHPMV, ZHPR, ZHPR2, ZLACPY, ZLASET, ZUPMTR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

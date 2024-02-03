@@ -33,7 +33,7 @@
       EXTERNAL           SCOPY, SLACPY, SLAMRG, SLASET, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

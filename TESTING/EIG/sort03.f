@@ -30,7 +30,7 @@
       EXTERNAL           LSAME, ISAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SIGN
+      // INTRINSIC ABS, MAX, MIN, REAL, SIGN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SORT01, XERBLA

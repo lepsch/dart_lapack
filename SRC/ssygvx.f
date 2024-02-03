@@ -35,7 +35,7 @@
       EXTERNAL           SPOTRF, SSYEVX, SSYGST, STRMM, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

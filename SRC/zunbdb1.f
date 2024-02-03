@@ -32,7 +32,7 @@
       EXTERNAL           DZNRM2
 *     ..
 *     .. Intrinsic Function ..
-      INTRINSIC          ATAN2, COS, MAX, SIN, SQRT
+      // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

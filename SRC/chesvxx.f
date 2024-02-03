@@ -40,7 +40,7 @@
       EXTERNAL           CHEEQUB, CHETRF, CHETRS, CLACPY, CLAQHE, XERBLA, CLASCL2, CHERFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

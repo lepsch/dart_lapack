@@ -46,7 +46,7 @@
       EXTERNAL           DCOPY, DLACPY, DLASET, DLASUM, DLATMR, DLATMS, DOPGTR, DORGTR, DPTEQR, DSPT21, DSPTRD, DSTEBZ, DSTECH, DSTEDC, DSTEMR, DSTEIN, DSTEQR, DSTERF, DSTT21, DSTT22, DSYT21, DSYTRD, XERBLA, DSYTRD_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, INT, LOG, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10 /       DATA               KMAGN / 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1 /       DATA               KMODE / 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3 /

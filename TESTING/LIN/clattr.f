@@ -39,7 +39,7 @@
       EXTERNAL           CCOPY, CLARNV, CLATB4, CLATMS, CROT, CROTG, CSSCAL, CSWAP, SLARNV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, CONJG, MAX, REAL, SQRT
+      // INTRINSIC ABS, CMPLX, CONJG, MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
 *     .. External Subroutines ..
       EXTERNAL           DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHKE, DMMCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -328,7 +328,7 @@
 *     .. External Subroutines ..
       EXTERNAL           DGEMM, DMAKE, DMMCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -579,7 +579,7 @@
 *     .. External Subroutines ..
       EXTERNAL           DMAKE, DMMCH, DSYMM
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -818,7 +818,7 @@
 *     .. External Subroutines ..
       EXTERNAL           DMAKE, DMMCH, DTRMM, DTRSM
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1074,7 +1074,7 @@
 *     .. External Subroutines ..
       EXTERNAL           DMAKE, DMMCH, DSYRK
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1315,7 +1315,7 @@
 *     .. External Subroutines ..
       EXTERNAL           DMAKE, DMMCH, DSYR2K
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -2235,7 +2235,7 @@
       int                I, J, K;
       bool               TRANA, TRANB;
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     .. Executable Statements ..
       TRANA = TRANSA.EQ.'T'.OR.TRANSA.EQ.'C'
       TRANB = TRANSB.EQ.'T'.OR.TRANSB.EQ.'C'

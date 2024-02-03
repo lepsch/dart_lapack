@@ -36,7 +36,7 @@
       EXTERNAL           CGEMM, CHPR, CHPR2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN, REAL
+      // INTRINSIC CMPLX, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

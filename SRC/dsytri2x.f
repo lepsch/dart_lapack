@@ -38,7 +38,7 @@
       EXTERNAL           DGEMM, DTRMM, DSYSWAPR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

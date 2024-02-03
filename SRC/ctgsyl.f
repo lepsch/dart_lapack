@@ -39,7 +39,7 @@
       EXTERNAL           CGEMM, CLACPY, CLASET, CSCAL, CTGSY2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, REAL, SQRT
+      // INTRINSIC CMPLX, MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

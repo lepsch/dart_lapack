@@ -33,7 +33,7 @@
 *     ..
 *     .. Intrinsic Functions ..
 *
-      INTRINSIC   ABS, MAX, MIN, DBLE, SQRT
+      // INTRINSIC ABS, MAX, MIN, DBLE, SQRT
 *
 *     Test the input arguments
 *

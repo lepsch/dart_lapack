@@ -52,7 +52,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASVM, CERRLS, CGELS, CGELSD, CGELSS, CGELST, CGELSY, CGEMM, CGETSLS, CLACPY, CLARNV, CQRT13, CQRT15, CQRT16, CSSCAL, SAXPY, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, INT, REAL, SQRT
+      // INTRINSIC MAX, MIN, INT, REAL, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

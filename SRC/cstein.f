@@ -39,7 +39,7 @@
       EXTERNAL           SCOPY, SLAGTF, SLAGTS, SLARNV, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX, REAL, SQRT
+      // INTRINSIC ABS, CMPLX, MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

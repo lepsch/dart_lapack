@@ -21,7 +21,7 @@
       EXTERNAL           CTRSM, CUNMQL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

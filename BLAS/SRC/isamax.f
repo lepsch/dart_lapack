@@ -18,7 +18,7 @@
       int     I,IX;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS
+      // INTRINSIC ABS
 *     ..
       ISAMAX = 0
       IF (N.LT.1 .OR. INCX.LE.0) RETURN

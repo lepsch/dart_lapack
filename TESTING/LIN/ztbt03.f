@@ -35,7 +35,7 @@
       EXTERNAL           ZAXPY, ZCOPY, ZDSCAL, ZTBMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, MAX
+      // INTRINSIC ABS, DBLE, DCMPLX, MAX
 *     ..
 *     .. Executable Statements ..
 *

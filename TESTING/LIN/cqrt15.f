@@ -37,7 +37,7 @@
       EXTERNAL           CGEMM, CLARF, CLARNV, CLAROR, CLASCL, CLASET, CSSCAL, SLAORD, SLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX, MIN
+      // INTRINSIC ABS, CMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

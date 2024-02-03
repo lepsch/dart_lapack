@@ -29,7 +29,7 @@
       REAL               FASTR( 5 )
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, FLOAT, SIGN, SQRT
+      // INTRINSIC ABS, MAX, MIN, FLOAT, SIGN, SQRT
 *     ..
 *     .. External Functions ..
 *     ..

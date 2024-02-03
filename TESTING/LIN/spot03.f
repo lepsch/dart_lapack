@@ -32,7 +32,7 @@
       EXTERNAL           SSYMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

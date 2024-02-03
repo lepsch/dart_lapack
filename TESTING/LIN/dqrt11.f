@@ -28,7 +28,7 @@
       EXTERNAL           DLASET, DORM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Local Arrays ..
       double             RDUMMY( 1 );

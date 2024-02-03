@@ -43,7 +43,7 @@
       EXTERNAL           DLATM1, DSCAL, XERBLA, ZLAGGE, ZLAGHE, ZLAGSY, ZLAROT, ZLARTG, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, COS, DBLE, DCMPLX, DCONJG, MAX, MIN, MOD, SIN
+      // INTRINSIC ABS, COS, DBLE, DCMPLX, DCONJG, MAX, MIN, MOD, SIN
 *     ..
 *     .. Executable Statements ..
 *

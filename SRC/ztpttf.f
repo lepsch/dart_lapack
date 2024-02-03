@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG, MOD
+      // INTRINSIC DCONJG, MOD
 *     ..
 *     .. Executable Statements ..
 *

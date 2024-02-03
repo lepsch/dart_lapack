@@ -33,7 +33,7 @@
       EXTERNAL           SLASET, SLAVSY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

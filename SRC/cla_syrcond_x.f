@@ -34,7 +34,7 @@
       EXTERNAL           CLACN2, CSYTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

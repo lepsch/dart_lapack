@@ -39,7 +39,7 @@
       EXTERNAL           SSCAL, SSTERF, XERBLA, CGEMM, CLACPY, CLASCL, CSTEDC, CHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL, SQRT
+      // INTRINSIC REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

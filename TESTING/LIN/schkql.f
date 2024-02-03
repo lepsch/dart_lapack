@@ -38,7 +38,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, SERRQL, SGEQLS, SGET02, SLACPY, SLARHS, SLATB4, SLATMS, SQLT01, SQLT02, SQLT03, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

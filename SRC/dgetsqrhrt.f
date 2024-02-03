@@ -26,7 +26,7 @@
       EXTERNAL           DCOPY, DLATSQR, DORGTSQR_ROW, DORHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, DBLE, MAX, MIN
+      // INTRINSIC CEILING, DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -28,7 +28,7 @@
       EXTERNAL           XERBLA, ZLARTG, ZROT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG, MAX
+      // INTRINSIC DCONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

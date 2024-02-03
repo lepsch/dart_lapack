@@ -39,7 +39,7 @@
       EXTERNAL           SAXPY, SLACN2, SLATBS, SRSCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MIN
+      // INTRINSIC ABS, MIN
 *     ..
 *     .. Executable Statements ..
 *

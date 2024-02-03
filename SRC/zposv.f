@@ -22,7 +22,7 @@
       EXTERNAL           XERBLA, ZPOTRF, ZPOTRS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -32,7 +32,7 @@
       EXTERNAL           DLANV2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SIGN
+      // INTRINSIC ABS, MAX, SIGN
 *     ..
 *     .. Executable Statements ..
 *

@@ -25,7 +25,7 @@
       EXTERNAL           SGEBD2, SGEMM, SLABRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;

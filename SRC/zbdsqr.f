@@ -46,7 +46,7 @@
       EXTERNAL           DLARTG, DLAS2, DLASQ1, DLASV2, XERBLA, ZDROT, ZDSCAL, ZLASR, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SIGN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

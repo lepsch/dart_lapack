@@ -37,7 +37,7 @@
       EXTERNAL           DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCONJG, MAX, MIN
+      // INTRINSIC ABS, DCONJG, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA, SSYR2K, SSYMM, SGEMM, SCOPY, SLARFT, SGELQF, SGEQRF, SLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -30,7 +30,7 @@
       EXTERNAL  ZGEMM, ZTRMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC CONJG
+      // INTRINSIC CONJG
 *     ..
 *     .. Executable Statements ..
 *

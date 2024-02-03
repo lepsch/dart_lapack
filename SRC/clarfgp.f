@@ -29,7 +29,7 @@
       EXTERNAL           SCNRM2, SLAMCH, SLAPY3, SLAPY2, CLADIV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, REAL, SIGN
+      // INTRINSIC ABS, AIMAG, CMPLX, REAL, SIGN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CSCAL, CSSCAL

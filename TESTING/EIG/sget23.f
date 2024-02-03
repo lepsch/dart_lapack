@@ -42,7 +42,7 @@
       EXTERNAL           SGEEVX, SGET22, SLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL
+      // INTRINSIC ABS, MAX, MIN, REAL
 *     ..
 *     .. Data statements ..
       DATA               SENS / 'N', 'V' /

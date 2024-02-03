@@ -38,7 +38,7 @@
       EXTERNAL           SGEMM, STRMM, SSYSWAPR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

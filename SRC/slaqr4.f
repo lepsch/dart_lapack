@@ -59,7 +59,7 @@
       EXTERNAL           SLACPY, SLAHQR, SLANV2, SLAQR2, SLAQR5
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, MAX, MIN, MOD
+      // INTRINSIC ABS, INT, MAX, MIN, MOD
 *     ..
 *     .. Executable Statements ..
       INFO = 0

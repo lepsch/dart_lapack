@@ -35,7 +35,7 @@
       int                ILAUPLO;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, ABS, SIGN, REAL, AIMAG
+      // INTRINSIC MAX, ABS, SIGN, REAL, AIMAG
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

@@ -33,7 +33,7 @@
       EXTERNAL           CGEMV, CGERU, CLACGV, CSSCAL, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, MAX, REAL
+      // INTRINSIC CONJG, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

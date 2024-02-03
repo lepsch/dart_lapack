@@ -39,7 +39,7 @@
       EXTERNAL           SCOPY, SSCAL, SSTEBZ, SSTERF, XERBLA, CSSCAL, CHETRD_2STAGE, CSTEMR, CSTEIN, CSWAP, CUNMTR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL, MAX, MIN, SQRT
+      // INTRINSIC REAL, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -34,7 +34,7 @@
       EXTERNAL           CGBMV, CGEMM, CHBMV, CHEMM, CHPMV, CLACPY, CLARNV, CSBMV, CSPMV, CSYMM, CTBMV, CTPMV, CTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -18,7 +18,7 @@
       EXTERNAL           XERBLA, ZGETRF, ZGETRS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

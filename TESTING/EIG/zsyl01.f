@@ -50,7 +50,7 @@
       EXTERNAL           ZLATMR, ZLACPY, ZGEMM, ZTRSYL, ZTRSYL3
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, SQRT
+      // INTRINSIC ABS, DBLE, MAX, SQRT
 *     ..
 *     .. Allocate memory dynamically ..
       ALLOCATE ( A( MAXM, MAXM ), STAT = AllocateStatus )

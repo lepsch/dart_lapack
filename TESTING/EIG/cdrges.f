@@ -48,7 +48,7 @@
       EXTERNAL           ALASVM, CGET51, CGET54, CGGES, CLACPY, CLARFG, CLASET, CLATM4, CUNM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CONJG, MAX, MIN, REAL, SIGN
+      // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL, SIGN
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1

@@ -27,7 +27,7 @@
       EXTERNAL           XERBLA, ZDSCAL, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, INT
+      // INTRINSIC MAX, INT
 *     ..
 *     .. Executable Statements ..
 *

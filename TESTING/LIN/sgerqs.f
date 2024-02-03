@@ -21,7 +21,7 @@
       EXTERNAL           SLASET, SORMRQ, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

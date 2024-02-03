@@ -22,7 +22,7 @@
       EXTERNAL           SCOPY, SLAED2, SLAED3, SLAMRG, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

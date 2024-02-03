@@ -60,7 +60,7 @@
       EXTERNAL           CLACPY, CLAHQR, CLAQR3, CLAQR4, CLAQR5
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, INT, MAX, MIN, MOD, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, CMPLX, INT, MAX, MIN, MOD, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

@@ -29,7 +29,7 @@
       EXTERNAL           DCOPY, DGEHRD, DGEMM, DLACPY, DLAHQR, DLANV2, DLARF, DLARFG, DLASET, DORMHR, DTREXC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, INT, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, INT, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

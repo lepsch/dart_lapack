@@ -27,7 +27,7 @@
       bool               LSAMEN;
 
 *     .. Intrinsic Functions ..
-      INTRINSIC          SQRT, MAX, ABS
+      // INTRINSIC SQRT, MAX, ABS
 
 *     .. Parameters ..
       int                NWISE_I, CWISE_I;

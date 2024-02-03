@@ -17,7 +17,7 @@
       int                I, IX, IY, M, MP1;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD
+      // INTRINSIC MOD
 *     ..
 *     .. Executable Statements ..
 *

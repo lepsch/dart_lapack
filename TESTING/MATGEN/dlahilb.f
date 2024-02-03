@@ -29,7 +29,7 @@
 *     ..
 *     .. External Functions
       EXTERNAL DLASET
-      INTRINSIC DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..
 *

@@ -32,7 +32,7 @@
       EXTERNAL           LSAME, CDOTC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, REAL
+      // INTRINSIC MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

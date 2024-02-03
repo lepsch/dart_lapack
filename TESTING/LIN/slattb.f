@@ -36,7 +36,7 @@
       EXTERNAL           SCOPY, SLARNV, SLATB4, SLATMS, SSCAL, SSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SIGN, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

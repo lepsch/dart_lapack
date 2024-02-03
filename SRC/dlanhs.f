@@ -30,7 +30,7 @@
       EXTERNAL           LSAME, DISNAN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MIN, SQRT
+      // INTRINSIC ABS, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

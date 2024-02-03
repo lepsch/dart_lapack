@@ -33,7 +33,7 @@
       EXTERNAL           ZHERK, ZTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, DBLE, SQRT
+      // INTRINSIC MAX, DBLE, SQRT
 *     ..
 *     .. Executable Statements ..
 *

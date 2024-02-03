@@ -33,7 +33,7 @@
       EXTERNAL           DLASET, DLAVSY_ROOK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..
 *

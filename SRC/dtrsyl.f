@@ -36,7 +36,7 @@
       EXTERNAL           DLALN2, DLASY2, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN
+      // INTRINSIC ABS, DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

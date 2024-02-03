@@ -33,7 +33,7 @@
       EXTERNAL           ILAENV, LSAME, SLAMCH, SLANGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MAX
+      // INTRINSIC INT, MAX
 *     ..
 *     .. Executable Statements ..
 *

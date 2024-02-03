@@ -35,7 +35,7 @@
       EXTERNAL           DHST01, DLACPY, DLASET, DTGEXC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN
+      // INTRINSIC ABS, SIGN
 *     ..
 *     .. Executable Statements ..
 *

@@ -34,7 +34,7 @@
       EXTERNAL           SGEMM, SLACPY, SLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, REAL
+      // INTRINSIC MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

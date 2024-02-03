@@ -33,7 +33,7 @@
       EXTERNAL           LSAME, ICAMAX, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX, MIN, REAL
+      // INTRINSIC ABS, CMPLX, MAX, MIN, REAL
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CUNT01, XERBLA

@@ -22,7 +22,7 @@
       COMPLEX            ALPHA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, MAX, MIN
+      // INTRINSIC CONJG, MAX, MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CAXPY, CCOPY, CGEMV, CGERC, CLACGV, CLARFG, XERBLA

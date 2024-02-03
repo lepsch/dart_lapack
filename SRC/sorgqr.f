@@ -25,7 +25,7 @@
       EXTERNAL           SLARFB, SLARFT, SORG2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;

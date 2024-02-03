@@ -29,7 +29,7 @@
       EXTERNAL           CHETF2, CLAHEF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

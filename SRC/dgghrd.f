@@ -31,7 +31,7 @@
       EXTERNAL           DLARTG, DLASET, DROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

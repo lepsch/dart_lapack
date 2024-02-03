@@ -34,7 +34,7 @@
       EXTERNAL           SAXPY, SGEMM, SLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL
+      // INTRINSIC ABS, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

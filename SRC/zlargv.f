@@ -32,7 +32,7 @@
       EXTERNAL           DLAMCH, DLAPY2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG, INT, LOG, MAX, SQRT
+      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, INT, LOG, MAX, SQRT
 *     ..
 *     .. Statement Functions ..
       double             ABS1, ABSSQ;

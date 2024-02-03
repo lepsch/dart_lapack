@@ -31,7 +31,7 @@
       EXTERNAL           SLAMC3, SNRM2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

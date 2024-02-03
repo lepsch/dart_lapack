@@ -10,7 +10,7 @@
       int                INFOT, NOUT;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          LEN_TRIM
+      // INTRINSIC LEN_TRIM
 *     ..
 *     .. Executable Statements ..
       IF( .NOT.LERR ) THEN

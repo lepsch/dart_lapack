@@ -30,7 +30,7 @@
       EXTERNAL           DGEMM, DORT01, DSYMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN
+      // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

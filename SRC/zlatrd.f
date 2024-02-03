@@ -32,7 +32,7 @@
       EXTERNAL           LSAME, ZDOTC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MIN
+      // INTRINSIC DBLE, MIN
 *     ..
 *     .. Executable Statements ..
 *

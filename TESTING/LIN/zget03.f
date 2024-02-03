@@ -33,7 +33,7 @@
       EXTERNAL           ZGEMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..
 *

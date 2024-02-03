@@ -26,7 +26,7 @@
       EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC DCONJG,MAX
+      // INTRINSIC DCONJG,MAX
 *     ..
 *
 *     Test the input parameters.

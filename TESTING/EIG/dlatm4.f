@@ -33,7 +33,7 @@
       EXTERNAL           DLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, EXP, LOG, MAX, MIN, MOD, SQRT
+      // INTRINSIC ABS, DBLE, EXP, LOG, MAX, MIN, MOD, SQRT
 *     ..
 *     .. Executable Statements ..
 *

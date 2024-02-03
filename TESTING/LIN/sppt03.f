@@ -29,7 +29,7 @@
       EXTERNAL           LSAME, SLAMCH, SLANGE, SLANSP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SCOPY, SSPMV

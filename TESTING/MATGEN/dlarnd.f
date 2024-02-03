@@ -27,7 +27,7 @@
       EXTERNAL           DLARAN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          COS, LOG, SQRT
+      // INTRINSIC COS, LOG, SQRT
 *     ..
 *     .. Executable Statements ..
 *

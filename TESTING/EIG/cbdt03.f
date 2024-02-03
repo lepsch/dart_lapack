@@ -34,7 +34,7 @@
       EXTERNAL           CGEMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX, MIN, REAL
+      // INTRINSIC ABS, CMPLX, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

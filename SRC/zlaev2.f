@@ -25,7 +25,7 @@
       EXTERNAL           DLAEV2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG
+      // INTRINSIC ABS, DBLE, DCONJG
 *     ..
 *     .. Executable Statements ..
 *

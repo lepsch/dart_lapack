@@ -33,7 +33,7 @@
       EXTERNAL           DLAE2, DLAEV2, DLARTG, DLASCL, DLASET, DLASR, DLASRT, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SIGN, SQRT
+      // INTRINSIC ABS, MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

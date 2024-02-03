@@ -22,7 +22,7 @@
       EXTERNAL           CLAUUM, CTRTRI, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -30,7 +30,7 @@
       EXTERNAL           CAXPY, CHER2, CLACGV, CSSCAL, CTRMV, CTRSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

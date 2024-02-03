@@ -20,7 +20,7 @@
       COMPLEX*16         STEMP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG
+      // INTRINSIC DCONJG
 *     ..
 *     .. Executable Statements ..
 *

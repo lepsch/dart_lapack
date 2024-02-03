@@ -48,7 +48,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZERRGE, ZGECON, ZGERFS, ZGET01, ZGET02, ZGET03, ZGET04, ZGET07, ZGETRF, ZGETRI, ZGETRS, ZLACPY, ZLARHS, ZLASET, ZLATB4, ZLATMS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX, MAX, MIN
+      // INTRINSIC DCMPLX, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

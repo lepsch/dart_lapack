@@ -31,7 +31,7 @@
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. Save statement ..
       SAVE               EPS, SMALL, LARGE, BADC1, BADC2, FIRST

@@ -46,7 +46,7 @@
       EXTERNAL           SCOPY, SLACPY, SLASET, SLASUM, SLATMR, SLATMS, SOPGTR, SORGTR, SPTEQR, SSPT21, SSPTRD, SSTEBZ, SSTECH, SSTEDC, SSTEMR, SSTEIN, SSTEQR, SSTERF, SSTT21, SSTT22, SSYT21, SSYTRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, LOG, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, INT, LOG, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10 /       DATA               KMAGN / 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1 /       DATA               KMODE / 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3 /

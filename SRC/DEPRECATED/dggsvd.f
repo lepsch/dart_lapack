@@ -29,7 +29,7 @@
       EXTERNAL           DCOPY, DGGSVP, DTGSJA, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

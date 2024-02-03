@@ -25,7 +25,7 @@
       EXTERNAL           CLACGV, CLARFG, CLARZ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG
+      // INTRINSIC CONJG
 *     ..
 *     .. Executable Statements ..
 *

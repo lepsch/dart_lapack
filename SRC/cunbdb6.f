@@ -30,7 +30,7 @@
       EXTERNAL           CGEMV, CLASSQ, XERBLA
 *     ..
 *     .. Intrinsic Function ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA, CHER2K, CHEMM, CGEMM, CCOPY, CLARFT, CGELQF, CGEQRF, CLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

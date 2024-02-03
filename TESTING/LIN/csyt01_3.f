@@ -36,7 +36,7 @@
       EXTERNAL           CLASET, CLAVSY_ROOK, CSYCONVF_ROOK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

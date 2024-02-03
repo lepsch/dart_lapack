@@ -25,7 +25,7 @@
       EXTERNAL  ZLARFG, ZGEMV, ZGERC, ZTRMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

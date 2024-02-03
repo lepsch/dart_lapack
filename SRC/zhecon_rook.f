@@ -36,7 +36,7 @@
       EXTERNAL           ZHETRS_ROOK, ZLACN2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

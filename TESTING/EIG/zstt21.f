@@ -32,7 +32,7 @@
       EXTERNAL           ZGEMM, ZHER, ZHER2, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

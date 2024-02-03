@@ -40,7 +40,7 @@
       EXTERNAL           SCOPY, SGEHRD, SGEMM, SGET10, SGET22, SHSEIN, SHSEQR, SHST01, SLACPY, SLAFTS, SLASET, SLASUM, SLATME, SLATMR, SLATMS, SORGHR, SORMHR, STREVC, STREVC3, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /

@@ -39,7 +39,7 @@
       EXTERNAL           ZCOPY, ZGEMM, ZGEMV, ZSCAL, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN, SQRT
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

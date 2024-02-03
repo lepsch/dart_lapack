@@ -27,7 +27,7 @@
       EXTERNAL           XERBLA, ZUNMQL, ZUNMQR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

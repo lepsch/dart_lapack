@@ -33,7 +33,7 @@
       EXTERNAL           CHERK, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, REAL, SQRT
+      // INTRINSIC MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

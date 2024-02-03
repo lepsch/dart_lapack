@@ -33,7 +33,7 @@
       EXTERNAL           SLACN2, XERBLA, SSYTRS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

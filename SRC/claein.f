@@ -39,7 +39,7 @@
       EXTERNAL           CLATRS, CSSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

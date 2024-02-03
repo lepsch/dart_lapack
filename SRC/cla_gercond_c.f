@@ -34,7 +34,7 @@
       EXTERNAL           CLACN2, CGETRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL, AIMAG
+      // INTRINSIC ABS, MAX, REAL, AIMAG
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

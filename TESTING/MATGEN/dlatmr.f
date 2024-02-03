@@ -38,7 +38,7 @@
       EXTERNAL           DLATM1, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, MOD
+      // INTRINSIC ABS, MAX, MIN, MOD
 *     ..
 *     .. Executable Statements ..
 *

@@ -33,7 +33,7 @@
       EXTERNAL           SAXPY, SSCAL, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, LOG10, MAX, MIN, REAL, SIGN
+      // INTRINSIC ABS, INT, LOG10, MAX, MIN, REAL, SIGN
 *     ..
 *     .. Executable Statements ..
 *

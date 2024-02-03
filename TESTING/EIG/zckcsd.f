@@ -41,7 +41,7 @@
       EXTERNAL           ALAHDG, ALAREQ, ALASUM, ZCSDTS, ZLACSG, ZLAROR, ZLASET, ZDROT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MIN
+      // INTRINSIC ABS, MIN
 *     ..
 *     .. External Functions ..
       double             DLARAN, DLARND;

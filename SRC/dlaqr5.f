@@ -28,7 +28,7 @@
 *     ..
 *     .. Intrinsic Functions ..
 *
-      INTRINSIC          ABS, DBLE, MAX, MIN, MOD
+      // INTRINSIC ABS, DBLE, MAX, MIN, MOD
 *     ..
 *     .. Local Arrays ..
       double             VT( 3 );

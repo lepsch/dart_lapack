@@ -36,7 +36,7 @@
       EXTERNAL           CCOPY, CLACPY, CLALSA, CLASCL, CLASET, CSROT, SGEMM, SLARTG, SLASCL, SLASDA, SLASDQ, SLASET, SLASRT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, INT, LOG, REAL, SIGN
+      // INTRINSIC ABS, AIMAG, CMPLX, INT, LOG, REAL, SIGN
 *     ..
 *     .. Executable Statements ..
 *

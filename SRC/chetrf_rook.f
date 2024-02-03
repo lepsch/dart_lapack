@@ -29,7 +29,7 @@
       EXTERNAL           CLAHEF_ROOK, CHETF2_ROOK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

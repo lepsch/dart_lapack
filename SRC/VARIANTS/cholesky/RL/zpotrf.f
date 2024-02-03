@@ -32,7 +32,7 @@
       EXTERNAL           XERBLA, ZGEMM, ZHERK, ZPOTRF2, ZTRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

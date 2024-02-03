@@ -39,7 +39,7 @@
       EXTERNAL           DAXPY, DLACN2, DLATBS, DRSCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MIN
+      // INTRINSIC ABS, MIN
 *     ..
 *     .. Executable Statements ..
 *

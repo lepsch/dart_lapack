@@ -33,7 +33,7 @@
       EXTERNAL           DGEMM, DTRSYL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, SIN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, SIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               IDIM / 1, 2, 3, 4, 3, 3, 6, 4 /

@@ -31,7 +31,7 @@
       EXTERNAL           CLASSQ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, SQRT
+      // INTRINSIC ABS, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

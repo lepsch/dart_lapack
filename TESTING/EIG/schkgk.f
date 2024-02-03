@@ -34,7 +34,7 @@
       EXTERNAL           SGEMM, SGGBAK, SGGBAL, SLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

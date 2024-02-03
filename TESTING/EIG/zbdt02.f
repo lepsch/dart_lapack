@@ -31,7 +31,7 @@
       EXTERNAL           ZCOPY, ZGEMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -47,7 +47,7 @@
       EXTERNAL           DLASUM, XERBLA, ZGEQR2, ZGET51, ZGET52, ZGGHRD, ZHGEQZ, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZTGEVC, ZUNM2R
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, MAX, MIN, SIGN
+      // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, SIGN
 *     ..
 *     .. Data statements ..
       DATA               KCLASS / 15*1, 10*2, 1*3 /

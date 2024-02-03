@@ -30,7 +30,7 @@
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, MAX
+      // INTRINSIC ABS, DCMPLX, MAX
 *     ..
 *     .. Executable Statements ..
 *

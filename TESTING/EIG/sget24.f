@@ -49,7 +49,7 @@
       EXTERNAL           SCOPY, SGEESX, SGEMM, SLACPY, SORT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, SIGN, SQRT
+      // INTRINSIC ABS, MAX, MIN, REAL, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

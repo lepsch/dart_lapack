@@ -37,7 +37,7 @@
       EXTERNAL           SLACPY, SLARNV, SLASET, SLATSQR, SORHR_COL, SORGTSQR, SSCAL, SGEMM, SGEMQRT, SSYRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, REAL, MAX, MIN
+      // INTRINSIC CEILING, REAL, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       String   (LEN=32)  SRNAMT;

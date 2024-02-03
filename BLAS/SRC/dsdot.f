@@ -22,7 +22,7 @@
       int     I,KX,KY,NS;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC DBLE
+      // INTRINSIC DBLE
 *     ..
       DSDOT = 0.0D0
       IF (N.LE.0) RETURN

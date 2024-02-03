@@ -27,7 +27,7 @@
       EXTERNAL           ZLAMSWLQ, ZGEMLQT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MAX, MIN, MOD
+      // INTRINSIC INT, MAX, MIN, MOD
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, LOG, MAX, MIN, DBLE
+      // INTRINSIC INT, LOG, MAX, MIN, DBLE
 *     ..
 *     .. Executable Statements ..
 *

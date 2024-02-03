@@ -35,7 +35,7 @@
       EXTERNAL     ZLAHEF_AA, ZGEMM, ZGEMV, ZCOPY, ZSCAL, ZSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC    DBLE, DCONJG, MAX
+      // INTRINSIC DBLE, DCONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

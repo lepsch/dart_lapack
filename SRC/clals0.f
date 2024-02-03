@@ -32,7 +32,7 @@
       EXTERNAL           SLAMC3, SNRM2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, CMPLX, MAX, REAL
+      // INTRINSIC AIMAG, CMPLX, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

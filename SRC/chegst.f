@@ -28,7 +28,7 @@
       EXTERNAL           CHEGS2, CHEMM, CHER2K, CTRMM, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;

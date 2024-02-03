@@ -42,7 +42,7 @@
       EXTERNAL           CLACN2, CLACPY, CLASSQ, CSCAL, CTGEXC, CTGSYL, SLAMCH, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, CONJG, MAX, SQRT
+      // INTRINSIC ABS, CMPLX, CONJG, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, MAX
+      // INTRINSIC ABS, INT, MAX
 *     ..
 *     .. Executable Statements ..
 *

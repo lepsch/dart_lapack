@@ -32,7 +32,7 @@
       EXTERNAL           SOPGTR, SSCAL, SSPTRD, SSTEQR, SSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SQRT
+      // INTRINSIC SQRT
 *     ..
 *     .. Executable Statements ..
 *

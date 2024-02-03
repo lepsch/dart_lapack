@@ -35,7 +35,7 @@
       EXTERNAL           SGELQ2, SGEQR2, SLACPY, SLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL
+      // INTRINSIC ABS, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

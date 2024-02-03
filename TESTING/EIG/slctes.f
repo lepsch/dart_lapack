@@ -15,7 +15,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SIGN
+      // INTRINSIC SIGN
 *     ..
 *     .. Executable Statements ..
 *

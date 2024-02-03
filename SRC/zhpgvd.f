@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA, ZHPEVD, ZHPGST, ZPPTRF, ZTPMV, ZTPSV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX
+      // INTRINSIC DBLE, MAX
 *     ..
 *     .. Executable Statements ..
 *

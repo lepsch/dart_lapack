@@ -44,7 +44,7 @@
       EXTERNAL           ALASUM, CBDSQR, CBDT01, CBDT02, CBDT03, CGEBRD, CGEMM, CLACPY, CLASET, CLATMR, CLATMS, CUNGBR, CUNT01, SCOPY, SLAHD2, SSVDCH, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, EXP, INT, LOG, MAX, MIN, SQRT
+      // INTRINSIC ABS, EXP, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

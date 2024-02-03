@@ -32,7 +32,7 @@
       EXTERNAL           XERBLA, ZLARZB, ZLARZT, ZUNMR3
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -39,7 +39,7 @@
       EXTERNAL           ALAHDG, ALAREQ, ALASUM, DCSDTS, DLACSG, DLAROR, DLASET, DROT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MIN
+      // INTRINSIC ABS, MIN
 *     ..
 *     .. External Functions ..
       double             DLARAN, DLARND;

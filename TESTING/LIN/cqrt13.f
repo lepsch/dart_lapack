@@ -31,7 +31,7 @@
       EXTERNAL           CLARNV, CLASCL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, REAL, SIGN
+      // INTRINSIC CMPLX, REAL, SIGN
 *     ..
 *     .. Local Arrays ..
       REAL               DUMMY( 1 )

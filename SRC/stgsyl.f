@@ -37,7 +37,7 @@
       EXTERNAL           SGEMM, SLACPY, SLASET, SSCAL, STGSY2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, REAL, SQRT
+      // INTRINSIC MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

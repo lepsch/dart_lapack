@@ -77,7 +77,7 @@
 *     .. External Subroutines ..
       EXTERNAL         CCHK1, CCHK2, CCHK3, CCHK4, CCHK5, CMMCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -409,7 +409,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCGEMM, CMAKE, CMMCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -706,7 +706,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCHEMM, CMAKE, CMMCH, CCSYMM
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -992,7 +992,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CMAKE, CMMCH, CCTRMM, CCTRSM
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1302,7 +1302,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCHERK, CMAKE, CMMCH, CCSYRK
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, REAL
+      // INTRINSIC CMPLX, MAX, REAL
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1664,7 +1664,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCHER2K, CMAKE, CMMCH, CCSYR2K
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, CONJG, MAX, REAL
+      // INTRINSIC CMPLX, CONJG, MAX, REAL
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -2051,7 +2051,7 @@
       COMPLEX            CBEG
       EXTERNAL           CBEG
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, CONJG, REAL
+      // INTRINSIC CMPLX, CONJG, REAL
 *     .. Executable Statements ..
       GEN = TYPE.EQ.'ge'
       HER = TYPE.EQ.'he'
@@ -2163,7 +2163,7 @@
       int                I, J, K;
       bool               CTRANA, CTRANB, TRANA, TRANB;
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CONJG, MAX, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, CONJG, MAX, REAL, SQRT
 *     .. Statement Functions ..
       REAL               ABS1
 *     .. Statement Function definitions ..
@@ -2412,7 +2412,7 @@
 *     .. Save statement ..
       SAVE               I, IC, J, MI, MJ
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX
+      // INTRINSIC CMPLX
 *     .. Executable Statements ..
       IF( RESET )THEN
 *        Initialize local variables.

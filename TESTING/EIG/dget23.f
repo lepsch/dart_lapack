@@ -42,7 +42,7 @@
       EXTERNAL           DGEEVX, DGET22, DLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN
+      // INTRINSIC ABS, DBLE, MAX, MIN
 *     ..
 *     .. Data statements ..
       DATA               SENS / 'N', 'V' /

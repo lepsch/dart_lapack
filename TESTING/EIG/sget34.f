@@ -37,7 +37,7 @@
       EXTERNAL           SCOPY, SLAEXC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL, SIGN, SQRT
+      // INTRINSIC ABS, MAX, REAL, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

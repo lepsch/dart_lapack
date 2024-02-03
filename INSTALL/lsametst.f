@@ -5,7 +5,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ICHAR
+      // INTRINSIC ICHAR
 *     ..
 *     .. Executable Statements ..
 *

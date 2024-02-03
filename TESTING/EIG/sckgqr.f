@@ -36,7 +36,7 @@
       EXTERNAL           ALAHDG, ALAREQ, ALASUM, SGQRTS, SGRQTS, SLATB9, SLATMS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS
+      // INTRINSIC ABS
 *     ..
 *     .. Executable Statements ..
 *

@@ -31,7 +31,7 @@
       EXTERNAL           XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT, LOG, INT
+      // INTRINSIC MAX, MIN, SQRT, LOG, INT
 *     ..
 *     .. Executable Statements ..
 *

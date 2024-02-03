@@ -27,7 +27,7 @@
       EXTERNAL           CGEMV, CGERC, CLARNV, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL
+      // INTRINSIC ABS, MAX, REAL
 *     ..
 *     .. External Functions ..
       REAL               SCNRM2

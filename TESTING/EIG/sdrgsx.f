@@ -39,7 +39,7 @@
       EXTERNAL           ALASVM, SGESVD, SGET51, SGET53, SGGESX, SLACPY, SLAKF2, SLASET, SLATM5, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               FS;

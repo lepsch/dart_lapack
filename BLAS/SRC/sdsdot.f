@@ -15,7 +15,7 @@
       int     I,KX,KY,NS;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC DBLE
+      // INTRINSIC DBLE
 *     ..
       DSDOT = SB
       IF (N.LE.0) THEN

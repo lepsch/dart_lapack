@@ -40,7 +40,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZERRQL, ZGEQLS, ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZQLT01, ZQLT02, ZQLT03
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

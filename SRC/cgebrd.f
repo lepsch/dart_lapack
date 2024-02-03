@@ -26,7 +26,7 @@
       EXTERNAL           CGEBD2, CGEMM, CLABRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL
+      // INTRINSIC MAX, MIN, REAL
 *     ..
 *     .. External Functions ..
       int                ILAENV;

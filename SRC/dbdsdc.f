@@ -36,7 +36,7 @@
       EXTERNAL           DCOPY, DLARTG, DLASCL, DLASD0, DLASDA, DLASDQ, DLASET, DLASR, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, INT, LOG, SIGN
+      // INTRINSIC ABS, DBLE, INT, LOG, SIGN
 *     ..
 *     .. Executable Statements ..
 *

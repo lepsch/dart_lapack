@@ -30,7 +30,7 @@
       EXTERNAL           SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, MAX
+      // INTRINSIC ABS, CMPLX, MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -38,7 +38,7 @@
       EXTERNAL           CLACN2, CSYTRS_ROOK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

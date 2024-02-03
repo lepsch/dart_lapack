@@ -31,7 +31,7 @@
       EXTERNAL           DGEMM, DLACPY, DLASET, DORGLQ, DSYRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX
+      // INTRINSIC DBLE, MAX
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

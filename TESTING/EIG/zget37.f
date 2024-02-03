@@ -40,7 +40,7 @@
       EXTERNAL           DCOPY, DSCAL, ZCOPY, ZDSCAL, ZGEHRD, ZHSEQR, ZLACPY, ZTREVC, ZTRSNA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DIMAG, MAX, SQRT
+      // INTRINSIC DBLE, DIMAG, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

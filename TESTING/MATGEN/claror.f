@@ -36,7 +36,7 @@
       EXTERNAL           CGEMV, CGERC, CLACGV, CLASET, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, CONJG
+      // INTRINSIC ABS, CMPLX, CONJG
 *     ..
 *     .. Executable Statements ..
 *

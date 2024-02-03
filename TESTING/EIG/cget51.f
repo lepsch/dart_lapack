@@ -33,7 +33,7 @@
       EXTERNAL           CGEMM, CLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL
+      // INTRINSIC MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

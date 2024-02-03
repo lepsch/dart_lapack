@@ -18,7 +18,7 @@
       int     I,IX,IY,M,MP1;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC MOD
+      // INTRINSIC MOD
 *     ..
       DDOT = 0.0d0
       DTEMP = 0.0d0

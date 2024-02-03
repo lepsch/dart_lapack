@@ -24,7 +24,7 @@
       double             ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SIGN
+      // INTRINSIC ABS, MAX, SIGN
 *     ..
 *     .. External Functions ..
       double             DLAMCH;

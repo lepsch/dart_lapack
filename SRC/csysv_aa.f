@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA, CSYTRF_AA, CSYTRS_AA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

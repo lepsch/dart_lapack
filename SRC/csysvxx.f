@@ -40,7 +40,7 @@
       EXTERNAL           CSYEQUB, CSYTRF, CSYTRS, CLACPY, CLAQSY, XERBLA, CLASCL2, CSYRFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

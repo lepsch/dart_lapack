@@ -35,7 +35,7 @@
       EXTERNAL           SGEMM, SLACPY, SLASET, SORCSD, SORCSD2BY1, SSYRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          COS, MAX, MIN, REAL, SIN
+      // INTRINSIC COS, MAX, MIN, REAL, SIN
 *     ..
 *     .. Executable Statements ..
 *

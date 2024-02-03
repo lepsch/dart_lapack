@@ -29,7 +29,7 @@
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX
+      // INTRINSIC ABS, DBLE, DCMPLX
 *     ..
 *     .. Executable Statements ..
 *

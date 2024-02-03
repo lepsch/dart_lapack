@@ -24,7 +24,7 @@
       EXTERNAL           LSAME, LSAMEN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          LEN_TRIM
+      // INTRINSIC LEN_TRIM
 *     ..
 *     .. Executable Statements ..
 *

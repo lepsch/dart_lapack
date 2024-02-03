@@ -36,7 +36,7 @@
       EXTERNAL           CHERK, CLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, MAX, MIN, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

@@ -22,7 +22,7 @@
       COMPLEX            MULT, TEMP, ZDUM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, REAL
+      // INTRINSIC ABS, AIMAG, MAX, REAL
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA

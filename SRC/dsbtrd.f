@@ -27,7 +27,7 @@
       EXTERNAL           DLAR2V, DLARGV, DLARTG, DLARTV, DLASET, DROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;

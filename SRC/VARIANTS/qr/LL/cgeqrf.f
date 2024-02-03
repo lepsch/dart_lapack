@@ -21,7 +21,7 @@
       EXTERNAL           CGEQR2, CLARFB, CLARFT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, MAX, MIN, REAL
+      // INTRINSIC CEILING, MAX, MIN, REAL
 *     ..
 *     .. External Functions ..
       int                ILAENV;

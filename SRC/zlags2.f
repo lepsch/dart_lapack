@@ -24,7 +24,7 @@
       EXTERNAL           DLASV2, ZLARTG
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG
+      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG
 *     ..
 *     .. Statement Functions ..
       double             ABS1;

@@ -26,7 +26,7 @@
       EXTERNAL           XERBLA, ZGEBD2, ZGEMM, ZLABRD
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN
+      // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;

@@ -34,7 +34,7 @@
       EXTERNAL           ZCOPY, ZGEMV, ZGGGLM, ZLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

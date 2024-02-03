@@ -36,7 +36,7 @@
       EXTERNAL           CGTTRS, CLACN2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX
+      // INTRINSIC CMPLX
 *     ..
 *     .. Executable Statements ..
 *

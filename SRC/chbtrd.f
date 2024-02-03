@@ -31,7 +31,7 @@
       EXTERNAL           CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MIN, REAL
+      // INTRINSIC ABS, CONJG, MAX, MIN, REAL
 *     ..
 *     .. External Functions ..
       bool               LSAME;

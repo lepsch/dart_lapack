@@ -28,7 +28,7 @@
       EXTERNAL           XERBLA, ZGEMV, ZGERC, ZLACGV, ZLARNV, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN
+      // INTRINSIC ABS, DBLE, MAX, MIN
 *     ..
 *     .. External Functions ..
       double             DZNRM2;

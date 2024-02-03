@@ -35,7 +35,7 @@
       EXTERNAL           ZHEMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCONJG
+      // INTRINSIC DBLE, DCONJG
 *     ..
 *     .. Executable Statements ..
 *

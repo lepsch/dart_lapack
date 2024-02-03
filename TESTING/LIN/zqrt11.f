@@ -28,7 +28,7 @@
       EXTERNAL           XERBLA, ZLASET, ZUNM2R
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX
+      // INTRINSIC DBLE, DCMPLX
 *     ..
 *     .. Local Arrays ..
       double             RDUMMY( 1 );

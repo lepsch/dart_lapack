@@ -25,7 +25,7 @@
       EXTERNAL           CAXPY, CCOPY, CGEMV, CLACGV, CLARFG, CSCAL, CTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

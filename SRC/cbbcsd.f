@@ -37,7 +37,7 @@
       EXTERNAL           LSAME, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, ATAN2, COS, MAX, MIN, SIN, SQRT
+      // INTRINSIC ABS, ATAN2, COS, MAX, MIN, SIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

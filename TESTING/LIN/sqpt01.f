@@ -33,7 +33,7 @@
       EXTERNAL           SAXPY, SCOPY, SORMQR, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL
+      // INTRINSIC MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

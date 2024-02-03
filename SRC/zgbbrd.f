@@ -31,7 +31,7 @@
       EXTERNAL           XERBLA, ZLARGV, ZLARTG, ZLARTV, ZLASET, ZROT, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCONJG, MAX, MIN
+      // INTRINSIC ABS, DCONJG, MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;

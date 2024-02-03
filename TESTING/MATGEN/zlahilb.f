@@ -38,7 +38,7 @@
 *     ..
 *     .. External Functions
       EXTERNAL ZLASET, LSAMEN
-      INTRINSIC DBLE
+      // INTRINSIC DBLE
       bool    LSAMEN;
 *     ..
 *     .. Executable Statements ..

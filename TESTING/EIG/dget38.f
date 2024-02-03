@@ -41,7 +41,7 @@
       EXTERNAL           DCOPY, DGEHRD, DHSEQR, DHST01, DLACPY, DORGHR, DSCAL, DTRSEN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, SQRT
+      // INTRINSIC DBLE, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

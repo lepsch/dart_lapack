@@ -38,7 +38,7 @@
       EXTERNAL           XERBLA, ZGEMM, ZLACPY, ZLASET, ZSCAL, ZTGSY2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, MAX, SQRT
+      // INTRINSIC DBLE, DCMPLX, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

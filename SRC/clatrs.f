@@ -37,7 +37,7 @@
       EXTERNAL           CAXPY, CSSCAL, CTRSV, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1, CABS2

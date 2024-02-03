@@ -35,7 +35,7 @@
       EXTERNAL           XERBLA, CLACPY, CLACRM, CLAED0, CSTEQR, CSWAP, SLASCL, SLASET, SSTEDC, SSTEQR, SSTERF
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, LOG, MAX, MOD, REAL, SQRT
+      // INTRINSIC ABS, INT, LOG, MAX, MOD, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

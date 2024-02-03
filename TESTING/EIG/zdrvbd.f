@@ -49,7 +49,7 @@
       EXTERNAL           ALASVM, XERBLA, ZBDT01, ZBDT05, ZGESDD, ZGESVD, ZGESVDQ, ZGESVJ, ZGEJSV, ZGESVDX, ZLACPY, ZLASET, ZLATMS, ZUNT01, ZUNT03
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN
+      // INTRINSIC ABS, DBLE, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

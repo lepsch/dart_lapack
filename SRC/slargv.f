@@ -22,7 +22,7 @@
       REAL               F, G, T, TT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SQRT
+      // INTRINSIC ABS, SQRT
 *     ..
 *     .. Executable Statements ..
 *

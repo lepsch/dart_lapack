@@ -29,7 +29,7 @@
       double             FASTR( 5 );
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DABS, MAX, MIN, DBLE, DSIGN, DSQRT
+      // INTRINSIC DABS, MAX, MIN, DBLE, DSIGN, DSQRT
 *     ..
 *     .. External Functions ..
 *     ..

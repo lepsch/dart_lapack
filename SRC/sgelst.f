@@ -36,7 +36,7 @@
       EXTERNAL           SGELQT, SGEQRT, SGEMLQT, SGEMQRT, SLASCL, SLASET, STRTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -40,7 +40,7 @@
       EXTERNAL           SISNAN, SLAMCH, SCNRM2, ISAMAX, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN
+      // INTRINSIC CMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

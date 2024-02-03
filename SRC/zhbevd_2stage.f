@@ -39,7 +39,7 @@
       EXTERNAL           DSCAL, DSTERF, XERBLA, ZGEMM, ZLACPY, ZLASCL, ZSTEDC, ZHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, SQRT
+      // INTRINSIC DBLE, SQRT
 *     ..
 *     .. Executable Statements ..
 *

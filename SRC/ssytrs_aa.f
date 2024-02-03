@@ -34,7 +34,7 @@
       EXTERNAL           SGTSV, SSWAP, SLACPY, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. Executable Statements ..
 *

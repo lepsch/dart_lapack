@@ -43,7 +43,7 @@
       EXTERNAL           ALAHD, ALASUM, CERRTZ, CGEQR2, CLACPY, CLASET, CLATMS, CTZRZF, SLAORD
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN
+      // INTRINSIC CMPLX, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

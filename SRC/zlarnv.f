@@ -29,7 +29,7 @@
       double             U( LV );
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX, EXP, LOG, MIN, SQRT
+      // INTRINSIC DCMPLX, EXP, LOG, MIN, SQRT
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLARUV

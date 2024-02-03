@@ -44,7 +44,7 @@
       String             CHLA_TRANSTYPE;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

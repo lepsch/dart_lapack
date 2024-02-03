@@ -35,7 +35,7 @@
       EXTERNAL           SGET51, SLACPY, SLASET, STGEXC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN
+      // INTRINSIC ABS, SIGN
 *     ..
 *     .. Executable Statements ..
 *

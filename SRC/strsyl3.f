@@ -31,7 +31,7 @@
       EXTERNAL           SGEMM, SLASCL, SSCAL, STRSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, EXPONENT, MAX, MIN, REAL
+      // INTRINSIC ABS, EXPONENT, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

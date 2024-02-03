@@ -61,7 +61,7 @@
       EXTERNAL           ZLACPY, ZLAHQR, ZLAQR3, ZLAQR4, ZLAQR5
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, INT, MAX, MIN, MOD, SQRT
+      // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, INT, MAX, MIN, MOD, SQRT
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

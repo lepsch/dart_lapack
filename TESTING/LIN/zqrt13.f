@@ -31,7 +31,7 @@
       EXTERNAL           ZLARNV, ZLASCL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, SIGN
+      // INTRINSIC DBLE, DCMPLX, SIGN
 *     ..
 *     .. Local Arrays ..
       double             DUMMY( 1 );

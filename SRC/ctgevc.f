@@ -37,7 +37,7 @@
       EXTERNAL           CGEMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1

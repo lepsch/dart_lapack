@@ -39,7 +39,7 @@
       EXTERNAL           SCOPY, SGEHRD, SHSEQR, SLACPY, SSCAL, STREVC, STRSNA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, REAL, SQRT
+      // INTRINSIC MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           XERBLA, ZGTTRS, ZLACN2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX
+      // INTRINSIC DCMPLX
 *     ..
 *     .. Executable Statements ..
 *

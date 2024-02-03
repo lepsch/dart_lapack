@@ -32,7 +32,7 @@
       EXTERNAL           CGEMM, CSYSWAPR, CTRTRI, CTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MOD
+      // INTRINSIC ABS, MAX, MOD
 *     ..
 *     .. Executable Statements ..
 *

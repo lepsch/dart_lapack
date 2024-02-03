@@ -40,7 +40,7 @@
       EXTERNAL           ALASVM, DGET52, DGGEV, DLACPY, DLARFG, DLASET, DLATM4, DORM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SIGN
+      // INTRINSIC ABS, DBLE, MAX, MIN, SIGN
 *     ..
 *     .. Data statements ..
       DATA               KCLASS / 15*1, 10*2, 1*3 /

@@ -43,7 +43,7 @@
       EXTERNAL           SLASUM, XERBLA, CHBT21, CHBTRD, CLACPY, CLASET, CLATMR, CLATMS, CHETRD_HB2ST, CSTEQR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, CONJG, MAX, MIN, SQRT
+      // INTRINSIC ABS, REAL, CONJG, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8 /

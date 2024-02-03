@@ -29,7 +29,7 @@
       EXTERNAL           SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, REAL
+      // INTRINSIC ABS, CONJG, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

@@ -24,7 +24,7 @@
       EXTERNAL           SGEMV, SLARFG, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

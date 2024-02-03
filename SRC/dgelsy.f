@@ -34,7 +34,7 @@
       EXTERNAL           DCOPY, DGEQP3, DLAIC1, DLASCL, DLASET, DORMQR, DORMRZ, DTRSM, DTZRZF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

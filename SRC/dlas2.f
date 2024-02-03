@@ -22,7 +22,7 @@
       double             AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, SQRT
+      // INTRINSIC ABS, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

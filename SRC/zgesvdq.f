@@ -38,7 +38,7 @@
       EXTERNAL    LSAME, ZLANGE,  IDAMAX, DZNRM2, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC   ABS, CONJG, MAX, MIN, DBLE, SQRT
+      // INTRINSIC ABS, CONJG, MAX, MIN, DBLE, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -27,7 +27,7 @@
       EXTERNAL           XERBLA, ZPTTS2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

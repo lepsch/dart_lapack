@@ -39,7 +39,7 @@
       EXTERNAL           ZPOEQUB, ZPOTRF, ZPOTRS, ZLACPY, ZLAQHE, XERBLA, ZLASCL2, ZPORFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -29,7 +29,7 @@
       EXTERNAL           CLASYF_RK, CSYTF2_RK, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

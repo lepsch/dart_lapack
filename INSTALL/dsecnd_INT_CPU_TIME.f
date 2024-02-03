@@ -12,7 +12,7 @@
 *
 * .. Intrinsic Functions ..
 *
-      INTRINSIC CPU_TIME
+      // INTRINSIC CPU_TIME
 *
 * .. Executable Statements .. *
 *

@@ -46,7 +46,7 @@
       EXTERNAL           CLATM1, CSSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MIN, MOD, REAL
+      // INTRINSIC ABS, CONJG, MAX, MIN, MOD, REAL
 *     ..
 *     .. Executable Statements ..
 *

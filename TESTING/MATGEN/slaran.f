@@ -24,7 +24,7 @@
       REAL               RNDOUT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD, REAL
+      // INTRINSIC MOD, REAL
 *     ..
 *     .. Executable Statements ..
   10  CONTINUE

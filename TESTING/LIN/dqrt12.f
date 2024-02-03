@@ -29,7 +29,7 @@
       EXTERNAL           DAXPY, DBDSQR, DGEBD2, DLASCL, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN
+      // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. Local Arrays ..
       double             DUMMY( 1 );

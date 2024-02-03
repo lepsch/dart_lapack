@@ -95,7 +95,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCHK1, CCHK2, CCHK3, CCHK4, CCHK5, CCHK6, CC2CHKE, CMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -441,7 +441,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCGBMV, CCGEMV, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -751,7 +751,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCHBMV, CCHEMV, CCHPMV, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool                OK;
@@ -1062,7 +1062,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CMAKE, CMVCH, CCTBMV, CCTBSV, CCTPMV, CCTPSV, CCTRMV, CCTRSV
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool                OK;
@@ -1380,7 +1380,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCGERC, CCGERU, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MIN
+      // INTRINSIC ABS, CONJG, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool                OK;
@@ -1625,7 +1625,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCHER, CCHPR, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, CONJG, MAX, REAL
+      // INTRINSIC ABS, CMPLX, CONJG, MAX, REAL
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool                OK;
@@ -1887,7 +1887,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CCHER2, CCHPR2, CMAKE, CMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX
+      // INTRINSIC ABS, CONJG, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool                OK;
@@ -2168,7 +2168,7 @@
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
       bool               CTRAN, TRAN;
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CONJG, MAX, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, CONJG, MAX, REAL, SQRT
 *     .. Statement Functions ..
       REAL               ABS1
 *     .. Statement Function definitions ..
@@ -2369,7 +2369,7 @@
 *     .. Save statement ..
       SAVE               I, IC, J, MI, MJ
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX
+      // INTRINSIC CMPLX
 *     .. Executable Statements ..
       IF( RESET )THEN
 *        Initialize local variables.
@@ -2458,7 +2458,7 @@
       COMPLEX            CBEG
       EXTERNAL           CBEG
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, CONJG, MAX, MIN, REAL
+      // INTRINSIC CMPLX, CONJG, MAX, MIN, REAL
 *     .. Executable Statements ..
       GEN = TYPE( 1: 1 ).EQ.'g'
       SYM = TYPE( 1: 1 ).EQ.'h'

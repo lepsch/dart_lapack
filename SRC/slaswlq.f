@@ -78,7 +78,7 @@
       EXTERNAL           SGELQT, SGEQRT, STPLQT, STPQRT, XERBLA
 *     ..
 *     .. INTRINSIC FUNCTIONS ..
-      INTRINSIC          MAX, MIN, MOD
+      // INTRINSIC MAX, MIN, MOD
 *     ..
 *     .. EXECUTABLE STATEMENTS ..
 *

@@ -34,7 +34,7 @@
       EXTERNAL           DLAG2, DLARFG, DLARTG, DLASET, DLASV2, DROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

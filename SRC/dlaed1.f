@@ -22,7 +22,7 @@
       EXTERNAL           DCOPY, DLAED2, DLAED3, DLAMRG, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

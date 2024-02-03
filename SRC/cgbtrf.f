@@ -35,7 +35,7 @@
       EXTERNAL           CCOPY, CGBTF2, CGEMM, CGERU, CLASWP, CSCAL, CSWAP, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

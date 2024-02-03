@@ -11,7 +11,7 @@
 * =====================================================================
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC         EPSILON, DBLE, INT
+      // INTRINSIC EPSILON, DBLE, INT
 *     ..
 *     .. Executable Statements ..
 *     ..

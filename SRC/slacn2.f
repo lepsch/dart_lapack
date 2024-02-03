@@ -34,7 +34,7 @@
       EXTERNAL           SCOPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, NINT, REAL
+      // INTRINSIC ABS, NINT, REAL
 *     ..
 *     .. Executable Statements ..
 *

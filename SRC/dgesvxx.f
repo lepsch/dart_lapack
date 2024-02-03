@@ -40,7 +40,7 @@
       EXTERNAL           DGEEQUB, DGETRF, DGETRS, DLACPY, DLAQGE, XERBLA, DLASCL2, DGERFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -41,7 +41,7 @@
 *
 *     .. Intrinsic Functions ..
 *
-      INTRINSIC          DCONJG
+      // INTRINSIC DCONJG
 *     ..
 *
 *-----------------------------------------------------------------------

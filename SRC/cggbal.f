@@ -37,7 +37,7 @@
       EXTERNAL           CSSCAL, CSWAP, SAXPY, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, INT, LOG10, MAX, MIN, REAL, SIGN
+      // INTRINSIC ABS, AIMAG, INT, LOG10, MAX, MIN, REAL, SIGN
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

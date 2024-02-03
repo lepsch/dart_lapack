@@ -50,7 +50,7 @@
       COMMON             / MN / M, N, MPLUSN, K, FS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1

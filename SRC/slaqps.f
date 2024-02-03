@@ -26,7 +26,7 @@
       EXTERNAL           SGEMM, SGEMV, SLARFG, SSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, NINT, REAL, SQRT
+      // INTRINSIC ABS, MAX, MIN, NINT, REAL, SQRT
 *     ..
 *     .. External Functions ..
       int                ISAMAX;

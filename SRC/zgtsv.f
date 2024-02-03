@@ -22,7 +22,7 @@
       COMPLEX*16         MULT, TEMP, ZDUM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX
+      // INTRINSIC ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA

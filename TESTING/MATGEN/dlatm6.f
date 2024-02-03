@@ -25,7 +25,7 @@
       double             WORK( 100 ), Z( 12, 12 );
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, SQRT
+      // INTRINSIC DBLE, SQRT
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGESVD, DLACPY, DLAKF2

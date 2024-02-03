@@ -32,7 +32,7 @@
       EXTERNAL           CGELQF, CGEMM, CHERK, CLACPY, CLASET, CUNGLQ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN, REAL
+      // INTRINSIC CMPLX, MAX, MIN, REAL
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

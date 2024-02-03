@@ -91,7 +91,7 @@
 *     .. External Subroutines ..
       EXTERNAL           SCHK1, SCHK2, SCHK3, SCHK4, SCHK5, SCHK6, CS2CHKE, SMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -431,7 +431,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CSGBMV, CSGEMV, SMAKE, SMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -745,7 +745,7 @@
 *     .. External Subroutines ..
       EXTERNAL           SMAKE, SMVCH, CSSBMV, CSSPMV, CSSYMV
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -1061,7 +1061,7 @@
 *     .. External Subroutines ..
       EXTERNAL           SMAKE, SMVCH, CSTBMV, CSTBSV, CSTPMV, CSTPSV, CSTRMV,  CSTRSV
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -1385,7 +1385,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CSGER, SMAKE, SMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -1631,7 +1631,7 @@
 *     .. External Subroutines ..
       EXTERNAL           SMAKE, SMVCH, CSSPR, CSSYR
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -1899,7 +1899,7 @@
 *     .. External Subroutines ..
       EXTERNAL           SMAKE, SMVCH, CSSPR2, CSSYR2
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               OK;
@@ -2195,7 +2195,7 @@
       REAL               SBEG
       EXTERNAL           SBEG
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     .. Executable Statements ..
       GEN = TYPE( 1: 1 ).EQ.'g'
       SYM = TYPE( 1: 1 ).EQ.'s'
@@ -2353,7 +2353,7 @@
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
       bool               TRAN;
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     .. Executable Statements ..
       TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
       IF( TRAN )THEN
@@ -2542,7 +2542,7 @@
 *     .. Save statement ..
       SAVE               I, IC, MI
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     .. Executable Statements ..
       IF( RESET )THEN
 *        Initialize local variables.

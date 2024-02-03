@@ -39,7 +39,7 @@
       COMMON             / SRNAMC / SRNAMT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX
+      // INTRINSIC CMPLX
 *     ..
 *     .. Executable Statements ..
 *

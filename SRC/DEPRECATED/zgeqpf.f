@@ -28,7 +28,7 @@
       EXTERNAL           XERBLA, ZGEQR2, ZLARF, ZLARFG, ZSWAP, ZUNM2R
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCMPLX, DCONJG, MAX, MIN, SQRT
+      // INTRINSIC ABS, DCMPLX, DCONJG, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
       int                IDAMAX;

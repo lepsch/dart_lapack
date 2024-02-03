@@ -42,7 +42,7 @@
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX, SQRT
+      // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT
 *     ..
 *     .. Statement Functions ..
       double             ABS1;

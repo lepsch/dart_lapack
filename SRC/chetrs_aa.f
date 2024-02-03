@@ -33,7 +33,7 @@
       EXTERNAL           CLACPY, CLACGV, CGTSV, CSWAP, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. Executable Statements ..
 *

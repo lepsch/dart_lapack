@@ -36,7 +36,7 @@
       EXTERNAL           ZSYMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..
 *

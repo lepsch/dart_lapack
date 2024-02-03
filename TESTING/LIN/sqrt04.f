@@ -37,7 +37,7 @@
       EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC  MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /

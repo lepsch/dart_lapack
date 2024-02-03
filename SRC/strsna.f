@@ -38,7 +38,7 @@
       EXTERNAL           SLACN2, SLACPY, SLAQTR, STREXC, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

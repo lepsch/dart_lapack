@@ -38,7 +38,7 @@
       EXTERNAL           DLATM7, DCOPY, DLAGGE, DLAGSY, DLAROT, DLARTG, DLASET, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, COS, DBLE, MAX, MIN, MOD, SIN
+      // INTRINSIC ABS, COS, DBLE, MAX, MIN, MOD, SIN
 *     ..
 *     .. Executable Statements ..
 *

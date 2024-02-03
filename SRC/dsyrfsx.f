@@ -47,7 +47,7 @@
       EXTERNAL           XERBLA, DSYCON, DLA_SYRFSX_EXTENDED
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, ILAPREC

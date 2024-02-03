@@ -27,7 +27,7 @@
       EXTERNAL           CGELQT, CLASWLQ, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, MOD
+      // INTRINSIC MAX, MIN, MOD
 *     ..
 *     .. External Functions ..
       int                ILAENV;

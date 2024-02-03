@@ -33,7 +33,7 @@
       EXTERNAL           DZNRM2, ZDOTC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX
+      // INTRINSIC ABS, DBLE, MAX
 *     ..
 *     .. Executable Statements ..
 *

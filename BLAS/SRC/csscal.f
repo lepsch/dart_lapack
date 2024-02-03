@@ -22,7 +22,7 @@
       PARAMETER (ONE=1.0E+0)
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC AIMAG,CMPLX,REAL
+      // INTRINSIC AIMAG,CMPLX,REAL
 *     ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. SA.EQ.ONE) RETURN
       IF (INCX.EQ.1) THEN

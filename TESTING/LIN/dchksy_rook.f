@@ -47,7 +47,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, DERRSY, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPOT02, DPOT03, DGESVD, DSYCON_ROOK, DSYT01_ROOK, DSYTRF_ROOK, DSYTRI_ROOK, DSYTRS_ROOK, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT
+      // INTRINSIC MAX, MIN, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

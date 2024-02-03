@@ -21,7 +21,7 @@
       String       SRNAME;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC MIN, LEN
+      // INTRINSIC MIN, LEN
 *     ..
 *     .. External Functions ..
       EXTERNAL XERBLA

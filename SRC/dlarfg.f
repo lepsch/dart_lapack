@@ -27,7 +27,7 @@
       EXTERNAL           DLAMCH, DLAPY2, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN
+      // INTRINSIC ABS, SIGN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DSCAL

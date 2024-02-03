@@ -33,7 +33,7 @@
       EXTERNAL           CGEMM, CSCAL, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, CMPLX, AIMAG, SIGN, MAX, MIN
+      // INTRINSIC ABS, REAL, CMPLX, AIMAG, SIGN, MAX, MIN
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

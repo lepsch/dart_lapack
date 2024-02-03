@@ -33,7 +33,7 @@
       EXTERNAL           LSAME, IZAMAX, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZUNT01

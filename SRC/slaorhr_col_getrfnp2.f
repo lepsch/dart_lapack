@@ -30,7 +30,7 @@
       EXTERNAL           SGEMM, SSCAL, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN, MAX, MIN
+      // INTRINSIC ABS, SIGN, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

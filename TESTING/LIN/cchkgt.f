@@ -47,7 +47,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, CCOPY, CERRGE, CGET04, CGTCON, CGTRFS, CGTT01, CGTT02, CGTT05, CGTTRF, CGTTRS, CLACPY, CLAGTM, CLARNV, CLATB4, CLATMS, CSSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

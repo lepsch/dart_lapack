@@ -21,7 +21,7 @@
       REAL               ZMAX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, REAL, SIGN
+      // INTRINSIC ABS, AIMAG, MAX, REAL, SIGN
 *     ..
 *     .. Executable Statements ..
 *

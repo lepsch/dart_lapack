@@ -45,7 +45,7 @@
       EXTERNAL           SLAFTS, SLASUM, XERBLA, CHBGV, CHBGVD, CHBGVX, CHEGV, CHEGVD, CHEGVX, CHPGV, CHPGVD, CHPGVX, CLACPY, CLASET, CLATMR, CLATMS, CSGT01, CHEGV_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, MAX, MIN, SQRT
+      // INTRINSIC ABS, REAL, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 6*9 /

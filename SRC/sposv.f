@@ -22,7 +22,7 @@
       EXTERNAL           SPOTRF, SPOTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

@@ -39,7 +39,7 @@
       EXTERNAL           SCOPY, SLARNV, SLARRA, SLARRB, SLARRC, SLARRD, SLASQ2, SLARRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 
 *     ..
 *     .. Executable Statements ..

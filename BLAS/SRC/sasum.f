@@ -18,7 +18,7 @@
       int     I,M,MP1,NINCX;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS,MOD
+      // INTRINSIC ABS,MOD
 *     ..
       SASUM = 0.0e0
       STEMP = 0.0e0

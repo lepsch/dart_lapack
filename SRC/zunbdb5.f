@@ -31,7 +31,7 @@
       EXTERNAL           DLAMCH, DZNRM2
 *     ..
 *     .. Intrinsic Function ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

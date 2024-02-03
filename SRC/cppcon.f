@@ -40,7 +40,7 @@
       EXTERNAL           CLACN2, CLATPS, CSRSCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, REAL
+      // INTRINSIC ABS, AIMAG, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

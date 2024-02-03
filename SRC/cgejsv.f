@@ -37,7 +37,7 @@
       REAL    RDUMMY(1)
 *
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS, CMPLX, CONJG, ALOG, MAX, MIN, REAL, NINT, SQRT
+      // INTRINSIC ABS, CMPLX, CONJG, ALOG, MAX, MIN, REAL, NINT, SQRT
 *     ..
 *     .. External Functions ..
       REAL      SLAMCH, SCNRM2

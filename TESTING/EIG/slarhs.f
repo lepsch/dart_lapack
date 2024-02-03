@@ -34,7 +34,7 @@
       EXTERNAL           SGBMV, SGEMM, SLACPY, SLARNV, SSBMV, SSPMV, SSYMM, STBMV, STPMV, STRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

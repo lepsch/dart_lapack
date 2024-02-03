@@ -43,7 +43,7 @@
       EXTERNAL           ALAHD, ALASUM, DLAORD, ICOPY, XLAENV, ZGEQP3, ZLACPY, ZLASET, ZLATMS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

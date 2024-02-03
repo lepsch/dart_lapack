@@ -38,7 +38,7 @@
       EXTERNAL           ZGEMM, ZTRMM, ZSYSWAPR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

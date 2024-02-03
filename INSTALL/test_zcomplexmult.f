@@ -16,7 +16,7 @@
       double complex    Y, R, cInf( nInf ), cNaN( nNaN )
 *
 *     .. Intrinsic Functions ..
-      intrinsic         HUGE, DCMPLX
+      // intrinsic HUGE, DCMPLX
 
 *
 *     .. Initialize error counts ..

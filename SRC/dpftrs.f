@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA, DTFSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

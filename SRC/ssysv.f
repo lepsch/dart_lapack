@@ -28,7 +28,7 @@
       EXTERNAL           XERBLA, SSYTRF, SSYTRS, SSYTRS2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

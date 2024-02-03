@@ -26,7 +26,7 @@
       EXTERNAL           DGEMM, DGEMV, DLARFG, DSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, NINT, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, NINT, SQRT
 *     ..
 *     .. External Functions ..
       int                IDAMAX;

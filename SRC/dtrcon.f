@@ -39,7 +39,7 @@
       EXTERNAL           DLACN2, DLATRS, DRSCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX
+      // INTRINSIC ABS, DBLE, MAX
 *     ..
 *     .. Executable Statements ..
 *

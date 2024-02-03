@@ -17,7 +17,7 @@
       EXTERNAL           DLADIV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, DIMAG
+      // INTRINSIC DBLE, DCMPLX, DIMAG
 *     ..
 *     .. Executable Statements ..
 *

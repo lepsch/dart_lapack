@@ -24,7 +24,7 @@
       REAL               ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SIGN, SQRT
+      // INTRINSIC ABS, MAX, SIGN, SQRT
 *     ..
 *     .. External Functions ..
       REAL               SDOT, SLAMCH

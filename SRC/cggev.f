@@ -41,7 +41,7 @@
       EXTERNAL           LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, MAX, REAL, SQRT
+      // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1

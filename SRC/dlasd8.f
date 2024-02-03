@@ -29,7 +29,7 @@
       EXTERNAL           DDOT, DLAMC3, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN, SQRT
+      // INTRINSIC ABS, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

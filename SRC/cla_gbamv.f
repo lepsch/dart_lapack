@@ -34,7 +34,7 @@
       int                ILATRANS;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, ABS, REAL, AIMAG, SIGN
+      // INTRINSIC MAX, ABS, REAL, AIMAG, SIGN
 *     ..
 *     .. Statement Functions
       REAL               CABS1

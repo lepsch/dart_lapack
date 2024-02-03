@@ -38,7 +38,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Function ..
-      INTRINSIC          INT, MAX, MIN
+      // INTRINSIC INT, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

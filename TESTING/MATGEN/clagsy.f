@@ -33,7 +33,7 @@
       EXTERNAL           SCNRM2, CDOTC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL
+      // INTRINSIC ABS, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

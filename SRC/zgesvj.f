@@ -32,7 +32,7 @@
 *     ..
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS, MAX, MIN, CONJG, DBLE, SIGN, SQRT
+      // INTRINSIC ABS, MAX, MIN, CONJG, DBLE, SIGN, SQRT
 *     ..
 *     .. External Functions ..
 *     ..

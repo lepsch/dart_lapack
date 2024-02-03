@@ -28,7 +28,7 @@
       EXTERNAL           DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, LOG, MAX, SIGN, SQRT
+      // INTRINSIC ABS, INT, LOG, MAX, SIGN, SQRT
 *     ..
 *     .. Save statement ..
 *     SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2

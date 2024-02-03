@@ -32,7 +32,7 @@
       EXTERNAL           SGEMV, SLASWP, SSCAL, STRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, REAL
+      // INTRINSIC MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

@@ -30,7 +30,7 @@
       EXTERNAL           XERBLA, CTRMM, CTRTRI
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD
+      // INTRINSIC MOD
 *     ..
 *     .. Executable Statements ..
 *

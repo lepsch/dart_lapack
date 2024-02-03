@@ -35,7 +35,7 @@
       EXTERNAL           ZGEMM, ZHESWAPR, ZTRTRI, ZTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCONJG, DBLE, MAX
+      // INTRINSIC ABS, DCONJG, DBLE, MAX
 *     ..
 *     .. Executable Statements ..
 *

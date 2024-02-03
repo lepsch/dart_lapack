@@ -30,7 +30,7 @@
       EXTERNAL           SDOT, SNRM2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SIGN
+      // INTRINSIC MAX, SIGN
 *     ..
 *     .. Executable Statements ..
 *

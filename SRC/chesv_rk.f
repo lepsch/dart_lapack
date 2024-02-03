@@ -28,7 +28,7 @@
       EXTERNAL           XERBLA, CHETRF_RK, CHETRS_3
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

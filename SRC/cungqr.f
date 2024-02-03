@@ -25,7 +25,7 @@
       EXTERNAL           CLARFB, CLARFT, CUNG2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;

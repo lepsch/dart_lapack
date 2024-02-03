@@ -29,7 +29,7 @@
       EXTERNAL           SSYTRI_3X, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

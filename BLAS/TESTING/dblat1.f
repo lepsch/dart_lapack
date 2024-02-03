@@ -199,7 +199,7 @@
 *     .. External Subroutines ..
       EXTERNAL          ITEST1, DB1NRM2, DSCAL, STEST, STEST1
 *     .. Intrinsic Functions ..
-      INTRINSIC         MAX
+      // INTRINSIC MAX
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -287,7 +287,7 @@
 *     .. External Subroutines ..
       EXTERNAL          DAXPY, DCOPY, DROTM, DSWAP, STEST, STEST1, TESTDSDOT
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -443,7 +443,7 @@
 *     .. External Subroutines ..
       EXTERNAL          DROT, STEST
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..
@@ -613,7 +613,7 @@
       double           SDIFF;
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
-      INTRINSIC        ABS
+      // INTRINSIC ABS
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Executable Statements ..
@@ -664,7 +664,7 @@
 *     .. Local Scalars ..
       REAL             SD
 *     .. Intrinsic Functions ..
-      INTRINSIC        ABS
+      // INTRINSIC ABS
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Executable Statements ..
@@ -808,7 +808,7 @@
       double            DNRM2;
       EXTERNAL          DNRM2
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, DBLE, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
 *     .. Model parameters ..
       double            BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       PARAMETER         (BIGNUM=0.99792015476735990583D+292, SAFMAX=0.44942328371557897693D+308, SAFMIN=0.22250738585072013831D-307, SMLNUM=0.10020841800044863890D-291, ULP=0.22204460492503130808D-015)
@@ -967,7 +967,7 @@
 *     .. Local Scalars ..
       double            X, Y, YY, Z;
 *     .. Intrinsic Functions ..
-      INTRINSIC         HUGE
+      // INTRINSIC HUGE
 *     .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY

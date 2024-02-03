@@ -28,7 +28,7 @@
       EXTERNAL           DLASYF_RK, DSYTF2_RK, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

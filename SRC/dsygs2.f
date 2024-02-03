@@ -27,7 +27,7 @@
       EXTERNAL           DAXPY, DSCAL, DSYR2, DTRMV, DTRSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

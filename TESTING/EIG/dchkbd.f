@@ -41,7 +41,7 @@
       EXTERNAL           ALASUM, DBDSDC, DBDSQR, DBDSVDX, DBDT01, DBDT02, DBDT03, DBDT04, DCOPY, DGEBRD, DGEMM, DLACPY, DLAHD2, DLASET, DLATMR, DLATMS, DORGBR, DORT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, EXP, INT, LOG, MAX, MIN, SQRT
+      // INTRINSIC ABS, EXP, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

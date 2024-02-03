@@ -20,7 +20,7 @@
       COMPLEX            CDUM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, AIMAG, MAX
+      // INTRINSIC ABS, REAL, AIMAG, MAX
 *     ..
 *     .. External Functions ..
       EXTERNAL           SLAMCH

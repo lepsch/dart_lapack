@@ -29,7 +29,7 @@
       bool               LSAMEN;
 
 *     .. Intrinsic Functions ..
-      INTRINSIC          SQRT, MAX, ABS, REAL, AIMAG
+      // INTRINSIC SQRT, MAX, ABS, REAL, AIMAG
 
 *     .. Statement Functions ..
       REAL               CABS1

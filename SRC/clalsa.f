@@ -25,7 +25,7 @@
       EXTERNAL           CCOPY, CLALS0, SGEMM, SLASDT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, CMPLX, REAL
+      // INTRINSIC AIMAG, CMPLX, REAL
 *     ..
 *     .. Executable Statements ..
 *

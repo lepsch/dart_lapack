@@ -26,7 +26,7 @@
       EXTERNAL           SSYGS2, SSYMM, SSYR2K, STRMM, STRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       bool               LSAME;

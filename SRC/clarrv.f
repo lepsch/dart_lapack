@@ -37,8 +37,8 @@
       EXTERNAL           CLAR1V, CLASET, CSSCAL, SCOPY, SLARRB, SLARRF
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS, REAL, MAX, MIN
-      INTRINSIC CMPLX
+      // INTRINSIC ABS, REAL, MAX, MIN
+      // INTRINSIC CMPLX
 *     ..
 *     .. Executable Statements ..
 *     ..

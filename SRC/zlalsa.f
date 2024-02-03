@@ -25,7 +25,7 @@
       EXTERNAL           DGEMM, DLASDT, XERBLA, ZCOPY, ZLALS0
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, DIMAG
+      // INTRINSIC DBLE, DCMPLX, DIMAG
 *     ..
 *     .. Executable Statements ..
 *

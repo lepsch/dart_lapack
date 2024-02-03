@@ -34,7 +34,7 @@
       EXTERNAL           XERBLA, ZGEQPF, ZGEQR2, ZGERQ2, ZLACPY, ZLAPMT, ZLASET, ZUNG2R, ZUNM2R, ZUNMR2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN
+      // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

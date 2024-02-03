@@ -28,7 +28,7 @@
       EXTERNAL           CLARTG, CROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, MAX
+      // INTRINSIC CONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

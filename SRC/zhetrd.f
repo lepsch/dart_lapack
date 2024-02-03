@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA, ZHER2K, ZHETD2, ZLATRD
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

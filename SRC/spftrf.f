@@ -29,7 +29,7 @@
       EXTERNAL           XERBLA, SSYRK, SPOTRF, STRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD
+      // INTRINSIC MOD
 *     ..
 *     .. Executable Statements ..
 *

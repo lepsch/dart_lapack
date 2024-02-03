@@ -29,7 +29,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANGE, DLANSP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DSPMV

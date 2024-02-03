@@ -37,8 +37,8 @@
       EXTERNAL           DCOPY, DLARRB, DLARRF, ZDSCAL, ZLAR1V, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC ABS, DBLE, MAX, MIN
-      INTRINSIC DCMPLX
+      // INTRINSIC ABS, DBLE, MAX, MIN
+      // INTRINSIC DCMPLX
 *     ..
 *     .. Executable Statements ..
 *     ..

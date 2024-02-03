@@ -41,7 +41,7 @@
       EXTERNAL           XERBLA, CCOPY, CLASET, CSSCAL, CGEMM, CGEMV, CLATRS, CLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, CMPLX, CONJG, AIMAG, MAX
+      // INTRINSIC ABS, REAL, CMPLX, CONJG, AIMAG, MAX
 *     ..
 *     .. Statement Functions ..
       REAL   CABS1

@@ -33,7 +33,7 @@
       EXTERNAL           DAXPY, DSCAL, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, INT, LOG10, MAX, MIN, SIGN
+      // INTRINSIC ABS, DBLE, INT, LOG10, MAX, MIN, SIGN
 *     ..
 *     .. Executable Statements ..
 *

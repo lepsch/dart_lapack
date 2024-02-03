@@ -36,7 +36,7 @@
       EXTERNAL           CHECON, CHERFS, CHETRF, CHETRS, CLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

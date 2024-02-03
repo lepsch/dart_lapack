@@ -24,7 +24,7 @@
       REAL               D, EMIN, TEMP, DTHRESH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

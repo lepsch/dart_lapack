@@ -32,7 +32,7 @@
       EXTERNAL           CLARF, CLARFG, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, CONJG, AIMAG, MAX, MIN, SQRT
+      // INTRINSIC ABS, REAL, CONJG, AIMAG, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
       bool               SISNAN;

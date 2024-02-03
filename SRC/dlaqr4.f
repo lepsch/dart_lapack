@@ -57,7 +57,7 @@
       EXTERNAL           DLACPY, DLAHQR, DLANV2, DLAQR2, DLAQR5
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, INT, MAX, MIN, MOD
+      // INTRINSIC ABS, DBLE, INT, MAX, MIN, MOD
 *     ..
 *     .. Executable Statements ..
       INFO = 0

@@ -40,7 +40,7 @@
       EXTERNAL           STRTTF, SGEQRF, SGEQLF, STFSM, STRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

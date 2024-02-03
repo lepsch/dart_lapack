@@ -25,7 +25,7 @@
       EXTERNAL           ZLACGV, ZLARFG, ZLARZ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG
+      // INTRINSIC DCONJG
 *     ..
 *     .. Executable Statements ..
 *

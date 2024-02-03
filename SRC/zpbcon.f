@@ -40,7 +40,7 @@
       EXTERNAL           XERBLA, ZDRSCL, ZLACN2, ZLATBS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG
+      // INTRINSIC ABS, DBLE, DIMAG
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

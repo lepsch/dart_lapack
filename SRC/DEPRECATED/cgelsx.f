@@ -37,7 +37,7 @@
       EXTERNAL           CLANGE, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MIN
+      // INTRINSIC ABS, CONJG, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

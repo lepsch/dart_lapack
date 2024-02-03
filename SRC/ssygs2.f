@@ -27,7 +27,7 @@
       EXTERNAL           SAXPY, SSCAL, SSYR2, STRMV, STRSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

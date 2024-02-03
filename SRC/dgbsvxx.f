@@ -40,7 +40,7 @@
       EXTERNAL           DGBEQUB, DGBTRF, DGBTRS, DLACPY, DLAQGB, XERBLA, DLASCL2, DGBRFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

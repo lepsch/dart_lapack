@@ -37,7 +37,7 @@
       int                ISEED( 4 );
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX, MIN, REAL
+      // INTRINSIC CMPLX, MAX, MIN, REAL
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

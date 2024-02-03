@@ -31,7 +31,7 @@
       EXTERNAL           ILAENV, SNRM2, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MAX, MIN
+      // INTRINSIC INT, MAX, MIN
 *     Test input arguments
 *  ====================
 *

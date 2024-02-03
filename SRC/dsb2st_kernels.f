@@ -30,7 +30,7 @@
       EXTERNAL           DLARFG, DLARFX, DLARFY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD
+      // INTRINSIC MOD
 *     .. External Functions ..
       bool               LSAME;
       EXTERNAL           LSAME

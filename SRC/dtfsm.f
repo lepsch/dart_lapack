@@ -32,7 +32,7 @@
       EXTERNAL           XERBLA, DGEMM, DTRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MOD
+      // INTRINSIC MAX, MOD
 *     ..
 *     .. Executable Statements ..
 *

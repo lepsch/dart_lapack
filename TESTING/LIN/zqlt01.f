@@ -32,7 +32,7 @@
       EXTERNAL           ZGEMM, ZGEQLF, ZHERK, ZLACPY, ZLASET, ZUNGQL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, MAX, MIN
+      // INTRINSIC DBLE, DCMPLX, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

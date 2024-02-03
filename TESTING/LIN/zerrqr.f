@@ -34,7 +34,7 @@
       COMMON             / SRNAMC / SRNAMT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX
+      // INTRINSIC DBLE, DCMPLX
 *     ..
 *     .. Executable Statements ..
 *

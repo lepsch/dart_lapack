@@ -31,7 +31,7 @@
       EXTERNAL           DGEMM, DLAUU2, DSYRK, DTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

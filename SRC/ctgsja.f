@@ -39,7 +39,7 @@
       EXTERNAL           CCOPY, CLAGS2, CLAPLL, CLASET, CROT, CSSCAL, SLARTG, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, MIN, REAL, HUGE
+      // INTRINSIC ABS, CONJG, MAX, MIN, REAL, HUGE
       PARAMETER          ( HUGENUM = HUGE(ZERO) )
 *     ..
 *     .. Executable Statements ..

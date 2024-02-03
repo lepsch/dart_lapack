@@ -34,7 +34,7 @@
       EXTERNAL           SGEMV, SSCAL, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT, MAXLOC
+      // INTRINSIC MAX, SQRT, MAXLOC
 *     ..
 *     .. Executable Statements ..
 *

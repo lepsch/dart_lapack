@@ -18,7 +18,7 @@
       EXTERNAL           CPTTRF, CPTTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

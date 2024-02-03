@@ -35,7 +35,7 @@
       EXTERNAL           DLASYF_AA, DGEMM, DGEMV, DSCAL, DCOPY, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

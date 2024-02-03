@@ -34,7 +34,7 @@
       EXTERNAL           DAXPY, DCOPY, DLACN2, DTPMV, DTPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

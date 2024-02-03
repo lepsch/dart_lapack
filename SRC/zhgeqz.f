@@ -37,7 +37,7 @@
       EXTERNAL           XERBLA, ZLARTG, ZLASET, ZROT, ZSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX, MIN, SQRT
 *     ..
 *     .. Statement Functions ..
       double             ABS1;

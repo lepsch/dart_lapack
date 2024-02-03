@@ -35,7 +35,7 @@
       COMMON             / SRNAMC / SRNAMT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          FLOAT
+      // INTRINSIC FLOAT
 *     ..
 *     .. Executable Statements ..
 *

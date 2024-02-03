@@ -34,7 +34,7 @@
       EXTERNAL           DSB2ST_KERNELS, DLACPY, DLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX, CEILING, REAL
+      // INTRINSIC MIN, MAX, CEILING, REAL
 *     ..
 *     .. External Functions ..
       bool               LSAME;

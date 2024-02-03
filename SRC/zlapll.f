@@ -25,7 +25,7 @@
       COMPLEX*16         A11, A12, A22, C, TAU
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCONJG
+      // INTRINSIC ABS, DCONJG
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZDOTC

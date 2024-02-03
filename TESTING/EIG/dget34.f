@@ -37,7 +37,7 @@
       EXTERNAL           DCOPY, DHST01, DLAEXC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, SIGN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

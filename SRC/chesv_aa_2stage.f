@@ -30,7 +30,7 @@
       EXTERNAL           CHETRF_AA_2STAGE, CHETRS_AA_2STAGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

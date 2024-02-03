@@ -30,7 +30,7 @@
       EXTERNAL           CCOPY, CLATSQR, CUNGTSQR_ROW, CUNHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, REAL, CMPLX, MAX, MIN
+      // INTRINSIC CEILING, REAL, CMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

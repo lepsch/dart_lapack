@@ -18,7 +18,7 @@
       int     I,IX,IY;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC DCONJG
+      // INTRINSIC DCONJG
 *     ..
       ZTEMP = (0.0d0,0.0d0)
       ZDOTC = (0.0d0,0.0d0)

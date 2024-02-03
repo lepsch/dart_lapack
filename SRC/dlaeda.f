@@ -25,7 +25,7 @@
       EXTERNAL           DCOPY, DGEMV, DROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, INT, SQRT
+      // INTRINSIC DBLE, INT, SQRT
 *     ..
 *     .. Executable Statements ..
 *

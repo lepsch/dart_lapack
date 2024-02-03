@@ -32,7 +32,7 @@
       EXTERNAL           DGEMV, DGER, DLASET, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN
+      // INTRINSIC ABS, SIGN
 *     ..
 *     .. Executable Statements ..
 *

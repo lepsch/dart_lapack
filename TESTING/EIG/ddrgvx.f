@@ -35,7 +35,7 @@
       EXTERNAL           ALASVM, DGET52, DGGEVX, DLACPY, DLATM6, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

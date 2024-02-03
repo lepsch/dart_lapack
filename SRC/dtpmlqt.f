@@ -27,7 +27,7 @@
       EXTERNAL           XERBLA, DTPRFB
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

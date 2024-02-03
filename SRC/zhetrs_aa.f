@@ -32,7 +32,7 @@
       EXTERNAL           ZGTSV, ZSWAP, ZTRSM, ZLACGV, ZLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. Executable Statements ..
 *

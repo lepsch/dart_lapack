@@ -46,7 +46,7 @@
       EXTERNAL           ALADHD, ALAERH, ALASVM, CCOPY, CERRVX, CGET04, CGTSV, CGTSVX, CGTT01, CGTT02, CGTT05, CGTTRF, CGTTRS, CLACPY, CLAGTM, CLARNV, CLASET, CLATB4, CLATMS, CSSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX
+      // INTRINSIC CMPLX, MAX
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

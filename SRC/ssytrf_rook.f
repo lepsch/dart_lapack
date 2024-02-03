@@ -29,7 +29,7 @@
       EXTERNAL           SLASYF_ROOK, SSYTF2_ROOK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

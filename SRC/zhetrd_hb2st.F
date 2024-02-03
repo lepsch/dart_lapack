@@ -37,7 +37,7 @@
       EXTERNAL           ZHB2ST_KERNELS, ZLACPY, ZLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX, CEILING, DBLE, REAL
+      // INTRINSIC MIN, MAX, CEILING, DBLE, REAL
 *     ..
 *     .. External Functions ..
       bool               LSAME;

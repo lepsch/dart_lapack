@@ -41,7 +41,7 @@
       EXTERNAL           CGEHRD, CHSEQR, CHST01, CLACPY, CSSCAL, CTRSEN, CUNGHR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, MAX, REAL, SQRT
+      // INTRINSIC AIMAG, MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

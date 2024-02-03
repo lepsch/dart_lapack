@@ -31,7 +31,7 @@
       EXTERNAL           DGER, DLAR2V, DLARGV, DLARTG, DLARTV, DLASET, DROT, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

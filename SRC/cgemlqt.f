@@ -27,7 +27,7 @@
       EXTERNAL           XERBLA, CLARFB
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

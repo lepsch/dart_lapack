@@ -18,7 +18,7 @@
       int     I,M,MP1,NINCX;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC DABS,MOD
+      // INTRINSIC DABS,MOD
 *     ..
       DASUM = 0.0d0
       DTEMP = 0.0d0

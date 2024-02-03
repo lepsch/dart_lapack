@@ -30,7 +30,7 @@
       EXTERNAL           DLAE2, DLASCL, DLASRT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SIGN, SQRT
+      // INTRINSIC ABS, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

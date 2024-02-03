@@ -53,7 +53,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, ZERRHE, ZGESVD, ZGET04, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZPOT02, ZPOT03, ZHECON_3, ZHET01_3, ZHETRF_RK, ZHETRI_3, ZHETRS_3, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG, MAX, MIN, SQRT
+      // INTRINSIC DCONJG, MAX, MIN, SQRT
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

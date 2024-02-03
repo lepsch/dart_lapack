@@ -43,7 +43,7 @@
       EXTERNAL           SGEMM, SGEQR2, SGERQ2, SLACPY, SLAGV2, SLARTG, SLASET, SLASSQ, SORG2R, SORGR2, SORM2R, SORMR2, SROT, SSCAL, STGSY2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

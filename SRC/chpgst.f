@@ -30,7 +30,7 @@
       EXTERNAL           CAXPY, CHPMV, CHPR2, CSSCAL, CTPMV, CTPSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. External Functions ..
       bool               LSAME;

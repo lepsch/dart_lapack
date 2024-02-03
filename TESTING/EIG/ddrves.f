@@ -53,7 +53,7 @@
       EXTERNAL           DGEES, DHST01, DLACPY, DLASET, DLASUM, DLATME, DLATMR, DLATMS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SIGN, SQRT
+      // INTRINSIC ABS, MAX, SIGN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /

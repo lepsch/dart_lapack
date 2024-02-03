@@ -40,7 +40,7 @@
       EXTERNAL           DCOPY, DGEHRD, DGEMM, DGET10, DGET22, DHSEIN, DHSEQR, DHST01, DLACPY, DLAFTS, DLASET, DLASUM, DLATME, DLATMR, DLATMS, DORGHR, DORMHR, DTREVC, DTREVC3, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /

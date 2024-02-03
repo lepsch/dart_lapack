@@ -29,7 +29,7 @@
 *     ..
 *     .. External Functions
       EXTERNAL SLASET
-      INTRINSIC REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

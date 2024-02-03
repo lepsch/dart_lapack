@@ -32,7 +32,7 @@
       int                ILATRANS;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, ABS, SIGN
+      // INTRINSIC MAX, ABS, SIGN
 *     ..
 *     .. Executable Statements ..
 *

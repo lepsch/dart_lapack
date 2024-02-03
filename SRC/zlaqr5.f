@@ -31,7 +31,7 @@
 *     ..
 *     .. Intrinsic Functions ..
 *
-      INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX, MIN, MOD
+      // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN, MOD
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         VT( 3 )

@@ -41,7 +41,7 @@
       EXTERNAL           DLAHD2, DLASUM, XERBLA, ZBDT01, ZBDT02, ZGBBRD, ZLACPY, ZLASET, ZLATMR, ZLATMS, ZUNT01
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*6, 3*9 /

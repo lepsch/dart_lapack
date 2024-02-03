@@ -36,7 +36,7 @@
       EXTERNAL           DCOPY, DLAE2, DLAEV2, DLARRC, DLARRE, DLARRJ, DLARRR, DLASRT, DSCAL, XERBLA, ZLARRV, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT
+      // INTRINSIC MAX, MIN, SQRT
 
 
 *     ..

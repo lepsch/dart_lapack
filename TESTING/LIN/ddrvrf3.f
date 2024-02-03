@@ -40,7 +40,7 @@
       EXTERNAL           DTRTTF, DGEQRF, DGEQLF, DTFSM, DTRSM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

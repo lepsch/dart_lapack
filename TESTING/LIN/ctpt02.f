@@ -33,7 +33,7 @@
       EXTERNAL           CAXPY, CCOPY, CTPMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, MAX
+      // INTRINSIC CMPLX, MAX
 *     ..
 *     .. Executable Statements ..
 *

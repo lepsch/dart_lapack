@@ -30,7 +30,7 @@
       EXTERNAL           CLANGT, CLANHS, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CAXPY, CSWAP

@@ -33,7 +33,7 @@
       EXTERNAL           DLADIV, DLATRS, DSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, SQRT
+      // INTRINSIC ABS, DBLE, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

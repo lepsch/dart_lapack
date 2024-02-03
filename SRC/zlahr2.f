@@ -25,7 +25,7 @@
       EXTERNAL           ZAXPY, ZCOPY, ZGEMM, ZGEMV, ZLACPY, ZLARFG, ZSCAL, ZTRMM, ZTRMV, ZLACGV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -25,7 +25,7 @@
       EXTERNAL           CLARF, CLARFGP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, MAX, MIN
+      // INTRINSIC CONJG, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

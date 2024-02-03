@@ -33,7 +33,7 @@
       EXTERNAL           DAXPY, DCOPY, DSCAL, DTBMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX
+      // INTRINSIC ABS, DBLE, MAX
 *     ..
 *     .. Executable Statements ..
 *

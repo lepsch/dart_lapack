@@ -31,7 +31,7 @@
       EXTERNAL           SLARNV, SLASCL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SIGN
+      // INTRINSIC SIGN
 *     ..
 *     .. Local Arrays ..
       REAL               DUMMY( 1 )

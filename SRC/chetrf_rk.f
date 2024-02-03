@@ -29,7 +29,7 @@
       EXTERNAL           CLAHEF_RK, CHETF2_RK, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

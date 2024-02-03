@@ -39,7 +39,7 @@
       double             CABS1;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN
+      // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
 *     ..
 *     .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )

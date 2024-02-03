@@ -32,7 +32,7 @@
       EXTERNAL           SGEMM, SGEMV, SSWAP, STRSM, STRTRI, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

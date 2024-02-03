@@ -38,7 +38,7 @@
       EXTERNAL           CLACN2, CLACPY, CTREXC, CTRSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SQRT
+      // INTRINSIC MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -42,7 +42,7 @@
       EXTERNAL           LSAME, SLAMCH, CLANGE, SISNAN,  SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MAX, MIN, SQRT
+      // INTRINSIC INT, MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

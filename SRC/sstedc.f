@@ -34,7 +34,7 @@
       EXTERNAL           SGEMM, SLACPY, SLAED0, SLASCL, SLASET, SLASRT, SSTEQR, SSTERF, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, INT, LOG, MAX, MOD, REAL, SQRT
+      // INTRINSIC ABS, INT, LOG, MAX, MOD, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           SCOPY, SLARTG, SLASCL, SLASD0, SLASDA, SLASDQ, SLASET, SLASR, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL, ABS, INT, LOG, SIGN
+      // INTRINSIC REAL, ABS, INT, LOG, SIGN
 *     ..
 *     .. Executable Statements ..
 *

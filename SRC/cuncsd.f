@@ -37,7 +37,7 @@
       EXTERNAL           LSAME, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions
-      INTRINSIC          INT, MAX, MIN
+      // INTRINSIC INT, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

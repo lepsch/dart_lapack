@@ -26,7 +26,7 @@
       COMPLEX*16         ALPHA, COSINE, SINE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCONJG, MAX, SQRT
+      // INTRINSIC ABS, DCONJG, MAX, SQRT
 *     ..
 *     .. External Functions ..
       double             DLAMCH;

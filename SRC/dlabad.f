@@ -11,7 +11,7 @@
 *  =====================================================================
 *
 *     .. Intrinsic Functions ..
-      INTRINSIC          LOG10, SQRT
+      // INTRINSIC LOG10, SQRT
 *     ..
 *     .. Executable Statements ..
 *

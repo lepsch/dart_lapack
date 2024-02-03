@@ -41,7 +41,7 @@
       EXTERNAL           IDAMAX, DLAMCH, DLANGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, SQRT
+      // INTRINSIC ABS, DBLE, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

@@ -32,7 +32,7 @@
       EXTERNAL           CHPR, CSSCAL, CTPMV, CTPTRI, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

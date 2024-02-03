@@ -31,7 +31,7 @@
       EXTERNAL           SSCAL, STRMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

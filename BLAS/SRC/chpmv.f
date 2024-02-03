@@ -33,7 +33,7 @@
       EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC CONJG,REAL
+      // INTRINSIC CONJG,REAL
 *     ..
 *
 *     Test the input parameters.

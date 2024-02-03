@@ -40,7 +40,7 @@
       EXTERNAL           DLACPY, DLAFTS, DLASET, DLASUM, DLATMR, DLATMS, DSBGV, DSBGVD, DSBGVX, DSGT01, DSPGV, DSPGVD, DSPGVX, DSYGV, DSYGVD, DSYGVX, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, SQRT
+      // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 6*9 /

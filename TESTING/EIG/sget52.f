@@ -32,7 +32,7 @@
       EXTERNAL           SGEMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL
+      // INTRINSIC ABS, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

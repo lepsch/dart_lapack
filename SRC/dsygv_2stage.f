@@ -34,7 +34,7 @@
       EXTERNAL           DPOTRF, DSYGST, DTRMM, DTRSM, XERBLA, DSYEV_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

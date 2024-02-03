@@ -12,7 +12,7 @@
 *  =====================================================================
 *
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MIN, REAL
+      // INTRINSIC INT, MIN, REAL
 *     ..
 *     .. External Functions ..
       int                IEEECK;

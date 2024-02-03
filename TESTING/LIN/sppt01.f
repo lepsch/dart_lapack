@@ -32,7 +32,7 @@
       EXTERNAL           SSCAL, SSPR, STPMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

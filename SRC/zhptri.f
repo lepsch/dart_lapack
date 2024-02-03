@@ -35,7 +35,7 @@
       EXTERNAL           XERBLA, ZCOPY, ZHPMV, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG
+      // INTRINSIC ABS, DBLE, DCONJG
 *     ..
 *     .. Executable Statements ..
 *

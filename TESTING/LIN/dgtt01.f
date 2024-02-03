@@ -28,7 +28,7 @@
       EXTERNAL           DLAMCH, DLANGT, DLANHS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DSWAP

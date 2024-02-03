@@ -33,7 +33,7 @@
       EXTERNAL           SAXPY, SCOPY, SSCAL, STRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL
+      // INTRINSIC ABS, MAX, REAL
 *     ..
 *     .. Executable Statements ..
 *

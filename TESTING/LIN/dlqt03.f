@@ -36,7 +36,7 @@
       int                ISEED( 4 );
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX
+      // INTRINSIC DBLE, MAX
 *     ..
 *     .. Scalars in Common ..
       String             SRNAMT;

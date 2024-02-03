@@ -28,7 +28,7 @@
       EXTERNAL           XERBLA, ZHETRF_AA, ZHETRS_AA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

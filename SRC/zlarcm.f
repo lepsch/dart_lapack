@@ -22,7 +22,7 @@
       int                I, J, L;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, DIMAG
+      // INTRINSIC DBLE, DCMPLX, DIMAG
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMM

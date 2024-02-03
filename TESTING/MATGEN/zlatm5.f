@@ -23,7 +23,7 @@
       COMPLEX*16         IMEPS, REEPS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX, MOD, SIN
+      // INTRINSIC DCMPLX, MOD, SIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZGEMM

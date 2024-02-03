@@ -26,7 +26,7 @@
       EXTERNAL           SLAMCH, LSAME
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           CLAVHP, CLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, REAL
+      // INTRINSIC AIMAG, REAL
 *     ..
 *     .. Executable Statements ..
 *

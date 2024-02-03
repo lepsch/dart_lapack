@@ -34,7 +34,7 @@
       EXTERNAL           SCOPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, NINT, REAL, SIGN
+      // INTRINSIC ABS, NINT, REAL, SIGN
 *     ..
 *     .. Save statement ..
       SAVE

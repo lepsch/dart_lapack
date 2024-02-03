@@ -45,7 +45,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, SLAORD, ICOPY, CAXPY, XLAENV, CGEQP3RK, CLACPY, CLASET, CLATB4, CLATMS, CUNMQR, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, MOD, REAL
+      // INTRINSIC ABS, MAX, MIN, MOD, REAL
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

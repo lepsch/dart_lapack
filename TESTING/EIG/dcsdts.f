@@ -35,7 +35,7 @@
       EXTERNAL           DGEMM, DLACPY, DLASET, DORCSD, DORCSD2BY1, DSYRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          COS, DBLE, MAX, MIN, SIN
+      // INTRINSIC COS, DBLE, MAX, MIN, SIN
 *     ..
 *     .. Executable Statements ..
 *

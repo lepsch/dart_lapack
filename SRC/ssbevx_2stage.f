@@ -38,7 +38,7 @@
       EXTERNAL           SCOPY, SGEMV, SLACPY, SLASCL, SSCAL, SSTEBZ, SSTEIN, SSTEQR, SSTERF, SSWAP, XERBLA, SSYTRD_SB2ST
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT
+      // INTRINSIC MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

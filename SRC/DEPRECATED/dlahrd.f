@@ -25,7 +25,7 @@
       EXTERNAL           DAXPY, DCOPY, DGEMV, DLARFG, DSCAL, DTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

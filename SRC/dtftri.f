@@ -30,7 +30,7 @@
       EXTERNAL           XERBLA, DTRMM, DTRTRI
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MOD
+      // INTRINSIC MOD
 *     ..
 *     .. Executable Statements ..
 *

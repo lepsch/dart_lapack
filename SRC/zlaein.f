@@ -39,7 +39,7 @@
       EXTERNAL           ZDSCAL, ZLATRS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX, SQRT
+      // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

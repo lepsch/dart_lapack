@@ -25,7 +25,7 @@
       REAL               WORK( 100 ), Z( 12, 12 )
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL, SQRT
+      // INTRINSIC REAL, SQRT
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGESVD, SLACPY, SLAKF2

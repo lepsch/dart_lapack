@@ -33,7 +33,7 @@
       EXTERNAL           SLADIV, SLATRS, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, REAL, SQRT
+      // INTRINSIC ABS, MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

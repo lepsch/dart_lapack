@@ -36,7 +36,7 @@
       EXTERNAL           CLASET, CLAVHE
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

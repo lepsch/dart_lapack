@@ -35,7 +35,7 @@
       EXTERNAL           SNRM2, LSAME
 *     ..
 *     .. Intrinsic Functions
-      INTRINSIC          ATAN2, COS, MAX, SIN
+      // INTRINSIC ATAN2, COS, MAX, SIN
 *     ..
 *     .. Executable Statements ..
 *

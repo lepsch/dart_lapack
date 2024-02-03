@@ -33,7 +33,7 @@
       EXTERNAL           SGEQPF, SLAIC1, SLASCL, SLASET, SLATZM, SORM2R, STRSM, STZRQF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

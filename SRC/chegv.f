@@ -34,7 +34,7 @@
       EXTERNAL           CHEEV, CHEGST, CPOTRF, CTRMM, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

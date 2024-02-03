@@ -23,7 +23,7 @@
       EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC DCONJG,MAX
+      // INTRINSIC DCONJG,MAX
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16 TEMP

@@ -35,7 +35,7 @@
       EXTERNAL           ALASVM, SGET52, SGGEVX, SLACPY, SLATM6, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

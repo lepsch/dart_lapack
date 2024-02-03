@@ -38,7 +38,7 @@
       EXTERNAL           CAXPY, CGESC2, CGETC2, CSCAL, CLATDF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, CONJG, MAX
+      // INTRINSIC CMPLX, CONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

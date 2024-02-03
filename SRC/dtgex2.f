@@ -43,7 +43,7 @@
       EXTERNAL           DGEMM, DGEQR2, DGERQ2, DLACPY, DLAGV2, DLARTG, DLASET, DLASSQ, DORG2R, DORGR2, DORM2R, DORMR2, DROT, DSCAL, DTGSY2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, SQRT
+      // INTRINSIC ABS, MAX, SQRT
 *     ..
 *     .. Executable Statements ..
 *

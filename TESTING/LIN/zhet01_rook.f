@@ -36,7 +36,7 @@
       EXTERNAL           ZLASET, ZLAVHE_ROOK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DIMAG, DBLE
+      // INTRINSIC DIMAG, DBLE
 *     ..
 *     .. Executable Statements ..
 *

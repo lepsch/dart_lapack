@@ -29,7 +29,7 @@
       COMPLEX            WORK( 26 ), Z( 8, 8 )
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CABS, CMPLX, CONJG, REAL, SQRT
+      // INTRINSIC CABS, CMPLX, CONJG, REAL, SQRT
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGESVD, CLACPY, CLAKF2

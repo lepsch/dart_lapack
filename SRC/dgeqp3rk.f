@@ -37,7 +37,7 @@
       EXTERNAL           DISNAN, DLAMCH, DNRM2, IDAMAX, ILAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MAX, MIN
+      // INTRINSIC DBLE, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -39,7 +39,7 @@
       EXTERNAL           CPOEQUB, CPOTRF, CPOTRS, CLACPY, CLAQHE, XERBLA, CLASCL2, CPORFSX
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

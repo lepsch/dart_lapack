@@ -33,7 +33,7 @@
       EXTERNAL           CCOPY, CSWAP, CSYMV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

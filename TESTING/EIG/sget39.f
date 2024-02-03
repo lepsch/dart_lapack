@@ -29,7 +29,7 @@
       EXTERNAL           SCOPY, SGEMV, SLAQTR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, COS, MAX, REAL, SIN, SQRT
+      // INTRINSIC ABS, COS, MAX, REAL, SIN, SQRT
 *     ..
 *     .. Local Arrays ..
       int                IDIM( 6 ), IVAL( 5, 5, 6 );

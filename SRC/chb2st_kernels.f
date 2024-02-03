@@ -30,7 +30,7 @@
       EXTERNAL           CLARFG, CLARFX, CLARFY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, MOD
+      // INTRINSIC CONJG, MOD
 *     .. External Functions ..
       bool               LSAME;
       EXTERNAL           LSAME

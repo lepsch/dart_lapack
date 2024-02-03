@@ -30,7 +30,7 @@
       EXTERNAL           ZLARFG, ZLARFX, ZLARFY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCONJG, MOD
+      // INTRINSIC DCONJG, MOD
 *     .. External Functions ..
       bool               LSAME;
       EXTERNAL           LSAME

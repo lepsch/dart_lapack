@@ -19,7 +19,7 @@
       COMPLEX            ZDUM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL, AIMAG
+      // INTRINSIC ABS, MAX, MIN, REAL, AIMAG
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

@@ -50,7 +50,7 @@
       EXTERNAL           ALASVM, SBDT01, SGEJSV, SGESDD, SGESVD, SGESVDQ, SGESVDX, SGESVJ, SLACPY, SLASET, SLATMS, SORT01, SORT03, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, INT, MAX, MIN
+      // INTRINSIC ABS, REAL, INT, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

@@ -33,7 +33,7 @@
       EXTERNAL           LSAME, CDOTC
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

@@ -44,7 +44,7 @@
       EXTERNAL           IZAMAX, DLAMCH, ZLANHE, LSAME
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, SQRT
+      // INTRINSIC ABS, DBLE, MAX, SQRT
 *     .. Statement Functions ..
       double             CABS1;
 *     ..

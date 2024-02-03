@@ -29,7 +29,7 @@
 *     ..
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, DBLE, MIN, SIGN, SQRT
+      // INTRINSIC ABS, CONJG, MAX, DBLE, MIN, SIGN, SQRT
 *     ..
 *     .. External Functions ..
       double             DZNRM2;

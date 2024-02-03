@@ -38,7 +38,7 @@
       EXTERNAL           SCOPY, SLASET, SSCAL, SSWAP, SSTEVX, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, SIGN, SQRT
+      // INTRINSIC ABS, REAL, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

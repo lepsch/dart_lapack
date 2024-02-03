@@ -12,7 +12,7 @@
 *  =====================================================================
 *
 *     .. Intrinsic Functions ..
-      INTRINSIC          INT, MIN, REAL
+      // INTRINSIC INT, MIN, REAL
 *     ..
 *     .. External Functions ..
       int                IEEECK, IPARAM2STAGE;
@@ -162,7 +162,7 @@ C        ILAENV = 0
       int                NH, NS;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          LOG, MAX, MOD, NINT, REAL
+      // INTRINSIC LOG, MAX, MOD, NINT, REAL
 *     ..
 *     .. Executable Statements ..
       IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) THEN

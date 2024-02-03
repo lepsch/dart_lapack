@@ -50,7 +50,7 @@
       EXTERNAL           SLACPY, SLAHQR, SLAQR0, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL
+      // INTRINSIC MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

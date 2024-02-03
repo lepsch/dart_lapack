@@ -40,7 +40,7 @@
       EXTERNAL           ZLACPY, ZLARNV, ZLASET, ZGETSQRHRT, ZSCAL, ZGEMM, ZGEMQRT, ZHERK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, DBLE, MAX, MIN
+      // INTRINSIC CEILING, DBLE, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       String   (LEN=32)  SRNAMT;

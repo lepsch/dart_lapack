@@ -33,7 +33,7 @@
       EXTERNAL           CGEMM, CGGSVD3, CHERK, CLACPY, CLASET, SCOPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, REAL
+      // INTRINSIC MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

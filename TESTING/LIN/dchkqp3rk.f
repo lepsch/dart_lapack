@@ -42,7 +42,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, DAXPY, DGEQP3RK, DLACPY, DLAORD, DLASET, DLATB4, DLATMS, DORMQR, DSWAP, ICOPY, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX, MIN, MOD
+      // INTRINSIC ABS, DBLE, MAX, MIN, MOD
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

@@ -35,7 +35,7 @@
       EXTERNAL           SGEMV, SLACPY, SLAG2, SLALN2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

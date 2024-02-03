@@ -25,7 +25,7 @@
       REAL               AB, ACMN, ACMX, ACS, ADF, CS, CT, DF, RT, SM, TB, TN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, SQRT
+      // INTRINSIC ABS, SQRT
 *     ..
 *     .. Executable Statements ..
 *

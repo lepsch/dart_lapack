@@ -33,7 +33,7 @@
       EXTERNAL           DCOPY, DLACPY, DLAMRG, DLASET, DROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

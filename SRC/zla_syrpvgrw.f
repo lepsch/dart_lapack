@@ -23,7 +23,7 @@
       COMPLEX*16         ZDUM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, DIMAG, MAX, MIN
+      // INTRINSIC ABS, REAL, DIMAG, MAX, MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           LSAME

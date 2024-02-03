@@ -36,7 +36,7 @@
       EXTERNAL           SLALN2, SLASY2, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, REAL
+      // INTRINSIC ABS, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

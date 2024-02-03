@@ -26,7 +26,7 @@
       EXTERNAL           SLATRD, SSYR2K, SSYTD2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -30,7 +30,7 @@
       EXTERNAL           LSAME, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

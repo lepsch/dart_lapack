@@ -34,7 +34,7 @@
       EXTERNAL           SAXPY, SCOPY, SLACN2, STRMV, STRSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -26,7 +26,7 @@
       EXTERNAL           DSCAL, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, INT
+      // INTRINSIC MAX, INT
 *     ..
 *     .. Executable Statements ..
 *

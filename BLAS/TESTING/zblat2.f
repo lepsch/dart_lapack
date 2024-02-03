@@ -38,7 +38,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHK6, ZCHKE, ZMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -349,7 +349,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZGBMV, ZGEMV, ZMAKE, ZMVCH, ZREGR1
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -666,7 +666,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZHBMV, ZHEMV, ZHPMV, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -972,7 +972,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZMAKE, ZMVCH, ZTBMV, ZTBSV, ZTPMV, ZTPSV, ZTRMV, ZTRSV
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1273,7 +1273,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZGERC, ZGERU, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCONJG, MAX, MIN
+      // INTRINSIC ABS, DCONJG, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1518,7 +1518,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZHER, ZHPR, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, MAX
+      // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1776,7 +1776,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZHER2, ZHPR2, ZMAKE, ZMVCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DCONJG, MAX
+      // INTRINSIC ABS, DCONJG, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -2402,7 +2402,7 @@
       COMPLEX*16         ZBEG
       EXTERNAL           ZBEG
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, DCONJG, MAX, MIN
+      // INTRINSIC DBLE, DCMPLX, DCONJG, MAX, MIN
 *     .. Executable Statements ..
       GEN = TYPE( 1: 1 ).EQ.'G'
       SYM = TYPE( 1: 1 ).EQ.'H'
@@ -2573,7 +2573,7 @@
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
       bool               CTRAN, TRAN;
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX, SQRT
+      // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, SQRT
 *     .. Statement Functions ..
       double             ABS1;
 *     .. Statement Function definitions ..
@@ -2773,7 +2773,7 @@
 *     .. Save statement ..
       SAVE               I, IC, J, MI, MJ
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX
+      // INTRINSIC DCMPLX
 *     .. Executable Statements ..
       IF( RESET )THEN
 *        Initialize local variables.
@@ -2864,7 +2864,7 @@
 *     .. Local Scalars ..
       int                I;
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX
+      // INTRINSIC DBLE, DCMPLX
 *     .. Executable Statements ..
       TRANS = 'T'
       M = 0

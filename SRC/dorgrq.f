@@ -25,7 +25,7 @@
       EXTERNAL           DLARFB, DLARFT, DORGR2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;

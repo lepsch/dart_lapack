@@ -147,7 +147,7 @@
 *     .. External Subroutines ..
       EXTERNAL          ITEST1, SSCALTEST, STEST, STEST1
 *     .. Intrinsic Functions ..
-      INTRINSIC         MAX
+      // INTRINSIC MAX
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -213,7 +213,7 @@
 *     .. External Subroutines ..
       EXTERNAL          SAXPYTEST, SCOPYTEST, SSWAPTEST, STEST, STEST1
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -297,7 +297,7 @@
 *     .. External Subroutines ..
       EXTERNAL          SROTTEST, STEST
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -463,7 +463,7 @@
       REAL             SDIFF
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
-      INTRINSIC        ABS
+      // INTRINSIC ABS
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Executable Statements ..

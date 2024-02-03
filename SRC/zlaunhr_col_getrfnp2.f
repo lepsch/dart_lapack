@@ -33,7 +33,7 @@
       EXTERNAL           ZGEMM, ZSCAL, ZTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, DSIGN, MAX, MIN
+      // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, DSIGN, MAX, MIN
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

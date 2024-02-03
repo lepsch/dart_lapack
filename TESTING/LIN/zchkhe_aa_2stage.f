@@ -46,7 +46,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, ZERRHE, ZLACPY,  ZLARHS, ZLATB4, ZLATMS, ZPOT02, ZHETRF_AA_2STAGE, ZHETRS_AA_2STAGE, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

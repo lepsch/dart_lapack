@@ -38,7 +38,7 @@
       EXTERNAL           XERBLA, CSSCAL, CSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, AIMAG, MAX, MIN
+      // INTRINSIC ABS, REAL, AIMAG, MAX, MIN
 *
 *     Test the input parameters
 *

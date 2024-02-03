@@ -37,7 +37,7 @@
       EXTERNAL           CTRSM, CSCAL, XERBLA, CLASWP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, IAND, ABS
+      // INTRINSIC MAX, MIN, IAND, ABS
 *     ..
 *     .. Executable Statements ..
 *

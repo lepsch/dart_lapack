@@ -29,7 +29,7 @@
       EXTERNAL           CLASYF_ROOK, CSYTF2_ROOK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

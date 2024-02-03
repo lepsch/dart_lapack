@@ -32,7 +32,7 @@
       EXTERNAL           ZGEMM, ZLACPY, ZTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX, MAX, MIN
+      // INTRINSIC DCMPLX, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

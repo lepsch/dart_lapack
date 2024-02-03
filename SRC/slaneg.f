@@ -31,7 +31,7 @@
       bool    SAWNAN;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. External Functions ..
       bool    SISNAN;

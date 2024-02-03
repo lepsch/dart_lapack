@@ -28,7 +28,7 @@
       EXTERNAL           SAXPY, SGEHD2, SGEMM, SLAHR2, SLARFB, STRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. External Functions ..
       int                ILAENV;

@@ -32,7 +32,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANGE, ZLANSP, ZDOTU
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..
 *

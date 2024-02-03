@@ -27,7 +27,7 @@
       EXTERNAL           DLARAN
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX, EXP, LOG, SQRT
+      // INTRINSIC DCMPLX, EXP, LOG, SQRT
 *     ..
 *     .. Executable Statements ..
 *

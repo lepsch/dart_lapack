@@ -46,7 +46,7 @@
       EXTERNAL     ALAERH, ALAHD, ALASUM, XLAENV, CERRHE, CHET01_AA, CHETRF_AA, CHETRS_AA, CLACPY, CLAIPD, CLARHS, CLATB4, CLATMS, CPOT02
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC    MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool         LERR, OK;

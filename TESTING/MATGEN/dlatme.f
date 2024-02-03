@@ -42,7 +42,7 @@
       EXTERNAL           DCOPY, DGEMV, DGER, DLARFG, DLARGE, DLARNV, DLASET, DLATM1, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MOD
+      // INTRINSIC ABS, MAX, MOD
 *     ..
 *     .. Executable Statements ..
 *

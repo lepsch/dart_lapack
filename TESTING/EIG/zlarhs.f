@@ -34,7 +34,7 @@
       EXTERNAL           XERBLA, ZGBMV, ZGEMM, ZHBMV, ZHEMM, ZHPMV, ZLACPY, ZLARNV, ZSBMV, ZSPMV, ZSYMM, ZTBMV, ZTPMV, ZTRMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

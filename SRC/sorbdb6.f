@@ -30,7 +30,7 @@
       EXTERNAL           SGEMV, SLASSQ, XERBLA
 *     ..
 *     .. Intrinsic Function ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

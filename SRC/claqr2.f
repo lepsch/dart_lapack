@@ -33,7 +33,7 @@
       EXTERNAL           CCOPY, CGEHRD, CGEMM, CLACPY, CLAHQR, CLARF, CLARFG, CLASET, CTREXC, CUNMHR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, INT, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, CONJG, INT, MAX, MIN, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

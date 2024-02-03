@@ -41,7 +41,7 @@
       EXTERNAL           CLACPY, CLARTG, CLASSQ, CROT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, MAX, REAL, SQRT
+      // INTRINSIC ABS, CONJG, MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

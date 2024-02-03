@@ -35,7 +35,7 @@
       EXTERNAL           DCOPY, DLAGS2, DLAPLL, DLARTG, DLASET, DROT, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, HUGE
+      // INTRINSIC ABS, MAX, MIN, HUGE
       PARAMETER          ( HUGENUM = HUGE(ZERO) )
 *     ..
 *     .. Executable Statements ..

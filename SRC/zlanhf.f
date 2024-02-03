@@ -31,7 +31,7 @@
       EXTERNAL           ZLASSQ
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, SQRT
+      // INTRINSIC ABS, DBLE, SQRT
 *     ..
 *     .. Executable Statements ..
 *

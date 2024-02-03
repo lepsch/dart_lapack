@@ -40,7 +40,7 @@
       EXTERNAL           XERBLA, ZAXPY, ZCOPY, ZGTTRS, ZLACN2, ZLAGTM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, MAX
+      // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, MAX
 *     ..
 *     .. External Functions ..
       bool               LSAME;

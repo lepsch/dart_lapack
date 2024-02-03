@@ -31,7 +31,7 @@
       EXTERNAL           ALAHD, ALASUM, CERRUNHR_COL, CUNHR_COL01, CUNHR_COL02
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Scalars in Common ..
       bool               LERR, OK;

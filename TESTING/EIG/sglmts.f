@@ -29,7 +29,7 @@
       EXTERNAL           SLACPY
 *
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

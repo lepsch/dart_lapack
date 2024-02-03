@@ -35,7 +35,7 @@
       EXTERNAL           DISNAN, DLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE
+      // INTRINSIC ABS, DBLE
 *     ..
 *     .. Executable Statements ..
 *

@@ -23,7 +23,7 @@
       EXTERNAL XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Local Scalars ..
       double           TEMP;

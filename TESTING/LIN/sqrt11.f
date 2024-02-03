@@ -28,7 +28,7 @@
       EXTERNAL           SLASET, SORM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Local Arrays ..
       REAL               RDUMMY( 1 )

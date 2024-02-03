@@ -39,7 +39,7 @@
       EXTERNAL           DCOPY, DLARNV, DLARRA, DLARRB, DLARRC, DLARRD, DLASQ2, DLARRK
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN
+      // INTRINSIC ABS, MAX, MIN
 
 *     ..
 *     .. Executable Statements ..

@@ -35,7 +35,7 @@
       EXTERNAL           ZGEMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX
+      // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX
 *     ..
 *     .. Statement Functions ..
       double             ABS1;

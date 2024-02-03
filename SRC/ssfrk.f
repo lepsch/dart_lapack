@@ -31,7 +31,7 @@
       EXTERNAL           SGEMM, SSYRK, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     ..
 *     .. Executable Statements ..
 *

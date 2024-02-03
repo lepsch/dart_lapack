@@ -30,7 +30,7 @@
       EXTERNAL           XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, LOG
+      // INTRINSIC ABS, MAX, MIN, LOG
 *     ..
 *     .. Executable Statements ..
 *

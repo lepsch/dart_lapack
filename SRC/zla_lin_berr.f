@@ -20,7 +20,7 @@
       COMPLEX*16         CDUM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, REAL, DIMAG, MAX
+      // INTRINSIC ABS, REAL, DIMAG, MAX
 *     ..
 *     .. External Functions ..
       EXTERNAL           DLAMCH

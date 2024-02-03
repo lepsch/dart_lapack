@@ -37,7 +37,7 @@
       EXTERNAL           CGEMM, CHERK, CPBTF2, CPOTF2, CTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

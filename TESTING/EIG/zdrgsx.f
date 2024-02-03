@@ -50,7 +50,7 @@
       COMMON             / MN / M, N, MPLUSN, K, FS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, MAX, SQRT
+      // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT
 *     ..
 *     .. Statement Functions ..
       double             ABS1;

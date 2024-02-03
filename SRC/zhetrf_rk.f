@@ -28,7 +28,7 @@
       EXTERNAL           ZLAHEF_RK, ZHETF2_RK, ZSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

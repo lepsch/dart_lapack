@@ -28,7 +28,7 @@
       EXTERNAL           SLAMCH, SLANGT, SLANHS
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SAXPY, SSWAP

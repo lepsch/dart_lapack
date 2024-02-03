@@ -39,7 +39,7 @@
       EXTERNAL           SLACN2, SLATPS, SRSCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS
+      // INTRINSIC ABS
 *     ..
 *     .. Executable Statements ..
 *

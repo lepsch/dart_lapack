@@ -31,7 +31,7 @@
       EXTERNAL           DLARNV, DLASCL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          SIGN
+      // INTRINSIC SIGN
 *     ..
 *     .. Local Arrays ..
       double             DUMMY( 1 );

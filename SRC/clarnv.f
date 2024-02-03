@@ -29,7 +29,7 @@
       REAL               U( LV )
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CMPLX, EXP, LOG, MIN, SQRT
+      // INTRINSIC CMPLX, EXP, LOG, MIN, SQRT
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLARUV

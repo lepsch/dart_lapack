@@ -39,7 +39,7 @@
       EXTERNAL           SGEMV, SLACPY, SLAG2, STGEXC, STGSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SQRT
+      // INTRINSIC MAX, MIN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

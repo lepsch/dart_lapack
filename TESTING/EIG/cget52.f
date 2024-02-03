@@ -35,7 +35,7 @@
       EXTERNAL           CGEMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CONJG, MAX, REAL
+      // INTRINSIC ABS, AIMAG, CONJG, MAX, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1

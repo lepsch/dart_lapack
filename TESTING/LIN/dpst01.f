@@ -33,7 +33,7 @@
       EXTERNAL           DSCAL, DSYR, DTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..
 *

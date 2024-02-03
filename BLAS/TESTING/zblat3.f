@@ -39,7 +39,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHKE, ZMMCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -337,7 +337,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZGEMM, ZMAKE, ZMMCH
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -592,7 +592,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZHEMM, ZMAKE, ZMMCH, ZSYMM
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -840,7 +840,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZMAKE, ZMMCH, ZTRMM, ZTRSM
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX
+      // INTRINSIC MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1100,7 +1100,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZHERK, ZMAKE, ZMMCH, ZSYRK
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX, MAX, DBLE
+      // INTRINSIC DCMPLX, MAX, DBLE
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1389,7 +1389,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZHER2K, ZMAKE, ZMMCH, ZSYR2K
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX, DCONJG, MAX, DBLE
+      // INTRINSIC DCMPLX, DCONJG, MAX, DBLE
 *     .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
@@ -1698,7 +1698,7 @@
 *     .. External Subroutines ..
       EXTERNAL           ZGEMM, ZHEMM, ZHER2K, ZHERK, CHKXER, ZSYMM, ZSYR2K, ZSYRK, ZTRMM, ZTRSM
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX
+      // INTRINSIC DCMPLX
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
 *     .. Executable Statements ..
@@ -2644,7 +2644,7 @@
       COMPLEX*16         ZBEG
       EXTERNAL           ZBEG
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX, DCONJG, DBLE
+      // INTRINSIC DCMPLX, DCONJG, DBLE
 *     .. Executable Statements ..
       GEN = TYPE.EQ.'GE'
       HER = TYPE.EQ.'HE'
@@ -2756,7 +2756,7 @@
       int                I, J, K;
       bool               CTRANA, CTRANB, TRANA, TRANB;
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DIMAG, DCONJG, MAX, DBLE, SQRT
+      // INTRINSIC ABS, DIMAG, DCONJG, MAX, DBLE, SQRT
 *     .. Statement Functions ..
       double             ABS1;
 *     .. Statement Function definitions ..
@@ -3002,7 +3002,7 @@
 *     .. Save statement ..
       SAVE               I, IC, J, MI, MJ
 *     .. Intrinsic Functions ..
-      INTRINSIC          DCMPLX
+      // INTRINSIC DCMPLX
 *     .. Executable Statements ..
       IF( RESET )THEN
 *        Initialize local variables.

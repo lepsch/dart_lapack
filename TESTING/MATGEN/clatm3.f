@@ -40,7 +40,7 @@
 *
 *     .. Intrinsic Functions ..
 *
-      INTRINSIC          CONJG
+      // INTRINSIC CONJG
 *     ..
 *
 *-----------------------------------------------------------------------

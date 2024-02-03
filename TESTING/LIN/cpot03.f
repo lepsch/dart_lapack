@@ -35,7 +35,7 @@
       EXTERNAL           CHEMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, REAL
+      // INTRINSIC CONJG, REAL
 *     ..
 *     .. Executable Statements ..
 *

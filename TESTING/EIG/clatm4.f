@@ -36,7 +36,7 @@
       EXTERNAL           CLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, EXP, LOG, MAX, MIN, MOD, REAL
+      // INTRINSIC ABS, CMPLX, EXP, LOG, MAX, MIN, MOD, REAL
 *     ..
 *     .. Executable Statements ..
 *

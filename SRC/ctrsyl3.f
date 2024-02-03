@@ -34,7 +34,7 @@
       EXTERNAL           CSSCAL, CGEMM, CLASCL, CTRSYL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, EXPONENT, MAX, MIN, REAL
+      // INTRINSIC ABS, AIMAG, EXPONENT, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

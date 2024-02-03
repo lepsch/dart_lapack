@@ -26,7 +26,7 @@
       EXTERNAL           XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, DIMAG, MOD
+      // INTRINSIC DBLE, DCMPLX, DIMAG, MOD
 *     ..
 *     .. Executable Statements ..
 *

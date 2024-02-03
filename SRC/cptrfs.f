@@ -42,7 +42,7 @@
       EXTERNAL           CAXPY, CPTTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, MAX, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, REAL
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

@@ -30,7 +30,7 @@
       EXTERNAL           DGEMM, DSCAL, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DSIGN, MAX, MIN
+      // INTRINSIC ABS, DSIGN, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -32,7 +32,7 @@
       EXTERNAL           LSAME, CLANGE, CLANHP, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, REAL
+      // INTRINSIC CONJG, REAL
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CCOPY, CHPMV

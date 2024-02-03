@@ -31,7 +31,7 @@
       EXTERNAL           CGEMV, CGERU, CLACGV, CSWAP, CTBSV, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN
+      // INTRINSIC MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -36,7 +36,7 @@
       EXTERNAL           ZLASET, ZLAVSP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE
+      // INTRINSIC DBLE
 *     ..
 *     .. Executable Statements ..
 *

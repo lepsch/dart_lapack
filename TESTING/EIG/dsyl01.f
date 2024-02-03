@@ -45,7 +45,7 @@
       EXTERNAL           DLATMR, DLACPY, DGEMM, DTRSYL, DTRSYL3
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, MAX
+      // INTRINSIC ABS, DBLE, MAX
 *     ..
 *     .. Allocate memory dynamically ..
       ALLOCATE ( A( MAXM, MAXM ), STAT = AllocateStatus )

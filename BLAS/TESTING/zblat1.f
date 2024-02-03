@@ -108,7 +108,7 @@
 *     .. External Subroutines ..
       EXTERNAL          ZB1NRM2, ZSCAL, ZDSCAL, CTEST, ITEST1, STEST1
 *     .. Intrinsic Functions ..
-      INTRINSIC         MAX
+      // INTRINSIC MAX
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -236,7 +236,7 @@
 *     .. External Subroutines ..
       EXTERNAL          ZAXPY, ZCOPY, ZSWAP, CTEST
 *     .. Intrinsic Functions ..
-      INTRINSIC         ABS, MIN
+      // INTRINSIC ABS, MIN
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Data statements ..
@@ -343,7 +343,7 @@
       double           SDIFF;
       EXTERNAL         SDIFF
 *     .. Intrinsic Functions ..
-      INTRINSIC        ABS
+      // INTRINSIC ABS
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Executable Statements ..
@@ -431,7 +431,7 @@
 *     .. External Subroutines ..
       EXTERNAL         STEST
 *     .. Intrinsic Functions ..
-      INTRINSIC        DIMAG, DBLE
+      // INTRINSIC DIMAG, DBLE
 *     .. Executable Statements ..
       DO 20 I = 1, LEN
          SCOMP(2*I-1) = DBLE(CCOMP(I))
@@ -521,7 +521,7 @@
       double            DZNRM2;
       EXTERNAL          DZNRM2
 *     .. Intrinsic Functions ..
-      INTRINSIC         AIMAG, ABS, DCMPLX, DBLE, MAX, MIN, SQRT
+      // INTRINSIC AIMAG, ABS, DCMPLX, DBLE, MAX, MIN, SQRT
 *     .. Model parameters ..
       double            BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       PARAMETER         (BIGNUM=0.99792015476735990583D+292, SAFMAX=0.44942328371557897693D+308, SAFMIN=0.22250738585072013831D-307, SMLNUM=0.10020841800044863890D-291, ULP=0.22204460492503130808D-015)
@@ -695,7 +695,7 @@
 *     .. Local Scalars ..
       double            X, Y, YY, Z;
 *     .. Intrinsic Functions ..
-      INTRINSIC         HUGE
+      // INTRINSIC HUGE
 *     .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY

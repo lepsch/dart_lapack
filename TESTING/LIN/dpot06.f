@@ -33,7 +33,7 @@
       EXTERNAL           DSYMM
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, ABS
+      // INTRINSIC MAX, ABS
 *     ..
 *     .. Executable Statements ..
 *

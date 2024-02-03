@@ -25,7 +25,7 @@
       EXTERNAL           SLAEV2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CONJG, REAL
+      // INTRINSIC ABS, CONJG, REAL
 *     ..
 *     .. Executable Statements ..
 *

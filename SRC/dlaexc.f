@@ -37,7 +37,7 @@
       EXTERNAL           DLACPY, DLANV2, DLARFG, DLARFX, DLARTG, DLASY2, DROT
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

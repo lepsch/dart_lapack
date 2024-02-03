@@ -26,7 +26,7 @@
       EXTERNAL           CGEMV, CLACGV, CLARFG, CSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN
+      // INTRINSIC MIN
 *     ..
 *     .. Executable Statements ..
 *

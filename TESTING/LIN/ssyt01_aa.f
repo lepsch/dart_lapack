@@ -33,7 +33,7 @@
       EXTERNAL           SLASET, SLAVSY, SSWAP, STRMM, SLACPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          REAL
+      // INTRINSIC REAL
 *     ..
 *     .. Executable Statements ..
 *

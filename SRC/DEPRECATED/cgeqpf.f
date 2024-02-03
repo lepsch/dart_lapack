@@ -28,7 +28,7 @@
       EXTERNAL           CGEQR2, CLARF, CLARFG, CSWAP, CUNM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, CONJG, MAX, MIN, SQRT
+      // INTRINSIC ABS, CMPLX, CONJG, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
       int                ISAMAX;

@@ -20,7 +20,7 @@
       COMPLEX*16         SI, T2, T3, T4, ZI
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DCMPLX, DCONJG, DIMAG
+      // INTRINSIC DBLE, DCMPLX, DCONJG, DIMAG
 *     ..
 *     .. Executable Statements ..
 *

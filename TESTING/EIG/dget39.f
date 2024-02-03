@@ -29,7 +29,7 @@
       EXTERNAL           DCOPY, DGEMV, DLAQTR
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, COS, DBLE, MAX, SIN, SQRT
+      // INTRINSIC ABS, COS, DBLE, MAX, SIN, SQRT
 *     ..
 *     .. Local Arrays ..
       int                IDIM( 6 ), IVAL( 5, 5, 6 );

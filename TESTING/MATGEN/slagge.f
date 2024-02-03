@@ -26,7 +26,7 @@
       EXTERNAL           SGEMV, SGER, SLARNV, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, MIN, SIGN
+      // INTRINSIC MAX, MIN, SIGN
 *     ..
 *     .. External Functions ..
       REAL               SNRM2

@@ -31,7 +31,7 @@
       EXTERNAL           SCOPY, SGEMM, SLACPY, SLAED4, SLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MAX, SIGN, SQRT
+      // INTRINSIC MAX, SIGN, SQRT
 *     ..
 *     .. Executable Statements ..
 *

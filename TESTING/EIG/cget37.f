@@ -40,7 +40,7 @@
       EXTERNAL           CCOPY, CGEHRD, CHSEQR, CLACPY, CSSCAL, CTREVC, CTRSNA, SCOPY, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, MAX, REAL, SQRT
+      // INTRINSIC AIMAG, MAX, REAL, SQRT
 *     ..
 *     .. Executable Statements ..
 *

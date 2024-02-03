@@ -26,7 +26,7 @@
       EXTERNAL           DLARF, DLARFG, DSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, SQRT
+      // INTRINSIC ABS, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
       int                IDAMAX;

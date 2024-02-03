@@ -36,7 +36,7 @@
       EXTERNAL           ZLASET
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, EXP, LOG, MAX, MIN, MOD
+      // INTRINSIC ABS, DBLE, DCMPLX, EXP, LOG, MAX, MIN, MOD
 *     ..
 *     .. Executable Statements ..
 *

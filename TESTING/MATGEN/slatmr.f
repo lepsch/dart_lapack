@@ -38,7 +38,7 @@
       EXTERNAL           SLATM1, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX, MIN, MOD
+      // INTRINSIC ABS, MAX, MIN, MOD
 *     ..
 *     .. Executable Statements ..
 *

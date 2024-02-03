@@ -34,7 +34,7 @@
       EXTERNAL           CGERC, CGERU, CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CONJG, MAX, MIN, REAL
+      // INTRINSIC CONJG, MAX, MIN, REAL
 *     ..
 *     .. Executable Statements ..
 *

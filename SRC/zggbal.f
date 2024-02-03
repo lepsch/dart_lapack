@@ -37,7 +37,7 @@
       EXTERNAL           DAXPY, DSCAL, XERBLA, ZDSCAL, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DIMAG, INT, LOG10, MAX, MIN, SIGN
+      // INTRINSIC ABS, DBLE, DIMAG, INT, LOG10, MAX, MIN, SIGN
 *     ..
 *     .. Statement Functions ..
       double             CABS1;

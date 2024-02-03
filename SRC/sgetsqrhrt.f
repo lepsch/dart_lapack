@@ -30,7 +30,7 @@
       EXTERNAL           SCOPY, SLATSQR, SORGTSQR_ROW, SORHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          CEILING, MAX, MIN
+      // INTRINSIC CEILING, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

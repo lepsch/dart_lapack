@@ -22,7 +22,7 @@
       COMPLEX AII
 *     ..
 *     .. Intrinsics ..
-      INTRINSIC MIN, REAL, AIMAG
+      // INTRINSIC MIN, REAL, AIMAG
 *     ..
 *     .. Executable Statements ..
       K = MIN( M, N )

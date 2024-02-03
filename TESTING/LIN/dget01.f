@@ -32,7 +32,7 @@
       EXTERNAL           DGEMV, DLASWP, DSCAL, DTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MIN
+      // INTRINSIC DBLE, MIN
 *     ..
 *     .. Executable Statements ..
 *

@@ -21,7 +21,7 @@
       bool               UPPER;
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DIMAG, CMPLX
+      // INTRINSIC DBLE, DIMAG, CMPLX
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH

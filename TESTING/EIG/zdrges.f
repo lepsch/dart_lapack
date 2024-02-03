@@ -48,7 +48,7 @@
       EXTERNAL           ALASVM, XERBLA, ZGET51, ZGET54, ZGGES, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZUNM2R
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SIGN
+      // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SIGN
 *     ..
 *     .. Statement Functions ..
       double             ABS1;

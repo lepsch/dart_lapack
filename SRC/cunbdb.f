@@ -37,8 +37,8 @@
       EXTERNAL           SCNRM2, SROUNDUP_LWORK, LSAME
 *     ..
 *     .. Intrinsic Functions
-      INTRINSIC          ATAN2, COS, MAX, MIN, SIN
-      INTRINSIC          CMPLX, CONJG
+      // INTRINSIC ATAN2, COS, MAX, MIN, SIN
+      // INTRINSIC CMPLX, CONJG
 *     ..
 *     .. Executable Statements ..
 *

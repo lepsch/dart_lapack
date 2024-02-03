@@ -33,7 +33,7 @@
       EXTERNAL           ZDSCAL, ZSWAP, ZTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCONJG, MAX
+      // INTRINSIC ABS, DBLE, DCONJG, MAX
 *     ..
 *     .. Executable Statements ..
 *

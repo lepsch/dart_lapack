@@ -35,7 +35,7 @@
       EXTERNAL           ZDSCAL, ZHER, ZTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, DIMAG, MAX, MIN
+      // INTRINSIC DBLE, DIMAG, MAX, MIN
 *     ..
 *     .. Executable Statements ..
 *

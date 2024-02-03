@@ -36,7 +36,7 @@
       EXTERNAL           ZGEMV, ZLASWP, ZSCAL, ZTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          DBLE, MIN
+      // INTRINSIC DBLE, MIN
 *     ..
 *     .. Executable Statements ..
 *

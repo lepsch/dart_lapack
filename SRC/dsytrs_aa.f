@@ -32,7 +32,7 @@
       EXTERNAL           DLACPY, DGTSV, DSWAP, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          MIN, MAX
+      // INTRINSIC MIN, MAX
 *     ..
 *     .. Executable Statements ..
 *

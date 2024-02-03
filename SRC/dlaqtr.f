@@ -36,7 +36,7 @@
       EXTERNAL           DAXPY, DLADIV, DLALN2, DSCAL
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, MAX
+      // INTRINSIC ABS, MAX
 *     ..
 *     .. Executable Statements ..
 *

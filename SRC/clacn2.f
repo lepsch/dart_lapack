@@ -36,7 +36,7 @@
       EXTERNAL           CCOPY
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, REAL
+      // INTRINSIC ABS, AIMAG, CMPLX, REAL
 *     ..
 *     .. Executable Statements ..
 *

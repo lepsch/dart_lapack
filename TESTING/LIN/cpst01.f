@@ -38,7 +38,7 @@
       EXTERNAL           CHER, CSCAL, CTRMV
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          AIMAG, CONJG, REAL
+      // INTRINSIC AIMAG, CONJG, REAL
 *     ..
 *     .. Executable Statements ..
 *
