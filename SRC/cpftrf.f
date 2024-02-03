@@ -1,4 +1,4 @@
-      SUBROUTINE CPFTRF( TRANSR, UPLO, N, A, INFO );
+      void cpftrf(TRANSR, UPLO, N, A, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

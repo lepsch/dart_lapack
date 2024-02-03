@@ -1,4 +1,4 @@
-      SUBROUTINE DLARTGS( X, Y, SIGMA, CS, SN );
+      void dlartgs(X, Y, SIGMA, CS, SN ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

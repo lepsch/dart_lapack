@@ -1,4 +1,4 @@
-      SUBROUTINE SBDSVDX( UPLO, JOBZ, RANGE, N, D, E, VL, VU, IL, IU, NS, S, Z, LDZ, WORK, IWORK, INFO);
+      void sbdsvdx(UPLO, JOBZ, RANGE, N, D, E, VL, VU, IL, IU, NS, S, Z, LDZ, WORK, IWORK, INFO) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

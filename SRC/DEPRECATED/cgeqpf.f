@@ -1,4 +1,4 @@
-      SUBROUTINE CGEQPF( M, N, A, LDA, JPVT, TAU, WORK, RWORK, INFO );
+      void cgeqpf(M, N, A, LDA, JPVT, TAU, WORK, RWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

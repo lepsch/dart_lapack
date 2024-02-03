@@ -1,4 +1,4 @@
-      SUBROUTINE CCHKTSQR( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
+      void cchktsqr(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

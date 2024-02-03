@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETRS_3( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, INFO );
+      void zhetrs_3(UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

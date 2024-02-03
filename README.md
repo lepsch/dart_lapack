@@ -349,6 +349,18 @@ $1if$2;\n     $3
 $1\L$2$3
 ```
 
+### SUBROUTINE
+```
+^(\s+)SUBROUTINE\s+(\w+)\s*\(\s*(.*)\s*\);?$
+$1void \L$2($3) {
+```
+
+No params
+```
+^(\s+)SUBROUTINE\s+(\w+);?$
+$1void \L$2() {
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

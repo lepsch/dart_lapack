@@ -1,4 +1,4 @@
-      SUBROUTINE ZTPT05( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS );
+      void ztpt05(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

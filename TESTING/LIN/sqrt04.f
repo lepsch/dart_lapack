@@ -1,4 +1,4 @@
-      SUBROUTINE SQRT04(M,N,NB,RESULT);
+      void sqrt04(M,N,NB,RESULT) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

@@ -1,4 +1,4 @@
-      SUBROUTINE CSPR( UPLO, N, ALPHA, X, INCX, AP );
+      void cspr(UPLO, N, ALPHA, X, INCX, AP ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

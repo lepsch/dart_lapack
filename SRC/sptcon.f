@@ -1,4 +1,4 @@
-      SUBROUTINE SPTCON( N, D, E, ANORM, RCOND, WORK, INFO );
+      void sptcon(N, D, E, ANORM, RCOND, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

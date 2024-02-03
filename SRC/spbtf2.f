@@ -1,4 +1,4 @@
-      SUBROUTINE SPBTF2( UPLO, N, KD, AB, LDAB, INFO );
+      void spbtf2(UPLO, N, KD, AB, LDAB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

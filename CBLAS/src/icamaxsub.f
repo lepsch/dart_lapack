@@ -1,4 +1,4 @@
-      subroutine icamaxsub(n,x,incx,iamax);
+      void icamaxsub(n,x,incx,iamax) {
 
       // external icamax
       int      icamax,iamax;

@@ -1,4 +1,4 @@
-      SUBROUTINE DPTT01( N, D, E, DF, EF, WORK, RESID );
+      void dptt01(N, D, E, DF, EF, WORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

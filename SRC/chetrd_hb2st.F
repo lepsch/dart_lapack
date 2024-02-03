@@ -1,4 +1,4 @@
-      SUBROUTINE CHETRD_HB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO );
+      void chetrd_hb2st(STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO ) {
 
 
 // #if defined(_OPENMP)

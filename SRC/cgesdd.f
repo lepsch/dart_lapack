@@ -1,4 +1,4 @@
-      SUBROUTINE CGESDD( JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, INFO );
+      void cgesdd(JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, INFO ) {
       // implicit none
 
 // -- LAPACK driver routine --

@@ -1,4 +1,4 @@
-      SUBROUTINE DSYGV_2STAGE( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, INFO );
+      void dsygv_2stage(ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, INFO ) {
 
       // IMPLICIT NONE
 

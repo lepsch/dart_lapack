@@ -1,4 +1,4 @@
-      SUBROUTINE DPBCON( UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK, IWORK, INFO );
+      void dpbcon(UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK, IWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CGEQL2( M, N, A, LDA, TAU, WORK, INFO );
+      void cgeql2(M, N, A, LDA, TAU, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

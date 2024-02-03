@@ -1,4 +1,4 @@
-      SUBROUTINE CGGLSE( M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK, INFO );
+      void cgglse(M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

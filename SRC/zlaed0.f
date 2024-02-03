@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAED0( QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, RWORK, IWORK, INFO );
+      void zlaed0(QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, RWORK, IWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

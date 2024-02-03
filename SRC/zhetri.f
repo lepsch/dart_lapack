@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETRI( UPLO, N, A, LDA, IPIV, WORK, INFO );
+      void zhetri(UPLO, N, A, LDA, IPIV, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

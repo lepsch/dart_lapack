@@ -1,4 +1,4 @@
-      SUBROUTINE DLASQ2( N, Z, INFO );
+      void dlasq2(N, Z, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CCKCSD( NM, MVAL, PVAL, QVAL, NMATS, ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, IWORK, WORK, RWORK, NIN, NOUT, INFO );
+      void cckcsd(NM, MVAL, PVAL, QVAL, NMATS, ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, IWORK, WORK, RWORK, NIN, NOUT, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -154,7 +154,7 @@
 
 
 
-      SUBROUTINE CLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK );
+      void clacsg(M, P, Q, THETA, ISEED, X, LDX, WORK ) {
       // IMPLICIT NONE
 
       int                LDX, M, P, Q;

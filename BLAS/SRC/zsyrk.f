@@ -1,4 +1,4 @@
-      SUBROUTINE ZSYRK(UPLO,TRANS,N,K,ALPHA,A,LDA,BETA,C,LDC);
+      void zsyrk(UPLO,TRANS,N,K,ALPHA,A,LDA,BETA,C,LDC) {
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

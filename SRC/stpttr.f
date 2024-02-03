@@ -1,4 +1,4 @@
-      SUBROUTINE STPTTR( UPLO, N, AP, A, LDA, INFO );
+      void stpttr(UPLO, N, AP, A, LDA, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

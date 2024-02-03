@@ -1,4 +1,4 @@
-      SUBROUTINE DQRT04(M,N,NB,RESULT);
+      void dqrt04(M,N,NB,RESULT) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

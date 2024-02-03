@@ -1,4 +1,4 @@
-      SUBROUTINE ALAHDG( IOUNIT, PATH );
+      void alahdg(IOUNIT, PATH ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

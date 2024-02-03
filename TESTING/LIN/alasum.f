@@ -1,4 +1,4 @@
-      SUBROUTINE ALASUM( TYPE, NOUT, NFAIL, NRUN, NERRS );
+      void alasum(TYPE, NOUT, NFAIL, NRUN, NERRS ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

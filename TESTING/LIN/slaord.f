@@ -1,4 +1,4 @@
-      SUBROUTINE SLAORD( JOB, N, X, INCX );
+      void slaord(JOB, N, X, INCX ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

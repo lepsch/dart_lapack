@@ -1,4 +1,4 @@
-      SUBROUTINE CUNGTSQR_ROW( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
+      void cungtsqr_row(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

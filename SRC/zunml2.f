@@ -1,4 +1,4 @@
-      SUBROUTINE ZUNML2( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO );
+      void zunml2(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CLAPTM( UPLO, N, NRHS, ALPHA, D, E, X, LDX, BETA, B, LDB );
+      void claptm(UPLO, N, NRHS, ALPHA, D, E, X, LDX, BETA, B, LDB ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

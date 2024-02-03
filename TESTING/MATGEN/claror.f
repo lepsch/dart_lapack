@@ -1,4 +1,4 @@
-      SUBROUTINE CLAROR( SIDE, INIT, M, N, A, LDA, ISEED, X, INFO );
+      void claror(SIDE, INIT, M, N, A, LDA, ISEED, X, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

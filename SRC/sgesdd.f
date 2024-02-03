@@ -1,4 +1,4 @@
-      SUBROUTINE SGESDD( JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, INFO );
+      void sgesdd(JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, INFO ) {
       // implicit none
 
 // -- LAPACK driver routine --

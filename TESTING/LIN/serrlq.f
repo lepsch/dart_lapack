@@ -1,4 +1,4 @@
-      SUBROUTINE SERRLQ( PATH, NUNIT );
+      void serrlq(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

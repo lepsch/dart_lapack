@@ -1,4 +1,4 @@
-      subroutine sdsdotsub(n,sb,x,incx,y,incy,dot);
+      void sdsdotsub(n,sb,x,incx,y,incy,dot) {
 
       // external sdsdot
       real sb,sdsdot,dot;

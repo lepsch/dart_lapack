@@ -1,4 +1,4 @@
-      SUBROUTINE SSYEV( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO );
+      void ssyev(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

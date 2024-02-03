@@ -1,4 +1,4 @@
-      SUBROUTINE CUNT01( ROWCOL, M, N, U, LDU, WORK, LWORK, RWORK, RESID );
+      void cunt01(ROWCOL, M, N, U, LDU, WORK, LWORK, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

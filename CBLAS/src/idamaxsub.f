@@ -1,4 +1,4 @@
-      subroutine idamaxsub(n,x,incx,iamax);
+      void idamaxsub(n,x,incx,iamax) {
 
       // external idamax
       int      idamax,iamax;

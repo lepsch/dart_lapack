@@ -1,4 +1,4 @@
-      SUBROUTINE CERRHS( PATH, NUNIT );
+      void cerrhs(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DORT01( ROWCOL, M, N, U, LDU, WORK, LWORK, RESID );
+      void dort01(ROWCOL, M, N, U, LDU, WORK, LWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

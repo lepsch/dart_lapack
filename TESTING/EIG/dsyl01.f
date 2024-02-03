@@ -1,6 +1,6 @@
 
 // -- LAPACK test routine --
-      SUBROUTINE DSYL01( THRESH, NFAIL, RMAX, NINFO, KNT );
+      void dsyl01(THRESH, NFAIL, RMAX, NINFO, KNT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

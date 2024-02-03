@@ -1,4 +1,4 @@
-      SUBROUTINE SGEHD2( N, ILO, IHI, A, LDA, TAU, WORK, INFO );
+      void sgehd2(N, ILO, IHI, A, LDA, TAU, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

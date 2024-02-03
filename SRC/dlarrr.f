@@ -1,4 +1,4 @@
-      SUBROUTINE DLARRR( N, D, E, INFO );
+      void dlarrr(N, D, E, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

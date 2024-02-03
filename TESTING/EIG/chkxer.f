@@ -1,4 +1,4 @@
-      SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK );
+      void chkxer(SRNAMT, INFOT, NOUT, LERR, OK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CHPGST( ITYPE, UPLO, N, AP, BP, INFO );
+      void chpgst(ITYPE, UPLO, N, AP, BP, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

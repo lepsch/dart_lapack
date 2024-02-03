@@ -1,4 +1,4 @@
-      SUBROUTINE ZDRSCL( N, SA, SX, INCX );
+      void zdrscl(N, SA, SX, INCX ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

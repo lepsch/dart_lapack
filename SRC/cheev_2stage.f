@@ -1,4 +1,4 @@
-      SUBROUTINE CHEEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO );
+      void cheev_2stage(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO ) {
 
       // IMPLICIT NONE
 

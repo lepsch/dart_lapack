@@ -1,4 +1,4 @@
-      SUBROUTINE SAXPY(N,SA,SX,INCX,SY,INCY);
+      void saxpy(N,SA,SX,INCX,SY,INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

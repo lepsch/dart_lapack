@@ -80,7 +80,7 @@
  9994 FORMAT( ' *** Warning:  Time for operations was less or equal', ' than zero => timing in TESTING might be dubious' );
       mysub(NMAX,X,Y);
       }
-      SUBROUTINE MYSUB(N,X,Y);
+      void mysub(N,X,Y) {
       int     N;
       REAL X(N), Y(N);
       return;

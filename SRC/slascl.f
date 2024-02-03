@@ -1,4 +1,4 @@
-      SUBROUTINE SLASCL( TYPE, KL, KU, CFROM, CTO, M, N, A, LDA, INFO );
+      void slascl(TYPE, KL, KU, CFROM, CTO, M, N, A, LDA, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

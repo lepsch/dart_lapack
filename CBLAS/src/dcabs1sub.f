@@ -1,4 +1,4 @@
-      subroutine dcabs1sub(z, cabs1);
+      void dcabs1sub(z, cabs1) {
 
       // external dcabs1
       double complex z;

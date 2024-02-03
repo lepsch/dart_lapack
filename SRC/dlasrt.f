@@ -1,4 +1,4 @@
-      SUBROUTINE DLASRT( ID, N, D, INFO );
+      void dlasrt(ID, N, D, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

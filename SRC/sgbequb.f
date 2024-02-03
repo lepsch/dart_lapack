@@ -1,4 +1,4 @@
-      SUBROUTINE SGBEQUB( M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFO );
+      void sgbequb(M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DLA_SYAMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY );
+      void dla_syamv(UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

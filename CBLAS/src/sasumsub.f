@@ -1,4 +1,4 @@
-      subroutine sasumsub(n,x,incx,asum);
+      void sasumsub(n,x,incx,asum) {
 
       // external sasum
       real sasum,asum;

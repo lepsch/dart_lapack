@@ -1,4 +1,4 @@
-      SUBROUTINE DLAS2( F, G, H, SSMIN, SSMAX );
+      void dlas2(F, G, H, SSMIN, SSMAX ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

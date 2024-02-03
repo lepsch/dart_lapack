@@ -1,4 +1,4 @@
-      SUBROUTINE ZGTSV( N, NRHS, DL, D, DU, B, LDB, INFO );
+      void zgtsv(N, NRHS, DL, D, DU, B, LDB, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

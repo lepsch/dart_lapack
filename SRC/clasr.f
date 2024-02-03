@@ -1,4 +1,4 @@
-      SUBROUTINE CLASR( SIDE, PIVOT, DIRECT, M, N, C, S, A, LDA );
+      void clasr(SIDE, PIVOT, DIRECT, M, N, C, S, A, LDA ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

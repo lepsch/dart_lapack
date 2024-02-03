@@ -1,4 +1,4 @@
-      SUBROUTINE ZUNGTSQR( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
+      void zungtsqr(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

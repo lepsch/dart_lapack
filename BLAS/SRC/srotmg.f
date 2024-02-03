@@ -1,4 +1,4 @@
-      SUBROUTINE SROTMG(SD1,SD2,SX1,SY1,SPARAM);
+      void srotmg(SD1,SD2,SX1,SY1,SPARAM) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

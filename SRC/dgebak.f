@@ -1,4 +1,4 @@
-      SUBROUTINE DGEBAK( JOB, SIDE, N, ILO, IHI, SCALE, M, V, LDV, INFO );
+      void dgebak(JOB, SIDE, N, ILO, IHI, SCALE, M, V, LDV, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

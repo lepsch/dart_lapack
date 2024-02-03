@@ -1,4 +1,4 @@
-      SUBROUTINE SGET37( RMAX, LMAX, NINFO, KNT, NIN );
+      void sget37(RMAX, LMAX, NINFO, KNT, NIN ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

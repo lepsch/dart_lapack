@@ -1,4 +1,4 @@
-      SUBROUTINE DGET10( M, N, A, LDA, B, LDB, WORK, RESULT );
+      void dget10(M, N, A, LDA, B, LDB, WORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

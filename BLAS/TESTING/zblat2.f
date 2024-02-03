@@ -280,7 +280,7 @@
       // End of ZBLAT2
 
       }
-      SUBROUTINE ZCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G );
+      void zchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G ) {
 
 // Tests ZGEMV and ZGBMV.
 
@@ -593,7 +593,7 @@
       // End of ZCHK1
 
       }
-      SUBROUTINE ZCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G );
+      void zchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G ) {
 
 // Tests ZHEMV, ZHBMV and ZHPMV.
 
@@ -890,7 +890,7 @@
       // End of ZCHK2
 
       }
-      SUBROUTINE ZCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z );
+      void zchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z ) {
 
 // Tests ZTRMV, ZTBMV, ZTPMV, ZTRSV, ZTBSV and ZTPSV.
 
@@ -1191,7 +1191,7 @@
       // End of ZCHK3
 
       }
-      SUBROUTINE ZCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z );
+      void zchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
 
 // Tests ZGERC and ZGERU.
 
@@ -1431,7 +1431,7 @@
       // End of ZCHK4
 
       }
-      SUBROUTINE ZCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z );
+      void zchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
 
 // Tests ZHER and ZHPR.
 
@@ -1682,7 +1682,7 @@
       // End of ZCHK5
 
       }
-      SUBROUTINE ZCHK6( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z );
+      void zchk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
 
 // Tests ZHER2 and ZHPR2.
 
@@ -1963,7 +1963,7 @@
       // End of ZCHK6
 
       }
-      SUBROUTINE ZCHKE( ISNUM, SRNAMT, NOUT );
+      void zchke(ISNUM, SRNAMT, NOUT ) {
 
 // Tests the error exits from the Level 2 Blas.
 // Requires a special version of the error-handling routine XERBLA.
@@ -2301,7 +2301,7 @@
       // End of ZCHKE
 
       }
-      SUBROUTINE ZMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL );
+      void zmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL ) {
 
 // Generates values for an M by N matrix A within the bandwidth
 // defined by KL and KU.
@@ -2485,7 +2485,7 @@
       // End of ZMAKE
 
       }
-      SUBROUTINE ZMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV );
+      void zmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV ) {
 
 // Checks the results of the computational tests.
 
@@ -2763,7 +2763,7 @@
       // End of DDIFF
 
       }
-      SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK );
+      void chkxer(SRNAMT, INFOT, NOUT, LERR, OK ) {
 
 // Tests whether XERBLA has detected an error when it should.
 
@@ -2790,7 +2790,7 @@
       // End of CHKXER
 
       }
-      SUBROUTINE ZREGR1( TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS );
+      void zregr1(TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS ) {
 
 // Input initialization for regression test.
 
@@ -2822,7 +2822,7 @@
       } // 10
       return;
       }
-      SUBROUTINE XERBLA( SRNAME, INFO );
+      void xerbla(SRNAME, INFO ) {
 
 // This is a special version of XERBLA to be used only as part of
 // the test program for testing error exits from the Level 2 BLAS

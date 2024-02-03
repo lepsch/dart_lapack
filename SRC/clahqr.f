@@ -1,4 +1,4 @@
-      SUBROUTINE CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO );
+      void clahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK auxiliary routine --

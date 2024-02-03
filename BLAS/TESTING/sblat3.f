@@ -266,7 +266,7 @@
       // End of SBLAT3
 
       }
-      SUBROUTINE SCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
+      void schk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
 
 // Tests SGEMM.
 
@@ -511,7 +511,7 @@
       // End of SCHK1
 
       }
-      SUBROUTINE SCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
+      void schk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
 
 // Tests SSYMM.
 
@@ -743,7 +743,7 @@
       // End of SCHK2
 
       }
-      SUBROUTINE SCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C );
+      void schk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C ) {
 
 // Tests STRMM and STRSM.
 
@@ -995,7 +995,7 @@
       // End of SCHK3
 
       }
-      SUBROUTINE SCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
+      void schk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
 
 // Tests SSYRK.
 
@@ -1231,7 +1231,7 @@
       // End of SCHK4
 
       }
-      SUBROUTINE SCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W );
+      void schk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W ) {
 
 // Tests SSYR2K.
 
@@ -1495,7 +1495,7 @@
       // End of SCHK5
 
       }
-      SUBROUTINE SCHKE( ISNUM, SRNAMT, NOUT );
+      void schke(ISNUM, SRNAMT, NOUT ) {
 
 // Tests the error exits from the Level 3 Blas.
 // Requires a special version of the error-handling routine XERBLA.
@@ -2048,7 +2048,7 @@
       // End of SCHKE
 
       }
-      SUBROUTINE SMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL );
+      void smake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL ) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2156,7 +2156,7 @@
       // End of SMAKE
 
       }
-      SUBROUTINE SMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV );
+      void smmch(TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV ) {
 
 // Checks the results of the computational tests.
 
@@ -2424,7 +2424,7 @@
       // End of SDIFF
 
       }
-      SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK );
+      void chkxer(SRNAMT, INFOT, NOUT, LERR, OK ) {
 
 // Tests whether XERBLA has detected an error when it should.
 
@@ -2453,7 +2453,7 @@
       // End of CHKXER
 
       }
-      SUBROUTINE XERBLA( SRNAME, INFO );
+      void xerbla(SRNAME, INFO ) {
 
 // This is a special version of XERBLA to be used only as part of
 // the test program for testing error exits from the Level 3 BLAS

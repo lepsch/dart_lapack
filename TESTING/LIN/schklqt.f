@@ -1,4 +1,4 @@
-      SUBROUTINE SCHKLQT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
+      void schklqt(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

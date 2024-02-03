@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETD2( UPLO, N, A, LDA, D, E, TAU, INFO );
+      void zhetd2(UPLO, N, A, LDA, D, E, TAU, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

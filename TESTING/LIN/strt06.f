@@ -1,4 +1,4 @@
-      SUBROUTINE STRT06( RCOND, RCONDC, UPLO, DIAG, N, A, LDA, WORK, RAT );
+      void strt06(RCOND, RCONDC, UPLO, DIAG, N, A, LDA, WORK, RAT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

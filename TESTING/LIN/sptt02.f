@@ -1,4 +1,4 @@
-      SUBROUTINE SPTT02( N, NRHS, D, E, X, LDX, B, LDB, RESID );
+      void sptt02(N, NRHS, D, E, X, LDX, B, LDB, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CLA_GEAMV( TRANS, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY );
+      void cla_geamv(TRANS, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

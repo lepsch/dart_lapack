@@ -1,4 +1,4 @@
-      SUBROUTINE DLATSQR( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
+      void dlatsqr(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

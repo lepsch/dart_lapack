@@ -1,4 +1,4 @@
-      SUBROUTINE CLAQHP( UPLO, N, AP, S, SCOND, AMAX, EQUED );
+      void claqhp(UPLO, N, AP, S, SCOND, AMAX, EQUED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

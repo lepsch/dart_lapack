@@ -1,4 +1,4 @@
-      SUBROUTINE DERRPO( PATH, NUNIT );
+      void derrpo(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

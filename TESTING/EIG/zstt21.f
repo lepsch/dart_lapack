@@ -1,4 +1,4 @@
-      SUBROUTINE ZSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RWORK, RESULT );
+      void zstt21(N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

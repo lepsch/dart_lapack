@@ -1,4 +1,4 @@
-      SUBROUTINE CPPCON( UPLO, N, AP, ANORM, RCOND, WORK, RWORK, INFO );
+      void cppcon(UPLO, N, AP, ANORM, RCOND, WORK, RWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

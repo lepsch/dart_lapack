@@ -1,4 +1,4 @@
-      SUBROUTINE DLARGV( N, X, INCX, Y, INCY, C, INCC );
+      void dlargv(N, X, INCX, Y, INCY, C, INCC ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,7 +1,7 @@
 // \ingroup single_eig
 
 // =====================================================================
-      SUBROUTINE SLASUM( TYPE, IOUNIT, IE, NRUN );
+      void slasum(TYPE, IOUNIT, IE, NRUN ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

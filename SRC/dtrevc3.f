@@ -1,4 +1,4 @@
-      SUBROUTINE DTREVC3( SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, MM, M, WORK, LWORK, INFO );
+      void dtrevc3(SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, MM, M, WORK, LWORK, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

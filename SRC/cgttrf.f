@@ -1,4 +1,4 @@
-      SUBROUTINE CGTTRF( N, DL, D, DU, DU2, IPIV, INFO );
+      void cgttrf(N, DL, D, DU, DU2, IPIV, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

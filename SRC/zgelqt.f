@@ -1,4 +1,4 @@
-      SUBROUTINE ZGELQT( M, N, MB, A, LDA, T, LDT, WORK, INFO );
+      void zgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

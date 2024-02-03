@@ -1,4 +1,4 @@
-      SUBROUTINE SGEBD2( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, INFO );
+      void sgebd2(M, N, A, LDA, D, E, TAUQ, TAUP, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DROTMG(DD1,DD2,DX1,DY1,DPARAM);
+      void drotmg(DD1,DD2,DX1,DY1,DPARAM) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

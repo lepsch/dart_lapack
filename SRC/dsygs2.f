@@ -1,4 +1,4 @@
-      SUBROUTINE DSYGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
+      void dsygs2(ITYPE, UPLO, N, A, LDA, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

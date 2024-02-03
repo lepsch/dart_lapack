@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET07( TRANS, N, NRHS, A, LDA, B, LDB, X, LDX, XACT, LDXACT, FERR, CHKFERR, BERR, RESLTS );
+      void zget07(TRANS, N, NRHS, A, LDA, B, LDB, X, LDX, XACT, LDXACT, FERR, CHKFERR, BERR, RESLTS ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

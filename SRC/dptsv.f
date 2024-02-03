@@ -1,4 +1,4 @@
-      SUBROUTINE DPTSV( N, NRHS, D, E, B, LDB, INFO );
+      void dptsv(N, NRHS, D, E, B, LDB, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE ZLARZ( SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK );
+      void zlarz(SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

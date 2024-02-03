@@ -1,4 +1,4 @@
-      SUBROUTINE DLA_WWADDW( N, X, Y, W );
+      void dla_wwaddw(N, X, Y, W ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

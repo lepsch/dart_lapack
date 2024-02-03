@@ -1,4 +1,4 @@
-      SUBROUTINE SLAEXC( WANTQ, N, T, LDT, Q, LDQ, J1, N1, N2, WORK, INFO );
+      void slaexc(WANTQ, N, T, LDT, Q, LDQ, J1, N1, N2, WORK, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

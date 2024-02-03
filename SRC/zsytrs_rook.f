@@ -1,4 +1,4 @@
-      SUBROUTINE ZSYTRS_ROOK( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
+      void zsytrs_rook(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

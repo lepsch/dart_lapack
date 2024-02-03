@@ -1,4 +1,4 @@
-      SUBROUTINE CERRTSQR( PATH, NUNIT );
+      void cerrtsqr(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

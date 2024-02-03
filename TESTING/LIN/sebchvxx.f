@@ -1,4 +1,4 @@
-      SUBROUTINE SEBCHVXX( THRESH, PATH );
+      void sebchvxx(THRESH, PATH ) {
       // IMPLICIT NONE
       // .. Scalar Arguments ..
       REAL               THRESH;

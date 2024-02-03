@@ -1,4 +1,4 @@
-      SUBROUTINE CSYCON_3( UPLO, N, A, LDA, E, IPIV, ANORM, RCOND, WORK, INFO );
+      void csycon_3(UPLO, N, A, LDA, E, IPIV, ANORM, RCOND, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DTBT06( RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, WORK, RAT );
+      void dtbt06(RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, WORK, RAT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

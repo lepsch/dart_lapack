@@ -1,4 +1,4 @@
-      SUBROUTINE DQLT01( M, N, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT );
+      void dqlt01(M, N, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

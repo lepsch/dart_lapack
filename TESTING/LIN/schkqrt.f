@@ -77,7 +77,7 @@
 // > \ingroup single_lin
 
 // =====================================================================
-      SUBROUTINE SCHKQRT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
+      void schkqrt(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

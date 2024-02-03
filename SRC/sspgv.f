@@ -1,4 +1,4 @@
-      SUBROUTINE SSPGV( ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, INFO );
+      void sspgv(ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

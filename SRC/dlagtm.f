@@ -1,4 +1,4 @@
-      SUBROUTINE DLAGTM( TRANS, N, NRHS, ALPHA, DL, D, DU, X, LDX, BETA, B, LDB );
+      void dlagtm(TRANS, N, NRHS, ALPHA, DL, D, DU, X, LDX, BETA, B, LDB ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

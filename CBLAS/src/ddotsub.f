@@ -1,4 +1,4 @@
-      subroutine ddotsub(n,x,incx,y,incy,dot);
+      void ddotsub(n,x,incx,y,incy,dot) {
 
       // external ddot
       double           ddot;

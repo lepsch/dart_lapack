@@ -1,4 +1,4 @@
-      subroutine cdotcsub(n,x,incx,y,incy,dotc);
+      void cdotcsub(n,x,incx,y,incy,dotc) {
 
       // external cdotc
       complex cdotc,dotc;

@@ -1,4 +1,4 @@
-      SUBROUTINE ZGEQP3( M, N, A, LDA, JPVT, TAU, WORK, LWORK, RWORK, INFO );
+      void zgeqp3(M, N, A, LDA, JPVT, TAU, WORK, LWORK, RWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

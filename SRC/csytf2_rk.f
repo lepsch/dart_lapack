@@ -1,4 +1,4 @@
-      SUBROUTINE CSYTF2_RK( UPLO, N, A, LDA, E, IPIV, INFO );
+      void csytf2_rk(UPLO, N, A, LDA, E, IPIV, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

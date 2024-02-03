@@ -1,4 +1,4 @@
-      SUBROUTINE DSTEV( JOBZ, N, D, E, Z, LDZ, WORK, INFO );
+      void dstev(JOBZ, N, D, E, Z, LDZ, WORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

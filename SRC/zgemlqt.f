@@ -1,4 +1,4 @@
-      SUBROUTINE ZGEMLQT( SIDE, TRANS, M, N, K, MB, V, LDV, T, LDT, C, LDC, WORK, INFO );
+      void zgemlqt(SIDE, TRANS, M, N, K, MB, V, LDV, T, LDT, C, LDC, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

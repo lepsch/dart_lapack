@@ -1,4 +1,4 @@
-      SUBROUTINE CLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
+      void claqhe(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

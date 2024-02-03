@@ -1,4 +1,4 @@
-      SUBROUTINE SPFTRS( TRANSR, UPLO, N, NRHS, A, B, LDB, INFO );
+      void spftrs(TRANSR, UPLO, N, NRHS, A, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

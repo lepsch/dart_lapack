@@ -1,4 +1,4 @@
-      SUBROUTINE ZLACRT( N, CX, INCX, CY, INCY, C, S );
+      void zlacrt(N, CX, INCX, CY, INCY, C, S ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

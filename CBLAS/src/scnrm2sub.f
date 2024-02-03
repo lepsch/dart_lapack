@@ -1,4 +1,4 @@
-      subroutine scnrm2sub(n,x,incx,nrm2);
+      void scnrm2sub(n,x,incx,nrm2) {
 
       // external scnrm2
       real scnrm2,nrm2;

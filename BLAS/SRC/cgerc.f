@@ -1,4 +1,4 @@
-      SUBROUTINE CGERC(M,N,ALPHA,X,INCX,Y,INCY,A,LDA);
+      void cgerc(M,N,ALPHA,X,INCX,Y,INCY,A,LDA) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE ZHFRK( TRANSR, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C );
+      void zhfrk(TRANSR, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

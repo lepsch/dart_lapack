@@ -1,4 +1,4 @@
-      SUBROUTINE CERRRFP( NUNIT );
+      void cerrrfp(NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

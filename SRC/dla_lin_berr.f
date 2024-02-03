@@ -1,4 +1,4 @@
-      SUBROUTINE DLA_LIN_BERR ( N, NZ, NRHS, RES, AYB, BERR );
+      void dla_lin_berr(N, NZ, NRHS, RES, AYB, BERR ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

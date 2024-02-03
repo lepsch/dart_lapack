@@ -51,7 +51,7 @@
       // End of CBLAT1
 
       }
-      SUBROUTINE HEADER;
+      void header() {
       // .. Parameters ..
       int              NOUT;
       const            NOUT=6;
@@ -82,7 +82,7 @@
       // End of HEADER
 
       }
-      SUBROUTINE CHECK1(SFAC);
+      void check1(SFAC) {
       // .. Parameters ..
       int               NOUT;
       REAL              THRESH;
@@ -217,7 +217,7 @@
       // End of CHECK1
 
       }
-      SUBROUTINE CHECK2(SFAC);
+      void check2(SFAC) {
       // .. Parameters ..
       int               NOUT;
       const             NOUT=6;
@@ -333,7 +333,7 @@
       // End of CHECK2
 
       }
-      SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC);
+      void stest(LEN,SCOMP,STRUE,SSIZE,SFAC) {
       // ********************************* STEST **************************
 
       // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
@@ -388,7 +388,7 @@
       // End of STEST
 
       }
-      SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC);
+      void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
       // ************************* STEST1 *****************************
 
       // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
@@ -429,7 +429,7 @@
       // End of SDIFF
 
       }
-      SUBROUTINE CTEST(LEN,CCOMP,CTRUE,CSIZE,SFAC);
+      void ctest(LEN,CCOMP,CTRUE,CSIZE,SFAC) {
       // **************************** CTEST *****************************
 
       // C.L. LAWSON, JPL, 1978 DEC 6
@@ -463,7 +463,7 @@
       // End of CTEST
 
       }
-      SUBROUTINE ITEST1(ICOMP,ITRUE);
+      void itest1(ICOMP,ITRUE) {
       // ********************************* ITEST1 *************************
 
       // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
@@ -504,7 +504,7 @@
       // End of ITEST1
 
       }
-      SUBROUTINE CB1NRM2(N,INCX,THRESH);
+      void cb1nrm2(N,INCX,THRESH) {
       // Compare NRM2 with a reference computation using combinations
       // of the following values:
 

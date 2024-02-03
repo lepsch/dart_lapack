@@ -1,4 +1,4 @@
-      SUBROUTINE DHST01( N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK, LWORK, RESULT );
+      void dhst01(N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK, LWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

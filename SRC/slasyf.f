@@ -1,4 +1,4 @@
-      SUBROUTINE SLASYF( UPLO, N, NB, KB, A, LDA, IPIV, W, LDW, INFO );
+      void slasyf(UPLO, N, NB, KB, A, LDA, IPIV, W, LDW, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

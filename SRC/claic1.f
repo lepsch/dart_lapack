@@ -1,4 +1,4 @@
-      SUBROUTINE CLAIC1( JOB, J, X, SEST, W, GAMMA, SESTPR, S, C );
+      void claic1(JOB, J, X, SEST, W, GAMMA, SESTPR, S, C ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DLATPS( UPLO, TRANS, DIAG, NORMIN, N, AP, X, SCALE, CNORM, INFO );
+      void dlatps(UPLO, TRANS, DIAG, NORMIN, N, AP, X, SCALE, CNORM, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

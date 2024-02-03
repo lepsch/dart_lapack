@@ -1,4 +1,4 @@
-      SUBROUTINE DPPT02( UPLO, N, NRHS, A, X, LDX, B, LDB, RWORK, RESID );
+      void dppt02(UPLO, N, NRHS, A, X, LDX, B, LDB, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

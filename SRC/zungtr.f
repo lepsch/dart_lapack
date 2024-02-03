@@ -1,4 +1,4 @@
-      SUBROUTINE ZUNGTR( UPLO, N, A, LDA, TAU, WORK, LWORK, INFO );
+      void zungtr(UPLO, N, A, LDA, TAU, WORK, LWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DGEMQRT( SIDE, TRANS, M, N, K, NB, V, LDV, T, LDT, C, LDC, WORK, INFO );
+      void dgemqrt(SIDE, TRANS, M, N, K, NB, V, LDV, T, LDT, C, LDC, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

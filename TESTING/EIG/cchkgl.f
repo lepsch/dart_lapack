@@ -1,4 +1,4 @@
-      SUBROUTINE CCHKGL( NIN, NOUT );
+      void cchkgl(NIN, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE SOPGTR( UPLO, N, AP, TAU, Q, LDQ, WORK, INFO );
+      void sopgtr(UPLO, N, AP, TAU, Q, LDQ, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

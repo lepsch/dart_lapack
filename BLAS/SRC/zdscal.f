@@ -1,4 +1,4 @@
-      SUBROUTINE ZDSCAL(N,DA,ZX,INCX);
+      void zdscal(N,DA,ZX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

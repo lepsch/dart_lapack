@@ -1,4 +1,4 @@
-      SUBROUTINE DSYEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO );
+      void dsyev_2stage(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO ) {
 
       // IMPLICIT NONE
 

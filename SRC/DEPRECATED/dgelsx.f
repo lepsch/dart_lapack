@@ -1,4 +1,4 @@
-      SUBROUTINE DGELSX( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, INFO );
+      void dgelsx(M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE ZCHKBK( NIN, NOUT );
+      void zchkbk(NIN, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

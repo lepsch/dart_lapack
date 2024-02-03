@@ -1,4 +1,4 @@
-      SUBROUTINE CLAHEF( UPLO, N, NB, KB, A, LDA, IPIV, W, LDW, INFO );
+      void clahef(UPLO, N, NB, KB, A, LDA, IPIV, W, LDW, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

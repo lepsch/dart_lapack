@@ -1,4 +1,4 @@
-      SUBROUTINE SORGTSQR_ROW( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
+      void sorgtsqr_row(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

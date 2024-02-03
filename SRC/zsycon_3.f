@@ -1,4 +1,4 @@
-      SUBROUTINE ZSYCON_3( UPLO, N, A, LDA, E, IPIV, ANORM, RCOND, WORK, INFO );
+      void zsycon_3(UPLO, N, A, LDA, E, IPIV, ANORM, RCOND, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      subroutine izamaxsub(n,x,incx,iamax);
+      void izamaxsub(n,x,incx,iamax) {
 
       // external izamax
       int      izamax,iamax;

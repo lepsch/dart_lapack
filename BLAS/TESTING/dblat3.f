@@ -266,7 +266,7 @@
       // End of DBLAT3
 
       }
-      SUBROUTINE DCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
+      void dchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
 
 // Tests DGEMM.
 
@@ -511,7 +511,7 @@
       // End of DCHK1
 
       }
-      SUBROUTINE DCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
+      void dchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
 
 // Tests DSYMM.
 
@@ -743,7 +743,7 @@
       // End of DCHK2
 
       }
-      SUBROUTINE DCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C );
+      void dchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C ) {
 
 // Tests DTRMM and DTRSM.
 
@@ -995,7 +995,7 @@
       // End of DCHK3
 
       }
-      SUBROUTINE DCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
+      void dchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G ) {
 
 // Tests DSYRK.
 
@@ -1231,7 +1231,7 @@
       // End of DCHK4
 
       }
-      SUBROUTINE DCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W );
+      void dchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W ) {
 
 // Tests DSYR2K.
 
@@ -1495,7 +1495,7 @@
       // End of DCHK5
 
       }
-      SUBROUTINE DCHKE( ISNUM, SRNAMT, NOUT );
+      void dchke(ISNUM, SRNAMT, NOUT ) {
 
 // Tests the error exits from the Level 3 Blas.
 // Requires a special version of the error-handling routine XERBLA.
@@ -2048,7 +2048,7 @@
       // End of DCHKE
 
       }
-      SUBROUTINE DMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL );
+      void dmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL ) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2156,7 +2156,7 @@
       // End of DMAKE
 
       }
-      SUBROUTINE DMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV );
+      void dmmch(TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV ) {
 
 // Checks the results of the computational tests.
 
@@ -2424,7 +2424,7 @@
       // End of DDIFF
 
       }
-      SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK );
+      void chkxer(SRNAMT, INFOT, NOUT, LERR, OK ) {
 
 // Tests whether XERBLA has detected an error when it should.
 
@@ -2453,7 +2453,7 @@
       // End of CHKXER
 
       }
-      SUBROUTINE XERBLA( SRNAME, INFO );
+      void xerbla(SRNAME, INFO ) {
 
 // This is a special version of XERBLA to be used only as part of
 // the test program for testing error exits from the Level 3 BLAS

@@ -1,4 +1,4 @@
-      SUBROUTINE SERRTSQR( PATH, NUNIT );
+      void serrtsqr(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

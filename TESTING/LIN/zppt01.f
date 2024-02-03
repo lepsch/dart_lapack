@@ -1,4 +1,4 @@
-      SUBROUTINE ZPPT01( UPLO, N, A, AFAC, RWORK, RESID );
+      void zppt01(UPLO, N, A, AFAC, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

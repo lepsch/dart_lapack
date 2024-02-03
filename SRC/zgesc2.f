@@ -1,4 +1,4 @@
-      SUBROUTINE ZGESC2( N, A, LDA, RHS, IPIV, JPIV, SCALE );
+      void zgesc2(N, A, LDA, RHS, IPIV, JPIV, SCALE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

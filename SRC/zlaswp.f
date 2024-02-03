@@ -1,4 +1,4 @@
-      SUBROUTINE ZLASWP( N, A, LDA, K1, K2, IPIV, INCX );
+      void zlaswp(N, A, LDA, K1, K2, IPIV, INCX ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

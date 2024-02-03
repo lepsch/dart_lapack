@@ -1,4 +1,4 @@
-      SUBROUTINE CCOPY(N,CX,INCX,CY,INCY);
+      void ccopy(N,CX,INCX,CY,INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

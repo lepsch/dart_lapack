@@ -1,4 +1,4 @@
-      SUBROUTINE DGELQ2( M, N, A, LDA, TAU, WORK, INFO );
+      void dgelq2(M, N, A, LDA, TAU, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

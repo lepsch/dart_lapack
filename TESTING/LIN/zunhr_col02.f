@@ -1,4 +1,4 @@
-      SUBROUTINE ZUNHR_COL02( M, N, MB1, NB1, NB2, RESULT );
+      void zunhr_col02(M, N, MB1, NB1, NB2, RESULT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

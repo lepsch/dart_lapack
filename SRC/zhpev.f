@@ -1,4 +1,4 @@
-      SUBROUTINE ZHPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, RWORK, INFO );
+      void zhpev(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, RWORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

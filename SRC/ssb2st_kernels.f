@@ -1,4 +1,4 @@
-      SUBROUTINE  SSB2ST_KERNELS( UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, A, LDA, V, TAU, LDVT, WORK);
+      void ssb2st_kernels(UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, A, LDA, V, TAU, LDVT, WORK) {
 
       // IMPLICIT NONE
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CPPT03( UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND, RESID );
+      void cppt03(UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE ZQRT05(M,N,L,NB,RESULT);
+      void zqrt05(M,N,L,NB,RESULT) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

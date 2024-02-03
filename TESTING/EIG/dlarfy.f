@@ -1,4 +1,4 @@
-      SUBROUTINE DLARFY( UPLO, N, V, INCV, TAU, C, LDC, WORK );
+      void dlarfy(UPLO, N, V, INCV, TAU, C, LDC, WORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

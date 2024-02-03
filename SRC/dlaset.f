@@ -1,4 +1,4 @@
-      SUBROUTINE DLASET( UPLO, M, N, ALPHA, BETA, A, LDA );
+      void dlaset(UPLO, M, N, ALPHA, BETA, A, LDA ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

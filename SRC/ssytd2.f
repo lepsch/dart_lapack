@@ -1,4 +1,4 @@
-      SUBROUTINE SSYTD2( UPLO, N, A, LDA, D, E, TAU, INFO );
+      void ssytd2(UPLO, N, A, LDA, D, E, TAU, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DTRT01( UPLO, DIAG, N, A, LDA, AINV, LDAINV, RCOND, WORK, RESID );
+      void dtrt01(UPLO, DIAG, N, A, LDA, AINV, LDAINV, RCOND, WORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

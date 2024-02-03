@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAPMR( FORWRD, M, N, X, LDX, K );
+      void zlapmr(FORWRD, M, N, X, LDX, K ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

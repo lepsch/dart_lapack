@@ -1,4 +1,4 @@
-      SUBROUTINE SLAED5( I, D, Z, DELTA, RHO, DLAM );
+      void slaed5(I, D, Z, DELTA, RHO, DLAM ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

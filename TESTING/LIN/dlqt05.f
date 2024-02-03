@@ -1,4 +1,4 @@
-      SUBROUTINE DLQT05(M,N,L,NB,RESULT);
+      void dlqt05(M,N,L,NB,RESULT) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

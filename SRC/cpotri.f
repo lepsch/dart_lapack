@@ -1,4 +1,4 @@
-      SUBROUTINE CPOTRI( UPLO, N, A, LDA, INFO );
+      void cpotri(UPLO, N, A, LDA, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

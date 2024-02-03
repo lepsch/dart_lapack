@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAR2V( N, X, Y, Z, INCX, C, S, INCC );
+      void zlar2v(N, X, Y, Z, INCX, C, S, INCC ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CERRUNHR_COL( PATH, NUNIT );
+      void cerrunhr_col(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

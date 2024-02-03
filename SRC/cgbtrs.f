@@ -1,4 +1,4 @@
-      SUBROUTINE CGBTRS( TRANS, N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO );
+      void cgbtrs(TRANS, N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

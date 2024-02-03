@@ -1,4 +1,4 @@
-      SUBROUTINE DLATRZ( M, N, L, A, LDA, TAU, WORK );
+      void dlatrz(M, N, L, A, LDA, TAU, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

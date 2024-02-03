@@ -1,4 +1,4 @@
-      SUBROUTINE SGET31( RMAX, LMAX, NINFO, KNT );
+      void sget31(RMAX, LMAX, NINFO, KNT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

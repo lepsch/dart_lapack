@@ -1,4 +1,4 @@
-      SUBROUTINE SLARFG( N, ALPHA, X, INCX, TAU );
+      void slarfg(N, ALPHA, X, INCX, TAU ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

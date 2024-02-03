@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAQGE( M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
+      void zlaqge(M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

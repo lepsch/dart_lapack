@@ -1,4 +1,4 @@
-      SUBROUTINE SPOEQU( N, A, LDA, S, SCOND, AMAX, INFO );
+      void spoequ(N, A, LDA, S, SCOND, AMAX, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

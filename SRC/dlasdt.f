@@ -1,4 +1,4 @@
-      SUBROUTINE DLASDT( N, LVL, ND, INODE, NDIML, NDIMR, MSUB );
+      void dlasdt(N, LVL, ND, INODE, NDIML, NDIMR, MSUB ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

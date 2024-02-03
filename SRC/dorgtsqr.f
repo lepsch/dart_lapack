@@ -1,4 +1,4 @@
-      SUBROUTINE DORGTSQR( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
+      void dorgtsqr(M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

@@ -1,4 +1,4 @@
-      SUBROUTINE CLAVHP( UPLO, TRANS, DIAG, N, NRHS, A, IPIV, B, LDB, INFO );
+      void clavhp(UPLO, TRANS, DIAG, N, NRHS, A, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

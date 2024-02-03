@@ -1,4 +1,4 @@
-      SUBROUTINE SSPCON( UPLO, N, AP, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
+      void sspcon(UPLO, N, AP, IPIV, ANORM, RCOND, WORK, IWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

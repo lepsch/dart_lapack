@@ -1,4 +1,4 @@
-      SUBROUTINE DERRORHR_COL( PATH, NUNIT );
+      void derrorhr_col(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

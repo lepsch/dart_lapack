@@ -1,4 +1,4 @@
-      SUBROUTINE ALASMG( TYPE, NOUT, NFAIL, NRUN, NERRS );
+      void alasmg(TYPE, NOUT, NFAIL, NRUN, NERRS ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

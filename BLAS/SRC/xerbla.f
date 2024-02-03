@@ -1,4 +1,4 @@
-      SUBROUTINE XERBLA( SRNAME, INFO );
+      void xerbla(SRNAME, INFO ) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

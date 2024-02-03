@@ -1,4 +1,4 @@
-      SUBROUTINE SPBSV( UPLO, N, KD, NRHS, AB, LDAB, B, LDB, INFO );
+      void spbsv(UPLO, N, KD, NRHS, AB, LDAB, B, LDB, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

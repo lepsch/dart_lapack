@@ -1,4 +1,4 @@
-      SUBROUTINE ZPTTS2( IUPLO, N, NRHS, D, E, B, LDB );
+      void zptts2(IUPLO, N, NRHS, D, E, B, LDB ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

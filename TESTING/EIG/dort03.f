@@ -1,4 +1,4 @@
-      SUBROUTINE DORT03( RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RESULT, INFO );
+      void dort03(RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RESULT, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE SLAQZ1( A, LDA, B, LDB, SR1, SR2, SI, BETA1, BETA2, V );
+      void slaqz1(A, LDA, B, LDB, SR1, SR2, SI, BETA1, BETA2, V ) {
       // IMPLICIT NONE
 
       // Arguments

@@ -1,4 +1,4 @@
-      SUBROUTINE DTRTTF( TRANSR, UPLO, N, A, LDA, ARF, INFO );
+      void dtrttf(TRANSR, UPLO, N, A, LDA, ARF, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

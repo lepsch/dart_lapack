@@ -1,4 +1,4 @@
-      SUBROUTINE ZHER2K(UPLO,TRANS,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC);
+      void zher2k(UPLO,TRANS,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC) {
 
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

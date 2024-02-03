@@ -1,4 +1,4 @@
-      SUBROUTINE SLAHR2( N, K, NB, A, LDA, TAU, T, LDT, Y, LDY );
+      void slahr2(N, K, NB, A, LDA, TAU, T, LDT, Y, LDY ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

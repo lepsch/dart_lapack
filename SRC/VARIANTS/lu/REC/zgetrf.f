@@ -1,4 +1,4 @@
-      SUBROUTINE ZGETRF( M, N, A, LDA, IPIV, INFO );
+      void zgetrf(M, N, A, LDA, IPIV, INFO ) {
 
 // -- LAPACK computational routine (version 3.X) --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

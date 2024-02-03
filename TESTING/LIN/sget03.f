@@ -1,4 +1,4 @@
-      SUBROUTINE SGET03( N, A, LDA, AINV, LDAINV, WORK, LDWORK, RWORK, RCOND, RESID );
+      void sget03(N, A, LDA, AINV, LDAINV, WORK, LDWORK, RWORK, RCOND, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

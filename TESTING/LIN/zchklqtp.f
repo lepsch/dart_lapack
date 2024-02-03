@@ -1,4 +1,4 @@
-      SUBROUTINE ZCHKLQTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
+      void zchklqtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

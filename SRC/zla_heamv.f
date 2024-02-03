@@ -1,4 +1,4 @@
-      SUBROUTINE ZLA_HEAMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY );
+      void zla_heamv(UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

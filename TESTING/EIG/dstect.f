@@ -1,4 +1,4 @@
-      SUBROUTINE DSTECT( N, A, B, SHIFT, NUM );
+      void dstect(N, A, B, SHIFT, NUM ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

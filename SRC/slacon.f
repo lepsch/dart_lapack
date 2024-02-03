@@ -1,4 +1,4 @@
-      SUBROUTINE SLACON( N, V, X, ISGN, EST, KASE );
+      void slacon(N, V, X, ISGN, EST, KASE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

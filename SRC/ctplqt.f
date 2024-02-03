@@ -1,4 +1,4 @@
-      SUBROUTINE CTPLQT( M, N, L, MB, A, LDA, B, LDB, T, LDT, WORK, INFO );
+      void ctplqt(M, N, L, MB, A, LDA, B, LDB, T, LDT, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

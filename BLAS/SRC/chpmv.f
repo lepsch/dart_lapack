@@ -1,4 +1,4 @@
-      SUBROUTINE CHPMV(UPLO,N,ALPHA,AP,X,INCX,BETA,Y,INCY);
+      void chpmv(UPLO,N,ALPHA,AP,X,INCX,BETA,Y,INCY) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

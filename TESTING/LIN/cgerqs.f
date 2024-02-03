@@ -1,4 +1,4 @@
-      SUBROUTINE CGERQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
+      void cgerqs(M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

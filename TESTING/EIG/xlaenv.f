@@ -1,4 +1,4 @@
-      SUBROUTINE XLAENV( ISPEC, NVALUE );
+      void xlaenv(ISPEC, NVALUE ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

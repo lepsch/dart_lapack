@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO, PATH);
+      void zlahilb(N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO, PATH) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

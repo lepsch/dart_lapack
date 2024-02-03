@@ -1,4 +1,4 @@
-      SUBROUTINE CTPTRI( UPLO, DIAG, N, AP, INFO );
+      void ctptri(UPLO, DIAG, N, AP, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

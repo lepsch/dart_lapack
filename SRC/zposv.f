@@ -1,4 +1,4 @@
-      SUBROUTINE ZPOSV( UPLO, N, NRHS, A, LDA, B, LDB, INFO );
+      void zposv(UPLO, N, NRHS, A, LDA, B, LDB, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

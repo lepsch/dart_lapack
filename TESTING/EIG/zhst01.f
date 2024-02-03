@@ -1,4 +1,4 @@
-      SUBROUTINE ZHST01( N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK, LWORK, RWORK, RESULT );
+      void zhst01(N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK, LWORK, RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

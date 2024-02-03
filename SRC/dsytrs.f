@@ -1,4 +1,4 @@
-      SUBROUTINE DSYTRS( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
+      void dsytrs(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

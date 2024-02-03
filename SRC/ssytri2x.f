@@ -1,4 +1,4 @@
-      SUBROUTINE SSYTRI2X( UPLO, N, A, LDA, IPIV, WORK, NB, INFO );
+      void ssytri2x(UPLO, N, A, LDA, IPIV, WORK, NB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

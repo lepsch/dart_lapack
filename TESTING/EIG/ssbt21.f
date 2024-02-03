@@ -1,4 +1,4 @@
-      SUBROUTINE SSBT21( UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK, RESULT );
+      void ssbt21(UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

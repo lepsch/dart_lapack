@@ -1,4 +1,4 @@
-      SUBROUTINE SERRORHR_COL( PATH, NUNIT );
+      void serrorhr_col(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

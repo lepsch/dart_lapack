@@ -1,4 +1,4 @@
-      SUBROUTINE ZSYCONVF( UPLO, WAY, N, A, LDA, E, IPIV, INFO );
+      void zsyconvf(UPLO, WAY, N, A, LDA, E, IPIV, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

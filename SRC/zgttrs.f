@@ -1,4 +1,4 @@
-      SUBROUTINE ZGTTRS( TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, INFO );
+      void zgttrs(TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

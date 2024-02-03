@@ -1,4 +1,4 @@
-      SUBROUTINE DERRLQTP( PATH, NUNIT );
+      void derrlqtp(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

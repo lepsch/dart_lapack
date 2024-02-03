@@ -1,4 +1,4 @@
-      SUBROUTINE SSBTRD( VECT, UPLO, N, KD, AB, LDAB, D, E, Q, LDQ, WORK, INFO );
+      void ssbtrd(VECT, UPLO, N, KD, AB, LDAB, D, E, Q, LDQ, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CSPMV( UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY );
+      void cspmv(UPLO, N, ALPHA, AP, X, INCX, BETA, Y, INCY ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

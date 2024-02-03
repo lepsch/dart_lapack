@@ -1,4 +1,4 @@
-      SUBROUTINE ICOPY( N, SX, INCX, SY, INCY );
+      void icopy(N, SX, INCX, SY, INCY ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

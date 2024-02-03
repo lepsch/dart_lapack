@@ -1,4 +1,4 @@
-      SUBROUTINE CLARCM( M, N, A, LDA, B, LDB, C, LDC, RWORK );
+      void clarcm(M, N, A, LDA, B, LDB, C, LDC, RWORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

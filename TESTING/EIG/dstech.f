@@ -1,4 +1,4 @@
-      SUBROUTINE DSTECH( N, A, B, EIG, TOL, WORK, INFO );
+      void dstech(N, A, B, EIG, TOL, WORK, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

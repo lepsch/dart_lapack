@@ -1,4 +1,4 @@
-      SUBROUTINE DLATZM( SIDE, M, N, V, INCV, TAU, C1, C2, LDC, WORK );
+      void dlatzm(SIDE, M, N, V, INCV, TAU, C1, C2, LDC, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

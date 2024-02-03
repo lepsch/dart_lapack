@@ -1,4 +1,4 @@
-      SUBROUTINE CLAVHE_ROOK( UPLO, TRANS, DIAG, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
+      void clavhe_rook(UPLO, TRANS, DIAG, N, NRHS, A, LDA, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

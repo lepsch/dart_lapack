@@ -1,4 +1,4 @@
-      SUBROUTINE ZLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, B, WORK, RWORK, INFO );
+      void zlattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, B, WORK, RWORK, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

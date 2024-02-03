@@ -1,4 +1,4 @@
-      SUBROUTINE ZTSQR01(TSSW, M, N, MB, NB, RESULT);
+      void ztsqr01(TSSW, M, N, MB, NB, RESULT) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

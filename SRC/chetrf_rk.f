@@ -1,4 +1,4 @@
-      SUBROUTINE CHETRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO );
+      void chetrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

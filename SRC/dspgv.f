@@ -1,4 +1,4 @@
-      SUBROUTINE DSPGV( ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, INFO );
+      void dspgv(ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

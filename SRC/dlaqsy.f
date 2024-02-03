@@ -1,4 +1,4 @@
-      SUBROUTINE DLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
+      void dlaqsy(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

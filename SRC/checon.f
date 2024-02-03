@@ -1,4 +1,4 @@
-      SUBROUTINE CHECON( UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, INFO );
+      void checon(UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

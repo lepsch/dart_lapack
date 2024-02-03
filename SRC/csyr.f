@@ -1,4 +1,4 @@
-      SUBROUTINE CSYR( UPLO, N, ALPHA, X, INCX, A, LDA );
+      void csyr(UPLO, N, ALPHA, X, INCX, A, LDA ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

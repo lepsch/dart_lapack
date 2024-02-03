@@ -1,4 +1,4 @@
-      SUBROUTINE DLARTGP( F, G, CS, SN, R );
+      void dlartgp(F, G, CS, SN, R ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

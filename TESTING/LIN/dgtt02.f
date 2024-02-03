@@ -1,4 +1,4 @@
-      SUBROUTINE DGTT02( TRANS, N, NRHS, DL, D, DU, X, LDX, B, LDB, RESID );
+      void dgtt02(TRANS, N, NRHS, DL, D, DU, X, LDX, B, LDB, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

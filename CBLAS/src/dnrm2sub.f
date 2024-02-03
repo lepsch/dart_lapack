@@ -1,4 +1,4 @@
-      subroutine dnrm2sub(n,x,incx,nrm2);
+      void dnrm2sub(n,x,incx,nrm2) {
 
       // external dnrm2
       double           dnrm2,nrm2;

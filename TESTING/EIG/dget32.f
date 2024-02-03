@@ -1,4 +1,4 @@
-      SUBROUTINE DGET32( RMAX, LMAX, NINFO, KNT );
+      void dget32(RMAX, LMAX, NINFO, KNT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

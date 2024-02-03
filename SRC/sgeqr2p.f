@@ -1,4 +1,4 @@
-      SUBROUTINE SGEQR2P( M, N, A, LDA, TAU, WORK, INFO );
+      void sgeqr2p(M, N, A, LDA, TAU, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

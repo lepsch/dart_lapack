@@ -1,4 +1,4 @@
-      SUBROUTINE DLARNV( IDIST, ISEED, N, X );
+      void dlarnv(IDIST, ISEED, N, X ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE ZERRPS( PATH, NUNIT );
+      void zerrps(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

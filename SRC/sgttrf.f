@@ -1,4 +1,4 @@
-      SUBROUTINE SGTTRF( N, DL, D, DU, DU2, IPIV, INFO );
+      void sgttrf(N, DL, D, DU, DU2, IPIV, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

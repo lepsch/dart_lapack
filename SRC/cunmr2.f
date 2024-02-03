@@ -1,4 +1,4 @@
-      SUBROUTINE CUNMR2( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO );
+      void cunmr2(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

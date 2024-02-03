@@ -1,4 +1,4 @@
-      SUBROUTINE SSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RESULT );
+      void sstt21(N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

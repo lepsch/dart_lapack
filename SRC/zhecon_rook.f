@@ -1,4 +1,4 @@
-      SUBROUTINE ZHECON_ROOK( UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, INFO );
+      void zhecon_rook(UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

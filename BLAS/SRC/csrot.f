@@ -1,4 +1,4 @@
-      SUBROUTINE CSROT( N, CX, INCX, CY, INCY, C, S );
+      void csrot(N, CX, INCX, CY, INCY, C, S ) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

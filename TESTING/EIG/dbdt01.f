@@ -1,4 +1,4 @@
-      SUBROUTINE DBDT01( M, N, KD, A, LDA, Q, LDQ, D, E, PT, LDPT, WORK, RESID );
+      void dbdt01(M, N, KD, A, LDA, Q, LDQ, D, E, PT, LDPT, WORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

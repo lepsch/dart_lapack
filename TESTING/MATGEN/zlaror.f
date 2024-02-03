@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAROR( SIDE, INIT, M, N, A, LDA, ISEED, X, INFO );
+      void zlaror(SIDE, INIT, M, N, A, LDA, ISEED, X, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

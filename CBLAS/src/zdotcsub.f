@@ -1,4 +1,4 @@
-      subroutine zdotcsub(n,x,incx,y,incy,dotc);
+      void zdotcsub(n,x,incx,y,incy,dotc) {
 
       // external zdotc
       double complex zdotc,dotc;

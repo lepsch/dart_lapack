@@ -1,4 +1,4 @@
-      SUBROUTINE DLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, INFO );
+      void dlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

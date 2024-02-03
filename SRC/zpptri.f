@@ -1,4 +1,4 @@
-      SUBROUTINE ZPPTRI( UPLO, N, AP, INFO );
+      void zpptri(UPLO, N, AP, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CGTSV( N, NRHS, DL, D, DU, B, LDB, INFO );
+      void cgtsv(N, NRHS, DL, D, DU, B, LDB, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

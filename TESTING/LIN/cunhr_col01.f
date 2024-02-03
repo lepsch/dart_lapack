@@ -1,4 +1,4 @@
-      SUBROUTINE CUNHR_COL01( M, N, MB1, NB1, NB2, RESULT );
+      void cunhr_col01(M, N, MB1, NB1, NB2, RESULT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

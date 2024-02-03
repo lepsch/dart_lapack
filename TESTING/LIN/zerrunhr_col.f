@@ -1,4 +1,4 @@
-      SUBROUTINE ZERRUNHR_COL( PATH, NUNIT );
+      void zerrunhr_col(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

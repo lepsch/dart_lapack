@@ -1,4 +1,4 @@
-      SUBROUTINE DROTM(N,DX,INCX,DY,INCY,DPARAM);
+      void drotm(N,DX,INCX,DY,INCY,DPARAM) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

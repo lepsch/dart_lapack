@@ -1,4 +1,4 @@
-      SUBROUTINE ZTFTTP( TRANSR, UPLO, N, ARF, AP, INFO );
+      void ztfttp(TRANSR, UPLO, N, ARF, AP, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

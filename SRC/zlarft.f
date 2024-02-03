@@ -1,4 +1,4 @@
-      SUBROUTINE ZLARFT( DIRECT, STOREV, N, K, V, LDV, TAU, T, LDT );
+      void zlarft(DIRECT, STOREV, N, K, V, LDV, TAU, T, LDT ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

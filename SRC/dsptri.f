@@ -1,4 +1,4 @@
-      SUBROUTINE DSPTRI( UPLO, N, AP, IPIV, WORK, INFO );
+      void dsptri(UPLO, N, AP, IPIV, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

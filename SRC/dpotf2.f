@@ -1,4 +1,4 @@
-      SUBROUTINE DPOTF2( UPLO, N, A, LDA, INFO );
+      void dpotf2(UPLO, N, A, LDA, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

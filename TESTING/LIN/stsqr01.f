@@ -1,4 +1,4 @@
-      SUBROUTINE STSQR01(TSSW, M, N, MB, NB, RESULT);
+      void stsqr01(TSSW, M, N, MB, NB, RESULT) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

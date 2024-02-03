@@ -1,4 +1,4 @@
-      SUBROUTINE CLAUUM( UPLO, N, A, LDA, INFO );
+      void clauum(UPLO, N, A, LDA, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

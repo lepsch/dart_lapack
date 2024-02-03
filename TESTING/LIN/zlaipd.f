@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAIPD( N, A, INDA, VINDA );
+      void zlaipd(N, A, INDA, VINDA ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

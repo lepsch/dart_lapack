@@ -1,4 +1,4 @@
-      SUBROUTINE CTPT06( RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RAT );
+      void ctpt06(RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RAT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

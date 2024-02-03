@@ -1,4 +1,4 @@
-      SUBROUTINE DLATRD( UPLO, N, NB, A, LDA, E, TAU, W, LDW );
+      void dlatrd(UPLO, N, NB, A, LDA, E, TAU, W, LDW ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

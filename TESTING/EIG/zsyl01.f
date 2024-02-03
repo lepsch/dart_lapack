@@ -1,6 +1,6 @@
 
 // -- LAPACK test routine --
-      SUBROUTINE ZSYL01( THRESH, NFAIL, RMAX, NINFO, KNT );
+      void zsyl01(THRESH, NFAIL, RMAX, NINFO, KNT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

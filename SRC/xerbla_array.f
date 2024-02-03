@@ -1,4 +1,4 @@
-      SUBROUTINE XERBLA_ARRAY( SRNAME_ARRAY, SRNAME_LEN, INFO);
+      void xerbla_array(SRNAME_ARRAY, SRNAME_LEN, INFO) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

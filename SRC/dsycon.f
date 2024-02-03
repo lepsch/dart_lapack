@@ -1,4 +1,4 @@
-      SUBROUTINE DSYCON( UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
+      void dsycon(UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, IWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

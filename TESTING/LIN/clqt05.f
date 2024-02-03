@@ -1,4 +1,4 @@
-      SUBROUTINE CLQT05(M,N,L,NB,RESULT);
+      void clqt05(M,N,L,NB,RESULT) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

@@ -1,4 +1,4 @@
-      SUBROUTINE STPQRT( M, N, L, NB, A, LDA, B, LDB, T, LDT, WORK, INFO );
+      void stpqrt(M, N, L, NB, A, LDA, B, LDB, T, LDT, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

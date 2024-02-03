@@ -1,4 +1,4 @@
-      SUBROUTINE DGETRF ( M, N, A, LDA, IPIV, INFO);
+      void dgetrf(M, N, A, LDA, IPIV, INFO) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

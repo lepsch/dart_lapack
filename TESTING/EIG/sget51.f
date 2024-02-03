@@ -1,4 +1,4 @@
-      SUBROUTINE SGET51( ITYPE, N, A, LDA, B, LDB, U, LDU, V, LDV, WORK, RESULT );
+      void sget51(ITYPE, N, A, LDA, B, LDB, U, LDU, V, LDV, WORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

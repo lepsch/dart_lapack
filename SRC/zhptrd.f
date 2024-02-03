@@ -1,4 +1,4 @@
-      SUBROUTINE ZHPTRD( UPLO, N, AP, D, E, TAU, INFO );
+      void zhptrd(UPLO, N, AP, D, E, TAU, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CPOTRF ( UPLO, N, A, LDA, INFO );
+      void cpotrf(UPLO, N, A, LDA, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

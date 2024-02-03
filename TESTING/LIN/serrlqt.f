@@ -1,4 +1,4 @@
-      SUBROUTINE SERRLQT( PATH, NUNIT );
+      void serrlqt(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

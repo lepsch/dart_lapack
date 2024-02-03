@@ -1,4 +1,4 @@
-      SUBROUTINE DROT(N,DX,INCX,DY,INCY,C,S);
+      void drot(N,DX,INCX,DY,INCY,C,S) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

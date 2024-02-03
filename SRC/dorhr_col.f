@@ -1,4 +1,4 @@
-      SUBROUTINE DORHR_COL( M, N, NB, A, LDA, T, LDT, D, INFO );
+      void dorhr_col(M, N, NB, A, LDA, T, LDT, D, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

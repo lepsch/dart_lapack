@@ -1,4 +1,4 @@
-      SUBROUTINE STRSYL3( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, IWORK, LIWORK, SWORK, LDSWORK, INFO );
+      void strsyl3(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, IWORK, LIWORK, SWORK, LDSWORK, INFO ) {
       // IMPLICIT NONE
 
       // .. Scalar Arguments ..

@@ -1,4 +1,4 @@
-      SUBROUTINE SDISNA( JOB, M, N, D, SEP, INFO );
+      void sdisna(JOB, M, N, D, SEP, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

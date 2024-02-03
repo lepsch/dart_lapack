@@ -1,4 +1,4 @@
-      SUBROUTINE CLAESY( A, B, C, RT1, RT2, EVSCAL, CS1, SN1 );
+      void claesy(A, B, C, RT1, RT2, EVSCAL, CS1, SN1 ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

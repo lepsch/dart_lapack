@@ -1,4 +1,4 @@
-      SUBROUTINE DLAED2( K, N, N1, D, Q, LDQ, INDXQ, RHO, Z, DLAMBDA, W, Q2, INDX, INDXC, INDXP, COLTYP, INFO );
+      void dlaed2(K, N, N1, D, Q, LDQ, INDXQ, RHO, Z, DLAMBDA, W, Q2, INDX, INDXC, INDXP, COLTYP, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

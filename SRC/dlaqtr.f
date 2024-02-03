@@ -1,4 +1,4 @@
-      SUBROUTINE DLAQTR( LTRAN, LREAL, N, T, LDT, B, W, SCALE, X, WORK, INFO );
+      void dlaqtr(LTRAN, LREAL, N, T, LDT, B, W, SCALE, X, WORK, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

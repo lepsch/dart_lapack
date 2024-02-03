@@ -1,4 +1,4 @@
-      SUBROUTINE ZHESV_RK( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, WORK, LWORK, INFO );
+      void zhesv_rk(UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, WORK, LWORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

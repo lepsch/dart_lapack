@@ -1,4 +1,4 @@
-      SUBROUTINE DORGL2( M, N, K, A, LDA, TAU, WORK, INFO );
+      void dorgl2(M, N, K, A, LDA, TAU, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

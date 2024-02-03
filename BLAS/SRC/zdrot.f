@@ -1,4 +1,4 @@
-      SUBROUTINE ZDROT( N, ZX, INCX, ZY, INCY, C, S );
+      void zdrot(N, ZX, INCX, ZY, INCY, C, S ) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

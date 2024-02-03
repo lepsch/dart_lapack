@@ -1,4 +1,4 @@
-      SUBROUTINE CLAVSY( UPLO, TRANS, DIAG, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
+      void clavsy(UPLO, TRANS, DIAG, N, NRHS, A, LDA, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

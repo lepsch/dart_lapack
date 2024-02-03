@@ -1,4 +1,4 @@
-      SUBROUTINE DSYEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFO );
+      void dsyequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

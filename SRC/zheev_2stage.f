@@ -1,4 +1,4 @@
-      SUBROUTINE ZHEEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO );
+      void zheev_2stage(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO ) {
 
       // IMPLICIT NONE
 

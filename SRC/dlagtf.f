@@ -1,4 +1,4 @@
-      SUBROUTINE DLAGTF( N, A, LAMBDA, B, C, TOL, D, IN, INFO );
+      void dlagtf(N, A, LAMBDA, B, C, TOL, D, IN, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

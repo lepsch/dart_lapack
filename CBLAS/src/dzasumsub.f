@@ -1,4 +1,4 @@
-      subroutine dzasumsub(n,x,incx,asum);
+      void dzasumsub(n,x,incx,asum) {
 
       // external dzasum
       double           dzasum,asum;

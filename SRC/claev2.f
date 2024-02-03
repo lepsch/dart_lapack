@@ -1,4 +1,4 @@
-      SUBROUTINE CLAEV2( A, B, C, RT1, RT2, CS1, SN1 );
+      void claev2(A, B, C, RT1, RT2, CS1, SN1 ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

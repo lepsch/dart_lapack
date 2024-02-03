@@ -1,4 +1,4 @@
-      SUBROUTINE SPTEQR( COMPZ, N, D, E, Z, LDZ, WORK, INFO );
+      void spteqr(COMPZ, N, D, E, Z, LDZ, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

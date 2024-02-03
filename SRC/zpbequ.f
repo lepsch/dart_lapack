@@ -1,4 +1,4 @@
-      SUBROUTINE ZPBEQU( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFO );
+      void zpbequ(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DSYTRD_SB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO );
+      void dsytrd_sb2st(STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO ) {
 
 // #if defined(_OPENMP)
       use omp_lib;

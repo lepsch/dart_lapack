@@ -1,4 +1,4 @@
-      SUBROUTINE CUNHR_COL( M, N, NB, A, LDA, T, LDT, D, INFO );
+      void cunhr_col(M, N, NB, A, LDA, T, LDT, D, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

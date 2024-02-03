@@ -1,4 +1,4 @@
-      SUBROUTINE ZTPLQT2( M, N, L, A, LDA, B, LDB, T, LDT, INFO );
+      void ztplqt2(M, N, L, A, LDA, B, LDB, T, LDT, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

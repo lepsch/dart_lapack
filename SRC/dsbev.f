@@ -1,4 +1,4 @@
-      SUBROUTINE DSBEV( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, INFO );
+      void dsbev(JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

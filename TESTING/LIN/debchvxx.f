@@ -1,4 +1,4 @@
-      SUBROUTINE DEBCHVXX( THRESH, PATH );
+      void debchvxx(THRESH, PATH ) {
       // IMPLICIT NONE
       // .. Scalar Arguments ..
       double            THRESH;

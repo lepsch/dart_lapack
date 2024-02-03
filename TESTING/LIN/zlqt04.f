@@ -1,4 +1,4 @@
-      SUBROUTINE ZLQT04(M,N,NB,RESULT);
+      void zlqt04(M,N,NB,RESULT) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

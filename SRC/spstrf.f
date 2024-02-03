@@ -1,4 +1,4 @@
-      SUBROUTINE SPSTRF( UPLO, N, A, LDA, PIV, RANK, TOL, WORK, INFO );
+      void spstrf(UPLO, N, A, LDA, PIV, RANK, TOL, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

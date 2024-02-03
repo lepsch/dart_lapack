@@ -1,4 +1,4 @@
-      SUBROUTINE SPPEQU( UPLO, N, AP, S, SCOND, AMAX, INFO );
+      void sppequ(UPLO, N, AP, S, SCOND, AMAX, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

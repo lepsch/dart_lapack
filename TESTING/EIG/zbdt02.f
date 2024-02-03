@@ -1,4 +1,4 @@
-      SUBROUTINE ZBDT02( M, N, B, LDB, C, LDC, U, LDU, WORK, RWORK, RESID );
+      void zbdt02(M, N, B, LDB, C, LDC, U, LDU, WORK, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

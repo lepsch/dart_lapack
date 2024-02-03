@@ -1,4 +1,4 @@
-      SUBROUTINE DLAE2( A, B, C, RT1, RT2 );
+      void dlae2(A, B, C, RT1, RT2 ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

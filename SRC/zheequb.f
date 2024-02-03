@@ -1,4 +1,4 @@
-      SUBROUTINE ZHEEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFO );
+      void zheequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

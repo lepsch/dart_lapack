@@ -1,4 +1,4 @@
-      SUBROUTINE ZCKGLM( NN, NVAL, MVAL, PVAL, NMATS, ISEED, THRESH, NMAX, A, AF, B, BF, X, WORK, RWORK, NIN, NOUT, INFO );
+      void zckglm(NN, NVAL, MVAL, PVAL, NMATS, ISEED, THRESH, NMAX, A, AF, B, BF, X, WORK, RWORK, NIN, NOUT, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

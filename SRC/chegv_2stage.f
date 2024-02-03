@@ -1,4 +1,4 @@
-      SUBROUTINE CHEGV_2STAGE( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, RWORK, INFO );
+      void chegv_2stage(ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, RWORK, INFO ) {
 
       // IMPLICIT NONE
 

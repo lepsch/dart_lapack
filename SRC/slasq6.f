@@ -1,4 +1,4 @@
-      SUBROUTINE SLASQ6( I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DNM1, DNM2 );
+      void slasq6(I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DNM1, DNM2 ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

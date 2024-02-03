@@ -1,4 +1,4 @@
-      SUBROUTINE SLAGTS( JOB, N, A, B, C, D, IN, Y, TOL, INFO );
+      void slagts(JOB, N, A, B, C, D, IN, Y, TOL, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

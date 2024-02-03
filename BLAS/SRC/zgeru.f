@@ -1,4 +1,4 @@
-      SUBROUTINE ZGERU(M,N,ALPHA,X,INCX,Y,INCY,A,LDA);
+      void zgeru(M,N,ALPHA,X,INCX,Y,INCY,A,LDA) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

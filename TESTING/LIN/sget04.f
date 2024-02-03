@@ -1,4 +1,4 @@
-      SUBROUTINE SGET04( N, NRHS, X, LDX, XACT, LDXACT, RCOND, RESID );
+      void sget04(N, NRHS, X, LDX, XACT, LDXACT, RCOND, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

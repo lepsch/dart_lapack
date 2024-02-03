@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET36( RMAX, LMAX, NINFO, KNT, NIN );
+      void zget36(RMAX, LMAX, NINFO, KNT, NIN ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

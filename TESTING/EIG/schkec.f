@@ -1,4 +1,4 @@
-      SUBROUTINE SCHKEC( THRESH, TSTERR, NIN, NOUT );
+      void schkec(THRESH, TSTERR, NIN, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

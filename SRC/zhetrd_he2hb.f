@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETRD_HE2HB( UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO );
+      void zhetrd_he2hb(UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO ) {
 
       // IMPLICIT NONE
 

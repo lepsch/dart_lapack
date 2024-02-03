@@ -1,4 +1,4 @@
-      SUBROUTINE CLARFB_GETT( IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK );
+      void clarfb_gett(IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK ) {
       // IMPLICIT NONE
 
 // -- LAPACK auxiliary routine --

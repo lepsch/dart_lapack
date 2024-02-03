@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAHEF_AA( UPLO, J1, M, NB, A, LDA, IPIV, H, LDH, WORK );
+      void zlahef_aa(UPLO, J1, M, NB, A, LDA, IPIV, H, LDH, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

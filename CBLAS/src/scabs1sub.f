@@ -1,4 +1,4 @@
-      subroutine scabs1sub(z, cabs1);
+      void scabs1sub(z, cabs1) {
 
       // external scabs1
       complex z;

@@ -1,4 +1,4 @@
-      SUBROUTINE SLARZT( DIRECT, STOREV, N, K, V, LDV, TAU, T, LDT );
+      void slarzt(DIRECT, STOREV, N, K, V, LDV, TAU, T, LDT ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

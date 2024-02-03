@@ -1,4 +1,4 @@
-      SUBROUTINE SSYCONV( UPLO, WAY, N, A, LDA, IPIV, E, INFO );
+      void ssyconv(UPLO, WAY, N, A, LDA, IPIV, E, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

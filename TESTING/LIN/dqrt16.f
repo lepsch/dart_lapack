@@ -1,4 +1,4 @@
-      SUBROUTINE DQRT16( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID );
+      void dqrt16(TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

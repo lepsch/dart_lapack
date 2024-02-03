@@ -1,4 +1,4 @@
-      subroutine zdotusub(n,x,incx,y,incy,dotu);
+      void zdotusub(n,x,incx,y,incy,dotu) {
 
       // external zdotu
       double complex zdotu,dotu;

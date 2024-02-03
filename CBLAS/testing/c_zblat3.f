@@ -355,7 +355,7 @@
       // End of ZBLAT3.
 
       }
-      SUBROUTINE ZCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER );
+      void zchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
 
 // Tests ZGEMM.
 
@@ -609,7 +609,7 @@
 
       }
 
-      SUBROUTINE ZPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
+      void zprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
       DOUBLE COMPLEX   ALPHA, BETA;
       String           TRANSA, TRANSB;
@@ -642,7 +642,7 @@
  9994 FORMAT( 10X, 3( I3, ',' ) ,' (', F4.1,',',F4.1,') , A,', I3, ', B,', I3, ', (', F4.1,',',F4.1,') , C,', I3, ').' );
       }
 
-      SUBROUTINE ZCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER );
+      void zchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
 
 // Tests ZHEMM and ZSYMM.
 
@@ -887,7 +887,7 @@
 
       }
 
-      SUBROUTINE ZPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
+      void zprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
       DOUBLE COMPLEX   ALPHA, BETA;
       String           SIDE, UPLO;
@@ -916,7 +916,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ),' (',F4.1,',',F4.1, '), A,', I3, ', B,', I3, ', (',F4.1,',',F4.1, '), ', 'C,', I3, ').' );
       }
 
-      SUBROUTINE ZCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER );
+      void zchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER ) {
 
 // Tests ZTRMM and ZTRSM.
 
@@ -1177,7 +1177,7 @@
 
       }
 
-      SUBROUTINE ZPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
+      void zprcn3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB) {
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
       DOUBLE COMPLEX   ALPHA;
       String           SIDE, UPLO, TRANSA, DIAG;
@@ -1218,7 +1218,7 @@
  9994 FORMAT( 10X, 2( A14, ',') , 2( I3, ',' ), ' (', F4.1, ',', F4.1, '), A,', I3, ', B,', I3, ').' );
       }
 
-      SUBROUTINE ZCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER );
+      void zchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER ) {
 
 // Tests ZHERK and ZSYRK.
 
@@ -1505,7 +1505,7 @@
 
       }
 
-      SUBROUTINE ZPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC);
+      void zprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
       DOUBLE COMPLEX   ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1537,7 +1537,7 @@
       }
 
 
-      SUBROUTINE ZPRCN6(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC);
+      void zprcn6(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
       double           ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1568,7 +1568,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ), F4.1, ', A,', I3, ',', F4.1, ', C,', I3, ').' );
       }
 
-      SUBROUTINE ZCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER );
+      void zchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER ) {
 
 // Tests ZHER2K and ZSYR2K.
 
@@ -1880,7 +1880,7 @@
 
       }
 
-      SUBROUTINE ZPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC);
+      void zprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       DOUBLE COMPLEX   ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1912,7 +1912,7 @@
       }
 
 
-      SUBROUTINE ZPRCN7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC);
+      void zprcn7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC) {
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       DOUBLE COMPLEX   ALPHA;
       double           BETA;
@@ -1944,7 +1944,7 @@
  9994 FORMAT( 10X, 2( I3, ',' ), ' (', F4.1, ',', F4.1, '), A,', I3, ', B', I3, ',', F4.1, ', C,', I3, ').' );
       }
 
-      SUBROUTINE ZMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL );
+      void zmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL ) {
 
 // Generates values for an M by N matrix A.
 // Stores the values in the array AA in the data structure required
@@ -2066,7 +2066,7 @@
       // End of ZMAKE.
 
       }
-      SUBROUTINE ZMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV );
+      void zmmch(TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV ) {
 
 // Checks the results of the computational tests.
 

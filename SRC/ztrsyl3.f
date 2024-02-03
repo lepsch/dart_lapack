@@ -1,4 +1,4 @@
-      SUBROUTINE ZTRSYL3( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, SWORK, LDSWORK, INFO );
+      void ztrsyl3(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, SWORK, LDSWORK, INFO ) {
       // IMPLICIT NONE
 
       // .. Scalar Arguments ..

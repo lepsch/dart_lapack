@@ -1,4 +1,4 @@
-      SUBROUTINE ZLACON( N, V, X, EST, KASE );
+      void zlacon(N, V, X, EST, KASE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

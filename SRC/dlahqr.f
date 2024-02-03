@@ -1,4 +1,4 @@
-      SUBROUTINE DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO );
+      void dlahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK auxiliary routine --

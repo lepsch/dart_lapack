@@ -1,4 +1,4 @@
-      SUBROUTINE DTBMV(UPLO,TRANS,DIAG,N,K,A,LDA,X,INCX);
+      void dtbmv(UPLO,TRANS,DIAG,N,K,A,LDA,X,INCX) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

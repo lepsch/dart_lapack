@@ -1,4 +1,4 @@
-      SUBROUTINE DLAGGE( M, N, KL, KU, D, A, LDA, ISEED, WORK, INFO );
+      void dlagge(M, N, KL, KU, D, A, LDA, ISEED, WORK, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

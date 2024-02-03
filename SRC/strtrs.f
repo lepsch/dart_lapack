@@ -1,4 +1,4 @@
-      SUBROUTINE STRTRS( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDB, INFO );
+      void strtrs(UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

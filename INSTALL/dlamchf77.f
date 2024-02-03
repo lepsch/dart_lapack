@@ -139,7 +139,7 @@
 // >        Comms. of the ACM, 17, 276-277.
 // > \endverbatim
 // >
-      SUBROUTINE DLAMC1( BETA, T, RND, IEEE1 );
+      void dlamc1(BETA, T, RND, IEEE1 ) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -349,7 +349,7 @@
 // >  The computation of  EPS  is based on a routine PARANOIA by
 // >  W. Kahan of the University of California at Berkeley.
 // > \endverbatim
-      SUBROUTINE DLAMC2( BETA, T, RND, EPS, EMIN, RMIN, EMAX, RMAX );
+      void dlamc2(BETA, T, RND, EPS, EMIN, RMIN, EMAX, RMAX ) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -608,7 +608,7 @@
 // >
 // > \ingroup lamc4
 // >
-      SUBROUTINE DLAMC4( EMIN, START, BASE );
+      void dlamc4(EMIN, START, BASE ) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
@@ -714,7 +714,7 @@
 // >
 // > \ingroup lamc5
 // >
-      SUBROUTINE DLAMC5( BETA, P, EMIN, IEEE, EMAX, RMAX );
+      void dlamc5(BETA, P, EMIN, IEEE, EMAX, RMAX ) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..

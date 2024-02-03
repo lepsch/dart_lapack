@@ -1,4 +1,4 @@
-      SUBROUTINE CPBTRF( UPLO, N, KD, AB, LDAB, INFO );
+      void cpbtrf(UPLO, N, KD, AB, LDAB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

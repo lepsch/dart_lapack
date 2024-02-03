@@ -1,4 +1,4 @@
-      subroutine scasumsub(n,x,incx,asum);
+      void scasumsub(n,x,incx,asum) {
 
       // external scasum
       real scasum,asum;

@@ -1,4 +1,4 @@
-      SUBROUTINE DERRGG( PATH, NUNIT );
+      void derrgg(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

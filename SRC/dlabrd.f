@@ -1,4 +1,4 @@
-      SUBROUTINE DLABRD( M, N, NB, A, LDA, D, E, TAUQ, TAUP, X, LDX, Y, LDY );
+      void dlabrd(M, N, NB, A, LDA, D, E, TAUQ, TAUP, X, LDX, Y, LDY ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

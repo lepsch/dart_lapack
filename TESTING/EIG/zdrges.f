@@ -1,4 +1,4 @@
-      SUBROUTINE ZDRGES( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, S, T, Q, LDQ, Z, ALPHA, BETA, WORK, LWORK, RWORK, RESULT, BWORK, INFO );
+      void zdrges(NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, S, T, Q, LDQ, Z, ALPHA, BETA, WORK, LWORK, RWORK, RESULT, BWORK, INFO ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

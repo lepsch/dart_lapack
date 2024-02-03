@@ -1,4 +1,4 @@
-      SUBROUTINE ZERRLQT( PATH, NUNIT );
+      void zerrlqt(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

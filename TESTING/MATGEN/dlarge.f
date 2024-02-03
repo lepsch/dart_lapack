@@ -1,4 +1,4 @@
-      SUBROUTINE DLARGE( N, A, LDA, ISEED, WORK, INFO );
+      void dlarge(N, A, LDA, ISEED, WORK, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

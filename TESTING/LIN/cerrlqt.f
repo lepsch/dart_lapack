@@ -1,4 +1,4 @@
-      SUBROUTINE CERRLQT( PATH, NUNIT );
+      void cerrlqt(PATH, NUNIT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

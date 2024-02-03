@@ -1,4 +1,4 @@
-      SUBROUTINE CLACON( N, V, X, EST, KASE );
+      void clacon(N, V, X, EST, KASE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE SPTTS2( N, NRHS, D, E, B, LDB );
+      void sptts2(N, NRHS, D, E, B, LDB ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

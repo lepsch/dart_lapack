@@ -1,4 +1,4 @@
-      SUBROUTINE CGETSQRHRT( M, N, MB1, NB1, NB2, A, LDA, T, LDT, WORK, LWORK, INFO );
+      void cgetsqrhrt(M, N, MB1, NB1, NB2, A, LDA, T, LDT, WORK, LWORK, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

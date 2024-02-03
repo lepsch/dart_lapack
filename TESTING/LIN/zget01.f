@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET01( M, N, A, LDA, AFAC, LDAFAC, IPIV, RWORK, RESID );
+      void zget01(M, N, A, LDA, AFAC, LDAFAC, IPIV, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

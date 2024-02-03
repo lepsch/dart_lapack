@@ -1,4 +1,4 @@
-      SUBROUTINE CPFTRI( TRANSR, UPLO, N, A, INFO );
+      void cpftri(TRANSR, UPLO, N, A, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

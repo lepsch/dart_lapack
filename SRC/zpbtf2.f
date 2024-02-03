@@ -1,4 +1,4 @@
-      SUBROUTINE ZPBTF2( UPLO, N, KD, AB, LDAB, INFO );
+      void zpbtf2(UPLO, N, KD, AB, LDAB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

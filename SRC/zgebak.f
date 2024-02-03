@@ -1,4 +1,4 @@
-      SUBROUTINE ZGEBAK( JOB, SIDE, N, ILO, IHI, SCALE, M, V, LDV, INFO );
+      void zgebak(JOB, SIDE, N, ILO, IHI, SCALE, M, V, LDV, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE CEBCHVXX( THRESH, PATH );
+      void cebchvxx(THRESH, PATH ) {
       // IMPLICIT NONE
       // .. Scalar Arguments ..
       REAL               THRESH;

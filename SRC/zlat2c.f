@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAT2C( UPLO, N, A, LDA, SA, LDSA, INFO );
+      void zlat2c(UPLO, N, A, LDA, SA, LDSA, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

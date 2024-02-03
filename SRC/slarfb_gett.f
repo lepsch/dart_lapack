@@ -1,4 +1,4 @@
-      SUBROUTINE SLARFB_GETT( IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK );
+      void slarfb_gett(IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK ) {
       // IMPLICIT NONE
 
 // -- LAPACK auxiliary routine --

@@ -1,6 +1,6 @@
 
 // -- LAPACK test routine --
-      SUBROUTINE CSYL01( THRESH, NFAIL, RMAX, NINFO, KNT );
+      void csyl01(THRESH, NFAIL, RMAX, NINFO, KNT ) {
       // IMPLICIT NONE
 
 // -- LAPACK test routine --

@@ -1,4 +1,4 @@
-      SUBROUTINE DSCAL(N,DA,DX,INCX);
+      void dscal(N,DA,DX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DLABAD( SMALL, LARGE );
+      void dlabad(SMALL, LARGE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

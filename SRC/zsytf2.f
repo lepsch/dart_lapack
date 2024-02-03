@@ -1,4 +1,4 @@
-      SUBROUTINE ZSYTF2( UPLO, N, A, LDA, IPIV, INFO );
+      void zsytf2(UPLO, N, A, LDA, IPIV, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

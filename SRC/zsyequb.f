@@ -1,4 +1,4 @@
-      SUBROUTINE ZSYEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFO );
+      void zsyequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

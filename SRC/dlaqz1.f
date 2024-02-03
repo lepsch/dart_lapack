@@ -1,4 +1,4 @@
-      SUBROUTINE DLAQZ1( A, LDA, B, LDB, SR1, SR2, SI, BETA1, BETA2, V );
+      void dlaqz1(A, LDA, B, LDB, SR1, SR2, SI, BETA1, BETA2, V ) {
       // IMPLICIT NONE
 
       // Arguments

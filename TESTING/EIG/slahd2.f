@@ -1,4 +1,4 @@
-      SUBROUTINE SLAHD2( IOUNIT, PATH );
+      void slahd2(IOUNIT, PATH ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

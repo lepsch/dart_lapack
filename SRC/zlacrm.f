@@ -1,4 +1,4 @@
-      SUBROUTINE ZLACRM( M, N, A, LDA, B, LDB, C, LDC, RWORK );
+      void zlacrm(M, N, A, LDA, B, LDB, C, LDC, RWORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

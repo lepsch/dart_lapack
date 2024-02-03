@@ -1,4 +1,4 @@
-      SUBROUTINE CLAUNHR_COL_GETRFNP( M, N, A, LDA, D, INFO );
+      void claunhr_col_getrfnp(M, N, A, LDA, D, INFO ) {
       // IMPLICIT NONE
 
 // -- LAPACK computational routine --

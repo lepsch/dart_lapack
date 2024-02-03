@@ -1,4 +1,4 @@
-      SUBROUTINE ZPPTRS( UPLO, N, NRHS, AP, B, LDB, INFO );
+      void zpptrs(UPLO, N, NRHS, AP, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

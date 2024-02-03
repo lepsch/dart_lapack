@@ -1,4 +1,4 @@
-      SUBROUTINE ZLACPY( UPLO, M, N, A, LDA, B, LDB );
+      void zlacpy(UPLO, M, N, A, LDA, B, LDB ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

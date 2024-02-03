@@ -1,4 +1,4 @@
-      SUBROUTINE SGBTRF( M, N, KL, KU, AB, LDAB, IPIV, INFO );
+      void sgbtrf(M, N, KL, KU, AB, LDAB, IPIV, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

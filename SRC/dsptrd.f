@@ -1,4 +1,4 @@
-      SUBROUTINE DSPTRD( UPLO, N, AP, D, E, TAU, INFO );
+      void dsptrd(UPLO, N, AP, D, E, TAU, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

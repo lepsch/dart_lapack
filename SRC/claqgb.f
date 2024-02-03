@@ -1,4 +1,4 @@
-      SUBROUTINE CLAQGB( M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED );
+      void claqgb(M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

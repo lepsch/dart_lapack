@@ -1,4 +1,4 @@
-      SUBROUTINE CLAPLL( N, X, INCX, Y, INCY, SSMIN );
+      void clapll(N, X, INCX, Y, INCY, SSMIN ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DLAKF2( M, N, A, LDA, B, D, E, Z, LDZ );
+      void dlakf2(M, N, A, LDA, B, D, E, Z, LDZ ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

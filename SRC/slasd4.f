@@ -1,4 +1,4 @@
-      SUBROUTINE SLASD4( N, I, D, Z, DELTA, RHO, SIGMA, WORK, INFO );
+      void slasd4(N, I, D, Z, DELTA, RHO, SIGMA, WORK, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

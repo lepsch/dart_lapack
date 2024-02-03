@@ -1,4 +1,4 @@
-      SUBROUTINE ZERRLQ( PATH, NUNIT );
+      void zerrlq(PATH, NUNIT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

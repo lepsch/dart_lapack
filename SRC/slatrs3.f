@@ -1,4 +1,4 @@
-      SUBROUTINE SLATRS3( UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, INFO );
+      void slatrs3(UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, INFO ) {
       // IMPLICIT NONE
 
       // .. Scalar Arguments ..

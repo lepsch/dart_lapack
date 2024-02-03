@@ -1,4 +1,4 @@
-      SUBROUTINE SPBT01( UPLO, N, KD, A, LDA, AFAC, LDAFAC, RWORK, RESID );
+      void spbt01(UPLO, N, KD, A, LDA, AFAC, LDAFAC, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

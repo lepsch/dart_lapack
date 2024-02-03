@@ -1,4 +1,4 @@
-      SUBROUTINE DDRVRF3( NOUT, NN, NVAL, THRESH, A, LDA, ARF, B1, B2, D_WORK_DLANGE, D_WORK_DGEQRF, TAU );
+      void ddrvrf3(NOUT, NN, NVAL, THRESH, A, LDA, ARF, B1, B2, D_WORK_DLANGE, D_WORK_DGEQRF, TAU ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

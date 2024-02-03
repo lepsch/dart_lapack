@@ -1,4 +1,4 @@
-      SUBROUTINE DLARSCL2 ( M, N, D, X, LDX );
+      void dlarscl2(M, N, D, X, LDX ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

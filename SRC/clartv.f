@@ -1,4 +1,4 @@
-      SUBROUTINE CLARTV( N, X, INCX, Y, INCY, C, S, INCC );
+      void clartv(N, X, INCX, Y, INCY, C, S, INCC ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      SUBROUTINE DTPCON( NORM, UPLO, DIAG, N, AP, RCOND, WORK, IWORK, INFO );
+      void dtpcon(NORM, UPLO, DIAG, N, AP, RCOND, WORK, IWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

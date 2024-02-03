@@ -1,4 +1,4 @@
-      SUBROUTINE DTFSM( TRANSR, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, B, LDB );
+      void dtfsm(TRANSR, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, B, LDB ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

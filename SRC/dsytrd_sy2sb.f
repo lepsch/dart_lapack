@@ -1,4 +1,4 @@
-      SUBROUTINE DSYTRD_SY2SB( UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO );
+      void dsytrd_sy2sb(UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO ) {
 
       // IMPLICIT NONE
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DLADIV( A, B, C, D, P, Q );
+      void dladiv(A, B, C, D, P, Q ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -84,7 +84,7 @@
 // > \ingroup ladiv
 
 
-      SUBROUTINE DLADIV1( A, B, C, D, P, Q );
+      void dladiv1(A, B, C, D, P, Q ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

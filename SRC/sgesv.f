@@ -1,4 +1,4 @@
-      SUBROUTINE SGESV( N, NRHS, A, LDA, IPIV, B, LDB, INFO );
+      void sgesv(N, NRHS, A, LDA, IPIV, B, LDB, INFO ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

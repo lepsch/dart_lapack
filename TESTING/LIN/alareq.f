@@ -1,4 +1,4 @@
-      SUBROUTINE ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
+      void alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

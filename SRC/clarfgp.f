@@ -1,4 +1,4 @@
-      SUBROUTINE CLARFGP( N, ALPHA, X, INCX, TAU );
+      void clarfgp(N, ALPHA, X, INCX, TAU ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

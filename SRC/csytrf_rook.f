@@ -1,4 +1,4 @@
-      SUBROUTINE CSYTRF_ROOK( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
+      void csytrf_rook(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

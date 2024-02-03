@@ -1,4 +1,4 @@
-      SUBROUTINE DTFTRI( TRANSR, UPLO, DIAG, N, A, INFO );
+      void dtftri(TRANSR, UPLO, DIAG, N, A, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

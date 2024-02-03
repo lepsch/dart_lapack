@@ -1,4 +1,4 @@
-      SUBROUTINE SSTERF( N, D, E, INFO );
+      void ssterf(N, D, E, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

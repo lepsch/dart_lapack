@@ -1,4 +1,4 @@
-      SUBROUTINE DLAPMR( FORWRD, M, N, X, LDX, K );
+      void dlapmr(FORWRD, M, N, X, LDX, K ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

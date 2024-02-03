@@ -1,4 +1,4 @@
-      SUBROUTINE CLATSY( UPLO, N, X, LDX, ISEED );
+      void clatsy(UPLO, N, X, LDX, ISEED ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

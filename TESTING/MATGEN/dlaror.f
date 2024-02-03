@@ -1,4 +1,4 @@
-      SUBROUTINE DLAROR( SIDE, INIT, M, N, A, LDA, ISEED, X, INFO );
+      void dlaror(SIDE, INIT, M, N, A, LDA, ISEED, X, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

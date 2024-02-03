@@ -1,4 +1,4 @@
-      SUBROUTINE DPTTRS( N, NRHS, D, E, B, LDB, INFO );
+      void dpttrs(N, NRHS, D, E, B, LDB, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

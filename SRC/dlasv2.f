@@ -1,4 +1,4 @@
-      SUBROUTINE DLASV2( F, G, H, SSMIN, SSMAX, SNR, CSR, SNL, CSL );
+      void dlasv2(F, G, H, SSMIN, SSMAX, SNR, CSR, SNL, CSL ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

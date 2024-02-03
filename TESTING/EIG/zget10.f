@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET10( M, N, A, LDA, B, LDB, WORK, RWORK, RESULT );
+      void zget10(M, N, A, LDA, B, LDB, WORK, RWORK, RESULT ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

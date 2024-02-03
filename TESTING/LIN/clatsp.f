@@ -1,4 +1,4 @@
-      SUBROUTINE CLATSP( UPLO, N, X, ISEED );
+      void clatsp(UPLO, N, X, ISEED ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

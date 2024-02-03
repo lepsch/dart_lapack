@@ -1,4 +1,4 @@
-      SUBROUTINE SBDT04( UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK, RESID );
+      void sbdt04(UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

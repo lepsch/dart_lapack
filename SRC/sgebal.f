@@ -1,4 +1,4 @@
-      SUBROUTINE SGEBAL( JOB, N, A, LDA, ILO, IHI, SCALE, INFO );
+      void sgebal(JOB, N, A, LDA, ILO, IHI, SCALE, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

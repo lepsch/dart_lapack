@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET02( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID );
+      void zget02(TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

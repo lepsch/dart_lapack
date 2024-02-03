@@ -1,4 +1,4 @@
-      SUBROUTINE SSYR2(UPLO,N,ALPHA,X,INCX,Y,INCY,A,LDA);
+      void ssyr2(UPLO,N,ALPHA,X,INCX,Y,INCY,A,LDA) {
 
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

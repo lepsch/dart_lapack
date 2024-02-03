@@ -1,4 +1,4 @@
-      SUBROUTINE DSPGST( ITYPE, UPLO, N, AP, BP, INFO );
+      void dspgst(ITYPE, UPLO, N, AP, BP, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

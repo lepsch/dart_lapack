@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAUU2( UPLO, N, A, LDA, INFO );
+      void zlauu2(UPLO, N, A, LDA, INFO ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

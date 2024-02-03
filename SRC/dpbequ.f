@@ -1,4 +1,4 @@
-      SUBROUTINE DPBEQU( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFO );
+      void dpbequ(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFO ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

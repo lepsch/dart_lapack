@@ -1,4 +1,4 @@
-      subroutine cdotusub(n,x,incx,y,incy,dotu);
+      void cdotusub(n,x,incx,y,incy,dotu) {
 
       // external cdotu
       complex cdotu,dotu;
