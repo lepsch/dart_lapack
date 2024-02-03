@@ -68,7 +68,7 @@
          if ( I+IB.LE.N ) {
             stprfb('L', 'T', 'F', 'C', MB, N-I-IB+1, IB, LB, B( 1, I ), LDB, T( 1, I ), LDT, A( I, I+IB ), LDA, B( 1, I+IB ), LDB, WORK, IB );
          }
-      END DO
+      }
       RETURN
 
       // End of STPQRT

@@ -88,24 +88,24 @@
                R = MIN( P, M-P, Q, M-Q )
                for (I = 1; I <= R; I++) {
                   THETA(I) = PIOVER2 * SLARND( 1, ISEED )
-               END DO
+               }
                slacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
                for (I = 1; I <= M; I++) {
                   for (J = 1; J <= M; J++) {
                      X(I+(J-1)*LDX) = X(I+(J-1)*LDX) + ORTH*SLARND(2,ISEED)
-                  END DO
-               END DO
+                  }
+               }
             } else if ( IMAT.EQ.3 ) {
                R = MIN( P, M-P, Q, M-Q )
                for (I = 1; I <= R+1; I++) {
                   THETA(I) = TEN**(-SLARND(1,ISEED)*GAPDIGIT)
-               END DO
+               }
                for (I = 2; I <= R+1; I++) {
                   THETA(I) = THETA(I-1) + THETA(I)
-               END DO
+               }
                for (I = 1; I <= R; I++) {
                   THETA(I) = PIOVER2 * THETA(I) / THETA(R+1)
-               END DO
+               }
                slacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
             } else {
                slaset('F', M, M, ZERO, ONE, X, LDX );
@@ -114,7 +114,7 @@
                   if ( J .NE. I ) {
                      srot(M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1, ZERO, ONE );
                   }
-               END DO
+               }
             }
 
             NT = 15
@@ -171,28 +171,28 @@
 
       DO I = 1, MIN(P,Q)-R
          X(I,I) = ONE
-      END DO
+      }
       for (I = 1; I <= R; I++) {
          X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = COS(THETA(I))
-      END DO
+      }
       DO I = 1, MIN(P,M-Q)-R
          X(P-I+1,M-I+1) = -ONE
-      END DO
+      }
       for (I = 1; I <= R; I++) {
          X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = -SIN(THETA(R-I+1))
-      END DO
+      }
       DO I = 1, MIN(M-P,Q)-R
          X(M-I+1,Q-I+1) = ONE
-      END DO
+      }
       for (I = 1; I <= R; I++) {
          X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = SIN(THETA(R-I+1))
-      END DO
+      }
       DO I = 1, MIN(M-P,M-Q)-R
          X(P+I,Q+I) = ONE
-      END DO
+      }
       for (I = 1; I <= R; I++) {
          X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = COS(THETA(I))
-      END DO
+      }
       slaror('Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO );
       slaror('Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL SLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL SLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO );
 

@@ -145,7 +145,7 @@
                K = K+1
 
             }
-         END DO
+         }
       }
 
       // Store eigenvalues
@@ -171,7 +171,7 @@
             BETA( K ) = B( K, K )
             K = K+1
          }
-      END DO
+      }
 
       if ( KWTOP .NE. ILO .AND. S .NE. ZERO ) {
          // Reflect spike back, this will create optimally packed bulges
@@ -182,7 +182,7 @@
             A( K+1, KWTOP-1 ) = ZERO
             K2 = MAX( KWTOP, K-1 )
             srot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 )             CALL SROT( IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 )             CALL SROT( JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, S1 );
-         END DO
+         }
 
          // Chase bulges down
          ISTARTM = KWTOP
@@ -194,7 +194,7 @@
                // Move double pole block down and remove it
                for (K2 = K-1; K2 <= KWBOT-2; K2++) {
                   slaqz2(.TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
-               END DO
+               }
 
                K = K-2
             } else {
@@ -213,7 +213,7 @@
                   A( K2+2, K2 ) = ZERO
                   srot(ISTOPM-K2, A( K2+1, K2+1 ), LDA, A( K2+2, K2+1 ), LDA, C1, S1 )                   CALL SROT( ISTOPM-K2, B( K2+1, K2+1 ), LDB, B( K2+2, K2+1 ), LDB, C1, S1 )                   CALL SROT( JW, QC( 1, K2+1-KWTOP+1 ), 1, QC( 1, K2+2-KWTOP+1 ), 1, C1, S1 );
 
-               END DO
+               }
 
                // Remove the shift
                slartg(B( KWBOT, KWBOT ), B( KWBOT, KWBOT-1 ), C1, S1, TEMP );
@@ -223,7 +223,7 @@
 
                K = K-1
             }
-         END DO
+         }
 
       }
 

@@ -180,7 +180,7 @@
             IF( I .LT. Q ) CALL CLACGV( Q-I, X11(I,I+1), LDX11 )
             clacgv(M-Q-I+1, X12(I,I), LDX12 );
 
-         END DO
+         }
 
          // Reduce columns Q + 1, ..., P of X12, X22
 
@@ -202,7 +202,7 @@
 
             clacgv(M-Q-I+1, X12(I,I), LDX12 );
 
-         END DO
+         }
 
          // Reduce columns P + 1, ..., M - Q of X12, X22
 
@@ -216,7 +216,7 @@
 
             clacgv(M-P-Q-I+1, X22(Q+I,P+I), LDX22 );
 
-         END DO
+         }
 
       } else {
 
@@ -276,7 +276,7 @@
             if ( M-P .GT. I ) {
                clarf('L', M-Q-I+1, M-P-I, X12(I,I), 1, CONJG(TAUQ2(I)), X22(I,I+1), LDX22, WORK );
             }
-         END DO
+         }
 
          // Reduce columns Q + 1, ..., P of X12, X22
 
@@ -291,7 +291,7 @@
             }
             IF( M-P-Q .GE. 1 ) CALL CLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, CONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK )
 
-         END DO
+         }
 
          // Reduce columns P + 1, ..., M - Q of X12, X22
 
@@ -302,7 +302,7 @@
             if ( M-P-Q .NE. I ) {
                clarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, CONJG(TAUQ2(P+I)), X22(P+I,Q+I+1), LDX22, WORK );
             }
-         END DO
+         }
 
       }
 

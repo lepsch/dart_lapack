@@ -36,7 +36,7 @@
          if (M.NE.0) {
             for (I = 1; I <= M; I++) {
                SX(I) = SA*SX(I)
-            END DO
+            }
             IF (N.LT.5) RETURN
          }
          MP1 = M + 1
@@ -46,7 +46,7 @@
             SX(I+2) = SA*SX(I+2)
             SX(I+3) = SA*SX(I+3)
             SX(I+4) = SA*SX(I+4)
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -54,7 +54,7 @@
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
             SX(I) = SA*SX(I)
-         END DO
+         }
       }
       RETURN
 

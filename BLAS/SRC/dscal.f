@@ -35,7 +35,7 @@
          if (M.NE.0) {
             for (I = 1; I <= M; I++) {
                DX(I) = DA*DX(I)
-            END DO
+            }
             IF (N.LT.5) RETURN
          }
          MP1 = M + 1
@@ -45,7 +45,7 @@
             DX(I+2) = DA*DX(I+2)
             DX(I+3) = DA*DX(I+3)
             DX(I+4) = DA*DX(I+4)
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -53,7 +53,7 @@
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
             DX(I) = DA*DX(I)
-         END DO
+         }
       }
       RETURN
 

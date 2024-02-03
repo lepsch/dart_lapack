@@ -30,14 +30,14 @@
          UMAX = 0.0D+0
          DO I = MAX( J-KU, 1 ), MIN( J+KL, N )
             AMAX = MAX( ABS( AB( KD+I-J, J)), AMAX )
-         END DO
+         }
          DO I = MAX( J-KU, 1 ), J
             UMAX = MAX( ABS( AFB( KD+I-J, J ) ), UMAX )
-         END DO
+         }
          if ( UMAX /= 0.0D+0 ) {
             RPVGRW = MIN( AMAX / UMAX, RPVGRW )
          }
-      END DO
+      }
       DLA_GBRPVGRW = RPVGRW
 
       // End of DLA_GBRPVGRW

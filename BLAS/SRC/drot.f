@@ -27,7 +27,7 @@
             DTEMP = C*DX(I) + S*DY(I)
             DY(I) = C*DY(I) - S*DX(I)
             DX(I) = DTEMP
-         END DO
+         }
       } else {
 
         // code for unequal increments or equal increments not equal
@@ -43,7 +43,7 @@
             DX(IX) = DTEMP
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

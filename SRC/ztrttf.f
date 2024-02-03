@@ -110,12 +110,12 @@
                   for (I = N1; I <= N2 + J; I++) {
                      ARF( IJ ) = DCONJG( A( N2+J, I ) )
                      IJ = IJ + 1
-                  END DO
+                  }
                   for (I = J; I <= N - 1; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
 
             } else {
 
@@ -128,13 +128,13 @@
                   for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
-                  END DO
+                  }
                   for (L = J - N1; L <= N1 - 1; L++) {
                      ARF( IJ ) = DCONJG( A( J-N1, L ) )
                      IJ = IJ + 1
-                  END DO
+                  }
                   IJ = IJ - NX2
-               END DO
+               }
 
             }
 
@@ -153,18 +153,18 @@
                   for (I = 0; I <= J; I++) {
                      ARF( IJ ) = DCONJG( A( J, I ) )
                      IJ = IJ + 1
-                  END DO
+                  }
                   for (I = N1 + J; I <= N - 1; I++) {
                      ARF( IJ ) = A( I, N1+J )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
                for (J = N2; J <= N - 1; J++) {
                   for (I = 0; I <= N1 - 1; I++) {
                      ARF( IJ ) = DCONJG( A( J, I ) )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
 
             } else {
 
@@ -177,18 +177,18 @@
                   for (I = N1; I <= N - 1; I++) {
                      ARF( IJ ) = DCONJG( A( J, I ) )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
                for (J = 0; J <= N1 - 1; J++) {
                   for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
-                  END DO
+                  }
                   for (L = N2 + J; L <= N - 1; L++) {
                      ARF( IJ ) = DCONJG( A( N2+J, L ) )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
 
             }
 
@@ -213,12 +213,12 @@
                   for (I = K; I <= K + J; I++) {
                      ARF( IJ ) = DCONJG( A( K+J, I ) )
                      IJ = IJ + 1
-                  END DO
+                  }
                   for (I = J; I <= N - 1; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
 
             } else {
 
@@ -231,13 +231,13 @@
                   for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
-                  END DO
+                  }
                   for (L = J - K; L <= K - 1; L++) {
                      ARF( IJ ) = DCONJG( A( J-K, L ) )
                      IJ = IJ + 1
-                  END DO
+                  }
                   IJ = IJ - NP1X2
-               END DO
+               }
 
             }
 
@@ -256,23 +256,23 @@
                for (I = K; I <= N - 1; I++) {
                   ARF( IJ ) = A( I, J )
                   IJ = IJ + 1
-               END DO
+               }
                for (J = 0; J <= K - 2; J++) {
                   for (I = 0; I <= J; I++) {
                      ARF( IJ ) = DCONJG( A( J, I ) )
                      IJ = IJ + 1
-                  END DO
+                  }
                   for (I = K + 1 + J; I <= N - 1; I++) {
                      ARF( IJ ) = A( I, K+1+J )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
                for (J = K - 1; J <= N - 1; J++) {
                   for (I = 0; I <= K - 1; I++) {
                      ARF( IJ ) = DCONJG( A( J, I ) )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
 
             } else {
 
@@ -285,25 +285,25 @@
                   for (I = K; I <= N - 1; I++) {
                      ARF( IJ ) = DCONJG( A( J, I ) )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
                for (J = 0; J <= K - 2; J++) {
                   for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
-                  END DO
+                  }
                   for (L = K + 1 + J; L <= N - 1; L++) {
                      ARF( IJ ) = DCONJG( A( K+1+J, L ) )
                      IJ = IJ + 1
-                  END DO
-               END DO
+                  }
+               }
 
                // Note that here J = K-1
 
                for (I = 0; I <= J; I++) {
                   ARF( IJ ) = A( I, J )
                   IJ = IJ + 1
-               END DO
+               }
 
             }
 

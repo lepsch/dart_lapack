@@ -54,7 +54,7 @@
 
          for (J = 1; J <= N-K; J++) {
             ccopy(K, A( 1, K+J ), 1, WORK( 1, J ), 1 );
-         END DO
+         }
 
          if ( LNOTIDENT ) {
 
@@ -101,8 +101,8 @@
          for (J = 1; J <= N-K; J++) {
             for (I = 1; I <= K; I++) {
                A( I, K+J ) = A( I, K+J ) - WORK( I, J )
-            END DO
-         END DO
+            }
+         }
 
       }
 
@@ -121,15 +121,15 @@
 
       for (J = 1; J <= K; J++) {
          ccopy(J, A( 1, J ), 1, WORK( 1, J ), 1 );
-      END DO
+      }
 
       // Set the subdiagonal elements of W1 to zero column-by-column.
 
       for (J = 1; J <= K - 1; J++) {
          for (I = J + 1; I <= K; I++) {
             WORK( I, J ) = CZERO
-         END DO
-      END DO
+         }
+      }
 
       if ( LNOTIDENT ) {
 
@@ -175,8 +175,8 @@
          for (J = 1; J <= K - 1; J++) {
             for (I = J + 1; I <= K; I++) {
                A( I, J ) = - WORK( I, J )
-            END DO
-         END DO
+            }
+         }
 
       }
 
@@ -185,8 +185,8 @@
       for (J = 1; J <= K; J++) {
          for (I = 1; I <= J; I++) {
             A( I, J ) = A( I, J ) - WORK( I, J )
-         END DO
-      END DO
+         }
+      }
 
       RETURN
 

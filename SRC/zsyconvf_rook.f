@@ -79,7 +79,7 @@
                   E( I ) = ZERO
                }
                I = I - 1
-            END DO
+            }
 
             // Convert PERMUTATIONS
 
@@ -122,7 +122,7 @@
 
                }
                I = I - 1
-            END DO
+            }
 
          } else {
 
@@ -170,7 +170,7 @@
 
                }
                I = I + 1
-            END DO
+            }
 
             // Revert VALUE
             // Assign superdiagonal entries of D from array E to
@@ -183,7 +183,7 @@
                   I = I - 1
                }
                I = I - 1
-            END DO
+            }
 
          // End A is UPPER
 
@@ -214,7 +214,7 @@
                   E( I ) = ZERO
                }
                I = I + 1
-            END DO
+            }
 
             // Convert PERMUTATIONS
 
@@ -257,7 +257,7 @@
 
                }
                I = I + 1
-            END DO
+            }
 
          } else {
 
@@ -305,7 +305,7 @@
 
                }
                I = I - 1
-            END DO
+            }
 
             // Revert VALUE
             // Assign subdiagonal entries of D from array E to
@@ -318,7 +318,7 @@
                   I = I + 1
                }
                I = I + 1
-            END DO
+            }
 
          }
 

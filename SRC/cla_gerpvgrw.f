@@ -36,14 +36,14 @@
          UMAX = 0.0
          for (I = 1; I <= N; I++) {
             AMAX = MAX( CABS1( A( I, J ) ), AMAX )
-         END DO
+         }
          for (I = 1; I <= J; I++) {
             UMAX = MAX( CABS1( AF( I, J ) ), UMAX )
-         END DO
+         }
          if ( UMAX /= 0.0 ) {
             RPVGRW = MIN( AMAX / UMAX, RPVGRW )
          }
-      END DO
+      }
       CLA_GERPVGRW = RPVGRW
 
       // End of CLA_GERPVGRW

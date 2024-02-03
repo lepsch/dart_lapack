@@ -44,7 +44,7 @@
 
                for (J = 1; J <= I; J++) {
                   T( J, I ) = ZERO
-               END DO
+               }
             } else {
 
                // general case
@@ -53,10 +53,10 @@
                   // Skip any trailing zeros.
                   DO LASTV = N, I+1, -1
                      IF( V( LASTV, I ).NE.ZERO ) EXIT
-                  END DO
+                  }
                   for (J = 1; J <= I-1; J++) {
                      T( J, I ) = -TAU( I ) * CONJG( V( I , J ) )
-                  END DO
+                  }
                   J = MIN( LASTV, PREVLASTV )
 
                   // T(1:i-1,i) := - tau(i) * V(i:j,1:i-1)**H * V(i:j,i)
@@ -66,10 +66,10 @@
                   // Skip any trailing zeros.
                   DO LASTV = N, I+1, -1
                      IF( V( I, LASTV ).NE.ZERO ) EXIT
-                  END DO
+                  }
                   for (J = 1; J <= I-1; J++) {
                      T( J, I ) = -TAU( I ) * V( J , I )
-                  END DO
+                  }
                   J = MIN( LASTV, PREVLASTV )
 
                   // T(1:i-1,i) := - tau(i) * V(1:i-1,i:j) * V(i,i:j)**H
@@ -87,7 +87,7 @@
                   PREVLASTV = LASTV
                }
              }
-         END DO
+         }
       } else {
          PREVLASTV = 1
          DO I = K, 1, -1
@@ -97,7 +97,7 @@
 
                for (J = I; J <= K; J++) {
                   T( J, I ) = ZERO
-               END DO
+               }
             } else {
 
                // general case
@@ -107,10 +107,10 @@
                      // Skip any leading zeros.
                      for (LASTV = 1; LASTV <= I-1; LASTV++) {
                         IF( V( LASTV, I ).NE.ZERO ) EXIT
-                     END DO
+                     }
                      for (J = I+1; J <= K; J++) {
                         T( J, I ) = -TAU( I ) * CONJG( V( N-K+I , J ) )
-                     END DO
+                     }
                      J = MAX( LASTV, PREVLASTV )
 
                      // T(i+1:k,i) = -tau(i) * V(j:n-k+i,i+1:k)**H * V(j:n-k+i,i)
@@ -120,10 +120,10 @@
                      // Skip any leading zeros.
                      for (LASTV = 1; LASTV <= I-1; LASTV++) {
                         IF( V( I, LASTV ).NE.ZERO ) EXIT
-                     END DO
+                     }
                      for (J = I+1; J <= K; J++) {
                         T( J, I ) = -TAU( I ) * V( J, N-K+I )
-                     END DO
+                     }
                      J = MAX( LASTV, PREVLASTV )
 
                      // T(i+1:k,i) = -tau(i) * V(i+1:k,j:n-k+i) * V(i,j:n-k+i)**H
@@ -142,7 +142,7 @@
                }
                T( I, I ) = TAU( I )
             }
-         END DO
+         }
       }
       RETURN
 

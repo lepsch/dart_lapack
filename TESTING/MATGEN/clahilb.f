@@ -79,9 +79,9 @@
             TM = TI
             TI = R
             R = MOD(TM, TI)
-         END DO
+         }
          M = (M / TI) * I
-      END DO
+      }
 
       // Generate the scaled Hilbert matrix in A
       // If we are testing SY routines, take
@@ -90,14 +90,14 @@
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
                A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D1(MOD(I,SIZE_D)+1)
-            END DO
-         END DO
+            }
+         }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
                A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D2(MOD(I,SIZE_D)+1)
-            END DO
-         END DO
+            }
+         }
       }
 
       // Generate matrix B as simply the first NRHS columns of M * the
@@ -111,7 +111,7 @@
       WORK(1) = N
       for (J = 2; J <= N; J++) {
          WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
-      END DO
+      }
 
       // If we are testing SY routines,
              // take D1_i = D2_i, else, D1_i = D2_i*
@@ -119,13 +119,13 @@
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
                X(I, J) = INVD1(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
-            END DO
-         END DO
+            }
+         }
       } else {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
                X(I, J) = INVD2(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
-            END DO
-         END DO
+            }
+         }
       }
       }

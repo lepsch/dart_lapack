@@ -55,14 +55,14 @@
       for (J = 1; J <= K; J++) {
          DO I = 1, MIN( J, M )
             WORK( ( J-1 )*M+I ) = AF( I, J )
-         END DO
+         }
          for (I = J + 1; I <= M; I++) {
             WORK( ( J-1 )*M+I ) = ZERO
-         END DO
-      END DO
+         }
+      }
       for (J = K + 1; J <= N; J++) {
          ccopy(M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 );
-      END DO
+      }
 
       cunmqr('Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
 
@@ -71,7 +71,7 @@
          // Compare i-th column of QR and jpvt(i)-th column of A
 
          caxpy(M, CMPLX( -ONE ), A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
-      END DO
+      }
 
       CQPT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA.NE.ZERO ) CQPT01 = CQPT01 / NORMA
 

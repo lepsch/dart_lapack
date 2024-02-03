@@ -81,7 +81,7 @@
          if ( I .EQ. 1 ) {
             for (J = 1; J <= M; J++) {
                PHANTOM(J) = ZERO
-            END DO
+            }
             sorbdb5(P, M-P, Q, PHANTOM(1), 1, PHANTOM(P+1), 1, X11, LDX11, X21, LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
             sscal(P, NEGONE, PHANTOM(1), 1 );
             slarfgp(P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1) );
@@ -115,7 +115,7 @@
             PHI(I) = ATAN2( S, C )
          }
 
-      END DO
+      }
 
       // Reduce the bottom-right portion of X11 to [ I 0 ]
 
@@ -123,7 +123,7 @@
          slarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
          X11(I,I) = ONE
          slarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL SLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
-      END DO
+      }
 
       // Reduce the bottom-right portion of X21 to [ 0 I ]
 
@@ -131,7 +131,7 @@
          slarfgp(Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) );
          X21(M-Q+I-P,I) = ONE
          slarf('R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) );
-      END DO
+      }
 
       RETURN
 

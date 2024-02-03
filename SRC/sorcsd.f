@@ -188,7 +188,7 @@
             for (J = 2; J <= Q; J++) {
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
-            END DO
+            }
             sorglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQWORK, INFO );
          }
          if ( WANTV2T .AND. M-Q .GT. 0 ) {
@@ -210,7 +210,7 @@
             for (J = 2; J <= Q; J++) {
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
-            END DO
+            }
             sorgqr(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO );
          }
          if ( WANTV2T .AND. M-Q .GT. 0 ) {
@@ -231,10 +231,10 @@
       if ( Q .GT. 0 .AND. WANTU2 ) {
          for (I = 1; I <= Q; I++) {
             IWORK(I) = M - P - Q + I
-         END DO
+         }
          for (I = Q + 1; I <= M - P; I++) {
             IWORK(I) = I - Q
-         END DO
+         }
          if ( COLMAJOR ) {
             slapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
          } else {
@@ -244,10 +244,10 @@
       if ( M .GT. 0 .AND. WANTV2T ) {
          for (I = 1; I <= P; I++) {
             IWORK(I) = M - P - Q + I
-         END DO
+         }
          for (I = P + 1; I <= M - Q; I++) {
             IWORK(I) = I - P
-         END DO
+         }
          if ( .NOT. COLMAJOR ) {
             slapmt(.FALSE., M-Q, M-Q, V2T, LDV2T, IWORK );
          } else {

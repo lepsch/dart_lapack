@@ -66,7 +66,7 @@
 
             slarfb('L', 'T', 'F', 'C', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I, I+IB ), LDA, WORK , N-I-IB+1 );
          }
-      END DO
+      }
       RETURN
 
       // End of SGEQRT

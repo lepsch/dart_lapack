@@ -35,7 +35,7 @@
                ICAMAX = I
                SMAX = SCABS1(CX(I))
             }
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -49,7 +49,7 @@
                SMAX = SCABS1(CX(IX))
             }
             IX = IX + INCX
-         END DO
+         }
       }
       RETURN
 

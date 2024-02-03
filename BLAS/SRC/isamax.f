@@ -34,7 +34,7 @@
                ISAMAX = I
                SMAX = ABS(SX(I))
             }
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -48,7 +48,7 @@
                SMAX = ABS(SX(IX))
             }
             IX = IX + INCX
-         END DO
+         }
       }
       RETURN
 

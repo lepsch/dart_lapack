@@ -29,14 +29,14 @@
          UMAX = 0.0D+0
          for (I = 1; I <= N; I++) {
             AMAX = MAX( ABS( A( I, J ) ), AMAX )
-         END DO
+         }
          for (I = 1; I <= J; I++) {
             UMAX = MAX( ABS( AF( I, J ) ), UMAX )
-         END DO
+         }
          if ( UMAX /= 0.0D+0 ) {
             RPVGRW = MIN( AMAX / UMAX, RPVGRW )
          }
-      END DO
+      }
       DLA_GERPVGRW = RPVGRW
 
       // End of DLA_GERPVGRW

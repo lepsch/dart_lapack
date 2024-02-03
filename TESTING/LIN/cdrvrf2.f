@@ -75,8 +75,8 @@
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
                      A( I, J) = CLARND( 4, ISEED )
-                  END DO
-               END DO
+                  }
+               }
 
                SRNAMT = 'CTRTTF'
                ctrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
@@ -94,16 +94,16 @@
                         if ( A(I,J).NE.ASAV(I,J) ) {
                            OK1 = .FALSE.
                         }
-                     END DO
-                  END DO
+                     }
+                  }
                } else {
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= J; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
                            OK1 = .FALSE.
                         }
-                     END DO
-                  END DO
+                     }
+                  }
                }
 
                NRUN = NRUN + 1
@@ -124,16 +124,16 @@
                         if ( A(I,J).NE.ASAV(I,J) ) {
                            OK2 = .FALSE.
                         }
-                     END DO
-                  END DO
+                     }
+                  }
                } else {
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= J; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
                            OK2 = .FALSE.
                         }
-                     END DO
-                  END DO
+                     }
+                  }
                }
 
                if (( .NOT.OK1 ).OR.( .NOT.OK2 )) {

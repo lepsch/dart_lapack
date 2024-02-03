@@ -23,7 +23,7 @@
 
          for (I = 1; I <= N; I++) {
             CY(I) = CX(I)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -37,7 +37,7 @@
             CY(IY) = CX(IX)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

@@ -49,7 +49,7 @@
             TMP=A(I1,I1+I)
             A(I1,I1+I)=DCONJG(A(I1+I,I2))
             A(I1+I,I2)=DCONJG(TMP)
-         END DO
+         }
 
           A(I1,I2)=DCONJG(A(I1,I2))
 
@@ -60,7 +60,7 @@
             TMP=A(I1,I)
             A(I1,I)=A(I2,I)
             A(I2,I)=TMP
-         END DO
+         }
 
         } else {
 
@@ -82,7 +82,7 @@
              TMP=A(I1+I,I1)
              A(I1+I,I1)=DCONJG(A(I2,I1+I))
              A(I2,I1+I)=DCONJG(TMP)
-          END DO
+          }
 
           A(I2,I1)=DCONJG(A(I2,I1))
 
@@ -92,7 +92,7 @@
              TMP=A(I,I1)
              A(I,I1)=A(I,I2)
              A(I,I2)=TMP
-          END DO
+          }
 
       }
 

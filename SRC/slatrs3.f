@@ -113,7 +113,7 @@
 
       for (KK = 1; KK <= NRHS; KK++) {
          SCALE( KK ) = ONE
-      END DO
+      }
 
       // Quick return if possible
 
@@ -130,7 +130,7 @@
          slatrs(UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1), SCALE( 1 ), CNORM, INFO );
          for (K = 2; K <= NRHS; K++) {
             slatrs(UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
-         END DO
+         }
          RETURN
       }
 
@@ -162,8 +162,8 @@
                WORK( AWRK + J+(I-1)*NBA ) = ANRM
             }
             TMAX = MAX( TMAX, ANRM )
-         END DO
-      END DO
+         }
+      }
 
       if ( .NOT. TMAX.LE.SLAMCH('Overflow') ) {
 
@@ -176,7 +176,7 @@
 
          for (K = 1; K <= NRHS; K++) {
             slatrs(UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
-         END DO
+         }
          RETURN
       }
 
@@ -198,8 +198,8 @@
          for (KK = 1; KK <= K2 - K1; KK++) {
             for (I = 1; I <= NBA; I++) {
                WORK( I+KK*LDS ) = ONE
-            END DO
-         END DO
+            }
+         }
 
          if ( NOTRAN ) {
 
@@ -260,14 +260,14 @@
                   SCALE( RHS ) = ZERO
                   for (II = 1; II <= J1-1; II++) {
                      X( II, KK ) = ZERO
-                  END DO
+                  }
                   for (II = J2; II <= N; II++) {
                      X( II, KK ) = ZERO
-                  END DO
+                  }
                   // Discard the local scale factors.
                   for (II = 1; II <= NBA; II++) {
                      WORK( II+KK*LDS ) = ONE
-                  END DO
+                  }
                   SCALOC = ONE
                } else if ( SCALOC*WORK( J+KK*LDS ) .EQ. ZERO ) {
                   // LATRS computed a valid scale factor, but combined with
@@ -296,17 +296,17 @@
                      SCALE( RHS ) = ZERO
                      for (II = 1; II <= N; II++) {
                         X( II, KK ) = ZERO
-                     END DO
+                     }
                      // Discard the local scale factors.
                      for (II = 1; II <= NBA; II++) {
                         WORK( II+KK*LDS ) = ONE
-                     END DO
+                     }
                      SCALOC = ONE
                   }
                }
                SCALOC = SCALOC * WORK( J+KK*LDS )
                WORK( J+KK*LDS ) = SCALOC
-            END DO
+            }
 
             // Linear block updates
 
@@ -373,7 +373,7 @@
                      sscal(J2-J1, SCAL, X( J1, RHS ), 1 );
                      WORK( J+KK*LDS ) = SCAMIN*SCALOC
                   }
-               END DO
+               }
 
                if ( NOTRAN ) {
 
@@ -386,8 +386,8 @@
 
                   sgemm('T', 'N', I2-I1, K2-K1, J2-J1, -ONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, ONE, X( I1, K1 ), LDX );
                }
-            END DO
-         END DO
+            }
+         }
 
          // Reduce local scaling factors
 
@@ -395,8 +395,8 @@
             RHS = K1 + KK - 1
             for (I = 1; I <= NBA; I++) {
                SCALE( RHS ) = MIN( SCALE( RHS ), WORK( I+KK*LDS ) )
-            END DO
-         END DO
+            }
+         }
 
          // Realize consistent scaling
 
@@ -408,10 +408,10 @@
                   I2 = MIN( I*NB, N ) + 1
                   SCAL = SCALE( RHS ) / WORK( I+KK*LDS )
                   IF( SCAL.NE.ONE ) CALL SSCAL( I2-I1, SCAL, X( I1, RHS ), 1 )
-               END DO
+               }
             }
-         END DO
-      END DO
+         }
+      }
       RETURN
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )

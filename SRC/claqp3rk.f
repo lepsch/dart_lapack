@@ -189,7 +189,7 @@
 
                for (J = K; J <= MINMNFACT; J++) {
                   TAU( J ) = CZERO
-               END DO
+               }
 
                // Return from the routine.
 
@@ -263,7 +263,7 @@
 
                for (J = K; J <= MINMNFACT; J++) {
                   TAU( J ) = CZERO
-               END DO
+               }
 
                // Return from the routine.
 
@@ -307,11 +307,11 @@
          if ( K.GT.1 ) {
             for (J = 1; J <= K - 1; J++) {
                F( K, J ) = CONJG( F( K, J ) )
-            END DO
+            }
             cgemv('No transpose', M-I+1, K-1, -CONE, A( I, 1 ), LDA, F( K, 1 ), LDF, CONE, A( I, K ), 1 );
             for (J = 1; J <= K - 1; J++) {
                F( K, J ) = CONJG( F( K, J ) )
-            END DO
+            }
          }
 
          // Generate elementary reflector H(k) using the column A(I:M,K).
@@ -406,7 +406,7 @@
 
          for (J = 1; J <= K; J++) {
             F( J, K ) = CZERO
-         END DO
+         }
 
           // 3) Incremental updating of the K-th column of F:
          // F(1:N,K) := F(1:N,K) - tau(K) * F(1:N,1:K-1) * A(I:M,1:K-1)**H
@@ -464,13 +464,13 @@
                      VN1( J ) = VN1( J )*SQRT( TEMP )
                   }
                }
-            END DO
+            }
 
          }
 
          // End of while loop.
 
-      END DO
+      }
 
       // Now, afler the loop:
          // Set KB, the number of factorized columns in the block;
@@ -521,7 +521,7 @@
 
          LSTICC = ITEMP
 
-      END DO
+      }
 
       RETURN
 

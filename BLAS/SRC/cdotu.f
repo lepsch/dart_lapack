@@ -26,7 +26,7 @@
 
          for (I = 1; I <= N; I++) {
             CTEMP = CTEMP + CX(I)*CY(I)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -40,7 +40,7 @@
             CTEMP = CTEMP + CX(IX)*CY(IY)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       CDOTU = CTEMP
       RETURN

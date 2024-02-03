@@ -144,7 +144,7 @@
 
       for (J = 1; J <= N; J++) {
          JPIV( J ) = J
-      END DO
+      }
 
       // ==================================================================
 
@@ -159,7 +159,7 @@
       for (J = 1; J <= N; J++) {
          WORK( J ) = DNRM2( M, A( 1, J ), 1 )
          WORK( N+J ) = WORK( J )
-      END DO
+      }
 
       // ==================================================================
 
@@ -204,7 +204,7 @@
 
          for (J = 1; J <= MINMN; J++) {
             TAU( J ) = ZERO
-         END DO
+         }
 
          WORK( 1 ) = DBLE( LWKOPT )
          RETURN
@@ -236,7 +236,7 @@
          RELMAXC2NRMK = ONE
          for (J = 1; J <= MINMN; J++) {
             TAU( J ) = ZERO
-         END DO
+         }
          WORK( 1 ) = DBLE( LWKOPT )
          RETURN
       }
@@ -280,7 +280,7 @@
 
          for (J = 1; J <= MINMN; J++) {
             TAU( J ) = ZERO
-         END DO
+         }
 
          WORK( 1 ) = DBLE( LWKOPT )
          RETURN
@@ -401,7 +401,7 @@
 
             J = J + JBF
 
-         END DO
+         }
 
       }
 
@@ -468,7 +468,7 @@
 
             for (J = K + 1; J <= MINMN; J++) {
                TAU( J ) = ZERO
-            END DO
+            }
 
          }
 

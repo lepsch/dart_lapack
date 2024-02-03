@@ -117,8 +117,8 @@
                            for (J = 1; J <= K; J++) {
                               for (I = 1; I <= N; I++) {
                                  A( I, J) = CLARND( 4, ISEED )
-                              END DO
-                           END DO
+                              }
+                           }
 
                            NORMA = CLANGE( 'I', N, K, A, LDA, S_WORK_CLANGE )
 
@@ -129,8 +129,8 @@
                            for (J = 1; J <= N; J++) {
                               for (I = 1; I <= K; I++) {
                                  A( I, J) = CLARND( 4, ISEED )
-                              END DO
-                           END DO
+                              }
+                           }
 
                            NORMA = CLANGE( 'I', K, N, A, LDA, S_WORK_CLANGE )
 
@@ -146,8 +146,8 @@
                            for (I = 1; I <= N; I++) {
                               C1( I, J) = CLARND( 4, ISEED )
                               C2(I,J) = C1(I,J)
-                           END DO
-                        END DO
+                           }
+                        }
 
                         // (See comment later on for why we use CLANGE and
                         // not CLANHE for C1.)
@@ -177,8 +177,8 @@
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
                               C1(I,J) = C1(I,J)-C2(I,J)
-                           END DO
-                        END DO
+                           }
+                        }
 
                         // Yes, C1 is Hermitian so we could call CLANHE,
                         // but we want to check the upper part that is

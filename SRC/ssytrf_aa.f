@@ -134,7 +134,7 @@
             if ( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
                sswap(J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 );
             }
-         END DO
+         }
          J = J + JB
 
          // Trailing submatrix update, where
@@ -183,12 +183,12 @@
                   DO MJ = NJ-1, 1, -1
                      sgemv('No transpose', MJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J1-K2, J3 ), 1, ONE, A( J3, J3 ), LDA );
                      J3 = J3 + 1
-                  END DO
+                  }
 
                   // Update off-diagonal block of J2-th block row with SGEMM
 
                   sgemm('Transpose', 'Transpose', NJ, N-J3+1, JB+1, -ONE, A( J1-K2, J2 ), LDA, WORK( J3-J1+1+K1*N ), N, ONE, A( J2, J3 ), LDA );
-               END DO
+               }
 
                // Recover T( J, J+1 )
 
@@ -241,7 +241,7 @@
             if ( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
                sswap(J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA );
             }
-         END DO
+         }
          J = J + JB
 
          // Trailing submatrix update, where
@@ -290,12 +290,12 @@
                   DO MJ = NJ-1, 1, -1
                      sgemv('No transpose', MJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J3, J1-K2 ), LDA, ONE, A( J3, J3 ), 1 );
                      J3 = J3 + 1
-                  END DO
+                  }
 
                   // Update off-diagonal block in J2-th block column with SGEMM
 
                   sgemm('No transpose', 'Transpose', N-J3+1, NJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J2, J1-K2 ), LDA, ONE, A( J3, J2 ), LDA );
-               END DO
+               }
 
                // Recover T( J+1, J )
 

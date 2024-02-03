@@ -75,19 +75,19 @@
             TMP = 0.0E+0
             DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                TMP = TMP + CABS1( AB( KD+I-J, J) * X( J ) )
-            END DO
+            }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
-         END DO
+         }
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0E+0
             DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                TMP = TMP + CABS1( AB( KE-I+J, I ) * X( J ) )
-            END DO
+            }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
-         END DO
+         }
       }
 
       // Quick return if possible.
@@ -113,7 +113,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
-            END DO
+            }
 
             if ( NOTRANS ) {
                cgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
@@ -125,14 +125,14 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
-            END DO
+            }
          } else {
 
             // Multiply by inv(X**H).
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
-            END DO
+            }
 
             if ( NOTRANS ) {
                cgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
@@ -144,7 +144,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
-            END DO
+            }
          }
          GO TO 10
       }

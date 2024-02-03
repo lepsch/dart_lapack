@@ -119,7 +119,7 @@
                }
 
                K = K+1
-         END DO
+         }
       }
 
       // Store eigenvalues
@@ -130,7 +130,7 @@
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
          K = K+1
-      END DO
+      }
 
       if ( KWTOP .NE. ILO .AND. S .NE. CZERO ) {
          // Reflect spike back, this will create optimally packed bulges
@@ -141,7 +141,7 @@
             A( K+1, KWTOP-1 ) = CZERO
             K2 = MAX( KWTOP, K-1 )
             crot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 )             CALL CROT( IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 )             CALL CROT( JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, CONJG( S1 ) );
-         END DO
+         }
 
          // Chase bulges down
          ISTARTM = KWTOP
@@ -152,10 +152,10 @@
             // Move bulge down and remove it
             for (K2 = K; K2 <= KWBOT-1; K2++) {
                claqz1(.TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
-            END DO
+            }
 
             K = K-1
-         END DO
+         }
 
       }
 

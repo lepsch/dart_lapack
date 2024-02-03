@@ -76,7 +76,7 @@
       if ( M1 .EQ. 0 ) {
          for (I = 1; I <= N; I++) {
             WORK(I) = ZERO
-         END DO
+         }
       } else {
          zgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
       }
@@ -102,10 +102,10 @@
       if ( NORM_NEW .LE. N * EPS * NORM ) {
          DO IX = 1, 1 + (M1-1)*INCX1, INCX1
            X1( IX ) = ZERO
-         END DO
+         }
          DO IX = 1, 1 + (M2-1)*INCX2, INCX2
            X2( IX ) = ZERO
-         END DO
+         }
          RETURN
       }
 
@@ -113,12 +113,12 @@
 
       for (I = 1; I <= N; I++) {
          WORK(I) = ZERO
-      END DO
+      }
 
       if ( M1 .EQ. 0 ) {
          for (I = 1; I <= N; I++) {
             WORK(I) = ZERO
-         END DO
+         }
       } else {
          zgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
       }
@@ -140,10 +140,10 @@
       if ( NORM_NEW .LT. ALPHA * NORM ) {
          DO IX = 1, 1 + (M1-1)*INCX1, INCX1
             X1(IX) = ZERO
-         END DO
+         }
          DO IX = 1, 1 + (M2-1)*INCX2, INCX2
             X2(IX) = ZERO
-         END DO
+         }
       }
 
       RETURN

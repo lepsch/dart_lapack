@@ -231,7 +231,7 @@
             WRITE( NOUT, FMT = 9995 )' RANK  ', RANKVAL( I ), 100
             FATAL = .TRUE.
          }
-      END DO
+      }
       IF( NRANK.GT.0 ) WRITE( NOUT, FMT = 9993 )'RANK % OF N', ( RANKVAL( I ), I = 1, NRANK )
 
       // Read the threshold value for the test ratios.

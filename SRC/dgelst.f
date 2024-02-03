@@ -210,8 +210,8 @@
             for (J = 1; J <= NRHS; J++) {
                for (I = N + 1; I <= M; I++) {
                   B( I, J ) = ZERO
-               END DO
-            END DO
+               }
+            }
 
             // Compute B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS),
             // using the compact WY representation of Q,
@@ -254,8 +254,8 @@
             for (J = 1; J <= NRHS; J++) {
                for (I = M + 1; I <= N; I++) {
                   B( I, J ) = ZERO
-               END DO
-            END DO
+               }
+            }
 
             // Compute B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS),
             // using the compact WY representation of Q,

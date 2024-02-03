@@ -26,7 +26,7 @@
 
          for (I = 1; I <= N; I++) {
             ZTEMP = ZTEMP + ZX(I)*ZY(I)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -40,7 +40,7 @@
             ZTEMP = ZTEMP + ZX(IX)*ZY(IY)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       ZDOTU = ZTEMP
       RETURN

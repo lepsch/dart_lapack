@@ -104,16 +104,16 @@
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T )
                                     NFAIL = NFAIL + 1
                                  }
-                              END DO
+                              }
                               NRUN = NRUN + NTESTS
                            }
-                        END DO
-                     END DO
+                        }
+                     }
                   }
-                END DO
+                }
             }
-         END DO
-      END DO
+         }
+      }
 
       // Do for each value of M in MVAL.
 
@@ -162,16 +162,16 @@
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T )
                                     NFAIL = NFAIL + 1
                                  }
-                              END DO
+                              }
                               NRUN = NRUN + NTESTS
                            }
-                        END DO
-                     END DO
+                        }
+                     }
                   }
-                END DO
+                }
             }
-         END DO
-      END DO
+         }
+      }
 
       // Print a summary of the results.
 

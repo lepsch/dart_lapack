@@ -163,7 +163,7 @@
             for (I = 1; I <= 4; I++) {
                DTEMP(I)= DAB(I,K)
                DTEMP(I+4) = 0.0
-            END DO
+            }
             DTEMP(9) = 0.0
             srotmg(DTEMP(1),DTEMP(2),DTEMP(3),DTEMP(4),DTEMP(5));
             stest(9,DTEMP,DTRUE(1,K),DTRUE(1,K),SFAC);
@@ -395,15 +395,15 @@
                      SY(I) = DY1(I)
                      STX(I)= DT19X(I,KPAR,KNI)
                      STY(I)= DT19Y(I,KPAR,KNI)
-                  END DO
+                  }
 
                   for (I = 1; I <= 5; I++) {
                      DTEMP(I) = DPAR(I,KPAR)
-                  END DO
+                  }
 
                   for (I = 1; I <= LENX; I++) {
                      SSIZE(I)=STX(I)
-                  END DO
+                  }
                     // SEE REMARK ABOVE ABOUT DT11X(1,2,7)
                         // AND DT11X(5,3,8).
                   IF ((KPAR .EQ. 2) .AND. (KNI .EQ. 7)) SSIZE(1) = 2.4E0                   IF ((KPAR .EQ. 3) .AND. (KNI .EQ. 8)) SSIZE(5) = 1.8E0
@@ -411,7 +411,7 @@
                   srotm(N,SX,INCX,SY,INCY,DTEMP);
                   stest(LENX,SX,STX,SSIZE,SFAC);
                   stest(LENY,SY,STY,STY,SFAC);
-               END DO
+               }
             } else if (ICASE.EQ.13) {
                // .. SDSROT ..
                stest1(SDSDOT(N,.1,SX,INCX,SY,INCY), ST7B(KN,KI),SSIZE3(KN),SFAC);
@@ -796,7 +796,7 @@
       for (I = 2; I <= N; I++) {
          random_number(WORK(I));
          WORK(I) = ONE - TWO*WORK(I)
-      END DO
+      }
 
       // Compute the sum of squares of the random values
       // by an unscaled algorithm.
@@ -804,7 +804,7 @@
       WORKSSQ = ZERO
       for (I = 2; I <= N; I++) {
          WORKSSQ = WORKSSQ + WORK(I)*WORK(I)
-      END DO
+      }
 
       // Construct the test vector with one known value
       // and the rest from the random work array multiplied
@@ -823,7 +823,7 @@
             }
             for (I = 2; I <= N; I++) {
                Z(I) = V1*WORK(I)
-            END DO
+            }
 
             // Compute the expected value of the 2-norm
 
@@ -855,13 +855,13 @@
 
             for (I = 1; I <= N; I++) {
                X(I) = ROGUE
-            END DO
+            }
             IX = 1
             IF (INCX.LT.0) IX = 1 - (N-1)*INCX
             for (I = 1; I <= N; I++) {
                X(IX) = Z(I)
                IX = IX + INCX
-            END DO
+            }
 
             // Call SNRM2 to compute the 2-norm
 
@@ -898,8 +898,8 @@
                }
                WRITE (NOUT,98) "SNRM2", N, INCX, IV, IW, TRAT
             }
-         END DO
-      END DO
+         }
+      }
 99999 FORMAT ('                                       FAIL')
    99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 )
    98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 )

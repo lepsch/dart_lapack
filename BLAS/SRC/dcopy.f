@@ -31,7 +31,7 @@
          if (M.NE.0) {
             for (I = 1; I <= M; I++) {
                DY(I) = DX(I)
-            END DO
+            }
             IF (N.LT.7) RETURN
          }
          MP1 = M + 1
@@ -43,7 +43,7 @@
             DY(I+4) = DX(I+4)
             DY(I+5) = DX(I+5)
             DY(I+6) = DX(I+6)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -57,7 +57,7 @@
             DY(IY) = DX(IX)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

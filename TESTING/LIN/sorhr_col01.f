@@ -64,12 +64,12 @@
 
       for (J = 1; J <= N; J++) {
          slarnv(2, ISEED, M, A( 1, J ) );
-      END DO
+      }
       if ( TESTZEROS ) {
          if ( M.GE.4 ) {
             for (J = 1; J <= N; J++) {
                slarnv(2, ISEED, M/2, A( M/4, J ) );
-            END DO
+            }
          }
       }
       slacpy('Full', M, N, A, M, AF, M );
@@ -145,7 +145,7 @@
          if ( DIAG( I ).EQ.-ONE ) {
             sscal(N+1-I, -ONE, AF( I, I ), M );
          }
-      END DO
+      }
 
       // End Householder reconstruction routines.
 
@@ -188,7 +188,7 @@
 
       for (J = 1; J <= N; J++) {
          slarnv(2, ISEED, M, C( 1, J ) );
-      END DO
+      }
       CNORM = SLANGE( '1', M, N, C, M, RWORK )
       slacpy('Full', M, N, C, M, CF, M );
 
@@ -232,7 +232,7 @@
 
       for (J = 1; J <= M; J++) {
          slarnv(2, ISEED, N, D( 1, J ) );
-      END DO
+      }
       DNORM = SLANGE( '1', N, M, D, N, RWORK )
       slacpy('Full', N, M, D, N, DF, N );
 

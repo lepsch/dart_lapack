@@ -86,7 +86,7 @@
                PVT = I
                AJJ = A( PVT, PVT )
             }
-         END DO
+         }
          if ( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) {
             RANK = 0
             INFO = 1

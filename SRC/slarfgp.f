@@ -57,7 +57,7 @@
             TAU = TWO
             for (J = 1; J <= N-1; J++) {
                X( 1 + (J-1)*INCX ) = 0
-            END DO
+            }
             ALPHA = -ALPHA
          }
       } else {
@@ -110,7 +110,7 @@
                TAU = TWO
                for (J = 1; J <= N-1; J++) {
                   X( 1 + (J-1)*INCX ) = 0
-               END DO
+               }
                BETA = -SAVEALPHA
             }
 

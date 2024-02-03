@@ -27,7 +27,7 @@
             STEMP = C*SX(I) + S*SY(I)
             SY(I) = C*SY(I) - S*SX(I)
             SX(I) = STEMP
-         END DO
+         }
       } else {
 
         // code for unequal increments or equal increments not equal
@@ -43,7 +43,7 @@
             SX(IX) = STEMP
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

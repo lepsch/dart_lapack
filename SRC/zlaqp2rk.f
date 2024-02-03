@@ -145,7 +145,7 @@
 
                for (J = KK; J <= MINMNFACT; J++) {
                   TAU( J ) = CZERO
-               END DO
+               }
 
                // Return from the routine.
 
@@ -193,7 +193,7 @@
 
                for (J = KK; J <= MINMNFACT; J++) {
                   TAU( J ) = CZERO
-               END DO
+               }
 
                // Return from the routine.
 
@@ -328,13 +328,13 @@
 
                   }
                }
-            END DO
+            }
 
          }
 
       // End factorization loop
 
-      END DO
+      }
 
       // If we reached this point, all colunms have been factorized,
       // i.e. no condition was triggered to exit the routine.
@@ -368,7 +368,7 @@
 
       for (J = K + 1; J <= MINMNFACT; J++) {
          TAU( J ) = CZERO
-      END DO
+      }
 
       RETURN
 

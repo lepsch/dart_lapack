@@ -121,7 +121,7 @@
                     WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(1+0*I)', R, Xj
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 10
 
@@ -146,7 +146,7 @@
                     WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+1*I)', R, Xj
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 20
 
@@ -177,7 +177,7 @@
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(3/4+I)', R, answerC
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 30
 
@@ -215,7 +215,7 @@
                     }
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 40
 

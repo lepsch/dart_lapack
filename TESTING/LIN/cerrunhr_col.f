@@ -48,9 +48,9 @@
          for (I = 1; I <= NMAX; I++) {
             A( I, J ) = CMPLX( 1.E+0 / REAL( I+J ) )
             T( I, J ) = CMPLX( 1.E+0 / REAL( I+J ) )
-         END DO
+         }
          D( J ) = ( 0.E+0, 0.E+0 )
-      END DO
+      }
       OK = .TRUE.
 
       // Error exits for Householder reconstruction

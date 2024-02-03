@@ -70,30 +70,30 @@
             if ( CAPPLY ) {
                for (J = 1; J <= N; J++) {
                   TMP = TMP + CABS1( A( I, J ) ) / C( J )
-               END DO
+               }
             } else {
                for (J = 1; J <= N; J++) {
                   TMP = TMP + CABS1( A( I, J ) )
-               END DO
+               }
             }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
-         END DO
+         }
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0E+0
             if ( CAPPLY ) {
                for (J = 1; J <= N; J++) {
                   TMP = TMP + CABS1( A( J, I ) ) / C( J )
-               END DO
+               }
             } else {
                for (J = 1; J <= N; J++) {
                   TMP = TMP + CABS1( A( J, I ) )
-               END DO
+               }
             }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
-         END DO
+         }
       }
 
       // Quick return if possible.
@@ -119,7 +119,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
-            END DO
+            }
 
             if (NOTRANS) {
                cgetrs('No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
@@ -132,7 +132,7 @@
             if ( CAPPLY ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
-               END DO
+               }
             }
          } else {
 
@@ -141,7 +141,7 @@
             if ( CAPPLY ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
-               END DO
+               }
             }
 
             if ( NOTRANS ) {
@@ -154,7 +154,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
-            END DO
+            }
          }
          GO TO 10
       }

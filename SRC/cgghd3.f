@@ -158,7 +158,7 @@
             for (I = 1; I <= N2NB; I++) {
                claset('All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB );
                PW = PW + 4*NNB*NNB
-            END DO
+            }
 
             // Reduce columns JCOL:JCOL+NNB-1 of A to Hessenberg form.
 
@@ -172,7 +172,7 @@
                   clartg(TEMP, A( I, J ), C, S, A( I-1, J ) );
                   A( I, J ) = CMPLX( C )
                   B( I, J ) = S
-               END DO
+               }
 
                // Accumulate Givens rotations into workspace array.
 
@@ -186,10 +186,10 @@
                      TEMP = WORK( JJ + NBLST )
                      WORK( JJ + NBLST ) = CTEMP*TEMP - S*WORK( JJ )
                      WORK( JJ ) = CONJG( S )*TEMP + CTEMP*WORK( JJ )
-                  END DO
+                  }
                   LEN = LEN + 1
                   PPW = PPW - NBLST - 1
-               END DO
+               }
 
                PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB
                J0 = JROW - NNB
@@ -203,12 +203,12 @@
                         TEMP = WORK( JJ + 2*NNB )
                         WORK( JJ + 2*NNB ) = CTEMP*TEMP - S*WORK( JJ )
                         WORK( JJ ) = CONJG( S )*TEMP + CTEMP*WORK( JJ )
-                     END DO
+                     }
                      LEN = LEN + 1
                      PPW = PPW - 2*NNB - 1
-                  END DO
+                  }
                   PPWO = PPWO + 4*NNB*NNB
-               END DO
+               }
 
                // TOP denotes the number of top rows in A and B that will
                // not be updated during the next steps.
@@ -232,7 +232,7 @@
                      TEMP = B( I, JJ )
                      B( I, JJ ) = CTEMP*TEMP - CONJG( S )*B( I-1, JJ )
                      B( I-1, JJ ) = S*TEMP + CTEMP*B( I-1, JJ )
-                  END DO
+                  }
 
                   // Annihilate B( JJ+1, JJ ).
 
@@ -244,7 +244,7 @@
                      A( JJ+1, J ) = CMPLX( C )
                      B( JJ+1, J ) = -CONJG( S )
                   }
-               END DO
+               }
 
                // Update A by transformations from right.
 
@@ -268,14 +268,14 @@
                      TEMP1 = -S1*TEMP2 + C1*TEMP1
                      A( K, J+I+1 ) = CTEMP*TEMP1 + CONJG( S )*TEMP
                      A( K, J+I ) = -S*TEMP1 + CTEMP*TEMP
-                  END DO
-               END DO
+                  }
+               }
 
                if ( JJ.GT.0 ) {
                   DO I = JJ, 1, -1
                      C = REAL( A( J+1+I, J ) )
                      crot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -CONJG( B( J+1+I, J ) ) );
-                  END DO
+                  }
                }
 
                // Update (J+1)th column of A by transformations from left.
@@ -299,13 +299,13 @@
                   for (I = JROW; I <= JROW+NBLST-LEN-1; I++) {
                      WORK( PPW ) = A( I, J+1 )
                      PPW = PPW + 1
-                  END DO
+                  }
                   ctrmv('Lower', 'Conjugate', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL CGEMV( 'Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                   PPW = PW
                   for (I = JROW; I <= JROW+NBLST-1; I++) {
                      A( I, J+1 ) = WORK( PPW )
                      PPW = PPW + 1
-                  END DO
+                  }
 
                   // Multiply with the other accumulated unitary
                   // matrices, which take the form
@@ -327,22 +327,22 @@
                      for (I = JROW; I <= JROW+NNB-1; I++) {
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
-                     END DO
+                     }
                      PPW = PW
                      for (I = JROW+NNB; I <= JROW+NNB+LEN-1; I++) {
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
-                     END DO
+                     }
                      ctrmv('Upper', 'Conjugate', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL CTRMV( 'Lower', 'Conjugate', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL CGEMV( 'Conjugate', NNB, LEN, CONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, CONE, WORK( PW ), 1 )                      CALL CGEMV( 'Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                      PPW = PW
                      for (I = JROW; I <= JROW+LEN+NNB-1; I++) {
                         A( I, J+1 ) = WORK( PPW )
                         PPW = PPW + 1
-                     END DO
+                     }
                      PPWO = PPWO + 4*NNB*NNB
-                  END DO
+                  }
                }
-            END DO
+            }
 
             // Apply accumulated unitary matrices to A.
 
@@ -373,7 +373,7 @@
                   clacpy('All', 2*NNB, COLA, WORK( PW ), 2*NNB, A( J, JCOL+NNB ), LDA );
                }
                PPWO = PPWO + 4*NNB*NNB
-            END DO
+            }
 
             // Apply accumulated unitary matrices to Q.
 
@@ -408,7 +408,7 @@
                      clacpy('All', NH, 2*NNB, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
                   }
                   PPWO = PPWO + 4*NNB*NNB
-               END DO
+               }
             }
 
             // Accumulate right Givens rotations if required.
@@ -423,7 +423,7 @@
                for (I = 1; I <= N2NB; I++) {
                   claset('All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB );
                   PW = PW + 4*NNB*NNB
-               END DO
+               }
 
                // Accumulate Givens rotations into workspace array.
 
@@ -440,10 +440,10 @@
                         TEMP = WORK( JJ + NBLST )
                         WORK( JJ + NBLST ) = CTEMP*TEMP - CONJG( S )*WORK( JJ )
                         WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ )
-                     END DO
+                     }
                      LEN = LEN + 1
                      PPW = PPW - NBLST - 1
-                  END DO
+                  }
 
                   PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB
                   J0 = JROW - NNB
@@ -459,13 +459,13 @@
                            TEMP = WORK( JJ + 2*NNB )
                            WORK( JJ + 2*NNB ) = CTEMP*TEMP - CONJG( S )*WORK( JJ )
                            WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ )
-                        END DO
+                        }
                         LEN = LEN + 1
                         PPW = PPW - 2*NNB - 1
-                     END DO
+                     }
                      PPWO = PPWO + 4*NNB*NNB
-                  END DO
-               END DO
+                  }
+               }
             } else {
 
                claset('Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, A( JCOL + 2, JCOL ), LDA )                CALL CLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, B( JCOL + 2, JCOL ), LDB );
@@ -493,7 +493,7 @@
                      clacpy('All', TOP, 2*NNB, WORK( PW ), TOP, A( 1, J ), LDA );
                   }
                   PPWO = PPWO + 4*NNB*NNB
-               END DO
+               }
 
                J = IHI - NBLST + 1
                cgemm('No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, B( 1, J ), LDB, WORK, NBLST, CZERO, WORK( PW ), TOP );
@@ -514,7 +514,7 @@
                      clacpy('All', TOP, 2*NNB, WORK( PW ), TOP, B( 1, J ), LDB );
                   }
                   PPWO = PPWO + 4*NNB*NNB
-               END DO
+               }
             }
 
             // Apply accumulated unitary matrices to Z.
@@ -550,9 +550,9 @@
                      clacpy('All', NH, 2*NNB, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
                   }
                   PPWO = PPWO + 4*NNB*NNB
-               END DO
+               }
             }
-         END DO
+         }
       }
 
       // Use unblocked code to reduce the rest of the matrix

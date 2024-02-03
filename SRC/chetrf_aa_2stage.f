@@ -105,7 +105,7 @@
 
       for (J = 1; J <= KB; J++) {
          IPIV( J ) = J
-      END DO
+      }
 
       // Save NB
 
@@ -140,7 +140,7 @@
                   }
                   cgemm('NoTranspose', 'NoTranspose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                }
-            END DO
+            }
 
             // Compute T(J,J)
 
@@ -161,8 +161,8 @@
                TB( TD+1 + (J*NB+I-1)*LDTB ) = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) )
                for (K = I+1; K <= KB; K++) {
                   TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) = CONJG( TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) )
-               END DO
-            END DO
+               }
+            }
 
             if ( J.LT.NT-1 ) {
                if ( J.GT.0 ) {
@@ -184,7 +184,7 @@
 
                for (K = 1; K <= NB; K++) {
                    ccopy(N-(J+1)*NB, A( J*NB+K, (J+1)*NB+1 ), LDA, WORK( 1+(K-1)*N ), 1 );
-               END DO
+               }
 
                // Factorize panel
 
@@ -204,7 +204,7 @@
                    // Transpose U-factor to be copied back into T(J+1, J)
 
                    clacgv(K, WORK( 1+(K-1)*N ), 1 );
-               END DO
+               }
 
                // Compute T(J+1, J), zero out for GEMM update
 
@@ -220,8 +220,8 @@
                for (K = 1; K <= NB; K++) {
                   for (I = 1; I <= KB; I++) {
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = CONJG( TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB ) )
-                  END DO
-               END DO
+                  }
+               }
                claset('Lower', KB, NB, ZERO, ONE,  A( J*NB+1, (J+1)*NB+1), LDA );
 
                // Apply pivots to trailing submatrix of A
@@ -252,9 +252,9 @@
                         cswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                      }
                   }
-               END DO
+               }
             }
-         END DO
+         }
       } else {
 
          // .....................................................
@@ -284,7 +284,7 @@
                   }
                   cgemm('NoTranspose', 'Conjugate transpose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                }
-            END DO
+            }
 
             // Compute T(J,J)
 
@@ -305,8 +305,8 @@
                TB( TD+1 + (J*NB+I-1)*LDTB )  = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) )
                for (K = I+1; K <= KB; K++) {
                   TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = CONJG( TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) )
-               END DO
-            END DO
+               }
+            }
 
             if ( J.LT.NT-1 ) {
                if ( J.GT.0 ) {
@@ -345,8 +345,8 @@
                for (K = 1; K <= NB; K++) {
                   for (I = 1; I <= KB; I++) {
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = CONJG( TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB ) )
-                  END DO
-               END DO
+                  }
+               }
                claset('Upper', KB, NB, ZERO, ONE,  A( (J+1)*NB+1, J*NB+1), LDA );
 
                // Apply pivots to trailing submatrix of A
@@ -377,14 +377,14 @@
                         cswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                      }
                   }
-               END DO
+               }
 
                // Apply pivots to previous columns of L
 
                 // CALL CLASWP( J*NB, A( 1, 1 ), LDA,
       // $                     (J+1)*NB+1, (J+1)*NB+KB, IPIV, 1 )
             }
-         END DO
+         }
       }
 
       // Factor the band matrix

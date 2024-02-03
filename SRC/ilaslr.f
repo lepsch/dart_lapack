@@ -34,9 +34,9 @@
             I=M
             DO WHILE((A(MAX(I,1),J).EQ.ZERO).AND.(I.GE.1))
                I=I-1
-            ENDDO
+            }
             ILASLR = MAX( ILASLR, I )
-         END DO
+         }
       }
       RETURN
       }

@@ -49,9 +49,9 @@
             A( I, J ) = 1.0 / FLOAT( I+J )
             C( I, J ) = 1.0 / FLOAT( I+J )
             T( I, J ) = 1.0 / FLOAT( I+J )
-         END DO
+         }
          W( J ) = 0.0
-      END DO
+      }
       OK = .TRUE.
 
       // Error exits for QRT factorization

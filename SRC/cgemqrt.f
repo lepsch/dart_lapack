@@ -80,14 +80,14 @@
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
             clarfb('L', 'C', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
-         END DO
+         }
 
       } else if ( RIGHT .AND. NOTRAN ) {
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
             clarfb('R', 'N', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
-         END DO
+         }
 
       } else if ( LEFT .AND. NOTRAN ) {
 
@@ -95,7 +95,7 @@
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
             clarfb('L', 'N', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
-         END DO
+         }
 
       } else if ( RIGHT .AND. TRAN ) {
 
@@ -103,7 +103,7 @@
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
             clarfb('R', 'C', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
-         END DO
+         }
 
       }
 

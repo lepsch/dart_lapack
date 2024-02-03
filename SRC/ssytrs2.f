@@ -82,7 +82,7 @@
             IF( KP.EQ.-IPIV( K-1 ) ) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          }
-        END DO
+        }
 
 *  Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
@@ -110,7 +110,7 @@
                }
             }
             I = I - 1
-         END DO
+         }
 
        // Compute (U**T \ B) -> B   [ U**T \ (D \ (U \P**T * B) ) ]
 
@@ -133,7 +133,7 @@
             IF( K .LT. N .AND. KP.EQ.-IPIV( K+1 ) ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          }
-        END DO
+        }
 
       } else {
 
@@ -155,7 +155,7 @@
             IF( KP.EQ.-IPIV( K ) ) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          }
-        END DO
+        }
 
 *  Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
@@ -181,7 +181,7 @@
                   I = I + 1
             }
             I = I + 1
-         END DO
+         }
 
 *  Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
 
@@ -204,7 +204,7 @@
             IF( K.GT.1 .AND. KP.EQ.-IPIV( K-1 ) ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          }
-        END DO
+        }
 
       }
 

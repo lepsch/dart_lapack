@@ -395,7 +395,7 @@
             Z( 4*K-5 ) = Z( 4*K-5 ) * (TEMPQ / Z( 4*K-7 ))
             TEMPQ = Z( 4*K-3 )
             Z( 4*K-3 ) = Z( 4*K-3 ) + SIGMA + TEMPE - Z( 4*K-5 )
-         END DO
+         }
 
          // Prepare to do this on the previous block if there is one
 
@@ -403,7 +403,7 @@
             N1 = I1-1
             DO WHILE( ( I1.GE.2 ) .AND. ( Z(4*I1-5).GE.ZERO ) )
                I1 = I1 - 1
-            END DO
+            }
             if ( I1.GE.1 ) {
                SIGMA = -Z(4*N1-1)
                GO TO 145
@@ -422,7 +422,7 @@
             } else {
                Z( 2*K ) = 0
             }
-         END DO
+         }
          RETURN
 
          // end IWHILB

@@ -122,7 +122,7 @@
                   SH11 = SH11*GAM
                   SH12 = SH12*GAM
                }
-            ENDDO
+            }
          }
 
          if (SD2.NE.ZERO) {
@@ -145,7 +145,7 @@
                   SH21 = SH21*GAM
                   SH22 = SH22*GAM
                }
-            END DO
+            }
          }
 
       }

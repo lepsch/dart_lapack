@@ -126,14 +126,14 @@
 
                for (J = 2; J <= N; J++) {
                   TMAX = MAX( DLANGE( 'M', J-1, 1, A( 1, J ), 1, WORK ), TMAX )
-               END DO
+               }
             } else {
 
                // A is lower triangular.
 
                for (J = 1; J <= N - 1; J++) {
                   TMAX = MAX( DLANGE( 'M', N-J, 1, A( J+1, J ), 1, WORK ), TMAX )
-               END DO
+               }
             }
 
             if ( TMAX.LE.DLAMCH('Overflow') ) {
@@ -148,14 +148,14 @@
                      if ( UPPER ) {
                         for (I = 1; I <= J - 1; I++) {
                            CNORM( J ) = CNORM( J ) + TSCAL * ABS( A( I, J ) )
-                        END DO
+                        }
                      } else {
                         for (I = J + 1; I <= N; I++) {
                            CNORM( J ) = CNORM( J ) + TSCAL * ABS( A( I, J ) )
-                        END DO
+                        }
                      }
                   }
-               END DO
+               }
             } else {
                // At least one entry of A is not a valid floating-point entry.
                // Rely on TRSV to propagate Inf and NaN.

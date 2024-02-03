@@ -66,8 +66,8 @@
          for (I = 1; I <= M2; I++) {
             for (J = 1; J <= M1; J++) {
                T(  I+M1, J ) = A( I+M1, J )
-            END DO
-         END DO
+            }
+         }
          ctrmm('R', 'U', 'C', 'U', M2, M1, ONE, A, LDA, T( I1, 1 ), LDT );
 
          cgemm('N', 'C', M2, M1, N-M1, ONE, A( I1, I1 ), LDA, A( 1, I1 ), LDA, ONE, T( I1, 1 ), LDT);
@@ -82,8 +82,8 @@
             for (J = 1; J <= M1; J++) {
                A(  I+M1, J ) = A( I+M1, J ) - T( I+M1, J )
                T( I+M1, J )= ZERO
-            END DO
-         END DO
+            }
+         }
 
          // Compute A(J1:M,J1:N) <- (Y2,R2,T2) where Q2 = I - Y2 T2 Y2^H
 
@@ -94,8 +94,8 @@
          for (I = 1; I <= M2; I++) {
             for (J = 1; J <= M1; J++) {
                T( J, I+M1  ) = (A( J, I+M1 ))
-            END DO
-         END DO
+            }
+         }
 
          ctrmm('R', 'U', 'C', 'U', M1, M2, ONE, A( I1, I1 ), LDA, T( 1, I1 ), LDT );
 

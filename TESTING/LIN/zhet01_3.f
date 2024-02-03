@@ -64,7 +64,7 @@
             RESID = ONE / EPS
             RETURN
          }
-      END DO
+      }
 
       // 2) Initialize C to the identity matrix.
 
@@ -84,16 +84,16 @@
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J - 1; I++) {
                C( I, J ) = C( I, J ) - A( I, J )
-            END DO
+            }
             C( J, J ) = C( J, J ) - DBLE( A( J, J ) )
-         END DO
+         }
       } else {
          for (J = 1; J <= N; J++) {
             C( J, J ) = C( J, J ) - DBLE( A( J, J ) )
             for (I = J + 1; I <= N; I++) {
                C( I, J ) = C( I, J ) - A( I, J )
-            END DO
-         END DO
+            }
+         }
       }
 
       // 6) Compute norm( C - A ) / ( N * norm(A) * EPS )

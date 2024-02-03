@@ -30,7 +30,7 @@
 
          for (I = 1; I <= N; I++) {
             ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)))
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -38,7 +38,7 @@
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
             ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)))
-         END DO
+         }
       }
       RETURN
 

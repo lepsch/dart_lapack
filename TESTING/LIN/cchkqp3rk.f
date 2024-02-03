@@ -70,7 +70,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) {
          ISEED( I ) = ISEEDY( I )
-      END DO
+      }
       EPS = SLAMCH( 'Epsilon' )
       INFOT = 0
 
@@ -150,7 +150,7 @@
                   claset('Full', M, N, CZERO, CZERO, COPYA, LDA );
                   for (I = 1; I <= MINMN; I++) {
                      S( I ) = ZERO
-                  END DO
+                  }
 
                } else if ( (IMAT.GE.2 .AND. IMAT.LE.4 ) .OR. (IMAT.GE.14 .AND. IMAT.LE.19 ) ) {
 
@@ -304,7 +304,7 @@
 
                      DO J = 1, JB_ZERO-1, 1
                         cswap(M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 );
-                     END DO
+                     }
 
                   } else if ( IMAT.EQ.12 .OR. IMAT.EQ.13 ) {
 
@@ -321,7 +321,7 @@
                      DO J = 1, NB_GEN, 1
                         IND_OUT = ( NB_ZERO+J-1 )*LDA + 1
                         IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1                         CALL CSWAP( M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 )
-                        END DO
+                        }
 
                   }
 
@@ -336,7 +336,7 @@
 
                   for (I = MINMNB_GEN+1; I <= MINMN; I++) {
                      S( I ) = ZERO
-                  END DO
+                  }
 
                } else {
 
@@ -349,7 +349,7 @@
 
                for (I = 1; I <= N; I++) {
                   IWORK( I ) = 0
-               END DO
+               }
 
                for (INB = 1; INB <= NNB; INB++) {
 
@@ -417,7 +417,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'CGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
                         }
-                     END DO
+                     }
                      NRUN = NRUN + 1
 
                     // End test 1
@@ -448,7 +448,7 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'CGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                         NFAIL = NFAIL + 1
                      }
-                  END DO
+                  }
                   NRUN = NRUN + 2
 
                   // Compute test 4:
@@ -473,7 +473,7 @@
                            RESULT( 4 ) = BIGNUM
                         }
 
-                     END DO
+                     }
 
                      // Print information about the tests that did not
                      // pass the threshold.
@@ -483,7 +483,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'CGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
                         }
-                     END DO
+                     }
                      NRUN = NRUN + 1
 
                      // End test 4.
@@ -511,7 +511,7 @@
                         // Compare N+J-th column of A and J-column of B.
 
                         caxpy(M, -CONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 );
-                     END DO
+                     }
 
                      RESULT( 5 ) = ABS( CLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) ) )
 
@@ -523,7 +523,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'CGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
                         }
-                     END DO
+                     }
                      NRUN = NRUN + 1
 
                      // End compute test 5.
@@ -532,27 +532,27 @@
 
                   // END DO KMAX = 1, MIN(M,N)+1
 
-                  END DO
+                  }
 
                   // END DO for INB = 1, NNB
 
-               END DO
+               }
 
                // END DO  for IMAT = 1, NTYPES
 
-               END DO
+               }
 
                // END DO for INS = 1, NNS
 
-            END DO
+            }
 
             // END DO for IN = 1, NN
 
-         END DO
+         }
 
          // END DO for IM = 1, NM
 
-      END DO
+      }
 
       // Print a summary of the results.
 

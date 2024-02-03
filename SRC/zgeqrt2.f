@@ -67,7 +67,7 @@
             zgerc(M-I+1, N-I, ALPHA, A( I, I ), 1, T( 1, N ), 1, A( I, I+1 ), LDA );
             A( I, I ) = AII
          }
-      END DO
+      }
 
       for (I = 2; I <= N; I++) {
          AII = A( I, I )
@@ -87,7 +87,7 @@
 
             T( I, I ) = T( I, 1 )
             T( I, 1) = ZERO
-      END DO
+      }
 
 
       // End of ZGEQRT2

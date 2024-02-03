@@ -142,7 +142,7 @@
          XNRM = ABS( X( IDAMAX( N, X( 1, I ), 1 ), I ) )
          RNRM = ABS( WORK( IDAMAX( N, WORK( 1, I ), 1 ), I ) )
          IF( RNRM.GT.XNRM*CTE ) GO TO 10
-      END DO
+      }
 
       // If we are here, the NRHS normwise backward errors satisfy the
       // stopping criterion. We are good to exit.
@@ -175,7 +175,7 @@
 
          for (I = 1; I <= NRHS; I++) {
             daxpy(N, ONE, WORK( 1, I ), 1, X( 1, I ), 1 );
-         END DO
+         }
 
          // Compute R = B - AX (R is WORK).
 
@@ -190,7 +190,7 @@
             XNRM = ABS( X( IDAMAX( N, X( 1, I ), 1 ), I ) )
             RNRM = ABS( WORK( IDAMAX( N, WORK( 1, I ), 1 ), I ) )
             IF( RNRM.GT.XNRM*CTE ) GO TO 20
-         END DO
+         }
 
          // If we are here, the NRHS normwise backward errors satisfy the
          // stopping criterion, we are good to exit.

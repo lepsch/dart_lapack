@@ -78,7 +78,7 @@
             SS( I+1 ) = SS( I+2 )
             SS( I+2 ) = SWAP
          }
-      END DO
+      }
 
       // NSHFTS is supposed to be even, but if it is odd,
       // then simply reduce it by one.  The shuffle above
@@ -111,9 +111,9 @@
          for (J = 1; J <= NS-1-I; J++) {
              slaqz2(.TRUE., .TRUE., J, 1, NS, IHI-ILO+1, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, NS+1, 1, QC, LDQC, NS, 1, ZC, LDZC );
 
-         END DO
+         }
 
-      END DO
+      }
 
       // Update the rest of the pencil
 
@@ -165,8 +165,8 @@
                // the (ns+np x ns+np) block:
                // (k:k+ns+np,k:k+ns+np-1)
                slaqz2(.TRUE., .TRUE., K+I+J-1, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NBLOCK, K+1, QC, LDQC, NBLOCK, K, ZC, LDZC );
-            END DO
-         END DO
+            }
+         }
 
          // Update rest of the pencil
 
@@ -199,7 +199,7 @@
 
          K = K+NP
 
-      END DO
+      }
 
       // The following block removes the shifts from the bottom right corner
       // one by one. Updates are initially applied to A(ihi-ns+1:ihi,ihi-ns:ihi).
@@ -216,9 +216,9 @@
          // Chase the shift down to the bottom right corner
          for (ISHIFT = IHI-I-1; ISHIFT <= IHI-2; ISHIFT++) {
             slaqz2(.TRUE., .TRUE., ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );
-         END DO
+         }
 
-      END DO
+      }
 
       // Update rest of the pencil
 

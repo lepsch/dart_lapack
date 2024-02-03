@@ -115,8 +115,8 @@
                            for (J = 1; J <= K; J++) {
                               for (I = 1; I <= N; I++) {
                                  A( I, J) = SLARND( 2, ISEED )
-                              END DO
-                           END DO
+                              }
+                           }
 
                            NORMA = SLANGE( 'I', N, K, A, LDA, S_WORK_SLANGE )
 
@@ -128,8 +128,8 @@
                            for (J = 1; J <= N; J++) {
                               for (I = 1; I <= K; I++) {
                                  A( I, J) = SLARND( 2, ISEED )
-                              END DO
-                           END DO
+                              }
+                           }
 
                            NORMA = SLANGE( 'I', K, N, A, LDA, S_WORK_SLANGE )
 
@@ -144,8 +144,8 @@
                            for (I = 1; I <= N; I++) {
                               C1( I, J) = SLARND( 2, ISEED )
                               C2(I,J) = C1(I,J)
-                           END DO
-                        END DO
+                           }
+                        }
 
                         // (See comment later on for why we use SLANGE and
                         // not SLANSY for C1.)
@@ -175,8 +175,8 @@
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
                               C1(I,J) = C1(I,J)-C2(I,J)
-                           END DO
-                        END DO
+                           }
+                        }
 
                         // Yes, C1 is symmetric so we could call SLANSY,
                         // but we want to check the upper part that is

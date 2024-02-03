@@ -126,7 +126,7 @@
 
       for (J = 1; J <= N; J++) {
          ccopy(J, A( 1, J ), 1, WORK( LWT + N*(J-1)+1 ), 1 );
-      END DO
+      }
 
       // (3) Generate a M-by-N matrix Q with orthonormal columns from
       // the result stored below the diagonal in the array A in place.
@@ -156,11 +156,11 @@
          if ( WORK( LWT+N*N+I ).EQ.-CONE ) {
             for (J = I; J <= N; J++) {
                A( I, J ) = -CONE * WORK( LWT+N*(J-1)+I )
-            END DO
+            }
          } else {
             ccopy(N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA );
          }
-      END DO
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
       RETURN

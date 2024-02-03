@@ -94,7 +94,7 @@
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
-               END DO
+               }
             }
 
          } else if ( IZ.EQ.233 .OR. IZ.EQ.169 ) {
@@ -106,7 +106,7 @@
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
-               END DO
+               }
             }
 
          } else if ( IZ.EQ.218 .OR. IZ.EQ.250 ) {
@@ -118,7 +118,7 @@
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
-               END DO
+               }
             }
          }
 

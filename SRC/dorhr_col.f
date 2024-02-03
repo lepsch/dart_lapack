@@ -102,7 +102,7 @@
          JBTEMP1 = JB - 1
          for (J = JB; J <= JB+JNB-1; J++) {
             dcopy(J-JBTEMP1, A( JB, J ), 1, T( 1, J ), 1 );
-         END DO
+         }
 
          // (2-2) Perform on the upper-triangular part of the current
          // JNB-by-JNB diagonal block U(JB) (of the N-by-N matrix U) stored
@@ -119,7 +119,7 @@
             if ( D( J ).EQ.ONE ) {
                dscal(J-JBTEMP1, -ONE, T( 1, J ), 1 );
             }
-         END DO
+         }
 
          // (2-3) Perform the triangular solve for the current block
          // matrix X(JB):
@@ -161,14 +161,14 @@
          for (J = JB; J <= JB+JNB-2; J++) {
             for (I = J-JBTEMP2; I <= NB; I++) {
                T( I, J ) = ZERO
-            END DO
-         END DO
+            }
+         }
 
          // (2-3b) Perform the triangular solve.
 
          dtrsm('R', 'L', 'T', 'U', JNB, JNB, ONE, A( JB, JB ), LDA, T( 1, JB ), LDT );
 
-      END DO
+      }
 
       RETURN
 

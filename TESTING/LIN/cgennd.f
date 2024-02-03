@@ -32,7 +32,7 @@
             CGENND = .FALSE.
             RETURN
          }
-      END DO
+      }
       CGENND = .TRUE.
       RETURN
       }

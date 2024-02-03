@@ -161,12 +161,12 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1
                      }
-                  END DO
+                  }
                   NRUN = NRUN + NTESTS
                }
-            END DO
-         END DO
-      END DO
+            }
+         }
+      }
 
       // Print a summary of the results.
 

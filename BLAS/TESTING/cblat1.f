@@ -574,7 +574,7 @@
       for (I = 1; I <= KS; I++) {
          random_number(WORK(I));
          WORK(I) = ONE - TWO*WORK(I)
-      END DO
+      }
 
       // Compute the sum of squares of the random values
       // by an unscaled algorithm.
@@ -582,7 +582,7 @@
       WORKSSQ = ZERO
       for (I = 1; I <= KS; I++) {
          WORKSSQ = WORKSSQ + WORK(I)*WORK(I)
-      END DO
+      }
 
       // Construct the test vector with one known value
       // and the rest from the random work array multiplied
@@ -601,7 +601,7 @@
             }
             for (I = 1; I <= N-1; I++) {
                Z(I+1) = CMPLX(V1*WORK(2*I-1),V1*WORK(2*I))
-            END DO
+            }
 
             // Compute the expected value of the 2-norm
 
@@ -633,13 +633,13 @@
 
             for (I = 1; I <= N; I++) {
                X(I) = ROGUE
-            END DO
+            }
             IX = 1
             IF (INCX.LT.0) IX = 1 - (N-1)*INCX
             for (I = 1; I <= N; I++) {
                X(IX) = Z(I)
                IX = IX + INCX
-            END DO
+            }
 
             // Call SCNRM2 to compute the 2-norm
 
@@ -688,8 +688,8 @@
                }
                WRITE (NOUT,98) "SCNRM2", N, INCX, IV, IW, TRAT
             }
-         END DO
-      END DO
+         }
+      }
 99999 FORMAT ('                                       FAIL')
    99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 )
    98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 )

@@ -81,20 +81,20 @@
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
                AB( I, J ) = (0.0E+0,0.0E+0)
-            END DO
-         END DO
+            }
+         }
          for (J = 1; J <= N; J++) {
             DO I = MAX( 1, J-KU ), MIN( N, J+KL )
                AB( KU+1+I-J, J ) = A( I, J )
-            END DO
-         END DO
+            }
+         }
 
          // Copy AB into ABCOPY.
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
                ABCOPY( I, J ) = (0.0E+0,0.0E+0)
-            END DO
-         END DO
+            }
+         }
          clacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);
 
          // Call C**SVXX with default PARAMS and N_ERR_BND = 3.
@@ -131,8 +131,8 @@
          for (I = 1; I <= N; I++) {
             for (J = 1; J <= NRHS; J++) {
                DIFF(I,J) = X(I,J) - INVHILB(I,J)
-            END DO
-         END DO
+            }
+         }
 
          // Calculating the RCOND
          RNORM = 0
@@ -144,10 +144,10 @@
                for (J = 1; J <= N; J++) {
                   SUMR = SUMR + S(I) * CABS1(A(I,J)) * S(J)
                   SUMRI = SUMRI + CABS1(INVHILB(I, J)) / (S(J) * S(I))
-               END DO
+               }
                RNORM = MAX(RNORM,SUMR)
                RINORM = MAX(RINORM,SUMRI)
-            END DO
+            }
          } else if ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) ) {
             for (I = 1; I <= N; I++) {
                SUMR = 0
@@ -155,10 +155,10 @@
                for (J = 1; J <= N; J++) {
                   SUMR = SUMR + R(I) * CABS1(A(I,J)) * C(J)
                   SUMRI = SUMRI + CABS1(INVHILB(I, J)) / (R(J) * C(I))
-               END DO
+               }
                RNORM = MAX(RNORM,SUMR)
                RINORM = MAX(RINORM,SUMRI)
-            END DO
+            }
          }
 
          RNORM = RNORM / CABS1(A(1, 1))
@@ -167,12 +167,12 @@
          // Calculating the R for normwise rcond.
          for (I = 1; I <= N; I++) {
             RINV(I) = 0.0
-         END DO
+         }
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
                RINV(I) = RINV(I) + CABS1(A(I,J))
-            END DO
-         END DO
+            }
+         }
 
          // Calculating the Normwise rcond.
          RINORM = 0.0
@@ -180,9 +180,9 @@
             SUMRI = 0.0
             for (J = 1; J <= N; J++) {
                SUMRI = SUMRI + CABS1(INVHILB(I,J) * RINV(J))
-            END DO
+            }
             RINORM = MAX(RINORM, SUMRI)
-         END DO
+         }
 
          // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
          // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
@@ -203,7 +203,7 @@
                } else if (X(I, K) .NE. 0.0) {
                   CWISE_ERR = SLAMCH('OVERFLOW')
                }
-            END DO
+            }
             if (NORMT .NE. 0.0) {
                NWISE_ERR = NORMDIF / NORMT
             } else if (NORMDIF .NE. 0.0) {
@@ -214,20 +214,20 @@
 
             for (I = 1; I <= N; I++) {
                RINV(I) = 0.0
-            END DO
+            }
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= N; I++) {
                   RINV(I) = RINV(I) + CABS1(A(I, J) * INVHILB(J, K))
-               END DO
-            END DO
+               }
+            }
             RINORM = 0.0
             for (I = 1; I <= N; I++) {
                SUMRI = 0.0
                for (J = 1; J <= N; J++) {
                   SUMRI = SUMRI + CABS1(INVHILB(I, J) * RINV(J) / INVHILB(I, K))
-               END DO
+               }
                RINORM = MAX(RINORM, SUMRI)
-            END DO
+            }
          // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
          // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
             CCOND = CABS1(A(1,1))/RINORM
@@ -321,8 +321,8 @@
                   WRITE( *, 9999) C2, N, K, NGUAR, CGUAR, I, TSTRAT(I)
                   NFAIL = NFAIL + 1
                }
-            END DO
-      END DO
+            }
+      }
 
 c$$$         WRITE(*,*)
 c$$$         WRITE(*,*) 'Normwise Error Bounds'
@@ -338,7 +338,7 @@ c$$$         print *, 'Info: ', info
 c$$$         WRITE(*,*)
           // WRITE(*,*) 'TSTRAT: ',TSTRAT
 
-      END DO
+      }
 
       WRITE(*,*)
       if ( NFAIL .GT. 0 ) {

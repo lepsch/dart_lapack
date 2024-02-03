@@ -59,8 +59,8 @@
       for (J = 1; J <= N; J++) {
          DO I = 1, MIN( J, M )
             WORK( ( J-1 )*M+I ) = A( I, J )
-         END DO
-      END DO
+         }
+      }
 
       // Get machine parameters
 
@@ -104,7 +104,7 @@
 
          for (I = 1; I <= MN; I++) {
             RWORK( I ) = ZERO
-         END DO
+         }
       }
 
       // Compare s and singular values of work

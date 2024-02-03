@@ -138,7 +138,7 @@
                      xlaenv(3, NX );
                      for (I = 1; I <= NTESTS; I++) {
                         RESULT( I ) = ZERO
-                     END DO
+                     }
                      NT = 2
                      if ( IK.EQ.1 ) {
 

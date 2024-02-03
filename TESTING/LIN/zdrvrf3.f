@@ -144,8 +144,8 @@
                               for (J = 1; J <= NA; J++) {
                                  for (I = 1; I <= NA; I++) {
                                     A( I, J ) = ZLARND( 4, ISEED )
-                                 END DO
-                              END DO
+                                 }
+                              }
 
                               if ( IUPLO.EQ.1 ) {
 
@@ -163,8 +163,8 @@
                                     for (J = 1; J <= NA; J++) {
                                        for (I = 1; I <= J; I++) {
                                           A( I, J ) = A( I, J ) / ( 2.0 * A( J, J ) )
-                                       END DO
-                                    END DO
+                                       }
+                                    }
                                  }
 
                               } else {
@@ -183,8 +183,8 @@
                                     for (I = 1; I <= NA; I++) {
                                        for (J = 1; J <= I; J++) {
                                           A( I, J ) = A( I, J ) / ( 2.0 * A( I, I ) )
-                                       END DO
-                                    END DO
+                                       }
+                                    }
                                  }
 
                               }
@@ -196,7 +196,7 @@
 
                               for (J = 1; J <= NA; J++) {
                                  A( J, J ) = A( J, J ) * ZLARND( 5, ISEED )
-                              END DO
+                              }
 
                               // Store a copy of A in RFP format (in ARF).
 
@@ -210,8 +210,8 @@
                                  for (I = 1; I <= M; I++) {
                                     B1( I, J ) = ZLARND( 4, ISEED )
                                     B2( I, J ) = B1( I, J )
-                                 END DO
-                              END DO
+                                 }
+                              }
 
                               // Solve op( A ) X = B or X op( A ) = B
                               // with ZTRSM
@@ -230,8 +230,8 @@
                               for (J = 1; J <= N; J++) {
                                  for (I = 1; I <= M; I++) {
                                     B1( I, J ) = B2( I, J ) - B1( I, J )
-                                 END DO
-                              END DO
+                                 }
+                              }
 
                               RESULT( 1 ) = ZLANGE( 'I', M, N, B1, LDA, D_WORK_ZLANGE )
 

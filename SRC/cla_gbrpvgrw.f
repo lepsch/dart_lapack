@@ -37,14 +37,14 @@
          UMAX = 0.0
          DO I = MAX( J-KU, 1 ), MIN( J+KL, N )
             AMAX = MAX( CABS1( AB( KD+I-J, J ) ), AMAX )
-         END DO
+         }
          DO I = MAX( J-KU, 1 ), J
             UMAX = MAX( CABS1( AFB( KD+I-J, J ) ), UMAX )
-         END DO
+         }
          if ( UMAX /= 0.0 ) {
             RPVGRW = MIN( AMAX / UMAX, RPVGRW )
          }
-      END DO
+      }
       CLA_GBRPVGRW = RPVGRW
 
       // End of CLA_GBRPVGRW

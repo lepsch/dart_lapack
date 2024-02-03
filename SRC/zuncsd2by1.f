@@ -252,7 +252,7 @@
             for (J = 2; J <= Q; J++) {
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
-            END DO
+            }
             zlacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T )             CALL ZUNGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
@@ -266,10 +266,10 @@
          if ( Q .GT. 0 .AND. WANTU2 ) {
             for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
-            END DO
+            }
             for (I = Q + 1; I <= M - P; I++) {
                IWORK(I) = I - Q
-            END DO
+            }
             zlapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
          }
       } else if ( R .EQ. P ) {
@@ -287,7 +287,7 @@
             for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
                U1(J,1) = ZERO
-            END DO
+            }
             zlacpy('L', P-1, P-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             zungqr(P-1, P-1, P-1, U1(2,2), LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
@@ -310,10 +310,10 @@
          if ( Q .GT. 0 .AND. WANTU2 ) {
             for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
-            END DO
+            }
             for (I = Q + 1; I <= M - P; I++) {
                IWORK(I) = I - Q
-            END DO
+            }
             zlapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
          }
       } else if ( R .EQ. M-P ) {
@@ -335,7 +335,7 @@
             for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
                U2(J,1) = ZERO
-            END DO
+            }
             zlacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL ZUNGQR( M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
@@ -353,10 +353,10 @@
          if ( Q .GT. R ) {
             for (I = 1; I <= R; I++) {
                IWORK(I) = Q - R + I
-            END DO
+            }
             for (I = R + 1; I <= Q; I++) {
                IWORK(I) = I - R
-            END DO
+            }
             if ( WANTU1 ) {
                zlapmt(.FALSE., P, Q, U1, LDU1, IWORK );
             }
@@ -381,13 +381,13 @@
             zcopy(P, WORK(IORBDB), 1, U1, 1 );
             for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
-            END DO
+            }
             zlacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 )             CALL ZUNGQR( P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
             for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
-            END DO
+            }
             zlacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL ZUNGQR( M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
@@ -405,10 +405,10 @@
          if ( P .GT. R ) {
             for (I = 1; I <= R; I++) {
                IWORK(I) = P - R + I
-            END DO
+            }
             for (I = R + 1; I <= P; I++) {
                IWORK(I) = I - R
-            END DO
+            }
             if ( WANTU1 ) {
                zlapmt(.FALSE., P, P, U1, LDU1, IWORK );
             }

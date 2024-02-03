@@ -32,7 +32,7 @@
             ZGENND = .FALSE.
             RETURN
          }
-      END DO
+      }
       ZGENND = .TRUE.
       RETURN
       }

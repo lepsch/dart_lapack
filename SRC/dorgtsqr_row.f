@@ -139,9 +139,9 @@
 
                dlarfb_gett('I', IMB, N-KB+1, KNB, T( 1, JB_T+KB-1 ), LDT, A( KB, KB ), LDA, A( IB, KB ), LDA, WORK, KNB );
 
-            END DO
+            }
 
-         END DO
+         }
 
       }
 
@@ -175,7 +175,7 @@
 
          }
 
-      END DO
+      }
 
       WORK( 1 ) = DBLE( LWORKOPT )
       RETURN

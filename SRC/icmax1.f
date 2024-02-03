@@ -36,7 +36,7 @@
                ICMAX1 = I
                SMAX = ABS(CX(I))
             }
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -50,7 +50,7 @@
                SMAX = ABS(CX(IX))
             }
             IX = IX + INCX
-         END DO
+         }
       }
       RETURN
 

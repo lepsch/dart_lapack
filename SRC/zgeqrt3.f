@@ -64,8 +64,8 @@
          for (J = 1; J <= N2; J++) {
             for (I = 1; I <= N1; I++) {
                T( I, J+N1 ) = A( I, J+N1 )
-            END DO
-         END DO
+            }
+         }
          ztrmm('L', 'L', 'C', 'U', N1, N2, ONE, A, LDA, T( 1, J1 ), LDT );
 
          zgemm('C', 'N', N1, N2, M-N1, ONE, A( J1, 1 ), LDA, A( J1, J1 ), LDA, ONE, T( 1, J1 ), LDT);
@@ -79,8 +79,8 @@
          for (J = 1; J <= N2; J++) {
             for (I = 1; I <= N1; I++) {
                A( I, J+N1 ) = A( I, J+N1 ) - T( I, J+N1 )
-            END DO
-         END DO
+            }
+         }
 
          // Compute A(J1:M,J1:N) <- (Y2,R2,T2) where Q2 = I - Y2 T2 Y2^H
 
@@ -91,8 +91,8 @@
          for (I = 1; I <= N1; I++) {
             for (J = 1; J <= N2; J++) {
                T( I, J+N1 ) = CONJG(A( J+N1, I ))
-            END DO
-         END DO
+            }
+         }
 
          ztrmm('R', 'L', 'N', 'U', N1, N2, ONE, A( J1, J1 ), LDA, T( 1, J1 ), LDT );
 

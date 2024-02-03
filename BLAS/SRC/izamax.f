@@ -35,7 +35,7 @@
                IZAMAX = I
                DMAX = DCABS1(ZX(I))
             }
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -49,7 +49,7 @@
                DMAX = DCABS1(ZX(IX))
             }
             IX = IX + INCX
-         END DO
+         }
       }
       RETURN
 

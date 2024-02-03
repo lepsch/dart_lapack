@@ -159,7 +159,7 @@
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = 1.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 1.0D+0
             }
-         END DO
+         }
          RETURN
       }
 
@@ -180,7 +180,7 @@
             ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = 0.0D+0
             ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 0.0D+0
          }
-      END DO
+      }
 
       // Compute the norm of A and the reciprocal of the condition
       // number of A.
@@ -241,7 +241,7 @@
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP
             }
 
-         END DO
+         }
       }
 
       if (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 2) {
@@ -281,7 +281,7 @@
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP
             }
 
-         END DO
+         }
       }
 
       RETURN

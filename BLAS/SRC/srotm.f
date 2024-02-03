@@ -36,7 +36,7 @@
                Z = SY(I)
                SX(I) = W*SH11 + Z*SH12
                SY(I) = W*SH21 + Z*SH22
-            END DO
+            }
          } else if (SFLAG.EQ.ZERO) {
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
@@ -45,7 +45,7 @@
                Z = SY(I)
                SX(I) = W + Z*SH12
                SY(I) = W*SH21 + Z
-            END DO
+            }
          } else {
             SH11 = SPARAM(2)
             SH22 = SPARAM(5)
@@ -54,7 +54,7 @@
                Z = SY(I)
                SX(I) = W*SH11 + Z
                SY(I) = -W + SH22*Z
-            END DO
+            }
          }
       } else {
          KX = 1
@@ -74,7 +74,7 @@
                SY(KY) = W*SH21 + Z*SH22
                KX = KX + INCX
                KY = KY + INCY
-            END DO
+            }
          } else if (SFLAG.EQ.ZERO) {
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
@@ -85,7 +85,7 @@
                SY(KY) = W*SH21 + Z
                KX = KX + INCX
                KY = KY + INCY
-            END DO
+            }
          } else {
              SH11 = SPARAM(2)
              SH22 = SPARAM(5)
@@ -96,7 +96,7 @@
                 SY(KY) = -W + SH22*Z
                 KX = KX + INCX
                 KY = KY + INCY
-            END DO
+            }
          }
       }
       RETURN

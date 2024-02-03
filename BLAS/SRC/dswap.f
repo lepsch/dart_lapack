@@ -34,7 +34,7 @@
                DTEMP = DX(I)
                DX(I) = DY(I)
                DY(I) = DTEMP
-            END DO
+            }
             IF (N.LT.3) RETURN
          }
          MP1 = M + 1
@@ -48,7 +48,7 @@
             DTEMP = DX(I+2)
             DX(I+2) = DY(I+2)
             DY(I+2) = DTEMP
-         END DO
+         }
       } else {
 
         // code for unequal increments or equal increments not equal
@@ -64,7 +64,7 @@
             DY(IY) = DTEMP
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

@@ -103,7 +103,7 @@
 
       for (J = 1; J <= KB; J++) {
          IPIV( J ) = J
-      END DO
+      }
 
       // Save NB
 
@@ -138,7 +138,7 @@
                   }
                   zgemm('NoTranspose', 'NoTranspose', NB, KB, JB, CONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N );
                }
-            END DO
+            }
 
             // Compute T(J,J)
 
@@ -155,8 +155,8 @@
             for (I = 1; I <= KB; I++) {
                for (K = I+1; K <= KB; K++) {
                   TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) = TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB )
-               END DO
-            END DO
+               }
+            }
             if ( J.GT.0 ) {
                 // CALL CHEGST( 1, 'Upper', KB,
       // $                      TB( TD+1 + (J*NB)*LDTB ), LDTB-1,
@@ -184,7 +184,7 @@
 
                for (K = 1; K <= NB; K++) {
                    zcopy(N-(J+1)*NB, A( J*NB+K, (J+1)*NB+1 ), LDA, WORK( 1+(K-1)*N ), 1 );
-               END DO
+               }
 
                // Factorize panel
 
@@ -197,7 +197,7 @@
 
                for (K = 1; K <= NB; K++) {
                    zcopy(N-(J+1)*NB, WORK( 1+(K-1)*N ), 1, A( J*NB+K, (J+1)*NB+1 ), LDA );
-               END DO
+               }
 
                // Compute T(J+1, J), zero out for GEMM update
 
@@ -213,8 +213,8 @@
                for (K = 1; K <= NB; K++) {
                   for (I = 1; I <= KB; I++) {
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
-                  END DO
-               END DO
+                  }
+               }
                zlaset('Lower', KB, NB, CZERO, CONE,  A( J*NB+1, (J+1)*NB+1), LDA );
 
                // Apply pivots to trailing submatrix of A
@@ -241,9 +241,9 @@
                         zswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                      }
                   }
-               END DO
+               }
             }
-         END DO
+         }
       } else {
 
          // .....................................................
@@ -273,7 +273,7 @@
                   }
                   zgemm('NoTranspose', 'Transpose', NB, KB, JB, CONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N );
                }
-            END DO
+            }
 
             // Compute T(J,J)
 
@@ -290,8 +290,8 @@
             for (I = 1; I <= KB; I++) {
                for (K = I+1; K <= KB; K++) {
                   TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB )
-               END DO
-            END DO
+               }
+            }
             if ( J.GT.0 ) {
                 // CALL CHEGST( 1, 'Lower', KB,
       // $                      TB( TD+1 + (J*NB)*LDTB ), LDTB-1,
@@ -304,8 +304,8 @@
             for (I = 1; I <= KB; I++) {
                for (K = I+1; K <= KB; K++) {
                   TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB )
-               END DO
-            END DO
+               }
+            }
 
             if ( J.LT.NT-1 ) {
                if ( J.GT.0 ) {
@@ -344,8 +344,8 @@
                for (K = 1; K <= NB; K++) {
                   for (I = 1; I <= KB; I++) {
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
-                  END DO
-               END DO
+                  }
+               }
                zlaset('Upper', KB, NB, CZERO, CONE,  A( (J+1)*NB+1, J*NB+1 ), LDA );
 
                // Apply pivots to trailing submatrix of A
@@ -372,14 +372,14 @@
                         zswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                      }
                   }
-               END DO
+               }
 
                // Apply pivots to previous columns of L
 
                 // CALL ZLASWP( J*NB, A( 1, 1 ), LDA,
       // $                     (J+1)*NB+1, (J+1)*NB+KB, IPIV, 1 )
             }
-         END DO
+         }
       }
 
       // Factor the band matrix

@@ -70,25 +70,25 @@
             TMP = 0.0D+0
             for (J = 1; J <= I; J++) {
                TMP = TMP + CABS1( A( J, I ) * X( J ) )
-            END DO
+            }
             for (J = I+1; J <= N; J++) {
                TMP = TMP + CABS1( A( I, J ) * X( J ) )
-            END DO
+            }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
-         END DO
+         }
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             for (J = 1; J <= I; J++) {
                TMP = TMP + CABS1( A( I, J ) * X( J ) )
-            END DO
+            }
             for (J = I+1; J <= N; J++) {
                TMP = TMP + CABS1( A( J, I ) * X( J ) )
-            END DO
+            }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
-         END DO
+         }
       }
 
       // Quick return if possible.
@@ -114,7 +114,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
-            END DO
+            }
 
             if ( UP ) {
                zpotrs('U', N, 1, AF, LDAF, WORK, N, INFO );
@@ -126,14 +126,14 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
-            END DO
+            }
          } else {
 
             // Multiply by inv(X**H).
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
-            END DO
+            }
 
             if ( UP ) {
                zpotrs('U', N, 1, AF, LDAF, WORK, N, INFO );
@@ -145,7 +145,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
-            END DO
+            }
          }
          GO TO 10
       }

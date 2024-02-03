@@ -94,9 +94,9 @@
          for (J = 1; J <= NS-I; J++) {
              zlaqz1(.TRUE., .TRUE., J, 1, NS, IHI-ILO+1, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, NS+1, 1, QC, LDQC, NS, 1, ZC, LDZC );
 
-         END DO
+         }
 
-      END DO
+      }
 
       // Update the rest of the pencil
 
@@ -149,8 +149,8 @@
                // the (ns+np x ns+np) block:
                // (k:k+ns+np,k:k+ns+np-1)
                zlaqz1(.TRUE., .TRUE., K+I+J, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NBLOCK, K+1, QC, LDQC, NBLOCK, K, ZC, LDZC );
-            END DO
-         END DO
+            }
+         }
 
          // Update rest of the pencil
 
@@ -183,7 +183,7 @@
 
          K = K+NP
 
-      END DO
+      }
 
       // The following block removes the shifts from the bottom right corner
       // one by one. Updates are initially applied to A(ihi-ns+1:ihi,ihi-ns:ihi).
@@ -200,9 +200,9 @@
          // Chase the shift down to the bottom right corner
          for (ISHIFT = IHI-I; ISHIFT <= IHI-1; ISHIFT++) {
             zlaqz1(.TRUE., .TRUE., ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );
-         END DO
+         }
 
-      END DO
+      }
 
       // Update rest of the pencil
 

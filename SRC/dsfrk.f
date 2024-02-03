@@ -77,7 +77,7 @@
       if ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ZERO ) ) {
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
             C( J ) = ZERO
-         END DO
+         }
          RETURN
       }
 

@@ -71,7 +71,7 @@
          IF ( Y_PREC_STATE .EQ. EXTRA_Y ) then
             for (I = 1; I <= N; I++) {
                Y_TAIL( I ) = 0.0
-            END DO
+            }
          }
 
          DXRAT = 0.0E+0
@@ -136,7 +136,7 @@
                   NORMX = NORMY
                   NORMDX = MAX( NORMDX, DYK )
                }
-            END DO
+            }
 
             if ( NORMX .NE. 0.0 ) {
                DX_X = NORMDX / NORMX
@@ -202,7 +202,7 @@
                Y_PREC_STATE = Y_PREC_STATE + 1
                for (I = 1; I <= N; I++) {
                   Y_TAIL( I ) = 0.0
-               END DO
+               }
             }
 
             PREVNORMDX = NORMDX
@@ -216,7 +216,7 @@
                cla_wwaddw(N, Y(1,J), Y_TAIL, DY );
             }
 
-         END DO
+         }
          // Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
          } // 666
 
@@ -247,7 +247,7 @@
 
          for (I = 1; I <= N; I++) {
             AYB( I ) = CABS1( B( I, J ) )
-         END DO
+         }
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
 
@@ -257,7 +257,7 @@
 
       // End of loop for each RHS.
 
-      END DO
+      }
 
       RETURN
 

@@ -67,54 +67,54 @@
             if ( CMODE .EQ. 1 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( J, I ) * C( J ) )
-               END DO
+               }
                for (J = I+1; J <= N; J++) {
                   TMP = TMP + ABS( A( I, J ) * C( J ) )
-               END DO
+               }
             } else if ( CMODE .EQ. 0 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( J, I ) )
-               END DO
+               }
                for (J = I+1; J <= N; J++) {
                   TMP = TMP + ABS( A( I, J ) )
-               END DO
+               }
             } else {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( J, I ) / C( J ) )
-               END DO
+               }
                for (J = I+1; J <= N; J++) {
                   TMP = TMP + ABS( A( I, J ) / C( J ) )
-               END DO
+               }
             }
             WORK( 2*N+I ) = TMP
-         END DO
+         }
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0
             if ( CMODE .EQ. 1 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( I, J ) * C( J ) )
-               END DO
+               }
                for (J = I+1; J <= N; J++) {
                   TMP = TMP + ABS( A( J, I ) * C( J ) )
-               END DO
+               }
             } else if ( CMODE .EQ. 0 ) {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( I, J ) )
-               END DO
+               }
                for (J = I+1; J <= N; J++) {
                   TMP = TMP + ABS( A( J, I ) )
-               END DO
+               }
             } else {
                for (J = 1; J <= I; J++) {
                   TMP = TMP + ABS( A( I, J) / C( J ) )
-               END DO
+               }
                for (J = I+1; J <= N; J++) {
                   TMP = TMP + ABS( A( J, I) / C( J ) )
-               END DO
+               }
             }
             WORK( 2*N+I ) = TMP
-         END DO
+         }
       }
 
       // Estimate the norm of inv(op(A)).
@@ -133,7 +133,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
-            END DO
+            }
 
             if ( UP ) {
                ssytrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
@@ -146,11 +146,11 @@
             if ( CMODE .EQ. 1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
-               END DO
+               }
             } else if ( CMODE .EQ. -1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
-               END DO
+               }
             }
          } else {
 
@@ -159,11 +159,11 @@
             if ( CMODE .EQ. 1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
-               END DO
+               }
             } else if ( CMODE .EQ. -1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
-               END DO
+               }
             }
 
             if ( UP ) {
@@ -176,7 +176,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
-            END DO
+            }
          }
 
          GO TO 10

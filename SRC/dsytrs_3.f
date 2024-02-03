@@ -78,7 +78,7 @@
             if ( KP.NE.K ) {
                dswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
-         END DO
+         }
 
          // Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
@@ -100,11 +100,11 @@
                   BK = B( I, J ) / AKM1K
                   B( I-1, J ) = ( AK*BKM1-BK ) / DENOM
                   B( I, J ) = ( AKM1*BK-BKM1 ) / DENOM
-               END DO
+               }
                I = I - 1
             }
             I = I - 1
-         END DO
+         }
 
          // Compute (U**T \ B) -> B   [ U**T \ (D \ (U \P**T * B) ) ]
 
@@ -124,7 +124,7 @@
             if ( KP.NE.K ) {
                dswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
-         END DO
+         }
 
       } else {
 
@@ -145,7 +145,7 @@
             if ( KP.NE.K ) {
                dswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
-         END DO
+         }
 
          // Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
@@ -167,11 +167,11 @@
                   BK = B( I+1, J ) / AKM1K
                   B( I, J ) = ( AK*BKM1-BK ) / DENOM
                   B( I+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
-               END DO
+               }
                I = I + 1
             }
             I = I + 1
-         END DO
+         }
 
          // Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
 
@@ -191,7 +191,7 @@
             if ( KP.NE.K ) {
                dswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
-         END DO
+         }
 
          // END Lower
 

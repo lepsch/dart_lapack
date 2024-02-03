@@ -109,7 +109,7 @@
        SKIP = .FALSE.
        for (I = 1; I <= NBA; I++) {
           IWORK( I ) = ( I - 1 ) * NB + 1
-       END DO
+       }
        IWORK( NBA + 1 ) = M + 1
        for (K = 1; K <= NBA; K++) {
           L1 = IWORK( K )
@@ -131,8 +131,8 @@
                 }
                 SKIP = .TRUE.
              }
-          END DO
-       END DO
+          }
+       }
        IWORK( NBA + 1 ) = M + 1
        if ( IWORK( NBA ).GE.IWORK( NBA + 1 ) ) {
           IWORK( NBA ) = IWORK( NBA + 1 )
@@ -145,7 +145,7 @@
        SKIP = .FALSE.
        for (I = 1; I <= NBB; I++) {
           IWORK( PC + I ) = ( I - 1 ) * NB + 1
-       END DO
+       }
        IWORK( PC + NBB + 1 ) = N + 1
        for (K = 1; K <= NBB; K++) {
           L1 = IWORK( PC + K )
@@ -167,8 +167,8 @@
                 }
                 SKIP = .TRUE.
              }
-          END DO
-       END DO
+          }
+       }
        IWORK( PC + NBB + 1 ) = N + 1
        if ( IWORK( PC + NBB ).GE.IWORK( PC + NBB + 1 ) ) {
           IWORK( PC + NBB ) = IWORK( PC + NBB + 1 )
@@ -180,8 +180,8 @@
       for (L = 1; L <= NBB; L++) {
          for (K = 1; K <= NBA; K++) {
             SWORK( K, L ) = ONE
-         END DO
-      END DO
+         }
+      }
 
       // Fallback scaling factor to prevent flushing of SWORK( K, L ) to zero.
       // This scaling is to ensure compatibility with TRSYL and may get flushed.
@@ -202,8 +202,8 @@
             } else {
                SWORK( L, AWRK + K ) = DLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM )
             }
-         END DO
-      END DO
+         }
+      }
       BWRK = NBB + NBA
       for (K = 1; K <= NBB; K++) {
          K1 = IWORK( PC + K )
@@ -216,8 +216,8 @@
             } else {
                SWORK( L, BWRK + K ) = DLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM )
             }
-         END DO
-      END DO
+         }
+      }
 
       SGN = DBLE( ISGN )
 
@@ -274,8 +274,8 @@
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                     END DO
-                  END DO
+                     }
+                  }
                }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
@@ -302,8 +302,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
                   }
@@ -317,14 +317,14 @@
                   if (SCAL .NE. ONE) {
                       for (JJ = L1; JJ <= L2-1; JJ++) {
                          dscal(K2-K1, SCAL, C( K1, JJ ), 1);
-                      END DO
+                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                       for (LL = L1; LL <= L2-1; LL++) {
                          dscal(I2-I1, SCAL, C( I1, LL ), 1);
-                      END DO
+                      }
                   }
 
                   // Record current scaling factor
@@ -334,7 +334,7 @@
 
                   dgemm('N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
 
-               END DO
+               }
 
                for (J = L + 1; J <= NBB; J++) {
 
@@ -358,8 +358,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
                   }
@@ -373,14 +373,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         dscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       for (JJ = J1; JJ <= J2-1; JJ++) {
                          dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                      END DO
+                      }
                   }
 
                   // Record current scaling factor
@@ -389,9 +389,9 @@
                   SWORK( K, J ) = SCAMIN * SCALOC
 
                   dgemm('N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC );
-               END DO
-            END DO
-         END DO
+               }
+            }
+         }
       } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
 
          // Solve    A**T*X + ISGN*X*B = scale*C.
@@ -445,8 +445,8 @@
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                     END DO
-                  END DO
+                     }
+                  }
                }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
@@ -473,8 +473,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
                   }
@@ -488,14 +488,14 @@
                   if (SCAL .NE. ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         dscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         dscal(I2-I1, SCAL, C( I1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -504,7 +504,7 @@
                   SWORK( I, L ) = SCAMIN * SCALOC
 
                   dgemm('T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
-               END DO
+               }
 
                for (J = L + 1; J <= NBB; J++) {
 
@@ -528,8 +528,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
                   }
@@ -543,14 +543,14 @@
                   if ( SCAL .NE. ONE ) {
                       for (LL = L1; LL <= L2-1; LL++) {
                          dscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                      END DO
+                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -559,9 +559,9 @@
                   SWORK( K, J ) = SCAMIN * SCALOC
 
                   dgemm('N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC );
-               END DO
-            END DO
-         END DO
+               }
+            }
+         }
       } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
 
          // Solve    A**T*X + ISGN*X*B**T = scale*C.
@@ -616,8 +616,8 @@
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                     END DO
-                  END DO
+                     }
+                  }
                }
                XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 
@@ -643,8 +643,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
                   }
@@ -658,14 +658,14 @@
                   if (SCAL .NE. ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         dscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         dscal(I2-I1, SCAL, C( I1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -674,7 +674,7 @@
                   SWORK( I, L ) = SCAMIN * SCALOC
 
                   dgemm('T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
-               END DO
+               }
 
                for (J = 1; J <= L - 1; J++) {
 
@@ -698,8 +698,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
                   }
@@ -713,14 +713,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         dscal(K2-K1, SCAL, C( K1, LL ), 1);
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -729,9 +729,9 @@
                   SWORK( K, J ) = SCAMIN * SCALOC
 
                   dgemm('N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC );
-               END DO
-            END DO
-         END DO
+               }
+            }
+         }
       } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**T = scale*C.
@@ -785,8 +785,8 @@
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                     END DO
-                  END DO
+                     }
+                  }
                }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
@@ -813,8 +813,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
                   }
@@ -828,14 +828,14 @@
                   if (SCAL .NE. ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         dscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         dscal(I2-I1, SCAL, C( I1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -845,7 +845,7 @@
 
                   dgemm('N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
 
-               END DO
+               }
 
                for (J = 1; J <= L - 1; J++) {
 
@@ -869,8 +869,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.D0**EXPONENT( SCALOC )
                   }
@@ -884,14 +884,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (JJ = L1; JJ <= L2-1; JJ++) {
                         dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -900,9 +900,9 @@
                   SWORK( K, J ) = SCAMIN * SCALOC
 
                   dgemm('N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC );
-               END DO
-            END DO
-         END DO
+               }
+            }
+         }
 
       }
 
@@ -912,8 +912,8 @@
       for (K = 1; K <= NBA; K++) {
          for (L = 1; L <= NBB; L++) {
             SCALE = MIN( SCALE, SWORK( K, L ) )
-         END DO
-      END DO
+         }
+      }
 
       if ( SCALE .EQ. ZERO ) {
 
@@ -940,10 +940,10 @@
             if ( SCAL .NE. ONE ) {
                for (LL = L1; LL <= L2-1; LL++) {
                   dscal(K2-K1, SCAL, C( K1, LL ), 1 );
-               END DO
+               }
             }
-         END DO
-      END DO
+         }
+      }
 
       if ( BUF .NE. ONE .AND. BUF.GT.ZERO ) {
 
@@ -968,8 +968,8 @@
          for (K = 1; K <= M; K++) {
             for (L = 1; L <= N; L++) {
                SCAL = MAX( SCAL, ABS( C( K, L ) ) )
-            END DO
-         END DO
+            }
+         }
 
          // Increase BUF as close to 1 as possible and apply scaling.
 

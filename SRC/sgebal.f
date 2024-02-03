@@ -65,7 +65,7 @@
       if ( LSAME( JOB, 'N' ) ) {
          for (I = 1; I <= N; I++) {
             SCALE( I ) = ONE
-         END DO
+         }
          ILO = 1
          IHI = N
          RETURN
@@ -93,7 +93,7 @@
                      CANSWAP = .FALSE.
                      EXIT
                   }
-               END DO
+               }
 
                if ( CANSWAP ) {
                   SCALE( L ) = I
@@ -111,9 +111,9 @@
 
                   L = L - 1
                }
-            END DO
+            }
 
-         END DO
+         }
 
          NOCONV = .TRUE.
          DO WHILE( NOCONV )
@@ -128,7 +128,7 @@
                      CANSWAP = .FALSE.
                      EXIT
                   }
-               END DO
+               }
 
                if ( CANSWAP ) {
                   SCALE( K ) = J
@@ -140,9 +140,9 @@
 
                   K = K + 1
                }
-            END DO
+            }
 
-         END DO
+         }
 
       }
 
@@ -150,7 +150,7 @@
 
       for (I = K; I <= L; I++) {
          SCALE( I ) = ONE
-      END DO
+      }
 
       // If we only had to permute, we are done.
 
@@ -205,7 +205,7 @@
                R = R / SCLFAC
                G = G / SCLFAC
                RA = RA / SCLFAC
-            END DO
+            }
 
             G = C / SCLFAC
 
@@ -216,7 +216,7 @@
                CA = CA / SCLFAC
                R = R*SCLFAC
                RA = RA*SCLFAC
-            END DO
+            }
 
             // Now balance.
 
@@ -234,9 +234,9 @@
             sscal(N-K+1, G, A( I, K ), LDA );
             sscal(L, F, A( 1, I ), 1 );
 
-         END DO
+         }
 
-      END DO
+      }
 
       ILO = K
       IHI = L

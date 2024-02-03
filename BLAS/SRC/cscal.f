@@ -28,7 +28,7 @@
 
          for (I = 1; I <= N; I++) {
             CX(I) = CA*CX(I)
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -36,7 +36,7 @@
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
             CX(I) = CA*CX(I)
-         END DO
+         }
       }
       RETURN
 

@@ -83,7 +83,7 @@
             for (K = 1; K <= N; K++) {
                KP = IPIV( K )
                IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            END DO
+            }
 
             // Compute U**H \ B -> B    [ (U**H \P**T * B) ]
 
@@ -115,7 +115,7 @@
             DO K = N, 1, -1
                KP = IPIV( K )
                IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            END DO
+            }
          }
 
       } else {
@@ -131,7 +131,7 @@
             for (K = 1; K <= N; K++) {
                KP = IPIV( K )
                IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            END DO
+            }
 
             // Compute L \ B -> B    [ (L \P**T * B) ]
 
@@ -163,7 +163,7 @@
             DO K = N, 1, -1
                KP = IPIV( K )
                IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            END DO
+            }
          }
 
       }

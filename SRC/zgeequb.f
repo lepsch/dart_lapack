@@ -90,7 +90,7 @@
          if ( R( I ).GT.ZERO ) {
             R( I ) = RADIX**INT( LOG(R( I ) ) / LOGRDX )
          }
-      END DO
+      }
 
       // Find the maximum and minimum scale factors.
 

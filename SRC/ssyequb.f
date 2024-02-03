@@ -66,7 +66,7 @@
 
       for (I = 1; I <= N; I++) {
          S( I ) = ZERO
-      END DO
+      }
 
       AMAX = ZERO
       if ( UP ) {
@@ -75,10 +75,10 @@
                S( I ) = MAX( S( I ), ABS( A( I, J ) ) )
                S( J ) = MAX( S( J ), ABS( A( I, J ) ) )
                AMAX = MAX( AMAX, ABS( A( I, J ) ) )
-            END DO
+            }
             S( J ) = MAX( S( J ), ABS( A( J, J ) ) )
             AMAX = MAX( AMAX, ABS( A( J, J ) ) )
-         END DO
+         }
       } else {
          for (J = 1; J <= N; J++) {
             S( J ) = MAX( S( J ), ABS( A( J, J ) ) )
@@ -87,12 +87,12 @@
                S( I ) = MAX( S( I ), ABS( A( I, J ) ) )
                S( J ) = MAX( S( J ), ABS( A( I, J ) ) )
                AMAX = MAX( AMAX, ABS( A( I, J ) ) )
-            END DO
-         END DO
+            }
+         }
       }
       for (J = 1; J <= N; J++) {
          S( J ) = 1.0E0 / S( J )
-      END DO
+      }
 
       TOL = ONE / SQRT( 2.0E0 * N )
 
@@ -102,36 +102,36 @@
          // beta = |A|s
          for (I = 1; I <= N; I++) {
             WORK( I ) = ZERO
-         END DO
+         }
          if ( UP ) {
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= J-1; I++) {
                   WORK( I ) = WORK( I ) + ABS( A( I, J ) ) * S( J )
                   WORK( J ) = WORK( J ) + ABS( A( I, J ) ) * S( I )
-               END DO
+               }
                WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J )
-            END DO
+            }
          } else {
             for (J = 1; J <= N; J++) {
                WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J )
                for (I = J+1; I <= N; I++) {
                   WORK( I ) = WORK( I ) + ABS( A( I, J ) ) * S( J )
                   WORK( J ) = WORK( J ) + ABS( A( I, J ) ) * S( I )
-               END DO
-            END DO
+               }
+            }
          }
 
          // avg = s^T beta / n
          AVG = 0.0E0
          for (I = 1; I <= N; I++) {
             AVG = AVG + S( I )*WORK( I )
-         END DO
+         }
          AVG = AVG / N
 
          STD = 0.0E0
          for (I = N+1; I <= 2*N; I++) {
             WORK( I ) = S( I-N ) * WORK( I-N ) - AVG
-         END DO
+         }
          slassq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
          STD = SCALE * SQRT( SUMSQ / N )
 
@@ -158,29 +158,29 @@
                   T = ABS( A( J, I ) )
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
-               END DO
+               }
                for (J = I+1; J <= N; J++) {
                   T = ABS( A( I, J ) )
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
-               END DO
+               }
             } else {
                for (J = 1; J <= I; J++) {
                   T = ABS( A( I, J ) )
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
-               END DO
+               }
                for (J = I+1; J <= N; J++) {
                   T = ABS( A( J, I ) )
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
-               END DO
+               }
             }
 
             AVG = AVG + ( U + WORK( I ) ) * D / N
             S( I ) = SI
-         END DO
-      END DO
+         }
+      }
 
       } // 999
 
@@ -195,7 +195,7 @@
          S( I ) = BASE ** INT( U * LOG( S( I ) * T ) )
          SMIN = MIN( SMIN, S( I ) )
          SMAX = MAX( SMAX, S( I ) )
-      END DO
+      }
       SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
 
       }

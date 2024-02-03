@@ -34,7 +34,7 @@
                IDAMAX = I
                DMAX = DABS(DX(I))
             }
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -48,7 +48,7 @@
                DMAX = DABS(DX(IX))
             }
             IX = IX + INCX
-         END DO
+         }
       }
       RETURN
 

@@ -101,17 +101,17 @@
          if ( MVAL( I ).GT.MMAX ) {
             MMAX = MVAL( I )
          }
-      ENDDO
+      }
       for (I = 1; I <= NN; I++) {
          if ( NVAL( I ).GT.NMAX ) {
             NMAX = NVAL( I )
          }
-      ENDDO
+      }
       for (I = 1; I <= NNS; I++) {
          if ( NSVAL( I ).GT.NSMAX ) {
             NSMAX = NSVAL( I )
          }
-      ENDDO
+      }
       M = MMAX
       N = NMAX
       NRHS = NSMAX
@@ -157,7 +157,7 @@
                               // Compute workspace needed for DGETSLS
                               dgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO );
                               LWORK_DGETSLS = INT( WQ ( 1 ) )
-                           ENDDO
+                           }
                         }
                         // Compute workspace needed for DGELSY
                         dgelsy(M, N, NRHS, A, LDA, B, LDB, IWQ, RCOND, CRANK, WQ, -1, INFO );
@@ -173,11 +173,11 @@
                         // Compute LWORK workspace needed for all functions
                         LWORK = MAX( LWORK, LWORK_DGELS, LWORK_DGELST, LWORK_DGETSLS, LWORK_DGELSY, LWORK_DGELSS, LWORK_DGELSD )
                      }
-                  ENDDO
-               ENDDO
-            ENDDO
-         ENDDO
-      ENDDO
+                  }
+               }
+            }
+         }
+      }
 
       LWLSY = LWORK
 
@@ -279,10 +279,10 @@
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
                                  }
-                              END DO
+                              }
                               NRUN = NRUN + 2
-                           END DO
-                        END DO
+                           }
+                        }
                      }
                   // =====================================================
                         // End test DGELS
@@ -364,10 +364,10 @@
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
                                  }
-                              END DO
+                              }
                               NRUN = NRUN + 2
-                           END DO
-                        END DO
+                           }
+                        }
                      }
                   // =====================================================
                         // End test DGELST
@@ -456,11 +456,11 @@
                                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 ) TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K )
                                        NFAIL = NFAIL + 1
                                     }
-                                 END DO
+                                 }
                                  NRUN = NRUN + 2
-                              END DO
-                           END DO
-                        END DO
+                              }
+                           }
+                        }
                      }
                   // =====================================================
                         // End test DGETSLS

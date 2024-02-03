@@ -29,7 +29,7 @@
             CTEMP = C*ZX( I ) + S*ZY( I )
             ZY( I ) = C*ZY( I ) - S*ZX( I )
             ZX( I ) = CTEMP
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments not equal
@@ -44,7 +44,7 @@
             ZX( IX ) = CTEMP
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

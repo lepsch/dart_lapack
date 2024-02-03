@@ -273,7 +273,7 @@
                for (I = 1; I <= NS; I++) {
                   dcopy(N, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + N*2
-               END DO
+               }
                dlaset('A', M-N, NS, ZERO, ZERO, U( N+1,1 ), LDU );
 
                // Call DORMBR to compute QB*UB.
@@ -294,7 +294,7 @@
                for (I = 1; I <= NS; I++) {
                   dcopy(N, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + N*2
-               END DO
+               }
 
                // Call DORMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
@@ -332,7 +332,7 @@
                for (I = 1; I <= NS; I++) {
                   dcopy(N, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + N*2
-               END DO
+               }
                dlaset('A', M-N, NS, ZERO, ZERO, U( N+1,1 ), LDU );
 
                // Call DORMBR to compute QB*UB.
@@ -348,7 +348,7 @@
                for (I = 1; I <= NS; I++) {
                   dcopy(N, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + N*2
-               END DO
+               }
 
                // Call DORMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
@@ -402,7 +402,7 @@
                for (I = 1; I <= NS; I++) {
                   dcopy(M, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + M*2
-               END DO
+               }
 
                // Call DORMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
@@ -417,7 +417,7 @@
                for (I = 1; I <= NS; I++) {
                   dcopy(M, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + M*2
-               END DO
+               }
                dlaset('A', NS, N-M, ZERO, ZERO, VT( 1,M+1 ), LDVT);
 
                // Call DORMBR to compute (VB**T)*(PB**T)
@@ -461,7 +461,7 @@
                for (I = 1; I <= NS; I++) {
                   dcopy(M, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + M*2
-               END DO
+               }
 
                // Call DORMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
@@ -476,7 +476,7 @@
                for (I = 1; I <= NS; I++) {
                   dcopy(M, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + M*2
-               END DO
+               }
                dlaset('A', NS, N-M, ZERO, ZERO, VT( 1,M+1 ), LDVT);
 
                // Call DORMBR to compute VB**T * PB**T

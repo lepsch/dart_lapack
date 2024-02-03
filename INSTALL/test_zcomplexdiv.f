@@ -126,7 +126,7 @@
                     WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(x+0*I)/(x+0*I)', R, 1.0D0
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 10
 
@@ -151,7 +151,7 @@
                     WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+x*I)/(0+x*I)', R, 1.0D0
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 20
 
@@ -176,7 +176,7 @@
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(x+x*I)/(x+x*I)', R, 1.0D0
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 30
 
@@ -202,7 +202,7 @@
                     WRITE( 0, FMT = 9999 ) 'd',i, Xj, '(0+x*I)/(x+0*I)', R, DCMPLX(0.0D0,1.0D0)
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 40
 
@@ -228,7 +228,7 @@
                     WRITE( 0, FMT = 9999 ) 'e',i, Xj, '(x+0*I)/(0+x*I)', R, DCMPLX(0.0D0,-1.0D0)
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 50
 
@@ -253,7 +253,7 @@
                     WRITE( 0, FMT = 9999 ) 'f',i, Xj, '(x+x*I)/(x-x*I)', R, DCMPLX(0.0D0,1.0D0)
                 }
                 Xj = Xj * stepX(i)
-            end do
+            }
         }
       } // 60
 

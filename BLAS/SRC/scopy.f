@@ -31,7 +31,7 @@
          if (M.NE.0) {
             for (I = 1; I <= M; I++) {
                SY(I) = SX(I)
-            END DO
+            }
             IF (N.LT.7) RETURN
          }
          MP1 = M + 1
@@ -43,7 +43,7 @@
             SY(I+4) = SX(I+4)
             SY(I+5) = SX(I+5)
             SY(I+6) = SX(I+6)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -57,7 +57,7 @@
             SY(IY) = SX(IX)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

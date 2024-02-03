@@ -435,8 +435,8 @@
                   for (J = 1; J <= N; J++) {
                      for (I = 1; I <= N; I++) {
                         VTSAV(J,I) = CONJG (A(I,J))
-                     END DO
-                  END DO
+                     }
+                  }
 
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'GESVJ', IINFO, M, N, JTYPE, LSWORK, IOLDSD

@@ -25,7 +25,7 @@
             CTEMP = CX(I)
             CX(I) = CY(I)
             CY(I) = CTEMP
-         END DO
+         }
       } else {
 
         // code for unequal increments or equal increments not equal
@@ -41,7 +41,7 @@
             CY(IY) = CTEMP
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

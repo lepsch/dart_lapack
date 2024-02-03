@@ -29,7 +29,7 @@
          NS = N*INCX
          DO I = 1,NS,INCX
             DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I))
-         END DO
+         }
       } else {
 
       // Code for unequal or nonpositive increments.
@@ -42,7 +42,7 @@
             DSDOT = DSDOT + DBLE(SX(KX))*DBLE(SY(KY))
             KX = KX + INCX
             KY = KY + INCY
-         END DO
+         }
       }
       SDSDOT = REAL(DSDOT)
       RETURN

@@ -53,8 +53,8 @@
       // If AYB is exactly 0.0 (and if computed by CLA_yyAMV), then we know
       // the true residual also must be exactly 0.0.
 
-         END DO
-      END DO
+         }
+      }
 
       // End of CLA_LIN_BERR
 

@@ -59,16 +59,16 @@
       claset('Full', NB, N, CZERO, CZERO, T, NB );
       for (J = 1; J <= N; J++) {
          clarnv(2, ISEED, J, A( 1, J ) );
-      END DO
+      }
       if ( M.GT.0 ) {
          for (J = 1; J <= N; J++) {
             clarnv(2, ISEED, M-L, A( MIN(N+M,N+1), J ) );
-         END DO
+         }
       }
       if ( L.GT.0 ) {
          for (J = 1; J <= N; J++) {
             clarnv(2, ISEED, MIN(J,L), A( MIN(N+M,N+M-L+1), J ) );
-         END DO
+         }
       }
 
       // Copy the matrix A to the array AF.
@@ -111,7 +111,7 @@
 
       for (J = 1; J <= N; J++) {
          clarnv(2, ISEED, M2, C( 1, J ) );
-      END DO
+      }
       CNORM = CLANGE( '1', M2, N, C, M2, RWORK)
       clacpy('Full', M2, N, C, M2, CF, M2 );
 
@@ -151,7 +151,7 @@
 
       for (J = 1; J <= M2; J++) {
          clarnv(2, ISEED, N, D( 1, J ) );
-      END DO
+      }
       DNORM = CLANGE( '1', N, M2, D, N, RWORK)
       clacpy('Full', N, M2, D, N, DF, N );
 

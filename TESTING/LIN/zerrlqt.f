@@ -49,9 +49,9 @@
             A( I, J ) = 1.D0 / DCMPLX( DBLE( I+J ), 0.D0 )
             C( I, J ) = 1.D0 / DCMPLX( DBLE( I+J ), 0.D0 )
             T( I, J ) = 1.D0 / DCMPLX( DBLE( I+J ), 0.D0 )
-         END DO
+         }
          W( J ) = 0.D0
-      END DO
+      }
       OK = .TRUE.
 
       // Error exits for LQT factorization

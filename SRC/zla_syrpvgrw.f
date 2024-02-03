@@ -51,7 +51,7 @@
       RPVGRW = 1.0D+0
       for (I = 1; I <= 2*N; I++) {
          WORK( I ) = 0.0D+0
-      END DO
+      }
 
       // Find the max magnitude entry of each column of A.  Compute the max
       // for all N columns so we can apply the pivot permutation while
@@ -62,15 +62,15 @@
             for (I = 1; I <= J; I++) {
                WORK( N+I ) = MAX( CABS1( A( I, J ) ), WORK( N+I ) )
                WORK( N+J ) = MAX( CABS1( A( I, J ) ), WORK( N+J ) )
-            END DO
-         END DO
+            }
+         }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
                WORK( N+I ) = MAX( CABS1( A( I, J ) ), WORK( N+I ) )
                WORK( N+J ) = MAX( CABS1( A( I, J ) ), WORK( N+J ) )
-            END DO
-         END DO
+            }
+         }
       }
 
       // Now find the max magnitude entry of each column of U or L.  Also
@@ -93,7 +93,7 @@
                }
                for (I = 1; I <= K; I++) {
                   WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
-               END DO
+               }
                K = K - 1
             } else {
                // 2x2 pivot
@@ -104,11 +104,11 @@
                for (I = 1; I <= K-1; I++) {
                   WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
                   WORK( K-1 ) = MAX( CABS1( AF( I, K-1 ) ), WORK( K-1 ) )
-               END DO
+               }
                WORK( K ) = MAX( CABS1( AF( K, K ) ), WORK( K ) )
                K = K - 2
             }
-         END DO
+         }
          K = NCOLS
          DO WHILE ( K .LE. N )
             if ( IPIV( K ).GT.0 ) {
@@ -126,7 +126,7 @@
                WORK( N+KP ) = TMP
                K = K + 2
             }
-         END DO
+         }
       } else {
          K = 1
          DO WHILE ( K .LE. NCOLS )
@@ -140,7 +140,7 @@
                }
                for (I = K; I <= N; I++) {
                   WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
-               END DO
+               }
                K = K + 1
             } else {
                // 2x2 pivot
@@ -151,11 +151,11 @@
                for (I = K+1; I <= N; I++) {
                   WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
                   WORK( K+1 ) = MAX( CABS1( AF( I, K+1 ) ), WORK( K+1 ) )
-               END DO
+               }
                WORK( K ) = MAX( CABS1( AF( K, K ) ), WORK( K ) )
                K = K + 2
             }
-         END DO
+         }
          K = NCOLS
          DO WHILE ( K .GE. 1 )
             if ( IPIV( K ).GT.0 ) {
@@ -173,7 +173,7 @@
                WORK( N+KP ) = TMP
                K = K - 2
             }
-         END DO
+         }
       }
 
       // Compute the *inverse* of the max element growth factor.  Dividing
@@ -190,7 +190,7 @@
             if ( UMAX /= 0.0D+0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
             }
-         END DO
+         }
       } else {
          for (I = 1; I <= NCOLS; I++) {
             UMAX = WORK( I )
@@ -198,7 +198,7 @@
             if ( UMAX /= 0.0D+0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
             }
-         END DO
+         }
       }
 
       ZLA_SYRPVGRW = RPVGRW

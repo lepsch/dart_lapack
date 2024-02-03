@@ -211,7 +211,7 @@
                ISTART2 = K
                EXIT
             }
-         END DO
+         }
 
          // Get range to apply rotations to
          if ( ILSCHUR ) {
@@ -250,7 +250,7 @@
                      }
                   }
 
-               END DO
+               }
 
                if ( ISTART2.LT.ISTOP ) {
                   zlartg(A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP );
@@ -266,7 +266,7 @@
 
             }
             K = K-1
-         END DO
+         }
 
          // istart2 now points to the top of the bottom right
          // unreduced Hessenberg block
@@ -334,7 +334,7 @@
 
          zlaqz3(ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NS, NBLOCK, ALPHA( SHIFTPOS ), BETA( SHIFTPOS ), A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBLOCK, WORK( NBLOCK** 2+1 ), NBLOCK, WORK( 2*NBLOCK**2+1 ), LWORK-2*NBLOCK**2, SWEEP_INFO );
 
-      END DO
+      }
 
 
       // Call ZHGEQZ to normalize the eigenvalue blocks and set the eigenvalues

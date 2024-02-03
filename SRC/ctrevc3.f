@@ -212,7 +212,7 @@
                // zero out below vector
                for (K = KI + 1; K <= N; K++) {
                   WORK( K + IV*N ) = CZERO
-               END DO
+               }
 
                // Columns IV:NB of work are valid vectors.
                // When the number of vectors stored reaches NB,
@@ -224,7 +224,7 @@
                      II = ICAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                      REMAX = ONE / CABS1( WORK( II + (NB+K)*N ) )
                      csscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
-                  END DO
+                  }
                   clacpy('F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI ), LDVR );
                   IV = NB
                } else {
@@ -315,7 +315,7 @@
                // could go from KI-NV+1 to KI-1
                for (K = 1; K <= KI - 1; K++) {
                   WORK( K + IV*N ) = CZERO
-               END DO
+               }
 
                // Columns 1:IV of work are valid vectors.
                // When the number of vectors stored reaches NB,
@@ -327,7 +327,7 @@
                      II = ICAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                      REMAX = ONE / CABS1( WORK( II + (NB+K)*N ) )
                      csscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
-                  END DO
+                  }
                   clacpy('F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI-IV+1 ), LDVL );
                   IV = 1
                } else {

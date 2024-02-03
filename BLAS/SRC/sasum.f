@@ -33,7 +33,7 @@
          if (M.NE.0) {
             for (I = 1; I <= M; I++) {
                STEMP = STEMP + ABS(SX(I))
-            END DO
+            }
             if (N.LT.6) {
                SASUM = STEMP
                RETURN
@@ -42,7 +42,7 @@
          MP1 = M + 1
          DO I = MP1,N,6
             STEMP = STEMP + ABS(SX(I)) + ABS(SX(I+1)) + ABS(SX(I+2)) + ABS(SX(I+3)) + ABS(SX(I+4)) + ABS(SX(I+5))
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -50,7 +50,7 @@
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
             STEMP = STEMP + ABS(SX(I))
-         END DO
+         }
       }
       SASUM = STEMP
       RETURN

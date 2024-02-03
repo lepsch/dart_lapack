@@ -124,7 +124,7 @@
 
       for (J = 1; J <= N; J++) {
          scopy(M, WORK( (J-1)*LDC + 1 ), 1, A( 1, J ), 1 );
-      END DO
+      }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
       RETURN

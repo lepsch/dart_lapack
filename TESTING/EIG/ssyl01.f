@@ -85,7 +85,7 @@
       KNT = 0
       for (I = 1; I <= 4; I++) {
          ISEED( I ) = 1
-      END DO
+      }
       SCALE = ONE
       SCALE3 = ONE
       LIWORK = MAXM + MAXN + 2
@@ -94,14 +94,14 @@
             // Reset seed (overwritten by LATMR)
             for (I = 1; I <= 4; I++) {
                ISEED( I ) = 1
-            END DO
+            }
             DO M = 32, MAXM, 71
                KLA = 0
                KUA = M - 1
                slatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
                for (I = 1; I <= M; I++) {
                   A( I, I ) = A( I, I ) * VM( J )
-               END DO
+               }
                ANRM = SLANGE( 'M', M, M, A, MAXM, DUM )
                DO N = 51, MAXN, 47
                   KLB = 0
@@ -161,12 +161,12 @@
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         }
                         IF( RES.GT.THRESH .OR. SISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES.GT.RMAX( 2 ) ) RMAX( 2 ) = RES
-                     END DO
-                  END DO
-               END DO
-            END DO
-         END DO
-      END DO
+                     }
+                  }
+               }
+            }
+         }
+      }
 
       DEALLOCATE (A, STAT = AllocateStatus)
       DEALLOCATE (B, STAT = AllocateStatus)

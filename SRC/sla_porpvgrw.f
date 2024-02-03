@@ -37,7 +37,7 @@
       RPVGRW = 1.0
       for (I = 1; I <= 2*NCOLS; I++) {
          WORK( I ) = 0.0
-      END DO
+      }
 
       // Find the max magnitude entry of each column.
 
@@ -45,14 +45,14 @@
          for (J = 1; J <= NCOLS; J++) {
             for (I = 1; I <= J; I++) {
                WORK( NCOLS+J ) = MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) )
-            END DO
-         END DO
+            }
+         }
       } else {
          for (J = 1; J <= NCOLS; J++) {
             for (I = J; I <= NCOLS; I++) {
                WORK( NCOLS+J ) = MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) )
-            END DO
-         END DO
+            }
+         }
       }
 
       // Now find the max magnitude entry of each column of the factor in
@@ -62,14 +62,14 @@
          for (J = 1; J <= NCOLS; J++) {
             for (I = 1; I <= J; I++) {
                WORK( J ) = MAX( ABS( AF( I, J ) ), WORK( J ) )
-            END DO
-         END DO
+            }
+         }
       } else {
          for (J = 1; J <= NCOLS; J++) {
             for (I = J; I <= NCOLS; I++) {
                WORK( J ) = MAX( ABS( AF( I, J ) ), WORK( J ) )
-            END DO
-         END DO
+            }
+         }
       }
 
       // Compute the *inverse* of the max element growth factor.  Dividing
@@ -86,7 +86,7 @@
             if ( UMAX /= 0.0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
             }
-         END DO
+         }
       } else {
          for (I = 1; I <= NCOLS; I++) {
             UMAX = WORK( I )
@@ -94,7 +94,7 @@
             if ( UMAX /= 0.0 ) {
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
             }
-         END DO
+         }
       }
 
       SLA_PORPVGRW = RPVGRW

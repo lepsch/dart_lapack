@@ -23,7 +23,7 @@
 
          for (I = 1; I <= N; I++) {
           ZY(I) = ZX(I)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -37,7 +37,7 @@
             ZY(IY) = ZX(IX)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

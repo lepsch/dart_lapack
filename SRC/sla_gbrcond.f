@@ -72,36 +72,36 @@
                if ( CMODE .EQ. 1 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KD+I-J, J ) * C( J ) )
-               END DO
+               }
                } else if ( CMODE .EQ. 0 ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                      TMP = TMP + ABS( AB( KD+I-J, J ) )
-                  END DO
+                  }
                } else {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                      TMP = TMP + ABS( AB( KD+I-J, J ) / C( J ) )
-                  END DO
+                  }
                }
             WORK( 2*N+I ) = TMP
-         END DO
+         }
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0
             if ( CMODE .EQ. 1 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KE-I+J, I ) * C( J ) )
-               END DO
+               }
             } else if ( CMODE .EQ. 0 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KE-I+J, I ) )
-               END DO
+               }
             } else {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KE-I+J, I ) / C( J ) )
-               END DO
+               }
             }
             WORK( 2*N+I ) = TMP
-         END DO
+         }
       }
 
       // Estimate the norm of inv(op(A)).
@@ -118,7 +118,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
-            END DO
+            }
 
             if ( NOTRANS ) {
                sgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
@@ -131,11 +131,11 @@
             if ( CMODE .EQ. 1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
-               END DO
+               }
             } else if ( CMODE .EQ. -1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
-               END DO
+               }
             }
          } else {
 
@@ -144,11 +144,11 @@
             if ( CMODE .EQ. 1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
-               END DO
+               }
             } else if ( CMODE .EQ. -1 ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
-               END DO
+               }
             }
 
             if ( NOTRANS ) {
@@ -161,7 +161,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
-            END DO
+            }
          }
          GO TO 10
       }

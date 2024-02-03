@@ -119,16 +119,16 @@
                      IJ = I + JP
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
-                  END DO
+                  }
                   JP = JP + LDA
-               END DO
+               }
                for (I = 0; I <= N2 - 1; I++) {
                   for (J = 1 + I; J <= N2; J++) {
                      IJ = I + J*LDA
                      ARF( IJ ) = DCONJG( AP( IJP ) )
                      IJP = IJP + 1
-                  END DO
-               END DO
+                  }
+               }
 
             } else {
 
@@ -143,17 +143,17 @@
                      ARF( IJ ) = DCONJG( AP( IJP ) )
                      IJP = IJP + 1
                      IJ = IJ + LDA
-                  END DO
-               END DO
+                  }
+               }
                JS = 0
                for (J = N1; J <= N - 1; J++) {
                   IJ = JS
                   for (IJ = JS; IJ <= JS + J; IJ++) {
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
-                  END DO
+                  }
                   JS = JS + LDA
-               END DO
+               }
 
             }
 
@@ -172,16 +172,16 @@
                   DO IJ = I*( LDA+1 ), N*LDA - 1, LDA
                      ARF( IJ ) = DCONJG( AP( IJP ) )
                      IJP = IJP + 1
-                  END DO
-               END DO
+                  }
+               }
                JS = 1
                for (J = 0; J <= N2 - 1; J++) {
                   for (IJ = JS; IJ <= JS + N2 - J - 1; IJ++) {
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
-                  END DO
+                  }
                   JS = JS + LDA + 1
-               END DO
+               }
 
             } else {
 
@@ -195,15 +195,15 @@
                   for (IJ = JS; IJ <= JS + J; IJ++) {
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
-                  END DO
+                  }
                   JS = JS + LDA
-               END DO
+               }
                for (I = 0; I <= N1; I++) {
                   DO IJ = I, I + ( N1+I )*LDA, LDA
                      ARF( IJ ) = DCONJG( AP( IJP ) )
                      IJP = IJP + 1
-                  END DO
-               END DO
+                  }
+               }
 
             }
 
@@ -230,16 +230,16 @@
                      IJ = 1 + I + JP
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
-                  END DO
+                  }
                   JP = JP + LDA
-               END DO
+               }
                for (I = 0; I <= K - 1; I++) {
                   for (J = I; J <= K - 1; J++) {
                      IJ = I + J*LDA
                      ARF( IJ ) = DCONJG( AP( IJP ) )
                      IJP = IJP + 1
-                  END DO
-               END DO
+                  }
+               }
 
             } else {
 
@@ -254,17 +254,17 @@
                      ARF( IJ ) = DCONJG( AP( IJP ) )
                      IJP = IJP + 1
                      IJ = IJ + LDA
-                  END DO
-               END DO
+                  }
+               }
                JS = 0
                for (J = K; J <= N - 1; J++) {
                   IJ = JS
                   for (IJ = JS; IJ <= JS + J; IJ++) {
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
-                  END DO
+                  }
                   JS = JS + LDA
-               END DO
+               }
 
             }
 
@@ -283,16 +283,16 @@
                   DO IJ = I + ( I+1 )*LDA, ( N+1 )*LDA - 1, LDA
                      ARF( IJ ) = DCONJG( AP( IJP ) )
                      IJP = IJP + 1
-                  END DO
-               END DO
+                  }
+               }
                JS = 0
                for (J = 0; J <= K - 1; J++) {
                   for (IJ = JS; IJ <= JS + K - J - 1; IJ++) {
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
-                  END DO
+                  }
                   JS = JS + LDA + 1
-               END DO
+               }
 
             } else {
 
@@ -306,15 +306,15 @@
                   for (IJ = JS; IJ <= JS + J; IJ++) {
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
-                  END DO
+                  }
                   JS = JS + LDA
-               END DO
+               }
                for (I = 0; I <= K - 1; I++) {
                   DO IJ = I, I + ( K+I )*LDA, LDA
                      ARF( IJ ) = DCONJG( AP( IJP ) )
                      IJP = IJP + 1
-                  END DO
-               END DO
+                  }
+               }
 
             }
 

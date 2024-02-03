@@ -29,7 +29,7 @@
 
          for (I = 1; I <= N; I++) {
             CY(I) = CY(I) + CA*CX(I)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -43,7 +43,7 @@
             CY(IY) = CY(IY) + CA*CX(IX)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
 
       RETURN

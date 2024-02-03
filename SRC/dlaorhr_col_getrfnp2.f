@@ -92,7 +92,7 @@
          } else {
             for (I = 2; I <= M; I++) {
                A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
-            END DO
+            }
          }
 
       } else {

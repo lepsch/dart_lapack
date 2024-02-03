@@ -78,14 +78,14 @@
 
          DO I = N, 1, -1
             IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.CZERO ) RETURN
-         END DO
+         }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (I = 1; I <= N; I++) {
             IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.CZERO ) RETURN
-         END DO
+         }
       }
 
       // Estimate the 1-norm of the inverse.

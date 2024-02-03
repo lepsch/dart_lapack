@@ -66,7 +66,7 @@
 
             for (J = 1; J <= N-I; J++) {
                T( J, N ) = CONJG(A( I, I+J ))
-            END DO
+            }
             cgemv('C', P, N-I, ONE, B( 1, I+1 ), LDB, B( 1, I ), 1, ONE, T( 1, N ), 1 );
 
             // C(I:M,I+1:N) = C(I:m,I+1:N) + alpha*C(I:M,I)*W(1:N-1)**H
@@ -74,10 +74,10 @@
             ALPHA = -CONJG(T( I, 1 ))
             for (J = 1; J <= N-I; J++) {
                A( I, I+J ) = A( I, I+J ) + ALPHA*CONJG(T( J, N ))
-            END DO
+            }
             cgerc(P, N-I, ALPHA, B( 1, I ), 1, T( 1, N ), 1, B( 1, I+1 ), LDB );
          }
-      END DO
+      }
 
       for (I = 2; I <= N; I++) {
 
@@ -87,7 +87,7 @@
 
          for (J = 1; J <= I-1; J++) {
             T( J, I ) = ZERO
-         END DO
+         }
          P = MIN( I-1, L )
          MP = MIN( M-L+1, M )
          NP = MIN( P+1, N )
@@ -96,7 +96,7 @@
 
          for (J = 1; J <= P; J++) {
             T( J, I ) = ALPHA*B( M-L+J, I )
-         END DO
+         }
          ctrmv('U', 'C', 'N', P, B( MP, 1 ), LDB, T( 1, I ), 1 );
 
          // Rectangular part of B2
@@ -115,7 +115,7 @@
 
          T( I, I ) = T( I, 1 )
          T( I, 1 ) = ZERO
-      END DO
+      }
 
 
       // End of CTPQRT2

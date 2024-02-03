@@ -85,7 +85,7 @@
                   zgemm('No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -CONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, CONE, A( J+JB, J+JB ), LDA );
                }
             }
-         END DO
+         }
       }
       RETURN
 

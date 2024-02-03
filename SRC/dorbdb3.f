@@ -100,7 +100,7 @@
          X11(I,I) = ONE
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
 
-      END DO
+      }
 
       // Reduce the bottom-right portion of X11 to the identity matrix
 
@@ -108,7 +108,7 @@
          dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          X11(I,I) = ONE
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
-      END DO
+      }
 
       RETURN
 

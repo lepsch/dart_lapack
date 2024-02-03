@@ -90,7 +90,7 @@
                LB = MB-M+L-I+1
             }
             dtprfb('L', 'T', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
-         END DO
+         }
 
       } else if ( RIGHT .AND. NOTRAN ) {
 
@@ -103,7 +103,7 @@
                LB = MB-N+L-I+1
             }
             dtprfb('R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
-         END DO
+         }
 
       } else if ( LEFT .AND. NOTRAN ) {
 
@@ -117,7 +117,7 @@
                LB = MB-M+L-I+1
             }
             dtprfb('L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
-         END DO
+         }
 
       } else if ( RIGHT .AND. TRAN ) {
 
@@ -131,7 +131,7 @@
                LB = MB-N+L-I+1
             }
             dtprfb('R', 'T', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
-         END DO
+         }
 
       }
 

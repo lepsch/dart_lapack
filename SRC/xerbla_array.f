@@ -30,7 +30,7 @@
       SRNAME = ' '
       DO I = 1, MIN( SRNAME_LEN, LEN( SRNAME ) )
          SRNAME( I:I ) = SRNAME_ARRAY( I )
-      END DO
+      }
 
       xerbla(SRNAME, INFO );
 

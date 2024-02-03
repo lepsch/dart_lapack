@@ -66,16 +66,16 @@
             TM = TI
             TI = R
             R = MOD(TM, TI)
-         END DO
+         }
          M = (M / TI) * I
-      END DO
+      }
 
       // Generate the scaled Hilbert matrix in A
       for (J = 1; J <= N; J++) {
          for (I = 1; I <= N; I++) {
             A(I, J) = DBLE(M) / (I + J - 1)
-         END DO
-      END DO
+         }
+      }
 
       // Generate matrix B as simply the first NRHS columns of M * the
       // identity.
@@ -87,12 +87,12 @@
       WORK(1) = N
       for (J = 2; J <= N; J++) {
          WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
-      END DO
+      }
 
       for (J = 1; J <= NRHS; J++) {
          for (I = 1; I <= N; I++) {
             X(I, J) = (WORK(I)*WORK(J)) / (I + J - 1)
-         END DO
-      END DO
+         }
+      }
 
       }

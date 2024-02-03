@@ -64,12 +64,12 @@
 
       for (J = 1; J <= N; J++) {
          dlarnv(2, ISEED, M, A( 1, J ) );
-      END DO
+      }
       if ( TESTZEROS ) {
          if ( M.GE.4 ) {
             for (J = 1; J <= N; J++) {
                dlarnv(2, ISEED, M/2, A( M/4, J ) );
-            END DO
+            }
          }
       }
       dlacpy('Full', M, N, A, M, AF, M );
@@ -151,7 +151,7 @@
 
       for (J = 1; J <= N; J++) {
          dlarnv(2, ISEED, M, C( 1, J ) );
-      END DO
+      }
       CNORM = DLANGE( '1', M, N, C, M, RWORK )
       dlacpy('Full', M, N, C, M, CF, M );
 
@@ -195,7 +195,7 @@
 
       for (J = 1; J <= M; J++) {
          dlarnv(2, ISEED, N, D( 1, J ) );
-      END DO
+      }
       DNORM = DLANGE( '1', N, M, D, N, RWORK )
       dlacpy('Full', N, M, D, N, DF, N );
 

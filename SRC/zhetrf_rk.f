@@ -127,7 +127,7 @@
                if ( IP.NE.I ) {
                   zswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
                }
-            END DO
+            }
          }
 
          // Decrease K and return to the start of the main loop
@@ -184,7 +184,7 @@
             } else {
                IPIV( I ) = IPIV( I ) - K + 1
             }
-         END DO
+         }
 
          // Apply permutations to the leading panel 1:k-1
 
@@ -201,7 +201,7 @@
                if ( IP.NE.I ) {
                   zswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                }
-            END DO
+            }
          }
 
          // Increase K and return to the start of the main loop

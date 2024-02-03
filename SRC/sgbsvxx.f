@@ -149,12 +149,12 @@
          if ( .NOT.ROWEQU ) {
             for (J = 1; J <= N; J++) {
                R( J ) = 1.0
-            END DO
+            }
          }
          if ( .NOT.COLEQU ) {
             for (J = 1; J <= N; J++) {
                C( J ) = 1.0
-            END DO
+            }
          }
       }
 

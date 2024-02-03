@@ -34,7 +34,7 @@
                STEMP = SX(I)
                SX(I) = SY(I)
                SY(I) = STEMP
-            END DO
+            }
             IF (N.LT.3) RETURN
          }
          MP1 = M + 1
@@ -48,7 +48,7 @@
             STEMP = SX(I+2)
             SX(I+2) = SY(I+2)
             SY(I+2) = STEMP
-         END DO
+         }
       } else {
 
         // code for unequal increments or equal increments not equal
@@ -64,7 +64,7 @@
             SY(IY) = STEMP
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

@@ -86,11 +86,11 @@
          DO J = N, 1, -1
             I = IPIV( J )
             IF( I.NE.J ) CALL ZSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC )
-         END DO
+         }
          DO J = N, 1, -1
             I = IPIV( J )
             IF( I.NE.J ) CALL ZSWAP( N, C( 1, J ), 1, C( 1, I ), 1 )
-         END DO
+         }
       }
 
 
@@ -100,14 +100,14 @@
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
                C( I, J ) = C( I, J ) - A( I, J )
-            END DO
-         END DO
+            }
+         }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
                C( I, J ) = C( I, J ) - A( I, J )
-            END DO
-         END DO
+            }
+         }
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )

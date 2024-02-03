@@ -75,7 +75,7 @@
                   E(I)=ZERO
                }
                I=I-1
-            END DO
+            }
 
          // Convert PERMUTATIONS
 
@@ -102,7 +102,7 @@
                 I=I-1
            }
            I=I-1
-        END DO
+        }
 
          } else {
 
@@ -120,7 +120,7 @@
                     TEMP=A(IP,J)
                     A(IP,J)=A(I,J)
                     A(I,J)=TEMP
-                  END DO
+                  }
                   }
                } else {
                  IP=-IPIV(I)
@@ -130,11 +130,11 @@
                        TEMP=A(IP,J)
                        A(IP,J)=A(I-1,J)
                        A(I-1,J)=TEMP
-                    END DO
+                    }
                  }
                }
                I=I+1
-            END DO
+            }
 
          // Revert VALUE
 
@@ -145,7 +145,7 @@
                   I=I-1
                }
                I=I-1
-            END DO
+            }
          }
       } else {
 
@@ -170,7 +170,7 @@
                   E(I)=ZERO
                }
                I=I+1
-            END DO
+            }
 
          // Convert PERMUTATIONS
 
@@ -197,7 +197,7 @@
               I=I+1
            }
            I=I+1
-        END DO
+        }
          } else {
 
        // Revert A (A is lower)
@@ -214,7 +214,7 @@
                         TEMP=A(I,J)
                         A(I,J)=A(IP,J)
                         A(IP,J)=TEMP
-                     END DO
+                     }
                   }
                } else {
                   IP=-IPIV(I)
@@ -224,11 +224,11 @@
                         TEMP=A(I+1,J)
                         A(I+1,J)=A(IP,J)
                         A(IP,J)=TEMP
-                     END DO
+                     }
                   }
                }
                I=I-1
-            END DO
+            }
 
          // Revert VALUE
 
@@ -239,7 +239,7 @@
                   I=I+1
                }
                I=I+1
-            END DO
+            }
          }
       }
 

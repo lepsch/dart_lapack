@@ -86,23 +86,23 @@
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= N; I++) {
                   A( I, J) = SLARND( 2, ISEED )
-               END DO
-            END DO
+               }
+            }
 
             if ( IIT.EQ.2 ) {
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
                      A( I, J) = A( I, J ) * LARGE
-                  END DO
-               END DO
+                  }
+               }
             }
 
             if ( IIT.EQ.3 ) {
                for (J = 1; J <= N; J++) {
                   for (I = 1; I <= N; I++) {
                      A( I, J) = A( I, J) * SMALL
-                  END DO
-               END DO
+                  }
+               }
             }
 
             // Do first for UPLO = 'U', then for UPLO = 'L'

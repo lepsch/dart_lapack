@@ -32,8 +32,8 @@
          DO ILADLC = N, 1, -1
             for (I = 1; I <= M; I++) {
                IF( A(I, ILADLC).NE.ZERO ) RETURN
-            END DO
-         END DO
+            }
+         }
       }
       RETURN
       }

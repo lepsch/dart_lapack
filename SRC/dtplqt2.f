@@ -66,7 +66,7 @@
 
             for (J = 1; J <= M-I; J++) {
                T( M, J ) = (A( I+J, I ))
-            END DO
+            }
             dgemv('N', M-I, P, ONE, B( I+1, 1 ), LDB, B( I, 1 ), LDB, ONE, T( M, 1 ), LDT );
 
             // C(I+1:M,I:N) = C(I+1:M,I:N) + alpha * C(I,I:N)*W(M-1:1)^H
@@ -74,10 +74,10 @@
             ALPHA = -(T( 1, I ))
             for (J = 1; J <= M-I; J++) {
                A( I+J, I ) = A( I+J, I ) + ALPHA*(T( M, J ))
-            END DO
+            }
             dger(M-I, P, ALPHA,  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB );
          }
-      END DO
+      }
 
       for (I = 2; I <= M; I++) {
 
@@ -87,7 +87,7 @@
 
          for (J = 1; J <= I-1; J++) {
             T( I, J ) = ZERO
-         END DO
+         }
          P = MIN( I-1, L )
          NP = MIN( N-L+1, N )
          MP = MIN( P+1, M )
@@ -96,7 +96,7 @@
 
          for (J = 1; J <= P; J++) {
             T( I, J ) = ALPHA*B( I, N-L+J )
-         END DO
+         }
          dtrmv('L', 'N', 'N', P, B( 1, NP ), LDB, T( I, 1 ), LDT );
 
          // Rectangular part of B2
@@ -115,13 +115,13 @@
 
          T( I, I ) = T( 1, I )
          T( 1, I ) = ZERO
-      END DO
+      }
       for (I = 1; I <= M; I++) {
          for (J = I+1; J <= M; J++) {
             T(I,J)=T(J,I)
             T(J,I)= ZERO
-         END DO
-      END DO
+         }
+      }
 
 
       // End of DTPLQT2

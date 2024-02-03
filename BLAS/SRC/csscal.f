@@ -31,7 +31,7 @@
 
          for (I = 1; I <= N; I++) {
             CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)))
-         END DO
+         }
       } else {
 
          // code for increment not equal to 1
@@ -39,7 +39,7 @@
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
             CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)))
-         END DO
+         }
       }
       RETURN
 

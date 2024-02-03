@@ -49,9 +49,9 @@
             A( I, J ) = 1.E0 / CMPLX( REAL( I+J ), 0.E0 )
             C( I, J ) = 1.E0 / CMPLX( REAL( I+J ), 0.E0 )
             T( I, J ) = 1.E0 / CMPLX( REAL( I+J ), 0.E0 )
-         END DO
+         }
          W( J ) = 0.E0
-      END DO
+      }
       OK = .TRUE.
 
       // Error exits for TPLQT factorization

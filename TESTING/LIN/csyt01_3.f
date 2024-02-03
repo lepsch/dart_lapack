@@ -74,14 +74,14 @@
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
                C( I, J ) = C( I, J ) - A( I, J )
-            END DO
-         END DO
+            }
+         }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
                C( I, J ) = C( I, J ) - A( I, J )
-            END DO
-         END DO
+            }
+         }
       }
 
       // 6) Compute norm( C - A ) / ( N * norm(A) * EPS )

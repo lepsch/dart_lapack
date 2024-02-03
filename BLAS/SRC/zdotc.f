@@ -29,7 +29,7 @@
 
          for (I = 1; I <= N; I++) {
             ZTEMP = ZTEMP + DCONJG(ZX(I))*ZY(I)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -43,7 +43,7 @@
             ZTEMP = ZTEMP + DCONJG(ZX(IX))*ZY(IY)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       ZDOTC = ZTEMP
       RETURN

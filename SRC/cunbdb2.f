@@ -103,7 +103,7 @@
          X21(I,I) = ONE
          clarf('L', M-P-I+1, Q-I, X21(I,I), 1, CONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
 
-      END DO
+      }
 
       // Reduce the bottom-right portion of X21 to the identity matrix
 
@@ -111,7 +111,7 @@
          clarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
          X21(I,I) = ONE
          clarf('L', M-P-I+1, Q-I, X21(I,I), 1, CONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
-      END DO
+      }
 
       RETURN
 

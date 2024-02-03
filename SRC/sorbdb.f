@@ -181,7 +181,7 @@
                slarf('R', M-P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(I+1,I), LDX22, WORK );
             }
 
-         END DO
+         }
 
          // Reduce columns Q + 1, ..., P of X12, X22
 
@@ -200,7 +200,7 @@
             }
             IF( M-P-Q .GE. 1 ) CALL SLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK )
 
-         END DO
+         }
 
          // Reduce columns P + 1, ..., M - Q of X12, X22
 
@@ -217,7 +217,7 @@
                slarf('R', M-P-Q-I, M-P-Q-I+1, X22(Q+I,P+I), LDX22, TAUQ2(P+I), X22(Q+I+1,P+I), LDX22, WORK );
             }
 
-         END DO
+         }
 
       } else {
 
@@ -294,7 +294,7 @@
                slarf('L', M-Q-I+1, M-P-I, X12(I,I), 1, TAUQ2(I), X22(I,I+1), LDX22, WORK );
             }
 
-         END DO
+         }
 
          // Reduce columns Q + 1, ..., P of X12, X22
 
@@ -309,7 +309,7 @@
             }
             IF( M-P-Q .GE. 1 ) CALL SLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, TAUQ2(I), X22(I,Q+1), LDX22, WORK )
 
-         END DO
+         }
 
          // Reduce columns P + 1, ..., M - Q of X12, X22
 
@@ -326,7 +326,7 @@
             }
 
 
-         END DO
+         }
 
       }
 

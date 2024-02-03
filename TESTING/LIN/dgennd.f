@@ -30,7 +30,7 @@
             DGENND = .FALSE.
             RETURN
          }
-      END DO
+      }
       DGENND = .TRUE.
       RETURN
       }

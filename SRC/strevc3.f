@@ -321,7 +321,7 @@
                   // zero out below vector
                   for (K = KI + 1; K <= N; K++) {
                      WORK( K + IV*N ) = ZERO
-                  END DO
+                  }
                   ISCOMPLEX( IV ) = IP
                   // back-transform and normalization is done below
                }
@@ -481,7 +481,7 @@
                   for (K = KI + 1; K <= N; K++) {
                      WORK( K + (IV-1)*N ) = ZERO
                      WORK( K + (IV  )*N ) = ZERO
-                  END DO
+                  }
                   ISCOMPLEX( IV-1 ) = -IP
                   ISCOMPLEX( IV   ) =  IP
                   IV = IV - 1
@@ -515,14 +515,14 @@
                         EMAX = ZERO
                         for (II = 1; II <= N; II++) {
                            EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) )
-                        END DO
+                        }
                         REMAX = ONE / EMAX
                      // else if ISCOMPLEX(K).EQ.-1
                         // second eigenvector of conjugate pair
                         // reuse same REMAX as previous K
                      }
                      sscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
-                  END DO
+                  }
                   slacpy('F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI2 ), LDVR );
                   IV = NB
                } else {
@@ -703,7 +703,7 @@
                   // could go from KI-NV+1 to KI-1
                   for (K = 1; K <= KI - 1; K++) {
                      WORK( K + IV*N ) = ZERO
-                  END DO
+                  }
                   ISCOMPLEX( IV ) = IP
                   // back-transform and normalization is done below
                }
@@ -876,7 +876,7 @@
                   for (K = 1; K <= KI - 1; K++) {
                      WORK( K + (IV  )*N ) = ZERO
                      WORK( K + (IV+1)*N ) = ZERO
-                  END DO
+                  }
                   ISCOMPLEX( IV   ) =  IP
                   ISCOMPLEX( IV+1 ) = -IP
                   IV = IV + 1
@@ -910,14 +910,14 @@
                         EMAX = ZERO
                         for (II = 1; II <= N; II++) {
                            EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) )
-                        END DO
+                        }
                         REMAX = ONE / EMAX
                      // else if ISCOMPLEX(K).EQ.-1
                         // second eigenvector of conjugate pair
                         // reuse same REMAX as previous K
                      }
                      sscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
-                  END DO
+                  }
                   slacpy('F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI2-IV+1 ), LDVL );
                   IV = 1
                } else {

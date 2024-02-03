@@ -102,7 +102,7 @@
          for (I = 1; I <= N; I++) {
             D( I ) = SQRT( WORK( 2*I-1 ) )
             E( I ) = SQRT( WORK( 2*I ) )
-         END DO
+         }
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, E, N, IINFO );
       }

@@ -61,7 +61,7 @@
             TAU = TWO
             for (J = 1; J <= N-1; J++) {
                X( 1 + (J-1)*INCX ) = ZERO
-            END DO
+            }
             ALPHA = -ALPHA
          }
       } else {
@@ -122,7 +122,7 @@
                   TAU = TWO
                   for (J = 1; J <= N-1; J++) {
                      X( 1 + (J-1)*INCX ) = ZERO
-                  END DO
+                  }
                   BETA = DBLE( -SAVEALPHA )
                }
             } else {
@@ -130,7 +130,7 @@
                TAU = DCMPLX( ONE - ALPHR / XNORM, -ALPHI / XNORM )
                for (J = 1; J <= N-1; J++) {
                   X( 1 + (J-1)*INCX ) = ZERO
-               END DO
+               }
                BETA = XNORM
             }
 

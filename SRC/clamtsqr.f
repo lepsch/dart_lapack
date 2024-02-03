@@ -118,7 +118,7 @@
            CTR = CTR - 1
            ctpmqrt('L','N',MB-K , N, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO );
 
-         END DO
+         }
 
           // Multiply Q to the first block of C (1:MB,1:N)
 
@@ -140,7 +140,7 @@
           ctpmqrt('L','C',MB-K , N, K, 0,NB, A(I,1), LDA, T(1, CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO );
           CTR = CTR + 1
 
-         END DO
+         }
          if (II.LE.M) {
 
           // Multiply Q to the last block of C
@@ -168,7 +168,7 @@
 
             CTR = CTR - 1
             ctpmqrt('R','C',M , MB-K, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO );
-          END DO
+          }
 
           // Multiply Q to the first block of C (1:M,1:MB)
 
@@ -190,7 +190,7 @@
           ctpmqrt('R','N', M, MB-K, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO );
           CTR = CTR + 1
 
-         END DO
+         }
          if (II.LE.N) {
 
           // Multiply Q to the last block of C

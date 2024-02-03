@@ -25,7 +25,7 @@
             ZTEMP = ZX(I)
             ZX(I) = ZY(I)
             ZY(I) = ZTEMP
-         END DO
+         }
       } else {
 
         // code for unequal increments or equal increments not equal
@@ -41,7 +41,7 @@
             ZY(IY) = ZTEMP
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

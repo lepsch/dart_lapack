@@ -120,14 +120,14 @@
          } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
             THETA(I) = PIOVER2
          }
-      END DO
+      }
       for (I = 1; I <= Q-1; I++) {
          if ( PHI(I) .LT. THRESH ) {
             PHI(I) = ZERO
          } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
             PHI(I) = PIOVER2
          }
-      END DO
+      }
 
       // Initial deflation
 
@@ -137,13 +137,13 @@
             EXIT
          }
          IMAX = IMAX - 1
-      END DO
+      }
       IMIN = IMAX - 1
       if ( IMIN .GT. 1 ) {
          DO WHILE( PHI(IMIN-1) .NE. ZERO )
             IMIN = IMIN - 1
             IF  ( IMIN .LE. 1 ) EXIT
-         END DO
+         }
       }
 
       // Initialize iteration counter
@@ -168,7 +168,7 @@
             B21D(I+1) = -SIN( THETA(I+1) ) * COS( PHI(I) )
             B22D(I) = COS( THETA(I) ) * COS( PHI(I) )
             B22E(I) = -SIN( THETA(I+1) ) * SIN( PHI(I) )
-         END DO
+         }
          B12D(IMAX) = SIN( THETA(IMAX) )
          B22D(IMAX) = COS( THETA(IMAX) )
 
@@ -178,7 +178,7 @@
             INFO = 0
             for (I = 1; I <= Q; I++) {
                IF( PHI(I) .NE. ZERO ) INFO = INFO + 1
-            END DO
+            }
             RETURN
          }
 
@@ -190,7 +190,7 @@
          THETAMIN = THETA(IMIN)
          for (I = IMIN+1; I <= IMAX; I++) {
             IF( THETA(I) > THETAMAX ) THETAMAX = THETA(I)             IF( THETA(I) < THETAMIN ) THETAMIN = THETA(I)
-         END DO
+         }
 
          if ( THETAMAX .GT. PIOVER2 - THRESH ) {
 
@@ -434,7 +434,7 @@
             B22BULGE = RWORK(IU2SN+I-1)*B22D(I+1)
             B22D(I+1) = RWORK(IU2CS+I-1)*B22D(I+1)
 
-         END DO
+         }
 
          // Compute PHI(IMAX-1)
 
@@ -560,14 +560,14 @@
             } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
                THETA(I) = PIOVER2
             }
-         END DO
+         }
          for (I = IMIN; I <= IMAX-1; I++) {
             if ( PHI(I) .LT. THRESH ) {
                PHI(I) = ZERO
             } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
                PHI(I) = PIOVER2
             }
-         END DO
+         }
 
          // Deflate
 
@@ -575,19 +575,19 @@
             DO WHILE( PHI(IMAX-1) .EQ. ZERO )
                IMAX = IMAX - 1
                IF (IMAX .LE. 1) EXIT
-            END DO
+            }
          }
          IF( IMIN .GT. IMAX - 1 ) IMIN = IMAX - 1
          if (IMIN .GT. 1) {
             DO WHILE (PHI(IMIN-1) .NE. ZERO)
                 IMIN = IMIN - 1
                 IF (IMIN .LE. 1) EXIT
-            END DO
+            }
          }
 
          // Repeat main iteration loop
 
-      END DO
+      }
 
       // Postprocessing: order THETA from least to greatest
 
@@ -600,7 +600,7 @@
                MINI = J
                THETAMIN = THETA(J)
             }
-         END DO
+         }
 
          if ( MINI .NE. I ) {
             THETA(MINI) = THETA(I)
@@ -612,7 +612,7 @@
             }
          }
 
-      END DO
+      }
 
       RETURN
 

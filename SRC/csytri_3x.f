@@ -60,7 +60,7 @@
 
       for (K = 1; K <= N; K++) {
          WORK( K, 1 ) = E( K )
-      END DO
+      }
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -70,14 +70,14 @@
 
          DO INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
-         END DO
+         }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
-         END DO
+         }
       }
 
       INFO = 0
@@ -125,7 +125,7 @@
                K = K + 1
             }
             K = K + 1
-         END DO
+         }
 
          // inv(U**T) = (inv(U))**T
 
@@ -141,7 +141,7 @@
                // count negative elements,
                for (I = CUT+1-NNB; I <= CUT; I++) {
                   IF( IPIV( I ).LT.0 ) ICOUNT = ICOUNT + 1
-               END DO
+               }
                // need a even number for a clear cut
                IF( MOD( ICOUNT, 2 ).EQ.1 ) NNB = NNB + 1
             }
@@ -153,8 +153,8 @@
             for (I = 1; I <= CUT; I++) {
                for (J = 1; J <= NNB; J++) {
                   WORK( I, J ) = A( I, CUT+J )
-               END DO
-            END DO
+               }
+            }
 
             // U11 Block
 
@@ -162,11 +162,11 @@
                WORK( U11+I, I ) = CONE
                for (J = 1; J <= I-1; J++) {
                   WORK( U11+I, J ) = CZERO
-                END DO
+                }
                 for (J = I+1; J <= NNB; J++) {
                    WORK( U11+I, J ) = A( CUT+I, CUT+J )
-                END DO
-            END DO
+                }
+            }
 
             // invD * U01
 
@@ -175,17 +175,17 @@
                if ( IPIV( I ).GT.0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK( I, J ) = WORK( I, INVD ) * WORK( I, J )
-                  END DO
+                  }
                } else {
                   for (J = 1; J <= NNB; J++) {
                      U01_I_J = WORK( I, J )
                      U01_IP1_J = WORK( I+1, J )
                      WORK( I, J ) = WORK( I, INVD ) * U01_I_J + WORK( I, INVD+1 ) * U01_IP1_J                      WORK( I+1, J ) = WORK( I+1, INVD ) * U01_I_J + WORK( I+1, INVD+1 ) * U01_IP1_J
-                  END DO
+                  }
                   I = I + 1
                }
                I = I + 1
-            END DO
+            }
 
             // invD1 * U11
 
@@ -194,17 +194,17 @@
                if ( IPIV( CUT+I ).GT.0 ) {
                   for (J = I; J <= NNB; J++) {
                      WORK( U11+I, J ) = WORK(CUT+I,INVD) * WORK(U11+I,J)
-                  END DO
+                  }
                } else {
                   for (J = I; J <= NNB; J++) {
                      U11_I_J = WORK(U11+I,J)
                      U11_IP1_J = WORK(U11+I+1,J)
                      WORK( U11+I, J ) = WORK(CUT+I,INVD) * WORK(U11+I,J) + WORK(CUT+I,INVD+1) * WORK(U11+I+1,J)                      WORK( U11+I+1, J ) = WORK(CUT+I+1,INVD) * U11_I_J + WORK(CUT+I+1,INVD+1) * U11_IP1_J
-                  END DO
+                  }
                   I = I + 1
                }
                I = I + 1
-            END DO
+            }
 
             // U11**T * invD1 * U11 -> U11
 
@@ -213,8 +213,8 @@
             for (I = 1; I <= NNB; I++) {
                for (J = I; J <= NNB; J++) {
                   A( CUT+I, CUT+J ) = WORK( U11+I, J )
-               END DO
-            END DO
+               }
+            }
 
             // U01**T * invD * U01 -> A( CUT+I, CUT+J )
 
@@ -226,8 +226,8 @@
             for (I = 1; I <= NNB; I++) {
                for (J = I; J <= NNB; J++) {
                   A( CUT+I, CUT+J ) = A( CUT+I, CUT+J ) + WORK(U11+I,J)
-               END DO
-            END DO
+               }
+            }
 
             // U01 =  U00**T * invD0 * U01
 
@@ -239,12 +239,12 @@
             for (I = 1; I <= CUT; I++) {
                for (J = 1; J <= NNB; J++) {
                   A( I, CUT+J ) = WORK( I, J )
-               END DO
-            END DO
+               }
+            }
 
             // Next Block
 
-         END DO
+         }
 
          // Apply PERMUTATIONS P and P**T:
          // P * inv(U**T) * inv(D) * inv(U) * P**T.
@@ -263,7 +263,7 @@
                 IF (I .LT. IP) CALL CSYSWAPR( UPLO, N, A, LDA, I ,IP )
                 IF (I .GT. IP) CALL CSYSWAPR( UPLO, N, A, LDA, IP ,I )
              }
-         END DO
+         }
 
       } else {
 
@@ -295,7 +295,7 @@
                K = K - 1
             }
             K = K - 1
-         END DO
+         }
 
          // inv(L**T) = (inv(L))**T
 
@@ -311,7 +311,7 @@
                // count negative elements,
                for (I = CUT + 1; I <= CUT+NNB; I++) {
                   IF ( IPIV( I ).LT.0 ) ICOUNT = ICOUNT + 1
-               END DO
+               }
                // need a even number for a clear cut
                IF( MOD( ICOUNT, 2 ).EQ.1 ) NNB = NNB + 1
             }
@@ -321,8 +321,8 @@
             for (I = 1; I <= N-CUT-NNB; I++) {
                for (J = 1; J <= NNB; J++) {
                  WORK( I, J ) = A( CUT+NNB+I, CUT+J )
-               END DO
-            END DO
+               }
+            }
 
             // L11 Block
 
@@ -330,11 +330,11 @@
                WORK( U11+I, I) = CONE
                for (J = I+1; J <= NNB; J++) {
                   WORK( U11+I, J ) = CZERO
-               END DO
+               }
                for (J = 1; J <= I-1; J++) {
                   WORK( U11+I, J ) = A( CUT+I, CUT+J )
-               END DO
-            END DO
+               }
+            }
 
             // invD*L21
 
@@ -343,17 +343,17 @@
                if ( IPIV( CUT+NNB+I ).GT.0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK( I, J ) = WORK( CUT+NNB+I, INVD) * WORK( I, J)
-                  END DO
+                  }
                } else {
                   for (J = 1; J <= NNB; J++) {
                      U01_I_J = WORK(I,J)
                      U01_IP1_J = WORK(I-1,J)
                      WORK(I,J)=WORK(CUT+NNB+I,INVD)*U01_I_J+ WORK(CUT+NNB+I,INVD+1)*U01_IP1_J                      WORK(I-1,J)=WORK(CUT+NNB+I-1,INVD+1)*U01_I_J+ WORK(CUT+NNB+I-1,INVD)*U01_IP1_J
-                  END DO
+                  }
                   I = I - 1
                }
                I = I - 1
-            END DO
+            }
 
             // invD1*L11
 
@@ -362,18 +362,18 @@
                if ( IPIV( CUT+I ).GT.0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK( U11+I, J ) = WORK( CUT+I, INVD)*WORK(U11+I,J)
-                  END DO
+                  }
 
                } else {
                   for (J = 1; J <= NNB; J++) {
                      U11_I_J = WORK( U11+I, J )
                      U11_IP1_J = WORK( U11+I-1, J )
                      WORK( U11+I, J ) = WORK(CUT+I,INVD) * WORK(U11+I,J) + WORK(CUT+I,INVD+1) * U11_IP1_J                      WORK( U11+I-1, J ) = WORK(CUT+I-1,INVD+1) * U11_I_J + WORK(CUT+I-1,INVD) * U11_IP1_J
-                  END DO
+                  }
                   I = I - 1
                }
                I = I - 1
-            END DO
+            }
 
             // L11**T * invD1 * L11 -> L11
 
@@ -383,8 +383,8 @@
             for (I = 1; I <= NNB; I++) {
                for (J = 1; J <= I; J++) {
                   A( CUT+I, CUT+J ) = WORK( U11+I, J )
-               END DO
-            END DO
+               }
+            }
 
             if ( (CUT+NNB).LT.N ) {
 
@@ -398,8 +398,8 @@
                for (I = 1; I <= NNB; I++) {
                   for (J = 1; J <= I; J++) {
                      A( CUT+I, CUT+J ) = A( CUT+I, CUT+J )+WORK(U11+I,J)
-                  END DO
-               END DO
+                  }
+               }
 
                // L01 =  L22**T * invD2 * L21
 
@@ -410,8 +410,8 @@
                for (I = 1; I <= N-CUT-NNB; I++) {
                   for (J = 1; J <= NNB; J++) {
                      A( CUT+NNB+I, CUT+J ) = WORK( I, J )
-                  END DO
-               END DO
+                  }
+               }
 
             } else {
 
@@ -420,15 +420,15 @@
                for (I = 1; I <= NNB; I++) {
                   for (J = 1; J <= I; J++) {
                      A( CUT+I, CUT+J ) = WORK( U11+I, J )
-                  END DO
-               END DO
+                  }
+               }
             }
 
             // Next Block
 
             CUT = CUT + NNB
 
-         END DO
+         }
 
          // Apply PERMUTATIONS P and P**T:
          // P * inv(L**T) * inv(D) * inv(L) * P**T.
@@ -447,7 +447,7 @@
                 IF (I .LT. IP) CALL CSYSWAPR( UPLO, N, A, LDA, I ,IP )
                 IF (I .GT. IP) CALL CSYSWAPR( UPLO, N, A, LDA, IP ,I )
              }
-         END DO
+         }
 
       }
 

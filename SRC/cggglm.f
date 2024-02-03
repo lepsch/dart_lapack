@@ -85,10 +85,10 @@
       if ( N.EQ.0 ) {
          for (I = 1; I <= M; I++) {
             X(I) = CZERO
-         END DO
+         }
          for (I = 1; I <= P; I++) {
             Y(I) = CZERO
-         END DO
+         }
          RETURN
       }
 

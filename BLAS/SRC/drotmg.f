@@ -122,7 +122,7 @@
                   DH11 = DH11*GAM
                   DH12 = DH12*GAM
                }
-            ENDDO
+            }
          }
 
          if (DD2.NE.ZERO) {
@@ -145,7 +145,7 @@
                   DH21 = DH21*GAM
                   DH22 = DH22*GAM
                }
-            END DO
+            }
          }
 
       }

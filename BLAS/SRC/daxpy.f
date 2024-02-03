@@ -33,7 +33,7 @@
          if (M.NE.0) {
             for (I = 1; I <= M; I++) {
                DY(I) = DY(I) + DA*DX(I)
-            END DO
+            }
          }
          IF (N.LT.4) RETURN
          MP1 = M + 1
@@ -42,7 +42,7 @@
             DY(I+1) = DY(I+1) + DA*DX(I+1)
             DY(I+2) = DY(I+2) + DA*DX(I+2)
             DY(I+3) = DY(I+3) + DA*DX(I+3)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -56,7 +56,7 @@
           DY(IY) = DY(IY) + DA*DX(IX)
           IX = IX + INCX
           IY = IY + INCY
-         END DO
+         }
       }
       RETURN
 

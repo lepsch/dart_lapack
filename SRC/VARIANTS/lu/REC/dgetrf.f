@@ -88,7 +88,7 @@
             IPIVSTART = IPIVSTART - NTOPIV;
             NTOPIV = NTOPIV * 2;
             JPIVSTART = JPIVSTART - NTOPIV;
-         END DO
+         }
 
          // Permute U block to match L
          dlaswp(KCOLS, A( 1,J+1 ), LDA, KSTART, J, IPIV, 1 );
@@ -100,7 +100,7 @@
                } else {
                  for (I = 1; I <= M-J; I++) {
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
-                 END DO
+                 }
                }
          } else if ( A( J,J ) .EQ. ZERO .AND. INFO .EQ. 0 ) {
             INFO = J
@@ -110,7 +110,7 @@
          dtrsm('Left', 'Lower', 'No transpose', 'Unit', KAHEAD, KCOLS, ONE, A( KSTART, KSTART ), LDA, A( KSTART, J+1 ), LDA );
          // Schur complement.
          dgemm('No transpose', 'No transpose', M-J, KCOLS, KAHEAD, NEGONE, A( J+1, KSTART ), LDA, A( KSTART, J+1 ), LDA, ONE, A( J+1, J+1 ), LDA );
-      END DO
+      }
 
       // Handle pivot permutations on the way out of the recursion
       NPIVED = IAND( NSTEP, -NSTEP )
@@ -119,7 +119,7 @@
          NTOPIV = IAND( J, -J )
          dlaswp(NTOPIV, A( 1, J-NTOPIV+1 ), LDA, J+1, NSTEP, IPIV, 1 );
          J = J - NTOPIV
-      END DO
+      }
 
       // If short and wide, handle the rest of the columns.
       if ( M .LT. N ) {

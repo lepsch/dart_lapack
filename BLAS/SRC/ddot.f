@@ -34,7 +34,7 @@
          if (M.NE.0) {
             for (I = 1; I <= M; I++) {
                DTEMP = DTEMP + DX(I)*DY(I)
-            END DO
+            }
             if (N.LT.5) {
                DDOT=DTEMP
             RETURN
@@ -43,7 +43,7 @@
          MP1 = M + 1
          DO I = MP1,N,5
           DTEMP = DTEMP + DX(I)*DY(I) + DX(I+1)*DY(I+1) + DX(I+2)*DY(I+2) + DX(I+3)*DY(I+3) + DX(I+4)*DY(I+4)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -57,7 +57,7 @@
             DTEMP = DTEMP + DX(IX)*DY(IY)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       DDOT = DTEMP
       RETURN

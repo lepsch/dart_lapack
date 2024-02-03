@@ -134,7 +134,7 @@
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMIN = MIN( SMIN, MU )
             IF( SMIN.EQ.ZERO ) EXIT
-         END DO
+         }
       }
       SMIN = SMIN / SQRT( REAL( N ) )
       THRESH = TOL*SMIN
@@ -144,7 +144,7 @@
       for (I = 1; I <= N-1; I++) {
          IF( ABS( D( I ) ).LE.THRESH ) D( I ) = ZERO
          IF( ABS( E( I ) ).LE.THRESH ) E( I ) = ZERO
-      END DO
+      }
       IF( ABS( D( N ) ).LE.THRESH ) D( N ) = ZERO
 
       // Pointers for arrays used by SSTEVX.
@@ -386,11 +386,11 @@
                         CALL SSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU.NE.ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -SDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )                               CALL SAXPY( NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )
-                           END DO
+                           }
                            NRMU = SNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
                            sscal(NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 );
                         }
-                     END DO
+                     }
                      DO I = 0, MIN( NSL-1, NRV-1 )
                         NRMV = SNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
                         if ( NRMV.EQ.ZERO ) {
@@ -400,11 +400,11 @@
                         CALL SSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV.NE.ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -SDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )                               CALL SAXPY( NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )
-                           END DO
+                           }
                            NRMV = SNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
                            sscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );
                         }
-                     END DO
+                     }
                      if ( VUTGK.EQ.ZERO .AND. IDPTR.LT.IDEND .AND. MOD(NTGK,2).GT.0 ) {
 
                         // D=0 in the middle of the active submatrix (one
@@ -424,7 +424,7 @@
 
                   for (I = 0; I <= NSL-1; I++) {
                      S( ISBEG+I ) = ABS( S( ISBEG+I ) )
-                  END DO
+                  }
 
                   // Update pointers for TGK, S and Z.
 
@@ -469,13 +469,13 @@
                K = J
                SMIN = S( J )
             }
-         END DO
+         }
          if ( K.NE.NS+1-I ) {
             S( K ) = S( NS+1-I )
             S( NS+1-I ) = SMIN
             IF( WANTZ ) CALL SSWAP( N*2, Z( 1,K ), 1, Z( 1,NS+1-I ), 1 )
          }
-      END DO
+      }
 
       // If RANGE=I, check for singular values/vectors to be discarded.
 
@@ -501,7 +501,7 @@
             scopy(N, WORK( 2 ), 2, Z( 1  ,I ), 1 );
             scopy(N, WORK( 1 ), 2, Z( N+1,I ), 1 );
          }
-      END DO
+      }
       }
 
       RETURN

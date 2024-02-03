@@ -49,9 +49,9 @@
             A( I, J ) = 1.0 / CMPLX( FLOAT(I+J), 0.0 )
             C( I, J ) = 1.0 / CMPLX( FLOAT(I+J), 0.0 )
             T( I, J ) = 1.0 / CMPLX( FLOAT(I+J), 0.0 )
-         END DO
+         }
          W( J ) = 0.0
-      END DO
+      }
       OK = .TRUE.
 
       // Error exits for QRT factorization

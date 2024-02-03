@@ -267,9 +267,9 @@
                   for (J = 1; J <= N; J++) {
                      U( J, I ) = DCMPLX( RWORK( K ), ZERO )
                      K = K + 1
-                  END DO
+                  }
                   K = K + N
-               END DO
+               }
                zlaset('A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU);
 
                // Call ZUNMBR to compute QB*UB.
@@ -291,9 +291,9 @@
                   for (J = 1; J <= N; J++) {
                      VT( I, J ) = DCMPLX( RWORK( K ), ZERO )
                      K = K + 1
-                  END DO
+                  }
                   K = K + N
-               END DO
+               }
 
                // Call ZUNMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
@@ -332,9 +332,9 @@
                   for (J = 1; J <= N; J++) {
                      U( J, I ) = DCMPLX( RWORK( K ), ZERO )
                      K = K + 1
-                  END DO
+                  }
                   K = K + N
-               END DO
+               }
                zlaset('A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU);
 
                // Call ZUNMBR to compute QB*UB.
@@ -351,9 +351,9 @@
                   for (J = 1; J <= N; J++) {
                      VT( I, J ) = DCMPLX( RWORK( K ), ZERO )
                      K = K + 1
-                  END DO
+                  }
                   K = K + N
-               END DO
+               }
 
                // Call ZUNMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
@@ -407,9 +407,9 @@
                   for (J = 1; J <= M; J++) {
                      U( J, I ) = DCMPLX( RWORK( K ), ZERO )
                      K = K + 1
-                  END DO
+                  }
                   K = K + M
-               END DO
+               }
 
                // Call ZUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
@@ -425,9 +425,9 @@
                   for (J = 1; J <= M; J++) {
                      VT( I, J ) = DCMPLX( RWORK( K ), ZERO )
                      K = K + 1
-                  END DO
+                  }
                   K = K + M
-               END DO
+               }
                zlaset('A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT );
 
                // Call ZUNMBR to compute (VB**T)*(PB**T)
@@ -472,9 +472,9 @@
                   for (J = 1; J <= M; J++) {
                      U( J, I ) = DCMPLX( RWORK( K ), ZERO )
                      K = K + 1
-                  END DO
+                  }
                   K = K + M
-               END DO
+               }
 
                // Call ZUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
@@ -490,9 +490,9 @@
                   for (J = 1; J <= M; J++) {
                      VT( I, J ) = DCMPLX( RWORK( K ), ZERO )
                      K = K + 1
-                  END DO
+                  }
                   K = K + M
-               END DO
+               }
                zlaset('A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT );
 
                // Call ZUNMBR to compute VB**T * PB**T

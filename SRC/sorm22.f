@@ -134,7 +134,7 @@
                // Copy everything back.
 
                slacpy('All', M, LEN, WORK, LDWORK, C( 1, I ), LDC );
-            END DO
+            }
          } else {
             DO I = 1, N, NB
                LEN = MIN( NB, N-I+1 )
@@ -159,7 +159,7 @@
                // Copy everything back.
 
                slacpy('All', M, LEN, WORK, LDWORK, C( 1, I ), LDC );
-            END DO
+            }
          }
       } else {
          if ( NOTRAN ) {
@@ -186,7 +186,7 @@
                // Copy everything back.
 
                slacpy('All', LEN, N, WORK, LDWORK, C( I, 1 ), LDC );
-            END DO
+            }
          } else {
             DO I = 1, M, NB
                LEN = MIN( NB, M-I+1 )
@@ -211,7 +211,7 @@
                // Copy everything back.
 
                slacpy('All', LEN, N, WORK, LDWORK, C( I, 1 ), LDC );
-            END DO
+            }
          }
       }
 

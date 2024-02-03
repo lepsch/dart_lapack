@@ -48,9 +48,9 @@
          for (I = 1; I <= NMAX; I++) {
             A( I, J ) = 1.D+0 / DBLE( I+J )
             T( I, J ) = 1.D+0 / DBLE( I+J )
-         END DO
+         }
          D( J ) = 0.D+0
-      END DO
+      }
       OK = .TRUE.
 
       // Error exits for Householder reconstruction

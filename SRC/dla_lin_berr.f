@@ -46,8 +46,8 @@
       // If AYB is exactly 0.0 (and if computed by SLA_yyAMV), then we know
       // the true residual also must be exactly 0.0.
 
-         END DO
-      END DO
+         }
+      }
 
       // End of DLA_LIN_BERR
 

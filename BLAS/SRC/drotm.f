@@ -36,7 +36,7 @@
                Z = DY(I)
                DX(I) = W*DH11 + Z*DH12
                DY(I) = W*DH21 + Z*DH22
-            END DO
+            }
          } else if (DFLAG.EQ.ZERO) {
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
@@ -45,7 +45,7 @@
                Z = DY(I)
                DX(I) = W + Z*DH12
                DY(I) = W*DH21 + Z
-            END DO
+            }
          } else {
             DH11 = DPARAM(2)
             DH22 = DPARAM(5)
@@ -54,7 +54,7 @@
                Z = DY(I)
                DX(I) = W*DH11 + Z
                DY(I) = -W + DH22*Z
-            END DO
+            }
          }
       } else {
          KX = 1
@@ -74,7 +74,7 @@
                DY(KY) = W*DH21 + Z*DH22
                KX = KX + INCX
                KY = KY + INCY
-            END DO
+            }
          } else if (DFLAG.EQ.ZERO) {
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
@@ -85,7 +85,7 @@
                DY(KY) = W*DH21 + Z
                KX = KX + INCX
                KY = KY + INCY
-            END DO
+            }
          } else {
              DH11 = DPARAM(2)
              DH22 = DPARAM(5)
@@ -96,7 +96,7 @@
                 DY(KY) = -W + DH22*Z
                 KX = KX + INCX
                 KY = KY + INCY
-            END DO
+            }
          }
       }
       RETURN

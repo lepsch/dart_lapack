@@ -53,7 +53,7 @@
          DO WHILE( LASTV.GT.0 .AND. V( I ).EQ.ZERO )
             LASTV = LASTV - 1
             I = I - INCV
-         END DO
+         }
          if ( APPLYLEFT ) {
       // Scan for the last non-zero column in C(1:lastv,:).
             LASTC = ILACLC(LASTV, N, C, LDC)

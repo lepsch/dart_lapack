@@ -103,7 +103,7 @@
          X11(I,I) = ONE
          zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
 
-      END DO
+      }
 
       // Reduce the bottom-right portion of X11 to the identity matrix
 
@@ -111,7 +111,7 @@
          zlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          X11(I,I) = ONE
          zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
-      END DO
+      }
 
       RETURN
 

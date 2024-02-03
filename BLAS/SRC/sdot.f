@@ -34,7 +34,7 @@
          if (M.NE.0) {
             for (I = 1; I <= M; I++) {
                STEMP = STEMP + SX(I)*SY(I)
-            END DO
+            }
             if (N.LT.5) {
                SDOT=STEMP
             RETURN
@@ -43,7 +43,7 @@
          MP1 = M + 1
          DO I = MP1,N,5
           STEMP = STEMP + SX(I)*SY(I) + SX(I+1)*SY(I+1) + SX(I+2)*SY(I+2) + SX(I+3)*SY(I+3) + SX(I+4)*SY(I+4)
-         END DO
+         }
       } else {
 
          // code for unequal increments or equal increments
@@ -57,7 +57,7 @@
             STEMP = STEMP + SX(IX)*SY(IY)
             IX = IX + INCX
             IY = IY + INCY
-         END DO
+         }
       }
       SDOT = STEMP
       RETURN

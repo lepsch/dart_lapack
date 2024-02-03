@@ -112,8 +112,8 @@
       for (L = 1; L <= NBB; L++) {
          for (K = 1; K <= NBA; K++) {
             SWORK( K, L ) = ONE
-         END DO
-      END DO
+         }
+      }
 
       // Fallback scaling factor to prevent flushing of SWORK( K, L ) to zero.
       // This scaling is to ensure compatibility with TRSYL and may get flushed.
@@ -134,8 +134,8 @@
             } else {
                SWORK( L, AWRK + K ) = CLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM )
             }
-         END DO
-      END DO
+         }
+      }
       BWRK = NBB + NBA
       for (K = 1; K <= NBB; K++) {
          K1 = (K - 1) * NB + 1
@@ -148,8 +148,8 @@
             } else {
                SWORK( L, BWRK + K ) = CLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM )
             }
-         END DO
-      END DO
+         }
+      }
 
       SGN = REAL( ISGN )
       CSGN = CMPLX( SGN, ZERO )
@@ -207,8 +207,8 @@
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                     END DO
-                  END DO
+                     }
+                  }
                }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = CLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
@@ -235,8 +235,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
                   }
@@ -250,14 +250,14 @@
                   if ( SCAL.NE.ONE ) {
                       for (JJ = L1; JJ <= L2-1; JJ++) {
                          csscal(K2-K1, SCAL, C( K1, JJ ), 1);
-                      END DO
+                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL.NE.ONE ) {
                       for (LL = L1; LL <= L2-1; LL++) {
                          csscal(I2-I1, SCAL, C( I1, LL ), 1);
-                      END DO
+                      }
                   }
 
                   // Record current scaling factor
@@ -267,7 +267,7 @@
 
                   cgemm('N', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
 
-               END DO
+               }
 
                for (J = L + 1; J <= NBB; J++) {
 
@@ -291,8 +291,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
                   }
@@ -306,14 +306,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         csscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       for (JJ = J1; JJ <= J2-1; JJ++) {
                          csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                      END DO
+                      }
                   }
 
                   // Record current scaling factor
@@ -322,9 +322,9 @@
                   SWORK( K, J ) = SCAMIN * SCALOC
 
                   cgemm('N', 'N', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, CONE, C( K1, J1 ), LDC );
-               END DO
-            END DO
-         END DO
+               }
+            }
+         }
       } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B = scale*C.
@@ -378,8 +378,8 @@
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                     END DO
-                  END DO
+                     }
+                  }
                }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = CLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
@@ -406,8 +406,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
                   }
@@ -421,14 +421,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         csscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         csscal(I2-I1, SCAL, C( I1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -437,7 +437,7 @@
                   SWORK( I, L ) = SCAMIN * SCALOC
 
                   cgemm('C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
-               END DO
+               }
 
                for (J = L + 1; J <= NBB; J++) {
 
@@ -461,8 +461,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
                   }
@@ -476,14 +476,14 @@
                   if ( SCAL .NE. ONE ) {
                       for (LL = L1; LL <= L2-1; LL++) {
                          csscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                      END DO
+                      }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -492,9 +492,9 @@
                   SWORK( K, J ) = SCAMIN * SCALOC
 
                   cgemm('N', 'N', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, CONE, C( K1, J1 ), LDC );
-               END DO
-            END DO
-         END DO
+               }
+            }
+         }
       } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B**H = scale*C.
@@ -548,8 +548,8 @@
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                     END DO
-                  END DO
+                     }
+                  }
                }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = CLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
@@ -576,8 +576,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
                   }
@@ -591,14 +591,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         csscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         csscal(I2-I1, SCAL, C( I1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -607,7 +607,7 @@
                   SWORK( I, L ) = SCAMIN * SCALOC
 
                   cgemm('C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
-               END DO
+               }
 
                for (J = 1; J <= L - 1; J++) {
 
@@ -631,8 +631,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
                   }
@@ -646,14 +646,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         csscal(K2-K1, SCAL, C( K1, LL ), 1);
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -662,9 +662,9 @@
                   SWORK( K, J ) = SCAMIN * SCALOC
 
                   cgemm('N', 'C', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, CONE, C( K1, J1 ), LDC );
-               END DO
-            END DO
-         END DO
+               }
+            }
+         }
       } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**H = scale*C.
@@ -718,8 +718,8 @@
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                     END DO
-                  END DO
+                     }
+                  }
                }
                SWORK( K, L ) = SCALOC * SWORK( K, L )
                XNRM = CLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
@@ -746,8 +746,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
                   }
@@ -761,14 +761,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         csscal(K2-K1, SCAL, C( K1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (LL = L1; LL <= L2-1; LL++) {
                         csscal(I2-I1, SCAL, C( I1, LL ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -778,7 +778,7 @@
 
                   cgemm('N', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
 
-               END DO
+               }
 
                for (J = 1; J <= L - 1; J++) {
 
@@ -802,8 +802,8 @@
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
-                        END DO
-                     END DO
+                        }
+                     }
                      SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
                      SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
                   }
@@ -817,14 +817,14 @@
                   if ( SCAL .NE. ONE ) {
                      for (JJ = L1; JJ <= L2-1; JJ++) {
                         csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                     END DO
+                     }
                   }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      for (JJ = J1; JJ <= J2-1; JJ++) {
                         csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
-                     END DO
+                     }
                   }
 
                   // Record current scaling factor
@@ -833,9 +833,9 @@
                   SWORK( K, J ) = SCAMIN * SCALOC
 
                   cgemm('N', 'C', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, CONE, C( K1, J1 ), LDC );
-               END DO
-            END DO
-         END DO
+               }
+            }
+         }
 
       }
 
@@ -845,8 +845,8 @@
       for (K = 1; K <= NBA; K++) {
          for (L = 1; L <= NBB; L++) {
             SCALE = MIN( SCALE, SWORK( K, L ) )
-         END DO
-      END DO
+         }
+      }
       if ( SCALE .EQ. ZERO ) {
 
          // The magnitude of the largest entry of the solution is larger
@@ -871,10 +871,10 @@
             if ( SCAL .NE. ONE ) {
                for (LL = L1; LL <= L2-1; LL++) {
                   csscal(K2-K1, SCAL, C( K1, LL ), 1 );
-               END DO
+               }
             }
-         END DO
-      END DO
+         }
+      }
 
       if ( BUF .NE. ONE .AND. BUF.GT.ZERO ) {
 
@@ -899,8 +899,8 @@
          for (K = 1; K <= M; K++) {
             for (L = 1; L <= N; L++) {
                SCAL = MAX( SCAL, ABS( REAL ( C( K, L ) ) ), ABS( AIMAG ( C( K, L ) ) ) )
-            END DO
-         END DO
+            }
+         }
 
          // Increase BUF as close to 1 as possible and apply scaling.
 

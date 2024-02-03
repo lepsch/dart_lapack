@@ -55,7 +55,7 @@
       LDT=NB
       for (J = 1; J <= N; J++) {
          zlarnv(2, ISEED, M, A( 1, J ) );
-      END DO
+      }
       zlacpy('Full', M, N, A, M, AF, M );
 
       // Factor the matrix A in the array AF.
@@ -94,7 +94,7 @@
 
       for (J = 1; J <= N; J++) {
          zlarnv(2, ISEED, M, C( 1, J ) );
-      END DO
+      }
       CNORM = ZLANGE( '1', M, N, C, M, RWORK)
       zlacpy('Full', M, N, C, M, CF, M );
 
@@ -134,7 +134,7 @@
 
       for (J = 1; J <= M; J++) {
          zlarnv(2, ISEED, N, D( 1, J ) );
-      END DO
+      }
       DNORM = ZLANGE( '1', N, M, D, N, RWORK)
       zlacpy('Full', N, M, D, N, DF, N );
 

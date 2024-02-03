@@ -21,8 +21,8 @@
       for (J = 1; J <= N; J++) {
          for (I = 1; I <= M; I++) {
             X( I, J ) = X( I, J ) * D( I )
-         END DO
-      END DO
+         }
+      }
 
       RETURN
       }

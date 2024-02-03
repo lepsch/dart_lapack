@@ -76,30 +76,30 @@
             if ( CAPPLY ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KD+I-J, J ) ) / C( J )
-               END DO
+               }
             } else {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KD+I-J, J ) )
-               END DO
+               }
             }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
-         END DO
+         }
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0E+0
             if ( CAPPLY ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KE-I+J, I ) ) / C( J )
-               END DO
+               }
             } else {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KE-I+J, I ) )
-               END DO
+               }
             }
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
-         END DO
+         }
       }
 
       // Quick return if possible.
@@ -125,7 +125,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
-            END DO
+            }
 
             if ( NOTRANS ) {
                cgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
@@ -138,7 +138,7 @@
             if ( CAPPLY ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
-               END DO
+               }
             }
          } else {
 
@@ -147,7 +147,7 @@
             if ( CAPPLY ) {
                for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
-               END DO
+               }
             }
 
             if ( NOTRANS ) {
@@ -160,7 +160,7 @@
 
             for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
-            END DO
+            }
          }
          GO TO 10
       }

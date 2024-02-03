@@ -83,7 +83,7 @@
             IF( KP.EQ.-IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          }
-        END DO
+        }
 
 *  Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
@@ -112,7 +112,7 @@
                }
             }
             I = I - 1
-         END DO
+         }
 
        // Compute (U**H \ B) -> B   [ U**H \ (D \ (U \P**T * B) ) ]
 
@@ -135,7 +135,7 @@
             IF( K .LT. N .AND. KP.EQ.-IPIV( K+1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          }
-        END DO
+        }
 
       } else {
 
@@ -157,7 +157,7 @@
             IF( KP.EQ.-IPIV( K ) ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          }
-        END DO
+        }
 
 *  Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
@@ -184,7 +184,7 @@
                   I = I + 1
             }
             I = I + 1
-         END DO
+         }
 
 *  Compute (L**H \ B) -> B   [ L**H \ (D \ (L \P**T * B) ) ]
 
@@ -207,7 +207,7 @@
             IF( K.GT.1 .AND. KP.EQ.-IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          }
-        END DO
+        }
 
       }
 

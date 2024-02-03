@@ -60,7 +60,7 @@
 
       for (J = 1; J <= M; J++) {
          WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE
-      END DO
+      }
 
       ZQRT11 = ZLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) )
 

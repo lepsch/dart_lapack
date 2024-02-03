@@ -49,9 +49,9 @@
             A( I, J ) = 1.D0 / DBLE( I+J )
             C( I, J ) = 1.D0 / DBLE( I+J )
             T( I, J ) = 1.D0 / DBLE( I+J )
-         END DO
+         }
          W( J ) = 0.0
-      END DO
+      }
       OK = .TRUE.
 
       // Error exits for TPLQT factorization
