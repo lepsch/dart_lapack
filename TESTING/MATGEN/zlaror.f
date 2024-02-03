@@ -27,7 +27,7 @@
       COMPLEX*16         CSIGN, XNORMS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DZNRM2
       COMPLEX*16         ZLARND
       EXTERNAL           LSAME, DZNRM2, ZLARND

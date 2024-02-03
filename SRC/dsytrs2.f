@@ -20,12 +20,12 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                I, IINFO, J, K, KP
       DOUBLE PRECISION   AK, AKM1, AKM1K, BK, BKM1, DENOM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

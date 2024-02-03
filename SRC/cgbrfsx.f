@@ -36,7 +36,7 @@
 *     ..
 *     .. Local Scalars ..
       String   (1)       NORM;
-      LOGICAL            ROWEQU, COLEQU, NOTRAN, IGNORE_CWISE
+      bool               ROWEQU, COLEQU, NOTRAN, IGNORE_CWISE;
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE, N_NORMS, ITHRESH
       REAL               ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH
 *     ..
@@ -50,7 +50,7 @@
       EXTERNAL           LSAME, ILATRANS, ILAPREC
       EXTERNAL           SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C
       REAL               SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILATRANS, ILAPREC
 *     ..
 *     .. Executable Statements ..

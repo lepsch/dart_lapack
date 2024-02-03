@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY
+      bool               LQUERY;
       int                BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR
       int                LWORK_SGEQRF, LWORK_SORMQR, LWORK_SGEBRD, LWORK_SORMBR, LWORK_SORGBR, LWORK_SORMLQ
       REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR

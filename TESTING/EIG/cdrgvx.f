@@ -9,7 +9,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       int                IWORK( * )
       REAL               DIF( * ), DIFTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), RWORK( * ), S( * ), STRU( * )       COMPLEX            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), VL( LDA, * ), VR( LDA, * ), WORK( * )
 *     ..

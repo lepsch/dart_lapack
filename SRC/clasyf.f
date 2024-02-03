@@ -29,7 +29,7 @@
       COMPLEX            D11, D21, D22, R1, T, Z
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ICAMAX
       EXTERNAL           LSAME, ICAMAX
 *     ..

@@ -27,7 +27,7 @@
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
       int                IDAMAX
-      LOGICAL            DISNAN
+      bool               DISNAN;
       EXTERNAL           DLAMCH, IDAMAX, DISNAN
 *     ..
 *     .. External Subroutines ..

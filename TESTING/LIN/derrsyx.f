@@ -26,14 +26,14 @@
       DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAESM, CHKXER, DSPCON, DSPRFS, DSPTRF, DSPTRI, DSPTRS, DSYCON, DSYCON_3, DSYCON_ROOK, DSYRFS, DSYTF2, DSYTF2_RK, DSYTF2_ROOK, DSYTRF, DSYTRF_RK, DSYTRF_ROOK, DSYTRI, DSYTRI_3, DSYTRI_3X, DSYTRI_ROOK, DSYTRI2, DSYTRI2X, DSYTRS, DSYTRS_3, DSYTRS_ROOK, DSYRFSX
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

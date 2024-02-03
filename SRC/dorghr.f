@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY
+      bool               LQUERY;
       int                I, IINFO, J, LWKOPT, NB, NH
 *     ..
 *     .. External Subroutines ..

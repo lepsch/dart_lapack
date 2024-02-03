@@ -26,13 +26,13 @@
 *     ..
 *     .. Local Scalars ..
 *
-      LOGICAL            INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV
+      bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE
       DOUBLE PRECISION   A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN
       COMPLEX*16         A2, B2, SNQ, SNU, SNV
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

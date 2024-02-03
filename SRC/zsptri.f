@@ -20,12 +20,12 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP
       COMPLEX*16         AK, AKKP1, AKP1, D, T, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX*16         ZDOTU
       EXTERNAL           LSAME, ZDOTU
 *     ..

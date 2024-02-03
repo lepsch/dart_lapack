@@ -20,12 +20,12 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER, WANTZ
+      bool               LQUERY, UPPER, WANTZ;
       String             VECT;
       int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLWRK2, LWMIN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

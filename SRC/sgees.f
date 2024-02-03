@@ -9,11 +9,11 @@
       int                INFO, LDA, LDVS, LWORK, N, SDIM
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       REAL               A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *     .. Function Arguments ..
-      LOGICAL            SELECT
+      bool               SELECT;
       EXTERNAL           SELECT
 *     ..
 *
@@ -24,7 +24,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST, WANTVS       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, MAXWRK, MINWRK
+      bool               CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST, WANTVS       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, MAXWRK, MINWRK;
       REAL               ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -35,7 +35,7 @@
       EXTERNAL           SCOPY, SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLASCL, SORGHR, SSWAP, STRSEN, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK

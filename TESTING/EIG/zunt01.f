@@ -27,7 +27,7 @@
       COMPLEX*16         TMP, ZDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, ZLANSY
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, DLAMCH, ZLANSY, ZDOTC

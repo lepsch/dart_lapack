@@ -26,7 +26,7 @@
       REAL               RWORK( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANGE, SLAMCH
       EXTERNAL           LSAME, CLANGE, SLAMCH
 *     ..

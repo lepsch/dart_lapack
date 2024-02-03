@@ -19,11 +19,11 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            WANTQ
+      bool               WANTQ;
       int                HERE, NBF, NBL, NBNEXT
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

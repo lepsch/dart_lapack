@@ -23,7 +23,7 @@
       PARAMETER          ( ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADPVT, DZERO, FULBND
+      bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
       REAL               ALPHA, ONORM, TEMP
 *     ..
@@ -31,7 +31,7 @@
       REAL               TEMPA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLANGB, SLANGE, SLANSB, SLANSP, SLANSY, SLATM2, SLATM3       EXTERNAL           LSAME, SLANGB, SLANGE, SLANSB, SLANSP, SLANSY, SLATM2, SLATM3
 *     ..
 *     .. External Subroutines ..

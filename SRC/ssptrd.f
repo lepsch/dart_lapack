@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0, ZERO = 0.0, HALF = 1.0 / 2.0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                I, I1, I1I1, II
       REAL               ALPHA, TAUI
 *     ..
@@ -27,7 +27,7 @@
       EXTERNAL           SAXPY, SLARFG, SSPMV, SSPR2, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SDOT
       EXTERNAL           LSAME, SDOT
 *     ..

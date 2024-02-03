@@ -19,12 +19,12 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LEFT, NOTRAN
+      bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, IC, JC, MI, NI, NQ
       DOUBLE PRECISION   AII
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

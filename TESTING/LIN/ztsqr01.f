@@ -24,7 +24,7 @@
       PARAMETER( ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL TESTZEROS, TS
+      bool    TESTZEROS, TS;
       int     INFO, J, K, L, LWORK, TSIZE, MNB
       DOUBLE PRECISION   ANORM, EPS, RESID, CNORM, DNORM
 *     ..
@@ -34,7 +34,7 @@
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION DLAMCH, ZLANGE, ZLANSY
-      LOGICAL  LSAME
+      bool     LSAME;
       int     ILAENV
       EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME, ILAENV
 *     ..

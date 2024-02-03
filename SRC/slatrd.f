@@ -26,7 +26,7 @@
       EXTERNAL           SAXPY, SGEMV, SLARFG, SSCAL, SSYMV
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SDOT
       EXTERNAL           LSAME, SDOT
 *     ..

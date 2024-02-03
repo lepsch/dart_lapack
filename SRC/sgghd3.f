@@ -21,13 +21,13 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ
+      bool               BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ;
       String             COMPQ2, COMPZ2;
       int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ
       REAL               C, C1, C2, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK

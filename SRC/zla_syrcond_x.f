@@ -20,14 +20,14 @@
       int                KASE
       DOUBLE PRECISION   AINVNM, ANORM, TMP
       int                I, J
-      LOGICAL            UP, UPPER
+      bool               UP, UPPER;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

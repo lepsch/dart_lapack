@@ -7,7 +7,7 @@
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       REAL             SFAC
       int              IC
@@ -55,7 +55,7 @@
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Arrays ..
       String            L(10);
 *     .. Common blocks ..
@@ -85,7 +85,7 @@
       REAL              SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       REAL              SA, SB, SC, SS
       int               K
@@ -134,7 +134,7 @@
       REAL              SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       int               I, LEN, NP1
 *     .. Local Arrays ..
@@ -200,7 +200,7 @@
       REAL              SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       REAL              SA
       int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY
@@ -287,7 +287,7 @@
       REAL              SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       REAL              SC, SS
       int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY
@@ -455,7 +455,7 @@
       REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       REAL             SD
       int              I
@@ -539,7 +539,7 @@
       int               ICOMP, ITRUE
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       int               ID
 *     .. Common blocks ..

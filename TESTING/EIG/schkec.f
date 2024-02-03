@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NIN, NOUT
       REAL               THRESH
 *     ..
@@ -13,7 +13,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            OK
+      bool               OK;
       String             PATH;
       int                KLAEXC, KLALN2, KLANV2, KLAQTR, KLASY2, KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LLAEXC, LLALN2, LLANV2, LLAQTR, LLASY2, LTREXC, LTRSYL, NLANV2, NLAQTR, NLASY2, NTESTS, NTRSYL, KTGEXC, LTGEXC
       REAL               EPS, RLAEXC, RLALN2, RLANV2, RLAQTR, RLASY2, RTREXC, SFMIN, RTGEXC

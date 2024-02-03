@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * )
       DOUBLE PRECISION   A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), RWORK( * ), S( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -28,7 +28,7 @@
       PARAMETER          ( NTRAN = 3 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            EQUIL, NOFACT, PREFAC, TRFCON, ZEROT
+      bool               EQUIL, NOFACT, PREFAC, TRFCON, ZEROT;
       String             DIST, EQUED, FACT, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, ITRAN, IZERO, K, K1, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT       DOUBLE PRECISION   AINVNM, AMAX, ANORM, ANORMI, ANORMO, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW
@@ -39,7 +39,7 @@
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DGET06, DLAMCH, DLANGE, DLANTR
       EXTERNAL           LSAME, DGET06, DLAMCH, DLANGE, DLANTR
 *     ..
@@ -50,7 +50,7 @@
       INTRINSIC          ABS, MAX
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

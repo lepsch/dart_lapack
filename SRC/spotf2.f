@@ -19,12 +19,12 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J
       REAL               AJJ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       REAL               SDOT
       EXTERNAL           LSAME, SDOT, SISNAN
 *     ..

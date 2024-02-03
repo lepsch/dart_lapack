@@ -39,7 +39,7 @@
       PARAMETER          ( NTESTS = 4 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ZEROT
+      bool               ZEROT;
       int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS
       String             DIST, CTYPE, UPLO, CFORM;
       int                KL, KU, MODE

@@ -25,7 +25,7 @@
       REAL               ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, SLANST, SLAPY2
       EXTERNAL           LSAME, SLAMCH, SLANST, SLAPY2
 *     ..

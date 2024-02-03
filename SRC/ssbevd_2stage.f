@@ -22,12 +22,12 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER, LQUERY, WANTZ
+      bool               LOWER, LQUERY, WANTZ;
       int                IINFO, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, LLWRK2
       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV2STAGE
       REAL               SLAMCH, SLANSB, SROUNDUP_LWORK
       EXTERNAL           LSAME, SLAMCH, SLANSB, ILAENV2STAGE, SROUNDUP_LWORK

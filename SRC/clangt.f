@@ -23,7 +23,7 @@
       REAL               ANORM, SCALE, SUM, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       EXTERNAL           LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..

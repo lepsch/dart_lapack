@@ -2,7 +2,7 @@
       IMPLICIT NONE
 
 *     Arguments
-      LOGICAL, INTENT( IN ) :: ILSCHUR, ILQ, ILZ
+      bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC
        REAL, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * )
       int    , INTENT( OUT ) :: NS, ND, INFO
@@ -13,7 +13,7 @@
       PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
 
 *     Local Scalars
-      LOGICAL :: BULGE
+      bool    :: BULGE;
       int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, STGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO
       REAL :: S, SMLNUM, ULP, SAFMIN, SAFMAX, C1, S1, TEMP
 

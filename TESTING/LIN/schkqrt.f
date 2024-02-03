@@ -85,7 +85,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NM, NN, NNB, NOUT
       REAL               THRESH
 *     ..
@@ -109,7 +109,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, SERRQRT, SQRT04
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

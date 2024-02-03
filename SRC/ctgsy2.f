@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, LDZ = 2 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN
+      bool               NOTRAN;
       int                I, IERR, J, K
       REAL               SCALOC
       COMPLEX            ALPHA
@@ -31,7 +31,7 @@
       COMPLEX            RHS( LDZ ), Z( LDZ, LDZ )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

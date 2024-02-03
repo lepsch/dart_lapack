@@ -9,7 +9,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN
+      bool               BADNN;
       String             BALANC;
       String             PATH;
       int                I, IBAL, IINFO, IMODE, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT

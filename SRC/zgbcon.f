@@ -22,7 +22,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LNOTI, ONENRM
+      bool               LNOTI, ONENRM;
       String             NORMIN;
       int                IX, J, JP, KASE, KASE1, KD, LM
       DOUBLE PRECISION   AINVNM, SCALE, SMLNUM
@@ -32,7 +32,7 @@
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH
       COMPLEX*16         ZDOTC

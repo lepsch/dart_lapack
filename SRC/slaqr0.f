@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, LWORK, N
-      LOGICAL            WANTT, WANTZ
+      bool               WANTT, WANTZ;
 *     ..
 *     .. Array Arguments ..
       REAL               H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * )
@@ -43,7 +43,7 @@
 *     .. Local Scalars ..
       REAL               AA, BB, CC, CS, DD, SN, SS, SWAP
       int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
-      LOGICAL            SORTED
+      bool               SORTED;
       String             JBCMPZ*2;
 *     ..
 *     .. External Functions ..

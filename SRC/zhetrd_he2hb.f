@@ -22,7 +22,7 @@
       PARAMETER          ( RONE = 1.0D+0, ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ), HALF = ( 0.5D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER
+      bool               LQUERY, UPPER;
       int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS
 *     ..
 *     .. External Subroutines ..
@@ -32,7 +32,7 @@
       INTRINSIC          MIN, MAX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV2STAGE
       EXTERNAL           LSAME, ILAENV2STAGE
 *     ..

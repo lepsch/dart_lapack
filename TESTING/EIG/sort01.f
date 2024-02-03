@@ -25,7 +25,7 @@
       REAL               EPS, TMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SDOT, SLAMCH, SLANSY
       EXTERNAL           LSAME, SDOT, SLAMCH, SLANSY
 *     ..

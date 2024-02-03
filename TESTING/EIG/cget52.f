@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            LEFT
+      bool               LEFT;
       int                LDA, LDB, LDE, N
 *     ..
 *     .. Array Arguments ..

@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            DONE
+      bool               DONE;
       REAL               BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM
 *     ..
 *     .. External Functions ..

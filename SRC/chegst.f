@@ -21,7 +21,7 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                K, KB, NB
 *     ..
 *     .. External Subroutines ..
@@ -31,7 +31,7 @@
       INTRINSIC          MAX, MIN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..

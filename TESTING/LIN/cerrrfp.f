@@ -23,7 +23,7 @@
       EXTERNAL           CHKXER, CTFSM, CTFTRI, CHFRK, CTFTTP, CTFTTR, CPFTRI, CPFTRF, CPFTRS, CTPTTF, CTPTTR, CTRTTF, CTRTTP
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

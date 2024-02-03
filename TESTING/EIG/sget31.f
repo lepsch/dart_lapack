@@ -28,7 +28,7 @@
       int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW       REAL               BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            LTRANS( 0: 1 )
+      bool               LTRANS( 0: 1 );
       REAL               A( 2, 2 ), B( 2, 2 ), VAB( 3 ), VCA( 5 ), VDD( 4 ), VSMIN( 4 ), VWI( 4 ), VWR( 4 ), X( 2, 2 )
 *     ..
 *     .. External Functions ..

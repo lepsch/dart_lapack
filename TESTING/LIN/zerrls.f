@@ -26,14 +26,14 @@
       COMPLEX*16         A( NMAX, NMAX ), B( NMAX, NMAX ), W( NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAESM, CHKXER, ZGELS, ZGELSD, ZGELSS, ZGELST, ZGELSY, ZGETSLS
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

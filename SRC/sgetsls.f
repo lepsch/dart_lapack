@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, TRAN
+      bool               LQUERY, TRAN;
       int                I, IASCL, IBSCL, J, MAXMN, BROW, SCLLEN, TSZO, TSZM, LWO, LWM, LW1, LW2, WSIZEO, WSIZEM, INFO2
       REAL               ANRM, BIGNUM, BNRM, SMLNUM, TQ( 5 ), WORKQ( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..

@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            TPSD
+      bool               TPSD;
       int                I, INFO, J, LDWORK
       REAL               ANRM, ERR, XNRM
 *     ..
@@ -27,7 +27,7 @@
       REAL               RWORK( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, SLANGE
       EXTERNAL           LSAME, SLAMCH, SLANGE
 *     ..

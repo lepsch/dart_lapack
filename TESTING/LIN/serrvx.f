@@ -26,14 +26,14 @@
       REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), E( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, SGBSV, SGBSVX, SGESV, SGESVX, SGTSV, SGTSVX, SPBSV, SPBSVX, SPOSV, SPOSVX, SPPSV, SPPSVX, SPTSV, SPTSVX, SSPSV, SSPSVX, SSYSV, SSYSV_AA, SSYSV_RK, SSYSV_ROOK, SSYSVX, SSYSV_AA_2STAGE
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

@@ -29,7 +29,7 @@
       REAL               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            SELECT( LDT )
+      bool               SELECT( LDT );
       int                IPNT( LDT ), ISELEC( LDT ), IWORK( LIWORK )
       REAL               Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), RESULT( 2 ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRTMP( LDT )
 *     ..

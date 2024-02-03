@@ -16,11 +16,11 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            LEFTV, RIGHTV
+      bool               LEFTV, RIGHTV;
       int                I, K
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

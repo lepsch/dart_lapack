@@ -9,7 +9,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * ), SELECT( * )
+      bool               DOTYPE( * ), SELECT( * );
       int                ISEED( 4 ), IWORK( * ), NN( * )
       REAL               RESULT( 16 ), RWORK( * )
       COMPLEX            A( LDA, * ), EVECTL( LDU, * ), EVECTR( LDU, * ), EVECTX( LDU, * ), EVECTY( LDU, * ), H( LDA, * ), T1( LDA, * ), T2( LDA, * ), TAU( * ), U( LDU, * ), UU( LDU, * ), UZ( LDU, * ), W1( * ), W3( * ), WORK( * ), Z( LDU, * )
@@ -26,7 +26,7 @@
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN, MATCH
+      bool               BADNN, MATCH;
       int                I, IHI, IINFO, ILO, IMODE, IN, ITYPE, J, JCOL, JJ, JSIZE, JTYPE, K, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT
       REAL               ANINV, ANORM, COND, CONDS, OVFL, RTOVFL, RTULP, RTULPI, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL
 *     ..

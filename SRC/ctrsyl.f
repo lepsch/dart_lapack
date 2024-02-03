@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRNA, NOTRNB
+      bool               NOTRNA, NOTRNB;
       int                J, K, L
       REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM
       COMPLEX            A11, SUML, SUMR, VEC, X11
@@ -29,7 +29,7 @@
       REAL               DUM( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANGE, SLAMCH
       COMPLEX            CDOTC, CDOTU, CLADIV
       EXTERNAL           LSAME, CLANGE, SLAMCH, CDOTC, CDOTU, CLADIV

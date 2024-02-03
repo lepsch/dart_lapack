@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       String             DIST, TYPE;
       String             PATH;
       int                I, IY, J, JCOUNT, KL, KU, MODE
@@ -29,7 +29,7 @@
       COMPLEX*16         PLUS1, PLUS2, RA, RB, S, STAR1
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH, DLARND
       COMPLEX*16         ZLARND

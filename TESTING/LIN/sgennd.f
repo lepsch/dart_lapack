@@ -1,4 +1,4 @@
-      LOGICAL FUNCTION SGENND (M, N, A, LDA)
+      bool    FUNCTION SGENND (M, N, A, LDA);
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

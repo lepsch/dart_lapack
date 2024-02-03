@@ -10,7 +10,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * )
 *     ..
 *
@@ -45,7 +45,7 @@
       INTRINSIC          ABS, DBLE, MAX, MIN, MOD
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, IOUNIT
 *     ..

@@ -28,13 +28,13 @@
 *     .. Local Scalars ..
       int                BJ, J, NEG1, NEG2, NEGCNT
       REAL               BSAV, DMINUS, DPLUS, GAMMA, P, T, TMP
-      LOGICAL SAWNAN
+      bool    SAWNAN;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC MIN, MAX
 *     ..
 *     .. External Functions ..
-      LOGICAL SISNAN
+      bool    SISNAN;
       EXTERNAL SISNAN
 *     ..
 *     .. Executable Statements ..

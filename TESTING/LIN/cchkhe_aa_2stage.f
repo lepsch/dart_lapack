@@ -7,13 +7,13 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NN, NNB, NNS, NMAX, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
 *
-      LOGICAL      DOTYPE( * )
+      bool         DOTYPE( * );
       int          IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
       REAL         RWORK( * )
       COMPLEX      A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
@@ -32,7 +32,7 @@
       PARAMETER    ( NTESTS = 9 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ZEROT
+      bool               ZEROT;
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
       int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
@@ -50,7 +50,7 @@
       INTRINSIC          MAX, MIN
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

@@ -28,7 +28,7 @@
       PARAMETER          ( THREE = 3.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                COUNT, I, J, K, KASE, NZ
       DOUBLE PRECISION   EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
       COMPLEX*16         ZDUM
@@ -43,7 +43,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, DLAMCH
 *     ..

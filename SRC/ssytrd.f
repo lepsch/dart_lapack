@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER
+      bool               LQUERY, UPPER;
       int                I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
@@ -29,7 +29,7 @@
       INTRINSIC          MAX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK

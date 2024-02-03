@@ -26,7 +26,7 @@
       EXTERNAL           DAXPY, DGEMV, DLARFG, DSCAL, DSYMV
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DDOT
       EXTERNAL           LSAME, DDOT
 *     ..

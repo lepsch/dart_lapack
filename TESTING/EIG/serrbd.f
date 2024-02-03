@@ -26,14 +26,14 @@
       REAL               A( NMAX, NMAX ), D( NMAX ), E( NMAX ), Q( NMAX, NMAX ), S( NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, SBDSDC, SBDSQR, SBDSVDX, SGEBD2, SGEBRD, SORGBR, SORMBR
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

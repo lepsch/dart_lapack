@@ -18,7 +18,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL TRYRAC
+      bool    TRYRAC;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL DSTEMR

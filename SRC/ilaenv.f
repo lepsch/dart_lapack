@@ -13,7 +13,7 @@
 *
 *     .. Local Scalars ..
       int                I, IC, IZ, NB, NBMIN, NX
-      LOGICAL            CNAME, SNAME, TWOSTAGE
+      bool               CNAME, SNAME, TWOSTAGE;
       String             C1*1, C2*2, C4*2, C3*3, SUBNAM*16;
 *     ..
 *     .. Intrinsic Functions ..

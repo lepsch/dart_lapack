@@ -38,7 +38,7 @@
 *     .. External Functions
       EXTERNAL ZLASET, LSAMEN
       INTRINSIC DBLE
-      LOGICAL LSAMEN
+      bool    LSAMEN;
 *     ..
 *     .. Executable Statements ..
       C2 = PATH( 2: 3 )

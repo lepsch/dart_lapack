@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, TPSD
+      bool               LQUERY, TPSD;
       int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE
       REAL               ANRM, BIGNUM, BNRM, SMLNUM
 *     ..
@@ -27,7 +27,7 @@
       REAL               RWORK( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK

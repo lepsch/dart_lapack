@@ -20,14 +20,14 @@
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       String             DIST, PACKIT, TYPE;
       String             PATH;
       int                I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE
       DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, PLUS1, PLUS2, REXP, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DLARND
       EXTERNAL           LSAME, IDAMAX, DLAMCH, DLARND

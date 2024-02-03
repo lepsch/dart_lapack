@@ -25,7 +25,7 @@
       DOUBLE PRECISION   PIV, ALPHA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IDAMAX, ILAENV
       EXTERNAL           LSAME, ILAENV, IDAMAX
 *     ..

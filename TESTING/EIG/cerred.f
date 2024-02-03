@@ -23,7 +23,7 @@
       REAL               ABNRM
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            B( NMAX )
+      bool               B( NMAX );
       int                IW( 4*NMAX )
       REAL               R1( NMAX ), R2( NMAX ), RW( LW ), S( NMAX )
       COMPLEX            A( NMAX, NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), X( NMAX )
@@ -32,18 +32,18 @@
       EXTERNAL           CHKXER, CGEES, CGEESX, CGEEV, CGEEVX, CGEJSV, CGESDD, CGESVD, CGESVDX, CGESVDQ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN, CSLECT
+      bool               LSAMEN, CSLECT;
       EXTERNAL           LSAMEN, CSLECT
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LEN_TRIM
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       REAL               SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT, SELDIM, SELOPT
 *     ..

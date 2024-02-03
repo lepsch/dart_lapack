@@ -22,7 +22,7 @@
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            COLMAJOR, LQUERY
+      bool               COLMAJOR, LQUERY;
       int                I, LWORKMIN, LWORKOPT
       DOUBLE PRECISION   Z1, Z2, Z3, Z4
 *     ..
@@ -31,7 +31,7 @@
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DNRM2
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           DNRM2, LSAME
 *     ..
 *     .. Intrinsic Functions

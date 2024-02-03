@@ -27,7 +27,7 @@
       COMPLEX            TMP, ZDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANSY, SLAMCH
       COMPLEX            CDOTC
       EXTERNAL           LSAME, CLANSY, SLAMCH, CDOTC

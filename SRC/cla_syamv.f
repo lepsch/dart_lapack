@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            SYMB_ZERO
+      bool               SYMB_ZERO;
       REAL               TEMP, SAFE1
       int                I, INFO, IY, J, JX, KX, KY
       COMPLEX            ZDUM

@@ -33,7 +33,7 @@
 *     .. External Functions ..
       DOUBLE PRECISION DLAMCH
       DOUBLE PRECISION ZLANGE, ZLANSY
-      LOGICAL  LSAME
+      bool     LSAME;
       EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME
 *     ..
 *     .. Intrinsic Functions ..

@@ -10,7 +10,7 @@
       REAL               S, SEP
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       COMPLEX            Q( LDQ, * ), T( LDT, * ), W( * ), WORK( * )
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, WANTBH, WANTQ, WANTS, WANTSP
+      bool               LQUERY, WANTBH, WANTQ, WANTS, WANTSP;
       int                IERR, K, KASE, KS, LWMIN, N1, N2, NN
       REAL               EST, RNORM, SCALE
 *     ..
@@ -30,7 +30,7 @@
       REAL               RWORK( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, CLANGE, SROUNDUP_LWORK
 *     ..

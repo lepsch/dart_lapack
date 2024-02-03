@@ -22,11 +22,11 @@
       PARAMETER          ( EIGHT = 8.0D+0, SEVTEN = 17.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC, KSTEP, KX, NPP       DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22, R1, ROWMAX, T, WK, WKM1, WKP1
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IDAMAX
       EXTERNAL           LSAME, IDAMAX
 *     ..

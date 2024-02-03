@@ -21,13 +21,13 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER
+      bool               LQUERY, UPPER;
       int                J, LWKMIN, LWKOPT
       int                NB, MJ, NJ, K1, K2, J1, J2, J3, JB
       DOUBLE PRECISION   ALPHA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..

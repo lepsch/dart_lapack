@@ -22,7 +22,7 @@
       EXTERNAL           CHKXER, DTFSM, DTFTRI, DSFRK, DTFTTP, DTFTTR, DPFTRI, DPFTRF, DPFTRS, DTPTTF, DTPTTR, DTRTTF, DTRTTP
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

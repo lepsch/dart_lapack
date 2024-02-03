@@ -16,11 +16,11 @@
 *
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LEFT, RIGHT, TRAN, NOTRAN, LQUERY
+      bool               LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
       int                I, II, KK, CTR, LW, MINMNK, LWMIN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     .. External Subroutines ..
       EXTERNAL           DTPMLQT, DGEMLQT, XERBLA

@@ -9,7 +9,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * ), DOTYPE( * )
+      bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), RESULT( 13 ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN, ILABAD
+      bool               BADNN, ILABAD;
       String             SORT;
       int                I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM
       DOUBLE PRECISION   SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
@@ -33,7 +33,7 @@
       DOUBLE PRECISION   RMAGN( 0: 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            DLCTES
+      bool               DLCTES;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLARND
       EXTERNAL           DLCTES, ILAENV, DLAMCH, DLARND

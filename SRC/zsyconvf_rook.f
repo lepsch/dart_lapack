@@ -20,13 +20,13 @@
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *
 *     .. External Subroutines ..
       EXTERNAL           ZSWAP, XERBLA
 *     .. Local Scalars ..
-      LOGICAL            UPPER, CONVERT
+      bool               UPPER, CONVERT;
       int                I, IP, IP2
 *     ..
 *     .. Executable Statements ..

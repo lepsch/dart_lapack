@@ -19,7 +19,7 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY
+      bool               LQUERY;
       int                IINFO, LDC, LWORKOPT, LC, LW, NBLOCAL, J
 *     ..
 *     .. External Subroutines ..

@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NM, NN, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                MVAL( * ), NVAL( * )
       DOUBLE PRECISION   S( * ), RWORK( * )
       COMPLEX*16         A( * ), COPYA( * ), TAU( * ), WORK( * )
@@ -46,7 +46,7 @@
       INTRINSIC          DCMPLX, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, IOUNIT
 *     ..

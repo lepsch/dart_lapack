@@ -27,7 +27,7 @@
       EXTERNAL           ZAXPY, ZGEMV, ZHEMV, ZLACGV, ZLARFG, ZSCAL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, ZDOTC
 *     ..

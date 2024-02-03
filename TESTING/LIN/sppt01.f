@@ -24,7 +24,7 @@
       REAL               ANORM, EPS, T
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SDOT, SLAMCH, SLANSP
       EXTERNAL           LSAME, SDOT, SLAMCH, SLANSP
 *     ..

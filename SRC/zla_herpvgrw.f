@@ -19,7 +19,7 @@
 *     .. Local Scalars ..
       int                NCOLS, I, J, K, KP
       DOUBLE PRECISION   AMAX, UMAX, RPVGRW, TMP
-      LOGICAL            UPPER, LSAME
+      bool               UPPER, LSAME;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..

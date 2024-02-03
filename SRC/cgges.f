@@ -9,12 +9,12 @@
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
 *     ..
 *     .. Function Arguments ..
-      LOGICAL            SELCTG
+      bool               SELCTG;
       EXTERNAL           SELCTG
 *     ..
 *
@@ -27,7 +27,7 @@
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKMIN, LWKOPT
+      bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKMIN, LWKOPT;
       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -38,7 +38,7 @@
       EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGSEN, CUNGQR, CUNMQR, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK

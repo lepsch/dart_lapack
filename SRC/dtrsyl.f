@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRNA, NOTRNB
+      bool               NOTRNA, NOTRNB;
       int                IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT
       DOUBLE PRECISION   A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM
 *     ..
@@ -28,7 +28,7 @@
       DOUBLE PRECISION   DUM( 1 ), VEC( 2, 2 ), X( 2, 2 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DDOT, DLAMCH, DLANGE
       EXTERNAL           LSAME, DDOT, DLAMCH, DLANGE
 *     ..

@@ -19,13 +19,13 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILQ, ILZ
+      bool               ILQ, ILZ;
       int                ICOMPQ, ICOMPZ, JCOL, JROW
       DOUBLE PRECISION   C
       COMPLEX*16         CTEMP, S
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

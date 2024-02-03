@@ -23,7 +23,7 @@
       PARAMETER          ( FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            GASMAL, SWAP
+      bool               GASMAL, SWAP;
       int                PMAX
       DOUBLE PRECISION   A, CLT, CRT, D, FA, FT, GA, GT, HA, HT, L, M, MM, R, S, SLT, SRT, T, TEMP, TSIGN, TT
 *     ..

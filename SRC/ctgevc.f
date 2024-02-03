@@ -9,7 +9,7 @@
       int                INFO, LDP, LDS, LDVL, LDVR, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       REAL               RWORK( * )
       COMPLEX            P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
@@ -24,11 +24,11 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR       REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX
+      bool               COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR       REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX;
       COMPLEX            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH
       COMPLEX            CLADIV
       EXTERNAL           LSAME, SLAMCH, CLADIV

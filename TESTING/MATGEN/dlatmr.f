@@ -23,7 +23,7 @@
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADPVT, DZERO, FULBND
+      bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
       DOUBLE PRECISION   ALPHA, ONORM, TEMP
 *     ..
@@ -31,7 +31,7 @@
       DOUBLE PRECISION   TEMPA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3
 *     ..
 *     .. External Subroutines ..

@@ -27,7 +27,7 @@
       PARAMETER          ( THREE = 3.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN
+      bool               NOTRAN;
       String             TRANSN, TRANST;
       int                COUNT, I, J, KASE, NZ
       DOUBLE PRECISION   EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN
@@ -43,7 +43,7 @@
       INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, MAX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, DLAMCH
 *     ..

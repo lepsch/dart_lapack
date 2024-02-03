@@ -21,12 +21,12 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY
+      bool               LQUERY;
       int                FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LL, LRWMIN, LWMIN, M, SMLSIZ, START
       DOUBLE PRECISION   EPS, ORGNRM, P, TINY
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANST
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST

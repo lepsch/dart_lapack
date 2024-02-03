@@ -2,7 +2,7 @@
       IMPLICIT NONE
 
 *     Arguments
-      LOGICAL, INTENT( IN ) :: ILSCHUR, ILQ, ILZ
+      bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC
        COMPLEX, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * )
       int    , INTENT( OUT ) :: NS, ND, INFO

@@ -18,12 +18,12 @@
 *     .. Local Scalars ..
       int                I, J
       REAL               AMAX, UMAX, RPVGRW
-      LOGICAL            UPPER
+      bool               UPPER;
       COMPLEX            ZDUM
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME
-      LOGICAL            LSAME
+      bool               LSAME;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, REAL, AIMAG

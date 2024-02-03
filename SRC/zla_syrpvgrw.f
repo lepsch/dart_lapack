@@ -19,7 +19,7 @@
 *     .. Local Scalars ..
       int                NCOLS, I, J, K, KP
       DOUBLE PRECISION   AMAX, UMAX, RPVGRW, TMP
-      LOGICAL            UPPER
+      bool               UPPER;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Intrinsic Functions ..
@@ -27,7 +27,7 @@
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           LSAME
-      LOGICAL            LSAME
+      bool               LSAME;
 *     ..
 *     .. Statement Functions ..
       DOUBLE PRECISION   CABS1

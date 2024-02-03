@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       int                I
-      LOGICAL            YESREL
+      bool               YESREL;
       DOUBLE PRECISION   EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2
 
 *     ..

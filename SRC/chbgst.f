@@ -21,13 +21,13 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ), ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPDATE, UPPER, WANTX
+      bool               UPDATE, UPPER, WANTX;
       int                I, I0, I1, I2, INCA, J, J1, J1T, J2, J2T, K, KA1, KB1, KBT, L, M, NR, NRT, NX
       REAL               BII
       COMPLEX            RA, RA1, T
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

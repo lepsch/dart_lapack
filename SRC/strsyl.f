@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRNA, NOTRNB
+      bool               NOTRNA, NOTRNB;
       int                IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT
       REAL               A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM
 *     ..
@@ -28,7 +28,7 @@
       REAL               DUM( 1 ), VEC( 2, 2 ), X( 2, 2 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SDOT, SLAMCH, SLANGE
       EXTERNAL           LSAME, SDOT, SLAMCH, SLANGE
 *     ..

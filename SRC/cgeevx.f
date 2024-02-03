@@ -21,21 +21,21 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV
+      bool               LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV;
       String             JOB, SIDE;
       int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT
       REAL               ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM
       COMPLEX            TMP
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            SELECT( 1 )
+      bool               SELECT( 1 );
       REAL   DUM( 1 )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLASCL, XERBLA, CSSCAL, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CSCAL, CTREVC3, CTRSNA, CUNGHR
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ISAMAX, ILAENV
       REAL               SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK

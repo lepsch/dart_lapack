@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NM, NMAX, NN, NNB, NNS, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                IWORK( * ), MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * )       REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
@@ -27,7 +27,7 @@
       PARAMETER          ( NTRAN = 3 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            TRFCON, ZEROT
+      bool               TRFCON, ZEROT;
       String             DIST, NORM, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN, IZERO, K, KL, KU, LDA, LWORK, M, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
@@ -49,7 +49,7 @@
       INTRINSIC          MAX, MIN
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

@@ -7,7 +7,7 @@
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       DOUBLE PRECISION SFAC
       int              IC
@@ -51,7 +51,7 @@
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Arrays ..
       String            L(10);
 *     .. Common blocks ..
@@ -81,7 +81,7 @@
       DOUBLE PRECISION  SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       COMPLEX*16        CA
       DOUBLE PRECISION  SA
@@ -190,7 +190,7 @@
       DOUBLE PRECISION  SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       COMPLEX*16        CA,ZTEMP
       int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY
@@ -282,7 +282,7 @@
       DOUBLE PRECISION SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       DOUBLE PRECISION SD
       int              I
@@ -397,7 +397,7 @@
       int               ICOMP, ITRUE
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       int               ID
 *     .. Common blocks ..

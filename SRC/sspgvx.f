@@ -17,12 +17,12 @@
 * =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, UPPER, VALEIG, WANTZ
+      bool               ALLEIG, INDEIG, UPPER, VALEIG, WANTZ;
       String             TRANS;
       int                J
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

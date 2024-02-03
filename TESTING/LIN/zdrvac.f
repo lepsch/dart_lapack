@@ -9,7 +9,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                MVAL( * ), NSVAL( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX            SWORK(*)
@@ -27,7 +27,7 @@
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ZEROT
+      bool               ZEROT;
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
@@ -48,7 +48,7 @@
       INTRINSIC          DBLE, MAX, SQRT
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

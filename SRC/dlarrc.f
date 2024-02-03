@@ -21,12 +21,12 @@
 *     ..
 *     .. Local Scalars ..
       int                I
-      LOGICAL            MATT
+      bool               MATT;
       DOUBLE PRECISION   LPIVOT, RPIVOT, SL, SU, TMP, TMP2
 
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Executable Statements ..

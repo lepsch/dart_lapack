@@ -25,7 +25,7 @@
       EXTERNAL           XERBLA, ZGEMV, ZLACGV, ZTRMV
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Executable Statements ..

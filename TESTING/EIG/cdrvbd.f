@@ -11,7 +11,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
       REAL               E( * ), RWORK( * ), S( * ), SSAV( * )
       COMPLEX            A( LDA, * ), ASAV( LDA, * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
@@ -28,7 +28,7 @@
       PARAMETER          ( MAXTYP = 5 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADMM, BADNN
+      bool               BADMM, BADNN;
       String             JOBQ, JOBU, JOBVT, RANGE;
       int                I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK
       REAL               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU

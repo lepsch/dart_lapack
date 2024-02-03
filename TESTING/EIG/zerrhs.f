@@ -20,13 +20,13 @@
       int                I, IHI, ILO, INFO, J, M, NT
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            SEL( NMAX )
+      bool               SEL( NMAX );
       int                IFAILL( NMAX ), IFAILR( NMAX )
       DOUBLE PRECISION   RW( NMAX ), S( NMAX )
       COMPLEX*16         A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), X( NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
@@ -36,7 +36,7 @@
       INTRINSIC          DBLE
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

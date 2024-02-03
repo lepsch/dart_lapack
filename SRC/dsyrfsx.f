@@ -35,11 +35,11 @@
 *     ..
 *     .. Local Scalars ..
       String   (1)       NORM;
-      LOGICAL            RCEQU
+      bool               RCEQU;
       int                J, PREC_TYPE, REF_TYPE, N_NORMS
       DOUBLE PRECISION   ANORM, RCOND_TMP
       DOUBLE PRECISION   ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG
-      LOGICAL            IGNORE_CWISE
+      bool               IGNORE_CWISE;
       int                ITHRESH
       DOUBLE PRECISION   RTHRESH, UNSTABLE_THRESH
 *     ..
@@ -53,7 +53,7 @@
       EXTERNAL           LSAME, ILAPREC
       EXTERNAL           DLAMCH, DLANSY, DLA_SYRCOND
       DOUBLE PRECISION   DLAMCH, DLANSY, DLA_SYRCOND
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAPREC
 *     ..
 *     .. Executable Statements ..

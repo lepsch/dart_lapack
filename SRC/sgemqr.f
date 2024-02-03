@@ -16,11 +16,11 @@
 *
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LEFT, RIGHT, TRAN, NOTRAN, LQUERY
+      bool               LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
       int                MB, NB, LW, NBLCKS, MN, MINMNK, LWMIN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
       REAL               SROUNDUP_LWORK
       EXTERNAL           SROUNDUP_LWORK

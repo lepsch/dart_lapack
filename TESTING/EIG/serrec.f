@@ -21,7 +21,7 @@
       REAL               SCALE
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            SEL( NMAX )
+      bool               SEL( NMAX );
       int                IWORK( NMAX )
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), S( NMAX ), SEP( NMAX ), WI( NMAX ), WORK( NMAX ), WR( NMAX )
 *     ..
@@ -29,7 +29,7 @@
       EXTERNAL           CHKXER, STREXC, STRSEN, STRSNA, STRSYL, STRSYL3
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

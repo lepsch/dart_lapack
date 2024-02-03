@@ -10,7 +10,7 @@
       DOUBLE PRECISION   S, SEP
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       COMPLEX*16         Q( LDQ, * ), T( LDT, * ), W( * ), WORK( * )
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, WANTBH, WANTQ, WANTS, WANTSP
+      bool               LQUERY, WANTBH, WANTQ, WANTS, WANTSP;
       int                IERR, K, KASE, KS, LWMIN, N1, N2, NN
       DOUBLE PRECISION   EST, RNORM, SCALE
 *     ..
@@ -30,7 +30,7 @@
       DOUBLE PRECISION   RWORK( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   ZLANGE
       EXTERNAL           LSAME, ZLANGE
 *     ..

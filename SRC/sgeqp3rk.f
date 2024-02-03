@@ -23,7 +23,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, DONE
+      bool               LQUERY, DONE;
       int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX
       REAL               EPS, HUGEVAL, MAXC2NRM, SAFMIN
 *     ..
@@ -31,7 +31,7 @@
       EXTERNAL           SLAQP2RK, SLAQP3RK, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            SISNAN
+      bool               SISNAN;
       int                ISAMAX, ILAENV
       REAL               SLAMCH, SNRM2, SROUNDUP_LWORK
       EXTERNAL           SISNAN, SLAMCH, SNRM2, ISAMAX, ILAENV, SROUNDUP_LWORK

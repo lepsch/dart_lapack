@@ -19,12 +19,12 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J
       DOUBLE PRECISION   AJJ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       DOUBLE PRECISION   DDOT
       EXTERNAL           LSAME, DDOT, DISNAN
 *     ..

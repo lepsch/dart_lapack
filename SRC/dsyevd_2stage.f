@@ -23,12 +23,12 @@
 *     ..
 *     .. Local Scalars ..
 *
-      LOGICAL            LOWER, LQUERY, WANTZ
+      bool               LOWER, LQUERY, WANTZ;
       int                IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LLWRK2, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
       DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV2STAGE
       DOUBLE PRECISION   DLAMCH, DLANSY
       EXTERNAL           LSAME, DLAMCH, DLANSY, ILAENV2STAGE

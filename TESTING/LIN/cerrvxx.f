@@ -29,14 +29,14 @@
       COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGBSV, CGBSVX, CGESV, CGESVX, CGTSV, CGTSVX, CHESV, CHESV_RK, CHESV_ROOK, CHESVX, CHKXER, CHPSV, CHPSVX, CPBSV, CPBSVX, CPOSV, CPOSVX, CPPSV, CPPSVX, CPTSV, CPTSVX, CSPSV, CSPSVX, CSYSV, CSYSV_RK, CSYSV_ROOK, CSYSVX, CGESVXX, CPOSVXX, CSYSVXX, CHESVXX, CGBSVXX
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

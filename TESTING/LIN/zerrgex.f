@@ -26,14 +26,14 @@
       DOUBLE PRECISION   R( NMAX ), R1( NMAX ), R2( NMAX ), CS( NMAX ), RS( NMAX )       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAESM, CHKXER, ZGBCON, ZGBEQU, ZGBRFS, ZGBTF2, ZGBTRF, ZGBTRS, ZGECON, ZGEEQU, ZGERFS, ZGETF2, ZGETRF, ZGETRI, ZGETRS, ZGEEQUB, ZGERFSX, ZGBEQUB, ZGBRFSX
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

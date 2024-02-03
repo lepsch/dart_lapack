@@ -19,19 +19,19 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY
+      bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, ITAU, IWRK, JC, JR, LWKOPT, LWKMIN
       DOUBLE PRECISION   ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            LDUMMA( 1 )
+      bool               LDUMMA( 1 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEQRF, DGGBAK, DGGBAL, DGGHD3, DLAQZ0, DLACPY, DLASCL, DLASET, DORGQR, DORMQR, DTGEVC, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, DLAMCH, DLANGE
 *     ..

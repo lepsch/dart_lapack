@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      LOGICAL            CAPPLY
+      bool               CAPPLY;
       int                N, LDA, LDAF, INFO
 *     ..
 *     .. Array Arguments ..
@@ -20,14 +20,14 @@
 *     .. Local Scalars ..
       int                KASE, I, J
       REAL               AINVNM, ANORM, TMP
-      LOGICAL            UP, UPPER
+      bool               UP, UPPER;
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

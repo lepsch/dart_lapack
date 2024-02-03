@@ -28,7 +28,7 @@
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            DISNAN, LSAME
+      bool               DISNAN, LSAME;
       DOUBLE PRECISION   DLAMCH, DZASUM
       EXTERNAL           DISNAN, DLAMCH, DZASUM, LSAME
 *     ..

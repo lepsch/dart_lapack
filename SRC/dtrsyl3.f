@@ -15,14 +15,14 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRNA, NOTRNB, LQUERY, SKIP
+      bool               NOTRNA, NOTRNB, LQUERY, SKIP;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   WNRM( MAX( M, N ) )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLANGE, DLAMCH, DLARMM
       EXTERNAL           DLANGE, DLAMCH, DLARMM, ILAENV, LSAME

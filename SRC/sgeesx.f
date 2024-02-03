@@ -10,12 +10,12 @@
       REAL               RCONDE, RCONDV
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       int                IWORK( * )
       REAL               A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *     .. Function Arguments ..
-      LOGICAL            SELECT
+      bool               SELECT;
       EXTERNAL           SELECT
 *     ..
 *
@@ -26,7 +26,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, LWRK, LIWRK, MAXWRK, MINWRK
+      bool               CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, LWRK, LIWRK, MAXWRK, MINWRK;
       REAL               ANRM, BIGNUM, CSCALE, EPS, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -36,7 +36,7 @@
       EXTERNAL           SCOPY, SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLASCL, SORGHR, SSWAP, STRSEN, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK

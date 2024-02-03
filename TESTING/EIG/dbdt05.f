@@ -23,7 +23,7 @@
       DOUBLE PRECISION   ANORM, EPS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IDAMAX
       DOUBLE PRECISION   DASUM, DLAMCH, DLANGE
       EXTERNAL           LSAME, IDAMAX, DASUM, DLAMCH, DLANGE

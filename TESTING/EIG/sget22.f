@@ -26,7 +26,7 @@
       REAL               WMAT( 2, 2 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, SLANGE
       EXTERNAL           LSAME, SLAMCH, SLANGE
 *     ..

@@ -22,11 +22,11 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOFACT
+      bool               NOFACT;
       REAL               ANORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANHP, SLAMCH
       EXTERNAL           LSAME, CLANHP, SLAMCH
 *     ..

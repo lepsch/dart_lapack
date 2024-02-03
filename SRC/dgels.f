@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, TPSD
+      bool               LQUERY, TPSD;
       int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE
       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, SMLNUM
 *     ..
@@ -27,7 +27,7 @@
       DOUBLE PRECISION   RWORK( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANGE

@@ -27,7 +27,7 @@
       COMPLEX            AAPQ, OMPQ
       REAL               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND
-      LOGICAL            APPLV, ROTOK, RSVEC
+      bool               APPLV, ROTOK, RSVEC;
 *     ..
 *     ..
 *     .. Intrinsic Functions ..
@@ -37,7 +37,7 @@
       REAL               SCNRM2
       COMPLEX            CDOTC
       int                ISAMAX
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           ISAMAX, LSAME, CDOTC, SCNRM2
 *     ..
 *     ..

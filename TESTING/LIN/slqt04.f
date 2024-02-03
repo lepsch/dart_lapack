@@ -29,7 +29,7 @@
 *     ..
 *     .. External Functions ..
       REAL SLAMCH, SLANGE, SLANSY
-      LOGICAL  LSAME
+      bool     LSAME;
       EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
 *     ..
 *     .. Intrinsic Functions ..

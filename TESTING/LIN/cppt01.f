@@ -26,7 +26,7 @@
       COMPLEX            TC
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANHP, SLAMCH
       COMPLEX            CDOTC
       EXTERNAL           LSAME, CLANHP, SLAMCH, CDOTC

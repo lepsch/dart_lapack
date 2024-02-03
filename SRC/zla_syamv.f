@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            SYMB_ZERO
+      bool               SYMB_ZERO;
       DOUBLE PRECISION   TEMP, SAFE1
       int                I, INFO, IY, J, JX, KX, KY
       COMPLEX*16         ZDUM

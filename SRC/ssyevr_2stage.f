@@ -23,13 +23,13 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, VALEIG, WANTZ, TRYRAC, TEST
+      bool               ALLEIG, INDEIG, LOWER, LQUERY, VALEIG, WANTZ, TRYRAC, TEST;
       String             ORDER;
       int                I, IEEEOK, IINFO, IMAX, INDD, INDDD, INDE, INDEE, INDIBL, INDIFL, INDISP, INDIWO, INDTAU, INDWK, INDWKN, ISCALE, J, JJ, LIWMIN, LLWORK, LLWRKN, LWMIN, NSPLIT, LHTRD, LWTRD, KD, IB, INDHOUS
       REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV, ILAENV2STAGE
       REAL               SLAMCH, SLANSY, SROUNDUP_LWORK
       EXTERNAL           LSAME, SLAMCH, SLANSY, SROUNDUP_LWORK, ILAENV, ILAENV2STAGE

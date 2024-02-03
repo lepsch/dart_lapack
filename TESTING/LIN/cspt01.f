@@ -28,7 +28,7 @@
       REAL               ANORM, EPS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANSP, CLANSY, SLAMCH
       EXTERNAL           LSAME, CLANSP, CLANSY, SLAMCH
 *     ..

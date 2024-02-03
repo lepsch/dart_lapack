@@ -22,7 +22,7 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN, NOUNIT, UPPER
+      bool               NOTRAN, NOUNIT, UPPER;
       String             TRANSN, TRANST;
       int                I, J, K, KASE, NZ
       DOUBLE PRECISION   EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
@@ -38,7 +38,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, DLAMCH
 *     ..

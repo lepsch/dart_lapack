@@ -21,11 +21,11 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *
 *     .. Local Scalars ..
-      LOGICAL            LEFT, LQUERY, NOTRAN
+      bool               LEFT, LQUERY, NOTRAN;
       int                I, LDWORK, LEN, LWKOPT, NB, NQ, NW
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, SROUNDUP_LWORK
 *     ..

@@ -15,12 +15,12 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            APPLYQ, LEFT, LQUERY, NOTRAN
+      bool               APPLYQ, LEFT, LQUERY, NOTRAN;
       String             TRANST;
       int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..

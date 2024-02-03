@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            TPSD
+      bool               TPSD;
       int                I, INFO, J, LDWORK
       DOUBLE PRECISION   ANRM, ERR, XNRM
 *     ..
@@ -27,7 +27,7 @@
       DOUBLE PRECISION   RWORK( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, DLAMCH, DLANGE
 *     ..

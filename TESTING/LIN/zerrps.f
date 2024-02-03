@@ -28,7 +28,7 @@
 *     ..
 *     .. Scalars in Common ..
       int                INFOT, NOUT
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
 *     ..
 *     .. Common blocks ..

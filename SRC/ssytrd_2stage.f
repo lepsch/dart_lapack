@@ -18,14 +18,14 @@
 *  =====================================================================
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER, WANTQ
+      bool               LQUERY, UPPER, WANTQ;
       int                KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, SSYTRD_SY2SB, SSYTRD_SB2ST
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV2STAGE
       EXTERNAL           LSAME, ILAENV2STAGE
 *     ..

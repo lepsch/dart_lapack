@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       REAL TEMP1,TEMP2
       int     I,INFO,J,L,NROWA
-      LOGICAL UPPER
+      bool    UPPER;
 *     ..
 *     .. Parameters ..
       REAL ONE,ZERO

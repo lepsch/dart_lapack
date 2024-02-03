@@ -21,7 +21,7 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK
       DOUBLE PRECISION   AJJ, AKK, BJJ, BKK
       COMPLEX*16         CT
@@ -33,7 +33,7 @@
       INTRINSIC          DBLE
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, ZDOTC
 *     ..

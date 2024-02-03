@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            COMP
+      bool               COMP;
       int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT
       DOUBLE PRECISION   RCDEIN, RCDVIN, THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * )
       DOUBLE PRECISION   RESULT( 17 ), RWORK( * )
       COMPLEX*16         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * )
@@ -35,7 +35,7 @@
       int                IPNT( 20 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            ZSLECT
+      bool               ZSLECT;
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           ZSLECT, DLAMCH, ZLANGE
 *     ..
@@ -46,7 +46,7 @@
       INTRINSIC          ABS, DBLE, DIMAG, MAX, MIN
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..

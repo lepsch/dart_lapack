@@ -22,12 +22,12 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, NOFACT
+      bool               LQUERY, NOFACT;
       int                LWKOPT, LWKMIN, NB
       DOUBLE PRECISION   ANORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANHE
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANHE

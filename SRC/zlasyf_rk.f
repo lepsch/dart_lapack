@@ -24,13 +24,13 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            DONE
+      bool               DONE;
       int                IMAX, ITEMP, J, JB, JJ, JMAX, K, KK, KW, KKW, KP, KSTEP, P, II
       DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, ROWMAX, SFMIN, DTEMP
       COMPLEX*16         D11, D12, D21, D22, R1, T, Z
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IZAMAX, DLAMCH

@@ -24,7 +24,7 @@
       DOUBLE PRECISION   ABSA, SCALE, SUM, VALUE
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       EXTERNAL           LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..

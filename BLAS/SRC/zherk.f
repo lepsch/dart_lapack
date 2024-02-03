@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
@@ -29,7 +29,7 @@
       COMPLEX*16 TEMP
       DOUBLE PRECISION RTEMP
       int     I,INFO,J,L,NROWA
-      LOGICAL UPPER
+      bool    UPPER;
 *     ..
 *     .. Parameters ..
       DOUBLE PRECISION ONE,ZERO

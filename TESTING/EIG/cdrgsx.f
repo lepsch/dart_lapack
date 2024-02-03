@@ -9,7 +9,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       int                IWORK( * )
       REAL               RWORK( * ), S( * )
       COMPLEX            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), WORK( * ), Z( LDA, * )
@@ -24,7 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILABAD
+      bool               ILABAD;
       String             SENSE;
       int                BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB
       REAL               ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT
@@ -34,7 +34,7 @@
       REAL               DIFEST( 2 ), PL( 2 ), RESULT( 10 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            CLCTSX
+      bool               CLCTSX;
       int                ILAENV
       REAL               CLANGE, SLAMCH
       EXTERNAL           CLCTSX, ILAENV, CLANGE, SLAMCH
@@ -43,7 +43,7 @@
       EXTERNAL           ALASVM, CGESVD, CGET51, CGGESX, CLACPY, CLAKF2, CLASET, CLATM5, XERBLA
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            FS
+      bool               FS;
       int                K, M, MPLUSN, N
 *     ..
 *     .. Common blocks ..

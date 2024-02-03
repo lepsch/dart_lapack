@@ -25,13 +25,13 @@
       PARAMETER          ( CONE = ( 1.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER, LQUERY, WANTZ
+      bool               LOWER, LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWORK, LLWRK2, LRWMIN, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
 
        REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV2STAGE
       REAL               SLAMCH, CLANHE
       EXTERNAL           LSAME, SLAMCH, CLANHE, ILAENV2STAGE

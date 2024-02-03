@@ -31,7 +31,7 @@
 *     .. External Functions ..
       COMPLEX*16         ZDOTC
       DOUBLE PRECISION   DLAMCH, ZLANHE
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           ZDOTC, DLAMCH, ZLANHE, LSAME
 *     ..
 *     .. External Subroutines ..

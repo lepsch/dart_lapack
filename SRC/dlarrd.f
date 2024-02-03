@@ -22,7 +22,7 @@
       PARAMETER ( ALLRNG = 1, VALRNG = 2, INDRNG = 3 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NCNVRG, TOOFEW
+      bool               NCNVRG, TOOFEW;
       int                I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU
       DOUBLE PRECISION   ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL
 
@@ -31,7 +31,7 @@
       int                IDUMMA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, ILAENV, DLAMCH

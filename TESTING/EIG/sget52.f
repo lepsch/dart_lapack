@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            LEFT
+      bool               LEFT;
       int                LDA, LDB, LDE, N
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0, ONE = 1.0, TEN = 10.0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILCPLX
+      bool               ILCPLX;
       String             NORMAB, TRANS;
       int                J, JVEC
       REAL               ABMAX, ACOEF, ALFMAX, ANORM, BCOEFI, BCOEFR, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SALFI, SALFR, SBETA, SCALE, TEMP1, ULP

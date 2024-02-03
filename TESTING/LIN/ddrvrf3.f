@@ -32,7 +32,7 @@
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, DLANGE, DLARND
       EXTERNAL           DLAMCH, DLANGE, DLARND, LSAME
 *     ..

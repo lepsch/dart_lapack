@@ -16,12 +16,12 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            UPPER, WANTZ
+      bool               UPPER, WANTZ;
       String             VECT;
       int                IINFO, INDE, INDWRK
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

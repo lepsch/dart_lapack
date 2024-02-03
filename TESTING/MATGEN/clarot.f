@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            LLEFT, LRIGHT, LROWS
+      bool               LLEFT, LRIGHT, LROWS;
       int                LDA, NL
       COMPLEX            C, S, XLEFT, XRIGHT
 *     ..

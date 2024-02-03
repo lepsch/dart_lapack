@@ -9,7 +9,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * ), SELECT( * )
+      bool               DOTYPE( * ), SELECT( * );
       int                ISEED( 4 ), IWORK( * ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), EVECTL( LDU, * ), EVECTR( LDU, * ), EVECTX( LDU, * ), EVECTY( LDU, * ), H( LDA, * ), RESULT( 16 ), T1( LDA, * ), T2( LDA, * ), TAU( * ), U( LDU, * ), UU( LDU, * ), UZ( LDU, * ), WI1( * ), WI2( * ), WI3( * ), WORK( * ), WR1( * ), WR2( * ), WR3( * ), Z( LDU, * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN, MATCH
+      bool               BADNN, MATCH;
       int                I, IHI, IINFO, ILO, IMODE, IN, ITYPE, J, JCOL, JJ, JSIZE, JTYPE, K, MTYPES, N, N1, NERRS, NMATS, NMAX, NSELC, NSELR, NTEST, NTESTT
       DOUBLE PRECISION   ANINV, ANORM, COND, CONDS, OVFL, RTOVFL, RTULP, RTULPI, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL
 *     ..

@@ -21,12 +21,12 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, LQUERY, UPPER, VALEIG, WANTZ
+      bool               ALLEIG, INDEIG, LQUERY, UPPER, VALEIG, WANTZ;
       String             TRANS;
       int                LWKMIN, LWKOPT, NB
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..

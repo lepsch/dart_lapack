@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       COMPLEX*16 TEMP
       int     I,INFO,J,L,NROWA,NROWB
-      LOGICAL CONJA,CONJB,NOTA,NOTB
+      bool    CONJA,CONJB,NOTA,NOTB;
 *     ..
 *     .. Parameters ..
       COMPLEX*16 ONE

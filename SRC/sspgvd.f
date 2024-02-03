@@ -16,12 +16,12 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER, WANTZ
+      bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
       int                J, LIWMIN, LWMIN, NEIG
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, SROUNDUP_LWORK
 *     ..

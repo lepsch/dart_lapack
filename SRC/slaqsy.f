@@ -24,7 +24,7 @@
       REAL               CJ, LARGE, SMALL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH
       EXTERNAL           LSAME, SLAMCH
 *     ..

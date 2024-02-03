@@ -25,7 +25,7 @@
       REAL               PIV, ALPHA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ISAMAX, ILAENV
       EXTERNAL           LSAME, ILAENV, ISAMAX
 *     ..

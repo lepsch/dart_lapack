@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            WANTQ, WANTZ
+      bool               WANTQ, WANTZ;
       int                INFO, J1, LDA, LDB, LDQ, LDZ, LWORK, N, N1, N2
 *     ..
 *     .. Array Arguments ..
@@ -23,11 +23,11 @@
       PARAMETER          ( TWENTY = 2.0E+01 )
       int                LDST
       PARAMETER          ( LDST = 4 )
-      LOGICAL            WANDS
+      bool               WANDS;
       PARAMETER          ( WANDS = .TRUE. )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            STRONG, WEAK
+      bool               STRONG, WEAK;
       int                I, IDUM, LINFO, M
       REAL               BQRA21, BRQA21, DDUM, DNORMA, DNORMB, DSCALE, DSUM, EPS, F, G, SA, SB, SCALE, SMLNUM, THRESHA, THRESHB
 *     ..

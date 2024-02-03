@@ -24,15 +24,15 @@
 *     .. Local Scalars ..
       String             TRANST, SIGNST;
       int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, ITAUQ2, J, LBBCSDWORK, LBBCSDWORKMIN, LBBCSDWORKOPT, LORBDBWORK, LORBDBWORKMIN, LORBDBWORKOPT, LORGLQWORK, LORGLQWORKMIN, LORGLQWORKOPT, LORGQRWORK, LORGQRWORKMIN, LORGQRWORKOPT, LWORKMIN, LWORKOPT, P1, Q1
-      LOGICAL            COLMAJOR, DEFAULTSIGNS, LQUERY, WANTU1, WANTU2, WANTV1T, WANTV2T
+      bool               COLMAJOR, DEFAULTSIGNS, LQUERY, WANTU1, WANTU2, WANTV1T, WANTV2T;
       int                LRWORKMIN, LRWORKOPT
-      LOGICAL            LRQUERY
+      bool               LRQUERY;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZBBCSD, ZLACPY, ZLAPMR, ZLAPMT, ZUNBDB, ZUNGLQ, ZUNGQR
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Functions

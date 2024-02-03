@@ -21,12 +21,12 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J
       DOUBLE PRECISION   AJJ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, ZDOTC, DISNAN
 *     ..

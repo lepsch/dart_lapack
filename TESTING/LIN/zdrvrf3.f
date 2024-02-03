@@ -35,7 +35,7 @@
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, ZLANGE
       COMPLEX*16         ZLARND
       EXTERNAL           DLAMCH, ZLARND, ZLANGE, LSAME

@@ -9,12 +9,12 @@
       int                INFO, LDA, LDVS, LWORK, N, SDIM
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       DOUBLE PRECISION   RWORK( * )
       COMPLEX*16         A( LDA, * ), VS( LDVS, * ), W( * ), WORK( * )
 *     ..
 *     .. Function Arguments ..
-      LOGICAL            SELECT
+      bool               SELECT;
       EXTERNAL           SELECT
 *     ..
 *
@@ -25,7 +25,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, SCALEA, WANTST, WANTVS
+      bool               LQUERY, SCALEA, WANTST, WANTVS;
       int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, MAXWRK, MINWRK
       DOUBLE PRECISION   ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM
 *     ..
@@ -36,7 +36,7 @@
       EXTERNAL           XERBLA, ZCOPY, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEQR, ZLACPY, ZLASCL, ZTRSEN, ZUNGHR
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE

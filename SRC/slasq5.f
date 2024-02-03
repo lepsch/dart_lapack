@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            IEEE
+      bool               IEEE;
       int                I0, N0, PP
       REAL               DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS
 *     ..

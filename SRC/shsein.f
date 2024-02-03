@@ -9,7 +9,7 @@
       int                INFO, LDH, LDVL, LDVR, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * )
       REAL               H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * )
 *     ..
@@ -21,12 +21,12 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV
+      bool               BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KSI, KSR, LDWORK
       REAL               BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       REAL               SLAMCH, SLANHS
       EXTERNAL           LSAME, SLAMCH, SLANHS, SISNAN
 *     ..

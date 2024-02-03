@@ -22,13 +22,13 @@
       PARAMETER          ( EIGHT = 8.0E+0, SEVTEN = 17.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            DONE, UPPER
+      bool               DONE, UPPER;
       int                I, II, IMAX, ITEMP, J, JMAX, K, KK, KP, KSTEP, P       REAL               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, STEMP, ROWMAX, TT, SFMIN
       COMPLEX            D12, D21, T, WK, WKM1, WKP1, Z
 *     ..
 *     .. External Functions ..
 *
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ICAMAX
       REAL               SLAMCH, SLAPY2
       EXTERNAL           LSAME, ICAMAX, SLAMCH, SLAPY2

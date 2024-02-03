@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
@@ -29,7 +29,7 @@
       COMPLEX TEMP
       REAL RTEMP
       int     I,INFO,J,L,NROWA
-      LOGICAL UPPER
+      bool    UPPER;
 *     ..
 *     .. Parameters ..
       REAL ONE,ZERO

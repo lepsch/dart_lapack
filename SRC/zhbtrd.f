@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            INITQ, UPPER, WANTQ
+      bool               INITQ, UPPER, WANTQ;
       int                I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J, J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1, KDM1, KDN, L, LAST, LEND, NQ, NR, NRT
       DOUBLE PRECISION   ABST
       COMPLEX*16         T, TEMP
@@ -34,7 +34,7 @@
       INTRINSIC          ABS, DBLE, DCONJG, MAX, MIN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Executable Statements ..

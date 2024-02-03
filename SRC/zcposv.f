@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      LOGICAL            DOITREF
+      bool               DOITREF;
       PARAMETER          ( DOITREF = .TRUE. )
 *
       int                ITERMAX
@@ -40,7 +40,7 @@
 *     .. External Functions ..
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH, ZLANHE
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           IZAMAX, DLAMCH, ZLANHE, LSAME
 *     ..
 *     .. Intrinsic Functions ..

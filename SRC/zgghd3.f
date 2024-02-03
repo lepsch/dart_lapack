@@ -21,14 +21,14 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ
+      bool               BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ;
       String             COMPQ2, COMPZ2;
       int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ
       DOUBLE PRECISION   C
       COMPLEX*16         C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       EXTERNAL           ILAENV, LSAME
 *     ..

@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            DONE
+      bool               DONE;
       int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
@@ -35,7 +35,7 @@
       INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
-      LOGICAL            DISNAN
+      bool               DISNAN;
       int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DZNRM2
       EXTERNAL           DISNAN, DLAMCH, IDAMAX, DZNRM2

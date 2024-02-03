@@ -24,12 +24,12 @@
 *     ..
 *     .. Local Scalars ..
       String             RNGVX;
-      LOGICAL            ALLSV, INDSV, LOWER, SPLIT, SVEQ0, VALSV, WANTZ
+      bool               ALLSV, INDSV, LOWER, SPLIT, SVEQ0, VALSV, WANTZ;
       int                I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR, IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV, IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K, NTGK, NRU, NRV, NSL
       REAL               ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ISAMAX
       REAL               SDOT, SLAMCH, SNRM2
       EXTERNAL           ISAMAX, LSAME, SAXPY, SDOT, SLAMCH, SNRM2

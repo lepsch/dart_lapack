@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NMAX, NN, NNS, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                IWORK( * ), NSVAL( * ), NVAL( * )
       REAL               AINVP( * ), AP( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -38,7 +38,7 @@
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLANTP
       EXTERNAL           LSAME, SLANTP
 *     ..
@@ -46,7 +46,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04, SLACPY, SLARHS, SLATPS, SLATTP, STPCON, STPRFS, STPT01, STPT02, STPT03, STPT05, STPT06, STPTRI, STPTRS
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, IOUNIT
 *     ..

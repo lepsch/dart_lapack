@@ -24,7 +24,7 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            TESTZEROS
+      bool               TESTZEROS;
       int                INFO, J, K, L, LWORK, NB2_UB, NRB
       DOUBLE PRECISION   ANORM, EPS, RESID, CNORM, DNORM
 *     ..

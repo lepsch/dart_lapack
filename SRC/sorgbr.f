@@ -19,11 +19,11 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, WANTQ
+      bool               LQUERY, WANTQ;
       int                I, IINFO, J, LWKOPT, MN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, SROUNDUP_LWORK
 *     ..

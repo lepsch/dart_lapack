@@ -19,12 +19,12 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            DECR, EIGEN, INCR, LEFT, RIGHT, SING
+      bool               DECR, EIGEN, INCR, LEFT, RIGHT, SING;
       int                I, K
       REAL               ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH
       EXTERNAL           LSAME, SLAMCH
 *     ..

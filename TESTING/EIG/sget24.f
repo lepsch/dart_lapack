@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            COMP
+      bool               COMP;
       int                INFO, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT
       REAL               RCDEIN, RCDVIN, THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * ), IWORK( * )
       REAL               A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 17 ), VS( LDVS, * ), VS1( LDVS, * ), WI( * ), WIT( * ), WITMP( * ), WORK( * ), WR( * ), WRT( * ), WRTMP( * )
 *     ..
@@ -31,7 +31,7 @@
       int                IPNT( 20 )
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       REAL               SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
@@ -41,7 +41,7 @@
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
 *     ..
 *     .. External Functions ..
-      LOGICAL            SSLECT
+      bool               SSLECT;
       REAL               SLAMCH, SLANGE
       EXTERNAL           SSLECT, SLAMCH, SLANGE
 *     ..

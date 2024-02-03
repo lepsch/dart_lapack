@@ -26,7 +26,7 @@
       PARAMETER          ( HALF = 1.0E0 / 2.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADEI, BADS, USEEI
+      bool               BADEI, BADS, USEEI;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR, JR
       REAL               ALPHA, TAU, TEMP, XNORMS
 *     ..
@@ -34,7 +34,7 @@
       REAL               TEMPA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLANGE, SLARAN
       EXTERNAL           LSAME, SLANGE, SLARAN
 *     ..

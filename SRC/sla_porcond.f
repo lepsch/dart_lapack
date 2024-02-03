@@ -18,13 +18,13 @@
 *     .. Local Scalars ..
       int                KASE, I, J
       REAL               AINVNM, TMP
-      LOGICAL            UP
+      bool               UP;
 *     ..
 *     .. Array Arguments ..
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

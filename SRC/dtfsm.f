@@ -21,11 +21,11 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER, LSIDE, MISODD, NISODD, NORMALTRANSR, NOTRANS
+      bool               LOWER, LSIDE, MISODD, NISODD, NORMALTRANSR, NOTRANS;
       int                M1, M2, N1, N2, K, INFO, I, J
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

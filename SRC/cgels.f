@@ -21,7 +21,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, TPSD
+      bool               LQUERY, TPSD;
       int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE
       REAL               ANRM, BIGNUM, BNRM, SMLNUM
 *     ..
@@ -29,7 +29,7 @@
       REAL               RWORK( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               CLANGE, SLAMCH
       EXTERNAL           LSAME, ILAENV, CLANGE, SLAMCH

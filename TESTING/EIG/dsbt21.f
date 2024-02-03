@@ -19,13 +19,13 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER
+      bool               LOWER;
       String             CUPLO;
       int                IKA, J, JC, JR, LW
       DOUBLE PRECISION   ANORM, ULP, UNFL, WNORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, DLANGE, DLANSB, DLANSP
       EXTERNAL           LSAME, DLAMCH, DLANGE, DLANSB, DLANSP
 *     ..

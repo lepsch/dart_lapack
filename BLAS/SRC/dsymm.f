@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION TEMP1,TEMP2
       int     I,INFO,J,K,NROWA
-      LOGICAL UPPER
+      bool    UPPER;
 *     ..
 *     .. Parameters ..
       DOUBLE PRECISION ONE,ZERO

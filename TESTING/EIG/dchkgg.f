@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTDIF
+      bool               TSTDIF;
       int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES
       DOUBLE PRECISION   THRESH, THRSHN
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * ), LLWORK( * )
+      bool               DOTYPE( * ), LLWORK( * );
       int                ISEED( 4 ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), ALPHI1( * ), ALPHI3( * ), ALPHR1( * ), ALPHR3( * ), B( LDA, * ), BETA1( * ), BETA3( * ), EVECTL( LDU, * ), EVECTR( LDU, * ), H( LDA, * ), P1( LDA, * ), P2( LDA, * ), Q( LDU, * ), RESULT( 15 ), S1( LDA, * ), S2( LDA, * ), T( LDA, * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * )
 *     ..
@@ -24,7 +24,7 @@
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN
+      bool               BADNN;
       int                I1, IADD, IINFO, IN, J, JC, JR, JSIZE, JTYPE, LWKOPT, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT
       DOUBLE PRECISION   ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
 *     ..

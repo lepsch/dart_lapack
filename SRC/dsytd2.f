@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0, HALF = 1.0D0 / 2.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                I
       DOUBLE PRECISION   ALPHA, TAUI
 *     ..
@@ -27,7 +27,7 @@
       EXTERNAL           DAXPY, DLARFG, DSYMV, DSYR2, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DDOT
       EXTERNAL           LSAME, DDOT
 *     ..

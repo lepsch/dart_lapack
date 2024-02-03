@@ -16,7 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       int        I, IB, IINFO, K
-      LOGICAL    USE_RECURSIVE_QR
+      bool       USE_RECURSIVE_QR;
       PARAMETER( USE_RECURSIVE_QR=.TRUE. )
 *     ..
 *     .. External Subroutines ..

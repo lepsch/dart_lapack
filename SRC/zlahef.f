@@ -29,7 +29,7 @@
       COMPLEX*16         D11, D21, D22, Z
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       EXTERNAL           LSAME, IZAMAX
 *     ..

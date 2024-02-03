@@ -23,11 +23,11 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   AJJ, DSTOP, DTEMP
       int                I, ITEMP, J, PVT
-      LOGICAL            UPPER
+      bool               UPPER;
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       EXTERNAL           DLAMCH, LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..

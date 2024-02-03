@@ -28,7 +28,7 @@
       COMPLEX*16         WTEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           LSAME, DLAMCH, ZLANGE
 *     ..

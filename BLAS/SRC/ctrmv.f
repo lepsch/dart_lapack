@@ -21,10 +21,10 @@
 *     .. Local Scalars ..
       COMPLEX TEMP
       int     I,INFO,IX,J,JX,KX
-      LOGICAL NOCONJ,NOUNIT
+      bool    NOCONJ,NOUNIT;
 *     ..
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..

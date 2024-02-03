@@ -16,11 +16,11 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            UPPER, LQUERY
+      bool               UPPER, LQUERY;
       int                MINSIZE, NBMAX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..

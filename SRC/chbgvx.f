@@ -24,13 +24,13 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ
+      bool               ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ;
       String             ORDER, VECT;
       int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDWRK, ITMP1, J, JJ, NSPLIT
       REAL               TMP1
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH
       String             UPLO;
-      LOGICAL            COLEQU, IGNORE_CWISE
+      bool               COLEQU, IGNORE_CWISE;
       REAL               RTHRESH, DZ_UB
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
 *     .. Local Scalars ..
       int                UPLO2, CNT, I, J, X_STATE, Z_STATE
       REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
-      LOGICAL            INCR_PREC, UPPER
+      bool               INCR_PREC, UPPER;
 *     ..
 *     .. Parameters ..
       int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, Y_PREC_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y
@@ -37,7 +37,7 @@
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           ILAUPLO
       int                ILAUPLO
 *     ..

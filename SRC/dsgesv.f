@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      LOGICAL            DOITREF
+      bool               DOITREF;
       PARAMETER          ( DOITREF = .TRUE. )
 *
       int                ITERMAX

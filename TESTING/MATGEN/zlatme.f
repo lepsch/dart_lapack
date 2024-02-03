@@ -29,7 +29,7 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADS
+      bool               BADS;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR
       DOUBLE PRECISION   RALPHA, TEMP
       COMPLEX*16         ALPHA, TAU, XNORMS
@@ -38,7 +38,7 @@
       DOUBLE PRECISION   TEMPA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   ZLANGE
       COMPLEX*16         ZLARND
       EXTERNAL           LSAME, ZLANGE, ZLARND

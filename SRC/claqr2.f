@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW
-      LOGICAL            WANTT, WANTZ
+      bool               WANTT, WANTZ;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * )

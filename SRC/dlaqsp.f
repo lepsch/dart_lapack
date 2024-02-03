@@ -24,7 +24,7 @@
       DOUBLE PRECISION   CJ, LARGE, SMALL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, DLAMCH
 *     ..

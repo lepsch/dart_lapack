@@ -19,14 +19,14 @@
 *     .. Local Scalars ..
       int                KASE, I, J
       DOUBLE PRECISION   AINVNM, ANORM, TMP
-      LOGICAL            UP, UPPER
+      bool               UP, UPPER;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

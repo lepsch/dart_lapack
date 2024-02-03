@@ -24,7 +24,7 @@
       REAL               BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ISAMAX
       REAL               SLAMCH
       EXTERNAL           LSAME, ISAMAX, SLAMCH

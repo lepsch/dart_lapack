@@ -26,7 +26,7 @@
       COMPLEX            TEMP1, TEMP2
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

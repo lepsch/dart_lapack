@@ -19,7 +19,7 @@
 *     .. Local Scalars ..
       int                NCOLS, I, J, K, KP
       REAL               AMAX, UMAX, RPVGRW, TMP
-      LOGICAL            UPPER
+      bool               UPPER;
       COMPLEX            ZDUM
 *     ..
 *     .. Intrinsic Functions ..
@@ -27,7 +27,7 @@
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           LSAME
-      LOGICAL            LSAME
+      bool               LSAME;
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1

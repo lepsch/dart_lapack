@@ -27,7 +27,7 @@
       DOUBLE PRECISION   BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            SELECT( LDT )
+      bool               SELECT( LDT );
       int                IWORK( 2*LDT ), LCMP( 3 )
       DOUBLE PRECISION   DUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), T( LDT, LDT ), TMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WIIN( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRIN( LDT ), WRTMP( LDT )
 *     ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            FORWRD
+      bool               FORWRD;
       int                LDX, M, N
 *     ..
 *     .. Array Arguments ..

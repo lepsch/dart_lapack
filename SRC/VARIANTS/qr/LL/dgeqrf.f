@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            LQUERY
+      bool               LQUERY;
       int                I, IB, IINFO, IWS, J, K, LWKOPT, NB, NBMIN, NX, LBWORK, NT, LLWORK
 *     ..
 *     .. External Subroutines ..

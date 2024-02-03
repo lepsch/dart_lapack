@@ -1,4 +1,4 @@
-      LOGICAL          FUNCTION ZSLECT( Z )
+      bool             FUNCTION ZSLECT( Z );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,7 +22,7 @@
       int                SELDIM, SELOPT
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Common blocks ..

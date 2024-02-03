@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      LOGICAL            CHKFERR
+      bool               CHKFERR;
       int                LDA, LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
@@ -21,13 +21,13 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN
+      bool               NOTRAN;
       int                I, IMAX, J, K
       DOUBLE PRECISION   AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IZAMAX, DLAMCH

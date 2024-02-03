@@ -10,7 +10,7 @@
       int                INFO, LDT, LDVL, LDVR, LWORK, LRWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       DOUBLE PRECISION   RWORK( * )
       COMPLEX*16         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
@@ -26,13 +26,13 @@
       PARAMETER          ( NBMIN = 8, NBMAX = 128 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLV, BOTHV, LEFTV, LQUERY, OVER, RIGHTV, SOMEV
+      bool               ALLV, BOTHV, LEFTV, LQUERY, OVER, RIGHTV, SOMEV;
       int                I, II, IS, J, K, KI, IV, MAXWRK, NB
       DOUBLE PRECISION   OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL
       COMPLEX*16         CDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV, IZAMAX
       DOUBLE PRECISION   DLAMCH, DZASUM
       EXTERNAL           LSAME, ILAENV, IZAMAX, DLAMCH, DZASUM

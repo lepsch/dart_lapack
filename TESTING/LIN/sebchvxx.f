@@ -12,7 +12,7 @@
       String             FACT, TRANS, UPLO, EQUED;
       String             C2;
       String   (3)       NGUAR, CGUAR;
-      LOGICAL            printed_guide
+      bool               printed_guide;
       REAL               NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH
 
 *     .. Local Arrays ..
@@ -24,7 +24,7 @@
 
 *     .. External Subroutines ..
       EXTERNAL           SLAHILB, SGESVXX, SSYSVXX, SPOSVXX, SGBSVXX, SLACPY, LSAMEN
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
 
 *     .. Intrinsic Functions ..
       INTRINSIC          SQRT, MAX, ABS

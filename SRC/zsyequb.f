@@ -25,12 +25,12 @@
 *     .. Local Scalars ..
       int                I, J, ITER
       DOUBLE PRECISION   AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ
-      LOGICAL            UP
+      bool               UP;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           DLAMCH, LSAME
 *     ..
 *     .. External Subroutines ..

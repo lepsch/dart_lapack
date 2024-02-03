@@ -21,7 +21,7 @@
       PARAMETER          ( LDAMAX = NMAX )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FATAL, TSTDRV, TSTERR
+      bool               FATAL, TSTDRV, TSTERR;
       String             C1;
       String             C2;
       String             PATH;
@@ -32,7 +32,7 @@
       REAL               SEPS
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( MATMAX )
+      bool               DOTYPE( MATMAX );
       int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN )
       DOUBLE PRECISION   RWORK(NMAX)
       COMPLEX*16         A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), WORK( NMAX*MAXRHS*2 )
@@ -40,7 +40,7 @@
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH, DSECND
-      LOGICAL            LSAME, LSAMEN
+      bool               LSAME, LSAMEN;
       REAL               SLAMCH
       EXTERNAL           DLAMCH, DSECND, LSAME, LSAMEN, SLAMCH
 *     ..
@@ -48,7 +48,7 @@
       EXTERNAL           ALAREQ, ZDRVAB, ZDRVAC, ZERRAB, ZERRAC, ILAVER
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

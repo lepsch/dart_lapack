@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UDIAG
+      bool               UDIAG;
       int                I, J, K
       REAL               SCALE, SUM, VALUE
 *     ..
@@ -27,7 +27,7 @@
       EXTERNAL           SLASSQ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       EXTERNAL           LSAME, SISNAN
 *     ..
 *     .. Intrinsic Functions ..

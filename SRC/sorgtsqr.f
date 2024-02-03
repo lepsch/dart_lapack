@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY
+      bool               LQUERY;
       int                IINFO, LDC, LWORKOPT, LC, LW, NBLOCAL, J
 *     ..
 *     .. External Functions ..

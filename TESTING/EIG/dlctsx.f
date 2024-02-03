@@ -1,4 +1,4 @@
-      LOGICAL          FUNCTION DLCTSX( AR, AI, BETA )
+      bool             FUNCTION DLCTSX( AR, AI, BETA );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
 *  =====================================================================
 *
 *     .. Scalars in Common ..
-      LOGICAL            FS
+      bool               FS;
       int                I, M, MPLUSN, N
 *     ..
 *     .. Common blocks ..

@@ -21,10 +21,10 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION TEMP
       int     I,INFO,IX,J,JX,KX
-      LOGICAL NOUNIT
+      bool    NOUNIT;
 *     ..
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..

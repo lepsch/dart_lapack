@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, EIGHT = 8.0D0, TEN = 10.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ORGATI, SWTCH, SWTCH3
+      bool               ORGATI, SWTCH, SWTCH3;
       int                II, IIM1, IIP1, IP1, ITER, J, NITER
       DOUBLE PRECISION   A, B, C, DEL, DLTLB, DLTUB, DPHI, DPSI, DW, EPS, ERRETM, ETA, MIDPT, PHI, PREW, PSI, RHOINV, TAU, TEMP, TEMP1, W
 *     ..

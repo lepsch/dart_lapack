@@ -41,7 +41,7 @@
 *     .. External Functions
       EXTERNAL CLASET, LSAMEN
       INTRINSIC REAL
-      LOGICAL LSAMEN
+      bool    LSAMEN;
 *     ..
 *     .. Executable Statements ..
       C2 = PATH( 2: 3 )

@@ -27,7 +27,7 @@
 *     .. External Functions ..
       REAL               SLAMCH
       int                ISAMAX
-      LOGICAL            SISNAN
+      bool               SISNAN;
       EXTERNAL           SLAMCH, ISAMAX, SISNAN
 *     ..
 *     .. External Subroutines ..

@@ -20,14 +20,14 @@
       int                KASE
       REAL               AINVNM, ANORM, TMP
       int                I, J
-      LOGICAL            UP, UPPER
+      bool               UP, UPPER;
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

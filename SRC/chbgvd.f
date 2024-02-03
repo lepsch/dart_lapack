@@ -21,12 +21,12 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER, WANTZ
+      bool               LQUERY, UPPER, WANTZ;
       String             VECT;
       int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, SROUNDUP_LWORK
 *     ..

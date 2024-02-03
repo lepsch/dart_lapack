@@ -9,7 +9,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * ), DOTYPE( * )
+      bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), NN( * )
       DOUBLE PRECISION   RESULT( 13 ), RWORK( * )
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * )
@@ -26,19 +26,19 @@
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN, ILABAD
+      bool               BADNN, ILABAD;
       String             SORT;
       int                I, IADD, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM
       DOUBLE PRECISION   SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
       COMPLEX*16         CTEMP, X
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            LASIGN( MAXTYP ), LBSIGN( MAXTYP )
+      bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
       int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
       DOUBLE PRECISION   RMAGN( 0: 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            ZLCTES
+      bool               ZLCTES;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH
       COMPLEX*16         ZLARND

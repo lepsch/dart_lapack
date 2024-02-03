@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       List<String>         SRNAMT;
       int                INFOT, NOUT
 *     ..

@@ -28,7 +28,7 @@
       COMPLEX            CDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       REAL               SCASUM, SLAMCH
       EXTERNAL           LSAME, SCASUM, SISNAN, SLAMCH
 *     ..

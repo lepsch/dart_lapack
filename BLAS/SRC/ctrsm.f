@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..
@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       COMPLEX TEMP
       int     I,INFO,J,K,NROWA
-      LOGICAL LSIDE,NOCONJ,NOUNIT,UPPER
+      bool    LSIDE,NOCONJ,NOUNIT,UPPER;
 *     ..
 *     .. Parameters ..
       COMPLEX ONE

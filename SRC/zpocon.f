@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       String             NORMIN;
       int                IX, KASE
       DOUBLE PRECISION   AINVNM, SCALE, SCALEL, SCALEU, SMLNUM
@@ -31,7 +31,7 @@
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IZAMAX, DLAMCH

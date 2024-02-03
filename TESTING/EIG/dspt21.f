@@ -21,13 +21,13 @@
       PARAMETER          ( HALF = 1.0D+0 / 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER
+      bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP
       DOUBLE PRECISION   ANORM, TEMP, ULP, UNFL, VSAVE, WNORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DDOT, DLAMCH, DLANGE, DLANSP
       EXTERNAL           LSAME, DDOT, DLAMCH, DLANGE, DLANSP
 *     ..

@@ -78,7 +78,7 @@
       PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       REAL               EPS, ERR, THRESH
-      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;
       String             TRANS;
       String             SNAMET;
       String             SNAPS;
@@ -86,11 +86,11 @@
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX )
       REAL               G( NMAX )
       int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
-      LOGICAL            LTEST( NSUBS )
+      bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
 *     .. External Functions ..
       REAL               SDIFF
-      LOGICAL            LCE
+      bool               LCE;
       EXTERNAL           SDIFF, LCE
 *     .. External Subroutines ..
       EXTERNAL           CCHK1, CCHK2, CCHK3, CCHK4, CCHK5, CCHK6, CC2CHKE, CMVCH
@@ -98,7 +98,7 @@
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL            OK
+      bool               OK;
       String             SRNAMT;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -419,7 +419,7 @@
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
@@ -429,14 +429,14 @@
       COMPLEX            ALPHA, ALS, BETA, BLS, TRANSL
       REAL               ERR, ERRMAX
       int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
-      LOGICAL            BANDED, FULL, NULL, RESET, SAME, TRAN
+      bool               BANDED, FULL, NULL, RESET, SAME, TRAN;
       String             TRANS, TRANSS;
       String             CTRANS;
       String             ICH;
 *     .. Local Arrays ..
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LCE, LCERES
+      bool               LCE, LCERES;
       EXTERNAL           LCE, LCERES
 *     .. External Subroutines ..
       EXTERNAL           CCGBMV, CCGEMV, CMAKE, CMVCH
@@ -444,7 +444,7 @@
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL            OK
+      bool               OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -729,7 +729,7 @@
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
@@ -739,14 +739,14 @@
       COMPLEX            ALPHA, ALS, BETA, BLS, TRANSL
       REAL               ERR, ERRMAX
       int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
-      LOGICAL            BANDED, FULL, NULL, PACKED, RESET, SAME
+      bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             UPLO, UPLOS;
       String             CUPLO;
       String             ICH;
 *     .. Local Arrays ..
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LCE, LCERES
+      bool               LCE, LCERES;
       EXTERNAL           LCE, LCERES
 *     .. External Subroutines ..
       EXTERNAL           CCHBMV, CCHEMV, CCHPMV, CMAKE, CMVCH
@@ -754,7 +754,7 @@
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -1039,7 +1039,7 @@
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX )
@@ -1049,15 +1049,15 @@
       COMPLEX            TRANSL
       REAL               ERR, ERRMAX
       int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
-      LOGICAL            BANDED, FULL, NULL, PACKED, RESET, SAME
+      bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS;
       String             CUPLO,CTRANS,CDIAG;
       String             ICHD, ICHU;
       String             ICHT;
 *     .. Local Arrays ..
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LCE, LCERES
+      bool               LCE, LCERES;
       EXTERNAL           LCE, LCERES
 *     .. External Subroutines ..
       EXTERNAL           CMAKE, CMVCH, CCTBMV, CCTBSV, CCTPMV, CCTPSV, CCTRMV, CCTRSV
@@ -1065,7 +1065,7 @@
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -1360,7 +1360,7 @@
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
@@ -1370,12 +1370,12 @@
       COMPLEX            ALPHA, ALS, TRANSL
       REAL               ERR, ERRMAX
       int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS
-      LOGICAL            CONJ, NULL, RESET, SAME
+      bool               CONJ, NULL, RESET, SAME;
 *     .. Local Arrays ..
       COMPLEX            W( 1 )
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LCE, LCERES
+      bool               LCE, LCERES;
       EXTERNAL           LCE, LCERES
 *     .. External Subroutines ..
       EXTERNAL           CCGERC, CCGERU, CMAKE, CMVCH
@@ -1383,7 +1383,7 @@
       INTRINSIC          ABS, CONJG, MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Executable Statements ..
@@ -1602,7 +1602,7 @@
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
@@ -1612,15 +1612,15 @@
       COMPLEX            ALPHA, TRANSL
       REAL               ERR, ERRMAX, RALPHA, RALS
       int               I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
-      LOGICAL            FULL, NULL, PACKED, RESET, SAME, UPPER
+      bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             CUPLO;
       String             ICH;
 *     .. Local Arrays ..
       COMPLEX            W( 1 )
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LCE, LCERES
+      bool               LCE, LCERES;
       EXTERNAL           LCE, LCERES
 *     .. External Subroutines ..
       EXTERNAL           CCHER, CCHPR, CMAKE, CMVCH
@@ -1628,7 +1628,7 @@
       INTRINSIC          ABS, CMPLX, CONJG, MAX, REAL
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -1864,7 +1864,7 @@
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 )
@@ -1874,15 +1874,15 @@
       COMPLEX            ALPHA, ALS, TRANSL
       REAL               ERR, ERRMAX
       int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
-      LOGICAL            FULL, NULL, PACKED, RESET, SAME, UPPER
+      bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             CUPLO;
       String             ICH;
 *     .. Local Arrays ..
       COMPLEX            W( 2 )
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LCE, LCERES
+      bool               LCE, LCERES;
       EXTERNAL           LCE, LCERES
 *     .. External Subroutines ..
       EXTERNAL           CCHER2, CCHPR2, CMAKE, CMVCH
@@ -1890,7 +1890,7 @@
       INTRINSIC          ABS, CONJG, MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -2157,7 +2157,7 @@
       COMPLEX            ALPHA, BETA
       REAL               EPS, ERR
       int                INCX, INCY, M, N, NMAX, NOUT
-      LOGICAL            FATAL, MV
+      bool               FATAL, MV;
       String             TRANS;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, * ), X( * ), Y( * ), YT( * ), YY( * )
@@ -2166,7 +2166,7 @@
       COMPLEX            C
       REAL               ERRI
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL
-      LOGICAL            CTRAN, TRAN
+      bool               CTRAN, TRAN;
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, AIMAG, CONJG, MAX, REAL, SQRT
 *     .. Statement Functions ..
@@ -2265,7 +2265,7 @@
 *     End of CMVCH.
 *
       END
-      LOGICAL FUNCTION LCE( RI, RJ, LR )
+      bool    FUNCTION LCE( RI, RJ, LR );
 *
 *  Tests if two arrays are identical.
 *
@@ -2294,7 +2294,7 @@
 *     End of LCE.
 *
       END
-      LOGICAL FUNCTION LCERES( TYPE, UPLO, M, N, AA, AS, LDA )
+      bool    FUNCTION LCERES( TYPE, UPLO, M, N, AA, AS, LDA );
 *
 *  Tests if selected elements in two arrays are equal.
 *
@@ -2314,7 +2314,7 @@
       COMPLEX            AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
       int                I, IBEG, IEND, J
-      LOGICAL            UPPER
+      bool               UPPER;
 *     .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
       IF( TYPE.EQ.'ge' )THEN
@@ -2363,7 +2363,7 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      LOGICAL            RESET
+      bool               RESET;
 *     .. Local Scalars ..
       int                I, IC, J, MI, MJ
 *     .. Save statement ..
@@ -2446,14 +2446,14 @@
 *     .. Scalar Arguments ..
       COMPLEX            TRANSL
       int                KL, KU, LDA, M, N, NMAX
-      LOGICAL            RESET
+      bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK
-      LOGICAL            GEN, LOWER, SYM, TRI, UNIT, UPPER
+      bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       COMPLEX            CBEG
       EXTERNAL           CBEG

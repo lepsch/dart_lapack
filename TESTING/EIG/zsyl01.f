@@ -42,7 +42,7 @@
       DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: SWORK
 *     ..
 *     .. External Functions ..
-      LOGICAL            DISNAN
+      bool               DISNAN;
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           DISNAN, DLAMCH, ZLANGE
 *     ..

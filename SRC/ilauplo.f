@@ -15,7 +15,7 @@
       PARAMETER ( BLAS_UPPER = 121, BLAS_LOWER = 122 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Executable Statements ..

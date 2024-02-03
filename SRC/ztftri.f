@@ -19,11 +19,11 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER, NISODD, NORMALTRANSR
+      bool               LOWER, NISODD, NORMALTRANSR;
       int                N1, N2, K
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

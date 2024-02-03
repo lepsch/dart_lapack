@@ -24,7 +24,7 @@
       DOUBLE PRECISION   FACTOR, XNORM, XNORMS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLARND, DNRM2
       EXTERNAL           LSAME, DLARND, DNRM2
 *     ..

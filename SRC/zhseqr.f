@@ -40,11 +40,11 @@
 *     ..
 *     .. Local Scalars ..
       int                KBOT, NMIN
-      LOGICAL            INITZ, LQUERY, WANTT, WANTZ
+      bool               INITZ, LQUERY, WANTT, WANTZ;
 *     ..
 *     .. External Functions ..
       int                ILAENV
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           ILAENV, LSAME
 *     ..
 *     .. External Subroutines ..

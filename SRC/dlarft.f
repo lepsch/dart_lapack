@@ -25,7 +25,7 @@
       EXTERNAL           DGEMV, DTRMV
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Executable Statements ..

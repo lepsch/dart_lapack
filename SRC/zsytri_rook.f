@@ -20,12 +20,12 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                K, KP, KSTEP
       COMPLEX*16         AK, AKKP1, AKP1, D, T, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX*16         ZDOTU
       EXTERNAL           LSAME, ZDOTU
 *     ..

@@ -15,11 +15,11 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

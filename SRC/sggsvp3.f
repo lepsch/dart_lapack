@@ -23,11 +23,11 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FORWRD, WANTQ, WANTU, WANTV, LQUERY
+      bool               FORWRD, WANTQ, WANTU, WANTV, LQUERY;
       int                I, J, LWKOPT
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
       REAL               SROUNDUP_LWORK
       EXTERNAL           SROUNDUP_LWORK

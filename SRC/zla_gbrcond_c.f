@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      LOGICAL            CAPPLY
+      bool               CAPPLY;
       int                N, KL, KU, KD, KE, LDAB, LDAFB, INFO
 *     ..
 *     .. Array Arguments ..
@@ -18,7 +18,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            NOTRANS
+      bool               NOTRANS;
       int                KASE, I, J
       DOUBLE PRECISION   AINVNM, ANORM, TMP
       COMPLEX*16         ZDUM
@@ -27,7 +27,7 @@
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

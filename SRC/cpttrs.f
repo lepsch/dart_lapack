@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                IUPLO, J, JB, NB
 *     ..
 *     .. External Functions ..

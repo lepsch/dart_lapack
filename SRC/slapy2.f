@@ -18,10 +18,10 @@
 *     ..
 *     .. Local Scalars ..
       REAL               W, XABS, YABS, Z, HUGEVAL
-      LOGICAL            X_IS_NAN, Y_IS_NAN
+      bool               X_IS_NAN, Y_IS_NAN;
 *     ..
 *     .. External Functions ..
-      LOGICAL            SISNAN
+      bool               SISNAN;
       EXTERNAL           SISNAN
 *     ..
 *     .. External Subroutines ..

@@ -18,11 +18,11 @@
 *  =====================================================================
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER, TQUERY, WQUERY
+      bool               UPPER, TQUERY, WQUERY;
       int                LWKMIN, LWKOPT
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
       REAL               SROUNDUP_LWORK
       EXTERNAL           SROUNDUP_LWORK

@@ -22,13 +22,13 @@
       PARAMETER          ( TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FIRST
+      bool               FIRST;
       String             C2;
       int                MAT
       REAL               BADC1, BADC2, EPS, LARGE, SMALL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       REAL               SLAMCH
       EXTERNAL           LSAMEN, SLAMCH
 *     ..

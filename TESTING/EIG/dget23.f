@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            COMP
+      bool               COMP;
       String             BALANC;
       int                INFO, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT
       DOUBLE PRECISION   THRESH
@@ -25,7 +25,7 @@
       PARAMETER          ( EPSIN = 5.9605D-8 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BALOK, NOBAL
+      bool               BALOK, NOBAL;
       String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN       DOUBLE PRECISION   ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VMAX, VMX, VRMIN, VRMX, VTST
 *     ..
@@ -34,7 +34,7 @@
       DOUBLE PRECISION   DUM( 1 ), RES( 2 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, DLAPY2, DNRM2
       EXTERNAL           LSAME, DLAMCH, DLAPY2, DNRM2
 *     ..

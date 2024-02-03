@@ -15,12 +15,12 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            LEFT, NOTRAN
+      bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, IC, JA, JC, MI, NI, NQ
       COMPLEX            TAUI
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

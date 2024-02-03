@@ -28,7 +28,7 @@
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADPVT, DZERO, FULBND
+      bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
       DOUBLE PRECISION   ONORM, TEMP
       COMPLEX*16         CALPHA, CTEMP
@@ -37,7 +37,7 @@
       DOUBLE PRECISION   TEMPA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY
       COMPLEX*16         ZLATM2, ZLATM3
       EXTERNAL           LSAME, ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY, ZLATM2, ZLATM3

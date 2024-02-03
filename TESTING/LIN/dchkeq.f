@@ -20,7 +20,7 @@
       PARAMETER          ( NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            OK
+      bool               OK;
       String             PATH;
       int                I, INFO, J, KL, KU, M, N
       DOUBLE PRECISION   CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND

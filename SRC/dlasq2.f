@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0, HUNDRD = 100.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            IEEE
+      bool               IEEE;
       int                I0, I1, I4, IINFO, IPN4, ITER, IWHILA, IWHILB, K, KMIN, N0, N1, NBIG, NDIV, NFAIL, PP, SPLT, TTYPE       DOUBLE PRECISION   D, DEE, DEEMIN, DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, E, EMAX, EMIN, EPS, G, OLDEMN, QMAX, QMIN, S, SAFMIN, SIGMA, T, TAU, TEMP, TOL, TOL2, TRACE, ZMAX, TEMPE, TEMPQ
 *     ..
 *     .. External Subroutines ..

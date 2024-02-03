@@ -25,12 +25,12 @@
       PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            GIVENS, ILEXTR, ILTEMP, TOPDWN
+      bool               GIVENS, ILEXTR, ILTEMP, TOPDWN;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
       REAL               ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLARND
       EXTERNAL           LSAME, SLARND
 *     ..

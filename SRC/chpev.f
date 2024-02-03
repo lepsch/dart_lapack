@@ -20,11 +20,11 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            WANTZ
+      bool               WANTZ;
       int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWRK, ISCALE       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANHP, SLAMCH
       EXTERNAL           LSAME, CLANHP, SLAMCH
 *     ..

@@ -9,7 +9,7 @@
       int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       REAL               RWORK( * ), S( * ), SEP( * )
       COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * )
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            SOMCON, WANTBH, WANTS, WANTSP
+      bool               SOMCON, WANTBH, WANTS, WANTSP;
       String             NORMIN;
       int                I, IERR, IX, J, K, KASE, KS
       REAL               BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM
@@ -32,7 +32,7 @@
       COMPLEX            DUMMY( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ICAMAX
       REAL               SCNRM2, SLAMCH
       COMPLEX            CDOTC

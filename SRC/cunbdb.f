@@ -22,7 +22,7 @@
       PARAMETER          ( ONE = (1.0E0,0.0E0) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            COLMAJOR, LQUERY
+      bool               COLMAJOR, LQUERY;
       int                I, LWORKMIN, LWORKOPT
       REAL               Z1, Z2, Z3, Z4
 *     ..
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SCNRM2, SROUNDUP_LWORK
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           SCNRM2, SROUNDUP_LWORK, LSAME
 *     ..
 *     .. Intrinsic Functions

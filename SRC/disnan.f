@@ -1,4 +1,4 @@
-      LOGICAL FUNCTION DISNAN( DIN )
+      bool    FUNCTION DISNAN( DIN );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
 *  =====================================================================
 *
 *  .. External Functions ..
-      LOGICAL DLAISNAN
+      bool    DLAISNAN;
       EXTERNAL DLAISNAN
 *  ..
 *  .. Executable Statements ..

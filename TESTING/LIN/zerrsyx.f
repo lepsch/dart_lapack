@@ -27,14 +27,14 @@
       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAESM, CHKXER, ZSPCON, ZSPRFS, ZSPTRF, ZSPTRI, ZSPTRS, ZSYCON, ZSYCON_3, ZSYCON_ROOK, ZSYRFS, ZSYTF2, ZSYTF2_RK, ZSYTF2_ROOK, ZSYTRF, ZSYTRF_RK, ZSYTRF_ROOK, ZSYTRI, ZSYTRI_3, ZSYTRI_3X, ZSYTRI_ROOK, ZSYTRI2, ZSYTRI2X, ZSYTRS, ZSYTRS_3, ZSYTRS_ROOK, ZSYRFSX
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

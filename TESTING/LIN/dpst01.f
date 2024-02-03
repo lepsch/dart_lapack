@@ -26,7 +26,7 @@
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DDOT, DLAMCH, DLANSY
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           DDOT, DLAMCH, DLANSY, LSAME
 *     ..
 *     .. External Subroutines ..

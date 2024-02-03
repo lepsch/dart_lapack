@@ -19,12 +19,12 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILQ, ILZ
+      bool               ILQ, ILZ;
       int                ICOMPQ, ICOMPZ, JCOL, JROW
       REAL               C, S, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

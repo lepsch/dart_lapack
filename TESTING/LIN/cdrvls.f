@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NM, NN, NNB, NNS, NOUT
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )
       REAL               COPYS( * ), S( * )
       COMPLEX            A( * ), B( * ), C( * ), COPYA( * ), COPYB( * )
@@ -55,7 +55,7 @@
       INTRINSIC          MAX, MIN, INT, REAL, SQRT
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, IOUNIT
 *     ..

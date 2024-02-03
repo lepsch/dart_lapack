@@ -12,12 +12,12 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            CORZ, SORD
+      bool               CORZ, SORD;
       String             C2;
       int                J
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, LSAMEN
+      bool               LSAME, LSAMEN;
       EXTERNAL           LSAME, LSAMEN
 *     ..
 *     .. Executable Statements ..

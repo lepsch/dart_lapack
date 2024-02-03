@@ -22,10 +22,10 @@
 *     ..
 *     .. Local Scalars ..
       int                LDTB, NB
-      LOGICAL            UPPER
+      bool               UPPER;
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

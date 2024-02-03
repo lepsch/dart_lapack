@@ -24,7 +24,7 @@
       REAL               ANORM, BNORM, EPS, XNORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SASUM, SLAMCH, SLANTB
       EXTERNAL           LSAME, SASUM, SLAMCH, SLANTB
 *     ..

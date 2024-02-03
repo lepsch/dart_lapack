@@ -22,12 +22,12 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER, NORMALTRANSR, NISODD, NOTRANS
+      bool               LOWER, NORMALTRANSR, NISODD, NOTRANS;
       int                INFO, NROWA, J, NK, N1, N2
       COMPLEX*16         CALPHA, CBETA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

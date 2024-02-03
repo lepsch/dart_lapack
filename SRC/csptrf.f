@@ -24,13 +24,13 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC, KSTEP, KX, NPP
       REAL               ABSAKK, ALPHA, COLMAX, ROWMAX
       COMPLEX            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, ZDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ICAMAX
       EXTERNAL           LSAME, ICAMAX
 *     ..

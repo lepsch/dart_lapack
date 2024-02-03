@@ -24,14 +24,14 @@
       REAL               D( NMAX ), E( NMAX ), R( LW ), RW( LW ), X( NMAX )       COMPLEX            A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHBEV, CHBEVD, CHBEVX, CHBTRD, CHEEV, CHEEVD, CHEEVR, CHEEVX, CHETRD, CHKXER, CHPEV, CHPEVD, CHPEVX, CHPTRD, CPTEQR, CSTEDC, CSTEIN, CSTEQR, CUNGTR, CUNMTR, CUPGTR, CUPMTR, CHETD2, CHEEVD_2STAGE, CHEEVR_2STAGE, CHEEVX_2STAGE, CHEEV_2STAGE, CHBEV_2STAGE, CHBEVD_2STAGE, CHBEVX_2STAGE, CHETRD_2STAGE, CHETRD_HE2HB, CHETRD_HB2ST
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

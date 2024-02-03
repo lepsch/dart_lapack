@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            LTRANL, LTRANR
+      bool               LTRANL, LTRANR;
       int                INFO, ISGN, LDB, LDTL, LDTR, LDX, N1, N2
       DOUBLE PRECISION   SCALE, XNORM
 *     ..
@@ -22,12 +22,12 @@
       PARAMETER          ( TWO = 2.0D+0, HALF = 0.5D+0, EIGHT = 8.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BSWAP, XSWAP
+      bool               BSWAP, XSWAP;
       int                I, IP, IPIV, IPSV, J, JP, JPSV, K
       DOUBLE PRECISION   BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1, TEMP, U11, U12, U22, XMAX
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            BSWPIV( 4 ), XSWPIV( 4 )
+      bool               BSWPIV( 4 ), XSWPIV( 4 );
       int                JPIV( 4 ), LOCL21( 4 ), LOCU12( 4 ), LOCU22( 4 )
       DOUBLE PRECISION   BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 )
 *     ..

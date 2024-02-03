@@ -26,7 +26,7 @@
       DOUBLE PRECISION   AKK, ANORM, EPS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, ZLANHB
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, DLAMCH, ZLANHB, ZDOTC

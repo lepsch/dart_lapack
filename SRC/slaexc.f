@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            WANTQ
+      bool               WANTQ;
       int                INFO, J1, LDQ, LDT, N, N1, N2
 *     ..
 *     .. Array Arguments ..

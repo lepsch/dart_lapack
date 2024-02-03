@@ -19,12 +19,12 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOUNIT, UPPER
+      bool               NOUNIT, UPPER;
       int                J, JC, JCLAST, JJ
       REAL               AJJ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

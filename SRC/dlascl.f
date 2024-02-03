@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            DONE
+      bool               DONE;
       int                I, ITYPE, J, K1, K2, K3, K4
       DOUBLE PRECISION   BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, DLAMCH, DISNAN
 *     ..

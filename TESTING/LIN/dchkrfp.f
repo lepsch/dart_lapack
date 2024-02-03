@@ -19,7 +19,7 @@
       PARAMETER          ( NIN = 5, NOUT = 6 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FATAL, TSTERR
+      bool               FATAL, TSTERR;
       int                VERS_MAJOR, VERS_MINOR, VERS_PATCH
       int                I, NN, NNS, NNT
       DOUBLE PRECISION   EPS, S1, S2, THRESH

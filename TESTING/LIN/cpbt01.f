@@ -26,7 +26,7 @@
       REAL               AKK, ANORM, EPS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANHB, SLAMCH
       COMPLEX            CDOTC
       EXTERNAL           LSAME, CLANHB, SLAMCH, CDOTC

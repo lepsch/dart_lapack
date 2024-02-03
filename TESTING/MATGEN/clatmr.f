@@ -28,7 +28,7 @@
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADPVT, DZERO, FULBND
+      bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
       REAL               ONORM, TEMP
       COMPLEX            CALPHA, CTEMP
@@ -37,7 +37,7 @@
       REAL               TEMPA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANGB, CLANGE, CLANSB, CLANSP, CLANSY
       COMPLEX            CLATM2, CLATM3
       EXTERNAL           LSAME, CLANGB, CLANGE, CLANSB, CLANSP, CLANSY, CLATM2, CLATM3

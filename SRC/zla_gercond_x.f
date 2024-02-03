@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            NOTRANS
+      bool               NOTRANS;
       int                KASE
       DOUBLE PRECISION   AINVNM, ANORM, TMP
       int                I, J
@@ -27,7 +27,7 @@
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

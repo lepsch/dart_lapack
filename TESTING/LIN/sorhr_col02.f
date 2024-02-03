@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            TESTZEROS
+      bool               TESTZEROS;
       int                INFO, J, K, L, LWORK, NB2_UB, NRB
       REAL               ANORM, EPS, RESID, CNORM, DNORM
 *     ..

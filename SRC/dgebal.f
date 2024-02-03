@@ -23,12 +23,12 @@
       PARAMETER          ( FACTOR = 0.95D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOCONV, CANSWAP
+      bool               NOCONV, CANSWAP;
       int                I, ICA, IRA, J, K, L
       DOUBLE PRECISION   C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2
 *     ..
 *     .. External Functions ..
-      LOGICAL            DISNAN, LSAME
+      bool               DISNAN, LSAME;
       int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DNRM2
       EXTERNAL           DISNAN, LSAME, IDAMAX, DLAMCH, DNRM2

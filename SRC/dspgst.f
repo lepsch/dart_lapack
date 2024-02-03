@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D0, HALF = 0.5D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK
       DOUBLE PRECISION   AJJ, AKK, BJJ, BKK, CT
 *     ..
@@ -27,7 +27,7 @@
       EXTERNAL           DAXPY, DSCAL, DSPMV, DSPR2, DTPMV, DTPSV, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DDOT
       EXTERNAL           LSAME, DDOT
 *     ..

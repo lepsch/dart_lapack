@@ -18,11 +18,11 @@
 *     .. Local Scalars ..
       int                I, J
       DOUBLE PRECISION   RMAX
-      LOGICAL            UPPER
+      bool               UPPER;
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           SLAMCH, LSAME
 *     ..
 *     .. Intrinsic Functions ..

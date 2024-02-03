@@ -21,12 +21,12 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER, WANTZ
+      bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
       int                NEIG, LWMIN, LHTRD, LWTRD, KD, IB
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV2STAGE
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK

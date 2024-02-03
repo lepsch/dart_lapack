@@ -22,7 +22,7 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND
-      LOGICAL            APPLV, ROTOK, RSVEC
+      bool               APPLV, ROTOK, RSVEC;
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   FASTR( 5 )
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       DOUBLE PRECISION   DDOT, DNRM2
       int                IDAMAX
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           IDAMAX, LSAME, DDOT, DNRM2
 *     ..
 *     .. External Subroutines ..

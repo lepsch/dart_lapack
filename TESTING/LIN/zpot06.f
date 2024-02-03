@@ -29,7 +29,7 @@
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH, ZLANSY
       EXTERNAL           LSAME, IZAMAX, DLAMCH, ZLANSY

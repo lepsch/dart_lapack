@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            DONE
+      bool               DONE;
       int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
@@ -31,7 +31,7 @@
       INTRINSIC          ABS, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
-      LOGICAL            SISNAN
+      bool               SISNAN;
       int                ISAMAX
       REAL               SLAMCH, SNRM2
       EXTERNAL           SISNAN, SLAMCH, ISAMAX, SNRM2

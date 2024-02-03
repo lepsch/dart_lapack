@@ -15,11 +15,11 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            LEFT, LQUERY, UPPER
+      bool               LEFT, LQUERY, UPPER;
       int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK

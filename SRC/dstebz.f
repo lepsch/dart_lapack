@@ -23,7 +23,7 @@
       PARAMETER          ( FUDGE = 2.1D0, RELFAC = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NCNVRG, TOOFEW
+      bool               NCNVRG, TOOFEW;
       int                IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU
       DOUBLE PRECISION   ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL
 *     ..
@@ -31,7 +31,7 @@
       int                IDUMMA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, ILAENV, DLAMCH

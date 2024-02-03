@@ -24,14 +24,14 @@
       DOUBLE PRECISION   D( NMAX ), E( NMAX ), R( LW ), RW( LW ), X( NMAX )       COMPLEX*16         A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, ZHBEV, ZHBEVD, ZHBEVX, ZHBTRD, ZHEEV, ZHEEVD, ZHEEVR, ZHEEVX, ZHETRD, ZHPEV, ZHPEVD, ZHPEVX, ZHPTRD, ZPTEQR, ZSTEDC, ZSTEIN, ZSTEQR, ZUNGTR, ZUNMTR, ZUPGTR, ZUPMTR, ZHETD2, ZHEEVD_2STAGE, ZHEEVR_2STAGE, ZHEEVX_2STAGE, ZHEEV_2STAGE, ZHBEV_2STAGE, ZHBEVD_2STAGE, ZHBEVX_2STAGE, ZHETRD_2STAGE
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

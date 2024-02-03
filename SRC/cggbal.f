@@ -28,7 +28,7 @@
       COMPLEX            CDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ICAMAX
       REAL               SDOT, SLAMCH
       EXTERNAL           LSAME, ICAMAX, SDOT, SLAMCH

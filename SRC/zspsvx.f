@@ -22,11 +22,11 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOFACT
+      bool               NOFACT;
       DOUBLE PRECISION   ANORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, ZLANSP
       EXTERNAL           LSAME, DLAMCH, ZLANSP
 *     ..

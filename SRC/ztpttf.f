@@ -16,13 +16,13 @@
 *     .. Parameters ..
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER, NISODD, NORMALTRANSR
+      bool               LOWER, NISODD, NORMALTRANSR;
       int                N1, N2, K, NT
       int                I, J, IJ
       int                IJP, JP, LDA, JS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

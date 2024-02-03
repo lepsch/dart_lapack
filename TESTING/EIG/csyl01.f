@@ -42,7 +42,7 @@
       REAL,    DIMENSION(:,:), ALLOCATABLE :: SWORK
 *     ..
 *     .. External Functions ..
-      LOGICAL            SISNAN
+      bool               SISNAN;
       REAL               SLAMCH, CLANGE
       EXTERNAL           SISNAN, SLAMCH, CLANGE
 *     ..

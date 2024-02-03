@@ -9,7 +9,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * ), DOTYPE( * )
+      bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 13 ), VS( LDVS, * ), WI( * ), WIT( * ), WORK( * ), WR( * ), WRT( * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN
+      bool               BADNN;
       String             SORT;
       String             PATH;
       int                I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM
@@ -35,7 +35,7 @@
       DOUBLE PRECISION   RES( 2 )
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
@@ -45,7 +45,7 @@
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
 *     ..
 *     .. External Functions ..
-      LOGICAL            DSLECT
+      bool               DSLECT;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           DSLECT, DLAMCH
 *     ..

@@ -16,11 +16,11 @@
 *
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LEFT, RIGHT, TRAN, NOTRAN
+      bool               LEFT, RIGHT, TRAN, NOTRAN;
       int                I, IB, NB, LB, KF, LDAQ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

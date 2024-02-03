@@ -19,13 +19,13 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TEN = 10.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER
+      bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JCOL, JR, JROW
       REAL               ANORM, ULP, UNFL, VSAVE, WNORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, SLANGE, SLANSY
       EXTERNAL           LSAME, SLAMCH, SLANGE, SLANSY
 *     ..

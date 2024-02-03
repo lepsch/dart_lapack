@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, LDZ = 2 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN
+      bool               NOTRAN;
       int                I, IERR, J, K
       DOUBLE PRECISION   SCALOC
       COMPLEX*16         ALPHA
@@ -31,7 +31,7 @@
       COMPLEX*16         RHS( LDZ ), Z( LDZ, LDZ )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

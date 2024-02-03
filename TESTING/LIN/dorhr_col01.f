@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            TESTZEROS
+      bool               TESTZEROS;
       int                INFO, I, J, K, L, LWORK, NB1_UB, NB2_UB, NRB
       DOUBLE PRECISION   ANORM, EPS, RESID, CNORM, DNORM
 *     ..

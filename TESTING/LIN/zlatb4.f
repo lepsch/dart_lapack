@@ -22,13 +22,13 @@
       PARAMETER          ( TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FIRST
+      bool               FIRST;
       String             C2;
       int                MAT
       DOUBLE PRECISION   BADC1, BADC2, EPS, LARGE, SMALL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAMEN, DLAMCH
 *     ..

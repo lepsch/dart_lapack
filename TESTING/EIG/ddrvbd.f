@@ -11,7 +11,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
       DOUBLE PRECISION   A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
 *     ..
@@ -25,7 +25,7 @@
       PARAMETER          ( MAXTYP = 5 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADMM, BADNN
+      bool               BADMM, BADNN;
       String             JOBQ, JOBU, JOBVT, RANGE;
       String             PATH;
       int                I, IINFO, IJQ, IJU, IJVT, IL,IU, IWS, IWTMP, ITEMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NFAIL, NMAX, NS, NSI, NSV, NTEST
@@ -53,7 +53,7 @@
       INTRINSIC          ABS, DBLE, INT, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

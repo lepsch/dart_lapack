@@ -1,4 +1,4 @@
-      LOGICAL          FUNCTION CLCTES( Z, D )
+      bool             FUNCTION CLCTES( Z, D );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

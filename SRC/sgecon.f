@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ONENRM
+      bool               ONENRM;
       String             NORMIN;
       int                IX, KASE, KASE1
       REAL               AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL
@@ -30,7 +30,7 @@
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       int                ISAMAX
       REAL               SLAMCH
       EXTERNAL           LSAME, ISAMAX, SLAMCH, SISNAN

@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ROTATE
+      bool               ROTATE;
       int                I, ISUB, IUPLO, J, NP1, SQRE1
       REAL               CS, R, SMIN, SN
 *     ..
@@ -27,7 +27,7 @@
       EXTERNAL           SBDSQR, SLARTG, SLASR, SSWAP, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Functions ..

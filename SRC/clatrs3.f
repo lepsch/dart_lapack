@@ -26,12 +26,12 @@
       REAL               W( NBMAX ), XNRM( NBRHS )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, NOTRAN, NOUNIT, UPPER
+      bool               LQUERY, NOTRAN, NOUNIT, UPPER;
       int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN
       REAL               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SLAMCH, CLANGE, SLARMM, SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SLAMCH, CLANGE, SLARMM, SROUNDUP_LWORK

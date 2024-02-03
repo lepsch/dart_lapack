@@ -22,7 +22,7 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN, NOUNIT, UPPER
+      bool               NOTRAN, NOUNIT, UPPER;
       String             TRANST;
       int                I, J, K, KASE, KC, NZ
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
@@ -37,7 +37,7 @@
       INTRINSIC          ABS, MAX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH
       EXTERNAL           LSAME, SLAMCH
 *     ..

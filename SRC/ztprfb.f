@@ -20,10 +20,10 @@
 *     ..
 *     .. Local Scalars ..
       int       I, J, MP, NP, KP
-      LOGICAL   LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW
+      bool      LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW;
 *     ..
 *     .. External Functions ..
-      LOGICAL   LSAME
+      bool      LSAME;
       EXTERNAL  LSAME
 *     ..
 *     .. External Subroutines ..

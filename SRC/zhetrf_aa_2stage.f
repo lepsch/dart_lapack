@@ -21,13 +21,13 @@
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE  = ( 1.0E+0, 0.0E+0 ) )
 *
 *     .. Local Scalars ..
-      LOGICAL            UPPER, TQUERY, WQUERY
+      bool               UPPER, TQUERY, WQUERY;
       int                I, J, K, I1, I2, TD
       int                LWKOPT, LDTB, NB, KB, JB, NT, IINFO
       COMPLEX*16         PIV
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       EXTERNAL           LSAME, ILAENV
 *     ..

@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N
-      LOGICAL            WANTT, WANTZ
+      bool               WANTT, WANTZ;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            H( LDH, * ), W( * ), Z( LDZ, * )

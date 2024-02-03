@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       REAL    AAPP,   AAQQ,   AATMAX, AATMIN, BIG,    BIG1,   COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC
       int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING
-      LOGICAL ALMORT, DEFR,   ERREST, GOSCAL, JRACC,  KILL,   LSVEC, L2ABER, L2KILL, L2PERT, L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP
+      bool    ALMORT, DEFR,   ERREST, GOSCAL, JRACC,  KILL,   LSVEC, L2ABER, L2KILL, L2PERT, L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC ABS, ALOG, MAX, MIN, FLOAT, NINT, SIGN, SQRT
@@ -31,7 +31,7 @@
 *     .. External Functions ..
       REAL      SLAMCH, SNRM2
       int       ISAMAX
-      LOGICAL   LSAME
+      bool      LSAME;
       EXTERNAL  ISAMAX, LSAME, SLAMCH, SNRM2
 *     ..
 *     .. External Subroutines ..

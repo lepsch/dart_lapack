@@ -17,7 +17,7 @@
       PARAMETER          ( CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRNA, NOTRNB, LQUERY
+      bool               NOTRNA, NOTRNB, LQUERY;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM
       COMPLEX*16         CSGN
 *     ..
@@ -25,7 +25,7 @@
       DOUBLE PRECISION   WNRM( MAX( M, N ) )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLARMM, ZLANGE
       EXTERNAL           DLAMCH, DLARMM, ILAENV, LSAME, ZLANGE

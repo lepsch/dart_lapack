@@ -21,12 +21,12 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            EQUIL, NOFACT, RCEQU, UPPER
+      bool               EQUIL, NOFACT, RCEQU, UPPER;
       int                I, INFEQU, J, J1, J2
       REAL               AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANHB, SLAMCH
       EXTERNAL           LSAME, CLANHB, SLAMCH
 *     ..

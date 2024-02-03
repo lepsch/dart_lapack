@@ -29,7 +29,7 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADS
+      bool               BADS;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR
       REAL               RALPHA, TEMP
       COMPLEX            ALPHA, TAU, XNORMS
@@ -38,7 +38,7 @@
       REAL               TEMPA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANGE
       COMPLEX            CLARND
       EXTERNAL           LSAME, CLANGE, CLARND

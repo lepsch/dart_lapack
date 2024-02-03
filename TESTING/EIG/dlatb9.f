@@ -20,11 +20,11 @@
       PARAMETER          ( ONE = 1.0D+0, TEN = 1.0D+1 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FIRST
+      bool               FIRST;
       DOUBLE PRECISION   BADC1, BADC2, EPS, LARGE, SMALL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAMEN, DLAMCH
 *     ..

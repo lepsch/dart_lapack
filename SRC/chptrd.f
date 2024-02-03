@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                I, I1, I1I1, II
       COMPLEX            ALPHA, TAUI
 *     ..
@@ -28,7 +28,7 @@
       EXTERNAL           CAXPY, CHPMV, CHPR2, CLARFG, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX            CDOTC
       EXTERNAL           LSAME, CDOTC
 *     ..

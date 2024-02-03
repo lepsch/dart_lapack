@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                NVAL( * )
       DOUBLE PRECISION   RWORK( * ), S( * )
       COMPLEX*16         A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
@@ -27,7 +27,7 @@
       PARAMETER          ( NTESTS = 6 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            EQUIL, NOFACT, PREFAC, ZEROT
+      bool               EQUIL, NOFACT, PREFAC, ZEROT;
       String             DIST, EQUED, FACT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT
@@ -39,7 +39,7 @@
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DGET06, ZLANHE
       EXTERNAL           LSAME, DGET06, ZLANHE
 *     ..
@@ -47,7 +47,7 @@
       EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLAIPD, ZLAQHE, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZPOEQU, ZPOSV, ZPOSVX, ZPOT01, ZPOT02, ZPOT05, ZPOTRF, ZPOTRI
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

@@ -31,7 +31,7 @@
 *     .. External Functions ..
       COMPLEX            CDOTC
       REAL               CLANHE, SLAMCH
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           CDOTC, CLANHE, SLAMCH, LSAME
 *     ..
 *     .. External Subroutines ..

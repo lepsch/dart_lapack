@@ -25,7 +25,7 @@
       EXTERNAL           ALAESM, CGELQ2, CGELQF, CHKXER, CUNGL2, CUNGLQ, CUNML2, CUNMLQ
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

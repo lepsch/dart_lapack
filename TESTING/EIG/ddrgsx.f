@@ -9,7 +9,7 @@
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * )
+      bool               BWORK( * );
       int                IWORK( * )
       DOUBLE PRECISION   A( LDA, * ), AI( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), S( * ), WORK( * ), Z( LDA, * )
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILABAD
+      bool               ILABAD;
       String             SENSE;
       int                BDSPAC, I, I1, IFUNC, IINFO, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB
       DOUBLE PRECISION   ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT
@@ -30,7 +30,7 @@
       DOUBLE PRECISION   DIFEST( 2 ), PL( 2 ), RESULT( 10 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            DLCTSX
+      bool               DLCTSX;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           DLCTSX, ILAENV, DLAMCH, DLANGE
@@ -42,7 +42,7 @@
       INTRINSIC          ABS, MAX, SQRT
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            FS
+      bool               FS;
       int                K, M, MPLUSN, N
 *     ..
 *     .. Common blocks ..

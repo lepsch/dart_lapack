@@ -15,13 +15,13 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            WANTQ
+      bool               WANTQ;
       int                K, M1, M2, M3
       REAL               CS
       COMPLEX            SN, T11, T22, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

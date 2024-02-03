@@ -29,7 +29,7 @@
       DOUBLE PRECISION   DUM( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IDAMAX
       DOUBLE PRECISION   DASUM, DZASUM, DLAMCH, ZLANGE
       EXTERNAL           LSAME, IDAMAX, DASUM, DZASUM, DLAMCH, ZLANGE

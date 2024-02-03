@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            NOTRANS
+      bool               NOTRANS;
       int                KASE, I, J
       DOUBLE PRECISION   AINVNM, ANORM, TMP
       COMPLEX*16         ZDUM
@@ -26,7 +26,7 @@
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

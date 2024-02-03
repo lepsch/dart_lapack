@@ -35,12 +35,12 @@
 *     ..
 *     .. Local Scalars ..
       String   (1)       NORM;
-      LOGICAL            ROWEQU, COLEQU, NOTRAN
+      bool               ROWEQU, COLEQU, NOTRAN;
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE
       int                N_NORMS
       DOUBLE PRECISION   ANORM, RCOND_TMP
       DOUBLE PRECISION   ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG
-      LOGICAL            IGNORE_CWISE
+      bool               IGNORE_CWISE;
       int                ITHRESH
       DOUBLE PRECISION   RTHRESH, UNSTABLE_THRESH
 *     ..
@@ -54,7 +54,7 @@
       EXTERNAL           LSAME, ILATRANS, ILAPREC
       EXTERNAL           DLAMCH, ZLANGE, ZLA_GERCOND_X, ZLA_GERCOND_C
       DOUBLE PRECISION   DLAMCH, ZLANGE, ZLA_GERCOND_X, ZLA_GERCOND_C
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILATRANS, ILAPREC
 *     ..
 *     .. Executable Statements ..

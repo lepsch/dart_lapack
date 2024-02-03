@@ -19,13 +19,13 @@
       String             NORMIN;
       int                KASE, I, J
       REAL               AINVNM, SMLNUM, TMP
-      LOGICAL            UP
+      bool               UP;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH
       EXTERNAL           LSAME, SLAMCH
 *     ..

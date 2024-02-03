@@ -26,7 +26,7 @@
       EXTERNAL           ALAESM, CHKXER, DORHR_COL
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String   (LEN=32)  SRNAMT;
       int                INFOT, NOUT
 *     ..

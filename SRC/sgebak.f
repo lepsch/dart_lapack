@@ -19,12 +19,12 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LEFTV, RIGHTV
+      bool               LEFTV, RIGHTV;
       int                I, II, K
       REAL               S
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

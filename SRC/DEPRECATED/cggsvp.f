@@ -22,12 +22,12 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FORWRD, WANTQ, WANTU, WANTV
+      bool               FORWRD, WANTQ, WANTU, WANTV;
       int                I, J
       COMPLEX            T
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

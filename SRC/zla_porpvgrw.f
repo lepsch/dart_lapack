@@ -18,12 +18,12 @@
 *     .. Local Scalars ..
       int                I, J
       DOUBLE PRECISION   AMAX, UMAX, RPVGRW
-      LOGICAL            UPPER
+      bool               UPPER;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME
-      LOGICAL            LSAME
+      bool               LSAME;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, REAL, DIMAG

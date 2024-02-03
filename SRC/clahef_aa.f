@@ -25,7 +25,7 @@
       COMPLEX      PIV, ALPHA
 *     ..
 *     .. External Functions ..
-      LOGICAL      LSAME
+      bool         LSAME;
       int          ICAMAX, ILAENV
       EXTERNAL     LSAME, ILAENV, ICAMAX
 *     ..

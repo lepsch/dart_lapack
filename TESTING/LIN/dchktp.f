@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NMAX, NN, NNS, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                IWORK( * ), NSVAL( * ), NVAL( * )
       DOUBLE PRECISION   AINVP( * ), AP( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -38,7 +38,7 @@
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLANTP
       EXTERNAL           LSAME, DLANTP
 *     ..
@@ -46,7 +46,7 @@
       EXTERNAL           ALAERH, ALAHD, ALASUM, DCOPY, DERRTR, DGET04, DLACPY, DLARHS, DLATPS, DLATTP, DTPCON, DTPRFS, DTPT01, DTPT02, DTPT03, DTPT05, DTPT06, DTPTRI, DTPTRS
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, IOUNIT
 *     ..

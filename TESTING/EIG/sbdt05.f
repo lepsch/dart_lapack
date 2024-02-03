@@ -23,7 +23,7 @@
       REAL               ANORM, EPS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ISAMAX
       REAL               SASUM, SLAMCH, SLANGE
       EXTERNAL           LSAME, ISAMAX, SASUM, SLAMCH, SLANGE

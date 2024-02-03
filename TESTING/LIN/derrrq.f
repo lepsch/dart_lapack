@@ -25,7 +25,7 @@
       EXTERNAL           ALAESM, CHKXER, DGERQ2, DGERQF, DGERQS, DORGR2, DORGRQ, DORMR2, DORMRQ
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

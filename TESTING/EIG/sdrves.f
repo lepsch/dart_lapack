@@ -9,7 +9,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * ), DOTYPE( * )
+      bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * )
       REAL               A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 13 ), VS( LDVS, * ), WI( * ), WIT( * ), WORK( * ), WR( * ), WRT( * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN
+      bool               BADNN;
       String             SORT;
       String             PATH;
       int                I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM
@@ -35,7 +35,7 @@
       REAL               RES( 2 )
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       REAL               SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
@@ -45,7 +45,7 @@
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
 *     ..
 *     .. External Functions ..
-      LOGICAL            SSLECT
+      bool               SSLECT;
       REAL               SLAMCH
       EXTERNAL           SSLECT, SLAMCH
 *     ..

@@ -22,12 +22,12 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, NOFACT
+      bool               LQUERY, NOFACT;
       int                LWKOPT, NB
       REAL               ANORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               CLANSY, SLAMCH, SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, CLANSY, SLAMCH, SROUNDUP_LWORK

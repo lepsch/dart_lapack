@@ -23,12 +23,12 @@
       PARAMETER          ( FACTOR = 0.95E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOCONV, CANSWAP
+      bool               NOCONV, CANSWAP;
       int                I, ICA, IRA, J, K, L
       REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2
 *     ..
 *     .. External Functions ..
-      LOGICAL            SISNAN, LSAME
+      bool               SISNAN, LSAME;
       int                ISAMAX
       REAL               SLAMCH, SNRM2
       EXTERNAL           SISNAN, LSAME, ISAMAX, SLAMCH, SNRM2

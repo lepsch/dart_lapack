@@ -25,7 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       String             JOBZ, RNGTGK;
-      LOGICAL            ALLS, INDS, LQUERY, VALS, WANTU, WANTVT
+      bool               ALLS, INDS, LQUERY, VALS, WANTU, WANTVT;
       int                I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL, ITAU, ITAUP, ITAUQ, ITEMP, ITEMPR, ITGKZ, IUTGK, J, K, MAXWRK, MINMN, MINWRK, MNTHR
       DOUBLE PRECISION   ABSTOL, ANRM, BIGNUM, EPS, SMLNUM
 *     ..
@@ -36,7 +36,7 @@
       EXTERNAL           ZGEBRD, ZGELQF, ZGEQRF, ZLASCL, ZLASET, ZLACPY, ZUNMLQ, ZUNMBR, ZUNMQR, DBDSVDX, DLASCL, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE

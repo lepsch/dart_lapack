@@ -1,4 +1,4 @@
-      LOGICAL          FUNCTION CLCTSX( ALPHA, BETA )
+      bool             FUNCTION CLCTSX( ALPHA, BETA );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -17,7 +17,7 @@
 *     PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            FS
+      bool               FS;
       int                I, M, MPLUSN, N
 *     ..
 *     .. Common blocks ..

@@ -9,7 +9,7 @@
       int                INFO, LDT, LDVL, LDVR, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       REAL               RWORK( * )
       COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
@@ -23,13 +23,13 @@
       PARAMETER          ( CMZERO = ( 0.0E+0, 0.0E+0 ), CMONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV
+      bool               ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV;
       int                I, II, IS, J, K, KI
       REAL               OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL
       COMPLEX            CDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ICAMAX
       REAL               SCASUM, SLAMCH
       EXTERNAL           LSAME, ICAMAX, SCASUM, SLAMCH

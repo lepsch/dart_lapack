@@ -9,7 +9,7 @@
       int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       int                IWORK( * )
       DOUBLE PRECISION   S( * ), SEP( * ), T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * )
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            PAIR, SOMCON, WANTBH, WANTS, WANTSP
+      bool               PAIR, SOMCON, WANTBH, WANTS, WANTSP;
       int                I, IERR, IFST, ILST, J, K, KASE, KS, N2, NN
       DOUBLE PRECISION   BIGNUM, COND, CS, DELTA, DUMM, EPS, EST, LNRM, MU, PROD, PROD1, PROD2, RNRM, SCALE, SMLNUM, SN
 *     ..
@@ -30,7 +30,7 @@
       DOUBLE PRECISION   DUMMY( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DDOT, DLAMCH, DLAPY2, DNRM2
       EXTERNAL           LSAME, DDOT, DLAMCH, DLAPY2, DNRM2
 *     ..

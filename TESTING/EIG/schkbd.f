@@ -9,7 +9,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * )
       REAL               A( LDA, * ), BD( * ), BE( * ), PT( LDPT, * ), Q( LDQ, * ), S1( * ), S2( * ), U( LDPT, * ), VT( LDPT, * ), WORK( * ), X( LDX, * ), Y( LDX, * ), Z( LDX, * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( MAXTYP = 16 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADMM, BADNN, BIDIAG
+      bool               BADMM, BADNN, BIDIAG;
       String             UPLO;
       String             PATH;
       int                I, IINFO, IL, IMODE, ITEMP, ITYPE, IU, IWBD, IWBE, IWBS, IWBZ, IWWORK, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MNMIN2, MQ, MTYPES, N, NFAIL, NMAX, NS1, NS2, NTEST
@@ -44,7 +44,7 @@
       INTRINSIC          ABS, EXP, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

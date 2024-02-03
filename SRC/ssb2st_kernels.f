@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      LOGICAL            WANTZ
+      bool               WANTZ;
       int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER
       REAL               CTMP
 *     ..
@@ -32,7 +32,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MOD
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     ..

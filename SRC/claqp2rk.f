@@ -35,7 +35,7 @@
       INTRINSIC          ABS, REAL, CONJG, AIMAG, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
-      LOGICAL            SISNAN
+      bool               SISNAN;
       int                ISAMAX
       REAL               SLAMCH, SCNRM2
       EXTERNAL           SISNAN, SLAMCH, ISAMAX, SCNRM2

@@ -21,13 +21,13 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI
+      bool               BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI;
       String             C1, DIAG;
       String             C2;
       int                J, MB, NX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, LSAMEN
+      bool               LSAME, LSAMEN;
       EXTERNAL           LSAME, LSAMEN
 *     ..
 *     .. External Subroutines ..

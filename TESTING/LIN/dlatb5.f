@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   BADC1, BADC2, EPS, LARGE, SMALL
-      LOGICAL            FIRST
+      bool               FIRST;
       String             C2;
 *     ..
 *     .. External Functions ..

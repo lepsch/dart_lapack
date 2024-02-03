@@ -1,4 +1,4 @@
-      LOGICAL          FUNCTION LSAMEN( N, CA, CB )
+      bool             FUNCTION LSAMEN( N, CA, CB );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,7 +15,7 @@
       int                I
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Functions ..

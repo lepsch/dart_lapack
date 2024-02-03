@@ -23,11 +23,11 @@
 *     .. Local Scalars ..
       REAL               AJJ, SSTOP, STEMP
       int                I, ITEMP, J, PVT
-      LOGICAL            UPPER
+      bool               UPPER;
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       EXTERNAL           SLAMCH, LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..

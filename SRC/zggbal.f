@@ -28,7 +28,7 @@
       COMPLEX*16         CDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DDOT, DLAMCH
       EXTERNAL           LSAME, IZAMAX, DDOT, DLAMCH

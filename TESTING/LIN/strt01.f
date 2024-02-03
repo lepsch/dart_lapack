@@ -24,7 +24,7 @@
       REAL               AINVNM, ANORM, EPS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, SLANTR
       EXTERNAL           LSAME, SLAMCH, SLANTR
 *     ..

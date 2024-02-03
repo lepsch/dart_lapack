@@ -27,13 +27,13 @@
       PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            EQUIL, NOFACT, RCEQU
+      bool               EQUIL, NOFACT, RCEQU;
       int                INFEQU, J
       REAL               AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, SLAMCH, CLA_SYRPVGRW
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, CLA_SYRPVGRW
 *     ..
 *     .. External Subroutines ..

@@ -20,12 +20,12 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                K, KP, KSTEP
       DOUBLE PRECISION   AK, AKKP1, AKP1, D, T, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DDOT
       EXTERNAL           LSAME, DDOT
 *     ..

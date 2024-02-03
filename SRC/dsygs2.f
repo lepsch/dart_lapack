@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D0, HALF = 0.5D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                K
       DOUBLE PRECISION   AKK, BKK, CT
 *     ..
@@ -30,7 +30,7 @@
       INTRINSIC          MAX
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Executable Statements ..

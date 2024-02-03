@@ -17,7 +17,7 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRNA, NOTRNB, LQUERY
+      bool               NOTRNA, NOTRNB, LQUERY;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB       REAL               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM
       COMPLEX            CSGN
 *     ..
@@ -25,7 +25,7 @@
       REAL               WNRM( MAX( M, N ) )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               CLANGE, SLAMCH, SLARMM
       EXTERNAL           CLANGE, ILAENV, LSAME, SLAMCH, SLARMM

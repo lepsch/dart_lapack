@@ -9,7 +9,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * )
       REAL               A( LDA, * ), AP( * ), D1( * ), D2( * ), D3( * ), D4( * ), D5( * ), RESULT( * ), SD( * ), SE( * ), TAU( * ), U( LDU, * ), V( LDU, * ), VP( * ), WA1( * ), WA2( * ), WA3( * ), WORK( * ), WR( * ), Z( LDU, * )
 *     ..
@@ -23,13 +23,13 @@
       PARAMETER          ( HALF = ONE / TWO )
       int                MAXTYP
       PARAMETER          ( MAXTYP = 21 )
-      LOGICAL            SRANGE
+      bool               SRANGE;
       PARAMETER          ( SRANGE = .FALSE. )
-      LOGICAL            SREL
+      bool               SREL;
       PARAMETER          ( SREL = .FALSE. )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN, TRYRAC
+      bool               BADNN, TRYRAC;
       int                I, IINFO, IL, IMODE, ITEMP, ITYPE, IU, J, JC, JR, JSIZE, JTYPE, LGN, LIWEDC, LOG2UI, LWEDC, M, M2, M3, MTYPES, N, NAP, NBLOCK, NERRS, NMATS, NMAX, NSPLIT, NTEST, NTESTT
       REAL               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL, VL, VU
 *     ..

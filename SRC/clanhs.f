@@ -24,7 +24,7 @@
       REAL               SCALE, SUM, VALUE
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       EXTERNAL           LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..

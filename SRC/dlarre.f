@@ -21,7 +21,7 @@
       PARAMETER          ( MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FORCEB, NOREP, USEDQD
+      bool               FORCEB, NOREP, USEDQD;
       int                CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO, IN, INDL, INDU, IRANGE, J, JBLK, MB, MM, WBEGIN, WEND       DOUBLE PRECISION   AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1
 
 
@@ -30,7 +30,7 @@
       int                ISEED( 4 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION            DLAMCH
       EXTERNAL           DLAMCH, LSAME
 

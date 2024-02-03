@@ -20,12 +20,12 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOUNIT
+      bool               NOUNIT;
       int                J, K, KP
       DOUBLE PRECISION   D11, D12, D21, D22, T1, T2
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

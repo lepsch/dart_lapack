@@ -23,19 +23,19 @@
       REAL               ANRM, BNRM, DIF, SCALE, TOLA, TOLB
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            BW( NMAX ), SEL( NMAX )
+      bool               BW( NMAX ), SEL( NMAX );
       int                IW( NMAX ), IDUM(NMAX)
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), LS( NMAX ), Q( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), R3( NMAX ), RCE( 2 ), RCV( 2 ), RS( NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN, SLCTES, SLCTSX
+      bool               LSAMEN, SLCTES, SLCTSX;
       EXTERNAL           LSAMEN, SLCTES, SLCTSX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, SGGES, SGGESX, SGGEV, SGGEVX, SGGGLM, SGGHRD, SGGLSE, SGGQRF, SGGRQF, SHGEQZ, SORCSD, STGEVC, STGEXC, STGSEN, STGSJA, STGSNA, STGSYL, SGGES3, SGGEV3, SGGHD3, SGGSVD3, SGGSVP3, XLAENV
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

@@ -20,11 +20,11 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LNOTIDENT
+      bool               LNOTIDENT;
       int                I, J
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

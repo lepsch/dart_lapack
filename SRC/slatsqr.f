@@ -15,11 +15,11 @@
 *
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY
+      bool               LQUERY;
       int                I, II, KK, CTR, MINMN, LWMIN
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
       REAL               SROUNDUP_LWORK
       EXTERNAL           SROUNDUP_LWORK

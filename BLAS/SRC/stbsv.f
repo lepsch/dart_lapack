@@ -21,10 +21,10 @@
 *     .. Local Scalars ..
       REAL TEMP
       int     I,INFO,IX,J,JX,KPLUS1,KX,L
-      LOGICAL NOUNIT
+      bool    NOUNIT;
 *     ..
 *     .. External Functions ..
-      LOGICAL LSAME
+      bool    LSAME;
       EXTERNAL LSAME
 *     ..
 *     .. External Subroutines ..

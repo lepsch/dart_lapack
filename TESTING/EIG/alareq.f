@@ -9,13 +9,13 @@
       int                NIN, NMATS, NOUT, NTYPES
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            FIRSTT
+      bool               FIRSTT;
       String             C1;
       String             INTSTR;
       String             LINE;

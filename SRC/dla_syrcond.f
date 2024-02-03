@@ -19,13 +19,13 @@
       String             NORMIN;
       int                KASE, I, J
       DOUBLE PRECISION   AINVNM, SMLNUM, TMP
-      LOGICAL            UP
+      bool               UP;
 *     ..
 *     .. Local Arrays ..
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, DLAMCH
 *     ..

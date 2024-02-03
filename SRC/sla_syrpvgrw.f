@@ -18,14 +18,14 @@
 *     .. Local Scalars ..
       int                NCOLS, I, J, K, KP
       REAL               AMAX, UMAX, RPVGRW, TMP
-      LOGICAL            UPPER
+      bool               UPPER;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME
-      LOGICAL            LSAME
+      bool               LSAME;
 *     ..
 *     .. Executable Statements ..
 *

@@ -27,7 +27,7 @@
       PARAMETER          ( THREE = 3.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN
+      bool               NOTRAN;
       String             TRANSN, TRANST;
       int                COUNT, I, J, KASE, NZ
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN
@@ -43,7 +43,7 @@
       INTRINSIC          ABS, AIMAG, CMPLX, MAX, REAL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH
       EXTERNAL           LSAME, SLAMCH
 *     ..

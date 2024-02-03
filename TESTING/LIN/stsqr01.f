@@ -22,7 +22,7 @@
       PARAMETER( ZERO = 0.0, ONE = 1.0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL TESTZEROS, TS
+      bool    TESTZEROS, TS;
       int     INFO, J, K, L, LWORK, TSIZE, MNB
       REAL   ANORM, EPS, RESID, CNORM, DNORM
 *     ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       REAL     SLAMCH, SLANGE, SLANSY
-      LOGICAL  LSAME
+      bool     LSAME;
       int      ILAENV
       EXTERNAL SLAMCH, SLARNV, SLANGE, SLANSY, LSAME, ILAENV
 *     ..

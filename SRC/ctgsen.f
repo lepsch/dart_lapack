@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            WANTQ, WANTZ
+      bool               WANTQ, WANTZ;
       int                IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N
       REAL               PL, PR
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       int                IWORK( * )
       REAL               DIF( * )
       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
@@ -25,7 +25,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP
+      bool               LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP;
       int                I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2
       REAL               DSCALE, DSUM, RDSCAL, SAFMIN
       COMPLEX            TEMP1, TEMP2

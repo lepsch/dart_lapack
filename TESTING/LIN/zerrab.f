@@ -30,7 +30,7 @@
       EXTERNAL           CHKXER, ZCGESV
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

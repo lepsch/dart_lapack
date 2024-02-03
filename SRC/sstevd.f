@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, WANTZ
+      bool               LQUERY, WANTZ;
       int                ISCALE, LIWMIN, LWMIN
       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, SLANST, SROUNDUP_LWORK
       EXTERNAL           LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
 *     ..

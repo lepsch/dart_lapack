@@ -24,14 +24,14 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER
+      bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP
       REAL               ANORM, ULP, UNFL, WNORM
       COMPLEX            TEMP, VSAVE
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANGE, CLANHP, SLAMCH
       COMPLEX            CDOTC
       EXTERNAL           LSAME, CLANGE, CLANHP, SLAMCH, CDOTC

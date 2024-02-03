@@ -28,7 +28,7 @@
       PARAMETER          ( THREE = 3.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                COUNT, I, J, K, KASE, NZ
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
       COMPLEX            ZDUM
@@ -43,7 +43,7 @@
       INTRINSIC          ABS, AIMAG, MAX, REAL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH
       EXTERNAL           LSAME, SLAMCH
 *     ..

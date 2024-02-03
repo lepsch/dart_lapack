@@ -55,18 +55,18 @@
       PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       DOUBLE PRECISION   EPS, ERR, THRESH
-      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;
       String             TRANSA, TRANSB;
       String             SNAMET;
       String             SNAPS;
 *     .. Local Arrays ..
       DOUBLE PRECISION   AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
       int                IDIM( NIDMAX )
-      LOGICAL            LTEST( NSUBS )
+      bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
 *     .. External Functions ..
       DOUBLE PRECISION   DDIFF
-      LOGICAL            LDE
+      bool               LDE;
       EXTERNAL           DDIFF, LDE
 *     .. External Subroutines ..
       EXTERNAL           DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, CD3CHKE, DMMCH
@@ -74,7 +74,7 @@
       INTRINSIC          MAX, MIN
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
       String             SRNAMT;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -379,7 +379,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
@@ -387,13 +387,13 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX
       int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
-      LOGICAL            NULL, RESET, SAME, TRANA, TRANB
+      bool               NULL, RESET, SAME, TRANA, TRANB;
       String             TRANAS, TRANBS, TRANSA, TRANSB;
       String             ICH;
 *     .. Local Arrays ..
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LDE, LDERES
+      bool               LDE, LDERES;
       EXTERNAL           LDE, LDERES
 *     .. External Subroutines ..
       EXTERNAL           CDGEMM, DMAKE, DMMCH
@@ -401,7 +401,7 @@
       INTRINSIC          MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -671,7 +671,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
@@ -679,13 +679,13 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX
       int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
-      LOGICAL            LEFT, NULL, RESET, SAME
+      bool               LEFT, NULL, RESET, SAME;
       String             SIDE, SIDES, UPLO, UPLOS;
       String             ICHS, ICHU;
 *     .. Local Arrays ..
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LDE, LDERES
+      bool               LDE, LDERES;
       EXTERNAL           LDE, LDERES
 *     .. External Subroutines ..
       EXTERNAL           DMAKE, DMMCH, CDSYMM
@@ -693,7 +693,7 @@
       INTRINSIC          MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -947,7 +947,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NIDIM, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX )
@@ -955,14 +955,14 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, ERR, ERRMAX
       int                I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
-      LOGICAL            LEFT, NULL, RESET, SAME
+      bool               LEFT, NULL, RESET, SAME;
       String             DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS;
       String             ICHD, ICHS, ICHU;
       String             ICHT;
 *     .. Local Arrays ..
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LDE, LDERES
+      bool               LDE, LDERES;
       EXTERNAL           LDE, LDERES
 *     .. External Subroutines ..
       EXTERNAL           DMAKE, DMMCH, CDTRMM, CDTRSM
@@ -970,7 +970,7 @@
       INTRINSIC          MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -1253,7 +1253,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
@@ -1261,14 +1261,14 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, BETA, BETS, ERR, ERRMAX
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
-      LOGICAL            NULL, RESET, SAME, TRAN, UPPER
+      bool               NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, UPLO, UPLOS;
       String             ICHU;
       String             ICHT;
 *     .. Local Arrays ..
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LDE, LDERES
+      bool               LDE, LDERES;
       EXTERNAL           LDE, LDERES
 *     .. External Subroutines ..
       EXTERNAL           DMAKE, DMMCH, CDSYRK
@@ -1276,7 +1276,7 @@
       INTRINSIC          MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -1534,7 +1534,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
-      LOGICAL            FATAL, REWI, TRACE
+      bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
@@ -1542,14 +1542,14 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, BETA, BETS, ERR, ERRMAX
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
-      LOGICAL            NULL, RESET, SAME, TRAN, UPPER
+      bool               NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, UPLO, UPLOS;
       String             ICHU;
       String             ICHT;
 *     .. Local Arrays ..
-      LOGICAL            ISAME( 13 )
+      bool               ISAME( 13 );
 *     .. External Functions ..
-      LOGICAL            LDE, LDERES
+      bool               LDE, LDERES;
       EXTERNAL           LDE, LDERES
 *     .. External Subroutines ..
       EXTERNAL           DMAKE, DMMCH, CDSYR2K
@@ -1557,7 +1557,7 @@
       INTRINSIC          MAX
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
-      LOGICAL             OK
+      bool                OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
 *     .. Data statements ..
@@ -1849,14 +1849,14 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   TRANSL
       int                LDA, M, N, NMAX
-      LOGICAL            RESET
+      bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
       int                I, IBEG, IEND, J
-      LOGICAL            GEN, LOWER, SYM, TRI, UNIT, UPPER
+      bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       DOUBLE PRECISION   DBEG
       EXTERNAL           DBEG
@@ -1950,14 +1950,14 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   ALPHA, BETA, EPS, ERR
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT
-      LOGICAL            FATAL, MV
+      bool               FATAL, MV;
       String             TRANSA, TRANSB;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * )
 *     .. Local Scalars ..
       DOUBLE PRECISION   ERRI
       int                I, J, K
-      LOGICAL            TRANA, TRANB
+      bool               TRANA, TRANB;
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SQRT
 *     .. Executable Statements ..
@@ -2048,7 +2048,7 @@
 *     End of DMMCH.
 *
       END
-      LOGICAL FUNCTION LDE( RI, RJ, LR )
+      bool    FUNCTION LDE( RI, RJ, LR );
 *
 *  Tests if two arrays are identical.
 *
@@ -2079,7 +2079,7 @@
 *     End of LDE.
 *
       END
-      LOGICAL FUNCTION LDERES( TYPE, UPLO, M, N, AA, AS, LDA )
+      bool    FUNCTION LDERES( TYPE, UPLO, M, N, AA, AS, LDA );
 *
 *  Tests if selected elements in two arrays are equal.
 *
@@ -2101,7 +2101,7 @@
       DOUBLE PRECISION   AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
       int                I, IBEG, IEND, J
-      LOGICAL            UPPER
+      bool               UPPER;
 *     .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
       IF( TYPE.EQ.'GE' )THEN
@@ -2151,7 +2151,7 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      LOGICAL            RESET
+      bool               RESET;
 *     .. Local Scalars ..
       int                I, IC, MI
 *     .. Save statement ..

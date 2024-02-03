@@ -23,7 +23,7 @@
       EXTERNAL           CHKXER, ZTFSM, ZTFTRI, ZHFRK, ZTFTTP, ZTFTTR, ZPFTRI, ZPFTRF, ZPFTRS, ZTPTTF, ZTPTTR, ZTRTTF, ZTRTTP
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

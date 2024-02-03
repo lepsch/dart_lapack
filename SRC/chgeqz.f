@@ -24,12 +24,12 @@
       PARAMETER          ( HALF = 0.5E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILAZR2, ILAZRO, ILQ, ILSCHR, ILZ, LQUERY
+      bool               ILAZR2, ILAZRO, ILQ, ILSCHR, ILZ, LQUERY;
       int                ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT       REAL               ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL, C, SAFMIN, TEMP, TEMP2, TEMPR, ULP       COMPLEX            ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2, CTEMP3, ESHIFT, S, SHIFT, SIGNBC, U12, X, ABI12, Y
 *     ..
 *     .. External Functions ..
       COMPLEX            CLADIV
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANHS, SLAMCH
       EXTERNAL           CLADIV, LSAME, CLANHS, SLAMCH
 *     ..

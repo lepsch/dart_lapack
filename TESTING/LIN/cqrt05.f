@@ -32,7 +32,7 @@
 *     .. External Functions ..
       REAL SLAMCH
       REAL CLANGE, CLANSY
-      LOGICAL  LSAME
+      bool     LSAME;
       EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME
 *     ..
 *     .. Data statements ..

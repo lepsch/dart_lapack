@@ -9,7 +9,7 @@
       int                INFO, LDH, LDVL, LDVR, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX*16         H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * )
@@ -24,13 +24,13 @@
       PARAMETER          ( RZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV
+      bool               BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KS, LDWORK
       DOUBLE PRECISION   EPS3, HNORM, SMLNUM, ULP, UNFL
       COMPLEX*16         CDUM, WK
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       DOUBLE PRECISION   DLAMCH, ZLANHS
       EXTERNAL           LSAME, DLAMCH, ZLANHS, DISNAN
 *     ..

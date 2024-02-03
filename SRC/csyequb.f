@@ -25,12 +25,12 @@
 *     .. Local Scalars ..
       int                I, J, ITER
       REAL               AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ
-      LOGICAL            UP
+      bool               UP;
       COMPLEX            ZDUM
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME, SLAMCH
 *     ..
 *     .. External Subroutines ..

@@ -9,7 +9,7 @@
       int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       DOUBLE PRECISION   RWORK( * ), S( * ), SEP( * )
       COMPLEX*16         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * )
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D0+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            SOMCON, WANTBH, WANTS, WANTSP
+      bool               SOMCON, WANTBH, WANTS, WANTSP;
       String             NORMIN;
       int                I, IERR, IX, J, K, KASE, KS
       DOUBLE PRECISION   BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM
@@ -32,7 +32,7 @@
       COMPLEX*16         DUMMY( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH, DZNRM2
       COMPLEX*16         ZDOTC

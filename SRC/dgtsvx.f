@@ -21,12 +21,12 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOFACT, NOTRAN
+      bool               NOFACT, NOTRAN;
       String             NORM;
       DOUBLE PRECISION   ANORM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, DLANGT
       EXTERNAL           LSAME, DLAMCH, DLANGT
 *     ..

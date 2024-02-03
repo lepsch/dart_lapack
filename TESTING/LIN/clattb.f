@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0E+0, TWO = 2.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       String             DIST, PACKIT, TYPE;
       String             PATH;
       int                I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE
@@ -29,7 +29,7 @@
       COMPLEX            PLUS1, PLUS2, STAR1
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ICAMAX
       REAL               SLAMCH, SLARND
       COMPLEX            CLARND

@@ -9,7 +9,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            BWORK( * ), DOTYPE( * )
+      bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), NN( * )
       REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), RESULT( 13 ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN, ILABAD
+      bool               BADNN, ILABAD;
       String             SORT;
       int                I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM
       REAL               SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
@@ -33,7 +33,7 @@
       REAL               RMAGN( 0: 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            SLCTES
+      bool               SLCTES;
       int                ILAENV
       REAL               SLAMCH, SLARND
       EXTERNAL           SLCTES, ILAENV, SLAMCH, SLARND

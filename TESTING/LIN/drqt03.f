@@ -25,7 +25,7 @@
       DOUBLE PRECISION   CNORM, EPS, RESID
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, DLANGE
       EXTERNAL           LSAME, DLAMCH, DLANGE
 *     ..

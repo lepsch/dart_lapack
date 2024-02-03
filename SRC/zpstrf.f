@@ -27,12 +27,12 @@
       COMPLEX*16         ZTEMP
       DOUBLE PRECISION   AJJ, DSTOP, DTEMP
       int                I, ITEMP, J, JB, K, NB, PVT
-      LOGICAL            UPPER
+      bool               UPPER;
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
       int                ILAENV
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       EXTERNAL           DLAMCH, ILAENV, LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..

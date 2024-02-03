@@ -20,19 +20,19 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR
+      bool               LQUERY, SCALEA, WANTVL, WANTVR;
       String             SIDE;
       int                HSWORK, I, IBAL, IERR, IHI, ILO, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT       DOUBLE PRECISION   ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            SELECT( 1 )
+      bool               SELECT( 1 );
       DOUBLE PRECISION   DUM( 1 )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLARTG, DLASCL, DORGHR, DROT, DSCAL, DTREVC3, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IDAMAX, ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE, DLAPY2, DNRM2
       EXTERNAL           LSAME, IDAMAX, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2

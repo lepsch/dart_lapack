@@ -25,14 +25,14 @@
       DOUBLE PRECISION   A( NMAX, NMAX ), C( NMAX, NMAX ), D( NMAX ), E( NMAX ), Q( NMAX, NMAX ), R( NMAX ), TAU( NMAX ), W( LW ), X( NMAX ), Z( NMAX, NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, DOPGTR, DOPMTR, DORGTR, DORMTR, DPTEQR, DSBEV, DSBEVD, DSBEVX, DSBTRD, DSPEV, DSPEVD, DSPEVX, DSPTRD, DSTEBZ, DSTEDC, DSTEIN, DSTEQR, DSTERF, DSTEV, DSTEVD, DSTEVR, DSTEVX, DSYEV, DSYEVD, DSYEVR, DSYEVX, DSYTRD, DSYTD2, DSYEVD_2STAGE, DSYEVR_2STAGE, DSYEVX_2STAGE, DSYEV_2STAGE, DSBEV_2STAGE, DSBEVD_2STAGE, DSBEVX_2STAGE, DSYTRD_2STAGE, DSYTRD_SY2SB, DSYTRD_SB2ST
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

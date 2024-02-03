@@ -21,13 +21,13 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, UPPER
+      bool               LQUERY, UPPER;
       int                J, LWKOPT
       int                NB, MJ, NJ, K1, K2, J1, J2, J3, JB
       COMPLEX            ALPHA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK

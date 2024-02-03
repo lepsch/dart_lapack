@@ -29,7 +29,7 @@
       REAL               DUM( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ISAMAX
       REAL               SASUM, SCASUM, SLAMCH, CLANGE
       EXTERNAL           LSAME, ISAMAX, SASUM, SCASUM, SLAMCH, CLANGE

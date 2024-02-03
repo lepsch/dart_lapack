@@ -26,7 +26,7 @@
       PARAMETER          ( HALF = 1.0D0 / 2.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADEI, BADS, USEEI
+      bool               BADEI, BADS, USEEI;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR, JR
       DOUBLE PRECISION   ALPHA, TAU, TEMP, XNORMS
 *     ..
@@ -34,7 +34,7 @@
       DOUBLE PRECISION   TEMPA( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLANGE, DLARAN
       EXTERNAL           LSAME, DLANGE, DLARAN
 *     ..

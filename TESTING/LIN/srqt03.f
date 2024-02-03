@@ -25,7 +25,7 @@
       REAL               CNORM, EPS, RESID
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, SLANGE
       EXTERNAL           LSAME, SLAMCH, SLANGE
 *     ..

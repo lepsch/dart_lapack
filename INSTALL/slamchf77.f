@@ -12,12 +12,12 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FIRST, LRND
+      bool               FIRST, LRND;
       int                BETA, IMAX, IMIN, IT
       REAL               BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
@@ -142,13 +142,13 @@
 *     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
 *     .. Scalar Arguments ..
-      LOGICAL            IEEE1, RND
+      bool               IEEE1, RND;
       int                BETA, T
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            FIRST, LIEEE1, LRND
+      bool               FIRST, LIEEE1, LRND;
       int                LBETA, LT
       REAL               A, B, C, F, ONE, QTR, SAVEC, T1, T2
 *     ..
@@ -353,14 +353,14 @@
 *     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
 *     .. Scalar Arguments ..
-      LOGICAL            RND
+      bool               RND;
       int                BETA, EMAX, EMIN, T
       REAL               EPS, RMAX, RMIN
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            FIRST, IEEE, IWARN, LIEEE1, LRND
+      bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
       int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       REAL               A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO
 *     ..
 *     .. External Functions ..
@@ -723,7 +723,7 @@
 *     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
 *     .. Scalar Arguments ..
-      LOGICAL            IEEE
+      bool               IEEE;
       int                BETA, EMAX, EMIN, P
       REAL               RMAX
 *     ..

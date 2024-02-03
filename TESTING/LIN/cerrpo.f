@@ -25,14 +25,14 @@
       COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAESM, CHKXER, CPBCON, CPBEQU, CPBRFS, CPBTF2, CPBTRF, CPBTRS, CPOCON, CPOEQU, CPORFS, CPOTF2, CPOTRF, CPOTRI, CPOTRS, CPPCON, CPPEQU, CPPRFS, CPPTRF, CPPTRI, CPPTRS
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

@@ -9,7 +9,7 @@
       int                INFO, LDH, LDVL, LDVR, M, MM, N
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            SELECT( * )
+      bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * )
       DOUBLE PRECISION   H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * )
 *     ..
@@ -21,12 +21,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV
+      bool               BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KSI, KSR, LDWORK
       DOUBLE PRECISION   BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       DOUBLE PRECISION   DLAMCH, DLANHS
       EXTERNAL           LSAME, DLAMCH, DLANHS, DISNAN
 *     ..

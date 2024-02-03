@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       REAL               C, S
       int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT
-      LOGICAL            LQUERY
+      bool               LQUERY;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLARF, SLARFGP, SORBDB5, SROT, XERBLA

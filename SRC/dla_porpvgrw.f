@@ -17,14 +17,14 @@
 *     .. Local Scalars ..
       int                I, J
       DOUBLE PRECISION   AMAX, UMAX, RPVGRW
-      LOGICAL            UPPER
+      bool               UPPER;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME
-      LOGICAL            LSAME
+      bool               LSAME;
 *     ..
 *     .. Executable Statements ..
 *

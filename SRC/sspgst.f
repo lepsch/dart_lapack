@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0, HALF = 0.5 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK
       REAL               AJJ, AKK, BJJ, BKK, CT
 *     ..
@@ -27,7 +27,7 @@
       EXTERNAL           SAXPY, SSCAL, SSPMV, SSPR2, STPMV, STPSV, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SDOT
       EXTERNAL           LSAME, SDOT
 *     ..

@@ -26,12 +26,12 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            DONE
+      bool               DONE;
       int                IMAX, ITEMP, II, J, JB, JJ, JMAX, K, KK, KKW, KP, KSTEP, KW, P       DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, DTEMP, R1, ROWMAX, T, SFMIN
       COMPLEX*16         D11, D21, D22, Z
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IZAMAX
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           LSAME, IZAMAX, DLAMCH

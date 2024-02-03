@@ -15,7 +15,7 @@
 *  =====================================================================
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LOWER, OK1, OK2
+      bool               LOWER, OK1, OK2;
       String             UPLO, CFORM;
       int                I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN
 *     ..

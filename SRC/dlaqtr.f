@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            LREAL, LTRAN
+      bool               LREAL, LTRAN;
       int                INFO, LDT, N
       DOUBLE PRECISION   SCALE, W
 *     ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN
+      bool               NOTRAN;
       int                I, IERR, J, J1, J2, JNEXT, K, N1, N2
       DOUBLE PRECISION   BIGNUM, EPS, REC, SCALOC, SI, SMIN, SMINW, SMLNUM, SR, TJJ, TMP, XJ, XMAX, XNORM, Z
 *     ..

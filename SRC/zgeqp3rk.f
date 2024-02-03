@@ -26,7 +26,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, DONE
+      bool               LQUERY, DONE;
       int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX
       DOUBLE PRECISION   EPS, HUGEVAL, MAXC2NRM, SAFMIN
 *     ..
@@ -34,7 +34,7 @@
       EXTERNAL           ZLAQP2RK, ZLAQP3RK, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            DISNAN
+      bool               DISNAN;
       int                IDAMAX, ILAENV
       DOUBLE PRECISION   DLAMCH, DZNRM2
       EXTERNAL           DISNAN, DLAMCH, DZNRM2, IDAMAX, ILAENV

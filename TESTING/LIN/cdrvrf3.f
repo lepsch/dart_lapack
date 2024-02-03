@@ -35,7 +35,7 @@
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLAMCH, CLANGE
       COMPLEX            CLARND
       EXTERNAL           SLAMCH, CLARND, CLANGE, LSAME

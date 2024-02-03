@@ -19,12 +19,12 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J, JC, JJ, JJN
       REAL               AJJ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX            CDOTC
       EXTERNAL           LSAME, CDOTC
 *     ..

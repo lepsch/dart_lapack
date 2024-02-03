@@ -19,12 +19,12 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FORWRD, LEFT, NOTRAN, UPPER
+      bool               FORWRD, LEFT, NOTRAN, UPPER;
       int                I, I1, I2, I3, IC, II, JC, MI, NI, NQ
       REAL               AII
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

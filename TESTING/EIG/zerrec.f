@@ -22,7 +22,7 @@
       DOUBLE PRECISION   SCALE
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            SEL( NMAX )
+      bool               SEL( NMAX );
       DOUBLE PRECISION   RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX )
       COMPLEX*16         A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX )
 *     ..
@@ -30,7 +30,7 @@
       EXTERNAL           CHKXER, ZTREXC, ZTRSEN, ZTRSNA, ZTRSYL
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

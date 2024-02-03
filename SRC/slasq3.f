@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            IEEE
+      bool               IEEE;
       int                I0, ITER, N0, NDIV, NFAIL, PP
       REAL               DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU
 *     ..
@@ -30,7 +30,7 @@
 *     ..
 *     .. External Function ..
       REAL               SLAMCH
-      LOGICAL            SISNAN
+      bool               SISNAN;
       EXTERNAL           SISNAN, SLAMCH
 *     ..
 *     .. Intrinsic Functions ..

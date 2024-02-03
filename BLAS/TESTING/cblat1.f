@@ -11,7 +11,7 @@
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       REAL             SFAC
       int              IC
@@ -58,7 +58,7 @@
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Arrays ..
       String           L(10);
 *     .. Common blocks ..
@@ -92,7 +92,7 @@
       REAL              SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       COMPLEX           CA
       REAL              SA
@@ -226,7 +226,7 @@
       REAL              SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       COMPLEX           CA
       int               I, J, KI, KN, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY
@@ -349,7 +349,7 @@
       REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       REAL             SD
       int              I
@@ -476,7 +476,7 @@
       int               ICOMP, ITRUE
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       int               ID
 *     .. Common blocks ..
@@ -543,7 +543,7 @@
       COMPLEX           ROGUE
       REAL              SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM
       int               I, IV, IW, IX, KS
-      LOGICAL           FIRST
+      bool              FIRST;
 *     .. Local Arrays ..
       COMPLEX           X(NMAX), Z(NMAX)
       REAL              VALUES(NV), WORK(NMAX)

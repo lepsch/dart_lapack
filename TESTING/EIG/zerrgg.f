@@ -23,19 +23,19 @@
       DOUBLE PRECISION   ANRM, BNRM, DIF, SCALE, TOLA, TOLB
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            BW( NMAX ), SEL( NMAX )
+      bool               BW( NMAX ), SEL( NMAX );
       int                IW( LW ), IDUM(NMAX)
       DOUBLE PRECISION   LS( NMAX ), R1( NMAX ), R2( NMAX ), RCE( NMAX ), RCV( NMAX ), RS( NMAX ), RW( LW )       COMPLEX*16         A( NMAX, NMAX ), ALPHA( NMAX ), B( NMAX, NMAX ), BETA( NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN, ZLCTES, ZLCTSX
+      bool               LSAMEN, ZLCTES, ZLCTSX;
       EXTERNAL           LSAMEN, ZLCTES, ZLCTSX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, ZGGES,  ZGGESX, ZGGEV,  ZGGEVX, ZGGGLM, ZGGHRD, ZGGLSE, ZGGQRF, ZGGRQF, ZHGEQZ, ZTGEVC, ZTGEXC, ZTGSEN, ZTGSJA, ZTGSNA, ZTGSYL, ZUNCSD, ZGGES3, ZGGEV3, ZGGHD3, ZGGSVD3, ZGGSVP3, XLAENV
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

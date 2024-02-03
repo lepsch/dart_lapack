@@ -31,12 +31,12 @@
       COMPLEX*16         C, CT, DUMMY, EXTRA, S, ST, ZTEMP
       DOUBLE PRECISION   ALPHA, ANGLE, REALC, TEMP
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
-      LOGICAL            CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN
+      bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZLARND
       DOUBLE PRECISION   DLARND
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           ZLARND, DLARND, LSAME
 *     ..
 *     .. External Subroutines ..

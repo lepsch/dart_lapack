@@ -15,7 +15,7 @@
 *
 *     External Functions
       REAL, EXTERNAL :: SLAMCH
-      LOGICAL, EXTERNAL :: SISNAN
+      bool   , EXTERNAL :: SISNAN;
 *
       SAFMIN = SLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE/SAFMIN

@@ -20,11 +20,11 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LNOTIDENT
+      bool               LNOTIDENT;
       int                I, J
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

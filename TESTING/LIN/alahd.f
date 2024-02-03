@@ -12,7 +12,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            CORZ, SORD
+      bool               CORZ, SORD;
       String             C1, C3;
       String             P2;
       String             EIGCNM;
@@ -20,7 +20,7 @@
       String             SYM;
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, LSAMEN
+      bool               LSAME, LSAMEN;
       EXTERNAL           LSAME, LSAMEN
 *     ..
 *     .. Intrinsic Functions ..

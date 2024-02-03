@@ -21,7 +21,7 @@
       DOUBLE PRECISION   RND, EPS, SFMIN, SMALL, RMACH
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Functions ..

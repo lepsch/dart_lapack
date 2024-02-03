@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            ORGATI
+      bool               ORGATI;
       int                INFO, KNITER
       DOUBLE PRECISION   FINIT, RHO, TAU
 *     ..
@@ -29,7 +29,7 @@
       DOUBLE PRECISION   DSCALE( 3 ), ZSCALE( 3 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            SCALE
+      bool               SCALE;
       int                I, ITER, NITER
       DOUBLE PRECISION   A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD
 *     ..

@@ -26,7 +26,7 @@
 *     ..
 *     .. External Functions ..
       REAL               SDOT, SLAMCH, SLANSY
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           SDOT, SLAMCH, SLANSY, LSAME
 *     ..
 *     .. External Subroutines ..

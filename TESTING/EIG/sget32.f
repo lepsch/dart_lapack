@@ -18,7 +18,7 @@
       PARAMETER          ( TWO = 2.0E0, FOUR = 4.0E0, EIGHT = 8.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LTRANL, LTRANR
+      bool               LTRANL, LTRANR;
       int                IB, IB1, IB2, IB3, INFO, ISGN, ITL, ITLSCL, ITR, ITRANL, ITRANR, ITRSCL, N1, N2       REAL               BIGNUM, DEN, EPS, RES, SCALE, SGN, SMLNUM, TMP, TNRM, XNORM, XNRM
 *     ..
 *     .. Local Arrays ..

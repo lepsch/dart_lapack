@@ -9,7 +9,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                ISEED( 4 ), KK( * ), NN( * )
       REAL               A( LDA, * ), RESULT( * ), SD( * ), SE( * ), U( LDU, * ), WORK( * )
 *     ..
@@ -25,7 +25,7 @@
       PARAMETER          ( MAXTYP = 15 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BADNN, BADNNB
+      bool               BADNN, BADNNB;
       int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
       REAL               ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, ULP, ULPINV, UNFL
 *     ..

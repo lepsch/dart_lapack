@@ -31,12 +31,12 @@
       COMPLEX            C, CT, CTEMP, DUMMY, EXTRA, S, ST
       REAL               ALPHA, ANGLE, REALC, TEMP
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
-      LOGICAL            CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN
+      bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;
 *     ..
 *     .. External Functions ..
       COMPLEX            CLARND
       REAL               SLARND
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           CLARND, SLARND, LSAME
 *     ..
 *     .. External Subroutines ..

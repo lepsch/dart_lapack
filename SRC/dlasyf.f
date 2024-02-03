@@ -25,7 +25,7 @@
       int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW       DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D11, D21, D22, R1, ROWMAX, T
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                IDAMAX
       EXTERNAL           LSAME, IDAMAX
 *     ..

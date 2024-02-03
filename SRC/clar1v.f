@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            WANTNC
+      bool               WANTNC;
       int       B1, BN, N, NEGCNT, R
       REAL               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ
 *     ..
@@ -25,12 +25,12 @@
 
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            SAWNAN1, SAWNAN2
+      bool               SAWNAN1, SAWNAN2;
       int                I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2
       REAL               DMINUS, DPLUS, EPS, S, TMP
 *     ..
 *     .. External Functions ..
-      LOGICAL SISNAN
+      bool    SISNAN;
       REAL               SLAMCH
       EXTERNAL           SISNAN, SLAMCH
 *     ..

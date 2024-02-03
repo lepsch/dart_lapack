@@ -28,7 +28,7 @@
       COMPLEX            WTEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANGE, SLAMCH
       EXTERNAL           LSAME, CLANGE, SLAMCH
 *     ..

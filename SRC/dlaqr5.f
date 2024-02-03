@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       int                IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV, LDWH, LDWV, LDZ, N, NH, NSHFTS, NV
-      LOGICAL            WANTT, WANTZ
+      bool               WANTT, WANTZ;
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   H( LDH, * ), SI( * ), SR( * ), U( LDU, * ), V( LDV, * ), WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, BETA, H11, H12, H21, H22, REFSUM, SAFMAX, SAFMIN, SCL, SMLNUM, SWAP, T1, T2, T3, TST1, TST2, ULP       int                I, I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU
-      LOGICAL            ACCUM, BMP22
+      bool               ACCUM, BMP22;
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH

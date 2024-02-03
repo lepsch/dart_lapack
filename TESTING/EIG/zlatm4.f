@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            RSIGN
+      bool               RSIGN;
       int                IDIST, ITYPE, LDA, N, NZ1, NZ2
       DOUBLE PRECISION   AMAGN, RCOND, TRIANG
 *     ..

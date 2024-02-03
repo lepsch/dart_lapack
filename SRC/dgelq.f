@@ -15,11 +15,11 @@
 *
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, LMINWS, MINT, MINW
+      bool               LQUERY, LMINWS, MINT, MINW;
       int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWOPT, LWREQ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

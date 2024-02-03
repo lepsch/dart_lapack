@@ -26,7 +26,7 @@
       EXTERNAL           ALAESM, CHKXER, ZTPQRT2, ZTPQRT, ZTPMQRT
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT
 *     ..

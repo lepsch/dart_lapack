@@ -27,12 +27,12 @@
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FIRSTT
+      bool               FIRSTT;
       String             PATH;
       int                I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( NTYPES )
+      bool               DOTYPE( NTYPES );
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..

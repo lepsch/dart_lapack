@@ -7,13 +7,13 @@
 *     .. Scalar Arguments ..
       REAL               THRESH
       int                NMAX, NN, NNB, NOUT, NRANK
-      LOGICAL            TSTERR
+      bool               TSTERR;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( * ), AFAC( * ), PERM( * ), WORK( * )
       REAL               RWORK( * )
       int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * )
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
 *     ..
 *
 *  =====================================================================
@@ -39,7 +39,7 @@
 *     ..
 *     .. Scalars in Common ..
       int                INFOT, NUNIT
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
 *     ..
 *     .. Common blocks ..

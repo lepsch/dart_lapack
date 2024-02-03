@@ -27,7 +27,7 @@
       DOUBLE PRECISION   CS, EPS, ORGNRM, P, R, SN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       DOUBLE PRECISION   DLAMCH, DLANST
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST

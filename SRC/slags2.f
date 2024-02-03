@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            UPPER
+      bool               UPPER;
       REAL               A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, SNQ, SNU, SNV
 *     ..
 *

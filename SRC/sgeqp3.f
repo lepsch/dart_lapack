@@ -19,7 +19,7 @@
       PARAMETER          ( INB = 1, INBMIN = 2, IXOVER = 3 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY
+      bool               LQUERY;
       int                FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN
 *     ..
 *     .. External Subroutines ..

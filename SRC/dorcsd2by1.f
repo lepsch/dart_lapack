@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, J, LBBCSD, LORBDB, LORGLQ, LORGLQMIN, LORGLQOPT, LORGQR, LORGQRMIN, LORGQROPT, LWORKMIN, LWORKOPT, R
-      LOGICAL            LQUERY, WANTU1, WANTU2, WANTV1T
+      bool               LQUERY, WANTU1, WANTU2, WANTV1T;
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   DUM1(1), DUM2(1,1)
@@ -31,7 +31,7 @@
       EXTERNAL           DBBCSD, DCOPY, DLACPY, DLAPMR, DLAPMT, DORBDB1, DORBDB2, DORBDB3, DORBDB4, DORGLQ, DORGQR, XERBLA
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Intrinsic Function ..

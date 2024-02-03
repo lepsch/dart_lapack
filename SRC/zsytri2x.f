@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                I, IINFO, IP, K, CUT, NNB
       int                COUNT
       int                J, U11, INVD
@@ -30,7 +30,7 @@
       COMPLEX*16         U11_I_J, U11_IP1_J
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..

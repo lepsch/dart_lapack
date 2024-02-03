@@ -15,7 +15,7 @@
 *
 *     External Functions
       DOUBLE PRECISION, EXTERNAL :: DLAMCH
-      LOGICAL, EXTERNAL :: DISNAN
+      bool   , EXTERNAL :: DISNAN;
 *
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE/SAFMIN

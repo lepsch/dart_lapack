@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            COMP
+      bool               COMP;
       String             BALANC;
       int                INFO, ISRT, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT
       REAL               THRESH
@@ -25,7 +25,7 @@
       PARAMETER          ( EPSIN = 5.9605E-8 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            BALOK, NOBAL
+      bool               BALOK, NOBAL;
       String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN       REAL               ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN, VRMX, VTST
       COMPLEX            CTMP
@@ -36,7 +36,7 @@
       COMPLEX            CDUM( 1 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SCNRM2, SLAMCH
       EXTERNAL           LSAME, SCNRM2, SLAMCH
 *     ..

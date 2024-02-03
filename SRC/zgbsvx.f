@@ -24,13 +24,13 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU
+      bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       String             NORM;
       int                I, INFEQU, J, J1, J2
       DOUBLE PRECISION   AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, ZLANGB, ZLANTB
       EXTERNAL           LSAME, DLAMCH, ZLANGB, ZLANTB
 *     ..

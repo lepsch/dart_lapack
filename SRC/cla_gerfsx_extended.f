@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS
-      LOGICAL            COLEQU, IGNORE_CWISE
+      bool               COLEQU, IGNORE_CWISE;
       int                ITHRESH
       REAL               RTHRESH, DZ_UB
 *     ..
@@ -21,7 +21,7 @@
       String             TRANS;
       int                CNT, I, J,  X_STATE, Z_STATE, Y_PREC_STATE
       REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
-      LOGICAL            INCR_PREC
+      bool               INCR_PREC;
       COMPLEX            ZDUM
 *     ..
 *     .. Parameters ..

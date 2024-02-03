@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            TSTERR
+      bool               TSTERR;
       int                NIN, NOUT
       DOUBLE PRECISION   THRESH
 *     ..
@@ -13,7 +13,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            OK
+      bool               OK;
       String             PATH;
       int                KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LTREXC, LTRSYL, NTESTS, NTREXC, NTRSYL
       DOUBLE PRECISION   EPS, RTREXC, SFMIN

@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LNOTI, ONENRM
+      bool               LNOTI, ONENRM;
       String             NORMIN;
       int                IX, J, JP, KASE, KASE1, KD, LM
       REAL               AINVNM, SCALE, SMLNUM, T
@@ -30,7 +30,7 @@
       int                ISAVE( 3 )
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ISAMAX
       REAL               SDOT, SLAMCH
       EXTERNAL           LSAME, ISAMAX, SDOT, SLAMCH

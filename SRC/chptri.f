@@ -21,13 +21,13 @@
       PARAMETER          ( ONE = 1.0E+0, CONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP
       REAL               AK, AKP1, D, T
       COMPLEX            AKKP1, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX            CDOTC
       EXTERNAL           LSAME, CDOTC
 *     ..

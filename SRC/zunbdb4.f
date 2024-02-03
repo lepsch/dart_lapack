@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   C, S
       int                CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT
-      LOGICAL            LQUERY
+      bool               LQUERY;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZLARF, ZLARFGP, ZUNBDB5, ZDROT, ZSCAL, ZLACGV, XERBLA

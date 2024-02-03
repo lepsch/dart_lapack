@@ -5,7 +5,7 @@
 
 *     ..
 *     .. Local parameters ..
-      logical           debug
+      bool              debug;
       parameter       ( debug = .false. )
       int               N, nNaN, nInf
       parameter       ( N = 4, nNaN = 3, nInf = 5 )

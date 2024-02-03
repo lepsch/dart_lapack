@@ -19,11 +19,11 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO=0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                N1, N2, IINFO
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, SISNAN
+      bool               LSAME, SISNAN;
       EXTERNAL           LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..

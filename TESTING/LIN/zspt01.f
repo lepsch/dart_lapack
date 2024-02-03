@@ -28,7 +28,7 @@
       DOUBLE PRECISION   ANORM, EPS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       DOUBLE PRECISION   DLAMCH, ZLANSP, ZLANSY
       EXTERNAL           LSAME, DLAMCH, ZLANSP, ZLANSY
 *     ..

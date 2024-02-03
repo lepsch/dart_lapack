@@ -35,7 +35,7 @@
       INTRINSIC          ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
-      LOGICAL            DISNAN
+      bool               DISNAN;
       int                IDAMAX
       DOUBLE PRECISION   DLAMCH, DZNRM2
       EXTERNAL           DISNAN, DLAMCH, IDAMAX, DZNRM2

@@ -23,7 +23,7 @@
       EXTERNAL           DAXPY, DCOPY, DGEMV, DGER
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Executable Statements ..

@@ -18,14 +18,14 @@
 *     .. Local Scalars ..
       int                I, J
       DOUBLE PRECISION   RMAX
-      LOGICAL            UPPER
+      bool               UPPER;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DIMAG, CMPLX
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           SLAMCH, LSAME
 *     ..
 *     .. Executable Statements ..

@@ -19,11 +19,11 @@
       PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LEFT, LQUERY, NOTRAN
+      bool               LEFT, LQUERY, NOTRAN;
       int                I, I1, I2, I3, IB, IINFO, IWT, LDWORK, LWKOPT, MI, NB, NBMIN, NI, NQ, NW
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK

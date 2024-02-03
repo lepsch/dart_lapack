@@ -22,7 +22,7 @@
 *     .. Local Scalars ..
       REAL               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND
-      LOGICAL            APPLV, ROTOK, RSVEC
+      bool               APPLV, ROTOK, RSVEC;
 *     ..
 *     .. Local Arrays ..
       REAL               FASTR( 5 )
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       REAL               SDOT, SNRM2
       int                ISAMAX
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           ISAMAX, LSAME, SDOT, SNRM2
 *     ..
 *     .. External Subroutines ..

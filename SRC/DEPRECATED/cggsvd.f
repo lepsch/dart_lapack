@@ -17,12 +17,12 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            WANTQ, WANTU, WANTV
+      bool               WANTQ, WANTU, WANTV;
       int                I, IBND, ISUB, J, NCYCLE
       REAL               ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               CLANGE, SLAMCH
       EXTERNAL           LSAME, CLANGE, SLAMCH
 *     ..

@@ -22,7 +22,7 @@
       DOUBLE PRECISION   ABNRM
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            B( NMAX )
+      bool               B( NMAX );
       int                IW( 2*NMAX )
       DOUBLE PRECISION   A( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), S( NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), WI( NMAX ), WR( NMAX )
 *     ..
@@ -30,18 +30,18 @@
       EXTERNAL           CHKXER, DGEES, DGEESX, DGEEV, DGEEVX, DGEJSV, DGESDD, DGESVD, DGESVDX, DGESVDQ
 *     ..
 *     .. External Functions ..
-      LOGICAL            DSLECT, LSAMEN
+      bool               DSLECT, LSAMEN;
       EXTERNAL           DSLECT, LSAMEN
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LEN_TRIM
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT, SELDIM, SELOPT
 *     ..

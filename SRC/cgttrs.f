@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN
+      bool               NOTRAN;
       int                ITRANS, J, JB, NB
 *     ..
 *     .. External Functions ..

@@ -10,7 +10,7 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      LOGICAL            DOTYPE( * )
+      bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )
       REAL               S( * ), RWORK( * )
       COMPLEX            A( * ), COPYA( * ), B( * ), COPYB( * ), TAU( * ), WORK( * )
@@ -48,7 +48,7 @@
       INTRINSIC          ABS, MAX, MIN, MOD, REAL
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, IOUNIT, CUNMQR_LWORK
 *     ..

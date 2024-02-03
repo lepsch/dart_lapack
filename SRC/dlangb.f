@@ -27,7 +27,7 @@
       EXTERNAL           DLASSQ
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, DISNAN
+      bool               LSAME, DISNAN;
       EXTERNAL           LSAME, DISNAN
 *     ..
 *     .. Intrinsic Functions ..

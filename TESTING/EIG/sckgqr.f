@@ -22,14 +22,14 @@
       PARAMETER          ( NTYPES = 8 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FIRSTT
+      bool               FIRSTT;
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                I, IINFO, IM, IMAT, IN, IP, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( NTYPES )
+      bool               DOTYPE( NTYPES );
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..

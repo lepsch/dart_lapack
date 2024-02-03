@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            WANTB, WANTC, WANTPT, WANTQ
+      bool               WANTB, WANTC, WANTPT, WANTQ;
       int                I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MU, MU0, NR, NRT
       REAL               ABST, RC
       COMPLEX            RA, RB, RS, T
@@ -34,7 +34,7 @@
       INTRINSIC          ABS, CONJG, MAX, MIN
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. Executable Statements ..

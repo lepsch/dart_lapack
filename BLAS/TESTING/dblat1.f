@@ -11,7 +11,7 @@
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       DOUBLE PRECISION SFAC
       int              IC
@@ -61,7 +61,7 @@
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Arrays ..
       String           L(13);
 *     .. Common blocks ..
@@ -97,7 +97,7 @@
       DOUBLE PRECISION  SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       DOUBLE PRECISION  SA, SB, SC, SS, D12
       int               I, K
@@ -186,7 +186,7 @@
       DOUBLE PRECISION  SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       int               I, IX, LEN, NP1
 *     .. Local Arrays ..
@@ -274,7 +274,7 @@
       DOUBLE PRECISION  SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       DOUBLE PRECISION  SA
       int               I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY
@@ -433,7 +433,7 @@
       DOUBLE PRECISION  SFAC
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       DOUBLE PRECISION  SC, SS
       int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY
@@ -605,7 +605,7 @@
       DOUBLE PRECISION SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       DOUBLE PRECISION SD
       int              I
@@ -660,7 +660,7 @@
       REAL             SFAC, SCOMP, SSIZE, STRUE
 *     .. Scalars in Common ..
       int              ICASE, INCX, INCY, N
-      LOGICAL          PASS
+      bool             PASS;
 *     .. Local Scalars ..
       REAL             SD
 *     .. Intrinsic Functions ..
@@ -748,7 +748,7 @@
       int               ICOMP, ITRUE
 *     .. Scalars in Common ..
       int               ICASE, INCX, INCY, N
-      LOGICAL           PASS
+      bool              PASS;
 *     .. Local Scalars ..
       int               ID
 *     .. Common blocks ..
@@ -815,7 +815,7 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION  ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM
       int               I, IV, IW, IX
-      LOGICAL           FIRST
+      bool              FIRST;
 *     .. Local Arrays ..
       DOUBLE PRECISION  VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX)
 *     .. Executable Statements ..

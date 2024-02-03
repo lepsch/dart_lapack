@@ -21,13 +21,13 @@
       PARAMETER          ( ONE = 1.0D+0, CONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            UPPER
+      bool               UPPER;
       int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP
       DOUBLE PRECISION   AK, AKP1, D, T
       COMPLEX*16         AKKP1, TEMP
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX*16         ZDOTC
       EXTERNAL           LSAME, ZDOTC
 *     ..

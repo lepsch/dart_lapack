@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      LOGICAL            NOINIT, RIGHTV
+      bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N
       REAL               EPS3, SMLNUM
       COMPLEX            W

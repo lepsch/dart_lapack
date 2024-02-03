@@ -27,7 +27,7 @@
       EXTERNAL           CAXPY, CGEMV, CHEMV, CLACGV, CLARFG, CSCAL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       COMPLEX            CDOTC
       EXTERNAL           LSAME, CDOTC
 *     ..

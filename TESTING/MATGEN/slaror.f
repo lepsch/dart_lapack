@@ -24,7 +24,7 @@
       REAL               FACTOR, XNORM, XNORMS
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       REAL               SLARND, SNRM2
       EXTERNAL           LSAME, SLARND, SNRM2
 *     ..

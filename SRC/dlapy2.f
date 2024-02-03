@@ -18,10 +18,10 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   W, XABS, YABS, Z, HUGEVAL
-      LOGICAL            X_IS_NAN, Y_IS_NAN
+      bool               X_IS_NAN, Y_IS_NAN;
 *     ..
 *     .. External Functions ..
-      LOGICAL            DISNAN
+      bool               DISNAN;
       EXTERNAL           DISNAN
 *     ..
 *     .. External Subroutines ..

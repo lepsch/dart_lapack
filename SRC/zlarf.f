@@ -20,14 +20,14 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            APPLYLEFT
+      bool               APPLYLEFT;
       int                I, LASTV, LASTC
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZGEMV, ZGERC
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAZLR, ILAZLC
       EXTERNAL           LSAME, ILAZLR, ILAZLC
 *     ..

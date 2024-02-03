@@ -21,13 +21,13 @@
       PARAMETER          ( ZERO = 0.0E+0, HALF = 0.5E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOTRAN, NOUNIT, UPPER
+      bool               NOTRAN, NOUNIT, UPPER;
       int                I, IMAX, IP, J, JFIRST, JINC, JLAST, JLEN
       REAL               BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ, XMAX
       COMPLEX            CSUMJ, TJJS, USCAL, ZDUM
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ICAMAX, ISAMAX
       REAL               SCASUM, SLAMCH
       COMPLEX            CDOTC, CDOTU, CLADIV

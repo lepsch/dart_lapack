@@ -20,12 +20,12 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            NOUNIT
+      bool               NOUNIT;
       int                J, K, KP
       COMPLEX            D11, D12, D21, D22, T1, T2
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
