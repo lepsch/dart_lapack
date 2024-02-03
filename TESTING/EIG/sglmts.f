@@ -70,7 +70,7 @@
          RESULT =  ( ( DNORM / YNORM ) / XNORM ) /EPS;
       }
 
-      RETURN;
+      return;
 
       // End of SGLMTS
 

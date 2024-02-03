@@ -93,7 +93,7 @@
       }
 
       SLANGB = VALUE;
-      RETURN;
+      return;
 
       // End of SLANGB
 

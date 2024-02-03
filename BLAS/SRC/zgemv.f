@@ -55,7 +55,7 @@
       }
       if (INFO != 0) {
           xerbla('ZGEMV ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -182,7 +182,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of ZGEMV
 

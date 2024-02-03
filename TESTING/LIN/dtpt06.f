@@ -70,7 +70,7 @@
          RAT = RMAX*( MIN( BIGNUM / MAX( ONE, ANORM ), ONE / EPS ) );
       }
 
-      RETURN;
+      return;
 
       // End of DTPT06
 

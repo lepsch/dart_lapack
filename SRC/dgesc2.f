@@ -78,7 +78,7 @@
       // Apply permutations JPIV to the solution (RHS)
 
       dlaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
-      RETURN;
+      return;
 
       // End of DGESC2
 

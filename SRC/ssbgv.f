@@ -53,7 +53,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSBGV', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -65,7 +65,7 @@
       spbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem.
@@ -90,7 +90,7 @@
       } else {
          ssteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO );
       }
-      RETURN;
+      return;
 
       // End of SSBGV
 

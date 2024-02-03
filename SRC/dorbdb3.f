@@ -68,9 +68,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('DORBDB3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Reduce rows 1, ..., M-P of X11 and X21
@@ -111,7 +111,7 @@
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
       }
 
-      RETURN;
+      return;
 
       // End of DORBDB3
 

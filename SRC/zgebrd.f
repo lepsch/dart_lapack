@@ -60,16 +60,16 @@
       }
       if ( INFO < 0 ) {
          xerbla('ZGEBRD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MINMN == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       WS = MAX( M, N );
@@ -137,7 +137,7 @@
 
       zgebd2(M-I+1, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, IINFO );
       WORK( 1 ) = WS;
-      RETURN;
+      return;
 
       // End of ZGEBRD
 

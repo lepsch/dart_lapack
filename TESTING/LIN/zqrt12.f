@@ -43,7 +43,7 @@
 
       if ( LWORK < M*N+2*MIN( M, N )+MAX( M, N ) ) {
          xerbla('ZQRT12', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -115,7 +115,7 @@
 
       if (NRMSVL != ZERO) ZQRT12 = ZQRT12 / NRMSVL;
 
-      RETURN;
+      return;
 
       // End of ZQRT12
 

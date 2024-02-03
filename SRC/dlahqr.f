@@ -50,7 +50,7 @@
       if ( ILO == IHI ) {
          WR( ILO ) = H( ILO, ILO );
          WI( ILO ) = ZERO;
-         RETURN;
+         return;
       }
 
       // ==== clear out the trash ====
@@ -339,7 +339,7 @@
       // Failure to converge in remaining number of iterations
 
       INFO = I;
-      RETURN;
+      return;
 
       } // 150
 
@@ -381,7 +381,7 @@
       GO TO 20;
 
       } // 160
-      RETURN;
+      return;
 
       // End of DLAHQR
 

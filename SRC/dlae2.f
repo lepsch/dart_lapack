@@ -75,7 +75,7 @@
          RT1 = HALF*RT;
          RT2 = -HALF*RT;
       }
-      RETURN;
+      return;
 
       // End of DLAE2
 

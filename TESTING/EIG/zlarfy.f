@@ -44,7 +44,7 @@
 
       zher2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
 
-      RETURN;
+      return;
 
       // End of ZLARFY
 

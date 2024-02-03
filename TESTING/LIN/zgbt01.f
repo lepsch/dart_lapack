@@ -105,7 +105,7 @@
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of ZGBT01
 

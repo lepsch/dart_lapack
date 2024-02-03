@@ -216,7 +216,7 @@
  9996 FORMAT( 1X, 'All tests for ',A5,' auxiliary routine passed the ', 'threshold ( ',I6,' tests run)');
  9995 FORMAT( 1X, A6, ' auxiliary routine: ',I6,' out of ',I6, ' tests failed to pass the threshold');
 
-      RETURN;
+      return;
 
       // End of ZDRVRF4
 

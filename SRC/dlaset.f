@@ -66,7 +66,7 @@
          A( I, I ) = BETA;
       } // 70
 
-      RETURN;
+      return;
 
       // End of DLASET
 

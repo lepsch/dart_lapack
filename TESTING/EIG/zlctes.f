@@ -38,7 +38,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZLCTES
 

@@ -86,16 +86,16 @@
 
       if ( INFO != 0 ) {
          xerbla('CUNMTR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 || NQ == 1 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       if ( LEFT ) {
@@ -125,7 +125,7 @@
          cunmqr(SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of CUNMTR
 

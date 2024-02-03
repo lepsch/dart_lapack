@@ -58,7 +58,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZUNBDB5', -INFO );
-         RETURN;
+         return;
       }
 
       EPS = DLAMCH( 'Precision' );
@@ -84,7 +84,7 @@
          // If the projection is nonzero, then return
 
          if ( DZNRM2(M1,X1,INCX1) != REALZERO || DZNRM2(M2,X2,INCX2) != REALZERO ) {
-            RETURN;
+            return;
          }
       }
 
@@ -100,7 +100,7 @@
             X2(J) = ZERO;
          }
          CALL ZUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DZNRM2(M1,X1,INCX1) != REALZERO || DZNRM2(M2,X2,INCX2) != REALZERO ) THEN;
-            RETURN;
+            return;
          }
       }
 
@@ -116,11 +116,11 @@
          }
          X2(I) = ONE;
          CALL ZUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( DZNRM2(M1,X1,INCX1) != REALZERO || DZNRM2(M2,X2,INCX2) != REALZERO ) THEN;
-            RETURN;
+            return;
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZUNBDB5
 

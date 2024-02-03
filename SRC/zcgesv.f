@@ -71,7 +71,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZCGESV', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if (N == 0).
@@ -153,7 +153,7 @@
       // stopping criterion. We are good to exit.
 
       ITER = 0;
-      RETURN;
+      return;
 
       } // 10
 
@@ -202,7 +202,7 @@
 
          ITER = IITER;
 
-         RETURN;
+         return;
 
          } // 20
 
@@ -227,7 +227,7 @@
       zlacpy('All', N, NRHS, B, LDB, X, LDX );
       zgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );
 
-      RETURN;
+      return;
 
       // End of ZCGESV
 

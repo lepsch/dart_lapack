@@ -54,7 +54,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHPEV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -65,7 +65,7 @@
          W( 1 ) = DBLE( AP( 1 ) );
          RWORK( 1 ) = 1;
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -121,7 +121,7 @@
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of ZHPEV
 

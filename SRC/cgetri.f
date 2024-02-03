@@ -51,9 +51,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGETRI', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -130,7 +130,7 @@
       } // 60
 
       WORK( 1 ) = SROUNDUP_LWORK( IWS );
-      RETURN;
+      return;
 
       // End of CGETRI
 

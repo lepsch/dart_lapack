@@ -651,7 +651,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DLASYF_RK
 

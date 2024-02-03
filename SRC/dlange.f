@@ -89,7 +89,7 @@
       }
 
       DLANGE = VALUE;
-      RETURN;
+      return;
 
       // End of DLANGE
 

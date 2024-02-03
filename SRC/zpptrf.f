@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPPTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -109,7 +109,7 @@
       INFO = J;
 
       } // 40
-      RETURN;
+      return;
 
       // End of ZPPTRF
 

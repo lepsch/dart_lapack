@@ -38,7 +38,7 @@
 
       if ( N <= 0 ) {
          EQUED = 'N';
-         RETURN;
+         return;
       }
 
       // Initialize LARGE and SMALL.
@@ -85,7 +85,7 @@
          EQUED = 'Y';
       }
 
-      RETURN;
+      return;
 
       // End of CLAQHP
 

@@ -84,15 +84,15 @@
 
       if ( INFO != 0 ) {
          xerbla('ZUNMQL', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -155,7 +155,7 @@
          } // 10
       }
       WORK( 1 ) = LWKOPT;
-      RETURN;
+      return;
 
       // End of ZUNMQL
 

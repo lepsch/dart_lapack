@@ -65,7 +65,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZUNM2R', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -117,7 +117,7 @@
          zlarf(SIDE, MI, NI, A( I, I ), 1, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII;
       } // 10
-      RETURN;
+      return;
 
       // End of ZUNM2R
 

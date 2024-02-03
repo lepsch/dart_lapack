@@ -64,9 +64,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSYSV_AA_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( WQUERY || TQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
@@ -82,7 +82,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of DSYSV_AA_2STAGE
 

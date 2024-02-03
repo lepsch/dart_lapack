@@ -40,7 +40,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPPSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the Cholesky factorization A = U**T*U or A = L*L**T.
@@ -53,7 +53,7 @@
          spptrs(UPLO, N, NRHS, AP, B, LDB, INFO );
 
       }
-      RETURN;
+      return;
 
       // End of SPPSV
 

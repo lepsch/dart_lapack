@@ -81,17 +81,17 @@
 
       if ( INFO != 0 ) {
          xerbla('CUNGTSQR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = CMPLX( LWORKOPT );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
          WORK( 1 ) = CMPLX( LWORKOPT );
-         RETURN;
+         return;
       }
 
       // (1) Form explicitly the tall-skinny M-by-N left submatrix Q1_in
@@ -123,7 +123,7 @@
       }
 
       WORK( 1 ) = CMPLX( LWORKOPT );
-      RETURN;
+      return;
 
       // End of CUNGTSQR
 

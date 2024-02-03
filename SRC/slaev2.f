@@ -109,7 +109,7 @@
          CS1 = -SN1;
          SN1 = TN;
       }
-      RETURN;
+      return;
 
       // End of SLAEV2
 

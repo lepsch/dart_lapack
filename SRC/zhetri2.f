@@ -58,10 +58,10 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHETRI2', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = MINSIZE;
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -74,7 +74,7 @@
          zhetri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
 
-      RETURN;
+      return;
 
       // End of ZHETRI2
 

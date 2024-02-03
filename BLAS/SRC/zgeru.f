@@ -45,7 +45,7 @@
       }
       if (INFO != 0) {
           xerbla('ZGERU ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -89,7 +89,7 @@
           } // 40
       }
 
-      RETURN;
+      return;
 
       // End of ZGERU
 

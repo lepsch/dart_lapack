@@ -65,7 +65,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUNMR2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -115,7 +115,7 @@
          A( I, NQ-K+I ) = AII;
          clacgv(NQ-K+I-1, A( I, 1 ), LDA );
       } // 10
-      RETURN;
+      return;
 
       // End of CUNMR2
 

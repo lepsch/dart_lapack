@@ -125,7 +125,7 @@
 
       RESULT( 2 ) = MIN( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
 
-      RETURN;
+      return;
 
       // End of SSBT21
 

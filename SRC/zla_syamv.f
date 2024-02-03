@@ -61,7 +61,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLA_SYAMV', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -223,7 +223,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZLA_SYAMV
 

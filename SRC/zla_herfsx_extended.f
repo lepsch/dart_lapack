@@ -80,7 +80,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLA_HERFSX_EXTENDED', -INFO );
-         RETURN;
+         return;
       }
       EPS = DLAMCH( 'Epsilon' );
       HUGEVAL = DLAMCH( 'Overflow' );
@@ -279,7 +279,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZLA_HERFSX_EXTENDED
 

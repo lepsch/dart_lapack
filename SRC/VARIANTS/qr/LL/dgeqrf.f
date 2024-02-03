@@ -100,15 +100,15 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGEQRF', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( K == 0 ) {
-         RETURN;
+         return;
       }
 
       if ( NB > 1 && NB < K ) {
@@ -230,7 +230,7 @@
       }
 
       WORK( 1 ) = DROUNDUP_LWORK(IWS);
-      RETURN;
+      return;
 
       // End of DGEQRF
 

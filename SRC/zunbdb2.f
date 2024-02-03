@@ -68,9 +68,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZUNBDB2', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Reduce rows 1, ..., P of X11 and X21
@@ -114,7 +114,7 @@
          zlarf('L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
       }
 
-      RETURN;
+      return;
 
       // End of ZUNBDB2
 

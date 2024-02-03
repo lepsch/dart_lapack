@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHETRS_3', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -200,7 +200,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CHETRS_3
 

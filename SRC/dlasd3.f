@@ -66,7 +66,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLASD3', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -81,7 +81,7 @@
                U( I, 1 ) = -U2( I, 1 );
             } // 10
          }
-         RETURN;
+         return;
       }
 
       // Keep a copy of Z.
@@ -102,7 +102,7 @@
          // If the zero finder fails, report the convergence failure.
 
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
       } // 30
 
@@ -176,7 +176,7 @@
 
       if ( K == 2 ) {
          dgemm('N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO, VT, LDVT );
-         RETURN;
+         return;
       }
       KTEMP = 1 + CTOT( 1 );
       dgemm('N', 'N', K, NLP1, KTEMP, ONE, Q( 1, 1 ), LDQ, VT2( 1, 1 ), LDVT2, ZERO, VT( 1, 1 ), LDVT );
@@ -196,7 +196,7 @@
       CTEMP = 1 + CTOT( 2 ) + CTOT( 3 );
       dgemm('N', 'N', K, NRP1, CTEMP, ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, NLP2 ), LDVT2, ZERO, VT( 1, NLP2 ), LDVT );
 
-      RETURN;
+      return;
 
       // End of DLASD3
 

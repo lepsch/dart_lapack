@@ -183,7 +183,7 @@
          CNDNMB = ONE;
       }
 
-      RETURN;
+      return;
 
       // End of SLATB9
 

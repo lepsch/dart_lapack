@@ -54,9 +54,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGGQRF', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // QR factorization of N-by-M matrix A: A = Q*R
@@ -74,7 +74,7 @@
       zgerqf(N, P, B, LDB, TAUB, WORK, LWORK, INFO );
       WORK( 1 ) = MAX( LOPT, INT( WORK( 1 ) ) );
 
-      RETURN;
+      return;
 
       // End of ZGGQRF
 

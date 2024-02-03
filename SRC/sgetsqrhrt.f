@@ -100,17 +100,17 @@
 
       if ( INFO != 0 ) {
          xerbla('SGETSQRHRT', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
-         RETURN;
+         return;
       }
 
       NB2LOCAL = MIN( NB2, N );
@@ -163,7 +163,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
-      RETURN;
+      return;
 
       // End of SGETSQRHRT
 

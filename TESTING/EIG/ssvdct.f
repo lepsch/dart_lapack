@@ -51,7 +51,7 @@
          } else {
             NUM = 2*N;
          }
-         RETURN;
+         return;
       }
 
       // Compute scale factors as in Kahan's report
@@ -114,7 +114,7 @@
             }
          }
       } // 20
-      RETURN;
+      return;
 
       // End of SSVDCT
 

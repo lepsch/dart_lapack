@@ -41,7 +41,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       EPS = DLAMCH( 'Epsilon' );
@@ -111,7 +111,7 @@
          RESID = ( RESID / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of ZGTT01
 

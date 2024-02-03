@@ -74,7 +74,7 @@
       }
 
       DLAMCH = RMACH;
-      RETURN;
+      return;
 
       // End of DLAMCH
 
@@ -117,7 +117,7 @@
 
       DLAMC3 = A + B;
 
-      RETURN;
+      return;
 
       // End of DLAMC3
 

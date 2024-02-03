@@ -79,7 +79,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SSBEVX', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -101,7 +101,7 @@
             W( 1 ) = TMP1;
             if (WANTZ) Z( 1, 1 ) = ONE;
          }
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -251,7 +251,7 @@
          } // 50
       }
 
-      RETURN;
+      return;
 
       // End of SSBEVX
 

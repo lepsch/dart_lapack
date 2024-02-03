@@ -89,9 +89,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CHBGVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -103,7 +103,7 @@
       cpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem.
@@ -137,7 +137,7 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
       RWORK( 1 ) = LRWMIN;
       IWORK( 1 ) = LIWMIN;
-      RETURN;
+      return;
 
       // End of CHBGVD
 

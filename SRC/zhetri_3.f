@@ -55,10 +55,10 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHETRI_3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = LWKOPT;
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -69,7 +69,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZHETRI_3
 

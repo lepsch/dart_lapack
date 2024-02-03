@@ -72,22 +72,22 @@
 
       if ( INFO != 0 ) {
          xerbla('CHEEV_2STAGE ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
          W( 1 ) = REAL( A( 1, 1 ) );
          WORK( 1 ) = 1;
          if (WANTZ) A( 1, 1 ) = CONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -148,7 +148,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN;
+      return;
 
       // End of CHEEV_2STAGE
 

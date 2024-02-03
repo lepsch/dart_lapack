@@ -44,7 +44,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Determine EPS and the norm of A.
@@ -58,7 +58,7 @@
       for (J = 1; J <= N; J++) { // 10
          if ( DIMAG( AFAC( J, J ) ) != ZERO ) {
             RESID = ONE / EPS;
-            RETURN;
+            return;
          }
       } // 10
 
@@ -102,7 +102,7 @@
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of ZHET01
 

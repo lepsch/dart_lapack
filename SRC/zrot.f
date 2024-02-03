@@ -38,7 +38,7 @@
          IX = IX + INCX;
          IY = IY + INCY;
       } // 10
-      RETURN;
+      return;
 
       // Code for both increments equal to 1
 
@@ -48,5 +48,5 @@
          CY( I ) = C*CY( I ) - DCONJG( S )*CX( I );
          CX( I ) = STEMP;
       } // 30
-      RETURN;
+      return;
       }

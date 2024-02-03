@@ -68,7 +68,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SBDSDC', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -84,7 +84,7 @@
             VT( 1, 1 ) = ONE;
          }
          D( 1 ) = ABS( D( 1 ) );
-         RETURN;
+         return;
       }
       NM1 = N - 1;
 
@@ -224,7 +224,7 @@
                slasda(ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ), E( START ), Q( START+( IU+QSTART-2 )*N ), N, Q( START+( IVT+QSTART-2 )*N ), IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )* N ), Q( START+( DIFR+QSTART-2 )*N ), Q( START+( Z+QSTART-2 )*N ), Q( START+( POLES+QSTART-2 )*N ), IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ), N, IQ( START+PERM*N ), Q( START+( GIVNUM+QSTART-2 )*N ), Q( START+( IC+QSTART-2 )*N ), Q( START+( IS+QSTART-2 )*N ), WORK( WSTART ), IWORK, INFO );
             }
             if ( INFO != 0 ) {
-               RETURN;
+               return;
             }
             START = I + 1;
          }
@@ -276,7 +276,7 @@
 
       IF( ( IUPLO == 2 ) && ( ICOMPQ == 2 ) ) CALL SLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU );
 
-      RETURN;
+      return;
 
       // End of SBDSDC
 

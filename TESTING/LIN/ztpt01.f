@@ -43,7 +43,7 @@
       if ( N <= 0 ) {
          RCOND = ONE;
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
@@ -54,7 +54,7 @@
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {
          RCOND = ZERO;
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
       RCOND = ( ONE / ANORM ) / AINVNM;
 
@@ -97,7 +97,7 @@
 
       RESID = ( ( RESID*RCOND ) / DBLE( N ) ) / EPS;
 
-      RETURN;
+      return;
 
       // End of ZTPT01
 

@@ -209,7 +209,7 @@
       }
 
       CLANTB = VALUE;
-      RETURN;
+      return;
 
       // End of CLANTB
 

@@ -99,7 +99,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZCHKGG', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -261,7 +261,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 110
@@ -563,7 +563,7 @@
       // Summary
 
       dlasum('ZGG', NOUNIT, NERRS, NTESTT );
-      RETURN;
+      return;
 
  9999 FORMAT( ' ZCHKGG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 

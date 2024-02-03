@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTPQRT', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -69,7 +69,7 @@
             ztprfb('L', 'C', 'F', 'C', MB, N-I-IB+1, IB, LB, B( 1, I ), LDB, T( 1, I ), LDT, A( I, I+IB ), LDA, B( 1, I+IB ), LDB, WORK, IB );
          }
       }
-      RETURN;
+      return;
 
       // End of ZTPQRT
 

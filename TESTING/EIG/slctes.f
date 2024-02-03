@@ -25,7 +25,7 @@
          SLCTES = ( SIGN( ONE, ZR ) != SIGN( ONE, D ) );
       }
 
-      RETURN;
+      return;
 
       // End of SLCTES
 

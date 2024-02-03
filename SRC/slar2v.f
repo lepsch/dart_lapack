@@ -42,5 +42,5 @@
 
       // End of SLAR2V
 
-      RETURN;
+      return;
       }

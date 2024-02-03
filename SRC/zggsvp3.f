@@ -98,10 +98,10 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGGSVP3', -INFO );
-         RETURN;
+         return;
       }
       if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // QR with column pivoting of B: B*P = V*( S11 S12 )
@@ -274,7 +274,7 @@
       }
 
       WORK( 1 ) = DCMPLX( LWKOPT );
-      RETURN;
+      return;
 
       // End of ZGGSVP3
 

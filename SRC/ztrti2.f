@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTRTI2', -INFO );
-         RETURN;
+         return;
       }
 
       if ( UPPER ) {
@@ -92,7 +92,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of ZTRTI2
 

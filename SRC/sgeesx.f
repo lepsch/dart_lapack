@@ -119,16 +119,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SGEESX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          SDIM = 0;
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -328,7 +328,7 @@
          IWORK( 1 ) = 1;
       }
 
-      RETURN;
+      return;
 
       // End of SGEESX
 

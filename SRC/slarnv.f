@@ -72,7 +72,7 @@
             } // 30
          }
       } // 40
-      RETURN;
+      return;
 
       // End of SLARNV
 

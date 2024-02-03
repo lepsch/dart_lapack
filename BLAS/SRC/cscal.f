@@ -38,7 +38,7 @@
             CX(I) = CA*CX(I);
          }
       }
-      RETURN;
+      return;
 
       // End of CSCAL
 

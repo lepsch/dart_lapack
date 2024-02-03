@@ -524,7 +524,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZLATTB
 

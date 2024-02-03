@@ -137,9 +137,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SGGEVX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -421,7 +421,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
-      RETURN;
+      return;
 
       // End of SGGEVX
 

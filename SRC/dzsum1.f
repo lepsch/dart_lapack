@@ -36,7 +36,7 @@
          STEMP = STEMP + ABS( CX( I ) );
       } // 10
       DZSUM1 = STEMP;
-      RETURN;
+      return;
 
       // CODE FOR INCREMENT EQUAL TO 1
 
@@ -48,7 +48,7 @@
          STEMP = STEMP + ABS( CX( I ) );
       } // 30
       DZSUM1 = STEMP;
-      RETURN;
+      return;
 
       // End of DZSUM1
 

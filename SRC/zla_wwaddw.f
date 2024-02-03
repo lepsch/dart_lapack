@@ -24,7 +24,7 @@
         Y(I) = ((X(I) - S) + W(I)) + Y(I);
         X(I) = S;
       } // 10
-      RETURN;
+      return;
 
       // End of ZLA_WWADDW
 

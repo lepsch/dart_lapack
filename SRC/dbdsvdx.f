@@ -80,7 +80,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DBDSVDX', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible (N <= 1)
@@ -102,7 +102,7 @@
             Z( 1, 1 ) = SIGN( ONE, D( 1 ) );
             Z( 2, 1 ) = ONE;
          }
-         RETURN;
+         return;
       }
 
       ABSTOL = 2*DLAMCH( 'Safe Minimum' );
@@ -187,7 +187,7 @@
          dcopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
          dstevx('N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
          if ( NS == 0 ) {
-            RETURN;
+            return;
          } else {
             if (WANTZ) CALL DLASET( 'F', N*2, NS, ZERO, ZERO, Z, LDZ );
          }
@@ -348,7 +348,7 @@
                   dstevx(JOBZ, RNGVX, NTGK, WORK( IDTGK+ISPLT-1 ), WORK( IETGK+ISPLT-1 ), VLTGK, VUTGK, ILTGK, IUTGK, ABSTOL, NSL, S( ISBEG ), Z( IROWZ,ICOLZ ), LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
                   if ( INFO != 0 ) {
                      // Exit with the error code from DSTEVX.
-                     RETURN;
+                     return;
                   }
                   EMIN = ABS( MAXVAL( S( ISBEG:ISBEG+NSL-1 ) ) );
 
@@ -381,7 +381,7 @@
                         NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 );
                         if ( NRMU == ZERO ) {
                            INFO = N*2 + 1;
-                           RETURN;
+                           return;
                         }
                         CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU != ONE && ABS( NRMU-ORTOL )*SQRT2 > ONE ) THEN;
                            for (J = 0; J <= I-1; J++) {
@@ -396,7 +396,7 @@
                         NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 );
                         if ( NRMV == ZERO ) {
                            INFO = N*2 + 1;
-                           RETURN;
+                           return;
                         }
                         CALL DSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV != ONE && ABS( NRMV-ORTOL )*SQRT2 > ONE ) THEN;
                            for (J = 0; J <= I-1; J++) {
@@ -506,7 +506,7 @@
       }
       }
 
-      RETURN;
+      return;
 
       // End of DBDSVDX
 

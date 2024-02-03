@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSYCONV', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -243,7 +243,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SSYCONV
 

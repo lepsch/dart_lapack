@@ -208,7 +208,7 @@
       }
 
       SLANTB = VALUE;
-      RETURN;
+      return;
 
       // End of SLANTB
 

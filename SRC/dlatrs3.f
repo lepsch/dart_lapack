@@ -103,9 +103,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLATRS3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Initialize scaling factors
@@ -130,7 +130,7 @@
          for (K = 2; K <= NRHS; K++) {
             dlatrs(UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          }
-         RETURN;
+         return;
       }
 
       // Compute norms of blocks of A excluding diagonal blocks and find
@@ -176,7 +176,7 @@
          for (K = 1; K <= NRHS; K++) {
             dlatrs(UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          }
-         RETURN;
+         return;
       }
 
       // Every right-hand side requires workspace to store NBA local scale
@@ -414,7 +414,7 @@
 
       WORK( 1 ) = LWMIN;
 
-      RETURN;
+      return;
 
       // End of DLATRS3
 

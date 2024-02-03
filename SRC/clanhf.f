@@ -37,10 +37,10 @@
 
       if ( N == 0 ) {
          CLANHF = ZERO;
-         RETURN;
+         return;
       } else if ( N == 1 ) {
          CLANHF = ABS(REAL(A(0)));
-         RETURN;
+         return;
       }
 
       // set noe = 1 if n is odd. if n is even set noe=0
@@ -1246,7 +1246,7 @@
       }
 
       CLANHF = VALUE;
-      RETURN;
+      return;
 
       // End of CLANHF
 

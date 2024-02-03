@@ -59,16 +59,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SORGHR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       // Shift the vectors which define the elementary reflectors one
@@ -106,7 +106,7 @@
          sorgqr(NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO );
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of SORGHR
 

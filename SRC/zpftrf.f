@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPFTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -219,7 +219,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZPFTRF
 

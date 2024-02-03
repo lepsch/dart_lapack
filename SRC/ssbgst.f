@@ -61,7 +61,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSBGST', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible

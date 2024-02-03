@@ -91,9 +91,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZTRSEN', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -172,7 +172,7 @@
 
       WORK( 1 ) = LWMIN;
 
-      RETURN;
+      return;
 
       // End of ZTRSEN
 

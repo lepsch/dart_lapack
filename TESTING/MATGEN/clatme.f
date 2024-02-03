@@ -145,7 +145,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CLATME', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize random number generator
@@ -163,7 +163,7 @@
       clatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO );
       if ( IINFO != 0 ) {
          INFO = 1;
-         RETURN;
+         return;
       }
       if ( MODE != 0 && ABS( MODE ) != 6 ) {
 
@@ -178,7 +178,7 @@
             ALPHA = DMAX / TEMP;
          } else {
             INFO = 2;
-            RETURN;
+            return;
          }
 
          cscal(N, ALPHA, D, 1 );
@@ -211,7 +211,7 @@
          slatm1(MODES, CONDS, 0, 0, ISEED, DS, N, IINFO );
          if ( IINFO != 0 ) {
             INFO = 3;
-            RETURN;
+            return;
          }
 
          // Multiply by V and V'
@@ -219,7 +219,7 @@
          clarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO != 0 ) {
             INFO = 4;
-            RETURN;
+            return;
          }
 
          // Multiply by S and (1/S)
@@ -230,7 +230,7 @@
                csscal(N, ONE / DS( J ), A( 1, J ), 1 );
             } else {
                INFO = 5;
-               RETURN;
+               return;
             }
          } // 50
 
@@ -239,7 +239,7 @@
          clarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO != 0 ) {
             INFO = 4;
-            RETURN;
+            return;
          }
       }
 
@@ -316,7 +316,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CLATME
 

@@ -41,7 +41,7 @@
          }
       }
       SGET06 = RAT;
-      RETURN;
+      return;
 
       // End of SGET06
 

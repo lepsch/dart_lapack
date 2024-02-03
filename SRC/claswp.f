@@ -34,7 +34,7 @@
          I2 = K1;
          INC = -1;
       } else {
-         RETURN;
+         return;
       }
 
       N32 = ( N / 32 )*32;
@@ -70,7 +70,7 @@
          } // 50
       }
 
-      RETURN;
+      return;
 
       // End of CLASWP
 

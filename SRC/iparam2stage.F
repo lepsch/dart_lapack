@@ -33,7 +33,7 @@
 
       if ( (ISPEC < 17) || (ISPEC > 21) ) {
           IPARAM2STAGE = -1;
-          RETURN;
+          return;
       }
 
       // Get the number of threads
@@ -101,7 +101,7 @@
 
          if ( !( RPREC || CPREC ) ) {
              IPARAM2STAGE = -1;
-             RETURN;
+             return;
          }
       }
        // WRITE(*,*),'RPREC,CPREC ',RPREC,CPREC,

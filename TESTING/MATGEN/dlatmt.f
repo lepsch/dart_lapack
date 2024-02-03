@@ -165,7 +165,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DLATMT', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize random number generator
@@ -183,7 +183,7 @@
       dlatm7(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, RANK, IINFO );
       if ( IINFO != 0 ) {
          INFO = 1;
-         RETURN;
+         return;
       }
 
       // Choose Top-Down if D is (apparently) increasing,
@@ -208,7 +208,7 @@
             ALPHA = DMAX / TEMP;
          } else {
             INFO = 2;
-            RETURN;
+            return;
          }
 
          dscal(RANK, ALPHA, D, 1 );
@@ -608,7 +608,7 @@
          }
          if ( IINFO != 0 ) {
             INFO = 3;
-            RETURN;
+            return;
          }
       }
 
@@ -724,7 +724,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of DLATMT
 

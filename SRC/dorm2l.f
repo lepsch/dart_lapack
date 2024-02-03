@@ -65,7 +65,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DORM2L', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -108,7 +108,7 @@
          dlarf(SIDE, MI, NI, A( 1, I ), 1, TAU( I ), C, LDC, WORK );
          A( NQ-K+I, I ) = AII;
       } // 10
-      RETURN;
+      return;
 
       // End of DORM2L
 

@@ -109,7 +109,7 @@
             } // 120
          }
       }
-      RETURN;
+      return;
 
       // End of ZLAPTM
 

@@ -91,9 +91,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHETRD_HB2ST', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -101,7 +101,7 @@
       if ( N == 0 ) {
           HOUS( 1 ) = 1;
           WORK( 1 ) = 1;
-          RETURN;
+          return;
       }
 
       // Determine pointer position
@@ -151,7 +151,7 @@
 
           HOUS( 1 ) = 1;
           WORK( 1 ) = 1;
-          RETURN;
+          return;
       }
 
       // Case KD=1:
@@ -207,7 +207,7 @@
 
           HOUS( 1 ) = 1;
           WORK( 1 ) = 1;
-          RETURN;
+          return;
       }
 
       // Main code start here.
@@ -328,7 +328,7 @@
       }
 
       WORK( 1 ) = LWMIN;
-      RETURN;
+      return;
 
       // End of ZHETRD_HB2ST
 

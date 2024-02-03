@@ -191,7 +191,7 @@
       I = ICAMAX( N, V, 1 );
       csscal(N, ONE / CABS1( V( I ) ), V, 1 );
 
-      RETURN;
+      return;
 
       // End of CLAEIN
 

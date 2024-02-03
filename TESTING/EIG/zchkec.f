@@ -96,7 +96,7 @@
  9970 FORMAT( 'Error in ZTRSYL: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
  9971 FORMAT( 'Error in ZTRSYL3: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
  9972 FORMAT( 'ZTRSYL and ZTRSYL3 compute an inconsistent scale ', 'factor in ', I8, ' tests.');
-      RETURN;
+      return;
 
       // End of ZCHKEC
 

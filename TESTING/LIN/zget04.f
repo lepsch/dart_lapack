@@ -43,7 +43,7 @@
 
       if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if RCOND is invalid.
@@ -51,7 +51,7 @@
       EPS = DLAMCH( 'Epsilon' );
       if ( RCOND < ZERO ) {
          RESID = 1.0 / EPS;
-         RETURN;
+         return;
       }
 
       // Compute the maximum of
@@ -74,7 +74,7 @@
       } // 20
       if (RESID*EPS < 1.0) RESID = RESID / EPS;
 
-      RETURN;
+      return;
 
       // End of ZGET04
 

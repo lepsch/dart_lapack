@@ -87,9 +87,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUNBDB3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Reduce rows 1, ..., M-P of X11 and X21
@@ -133,7 +133,7 @@
          clarf('L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
       }
 
-      RETURN;
+      return;
 
       // End of CUNBDB3
 

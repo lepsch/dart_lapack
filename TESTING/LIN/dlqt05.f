@@ -191,5 +191,5 @@
       // Deallocate all arrays
 
       DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF);
-      RETURN;
+      return;
       }

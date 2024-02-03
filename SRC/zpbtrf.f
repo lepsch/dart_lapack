@@ -55,7 +55,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPBTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -258,10 +258,10 @@
             } // 140
          }
       }
-      RETURN;
+      return;
 
       } // 150
-      RETURN;
+      return;
 
       // End of ZPBTRF
 

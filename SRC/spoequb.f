@@ -46,7 +46,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPOEQUB', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -54,7 +54,7 @@
       if ( N == 0 ) {
          SCOND = ONE;
          AMAX = ZERO;
-         RETURN;
+         return;
       }
 
       BASE = SLAMCH( 'B' );
@@ -78,7 +78,7 @@
          for (I = 1; I <= N; I++) { // 20
             if ( S( I ) <= ZERO ) {
                INFO = I;
-               RETURN;
+               return;
             }
          } // 20
       } else {
@@ -95,7 +95,7 @@
          SCOND = SQRT( SMIN ) / SQRT( AMAX );
       }
 
-      RETURN;
+      return;
 
       // End of SPOEQUB
 

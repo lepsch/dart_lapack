@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHETRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -243,7 +243,7 @@
          } // 80
       }
 
-      RETURN;
+      return;
 
       // End of CHETRI
 

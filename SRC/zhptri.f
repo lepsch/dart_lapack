@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHPTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -260,7 +260,7 @@
          } // 80
       }
 
-      RETURN;
+      return;
 
       // End of ZHPTRI
 

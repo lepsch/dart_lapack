@@ -61,7 +61,7 @@
 
       slartgp(W, Z, SN, CS, R );
 
-      RETURN;
+      return;
 
       // End SLARTGS
 

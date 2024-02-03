@@ -58,7 +58,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPTEQR', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -67,7 +67,7 @@
 
       if ( N == 1 ) {
          if (ICOMPZ > 0) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
       if (ICOMPZ == 2) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
@@ -102,7 +102,7 @@
          INFO = N + INFO;
       }
 
-      RETURN;
+      return;
 
       // End of SPTEQR
 

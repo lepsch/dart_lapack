@@ -53,11 +53,11 @@
          SIGMA = SQRT( D( 1 )*D( 1 )+RHO*Z( 1 )*Z( 1 ) );
          DELTA( 1 ) = ONE;
          WORK( 1 ) = ONE;
-         RETURN;
+         return;
       }
       if ( N == 2 ) {
          dlasd5(I, D, Z, DELTA, RHO, SIGMA, WORK );
-         RETURN;
+         return;
       }
 
       // Compute machine epsilon
@@ -865,7 +865,7 @@
       }
 
       } // 240
-      RETURN;
+      return;
 
       // End of DLASD4
 

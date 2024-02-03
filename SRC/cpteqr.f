@@ -59,7 +59,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPTEQR', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -68,7 +68,7 @@
 
       if ( N == 1 ) {
          if (ICOMPZ > 0) Z( 1, 1 ) = CONE;
-         RETURN;
+         return;
       }
       if (ICOMPZ == 2) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
@@ -103,7 +103,7 @@
          INFO = N + INFO;
       }
 
-      RETURN;
+      return;
 
       // End of CPTEQR
 

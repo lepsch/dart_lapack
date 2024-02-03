@@ -94,9 +94,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CUNMBR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -162,7 +162,7 @@
          }
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of CUNMBR
 

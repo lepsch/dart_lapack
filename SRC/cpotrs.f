@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPOTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -81,7 +81,7 @@
          ctrsm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       }
 
-      RETURN;
+      return;
 
       // End of CPOTRS
 

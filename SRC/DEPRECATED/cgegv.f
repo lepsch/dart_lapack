@@ -112,9 +112,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CGEGV ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -144,7 +144,7 @@
          clascl('G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 10;
-            RETURN;
+            return;
          }
       }
 
@@ -164,7 +164,7 @@
          clascl('G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 10;
-            RETURN;
+            return;
          }
       }
 
@@ -374,7 +374,7 @@
       } // 80
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of CGEGV
 

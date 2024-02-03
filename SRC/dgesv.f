@@ -36,7 +36,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGESV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the LU factorization of A.
@@ -48,7 +48,7 @@
 
          dgetrs('No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO );
       }
-      RETURN;
+      return;
 
       // End of DGESV
 

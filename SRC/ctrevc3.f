@@ -100,9 +100,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('CTREVC3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -345,7 +345,7 @@
          } // 130
       }
 
-      RETURN;
+      return;
 
       // End of CTREVC3
 

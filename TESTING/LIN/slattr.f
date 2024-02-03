@@ -555,7 +555,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SLATTR
 

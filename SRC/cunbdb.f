@@ -95,9 +95,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('xORBDB', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Handle column-major and row-major separately
@@ -322,7 +322,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CUNBDB
 

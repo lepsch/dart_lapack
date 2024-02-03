@@ -37,7 +37,7 @@
 
       if ( N <= 0 ) {
          INFO = 0;
-         RETURN;
+         return;
       }
 
       // As a default, do NOT go for relative-accuracy preserving computations.
@@ -84,7 +84,7 @@
 
       if ( YESREL ) {
          INFO = 0;
-         RETURN;
+         return;
       } else {
       }
 
@@ -107,7 +107,7 @@
 
 
 
-      RETURN;
+      return;
 
       // End of SLARRR
 

@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DOPGTR', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -108,7 +108,7 @@
             dorg2r(N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK, IINFO );
          }
       }
-      RETURN;
+      return;
 
       // End of DOPGTR
 

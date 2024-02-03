@@ -43,12 +43,12 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLA_PORCOND', -INFO );
-         RETURN;
+         return;
       }
 
       if ( N == 0 ) {
          SLA_PORCOND = 1.0;
-         RETURN;
+         return;
       }
       UP = false;
       IF ( LSAME( UPLO, 'U' ) ) UP = true;
@@ -178,7 +178,7 @@
 
       if (AINVNM != 0.0) SLA_PORCOND = ( 1.0 / AINVNM );
 
-      RETURN;
+      return;
 
       // End of SLA_PORCOND
 

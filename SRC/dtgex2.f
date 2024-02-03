@@ -56,7 +56,7 @@
       if ( LWORK < MAX( 1, N*M, M*M*2 ) ) {
          INFO = -16;
          WORK( 1 ) = MAX( 1, N*M, M*M*2 );
-         RETURN;
+         return;
       }
 
       WEAK = false;
@@ -171,7 +171,7 @@
 
          // Exit with INFO = 0 if swap was successfully performed.
 
-         RETURN;
+         return;
 
       } else {
 
@@ -389,7 +389,7 @@
 
          // Exit with INFO = 0 if swap was successfully performed.
 
-         RETURN;
+         return;
 
       }
 
@@ -398,7 +398,7 @@
       } // 70
 
       INFO = 1;
-      RETURN;
+      return;
 
       // End of DTGEX2
 

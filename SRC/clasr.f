@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLASR ', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -228,7 +228,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CLASR
 

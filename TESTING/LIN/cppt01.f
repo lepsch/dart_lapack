@@ -43,7 +43,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
@@ -52,7 +52,7 @@
       ANORM = CLANHP( '1', UPLO, N, A, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Check the imaginary parts of the diagonal elements and return with
@@ -63,7 +63,7 @@
          for (K = 1; K <= N; K++) { // 10
             if ( AIMAG( AFAC( KC ) ) != ZERO ) {
                RESID = ONE / EPS;
-               RETURN;
+               return;
             }
             KC = KC + K + 1;
          } // 10
@@ -71,7 +71,7 @@
          for (K = 1; K <= N; K++) { // 20
             if ( AIMAG( AFAC( KC ) ) != ZERO ) {
                RESID = ONE / EPS;
-               RETURN;
+               return;
             }
             KC = KC + N - K + 1;
          } // 20
@@ -144,7 +144,7 @@
 
       RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
 
-      RETURN;
+      return;
 
       // End of CPPT01
 

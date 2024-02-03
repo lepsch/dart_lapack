@@ -30,7 +30,7 @@
       } else {
          ILAPREC = -1;
       }
-      RETURN;
+      return;
 
       // End of ILAPREC
 

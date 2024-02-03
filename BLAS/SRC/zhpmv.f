@@ -50,7 +50,7 @@
       }
       if (INFO != 0) {
           xerbla('ZHPMV ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -181,7 +181,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of ZHPMV
 

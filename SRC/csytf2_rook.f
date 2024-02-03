@@ -62,7 +62,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CSYTF2_ROOK', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize ALPHA for use in choosing pivot block size.
@@ -591,7 +591,7 @@
 
       } // 70
 
-      RETURN;
+      return;
 
       // End of CSYTF2_ROOK
 

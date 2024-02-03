@@ -123,9 +123,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DGEQP3RK', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible for M=0 or N=0.
@@ -135,7 +135,7 @@
          MAXC2NRMK = ZERO;
          RELMAXC2NRMK = ZERO;
          WORK( 1 ) = DBLE( LWKOPT );
-         RETURN;
+         return;
       }
 
       // ==================================================================
@@ -188,7 +188,7 @@
          // Array TAU is not set and contains undefined elements.
 
          WORK( 1 ) = DBLE( LWKOPT );
-         RETURN;
+         return;
       }
 
       // ===================================================================
@@ -207,7 +207,7 @@
          }
 
          WORK( 1 ) = DBLE( LWKOPT );
-         RETURN;
+         return;
 
       }
 
@@ -238,7 +238,7 @@
             TAU( J ) = ZERO;
          }
          WORK( 1 ) = DBLE( LWKOPT );
-         RETURN;
+         return;
       }
 
       // ==================================================================
@@ -283,7 +283,7 @@
          }
 
          WORK( 1 ) = DBLE( LWKOPT );
-         RETURN;
+         return;
       }
 
       // ==================================================================
@@ -395,7 +395,7 @@
 
                WORK( 1 ) = DBLE( LWKOPT );
 
-               RETURN;
+               return;
 
             }
 
@@ -478,7 +478,7 @@
 
       WORK( 1 ) = DBLE( LWKOPT );
 
-      RETURN;
+      return;
 
       // End of DGEQP3RK
 

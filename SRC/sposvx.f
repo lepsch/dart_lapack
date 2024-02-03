@@ -93,7 +93,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SPOSVX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -131,7 +131,7 @@
 
          if ( INFO > 0 ) {
             RCOND = ZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -171,7 +171,7 @@
 
       IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      RETURN;
+      return;
 
       // End of SPOSVX
 

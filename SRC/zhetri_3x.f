@@ -55,7 +55,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHETRI_3X', -INFO );
-         RETURN;
+         return;
       }
       if (N == 0) RETURN;
 
@@ -454,7 +454,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZHETRI_3X
 

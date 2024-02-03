@@ -77,7 +77,7 @@
 
       if ( N == 0 ) {
          WORK( 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       if ( N <= NTINY ) {
@@ -141,7 +141,7 @@
 
          if ( LWORK == -1 ) {
             WORK( 1 ) = CMPLX( LWKOPT, 0 );
-            RETURN;
+            return;
          }
 
          // ==== CLAHQR/CLAQR0 crossover point ====

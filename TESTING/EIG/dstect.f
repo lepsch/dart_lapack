@@ -47,11 +47,11 @@
 
       if ( SHIFT >= THREE*MX ) {
          NUM = N;
-         RETURN;
+         return;
       }
       if ( SHIFT < -THREE*MX ) {
          NUM = 0;
-         RETURN;
+         return;
       }
 
       // Compute scale factors as in Kahan's report
@@ -94,7 +94,7 @@
             }
          }
       } // 20
-      RETURN;
+      return;
 
       // End of DSTECT
 

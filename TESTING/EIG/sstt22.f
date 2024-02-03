@@ -96,7 +96,7 @@
 
       RESULT( 2 ) = MIN( REAL( M ), SLANGE( '1', M, M, WORK, M, WORK( 1, M+1 ) ) ) / ( M*ULP );
 
-      RETURN;
+      return;
 
       // End of SSTT22
 

@@ -69,22 +69,22 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYEV_2STAGE ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
          W( 1 ) = A( 1, 1 );
          WORK( 1 ) = 2;
          if (WANTZ) A( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -127,7 +127,7 @@
       } else {
          // Not available in this release, and argument checking should not
          // let it getting here
-         RETURN;
+         return;
          sorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
          ssteqr(JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
       }
@@ -147,7 +147,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN;
+      return;
 
       // End of SSYEV_2STAGE
 

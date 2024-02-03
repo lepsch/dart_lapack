@@ -260,7 +260,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CLA_GERFSX_EXTENDED
 

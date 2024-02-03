@@ -427,7 +427,7 @@
  9996 FORMAT( ' TRANS=''', A1, ''', N=', I5, ', KL=', I5, ', KU=', I5, ', NRHS=', I3, ', type ', I1, ', test(', I1, ')=', G12.5 );
  9995 FORMAT( ' NORM =''', A1, ''', N=', I5, ', KL=', I5, ', KU=', I5, ',', 10X, ' type ', I1, ', test(', I1, ')=', G12.5 );
 
-      RETURN;
+      return;
 
       // End of SCHKGB
 

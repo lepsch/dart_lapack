@@ -60,7 +60,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHETRI2X', -INFO );
-         RETURN;
+         return;
       }
       if (N == 0) RETURN;
 
@@ -435,7 +435,7 @@
             }
       }
 
-      RETURN;
+      return;
 
       // End of ZHETRI2X
 

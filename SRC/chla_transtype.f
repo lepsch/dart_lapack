@@ -24,7 +24,7 @@
       } else {
          CHLA_TRANSTYPE = 'X';
       }
-      RETURN;
+      return;
 
       // End of CHLA_TRANSTYPE
 

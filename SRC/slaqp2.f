@@ -102,7 +102,7 @@
 
       } // 20
 
-      RETURN;
+      return;
 
       // End of SLAQP2
 

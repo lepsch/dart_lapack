@@ -38,7 +38,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPOTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -54,7 +54,7 @@
 
       dlauum(UPLO, N, A, LDA, INFO );
 
-      RETURN;
+      return;
 
       // End of DPOTRI
 

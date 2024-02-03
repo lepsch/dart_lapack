@@ -40,7 +40,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('STZRQF', -INFO );
-         RETURN;
+         return;
       }
 
       // Perform the factorization.
@@ -83,7 +83,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of STZRQF
 

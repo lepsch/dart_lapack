@@ -75,7 +75,7 @@ void main() {
       DATA             L(10)/'IZAMAX'/;
       // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE);
-      RETURN;
+      return;
 
 99999 FORMAT (/' Test of subprogram number',I3,12X,A6)
 
@@ -212,7 +212,7 @@ void main() {
          zdscal(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
       }
-      RETURN;
+      return;
 
       // End of CHECK1
 
@@ -328,7 +328,7 @@ void main() {
 
          } // 40
       } // 60
-      RETURN;
+      return;
 
       // End of CHECK2
 
@@ -379,7 +379,7 @@ void main() {
          WRITE (NOUT,99998);
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I);
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
@@ -411,7 +411,7 @@ void main() {
       STRUE(1) = STRUE1;
       stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
-      RETURN;
+      return;
 
       // End of STEST1
 
@@ -424,7 +424,7 @@ void main() {
       double                          SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
-      RETURN;
+      return;
 
       // End of SDIFF
 
@@ -458,7 +458,7 @@ void main() {
       } // 20
 
       stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);
-      RETURN;
+      return;
 
       // End of CTEST
 
@@ -495,7 +495,7 @@ void main() {
    20 ID = ICOMP - ITRUE;
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID;
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
@@ -564,12 +564,12 @@ void main() {
 
       if (N*ABS(INCX) > NMAX) {
          WRITE (NOUT,99) "DZNRM2", NMAX, INCX, N, N*ABS(INCX);
-         RETURN;
+         return;
       }
 
       // Zero-sized inputs are tested in STEST1.
       if (N <= 0) {
-         RETURN;
+         return;
       }
 
       // Generate 2*(N-1) values in (-1,1).
@@ -697,7 +697,7 @@ void main() {
 99999 FORMAT ('                                       FAIL')
    99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 );
    98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
-      RETURN;
+      return;
       CONTAINS;
       double           FUNCTION DXVALS(XX,K);
       // .. Scalar Arguments ..
@@ -718,6 +718,6 @@ void main() {
          X = Z / Z;
       }
       DXVALS = X;
-      RETURN;
+      return;
       }
       }

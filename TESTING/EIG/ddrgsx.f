@@ -98,7 +98,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DDRGSX', -INFO );
-         RETURN;
+         return;
       }
 
       // Important constants
@@ -511,7 +511,7 @@
 
       WORK( 1 ) = MAXWRK;
 
-      RETURN;
+      return;
 
  9999 FORMAT( ' DDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ')' );
 

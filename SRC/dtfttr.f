@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DTFTTR', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -57,7 +57,7 @@
          if ( N == 1 ) {
             A( 0, 0 ) = ARF( 0 );
          }
-         RETURN;
+         return;
       }
 
       // Size of array ARF(0:nt-1)
@@ -289,7 +289,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DTFTTR
 

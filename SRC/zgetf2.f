@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGETF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -86,7 +86,7 @@
             zgeru(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
       } // 10
-      RETURN;
+      return;
 
       // End of ZGETF2
 

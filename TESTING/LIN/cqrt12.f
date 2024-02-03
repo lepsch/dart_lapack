@@ -43,7 +43,7 @@
 
       if ( LWORK < M*N+2*MIN( M, N )+MAX( M, N ) ) {
          xerbla('CQRT12', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -113,7 +113,7 @@
       saxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
       CQRT12 = SASUM( MN, RWORK( 1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL != ZERO ) CQRT12 = CQRT12 / NRMSVL;
 
-      RETURN;
+      return;
 
       // End of CQRT12
 

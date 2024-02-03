@@ -44,7 +44,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CSPR  ', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -139,7 +139,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CSPR
 

@@ -90,7 +90,7 @@
       }
 
       CLANGE = VALUE;
-      RETURN;
+      return;
 
       // End of CLANGE
 

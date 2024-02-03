@@ -70,7 +70,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGBBRD', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize Q and P**H to the unit matrix, if needed
@@ -327,7 +327,7 @@
             }
          }
       } // 120
-      RETURN;
+      return;
 
       // End of CGBBRD
 

@@ -105,7 +105,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CHESVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -142,7 +142,7 @@
             // leading rank-deficient INFO columns of A.
 
             if (N > 0) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK );
-            RETURN;
+            return;
          }
       }
 
@@ -166,7 +166,7 @@
          clascl2(N, NRHS, S, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of CHESVXX
 

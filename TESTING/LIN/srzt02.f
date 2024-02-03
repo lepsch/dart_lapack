@@ -39,7 +39,7 @@
 
       if ( LWORK < N*N+N ) {
          xerbla('SRZT02', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -65,7 +65,7 @@
       } // 10
 
       SRZT02 = SLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) );
-      RETURN;
+      return;
 
       // End of SRZT02
 

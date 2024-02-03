@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSYGS2', -INFO );
-         RETURN;
+         return;
       }
 
       if ( ITYPE == 1 ) {
@@ -138,7 +138,7 @@
             } // 40
          }
       }
-      RETURN;
+      return;
 
       // End of DSYGS2
 

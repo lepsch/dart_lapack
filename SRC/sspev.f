@@ -53,7 +53,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SSPEV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -63,7 +63,7 @@
       if ( N == 1 ) {
          W( 1 ) = AP( 1 );
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -118,7 +118,7 @@
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of SSPEV
 

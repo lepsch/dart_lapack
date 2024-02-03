@@ -90,7 +90,7 @@
       }
 
       ZLANHS = VALUE;
-      RETURN;
+      return;
 
       // End of ZLANHS
 

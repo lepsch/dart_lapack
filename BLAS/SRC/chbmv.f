@@ -54,7 +54,7 @@
       }
       if (INFO != 0) {
           xerbla('CHBMV ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -185,7 +185,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of CHBMV
 

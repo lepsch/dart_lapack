@@ -495,7 +495,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DTPRFB
 

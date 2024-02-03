@@ -93,7 +93,7 @@
             cgerc(LASTC, LASTV, -TAU, WORK, 1, V, INCV, C, LDC );
          }
       }
-      RETURN;
+      return;
 
       // End of CLARF
 

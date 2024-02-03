@@ -44,7 +44,7 @@
       MN = MIN( M, N );
       if ( LWORK < MAX( M+MN, MN*NRHS, 2*N+M ) ) {
          xerbla('ZQRT15', 16 );
-         RETURN;
+         return;
       }
 
       SMLNUM = DLAMCH( 'Safe minimum' );
@@ -141,7 +141,7 @@
                zlascl('General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
                xerbla('ZQRT15', 1 );
-               RETURN;
+               return;
             }
          }
       }
@@ -149,7 +149,7 @@
       NORMA = DASUM( MN, S, 1 );
       NORMB = ZLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY );
 
-      RETURN;
+      return;
 
       // End of ZQRT15
 

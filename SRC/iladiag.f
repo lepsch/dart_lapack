@@ -26,7 +26,7 @@
       } else {
          ILADIAG = -1;
       }
-      RETURN;
+      return;
 
       // End of ILADIAG
 

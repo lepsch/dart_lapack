@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTFTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -213,7 +213,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZTFTRI
 

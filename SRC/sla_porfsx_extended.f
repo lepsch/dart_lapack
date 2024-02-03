@@ -250,7 +250,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SLA_PORFSX_EXTENDED
 

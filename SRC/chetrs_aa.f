@@ -61,10 +61,10 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHETRS_AA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWKMIN );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -177,7 +177,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CHETRS_AA
 

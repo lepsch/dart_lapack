@@ -138,9 +138,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DGGEVX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -422,7 +422,7 @@
       }
 
       WORK( 1 ) = MAXWRK;
-      RETURN;
+      return;
 
       // End of DGGEVX
 

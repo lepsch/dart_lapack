@@ -40,11 +40,11 @@
       if (N == 0) RETURN;
       if ( N < 0 ) {
          INFO = -1;
-         RETURN;
+         return;
       }
       if ( TOL < ZERO ) {
          INFO = -5;
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -123,7 +123,7 @@
       BPNT = TPNT;
       if (TPNT <= N) GO TO 50;
       } // 80
-      RETURN;
+      return;
 
       // End of SSTECH
 

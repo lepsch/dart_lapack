@@ -46,7 +46,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTPTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Check for singularity if non-unit.
@@ -112,7 +112,7 @@
          } // 40
       }
 
-      RETURN;
+      return;
 
       // End of ZTPTRI
 

@@ -20,49 +20,49 @@
       POSINF = ONE / ZERO;
       if ( POSINF <= ONE ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       NEGINF = -ONE / ZERO;
       if ( NEGINF >= ZERO ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       NEGZRO = ONE / ( NEGINF+ONE );
       if ( NEGZRO != ZERO ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       NEGINF = ONE / NEGZRO;
       if ( NEGINF >= ZERO ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       NEWZRO = NEGZRO + ZERO;
       if ( NEWZRO != ZERO ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       POSINF = ONE / NEWZRO;
       if ( POSINF <= ONE ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       NEGINF = NEGINF*POSINF;
       if ( NEGINF >= ZERO ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       POSINF = POSINF*POSINF;
       if ( POSINF <= ONE ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
 
@@ -86,33 +86,33 @@
 
       if ( NAN1 == NAN1 ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       if ( NAN2 == NAN2 ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       if ( NAN3 == NAN3 ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       if ( NAN4 == NAN4 ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       if ( NAN5 == NAN5 ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
       if ( NAN6 == NAN6 ) {
          IEEECK = 0;
-         RETURN;
+         return;
       }
 
-      RETURN;
+      return;
       }

@@ -78,7 +78,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of DGET54
 

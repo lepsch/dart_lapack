@@ -56,7 +56,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGBTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -115,7 +115,7 @@
             } // 40
          }
       }
-      RETURN;
+      return;
 
       // End of DGBTRS
 

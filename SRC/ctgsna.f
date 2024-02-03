@@ -102,9 +102,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CTGSNA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -188,7 +188,7 @@
 
       } // 20
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-      RETURN;
+      return;
 
       // End of CTGSNA
 

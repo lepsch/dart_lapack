@@ -255,7 +255,7 @@
  9996 FORMAT( 1X, 'All tests for ',A5,' auxiliary routine passed the ', 'threshold ( ',I5,' tests run)');
  9995 FORMAT( 1X, A6, ' auxiliary routine: ',I5,' out of ',I5, ' tests failed to pass the threshold');
 
-      RETURN;
+      return;
 
       // End of DDRVRF3
 

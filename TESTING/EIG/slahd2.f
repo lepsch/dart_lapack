@@ -204,10 +204,10 @@
       } else {
 
          WRITE( IOUNIT, FMT = 9999 )PATH;
-         RETURN;
+         return;
       }
 
-      RETURN;
+      return;
 
  9999 FORMAT( 1X, A3, ':  no header available' );
  9998 FORMAT( / 1X, A3, ' -- Real Non-symmetric eigenvalue problem' );

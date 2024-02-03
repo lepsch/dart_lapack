@@ -62,9 +62,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZSYSV_AA_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( WQUERY || TQUERY ) {
-         RETURN;
+         return;
       }
 
 

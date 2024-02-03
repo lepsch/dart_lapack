@@ -48,7 +48,7 @@
       }
       if (INFO != 0) {
           xerbla('CHPR2 ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -161,7 +161,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of CHPR2
 

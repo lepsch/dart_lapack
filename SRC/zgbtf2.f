@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGBTF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -116,7 +116,7 @@
             if (INFO == 0) INFO = J;
          }
       } // 40
-      RETURN;
+      return;
 
       // End of ZGBTF2
 

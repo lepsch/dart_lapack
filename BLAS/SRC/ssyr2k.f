@@ -62,7 +62,7 @@
       }
       if (INFO != 0) {
           xerbla('SSYR2K',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -101,7 +101,7 @@
                   } // 80
               }
           }
-          RETURN;
+          return;
       }
 
       // Start the operations.
@@ -192,7 +192,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of SSYR2K
 

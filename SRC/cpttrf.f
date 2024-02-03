@@ -36,7 +36,7 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('CPTTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -126,7 +126,7 @@
       IF( D( N ) <= ZERO ) INFO = N;
 
       } // 20
-      RETURN;
+      return;
 
       // End of CPTTRF
 

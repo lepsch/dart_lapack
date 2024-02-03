@@ -64,7 +64,7 @@
 
       if ( INFO != 0 ) {
          xerbla('STGSEN', -INFO );
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -124,9 +124,9 @@
 
       if ( INFO != 0 ) {
          xerbla('STGSEN', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -364,7 +364,7 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of STGSEN
 

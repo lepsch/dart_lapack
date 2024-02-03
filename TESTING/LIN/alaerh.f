@@ -755,7 +755,7 @@
 
  9930 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> M =', I5, ', N =', I5, ', NX =', I5, ', NB =', I4, ', type ', I2 );
 
-      RETURN;
+      return;
 
       // End of ALAERH
 

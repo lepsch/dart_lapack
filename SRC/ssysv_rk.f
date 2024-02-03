@@ -62,9 +62,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYSV_RK ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = P*U*D*(U**T)*(P**T) or
@@ -82,7 +82,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of SSYSV_RK
 

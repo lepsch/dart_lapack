@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLASD6', -INFO );
-         RETURN;
+         return;
       }
 
       // The following values are for bookkeeping purposes only.  They are
@@ -92,7 +92,7 @@
       // Report the possible convergence failure.
 
       if ( INFO != 0 ) {
-         RETURN;
+         return;
       }
 
       // Save the poles if ICOMPQ = 1.
@@ -112,7 +112,7 @@
       N2 = N - K;
       dlamrg(N1, N2, D, 1, -1, IDXQ );
 
-      RETURN;
+      return;
 
       // End of DLASD6
 

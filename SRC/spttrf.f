@@ -35,7 +35,7 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('SPTTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -110,7 +110,7 @@
       IF( D( N ) <= ZERO ) INFO = N;
 
       } // 30
-      RETURN;
+      return;
 
       // End of SPTTRF
 

@@ -188,7 +188,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZLARFB_GETT
 

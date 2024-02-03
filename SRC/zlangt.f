@@ -89,7 +89,7 @@
       }
 
       ZLANGT = ANORM;
-      RETURN;
+      return;
 
       // End of ZLANGT
 

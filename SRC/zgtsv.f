@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGTSV ', -INFO );
-         RETURN;
+         return;
       }
 
       if (N == 0) RETURN;
@@ -61,7 +61,7 @@
                // solution can not be found.
 
                INFO = K;
-               RETURN;
+               return;
             }
          } else if ( CABS1( D( K ) ) >= CABS1( DL( K ) ) ) {
 
@@ -95,7 +95,7 @@
       } // 30
       if ( D( N ) == ZERO ) {
          INFO = N;
-         RETURN;
+         return;
       }
 
       // Back solve with the matrix U from the factorization.
@@ -108,7 +108,7 @@
          } // 40
       } // 50
 
-      RETURN;
+      return;
 
       // End of ZGTSV
 

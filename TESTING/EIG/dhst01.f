@@ -38,7 +38,7 @@
       if ( N <= 0 ) {
          RESULT( 1 ) = ZERO;
          RESULT( 2 ) = ZERO;
-         RETURN;
+         return;
       }
 
       UNFL = DLAMCH( 'Safe minimum' );
@@ -72,7 +72,7 @@
 
       dort01('Columns', N, N, Q, LDQ, WORK, LWORK, RESULT( 2 ) );
 
-      RETURN;
+      return;
 
       // End of DHST01
 

@@ -38,7 +38,7 @@
             ZX(I) = ZA*ZX(I);
          }
       }
-      RETURN;
+      return;
 
       // End of ZSCAL
 

@@ -68,9 +68,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CGEQP3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Move initial columns up front.
@@ -194,7 +194,7 @@
       }
 
       WORK( 1 ) = CMPLX( LWKOPT );
-      RETURN;
+      return;
 
       // End of CGEQP3
 

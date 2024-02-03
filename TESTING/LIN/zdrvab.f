@@ -235,7 +235,7 @@
  8999 FORMAT( / 1X, A3, ':  General dense matrices' );
  8979 FORMAT( 4X, '1. Diagonal', 24X, '7. Last n/2 columns zero', / 4X, '2. Upper triangular', 16X, '8. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '3. Lower triangular', 16X, '9. Random, CNDNUM = 0.1/EPS', / 4X, '4. Random, CNDNUM = 2', 13X, '10. Scaled near underflow', / 4X, '5. First column zero', 14X, '11. Scaled near overflow', / 4X, '6. Last column zero' );
  8960 FORMAT( 3X, I2, ': norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS * SQRT(N) ) > 1 if ITERREF', / 4x, 'or norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS ) > THRES if DGETRF' );
-      RETURN;
+      return;
 
       // End of ZDRVAB
 

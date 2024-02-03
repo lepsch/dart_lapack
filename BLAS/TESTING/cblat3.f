@@ -506,7 +506,7 @@ void main() {
       WRITE( NOUT, FMT = 9995 )NC, SNAME, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC;
 
       } // 130
-      RETURN;
+      return;
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -746,7 +746,7 @@ void main() {
       WRITE( NOUT, FMT = 9995 )NC, SNAME, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC;
 
       } // 120
-      RETURN;
+      return;
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -1002,7 +1002,7 @@ void main() {
       WRITE( NOUT, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB;
 
       } // 160
-      RETURN;
+      return;
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -1282,7 +1282,7 @@ void main() {
       }
 
       } // 130
-      RETURN;
+      return;
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -1589,7 +1589,7 @@ void main() {
       }
 
       } // 160
-      RETURN;
+      return;
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -2533,7 +2533,7 @@ void main() {
       } else {
          WRITE( NOUT, FMT = 9998 )SRNAMT;
       }
-      RETURN;
+      return;
 
  9999 FORMAT( ' ', A6, ' PASSED THE TESTS OF ERROR-EXITS' );
  9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****', '**' );
@@ -2656,7 +2656,7 @@ void main() {
             }
          } // 90
       }
-      RETURN;
+      return;
 
       // End of CMAKE
 
@@ -2821,7 +2821,7 @@ void main() {
       if (N > 1) WRITE( NOUT, FMT = 9997 )J;
 
       } // 250
-      RETURN;
+      return;
 
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'                       EXPECTED RE', 'SULT                    COMPUTED RESULT' );
  9998 FORMAT( 1X, I7, 2( '  (', G15.6, ',', G15.6, ')' ) );
@@ -2968,7 +2968,7 @@ void main() {
          GO TO 10;
       }
       CBEG = CMPLX( ( I - 500 )/1001.0, ( J - 500 )/1001.0 );
-      RETURN;
+      return;
 
       // End of CBEG
 
@@ -2987,7 +2987,7 @@ void main() {
       REAL               X, Y;
       // .. Executable Statements ..
       SDIFF = X - Y;
-      RETURN;
+      return;
 
       // End of SDIFF
 
@@ -3014,7 +3014,7 @@ void main() {
          OK = false;
       }
       LERR = false;
-      RETURN;
+      return;
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D', 'ETECTED BY ', A6, ' *****' );
 
@@ -3064,7 +3064,7 @@ void main() {
          WRITE( NOUT, FMT = 9998 )SRNAME, SRNAMT;
          OK = false;
       }
-      RETURN;
+      return;
 
  9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD', ' OF ', I2, ' *******' );
  9998 FORMAT( ' ******* XERBLA WAS CALLED WITH SRNAME = ', A6, ' INSTE', 'AD OF ', A6, ' *******' );

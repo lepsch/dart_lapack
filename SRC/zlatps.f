@@ -68,7 +68,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLATPS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -719,7 +719,7 @@
          dscal(N, ONE / TSCAL, CNORM, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of ZLATPS
 

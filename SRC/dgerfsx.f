@@ -133,7 +133,7 @@
       }
       if ( INFO != 0 ) {
         xerbla('DGERFSX', -INFO );
-        RETURN;
+        return;
       }
 
       // Quick return if possible.
@@ -155,7 +155,7 @@
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 1.0;
             }
          }
-         RETURN;
+         return;
       }
 
       // Default to failure.
@@ -277,7 +277,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of DGERFSX
 

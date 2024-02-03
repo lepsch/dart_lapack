@@ -102,7 +102,7 @@
 
       RESULT( 2 ) = ( RESID / DBLE( MAX( 1, M ) ) ) / EPS;
 
-      RETURN;
+      return;
 
       // End of ZQLT01
 

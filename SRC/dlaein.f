@@ -434,7 +434,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DLAEIN
 

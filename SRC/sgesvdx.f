@@ -181,15 +181,15 @@
 
       if ( INFO != 0 ) {
          xerbla('SGESVDX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Set singular values indices accord to RANGE.
@@ -497,7 +497,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
 
-      RETURN;
+      return;
 
       // End of SGESVDX
 

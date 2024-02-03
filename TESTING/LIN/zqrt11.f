@@ -41,7 +41,7 @@
 
       if ( LWORK < M*M+M ) {
          xerbla('ZQRT11', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -64,7 +64,7 @@
 
       ZQRT11 = ZLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) );
 
-      RETURN;
+      return;
 
       // End of ZQRT11
 

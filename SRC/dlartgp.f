@@ -96,7 +96,7 @@
             R = -R;
          }
       }
-      RETURN;
+      return;
 
       // End of DLARTGP
 

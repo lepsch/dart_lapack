@@ -34,5 +34,5 @@
 
       xerbla(SRNAME, INFO );
 
-      RETURN;
+      return;
       }

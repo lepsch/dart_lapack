@@ -42,7 +42,7 @@
 
       if ( LWORK < MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) {
          xerbla('SQRT12', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -112,7 +112,7 @@
       saxpy(MN, -ONE, S, 1, WORK( M*N+1 ), 1 );
       SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL != ZERO ) SQRT12 = SQRT12 / NRMSVL;
 
-      RETURN;
+      return;
 
       // End of SQRT12
 

@@ -114,9 +114,9 @@
 
       if ( INFO != 0 ) {
          xerbla('STRSEN', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -226,7 +226,7 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of STRSEN
 

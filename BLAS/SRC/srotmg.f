@@ -42,7 +42,7 @@
          if (SP2 == ZERO) {
             SFLAG = -TWO;
             SPARAM(1) = SFLAG;
-            RETURN;
+            return;
          }
          // REGULAR-CASE..
          SP1 = SD1*SX1;
@@ -164,7 +164,7 @@
       }
 
       SPARAM(1) = SFLAG;
-      RETURN;
+      return;
 
       // End of SROTMG
 

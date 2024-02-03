@@ -46,7 +46,7 @@
       } // 20
 
       SSXT1 = TEMP1;
-      RETURN;
+      return;
 
       // End of SSXT1
 

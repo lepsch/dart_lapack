@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPOSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the Cholesky factorization A = U**T*U or A = L*L**T.
@@ -55,7 +55,7 @@
          dpotrs(UPLO, N, NRHS, A, LDA, B, LDB, INFO );
 
       }
-      RETURN;
+      return;
 
       // End of DPOSV
 

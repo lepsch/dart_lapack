@@ -257,7 +257,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CLA_PORFSX_EXTENDED
 

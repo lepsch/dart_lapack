@@ -56,7 +56,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGTSVX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( NOFACT ) {
@@ -74,7 +74,7 @@
 
          if ( INFO > 0 ) {
             RCOND = ZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -105,7 +105,7 @@
 
       IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      RETURN;
+      return;
 
       // End of DGTSVX
 

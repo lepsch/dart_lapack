@@ -35,7 +35,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN;
+         return;
       }
 
       MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2;
@@ -197,7 +197,7 @@
       } // 110
 
 
-      RETURN;
+      return;
 
       // End of SLARRJ
 

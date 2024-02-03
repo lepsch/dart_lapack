@@ -72,7 +72,7 @@
       // #:(
       if ( INFO != 0 ) {
          xerbla('SGSVJ1', -INFO );
-         RETURN;
+         return;
       }
 
       if ( RSVEC ) {
@@ -434,7 +434,7 @@
          }
       } // 5991
 
-      RETURN;
+      return;
       // ..
       // .. END OF SGSVJ1
       // ..

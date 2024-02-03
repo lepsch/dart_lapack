@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLAVSY_ROOK ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -376,7 +376,7 @@
             } // 120
          }
       }
-      RETURN;
+      return;
 
       // End of CLAVSY_ROOK
 

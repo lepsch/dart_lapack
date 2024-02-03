@@ -44,7 +44,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Determine EPS and the norm of A.
@@ -122,7 +122,7 @@
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of ZHET01_AA
 

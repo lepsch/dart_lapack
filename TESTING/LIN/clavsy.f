@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLAVSY ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -351,7 +351,7 @@
             } // 120
          }
       }
-      RETURN;
+      return;
 
       // End of CLAVSY
 

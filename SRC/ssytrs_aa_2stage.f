@@ -53,7 +53,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSYTRS_AA_2STAGE', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -128,7 +128,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SSYTRS_AA_2STAGE
 

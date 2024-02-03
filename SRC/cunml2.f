@@ -65,7 +65,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUNML2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -119,7 +119,7 @@
          A( I, I ) = AII;
          if (I < NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
       } // 10
-      RETURN;
+      return;
 
       // End of CUNML2
 

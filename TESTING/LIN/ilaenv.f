@@ -88,7 +88,7 @@
          ILAENV = -1;
       }
 
-      RETURN;
+      return;
 
       // End of ILAENV
 
@@ -136,5 +136,5 @@
          ILAENV2STAGE = -1;
       }
 
-      RETURN;
+      return;
       }

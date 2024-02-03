@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPFTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -206,7 +206,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DPFTRI
 

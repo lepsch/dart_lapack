@@ -112,7 +112,7 @@
          } // 20
       } // 30
 
-      RETURN;
+      return;
 
       // End of SLQT03
 

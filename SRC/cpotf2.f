@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPOTF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -115,7 +115,7 @@
       INFO = J;
 
       } // 40
-      RETURN;
+      return;
 
       // End of CPOTF2
 

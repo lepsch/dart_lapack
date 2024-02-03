@@ -44,7 +44,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPPTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -82,7 +82,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of DPPTRI
 

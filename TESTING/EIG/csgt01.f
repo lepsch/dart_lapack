@@ -80,7 +80,7 @@
          RESULT( 1 ) = ( CLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP );
       }
 
-      RETURN;
+      return;
 
       // End of CSGT01
 

@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPOEQUB', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -55,7 +55,7 @@
       if ( N == 0 ) {
          SCOND = ONE;
          AMAX = ZERO;
-         RETURN;
+         return;
       }
 
       BASE = DLAMCH( 'B' );
@@ -79,7 +79,7 @@
          for (I = 1; I <= N; I++) { // 20
             if ( S( I ) <= ZERO ) {
                INFO = I;
-               RETURN;
+               return;
             }
          } // 20
       } else {
@@ -96,7 +96,7 @@
          SCOND = SQRT( SMIN ) / SQRT( AMAX );
       }
 
-      RETURN;
+      return;
 
       // End of ZPOEQUB
 

@@ -68,7 +68,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CGEMLQT', -INFO );
-         RETURN;
+         return;
       }
 
       // .. Quick return if possible ..
@@ -107,7 +107,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CGEMLQT
 

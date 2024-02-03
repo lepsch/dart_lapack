@@ -55,9 +55,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGGRQF', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // RQ factorization of M-by-N matrix A: A = R*Q
@@ -75,7 +75,7 @@
       cgeqrf(P, N, B, LDB, TAUB, WORK, LWORK, INFO );
       WORK( 1 ) = SROUNDUP_LWORK( MAX( LOPT, INT( WORK( 1 ) ) ) );
 
-      RETURN;
+      return;
 
       // End of CGGRQF
 

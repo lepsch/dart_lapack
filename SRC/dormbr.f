@@ -89,9 +89,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DORMBR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -158,7 +158,7 @@
          }
       }
       WORK( 1 ) = LWKOPT;
-      RETURN;
+      return;
 
       // End of DORMBR
 

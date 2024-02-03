@@ -39,7 +39,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN;
+         return;
       }
 
       MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2;
@@ -196,7 +196,7 @@
          WGAP( II-1 ) = MAX( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ));
       } // 111
 
-      RETURN;
+      return;
 
       // End of DLARRB
 

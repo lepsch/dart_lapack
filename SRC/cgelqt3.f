@@ -38,7 +38,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGELQT3', -INFO );
-         RETURN;
+         return;
       }
 
       if ( M == 1 ) {
@@ -112,7 +112,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CGELQT3
 

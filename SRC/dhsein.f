@@ -90,7 +90,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DHSEIN', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -156,7 +156,7 @@
                HNORM = DLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, WORK );
                if ( DISNAN( HNORM ) ) {
                   INFO = -6;
-                  RETURN;
+                  return;
                } else if ( HNORM > ZERO ) {
                   EPS3 = HNORM*ULP;
                } else {
@@ -246,7 +246,7 @@
          }
       } // 120
 
-      RETURN;
+      return;
 
       // End of DHSEIN
 

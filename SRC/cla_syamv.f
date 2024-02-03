@@ -61,7 +61,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLA_SYAMV', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -223,7 +223,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CLA_SYAMV
 

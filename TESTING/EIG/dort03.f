@@ -64,7 +64,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DORT03', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize result
@@ -114,7 +114,7 @@
       }
 
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP );
-      RETURN;
+      return;
 
       // End of DORT03
 

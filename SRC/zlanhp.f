@@ -143,7 +143,7 @@
       }
 
       ZLANHP = VALUE;
-      RETURN;
+      return;
 
       // End of ZLANHP
 

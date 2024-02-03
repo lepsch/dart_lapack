@@ -56,7 +56,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPSTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -296,7 +296,7 @@
       INFO = 1;
 
       } // 230
-      RETURN;
+      return;
 
       // End of CPSTRF
 

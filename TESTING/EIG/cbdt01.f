@@ -39,7 +39,7 @@
 
       if ( M <= 0 || N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Compute A - Q * B * P**H one column at a time.
@@ -133,7 +133,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CBDT01
 

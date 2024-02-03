@@ -71,16 +71,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYTRD_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       // Determine pointer position
@@ -92,17 +92,17 @@
       ssytrd_sy2sb(UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO );
       if ( INFO != 0 ) {
          xerbla('SSYTRD_SY2SB', -INFO );
-         RETURN;
+         return;
       }
       ssytrd_sb2st('Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO );
       if ( INFO != 0 ) {
          xerbla('SSYTRD_SB2ST', -INFO );
-         RETURN;
+         return;
       }
 
 
       WORK( 1 ) = LWMIN;
-      RETURN;
+      return;
 
       // End of SSYTRD_2STAGE
 

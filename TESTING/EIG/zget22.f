@@ -158,7 +158,7 @@
 
       RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( DBLE( N )*ULP );
 
-      RETURN;
+      return;
 
       // End of ZGET22
 

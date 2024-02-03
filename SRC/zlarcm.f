@@ -59,7 +59,7 @@
          } // 70
       } // 80
 
-      RETURN;
+      return;
 
       // End of ZLARCM
 

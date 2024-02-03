@@ -120,7 +120,7 @@
                 // Array TAU(K+1:MINMNFACT) is not set and contains
                 // undefined elements.
 
-               RETURN;
+               return;
             }
 
             // ============================================================
@@ -149,7 +149,7 @@
 
                // Return from the routine.
 
-               RETURN;
+               return;
 
             }
 
@@ -197,7 +197,7 @@
 
                // Return from the routine.
 
-               RETURN;
+               return;
 
             }
 
@@ -270,7 +270,7 @@
             // Array TAU(KK:MINMNFACT) is not set and contains
             // undefined elements, except the first element TAU(KK) = NaN.
 
-            RETURN;
+            return;
          }
 
          // Apply H(KK)**H to A(I:M,KK+1:N+NRHS) from the left.
@@ -370,7 +370,7 @@
          TAU( J ) = CZERO;
       }
 
-      RETURN;
+      return;
 
       // End of CLAQP2RK
 

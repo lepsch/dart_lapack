@@ -114,9 +114,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHEEVR_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -124,7 +124,7 @@
       M = 0;
       if ( N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
@@ -143,7 +143,7 @@
             ISUPPZ( 1 ) = 1;
             ISUPPZ( 2 ) = 1;
          }
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -343,7 +343,7 @@
       RWORK( 1 ) = LRWMIN;
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of ZHEEVR_2STAGE
 

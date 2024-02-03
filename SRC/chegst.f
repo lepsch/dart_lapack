@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHEGST', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -148,7 +148,7 @@
             }
          }
       }
-      RETURN;
+      return;
 
       // End of CHEGST
 

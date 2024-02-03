@@ -90,7 +90,7 @@
       }
 
       CLANHS = VALUE;
-      RETURN;
+      return;
 
       // End of CLANHS
 

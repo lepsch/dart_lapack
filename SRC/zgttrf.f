@@ -40,7 +40,7 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('ZGTTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -110,7 +110,7 @@
       } // 40
       } // 50
 
-      RETURN;
+      return;
 
       // End of ZGTTRF
 

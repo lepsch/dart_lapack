@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGEQPF', -INFO );
-         RETURN;
+         return;
       }
 
       MN = MIN( M, N );
@@ -154,7 +154,7 @@
 
          } // 40
       }
-      RETURN;
+      return;
 
       // End of SGEQPF
 

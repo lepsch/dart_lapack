@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPBTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -86,7 +86,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of ZPBTRS
 

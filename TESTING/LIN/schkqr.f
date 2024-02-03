@@ -222,7 +222,7 @@
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M=', I5, ', N=', I5, ', K=', I5, ', NB=', I4, ', NX=', I5, ', type ', I2, ', test(', I2, ')=', G12.5 );
-      RETURN;
+      return;
 
       // End of SCHKQR
 

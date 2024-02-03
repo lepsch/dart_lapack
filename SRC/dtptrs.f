@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DTPTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -86,7 +86,7 @@
          dtpsv(UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 );
       } // 30
 
-      RETURN;
+      return;
 
       // End of DTPTRS
 

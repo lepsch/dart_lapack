@@ -63,7 +63,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPPCON', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -71,9 +71,9 @@
       RCOND = ZERO;
       if ( N == 0 ) {
          RCOND = ONE;
-         RETURN;
+         return;
       } else if ( ANORM == ZERO ) {
-         RETURN;
+         return;
       }
 
       SMLNUM = SLAMCH( 'Safe minimum' );
@@ -123,7 +123,7 @@
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       } // 20
-      RETURN;
+      return;
 
       // End of CPPCON
 

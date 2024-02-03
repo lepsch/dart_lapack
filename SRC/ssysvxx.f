@@ -105,7 +105,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYSVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -142,7 +142,7 @@
             // leading rank-deficient INFO columns of A.
 
             if (N > 0) RPVGRW = SLA_SYRPVGRW(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK );
-            RETURN;
+            return;
          }
       }
 
@@ -166,7 +166,7 @@
          slascl2(N, NRHS, S, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of SSYSVXX
 

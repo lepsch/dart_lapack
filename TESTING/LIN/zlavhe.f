@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLAVHE ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -372,7 +372,7 @@
          }
 
       }
-      RETURN;
+      return;
 
       // End of ZLAVHE
 

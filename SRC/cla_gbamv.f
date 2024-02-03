@@ -66,7 +66,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLA_GBAMV ', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -212,7 +212,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CLA_GBAMV
 

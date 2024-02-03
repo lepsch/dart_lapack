@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPFTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -68,7 +68,7 @@
          stfsm(TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB );
       }
 
-      RETURN;
+      return;
 
       // End of SPFTRS
 

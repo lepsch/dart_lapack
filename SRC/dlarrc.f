@@ -39,7 +39,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN;
+         return;
       }
 
       MATT = LSAME( JOBT, 'T' );
@@ -106,7 +106,7 @@
       }
       EIGCNT = RCNT - LCNT;
 
-      RETURN;
+      return;
 
       // End of DLARRC
 

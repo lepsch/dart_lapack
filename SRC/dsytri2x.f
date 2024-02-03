@@ -59,7 +59,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DSYTRI2X', -INFO );
-         RETURN;
+         return;
       }
       if (N == 0) RETURN;
 
@@ -438,7 +438,7 @@
             }
       }
 
-      RETURN;
+      return;
 
       // End of DSYTRI2X
 

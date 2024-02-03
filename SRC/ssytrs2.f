@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSYTRS2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -212,7 +212,7 @@
 
       ssyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
-      RETURN;
+      return;
 
       // End of SSYTRS2
 

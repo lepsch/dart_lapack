@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLASRT', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -201,7 +201,7 @@
          }
       }
       if (STKPNT > 0) GO TO 10;
-      RETURN;
+      return;
 
       // End of DLASRT
 

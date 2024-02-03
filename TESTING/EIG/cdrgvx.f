@@ -79,7 +79,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CDRGVX', -INFO );
-         RETURN;
+         return;
       }
 
       N = 5;
@@ -344,7 +344,7 @@
 
       WORK( 1 ) = MAXWRK;
 
-      RETURN;
+      return;
 
  9999 FORMAT( ' CDRGVX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ')' );
 

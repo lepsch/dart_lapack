@@ -40,7 +40,7 @@
 
       if ( LWORK < M*N+M ) {
          xerbla('CRZT01', 8 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -73,7 +73,7 @@
       CRZT01 = CRZT01 / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) );
       if (NORMA != ZERO) CRZT01 = CRZT01 / NORMA;
 
-      RETURN;
+      return;
 
       // End of CRZT01
 

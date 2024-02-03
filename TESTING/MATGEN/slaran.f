@@ -70,7 +70,7 @@
       }
 
       SLARAN = RNDOUT;
-      RETURN;
+      return;
 
       // End of SLARAN
 

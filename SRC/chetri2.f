@@ -59,10 +59,10 @@
 
       if ( INFO != 0 ) {
          xerbla('CHETRI2', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( MINSIZE );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -75,7 +75,7 @@
          chetri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
 
-      RETURN;
+      return;
 
       // End of CHETRI2
 

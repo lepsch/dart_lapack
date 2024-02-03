@@ -221,7 +221,7 @@
          } // 300
       }
 
-      RETURN;
+      return;
 
       // End of ZLATM4
 

@@ -48,12 +48,12 @@
          NCOLS = M;
       } else {
          xerbla('CQRT17', 1 );
-         RETURN;
+         return;
       }
 
       if ( LWORK < NCOLS*NRHS ) {
          xerbla('CQRT17', 13 );
-         RETURN;
+         return;
       }
 
       if (M <= 0 || N <= 0 || NRHS <= 0) RETURN;
@@ -91,7 +91,7 @@
       }
 
       CQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N, NRHS ) ) );
-      RETURN;
+      return;
 
       // End of CQRT17
 

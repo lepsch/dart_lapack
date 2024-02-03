@@ -58,7 +58,7 @@
           // CLCTSX = ( REAL( ALPHA/BETA ) > ZERO )
        // END IF
 
-      RETURN;
+      return;
 
       // End of CLCTSX
 

@@ -654,7 +654,7 @@
       DEALLOCATE( WORK );
       DEALLOCATE( IWORK );
       DEALLOCATE( RWORK );
-      RETURN;
+      return;
 
       // End of ZDRVLS
 

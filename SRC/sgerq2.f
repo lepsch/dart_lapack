@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGERQ2', -INFO );
-         RETURN;
+         return;
       }
 
       K = MIN( M, N );
@@ -60,7 +60,7 @@
          slarf('Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK );
          A( M-K+I, N-K+I ) = AII;
       } // 10
-      RETURN;
+      return;
 
       // End of SGERQ2
 

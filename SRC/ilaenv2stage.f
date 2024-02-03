@@ -26,7 +26,7 @@
       // Invalid value for ISPEC
 
       ILAENV2STAGE = -1;
-      RETURN;
+      return;
 
       } // 10
 
@@ -34,7 +34,7 @@
 
       IISPEC = 16 + ISPEC;
       ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 );
-      RETURN;
+      return;
 
       // End of ILAENV2STAGE
 

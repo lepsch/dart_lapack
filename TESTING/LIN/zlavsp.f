@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLAVSP ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -374,7 +374,7 @@
          }
 
       }
-      RETURN;
+      return;
 
       // End of ZLAVSP
 

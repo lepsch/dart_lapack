@@ -106,7 +106,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DPOSVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -143,7 +143,7 @@
             // leading rank-deficient INFO columns of A.
 
             RPVGRW = DLA_PORPVGRW( UPLO, INFO, A, LDA, AF, LDAF, WORK );
-            RETURN;
+            return;
          }
       }
 
@@ -168,7 +168,7 @@
          dlascl2(N, NRHS, S, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of DPOSVXX
 

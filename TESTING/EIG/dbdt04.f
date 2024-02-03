@@ -109,7 +109,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of DBDT04
 

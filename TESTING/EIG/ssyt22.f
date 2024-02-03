@@ -85,7 +85,7 @@
 
       if (ITYPE == 1) CALL SORT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) );
 
-      RETURN;
+      return;
 
       // End of SSYT22
 

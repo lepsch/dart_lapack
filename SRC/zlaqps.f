@@ -173,7 +173,7 @@
          GO TO 60;
       }
 
-      RETURN;
+      return;
 
       // End of ZLAQPS
 

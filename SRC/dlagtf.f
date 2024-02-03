@@ -39,7 +39,7 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('DLAGTF', -INFO );
-         RETURN;
+         return;
       }
 
       if (N == 0) RETURN;
@@ -48,7 +48,7 @@
       IN( N ) = 0;
       if ( N == 1 ) {
          IF( A( 1 ) == ZERO ) IN( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       EPS = DLAMCH( 'Epsilon' );
@@ -95,7 +95,7 @@
       } // 10
       IF( ( ABS( A( N ) ) <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N;
 
-      RETURN;
+      return;
 
       // End of DLAGTF
 

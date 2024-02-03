@@ -64,22 +64,22 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYEV ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
          W( 1 ) = A( 1, 1 );
          WORK( 1 ) = 2;
          if (WANTZ) A( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -137,7 +137,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of SSYEV
 

@@ -43,7 +43,7 @@
 
       if ( LWORK < M*N+N ) {
          xerbla('DQPT01', 10 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -88,7 +88,7 @@
 
       DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
 
-      RETURN;
+      return;
 
       // End of DQPT01
 

@@ -60,7 +60,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGBTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -330,7 +330,7 @@
          } // 180
       }
 
-      RETURN;
+      return;
 
       // End of ZGBTRF
 

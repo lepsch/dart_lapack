@@ -62,7 +62,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('STFSM ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return when ( (N == 0) || (M == 0) )
@@ -77,7 +77,7 @@
                B( I, J ) = ZERO;
             } // 10
          } // 20
-         RETURN;
+         return;
       }
 
       if ( LSIDE ) {
@@ -600,7 +600,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of STFSM
 

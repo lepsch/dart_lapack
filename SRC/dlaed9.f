@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLAED9', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -105,7 +105,7 @@
       } // 110
 
       } // 120
-      RETURN;
+      return;
 
       // End of DLAED9
 

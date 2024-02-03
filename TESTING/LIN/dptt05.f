@@ -36,7 +36,7 @@
       if ( N <= 0 || NRHS <= 0 ) {
          RESLTS( 1 ) = ZERO;
          RESLTS( 2 ) = ZERO;
-         RETURN;
+         return;
       }
 
       EPS = DLAMCH( 'Epsilon' );
@@ -98,7 +98,7 @@
          }
       } // 50
 
-      RETURN;
+      return;
 
       // End of DPTT05
 

@@ -95,9 +95,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CTGSYL', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -109,7 +109,7 @@
                DIF = 0;
             }
          }
-         RETURN;
+         return;
       }
 
       // Determine  optimal block sizes MB and NB
@@ -163,7 +163,7 @@
             }
          } // 30
 
-         RETURN;
+         return;
 
       }
 
@@ -330,7 +330,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN;
+      return;
 
       // End of CTGSYL
 

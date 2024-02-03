@@ -648,7 +648,7 @@
 
       DEALLOCATE( WORK );
       DEALLOCATE( IWORK );
-      RETURN;
+      return;
 
       // End of DDRVLS
 

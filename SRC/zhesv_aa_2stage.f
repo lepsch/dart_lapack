@@ -68,9 +68,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHESV_AA_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( WQUERY || TQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = U**H*T*U or A = L*T*L**H.
@@ -86,7 +86,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZHESV_AA_2STAGE
 

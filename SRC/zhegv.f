@@ -70,9 +70,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHEGV ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -84,7 +84,7 @@
       zpotrf(UPLO, N, B, LDB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -128,7 +128,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZHEGV
 

@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPOTRF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -66,7 +66,7 @@
          AJJ = REAL( A( 1, 1 ) );
          if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
             INFO = 1;
-            RETURN;
+            return;
          }
 
          // Factor
@@ -84,7 +84,7 @@
          cpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO != 0 ) {
             INFO = IINFO;
-            RETURN;
+            return;
          }
 
          // Compute the Cholesky factorization A = U**H*U
@@ -103,7 +103,7 @@
 
             if ( IINFO != 0 ) {
                INFO = IINFO + N1;
-               RETURN;
+               return;
             }
 
          // Compute the Cholesky factorization A = L*L**H
@@ -122,12 +122,12 @@
 
             if ( IINFO != 0 ) {
                INFO = IINFO + N1;
-               RETURN;
+               return;
             }
 
          }
       }
-      RETURN;
+      return;
 
       // End of CPOTRF2
 

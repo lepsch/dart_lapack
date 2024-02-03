@@ -68,9 +68,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGEHRD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Set elements 1:ILO-1 and IHI:N-1 of TAU to zero
@@ -86,7 +86,7 @@
 
       if ( NH <= 1 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       // Determine the block size
@@ -169,7 +169,7 @@
       zgehd2(N, I, IHI, A, LDA, TAU, WORK, IINFO );
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZGEHRD
 

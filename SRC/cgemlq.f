@@ -94,15 +94,15 @@
 
       if ( INFO != 0 ) {
         xerbla('CGEMLQ', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MINMNK == 0 ) {
-        RETURN;
+        return;
       }
 
       IF( ( LEFT && M <= K ) || ( RIGHT && N <= K ) || ( NB <= K ) || ( NB >= MAX( M, N, K ) ) ) THEN         CALL CGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO );
@@ -112,7 +112,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
 
-      RETURN;
+      return;
 
       // End of CGEMLQ
 

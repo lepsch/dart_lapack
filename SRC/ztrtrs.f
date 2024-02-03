@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTRTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -74,7 +74,7 @@
 
       ztrsm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
-      RETURN;
+      return;
 
       // End of ZTRTRS
 

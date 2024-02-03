@@ -61,7 +61,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLAROR', -INFO );
-         RETURN;
+         return;
       }
 
       if ( ITYPE == 1 ) {
@@ -101,7 +101,7 @@
          if ( ABS( FACTOR ) < TOOSML ) {
             INFO = 1;
             xerbla('SLAROR', INFO );
-            RETURN;
+            return;
          } else {
             FACTOR = ONE / FACTOR;
          }
@@ -143,7 +143,7 @@
             sscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
          } // 50
       }
-      RETURN;
+      return;
 
       // End of SLAROR
 

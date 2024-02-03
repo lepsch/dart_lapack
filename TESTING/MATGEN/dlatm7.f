@@ -63,7 +63,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DLATM7', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute D according to COND and MODE
@@ -161,7 +161,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DLATM7
 

@@ -41,7 +41,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       EPS = SLAMCH( 'Epsilon' );
@@ -111,7 +111,7 @@
          RESID = ( RESID / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of CGTT01
 

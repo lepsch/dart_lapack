@@ -106,11 +106,11 @@
 
       if ( INFO != 0 ) {
         xerbla('CGETSLS', -INFO );
-        RETURN;
+        return;
       }
       if ( LQUERY ) {
         if (LWORK == -2) WORK( 1 ) = SROUNDUP_LWORK( WSIZEM );
-        RETURN;
+        return;
       }
       if ( LWORK < WSIZEO ) {
         LW1 = TSZM;
@@ -124,7 +124,7 @@
 
       if ( MIN( M, N, NRHS ) == 0 ) {
            claset('FULL', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
-           RETURN;
+           return;
       }
 
       // Get machine parameters
@@ -193,7 +193,7 @@
 
           ctrtrs('U', 'N', 'N', N, NRHS, A, LDA, B, LDB, INFO );
           if ( INFO > 0 ) {
-            RETURN;
+            return;
           }
           SCLLEN = N;
         } else {
@@ -205,7 +205,7 @@
             ctrtrs('U', 'C', 'N', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // B(N+1:M,1:NRHS) = CZERO
@@ -241,7 +241,7 @@
             ctrtrs('L', 'N', 'N', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // B(M+1:N,1:NRHS) = 0
@@ -275,7 +275,7 @@
             ctrtrs('L', 'C', 'N', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = M;
@@ -299,7 +299,7 @@
 
       } // 50
       WORK( 1 ) = SROUNDUP_LWORK( TSZO + LWO );
-      RETURN;
+      return;
 
       // End of CGETSLS
 

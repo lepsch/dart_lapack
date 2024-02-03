@@ -86,7 +86,7 @@
       if ( INFO != 0 ) {
         // #:(
          xerbla('SGEJSV', - INFO );
-         RETURN;
+         return;
       }
 
       // Quick return for void matrix (Y3K safe)
@@ -94,7 +94,7 @@
       if ( ( M == 0 ) || ( N == 0 ) ) {
          IWORK(1:3) = 0;
          WORK(1:7) = 0;
-         RETURN;
+         return;
       }
 
       // Determine whether the matrix U should be M x N or M x M
@@ -130,7 +130,7 @@
          if ( AAPP > BIG ) {
             INFO = - 9;
             xerbla('SGEJSV', -INFO );
-            RETURN;
+            return;
          }
          AAQQ = SQRT(AAQQ);
          if ( ( AAPP < (BIG / AAQQ) ) && NOSCAL  ) {
@@ -173,7 +173,7 @@
          IWORK(1) = 0;
          IWORK(2) = 0;
          IWORK(3) = 0;
-         RETURN;
+         return;
       }
 
       // Issue warning if denormalized column norms detected. Override the
@@ -231,7 +231,7 @@
             WORK(6) = ZERO;
             WORK(7) = ZERO;
          }
-         RETURN;
+         return;
 
       }
 
@@ -1217,7 +1217,7 @@
       IWORK(2) = NUMRANK;
       IWORK(3) = WARNING;
 
-      RETURN;
+      return;
       // ..
       // .. END OF SGEJSV
       // ..

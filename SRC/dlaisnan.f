@@ -12,5 +12,5 @@
 
 *  .. Executable Statements ..
       DLAISNAN = (DIN1 != DIN2);
-      RETURN;
+      return;
       }

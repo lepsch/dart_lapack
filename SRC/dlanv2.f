@@ -169,7 +169,7 @@
          RT1I = SQRT( ABS( B ) )*SQRT( ABS( C ) );
          RT2I = -RT1I;
       }
-      RETURN;
+      return;
 
       // End of DLANV2
 

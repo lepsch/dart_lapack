@@ -77,7 +77,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLARHS', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize X to NRHS random vectors unless XTYPE = 'C'.
@@ -184,7 +184,7 @@
          xerbla('SLARHS', -INFO );
       }
 
-      RETURN;
+      return;
 
       // End of SLARHS
 

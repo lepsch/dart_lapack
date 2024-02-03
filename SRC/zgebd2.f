@@ -42,7 +42,7 @@
       }
       if ( INFO < 0 ) {
          xerbla('ZGEBD2', -INFO );
-         RETURN;
+         return;
       }
 
       if ( M >= N ) {
@@ -122,7 +122,7 @@
             }
          } // 20
       }
-      RETURN;
+      return;
 
       // End of ZGEBD2
 

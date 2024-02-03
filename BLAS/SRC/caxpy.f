@@ -46,7 +46,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CAXPY
 

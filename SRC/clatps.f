@@ -68,7 +68,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLATPS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -719,7 +719,7 @@
          sscal(N, ONE / TSCAL, CNORM, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of CLATPS
 

@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGETRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -90,7 +90,7 @@
          claswp(NRHS, B, LDB, 1, N, IPIV, -1 );
       }
 
-      RETURN;
+      return;
 
       // End of CGETRS
 

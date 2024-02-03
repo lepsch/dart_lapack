@@ -79,17 +79,17 @@
 
       if ( INFO != 0 ) {
          xerbla('DORGBR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = LWKOPT;
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       if ( WANTQ ) {
@@ -166,7 +166,7 @@
          }
       }
       WORK( 1 ) = LWKOPT;
-      RETURN;
+      return;
 
       // End of DORGBR
 

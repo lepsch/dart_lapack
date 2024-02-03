@@ -43,7 +43,7 @@
          }
       }
       ZDOTU = ZTEMP;
-      RETURN;
+      return;
 
       // End of ZDOTU
 

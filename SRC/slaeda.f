@@ -38,7 +38,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLAEDA', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -121,7 +121,7 @@
          PTR = PTR + 2**( TLVLS-K );
       } // 70
 
-      RETURN;
+      return;
 
       // End of SLAEDA
 

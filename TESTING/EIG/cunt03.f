@@ -67,7 +67,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUNT03', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize result
@@ -137,7 +137,7 @@
       }
 
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP );
-      RETURN;
+      return;
 
       // End of CUNT03
 

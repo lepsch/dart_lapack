@@ -68,7 +68,7 @@
          if ( SCALES < SAFMIN && ABSW < SAFMIN ) {
             INFO = 3;
             RESULT = ONE / ULP;
-            RETURN;
+            return;
          }
 
          // Scale up to avoid underflow
@@ -82,7 +82,7 @@
          if ( S1 < SAFMIN ) {
             INFO = 3;
             RESULT = ONE / ULP;
-            RETURN;
+            return;
          }
       }
 
@@ -107,7 +107,7 @@
       DETR = ( CSCALE*CR11 )*( CSCALE*CR22 ) - ( CSCALE*CI11 )*( CSCALE*CI22 ) - ( CSCALE*CR12 )*( CSCALE*CR21 )       DETI = ( CSCALE*CR11 )*( CSCALE*CI22 ) + ( CSCALE*CI11 )*( CSCALE*CR22 ) - ( CSCALE*CI12 )*( CSCALE*CR21 );
       SIGMIN = ABS( DETR ) + ABS( DETI );
       RESULT = SIGMIN / S1;
-      RETURN;
+      return;
 
       // End of SGET53
 

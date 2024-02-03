@@ -88,15 +88,15 @@
 
       if ( INFO != 0 ) {
          xerbla('CUNMRZ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Determine the block size.
@@ -178,7 +178,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of CUNMRZ
 

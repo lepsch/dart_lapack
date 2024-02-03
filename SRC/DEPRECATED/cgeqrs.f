@@ -43,7 +43,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGEQRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -58,7 +58,7 @@
 
       ctrsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
-      RETURN;
+      return;
 
       // End of CGEQRS
 

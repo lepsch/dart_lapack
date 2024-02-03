@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGELQ2', -INFO );
-         RETURN;
+         return;
       }
 
       K = MIN( M, N );
@@ -63,7 +63,7 @@
          A( I, I ) = ALPHA;
          clacgv(N-I+1, A( I, I ), LDA );
       } // 10
-      RETURN;
+      return;
 
       // End of CGELQ2
 

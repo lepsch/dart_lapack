@@ -59,7 +59,7 @@
                C = C / TMP;
                SESTPR = S1*TMP;
             }
-            RETURN;
+            return;
          } else if ( ABSGAM <= EPS*ABSEST ) {
             S = ONE;
             C = ZERO;
@@ -67,7 +67,7 @@
             S1 = ABSEST / TMP;
             S2 = ABSALP / TMP;
             SESTPR = TMP*SQRT( S1*S1+S2*S2 );
-            RETURN;
+            return;
          } else if ( ABSALP <= EPS*ABSEST ) {
             S1 = ABSGAM;
             S2 = ABSEST;
@@ -80,7 +80,7 @@
                C = ONE;
                SESTPR = S1;
             }
-            RETURN;
+            return;
          } else if ( ABSEST <= EPS*ABSALP || ABSEST <= EPS*ABSGAM ) {
             S1 = ABSGAM;
             S2 = ABSALP;
@@ -97,7 +97,7 @@
                S = ( ALPHA / S1 ) / C;
                C = SIGN( ONE, GAMMA ) / C;
             }
-            RETURN;
+            return;
          } else {
 
             // normal case
@@ -119,7 +119,7 @@
             S = SINE / TMP;
             C = COSINE / TMP;
             SESTPR = SQRT( T+ONE )*ABSEST;
-            RETURN;
+            return;
          }
 
       } else if ( JOB == 2 ) {
@@ -143,12 +143,12 @@
             TMP = SQRT( S*S+C*C );
             S = S / TMP;
             C = C / TMP;
-            RETURN;
+            return;
          } else if ( ABSGAM <= EPS*ABSEST ) {
             S = ZERO;
             C = ONE;
             SESTPR = ABSGAM;
-            RETURN;
+            return;
          } else if ( ABSALP <= EPS*ABSEST ) {
             S1 = ABSGAM;
             S2 = ABSEST;
@@ -161,7 +161,7 @@
                C = ZERO;
                SESTPR = S2;
             }
-            RETURN;
+            return;
          } else if ( ABSEST <= EPS*ABSALP || ABSEST <= EPS*ABSGAM ) {
             S1 = ABSGAM;
             S2 = ABSALP;
@@ -178,7 +178,7 @@
                C = ( ALPHA / S1 ) / S;
                S = -SIGN( ONE, GAMMA ) / S;
             }
-            RETURN;
+            return;
          } else {
 
             // normal case
@@ -219,11 +219,11 @@
             TMP = SQRT( SINE*SINE+COSINE*COSINE );
             S = SINE / TMP;
             C = COSINE / TMP;
-            RETURN;
+            return;
 
          }
       }
-      RETURN;
+      return;
 
       // End of DLAIC1
 

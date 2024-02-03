@@ -66,7 +66,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGBBRD', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize Q and P**T to the unit matrix, if needed
@@ -310,7 +310,7 @@
             D( I ) = AB( 1, I );
          } // 150
       }
-      RETURN;
+      return;
 
       // End of SGBBRD
 

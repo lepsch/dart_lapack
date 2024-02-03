@@ -164,7 +164,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZLATSY
 

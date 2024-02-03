@@ -62,7 +62,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZSTEQR', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -71,7 +71,7 @@
 
       if ( N == 1 ) {
          if (ICOMPZ == 2) Z( 1, 1 ) = CONE;
-         RETURN;
+         return;
       }
 
       // Determine the unit roundoff and over/underflow thresholds.
@@ -357,7 +357,7 @@
          for (I = 1; I <= N - 1; I++) { // 150
             IF( E( I ) != ZERO ) INFO = INFO + 1;
          } // 150
-         RETURN;
+         return;
       }
       GO TO 10;
 
@@ -391,7 +391,7 @@
             }
          } // 180
       }
-      RETURN;
+      return;
 
       // End of ZSTEQR
 

@@ -83,7 +83,7 @@
 
       DLAMCH = RMACH;
       FIRST  = false;
-      RETURN;
+      return;
 
       // End of DLAMCH
 
@@ -276,7 +276,7 @@
       RND = LRND;
       IEEE1 = LIEEE1;
       FIRST = false;
-      RETURN;
+      return;
 
       // End of DLAMC1
 
@@ -534,7 +534,7 @@
       EMAX = LEMAX;
       RMAX = LRMAX;
 
-      RETURN;
+      return;
 
  9999 FORMAT( / / ' WARNING. The value EMIN may be incorrect:-', '  EMIN = ', I8, / ' If, after inspection, the value EMIN looks', ' acceptable please comment out ', / ' the IF block as marked within the code of routine', ' DLAMC2,', / ' otherwise supply EMIN explicitly.', / );
 
@@ -575,7 +575,7 @@
 
       DLAMC3 = A + B;
 
-      RETURN;
+      return;
 
       // End of DLAMC3
 
@@ -661,7 +661,7 @@
       }
 *+    END WHILE
 
-      RETURN;
+      return;
 
       // End of DLAMC4
 
@@ -830,7 +830,7 @@
       } // 30
 
       RMAX = Y;
-      RETURN;
+      return;
 
       // End of DLAMC5
 

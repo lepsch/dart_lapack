@@ -57,7 +57,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLA_GBAMV ', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -201,7 +201,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SLA_GBAMV
 

@@ -54,7 +54,7 @@
       }
       if (INFO != 0) {
           xerbla('CTBMV ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -234,7 +234,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of CTBMV
 

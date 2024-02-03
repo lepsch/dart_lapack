@@ -129,7 +129,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DGELSD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          GO TO 10;
       }
@@ -138,7 +138,7 @@
 
       if ( M == 0 || N == 0 ) {
          RANK = 0;
-         RETURN;
+         return;
       }
 
       // Get machine parameters.
@@ -360,7 +360,7 @@
       } // 10
       WORK( 1 ) = MAXWRK;
       IWORK( 1 ) = LIWORK;
-      RETURN;
+      return;
 
       // End of DGELSD
 

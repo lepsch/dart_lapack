@@ -42,7 +42,7 @@
 
       if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
@@ -51,7 +51,7 @@
       ANORM = CLANSY( '1', UPLO, N, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Compute  B - A*X  (or  B - A'*X ) and store in B .
@@ -72,7 +72,7 @@
          }
       } // 10
 
-      RETURN;
+      return;
 
       // End of CSYT02
 

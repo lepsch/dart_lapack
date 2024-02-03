@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPOTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -81,7 +81,7 @@
          dtrsm('Left', 'Lower', 'Transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       }
 
-      RETURN;
+      return;
 
       // End of DPOTRS
 

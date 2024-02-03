@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGEQR2P', -INFO );
-         RETURN;
+         return;
       }
 
       K = MIN( M, N );
@@ -61,7 +61,7 @@
             A( I, I ) = AII;
          }
       } // 10
-      RETURN;
+      return;
 
       // End of DGEQR2P
 

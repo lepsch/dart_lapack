@@ -43,7 +43,7 @@
       }
       if (INFO != 0) {
           xerbla('DSPR  ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -126,7 +126,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of DSPR
 

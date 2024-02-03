@@ -65,19 +65,19 @@
 
       if ( INFO != 0 ) {
          xerbla('ZSYTRF_AA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return
 
       if ( N == 0 ) {
-          RETURN;
+          return;
       }
       IPIV( 1 ) = 1;
       if ( N == 1 ) {
-         RETURN;
+         return;
       }
 
       // Adjust block size based on the workspace size
@@ -303,7 +303,7 @@
 
       } // 20
       WORK( 1 ) = LWKOPT;
-      RETURN;
+      return;
 
       // End of ZSYTRF_AA
 

@@ -48,7 +48,7 @@
       }
       if (INFO != 0) {
           xerbla('DSYR  ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -123,7 +123,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of DSYR
 

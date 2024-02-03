@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGEBAL', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick returns.
@@ -60,7 +60,7 @@
       if ( N == 0 ) {
          ILO = 1;
          IHI = 0;
-         RETURN;
+         return;
       }
 
       if ( LSAME( JOB, 'N' ) ) {
@@ -69,7 +69,7 @@
          }
          ILO = 1;
          IHI = N;
-         RETURN;
+         return;
       }
 
       // Permutation to isolate eigenvalues if possible.
@@ -107,7 +107,7 @@
                   if ( L == 1 ) {
                      ILO = 1;
                      IHI = 1;
-                     RETURN;
+                     return;
                   }
 
                   L = L - 1;
@@ -158,7 +158,7 @@
       if ( LSAME( JOB, 'P' ) ) {
          ILO = K;
          IHI = L;
-         RETURN;
+         return;
       }
 
       // Balance the submatrix in rows K to L.
@@ -192,7 +192,7 @@
             if ( DISNAN( C+CA+R+RA ) ) {
                INFO = -3;
                xerbla('ZGEBAL', -INFO );
-               RETURN;
+               return;
             }
 
             G = R / SCLFAC;
@@ -242,7 +242,7 @@
       ILO = K;
       IHI = L;
 
-      RETURN;
+      return;
 
       // End of ZGEBAL
 

@@ -359,15 +359,15 @@
 
       if ( INFO != 0 ) {
          xerbla('CGESDD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -381,7 +381,7 @@
       ANRM = CLANGE( 'M', M, N, A, LDA, DUM );
       if ( SISNAN ( ANRM ) ) {
           INFO = -4;
-          RETURN;
+          return;
       }
       ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
@@ -1749,7 +1749,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
 
-      RETURN;
+      return;
 
       // End of CGESDD
 

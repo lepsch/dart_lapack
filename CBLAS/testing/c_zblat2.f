@@ -677,7 +677,7 @@ void main() {
       }
 
       } // 140
-      RETURN;
+      return;
 
  9999 FORMAT(' ',A12, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -978,7 +978,7 @@ void main() {
       }
 
       } // 130
-      RETURN;
+      return;
 
  9999 FORMAT(' ',A12, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -1297,7 +1297,7 @@ void main() {
       }
 
       } // 130
-      RETURN;
+      return;
 
  9999 FORMAT(' ',A12, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -1537,7 +1537,7 @@ void main() {
       WRITE( NOUT, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA;
 
       } // 150
-      RETURN;
+      return;
 
  9999 FORMAT(' ',A12, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -1793,7 +1793,7 @@ void main() {
       }
 
       } // 130
-      RETURN;
+      return;
 
  9999 FORMAT(' ',A12, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -2080,7 +2080,7 @@ void main() {
       }
 
       } // 170
-      RETURN;
+      return;
 
  9999 FORMAT(' ',A12, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' );
  9998 FORMAT(' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
@@ -2211,7 +2211,7 @@ void main() {
       } // 70
 
       } // 80
-      RETURN;
+      return;
 
  9999 FORMAT(' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'                       EXPECTED RE', 'SULT                    COMPUTED RESULT' );
  9998 FORMAT( 1X, I7, 2( '  (', G15.6, ',', G15.6, ')' ) );
@@ -2352,7 +2352,7 @@ void main() {
          GO TO 10;
       }
       ZBEG = DCMPLX( ( I - 500 )/1001.0, ( J - 500 )/1001.0 );
-      RETURN;
+      return;
 
       // End of ZBEG.
 
@@ -2368,7 +2368,7 @@ void main() {
       double               X, Y;
       // .. Executable Statements ..
       DDIFF = X - Y;
-      RETURN;
+      return;
 
       // End of DDIFF.
 
@@ -2548,7 +2548,7 @@ void main() {
             } // 180
          } // 190
       }
-      RETURN;
+      return;
 
       // End of ZMAKE.
 

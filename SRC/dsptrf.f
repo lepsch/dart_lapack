@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSPTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize ALPHA for use in choosing pivot block size.
@@ -428,7 +428,7 @@
       }
 
       } // 110
-      RETURN;
+      return;
 
       // End of DSPTRF
 

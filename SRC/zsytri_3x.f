@@ -52,7 +52,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZSYTRI_3X', -INFO );
-         RETURN;
+         return;
       }
       if (N == 0) RETURN;
 
@@ -451,7 +451,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZSYTRI_3X
 

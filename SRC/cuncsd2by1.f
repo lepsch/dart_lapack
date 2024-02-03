@@ -220,9 +220,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUNCSD2BY1', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
       LORGQR = LWORK-IORGQR+1;
       LORGLQ = LWORK-IORGLQ+1;
@@ -426,7 +426,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CUNCSD2BY1
 

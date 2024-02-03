@@ -64,9 +64,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SGEQP3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Move initial columns up front.
@@ -189,7 +189,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(IWS);
-      RETURN;
+      return;
 
       // End of SGEQP3
 

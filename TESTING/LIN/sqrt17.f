@@ -48,16 +48,16 @@
          NCOLS = M;
       } else {
          xerbla('SQRT17', 1 );
-         RETURN;
+         return;
       }
 
       if ( LWORK < NCOLS*NRHS ) {
          xerbla('SQRT17', 13 );
-         RETURN;
+         return;
       }
 
       if ( M <= 0 || N <= 0 || NRHS <= 0 ) {
-         RETURN;
+         return;
       }
 
       NORMA = SLANGE( 'One-norm', M, N, A, LDA, RWORK );
@@ -93,7 +93,7 @@
       }
 
       SQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N, NRHS ) ) );
-      RETURN;
+      return;
 
       // End of SQRT17
 

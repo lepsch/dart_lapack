@@ -58,7 +58,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGGBAK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -135,7 +135,7 @@
 
       } // 110
 
-      RETURN;
+      return;
 
       // End of CGGBAK
 

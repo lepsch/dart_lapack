@@ -18,7 +18,7 @@
          OK = false;
       }
       LERR = false;
-      RETURN;
+      return;
 
  9999 FORMAT( ' *** Illegal value of parameter number ', I2, ' not detected by ', A, ' ***' );
 

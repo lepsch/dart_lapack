@@ -38,7 +38,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGELQT', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -61,7 +61,7 @@
          zlarfb('R', 'N', 'F', 'R', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I+IB, I ), LDA, WORK , M-I-IB+1 );
          }
       }
-      RETURN;
+      return;
 
       // End of ZGELQT
 

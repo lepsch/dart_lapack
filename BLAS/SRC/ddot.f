@@ -37,7 +37,7 @@
             }
             if (N < 5) {
                DDOT=DTEMP;
-            RETURN;
+            return;
             }
          }
          MP1 = M + 1;
@@ -60,7 +60,7 @@
          }
       }
       DDOT = DTEMP;
-      RETURN;
+      return;
 
       // End of DDOT
 

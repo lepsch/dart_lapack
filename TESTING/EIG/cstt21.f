@@ -101,7 +101,7 @@
 
       RESULT( 2 ) = MIN( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
 
-      RETURN;
+      return;
 
       // End of CSTT21
 

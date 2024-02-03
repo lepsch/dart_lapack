@@ -57,7 +57,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CSYCON_ROOK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -65,9 +65,9 @@
       RCOND = ZERO;
       if ( N == 0 ) {
          RCOND = ONE;
-         RETURN;
+         return;
       } else if ( ANORM <= ZERO ) {
-         RETURN;
+         return;
       }
 
       // Check that the diagonal matrix D is nonsingular.
@@ -105,7 +105,7 @@
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
-      RETURN;
+      return;
 
       // End of CSYCON_ROOK
 

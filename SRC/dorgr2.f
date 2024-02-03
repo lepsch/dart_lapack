@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DORGR2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -77,7 +77,7 @@
             A( II, L ) = ZERO;
          } // 30
       } // 40
-      RETURN;
+      return;
 
       // End of DORGR2
 

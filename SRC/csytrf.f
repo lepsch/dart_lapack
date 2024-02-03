@@ -59,9 +59,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CSYTRF', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -167,7 +167,7 @@
 
       } // 40
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of CSYTRF
 

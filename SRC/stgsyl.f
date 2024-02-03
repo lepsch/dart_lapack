@@ -93,9 +93,9 @@
 
       if ( INFO != 0 ) {
          xerbla('STGSYL', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -107,7 +107,7 @@
                DIF = 0;
             }
          }
-         RETURN;
+         return;
       }
 
       // Determine optimal block sizes MB and NB
@@ -161,7 +161,7 @@
             }
          } // 30
 
-         RETURN;
+         return;
       }
 
       // Determine block structure of A
@@ -333,7 +333,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN;
+      return;
 
       // End of STGSYL
 

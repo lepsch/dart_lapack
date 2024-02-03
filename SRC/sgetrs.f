@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGETRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -90,7 +90,7 @@
          slaswp(NRHS, B, LDB, 1, N, IPIV, -1 );
       }
 
-      RETURN;
+      return;
 
       // End of SGETRS
 

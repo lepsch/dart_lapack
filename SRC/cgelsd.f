@@ -131,16 +131,16 @@
 
       if ( INFO != 0 ) {
          xerbla('CGELSD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
 
       if ( M == 0 || N == 0 ) {
          RANK = 0;
-         RETURN;
+         return;
       }
 
       // Get machine parameters.
@@ -371,7 +371,7 @@
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
       IWORK( 1 ) = LIWORK;
       RWORK( 1 ) = LRWORK;
-      RETURN;
+      return;
 
       // End of CGELSD
 

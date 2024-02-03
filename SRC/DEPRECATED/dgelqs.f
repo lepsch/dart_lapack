@@ -43,7 +43,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGELQS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -62,7 +62,7 @@
 
       dormlq('Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
-      RETURN;
+      return;
 
       // End of DGELQS
 

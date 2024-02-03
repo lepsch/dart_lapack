@@ -162,7 +162,7 @@
          IF( WORK( I ) < WORK( I+1 ) ) RESULT( 6 ) = ULPINV;
       } // 120
 
-      RETURN;
+      return;
 
       // End of SGSVTS3
 

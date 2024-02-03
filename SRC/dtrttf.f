@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DTRTTF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -56,7 +56,7 @@
          if ( N == 1 ) {
             ARF( 0 ) = A( 0, 0 );
          }
-         RETURN;
+         return;
       }
 
       // Size of array ARF(0:nt-1)
@@ -288,7 +288,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DTRTTF
 

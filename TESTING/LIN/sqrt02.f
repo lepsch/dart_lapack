@@ -83,7 +83,7 @@
 
       RESULT( 2 ) = ( RESID / REAL( MAX( 1, M ) ) ) / EPS;
 
-      RETURN;
+      return;
 
       // End of SQRT02
 

@@ -204,7 +204,7 @@
       }
 
       CLANTR = VALUE;
-      RETURN;
+      return;
 
       // End of CLANTR
 

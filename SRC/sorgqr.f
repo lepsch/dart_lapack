@@ -54,16 +54,16 @@
       }
       if ( INFO != 0 ) {
          xerbla('SORGQR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N <= 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -147,7 +147,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(IWS);
-      RETURN;
+      return;
 
       // End of SORGQR
 

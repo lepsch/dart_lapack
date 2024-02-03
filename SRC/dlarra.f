@@ -35,7 +35,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN;
+         return;
       }
 
       // Compute splitting points
@@ -65,7 +65,7 @@
       }
       ISPLIT( NSPLIT ) = N;
 
-      RETURN;
+      return;
 
       // End of DLARRA
 

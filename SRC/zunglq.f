@@ -53,16 +53,16 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZUNGLQ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M <= 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -146,7 +146,7 @@
       }
 
       WORK( 1 ) = IWS;
-      RETURN;
+      return;
 
       // End of ZUNGLQ
 

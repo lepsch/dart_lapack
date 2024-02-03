@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLARZB', -INFO );
-         RETURN;
+         return;
       }
 
       if ( LSAME( TRANS, 'N' ) ) {
@@ -120,7 +120,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SLARZB
 

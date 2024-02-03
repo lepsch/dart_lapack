@@ -120,9 +120,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHGEQZ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -130,7 +130,7 @@
       // WORK( 1 ) = CMPLX( 1 )
       if ( N <= 0 ) {
          WORK( 1 ) = DCMPLX( 1 );
-         RETURN;
+         return;
       }
 
       // Initialize Q and Z
@@ -537,7 +537,7 @@
 
       } // 210
       WORK( 1 ) = DCMPLX( N );
-      RETURN;
+      return;
 
       // End of ZHGEQZ
 

@@ -208,7 +208,7 @@
       }
 
       DLANTB = VALUE;
-      RETURN;
+      return;
 
       // End of DLANTB
 

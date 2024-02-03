@@ -658,7 +658,7 @@
          KB = K - 1;
 
       }
-      RETURN;
+      return;
 
       // End of ZLASYF_ROOK
 

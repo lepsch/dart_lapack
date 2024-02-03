@@ -94,16 +94,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYEVX_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       M = 0;
       if ( N == 0 ) {
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
@@ -117,7 +117,7 @@
             }
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -276,7 +276,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN;
+      return;
 
       // End of SSYEVX_2STAGE
 

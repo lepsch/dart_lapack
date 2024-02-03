@@ -71,7 +71,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DTBRFS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -81,7 +81,7 @@
             FERR( J ) = ZERO;
             BERR( J ) = ZERO;
          } // 10
-         RETURN;
+         return;
       }
 
       if ( NOTRAN ) {
@@ -277,7 +277,7 @@
 
       } // 250
 
-      RETURN;
+      return;
 
       // End of DTBRFS
 

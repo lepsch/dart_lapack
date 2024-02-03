@@ -66,7 +66,7 @@
       }
       if (INFO != 0) {
           xerbla('STRSM ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -81,7 +81,7 @@
                   B(I,J) = ZERO;
               } // 10
           } // 20
-          RETURN;
+          return;
       }
 
       // Start the operations.
@@ -252,7 +252,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of STRSM
 

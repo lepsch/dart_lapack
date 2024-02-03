@@ -48,9 +48,9 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('SLASQ2', 1 );
-         RETURN;
+         return;
       } else if ( N == 0 ) {
-         RETURN;
+         return;
       } else if ( N == 1 ) {
 
          // 1-by-1 case.
@@ -59,7 +59,7 @@
             INFO = -201;
             xerbla('SLASQ2', 2 );
          }
-         RETURN;
+         return;
       } else if ( N == 2 ) {
 
          // 2-by-2 case.
@@ -67,15 +67,15 @@
          if ( Z( 1 ) < ZERO ) {
             INFO = -201;
             xerbla('SLASQ2', 2 );
-            RETURN;
+            return;
          } else if ( Z( 2 ) < ZERO ) {
             INFO = -202;
             xerbla('SLASQ2', 2 );
-            RETURN;
+            return;
          } else if ( Z( 3 ) < ZERO ) {
            INFO = -203;
            xerbla('SLASQ2', 2 );
-           RETURN;
+           return;
          } else if ( Z( 3 ) > Z( 1 ) ) {
             D = Z( 3 );
             Z( 3 ) = Z( 1 );
@@ -96,7 +96,7 @@
          }
          Z( 2 ) = Z( 3 );
          Z( 6 ) = Z( 2 ) + Z( 1 );
-         RETURN;
+         return;
       }
 
       // Check for negative data and compute sums of q's and e's.
@@ -112,11 +112,11 @@
          if ( Z( K ) < ZERO ) {
             INFO = -( 200+K );
             xerbla('SLASQ2', 2 );
-            RETURN;
+            return;
          } else if ( Z( K+1 ) < ZERO ) {
             INFO = -( 200+K+1 );
             xerbla('SLASQ2', 2 );
-            RETURN;
+            return;
          }
          D = D + Z( K );
          E = E + Z( K+1 );
@@ -127,7 +127,7 @@
       if ( Z( 2*N-1 ) < ZERO ) {
          INFO = -( 200+2*N-1 );
          xerbla('SLASQ2', 2 );
-         RETURN;
+         return;
       }
       D = D + Z( 2*N-1 );
       QMAX = MAX( QMAX, Z( 2*N-1 ) );
@@ -141,7 +141,7 @@
          } // 20
          slasrt('D', N, Z, IINFO );
          Z( 2*N-1 ) = D;
-         RETURN;
+         return;
       }
 
       TRACE = D + E;
@@ -150,7 +150,7 @@
 
       if ( TRACE == ZERO ) {
          Z( 2*N-1 ) = ZERO;
-         RETURN;
+         return;
       }
 
       // Check whether the machine is IEEE conformable.
@@ -270,7 +270,7 @@
          }
          if ( SIGMA < ZERO ) {
             INFO = 1;
-            RETURN;
+            return;
          }
 
          // Find last unreduced submatrix's top index I0, find QMAX and
@@ -423,7 +423,7 @@
                Z( 2*K ) = 0;
             }
          }
-         RETURN;
+         return;
 
          // end IWHILB
 
@@ -432,7 +432,7 @@
       } // 160
 
       INFO = 3;
-      RETURN;
+      return;
 
       // end IWHILA
 
@@ -460,7 +460,7 @@
       Z( 2*N+3 ) = REAL( ITER );
       Z( 2*N+4 ) = REAL( NDIV ) / REAL( N**2 );
       Z( 2*N+5 ) = HUNDRD*NFAIL / REAL( ITER );
-      RETURN;
+      return;
 
       // End of SLASQ2
 

@@ -44,7 +44,7 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('SSTERF', -INFO );
-         RETURN;
+         return;
       }
       if (N <= 1) RETURN;
 
@@ -295,7 +295,7 @@
       slasrt('I', N, D, INFO );
 
       } // 180
-      RETURN;
+      return;
 
       // End of SSTERF
 

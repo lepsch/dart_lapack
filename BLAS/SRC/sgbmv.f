@@ -56,7 +56,7 @@
       }
       if (INFO != 0) {
           xerbla('SGBMV ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -175,7 +175,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of SGBMV
 

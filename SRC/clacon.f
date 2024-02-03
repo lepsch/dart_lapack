@@ -49,7 +49,7 @@
          } // 10
          KASE = 1;
          JUMP = 1;
-         RETURN;
+         return;
       }
 
       GO TO ( 20, 40, 70, 90, 120 )JUMP;
@@ -76,7 +76,7 @@
       } // 30
       KASE = 2;
       JUMP = 2;
-      RETURN;
+      return;
 
       // ................ ENTRY   (JUMP = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
@@ -94,7 +94,7 @@
       X( J ) = CONE;
       KASE = 1;
       JUMP = 3;
-      RETURN;
+      return;
 
       // ................ ENTRY   (JUMP = 3)
       // X HAS BEEN OVERWRITTEN BY A*X.
@@ -117,7 +117,7 @@
       } // 80
       KASE = 2;
       JUMP = 4;
-      RETURN;
+      return;
 
       // ................ ENTRY   (JUMP = 4)
       // X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
@@ -140,7 +140,7 @@
       } // 110
       KASE = 1;
       JUMP = 5;
-      RETURN;
+      return;
 
       // ................ ENTRY   (JUMP = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
@@ -154,7 +154,7 @@
 
       } // 130
       KASE = 0;
-      RETURN;
+      return;
 
       // End of CLACON
 

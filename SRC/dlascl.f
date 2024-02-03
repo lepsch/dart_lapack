@@ -83,7 +83,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DLASCL', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -211,7 +211,7 @@
 
       if ( !DONE) GO TO 10;
 
-      RETURN;
+      return;
 
       // End of DLASCL
 

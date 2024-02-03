@@ -86,7 +86,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHSEIN', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -151,7 +151,7 @@
                HNORM = CLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, RWORK );
                if ( SISNAN( HNORM ) ) {
                   INFO = -6;
-                  RETURN;
+                  return;
                } else if ( (HNORM > RZERO) ) {
                   EPS3 = HNORM*ULP;
                } else {
@@ -207,7 +207,7 @@
          }
       } // 100
 
-      RETURN;
+      return;
 
       // End of CHSEIN
 

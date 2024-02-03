@@ -38,7 +38,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPOTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -54,7 +54,7 @@
 
       zlauum(UPLO, N, A, LDA, INFO );
 
-      RETURN;
+      return;
 
       // End of ZPOTRI
 

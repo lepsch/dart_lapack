@@ -42,7 +42,7 @@
          if (DP2 == ZERO) {
             DFLAG = -TWO;
             DPARAM(1) = DFLAG;
-            RETURN;
+            return;
          }
          // REGULAR-CASE..
          DP1 = DD1*DX1;
@@ -164,7 +164,7 @@
       }
 
       DPARAM(1) = DFLAG;
-      RETURN;
+      return;
 
       // End of DROTMG
 

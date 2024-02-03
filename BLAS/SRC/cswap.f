@@ -43,7 +43,7 @@
             IY = IY + INCY;
          }
       }
-      RETURN;
+      return;
 
       // End of CSWAP
 

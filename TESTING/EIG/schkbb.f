@@ -106,7 +106,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SCHKBB', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -242,7 +242,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                } // 90
@@ -267,7 +267,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'SGBBRD', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 1 ) = ULPINV;
                      GO TO 120;
@@ -307,7 +307,7 @@
       // Summary
 
       slasum('SBB', NOUNIT, NERRS, NTESTT );
-      RETURN;
+      return;
 
  9999 FORMAT( ' SCHKBB: ', A, ' returned INFO=', I5, '.', / 9X, 'M=', I5, ' N=', I5, ' K=', I5, ', JTYPE=', I5, ', ISEED=(', 3( I5, ',' ), I5, ')' );
  9998 FORMAT( ' M =', I4, ' N=', I4, ', K=', I3, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );

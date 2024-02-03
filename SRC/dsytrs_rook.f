@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSYTRS_ROOK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -307,7 +307,7 @@
          } // 100
       }
 
-      RETURN;
+      return;
 
       // End of DSYTRS_ROOK
 

@@ -69,9 +69,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SGEHRD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Set elements 1:ILO-1 and IHI:N-1 of TAU to zero
@@ -87,7 +87,7 @@
 
       if ( NH <= 1 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       // Determine the block size
@@ -171,7 +171,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN;
+      return;
 
       // End of SGEHRD
 

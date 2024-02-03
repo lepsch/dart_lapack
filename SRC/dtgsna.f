@@ -114,9 +114,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DTGSNA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -278,7 +278,7 @@
 
       } // 20
       WORK( 1 ) = LWMIN;
-      RETURN;
+      return;
 
       // End of DTGSNA
 

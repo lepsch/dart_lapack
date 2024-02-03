@@ -65,17 +65,17 @@
 
       if ( INFO != 0 ) {
          xerbla('DORGTSQR_ROW', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = DBLE( LWORKOPT );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
          WORK( 1 ) = DBLE( LWORKOPT );
-         RETURN;
+         return;
       }
 
       // (0) Set the upper-triangular part of the matrix A to zero and
@@ -178,7 +178,7 @@
       }
 
       WORK( 1 ) = DBLE( LWORKOPT );
-      RETURN;
+      return;
 
       // End of DORGTSQR_ROW
 

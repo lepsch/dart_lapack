@@ -80,9 +80,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGELST ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -90,7 +90,7 @@
       if ( MIN( M, N, NRHS ) == 0 ) {
          zlaset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          WORK( 1 ) = DBLE( LWOPT );
-         RETURN;
+         return;
       }
 
       // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
@@ -138,7 +138,7 @@
 
          zlaset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          WORK( 1 ) = DBLE( LWOPT );
-         RETURN;
+         return;
       }
 
       BROW = M;
@@ -185,7 +185,7 @@
             ztrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = N;
@@ -203,7 +203,7 @@
             ztrtrs('Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // Block 2: Zero out all rows below the N-th row in B:
@@ -247,7 +247,7 @@
             ztrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // Block 2: Zero out all rows below the M-th row in B:
@@ -284,7 +284,7 @@
             ztrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = M;
@@ -308,7 +308,7 @@
 
       WORK( 1 ) = DBLE( LWOPT );
 
-      RETURN;
+      return;
 
       // End of ZGELST
 

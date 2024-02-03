@@ -105,7 +105,7 @@
 
       } // 20
 
-      RETURN;
+      return;
 
       // End of CLAQP2
 

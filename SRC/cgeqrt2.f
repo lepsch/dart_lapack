@@ -40,7 +40,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGEQRT2', -INFO );
-         RETURN;
+         return;
       }
 
       K = MIN( M, N );

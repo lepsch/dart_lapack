@@ -110,7 +110,7 @@
       }
 
       SLANSY = VALUE;
-      RETURN;
+      return;
 
       // End of SLANSY
 

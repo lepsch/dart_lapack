@@ -48,13 +48,13 @@
 
       if ( INFO != 0 ) {
          xerbla('SORHR_COL', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
-         RETURN;
+         return;
       }
 
       // On input, the M-by-N matrix A contains the orthogonal
@@ -170,7 +170,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SORHR_COL
 

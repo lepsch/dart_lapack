@@ -63,9 +63,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYSV_AA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
@@ -81,7 +81,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN;
+      return;
 
       // End of SSYSV_AA
 

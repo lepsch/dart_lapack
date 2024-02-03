@@ -82,9 +82,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('DTRSYL3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -96,7 +96,7 @@
       // workspaces are provided
 
       IF( MIN( NBA, NBB ) == 1 || LDSWORK < MAX( NBA, NBB ) || LIWORK < IWORK(1) ) THEN         CALL DTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
-        RETURN;
+        return;
       }
 
       // Set constants to control overflow
@@ -925,7 +925,7 @@
          IWORK(1) = NBA + NBB + 2;
          SWORK(1,1) = MAX( NBA, NBB );
          SWORK(2,1) = 2 * NBB + NBA;
-         RETURN;
+         return;
       }
 
       // Realize consistent scaling
@@ -989,7 +989,7 @@
       SWORK(1,1) = MAX( NBA, NBB );
       SWORK(2,1) = 2 * NBB + NBA;
 
-      RETURN;
+      return;
 
       // End of DTRSYL3
 

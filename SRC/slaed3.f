@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLAED3', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -133,7 +133,7 @@
 
 
       } // 120
-      RETURN;
+      return;
 
       // End of SLAED3
 

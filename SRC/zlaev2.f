@@ -36,7 +36,7 @@
       }
       dlaev2(DBLE( A ), ABS( B ), DBLE( C ), RT1, RT2, CS1, T );
       SN1 = W*T;
-      RETURN;
+      return;
 
       // End of ZLAEV2
 

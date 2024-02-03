@@ -81,7 +81,7 @@ void main() {
       DATA             L(13)/'DSDOT '/;
       // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE);
-      RETURN;
+      return;
 
 99999 FORMAT (/' Test of subprogram number',I3,12X,A6)
 
@@ -266,7 +266,7 @@ void main() {
             itest1(IDAMAX(N,SXR,INCX),3);
          }
       } // 80
-      RETURN;
+      return;
 
       // End of CHECK1
 
@@ -429,7 +429,7 @@ void main() {
             }
          } // 100
       } // 120
-      RETURN;
+      return;
 
       // End of CHECK2
 
@@ -591,7 +591,7 @@ void main() {
          stest(5,COPYX,MWPSTX,MWPSTX,SFAC);
          stest(5,COPYY,MWPSTY,MWPSTY,SFAC);
       } // 200
-      RETURN;
+      return;
 
       // End of CHECK3
 
@@ -642,7 +642,7 @@ void main() {
          WRITE (NOUT,99998);
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, I, SCOMP(I), STRUE(I), SD, SSIZE(I);
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
@@ -689,7 +689,7 @@ void main() {
          WRITE (NOUT,99998);
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, SCOMP, STRUE, SD, SSIZE;
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY                           ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
@@ -721,7 +721,7 @@ void main() {
       STRUE(1) = STRUE1;
       stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
-      RETURN;
+      return;
 
       // End of STEST1
 
@@ -734,7 +734,7 @@ void main() {
       double                          SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
-      RETURN;
+      return;
 
       // End of SDIFF
 
@@ -772,7 +772,7 @@ void main() {
    20 ID = ICOMP - ITRUE;
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, ICOMP, ITRUE, ID;
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
@@ -839,12 +839,12 @@ void main() {
 
       if (N*ABS(INCX) > NMAX) {
          WRITE (NOUT,99) "DNRM2", NMAX, INCX, N, N*ABS(INCX);
-         RETURN;
+         return;
       }
 
       // Zero-sized inputs are tested in STEST1.
       if (N <= 0) {
-         RETURN;
+         return;
       }
 
       // Generate (N-1) values in (-1,1).
@@ -959,7 +959,7 @@ void main() {
 99999 FORMAT ('                                       FAIL')
    99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 );
    98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
-      RETURN;
+      return;
       CONTAINS;
       double           FUNCTION DXVALS(XX,K);
       // .. Scalar Arguments ..
@@ -980,6 +980,6 @@ void main() {
          X = Z / Z;
       }
       DXVALS = X;
-      RETURN;
+      return;
       }
       }

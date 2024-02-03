@@ -212,7 +212,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZLAGS2
 

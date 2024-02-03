@@ -196,9 +196,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('SORCSD2BY1', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
       LORGQR = LWORK-IORGQR+1;
       LORGLQ = LWORK-IORGLQ+1;
@@ -401,7 +401,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SORCSD2BY1
 

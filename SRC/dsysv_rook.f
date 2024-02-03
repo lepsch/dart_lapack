@@ -61,9 +61,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSYSV_ROOK ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = U*D*U**T or A = L*D*L**T.
@@ -81,7 +81,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of DSYSV_ROOK
 

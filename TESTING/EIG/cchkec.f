@@ -96,7 +96,7 @@
  9972 FORMAT( 'CTRSYL and CTRSYL3 compute an inconsistent scale ', 'factor in ', I8, ' tests.');
  9971 FORMAT( 'Error in CTRSYL3: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
  9970 FORMAT( 'Error in CTRSYL: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
-      RETURN;
+      return;
 
       // End of CCHKEC
 

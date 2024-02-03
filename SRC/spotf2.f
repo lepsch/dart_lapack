@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPOTF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -109,7 +109,7 @@
       INFO = J;
 
       } // 40
-      RETURN;
+      return;
 
       // End of SPOTF2
 

@@ -58,7 +58,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLA_HERCOND_X', -INFO );
-         RETURN;
+         return;
       }
       UP = false;
       IF ( LSAME( UPLO, 'U' ) ) UP = true;
@@ -96,9 +96,9 @@
 
       if ( N == 0 ) {
          ZLA_HERCOND_X = 1.0;
-         RETURN;
+         return;
       } else if ( ANORM == 0.0 ) {
-         RETURN;
+         return;
       }
 
       // Estimate the norm of inv(op(A)).
@@ -155,7 +155,7 @@
 
       if (AINVNM != 0.0) ZLA_HERCOND_X = 1.0 / AINVNM;
 
-      RETURN;
+      return;
 
       // End of ZLA_HERCOND_X
 

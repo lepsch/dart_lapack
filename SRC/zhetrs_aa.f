@@ -60,10 +60,10 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHETRS_AA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = LWKMIN;
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -168,7 +168,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZHETRS_AA
 

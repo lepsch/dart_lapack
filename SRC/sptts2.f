@@ -25,7 +25,7 @@
 
       if ( N <= 1 ) {
          if (N == 1) CALL SSCAL( NRHS, 1. / D( 1 ), B, LDB );
-         RETURN;
+         return;
       }
 
       // Solve A * X = B using the factorization A = L*D*L**T,
@@ -47,7 +47,7 @@
          } // 20
       } // 30
 
-      RETURN;
+      return;
 
       // End of SPTTS2
 

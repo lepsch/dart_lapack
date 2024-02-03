@@ -128,7 +128,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGBSVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -187,7 +187,7 @@
             // leading rank-deficient INFO columns of A.
 
             RPVGRW = ZLA_GBRPVGRW( N, KL, KU, INFO, AB, LDAB, AFB, LDAFB );
-            RETURN;
+            return;
          }
       }
 
@@ -214,7 +214,7 @@
          zlascl2(N, NRHS, R, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of ZGBSVXX
 

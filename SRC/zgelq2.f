@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGELQ2', -INFO );
-         RETURN;
+         return;
       }
 
       K = MIN( M, N );
@@ -63,7 +63,7 @@
          A( I, I ) = ALPHA;
          zlacgv(N-I+1, A( I, I ), LDA );
       } // 10
-      RETURN;
+      return;
 
       // End of ZGELQ2
 

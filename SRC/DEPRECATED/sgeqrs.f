@@ -43,7 +43,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGEQRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -58,7 +58,7 @@
 
       strsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
-      RETURN;
+      return;
 
       // End of SGEQRS
 

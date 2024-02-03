@@ -271,7 +271,7 @@
          } // 180
       } // 190
 
-      RETURN;
+      return;
 
       // End of DGET31
 

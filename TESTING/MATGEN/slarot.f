@@ -59,11 +59,11 @@
 
       if ( NL < NT ) {
          xerbla('SLAROT', 4 );
-         RETURN;
+         return;
       }
       if ( LDA <= 0 || ( !LROWS && LDA < NL-NT ) ) {
          xerbla('SLAROT', 8 );
-         RETURN;
+         return;
       }
 
       // Rotate
@@ -83,7 +83,7 @@
          A( IYT ) = YT( NT );
       }
 
-      RETURN;
+      return;
 
       // End of SLAROT
 

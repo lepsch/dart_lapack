@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHETRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -312,7 +312,7 @@
          } // 100
       }
 
-      RETURN;
+      return;
 
       // End of ZHETRS
 

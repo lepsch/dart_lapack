@@ -39,7 +39,7 @@
 
       if ( LWORK < N*N+N ) {
          xerbla('DRZT02', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -65,7 +65,7 @@
       } // 10
 
       DRZT02 = DLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
-      RETURN;
+      return;
 
       // End of DRZT02
 

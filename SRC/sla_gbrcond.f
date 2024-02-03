@@ -54,11 +54,11 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLA_GBRCOND', -INFO );
-         RETURN;
+         return;
       }
       if ( N == 0 ) {
          SLA_GBRCOND = 1.0;
-         RETURN;
+         return;
       }
 
       // Compute the equilibration matrix R such that
@@ -170,7 +170,7 @@
 
       if (AINVNM != 0.0) SLA_GBRCOND = ( 1.0 / AINVNM );
 
-      RETURN;
+      return;
 
       // End of SLA_GBRCOND
 

@@ -84,7 +84,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZDRVST2STG', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if nothing to do
@@ -247,7 +247,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 110
@@ -286,7 +286,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -307,7 +307,7 @@
                   WRITE( NOUNIT, FMT = 9999 ) 'ZHEEVD_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 130;
@@ -352,7 +352,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -373,7 +373,7 @@
                   WRITE( NOUNIT, FMT = 9999 ) 'ZHEEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 150;
@@ -400,7 +400,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 160;
@@ -420,7 +420,7 @@
                   WRITE( NOUNIT, FMT = 9999 ) 'ZHEEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 160;
@@ -448,7 +448,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 170;
@@ -468,7 +468,7 @@
                   WRITE( NOUNIT, FMT = 9999 ) 'ZHEEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 170;
@@ -525,7 +525,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -563,7 +563,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 270;
@@ -627,7 +627,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -665,7 +665,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 370;
@@ -707,7 +707,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -745,7 +745,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 460;
@@ -788,7 +788,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -826,7 +826,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 550;
@@ -884,7 +884,7 @@
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVD(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -917,7 +917,7 @@
                   WRITE( NOUNIT, FMT = 9998 ) 'ZHBEVD_2STAGE(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 650;
@@ -958,7 +958,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHBEVX(V,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -992,7 +992,7 @@
                   WRITE( NOUNIT, FMT = 9998 ) 'ZHBEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 750;
@@ -1033,7 +1033,7 @@
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVX(V,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -1066,7 +1066,7 @@
                   WRITE( NOUNIT, FMT = 9998 ) 'ZHBEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 840;
@@ -1107,7 +1107,7 @@
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVX(V,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -1140,7 +1140,7 @@
                   WRITE( NOUNIT, FMT = 9998 ) 'ZHBEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 930;
@@ -1175,7 +1175,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -1196,7 +1196,7 @@
                   WRITE( NOUNIT, FMT = 9999 ) 'ZHEEV_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 950;
@@ -1247,7 +1247,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -1285,7 +1285,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 1050;
@@ -1337,7 +1337,7 @@
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEV(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -1370,7 +1370,7 @@
                   WRITE( NOUNIT, FMT = 9998 ) 'ZHBEV_2STAGE(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 1140;
@@ -1396,7 +1396,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -1417,7 +1417,7 @@
                   WRITE( NOUNIT, FMT = 9999 ) 'ZHEEVR_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 1170;
@@ -1443,7 +1443,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -1465,7 +1465,7 @@
                   WRITE( NOUNIT, FMT = 9999 ) 'ZHEEVR_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 1180;
@@ -1486,7 +1486,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      RESULT( NTEST+1 ) = ULPINV;
@@ -1508,7 +1508,7 @@
                   WRITE( NOUNIT, FMT = 9999 ) 'ZHEEVR_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( NTEST ) = ULPINV;
                      GO TO 1190;
@@ -1558,7 +1558,7 @@
  9999 FORMAT( ' ZDRVST2STG: ', A, ' returned INFO=', I6, / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
  9998 FORMAT( ' ZDRVST2STG: ', A, ' returned INFO=', I6, / 9X, 'N=', I6, ', KD=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
-      RETURN;
+      return;
 
       // End of ZDRVST2STG
 

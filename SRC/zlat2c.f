@@ -55,7 +55,7 @@
       }
       } // 50
 
-      RETURN;
+      return;
 
       // End of ZLAT2C
 

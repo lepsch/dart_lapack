@@ -83,7 +83,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DDRVSG2STG', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -253,7 +253,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 90
@@ -304,7 +304,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSYGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 100;
@@ -327,7 +327,7 @@
                      WRITE( NOUNIT, FMT = 9999 ) 'DSYGV_2STAGE(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 100;
@@ -364,7 +364,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSYGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 100;
@@ -387,7 +387,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 100;
@@ -415,7 +415,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 100;
@@ -436,7 +436,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 100;
@@ -480,7 +480,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 310;
@@ -522,7 +522,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 310;
@@ -564,7 +564,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 310;
@@ -606,7 +606,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 310;
@@ -646,7 +646,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( NTEST ) = ULPINV;
                         GO TO 310;
@@ -692,7 +692,7 @@
                         WRITE( NOUNIT, FMT = 9999 )'DSBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN;
+                           return;
                         } else {
                            RESULT( NTEST ) = ULPINV;
                            GO TO 620;
@@ -734,7 +734,7 @@
                         WRITE( NOUNIT, FMT = 9999 )'DSBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN;
+                           return;
                         } else {
                            RESULT( NTEST ) = ULPINV;
                            GO TO 620;
@@ -776,7 +776,7 @@
                         WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN;
+                           return;
                         } else {
                            RESULT( NTEST ) = ULPINV;
                            GO TO 620;
@@ -819,7 +819,7 @@
                         WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN;
+                           return;
                         } else {
                            RESULT( NTEST ) = ULPINV;
                            GO TO 620;
@@ -859,7 +859,7 @@
                         WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN;
+                           return;
                         } else {
                            RESULT( NTEST ) = ULPINV;
                            GO TO 620;
@@ -886,7 +886,7 @@
 
       dlasum('DSG', NOUNIT, NERRS, NTESTT );
 
-      RETURN;
+      return;
 
       // End of DDRVSG2STG
 

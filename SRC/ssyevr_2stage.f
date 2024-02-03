@@ -109,9 +109,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYEVR_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -119,7 +119,7 @@
       M = 0;
       if ( N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
@@ -138,7 +138,7 @@
             ISUPPZ( 1 ) = 1;
             ISUPPZ( 2 ) = 1;
          }
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -338,7 +338,7 @@
       WORK( 1 )  = SROUNDUP_LWORK( LWMIN );
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of SSYEVR_2STAGE
 

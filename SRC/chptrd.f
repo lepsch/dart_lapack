@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHPTRD', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -144,7 +144,7 @@
          D( N ) = REAL( AP( II ) );
       }
 
-      RETURN;
+      return;
 
       // End of CHPTRD
 

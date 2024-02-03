@@ -44,7 +44,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // a) Revert to multipliers of L
@@ -99,7 +99,7 @@
 
       zsyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
-      RETURN;
+      return;
 
       // End of ZSYT01_3
 

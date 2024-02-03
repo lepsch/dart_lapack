@@ -98,7 +98,7 @@
 
       RESULT( 2 ) = MIN( DBLE( N ), DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP );
 
-      RETURN;
+      return;
 
       // End of DSTT21
 

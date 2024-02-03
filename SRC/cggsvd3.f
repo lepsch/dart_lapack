@@ -83,10 +83,10 @@
 
       if ( INFO != 0 ) {
          xerbla('CGGSVD3', -INFO );
-         RETURN;
+         return;
       }
       if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the Frobenius norm of matrices A and B
@@ -136,7 +136,7 @@
       } // 20
 
       WORK( 1 ) = CMPLX( LWKOPT );
-      RETURN;
+      return;
 
       // End of CGGSVD3
 

@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSYTRS_3', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -197,7 +197,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DSYTRS_3
 

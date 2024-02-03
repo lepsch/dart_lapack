@@ -33,7 +33,7 @@
 
       if ( M <= 0 || N <= 0 ) {
          EQUED = 'N';
-         RETURN;
+         return;
       }
 
       // Initialize LARGE and SMALL.
@@ -85,7 +85,7 @@
          EQUED = 'B';
       }
 
-      RETURN;
+      return;
 
       // End of SLAQGE
 

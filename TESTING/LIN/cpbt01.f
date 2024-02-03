@@ -43,7 +43,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
@@ -52,7 +52,7 @@
       ANORM = CLANHB( '1', UPLO, N, KD, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Check the imaginary parts of the diagonal elements and return with
@@ -62,14 +62,14 @@
          for (J = 1; J <= N; J++) { // 10
             if ( AIMAG( AFAC( KD+1, J ) ) != ZERO ) {
                RESID = ONE / EPS;
-               RETURN;
+               return;
             }
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
             if ( AIMAG( AFAC( 1, J ) ) != ZERO ) {
                RESID = ONE / EPS;
-               RETURN;
+               return;
             }
          } // 20
       }
@@ -135,7 +135,7 @@
 
       RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
 
-      RETURN;
+      return;
 
       // End of CPBT01
 

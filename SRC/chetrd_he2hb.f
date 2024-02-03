@@ -67,10 +67,10 @@
 
       if ( INFO != 0 ) {
          xerbla('CHETRD_HE2HB', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -89,7 +89,7 @@
               } // 110
           }
           WORK( 1 ) = 1;
-          RETURN;
+          return;
       }
 
       // Determine the pointer position for the workspace
@@ -224,7 +224,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
-      RETURN;
+      return;
 
       // End of CHETRD_HE2HB
 

@@ -36,7 +36,7 @@
             }
             if (N < 6) {
                DASUM = DTEMP;
-               RETURN;
+               return;
             }
          }
          MP1 = M + 1;
@@ -53,7 +53,7 @@
          }
       }
       DASUM = DTEMP;
-      RETURN;
+      return;
 
       // End of DASUM
 

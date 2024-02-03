@@ -60,7 +60,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHEMV ', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -222,7 +222,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZLA_HEAMV
 

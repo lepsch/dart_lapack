@@ -83,7 +83,7 @@
             } // 50
          }
       } // 60
-      RETURN;
+      return;
 
       // End of CLARNV
 

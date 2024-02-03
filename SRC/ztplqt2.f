@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTPLQT2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible

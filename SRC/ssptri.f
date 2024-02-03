@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSPTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -259,7 +259,7 @@
          } // 80
       }
 
-      RETURN;
+      return;
 
       // End of SSPTRI
 

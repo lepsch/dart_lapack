@@ -158,13 +158,13 @@
 
       // Exit with INFO = 0 if swap was successfully performed.
 
-      RETURN;
+      return;
 
       // Exit with INFO = 1 if swap was rejected.
 
       } // 20
       INFO = 1;
-      RETURN;
+      return;
 
       // End of CTGEX2
 

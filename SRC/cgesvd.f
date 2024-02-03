@@ -385,15 +385,15 @@
 
       if ( INFO != 0 ) {
          xerbla('CGESVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -3018,7 +3018,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
 
-      RETURN;
+      return;
 
       // End of CGESVD
 

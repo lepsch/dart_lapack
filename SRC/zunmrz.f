@@ -87,15 +87,15 @@
 
       if ( INFO != 0 ) {
          xerbla('ZUNMRZ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Determine the block size.  NB may be at most NBMAX, where NBMAX
@@ -178,7 +178,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZUNMRZ
 

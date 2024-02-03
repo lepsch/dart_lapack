@@ -192,7 +192,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DLAGS2
 

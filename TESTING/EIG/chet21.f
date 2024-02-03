@@ -59,7 +59,7 @@
 
       if ( ITYPE < 1 || ITYPE > 3 ) {
          RESULT( 1 ) = TEN / ULP;
-         RETURN;
+         return;
       }
 
       // Do Test 1
@@ -158,7 +158,7 @@
          }
          if ( IINFO != 0 ) {
             RESULT( 1 ) = TEN / ULP;
-            RETURN;
+            return;
          }
 
          for (J = 1; J <= N; J++) { // 100
@@ -192,7 +192,7 @@
          RESULT( 2 ) = MIN( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP );
       }
 
-      RETURN;
+      return;
 
       // End of CHET21
 

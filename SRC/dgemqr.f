@@ -93,15 +93,15 @@
 
       if ( INFO != 0 ) {
         xerbla('DGEMQR', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MINMNK == 0 ) {
-        RETURN;
+        return;
       }
 
       IF( ( LEFT && M <= K ) || ( RIGHT && N <= K ) || ( MB <= K ) || ( MB >= MAX( M, N, K ) ) ) THEN         CALL DGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO );
@@ -111,7 +111,7 @@
 
       WORK( 1 ) = LWMIN;
 
-      RETURN;
+      return;
 
       // End of DGEMQR
 

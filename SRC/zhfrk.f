@@ -67,7 +67,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHFRK ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -81,7 +81,7 @@
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
             C( J ) = CZERO;
          }
-         RETURN;
+         return;
       }
 
       CALPHA = DCMPLX( ALPHA, ZERO );
@@ -319,7 +319,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZHFRK
 

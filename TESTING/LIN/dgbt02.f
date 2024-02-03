@@ -40,7 +40,7 @@
 
       if ( M <= 0 || N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
@@ -80,7 +80,7 @@
       }
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
@@ -109,7 +109,7 @@
          }
       } // 30
 
-      RETURN;
+      return;
 
       // End of DGBT02
 

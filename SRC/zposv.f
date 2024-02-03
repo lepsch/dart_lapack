@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPOSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the Cholesky factorization A = U**H *U or A = L*L**H.
@@ -55,7 +55,7 @@
          zpotrs(UPLO, N, NRHS, A, LDA, B, LDB, INFO );
 
       }
-      RETURN;
+      return;
 
       // End of ZPOSV
 

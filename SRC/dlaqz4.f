@@ -26,24 +26,24 @@
       if ( LWORK == -1 ) {
          // workspace query, quick return
          WORK( 1 ) = N*NBLOCK_DESIRED;
-         RETURN;
+         return;
       } else if ( LWORK < N*NBLOCK_DESIRED ) {
          INFO = -25;
       }
 
       if ( INFO != 0 ) {
          xerbla('DLAQZ4', -INFO );
-         RETURN;
+         return;
       }
 
       // Executable statements
 
       if ( NSHIFTS < 2 ) {
-         RETURN;
+         return;
       }
 
       if ( ILO >= IHI ) {
-         RETURN;
+         return;
       }
 
       if ( ILSCHUR ) {

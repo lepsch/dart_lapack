@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLASD1', -INFO );
-         RETURN;
+         return;
       }
 
       N = NL + NR + 1;
@@ -94,7 +94,7 @@
       // Report the possible convergence failure.
 
       if ( INFO != 0 ) {
-         RETURN;
+         return;
       }
 
       // Unscale.
@@ -107,7 +107,7 @@
       N2 = N - K;
       slamrg(N1, N2, D, 1, -1, IDXQ );
 
-      RETURN;
+      return;
 
       // End of SLASD1
 

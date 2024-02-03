@@ -50,7 +50,7 @@
       }
       if (INFO != 0) {
           xerbla('CHER2 ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -155,7 +155,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of CHER2
 

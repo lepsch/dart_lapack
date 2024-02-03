@@ -199,7 +199,7 @@
          BETA( 2 ) = ONE;
       }
 
-      RETURN;
+      return;
 
       // End of DLAGV2
 

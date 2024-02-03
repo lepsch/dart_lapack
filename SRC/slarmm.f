@@ -33,7 +33,7 @@
             SLARMM = HALF / BNORM;
          }
       }
-      RETURN;
+      return;
 
       // ==== End of SLARMM ====
 

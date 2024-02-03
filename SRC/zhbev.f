@@ -59,7 +59,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHBEV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -73,7 +73,7 @@
             W( 1 ) = DBLE( AB( KD+1, 1 ) );
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -129,7 +129,7 @@
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of ZHBEV
 

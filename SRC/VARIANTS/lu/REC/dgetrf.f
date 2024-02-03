@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGETRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -127,7 +127,7 @@
          dtrsm('Left', 'Lower', 'No transpose', 'Unit', M, N-M, ONE, A, LDA, A( 1,M+KCOLS+1 ), LDA );
       }
 
-      RETURN;
+      return;
 
       // End of DGETRF
 

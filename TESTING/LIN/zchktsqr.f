@@ -139,7 +139,7 @@
 
  9999 FORMAT( 'TS: M=', I5, ', N=', I5, ', MB=', I5, ', NB=', I5,' test(', I2, ')=', G12.5 );
  9998 FORMAT( 'SW: M=', I5, ', N=', I5, ', MB=', I5, ', NB=', I5,' test(', I2, ')=', G12.5 );
-      RETURN;
+      return;
 
       // End of ZCHKTSQR
 

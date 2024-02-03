@@ -43,7 +43,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGERQS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -62,7 +62,7 @@
 
       dormrq('Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
-      RETURN;
+      return;
 
       // End of DGERQS
 

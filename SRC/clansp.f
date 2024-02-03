@@ -148,7 +148,7 @@
       }
 
       CLANSP = VALUE;
-      RETURN;
+      return;
 
       // End of CLANSP
 

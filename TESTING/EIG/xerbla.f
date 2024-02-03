@@ -38,7 +38,7 @@
          WRITE( NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), SRNAMT( 1:LEN_TRIM( SRNAMT ) );
          OK = false;
       }
-      RETURN;
+      return;
 
  9999 FORMAT( ' *** XERBLA was called from ', A, ' with INFO = ', I6, ' instead of ', I2, ' ***' );
  9998 FORMAT( ' *** XERBLA was called with SRNAME = ', A, ' instead of ', A6, ' ***' );

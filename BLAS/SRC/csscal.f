@@ -41,7 +41,7 @@
             CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)));
          }
       }
-      RETURN;
+      return;
 
       // End of CSSCAL
 

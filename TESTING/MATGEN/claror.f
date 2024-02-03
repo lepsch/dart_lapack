@@ -67,7 +67,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLAROR', -INFO );
-         RETURN;
+         return;
       }
 
       if ( ITYPE == 1 ) {
@@ -115,7 +115,7 @@
          if ( ABS( FACTOR ) < TOOSML ) {
             INFO = 1;
             xerbla('CLAROR', -INFO );
-            RETURN;
+            return;
          } else {
             FACTOR = ONE / FACTOR;
          }
@@ -174,7 +174,7 @@
             cscal(M, CONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
          } // 90
       }
-      RETURN;
+      return;
 
       // End of CLAROR
 

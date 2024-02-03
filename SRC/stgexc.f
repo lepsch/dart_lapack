@@ -69,9 +69,9 @@
 
       if ( INFO != 0 ) {
          xerbla('STGEXC', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -124,7 +124,7 @@
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO );
             if ( INFO != 0 ) {
                ILST = HERE;
-               RETURN;
+               return;
             }
             HERE = HERE + NBNEXT;
 
@@ -146,7 +146,7 @@
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO );
             if ( INFO != 0 ) {
                ILST = HERE;
-               RETURN;
+               return;
             }
             if ( NBNEXT == 1 ) {
 
@@ -155,7 +155,7 @@
                stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                if ( INFO != 0 ) {
                   ILST = HERE;
-                  RETURN;
+                  return;
                }
                HERE = HERE + 1;
 
@@ -171,7 +171,7 @@
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, NBNEXT, WORK, LWORK, INFO );
                   if ( INFO != 0 ) {
                      ILST = HERE;
-                     RETURN;
+                     return;
                   }
                   HERE = HERE + 2;
                } else {
@@ -181,13 +181,13 @@
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                   if ( INFO != 0 ) {
                      ILST = HERE;
-                     RETURN;
+                     return;
                   }
                   HERE = HERE + 1;
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                   if ( INFO != 0 ) {
                      ILST = HERE;
-                     RETURN;
+                     return;
                   }
                   HERE = HERE + 1;
                }
@@ -213,7 +213,7 @@
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK, INFO );
             if ( INFO != 0 ) {
                ILST = HERE;
-               RETURN;
+               return;
             }
             HERE = HERE - NBNEXT;
 
@@ -235,7 +235,7 @@
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK, INFO );
             if ( INFO != 0 ) {
                ILST = HERE;
-               RETURN;
+               return;
             }
             if ( NBNEXT == 1 ) {
 
@@ -244,7 +244,7 @@
                stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBNEXT, 1, WORK, LWORK, INFO );
                if ( INFO != 0 ) {
                   ILST = HERE;
-                  RETURN;
+                  return;
                }
                HERE = HERE - 1;
             } else {
@@ -259,7 +259,7 @@
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-1, 2, 1, WORK, LWORK, INFO );
                   if ( INFO != 0 ) {
                      ILST = HERE;
-                     RETURN;
+                     return;
                   }
                   HERE = HERE - 2;
                } else {
@@ -269,13 +269,13 @@
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                   if ( INFO != 0 ) {
                      ILST = HERE;
-                     RETURN;
+                     return;
                   }
                   HERE = HERE - 1;
                   stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                   if ( INFO != 0 ) {
                      ILST = HERE;
-                     RETURN;
+                     return;
                   }
                   HERE = HERE - 1;
                }
@@ -285,7 +285,7 @@
       }
       ILST = HERE;
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
-      RETURN;
+      return;
 
       // End of STGEXC
 

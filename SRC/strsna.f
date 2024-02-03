@@ -99,7 +99,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('STRSNA', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -111,7 +111,7 @@
             IF( !SELECT( 1 ) ) RETURN;
          }
          if (WANTS) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -292,7 +292,7 @@
          if (PAIR) KS = KS + 1;
 
       } // 60
-      RETURN;
+      return;
 
       // End of STRSNA
 

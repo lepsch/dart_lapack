@@ -61,7 +61,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSBTRD', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -419,7 +419,7 @@
          } // 240
       }
 
-      RETURN;
+      return;
 
       // End of DSBTRD
 

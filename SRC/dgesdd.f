@@ -330,15 +330,15 @@
 
       if ( INFO != 0 ) {
          xerbla('DGESDD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -352,7 +352,7 @@
       ANRM = DLANGE( 'M', M, N, A, LDA, DUM );
       if ( DISNAN( ANRM ) ) {
           INFO = -4;
-          RETURN;
+          return;
       }
       ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
@@ -1156,7 +1156,7 @@
 
       WORK( 1 ) = DROUNDUP_LWORK( MAXWRK );
 
-      RETURN;
+      return;
 
       // End of DGESDD
 

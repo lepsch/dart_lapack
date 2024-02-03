@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGETF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -94,7 +94,7 @@
             dger(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
       } // 10
-      RETURN;
+      return;
 
       // End of DGETF2
 

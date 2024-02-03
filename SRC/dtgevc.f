@@ -90,7 +90,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DTGEVC', -INFO );
-         RETURN;
+         return;
       }
 
       // Count the number of eigenvectors to be computed
@@ -142,7 +142,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DTGEVC', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -301,7 +301,7 @@
                BCOEFI = -BCOEFI;
                if ( BCOEFI == ZERO ) {
                   INFO = JE;
-                  RETURN;
+                  return;
                }
 
                // Scale to avoid over/underflow
@@ -587,7 +587,7 @@
                dlag2(S( JE-1, JE-1 ), LDS, P( JE-1, JE-1 ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI );
                if ( BCOEFI == ZERO ) {
                   INFO = JE - 1;
-                  RETURN;
+                  return;
                }
 
                // Scale to avoid over/underflow
@@ -792,7 +792,7 @@
          } // 500
       }
 
-      RETURN;
+      return;
 
       // End of DTGEVC
 

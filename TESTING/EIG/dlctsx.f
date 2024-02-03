@@ -52,7 +52,7 @@
            // DLCTSX = false;
         // END IF
 
-      RETURN;
+      return;
 
       // End of DLCTSX
 

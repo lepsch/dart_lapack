@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLA_GEAMV ', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -198,7 +198,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DLA_GEAMV
 

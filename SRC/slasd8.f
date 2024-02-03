@@ -46,7 +46,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLASD8', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -58,7 +58,7 @@
             DIFL( 2 ) = ONE;
             DIFR( 1, 2 ) = ONE;
          }
-         RETURN;
+         return;
       }
 
       // Book keeping.
@@ -88,7 +88,7 @@
          // If the root finder fails, report the convergence failure.
 
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
          WORK( IWK3I+J ) = WORK( IWK3I+J )*WORK( J )*WORK( IWK2I+J );
          DIFL( J ) = -WORK( J );
@@ -140,7 +140,7 @@
       scopy(K, WORK( IWK2 ), 1, VF, 1 );
       scopy(K, WORK( IWK3 ), 1, VL, 1 );
 
-      RETURN;
+      return;
 
       // End of SLASD8
 

@@ -50,11 +50,11 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLA_GERCOND', -INFO );
-         RETURN;
+         return;
       }
       if ( N == 0 ) {
          DLA_GERCOND = 1.0;
-         RETURN;
+         return;
       }
 
       // Compute the equilibration matrix R such that
@@ -164,7 +164,7 @@
 
       if (AINVNM != 0.0) DLA_GERCOND = ( 1.0 / AINVNM );
 
-      RETURN;
+      return;
 
       // End of DLA_GERCOND
 

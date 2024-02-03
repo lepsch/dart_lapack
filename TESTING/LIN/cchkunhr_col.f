@@ -179,7 +179,7 @@
 
  9999 FORMAT( 'CUNGTSQR and CUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 );
  9998 FORMAT( 'CUNGTSQR_ROW and CUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 );
-      RETURN;
+      return;
 
       // End of CCHKUNHR_COL
 

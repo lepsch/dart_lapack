@@ -96,7 +96,7 @@
                ILCPLX = true;
                if ( JVEC == N ) {
                   RESULT( 1 ) = TEN / ULP;
-                  RETURN;
+                  return;
                }
                ABMAX = MAX( ABS( SALFR )+ABS( SALFI ), ABS( SBETA ) );
                if ( ABS( SALFR )+ABS( SALFI ) > ALFMAX || ABS( SBETA ) > BETMAX || ABMAX < ONE ) {
@@ -158,7 +158,7 @@
 
       RESULT( 2 ) = ENRMER / ( REAL( N )*ULP );
 
-      RETURN;
+      return;
 
       // End of SGET52
 

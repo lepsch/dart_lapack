@@ -45,7 +45,7 @@
       // Quick return if possible
 
       if ( (N <= 0) || (M <= 0) ) {
-         RETURN;
+         return;
       }
 
       // The first N entries of WORK are reserved for the eigenvalues
@@ -199,7 +199,7 @@
             // This is a crude protection against infinitely deep trees
             if ( NDEPTH > M ) {
                INFO = -2;
-               RETURN;
+               return;
             }
             // breadth first processing of the current level of the representation
             // tree: OLDNCL = number of clusters on current level
@@ -273,7 +273,7 @@
                   slarrb(IN, D( IBEGIN ), WORK(INDLLD+IBEGIN-1), P, Q, RTOL1, RTOL2, OFFSET, WORK(WBEGIN),WGAP(WBEGIN),WERR(WBEGIN), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
                   if ( IINFO != 0 ) {
                      INFO = -1;
-                     RETURN;
+                     return;
                   }
                   // We also recompute the extremal gaps. W holds all eigenvalues
                   // of the unshifted matrix and must be used for computation
@@ -413,7 +413,7 @@
                         IWORK( K ) = NEWLST;
                      } else {
                         INFO = -2;
-                        RETURN;
+                        return;
                      }
                   } else {
 
@@ -505,7 +505,7 @@
                         slarrb(IN, D(IBEGIN), WORK(INDLLD+IBEGIN-1),INDEIG,INDEIG, ZERO, TWO*EPS, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, ITMP1, IINFO );
                         if ( IINFO != 0 ) {
                            INFO = -3;
-                           RETURN;
+                           return;
                         }
                         LAMBDA = WORK( WINDEX );
                         // Reset twist index from inaccurate LAMBDA to
@@ -589,7 +589,7 @@
                            GOTO 120;
                         } else {
                            INFO = 5;
-                           RETURN;
+                           return;
                         }
                      } else {
                         STP2II = false;
@@ -658,7 +658,7 @@
       } // 170
 
 
-      RETURN;
+      return;
 
       // End of SLARRV
 

@@ -519,7 +519,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of DLATTB
 

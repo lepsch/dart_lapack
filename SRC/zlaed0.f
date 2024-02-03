@@ -56,7 +56,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLAED0', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -139,7 +139,7 @@
          CURR = CURR + 1;
          if ( INFO > 0 ) {
             INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1;
-            RETURN;
+            return;
          }
          K = 1;
          for (J = SUBMAT; J <= IWORK( I+1 ); J++) { // 60
@@ -180,7 +180,7 @@
             zlaed7(MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ), RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), RWORK( IGIVNM ), Q( 1, SUBMAT ), RWORK( IWREM ), IWORK( SUBPBS+1 ), INFO );
             if ( INFO > 0 ) {
                INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1;
-               RETURN;
+               return;
             }
             IWORK( I / 2+1 ) = IWORK( I+2 );
          } // 90
@@ -201,7 +201,7 @@
       } // 100
       dcopy(N, RWORK, 1, D, 1 );
 
-      RETURN;
+      return;
 
       // End of ZLAED0
 

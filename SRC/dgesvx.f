@@ -112,7 +112,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DGESVX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -170,7 +170,7 @@
             }
             WORK( 1 ) = RPVGRW;
             RCOND = ZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -234,7 +234,7 @@
       // Set INFO = N+1 if the matrix is singular to working precision.
 
       IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
-      RETURN;
+      return;
 
       // End of DGESVX
 

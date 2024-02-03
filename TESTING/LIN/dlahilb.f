@@ -47,7 +47,7 @@
       }
       if (INFO < 0) {
          xerbla('DLAHILB', -INFO);
-         RETURN;
+         return;
       }
       if (N > NMAX_EXACT) {
          INFO = 1;

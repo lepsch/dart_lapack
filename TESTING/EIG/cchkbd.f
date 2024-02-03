@@ -107,7 +107,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CCHKBD', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize constants
@@ -283,7 +283,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 100
@@ -303,7 +303,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'CGEBRD', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                clacpy(' ', M, N, Q, LDQ, PT, LDPT );
@@ -324,7 +324,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'CUNGBR(Q)', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                // Generate P'
@@ -336,7 +336,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'CUNGBR(P)', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                // Apply Q' to an M by NRHS matrix X:  Y := Q' * X.
@@ -369,7 +369,7 @@
                WRITE( NOUT, FMT = 9998 )'CBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 4 ) = ULPINV;
                   GO TO 150;
@@ -390,7 +390,7 @@
                WRITE( NOUT, FMT = 9998 )'CBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 9 ) = ULPINV;
                   GO TO 150;
@@ -485,7 +485,7 @@
 
       alasum(PATH, NOUT, NFAIL, NTEST, 0 );
 
-      RETURN;
+      return;
 
       // End of CCHKBD
 

@@ -75,9 +75,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSBEV_2STAGE ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -91,7 +91,7 @@
             W( 1 ) = AB( KD+1, 1 );
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -154,7 +154,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN;
+      return;
 
       // End of SSBEV_2STAGE
 

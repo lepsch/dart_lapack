@@ -111,7 +111,7 @@
          } // 40
          RESID = ( RESID / DBLE( N ) ) / EPS;
       }
-      RETURN;
+      return;
 
       // End of ZUNT01
 

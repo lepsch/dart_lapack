@@ -390,7 +390,7 @@
 
  9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 );
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 );
-      RETURN;
+      return;
 
       // End of CDRVGT
 

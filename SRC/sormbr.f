@@ -90,9 +90,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SORMBR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -159,7 +159,7 @@
          }
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of SORMBR
 

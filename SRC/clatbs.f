@@ -72,7 +72,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLATBS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -717,7 +717,7 @@
          sscal(N, ONE / TSCAL, CNORM, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of CLATBS
 

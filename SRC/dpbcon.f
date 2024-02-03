@@ -60,7 +60,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPBCON', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -68,9 +68,9 @@
       RCOND = ZERO;
       if ( N == 0 ) {
          RCOND = ONE;
-         RETURN;
+         return;
       } else if ( ANORM == ZERO ) {
-         RETURN;
+         return;
       }
 
       SMLNUM = DLAMCH( 'Safe minimum' );
@@ -121,7 +121,7 @@
 
       } // 20
 
-      RETURN;
+      return;
 
       // End of DPBCON
 

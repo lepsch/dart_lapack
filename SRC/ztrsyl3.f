@@ -84,9 +84,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTRSYL3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -99,7 +99,7 @@
 
       if ( MIN( NBA, NBB ) == 1 || LDSWORK < MAX( NBA, NBB ) ) {
         ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
-        RETURN;
+        return;
       }
 
       // Set constants to control overflow
@@ -855,7 +855,7 @@
 
          SWORK(1,1) = MAX( NBA, NBB );
          SWORK(2,1) = 2 * NBB + NBA;
-         RETURN;
+         return;
       }
 
       // Realize consistent scaling
@@ -918,7 +918,7 @@
       SWORK(1,1) = MAX( NBA, NBB );
       SWORK(2,1) = 2 * NBB + NBA;
 
-      RETURN;
+      return;
 
       // End of ZTRSYL3
 

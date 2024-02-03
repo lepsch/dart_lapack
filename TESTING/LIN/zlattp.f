@@ -661,7 +661,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZLATTP
 

@@ -77,7 +77,7 @@
          IK = IK + M;
       } // 90
 
-      RETURN;
+      return;
 
       // End of DLAKF2
 

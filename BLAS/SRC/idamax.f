@@ -50,7 +50,7 @@
             IX = IX + INCX;
          }
       }
-      RETURN;
+      return;
 
       // End of IDAMAX
 

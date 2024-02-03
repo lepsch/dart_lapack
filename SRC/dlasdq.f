@@ -61,7 +61,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLASDQ', -INFO );
-         RETURN;
+         return;
       }
       if (N == 0) RETURN;
 
@@ -175,7 +175,7 @@
          }
       } // 40
 
-      RETURN;
+      return;
 
       // End of DLASDQ
 

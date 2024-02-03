@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTFTTR', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -62,7 +62,7 @@
                A( 0, 0 ) = DCONJG( ARF( 0 ) );
             }
          }
-         RETURN;
+         return;
       }
 
       // Size of array ARF(1:2,0:nt-1)
@@ -312,7 +312,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZTFTTR
 

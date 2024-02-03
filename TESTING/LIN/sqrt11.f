@@ -41,7 +41,7 @@
 
       if ( LWORK < M*M+M ) {
          xerbla('SQRT11', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -64,7 +64,7 @@
 
       SQRT11 = SLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) );
 
-      RETURN;
+      return;
 
       // End of SQRT11
 

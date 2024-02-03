@@ -48,7 +48,7 @@
             KY = KY + INCY;
          }
       }
-      RETURN;
+      return;
 
       // End of DSDOT
 

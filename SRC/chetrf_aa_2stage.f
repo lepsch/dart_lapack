@@ -61,7 +61,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CHETRF_AA_2STAGE', -INFO );
-         RETURN;
+         return;
       }
 
       // Answer the query
@@ -76,13 +76,13 @@
          }
       }
       if ( TQUERY || WQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return
 
       if ( N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Determine the number of the block size
@@ -394,7 +394,7 @@
       // Factor the band matrix
       cgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
-      RETURN;
+      return;
 
       // End of CHETRF_AA_2STAGE
 

@@ -56,7 +56,7 @@
             SX(I) = SA*SX(I);
          }
       }
-      RETURN;
+      return;
 
       // End of SSCAL
 

@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('STFTTP', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -58,7 +58,7 @@
          } else {
             AP( 0 ) = ARF( 0 );
          }
-         RETURN;
+         return;
       }
 
       // Size of array ARF(0:NT-1)
@@ -320,7 +320,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of STFTTP
 

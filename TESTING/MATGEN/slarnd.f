@@ -52,7 +52,7 @@
          T2 = SLARAN( ISEED );
          SLARND = SQRT( -TWO*LOG( T1 ) )*COS( TWOPI*T2 );
       }
-      RETURN;
+      return;
 
       // End of SLARND
 

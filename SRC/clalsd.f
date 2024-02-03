@@ -53,7 +53,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLALSD', -INFO );
-         RETURN;
+         return;
       }
 
       EPS = SLAMCH( 'Epsilon' );
@@ -71,7 +71,7 @@
       // Quick return if possible.
 
       if ( N == 0 ) {
-         RETURN;
+         return;
       } else if ( N == 1 ) {
          if ( D( 1 ) == ZERO ) {
             claset('A', 1, NRHS, CZERO, CZERO, B, LDB );
@@ -80,7 +80,7 @@
             clascl('G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO );
             D( 1 ) = ABS( D( 1 ) );
          }
-         RETURN;
+         return;
       }
 
       // Rotate the matrix if it is lower bidiagonal.
@@ -115,7 +115,7 @@
       ORGNRM = SLANST( 'M', N, D, E );
       if ( ORGNRM == ZERO ) {
          claset('A', N, NRHS, CZERO, CZERO, B, LDB );
-         RETURN;
+         return;
       }
 
       slascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO );
@@ -135,7 +135,7 @@
          slaset('A', N, N, ZERO, ONE, RWORK( IRWVT ), N );
          slasdq('U', 0, N, N, N, 0, D, E, RWORK( IRWVT ), N, RWORK( IRWU ), N, RWORK( IRWWRK ), 1, RWORK( IRWWRK ), INFO );
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
 
          // In the real version, B is passed to SLASDQ and multiplied
@@ -217,7 +217,7 @@
          slasrt('D', N, D, INFO );
          clascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
-         RETURN;
+         return;
       }
 
       // Book-keeping and setting up some constants.
@@ -309,7 +309,7 @@
                slaset('A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N );
                slasdq('U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO );
                if ( INFO != 0 ) {
-                  RETURN;
+                  return;
                }
 
                // In the real version, B is passed to SLASDQ and multiplied
@@ -349,12 +349,12 @@
 
                slasda(ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO );
                if ( INFO != 0 ) {
-                  RETURN;
+                  return;
                }
                BXST = BX + ST1;
                clalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BXST ), N, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO );
                if ( INFO != 0 ) {
-                  RETURN;
+                  return;
                }
             }
             ST = I + 1;
@@ -430,7 +430,7 @@
          } else {
             clalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO );
             if ( INFO != 0 ) {
-               RETURN;
+               return;
             }
          }
       } // 320
@@ -441,7 +441,7 @@
       slasrt('D', N, D, INFO );
       clascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
-      RETURN;
+      return;
 
       // End of CLALSD
 

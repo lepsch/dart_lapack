@@ -58,7 +58,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGEBAK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -115,7 +115,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SGEBAK
 

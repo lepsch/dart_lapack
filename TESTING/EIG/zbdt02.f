@@ -67,7 +67,7 @@
             }
          }
       }
-      RETURN;
+      return;
 
       // End of ZBDT02
 

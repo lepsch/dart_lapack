@@ -72,14 +72,14 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTBCON', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          RCOND = ONE;
-         RETURN;
+         return;
       }
 
       RCOND = ZERO;
@@ -136,7 +136,7 @@
       }
 
       } // 20
-      RETURN;
+      return;
 
       // End of ZTBCON
 

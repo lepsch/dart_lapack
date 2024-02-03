@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPBTF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -104,11 +104,11 @@
             }
          } // 20
       }
-      RETURN;
+      return;
 
       } // 30
       INFO = J;
-      RETURN;
+      return;
 
       // End of SPBTF2
 

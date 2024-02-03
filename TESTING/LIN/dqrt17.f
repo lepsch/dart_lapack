@@ -48,16 +48,16 @@
          NCOLS = M;
       } else {
          xerbla('DQRT17', 1 );
-         RETURN;
+         return;
       }
 
       if ( LWORK < NCOLS*NRHS ) {
          xerbla('DQRT17', 13 );
-         RETURN;
+         return;
       }
 
       if ( M <= 0 || N <= 0 || NRHS <= 0 ) {
-         RETURN;
+         return;
       }
 
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK );
@@ -93,7 +93,7 @@
       }
 
       DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) );
-      RETURN;
+      return;
 
       // End of DQRT17
 

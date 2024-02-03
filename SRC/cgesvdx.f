@@ -175,15 +175,15 @@
 
       if ( INFO != 0 ) {
          xerbla('CGESVDX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MINMN == 0 ) {
-         RETURN;
+         return;
       }
 
       // Set singular values indices accord to RANGE='A'.
@@ -515,7 +515,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
 
-      RETURN;
+      return;
 
       // End of CGESVDX
 

@@ -108,16 +108,16 @@
       }
       if ( INFO != 0 ) {
          xerbla('SHGEQZ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N <= 0 ) {
          WORK( 1 ) = REAL( 1 );
-         RETURN;
+         return;
       }
 
       // Initialize Q and Z
@@ -954,7 +954,7 @@
 
       } // 420
       WORK( 1 ) = SROUNDUP_LWORK( N );
-      RETURN;
+      return;
 
       // End of SHGEQZ
 

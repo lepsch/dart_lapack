@@ -34,7 +34,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPTSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the L*D*L**H (or U**H*D*U) factorization of A.
@@ -46,7 +46,7 @@
 
          zpttrs('Lower', N, NRHS, D, E, B, LDB, INFO );
       }
-      RETURN;
+      return;
 
       // End of ZPTSV
 

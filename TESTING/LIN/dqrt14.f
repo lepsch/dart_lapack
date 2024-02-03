@@ -45,22 +45,22 @@
          TPSD = false;
          if ( LWORK < ( M+NRHS )*( N+2 ) ) {
             xerbla('DQRT14', 10 );
-            RETURN;
+            return;
          } else if ( N <= 0 || NRHS <= 0 ) {
-            RETURN;
+            return;
          }
       } else if ( LSAME( TRANS, 'T' ) ) {
          LDWORK = M;
          TPSD = true;
          if ( LWORK < ( N+NRHS )*( M+2 ) ) {
             xerbla('DQRT14', 10 );
-            RETURN;
+            return;
          } else if ( M <= 0 || NRHS <= 0 ) {
-            RETURN;
+            return;
          }
       } else {
          xerbla('DQRT14', 1 );
-         RETURN;
+         return;
       }
 
       // Copy and scale A
@@ -122,7 +122,7 @@
 
       DQRT14 = ERR / ( DBLE( MAX( M, N, NRHS ) )*DLAMCH( 'Epsilon' ) );
 
-      RETURN;
+      return;
 
       // End of DQRT14
 

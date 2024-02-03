@@ -58,7 +58,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CTBTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -86,7 +86,7 @@
          ctbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 );
       } // 30
 
-      RETURN;
+      return;
 
       // End of CTBTRS
 

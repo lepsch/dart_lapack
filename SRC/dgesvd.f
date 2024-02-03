@@ -402,15 +402,15 @@
 
       if ( INFO != 0 ) {
          xerbla('DGESVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -2833,7 +2833,7 @@
 
       WORK( 1 ) = MAXWRK;
 
-      RETURN;
+      return;
 
       // End of DGESVD
 

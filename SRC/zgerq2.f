@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGERQ2', -INFO );
-         RETURN;
+         return;
       }
 
       K = MIN( M, N );
@@ -62,7 +62,7 @@
          A( M-K+I, N-K+I ) = ALPHA;
          zlacgv(N-K+I-1, A( M-K+I, 1 ), LDA );
       } // 10
-      RETURN;
+      return;
 
       // End of ZGERQ2
 

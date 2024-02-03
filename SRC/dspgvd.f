@@ -75,9 +75,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSPGVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -89,7 +89,7 @@
       dpptrf(UPLO, N, BP, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -140,7 +140,7 @@
       WORK( 1 ) = LWMIN;
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of DSPGVD
 

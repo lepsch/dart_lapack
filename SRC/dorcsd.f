@@ -93,7 +93,7 @@
             SIGNST = 'D';
          }
          dorcsd(JOBV1T, JOBV2T, JOBU1, JOBU2, TRANST, SIGNST, M, Q, P, X11, LDX11, X21, LDX21, X12, LDX12, X22, LDX22, THETA, V1T, LDV1T, V2T, LDV2T, U1, LDU1, U2, LDU2, WORK, LWORK, IWORK, INFO );
-         RETURN;
+         return;
       }
 
       // Work with permutation [ 0 I; I 0 ] * X * [ 0 I; I 0 ] if
@@ -106,7 +106,7 @@
             SIGNST = 'D';
          }
          dorcsd(JOBU2, JOBU1, JOBV2T, JOBV1T, TRANS, SIGNST, M, M-P, M-Q, X22, LDX22, X21, LDX21, X12, LDX12, X11, LDX11, THETA, U2, LDU2, U1, LDU1, V2T, LDV2T, V1T, LDV1T, WORK, LWORK, IWORK, INFO );
-         RETURN;
+         return;
       }
 
       // Compute workspace
@@ -159,9 +159,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DORCSD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Transform to bidiagonal block form
@@ -258,7 +258,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End DORCSD
 

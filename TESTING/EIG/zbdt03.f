@@ -121,7 +121,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZBDT03
 

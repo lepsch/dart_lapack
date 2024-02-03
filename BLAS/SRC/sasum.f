@@ -36,7 +36,7 @@
             }
             if (N < 6) {
                SASUM = STEMP;
-               RETURN;
+               return;
             }
          }
          MP1 = M + 1;
@@ -53,7 +53,7 @@
          }
       }
       SASUM = STEMP;
-      RETURN;
+      return;
 
       // End of SASUM
 

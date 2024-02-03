@@ -120,7 +120,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of DBDT03
 

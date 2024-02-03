@@ -52,7 +52,7 @@
            // SLCTSX = false;
         // END IF
 
-      RETURN;
+      return;
 
       // End of SLCTSX
 

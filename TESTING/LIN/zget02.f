@@ -43,7 +43,7 @@
 
       if ( M <= 0 || N <= 0 || NRHS == 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
@@ -64,7 +64,7 @@
       }
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Compute B - op(A)*X and store in B.
@@ -85,7 +85,7 @@
          }
       } // 10
 
-      RETURN;
+      return;
 
       // End of ZGET02
 

@@ -63,15 +63,15 @@
 
       if ( INFO != 0 ) {
          xerbla('ZUNGQL', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -154,7 +154,7 @@
       }
 
       WORK( 1 ) = IWS;
-      RETURN;
+      return;
 
       // End of ZUNGQL
 

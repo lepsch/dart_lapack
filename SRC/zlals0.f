@@ -66,7 +66,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLALS0', -INFO );
-         RETURN;
+         return;
       }
 
       M = N + SQRE;
@@ -256,7 +256,7 @@
          } // 200
       }
 
-      RETURN;
+      return;
 
       // End of ZLALS0
 

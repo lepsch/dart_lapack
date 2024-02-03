@@ -59,7 +59,7 @@
          RESULT( 2 ) = ZERO;
          RESULT( 3 ) = ZERO;
          RESULT( 4 ) = ZERO;
-         RETURN;
+         return;
       }
 
       // Copy the last k rows of the factorization to the array Q
@@ -123,7 +123,7 @@
          } // 20
       } // 30
 
-      RETURN;
+      return;
 
       // End of DRQT03
 

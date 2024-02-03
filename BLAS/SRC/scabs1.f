@@ -14,7 +14,7 @@
       // INTRINSIC ABS,AIMAG,REAL
       // ..
       SCABS1 = ABS(REAL(Z)) + ABS(AIMAG(Z));
-      RETURN;
+      return;
 
       // End of SCABS1
 

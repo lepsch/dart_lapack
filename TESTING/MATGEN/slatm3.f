@@ -46,7 +46,7 @@
          ISUB = I;
          JSUB = J;
          SLATM3 = ZERO;
-         RETURN;
+         return;
       }
 
       // Compute subscripts depending on IPVTNG
@@ -69,7 +69,7 @@
 
       if ( JSUB > ISUB+KU || JSUB < ISUB-KL ) {
          SLATM3 = ZERO;
-         RETURN;
+         return;
       }
 
       // Check for sparsity
@@ -77,7 +77,7 @@
       if ( SPARSE > ZERO ) {
          if ( SLARAN( ISEED ) < SPARSE ) {
             SLATM3 = ZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -100,7 +100,7 @@
          TEMP = TEMP*DL( I )*DL( J );
       }
       SLATM3 = TEMP;
-      RETURN;
+      return;
 
       // End of SLATM3
 

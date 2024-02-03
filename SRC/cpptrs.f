@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPPTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -82,7 +82,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of CPPTRS
 

@@ -57,7 +57,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGGBAK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -135,7 +135,7 @@
 
       } // 110
 
-      RETURN;
+      return;
 
       // End of DGGBAK
 

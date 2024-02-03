@@ -66,7 +66,7 @@
       }
       if (INFO != 0) {
           xerbla('CHEMM ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -89,7 +89,7 @@
                   } // 30
               } // 40
           }
-          RETURN;
+          return;
       }
 
       // Start the operations.
@@ -169,7 +169,7 @@
           } // 170
       }
 
-      RETURN;
+      return;
 
       // End of CHEMM
 

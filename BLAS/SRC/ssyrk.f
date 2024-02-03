@@ -60,7 +60,7 @@
       }
       if (INFO != 0) {
           xerbla('SSYRK ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -99,7 +99,7 @@
                   } // 80
               }
           }
-          RETURN;
+          return;
       }
 
       // Start the operations.
@@ -184,7 +184,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of SSYRK
 

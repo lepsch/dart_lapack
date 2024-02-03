@@ -251,7 +251,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SLA_GERFSX_EXTENDED
 

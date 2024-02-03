@@ -16,5 +16,5 @@
 *  ..
 *  .. Executable Statements ..
       SISNAN = SLAISNAN(SIN,SIN);
-      RETURN;
+      return;
       }

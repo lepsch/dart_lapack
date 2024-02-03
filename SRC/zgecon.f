@@ -67,7 +67,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGECON', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -75,16 +75,16 @@
       RCOND = ZERO;
       if ( N == 0 ) {
          RCOND = ONE;
-         RETURN;
+         return;
       } else if ( ANORM == ZERO ) {
-         RETURN;
+         return;
       } else if ( DISNAN( ANORM ) ) {
          RCOND = ANORM;
          INFO = -5;
-         RETURN;
+         return;
       } else if ( ANORM > HUGEVAL ) {
          INFO = -5;
-         RETURN;
+         return;
       }
 
       SMLNUM = DLAMCH( 'Safe minimum' );
@@ -140,7 +140,7 @@
          RCOND = ( ONE / AINVNM ) / ANORM;
       } else {
          INFO = 1;
-         RETURN;
+         return;
       }
 
       // Check for NaNs and Infs
@@ -148,7 +148,7 @@
       IF( DISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
 
       } // 20
-      RETURN;
+      return;
 
       // End of ZGECON
 

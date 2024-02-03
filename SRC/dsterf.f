@@ -44,7 +44,7 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('DSTERF', -INFO );
-         RETURN;
+         return;
       }
       if (N <= 1) RETURN;
 
@@ -296,7 +296,7 @@
       dlasrt('I', N, D, INFO );
 
       } // 180
-      RETURN;
+      return;
 
       // End of DSTERF
 

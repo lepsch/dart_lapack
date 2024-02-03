@@ -111,7 +111,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZDRGEV3', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -262,7 +262,7 @@
             if ( IERR != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE, IOLDSD;
                INFO = ABS( IERR );
-               RETURN;
+               return;
             }
 
             } // 100
@@ -413,7 +413,7 @@
 
       WORK( 1 ) = MAXWRK;
 
-      RETURN;
+      return;
 
  9999 FORMAT( ' ZDRGEV3: ', A, ' returned INFO=', I6, '.', / 3X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 

@@ -48,7 +48,7 @@
          } // 60
       }
 
-      RETURN;
+      return;
 
       // End of CLACPY
 

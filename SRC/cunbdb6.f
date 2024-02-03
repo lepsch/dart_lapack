@@ -57,7 +57,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CUNBDB6', -INFO );
-         RETURN;
+         return;
       }
 
       EPS = SLAMCH( 'Precision' );
@@ -96,7 +96,7 @@
       // Otherwise, project again.
 
       if ( NORM_NEW >= ALPHA * NORM ) {
-         RETURN;
+         return;
       }
 
       if ( NORM_NEW <= N * EPS * NORM ) {
@@ -106,7 +106,7 @@
          DO IX = 1, 1 + (M2-1)*INCX2, INCX2;
            X2( IX ) = ZERO;
          }
-         RETURN;
+         return;
       }
 
       NORM = NORM_NEW;
@@ -146,7 +146,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CUNBDB6
 

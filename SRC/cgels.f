@@ -93,16 +93,16 @@
 
       if ( INFO != 0 ) {
          xerbla('CGELS ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ) == 0 ) {
          claset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
-         RETURN;
+         return;
       }
 
       // Get machine parameters
@@ -175,7 +175,7 @@
             ctrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = N;
@@ -189,7 +189,7 @@
             ctrtrs('Upper', 'Conjugate transpose','Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // B(N+1:M,1:NRHS) = ZERO
@@ -227,7 +227,7 @@
             ctrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // B(M+1:N,1:NRHS) = 0
@@ -261,7 +261,7 @@
             ctrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = M;
@@ -286,7 +286,7 @@
       } // 50
       WORK( 1 ) = REAL( WSIZE );
 
-      RETURN;
+      return;
 
       // End of CGELS
 

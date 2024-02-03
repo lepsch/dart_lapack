@@ -119,7 +119,7 @@
       }
 
       ZLANSB = VALUE;
-      RETURN;
+      return;
 
       // End of ZLANSB
 

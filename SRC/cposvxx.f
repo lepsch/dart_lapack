@@ -104,7 +104,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CPOSVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -141,7 +141,7 @@
             // leading rank-deficient INFO columns of A.
 
             RPVGRW = CLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, RWORK );
-            RETURN;
+            return;
          }
       }
 
@@ -166,7 +166,7 @@
          clascl2(N, NRHS, S, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of CPOSVXX
 

@@ -81,7 +81,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CTGSJA', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize U, V and Q, if necessary
@@ -241,7 +241,7 @@
       } // 100
       NCYCLE = KCYCLE;
 
-      RETURN;
+      return;
 
       // End of CTGSJA
 

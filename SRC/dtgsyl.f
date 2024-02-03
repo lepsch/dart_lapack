@@ -92,9 +92,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DTGSYL', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -106,7 +106,7 @@
                DIF = 0;
             }
          }
-         RETURN;
+         return;
       }
 
       // Determine optimal block sizes MB and NB
@@ -160,7 +160,7 @@
             }
          } // 30
 
-         RETURN;
+         return;
       }
 
       // Determine block structure of A
@@ -332,7 +332,7 @@
 
       WORK( 1 ) = LWMIN;
 
-      RETURN;
+      return;
 
       // End of DTGSYL
 

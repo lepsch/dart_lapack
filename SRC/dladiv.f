@@ -75,7 +75,7 @@
       P = P * S;
       Q = Q * S;
 
-      RETURN;
+      return;
 
       // End of DLADIV
 
@@ -115,7 +115,7 @@
       A = -A;
       Q = DLADIV2(B, A, C, D, R, T);
 
-      RETURN;
+      return;
 
       // End of DLADIV1
 
@@ -155,7 +155,7 @@
          DLADIV2 = (A + D * (B / C)) * T;
       }
 
-      RETURN;
+      return;
 
       // End of DLADIV2
 

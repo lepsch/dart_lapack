@@ -74,7 +74,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZBDSQR', -INFO );
-         RETURN;
+         return;
       }
       if (N == 0) RETURN       IF( N == 1 ) GO TO 160;
 
@@ -531,7 +531,7 @@
          IF( E( I ) != ZERO ) INFO = INFO + 1;
       } // 210
       } // 220
-      RETURN;
+      return;
 
       // End of ZBDSQR
 

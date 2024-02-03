@@ -143,7 +143,7 @@
       }
 
       CLANHP = VALUE;
-      RETURN;
+      return;
 
       // End of CLANHP
 

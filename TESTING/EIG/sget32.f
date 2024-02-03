@@ -208,7 +208,7 @@
          } // 220
       } // 230
 
-      RETURN;
+      return;
 
       // End of SGET32
 

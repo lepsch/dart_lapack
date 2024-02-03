@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSYEQUB', -INFO );
-         RETURN;
+         return;
       }
 
       UP = LSAME( UPLO, 'U' );
@@ -61,7 +61,7 @@
 
       if ( N == 0 ) {
          SCOND = ONE;
-         RETURN;
+         return;
       }
 
       for (I = 1; I <= N; I++) {
@@ -147,7 +147,7 @@
 
             if ( D <= 0 ) {
                INFO = -1;
-               RETURN;
+               return;
             }
             SI = -2*C0 / ( C1 + SQRT( D ) );
 

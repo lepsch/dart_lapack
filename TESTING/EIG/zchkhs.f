@@ -85,7 +85,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZCHKHS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -262,7 +262,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 100
@@ -621,7 +621,7 @@
 
       dlasum('ZHS', NOUNIT, NERRS, NTESTT );
 
-      RETURN;
+      return;
 
  9999 FORMAT( ' ZCHKHS: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
  9998 FORMAT( ' ZCHKHS: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );

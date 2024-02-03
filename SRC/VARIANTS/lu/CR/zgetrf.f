@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGETRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -104,7 +104,7 @@
          } // 20
 
       }
-      RETURN;
+      return;
 
       // End of ZGETRF
 

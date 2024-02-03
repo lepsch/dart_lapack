@@ -20,7 +20,7 @@
 
       T1 = ETIME( TARRAY );
       SECOND = TARRAY( 1 );
-      RETURN;
+      return;
 
       // End of SECOND
 

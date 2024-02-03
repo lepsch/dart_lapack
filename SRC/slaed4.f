@@ -52,11 +52,11 @@
 
          DLAM = D( 1 ) + RHO*Z( 1 )*Z( 1 );
          DELTA( 1 ) = ONE;
-         RETURN;
+         return;
       }
       if ( N == 2 ) {
          slaed5(I, D, Z, DELTA, RHO, DLAM );
-         RETURN;
+         return;
       }
 
       // Compute machine epsilon
@@ -713,7 +713,7 @@
 
       } // 250
 
-      RETURN;
+      return;
 
       // End of SLAED4
 

@@ -97,7 +97,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CCHKST', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -268,7 +268,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 100
@@ -285,7 +285,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CHETRD(U)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 1 ) = ULPINV;
                   GO TO 280;
@@ -300,7 +300,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CUNGTR(U)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 2 ) = ULPINV;
                   GO TO 280;
@@ -324,7 +324,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CHETRD(L)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 3 ) = ULPINV;
                   GO TO 280;
@@ -339,7 +339,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CUNGTR(L)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 4 ) = ULPINV;
                   GO TO 280;
@@ -370,7 +370,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CHPTRD(U)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 5 ) = ULPINV;
                   GO TO 280;
@@ -383,7 +383,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CUPGTR(U)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 6 ) = ULPINV;
                   GO TO 280;
@@ -416,7 +416,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CHPTRD(L)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 7 ) = ULPINV;
                   GO TO 280;
@@ -429,7 +429,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CUPGTR(L)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 8 ) = ULPINV;
                   GO TO 280;
@@ -453,7 +453,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(V)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 9 ) = ULPINV;
                   GO TO 280;
@@ -471,7 +471,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 11 ) = ULPINV;
                   GO TO 280;
@@ -489,7 +489,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTERF', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 12 ) = ULPINV;
                   GO TO 280;
@@ -549,7 +549,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'CPTEQR(V)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 14 ) = ULPINV;
                      GO TO 280;
@@ -571,7 +571,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'CPTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 16 ) = ULPINV;
                      GO TO 280;
@@ -611,7 +611,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 17 ) = ULPINV;
                      GO TO 280;
@@ -641,7 +641,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 18 ) = ULPINV;
                   GO TO 280;
@@ -681,7 +681,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(I)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 19 ) = ULPINV;
                   GO TO 280;
@@ -712,7 +712,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(V)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 19 ) = ULPINV;
                   GO TO 280;
@@ -746,7 +746,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 20 ) = ULPINV;
                   RESULT( 21 ) = ULPINV;
@@ -759,7 +759,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CSTEIN', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 20 ) = ULPINV;
                   RESULT( 21 ) = ULPINV;
@@ -787,7 +787,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(I)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 22 ) = ULPINV;
                   GO TO 280;
@@ -812,7 +812,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(V)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 24 ) = ULPINV;
                   GO TO 280;
@@ -837,7 +837,7 @@
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(N)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 26 ) = ULPINV;
                   GO TO 280;
@@ -877,7 +877,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 27 ) = ULPINV;
                         GO TO 270;
@@ -912,7 +912,7 @@
                         WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN;
+                           return;
                         } else {
                            RESULT( 28 ) = ULPINV;
                            GO TO 270;
@@ -960,7 +960,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 29 ) = ULPINV;
                         GO TO 280;
@@ -983,7 +983,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 31 ) = ULPINV;
                         GO TO 280;
@@ -1034,7 +1034,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 32 ) = ULPINV;
                         GO TO 280;
@@ -1058,7 +1058,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 34 ) = ULPINV;
                         GO TO 280;
@@ -1100,7 +1100,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 35 ) = ULPINV;
                      GO TO 280;
@@ -1124,7 +1124,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 37 ) = ULPINV;
                      GO TO 280;
@@ -1183,7 +1183,7 @@
       // Summary
 
       slasum('CST', NOUNIT, NERRS, NTESTT );
-      RETURN;
+      return;
 
  9999 FORMAT( ' CCHKST: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 

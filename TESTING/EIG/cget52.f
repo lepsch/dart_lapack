@@ -113,7 +113,7 @@
 
       RESULT( 2 ) = ENRMER / ( REAL( N )*ULP );
 
-      RETURN;
+      return;
 
       // End of CGET52
 

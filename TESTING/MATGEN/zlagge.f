@@ -52,7 +52,7 @@
       }
       if ( INFO < 0 ) {
          xerbla('ZLAGGE', -INFO );
-         RETURN;
+         return;
       }
 
       // initialize A to diagonal matrix
@@ -232,7 +232,7 @@
             } // 60
          }
       } // 70
-      RETURN;
+      return;
 
       // End of ZLAGGE
 

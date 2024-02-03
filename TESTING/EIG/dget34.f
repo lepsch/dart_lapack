@@ -230,7 +230,7 @@
          } // 290
       } // 300
 
-      RETURN;
+      return;
 
       // End of DGET34
 

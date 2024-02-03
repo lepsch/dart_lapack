@@ -61,7 +61,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZLATM1', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute D according to COND and MODE
@@ -150,7 +150,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZLATM1
 

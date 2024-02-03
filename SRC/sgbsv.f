@@ -40,7 +40,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGBSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the LU factorization of the band matrix A.
@@ -52,7 +52,7 @@
 
          sgbtrs('No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO );
       }
-      RETURN;
+      return;
 
       // End of SGBSV
 

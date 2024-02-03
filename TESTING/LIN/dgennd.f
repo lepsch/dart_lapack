@@ -28,9 +28,9 @@
       for (I = 1; I <= K; I++) {
          if ( A( I, I ) < ZERO ) {
             DGENND = false;
-            RETURN;
+            return;
          }
       }
       DGENND = true;
-      RETURN;
+      return;
       }

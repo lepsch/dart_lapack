@@ -67,9 +67,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DGEQP3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Move initial columns up front.
@@ -192,7 +192,7 @@
       }
 
       WORK( 1 ) = IWS;
-      RETURN;
+      return;
 
       // End of DGEQP3
 

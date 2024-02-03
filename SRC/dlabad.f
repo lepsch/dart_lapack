@@ -23,7 +23,7 @@
           // LARGE = SQRT( LARGE )
        // END IF
 
-      RETURN;
+      return;
 
       // End of DLABAD
 

@@ -78,7 +78,7 @@
       // Apply permutations JPIV to the solution (RHS)
 
       claswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
-      RETURN;
+      return;
 
       // End of CGESC2
 

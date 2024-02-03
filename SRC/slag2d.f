@@ -25,7 +25,7 @@
             A( I, J ) = SA( I, J );
          } // 10
       } // 20
-      RETURN;
+      return;
 
       // End of SLAG2D
 

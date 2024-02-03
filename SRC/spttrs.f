@@ -40,7 +40,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPTTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -64,7 +64,7 @@
          } // 10
       }
 
-      RETURN;
+      return;
 
       // End of SPTTRS
 

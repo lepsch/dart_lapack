@@ -125,7 +125,7 @@
       WRITE( NOUT, FMT = 9993 )KNT;
  9993 FORMAT( ' total number of examples tested          = ', I4 );
 
-      RETURN;
+      return;
 
       // End of CCHKGL
 

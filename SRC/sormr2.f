@@ -65,7 +65,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SORMR2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -108,7 +108,7 @@
          slarf(SIDE, MI, NI, A( I, 1 ), LDA, TAU( I ), C, LDC, WORK );
          A( I, NQ-K+I ) = AII;
       } // 10
-      RETURN;
+      return;
 
       // End of SORMR2
 

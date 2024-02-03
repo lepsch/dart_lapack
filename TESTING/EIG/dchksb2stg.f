@@ -93,7 +93,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DCHKSB2STG', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -252,7 +252,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                } // 100
@@ -268,7 +268,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(U)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 1 ) = ULPINV;
                      GO TO 150;
@@ -299,7 +299,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 5 ) = ULPINV;
                      GO TO 150;
@@ -328,7 +328,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 5 ) = ULPINV;
                      GO TO 150;
@@ -360,7 +360,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(L)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 3 ) = ULPINV;
                      GO TO 150;
@@ -394,7 +394,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 6 ) = ULPINV;
                      GO TO 150;
@@ -453,7 +453,7 @@
       // Summary
 
       dlasum('DSB', NOUNIT, NERRS, NTESTT );
-      RETURN;
+      return;
 
  9999 FORMAT( ' DCHKSB2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 

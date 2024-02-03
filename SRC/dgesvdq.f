@@ -280,7 +280,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGESVDQ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
 
       // Return optimal workspace
@@ -289,14 +289,14 @@
           WORK(1) = OPTWRK;
           WORK(2) = MINWRK;
           RWORK(1) = RMINWRK;
-          RETURN;
+          return;
       }
 
       // Quick return if the matrix is void.
 
       if ( ( M == 0 ) || ( N == 0 ) ) {
       // .. all output is void.
-         RETURN;
+         return;
       }
 
       BIG = DLAMCH('O');
@@ -315,7 +315,7 @@
                 if ( ( RWORK(p) != RWORK(p) ) || ( (RWORK(p)*ZERO) != ZERO ) ) {
                     INFO = -8;
                     xerbla('DGESVDQ', -INFO );
-                    RETURN;
+                    return;
                 }
             } // 1904
             for (p = 1; p <= M - 1; p++) { // 1952
@@ -349,7 +349,7 @@
                }
                if (CONDA) RWORK(1) = -1;
                RWORK(2) = -1;
-               RETURN;
+               return;
             }
 
             if ( RWORK(1) > BIG / SQRT(DBLE(M)) ) {
@@ -371,7 +371,7 @@
           if ( ( RTMP != RTMP ) || ( (RTMP*ZERO) != ZERO ) ) {
                INFO = -8;
                xerbla('DGESVDQ', -INFO );
-               RETURN;
+               return;
           }
           if ( RTMP > BIG / SQRT(DBLE(M)) ) {
               // .. to prevent overflow in the QR factorization, scale the
@@ -882,7 +882,7 @@
       // full row rank triangular (trapezoidal) factor of A.
       NUMRANK = NR;
 
-      RETURN;
+      return;
 
       // End of DGESVDQ
 

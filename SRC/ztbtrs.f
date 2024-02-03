@@ -58,7 +58,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTBTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -86,7 +86,7 @@
          ztbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 );
       } // 30
 
-      RETURN;
+      return;
 
       // End of ZTBTRS
 

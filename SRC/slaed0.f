@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLAED0', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -225,7 +225,7 @@
       INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1;
 
       } // 140
-      RETURN;
+      return;
 
       // End of SLAED0
 

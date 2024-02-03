@@ -96,17 +96,17 @@
 
       if ( INFO != 0 ) {
          xerbla('DGETSQRHRT', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = DBLE( LWORKOPT );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
          WORK( 1 ) = DBLE( LWORKOPT );
-         RETURN;
+         return;
       }
 
       NB2LOCAL = MIN( NB2, N );
@@ -159,7 +159,7 @@
       }
 
       WORK( 1 ) = DBLE( LWORKOPT );
-      RETURN;
+      return;
 
       // End of DGETSQRHRT
 

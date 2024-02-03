@@ -46,7 +46,7 @@
          }
       }
       ZDOTC = ZTEMP;
-      RETURN;
+      return;
 
       // End of ZDOTC
 

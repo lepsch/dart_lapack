@@ -46,7 +46,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSYCONVF_ROOK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -326,7 +326,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DSYCONVF_ROOK
 

@@ -53,7 +53,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLALSA', -INFO );
-         RETURN;
+         return;
       }
 
       // Book-keeping and  setting up the computation tree.
@@ -323,7 +323,7 @@
 
       } // 330
 
-      RETURN;
+      return;
 
       // End of CLALSA
 

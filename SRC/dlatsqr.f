@@ -63,22 +63,22 @@
 
       if ( INFO != 0 ) {
         xerbla('DLATSQR', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MINMN == 0 ) {
-        RETURN;
+        return;
       }
 
       // The QR Decomposition
 
       if ( (MB <= N) || (MB >= M) ) {
         dgeqrt(M, N, NB, A, LDA, T, LDT, WORK, INFO );
-        RETURN;
+        return;
       }
 
       KK = MOD((M-N),(MB-N));
@@ -104,7 +104,7 @@
       }
 
       WORK( 1 ) = LWMIN;
-      RETURN;
+      return;
 
       // End of DLATSQR
 

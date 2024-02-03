@@ -58,7 +58,7 @@
           // ZLCTSX = ( DBLE( ALPHA/BETA ) > ZERO )
        // END IF
 
-      RETURN;
+      return;
 
       // End of ZLCTSX
 

@@ -133,7 +133,7 @@
       }
 
       CLANHB = VALUE;
-      RETURN;
+      return;
 
       // End of CLANHB
 

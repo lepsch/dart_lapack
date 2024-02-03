@@ -123,7 +123,7 @@
 
       NTESTS = KLALN2 + KLASY2 + KLANV2 + KLAEXC + KTRSYL + KTREXC + KTRSNA + KTRSEN + KLAQTR       IF( OK ) WRITE( NOUT, FMT = 9990 )PATH, NTESTS;
 
-      RETURN;
+      return;
  9999 FORMAT( ' Error in SLALN2: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 );
  9998 FORMAT( ' Error in SLASY2: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );
  9997 FORMAT( ' Error in SLANV2: RMAX =', E12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 );

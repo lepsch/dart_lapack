@@ -97,7 +97,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTGEVC', -INFO );
-         RETURN;
+         return;
       }
 
       // Count the number of eigenvectors
@@ -129,7 +129,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTGEVC', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -475,7 +475,7 @@
          } // 250
       }
 
-      RETURN;
+      return;
 
       // End of ZTGEVC
 

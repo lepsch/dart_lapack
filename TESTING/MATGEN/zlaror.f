@@ -67,7 +67,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLAROR', -INFO );
-         RETURN;
+         return;
       }
 
       if ( ITYPE == 1 ) {
@@ -115,7 +115,7 @@
          if ( ABS( FACTOR ) < TOOSML ) {
             INFO = 1;
             xerbla('ZLAROR', -INFO );
-            RETURN;
+            return;
          } else {
             FACTOR = ONE / FACTOR;
          }
@@ -174,7 +174,7 @@
             zscal(M, DCONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
          } // 60
       }
-      RETURN;
+      return;
 
       // End of ZLAROR
 

@@ -43,7 +43,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGELQS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -62,7 +62,7 @@
 
       zunmlq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
-      RETURN;
+      return;
 
       // End of ZGELQS
 

@@ -55,9 +55,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGGQRF', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // QR factorization of N-by-M matrix A: A = Q*R
@@ -75,7 +75,7 @@
       cgerqf(N, P, B, LDB, TAUB, WORK, LWORK, INFO );
       WORK( 1 ) = SROUNDUP_LWORK( MAX( LOPT, INT( WORK( 1 ) ) ) );
 
-      RETURN;
+      return;
 
       // End of CGGQRF
 

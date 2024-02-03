@@ -236,7 +236,7 @@
       RQCORR = MINGMA*TMP;
 
 
-      RETURN;
+      return;
 
       // End of SLAR1V
 

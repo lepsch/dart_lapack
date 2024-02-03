@@ -125,7 +125,7 @@
       WRITE( NOUT, FMT = 9993 )KNT;
  9993 FORMAT( 1X, 'total number of examples tested        = ', I4 );
 
-      RETURN;
+      return;
 
       // End of DCHKGL
 

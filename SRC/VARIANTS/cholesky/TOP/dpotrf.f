@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPOTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -117,7 +117,7 @@
       INFO = INFO + J - 1;
 
       } // 40
-      RETURN;
+      return;
 
       // End of DPOTRF
 

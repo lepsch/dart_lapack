@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPSTF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -230,7 +230,7 @@
       INFO = 1;
 
       } // 170
-      RETURN;
+      return;
 
       // End of DPSTF2
 

@@ -35,7 +35,7 @@
       if ( DMIN <= ZERO ) {
          TAU = -DMIN;
          TTYPE = -1;
-         RETURN;
+         return;
       }
 
       NN = 4*N0 + PP;
@@ -237,7 +237,7 @@
       }
 
       TAU = S;
-      RETURN;
+      return;
 
       // End of SLASQ4
 

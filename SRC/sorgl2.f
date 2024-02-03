@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SORGL2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -80,7 +80,7 @@
             A( I, L ) = ZERO;
          } // 30
       } // 40
-      RETURN;
+      return;
 
       // End of SORGL2
 

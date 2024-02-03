@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPBSTF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -146,11 +146,11 @@
             }
          } // 40
       }
-      RETURN;
+      return;
 
       } // 50
       INFO = J;
-      RETURN;
+      return;
 
       // End of DPBSTF
 

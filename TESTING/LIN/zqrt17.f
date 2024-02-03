@@ -48,12 +48,12 @@
          NCOLS = M;
       } else {
          xerbla('ZQRT17', 1 );
-         RETURN;
+         return;
       }
 
       if ( LWORK < NCOLS*NRHS ) {
          xerbla('ZQRT17', 13 );
-         RETURN;
+         return;
       }
 
       if (M <= 0 || N <= 0 || NRHS <= 0) RETURN;
@@ -91,7 +91,7 @@
       }
 
       ZQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) );
-      RETURN;
+      return;
 
       // End of ZQRT17
 

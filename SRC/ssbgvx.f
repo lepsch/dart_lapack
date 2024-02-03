@@ -84,7 +84,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SSBGVX', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -97,7 +97,7 @@
       spbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem.
@@ -204,7 +204,7 @@
          } // 50
       }
 
-      RETURN;
+      return;
 
       // End of SSBGVX
 

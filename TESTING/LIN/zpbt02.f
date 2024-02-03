@@ -42,7 +42,7 @@
 
       if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
@@ -51,7 +51,7 @@
       ANORM = ZLANHB( '1', UPLO, N, KD, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Compute  B - A*X
@@ -74,7 +74,7 @@
          }
       } // 20
 
-      RETURN;
+      return;
 
       // End of ZPBT02
 

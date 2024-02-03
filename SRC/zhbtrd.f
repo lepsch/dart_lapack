@@ -65,7 +65,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHBTRD', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -453,7 +453,7 @@
          } // 240
       }
 
-      RETURN;
+      return;
 
       // End of ZHBTRD
 

@@ -34,7 +34,7 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('DGTTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -104,7 +104,7 @@
       } // 40
       } // 50
 
-      RETURN;
+      return;
 
       // End of DGTTRF
 

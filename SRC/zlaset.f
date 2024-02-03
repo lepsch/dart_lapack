@@ -70,7 +70,7 @@
          } // 90
       }
 
-      RETURN;
+      return;
 
       // End of ZLASET
 

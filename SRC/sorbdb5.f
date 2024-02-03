@@ -58,7 +58,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SORBDB5', -INFO );
-         RETURN;
+         return;
       }
 
       EPS = SLAMCH( 'Precision' );
@@ -84,7 +84,7 @@
          // If the projection is nonzero, then return
 
          if ( SNRM2(M1,X1,INCX1) != REALZERO || SNRM2(M2,X2,INCX2) != REALZERO ) {
-            RETURN;
+            return;
          }
       }
 
@@ -100,7 +100,7 @@
             X2(J) = ZERO;
          }
          CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SNRM2(M1,X1,INCX1) != REALZERO || SNRM2(M2,X2,INCX2) != REALZERO ) THEN;
-            RETURN;
+            return;
          }
       }
 
@@ -116,11 +116,11 @@
          }
          X2(I) = ONE;
          CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SNRM2(M1,X1,INCX1) != REALZERO || SNRM2(M2,X2,INCX2) != REALZERO ) THEN;
-            RETURN;
+            return;
          }
       }
 
-      RETURN;
+      return;
 
       // End of SORBDB5
 

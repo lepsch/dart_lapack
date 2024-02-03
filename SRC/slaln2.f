@@ -172,7 +172,7 @@
                X( 2, 1 ) = TEMP*B( 2, 1 );
                XNORM = TEMP*BNORM;
                INFO = 1;
-               RETURN;
+               return;
             }
 
             // Gaussian elimination with complete pivoting.
@@ -260,7 +260,7 @@
                X( 2, 2 ) = TEMP*B( 2, 2 );
                XNORM = TEMP*BNORM;
                INFO = 1;
-               RETURN;
+               return;
             }
 
             // Gaussian elimination with complete pivoting.
@@ -370,7 +370,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SLALN2
 

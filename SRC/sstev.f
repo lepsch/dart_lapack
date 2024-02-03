@@ -51,7 +51,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SSTEV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -60,7 +60,7 @@
 
       if ( N == 1 ) {
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -108,7 +108,7 @@
          sscal(IMAX, ONE / SIGMA, D, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of SSTEV
 

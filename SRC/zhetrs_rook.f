@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHETRS_ROOK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -326,7 +326,7 @@
          } // 100
       }
 
-      RETURN;
+      return;
 
       // End of ZHETRS_ROOK
 

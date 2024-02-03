@@ -594,7 +594,7 @@ void main() {
       zprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
 
       } // 130
-      RETURN;
+      return;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -872,7 +872,7 @@ void main() {
       zprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
 
       } // 120
-      RETURN;
+      return;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -1162,7 +1162,7 @@ void main() {
       if (TRACE) CALL ZPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
 
       } // 160
-      RETURN;
+      return;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -1488,7 +1488,7 @@ void main() {
       }
 
       } // 130
-      RETURN;
+      return;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -1863,7 +1863,7 @@ void main() {
       }
 
       } // 160
-      RETURN;
+      return;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -2059,7 +2059,7 @@ void main() {
             }
          } // 90
       }
-      RETURN;
+      return;
 
       // End of ZMAKE.
 
@@ -2222,7 +2222,7 @@ void main() {
       if (N > 1) WRITE( NOUT, FMT = 9997 )J;
 
       } // 250
-      RETURN;
+      return;
 
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'                       EXPECTED RE', 'SULT                    COMPUTED RESULT' );
  9998 FORMAT( 1X, I7, 2( '  (', G15.6, ',', G15.6, ')' ) );
@@ -2370,7 +2370,7 @@ void main() {
          GO TO 10;
       }
       ZBEG = DCMPLX( ( I - 500 )/1001.0, ( J - 500 )/1001.0 );
-      RETURN;
+      return;
 
       // End of ZBEG.
 
@@ -2389,7 +2389,7 @@ void main() {
       double             X, Y;
       // .. Executable Statements ..
       DDIFF = X - Y;
-      RETURN;
+      return;
 
       // End of DDIFF.
 

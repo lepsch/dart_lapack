@@ -29,7 +29,7 @@
       // Quick return if possible
 
       if ( N != 2 && N != 3 ) {
-         RETURN;
+         return;
       }
 
       if ( N == 2 ) {

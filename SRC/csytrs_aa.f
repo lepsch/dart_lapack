@@ -55,11 +55,11 @@
       }
       if ( INFO != 0 ) {
          xerbla('CSYTRS_AA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          LWKOPT = (3*N-2);
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -163,7 +163,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CSYTRS_AA
 

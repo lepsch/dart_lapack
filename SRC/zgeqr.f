@@ -114,15 +114,15 @@
       }
       if ( INFO != 0 ) {
         xerbla('ZGEQR', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
-        RETURN;
+        return;
       }
 
       // The QR Decomposition
@@ -135,7 +135,7 @@
 
       WORK( 1 ) = LWREQ;
 
-      RETURN;
+      return;
 
       // End of ZGEQR
 

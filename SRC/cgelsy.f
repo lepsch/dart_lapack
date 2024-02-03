@@ -74,16 +74,16 @@
 
       if ( INFO != 0 ) {
          xerbla('CGELSY', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ) == 0 ) {
          RANK = 0;
-         RETURN;
+         return;
       }
 
       // Get machine parameters
@@ -242,7 +242,7 @@
       } // 70
       WORK( 1 ) = CMPLX( LWKOPT );
 
-      RETURN;
+      return;
 
       // End of CGELSY
 

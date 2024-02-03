@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPOTRF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -66,7 +66,7 @@
          AJJ = DBLE( A( 1, 1 ) );
          if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
             INFO = 1;
-            RETURN;
+            return;
          }
 
          // Factor
@@ -84,7 +84,7 @@
          zpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO != 0 ) {
             INFO = IINFO;
-            RETURN;
+            return;
          }
 
          // Compute the Cholesky factorization A = U**H*U
@@ -101,7 +101,7 @@
             zpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO != 0 ) {
                INFO = IINFO + N1;
-               RETURN;
+               return;
             }
 
          // Compute the Cholesky factorization A = L*L**H
@@ -118,11 +118,11 @@
             zpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO != 0 ) {
                INFO = IINFO + N1;
-               RETURN;
+               return;
             }
          }
       }
-      RETURN;
+      return;
 
       // End of ZPOTRF2
 

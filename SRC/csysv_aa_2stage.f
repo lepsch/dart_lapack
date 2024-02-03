@@ -63,9 +63,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CSYSV_AA_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( WQUERY || TQUERY ) {
-         RETURN;
+         return;
       }
 
 
@@ -82,7 +82,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of CSYSV_AA_2STAGE
 

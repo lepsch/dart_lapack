@@ -38,5 +38,5 @@
             ILASLR = MAX( ILASLR, I );
          }
       }
-      RETURN;
+      return;
       }

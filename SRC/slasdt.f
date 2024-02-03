@@ -59,7 +59,7 @@
       } // 20
       ND = LLST*2 - 1;
 
-      RETURN;
+      return;
 
       // End of SLASDT
 

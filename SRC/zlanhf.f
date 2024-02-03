@@ -37,10 +37,10 @@
 
       if ( N == 0 ) {
          ZLANHF = ZERO;
-         RETURN;
+         return;
       } else if ( N == 1 ) {
          ZLANHF = ABS(DBLE(A(0)));
-         RETURN;
+         return;
       }
 
       // set noe = 1 if n is odd. if n is even set noe=0
@@ -1246,7 +1246,7 @@
       }
 
       ZLANHF = VALUE;
-      RETURN;
+      return;
 
       // End of ZLANHF
 

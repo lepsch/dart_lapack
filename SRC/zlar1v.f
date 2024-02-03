@@ -238,7 +238,7 @@
       RQCORR = MINGMA*TMP;
 
 
-      RETURN;
+      return;
 
       // End of ZLAR1V
 

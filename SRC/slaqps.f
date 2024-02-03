@@ -164,7 +164,7 @@
          GO TO 40;
       }
 
-      RETURN;
+      return;
 
       // End of SLAQPS
 

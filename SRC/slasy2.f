@@ -83,7 +83,7 @@
 
       X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / TAU1;
       XNORM = ABS( X( 1, 1 ) );
-      RETURN;
+      return;
 
       // 1 by 2:
       // TL11*[X11 X12] + ISGN*[X11 X12]*op[TR11 TR12]  = [B11 B12]
@@ -170,7 +170,7 @@
          X( 2, 1 ) = X2( 2 );
          XNORM = MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) );
       }
-      RETURN;
+      return;
 
       // 2 by 2:
       // op[TL11 TL12]*[X11 X12] +ISGN* [X11 X12]*op[TR11 TR12] = [B11 B12]
@@ -280,7 +280,7 @@
       X( 1, 2 ) = TMP( 3 );
       X( 2, 2 ) = TMP( 4 );
       XNORM = MAX( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ), ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) );
-      RETURN;
+      return;
 
       // End of SLASY2
 

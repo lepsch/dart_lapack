@@ -62,9 +62,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHESV_ROOK ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
@@ -82,7 +82,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZHESV_ROOK
 

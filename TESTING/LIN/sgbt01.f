@@ -104,7 +104,7 @@
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of SGBT01
 

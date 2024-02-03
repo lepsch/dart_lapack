@@ -105,7 +105,7 @@
       cgesvd('N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO );
       DIF( 5 ) = RWORK( 8 );
 
-      RETURN;
+      return;
 
       // End of CLATM6
 

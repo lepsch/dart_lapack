@@ -61,16 +61,16 @@
 
       if ( INFO != 0 ) {
          xerbla('DSYTRD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       NX = N;
@@ -167,7 +167,7 @@
       }
 
       WORK( 1 ) = LWKOPT;
-      RETURN;
+      return;
 
       // End of DSYTRD
 

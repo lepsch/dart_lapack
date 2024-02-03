@@ -83,9 +83,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSBEVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -95,7 +95,7 @@
       if ( N == 1 ) {
          W( 1 ) = AB( 1, 1 );
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -150,7 +150,7 @@
 
       WORK( 1 ) = LWMIN;
       IWORK( 1 ) = LIWMIN;
-      RETURN;
+      return;
 
       // End of DSBEVD
 

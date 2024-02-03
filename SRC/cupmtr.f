@@ -64,7 +64,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUPMTR', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -186,7 +186,7 @@
             }
          } // 20
       }
-      RETURN;
+      return;
 
       // End of CUPMTR
 

@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHPTRD', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -144,7 +144,7 @@
          D( N ) = DBLE( AP( II ) );
       }
 
-      RETURN;
+      return;
 
       // End of ZHPTRD
 

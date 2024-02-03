@@ -41,7 +41,7 @@
 
       if ( M <= 0 || N <= 0 || NRHS == 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
@@ -58,7 +58,7 @@
       ANORM = DLANGE( 'I', N1, N2, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Compute  B - A*X  (or  B - A'*X ) and store in B.
@@ -79,7 +79,7 @@
          }
       } // 10
 
-      RETURN;
+      return;
 
       // End of DGET08
 

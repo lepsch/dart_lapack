@@ -66,10 +66,10 @@
 
       if ( INFO != 0 ) {
          xerbla('DSYTRD_SY2SB', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = LWMIN;
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -88,7 +88,7 @@
               } // 110
           }
           WORK( 1 ) = 1;
-          RETURN;
+          return;
       }
 
       // Determine the pointer position for the workspace
@@ -223,7 +223,7 @@
       }
 
       WORK( 1 ) = LWMIN;
-      RETURN;
+      return;
 
       // End of DSYTRD_SY2SB
 

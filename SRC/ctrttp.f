@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CTRTTP', -INFO );
-         RETURN;
+         return;
       }
 
       if ( LOWER ) {
@@ -64,7 +64,7 @@
       }
 
 
-      RETURN;
+      return;
 
       // End of CTRTTP
 

@@ -106,7 +106,7 @@
          } // 70
          } // 80
       }
-      RETURN;
+      return;
 
       } // 90
       WRITE( NOUT, FMT = 9998 )PATH;

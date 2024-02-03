@@ -40,7 +40,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Compute the 1-norm of the tridiagonal matrix A.
@@ -52,7 +52,7 @@
       EPS = DLAMCH( 'Epsilon' );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Compute B - A*X.
@@ -73,7 +73,7 @@
          }
       } // 10
 
-      RETURN;
+      return;
 
       // End of ZPTT02
 

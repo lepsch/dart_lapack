@@ -123,7 +123,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CGESVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -178,7 +178,7 @@
             // leading rank-deficient INFO columns of A.
 
             RPVGRW = CLA_GERPVGRW( N, INFO, A, LDA, AF, LDAF );
-            RETURN;
+            return;
          }
       }
 
@@ -204,7 +204,7 @@
          clascl2(N, NRHS, R, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of CGESVXX
 

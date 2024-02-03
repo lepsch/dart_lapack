@@ -83,16 +83,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SGELSY', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MN == 0 || NRHS == 0 ) {
          RANK = 0;
-         RETURN;
+         return;
       }
 
       // Get machine parameters
@@ -251,7 +251,7 @@
       } // 70
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of SGELSY
 

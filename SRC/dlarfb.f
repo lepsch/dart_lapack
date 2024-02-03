@@ -457,7 +457,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of DLARFB
 

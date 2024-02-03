@@ -129,7 +129,7 @@
             }
          } // 20
       }
-      RETURN;
+      return;
 
       // End of SLABRD
 

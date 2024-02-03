@@ -62,7 +62,7 @@
                C = C / TMP;
                SESTPR = S1*TMP;
             }
-            RETURN;
+            return;
          } else if ( ABSGAM <= EPS*ABSEST ) {
             S = ONE;
             C = ZERO;
@@ -70,7 +70,7 @@
             S1 = ABSEST / TMP;
             S2 = ABSALP / TMP;
             SESTPR = TMP*SQRT( S1*S1+S2*S2 );
-            RETURN;
+            return;
          } else if ( ABSALP <= EPS*ABSEST ) {
             S1 = ABSGAM;
             S2 = ABSEST;
@@ -83,7 +83,7 @@
                C = ONE;
                SESTPR = S1;
             }
-            RETURN;
+            return;
          } else if ( ABSEST <= EPS*ABSALP || ABSEST <= EPS*ABSGAM ) {
             S1 = ABSGAM;
             S2 = ABSALP;
@@ -100,7 +100,7 @@
                S = ( ALPHA / S1 ) / SCL;
                C = ( GAMMA / S1 ) / SCL;
             }
-            RETURN;
+            return;
          } else {
 
             // normal case
@@ -122,7 +122,7 @@
             S = SINE / TMP;
             C = COSINE / TMP;
             SESTPR = SQRT( T+ONE )*ABSEST;
-            RETURN;
+            return;
          }
 
       } else if ( JOB == 2 ) {
@@ -146,12 +146,12 @@
             TMP = REAL( SQRT( S*CONJG( S )+C*CONJG( C ) ) );
             S = S / TMP;
             C = C / TMP;
-            RETURN;
+            return;
          } else if ( ABSGAM <= EPS*ABSEST ) {
             S = ZERO;
             C = ONE;
             SESTPR = ABSGAM;
-            RETURN;
+            return;
          } else if ( ABSALP <= EPS*ABSEST ) {
             S1 = ABSGAM;
             S2 = ABSEST;
@@ -164,7 +164,7 @@
                C = ZERO;
                SESTPR = S2;
             }
-            RETURN;
+            return;
          } else if ( ABSEST <= EPS*ABSALP || ABSEST <= EPS*ABSGAM ) {
             S1 = ABSGAM;
             S2 = ABSALP;
@@ -181,7 +181,7 @@
                S = -( CONJG( GAMMA ) / S1 ) / SCL;
                C = ( CONJG( ALPHA ) / S1 ) / SCL;
             }
-            RETURN;
+            return;
          } else {
 
             // normal case
@@ -222,11 +222,11 @@
             TMP = REAL( SQRT( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) );
             S = SINE / TMP;
             C = COSINE / TMP;
-            RETURN;
+            return;
 
          }
       }
-      RETURN;
+      return;
 
       // End of CLAIC1
 

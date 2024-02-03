@@ -88,7 +88,7 @@
 
       if (ITYPE == 1) CALL CUNT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RWORK, RESULT( 2 ) );
 
-      RETURN;
+      return;
 
       // End of CHET22
 

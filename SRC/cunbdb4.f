@@ -88,9 +88,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUNBDB4', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Reduce columns 1, ..., M-Q of X11 and X21
@@ -162,7 +162,7 @@
          clacgv(Q-I+1, X21(M-Q+I-P,I), LDX21 );
       }
 
-      RETURN;
+      return;
 
       // End of CUNBDB4
 

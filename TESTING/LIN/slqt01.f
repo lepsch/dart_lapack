@@ -93,7 +93,7 @@
 
       RESULT( 2 ) = ( RESID / REAL( MAX( 1, N ) ) ) / EPS;
 
-      RETURN;
+      return;
 
       // End of SLQT01
 

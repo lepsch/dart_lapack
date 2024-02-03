@@ -38,7 +38,7 @@
 
       if ( N <= 0 ) {
          TAU = ZERO;
-         RETURN;
+         return;
       }
 
       EPS = SLAMCH( 'Precision' );
@@ -150,7 +150,7 @@
          ALPHA = BETA;
       }
 
-      RETURN;
+      return;
 
       // End of CLARFGP
 

@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLAUNHR_COL_GETRFNP', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -87,7 +87,7 @@
             }
          }
       }
-      RETURN;
+      return;
 
       // End of CLAUNHR_COL_GETRFNP
 

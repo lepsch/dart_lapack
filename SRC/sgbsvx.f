@@ -119,7 +119,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SGBSVX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -188,7 +188,7 @@
             }
             WORK( 1 ) = RPVGRW;
             RCOND = ZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -252,7 +252,7 @@
       IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
       WORK( 1 ) = RPVGRW;
-      RETURN;
+      return;
 
       // End of SGBSVX
 

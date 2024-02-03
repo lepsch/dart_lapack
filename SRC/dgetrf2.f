@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGETRF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -143,7 +143,7 @@
          dlaswp(N1, A( 1, 1 ), LDA, N1+1, MIN( M, N), IPIV, 1 );
 
       }
-      RETURN;
+      return;
 
       // End of DGETRF2
 

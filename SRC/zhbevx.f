@@ -83,7 +83,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHBEVX', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -106,7 +106,7 @@
             W( 1 ) = DBLE( CTMP1 );
             if (WANTZ) Z( 1, 1 ) = CONE;
          }
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -257,7 +257,7 @@
          } // 50
       }
 
-      RETURN;
+      return;
 
       // End of ZHBEVX
 

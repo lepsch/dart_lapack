@@ -63,7 +63,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHETF2_RK', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize ALPHA for use in choosing pivot block size.
@@ -755,7 +755,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CHETF2_RK
 

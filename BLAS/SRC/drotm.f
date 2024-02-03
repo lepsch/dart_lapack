@@ -99,7 +99,7 @@
             }
          }
       }
-      RETURN;
+      return;
 
       // End of DROTM
 

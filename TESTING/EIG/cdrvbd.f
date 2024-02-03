@@ -110,7 +110,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CDRVBD', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if nothing to do
@@ -179,7 +179,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
             }
 
@@ -210,7 +210,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                // Do tests 1--4
@@ -298,7 +298,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                // Do tests 1--4
@@ -396,7 +396,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'CGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
                      INFO = ABS( IINFO );
-                     RETURN;
+                     return;
                   }
 
                   // Do tests 36--39
@@ -446,7 +446,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'GESVJ', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
                      INFO = ABS( IINFO );
-                     RETURN;
+                     return;
                   }
 
                   // Do tests 15--18
@@ -495,7 +495,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'GEJSV', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
                      INFO = ABS( IINFO );
-                     RETURN;
+                     return;
                   }
 
                   // Do tests 19--22
@@ -524,7 +524,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                // Do tests 1--4
@@ -615,7 +615,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                RESULT( 30 ) = ZERO;
@@ -653,7 +653,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                RESULT( 33 ) = ZERO;
@@ -704,7 +704,7 @@
  9996 FORMAT( ' CDRVBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
  9995 FORMAT( ' CDRVBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', LSWORK=', I6, / 9X, 'ISEED=(', 3( I5, ',' ), I5, ')' );
 
-      RETURN;
+      return;
 
       // End of CDRVBD
 

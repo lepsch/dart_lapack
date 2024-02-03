@@ -78,9 +78,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSPEVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -90,7 +90,7 @@
       if ( N == 1 ) {
          W( 1 ) = AP( 1 );
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -143,7 +143,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
       IWORK( 1 ) = LIWMIN;
-      RETURN;
+      return;
 
       // End of SSPEVD
 

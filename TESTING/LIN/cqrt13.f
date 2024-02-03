@@ -72,7 +72,7 @@
       }
 
       NORMA = CLANGE( 'One-norm', M, N, A, LDA, DUMMY );
-      RETURN;
+      return;
 
       // End of CQRT13
 

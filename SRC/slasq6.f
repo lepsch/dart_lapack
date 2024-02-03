@@ -122,7 +122,7 @@
 
       Z( J4+2 ) = DN;
       Z( 4*N0-PP ) = EMIN;
-      RETURN;
+      return;
 
       // End of SLASQ6
 

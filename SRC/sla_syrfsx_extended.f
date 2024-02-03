@@ -72,7 +72,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLA_SYRFSX_EXTENDED', -INFO );
-         RETURN;
+         return;
       }
       EPS = SLAMCH( 'Epsilon' );
       HUGEVAL = SLAMCH( 'Overflow' );
@@ -270,7 +270,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SLA_SYRFSX_EXTENDED
 

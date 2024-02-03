@@ -49,7 +49,7 @@
       }
       if ( INFO < 0 ) {
          xerbla('ZLAGSY', -INFO );
-         RETURN;
+         return;
       }
 
       // initialize lower triangle of A to diagonal matrix
@@ -166,7 +166,7 @@
             A( J, I ) = A( I, J );
          } // 110
       } // 120
-      RETURN;
+      return;
 
       // End of ZLAGSY
 

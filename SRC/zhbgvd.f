@@ -88,9 +88,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHBGVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -102,7 +102,7 @@
       zpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem.
@@ -136,7 +136,7 @@
       WORK( 1 ) = LWMIN;
       RWORK( 1 ) = LRWMIN;
       IWORK( 1 ) = LIWMIN;
-      RETURN;
+      return;
 
       // End of ZHBGVD
 

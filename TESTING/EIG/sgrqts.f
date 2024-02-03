@@ -127,7 +127,7 @@
       RESID = SLANSY( '1', 'Upper', P, T, LDB, RWORK );
       RESULT( 4 ) = ( RESID / REAL( MAX( 1,P ) ) ) / ULP;
 
-      RETURN;
+      return;
 
       // End of SGRQTS
 

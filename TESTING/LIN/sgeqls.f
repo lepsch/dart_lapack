@@ -43,7 +43,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGEQLS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -58,7 +58,7 @@
 
       strsm('Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A( M-N+1, 1 ), LDA, B( M-N+1, 1 ), LDB );
 
-      RETURN;
+      return;
 
       // End of SGEQLS
 

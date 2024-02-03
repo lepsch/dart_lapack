@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPFTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -218,7 +218,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DPFTRF
 

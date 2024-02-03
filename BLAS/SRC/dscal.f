@@ -55,7 +55,7 @@
             DX(I) = DA*DX(I);
          }
       }
-      RETURN;
+      return;
 
       // End of DSCAL
 

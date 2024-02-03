@@ -33,7 +33,7 @@
          IX = IX + INCX;
          IY = IY + INCY;
       } // 10
-      RETURN;
+      return;
 
       // Code for both increments equal to 1
 
@@ -57,7 +57,7 @@
          SY( I+5 ) = SX( I+5 );
          SY( I+6 ) = SX( I+6 );
       } // 50
-      RETURN;
+      return;
 
       // End of ICOPY
 

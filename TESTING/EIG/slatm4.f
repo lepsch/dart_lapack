@@ -259,7 +259,7 @@
          } // 320
       }
 
-      RETURN;
+      return;
 
       // End of SLATM4
 

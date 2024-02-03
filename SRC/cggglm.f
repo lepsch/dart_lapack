@@ -75,9 +75,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CGGGLM', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -89,7 +89,7 @@
          for (I = 1; I <= P; I++) {
             Y(I) = CZERO;
          }
-         RETURN;
+         return;
       }
 
       // Compute the GQR factorization of matrices A and B:
@@ -117,7 +117,7 @@
 
          if ( INFO > 0 ) {
             INFO = 1;
-            RETURN;
+            return;
          }
 
          ccopy(N-M, D( M+1 ), 1, Y( M+P-N+1 ), 1 );
@@ -140,7 +140,7 @@
 
          if ( INFO > 0 ) {
             INFO = 2;
-            RETURN;
+            return;
          }
 
          // Copy D to X
@@ -153,7 +153,7 @@
       cunmrq('Left', 'Conjugate transpose', P, 1, NP, B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       WORK( 1 ) = M + NP + MAX( LOPT, INT( WORK( M+NP+1 ) ) );
 
-      RETURN;
+      return;
 
       // End of CGGGLM
 

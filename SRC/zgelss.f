@@ -170,16 +170,16 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGELSS', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
          RANK = 0;
-         RETURN;
+         return;
       }
 
       // Get machine parameters
@@ -516,7 +516,7 @@
       }
       } // 70
       WORK( 1 ) = MAXWRK;
-      RETURN;
+      return;
 
       // End of ZGELSS
 

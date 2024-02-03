@@ -79,7 +79,7 @@
 
       if ( !DONE) GO TO 10;
 
-      RETURN;
+      return;
 
       // End of DRSCL
 

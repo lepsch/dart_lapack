@@ -81,22 +81,22 @@
 
       if ( INFO != 0 ) {
         xerbla('SLAMTSQR', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MINMNK == 0 ) {
-        RETURN;
+        return;
       }
 
       // Determine the block size if it is tall skinny or short and wide
 
       if ((MB <= K) || (MB >= MAX(M,N,K))) {
         sgemqrt(SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO );
-        RETURN;
+        return;
       }
 
       if (LEFT && NOTRAN) {
@@ -204,7 +204,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
-      RETURN;
+      return;
 
       // End of SLAMTSQR
 

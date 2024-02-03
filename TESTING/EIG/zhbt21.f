@@ -127,7 +127,7 @@
 
       RESULT( 2 ) = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP );
 
-      RETURN;
+      return;
 
       // End of ZHBT21
 

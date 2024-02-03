@@ -49,7 +49,7 @@
          } // 60
       }
 
-      RETURN;
+      return;
 
       // End of ZLACP2
 

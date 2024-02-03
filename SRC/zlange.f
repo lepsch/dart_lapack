@@ -90,7 +90,7 @@
       }
 
       ZLANGE = VALUE;
-      RETURN;
+      return;
 
       // End of ZLANGE
 

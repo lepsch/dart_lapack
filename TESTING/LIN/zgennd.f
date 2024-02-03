@@ -30,9 +30,9 @@
          AII = A( I, I );
          if ( DBLE( AII ) < ZERO || DIMAG( AII ) != ZERO ) {
             ZGENND = false;
-            RETURN;
+            return;
          }
       }
       ZGENND = true;
-      RETURN;
+      return;
       }

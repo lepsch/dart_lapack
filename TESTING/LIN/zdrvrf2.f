@@ -162,7 +162,7 @@
  9997 FORMAT( 1X, 'All tests for the RFP conversion routines passed (', I5,' tests run)');
  9996 FORMAT( 1X, 'RFP conversion routines:',I5,' out of ',I5, ' error message recorded');
 
-      RETURN;
+      return;
 
       // End of ZDRVRF2
 

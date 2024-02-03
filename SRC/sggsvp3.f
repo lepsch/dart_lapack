@@ -99,10 +99,10 @@
 
       if ( INFO != 0 ) {
          xerbla('SGGSVP3', -INFO );
-         RETURN;
+         return;
       }
       if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // QR with column pivoting of B: B*P = V*( S11 S12 )
@@ -276,7 +276,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
-      RETURN;
+      return;
 
       // End of SGGSVP3
 

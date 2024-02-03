@@ -64,7 +64,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHBGST', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible

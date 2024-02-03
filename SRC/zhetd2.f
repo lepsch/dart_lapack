@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZHETD2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -143,7 +143,7 @@
          D( N ) = DBLE( A( N, N ) );
       }
 
-      RETURN;
+      return;
 
       // End of ZHETD2
 

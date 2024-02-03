@@ -93,7 +93,7 @@
       }
 
       ZLANGB = VALUE;
-      RETURN;
+      return;
 
       // End of ZLANGB
 

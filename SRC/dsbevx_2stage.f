@@ -96,9 +96,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSBEVX_2STAGE ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -120,7 +120,7 @@
             W( 1 ) = TMP1;
             if (WANTZ) Z( 1, 1 ) = ONE;
          }
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -277,7 +277,7 @@
 
       WORK( 1 ) = LWMIN;
 
-      RETURN;
+      return;
 
       // End of DSBEVX_2STAGE
 

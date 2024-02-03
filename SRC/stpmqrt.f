@@ -72,7 +72,7 @@
 
       if ( INFO != 0 ) {
          xerbla('STPMQRT', -INFO );
-         RETURN;
+         return;
       }
 
       // .. Quick return if possible ..
@@ -135,7 +135,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of STPMQRT
 

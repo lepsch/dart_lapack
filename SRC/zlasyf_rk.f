@@ -660,7 +660,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZLASYF_RK
 

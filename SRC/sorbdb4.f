@@ -69,9 +69,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('SORBDB4', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Reduce columns 1, ..., M-Q of X11 and X21
@@ -137,7 +137,7 @@
          slarf('R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) );
       }
 
-      RETURN;
+      return;
 
       // End of SORBDB4
 

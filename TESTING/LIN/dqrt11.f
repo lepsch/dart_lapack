@@ -41,7 +41,7 @@
 
       if ( LWORK < M*M+M ) {
          xerbla('DQRT11', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -64,7 +64,7 @@
 
       DQRT11 = DLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) );
 
-      RETURN;
+      return;
 
       // End of DQRT11
 

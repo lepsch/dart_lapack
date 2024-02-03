@@ -67,7 +67,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SDISNA', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -109,7 +109,7 @@
          SEP( I ) = MAX( SEP( I ), THRESH );
       } // 30
 
-      RETURN;
+      return;
 
       // End of SDISNA
 

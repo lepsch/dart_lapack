@@ -42,7 +42,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN;
+         return;
       }
 
       FACT = DBLE(2**KTRYMAX);
@@ -265,7 +265,7 @@
             GOTO 5;
          } else {
             INFO = 1;
-            RETURN;
+            return;
          }
       }
 
@@ -277,7 +277,7 @@
          dcopy(N-1, WORK(N+1), 1, LPLUS, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of DLARRF
 

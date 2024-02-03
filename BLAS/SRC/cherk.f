@@ -61,7 +61,7 @@
       }
       if (INFO != 0) {
           xerbla('CHERK ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -102,7 +102,7 @@
                   } // 80
               }
           }
-          RETURN;
+          return;
       }
 
       // Start the operations.
@@ -213,7 +213,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of CHERK
 

@@ -108,7 +108,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CDRGSX', -INFO );
-         RETURN;
+         return;
       }
 
       // Important constants
@@ -462,7 +462,7 @@
 
       WORK( 1 ) = MAXWRK;
 
-      RETURN;
+      return;
 
  9999 FORMAT( ' CDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ')' );
 

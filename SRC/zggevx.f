@@ -143,9 +143,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGGEVX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -377,7 +377,7 @@
       if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
       WORK( 1 ) = MAXWRK;
-      RETURN;
+      return;
 
       // End of ZGGEVX
 

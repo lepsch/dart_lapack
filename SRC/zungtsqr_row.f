@@ -65,17 +65,17 @@
 
       if ( INFO != 0 ) {
          xerbla('ZUNGTSQR_ROW', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = DCMPLX( LWORKOPT );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
          WORK( 1 ) = DCMPLX( LWORKOPT );
-         RETURN;
+         return;
       }
 
       // (0) Set the upper-triangular part of the matrix A to zero and
@@ -178,7 +178,7 @@
       }
 
       WORK( 1 ) = DCMPLX( LWORKOPT );
-      RETURN;
+      return;
 
       // End of ZUNGTSQR_ROW
 

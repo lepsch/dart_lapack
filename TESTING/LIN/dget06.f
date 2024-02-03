@@ -41,7 +41,7 @@
          }
       }
       DGET06 = RAT;
-      RETURN;
+      return;
 
       // End of DGET06
 

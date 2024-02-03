@@ -44,7 +44,7 @@
          } // 10
          KASE = 1;
          ISAVE( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       GO TO ( 20, 40, 70, 110, 140 )ISAVE( 1 );
@@ -71,7 +71,7 @@
       } // 30
       KASE = 2;
       ISAVE( 1 ) = 2;
-      RETURN;
+      return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
@@ -89,7 +89,7 @@
       X( ISAVE( 2 ) ) = ONE;
       KASE = 1;
       ISAVE( 1 ) = 3;
-      RETURN;
+      return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 3)
       // X HAS BEEN OVERWRITTEN BY A*X.
@@ -123,7 +123,7 @@
       } // 100
       KASE = 2;
       ISAVE( 1 ) = 4;
-      RETURN;
+      return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 4)
       // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
@@ -146,7 +146,7 @@
       } // 130
       KASE = 1;
       ISAVE( 1 ) = 5;
-      RETURN;
+      return;
 
       // ................ ENTRY   (ISAVE( 1 ) = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
@@ -160,7 +160,7 @@
 
       } // 150
       KASE = 0;
-      RETURN;
+      return;
 
       // End of SLACN2
 

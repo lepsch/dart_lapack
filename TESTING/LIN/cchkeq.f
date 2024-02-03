@@ -353,7 +353,7 @@
  9996 FORMAT( ' CPOEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 );
  9995 FORMAT( ' CPPEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 );
  9994 FORMAT( ' CPBEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 );
-      RETURN;
+      return;
 
       // End of CCHKEQ
 

@@ -49,7 +49,7 @@
          IX = IX + INCX;
          IC = IC + INCC;
       } // 10
-      RETURN;
+      return;
 
       // End of ZLAR2V
 

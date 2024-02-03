@@ -66,7 +66,7 @@
 
       if ( N == 0 ) {
          WORK( 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       if ( N <= NTINY ) {
@@ -130,7 +130,7 @@
 
          if ( LWORK == -1 ) {
             WORK( 1 ) = REAL( LWKOPT );
-            RETURN;
+            return;
          }
 
          // ==== SLAHQR/SLAQR0 crossover point ====

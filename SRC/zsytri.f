@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZSYTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -231,7 +231,7 @@
          } // 60
       }
 
-      RETURN;
+      return;
 
       // End of ZSYTRI
 

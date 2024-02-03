@@ -70,7 +70,7 @@
       // #:(
       if ( INFO != 0 ) {
          xerbla('DGSVJ0', -INFO );
-         RETURN;
+         return;
       }
 
       if ( RSVEC ) {
@@ -663,7 +663,7 @@
          }
       } // 5991
 
-      RETURN;
+      return;
       // ..
       // .. END OF DGSVJ0
       // ..

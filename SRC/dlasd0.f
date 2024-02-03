@@ -44,14 +44,14 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLASD0', -INFO );
-         RETURN;
+         return;
       }
 
       // If the input matrix is too small, call DLASDQ to find the SVD.
 
       if ( N <= SMLSIZ ) {
          dlasdq('U', SQRE, N, M, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK, INFO );
-         RETURN;
+         return;
       }
 
       // Set up the computation tree.
@@ -87,7 +87,7 @@
          SQREI = 1;
          dlasdq('U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, NLF ), LDVT, U( NLF, NLF ), LDU, U( NLF, NLF ), LDU, WORK, INFO );
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
          ITEMP = IDXQ + NLF - 2;
          for (J = 1; J <= NL; J++) { // 10
@@ -101,7 +101,7 @@
          NRP1 = NR + SQREI;
          dlasdq('U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, NRF ), LDVT, U( NRF, NRF ), LDU, U( NRF, NRF ), LDU, WORK, INFO );
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
          ITEMP = IDXQ + IC;
          for (J = 1; J <= NR; J++) { // 20
@@ -142,12 +142,12 @@
          // Report the possible convergence failure.
 
             if ( INFO != 0 ) {
-               RETURN;
+               return;
             }
          } // 40
       } // 50
 
-      RETURN;
+      return;
 
       // End of DLASD0
 

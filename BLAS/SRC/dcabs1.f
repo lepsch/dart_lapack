@@ -14,7 +14,7 @@
       // INTRINSIC ABS,DBLE,DIMAG
 
       DCABS1 = ABS(DBLE(Z)) + ABS(DIMAG(Z));
-      RETURN;
+      return;
 
       // End of DCABS1
 

@@ -41,7 +41,7 @@
 
       if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
       EPS = DLAMCH( 'Epsilon' );
       SMLNUM = DLAMCH( 'Safe minimum' );
@@ -96,7 +96,7 @@
          RESID = MAX( RESID, ERR );
       } // 40
 
-      RETURN;
+      return;
 
       // End of DTBT03
 

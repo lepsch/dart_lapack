@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLAUU2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -89,7 +89,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of CLAUU2
 

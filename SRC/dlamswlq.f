@@ -75,20 +75,20 @@
       }
       if ( INFO != 0 ) {
         xerbla('DLAMSWLQ', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MINMNK == 0 ) {
-        RETURN;
+        return;
       }
 
       if ((NB <= K) || (NB >= MAX(M,N,K))) {
         dgemlqt(SIDE, TRANS, M, N, K, MB, A, LDA, T, LDT, C, LDC, WORK, INFO);
-        RETURN;
+        return;
       }
 
       if (LEFT && TRAN) {
@@ -197,7 +197,7 @@
 
       WORK( 1 ) = LWMIN;
 
-      RETURN;
+      return;
 
       // End of DLAMSWLQ
 

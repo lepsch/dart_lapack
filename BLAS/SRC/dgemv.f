@@ -52,7 +52,7 @@
       }
       if (INFO != 0) {
           xerbla('DGEMV ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -164,7 +164,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of DGEMV
 

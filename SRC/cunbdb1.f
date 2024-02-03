@@ -88,9 +88,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUNBDB1', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Reduce columns 1, ..., Q of X11 and X21
@@ -123,7 +123,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CUNBDB1
 

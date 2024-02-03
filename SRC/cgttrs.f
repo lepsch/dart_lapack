@@ -44,7 +44,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGTTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible

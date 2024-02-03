@@ -40,7 +40,7 @@
       }
       if ( INFO < 0 ) {
          xerbla('DGEBD2', -INFO );
-         RETURN;
+         return;
       }
 
       if ( M >= N ) {
@@ -112,7 +112,7 @@
             }
          } // 20
       }
-      RETURN;
+      return;
 
       // End of DGEBD2
 

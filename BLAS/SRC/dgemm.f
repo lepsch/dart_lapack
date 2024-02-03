@@ -74,7 +74,7 @@
       }
       if (INFO != 0) {
           xerbla('DGEMM ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -97,7 +97,7 @@
                   } // 30
               } // 40
           }
-          RETURN;
+          return;
       }
 
       // Start the operations.
@@ -184,7 +184,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of DGEMM
 

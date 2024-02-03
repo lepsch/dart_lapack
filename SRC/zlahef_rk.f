@@ -905,7 +905,7 @@
          KB = K - 1;
 
       }
-      RETURN;
+      return;
 
       // End of ZLAHEF_RK
 

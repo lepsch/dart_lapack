@@ -39,7 +39,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGTSV ', -INFO );
-         RETURN;
+         return;
       }
 
       if (N == 0) RETURN;
@@ -56,7 +56,7 @@
                   B( I+1, 1 ) = B( I+1, 1 ) - FACT*B( I, 1 );
                } else {
                   INFO = I;
-                  RETURN;
+                  return;
                }
                DL( I ) = ZERO;
             } else {
@@ -84,7 +84,7 @@
                   B( I+1, 1 ) = B( I+1, 1 ) - FACT*B( I, 1 );
                } else {
                   INFO = I;
-                  RETURN;
+                  return;
                }
             } else {
                FACT = D( I ) / DL( I );
@@ -99,7 +99,7 @@
          }
          if ( D( N ) == ZERO ) {
             INFO = N;
-            RETURN;
+            return;
          }
       } else {
          for (I = 1; I <= N - 2; I++) { // 40
@@ -115,7 +115,7 @@
                   } // 20
                } else {
                   INFO = I;
-                  RETURN;
+                  return;
                }
                DL( I ) = ZERO;
             } else {
@@ -147,7 +147,7 @@
                   } // 50
                } else {
                   INFO = I;
-                  RETURN;
+                  return;
                }
             } else {
                FACT = D( I ) / DL( I );
@@ -164,7 +164,7 @@
          }
          if ( D( N ) == ZERO ) {
             INFO = N;
-            RETURN;
+            return;
          }
       }
 
@@ -192,7 +192,7 @@
          } // 100
       }
 
-      RETURN;
+      return;
 
       // End of DGTSV
 

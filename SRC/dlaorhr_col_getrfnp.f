@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLAORHR_COL_GETRFNP', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -87,7 +87,7 @@
             }
          }
       }
-      RETURN;
+      return;
 
       // End of DLAORHR_COL_GETRFNP
 

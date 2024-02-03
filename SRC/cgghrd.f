@@ -90,7 +90,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGGHRD', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize Q and Z if desired.
@@ -133,7 +133,7 @@
          } // 30
       } // 40
 
-      RETURN;
+      return;
 
       // End of CGGHRD
 

@@ -30,14 +30,14 @@
       if ( LWORK == -1 ) {
          // workspace query, quick return
          WORK( 1 ) = N*NBLOCK_DESIRED;
-         RETURN;
+         return;
       } else if ( LWORK < N*NBLOCK_DESIRED ) {
          INFO = -25;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZLAQZ3', -INFO );
-         RETURN;
+         return;
       }
 
 
@@ -49,7 +49,7 @@
       SAFMAX = ONE/SAFMIN;
 
       if ( ILO >= IHI ) {
-         RETURN;
+         return;
       }
 
       if ( ILSCHUR ) {

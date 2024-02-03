@@ -68,7 +68,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHFRK ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -82,7 +82,7 @@
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
             C( J ) = CZERO;
          }
-         RETURN;
+         return;
       }
 
       CALPHA = CMPLX( ALPHA, ZERO );
@@ -320,7 +320,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CHFRK
 

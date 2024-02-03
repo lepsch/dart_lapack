@@ -34,7 +34,7 @@
          IX = IX + INCX;
          IY = IY + INCY;
       } // 10
-      RETURN;
+      return;
 
       // Code for both increments equal to 1
 
@@ -44,5 +44,5 @@
          CY( I ) = C*CY( I ) - S*CX( I );
          CX( I ) = CTEMP;
       } // 30
-      RETURN;
+      return;
       }

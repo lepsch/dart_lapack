@@ -164,7 +164,7 @@
 
       // Quick return for N < 1
       if ( N < 1 ) {
-         RETURN;
+         return;
       }
 
       I1 = ISEED( 1 );
@@ -219,7 +219,7 @@
       ISEED( 2 ) = IT2;
       ISEED( 3 ) = IT3;
       ISEED( 4 ) = IT4;
-      RETURN;
+      return;
 
       // End of SLARUV
 

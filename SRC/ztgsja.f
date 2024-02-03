@@ -81,7 +81,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTGSJA', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize U, V and Q, if necessary
@@ -242,7 +242,7 @@
       } // 100
       NCYCLE = KCYCLE;
 
-      RETURN;
+      return;
 
       // End of ZTGSJA
 

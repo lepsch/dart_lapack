@@ -89,7 +89,7 @@
       }
 
       DLANGT = ANORM;
-      RETURN;
+      return;
 
       // End of DLANGT
 

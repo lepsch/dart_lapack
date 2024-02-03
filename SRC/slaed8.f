@@ -56,7 +56,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLAED8', -INFO );
-         RETURN;
+         return;
       }
 
       // Need to initialize GIVPTR to O here in case of quick exit
@@ -128,7 +128,7 @@
             } // 60
             slacpy('A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ );
          }
-         RETURN;
+         return;
       }
 
       // If there are multiple eigenvalues then the problem deflates.  Here
@@ -263,7 +263,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SLAED8
 

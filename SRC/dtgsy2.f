@@ -78,7 +78,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DTGSY2', -INFO );
-         RETURN;
+         return;
       }
 
       // Determine block structure of A
@@ -723,7 +723,7 @@
          } // 200
 
       }
-      RETURN;
+      return;
 
       // End of DTGSY2
 

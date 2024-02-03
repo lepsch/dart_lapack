@@ -81,16 +81,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SORMQR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 || K == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -157,7 +157,7 @@
          } // 10
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of SORMQR
 

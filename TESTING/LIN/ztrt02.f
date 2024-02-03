@@ -41,7 +41,7 @@
 
       if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Compute the 1-norm of op(A).
@@ -57,7 +57,7 @@
       EPS = DLAMCH( 'Epsilon' );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Compute the maximum over the number of right hand sides of
@@ -77,7 +77,7 @@
          }
       } // 10
 
-      RETURN;
+      return;
 
       // End of ZTRT02
 

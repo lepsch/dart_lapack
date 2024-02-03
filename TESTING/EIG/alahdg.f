@@ -240,7 +240,7 @@
  9924 FORMAT( 3X, I2, ': norm( I - U2''*U2 ) / ( (M-P) * EPS )' );
  9925 FORMAT( 3X, I2, ': norm( I - V1''*V1 ) / (   Q   * EPS )' );
  9926 FORMAT( 3X, I2, ': principal angle ordering ( 0 or ULP )' );
-      RETURN;
+      return;
 
       // End of ALAHDG
 

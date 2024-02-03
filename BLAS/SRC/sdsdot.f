@@ -20,7 +20,7 @@
       DSDOT = SB;
       if (N <= 0) {
          SDSDOT = REAL(DSDOT);
-         RETURN;
+         return;
       }
       if (INCX == INCY && INCX > 0) {
 
@@ -45,7 +45,7 @@
          }
       }
       SDSDOT = REAL(DSDOT);
-      RETURN;
+      return;
 
       // End of SDSDOT
 

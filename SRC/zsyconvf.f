@@ -46,7 +46,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZSYCONVF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -336,7 +336,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZSYCONVF
 

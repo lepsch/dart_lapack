@@ -21,7 +21,7 @@
 
       T1 = ETIME( TARRAY );
       DSECND = TARRAY( 1 );
-      RETURN;
+      return;
 
       // End of DSECND
 

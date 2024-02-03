@@ -62,7 +62,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLA_GBRCOND_X', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute norm of op(A)*op2(C).
@@ -94,9 +94,9 @@
 
       if ( N == 0 ) {
          ZLA_GBRCOND_X = 1.0;
-         RETURN;
+         return;
       } else if ( ANORM == 0.0 ) {
-         RETURN;
+         return;
       }
 
       // Estimate the norm of inv(op(A)).
@@ -153,7 +153,7 @@
 
       if (AINVNM != 0.0) ZLA_GBRCOND_X = 1.0 / AINVNM;
 
-      RETURN;
+      return;
 
       // End of ZLA_GBRCOND_X
 

@@ -95,15 +95,15 @@
 
       if ( INFO != 0 ) {
         xerbla('SGEMQR', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MINMNK == 0 ) {
-        RETURN;
+        return;
       }
 
       IF( ( LEFT && M <= K ) || ( RIGHT && N <= K ) || ( MB <= K ) || ( MB >= MAX( M, N, K ) ) ) THEN         CALL SGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO );
@@ -113,7 +113,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
 
-      RETURN;
+      return;
 
       // End of SGEMQR
 

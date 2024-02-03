@@ -57,7 +57,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLASD7', -INFO );
-         RETURN;
+         return;
       }
 
       NLP1 = NL + 1;
@@ -283,7 +283,7 @@
       dcopy(N-1, VFW( 2 ), 1, VF( 2 ), 1 );
       dcopy(N-1, VLW( 2 ), 1, VL( 2 ), 1 );
 
-      RETURN;
+      return;
 
       // End of DLASD7
 

@@ -33,7 +33,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPTSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the L*D*L**T (or U**T*D*U) factorization of A.
@@ -45,7 +45,7 @@
 
          spttrs(N, NRHS, D, E, B, LDB, INFO );
       }
-      RETURN;
+      return;
 
       // End of SPTSV
 

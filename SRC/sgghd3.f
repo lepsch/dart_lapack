@@ -80,9 +80,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGGHD3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Initialize Q and Z if desired.
@@ -97,7 +97,7 @@
 
       if ( NH <= 1 ) {
          WORK( 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Determine the blocksize.
@@ -575,7 +575,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN;
+      return;
 
       // End of SGGHD3
 

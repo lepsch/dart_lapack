@@ -299,13 +299,13 @@
       if ( INFO != 0 ) {
         // #:(
          xerbla('CGEJSV', - INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
           CWORK(1) = OPTWRK;
           CWORK(2) = MINWRK;
           RWORK(1) = MINRWRK;
           IWORK(1) = MAX( 4, MINIWRK );
-          RETURN;
+          return;
       }
 
       // Quick return for void matrix (Y3K safe)
@@ -313,7 +313,7 @@
       if ( ( M == 0 ) || ( N == 0 ) ) {
          IWORK(1:4) = 0;
          RWORK(1:7) = 0;
-         RETURN;
+         return;
       }
 
       // Determine whether the matrix U should be M x N or M x M
@@ -349,7 +349,7 @@
          if ( AAPP > BIG ) {
             INFO = - 9;
             xerbla('CGEJSV', -INFO );
-            RETURN;
+            return;
          }
          AAQQ = SQRT(AAQQ);
          if ( ( AAPP < (BIG / AAQQ) ) && NOSCAL  ) {
@@ -393,7 +393,7 @@
          IWORK(2) = 0;
          IWORK(3) = 0;
          IWORK(4) = -1;
-         RETURN;
+         return;
       }
 
       // Issue warning if denormalized column norms detected. Override the
@@ -452,7 +452,7 @@
             RWORK(6) = ZERO;
             RWORK(7) = ZERO;
          }
-         RETURN;
+         return;
 
       }
 
@@ -1503,7 +1503,7 @@
       }
 
 
-      RETURN;
+      return;
       // ..
       // .. END OF CGEJSV
       // ..

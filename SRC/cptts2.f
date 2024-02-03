@@ -29,7 +29,7 @@
 
       if ( N <= 1 ) {
          if (N == 1) CALL CSSCAL( NRHS, 1. / D( 1 ), B, LDB );
-         RETURN;
+         return;
       }
 
       if ( IUPLO == 1 ) {
@@ -122,7 +122,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CPTTS2
 

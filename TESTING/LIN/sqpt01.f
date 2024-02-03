@@ -43,7 +43,7 @@
 
       if ( LWORK < M*N+N ) {
          xerbla('SQPT01', 10 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -75,7 +75,7 @@
 
       SQPT01 = SLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) SQPT01 = SQPT01 / NORMA;
 
-      RETURN;
+      return;
 
       // End of SQPT01
 

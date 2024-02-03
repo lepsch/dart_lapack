@@ -46,7 +46,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLASDA', -INFO );
-         RETURN;
+         return;
       }
 
       M = N + SQRE;
@@ -59,7 +59,7 @@
          } else {
             slasdq('U', SQRE, N, M, N, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO );
          }
-         RETURN;
+         return;
       }
 
       // Book-keeping and  set up the computation tree.
@@ -118,7 +118,7 @@
             scopy(NLP1, VT( NLF, NLP1 ), 1, WORK( VLI ), 1 );
          }
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
          for (J = 1; J <= NL; J++) { // 10
             IWORK( IDXQI+J ) = J;
@@ -146,7 +146,7 @@
             scopy(NRP1, VT( NRF, NRP1 ), 1, WORK( VLI ), 1 );
          }
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
          for (J = 1; J <= NR; J++) { // 20
             IWORK( IDXQI+J ) = J;
@@ -193,12 +193,12 @@
                slasd6(ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK( NWORK1 ), IWORK( IWK ), INFO );
             }
             if ( INFO != 0 ) {
-               RETURN;
+               return;
             }
          } // 40
       } // 50
 
-      RETURN;
+      return;
 
       // End of SLASDA
 

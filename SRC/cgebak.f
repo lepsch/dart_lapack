@@ -59,7 +59,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGEBAK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -116,7 +116,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CGEBAK
 

@@ -118,7 +118,7 @@
       }
 
       DLANSB = VALUE;
-      RETURN;
+      return;
 
       // End of DLANSB
 

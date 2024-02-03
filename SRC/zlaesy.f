@@ -97,7 +97,7 @@
             EVSCAL = ZERO;
          }
       }
-      RETURN;
+      return;
 
       // End of ZLAESY
 

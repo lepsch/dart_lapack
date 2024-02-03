@@ -77,7 +77,7 @@
          RESULT( 1 ) = ( DLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
       }
 
-      RETURN;
+      return;
 
       // End of DSGT01
 

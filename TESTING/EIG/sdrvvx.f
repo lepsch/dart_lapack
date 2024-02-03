@@ -98,7 +98,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SDRVVX', -INFO );
-         RETURN;
+         return;
       }
 
       // If nothing to do check on NIUNIT
@@ -267,7 +267,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 90
@@ -391,7 +391,7 @@
  9993 FORMAT( ' N=', I5, ', input example =', I3, ',  test(', I2, ')=', G10.3 );
  9992 FORMAT( ' SDRVVX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
-      RETURN;
+      return;
 
       // End of SDRVVX
 

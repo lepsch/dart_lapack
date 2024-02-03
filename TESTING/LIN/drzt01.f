@@ -40,7 +40,7 @@
 
       if ( LWORK < M*N+M ) {
          xerbla('DRZT01', 8 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -73,7 +73,7 @@
       DRZT01 = DRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
       if (NORMA != ZERO) DRZT01 = DRZT01 / NORMA;
 
-      RETURN;
+      return;
 
       // End of DRZT01
 

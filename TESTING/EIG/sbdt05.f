@@ -71,7 +71,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SBDT05
 

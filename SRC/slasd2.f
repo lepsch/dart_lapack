@@ -64,7 +64,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLASD2', -INFO );
-         RETURN;
+         return;
       }
 
       NLP1 = NL + 1;
@@ -346,7 +346,7 @@
          COLTYP( J ) = CTOT( J );
       } // 190
 
-      RETURN;
+      return;
 
       // End of SLASD2
 

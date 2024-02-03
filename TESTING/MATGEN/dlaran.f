@@ -69,7 +69,7 @@
       }
 
       DLARAN = RNDOUT;
-      RETURN;
+      return;
 
       // End of DLARAN
 

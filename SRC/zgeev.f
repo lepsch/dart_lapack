@@ -110,9 +110,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGEEV ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -287,7 +287,7 @@
       }
 
       WORK( 1 ) = MAXWRK;
-      RETURN;
+      return;
 
       // End of ZGEEV
 

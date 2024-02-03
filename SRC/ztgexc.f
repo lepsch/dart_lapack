@@ -44,7 +44,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTGEXC', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -62,7 +62,7 @@
          ztgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO );
          if ( INFO != 0 ) {
             ILST = HERE;
-            RETURN;
+            return;
          }
          HERE = HERE + 1;
          if (HERE < ILST) GO TO 10;
@@ -77,14 +77,14 @@
          ztgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO );
          if ( INFO != 0 ) {
             ILST = HERE;
-            RETURN;
+            return;
          }
          HERE = HERE - 1;
          if (HERE >= ILST) GO TO 20;
          HERE = HERE + 1;
       }
       ILST = HERE;
-      RETURN;
+      return;
 
       // End of ZTGEXC
 

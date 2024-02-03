@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHPSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
@@ -54,7 +54,7 @@
          chptrs(UPLO, N, NRHS, AP, IPIV, B, LDB, INFO );
 
       }
-      RETURN;
+      return;
 
       // End of CHPSV
 

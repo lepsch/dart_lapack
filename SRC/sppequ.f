@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SPPEQU', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -55,7 +55,7 @@
       if ( N == 0 ) {
          SCOND = ONE;
          AMAX = ZERO;
-         RETURN;
+         return;
       }
 
       // Initialize SMIN and AMAX.
@@ -98,7 +98,7 @@
          for (I = 1; I <= N; I++) { // 30
             if ( S( I ) <= ZERO ) {
                INFO = I;
-               RETURN;
+               return;
             }
          } // 30
       } else {
@@ -114,7 +114,7 @@
 
          SCOND = SQRT( SMIN ) / SQRT( AMAX );
       }
-      RETURN;
+      return;
 
       // End of SPPEQU
 

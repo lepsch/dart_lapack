@@ -175,15 +175,15 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGESVDX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Set singular values indices accord to RANGE='A'.
@@ -515,7 +515,7 @@
 
       WORK( 1 ) = DCMPLX( DBLE( MAXWRK ), ZERO );
 
-      RETURN;
+      return;
 
       // End of ZGESVDX
 

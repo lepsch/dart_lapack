@@ -30,7 +30,7 @@
       // Invalid value for ISPEC
 
       ILAENV = -1;
-      RETURN;
+      return;
 
       } // 10
 
@@ -333,7 +333,7 @@
          }
       }
       ILAENV = NB;
-      RETURN;
+      return;
 
       } // 60
 
@@ -414,7 +414,7 @@
          }
       }
       ILAENV = NBMIN;
-      RETURN;
+      return;
 
       } // 70
 
@@ -474,42 +474,42 @@
          }
       }
       ILAENV = NX;
-      RETURN;
+      return;
 
       } // 80
 
       // ISPEC = 4:  number of shifts (used by xHSEQR)
 
       ILAENV = 6;
-      RETURN;
+      return;
 
       } // 90
 
       // ISPEC = 5:  minimum column dimension (not used)
 
       ILAENV = 2;
-      RETURN;
+      return;
 
       } // 100
 
       // ISPEC = 6:  crossover point for SVD (used by xGELSS and xGESVD)
 
       ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6 );
-      RETURN;
+      return;
 
       } // 110
 
       // ISPEC = 7:  number of processors (not used)
 
       ILAENV = 1;
-      RETURN;
+      return;
 
       } // 120
 
       // ISPEC = 8:  crossover point for multishift (used by xHSEQR)
 
       ILAENV = 50;
-      RETURN;
+      return;
 
       } // 130
 
@@ -518,7 +518,7 @@
                   // (used by xGELSD and xGESDD)
 
       ILAENV = 25;
-      RETURN;
+      return;
 
       } // 140
 
@@ -529,7 +529,7 @@
       if ( ILAENV == 1 ) {
          ILAENV = IEEECK( 1, 0.0, 1.0 );
       }
-      RETURN;
+      return;
 
       } // 150
 
@@ -540,14 +540,14 @@
       if ( ILAENV == 1 ) {
          ILAENV = IEEECK( 0, 0.0, 1.0 );
       }
-      RETURN;
+      return;
 
       } // 160
 
       // 12 <= ISPEC <= 17: xHSEQR or related subroutines.
 
       ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
-      RETURN;
+      return;
 
       // End of ILAENV
 

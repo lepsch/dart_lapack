@@ -91,16 +91,16 @@
 
       if ( INFO != 0 ) {
          xerbla('DGELS ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ) == 0 ) {
          dlaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         RETURN;
+         return;
       }
 
       // Get machine parameters
@@ -173,7 +173,7 @@
             dtrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = N;
@@ -187,7 +187,7 @@
             dtrtrs('Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // B(N+1:M,1:NRHS) = ZERO
@@ -225,7 +225,7 @@
             dtrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // B(M+1:N,1:NRHS) = 0
@@ -259,7 +259,7 @@
             dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = M;
@@ -284,7 +284,7 @@
       } // 50
       WORK( 1 ) = DBLE( WSIZE );
 
-      RETURN;
+      return;
 
       // End of DGELS
 

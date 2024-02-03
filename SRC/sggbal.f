@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGGBAL', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -60,7 +60,7 @@
       if ( N == 0 ) {
          ILO = 1;
          IHI = N;
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
@@ -68,7 +68,7 @@
          IHI = N;
          LSCALE( 1 ) = ONE;
          RSCALE( 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       if ( LSAME( JOB, 'N' ) ) {
@@ -78,7 +78,7 @@
             LSCALE( I ) = ONE;
             RSCALE( I ) = ONE;
          } // 10
-         RETURN;
+         return;
       }
 
       K = 1;
@@ -175,7 +175,7 @@
             LSCALE( I ) = ONE;
             RSCALE( I ) = ONE;
          } // 195
-         RETURN;
+         return;
       }
 
       if (ILO == IHI) RETURN;
@@ -344,7 +344,7 @@
          sscal(IHI, RSCALE( J ), B( 1, J ), 1 );
       } // 380
 
-      RETURN;
+      return;
 
       // End of SGGBAL
 

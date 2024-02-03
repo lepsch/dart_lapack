@@ -562,7 +562,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZLATTR
 

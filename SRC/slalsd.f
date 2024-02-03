@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLALSD', -INFO );
-         RETURN;
+         return;
       }
 
       EPS = SLAMCH( 'Epsilon' );
@@ -68,7 +68,7 @@
       // Quick return if possible.
 
       if ( N == 0 ) {
-         RETURN;
+         return;
       } else if ( N == 1 ) {
          if ( D( 1 ) == ZERO ) {
             slaset('A', 1, NRHS, ZERO, ZERO, B, LDB );
@@ -77,7 +77,7 @@
             slascl('G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO );
             D( 1 ) = ABS( D( 1 ) );
          }
-         RETURN;
+         return;
       }
 
       // Rotate the matrix if it is lower bidiagonal.
@@ -112,7 +112,7 @@
       ORGNRM = SLANST( 'M', N, D, E );
       if ( ORGNRM == ZERO ) {
          slaset('A', N, NRHS, ZERO, ZERO, B, LDB );
-         RETURN;
+         return;
       }
 
       slascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO );
@@ -126,7 +126,7 @@
          slaset('A', N, N, ZERO, ONE, WORK, N );
          slasdq('U', 0, N, N, 0, NRHS, D, E, WORK, N, WORK, N, B, LDB, WORK( NWORK ), INFO );
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
          TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) );
          for (I = 1; I <= N; I++) { // 40
@@ -146,7 +146,7 @@
          slasrt('D', N, D, INFO );
          slascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
-         RETURN;
+         return;
       }
 
       // Book-keeping and setting up some constants.
@@ -233,7 +233,7 @@
                slaset('A', NSIZE, NSIZE, ZERO, ONE, WORK( VT+ST1 ), N );
                slasdq('U', 0, NSIZE, NSIZE, 0, NRHS, D( ST ), E( ST ), WORK( VT+ST1 ), N, WORK( NWORK ), N, B( ST, 1 ), LDB, WORK( NWORK ), INFO );
                if ( INFO != 0 ) {
-                  RETURN;
+                  return;
                }
                slacpy('A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N );
             } else {
@@ -242,12 +242,12 @@
 
                slasda(ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO );
                if ( INFO != 0 ) {
-                  RETURN;
+                  return;
                }
                BXST = BX + ST1;
                slalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BXST ), N, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO );
                if ( INFO != 0 ) {
-                  RETURN;
+                  return;
                }
             }
             ST = I + 1;
@@ -287,7 +287,7 @@
          } else {
             slalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO );
             if ( INFO != 0 ) {
-               RETURN;
+               return;
             }
          }
       } // 80
@@ -298,7 +298,7 @@
       slasrt('D', N, D, INFO );
       slascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
-      RETURN;
+      return;
 
       // End of SLALSD
 

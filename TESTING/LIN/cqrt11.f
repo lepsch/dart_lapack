@@ -41,7 +41,7 @@
 
       if ( LWORK < M*M+M ) {
          xerbla('CQRT11', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -64,7 +64,7 @@
 
       CQRT11 = CLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) );
 
-      RETURN;
+      return;
 
       // End of CQRT11
 

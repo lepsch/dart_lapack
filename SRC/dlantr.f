@@ -203,7 +203,7 @@
       }
 
       DLANTR = VALUE;
-      RETURN;
+      return;
 
       // End of DLANTR
 

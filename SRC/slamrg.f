@@ -64,7 +64,7 @@
          } // 30
       }
 
-      RETURN;
+      return;
 
       // End of SLAMRG
 

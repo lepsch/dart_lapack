@@ -62,10 +62,10 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSYTRS_AA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWKMIN );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -177,7 +177,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SSYTRS_AA
 

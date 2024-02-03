@@ -80,16 +80,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SORMHR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 || NH == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       if ( LEFT ) {
@@ -107,7 +107,7 @@
       sormqr(SIDE, TRANS, MI, NI, NH, A( ILO+1, ILO ), LDA, TAU( ILO ), C( I1, I2 ), LDC, WORK, LWORK, IINFO );
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of SORMHR
 

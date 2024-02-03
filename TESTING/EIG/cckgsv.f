@@ -157,7 +157,7 @@
  9999 FORMAT( ' CLATMS in CCKGSV   INFO = ', I5 );
  9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
  9997 FORMAT( ' FOUND NaN in BETA(', I4,')' );
-      RETURN;
+      return;
 
       // End of CCKGSV
 

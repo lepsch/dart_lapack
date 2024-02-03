@@ -174,7 +174,7 @@
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', RANK =', I3, ', Diff =', I5, ', NB =', I4, ', type ', I2, ', Ratio =', G12.5 );
-      RETURN;
+      return;
 
       // End of CCHKPS
 

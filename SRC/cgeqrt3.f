@@ -37,7 +37,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGEQRT3', -INFO );
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
@@ -107,7 +107,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CGEQRT3
 

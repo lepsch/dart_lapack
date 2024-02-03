@@ -86,15 +86,15 @@
 
       if ( INFO != 0 ) {
          xerbla('CUNMLQ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 || K == 0 ) {
-         RETURN;
+         return;
       }
 
       // Determine the block size
@@ -169,7 +169,7 @@
          } // 10
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of CUNMLQ
 

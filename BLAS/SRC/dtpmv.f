@@ -47,7 +47,7 @@
       }
       if (INFO != 0) {
           xerbla('DTPMV ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -201,7 +201,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of DTPMV
 

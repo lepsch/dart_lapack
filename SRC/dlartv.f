@@ -31,7 +31,7 @@
          IY = IY + INCY;
          IC = IC + INCC;
       } // 10
-      RETURN;
+      return;
 
       // End of DLARTV
 

@@ -43,7 +43,7 @@
 
       if ( LWORK < M*N+N ) {
          xerbla('CQPT01', 10 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -75,7 +75,7 @@
 
       CQPT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) CQPT01 = CQPT01 / NORMA;
 
-      RETURN;
+      return;
 
       // End of CQPT01
 

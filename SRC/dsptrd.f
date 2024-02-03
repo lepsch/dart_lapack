@@ -44,7 +44,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSPTRD', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -136,7 +136,7 @@
          D( N ) = AP( II );
       }
 
-      RETURN;
+      return;
 
       // End of DSPTRD
 

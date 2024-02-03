@@ -47,7 +47,7 @@
             }
          } // 10
       }
-      RETURN;
+      return;
 
       // End of DSLECT
 

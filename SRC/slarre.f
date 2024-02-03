@@ -54,7 +54,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN;
+         return;
       }
 
       // Decode RANGE
@@ -94,7 +94,7 @@
          }
          // store the shift for the initial RRR, which is zero in this case
          E(1) = ZERO;
-         RETURN;
+         return;
       }
 
       // General case: tridiagonal matrix of order > 1
@@ -151,7 +151,7 @@
          slarrd(RANGE, 'B', N, VL, VU, IL, IU, GERS, BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, MM, W, WERR, VL, VU, IBLOCK, INDEXW, WORK, IWORK, IINFO );
          if ( IINFO != 0 ) {
             INFO = -1;
-            RETURN;
+            return;
          }
          // Make sure that the entries M+1 to N in W, WERR, IBLOCK, INDEXW are 0
          for (I = MM+1; I <= N; I++) { // 14
@@ -246,13 +246,13 @@
             slarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
             if ( IINFO != 0 ) {
                INFO = -1;
-               RETURN;
+               return;
             }
             ISLEFT = MAX(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1));
              slarrk(IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
             if ( IINFO != 0 ) {
                INFO = -1;
-               RETURN;
+               return;
             }
             ISRGHT = MIN(GU, TMP + TMP1 + HNDRD * EPS * ABS(TMP + TMP1));
             // Improve the estimate of the spectral diameter
@@ -415,7 +415,7 @@
          // if the program reaches this point, no base representation could be
          // found in MAXTRY iterations.
          INFO = 2;
-         RETURN;
+         return;
 
          } // 83
          // At this point, we have found an initial base representation
@@ -471,7 +471,7 @@
             slarrb(IN, D(IBEGIN), WORK(IBEGIN), INDL, INDU, RTOL1, RTOL2, INDL-1, W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM, IN, IINFO );
             if ( IINFO != 0 ) {
                INFO = -4;
-               RETURN;
+               return;
             }
             // SLARRB computes all gaps correctly except for the last one
             // Record distance to VU/GU
@@ -508,13 +508,13 @@
                // and should be changed. The index is in IWORK(1) and the
                // gap is in WORK(N+1)
                INFO = -5;
-               RETURN;
+               return;
             } else {
                // Test that all eigenvalues are positive as expected
                for (I = 1; I <= IN; I++) { // 149
                   if ( WORK( I ) < ZERO ) {
                      INFO = -6;
-                     RETURN;
+                     return;
                   }
                } // 149
             }
@@ -550,7 +550,7 @@
       } // 170
 
 
-      RETURN;
+      return;
 
       // End of SLARRE
 

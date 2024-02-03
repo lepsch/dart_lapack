@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLAED7', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -99,7 +99,7 @@
          clacrm(QSIZ, K, WORK, QSIZ, QSTORE( QPTR( CURR ) ), K, Q, LDQ, RWORK( IQ ) );
          QPTR( CURR+1 ) = QPTR( CURR ) + K**2;
          if ( INFO != 0 ) {
-            RETURN;
+            return;
          }
 
       // Prepare the INDXQ sorting permutation.
@@ -114,7 +114,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of CLAED7
 

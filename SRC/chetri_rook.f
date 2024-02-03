@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHETRI_ROOK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -343,7 +343,7 @@
          } // 120
       }
 
-      RETURN;
+      return;
 
       // End of CHETRI_ROOK
 

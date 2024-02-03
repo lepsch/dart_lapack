@@ -53,14 +53,14 @@
 
       if ( I < 1 || I > M || J < 1 || J > N ) {
          CLATM2 = CZERO;
-         RETURN;
+         return;
       }
 
       // Check for banding
 
       if ( J > I+KU || J < I-KL ) {
          CLATM2 = CZERO;
-         RETURN;
+         return;
       }
 
       // Check for sparsity
@@ -68,7 +68,7 @@
       if ( SPARSE > ZERO ) {
          if ( SLARAN( ISEED ) < SPARSE ) {
             CLATM2 = CZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -109,7 +109,7 @@
          CTEMP = CTEMP*DL( ISUB )*DL( JSUB );
       }
       CLATM2 = CTEMP;
-      RETURN;
+      return;
 
       // End of CLATM2
 

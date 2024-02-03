@@ -59,7 +59,7 @@
       if (N == 0) RETURN;
       if ( ILO == IHI ) {
          W( ILO ) = H( ILO, ILO );
-         RETURN;
+         return;
       }
 
       // ==== clear out the trash ====
@@ -334,7 +334,7 @@
       // Failure to converge in remaining number of iterations
 
       INFO = I;
-      RETURN;
+      return;
 
       } // 140
 
@@ -350,7 +350,7 @@
       GO TO 30;
 
       } // 150
-      RETURN;
+      return;
 
       // End of ZLAHQR
 

@@ -70,7 +70,7 @@
 
       if ( INFO != 0 ) {
          xerbla('STPMLQT', -INFO );
-         RETURN;
+         return;
       }
 
       // .. Quick return if possible ..
@@ -133,7 +133,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of STPMLQT
 

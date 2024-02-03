@@ -212,7 +212,7 @@
       }
       SIGMA = T;
 
-      RETURN;
+      return;
 
       // End of SLASQ3
 

@@ -42,7 +42,7 @@
 
       if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
       EPS = DLAMCH( 'Epsilon' );
       SMLNUM = DLAMCH( 'Safe minimum' );
@@ -90,7 +90,7 @@
          RESID = MAX( RESID, ERR );
       } // 30
 
-      RETURN;
+      return;
 
       // End of ZTRT03
 

@@ -99,7 +99,7 @@
       BPNT = TPNT;
       if (TPNT <= N) GO TO 10;
       } // 40
-      RETURN;
+      return;
 
       // End of DSVDCH
 

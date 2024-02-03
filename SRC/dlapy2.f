@@ -49,7 +49,7 @@
             DLAPY2 = W*SQRT( ONE+( Z / W )**2 );
          }
       }
-      RETURN;
+      return;
 
       // End of DLAPY2
 

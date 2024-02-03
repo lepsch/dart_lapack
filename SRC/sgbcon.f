@@ -62,7 +62,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGBCON', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -70,9 +70,9 @@
       RCOND = ZERO;
       if ( N == 0 ) {
          RCOND = ONE;
-         RETURN;
+         return;
       } else if ( ANORM == ZERO ) {
-         RETURN;
+         return;
       }
 
       SMLNUM = SLAMCH( 'Safe minimum' );
@@ -150,7 +150,7 @@
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       } // 40
-      RETURN;
+      return;
 
       // End of SGBCON
 

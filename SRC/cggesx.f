@@ -151,16 +151,16 @@
 
       if ( INFO != 0 ) {
          xerbla('CGGESX', -INFO );
-         RETURN;
+         return;
       } else if (LQUERY) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          SDIM = 0;
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -338,7 +338,7 @@
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of CGGESX
 

@@ -59,7 +59,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSTEQR', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -68,7 +68,7 @@
 
       if ( N == 1 ) {
          if (ICOMPZ == 2) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Determine the unit roundoff and over/underflow thresholds.
@@ -388,7 +388,7 @@
       }
 
       } // 190
-      RETURN;
+      return;
 
       // End of SSTEQR
 

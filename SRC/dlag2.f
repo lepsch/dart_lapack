@@ -203,5 +203,5 @@
 
       // End of DLAG2
 
-      RETURN;
+      return;
       }

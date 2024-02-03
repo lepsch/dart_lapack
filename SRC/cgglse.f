@@ -75,9 +75,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CGGLSE', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -109,7 +109,7 @@
 
          if ( INFO > 0 ) {
             INFO = 1;
-            RETURN;
+            return;
          }
 
          // Put the solution in X
@@ -128,7 +128,7 @@
 
          if ( INFO > 0 ) {
             INFO = 2;
-            RETURN;
+            return;
          }
 
          // Put the solutions in X
@@ -154,7 +154,7 @@
       cunmrq('Left', 'Conjugate Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO );
       WORK( 1 ) = P + MN + MAX( LOPT, INT( WORK( P+MN+1 ) ) );
 
-      RETURN;
+      return;
 
       // End of CGGLSE
 

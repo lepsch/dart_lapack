@@ -37,10 +37,10 @@
 
       if ( N == 0 ) {
          SLANSF = ZERO;
-         RETURN;
+         return;
       } else if ( N == 1 ) {
          SLANSF = ABS( A(0) );
-         RETURN;
+         return;
       }
 
       // set noe = 1 if n is odd. if n is even set noe=0
@@ -728,7 +728,7 @@
       }
 
       SLANSF = VALUE;
-      RETURN;
+      return;
 
       // End of SLANSF
 

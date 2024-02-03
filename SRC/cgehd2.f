@@ -43,7 +43,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGEHD2', -INFO );
-         RETURN;
+         return;
       }
 
       for (I = ILO; I <= IHI - 1; I++) { // 10
@@ -65,7 +65,7 @@
          A( I+1, I ) = ALPHA;
       } // 10
 
-      RETURN;
+      return;
 
       // End of CGEHD2
 

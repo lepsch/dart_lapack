@@ -22,7 +22,7 @@
           SROUNDUP_LWORK = SROUNDUP_LWORK * ( 1.0 + EPSILON(0.0) );
       }
 
-      RETURN;
+      return;
 
       // End of SROUNDUP_LWORK
 

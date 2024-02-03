@@ -649,7 +649,7 @@
          KB = K - 1;
 
       }
-      RETURN;
+      return;
 
       // End of DLASYF_ROOK
 

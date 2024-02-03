@@ -43,7 +43,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLAGTS', -INFO );
-         RETURN;
+         return;
       }
 
       if (N == 0) RETURN;
@@ -89,14 +89,14 @@
                   if ( ABSAK < SFMIN ) {
                      if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
                         INFO = K;
-                        RETURN;
+                        return;
                      } else {
                         TEMP = TEMP*BIGNUM;
                         AK = AK*BIGNUM;
                      }
                   } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
                      INFO = K;
-                     RETURN;
+                     return;
                   }
                }
                Y( K ) = TEMP / AK;
@@ -152,14 +152,14 @@
                   if ( ABSAK < SFMIN ) {
                      if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
                         INFO = K;
-                        RETURN;
+                        return;
                      } else {
                         TEMP = TEMP*BIGNUM;
                         AK = AK*BIGNUM;
                      }
                   } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
                      INFO = K;
-                     RETURN;
+                     return;
                   }
                }
                Y( K ) = TEMP / AK;

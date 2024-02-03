@@ -46,7 +46,7 @@
             }
          } // 10
       }
-      RETURN;
+      return;
 
       // End of CSLECT
 

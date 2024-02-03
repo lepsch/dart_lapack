@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLAVSY ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -352,7 +352,7 @@
             } // 120
          }
       }
-      RETURN;
+      return;
 
       // End of ZLAVSY
 

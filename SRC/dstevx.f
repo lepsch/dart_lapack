@@ -70,7 +70,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DSTEVX', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -89,7 +89,7 @@
             }
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -217,7 +217,7 @@
          } // 40
       }
 
-      RETURN;
+      return;
 
       // End of DSTEVX
 

@@ -45,14 +45,14 @@
 
       if ( I < 1 || I > M || J < 1 || J > N ) {
          DLATM2 = ZERO;
-         RETURN;
+         return;
       }
 
       // Check for banding
 
       if ( J > I+KU || J < I-KL ) {
          DLATM2 = ZERO;
-         RETURN;
+         return;
       }
 
       // Check for sparsity
@@ -60,7 +60,7 @@
       if ( SPARSE > ZERO ) {
          if ( DLARAN( ISEED ) < SPARSE ) {
             DLATM2 = ZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -99,7 +99,7 @@
          TEMP = TEMP*DL( ISUB )*DL( JSUB );
       }
       DLATM2 = TEMP;
-      RETURN;
+      return;
 
       // End of DLATM2
 

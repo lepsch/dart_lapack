@@ -62,14 +62,14 @@
 
       if ( INFO != 0 ) {
          xerbla('CGELSX', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ) == 0 ) {
          RANK = 0;
-         RETURN;
+         return;
       }
 
       // Get machine parameters
@@ -239,7 +239,7 @@
 
       } // 100
 
-      RETURN;
+      return;
 
       // End of CGELSX
 

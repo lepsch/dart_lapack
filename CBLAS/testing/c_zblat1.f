@@ -68,7 +68,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
       DATA             L(10)/'CBLAS_IZAMAX'/;
       // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE);
-      RETURN;
+      return;
 
 99999 FORMAT (/' Test of subprogram number',I3,9X,A15)
       }
@@ -182,7 +182,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
          zdscaltest(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
       }
-      RETURN;
+      return;
       }
       SUBROUTINE CHECK2(SFAC);
       // .. Parameters ..
@@ -279,7 +279,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
 
          } // 40
       } // 60
-      RETURN;
+      return;
       }
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC);
       // ********************************* STEST **************************
@@ -326,7 +326,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
          WRITE (NOUT,99998);
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I);
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
@@ -355,7 +355,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
       STRUE(1) = STRUE1;
       stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
-      RETURN;
+      return;
       }
       double           FUNCTION SDIFF(SA,SB);
       // ********************************* SDIFF **************************
@@ -365,7 +365,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
       double                          SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
-      RETURN;
+      return;
       }
       SUBROUTINE CTEST(LEN,CCOMP,CTRUE,CSIZE,SFAC);
       // **************************** CTEST *****************************
@@ -396,7 +396,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
       } // 20
 
       stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);
-      RETURN;
+      return;
       }
       SUBROUTINE ITEST1(ICOMP,ITRUE);
       // ********************************* ITEST1 *************************
@@ -430,7 +430,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
    20 ID = ICOMP - ITRUE;
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID;
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)

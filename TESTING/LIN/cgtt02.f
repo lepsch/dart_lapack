@@ -55,7 +55,7 @@
       EPS = SLAMCH( 'Epsilon' );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Compute B - op(A)*X and store in B.
@@ -72,7 +72,7 @@
          }
       } // 10
 
-      RETURN;
+      return;
 
       // End of CGTT02
 

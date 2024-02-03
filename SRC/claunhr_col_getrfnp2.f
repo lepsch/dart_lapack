@@ -55,7 +55,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLAUNHR_COL_GETRFNP2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -134,7 +134,7 @@
          claunhr_col_getrfnp2(M-N1, N2, A( N1+1, N1+1 ), LDA, D( N1+1 ), IINFO );
 
       }
-      RETURN;
+      return;
 
       // End of CLAUNHR_COL_GETRFNP2
 

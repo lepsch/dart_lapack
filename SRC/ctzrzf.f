@@ -67,20 +67,20 @@
 
       if ( INFO != 0 ) {
          xerbla('CTZRZF', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 ) {
-         RETURN;
+         return;
       } else if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO;
          } // 10
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -147,7 +147,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of CTZRZF
 

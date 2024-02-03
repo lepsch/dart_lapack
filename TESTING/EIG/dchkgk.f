@@ -160,7 +160,7 @@
       WRITE( NOUT, FMT = 9992 )KNT;
  9992 FORMAT( ' total number of examples tested              =', I4 );
 
-      RETURN;
+      return;
 
       // End of DCHKGK
 

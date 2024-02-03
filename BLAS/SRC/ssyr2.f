@@ -50,7 +50,7 @@
       }
       if (INFO != 0) {
           xerbla('SSYR2 ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -143,7 +143,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of SSYR2
 

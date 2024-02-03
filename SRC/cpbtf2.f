@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPBTF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -112,11 +112,11 @@
             }
          } // 20
       }
-      RETURN;
+      return;
 
       } // 30
       INFO = J;
-      RETURN;
+      return;
 
       // End of CPBTF2
 

@@ -85,7 +85,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DSTEBZ', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize error flags
@@ -125,7 +125,7 @@
             IBLOCK( 1 ) = 1;
             M = 1;
          }
-         RETURN;
+         return;
       }
 
       // Compute Splitting Points
@@ -217,7 +217,7 @@
 
          if ( NWL < 0 || NWL >= N || NWU < 1 || NWU > N ) {
             INFO = 4;
-            RETURN;
+            return;
          }
       } else {
 
@@ -454,7 +454,7 @@
 
       INFO = 0;
       if (NCNVRG) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2;
-      RETURN;
+      return;
 
       // End of DSTEBZ
 

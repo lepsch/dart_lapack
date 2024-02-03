@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CHBGV', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -66,7 +66,7 @@
       cpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem.
@@ -91,7 +91,7 @@
       } else {
          csteqr(JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDWRK ), INFO );
       }
-      RETURN;
+      return;
 
       // End of CHBGV
 

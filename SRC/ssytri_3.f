@@ -61,9 +61,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYTRI_3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -74,7 +74,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN;
+      return;
 
       // End of SSYTRI_3
 

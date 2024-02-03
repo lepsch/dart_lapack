@@ -60,7 +60,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYTRF_AA_2STAGE', -INFO );
-         RETURN;
+         return;
       }
 
       // Answer the query
@@ -75,13 +75,13 @@
          }
       }
       if ( TQUERY || WQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return
 
       if ( N == 0 ) {
-         RETURN;
+         return;
       }
 
       // Determine the number of the block size
@@ -376,7 +376,7 @@
       // Factor the band matrix
       sgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
-      RETURN;
+      return;
 
       // End of SSYTRF_AA_2STAGE
 

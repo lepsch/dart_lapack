@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGEQL2', -INFO );
-         RETURN;
+         return;
       }
 
       K = MIN( M, N );
@@ -60,7 +60,7 @@
          dlarf('Left', M-K+I, N-K+I-1, A( 1, N-K+I ), 1, TAU( I ), A, LDA, WORK );
          A( M-K+I, N-K+I ) = AII;
       } // 10
-      RETURN;
+      return;
 
       // End of DGEQL2
 

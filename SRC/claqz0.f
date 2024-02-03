@@ -92,7 +92,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLAQZ0', -INFO );
-         RETURN;
+         return;
       }
 
 
@@ -100,7 +100,7 @@
 
       if ( N <= 0 ) {
          WORK( 1 ) = REAL( 1 );
-         RETURN;
+         return;
       }
 
 
@@ -129,7 +129,7 @@
 
       if ( N < NMIN || REC >= 2 ) {
          chgeqz(WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, INFO );
-         RETURN;
+         return;
       }
 
 
@@ -147,13 +147,13 @@
       LWORKREQ = MAX( ITEMP1+2*NW**2, ITEMP2+2*NBR**2 );
       if ( LWORK == -1 ) {
          WORK( 1 ) = REAL( LWORKREQ );
-         RETURN;
+         return;
       } else if ( LWORK < LWORKREQ ) {
          INFO = -19;
       }
       if ( INFO != 0 ) {
          xerbla('CLAQZ0', INFO );
-         RETURN;
+         return;
       }
 
       // Initialize Q and Z

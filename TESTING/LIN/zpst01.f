@@ -46,7 +46,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
@@ -55,7 +55,7 @@
       ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Check the imaginary parts of the diagonal elements and return with
@@ -64,7 +64,7 @@
       for (J = 1; J <= N; J++) { // 100
          if ( DIMAG( AFAC( J, J ) ) != ZERO ) {
             RESID = ONE / EPS;
-            RETURN;
+            return;
          }
       } // 100
 
@@ -177,7 +177,7 @@
 
       RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
 
-      RETURN;
+      return;
 
       // End of ZPST01
 

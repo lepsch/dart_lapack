@@ -80,9 +80,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CGELST ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -90,7 +90,7 @@
       if ( MIN( M, N, NRHS ) == 0 ) {
          claset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          WORK( 1 ) = SROUNDUP_LWORK( LWOPT );
-         RETURN;
+         return;
       }
 
       // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
@@ -138,7 +138,7 @@
 
          claset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          WORK( 1 ) = SROUNDUP_LWORK( LWOPT );
-         RETURN;
+         return;
       }
 
       BROW = M;
@@ -185,7 +185,7 @@
             ctrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = N;
@@ -203,7 +203,7 @@
             ctrtrs('Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // Block 2: Zero out all rows below the N-th row in B:
@@ -247,7 +247,7 @@
             ctrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // Block 2: Zero out all rows below the M-th row in B:
@@ -284,7 +284,7 @@
             ctrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = M;
@@ -308,7 +308,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWOPT );
 
-      RETURN;
+      return;
 
       // End of CGELST
 

@@ -118,7 +118,7 @@
       }
 
       SLANSB = VALUE;
-      RETURN;
+      return;
 
       // End of SLANSB
 

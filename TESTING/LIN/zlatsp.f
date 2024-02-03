@@ -175,7 +175,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZLATSP
 

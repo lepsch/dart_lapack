@@ -83,5 +83,5 @@
       SUBROUTINE MYSUB(N,X,Y);
       int     N;
       double           X(N), Y(N);
-      RETURN;
+      return;
       }

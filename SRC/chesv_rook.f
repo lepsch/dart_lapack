@@ -63,9 +63,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CHESV_ROOK ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
@@ -83,7 +83,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of CHESV_ROOK
 

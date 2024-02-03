@@ -72,16 +72,16 @@
 
       if ( INFO != 0 ) {
          xerbla('CHETRD_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       // Determine pointer position
@@ -93,17 +93,17 @@
       chetrd_he2hb(UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO );
       if ( INFO != 0 ) {
          xerbla('CHETRD_HE2HB', -INFO );
-         RETURN;
+         return;
       }
       chetrd_hb2st('Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO );
       if ( INFO != 0 ) {
          xerbla('CHETRD_HB2ST', -INFO );
-         RETURN;
+         return;
       }
 
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
-      RETURN;
+      return;
 
       // End of CHETRD_2STAGE
 

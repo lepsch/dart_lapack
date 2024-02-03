@@ -63,7 +63,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLATRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -160,7 +160,7 @@
                // At least one entry of A is not a valid floating-point entry.
                // Rely on TRSV to propagate Inf and NaN.
                dtrsv(UPLO, TRANS, DIAG, N, A, LDA, X, 1 );
-               RETURN;
+               return;
             }
          }
       }
@@ -586,7 +586,7 @@
          dscal(N, ONE / TSCAL, CNORM, 1 );
       }
 
-      RETURN;
+      return;
 
       // End of DLATRS
 

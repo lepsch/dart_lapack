@@ -83,9 +83,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSBGVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -97,7 +97,7 @@
       spbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem.
@@ -130,7 +130,7 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of SSBGVD
 

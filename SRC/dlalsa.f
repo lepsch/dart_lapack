@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLALSA', -INFO );
-         RETURN;
+         return;
       }
 
       // Book-keeping and  setting up the computation tree.
@@ -193,7 +193,7 @@
 
       } // 90
 
-      RETURN;
+      return;
 
       // End of DLALSA
 

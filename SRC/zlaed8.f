@@ -54,7 +54,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZLAED8', -INFO );
-         RETURN;
+         return;
       }
 
       // Need to initialize GIVPTR to O here in case of quick exit
@@ -120,7 +120,7 @@
             zcopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
          } // 50
          zlacpy('A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ );
-         RETURN;
+         return;
       }
 
       // If there are multiple eigenvalues then the problem deflates.  Here
@@ -241,7 +241,7 @@
          zlacpy('A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ );
       }
 
-      RETURN;
+      return;
 
       // End of ZLAED8
 

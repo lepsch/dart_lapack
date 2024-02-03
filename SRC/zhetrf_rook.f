@@ -58,9 +58,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHETRF_ROOK', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -168,7 +168,7 @@
 
       } // 40
       WORK( 1 ) = LWKOPT;
-      RETURN;
+      return;
 
       // End of ZHETRF_ROOK
 

@@ -62,7 +62,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CLA_GBRCOND_C', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute norm of op(A)*op2(C).
@@ -106,9 +106,9 @@
 
       if ( N == 0 ) {
          CLA_GBRCOND_C = 1.0;
-         RETURN;
+         return;
       } else if ( ANORM == 0.0 ) {
-         RETURN;
+         return;
       }
 
       // Estimate the norm of inv(op(A)).
@@ -169,7 +169,7 @@
 
       if (AINVNM != 0.0) CLA_GBRCOND_C = 1.0 / AINVNM;
 
-      RETURN;
+      return;
 
       // End of CLA_GBRCOND_C
 

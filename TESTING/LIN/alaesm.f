@@ -22,7 +22,7 @@
 
  9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits' );
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ', 'exits ***' );
-      RETURN;
+      return;
 
       // End of ALAESM
 

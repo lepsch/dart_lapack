@@ -36,7 +36,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGESV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the LU factorization of A.
@@ -48,7 +48,7 @@
 
          cgetrs('No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO );
       }
-      RETURN;
+      return;
 
       // End of CGESV
 

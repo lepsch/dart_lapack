@@ -44,7 +44,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPBSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the Cholesky factorization A = U**H*U or A = L*L**H.
@@ -57,7 +57,7 @@
          cpbtrs(UPLO, N, KD, NRHS, AB, LDAB, B, LDB, INFO );
 
       }
-      RETURN;
+      return;
 
       // End of CPBSV
 

@@ -81,7 +81,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGET23', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if nothing to do
@@ -117,7 +117,7 @@
             WRITE( NOUNIT, FMT = 9999 )'ZGEEVX1', IINFO, N, ISEED( 1 );
          }
          INFO = ABS( IINFO );
-         RETURN;
+         return;
       }
 
       // Do Test (1)
@@ -413,7 +413,7 @@
  9999 FORMAT( ' ZGET23: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', INPUT EXAMPLE NUMBER = ', I4 );
  9998 FORMAT( ' ZGET23: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', BALANC = ', A, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
-      RETURN;
+      return;
 
       // End of ZGET23
 

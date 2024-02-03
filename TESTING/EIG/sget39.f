@@ -217,7 +217,7 @@
          } // 130
       } // 140
 
-      RETURN;
+      return;
 
       // End of SGET39
 

@@ -514,7 +514,7 @@
       }
       if (N <= 1) CNDNUM = ONE;
 
-      RETURN;
+      return;
 
       // End of SLATB4
 

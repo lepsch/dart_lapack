@@ -46,7 +46,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGEEQUB', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -55,7 +55,7 @@
          ROWCND = ONE;
          COLCND = ONE;
          AMAX = ZERO;
-         RETURN;
+         return;
       }
 
       // Get machine constants.  Assume SMLNUM is a power of the radix.
@@ -101,7 +101,7 @@
          for (I = 1; I <= M; I++) { // 50
             if ( R( I ) == ZERO ) {
                INFO = I;
-               RETURN;
+               return;
             }
          } // 50
       } else {
@@ -151,7 +151,7 @@
          for (J = 1; J <= N; J++) { // 110
             if ( C( J ) == ZERO ) {
                INFO = M + J;
-               RETURN;
+               return;
             }
          } // 110
       } else {
@@ -167,7 +167,7 @@
          COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
       }
 
-      RETURN;
+      return;
 
       // End of DGEEQUB
 

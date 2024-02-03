@@ -61,9 +61,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHESV_RK ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = P*U*D*(U**H)*(P**T) or
@@ -81,7 +81,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZHESV_RK
 

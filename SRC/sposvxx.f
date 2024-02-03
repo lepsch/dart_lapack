@@ -105,7 +105,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SPOSVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -142,7 +142,7 @@
             // leading rank-deficient INFO columns of A.
 
             RPVGRW = SLA_PORPVGRW( UPLO, INFO, A, LDA, AF, LDAF, WORK );
-            RETURN;
+            return;
          }
       }
 
@@ -167,7 +167,7 @@
          slascl2(N, NRHS, S, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of SPOSVXX
 

@@ -89,7 +89,7 @@
       }
 
       DLANHS = VALUE;
-      RETURN;
+      return;
 
       // End of DLANHS
 

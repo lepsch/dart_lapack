@@ -38,7 +38,7 @@
 
       if ( M <= 0 || N <= 0 ) {
          RESULT = ZERO;
-         RETURN;
+         return;
       }
 
       UNFL = SLAMCH( 'Safe minimum' );
@@ -63,7 +63,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SGET10
 

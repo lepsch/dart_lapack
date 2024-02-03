@@ -62,7 +62,7 @@
       }
       if (INFO != 0) {
           xerbla('ZSYRK ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -101,7 +101,7 @@
                   } // 80
               }
           }
-          RETURN;
+          return;
       }
 
       // Start the operations.
@@ -186,7 +186,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of ZSYRK
 

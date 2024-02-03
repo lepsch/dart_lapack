@@ -110,7 +110,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of SLATRD
 

@@ -332,7 +332,7 @@
          GO TO 30;
          } // 40
       }
-      RETURN;
+      return;
 
       // End of ZLAHEF_AA
 

@@ -71,7 +71,7 @@
       }
 
       SLAMCH = RMACH;
-      RETURN;
+      return;
 
       // End of SLAMCH
 
@@ -114,7 +114,7 @@
 
       SLAMC3 = A + B;
 
-      RETURN;
+      return;
 
       // End of SLAMC3
 

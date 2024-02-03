@@ -158,7 +158,7 @@
 
       RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( REAL( N )*ULP );
 
-      RETURN;
+      return;
 
       // End of CGET22
 

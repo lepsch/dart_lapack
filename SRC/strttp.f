@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('STRTTP', -INFO );
-         RETURN;
+         return;
       }
 
       if ( LOWER ) {
@@ -63,7 +63,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of STRTTP
 

@@ -107,7 +107,7 @@
             } // 120
          }
       }
-      RETURN;
+      return;
 
       // End of SLAGTM
 

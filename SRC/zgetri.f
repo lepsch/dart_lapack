@@ -50,9 +50,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGETRI', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -129,7 +129,7 @@
       } // 60
 
       WORK( 1 ) = IWS;
-      RETURN;
+      return;
 
       // End of ZGETRI
 

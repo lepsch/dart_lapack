@@ -81,16 +81,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SORM22', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       // Degenerate cases (N1 = 0 or N2 = 0) are handled using STRMM.
@@ -98,11 +98,11 @@
       if ( N1 == 0 ) {
          strmm(SIDE, 'Upper', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC );
          WORK( 1 ) = ONE;
-         RETURN;
+         return;
       } else if ( N2 == 0 ) {
          strmm(SIDE, 'Lower', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC );
          WORK( 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Compute the largest chunk size available from the workspace.
@@ -224,7 +224,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
-      RETURN;
+      return;
 
       // End of SORM22
 

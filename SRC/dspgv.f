@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSPGV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -59,7 +59,7 @@
       dpptrf(UPLO, N, BP, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -104,7 +104,7 @@
             } // 20
          }
       }
-      RETURN;
+      return;
 
       // End of DSPGV
 

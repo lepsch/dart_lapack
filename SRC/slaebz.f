@@ -33,7 +33,7 @@
       INFO = 0;
       if ( IJOB < 1 || IJOB > 3 ) {
          INFO = -1;
-         RETURN;
+         return;
       }
 
       // Initialize NAB
@@ -57,7 +57,7 @@
             } // 20
             MOUT = MOUT + NAB( JI, 2 ) - NAB( JI, 1 );
          } // 30
-         RETURN;
+         return;
       }
 
       // Initialize for loop
@@ -236,7 +236,7 @@
                      NAB( JI, 2 ) = ITMP1;
                   } else {
                      INFO = MMAX + 1;
-                     RETURN;
+                     return;
                   }
                } else {
 
@@ -309,7 +309,7 @@
       INFO = MAX( KL+1-KF, 0 );
       MOUT = KL;
 
-      RETURN;
+      return;
 
       // End of SLAEBZ
 

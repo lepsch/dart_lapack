@@ -49,7 +49,7 @@
       }
       if ( INFO < 0 ) {
          xerbla('ZLAGHE', -INFO );
-         RETURN;
+         return;
       }
 
       // initialize lower triangle of A to diagonal matrix
@@ -148,7 +148,7 @@
             A( J, I ) = DCONJG( A( I, J ) );
          } // 70
       } // 80
-      RETURN;
+      return;
 
       // End of ZLAGHE
 

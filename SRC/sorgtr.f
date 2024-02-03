@@ -63,16 +63,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SORGTR', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       if ( UPPER ) {
@@ -124,7 +124,7 @@
          }
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of SORGTR
 

@@ -69,7 +69,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGGSVP', -INFO );
-         RETURN;
+         return;
       }
 
       // QR with column pivoting of B: B*P = V*( S11 S12 )
@@ -242,7 +242,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DGGSVP
 

@@ -107,9 +107,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SGGEV ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -322,7 +322,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
-      RETURN;
+      return;
 
       // End of SGGEV
 

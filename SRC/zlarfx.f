@@ -544,7 +544,7 @@
          GO TO 410;
       }
       } // 410
-      RETURN;
+      return;
 
       // End of ZLARFX
 

@@ -40,7 +40,7 @@
 
       if ( N <= 1 ) {
          SSMIN = ZERO;
-         RETURN;
+         return;
       }
 
       // Compute the QR factorization of the N-by-2 matrix ( X Y )
@@ -61,7 +61,7 @@
 
       dlas2(ABS( A11 ), ABS( A12 ), ABS( A22 ), SSMIN, SSMAX );
 
-      RETURN;
+      return;
 
       // End of ZLAPLL
 

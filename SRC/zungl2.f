@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZUNGL2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -82,7 +82,7 @@
             A( I, L ) = ZERO;
          } // 30
       } // 40
-      RETURN;
+      return;
 
       // End of ZUNGL2
 

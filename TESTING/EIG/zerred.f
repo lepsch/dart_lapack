@@ -398,7 +398,7 @@
 
  9999 FORMAT( 1X, A, ' passed the tests of the error exits (', I3, ' tests done)' );
  9998 FORMAT( ' *** ', A, ' failed the tests of the error exits ***' );
-      RETURN;
+      return;
 
       // End of ZERRED
 

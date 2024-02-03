@@ -65,7 +65,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SGGSVD', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the Frobenius norm of matrices A and B
@@ -116,7 +116,7 @@
          }
       } // 20
 
-      RETURN;
+      return;
 
       // End of SGGSVD
 

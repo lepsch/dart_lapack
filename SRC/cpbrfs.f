@@ -78,7 +78,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPBRFS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -88,7 +88,7 @@
             FERR( J ) = ZERO;
             BERR( J ) = ZERO;
          } // 10
-         RETURN;
+         return;
       }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
@@ -244,7 +244,7 @@
 
       } // 140
 
-      RETURN;
+      return;
 
       // End of CPBRFS
 

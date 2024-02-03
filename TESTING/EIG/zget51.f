@@ -49,7 +49,7 @@
 
       if ( ITYPE < 1 || ITYPE > 3 ) {
          RESULT = TEN / ULP;
-         RETURN;
+         return;
       }
 
       if ( ITYPE <= 2 ) {
@@ -109,7 +109,7 @@
          RESULT = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP );
       }
 
-      RETURN;
+      return;
 
       // End of ZGET51
 

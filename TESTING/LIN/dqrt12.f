@@ -42,7 +42,7 @@
 
       if ( LWORK < MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) {
          xerbla('DQRT12', 7 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -115,7 +115,7 @@
 
       if (NRMSVL != ZERO) DQRT12 = DQRT12 / NRMSVL;
 
-      RETURN;
+      return;
 
       // End of DQRT12
 

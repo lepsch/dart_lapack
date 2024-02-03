@@ -42,5 +42,5 @@
 
       // End of DLAR2V
 
-      RETURN;
+      return;
       }

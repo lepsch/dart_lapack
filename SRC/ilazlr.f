@@ -38,5 +38,5 @@
             ILAZLR = MAX( ILAZLR, I );
          }
       }
-      RETURN;
+      return;
       }

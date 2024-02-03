@@ -38,7 +38,7 @@
       LSAMEN = true;
 
       } // 20
-      RETURN;
+      return;
 
       // End of LSAMEN
 

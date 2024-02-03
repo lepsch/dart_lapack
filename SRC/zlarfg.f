@@ -37,7 +37,7 @@
 
       if ( N <= 0 ) {
          TAU = ZERO;
-         RETURN;
+         return;
       }
 
       XNORM = DZNRM2( N-1, X, INCX );
@@ -88,7 +88,7 @@
          ALPHA = BETA;
       }
 
-      RETURN;
+      return;
 
       // End of ZLARFG
 

@@ -58,9 +58,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZSYTRF_RK', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -219,7 +219,7 @@
       }
 
       WORK( 1 ) = LWKOPT;
-      RETURN;
+      return;
 
       // End of ZSYTRF_RK
 

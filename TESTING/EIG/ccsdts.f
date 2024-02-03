@@ -280,7 +280,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CCSDTS
 

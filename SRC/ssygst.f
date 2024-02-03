@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSYGST', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -146,7 +146,7 @@
             }
          }
       }
-      RETURN;
+      return;
 
       // End of SSYGST
 

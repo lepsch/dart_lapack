@@ -178,7 +178,7 @@
       DEALLOCATE (X, STAT = AllocateStatus);
       DEALLOCATE (SWORK, STAT = AllocateStatus);
 
-      RETURN;
+      return;
 
       // End of CSYL01
 

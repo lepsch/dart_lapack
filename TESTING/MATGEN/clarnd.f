@@ -63,7 +63,7 @@
 
          CLARND = EXP( CMPLX( ZERO, TWOPI*T2 ) );
       }
-      RETURN;
+      return;
 
       // End of CLARND
 

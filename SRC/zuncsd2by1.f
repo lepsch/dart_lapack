@@ -219,9 +219,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZUNCSD2BY1', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
       LORGQR = LWORK-IORGQR+1;
       LORGLQ = LWORK-IORGLQ+1;
@@ -424,7 +424,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZUNCSD2BY1
 

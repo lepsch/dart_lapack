@@ -50,7 +50,7 @@
       }
       if ( INFO < 0 ) {
          xerbla('DLAGGE', -INFO );
-         RETURN;
+         return;
       }
 
       // initialize A to diagonal matrix
@@ -228,7 +228,7 @@
             } // 60
          }
       } // 70
-      RETURN;
+      return;
 
       // End of DLAGGE
 

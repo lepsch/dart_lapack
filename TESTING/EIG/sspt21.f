@@ -61,7 +61,7 @@
 
       if ( ITYPE < 1 || ITYPE > 3 ) {
          RESULT( 1 ) = TEN / ULP;
-         RETURN;
+         return;
       }
 
       // Do Test 1
@@ -160,7 +160,7 @@
          sopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          if ( IINFO != 0 ) {
             RESULT( 1 ) = TEN / ULP;
-            RETURN;
+            return;
          }
 
          for (J = 1; J <= N; J++) { // 80
@@ -194,7 +194,7 @@
          RESULT( 2 ) = MIN( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
       }
 
-      RETURN;
+      return;
 
       // End of SSPT21
 

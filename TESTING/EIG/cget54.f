@@ -80,7 +80,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CGET54
 

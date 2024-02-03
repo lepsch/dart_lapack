@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPFTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -68,7 +68,7 @@
          ztfsm(TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, CONE, A, B, LDB );
       }
 
-      RETURN;
+      return;
 
       // End of ZPFTRS
 

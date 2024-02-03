@@ -26,7 +26,7 @@
       } else {
          ILAUPLO = -1;
       }
-      RETURN;
+      return;
 
       // End of ILAUPLO
 

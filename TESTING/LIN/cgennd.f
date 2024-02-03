@@ -30,9 +30,9 @@
          AII = A( I, I );
          if ( REAL( AII ) < ZERO || AIMAG( AII ) != ZERO ) {
             CGENND = false;
-            RETURN;
+            return;
          }
       }
       CGENND = true;
-      RETURN;
+      return;
       }

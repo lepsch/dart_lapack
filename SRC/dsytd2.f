@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSYTD2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -134,7 +134,7 @@
          D( N ) = A( N, N );
       }
 
-      RETURN;
+      return;
 
       // End of DSYTD2
 

@@ -110,7 +110,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZRSCL
 

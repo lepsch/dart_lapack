@@ -72,7 +72,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
       DATA             L(10)/'CBLAS_IDAMAX'/;
       // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE);
-      RETURN;
+      return;
 
 99999 FORMAT (/' Test of subprogram number',I3,9X,A15)
       }
@@ -195,7 +195,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
             }
          } // 60
       } // 80
-      RETURN;
+      return;
       }
       SUBROUTINE CHECK2(SFAC);
       // .. Parameters ..
@@ -286,7 +286,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
             }
          } // 100
       } // 120
-      RETURN;
+      return;
       }
       SUBROUTINE CHECK3(SFAC);
       // .. Parameters ..
@@ -445,7 +445,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
          stest(5,COPYX,MWPSTX,MWPSTX,SFAC);
          stest(5,COPYY,MWPSTY,MWPSTY,SFAC);
       } // 200
-      RETURN;
+      return;
       }
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC);
       // ********************************* STEST **************************
@@ -492,7 +492,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
          WRITE (NOUT,99998);
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I);
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
@@ -521,7 +521,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
       STRUE(1) = STRUE1;
       stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
-      RETURN;
+      return;
       }
       double           FUNCTION SDIFF(SA,SB);
       // ********************************* SDIFF **************************
@@ -531,7 +531,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
       double                          SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
-      RETURN;
+      return;
       }
       SUBROUTINE ITEST1(ICOMP,ITRUE);
       // ********************************* ITEST1 *************************
@@ -566,7 +566,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
    20 ID = ICOMP - ITRUE;
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID;
       } // 40
-      RETURN;
+      return;
 
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)

@@ -37,7 +37,7 @@
             }
             if (N < 5) {
                SDOT=STEMP;
-            RETURN;
+            return;
             }
          }
          MP1 = M + 1;
@@ -60,7 +60,7 @@
          }
       }
       SDOT = STEMP;
-      RETURN;
+      return;
 
       // End of SDOT
 

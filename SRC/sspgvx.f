@@ -73,7 +73,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SSPGVX', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -86,7 +86,7 @@
       spptrf(UPLO, N, BP, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -131,7 +131,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SSPGVX
 

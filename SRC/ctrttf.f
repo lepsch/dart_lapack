@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CTRTTF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -61,7 +61,7 @@
                ARF( 0 ) = CONJG( A( 0, 0 ) );
             }
          }
-         RETURN;
+         return;
       }
 
       // Size of array ARF(1:2,0:nt-1)
@@ -311,7 +311,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CTRTTF
 

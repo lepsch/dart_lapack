@@ -35,7 +35,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       EPS = SLAMCH( 'Epsilon' );
@@ -71,7 +71,7 @@
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of SPTT01
 

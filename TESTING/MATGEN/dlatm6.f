@@ -132,7 +132,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of DLATM6
 

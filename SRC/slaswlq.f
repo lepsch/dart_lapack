@@ -116,22 +116,22 @@
 
       if ( INFO != 0 ) {
         xerbla('SLASWLQ', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MINMN == 0 ) {
-        RETURN;
+        return;
       }
 
       // The LQ Decomposition
 
       if ( (M >= N) || (NB <= M) || (NB >= N) ) {
         sgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO );
-        RETURN;
+        return;
       }
 
       KK = MOD((N-M),(NB-M));
@@ -157,7 +157,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
-      RETURN;
+      return;
 
       // End of SLASWLQ
 

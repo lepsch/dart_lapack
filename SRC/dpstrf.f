@@ -52,7 +52,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPSTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -281,7 +281,7 @@
       INFO = 1;
 
       } // 200
-      RETURN;
+      return;
 
       // End of DPSTRF
 

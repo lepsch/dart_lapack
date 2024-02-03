@@ -39,7 +39,7 @@
       if ( N <= 0 ) {
          RESULT( 1 ) = ZERO;
          RESULT( 2 ) = ZERO;
-         RETURN;
+         return;
       }
 
       UNFL = DLAMCH( 'Safe minimum' );
@@ -73,7 +73,7 @@
 
       zunt01('Columns', N, N, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
 
-      RETURN;
+      return;
 
       // End of ZHST01
 

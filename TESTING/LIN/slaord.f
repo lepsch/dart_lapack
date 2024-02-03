@@ -68,7 +68,7 @@
             GO TO 30;
          } // 40
       }
-      RETURN;
+      return;
 
       // End of SLAORD
 

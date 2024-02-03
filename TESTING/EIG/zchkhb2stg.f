@@ -96,7 +96,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZCHKHB2STG', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -255,7 +255,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                } // 100
@@ -271,7 +271,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHBTRD(U)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 1 ) = ULPINV;
                      GO TO 150;
@@ -302,7 +302,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 5 ) = ULPINV;
                      GO TO 150;
@@ -331,7 +331,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 5 ) = ULPINV;
                      GO TO 150;
@@ -363,7 +363,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZHBTRD(L)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 3 ) = ULPINV;
                      GO TO 150;
@@ -397,7 +397,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 6 ) = ULPINV;
                      GO TO 150;
@@ -456,7 +456,7 @@
       // Summary
 
       dlasum('ZHB', NOUNIT, NERRS, NTESTT );
-      RETURN;
+      return;
 
  9999 FORMAT( ' ZCHKHB2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
  9998 FORMAT( / 1X, A3, ' -- Complex Hermitian Banded Tridiagonal Reduction Routines' );

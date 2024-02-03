@@ -75,7 +75,7 @@
       if ( INFO == 0 && Q == 0 ) {
          LRWORKMIN = 1;
          RWORK(1) = LRWORKMIN;
-         RETURN;
+         return;
       }
 
       // Compute workspace
@@ -99,9 +99,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZBBCSD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -179,7 +179,7 @@
             for (I = 1; I <= Q; I++) {
                IF( PHI(I) != ZERO ) INFO = INFO + 1;
             }
-            RETURN;
+            return;
          }
 
          ITER = ITER + IMAX - IMIN;
@@ -615,7 +615,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZBBCSD
 

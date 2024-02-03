@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DLAUU2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -85,7 +85,7 @@
          } // 20
       }
 
-      RETURN;
+      return;
 
       // End of DLAUU2
 

@@ -46,7 +46,7 @@
 
       if ( ITYPE < 1 || ITYPE > 3 ) {
          RESULT = TEN / ULP;
-         RETURN;
+         return;
       }
 
       if ( ITYPE <= 2 ) {
@@ -106,7 +106,7 @@
          RESULT = MIN( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP );
       }
 
-      RETURN;
+      return;
 
       // End of DGET51
 

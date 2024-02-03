@@ -90,7 +90,7 @@
             DO 30 J4 = 4*I0, 4*( N0-3 ), 4;
                Z( J4-2 ) = D + Z( J4-1 );
                if ( D < ZERO ) {
-                  RETURN;
+                  return;
                } else {
                   Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) );
                   D = Z( J4+1 )*( D / Z( J4-2 ) ) - TAU;
@@ -102,7 +102,7 @@
             DO 40 J4 = 4*I0, 4*( N0-3 ), 4;
                Z( J4-3 ) = D + Z( J4 );
                if ( D < ZERO ) {
-                  RETURN;
+                  return;
                } else {
                   Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) );
                   D = Z( J4+2 )*( D / Z( J4-3 ) ) - TAU;
@@ -120,7 +120,7 @@
          J4P2 = J4 + 2*PP - 1;
          Z( J4-2 ) = DNM2 + Z( J4P2 );
          if ( DNM2 < ZERO ) {
-            RETURN;
+            return;
          } else {
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
             DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) ) - TAU;
@@ -132,7 +132,7 @@
          J4P2 = J4 + 2*PP - 1;
          Z( J4-2 ) = DNM1 + Z( J4P2 );
          if ( DNM1 < ZERO ) {
-            RETURN;
+            return;
          } else {
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
             DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU;
@@ -200,7 +200,7 @@
                DO 70 J4 = 4*I0, 4*( N0-3 ), 4;
                   Z( J4-2 ) = D + Z( J4-1 );
                   if ( D < ZERO ) {
-                     RETURN;
+                     return;
                   } else {
                      Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) );
                      D = Z( J4+1 )*( D / Z( J4-2 ) ) - TAU;
@@ -213,7 +213,7 @@
                DO 80 J4 = 4*I0, 4*( N0-3 ), 4;
                   Z( J4-3 ) = D + Z( J4 );
                   if ( D < ZERO ) {
-                     RETURN;
+                     return;
                   } else {
                      Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) );
                      D = Z( J4+2 )*( D / Z( J4-3 ) ) - TAU;
@@ -232,7 +232,7 @@
             J4P2 = J4 + 2*PP - 1;
             Z( J4-2 ) = DNM2 + Z( J4P2 );
             if ( DNM2 < ZERO ) {
-               RETURN;
+               return;
             } else {
                Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
                DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) ) - TAU;
@@ -244,7 +244,7 @@
             J4P2 = J4 + 2*PP - 1;
             Z( J4-2 ) = DNM1 + Z( J4P2 );
             if ( DNM1 < ZERO ) {
-               RETURN;
+               return;
             } else {
                Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
                DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU;
@@ -256,7 +256,7 @@
 
       Z( J4+2 ) = DN;
       Z( 4*N0-PP ) = EMIN;
-      RETURN;
+      return;
 
       // End of DLASQ5
 

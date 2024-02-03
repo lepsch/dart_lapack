@@ -18,7 +18,7 @@
 
       cpu_time(T );
       SECOND = T;
-      RETURN;
+      return;
 
       // End of SECOND
 

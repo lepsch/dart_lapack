@@ -94,7 +94,7 @@
 
       if ( INFO != 0 ) {
          xerbla('SCHKST2STG', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -262,7 +262,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 100
@@ -279,7 +279,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSYTRD(U)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 1 ) = ULPINV;
                   GO TO 280;
@@ -294,7 +294,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SORGTR(U)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 2 ) = ULPINV;
                   GO TO 280;
@@ -321,7 +321,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 3 ) = ULPINV;
                   GO TO 280;
@@ -350,7 +350,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 3 ) = ULPINV;
                   GO TO 280;
@@ -377,7 +377,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 4 ) = ULPINV;
                   GO TO 280;
@@ -424,7 +424,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSPTRD(U)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 5 ) = ULPINV;
                   GO TO 280;
@@ -437,7 +437,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SOPGTR(U)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 6 ) = ULPINV;
                   GO TO 280;
@@ -470,7 +470,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSPTRD(L)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 7 ) = ULPINV;
                   GO TO 280;
@@ -483,7 +483,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SOPGTR(L)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 8 ) = ULPINV;
                   GO TO 280;
@@ -507,7 +507,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(V)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 9 ) = ULPINV;
                   GO TO 280;
@@ -525,7 +525,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 11 ) = ULPINV;
                   GO TO 280;
@@ -543,7 +543,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTERF', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 12 ) = ULPINV;
                   GO TO 280;
@@ -603,7 +603,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'SPTEQR(V)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 14 ) = ULPINV;
                      GO TO 280;
@@ -625,7 +625,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'SPTEQR(N)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 16 ) = ULPINV;
                      GO TO 280;
@@ -665,7 +665,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 17 ) = ULPINV;
                      GO TO 280;
@@ -695,7 +695,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 18 ) = ULPINV;
                   GO TO 280;
@@ -735,7 +735,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(I)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 19 ) = ULPINV;
                   GO TO 280;
@@ -766,7 +766,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(V)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 19 ) = ULPINV;
                   GO TO 280;
@@ -800,7 +800,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 20 ) = ULPINV;
                   RESULT( 21 ) = ULPINV;
@@ -813,7 +813,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEIN', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 20 ) = ULPINV;
                   RESULT( 21 ) = ULPINV;
@@ -839,7 +839,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(I)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 22 ) = ULPINV;
                   GO TO 280;
@@ -864,7 +864,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(V)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 24 ) = ULPINV;
                   GO TO 280;
@@ -889,7 +889,7 @@
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(N)', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 26 ) = ULPINV;
                   GO TO 280;
@@ -929,7 +929,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 27 ) = ULPINV;
                         GO TO 270;
@@ -964,7 +964,7 @@
                         WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN;
+                           return;
                         } else {
                            RESULT( 28 ) = ULPINV;
                            GO TO 270;
@@ -1011,7 +1011,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 29 ) = ULPINV;
                         GO TO 280;
@@ -1035,7 +1035,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 31 ) = ULPINV;
                         GO TO 280;
@@ -1085,7 +1085,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 32 ) = ULPINV;
                         GO TO 280;
@@ -1109,7 +1109,7 @@
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD;
                      INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN;
+                        return;
                      } else {
                         RESULT( 34 ) = ULPINV;
                         GO TO 280;
@@ -1150,7 +1150,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 35 ) = ULPINV;
                      GO TO 280;
@@ -1174,7 +1174,7 @@
                   WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN;
+                     return;
                   } else {
                      RESULT( 37 ) = ULPINV;
                      GO TO 280;
@@ -1228,7 +1228,7 @@
       // Summary
 
       slasum('SST', NOUNIT, NERRS, NTESTT );
-      RETURN;
+      return;
 
  9999 FORMAT( ' SCHKST2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 

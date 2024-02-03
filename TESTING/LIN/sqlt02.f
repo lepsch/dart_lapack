@@ -46,7 +46,7 @@
       if ( M == 0 || N == 0 || K == 0 ) {
          RESULT( 1 ) = ZERO;
          RESULT( 2 ) = ZERO;
-         RETURN;
+         return;
       }
 
       EPS = SLAMCH( 'Epsilon' );
@@ -91,7 +91,7 @@
 
       RESULT( 2 ) = ( RESID / REAL( MAX( 1, M ) ) ) / EPS;
 
-      RETURN;
+      return;
 
       // End of SQLT02
 

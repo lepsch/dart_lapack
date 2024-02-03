@@ -164,7 +164,7 @@
          IF( RWORK( I ) < RWORK( I+1 ) ) RESULT( 6 ) = ULPINV;
       } // 120
 
-      RETURN;
+      return;
 
       // End of ZGSVTS3
 

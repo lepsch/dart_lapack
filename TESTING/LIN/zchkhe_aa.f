@@ -356,7 +356,7 @@ c  100                CONTINUE
 c 9997 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ',', 10X, ' type ', I2,
       // $      ', test(', I2, ') =', G12.5 )
  9995 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be <=', I6 )
-      RETURN;
+      return;
 
       // End of ZCHKHE_AA
 

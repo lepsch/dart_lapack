@@ -22,7 +22,7 @@
           DROUNDUP_LWORK = DROUNDUP_LWORK * ( 1.0 + EPSILON(0.0) );
       }
 
-      RETURN;
+      return;
 
       // End of DROUNDUP_LWORK
 

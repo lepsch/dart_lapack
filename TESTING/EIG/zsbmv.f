@@ -55,7 +55,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZSBMV ', INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -186,7 +186,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of ZSBMV
 

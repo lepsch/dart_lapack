@@ -88,9 +88,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSYEVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -100,7 +100,7 @@
       if ( N == 1 ) {
          W( 1 ) = A( 1, 1 );
          if (WANTZ) A( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -156,7 +156,7 @@
       WORK( 1 ) = LOPT;
       IWORK( 1 ) = LIOPT;
 
-      RETURN;
+      return;
 
       // End of DSYEVD
 

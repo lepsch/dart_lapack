@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DGETRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -126,7 +126,7 @@
          }
 
       }
-      RETURN;
+      return;
 
       // End of DGETRF
 

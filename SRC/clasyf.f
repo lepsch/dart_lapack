@@ -606,7 +606,7 @@
          KB = K - 1;
 
       }
-      RETURN;
+      return;
 
       // End of CLASYF
 

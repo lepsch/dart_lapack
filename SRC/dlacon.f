@@ -47,7 +47,7 @@
          } // 10
          KASE = 1;
          JUMP = 1;
-         RETURN;
+         return;
       }
 
       GO TO ( 20, 40, 70, 110, 140 )JUMP;
@@ -70,7 +70,7 @@
       } // 30
       KASE = 2;
       JUMP = 2;
-      RETURN;
+      return;
 
       // ................ ENTRY   (JUMP = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
@@ -88,7 +88,7 @@
       X( J ) = ONE;
       KASE = 1;
       JUMP = 3;
-      RETURN;
+      return;
 
       // ................ ENTRY   (JUMP = 3)
       // X HAS BEEN OVERWRITTEN BY A*X.
@@ -113,7 +113,7 @@
       } // 100
       KASE = 2;
       JUMP = 4;
-      RETURN;
+      return;
 
       // ................ ENTRY   (JUMP = 4)
       // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
@@ -136,7 +136,7 @@
       } // 130
       KASE = 1;
       JUMP = 5;
-      RETURN;
+      return;
 
       // ................ ENTRY   (JUMP = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
@@ -150,7 +150,7 @@
 
       } // 150
       KASE = 0;
-      RETURN;
+      return;
 
       // End of DLACON
 

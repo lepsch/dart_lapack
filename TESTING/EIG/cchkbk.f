@@ -106,7 +106,7 @@
       WRITE( NOUT, FMT = 9994 )KNT;
  9994 FORMAT( 1X, 'total number of examples tested         = ', I4 );
 
-      RETURN;
+      return;
 
       // End of CCHKBK
 

@@ -78,7 +78,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SGET54
 

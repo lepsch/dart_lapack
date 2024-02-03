@@ -39,7 +39,7 @@
 
       if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
@@ -48,7 +48,7 @@
       ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
          RESID = ONE / EPS;
-         RETURN;
+         return;
       }
 
       // Compute  B - A*X
@@ -69,7 +69,7 @@
          }
       } // 10
 
-      RETURN;
+      return;
 
       // End of DPOT02
 

@@ -100,9 +100,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CHBEVX_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -125,7 +125,7 @@
             W( 1 ) = REAL( CTMP1 );
             if (WANTZ) Z( 1, 1 ) = CONE;
          }
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -284,7 +284,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN;
+      return;
 
       // End of CHBEVX_2STAGE
 

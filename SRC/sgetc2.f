@@ -55,7 +55,7 @@
             INFO = 1;
             A( 1, 1 ) = SMLNUM;
          }
-         RETURN;
+         return;
       }
 
       // Factorize A using complete pivoting.
@@ -109,7 +109,7 @@
       IPIV( N ) = N;
       JPIV( N ) = N;
 
-      RETURN;
+      return;
 
       // End of SGETC2
 

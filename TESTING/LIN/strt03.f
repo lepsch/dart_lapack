@@ -41,7 +41,7 @@
 
       if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
       EPS = SLAMCH( 'Epsilon' );
       SMLNUM = SLAMCH( 'Safe minimum' );
@@ -90,7 +90,7 @@
          RESID = MAX( RESID, ERR );
       } // 30
 
-      RETURN;
+      return;
 
       // End of STRT03
 

@@ -104,7 +104,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DCHKBD', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize constants
@@ -281,7 +281,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 100
@@ -301,7 +301,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'DGEBRD', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                dlacpy(' ', M, N, Q, LDQ, PT, LDPT );
@@ -322,7 +322,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'DORGBR(Q)', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                // Generate P'
@@ -334,7 +334,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'DORGBR(P)', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ABS( IINFO );
-                  RETURN;
+                  return;
                }
 
                // Apply Q' to an M by NRHS matrix X:  Y := Q' * X.
@@ -367,7 +367,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 4 ) = ULPINV;
                   GO TO 270;
@@ -388,7 +388,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 9 ) = ULPINV;
                   GO TO 270;
@@ -477,7 +477,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSDC(vects)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 15 ) = ULPINV;
                   GO TO 270;
@@ -498,7 +498,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSDC(values)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 18 ) = ULPINV;
                   GO TO 270;
@@ -565,7 +565,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,A)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 20 ) = ULPINV;
                   GO TO 270;
@@ -602,7 +602,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,A)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 24 ) = ULPINV;
                   GO TO 270;
@@ -671,7 +671,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,I)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 25 ) = ULPINV;
                   GO TO 270;
@@ -700,7 +700,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,I)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 29 ) = ULPINV;
                   GO TO 270;
@@ -769,7 +769,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,V)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 30 ) = ULPINV;
                   GO TO 270;
@@ -798,7 +798,7 @@
                WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,V)', IINFO, M, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN;
+                  return;
                } else {
                   RESULT( 34 ) = ULPINV;
                   GO TO 270;
@@ -854,7 +854,7 @@
 
       alasum(PATH, NOUT, NFAIL, NTEST, 0 );
 
-      RETURN;
+      return;
 
       // End of DCHKBD
 

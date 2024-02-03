@@ -128,7 +128,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DGBSVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -187,7 +187,7 @@
             // leading rank-deficient INFO columns of A.
 
             RPVGRW = DLA_GBRPVGRW( N, KL, KU, INFO, AB, LDAB, AFB, LDAFB );
-            RETURN;
+            return;
          }
       }
 
@@ -213,7 +213,7 @@
          dlascl2(N, NRHS, R, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of DGBSVXX
 

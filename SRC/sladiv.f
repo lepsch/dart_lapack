@@ -75,7 +75,7 @@
       P = P * S;
       Q = Q * S;
 
-      RETURN;
+      return;
 
       // End of SLADIV
 
@@ -115,7 +115,7 @@
       A = -A;
       Q = SLADIV2(B, A, C, D, R, T);
 
-      RETURN;
+      return;
 
       // End of SLADIV1
 
@@ -155,7 +155,7 @@
          SLADIV2 = (A + D * (B / C)) * T;
       }
 
-      RETURN;
+      return;
 
       // End of SLADIV2
 

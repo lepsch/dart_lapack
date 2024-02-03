@@ -56,10 +56,10 @@
 
       if ( INFO != 0 ) {
          xerbla('CSYTRI_3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -70,7 +70,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of CSYTRI_3
 

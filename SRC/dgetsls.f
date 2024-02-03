@@ -103,11 +103,11 @@
 
       if ( INFO != 0 ) {
         xerbla('DGETSLS', -INFO );
-        RETURN;
+        return;
       }
       if ( LQUERY ) {
         if (LWORK == -2) WORK( 1 ) = DBLE( WSIZEM );
-        RETURN;
+        return;
       }
       if ( LWORK < WSIZEO ) {
         LW1 = TSZM;
@@ -121,7 +121,7 @@
 
       if ( MIN( M, N, NRHS ) == 0 ) {
            dlaset('FULL', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-           RETURN;
+           return;
       }
 
       // Get machine parameters
@@ -190,7 +190,7 @@
 
           dtrtrs('U', 'N', 'N', N, NRHS, A, LDA, B, LDB, INFO );
           if ( INFO > 0 ) {
-            RETURN;
+            return;
           }
           SCLLEN = N;
         } else {
@@ -202,7 +202,7 @@
             dtrtrs('U', 'T', 'N', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // B(N+1:M,1:NRHS) = ZERO
@@ -238,7 +238,7 @@
             dtrtrs('L', 'N', 'N', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // B(M+1:N,1:NRHS) = 0
@@ -272,7 +272,7 @@
             dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = M;
@@ -296,7 +296,7 @@
 
       } // 50
       WORK( 1 ) = DBLE( TSZO + LWO );
-      RETURN;
+      return;
 
       // End of DGETSLS
 

@@ -62,7 +62,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZSYTF2_RK', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize ALPHA for use in choosing pivot block size.
@@ -667,7 +667,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZSYTF2_RK
 

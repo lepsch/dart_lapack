@@ -35,7 +35,7 @@
 
       if ( N <= 0 ) {
          INFO = 0;
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -92,7 +92,7 @@
       W = HALF * (LEFT + RIGHT);
       WERR = HALF * ABS( RIGHT - LEFT );
 
-      RETURN;
+      return;
 
       // End of SLARRK
 

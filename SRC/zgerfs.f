@@ -78,7 +78,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGERFS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -88,7 +88,7 @@
             FERR( J ) = ZERO;
             BERR( J ) = ZERO;
          } // 10
-         RETURN;
+         return;
       }
 
       if ( NOTRAN ) {
@@ -245,7 +245,7 @@
 
       } // 140
 
-      RETURN;
+      return;
 
       // End of ZGERFS
 

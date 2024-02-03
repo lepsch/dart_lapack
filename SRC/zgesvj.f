@@ -106,11 +106,11 @@
       // #:(
       if ( INFO != 0 ) {
          xerbla('ZGESVJ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          CWORK( 1 ) = LWMIN;
          RWORK( 1 ) = LRWMIN;
-         RETURN;
+         return;
       }
 
 * #:) Quick return for void matrix
@@ -155,7 +155,7 @@
       if ( DBLE( M )*EPSLN >= ONE ) {
          INFO = -4;
          xerbla('ZGESVJ', -INFO );
-         RETURN;
+         return;
       }
 
       // Initialize the right singular vector matrix.
@@ -190,7 +190,7 @@
             if ( AAPP > BIG ) {
                INFO = -6;
                xerbla('ZGESVJ', -INFO );
-               RETURN;
+               return;
             }
             AAQQ = SQRT( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
@@ -215,7 +215,7 @@
             if ( AAPP > BIG ) {
                INFO = -6;
                xerbla('ZGESVJ', -INFO );
-               RETURN;
+               return;
             }
             AAQQ = SQRT( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
@@ -240,7 +240,7 @@
             if ( AAPP > BIG ) {
                INFO = -6;
                xerbla('ZGESVJ', -INFO );
-               RETURN;
+               return;
             }
             AAQQ = SQRT( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
@@ -281,7 +281,7 @@
          RWORK( 4 ) = ZERO;
          RWORK( 5 ) = ZERO;
          RWORK( 6 ) = ZERO;
-         RETURN;
+         return;
       }
 
 * #:) Quick return for one-column matrix
@@ -298,7 +298,7 @@
          RWORK( 4 ) = ZERO;
          RWORK( 5 ) = ZERO;
          RWORK( 6 ) = ZERO;
-         RETURN;
+         return;
       }
 
       // Protect small singular values from underflow, and try to
@@ -960,7 +960,7 @@
       // MXSINJ is the largest absolute value of the sines of Jacobi angles
       // in the last sweep
 
-      RETURN;
+      return;
       // ..
       // .. END OF ZGESVJ
       // ..

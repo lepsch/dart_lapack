@@ -117,7 +117,7 @@
          // Compute the sum of squares
 
          zlassq(N, RHS, 1, RDSCAL, RDSUM );
-         RETURN;
+         return;
       }
 
       // ENTRY IJOB = 2
@@ -142,7 +142,7 @@
       // Compute the sum of squares
 
       zlassq(N, RHS, 1, RDSCAL, RDSUM );
-      RETURN;
+      return;
 
       // End of ZLATDF
 

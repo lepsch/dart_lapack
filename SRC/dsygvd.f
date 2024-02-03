@@ -82,9 +82,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSYGVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -96,7 +96,7 @@
       dpotrf(UPLO, N, B, LDB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -141,7 +141,7 @@
       WORK( 1 ) = LOPT;
       IWORK( 1 ) = LIOPT;
 
-      RETURN;
+      return;
 
       // End of DSYGVD
 

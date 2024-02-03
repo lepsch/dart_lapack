@@ -105,7 +105,7 @@
 
       if ( INFO != 0 ) {
          xerbla('ZPOSVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -142,7 +142,7 @@
             // leading rank-deficient INFO columns of A.
 
             RPVGRW = ZLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, RWORK );
-            RETURN;
+            return;
          }
       }
 
@@ -167,7 +167,7 @@
          zlascl2(N, NRHS, S, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of ZPOSVXX
 

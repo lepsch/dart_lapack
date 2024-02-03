@@ -75,7 +75,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZTGSY2', -INFO );
-         RETURN;
+         return;
       }
 
       if ( NOTRAN ) {
@@ -193,7 +193,7 @@
             } // 70
          } // 80
       }
-      RETURN;
+      return;
 
       // End of ZTGSY2
 

@@ -359,7 +359,7 @@
  9998 FORMAT( ' UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', NB=', I4, ', type ', I2, ', test(', I2, ')= ', G12.5 );
  9997 FORMAT( ' NORM=''', A1, ''', UPLO =''', A1, ''', N=', I5, ',', 11X, ' type ', I2, ', test(', I2, ')=', G12.5 );
  9996 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ', ... ), type ', I2, ', test(', I2, ')=', G12.5 );
-      RETURN;
+      return;
 
       // End of SCHKTR
 

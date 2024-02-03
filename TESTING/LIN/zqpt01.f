@@ -43,7 +43,7 @@
 
       if ( LWORK < M*N+N ) {
          xerbla('ZQPT01', 10 );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -75,7 +75,7 @@
 
       ZQPT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) ZQPT01 = ZQPT01 / NORMA;
 
-      RETURN;
+      return;
 
       // End of ZQPT01
 

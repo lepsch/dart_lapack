@@ -45,7 +45,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZPTCON', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -53,9 +53,9 @@
       RCOND = ZERO;
       if ( N == 0 ) {
          RCOND = ONE;
-         RETURN;
+         return;
       } else if ( ANORM == ZERO ) {
-         RETURN;
+         return;
       }
 
       // Check that D(1:N) is positive.
@@ -94,7 +94,7 @@
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
-      RETURN;
+      return;
 
       // End of ZPTCON
 

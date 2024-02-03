@@ -30,12 +30,12 @@
       // Quick return if possible
 
       if ( M == 0 ) {
-         RETURN;
+         return;
       } else if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO;
          } // 10
-         RETURN;
+         return;
       }
 
       DO 20 I = M, 1, -1;
@@ -51,7 +51,7 @@
 
       } // 20
 
-      RETURN;
+      return;
 
       // End of SLATRZ
 

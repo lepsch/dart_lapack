@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGEQR2P', -INFO );
-         RETURN;
+         return;
       }
 
       K = MIN( M, N );
@@ -61,7 +61,7 @@
             A( I, I ) = ALPHA;
          }
       } // 10
-      RETURN;
+      return;
 
       // End of ZGEQR2P
 

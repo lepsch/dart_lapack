@@ -77,7 +77,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of CBDT05
 

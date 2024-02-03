@@ -53,7 +53,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPBTRF', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -256,10 +256,10 @@
             } // 140
          }
       }
-      RETURN;
+      return;
 
       } // 150
-      RETURN;
+      return;
 
       // End of DPBTRF
 

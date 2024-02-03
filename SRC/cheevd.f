@@ -95,9 +95,9 @@
 
       if ( INFO != 0 ) {
          xerbla('CHEEVD', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -107,7 +107,7 @@
       if ( N == 1 ) {
          W( 1 ) = REAL( A( 1, 1 ) );
          if (WANTZ) A( 1, 1 ) = CONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -173,7 +173,7 @@
       RWORK( 1 ) = SROUNDUP_LWORK( LROPT );
       IWORK( 1 ) = LIOPT;
 
-      RETURN;
+      return;
 
       // End of CHEEVD
 

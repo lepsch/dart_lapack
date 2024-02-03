@@ -49,7 +49,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGEQPF', -INFO );
-         RETURN;
+         return;
       }
 
       MN = MIN( M, N );
@@ -154,7 +154,7 @@
 
          } // 40
       }
-      RETURN;
+      return;
 
       // End of CGEQPF
 

@@ -72,16 +72,16 @@
 
       if ( INFO != 0 ) {
          xerbla('ZSTEIN', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 || M == 0 ) {
-         RETURN;
+         return;
       } else if ( N == 1 ) {
          Z( 1, 1 ) = CONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -254,7 +254,7 @@
          } // 170
       } // 180
 
-      RETURN;
+      return;
 
       // End of ZSTEIN
 

@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CSPTRI', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -256,7 +256,7 @@
          } // 80
       }
 
-      RETURN;
+      return;
 
       // End of CSPTRI
 

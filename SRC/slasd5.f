@@ -105,7 +105,7 @@
          // DELTA( 1 ) = DELTA( 1 ) / TEMP
          // DELTA( 2 ) = DELTA( 2 ) / TEMP
       }
-      RETURN;
+      return;
 
       // End of SLASD5
 

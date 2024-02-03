@@ -105,7 +105,7 @@
 
       if ( INFO != 0 ) {
          xerbla('DDRGES', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -265,7 +265,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
                INFO = ABS( IINFO );
-               RETURN;
+               return;
             }
 
             } // 110
@@ -444,7 +444,7 @@
 
       WORK( 1 ) = MAXWRK;
 
-      RETURN;
+      return;
 
  9999 FORMAT( ' DDRGES: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 4( I4, ',' ), I5, ')' );
 

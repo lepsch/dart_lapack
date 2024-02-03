@@ -98,7 +98,7 @@
       } // 10
       A( K+NB, NB ) = EI;
 
-      RETURN;
+      return;
 
       // End of DLAHRD
 

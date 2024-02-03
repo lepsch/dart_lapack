@@ -40,7 +40,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SLARZT', -INFO );
-         RETURN;
+         return;
       }
 
       DO 20 I = K, 1, -1;
@@ -68,7 +68,7 @@
             T( I, I ) = TAU( I );
          }
       } // 20
-      RETURN;
+      return;
 
       // End of SLARZT
 

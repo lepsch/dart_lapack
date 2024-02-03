@@ -54,11 +54,11 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZSYTRS_AA', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          LWKOPT = (3*N-2);
          WORK( 1 ) = LWKOPT;
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -161,7 +161,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZSYTRS_AA
 

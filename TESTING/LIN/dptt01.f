@@ -35,7 +35,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       EPS = DLAMCH( 'Epsilon' );
@@ -71,7 +71,7 @@
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of DPTT01
 

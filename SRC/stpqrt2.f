@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('STPQRT2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible

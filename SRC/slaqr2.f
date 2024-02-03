@@ -60,7 +60,7 @@
 
       if ( LWORK == -1 ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
-         RETURN;
+         return;
       }
 
       // ==== Nothing to do ...
@@ -103,7 +103,7 @@
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
          WORK( 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // ==== Convert to spike-triangular form.  (In case of a

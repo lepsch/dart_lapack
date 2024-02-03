@@ -51,7 +51,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN;
+         return;
       }
 
       // Decode RANGE
@@ -82,7 +82,7 @@
       }
 
       if ( INFO != 0 ) {
-         RETURN;
+         return;
       }
 
       // Initialize error flags
@@ -108,7 +108,7 @@
             IBLOCK( 1 ) = 1;
             INDEXW( 1 ) = 1;
          }
-         RETURN;
+         return;
       }
 
       // NB is the minimum vector length for vector bisection, or 0
@@ -163,7 +163,7 @@
          dlaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, E2, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO );
          if ( IINFO != 0 ) {
             INFO = IINFO;
-            RETURN;
+            return;
          }
          // On exit, output intervals may not be ordered by ascending negcount
          if ( IWORK( 6 ) == IU ) {
@@ -185,7 +185,7 @@
          // and [WUL, WU] contains a value with negcount NWU.
          if ( NWL < 0 || NWL >= N || NWU < 1 || NWU > N ) {
             INFO = 4;
-            RETURN;
+            return;
          }
 
       } else if ( IRANGE == VALRNG ) {
@@ -312,7 +312,7 @@
             dlaebz(1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO );
             if ( IINFO != 0 ) {
                INFO = IINFO;
-               RETURN;
+               return;
             }
 
             NWL = NWL + IWORK( 1 );
@@ -324,7 +324,7 @@
             dlaebz(2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO );
             if ( IINFO != 0 ) {
                INFO = IINFO;
-               RETURN;
+               return;
             }
 
             // Copy eigenvalues into W and IBLOCK
@@ -490,7 +490,7 @@
 
       INFO = 0;
       if (NCNVRG) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2;
-      RETURN;
+      return;
 
       // End of DLARRD
 

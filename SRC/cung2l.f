@@ -42,7 +42,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CUNG2L', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -74,7 +74,7 @@
             A( L, II ) = ZERO;
          } // 30
       } // 40
-      RETURN;
+      return;
 
       // End of CUNG2L
 

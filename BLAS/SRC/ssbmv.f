@@ -52,7 +52,7 @@
       }
       if (INFO != 0) {
           xerbla('SSBMV ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -183,7 +183,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of SSBMV
 

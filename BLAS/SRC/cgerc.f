@@ -45,7 +45,7 @@
       }
       if (INFO != 0) {
           xerbla('CGERC ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -89,7 +89,7 @@
           } // 40
       }
 
-      RETURN;
+      return;
 
       // End of CGERC
 

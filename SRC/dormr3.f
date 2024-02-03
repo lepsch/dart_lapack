@@ -62,7 +62,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DORMR3', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -110,7 +110,7 @@
 
       } // 10
 
-      RETURN;
+      return;
 
       // End of DORMR3
 

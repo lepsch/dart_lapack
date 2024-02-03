@@ -59,9 +59,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYTRF_ROOK', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -170,7 +170,7 @@
       } // 40
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
-      RETURN;
+      return;
 
       // End of SSYTRF_ROOK
 

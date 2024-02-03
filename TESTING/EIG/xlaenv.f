@@ -25,7 +25,7 @@
          IPARMS( ISPEC ) = NVALUE;
       }
 
-      RETURN;
+      return;
 
       // End of XLAENV
 

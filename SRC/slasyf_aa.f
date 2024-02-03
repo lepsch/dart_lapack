@@ -324,7 +324,7 @@
          GO TO 30;
          } // 40
       }
-      RETURN;
+      return;
 
       // End of SLASYF_AA
 

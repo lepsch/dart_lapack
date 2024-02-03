@@ -45,14 +45,14 @@
 
       if ( I < 1 || I > M || J < 1 || J > N ) {
          SLATM2 = ZERO;
-         RETURN;
+         return;
       }
 
       // Check for banding
 
       if ( J > I+KU || J < I-KL ) {
          SLATM2 = ZERO;
-         RETURN;
+         return;
       }
 
       // Check for sparsity
@@ -60,7 +60,7 @@
       if ( SPARSE > ZERO ) {
          if ( SLARAN( ISEED ) < SPARSE ) {
             SLATM2 = ZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -99,7 +99,7 @@
          TEMP = TEMP*DL( ISUB )*DL( JSUB );
       }
       SLATM2 = TEMP;
-      RETURN;
+      return;
 
       // End of SLATM2
 

@@ -97,16 +97,16 @@
 
       if ( INFO != 0 ) {
          xerbla('CHEEVX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       M = 0;
       if ( N == 0 ) {
-         RETURN;
+         return;
       }
 
       if ( N == 1 ) {
@@ -120,7 +120,7 @@
             }
          }
          if (WANTZ) Z( 1, 1 ) = CONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -276,7 +276,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN;
+      return;
 
       // End of CHEEVX
 

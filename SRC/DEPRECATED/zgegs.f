@@ -100,9 +100,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGEGS ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -132,7 +132,7 @@
          zlascl('G', -1, -1, ANRM, ANRMTO, N, N, A, LDA, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 9;
-            RETURN;
+            return;
          }
       }
 
@@ -152,7 +152,7 @@
          zlascl('G', -1, -1, BNRM, BNRMTO, N, N, B, LDB, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 9;
-            RETURN;
+            return;
          }
       }
 
@@ -247,12 +247,12 @@
          zlascl('U', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 9;
-            RETURN;
+            return;
          }
          zlascl('G', -1, -1, ANRMTO, ANRM, N, 1, ALPHA, N, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 9;
-            RETURN;
+            return;
          }
       }
 
@@ -260,19 +260,19 @@
          zlascl('U', -1, -1, BNRMTO, BNRM, N, N, B, LDB, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 9;
-            RETURN;
+            return;
          }
          zlascl('G', -1, -1, BNRMTO, BNRM, N, 1, BETA, N, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 9;
-            RETURN;
+            return;
          }
       }
 
       } // 10
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZGEGS
 

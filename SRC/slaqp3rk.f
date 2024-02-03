@@ -137,7 +137,7 @@
 
                // Return from the routine.
 
-               RETURN;
+               return;
             }
 
             // Quick return, if the submatrix A(I:M,K:N) is
@@ -189,7 +189,7 @@
 
                // Return from the routine.
 
-               RETURN;
+               return;
 
             }
 
@@ -263,7 +263,7 @@
 
                // Return from the routine.
 
-               RETURN;
+               return;
 
             }
 
@@ -366,7 +366,7 @@
 
             // Return from the routine.
 
-            RETURN;
+            return;
          }
 
          // ===============================================================
@@ -505,7 +505,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SLAQP3RK
 

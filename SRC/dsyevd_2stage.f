@@ -84,9 +84,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSYEVD_2STAGE', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -96,7 +96,7 @@
       if ( N == 1 ) {
          W( 1 ) = A( 1, 1 );
          if (WANTZ) A( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -143,7 +143,7 @@
       } else {
          // Not available in this release, and argument checking should not
          // let it getting here
-         RETURN;
+         return;
          dstedc('I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO );
          dormtr('L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO );
          dlacpy('A', N, N, WORK( INDWRK ), N, A, LDA );
@@ -156,7 +156,7 @@
       WORK( 1 )  = LWMIN;
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of DSYEVD_2STAGE
 

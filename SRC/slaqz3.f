@@ -43,14 +43,14 @@
       if ( LWORK == -1 ) {
          // workspace query, quick return
          WORK( 1 ) = SROUNDUP_LWORK(LWORKREQ);
-         RETURN;
+         return;
       } else if ( LWORK < LWORKREQ ) {
          INFO = -26;
       }
 
       if ( INFO != 0 ) {
          xerbla('SLAQZ3', -INFO );
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -91,7 +91,7 @@
          NS = JW-QZ_SMALL_INFO;
          slacpy('ALL', JW, JW, WORK, JW, A( KWTOP, KWTOP ), LDA );
          slacpy('ALL', JW, JW, WORK( JW**2+1 ), JW, B( KWTOP, KWTOP ), LDB );
-         RETURN;
+         return;
       }
 
       // Deflation detection loop

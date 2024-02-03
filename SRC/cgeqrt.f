@@ -40,7 +40,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGEQRT', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -67,7 +67,7 @@
             clarfb('L', 'C', 'F', 'C', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I, I+IB ), LDA, WORK , N-I-IB+1 );
          }
       }
-      RETURN;
+      return;
 
       // End of CGEQRT
 

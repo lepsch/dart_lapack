@@ -144,7 +144,7 @@
             }
          }
       }
-      RETURN;
+      return;
 
       // End of SLARFT
 

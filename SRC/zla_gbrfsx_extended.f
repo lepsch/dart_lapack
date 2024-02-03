@@ -260,7 +260,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of ZLA_GBRFSX_EXTENDED
 

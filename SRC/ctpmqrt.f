@@ -72,7 +72,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CTPMQRT', -INFO );
-         RETURN;
+         return;
       }
 
       // .. Quick return if possible ..
@@ -135,7 +135,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CTPMQRT
 

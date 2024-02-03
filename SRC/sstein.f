@@ -69,16 +69,16 @@
 
       if ( INFO != 0 ) {
          xerbla('SSTEIN', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 || M == 0 ) {
-         RETURN;
+         return;
       } else if ( N == 1 ) {
          Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // Get machine constants.
@@ -246,7 +246,7 @@
          } // 150
       } // 160
 
-      RETURN;
+      return;
 
       // End of SSTEIN
 

@@ -44,7 +44,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // a) Revert to multipliers of L
@@ -62,7 +62,7 @@
       for (J = 1; J <= N; J++) {
          if ( AIMAG( AFAC( J, J ) ) != ZERO ) {
             RESID = ONE / EPS;
-            RETURN;
+            return;
          }
       }
 
@@ -110,7 +110,7 @@
 
       csyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
-      RETURN;
+      return;
 
       // End of CHET01_3
 

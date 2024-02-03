@@ -246,7 +246,7 @@
       // Undo scaling
 
       if (SCALE) TAU = TAU*SCLINV;
-      RETURN;
+      return;
 
       // End of SLAED6
 

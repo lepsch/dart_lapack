@@ -129,16 +129,16 @@
 
       if ( INFO != 0 ) {
          xerbla('CGGES3 ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          SDIM = 0;
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -284,7 +284,7 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN;
+      return;
 
       // End of CGGES3
 

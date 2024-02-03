@@ -71,9 +71,9 @@
 
       if ( INFO != 0 ) {
          xerbla('SSYGV ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -85,7 +85,7 @@
       spotrf(UPLO, N, B, LDB, INFO );
       if ( INFO != 0 ) {
          INFO = N + INFO;
-         RETURN;
+         return;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -128,7 +128,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
-      RETURN;
+      return;
 
       // End of SSYGV
 

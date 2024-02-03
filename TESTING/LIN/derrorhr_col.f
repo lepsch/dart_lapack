@@ -100,7 +100,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN;
+      return;
 
       // End of DERRORHR_COL
 

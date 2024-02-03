@@ -127,7 +127,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CGBSVXX', -INFO );
-         RETURN;
+         return;
       }
 
       if ( EQUIL ) {
@@ -186,7 +186,7 @@
             // leading rank-deficient INFO columns of A.
 
             RPVGRW = CLA_GBRPVGRW( N, KL, KU, INFO, AB, LDAB, AFB, LDAFB );
-            RETURN;
+            return;
          }
       }
 
@@ -213,7 +213,7 @@
          clascl2(N, NRHS, R, X, LDX );
       }
 
-      RETURN;
+      return;
 
       // End of CGBSVXX
 

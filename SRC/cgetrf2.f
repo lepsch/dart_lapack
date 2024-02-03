@@ -48,7 +48,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CGETRF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -144,7 +144,7 @@
          claswp(N1, A( 1, 1 ), LDA, N1+1, MIN( M, N), IPIV, 1 );
 
       }
-      RETURN;
+      return;
 
       // End of CGETRF2
 

@@ -88,7 +88,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CTREVC', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -242,7 +242,7 @@
          } // 130
       }
 
-      RETURN;
+      return;
 
       // End of CTREVC
 

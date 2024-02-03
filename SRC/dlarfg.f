@@ -36,7 +36,7 @@
 
       if ( N <= 1 ) {
          TAU = ZERO;
-         RETURN;
+         return;
       }
 
       XNORM = DNRM2( N-1, X, INCX );
@@ -81,7 +81,7 @@
          ALPHA = BETA;
       }
 
-      RETURN;
+      return;
 
       // End of DLARFG
 

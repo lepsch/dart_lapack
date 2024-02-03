@@ -44,7 +44,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Determine EPS and the norm of A.
@@ -60,7 +60,7 @@
          for (J = 1; J <= N; J++) { // 10
             if ( AIMAG( AFAC( JC ) ) != ZERO ) {
                RESID = ONE / EPS;
-               RETURN;
+               return;
             }
             JC = JC + J + 1;
          } // 10
@@ -68,7 +68,7 @@
          for (J = 1; J <= N; J++) { // 20
             if ( AIMAG( AFAC( JC ) ) != ZERO ) {
                RESID = ONE / EPS;
-               RETURN;
+               return;
             }
             JC = JC + N - J + 1;
          } // 20
@@ -118,7 +118,7 @@
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of CHPT01
 

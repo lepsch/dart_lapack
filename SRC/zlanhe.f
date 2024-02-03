@@ -125,7 +125,7 @@
       }
 
       ZLANHE = VALUE;
-      RETURN;
+      return;
 
       // End of ZLANHE
 

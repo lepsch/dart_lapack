@@ -259,7 +259,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of CLA_GBRFSX_EXTENDED
 

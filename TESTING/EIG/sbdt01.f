@@ -38,7 +38,7 @@
 
       if ( M <= 0 || N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Compute A - Q * B * P**T one column at a time.
@@ -132,7 +132,7 @@
          }
       }
 
-      RETURN;
+      return;
 
       // End of SBDT01
 

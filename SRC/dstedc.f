@@ -94,9 +94,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSTEDC', -INFO );
-         RETURN;
+         return;
       } else if (LQUERY) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -104,7 +104,7 @@
       if (N == 0) RETURN;
       if ( N == 1 ) {
          if (ICOMPZ != 0) Z( 1, 1 ) = ONE;
-         RETURN;
+         return;
       }
 
       // If the following conditional clause is removed, then the routine
@@ -265,7 +265,7 @@
       WORK( 1 ) = LWMIN;
       IWORK( 1 ) = LIWMIN;
 
-      RETURN;
+      return;
 
       // End of DSTEDC
 

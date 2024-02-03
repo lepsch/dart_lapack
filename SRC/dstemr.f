@@ -139,9 +139,9 @@
 
          xerbla('DSTEMR', -INFO );
 
-         RETURN;
+         return;
       } else if ( LQUERY || ZQUERY ) {
-         RETURN;
+         return;
       }
 
       // Handle N = 0, 1, and 2 cases immediately
@@ -164,7 +164,7 @@
             ISUPPZ(1) = 1;
             ISUPPZ(2) = 1;
          }
-         RETURN;
+         return;
       }
 
       if ( N == 2 ) {
@@ -325,7 +325,7 @@
          dlarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
          if ( IINFO != 0 ) {
             INFO = 10 + ABS( IINFO );
-            RETURN;
+            return;
          }
          // Note that if RANGE != 'V', DLARRE computes bounds on the desired
          // part of the spectrum. All desired eigenvalues are contained in
@@ -340,7 +340,7 @@
             dlarrv(N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
             if ( IINFO != 0 ) {
                INFO = 20 + ABS( IINFO );
-               RETURN;
+               return;
             }
          } else {
             // DLARRE computes eigenvalues of the (shifted) root representation
@@ -404,7 +404,7 @@
             dlasrt('I', M, W, IINFO );
             if ( IINFO != 0 ) {
                INFO = 3;
-               RETURN;
+               return;
             }
          } else {
             for (J = 1; J <= M - 1; J++) { // 60
@@ -436,7 +436,7 @@
 
       WORK( 1 ) = LWMIN;
       IWORK( 1 ) = LIWMIN;
-      RETURN;
+      return;
 
       // End of DSTEMR
 

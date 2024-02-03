@@ -46,7 +46,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('CPTTRS', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -78,7 +78,7 @@
          } // 10
       }
 
-      RETURN;
+      return;
 
       // End of CPTTRS
 

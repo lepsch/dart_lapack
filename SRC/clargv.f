@@ -164,7 +164,7 @@
          IY = IY + INCY;
          IX = IX + INCX;
       } // 60
-      RETURN;
+      return;
 
       // End of CLARGV
 

@@ -78,9 +78,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DGELST ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -88,7 +88,7 @@
       if ( MIN( M, N, NRHS ) == 0 ) {
          dlaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          WORK( 1 ) = DBLE( LWOPT );
-         RETURN;
+         return;
       }
 
       // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
@@ -136,7 +136,7 @@
 
          dlaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          WORK( 1 ) = DBLE( LWOPT );
-         RETURN;
+         return;
       }
 
       BROW = M;
@@ -183,7 +183,7 @@
             dtrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = N;
@@ -201,7 +201,7 @@
             dtrtrs('Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // Block 2: Zero out all rows below the N-th row in B:
@@ -245,7 +245,7 @@
             dtrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             // Block 2: Zero out all rows below the M-th row in B:
@@ -282,7 +282,7 @@
             dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN;
+               return;
             }
 
             SCLLEN = M;
@@ -306,7 +306,7 @@
 
       WORK( 1 ) = DBLE( LWOPT );
 
-      RETURN;
+      return;
 
       // End of DGELST
 

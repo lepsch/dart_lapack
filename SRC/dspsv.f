@@ -41,7 +41,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DSPSV ', -INFO );
-         RETURN;
+         return;
       }
 
       // Compute the factorization A = U*D*U**T or A = L*D*L**T.
@@ -54,7 +54,7 @@
          dsptrs(UPLO, N, NRHS, AP, IPIV, B, LDB, INFO );
 
       }
-      RETURN;
+      return;
 
       // End of DSPSV
 

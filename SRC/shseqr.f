@@ -86,13 +86,13 @@
          // ==== Quick return in case of invalid argument. ====
 
          xerbla('SHSEQR', -INFO );
-         RETURN;
+         return;
 
       } else if ( N == 0 ) {
 
          // ==== Quick return in case N = 0; nothing to do. ====
 
-         RETURN;
+         return;
 
       } else if ( LQUERY ) {
 
@@ -102,7 +102,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
          WORK( 1 ) = MAX( REAL( MAX( 1, N ) ), WORK( 1 ) );
-         RETURN;
+         return;
 
       } else {
 
@@ -126,7 +126,7 @@
          if ( ILO == IHI ) {
             WR( ILO ) = H( ILO, ILO );
             WI( ILO ) = ZERO;
-            RETURN;
+            return;
          }
 
          // ==== SLAHQR/SLAQR0 crossover point ====

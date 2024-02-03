@@ -82,7 +82,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN;
+      return;
 
       // End of CERRTZ
 

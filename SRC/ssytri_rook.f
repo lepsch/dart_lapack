@@ -50,7 +50,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSYTRI_ROOK', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -279,7 +279,7 @@
          } // 60
       }
 
-      RETURN;
+      return;
 
       // End of SSYTRI_ROOK
 

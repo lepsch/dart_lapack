@@ -77,9 +77,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHESVX', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       if ( NOFACT ) {
@@ -93,7 +93,7 @@
 
          if ( INFO > 0 ) {
             RCOND = ZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -121,7 +121,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZHESVX
 

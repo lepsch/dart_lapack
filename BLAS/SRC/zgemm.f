@@ -79,7 +79,7 @@
       }
       if (INFO != 0) {
           xerbla('ZGEMM ',INFO);
-          RETURN;
+          return;
       }
 
       // Quick return if possible.
@@ -102,7 +102,7 @@
                   } // 30
               } // 40
           }
-          RETURN;
+          return;
       }
 
       // Start the operations.
@@ -282,7 +282,7 @@
           }
       }
 
-      RETURN;
+      return;
 
       // End of ZGEMM
 

@@ -41,7 +41,7 @@
 
       if ( N <= 0 ) {
          RESID = ZERO;
-         RETURN;
+         return;
       }
 
       // Determine EPS and the norm of A.
@@ -117,7 +117,7 @@
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN;
+      return;
 
       // End of SSYT01_AA
 

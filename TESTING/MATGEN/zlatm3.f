@@ -54,7 +54,7 @@
          ISUB = I;
          JSUB = J;
          ZLATM3 = CZERO;
-         RETURN;
+         return;
       }
 
       // Compute subscripts depending on IPVTNG
@@ -77,7 +77,7 @@
 
       if ( JSUB > ISUB+KU || JSUB < ISUB-KL ) {
          ZLATM3 = CZERO;
-         RETURN;
+         return;
       }
 
       // Check for sparsity
@@ -85,7 +85,7 @@
       if ( SPARSE > ZERO ) {
          if ( DLARAN( ISEED ) < SPARSE ) {
             ZLATM3 = CZERO;
-            RETURN;
+            return;
          }
       }
 
@@ -110,7 +110,7 @@
          CTEMP = CTEMP*DL( I )*DL( J );
       }
       ZLATM3 = CTEMP;
-      RETURN;
+      return;
 
       // End of ZLATM3
 

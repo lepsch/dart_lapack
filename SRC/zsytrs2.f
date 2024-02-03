@@ -51,7 +51,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZSYTRS2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -212,7 +212,7 @@
 
       zsyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
-      RETURN;
+      return;
 
       // End of ZSYTRS2
 

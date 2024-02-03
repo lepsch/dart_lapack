@@ -52,7 +52,7 @@
             IX = IX + INCX;
          }
       }
-      RETURN;
+      return;
 
       // End of IZMAX1
 

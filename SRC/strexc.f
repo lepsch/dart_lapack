@@ -53,7 +53,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('STREXC', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -107,7 +107,7 @@
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO );
             if ( INFO != 0 ) {
                ILST = HERE;
-               RETURN;
+               return;
             }
             HERE = HERE + NBNEXT;
 
@@ -129,7 +129,7 @@
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO );
             if ( INFO != 0 ) {
                ILST = HERE;
-               RETURN;
+               return;
             }
             if ( NBNEXT == 1 ) {
 
@@ -149,7 +149,7 @@
                   slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO );
                   if ( INFO != 0 ) {
                      ILST = HERE;
-                     RETURN;
+                     return;
                   }
                   HERE = HERE + 2;
                } else {
@@ -182,7 +182,7 @@
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO );
             if ( INFO != 0 ) {
                ILST = HERE;
-               RETURN;
+               return;
             }
             HERE = HERE - NBNEXT;
 
@@ -204,7 +204,7 @@
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO );
             if ( INFO != 0 ) {
                ILST = HERE;
-               RETURN;
+               return;
             }
             if ( NBNEXT == 1 ) {
 
@@ -224,7 +224,7 @@
                   slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-1, 2, 1, WORK, INFO );
                   if ( INFO != 0 ) {
                      ILST = HERE;
-                     RETURN;
+                     return;
                   }
                   HERE = HERE - 2;
                } else {
@@ -241,7 +241,7 @@
       }
       ILST = HERE;
 
-      RETURN;
+      return;
 
       // End of STREXC
 

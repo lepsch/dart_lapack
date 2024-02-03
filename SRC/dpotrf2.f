@@ -47,7 +47,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('DPOTRF2', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible
@@ -62,7 +62,7 @@
 
          if ( A( 1, 1 ) <= ZERO || DISNAN( A( 1, 1 ) ) ) {
             INFO = 1;
-            RETURN;
+            return;
          }
 
          // Factor
@@ -80,7 +80,7 @@
          dpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO != 0 ) {
             INFO = IINFO;
-            RETURN;
+            return;
          }
 
          // Compute the Cholesky factorization A = U**T*U
@@ -97,7 +97,7 @@
             dpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO != 0 ) {
                INFO = IINFO + N1;
-               RETURN;
+               return;
             }
 
          // Compute the Cholesky factorization A = L*L**T
@@ -114,11 +114,11 @@
             dpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO != 0 ) {
                INFO = IINFO + N1;
-               RETURN;
+               return;
             }
          }
       }
-      RETURN;
+      return;
 
       // End of DPOTRF2
 

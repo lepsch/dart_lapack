@@ -118,16 +118,16 @@
 
       if ( INFO != 0 ) {
          xerbla('ZGGES ', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
          SDIM = 0;
-         RETURN;
+         return;
       }
 
       // Get machine constants
@@ -282,7 +282,7 @@
 
       WORK( 1 ) = LWKOPT;
 
-      RETURN;
+      return;
 
       // End of ZGGES
 

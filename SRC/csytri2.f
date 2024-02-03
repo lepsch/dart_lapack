@@ -57,10 +57,10 @@
 
       if ( INFO != 0 ) {
          xerbla('CSYTRI2', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
          WORK(1)=MINSIZE;
-         RETURN;
+         return;
       }
       if (N == 0) RETURN;
 
@@ -69,7 +69,7 @@
       } else {
          csytri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
-      RETURN;
+      return;
 
       // End of CSYTRI2
 

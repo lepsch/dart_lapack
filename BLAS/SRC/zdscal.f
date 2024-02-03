@@ -40,7 +40,7 @@
             ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)));
          }
       }
-      RETURN;
+      return;
 
       // End of ZDSCAL
 

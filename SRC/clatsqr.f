@@ -65,22 +65,22 @@
       }
       if ( INFO != 0 ) {
         xerbla('CLATSQR', -INFO );
-        RETURN;
+        return;
       } else if ( LQUERY ) {
-        RETURN;
+        return;
       }
 
       // Quick return if possible
 
       if ( MINMN == 0 ) {
-        RETURN;
+        return;
       }
 
       // The QR Decomposition
 
       if ( (MB <= N) || (MB >= M) ) {
         cgeqrt(M, N, NB, A, LDA, T, LDT, WORK, INFO );
-        RETURN;
+        return;
       }
       KK = MOD((M-N),(MB-N));
       II = M-KK+1;
@@ -105,7 +105,7 @@
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
-      RETURN;
+      return;
 
       // End of CLATSQR
 

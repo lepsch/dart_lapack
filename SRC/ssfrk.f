@@ -63,7 +63,7 @@
       }
       if ( INFO != 0 ) {
          xerbla('SSFRK ', -INFO );
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -77,7 +77,7 @@
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
             C( J ) = ZERO;
          }
-         RETURN;
+         return;
       }
 
       // C is N-by-N.
@@ -312,7 +312,7 @@
 
       }
 
-      RETURN;
+      return;
 
       // End of SSFRK
 

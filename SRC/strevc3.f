@@ -113,9 +113,9 @@
       }
       if ( INFO != 0 ) {
          xerbla('STREVC3', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible.
@@ -938,7 +938,7 @@
          } // 260
       }
 
-      RETURN;
+      return;
 
       // End of STREVC3
 

@@ -37,17 +37,17 @@
       if ( N < 0 ) {
          INFO = -1;
          xerbla('SLASQ1', -INFO );
-         RETURN;
+         return;
       } else if ( N == 0 ) {
-         RETURN;
+         return;
       } else if ( N == 1 ) {
          D( 1 ) = ABS( D( 1 ) );
-         RETURN;
+         return;
       } else if ( N == 2 ) {
          slas2(D( 1 ), E( 1 ), D( 2 ), SIGMN, SIGMX );
          D( 1 ) = SIGMX;
          D( 2 ) = SIGMN;
-         RETURN;
+         return;
       }
 
       // Estimate the largest singular value.
@@ -63,7 +63,7 @@
 
       if ( SIGMX == ZERO ) {
          slasrt('D', N, D, IINFO );
-         RETURN;
+         return;
       }
 
       for (I = 1; I <= N; I++) { // 20
@@ -107,7 +107,7 @@
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, E, N, IINFO );
       }
 
-      RETURN;
+      return;
 
       // End of SLASQ1
 

@@ -223,7 +223,7 @@
       }
 
       SLANTP = VALUE;
-      RETURN;
+      return;
 
       // End of SLANTP
 

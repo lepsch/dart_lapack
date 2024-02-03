@@ -55,16 +55,16 @@
       }
       if ( INFO != 0 ) {
          xerbla('ZGEQRFP', -INFO );
-         RETURN;
+         return;
       } else if ( LQUERY ) {
-         RETURN;
+         return;
       }
 
       // Quick return if possible
 
       if ( K == 0 ) {
          WORK( 1 ) = 1;
-         RETURN;
+         return;
       }
 
       NBMIN = 2;
@@ -124,7 +124,7 @@
       if (I <= K) CALL ZGEQR2P( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
       WORK( 1 ) = IWS;
-      RETURN;
+      return;
 
       // End of ZGEQRFP
 

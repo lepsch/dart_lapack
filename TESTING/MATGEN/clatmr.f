@@ -231,7 +231,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CLATMR', -INFO );
-         RETURN;
+         return;
       }
 
       // Decide if we can pivot consistently
@@ -254,7 +254,7 @@
       clatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO );
       if ( INFO != 0 ) {
          INFO = 1;
-         RETURN;
+         return;
       }
       if ( MODE != 0 && MODE != -6 && MODE != 6 ) {
 
@@ -266,7 +266,7 @@
          } // 40
          if ( TEMP == ZERO && DMAX != CZERO ) {
             INFO = 2;
-            RETURN;
+            return;
          }
          if ( TEMP != ZERO ) {
             CALPHA = DMAX / TEMP;
@@ -293,7 +293,7 @@
          clatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO );
          if ( INFO != 0 ) {
             INFO = 3;
-            RETURN;
+            return;
          }
       }
 
@@ -303,7 +303,7 @@
          clatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO );
          if ( INFO != 0 ) {
             INFO = 4;
-            RETURN;
+            return;
          }
       }
 
@@ -701,7 +701,7 @@
             // Desired scaling impossible
 
             INFO = 5;
-            RETURN;
+            return;
 
          } else if ( ( ANORM > ONE && ONORM < ONE ) || ( ANORM < ONE && ONORM > ONE ) ) {
 
