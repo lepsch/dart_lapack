@@ -43,7 +43,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Determine location of first number in second half.
 

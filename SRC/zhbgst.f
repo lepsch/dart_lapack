@@ -69,7 +69,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       INCA = LDAB*KA1;
 
@@ -648,12 +648,12 @@
             UPDATE = false;
             I = I - 1;
             I0 = M + 1;
-            if (KA == 0) RETURN;
+            if (KA == 0) return;
             GO TO 490;
          }
       } else {
          I = I - KA;
-         if (I < 2) RETURN;
+         if (I < 2) return;
       }
 
       if ( I < M-KBT ) {

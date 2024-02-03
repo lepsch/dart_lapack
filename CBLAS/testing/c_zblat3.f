@@ -2259,7 +2259,7 @@
       GO TO 30;
       } // 20
       LZE = false;
-   30 RETURN;
+   30 return;
 
       // End of LZE.
 
@@ -2318,7 +2318,7 @@
       GO TO 80;
       } // 70
       LZERES = false;
-   80 RETURN;
+   80 return;
 
       // End of LZERES.
 

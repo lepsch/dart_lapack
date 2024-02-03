@@ -176,7 +176,7 @@
             STOP;
          }
       } // 20
-   40 RETURN;
+   40 return;
 
       // End of CHECK0
 

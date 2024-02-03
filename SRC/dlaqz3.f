@@ -41,7 +41,7 @@
       LWORKREQ = MAX( LWORKREQ, INT( WORK( 1 ) )+2*JW**2 );
       LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N );
       if ( LWORK == -1 ) {
-         // workspace query, quick return
+         // workspace query, quick return;
          WORK( 1 ) = LWORKREQ;
          return;
       } else if ( LWORK < LWORKREQ ) {

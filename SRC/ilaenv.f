@@ -80,7 +80,7 @@
       C1 = SUBNAM( 1: 1 );
       SNAME = C1 == 'S' || C1 == 'D';
       CNAME = C1 == 'C' || C1 == 'Z';
-      if( !( CNAME || SNAME ) ) RETURN;
+      if( !( CNAME || SNAME ) ) return;
       C2 = SUBNAM( 2: 3 );
       C3 = SUBNAM( 4: 6 );
       C4 = C3( 2: 3 );

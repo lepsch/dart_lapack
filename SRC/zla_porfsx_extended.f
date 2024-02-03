@@ -60,7 +60,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (INFO != 0) RETURN;
+      if (INFO != 0) return;
       EPS = DLAMCH( 'Epsilon' );
       HUGEVAL = DLAMCH( 'Overflow' );
       // Force HUGEVAL to Inf

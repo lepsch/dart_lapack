@@ -63,9 +63,9 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
-      if( M == 0 ) RETURN;
-      IF( LSAME( JOB, 'N' ) ) RETURN;
+      if (N == 0) return;
+      if( M == 0 ) return;
+      IF( LSAME( JOB, 'N' ) ) return;
 
       if (ILO == IHI) GO TO 30;
 

@@ -24,7 +24,7 @@
 
       SCSUM1 = 0.0;
       STEMP = 0.0;
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
       IF( INCX == 1 ) GO TO 20;
 
       // CODE FOR INCREMENT NOT EQUAL TO 1

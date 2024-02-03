@@ -57,7 +57,7 @@
 
       // Quick return if possible.
 
-      if ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) RETURN;
+      if ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) return;
 
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
@@ -111,7 +111,7 @@
               }
           }
       }
-      if (ALPHA == ZERO) RETURN;
+      if (ALPHA == ZERO) return;
       if (LSAME(TRANS,'N')) {
 
          // Form  y := alpha*A*x + y.

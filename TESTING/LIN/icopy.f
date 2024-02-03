@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
       IF( INCX == 1 && INCY == 1 ) GO TO 20;
 
       // Code for unequal increments or equal increments not equal to 1
@@ -47,7 +47,7 @@
       for (I = 1; I <= M; I++) { // 30
          SY( I ) = SX( I );
       } // 30
-      if (N < 7) RETURN;
+      if (N < 7) return;
       } // 40
       MP1 = M + 1;
       DO 50 I = MP1, N, 7;

@@ -58,7 +58,7 @@
 
       // Quick return if N <= 0.
 
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
 
       // Call CLATB4 to set parameters for CLATMS.
 

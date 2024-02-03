@@ -21,9 +21,9 @@
       // INTRINSIC ABS
       // ..
       ISAMAX = 0;
-      if (N < 1 || INCX <= 0) RETURN;
+      if (N < 1 || INCX <= 0) return;
       ISAMAX = 1;
-      if (N == 1) RETURN;
+      if (N == 1) return;
       if (INCX == 1) {
 
          // code for increment equal to 1

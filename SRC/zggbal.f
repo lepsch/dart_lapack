@@ -188,7 +188,7 @@
          return;
       }
 
-      if (ILO == IHI) RETURN;
+      if (ILO == IHI) return;
 
       // Balance the submatrix in rows ILO to IHI.
 

@@ -22,7 +22,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (IOUNIT <= 0) RETURN;
+      if (IOUNIT <= 0) return;
       SORD = LSAME( PATH, 'S' ) || LSAME( PATH, 'D' );
       CORZ = LSAME( PATH, 'C' ) || LSAME( PATH, 'Z' );
       if ( !SORD && !CORZ ) {

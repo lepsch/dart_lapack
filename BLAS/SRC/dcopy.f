@@ -19,7 +19,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
       // ..
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
       if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1
@@ -32,7 +32,7 @@
             for (I = 1; I <= M; I++) {
                DY(I) = DX(I);
             }
-            if (N < 7) RETURN;
+            if (N < 7) return;
          }
          MP1 = M + 1;
          DO I = MP1,N,7;

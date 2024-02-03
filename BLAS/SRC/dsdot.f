@@ -25,7 +25,7 @@
       // INTRINSIC DBLE
       // ..
       DSDOT = 0.0;
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
       if (INCX == INCY && INCX > 0) {
 
       // Code for equal, positive, non-unit increments.

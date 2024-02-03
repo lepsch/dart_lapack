@@ -74,7 +74,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
       SMLSIZ = ILAENV( 9, 'DBDSDC', ' ', 0, 0, 0, 0 );
       if ( N == 1 ) {
          if ( ICOMPQ == 1 ) {
@@ -152,7 +152,7 @@
       // Scale.
 
       ORGNRM = DLANST( 'M', N, D, E );
-      if (ORGNRM == ZERO) RETURN;
+      if (ORGNRM == ZERO) return;
       dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, IERR );
       dlascl('G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, IERR );
 

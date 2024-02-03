@@ -31,7 +31,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (TAU == ZERO) RETURN;
+      if (TAU == ZERO) return;
 
       // Form  w:= C * v
 

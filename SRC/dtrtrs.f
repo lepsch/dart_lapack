@@ -59,13 +59,13 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Check for singularity.
 
       if ( NOUNIT ) {
          for (INFO = 1; INFO <= N; INFO++) { // 10
-            if( A( INFO, INFO ) == ZERO ) RETURN;
+            if( A( INFO, INFO ) == ZERO ) return;
          } // 10
       }
       INFO = 0;

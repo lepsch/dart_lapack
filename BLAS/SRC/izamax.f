@@ -22,9 +22,9 @@
       // EXTERNAL DCABS1
       // ..
       IZAMAX = 0;
-      if (N < 1 || INCX <= 0) RETURN;
+      if (N < 1 || INCX <= 0) return;
       IZAMAX = 1;
-      if (N == 1) RETURN;
+      if (N == 1) return;
       if (INCX == 1) {
 
          // code for increment equal to 1

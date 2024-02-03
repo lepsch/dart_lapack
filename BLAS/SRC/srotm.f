@@ -22,7 +22,7 @@
       // ..
 
       SFLAG = SPARAM(1);
-      if (N <= 0 || (SFLAG+TWO == ZERO)) RETURN;
+      if (N <= 0 || (SFLAG+TWO == ZERO)) return;
       if (INCX == INCY && INCX > 0) {
 
          NSTEPS = N*INCX;

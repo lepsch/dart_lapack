@@ -45,8 +45,8 @@
 
       // Quick return if possible
 
-      if (N == 0 || N1 == 0 || N2 == 0) RETURN;
-      IF( J1+N1 > N ) RETURN;
+      if (N == 0 || N1 == 0 || N2 == 0) return;
+      IF( J1+N1 > N ) return;
 
       J2 = J1 + 1;
       J3 = J1 + 2;

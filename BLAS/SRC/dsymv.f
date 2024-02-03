@@ -55,7 +55,7 @@
 
       // Quick return if possible.
 
-      if ((N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) RETURN;
+      if ((N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) return;
 
       // Set up the start points in  X  and  Y.
 
@@ -102,7 +102,7 @@
               }
           }
       }
-      if (ALPHA == ZERO) RETURN;
+      if (ALPHA == ZERO) return;
       if (LSAME(UPLO,'U')) {
 
          // Form  y  when A is stored in upper triangle.

@@ -37,7 +37,7 @@
       // Quick return if possible
 
       RESID = ZERO;
-      if (M <= 0 || N <= 0) RETURN;
+      if (M <= 0 || N <= 0) return;
       REALMN = DBLE( MAX( M, N ) );
       EPS = DLAMCH( 'Precision' );
 

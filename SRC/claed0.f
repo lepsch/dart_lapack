@@ -61,7 +61,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       SMLSIZ = ILAENV( 9, 'CLAED0', ' ', 0, 0, 0, 0 );
 

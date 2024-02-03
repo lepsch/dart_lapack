@@ -25,7 +25,7 @@
          INFO = -8;
       }
       if ( LWORK == -1 ) {
-         // workspace query, quick return
+         // workspace query, quick return;
          WORK( 1 ) = SROUNDUP_LWORK(N*NBLOCK_DESIRED);
          return;
       } else if ( LWORK < N*NBLOCK_DESIRED ) {

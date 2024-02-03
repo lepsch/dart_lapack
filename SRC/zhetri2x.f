@@ -62,7 +62,7 @@
          xerbla('ZHETRI2X', -INFO );
          return;
       }
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Convert A
       // Workspace got Non-diag elements of D
@@ -76,14 +76,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO INFO = N, 1, -1;
-            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) return;
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
-            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) return;
          }
       }
       INFO = 0;

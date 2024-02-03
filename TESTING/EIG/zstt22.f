@@ -39,7 +39,7 @@
 
       RESULT( 1 ) = ZERO;
       RESULT( 2 ) = ZERO;
-      if (N <= 0 || M <= 0) RETURN;
+      if (N <= 0 || M <= 0) return;
 
       UNFL = DLAMCH( 'Safe minimum' );
       ULP = DLAMCH( 'Epsilon' );

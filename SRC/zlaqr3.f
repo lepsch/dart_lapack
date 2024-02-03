@@ -83,9 +83,9 @@
       NS = 0;
       ND = 0;
       WORK( 1 ) = ONE;
-      if (KTOP > KBOT) RETURN;
+      if (KTOP > KBOT) return;
       // ... nor for an empty deflation window. ====
-      if (NW < 1) RETURN;
+      if (NW < 1) return;
 
       // ==== Machine constants ====
 

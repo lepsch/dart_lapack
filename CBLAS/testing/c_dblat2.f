@@ -2393,7 +2393,7 @@
       GO TO 30;
       } // 20
       LDE = false;
-   30 RETURN;
+   30 return;
 
       // End of LDE.
 
@@ -2450,7 +2450,7 @@
       GO TO 80;
       } // 70
       LDERES = false;
-   80 RETURN;
+   80 return;
 
       // End of LDERES.
 

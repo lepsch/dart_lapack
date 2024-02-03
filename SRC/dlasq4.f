@@ -77,15 +77,15 @@
                if ( DMIN == DN ) {
                   GAM = DN;
                   A2 = ZERO;
-                  if( Z( NN-5 ) > Z( NN-7 ) ) RETURN;
+                  if( Z( NN-5 ) > Z( NN-7 ) ) return;
                   B2 = Z( NN-5 ) / Z( NN-7 );
                   NP = NN - 9;
                } else {
                   NP = NN - 2*PP;
                   GAM = DN1;
-                  if( Z( NP-4 ) > Z( NP-2 ) ) RETURN;
+                  if( Z( NP-4 ) > Z( NP-2 ) ) return;
                   A2 = Z( NP-4 ) / Z( NP-2 );
-                  if( Z( NN-9 ) > Z( NN-11 ) ) RETURN;
+                  if( Z( NN-9 ) > Z( NN-11 ) ) return;
                   B2 = Z( NN-9 ) / Z( NN-11 );
                   NP = NN - 13;
                }
@@ -96,7 +96,7 @@
                DO 10 I4 = NP, 4*I0 - 1 + PP, -4;
                   if (B2 == ZERO) GO TO 20;
                   B1 = B2;
-                  if( Z( I4 ) > Z( I4-2 ) ) RETURN;
+                  if( Z( I4 ) > Z( I4-2 ) ) return;
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) );
                   A2 = A2 + B2;
                   if( HUNDRD*MAX( B2, B1 ) < A2 || CNST1 < A2 ) GO TO 20;
@@ -121,7 +121,7 @@
             B1 = Z( NP-2 );
             B2 = Z( NP-6 );
             GAM = DN2;
-            if( Z( NP-8 ) > B2 || Z( NP-4 ) > B1 ) RETURN;
+            if( Z( NP-8 ) > B2 || Z( NP-4 ) > B1 ) return;
             A2 = ( Z( NP-8 ) / B2 )*( ONE+Z( NP-4 ) / B1 );
 
             // Approximate contribution to norm squared from I < NN-2.
@@ -132,7 +132,7 @@
                DO 30 I4 = NN - 17, 4*I0 - 1 + PP, -4;
                   if (B2 == ZERO) GO TO 40;
                   B1 = B2;
-                  if( Z( I4 ) > Z( I4-2 ) ) RETURN;
+                  if( Z( I4 ) > Z( I4-2 ) ) return;
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) );
                   A2 = A2 + B2;
                   if( HUNDRD*MAX( B2, B1 ) < A2 || CNST1 < A2 ) GO TO 40;
@@ -167,13 +167,13 @@
 
             TTYPE = -7;
             S = THIRD*DMIN1;
-            if( Z( NN-5 ) > Z( NN-7 ) ) RETURN;
+            if( Z( NN-5 ) > Z( NN-7 ) ) return;
             B1 = Z( NN-5 ) / Z( NN-7 );
             B2 = B1;
             if (B2 == ZERO) GO TO 60;
             DO 50 I4 = 4*N0 - 9 + PP, 4*I0 - 1 + PP, -4;
                A2 = B1;
-               if( Z( I4 ) > Z( I4-2 ) ) RETURN;
+               if( Z( I4 ) > Z( I4-2 ) ) return;
                B1 = B1*( Z( I4 ) / Z( I4-2 ) );
                B2 = B2 + B1;
                if( HUNDRD*MAX( B1, A2 ) < B2 ) GO TO 60;
@@ -206,12 +206,12 @@
          if ( DMIN2 == DN2 && TWO*Z( NN-5 ) < Z( NN-7 ) ) {
             TTYPE = -10;
             S = THIRD*DMIN2;
-            if( Z( NN-5 ) > Z( NN-7 ) ) RETURN;
+            if( Z( NN-5 ) > Z( NN-7 ) ) return;
             B1 = Z( NN-5 ) / Z( NN-7 );
             B2 = B1;
             if (B2 == ZERO) GO TO 80;
             DO 70 I4 = 4*N0 - 9 + PP, 4*I0 - 1 + PP, -4;
-               if( Z( I4 ) > Z( I4-2 ) ) RETURN;
+               if( Z( I4 ) > Z( I4-2 ) ) return;
                B1 = B1*( Z( I4 ) / Z( I4-2 ) );
                B2 = B2 + B1;
                if (HUNDRD*B1 < B2) GO TO 80;

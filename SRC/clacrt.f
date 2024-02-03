@@ -20,7 +20,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
       IF( INCX == 1 && INCY == 1 ) GO TO 20;
 
       // Code for unequal increments or equal increments not equal to 1

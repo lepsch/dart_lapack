@@ -59,7 +59,7 @@
 
       // Quick return if possible.
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       NOCONJ = LSAME(TRANS,'T');
       NOUNIT = LSAME(DIAG,'N');

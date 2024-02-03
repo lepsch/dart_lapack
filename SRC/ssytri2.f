@@ -67,7 +67,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( NBMAX >= N ) {
          ssytri(UPLO, N, A, LDA, IPIV, WORK, INFO );

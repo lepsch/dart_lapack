@@ -61,7 +61,7 @@
       // Check that D(1:N) is positive.
 
       for (I = 1; I <= N; I++) { // 10
-         if( D( I ) <= ZERO ) RETURN;
+         if( D( I ) <= ZERO ) return;
       } // 10
 
       // Solve M(A) * x = e, where M(A) = (m(i,j)) is given by

@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      if (N <= 1 || IFST == ILST) RETURN;
+      if (N <= 1 || IFST == ILST) return;
 
       if ( IFST < ILST ) {
 

@@ -67,7 +67,7 @@
 
       // Quick return when ( (N == 0) || (M == 0) )
 
-      if( ( M == 0 ) || ( N == 0 ) ) RETURN;
+      if( ( M == 0 ) || ( N == 0 ) ) return;
 
       // Quick return when ALPHA == (0D+0)
 

@@ -70,7 +70,7 @@
 
       // Quick return if possible.
 
-      if ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) RETURN;
+      if ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) return;
 
       // And when  alpha == zero.
 

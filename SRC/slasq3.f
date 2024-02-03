@@ -47,7 +47,7 @@
 
       } // 10
 
-      if (N0 < I0) RETURN;
+      if (N0 < I0) return;
       IF( N0 == I0 ) GO TO 20;
       NN = 4*N0 + PP;
       if( N0 == ( I0+1 ) ) GO TO 40;

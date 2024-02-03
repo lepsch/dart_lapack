@@ -66,7 +66,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Initialize Q to the unit matrix, if needed
 

@@ -76,7 +76,7 @@
 
       // Quick return if (N == 0).
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Skip single precision iterative refinement if a priori slower
       // than double precision factorization.
@@ -222,7 +222,7 @@
 
       zgetrf(N, N, A, LDA, IPIV, INFO );
 
-      if (INFO != 0) RETURN;
+      if (INFO != 0) return;
 
       zlacpy('All', N, NRHS, B, LDB, X, LDX );
       zgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );

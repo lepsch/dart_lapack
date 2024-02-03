@@ -68,7 +68,7 @@
 
       // Quick exit if the user wants a diagonal matrix
 
-      if(( KL == 0 ) && ( KU == 0)) RETURN;
+      if(( KL == 0 ) && ( KU == 0)) return;
 
       // pre- and post-multiply A by random unitary matrices
 

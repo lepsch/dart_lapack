@@ -52,12 +52,12 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Invert the triangular Cholesky factor U or L.
 
       stftri(TRANSR, UPLO, 'N', N, A, INFO );
-      if (INFO > 0) RETURN;
+      if (INFO > 0) return;
 
       // If N is odd, set NISODD = true;
       // If N is even, set K = N/2 and NISODD = false;

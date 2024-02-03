@@ -40,7 +40,7 @@
       // Quick return if possible
 
       RESID = ZERO;
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
 
       // Compute B - U * S * V' one column at a time.
 

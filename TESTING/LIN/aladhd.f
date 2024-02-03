@@ -23,13 +23,13 @@
       // ..
       // .. Executable Statements ..
 
-      if (IOUNIT <= 0) RETURN;
+      if (IOUNIT <= 0) return;
       C1 = PATH( 1: 1 );
       C3 = PATH( 3: 3 );
       P2 = PATH( 2: 3 );
       SORD = LSAME( C1, 'S' ) || LSAME( C1, 'D' );
       CORZ = LSAME( C1, 'C' ) || LSAME( C1, 'Z' );
-      if( !( SORD || CORZ ) ) RETURN;
+      if( !( SORD || CORZ ) ) return;
 
       if ( LSAMEN( 2, P2, 'GE' ) ) {
 

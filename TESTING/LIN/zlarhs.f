@@ -200,7 +200,7 @@
 
       } else {
 
-         // If none of the above, set INFO = -1 and return
+         // If none of the above, set INFO = -1 and return;
 
          INFO = -1;
          xerbla('ZLARHS', -INFO );

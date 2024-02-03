@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      if (N == 0 || NRHS == 0 || M == 0) RETURN;
+      if (N == 0 || NRHS == 0 || M == 0) return;
 
       // B := Q' * B
 

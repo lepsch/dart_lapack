@@ -40,7 +40,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
       claset('Full', N, N, CZERO, CZERO, A, LDA );
 
       // Insure a correct ISEED

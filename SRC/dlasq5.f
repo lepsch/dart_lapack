@@ -28,7 +28,7 @@
       // ..
       // .. Executable Statements ..
 
-      if( ( N0-I0-1 ) <= 0 ) RETURN;
+      if( ( N0-I0-1 ) <= 0 ) return;
 
       DTHRESH = EPS*(SIGMA+TAU);
       if (TAU < DTHRESH*HALF) TAU = ZERO;

@@ -88,7 +88,7 @@
 
       // Quick return if possible
 
-      if (N == 0 || M == 0) RETURN;
+      if (N == 0 || M == 0) return;
 
       // Get machine parameters
 
@@ -125,7 +125,7 @@
          } else {
             MUL = CTOC / CFROMC;
             DONE = true;
-            if (MUL == ONE) RETURN;
+            if (MUL == ONE) return;
          }
       }
 

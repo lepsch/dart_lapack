@@ -32,7 +32,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( BETA == ZERO ) {
          for (J = 1; J <= NRHS; J++) { // 20

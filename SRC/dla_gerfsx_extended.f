@@ -50,7 +50,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (INFO != 0) RETURN;
+      if (INFO != 0) return;
       TRANS = CHLA_TRANSTYPE(TRANS_TYPE);
       EPS = DLAMCH( 'Epsilon' );
       HUGEVAL = DLAMCH( 'Overflow' );

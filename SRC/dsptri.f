@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -63,7 +63,7 @@
 
          KP = N*( N+1 ) / 2;
          DO 10 INFO = N, 1, -1;
-            if( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) return;
             KP = KP - INFO;
          } // 10
       } else {
@@ -72,7 +72,7 @@
 
          KP = 1;
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            if( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) return;
             KP = KP + N - INFO + 1;
          } // 20
       }

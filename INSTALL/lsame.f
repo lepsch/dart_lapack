@@ -21,7 +21,7 @@
       // Test if the characters are equal
 
       LSAME = CA == CB;
-      if (LSAME) RETURN;
+      if (LSAME) return;
 
       // Now test for equivalence if both characters are alphabetic.
 
@@ -61,7 +61,7 @@
       }
       LSAME = INTA == INTB;
 
-      // RETURN
+      // return;
 
       // End of LSAME
 

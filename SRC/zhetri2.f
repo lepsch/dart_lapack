@@ -66,7 +66,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( NBMAX >= N ) {
          zhetri(UPLO, N, A, LDA, IPIV, WORK, INFO );

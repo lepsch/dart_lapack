@@ -93,7 +93,7 @@
       // Quick return if possible
 
       M = 0;
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Form a split Cholesky factorization of B.
 

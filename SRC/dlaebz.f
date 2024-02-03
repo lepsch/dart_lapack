@@ -154,7 +154,7 @@
                      }
                   }
                } // 70
-               if (INFO != 0) RETURN;
+               if (INFO != 0) return;
                KL = KLNEW;
             } else {
 

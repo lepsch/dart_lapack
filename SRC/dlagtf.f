@@ -42,7 +42,7 @@
          return;
       }
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       A( 1 ) = A( 1 ) - LAMBDA;
       IN( N ) = 0;

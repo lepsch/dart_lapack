@@ -129,7 +129,7 @@
             STOP;
          }
       } // 20
-   40 RETURN;
+   40 return;
       }
       SUBROUTINE CHECK1(SFAC);
       // .. Parameters ..

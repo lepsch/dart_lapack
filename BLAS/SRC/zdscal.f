@@ -23,7 +23,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DIMAG
       // ..
-      if (N <= 0 || INCX <= 0 || DA == ONE) RETURN;
+      if (N <= 0 || INCX <= 0 || DA == ONE) return;
       if (INCX == 1) {
 
          // code for increment equal to 1

@@ -58,13 +58,13 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Form inv(U).  If INFO > 0 from CTRTRI, then U is singular,
       // and the inverse is not computed.
 
       ctrtri('Upper', 'Non-unit', N, A, LDA, INFO );
-      if (INFO > 0) RETURN;
+      if (INFO > 0) return;
 
       NBMIN = 2;
       LDWORK = N;

@@ -50,12 +50,12 @@
 
       // ==== If there are no shifts, then there is nothing to do. ====
 
-      if (NSHFTS < 2) RETURN;
+      if (NSHFTS < 2) return;
 
       // ==== If the active block is empty or 1-by-1, then there
       // .    is nothing to do. ====
 
-      if (KTOP >= KBOT) RETURN;
+      if (KTOP >= KBOT) return;
 
       // ==== NSHFTS is supposed to be even, but if it is odd,
       // .    then simply reduce it by one.  ====

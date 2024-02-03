@@ -56,7 +56,7 @@
          return;
       }
 
-      if (M <= 0 || N <= 0 || NRHS <= 0) RETURN;
+      if (M <= 0 || N <= 0 || NRHS <= 0) return;
 
       NORMA = CLANGE( 'One-norm', M, N, A, LDA, RWORK );
       SMLNUM = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' );

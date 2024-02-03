@@ -99,7 +99,7 @@
 
 
       // Special Case when N=1
-      // Treat case of 1x1 matrix for quick return
+      // Treat case of 1x1 matrix for quick return;
       if ( N == 1 ) {
          if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1) <= VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1;

@@ -39,7 +39,7 @@
       // Quick exit if M = 0 or N = 0.
 
       RESID = ZERO;
-      if (M <= 0 || N <= 0) RETURN;
+      if (M <= 0 || N <= 0) return;
 
       // Determine EPS and the norm of A.
 

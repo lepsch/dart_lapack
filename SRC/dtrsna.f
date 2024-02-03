@@ -104,11 +104,11 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( N == 1 ) {
          if ( SOMCON ) {
-            if( !SELECT( 1 ) ) RETURN;
+            if( !SELECT( 1 ) ) return;
          }
          if (WANTS) S( 1 ) = ONE;
          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );

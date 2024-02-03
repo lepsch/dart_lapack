@@ -52,7 +52,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // If N is odd, set NISODD = true;
       // If N is even, set K = N/2 and NISODD = false;
@@ -91,7 +91,7 @@
               // T1 -> a(0), T2 -> a(n), S -> a(n1)
 
                dpotrf('L', N1, A( 0 ), N, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                dtrsm('R', 'L', 'T', 'N', N2, N1, ONE, A( 0 ), N, A( N1 ), N );
                dsyrk('U', 'N', N2, N1, -ONE, A( N1 ), N, ONE, A( N ), N );
                dpotrf('U', N2, A( N ), N, INFO );
@@ -104,7 +104,7 @@
               // T1 -> a(n2), T2 -> a(n1), S -> a(0)
 
                dpotrf('L', N1, A( N2 ), N, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                dtrsm('L', 'L', 'N', 'N', N1, N2, ONE, A( N2 ), N, A( 0 ), N );
                dsyrk('U', 'T', N2, N1, -ONE, A( 0 ), N, ONE, A( N1 ), N );
                dpotrf('U', N2, A( N1 ), N, INFO );
@@ -123,7 +123,7 @@
                // T1 -> a(0+0) , T2 -> a(1+0) , S -> a(0+n1*n1); lda=n1
 
                dpotrf('U', N1, A( 0 ), N1, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                dtrsm('L', 'U', 'T', 'N', N1, N2, ONE, A( 0 ), N1, A( N1*N1 ), N1 );
                dsyrk('L', 'T', N2, N1, -ONE, A( N1*N1 ), N1, ONE, A( 1 ), N1 );
                dpotrf('L', N2, A( 1 ), N1, INFO );
@@ -136,7 +136,7 @@
                // T1 -> a(n2*n2), T2 -> a(n1*n2), S -> a(0); lda = n2
 
                dpotrf('U', N1, A( N2*N2 ), N2, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                dtrsm('R', 'U', 'N', 'N', N2, N1, ONE, A( N2*N2 ), N2, A( 0 ), N2 );
                dsyrk('L', 'N', N2, N1, -ONE, A( 0 ), N2, ONE, A( N1*N2 ), N2 );
                dpotrf('L', N2, A( N1*N2 ), N2, INFO );
@@ -161,7 +161,7 @@
                // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 
                dpotrf('L', K, A( 1 ), N+1, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                dtrsm('R', 'L', 'T', 'N', K, K, ONE, A( 1 ), N+1, A( K+1 ), N+1 );
                dsyrk('U', 'N', K, K, -ONE, A( K+1 ), N+1, ONE, A( 0 ), N+1 );
                dpotrf('U', K, A( 0 ), N+1, INFO );
@@ -174,7 +174,7 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 
                dpotrf('L', K, A( K+1 ), N+1, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                dtrsm('L', 'L', 'N', 'N', K, K, ONE, A( K+1 ), N+1, A( 0 ), N+1 );
                dsyrk('U', 'T', K, K, -ONE, A( 0 ), N+1, ONE, A( K ), N+1 );
                dpotrf('U', K, A( K ), N+1, INFO );
@@ -193,7 +193,7 @@
                // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 
                dpotrf('U', K, A( 0+K ), K, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                dtrsm('L', 'U', 'T', 'N', K, K, ONE, A( K ), N1, A( K*( K+1 ) ), K );
                dsyrk('L', 'T', K, K, -ONE, A( K*( K+1 ) ), K, ONE, A( 0 ), K );
                dpotrf('L', K, A( 0 ), K, INFO );
@@ -206,7 +206,7 @@
                // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 
                dpotrf('U', K, A( K*( K+1 ) ), K, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                dtrsm('R', 'U', 'N', 'N', K, K, ONE, A( K*( K+1 ) ), K, A( 0 ), K );
                dsyrk('L', 'N', K, K, -ONE, A( 0 ), K, ONE, A( K*K ), K );
                dpotrf('L', K, A( K*K ), K, INFO );

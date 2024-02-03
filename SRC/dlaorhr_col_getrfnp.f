@@ -50,7 +50,7 @@
 
       // Quick return if possible
 
-      if( MIN( M, N ) == 0 ) RETURN;
+      if( MIN( M, N ) == 0 ) return;
 
       // Determine the block size for this environment.
 

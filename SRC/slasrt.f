@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      if (N <= 1) RETURN;
+      if (N <= 1) return;
 
       STKPNT = 1;
       STACK( 1, 1 ) = 1;

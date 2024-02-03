@@ -117,7 +117,7 @@
 
       // Quick return if possible
 
-      if( MIN( N, NRHS ) == 0 ) RETURN;
+      if( MIN( N, NRHS ) == 0 ) return;
 
       // Determine machine dependent constant to control overflow.
 

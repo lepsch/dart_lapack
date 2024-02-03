@@ -32,7 +32,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (TAU == ZERO) RETURN;
+      if (TAU == ZERO) return;
       if ( LSAME( SIDE, 'L' ) ) {
 
          // Form  H * C, where H has order m.
@@ -540,7 +540,7 @@
          } // 400
          GO TO 410;
       }
-  410 RETURN;
+  410 return;
 
       // End of SLARFX
 

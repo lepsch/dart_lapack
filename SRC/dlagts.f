@@ -46,7 +46,7 @@
          return;
       }
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       EPS = DLAMCH( 'Epsilon' );
       SFMIN = DLAMCH( 'Safe minimum' );

@@ -53,7 +53,7 @@
 
       // Quick return if possible.
 
-      if ((N == 0) || (ALPHA == REAL(ZERO))) RETURN;
+      if ((N == 0) || (ALPHA == REAL(ZERO))) return;
 
       // Set the start point in X if the increment is not unity.
 

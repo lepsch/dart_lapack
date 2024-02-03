@@ -39,7 +39,7 @@
       // Get machine constants
 
       INFO = 0;
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
       UNFL = SLAMCH( 'Safe minimum' );
       OVFL = SLAMCH( 'Overflow' );
       EPS = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );

@@ -47,7 +47,7 @@
 
       // Quick return if possible
 
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
 
       // Initialise columns k+1:n to columns of the unit matrix
 

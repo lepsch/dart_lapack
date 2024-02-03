@@ -58,7 +58,7 @@
 
       // Quick return if possible
 
-      if (N <= 1) RETURN;
+      if (N <= 1) return;
 
       // Determine the first row of specified block
       // and find out it is 1 by 1 or 2 by 2.
@@ -82,7 +82,7 @@
          if( T( ILST+1, ILST ) != ZERO ) NBL = 2;
       }
 
-      if (IFST == ILST) RETURN;
+      if (IFST == ILST) return;
 
       if ( IFST < ILST ) {
 

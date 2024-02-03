@@ -99,7 +99,7 @@
 
       // Quick return if possible
 
-      if (N <= 1) RETURN;
+      if (N <= 1) return;
 
       // Zero out lower triangle of B
 

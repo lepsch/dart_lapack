@@ -30,7 +30,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (INFO == 0) RETURN;
+      if (INFO == 0) return;
       P2 = PATH( 2: 3 );
       C3 = SUBNAM( 4: 6 );
 

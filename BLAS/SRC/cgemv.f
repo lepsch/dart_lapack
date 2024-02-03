@@ -60,7 +60,7 @@
 
       // Quick return if possible.
 
-      if ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) RETURN;
+      if ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) return;
 
       NOCONJ = LSAME(TRANS,'T');
 
@@ -116,7 +116,7 @@
               }
           }
       }
-      if (ALPHA == ZERO) RETURN;
+      if (ALPHA == ZERO) return;
       if (LSAME(TRANS,'N')) {
 
          // Form  y := alpha*A*x + y.

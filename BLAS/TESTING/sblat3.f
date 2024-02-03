@@ -2296,7 +2296,7 @@
       GO TO 30;
       } // 20
       LSE = false;
-   30 RETURN;
+   30 return;
 
       // End of LSE
 
@@ -2354,7 +2354,7 @@
       GO TO 80;
       } // 70
       LSERES = false;
-   80 RETURN;
+   80 return;
 
       // End of LSERES
 

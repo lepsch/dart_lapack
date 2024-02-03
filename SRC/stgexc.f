@@ -76,7 +76,7 @@
 
       // Quick return if possible
 
-      if (N <= 1) RETURN;
+      if (N <= 1) return;
 
       // Determine the first row of the specified block and find out
       // if it is 1-by-1 or 2-by-2.
@@ -99,7 +99,7 @@
       if ( ILST < N ) {
          if( A( ILST+1, ILST ) != ZERO ) NBL = 2;
       }
-      if (IFST == ILST) RETURN;
+      if (IFST == ILST) return;
 
       if ( IFST < ILST ) {
 

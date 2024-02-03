@@ -116,7 +116,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 || NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) return;
 
       ULP = DLAMCH( 'Precision' );
       SAFMIN = DLAMCH( 'Safe minimum' );

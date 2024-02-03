@@ -22,7 +22,7 @@
       // ..
 
       DFLAG = DPARAM(1);
-      if (N <= 0 || (DFLAG+TWO == ZERO)) RETURN;
+      if (N <= 0 || (DFLAG+TWO == ZERO)) return;
       if (INCX == INCY && INCX > 0) {
 
          NSTEPS = N*INCX;

@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if (K == 0) RETURN;
+      if (K == 0) return;
 
       for (J = 1; J <= K; J++) { // 20
          slaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );

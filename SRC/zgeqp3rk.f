@@ -174,7 +174,7 @@
       if ( DISNAN( MAXC2NRM ) ) {
 
          // Check if the matrix A contains NaN, set INFO parameter
-         // to the column number where the first NaN is found and return
+         // to the column number where the first NaN is found and return;
          // from the routine.
 
          K = 0;

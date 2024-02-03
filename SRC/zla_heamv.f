@@ -65,7 +65,7 @@
 
       // Quick return if possible.
 
-      if( ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN;
+      if( ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) return;
 
       // Set up the start points in  X  and  Y.
 

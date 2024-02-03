@@ -68,7 +68,7 @@
 
       // Quick return if possible
 
-      if( MIN( N, NRHS ) == 0 ) RETURN;
+      if( MIN( N, NRHS ) == 0 ) return;
 
       if ( UPPER ) {
 

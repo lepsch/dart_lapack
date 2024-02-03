@@ -81,7 +81,7 @@
          zscal(M2, ONE / NORM, X2, INCX2 );
          zunbdb6(M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO );
 
-         // If the projection is nonzero, then return
+         // If the projection is nonzero, then return;
 
          if ( DZNRM2(M1,X1,INCX1) != REALZERO || DZNRM2(M2,X2,INCX2) != REALZERO ) {
             return;

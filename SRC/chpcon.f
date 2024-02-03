@@ -71,7 +71,7 @@
 
          IP = N*( N+1 ) / 2;
          DO 10 I = N, 1, -1;
-            if( IPIV( I ) > 0 && AP( IP ) == ZERO ) RETURN;
+            if( IPIV( I ) > 0 && AP( IP ) == ZERO ) return;
             IP = IP - I;
          } // 10
       } else {
@@ -80,7 +80,7 @@
 
          IP = 1;
          for (I = 1; I <= N; I++) { // 20
-            if( IPIV( I ) > 0 && AP( IP ) == ZERO ) RETURN;
+            if( IPIV( I ) > 0 && AP( IP ) == ZERO ) return;
             IP = IP + N - I + 1;
          } // 20
       }

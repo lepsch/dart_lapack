@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
       if ( ILO == IHI ) {
          W( ILO ) = H( ILO, ILO );
          return;

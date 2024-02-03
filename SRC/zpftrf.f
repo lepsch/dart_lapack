@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // If N is odd, set NISODD = true;
       // If N is even, set K = N/2 and NISODD = false;
@@ -92,7 +92,7 @@
               // T1 -> a(0), T2 -> a(n), S -> a(n1)
 
                zpotrf('L', N1, A( 0 ), N, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                ztrsm('R', 'L', 'C', 'N', N2, N1, CONE, A( 0 ), N, A( N1 ), N );
                zherk('U', 'N', N2, N1, -ONE, A( N1 ), N, ONE, A( N ), N );
                zpotrf('U', N2, A( N ), N, INFO );
@@ -105,7 +105,7 @@
               // T1 -> a(n2), T2 -> a(n1), S -> a(0)
 
                zpotrf('L', N1, A( N2 ), N, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                ztrsm('L', 'L', 'N', 'N', N1, N2, CONE, A( N2 ), N, A( 0 ), N );
                zherk('U', 'C', N2, N1, -ONE, A( 0 ), N, ONE, A( N1 ), N );
                zpotrf('U', N2, A( N1 ), N, INFO );
@@ -124,7 +124,7 @@
                // T1 -> a(0+0) , T2 -> a(1+0) , S -> a(0+n1*n1); lda=n1
 
                zpotrf('U', N1, A( 0 ), N1, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                ztrsm('L', 'U', 'C', 'N', N1, N2, CONE, A( 0 ), N1, A( N1*N1 ), N1 );
                zherk('L', 'C', N2, N1, -ONE, A( N1*N1 ), N1, ONE, A( 1 ), N1 );
                zpotrf('L', N2, A( 1 ), N1, INFO );
@@ -137,7 +137,7 @@
                // T1 -> a(n2*n2), T2 -> a(n1*n2), S -> a(0); lda = n2
 
                zpotrf('U', N1, A( N2*N2 ), N2, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                ztrsm('R', 'U', 'N', 'N', N2, N1, CONE, A( N2*N2 ), N2, A( 0 ), N2 );
                zherk('L', 'N', N2, N1, -ONE, A( 0 ), N2, ONE, A( N1*N2 ), N2 );
                zpotrf('L', N2, A( N1*N2 ), N2, INFO );
@@ -162,7 +162,7 @@
                // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 
                zpotrf('L', K, A( 1 ), N+1, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                ztrsm('R', 'L', 'C', 'N', K, K, CONE, A( 1 ), N+1, A( K+1 ), N+1 );
                zherk('U', 'N', K, K, -ONE, A( K+1 ), N+1, ONE, A( 0 ), N+1 );
                zpotrf('U', K, A( 0 ), N+1, INFO );
@@ -175,7 +175,7 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 
                zpotrf('L', K, A( K+1 ), N+1, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                ztrsm('L', 'L', 'N', 'N', K, K, CONE, A( K+1 ), N+1, A( 0 ), N+1 );
                zherk('U', 'C', K, K, -ONE, A( 0 ), N+1, ONE, A( K ), N+1 );
                zpotrf('U', K, A( K ), N+1, INFO );
@@ -194,7 +194,7 @@
                // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 
                zpotrf('U', K, A( 0+K ), K, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                ztrsm('L', 'U', 'C', 'N', K, K, CONE, A( K ), N1, A( K*( K+1 ) ), K );
                zherk('L', 'C', K, K, -ONE, A( K*( K+1 ) ), K, ONE, A( 0 ), K );
                zpotrf('L', K, A( 0 ), K, INFO );
@@ -207,7 +207,7 @@
                // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 
                zpotrf('U', K, A( K*( K+1 ) ), K, INFO );
-               if (INFO > 0) RETURN;
+               if (INFO > 0) return;
                ztrsm('R', 'U', 'N', 'N', K, K, CONE, A( K*( K+1 ) ), K, A( 0 ), K );
                zherk('L', 'N', K, K, -ONE, A( 0 ), K, ONE, A( K*K ), K );
                zpotrf('L', K, A( K*K ), K, INFO );

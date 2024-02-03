@@ -24,7 +24,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
       // ..
-      if (N <= 0 || INCX <= 0 || SA == ONE) RETURN;
+      if (N <= 0 || INCX <= 0 || SA == ONE) return;
       if (INCX == 1) {
 
          // code for increment equal to 1
@@ -37,7 +37,7 @@
             for (I = 1; I <= M; I++) {
                SX(I) = SA*SX(I);
             }
-            if (N < 5) RETURN;
+            if (N < 5) return;
          }
          MP1 = M + 1;
          DO I = MP1,N,5;

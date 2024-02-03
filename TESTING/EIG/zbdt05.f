@@ -45,7 +45,7 @@
       // Quick return if possible.
 
       RESID = ZERO;
-      if( MIN( M, N ) <= 0 || NS <= 0 ) RETURN;
+      if( MIN( M, N ) <= 0 || NS <= 0 ) return;
 
       EPS = DLAMCH( 'Precision' );
       ANORM = ZLANGE( 'M', M, N, A, LDA, DUM );

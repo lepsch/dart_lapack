@@ -70,7 +70,7 @@
 
       // Return if we were only asked to check infinity arithmetic
 
-      if (ISPEC == 0) RETURN;
+      if (ISPEC == 0) return;
 
       NAN1 = POSINF + NEGINF;
 

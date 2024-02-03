@@ -62,7 +62,7 @@
          WORK(1)=MINSIZE;
          return;
       }
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( NBMAX >= N ) {
          zsytri(UPLO, N, A, LDA, IPIV, WORK, INFO );

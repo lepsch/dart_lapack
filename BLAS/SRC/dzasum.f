@@ -23,7 +23,7 @@
       // ..
       DZASUM = 0.0;
       STEMP = 0.0;
-      if (N <= 0 || INCX <= 0) RETURN;
+      if (N <= 0 || INCX <= 0) return;
       if (INCX == 1) {
 
          // code for increment equal to 1

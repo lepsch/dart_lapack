@@ -90,7 +90,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 || NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) return;
 
       // More important constants
 

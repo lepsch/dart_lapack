@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       N2 = N - N1;
       N1P1 = N1 + 1;

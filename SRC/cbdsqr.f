@@ -76,7 +76,7 @@
          xerbla('CBDSQR', -INFO );
          return;
       }
-      if (N == 0) RETURN;
+      if (N == 0) return;
       IF( N == 1 ) GO TO 160;
 
       // ROTATE is true if any singular vectors desired, false otherwise
@@ -90,7 +90,7 @@
 
       // If INFO equals 2, dqds didn't finish, try to finish
 
-         if (INFO != 2) RETURN;
+         if (INFO != 2) return;
          INFO = 0;
       }
 

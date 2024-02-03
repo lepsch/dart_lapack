@@ -20,8 +20,8 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
       // ..
-      if (N <= 0) RETURN;
-      if (DA == 0.0) RETURN;
+      if (N <= 0) return;
+      if (DA == 0.0) return;
       if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1
@@ -35,7 +35,7 @@
                DY(I) = DY(I) + DA*DX(I);
             }
          }
-         if (N < 4) RETURN;
+         if (N < 4) return;
          MP1 = M + 1;
          DO I = MP1,N,4;
             DY(I) = DY(I) + DA*DX(I);

@@ -52,12 +52,12 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Invert the triangular Cholesky factor U or L.
 
       ctptri(UPLO, 'Non-unit', N, AP, INFO );
-      if (INFO > 0) RETURN;
+      if (INFO > 0) return;
       if ( UPPER ) {
 
          // Compute the product inv(U) * inv(U)**H.

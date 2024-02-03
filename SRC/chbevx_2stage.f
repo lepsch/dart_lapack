@@ -108,7 +108,7 @@
       // Quick return if possible
 
       M = 0;
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( N == 1 ) {
          M = 1;

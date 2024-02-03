@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N <= 1) RETURN;
+      if (N <= 1) return;
 
       for (I = 1; I <= N; I++) { // 10
          K( I ) = -K( I );

@@ -52,7 +52,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Form a Cholesky factorization of B.
 

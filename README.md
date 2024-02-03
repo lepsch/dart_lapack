@@ -331,6 +331,12 @@ $1const $2 = [$3];
 $1 \L$3$4;
 ```
 
+### IF RETURN
+```
+^((\s+).*)RETURN;?$
+$1return;
+```
+
 ### Overlaped lines
 ```
 ^(\s+)if(.*?)      (\s+.*)$

@@ -59,7 +59,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Check for singularity.
 
@@ -67,13 +67,13 @@
          if ( UPPER ) {
             JC = 1;
             for (INFO = 1; INFO <= N; INFO++) { // 10
-               if( AP( JC+INFO-1 ) == ZERO ) RETURN;
+               if( AP( JC+INFO-1 ) == ZERO ) return;
                JC = JC + INFO;
             } // 10
          } else {
             JC = 1;
             for (INFO = 1; INFO <= N; INFO++) { // 20
-               if( AP( JC ) == ZERO ) RETURN;
+               if( AP( JC ) == ZERO ) return;
                JC = JC + N - INFO + 1;
             } // 20
          }

@@ -59,7 +59,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (INFO != 0) RETURN;
+      if (INFO != 0) return;
       EPS = SLAMCH( 'Epsilon' );
       HUGEVAL = SLAMCH( 'Overflow' );
       // Force HUGEVAL to Inf

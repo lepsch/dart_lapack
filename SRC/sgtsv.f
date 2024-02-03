@@ -42,7 +42,7 @@
          return;
       }
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( NRHS == 1 ) {
          for (I = 1; I <= N - 2; I++) { // 10

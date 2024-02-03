@@ -78,7 +78,7 @@
          return;
       }
 
-      // Quick return
+      // Quick return;
 
       if ( N == 0 ) {
          return;

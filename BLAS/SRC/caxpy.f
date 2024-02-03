@@ -21,8 +21,8 @@
       REAL SCABS1;
       // EXTERNAL SCABS1
       // ..
-      if (N <= 0) RETURN;
-      if (SCABS1(CA) == 0.0) RETURN;
+      if (N <= 0) return;
+      if (SCABS1(CA) == 0.0) return;
       if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1

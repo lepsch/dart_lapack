@@ -21,8 +21,8 @@
       double           DCABS1;
       // EXTERNAL DCABS1
       // ..
-      if (N <= 0) RETURN;
-      if (DCABS1(ZA) == 0.0) RETURN;
+      if (N <= 0) return;
+      if (DCABS1(ZA) == 0.0) return;
       if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1

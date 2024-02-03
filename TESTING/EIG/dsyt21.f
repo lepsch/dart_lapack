@@ -39,7 +39,7 @@
 
       RESULT( 1 ) = ZERO;
       if (ITYPE == 1) RESULT( 2 ) = ZERO;
-      IF( N <= 0 ) RETURN;
+      IF( N <= 0 ) return;
 
       if ( LSAME( UPLO, 'U' ) ) {
          LOWER = false;
@@ -146,7 +146,7 @@
 
          // ITYPE=3: error = U V**T - I
 
-         if (N < 2) RETURN;
+         if (N < 2) return;
          dlacpy(' ', N, N, U, LDU, WORK, N );
          if ( LOWER ) {
             dorm2r('R', 'T', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO );

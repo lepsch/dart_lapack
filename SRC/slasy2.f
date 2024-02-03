@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      if (N1 == 0 || N2 == 0) RETURN;
+      if (N1 == 0 || N2 == 0) return;
 
       // Set constants to control overflow
 

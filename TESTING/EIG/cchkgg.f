@@ -104,7 +104,7 @@
 
       // Quick return if possible
 
-      if (NSIZES == 0 || NTYPES == 0) RETURN;
+      if (NSIZES == 0 || NTYPES == 0) return;
 
       SAFMIN = SLAMCH( 'Safe minimum' );
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );

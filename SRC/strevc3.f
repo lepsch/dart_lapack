@@ -120,7 +120,7 @@
 
       // Quick return if possible.
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.

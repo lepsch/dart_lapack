@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       KLD = MAX( 1, LDAB-1 );
 

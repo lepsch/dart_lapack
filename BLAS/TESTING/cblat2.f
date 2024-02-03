@@ -2634,7 +2634,7 @@
       GO TO 30;
       } // 20
       LCE = false;
-   30 RETURN;
+   30 return;
 
       // End of LCE
 
@@ -2690,7 +2690,7 @@
       GO TO 80;
       } // 70
       LCERES = false;
-   80 RETURN;
+   80 return;
 
       // End of LCERES
 

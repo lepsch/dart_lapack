@@ -45,7 +45,7 @@
 
       // Perform the factorization.
 
-      if (M == 0) RETURN;
+      if (M == 0) return;
       if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO;

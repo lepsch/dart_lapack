@@ -37,7 +37,7 @@
       // Check input parameters
 
       INFO = 0;
-      if (N == 0) RETURN;
+      if (N == 0) return;
       if ( N < 0 ) {
          INFO = -1;
          return;

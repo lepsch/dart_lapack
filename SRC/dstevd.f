@@ -78,7 +78,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( N == 1 ) {
          if (WANTZ) Z( 1, 1 ) = ONE;

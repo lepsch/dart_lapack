@@ -64,7 +64,7 @@
          xerbla('SLASDQ', -INFO );
          return;
       }
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // ROTATE is true if any singular vectors desired, false otherwise
 

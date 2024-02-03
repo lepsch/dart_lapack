@@ -77,14 +77,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO I = N, 1, -1;
-            if( IPIV( I ) > 0 && A( I, I ) == CZERO ) RETURN;
+            if( IPIV( I ) > 0 && A( I, I ) == CZERO ) return;
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (I = 1; I <= N; I++) {
-            if( IPIV( I ) > 0 && A( I, I ) == CZERO ) RETURN;
+            if( IPIV( I ) > 0 && A( I, I ) == CZERO ) return;
          }
       }
 

@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -66,14 +66,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO 10 INFO = N, 1, -1;
-            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) return;
          } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
+            if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) return;
          } // 20
       }
       INFO = 0;

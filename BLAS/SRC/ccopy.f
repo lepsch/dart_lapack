@@ -16,7 +16,7 @@
       // .. Local Scalars ..
       int     I,IX,IY;
       // ..
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
       if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1

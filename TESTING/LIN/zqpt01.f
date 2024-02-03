@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      if (M <= 0 || N <= 0) RETURN;
+      if (M <= 0 || N <= 0) return;
 
       NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK );
 

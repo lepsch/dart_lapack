@@ -73,7 +73,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, NDIM, ISRT;
-      if (N == 0) RETURN;
+      if (N == 0) return;
       READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM );
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N );

@@ -81,7 +81,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Compute the GRQ factorization of matrices B and A:
 

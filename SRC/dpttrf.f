@@ -40,7 +40,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 

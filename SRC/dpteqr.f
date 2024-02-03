@@ -63,7 +63,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       if ( N == 1 ) {
          if (ICOMPZ > 0) Z( 1, 1 ) = ONE;
@@ -74,7 +74,7 @@
       // Call DPTTRF to factor the matrix.
 
       dpttrf(N, D, E, INFO );
-      if (INFO != 0) RETURN;
+      if (INFO != 0) return;
       for (I = 1; I <= N; I++) { // 10
          D( I ) = SQRT( D( I ) );
       } // 10

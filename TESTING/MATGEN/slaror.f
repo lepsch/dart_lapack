@@ -37,7 +37,7 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      if (N == 0 || M == 0) RETURN;
+      if (N == 0 || M == 0) return;
 
       ITYPE = 0;
       if ( LSAME( SIDE, 'L' ) ) {

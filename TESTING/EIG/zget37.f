@@ -71,7 +71,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, ISRT;
-      if (N == 0) RETURN;
+      if (N == 0) return;
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N );
       } // 20

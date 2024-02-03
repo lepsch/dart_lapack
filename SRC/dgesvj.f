@@ -107,7 +107,7 @@
 
 // #:) Quick return for void matrix
 
-      if (MINMN == 0) RETURN;
+      if (MINMN == 0) return;
 
       // Set numerical parameters
       // The stopping criterion for Jacobi rotations is

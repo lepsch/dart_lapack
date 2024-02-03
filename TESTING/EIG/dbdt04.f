@@ -40,7 +40,7 @@
       // Quick return if possible.
 
       RESID = ZERO;
-      if (N <= 0 || NS <= 0) RETURN;
+      if (N <= 0 || NS <= 0) return;
 
       EPS = DLAMCH( 'Precision' );
 

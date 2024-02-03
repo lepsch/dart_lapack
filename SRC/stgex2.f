@@ -51,8 +51,8 @@
 
       // Quick return if possible
 
-      if (N <= 1 || N1 <= 0 || N2 <= 0) RETURN;
-      IF( N1 > N || ( J1+N1 ) > N ) RETURN;
+      if (N <= 1 || N1 <= 0 || N2 <= 0) return;
+      IF( N1 > N || ( J1+N1 ) > N ) return;
       M = N1 + N2;
       if ( LWORK < MAX( N*M, M*M*2 ) ) {
          INFO = -16;

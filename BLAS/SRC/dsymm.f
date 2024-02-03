@@ -69,7 +69,7 @@
 
       // Quick return if possible.
 
-      if ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) RETURN;
+      if ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) return;
 
       // And when  alpha == zero.
 

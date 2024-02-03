@@ -31,7 +31,7 @@
 
       // Quick return if possible
 
-      if (N <= 1) RETURN;
+      if (N <= 1) return;
 
       for (I = 1; I <= NB; I++) { // 10
          if ( I > 1 ) {

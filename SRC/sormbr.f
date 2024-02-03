@@ -98,7 +98,7 @@
       // Quick return if possible
 
       WORK( 1 ) = 1;
-      if (M == 0 || N == 0) RETURN;
+      if (M == 0 || N == 0) return;
 
       if ( APPLYQ ) {
 

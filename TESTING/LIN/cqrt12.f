@@ -49,7 +49,7 @@
       // Quick return if possible
 
       MN = MIN( M, N );
-      if (MN <= ZERO) RETURN;
+      if (MN <= ZERO) return;
 
       NRMSVL = SNRM2( MN, S, 1 );
 

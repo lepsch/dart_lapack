@@ -44,7 +44,7 @@
       // Quick return if possible
 
       K = MIN( M, N );
-      if (K == 0) RETURN;
+      if (K == 0) return;
 
       // Blocked loop of length K
 

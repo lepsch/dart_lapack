@@ -82,7 +82,7 @@
          RESULT( I ) = -ONE;
       } // 10
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Important constants
 

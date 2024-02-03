@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      if (N == 0 || NRHS == 0) RETURN;
+      if (N == 0 || NRHS == 0) return;
 
       // start execution: there are two triangular solves
 

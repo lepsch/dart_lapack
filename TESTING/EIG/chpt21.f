@@ -48,7 +48,7 @@
 
       RESULT( 1 ) = ZERO;
       if (ITYPE == 1) RESULT( 2 ) = ZERO;
-      IF( N <= 0 ) RETURN;
+      IF( N <= 0 ) return;
 
       LAP = ( N*( N+1 ) ) / 2;
 
@@ -162,7 +162,7 @@
 
          // ITYPE=3: error = U V**H - I
 
-         if (N < 2) RETURN;
+         if (N < 2) return;
          clacpy(' ', N, N, U, LDU, WORK, N );
          cupmtr('R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          if ( IINFO != 0 ) {

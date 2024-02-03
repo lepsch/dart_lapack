@@ -73,7 +73,7 @@
       // Initialize result
 
       RESULT = ZERO;
-      if (MU == 0 || MV == 0 || N == 0) RETURN;
+      if (MU == 0 || MV == 0 || N == 0) return;
 
       // Machine constants
 

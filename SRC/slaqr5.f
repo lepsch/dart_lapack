@@ -41,12 +41,12 @@
 
       // ==== If there are no shifts, then there is nothing to do. ====
 
-      if (NSHFTS < 2) RETURN;
+      if (NSHFTS < 2) return;
 
       // ==== If the active block is empty or 1-by-1, then there
       // .    is nothing to do. ====
 
-      if (KTOP >= KBOT) RETURN;
+      if (KTOP >= KBOT) return;
 
       // ==== Shuffle shifts into pairs of real shifts and pairs
       // .    of complex conjugate shifts assuming complex

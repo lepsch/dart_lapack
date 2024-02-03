@@ -48,7 +48,7 @@
          return;
       }
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       for (K = 1; K <= N - 1; K++) { // 30
          if ( DL( K ) == ZERO ) {

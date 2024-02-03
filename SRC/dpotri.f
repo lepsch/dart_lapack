@@ -43,12 +43,12 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Invert the triangular Cholesky factor U or L.
 
       dtrtri(UPLO, 'Non-unit', N, A, LDA, INFO );
-      if (INFO > 0) RETURN;
+      if (INFO > 0) return;
 
       // Form inv(U) * inv(U)**T or inv(L)**T * inv(L).
 

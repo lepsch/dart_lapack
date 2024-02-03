@@ -105,7 +105,7 @@
 
       DO 30 I = 1, MINMN - NX, NB;
 
-         // Reduce rows and columns i:i+nb-1 to bidiagonal form and return
+         // Reduce rows and columns i:i+nb-1 to bidiagonal form and return;
          // the matrices X and Y which are needed to update the unreduced
          // part of the matrix
 

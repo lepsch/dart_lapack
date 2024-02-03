@@ -32,7 +32,7 @@
       // .. Executable Statements ..
 
       RESULT( 1 ) = ZERO;
-      if (N <= 0) RETURN;
+      if (N <= 0) return;
 
       ULP = SLAMCH( 'Epsilon' );
 

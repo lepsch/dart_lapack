@@ -56,12 +56,12 @@
             JJ = 0;
             for (INFO = 1; INFO <= N; INFO++) { // 10
                JJ = JJ + INFO;
-               if( AP( JJ ) == ZERO ) RETURN;
+               if( AP( JJ ) == ZERO ) return;
             } // 10
          } else {
             JJ = 1;
             for (INFO = 1; INFO <= N; INFO++) { // 20
-               if( AP( JJ ) == ZERO ) RETURN;
+               if( AP( JJ ) == ZERO ) return;
                JJ = JJ + N - INFO + 1;
             } // 20
          }

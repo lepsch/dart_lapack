@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (IOUNIT <= 0) RETURN;
+      if (IOUNIT <= 0) return;
       C2 = PATH( 1: 3 );
 
       // First line describing matrices in this path

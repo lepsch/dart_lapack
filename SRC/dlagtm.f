@@ -28,7 +28,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // Multiply B by BETA if BETA != 1.
 

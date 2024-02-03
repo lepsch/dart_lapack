@@ -50,7 +50,7 @@
 
       // Quick return if possible
 
-      if (N == 0) RETURN;
+      if (N == 0) return;
 
       // The following values are for bookkeeping purposes only.  They are
       // integer pointers which indicate the portion of the workspace

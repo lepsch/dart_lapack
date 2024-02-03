@@ -46,7 +46,7 @@
          xerbla('DSTERF', -INFO );
          return;
       }
-      if (N <= 1) RETURN;
+      if (N <= 1) return;
 
       // Determine the unit roundoff for this environment.
 
