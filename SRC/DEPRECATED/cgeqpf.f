@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                JPVT( * )
+      int                JPVT( * );
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
 *     ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, ITEMP, J, MA, MN, PVT
+      int                I, ITEMP, J, MA, MN, PVT;
       REAL               TEMP, TEMP2, TOL3Z
       COMPLEX            AII
 *     ..
@@ -31,7 +31,7 @@
       INTRINSIC          ABS, CMPLX, CONJG, MAX, MIN, SQRT
 *     ..
 *     .. External Functions ..
-      int                ISAMAX
+      int                ISAMAX;
       REAL               SCNRM2, SLAMCH
       EXTERNAL           ISAMAX, SCNRM2, SLAMCH
 *     ..

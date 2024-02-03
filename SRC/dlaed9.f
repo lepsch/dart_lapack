@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, K, KSTART, KSTOP, LDQ, LDS, N
+      int                INFO, K, KSTART, KSTOP, LDQ, LDS, N;
       double             RHO;
 *     ..
 *     .. Array Arguments ..
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
       double             TEMP;
 *     ..
 *     .. External Functions ..

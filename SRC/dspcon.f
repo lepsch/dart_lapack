@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, N
+      int                INFO, N;
       double             ANORM, RCOND;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * );
       double             AP( * ), WORK( * );
 *     ..
 *
@@ -22,11 +22,11 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                I, IP, KASE
+      int                I, IP, KASE;
       double             AINVNM;
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

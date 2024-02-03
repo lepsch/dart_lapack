@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDB, LWORK, M, P, N
+      int                LDA, LDB, LWORK, M, P, N;
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * ), RESULT( 4 )
@@ -23,7 +23,7 @@
       PARAMETER          ( CROGUE = ( -1.0E+10, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                INFO
+      int                INFO;
       REAL               ANORM, BNORM, ULP, UNFL, RESID
 *     ..
 *     .. External Functions ..

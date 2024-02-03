@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, LDB, LWORK, N, NRHS
+      int                INFO, LDA, LDB, LWORK, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
 *     ..
 *
@@ -17,11 +17,11 @@
 *
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                LWKOPT, NB
+      int                LWKOPT, NB;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

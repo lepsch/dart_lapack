@@ -5,24 +5,24 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                NIN, NOUT
+      int                NIN, NOUT;
 *     ..
 *
 * ======================================================================
 *
 *     .. Parameters ..
-      int                LDE
+      int                LDE;
       PARAMETER          ( LDE = 20 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IHI, ILO, INFO, J, KNT, N, NINFO
+      int                I, IHI, ILO, INFO, J, KNT, N, NINFO;
       double             EPS, RMAX, SAFMIN, VMAX, X;
       COMPLEX*16         CDUM
 *     ..
 *     .. Local Arrays ..
-      int                LMAX( 2 )
+      int                LMAX( 2 );
       double             SCALE( LDE );
       COMPLEX*16         E( LDE, LDE ), EIN( LDE, LDE )
 *     ..

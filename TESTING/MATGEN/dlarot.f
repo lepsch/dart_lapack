@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               LLEFT, LRIGHT, LROWS;
-      int                LDA, NL
+      int                LDA, NL;
       double             C, S, XLEFT, XRIGHT;
 *     ..
 *     .. Array Arguments ..
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                IINC, INEXT, IX, IY, IYT, NT
+      int                IINC, INEXT, IX, IY, IYT, NT;
 *     ..
 *     .. Local Arrays ..
       double             XT( 2 ), YT( 2 );

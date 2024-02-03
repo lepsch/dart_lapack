@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), WORK( * );
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, TRAN;
-      int                I, IASCL, IBSCL, J, MAXMN, BROW, SCLLEN, TSZO, TSZM, LWO, LWM, LW1, LW2, WSIZEO, WSIZEM, INFO2
+      int                I, IASCL, IBSCL, J, MAXMN, BROW, SCLLEN, TSZO, TSZM, LWO, LWM, LW1, LW2, WSIZEO, WSIZEM, INFO2;
       double             ANRM, BIGNUM, BNRM, SMLNUM, TQ( 5 ), WORKQ( 1 );
 *     ..
 *     .. External Functions ..

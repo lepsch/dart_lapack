@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       String             DIST, RSIGN, SIM, UPPER;
-      int                INFO, KL, KU, LDA, MODE, MODES, N
+      int                INFO, KL, KU, LDA, MODE, MODES, N;
       double             ANORM, COND, CONDS;
       COMPLEX*16         DMAX
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             DS( * );
       COMPLEX*16         A( LDA, * ), D( * ), WORK( * )
 *     ..
@@ -30,7 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               BADS;
-      int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR
+      int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR;
       double             RALPHA, TEMP;
       COMPLEX*16         ALPHA, TAU, XNORMS
 *     ..

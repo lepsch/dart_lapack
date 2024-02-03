@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                L, LDA, M, N
+      int                L, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), TAU( * ), WORK( * );
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLARFG, DLARZ

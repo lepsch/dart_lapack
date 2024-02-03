@@ -6,21 +6,21 @@
 *
 *     .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT
+      int                NUNIT;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX = 3 )
 *     ..
 *     .. Local Scalars ..
       String             C2;
-      int                INFO, LW
+      int                INFO, LW;
 *     ..
 *     .. Local Arrays ..
-      int                IP( NMAX )
+      int                IP( NMAX );
       REAL               RW( 2*NMAX )
       COMPLEX            A( NMAX, NMAX ), TAU( NMAX ), W( 2*NMAX+3*NMAX )
 *     ..
@@ -34,7 +34,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

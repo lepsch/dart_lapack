@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDB, LDC, LDD, LDE, LDF, LDL, LDR, M, N, PRTYPE, QBLCKA, QBLCKB
+      int                LDA, LDB, LDC, LDD, LDE, LDF, LDL, LDR, M, N, PRTYPE, QBLCKA, QBLCKB;
       double             ALPHA;
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), TWO = ( 2.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ), HALF = ( 0.5D+0, 0.0D+0 ), TWENTY = ( 2.0D+1, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, K
+      int                I, J, K;
       COMPLEX*16         IMEPS, REEPS
 *     ..
 *     .. Intrinsic Functions ..

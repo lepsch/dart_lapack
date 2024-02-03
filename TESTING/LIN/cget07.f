@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             TRANS;
       bool               CHKFERR;
-      int                LDA, LDB, LDX, LDXACT, N, NRHS
+      int                LDA, LDB, LDX, LDXACT, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * )
@@ -22,13 +22,13 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
-      int                I, IMAX, J, K
+      int                I, IMAX, J, K;
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
       COMPLEX            ZDUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ICAMAX
+      int                ICAMAX;
       REAL               SLAMCH
       EXTERNAL           LSAME, ICAMAX, SLAMCH
 *     ..

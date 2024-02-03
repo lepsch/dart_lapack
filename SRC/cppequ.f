@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, N
+      int                INFO, N;
       REAL               AMAX, SCOND
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                I, JJ
+      int                I, JJ;
       REAL               SMIN
 *     ..
 *     .. External Functions ..

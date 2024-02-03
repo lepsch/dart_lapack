@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       bool               FORWRD;
-      int                LDX, M, N
+      int                LDX, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                K( * )
+      int                K( * );
       COMPLEX*16         X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, IN, J, JJ
+      int                I, IN, J, JJ;
       COMPLEX*16         TEMP
 *     ..
 *     .. Executable Statements ..

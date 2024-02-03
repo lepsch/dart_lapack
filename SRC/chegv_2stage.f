@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, UPLO;
-      int                INFO, ITYPE, LDA, LDB, LWORK, N
+      int                INFO, ITYPE, LDA, LDB, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * ), W( * )
@@ -24,11 +24,11 @@
 *     .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
-      int                NEIG, LWMIN, LHTRD, LWTRD, KD, IB
+      int                NEIG, LWMIN, LHTRD, LWTRD, KD, IB;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV2STAGE
+      int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             ORDER, RANGE;
-      int                IL, INFO, IU, M, N, NSPLIT
+      int                IL, INFO, IU, M, N, NSPLIT;
       double             ABSTOL, VL, VU;
 *     ..
 *     .. Array Arguments ..
-      int                IBLOCK( * ), ISPLIT( * ), IWORK( * )
+      int                IBLOCK( * ), ISPLIT( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * );
 *     ..
 *
@@ -24,15 +24,15 @@
 *     ..
 *     .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
-      int                IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU
+      int                IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU;
       double             ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL;
 *     ..
 *     .. Local Arrays ..
-      int                IDUMMA( 1 )
+      int                IDUMMA( 1 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH;
       EXTERNAL           LSAME, ILAENV, DLAMCH
 *     ..

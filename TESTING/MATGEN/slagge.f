@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, KL, KU, LDA, M, N
+      int                INFO, KL, KU, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       REAL               A( LDA, * ), D( * ), WORK( * )
 *     ..
 *
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
       REAL               TAU, WA, WB, WN
 *     ..
 *     .. External Subroutines ..

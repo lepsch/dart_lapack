@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS
+      int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             AB( LDAB, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * );
@@ -20,12 +20,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                I, IMAX, J, K, NZ
+      int                I, IMAX, J, K, NZ;
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

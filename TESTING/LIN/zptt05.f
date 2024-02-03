@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDB, LDX, LDXACT, N, NRHS
+      int                LDB, LDX, LDXACT, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             BERR( * ), D( * ), FERR( * ), RESLTS( * );
@@ -19,12 +19,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IMAX, J, K, NZ
+      int                I, IMAX, J, K, NZ;
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
-      int                IZAMAX
+      int                IZAMAX;
       double             DLAMCH;
       EXTERNAL           IZAMAX, DLAMCH
 *     ..

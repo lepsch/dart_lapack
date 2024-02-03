@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double           ALPHA,BETA;
-      int     K,LDA,LDC,N
+      int     K,LDA,LDC,N;
       String    TRANS,UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       COMPLEX*16 TEMP
       double           RTEMP;
-      int     I,INFO,J,L,NROWA
+      int     I,INFO,J,L,NROWA;
       bool    UPPER;
 *     ..
 *     .. Parameters ..

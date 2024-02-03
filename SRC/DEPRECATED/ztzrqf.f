@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), TAU( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, K, M1
+      int                I, K, M1;
       COMPLEX*16         ALPHA
 *     ..
 *     .. Intrinsic Functions ..

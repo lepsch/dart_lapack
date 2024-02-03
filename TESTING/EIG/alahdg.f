@@ -6,14 +6,14 @@
 *
 *     .. Scalar Arguments ..
       String            PATH;
-      int               IOUNIT
+      int               IOUNIT;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
       String            C2;
-      int               ITYPE
+      int               ITYPE;
 *     ..
 *     .. External Functions ..
       bool              LSAMEN;

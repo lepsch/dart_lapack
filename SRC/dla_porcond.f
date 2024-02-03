@@ -6,22 +6,22 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                N, LDA, LDAF, INFO, CMODE
+      int                N, LDA, LDAF, INFO, CMODE;
       double             A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                KASE, I, J
+      int                KASE, I, J;
       double             AINVNM, TMP;
       bool               UP;
 *     ..
 *     .. Array Arguments ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       bool               RSIGN;
-      int                IDIST, ITYPE, LDA, N, NZ1, NZ2
+      int                IDIST, ITYPE, LDA, N, NZ1, NZ2;
       REAL               AMAGN, RCOND, TRIANG
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       COMPLEX            A( LDA, * )
 *     ..
 *
@@ -23,7 +23,7 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN
+      int                I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
       REAL               ALPHA
       COMPLEX            CTEMP
 *     ..

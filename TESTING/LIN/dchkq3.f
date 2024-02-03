@@ -5,31 +5,31 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                NM, NN, NNB, NOUT
+      int                NM, NN, NNB, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * );
+      int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * );;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 6 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 3 )
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       String             PATH;
-      int                I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX
+      int                I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX;
       double             EPS;
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
@@ -45,7 +45,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, IOUNIT
+      int                INFOT, IOUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int               M, N, MB1, NB1, NB2
+      int               M, N, MB1, NB1, NB2;
 *     .. Return values ..
       REAL              RESULT(6)
 *
@@ -25,11 +25,11 @@
 *     ..
 *     .. Local Scalars ..
       bool               TESTZEROS;
-      int                INFO, J, K, L, LWORK, NB2_UB, NRB
+      int                INFO, J, K, L, LWORK, NB2_UB, NRB;
       REAL               ANORM, EPS, RESID, CNORM, DNORM
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       COMPLEX            WORKQUERY( 1 )
 *     ..
 *     .. External Functions ..

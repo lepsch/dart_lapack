@@ -5,16 +5,16 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INCX, INCY, N
+      int                INCX, INCY, N;
 *     ..
 *     .. Array Arguments ..
-      int                SX( * ), SY( * )
+      int                SX( * ), SY( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, IX, IY, M, MP1
+      int                I, IX, IY, M, MP1;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MOD

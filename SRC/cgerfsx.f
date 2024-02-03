@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS, EQUED;
-      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
+      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ), WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
 *     ..
 *
@@ -26,21 +26,21 @@
       PARAMETER          ( COMPONENTWISE_DEFAULT = 1.0 )
       PARAMETER          ( RTHRESH_DEFAULT = 0.5 )
       PARAMETER          ( DZTHRESH_DEFAULT = 0.25 )
-      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
+      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 );
       PARAMETER          ( LA_LINRX_CWISE_I = 3 )
-      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
+      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. Local Scalars ..
       String   (1)       NORM;
       bool               ROWEQU, COLEQU, NOTRAN;
-      int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE
-      int                N_NORMS
+      int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE;
+      int                N_NORMS;
       REAL               ANORM, RCOND_TMP
       REAL               ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG
       bool               IGNORE_CWISE;
-      int                ITHRESH
+      int                ITHRESH;
       REAL               RTHRESH, UNSTABLE_THRESH
 *     ..
 *     .. External Subroutines ..
@@ -54,7 +54,7 @@
       EXTERNAL           SLAMCH, CLANGE, CLA_GERCOND_X, CLA_GERCOND_C
       REAL               SLAMCH, CLANGE, CLA_GERCOND_X, CLA_GERCOND_C
       bool               LSAME;
-      int                ILATRANS, ILAPREC
+      int                ILATRANS, ILAPREC;
 *     ..
 *     .. Executable Statements ..
 *

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       double             RESID;
-      int                LDA, LDAFAC, LDPERM, N, RANK
+      int                LDA, LDAFAC, LDPERM, N, RANK;
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * );
-      int                PIV( * )
+      int                PIV( * );
 *     ..
 *
 *  =====================================================================
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       double             ANORM, EPS, T;
-      int                I, J, K
+      int                I, J, K;
 *     ..
 *     .. External Functions ..
       double             DDOT, DLAMCH, DLANSY;

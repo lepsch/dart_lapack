@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       String             COMPQ, JOB;
-      int                INFO, LDQ, LDT, LIWORK, LWORK, M, N
+      int                INFO, LDQ, LDT, LIWORK, LWORK, M, N;
       REAL               S, SEP
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *
@@ -22,11 +22,11 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      bool               LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP       int                IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN;
+      bool               LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP       int                IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN;;
       REAL               EST, RNORM, SCALE
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

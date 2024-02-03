@@ -7,22 +7,22 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NM, NN, NNB, NOUT
+      int                NM, NN, NNB, NOUT;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      int                MVAL( * ), NBVAL( * ), NVAL( * )
+      int                MVAL( * ), NBVAL( * ), NVAL( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 6 )
 *     ..
 *     .. Local Scalars ..
       String             PATH;
-      int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, INB, MINMN, MB, IMB
+      int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, INB, MINMN, MB, IMB;
 *
 *     .. Local Arrays ..
       REAL   RESULT( NTESTS )
@@ -36,7 +36,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

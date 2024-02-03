@@ -1,11 +1,11 @@
-      int     FUNCTION DLANEG( N, D, LLD, SIGMA, PIVMIN, R )
+      int     FUNCTION DLANEG( N, D, LLD, SIGMA, PIVMIN, R );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                N, R
+      int                N, R;
       double             PIVMIN, SIGMA;
 *     ..
 *     .. Array Arguments ..
@@ -22,11 +22,11 @@
 *     propagate at most BLKLEN columns before being detected.  This is
 *     not a general tuning parameter; it needs only to be just large
 *     enough that the overhead is tiny in common cases.
-      int     BLKLEN
+      int     BLKLEN;
       PARAMETER ( BLKLEN = 128 )
 *     ..
 *     .. Local Scalars ..
-      int                BJ, J, NEG1, NEG2, NEGCNT
+      int                BJ, J, NEG1, NEG2, NEGCNT;
       double             BSAV, DMINUS, DPLUS, GAMMA, P, T, TMP;
       bool    SAWNAN;
 *     ..

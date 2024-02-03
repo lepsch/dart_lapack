@@ -9,7 +9,7 @@
 *
 *     .. Scalar Arguments ..
       String             TYPE;
-      int                IE, IOUNIT, NRUN
+      int                IE, IOUNIT, NRUN;
 *     ..
 *
 *

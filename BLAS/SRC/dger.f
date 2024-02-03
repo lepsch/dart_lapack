@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double           ALPHA;
-      int     INCX,INCY,LDA,M,N
+      int     INCX,INCY,LDA,M,N;
 *     ..
 *     .. Array Arguments ..
       double           A(LDA,*),X(*),Y(*);
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       double           TEMP;
-      int     I,INFO,IX,J,JY,KX
+      int     I,INFO,IX,J,JY,KX;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL XERBLA

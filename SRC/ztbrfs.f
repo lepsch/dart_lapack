@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
-      int                INFO, KD, LDAB, LDB, LDX, N, NRHS
+      int                INFO, KD, LDAB, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             BERR( * ), FERR( * ), RWORK( * );
@@ -24,12 +24,12 @@
 *     .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       String             TRANSN, TRANST;
-      int                I, J, K, KASE, NZ
+      int                I, J, K, KASE, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZAXPY, ZCOPY, ZLACN2, ZTBMV, ZTBSV

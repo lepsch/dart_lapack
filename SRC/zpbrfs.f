@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS
+      int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             BERR( * ), FERR( * ), RWORK( * );
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                ITMAX
+      int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -29,12 +29,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                COUNT, I, J, K, KASE, L, NZ
+      int                COUNT, I, J, K, KASE, L, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZAXPY, ZCOPY, ZHBMV, ZLACN2, ZPBTRS

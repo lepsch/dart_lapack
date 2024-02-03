@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INCX, K1, K2, LDA, N
+      int                INCX, K1, K2, LDA, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             A( LDA, * );
 *     ..
 *
 * =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, I1, I2, INC, IP, IX, IX0, J, K, N32
+      int                I, I1, I2, INC, IP, IX, IX0, J, K, N32;
       double             TEMP;
 *     ..
 *     .. Executable Statements ..

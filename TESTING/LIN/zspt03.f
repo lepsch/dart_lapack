@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDW, N
+      int                LDW, N;
       double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, ICOL, J, JCOL, K, KCOL, NALL
+      int                I, ICOL, J, JCOL, K, KCOL, NALL;
       double             AINVNM, ANORM, EPS;
       COMPLEX*16         T
 *     ..

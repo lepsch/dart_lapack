@@ -14,7 +14,7 @@
       INTRINSIC          ICHAR
 *     ..
 *     .. Local Scalars ..
-      int                INTA, INTB, ZCODE
+      int                INTA, INTB, ZCODE;
 *     ..
 *     .. Executable Statements ..
 *

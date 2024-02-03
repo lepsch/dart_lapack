@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LWORK, M, N
+      int                INFO, LDA, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                JPVT( * )
+      int                JPVT( * );
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
 *     ..
@@ -16,18 +16,18 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                INB, INBMIN, IXOVER
+      int                INB, INBMIN, IXOVER;
       PARAMETER          ( INB = 1, INBMIN = 2, IXOVER = 3 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN
+      int                FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGEQRF, CLAQP2, CLAQPS, CSWAP, CUNMQR, XERBLA
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       REAL               SCNRM2
       EXTERNAL           ILAENV, SCNRM2
 *     ..

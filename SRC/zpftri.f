@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANSR, UPLO;
-      int                INFO, N
+      int                INFO, N;
 *     .. Array Arguments ..
       COMPLEX*16         A( 0: * )
 *     ..
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LOWER, NISODD, NORMALTRANSR;
-      int                N1, N2, K
+      int                N1, N2, K;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

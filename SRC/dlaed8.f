@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                CUTPNT, GIVPTR, ICOMPQ, INFO, K, LDQ, LDQ2, N, QSIZ
+      int                CUTPNT, GIVPTR, ICOMPQ, INFO, K, LDQ, LDQ2, N, QSIZ;
       double             RHO;
 *     ..
 *     .. Array Arguments ..
-      int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       double             D( * ), DLAMBDA( * ), GIVNUM( 2, * ), Q( LDQ, * ), Q2( LDQ2, * ), W( * ), Z( * );
+      int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       double             D( * ), DLAMBDA( * ), GIVNUM( 2, * ), Q( LDQ, * ), Q2( LDQ2, * ), W( * ), Z( * );;
 *     ..
 *
 *  =====================================================================
@@ -20,11 +20,11 @@
 *     ..
 *     .. Local Scalars ..
 *
-      int                I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2
+      int                I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2;
       double             C, EPS, S, T, TAU, TOL;
 *     ..
 *     .. External Functions ..
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH, DLAPY2;
       EXTERNAL           IDAMAX, DLAMCH, DLAPY2
 *     ..

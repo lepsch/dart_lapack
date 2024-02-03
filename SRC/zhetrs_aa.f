@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                N, NRHS, LDA, LDB, LWORK, INFO
+      int                N, NRHS, LDA, LDB, LWORK, INFO;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
 *     ..
 *
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, UPPER;
-      int                K, KP, LWKMIN
+      int                K, KP, LWKMIN;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

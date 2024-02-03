@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       double             COND;
-      int                IDIST, INFO, IRSIGN, MODE, N, RANK
+      int                IDIST, INFO, IRSIGN, MODE, N, RANK;
 *     ..
 *     .. Array Arguments ..
       double             D( * );
-      int                ISEED( 4 )
+      int                ISEED( 4 );
 *     ..
 *
 *  =====================================================================
@@ -25,7 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       double             ALPHA, TEMP;
-      int                I
+      int                I;
 *     ..
 *     .. External Functions ..
       double             DLARAN;

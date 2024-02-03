@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INDA, N, VINDA
+      int                INDA, N, VINDA;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( * )
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, IA, IXA
+      int                I, IA, IXA;
       REAL               BIGNUM
 *     ..
 *     .. External Functions ..

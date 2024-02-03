@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       double             RESID;
-      int                LDA, LDAFAC, LDPERM, N, RANK
+      int                LDA, LDAFAC, LDPERM, N, RANK;
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * )
       double             RWORK( * );
-      int                PIV( * )
+      int                PIV( * );
 *     ..
 *
 *  =====================================================================
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       COMPLEX*16         TC
       double             ANORM, EPS, TR;
-      int                I, J, K
+      int                I, J, K;
 *     ..
 *     .. External Functions ..
       COMPLEX*16         ZDOTC

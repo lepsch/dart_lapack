@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             COMPQ;
-      int                IFST, ILST, INFO, LDQ, LDT, N
+      int                IFST, ILST, INFO, LDQ, LDT, N;
 *     ..
 *     .. Array Arguments ..
       double             Q( LDQ, * ), T( LDT, * ), WORK( * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               WANTQ;
-      int                HERE, NBF, NBL, NBNEXT
+      int                HERE, NBF, NBL, NBNEXT;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

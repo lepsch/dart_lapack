@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INCC, INCX, INCY, N
+      int                INCC, INCX, INCY, N;
 *     ..
 *     .. Array Arguments ..
       double             C( * );
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
 *     LOGICAL            FIRST
 
-      int                COUNT, I, IC, IX, IY, J
+      int                COUNT, I, IC, IX, IY, J;
       double             CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE;
       COMPLEX*16         F, FF, FS, G, GS, R, SN
 *     ..

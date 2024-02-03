@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             HOWMNY, JOB;
-      int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
+      int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
@@ -23,17 +23,17 @@
 *     .. Local Scalars ..
       bool               SOMCON, WANTBH, WANTS, WANTSP;
       String             NORMIN;
-      int                I, IERR, IX, J, K, KASE, KS
+      int                I, IERR, IX, J, K, KASE, KS;
       REAL               BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM
       COMPLEX            CDUM, PROD
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
       COMPLEX            DUMMY( 1 )
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ICAMAX
+      int                ICAMAX;
       REAL               SCNRM2, SLAMCH
       COMPLEX            CDOTC
       EXTERNAL           LSAME, ICAMAX, SCNRM2, SLAMCH, CDOTC

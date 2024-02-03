@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NN, NOUT, NRHS
+      int                NN, NOUT, NRHS;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                NVAL( * )
+      int                NVAL( * );
       REAL               D( * ), RWORK( * )
       COMPLEX            A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -21,24 +21,24 @@
 *     .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 12 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 6 )
 *     ..
 *     .. Local Scalars ..
       bool               ZEROT;
       String             DIST, FACT, TYPE;
       String             PATH;
-      int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT
+      int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT;
       REAL               AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS ), Z( 3 )
 *     ..
 *     .. External Functions ..
-      int                ISAMAX
+      int                ISAMAX;
       REAL               CLANHT, SCASUM, SGET06
       EXTERNAL           ISAMAX, CLANHT, SCASUM, SGET06
 *     ..
@@ -51,7 +51,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

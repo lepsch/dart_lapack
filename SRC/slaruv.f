@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                N
+      int                N;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       REAL               X( N )
 *     ..
 *
@@ -17,15 +17,15 @@
 *     .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
-      int                LV, IPW2
+      int                LV, IPW2;
       REAL               R
       PARAMETER          ( LV = 128, IPW2 = 4096, R = ONE / IPW2 )
 *     ..
 *     .. Local Scalars ..
-      int                I, I1, I2, I3, I4, IT1, IT2, IT3, IT4, J
+      int                I, I1, I2, I3, I4, IT1, IT2, IT3, IT4, J;
 *     ..
 *     .. Local Arrays ..
-      int                MM( LV, 4 )
+      int                MM( LV, 4 );
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MIN, MOD, REAL

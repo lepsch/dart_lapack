@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIRECT, PIVOT, SIDE;
-      int                LDA, M, N
+      int                LDA, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), C( * ), S( * );
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, J
+      int                I, INFO, J;
       double             CTEMP, STEMP, TEMP;
 *     ..
 *     .. External Functions ..

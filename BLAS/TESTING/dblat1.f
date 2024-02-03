@@ -7,14 +7,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, N
+      int              ICASE, INCX, INCY, N;
       bool             PASS;
 *     .. Local Scalars ..
       double           SFAC;
-      int              IC
+      int              IC;
 *     .. External Subroutines ..
       EXTERNAL         CHECK0, CHECK1, CHECK2, CHECK3, HEADER
 *     .. Common blocks ..
@@ -57,10 +57,10 @@
       END
       SUBROUTINE HEADER
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, N
+      int              ICASE, INCX, INCY, N;
       bool             PASS;
 *     .. Local Arrays ..
       String           L(13);
@@ -91,16 +91,16 @@
       END
       SUBROUTINE CHECK0(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N;
       bool              PASS;
 *     .. Local Scalars ..
       double            SA, SB, SC, SS, D12;
-      int               I, K
+      int               I, K;
 *     .. Local Arrays ..
       double            DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9);
 *     .. External Subroutines ..
@@ -180,21 +180,21 @@
       SUBROUTINE CHECK1(SFAC)
 *     .. Parameters ..
       double            THRESH;
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6, THRESH=10.0D0)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N;
       bool              PASS;
 *     .. Local Scalars ..
-      int               I, IX, LEN, NP1
+      int               I, IX, LEN, NP1;
 *     .. Local Arrays ..
       double            DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15);
-      int               ITRUE2(5), ITRUEC(5)
+      int               ITRUE2(5), ITRUEC(5);
 *     .. External Functions ..
       double            DASUM, DNRM2;
-      int               IDAMAX
+      int               IDAMAX;
       EXTERNAL          DASUM, DNRM2, IDAMAX
 *     .. External Subroutines ..
       EXTERNAL          ITEST1, DB1NRM2, DSCAL, STEST, STEST1
@@ -268,19 +268,19 @@
       END
       SUBROUTINE CHECK2(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N;
       bool              PASS;
 *     .. Local Scalars ..
       double            SA;
-      int               I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY
+      int               I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY;
 *     .. Local Arrays ..
       double            DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), STY0(1), SX0(1), SY0(1);
-      int               INCXS(4), INCYS(4), LENS(4,2), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
 *     .. External Functions ..
       double            DDOT, DSDOT;
       EXTERNAL          DDOT, DSDOT
@@ -427,19 +427,19 @@
       END
       SUBROUTINE CHECK3(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N;
       bool              PASS;
 *     .. Local Scalars ..
       double            SC, SS;
-      int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY
+      int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY;
 *     .. Local Arrays ..
       double            COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
-      int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4);
 *     .. External Subroutines ..
       EXTERNAL          DROT, STEST
 *     .. Intrinsic Functions ..
@@ -595,20 +595,20 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       double           ZERO;
       PARAMETER        (NOUT=6, ZERO=0.0D0)
 *     .. Scalar Arguments ..
       double           SFAC;
-      int              LEN
+      int              LEN;
 *     .. Array Arguments ..
       double           SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, N
+      int              ICASE, INCX, INCY, N;
       bool             PASS;
 *     .. Local Scalars ..
       double           SD;
-      int              I
+      int              I;
 *     .. External Functions ..
       double           SDIFF;
       EXTERNAL         SDIFF
@@ -653,13 +653,13 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       REAL             ZERO
       PARAMETER        (NOUT=6, ZERO=0.0E0)
 *     .. Scalar Arguments ..
       REAL             SFAC, SCOMP, SSIZE, STRUE
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, N
+      int              ICASE, INCX, INCY, N;
       bool             PASS;
 *     .. Local Scalars ..
       REAL             SD
@@ -742,15 +742,15 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      int               ICOMP, ITRUE
+      int               ICOMP, ITRUE;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, N
+      int               ICASE, INCX, INCY, N;
       bool              PASS;
 *     .. Local Scalars ..
-      int               ID
+      int               ID;
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Executable Statements ..
@@ -795,12 +795,12 @@
 *     https://doi.org/10.1145/3061665
 *
 *     .. Scalar Arguments ..
-      int               INCX, N
+      int               INCX, N;
       double            THRESH;
 *
 *  =====================================================================
 *     .. Parameters ..
-      int               NMAX, NOUT, NV
+      int               NMAX, NOUT, NV;
       PARAMETER         (NMAX=20, NOUT=6, NV=10)
       double            HALF, ONE, TWO, ZERO;
       PARAMETER         (HALF=0.5D+0, ONE=1.0D+0, TWO= 2.0D+0, ZERO=0.0D+0)
@@ -814,7 +814,7 @@
       PARAMETER         (BIGNUM=0.99792015476735990583D+292, SAFMAX=0.44942328371557897693D+308, SAFMIN=0.22250738585072013831D-307, SMLNUM=0.10020841800044863890D-291, ULP=0.22204460492503130808D-015)
 *     .. Local Scalars ..
       double            ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
-      int               I, IV, IW, IX
+      int               I, IV, IW, IX;
       bool              FIRST;
 *     .. Local Arrays ..
       double            VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX);
@@ -963,7 +963,7 @@
       double           FUNCTION DXVALS(XX,K);
 *     .. Scalar Arguments ..
       double            XX;
-      int               K
+      int               K;
 *     .. Local Scalars ..
       double            X, Y, YY, Z;
 *     .. Intrinsic Functions ..

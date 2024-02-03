@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBVSL, JOBVSR, SORT;
-      int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM
+      int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
@@ -27,11 +27,11 @@
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
-      bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKMIN, LWKOPT;
+      bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKMIN, LWKOPT;;
       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SMLNUM
 *     ..
 *     .. Local Arrays ..
-      int                IDUM( 1 )
+      int                IDUM( 1 );
       REAL               DIF( 2 )
 *     ..
 *     .. External Subroutines ..
@@ -39,7 +39,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, UPLO;
-      int                INFO, KA, KB, LDAB, LDBB, LDZ, N
+      int                INFO, KA, KB, LDAB, LDBB, LDZ, N;
 *     ..
 *     .. Array Arguments ..
       REAL               AB( LDAB, * ), BB( LDBB, * ), W( * ), WORK( * ), Z( LDZ, * )
@@ -17,7 +17,7 @@
 *     .. Local Scalars ..
       bool               UPPER, WANTZ;
       String             VECT;
-      int                IINFO, INDE, INDWRK
+      int                IINFO, INDE, INDWRK;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

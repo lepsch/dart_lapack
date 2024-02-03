@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIRECT, SIDE, STOREV, TRANS;
-      int                K, LDC, LDT, LDV, LDWORK, M, N
+      int                K, LDC, LDT, LDV, LDWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       String             TRANST;
-      int                I, J
+      int                I, J;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

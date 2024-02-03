@@ -2,7 +2,7 @@
 c
       external cdotu
       complex cdotu,dotu
-      int     n,incx,incy
+      int     n,incx,incy;
       complex x(*),y(*)
 c
       dotu=cdotu(n,x,incx,y,incy)

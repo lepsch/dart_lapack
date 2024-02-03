@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String    SIDE, TRANS;
-      int       INFO, K, LDV, LDA, LDB, M, N, L, MB, LDT
+      int       INFO, K, LDV, LDA, LDB, M, N, L, MB, LDT;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
@@ -17,7 +17,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN;
-      int                I, IB, NB, LB, KF, LDAQ
+      int                I, IB, NB, LB, KF, LDAQ;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

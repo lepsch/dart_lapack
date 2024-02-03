@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
       double             RCOND;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             A( LDA, * ), B( LDB, * ), S( * ), WORK( * );
 *     ..
 *
@@ -21,14 +21,14 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, LDWORK, LIWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR, NLVL, NWORK, SMLSIZ, WLALSD
+      int                IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, LDWORK, LIWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR, NLVL, NWORK, SMLSIZ, WLALSD;
       double             ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEBRD, DGELQF, DGEQRF, DLACPY, DLALSD, DLASCL, DLASET, DORMBR, DORMLQ, DORMQR, XERBLA
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, DLANGE;
       EXTERNAL           ILAENV, DLAMCH, DLANGE
 *     ..

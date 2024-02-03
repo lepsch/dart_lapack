@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
-      int                IL, INFO, IU, LDZ, N, NS
+      int                IL, INFO, IU, LDZ, N, NS;
       REAL               VL, VU
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               D( * ), E( * ), S( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
@@ -25,12 +25,12 @@
 *     .. Local Scalars ..
       String             RNGVX;
       bool               ALLSV, INDSV, LOWER, SPLIT, SVEQ0, VALSV, WANTZ;
-      int                I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR, IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV, IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K, NTGK, NRU, NRV, NSL
+      int                I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR, IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV, IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K, NTGK, NRU, NRV, NSL;
       REAL               ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ISAMAX
+      int                ISAMAX;
       REAL               SDOT, SLAMCH, SNRM2
       EXTERNAL           ISAMAX, LSAME, SAXPY, SDOT, SLAMCH, SNRM2
 *     ..

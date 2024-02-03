@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANSR, DIAG, SIDE, TRANS, UPLO;
-      int                LDB, M, N
+      int                LDB, M, N;
       COMPLEX*16         ALPHA
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LOWER, LSIDE, MISODD, NISODD, NORMALTRANSR, NOTRANS;
-      int                M1, M2, N1, N2, K, INFO, I, J
+      int                M1, M2, N1, N2, K, INFO, I, J;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

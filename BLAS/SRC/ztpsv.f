@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     INCX,N
+      int     INCX,N;
       String    DIAG,TRANS,UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16 TEMP
-      int     I,INFO,IX,J,JX,K,KK,KX
+      int     I,INFO,IX,J,JX,K,KK,KX;
       bool    NOCONJ,NOUNIT;
 *     ..
 *     .. External Functions ..

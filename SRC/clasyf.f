@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, KB, LDA, LDW, N, NB
+      int                INFO, KB, LDA, LDW, N, NB;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX            A( LDA, * ), W( LDW, * )
 *     ..
 *
@@ -24,13 +24,13 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW
+      int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW;
       REAL               ABSAKK, ALPHA, COLMAX, ROWMAX
       COMPLEX            D11, D21, D22, R1, T, Z
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ICAMAX
+      int                ICAMAX;
       EXTERNAL           LSAME, ICAMAX
 *     ..
 *     .. External Subroutines ..

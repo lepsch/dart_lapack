@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KNT, LMAX
+      int                KNT, LMAX;
       REAL               RMAX
 *     ..
 *     .. Array Arguments ..
-      int                NINFO( 2 )
+      int                NINFO( 2 );
 *     ..
 *
 *  =====================================================================
@@ -19,11 +19,11 @@
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 )
       REAL               TWO, THREE
       PARAMETER          ( TWO = 2.0E0, THREE = 3.0E0 )
-      int                LWORK
+      int                LWORK;
       PARAMETER          ( LWORK = 32 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC, IC11, IC12, IC21, IC22, ICM, INFO, J
+      int                I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC, IC11, IC12, IC21, IC22, ICM, INFO, J;
       REAL               BIGNUM, EPS, RES, SMLNUM, TNRM
 *     ..
 *     .. Local Arrays ..

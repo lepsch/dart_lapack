@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS
+      int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * );
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                INFO, ISCL, NCOLS, NROWS
+      int                INFO, ISCL, NCOLS, NROWS;
       double             ERR, NORMA, NORMB, NORMRS, SMLNUM;
 *     ..
 *     .. Local Arrays ..

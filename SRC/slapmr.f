@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       bool               FORWRD;
-      int                LDX, M, N
+      int                LDX, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                K( * )
+      int                K( * );
       REAL               X( LDX, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, IN, J, JJ
+      int                I, IN, J, JJ;
       REAL               TEMP
 *     ..
 *     .. Executable Statements ..

@@ -6,25 +6,25 @@
 *
 *     .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT
+      int                NUNIT;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NMAX, LW
+      int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = 6*NMAX )
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
       String             C2;
-      int                DUMMYK, DUMMYL, I, IFST, ILO, IHI, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK
+      int                DUMMYK, DUMMYL, I, IFST, ILO, IHI, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK;
       double             ANRM, BNRM, DIF, SCALE, TOLA, TOLB;
 *     ..
 *     .. Local Arrays ..
       bool               BW( NMAX ), SEL( NMAX );
-      int                IW( NMAX ), IDUM(NMAX)
+      int                IW( NMAX ), IDUM(NMAX);
       double             A( NMAX, NMAX ), B( NMAX, NMAX ), LS( NMAX ), Q( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), R3( NMAX ), RCE( 2 ), RCV( 2 ), RS( NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX );
 *     ..
 *     .. External Functions ..
@@ -37,7 +37,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

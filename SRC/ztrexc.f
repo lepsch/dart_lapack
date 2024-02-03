@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             COMPQ;
-      int                IFST, ILST, INFO, LDQ, LDT, N
+      int                IFST, ILST, INFO, LDQ, LDT, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         Q( LDQ, * ), T( LDT, * )
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       bool               WANTQ;
-      int                K, M1, M2, M3
+      int                K, M1, M2, M3;
       double             CS;
       COMPLEX*16         SN, T11, T22, TEMP
 *     ..

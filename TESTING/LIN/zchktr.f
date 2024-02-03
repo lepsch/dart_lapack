@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NMAX, NN, NNB, NNS, NOUT
+      int                NMAX, NN, NNB, NNS, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                NBVAL( * ), NSVAL( * ), NVAL( * )
+      int                NBVAL( * ), NSVAL( * ), NVAL( * );
       double             RWORK( * );
       COMPLEX*16         A( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -19,11 +19,11 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTYPE1, NTYPES
+      int                NTYPE1, NTYPES;
       PARAMETER          ( NTYPE1 = 10, NTYPES = 18 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 10 )
-      int                NTRAN
+      int                NTRAN;
       PARAMETER          ( NTRAN = 3 )
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
@@ -31,11 +31,11 @@
 *     .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
-      int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       double             AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, DLAMCH;
+      int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       double             AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, DLAMCH;;
 *     ..
 *     .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS ), RWORK2( 2*NMAX ), SCALE3( 2 );
 *     ..
 *     .. External Functions ..
@@ -49,7 +49,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, IOUNIT
+      int                INFOT, IOUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

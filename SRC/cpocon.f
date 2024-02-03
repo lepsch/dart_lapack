@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, N
+      int                INFO, LDA, N;
       REAL               ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
@@ -23,16 +23,16 @@
 *     .. Local Scalars ..
       bool               UPPER;
       String             NORMIN;
-      int                IX, KASE
+      int                IX, KASE;
       REAL               AINVNM, SCALE, SCALEL, SCALEU, SMLNUM
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ICAMAX
+      int                ICAMAX;
       REAL               SLAMCH
       EXTERNAL           LSAME, ICAMAX, SLAMCH
 *     ..

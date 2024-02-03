@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT
+      int                NUNIT;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX = 4 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0D+0 )
@@ -20,11 +20,11 @@
 *     .. Local Scalars ..
       String             EQ;
       String             C2;
-      int                I, INFO, J, N_ERR_BNDS, NPARAMS
+      int                I, INFO, J, N_ERR_BNDS, NPARAMS;
       double             RCOND, RPVGRW, BERR;
 *     ..
 *     .. Local Arrays ..
-      int                IP( NMAX ), IW( NMAX )
+      int                IP( NMAX ), IW( NMAX );
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), E( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
 *     ..
 *     .. External Functions ..
@@ -37,7 +37,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

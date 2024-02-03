@@ -5,22 +5,22 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                M1, M2, M3, M4
+      int                M1, M2, M3, M4;
       PARAMETER          ( M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-      int                IPW2
+      int                IPW2;
       REAL               R
       PARAMETER          ( IPW2 = 4096, R = ONE / IPW2 )
 *     ..
 *     .. Local Scalars ..
-      int                IT1, IT2, IT3, IT4
+      int                IT1, IT2, IT3, IT4;
       REAL               RNDOUT
 *     ..
 *     .. Intrinsic Functions ..

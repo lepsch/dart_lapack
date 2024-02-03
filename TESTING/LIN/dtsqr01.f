@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       String            TSSW;
-      int               M, N, MB, NB
+      int               M, N, MB, NB;
 *     .. Return values ..
       double            RESULT(6);
 *
@@ -23,17 +23,17 @@
 *     ..
 *     .. Local Scalars ..
       bool    TESTZEROS, TS;
-      int     INFO, J, K, L, LWORK, TSIZE, MNB
+      int     INFO, J, K, L, LWORK, TSIZE, MNB;
       double             ANORM, EPS, RESID, CNORM, DNORM;
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             TQUERY( 5 ), WORKQUERY( 1 );
 *     ..
 *     .. External Functions ..
       double           DLAMCH, DLANGE, DLANSY;
       bool     LSAME;
-      int     ILAENV
+      int     ILAENV;
       EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME, ILAENV
 *     ..
 *     .. Intrinsic Functions ..

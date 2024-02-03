@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
-      int                INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * )
@@ -24,12 +24,12 @@
 *     .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       String             TRANSN, TRANST;
-      int                I, J, K, KASE, KC, NZ
+      int                I, J, K, KASE, KC, NZ;
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CAXPY, CCOPY, CLACN2, CTPMV, CTPSV, XERBLA

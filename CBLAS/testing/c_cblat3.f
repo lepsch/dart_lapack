@@ -46,28 +46,28 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Parameters ..
-      int                NIN, NOUT
+      int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
-      int                NSUBS
+      int                NSUBS;
       PARAMETER          ( NSUBS = 9 )
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) )
       REAL               RZERO, RHALF, RONE
       PARAMETER          ( RZERO = 0.0, RHALF = 0.5, RONE = 1.0 )
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX = 65 )
-      int                NIDMAX, NALMAX, NBEMAX
+      int                NIDMAX, NALMAX, NBEMAX;
       PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       REAL               EPS, ERR, THRESH
-      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;;
       String             TRANSA, TRANSB;
       String             SNAMET;
       String             SNAPS;
 *     .. Local Arrays ..
       COMPLEX            AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX )
       REAL               G( NMAX )
-      int                IDIM( NIDMAX )
+      int                IDIM( NIDMAX );
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
 *     .. External Functions ..
@@ -79,7 +79,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
       String             SRNAMT;
 *     .. Common blocks ..
@@ -387,17 +387,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX )
       REAL               G( NMAX )
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS, BETA, BLS
       REAL               ERR, ERRMAX
-      int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
+      int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS;
       bool               NULL, RESET, SAME, TRANA, TRANB;
       String             TRANAS, TRANBS, TRANSA, TRANSB;
       String             ICH;
@@ -411,7 +411,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -632,7 +632,7 @@
       END
 *
       SUBROUTINE CPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
-      int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC
+      int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
       COMPLEX          ALPHA, BETA
       String           TRANSA, TRANSB;
       String           SNAME;
@@ -684,17 +684,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX )
       REAL               G( NMAX )
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS, BETA, BLS
       REAL               ERR, ERRMAX
-      int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS;
       bool               CONJ, LEFT, NULL, RESET, SAME;
       String             SIDE, SIDES, UPLO, UPLOS;
       String             ICHS, ICHU;
@@ -708,7 +708,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -921,7 +921,7 @@
       END
 *
       SUBROUTINE CPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
-      int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC
+      int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
       COMPLEX          ALPHA, BETA
       String           SIDE, UPLO;
       String           SNAME;
@@ -969,17 +969,17 @@
       PARAMETER          ( RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                NALF, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NIDIM, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX )
       REAL               G( NMAX )
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS
       REAL               ERR, ERRMAX
-      int               I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
+      int               I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS;
       bool               LEFT, NULL, RESET, SAME;
       String            DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS;
       String             ICHD, ICHS, ICHU;
@@ -994,7 +994,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1220,7 +1220,7 @@
       END
 *
       SUBROUTINE CPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
-      int              NOUT, NC, IORDER, M, N, LDA, LDB
+      int              NOUT, NC, IORDER, M, N, LDA, LDB;
       COMPLEX          ALPHA
       String           SIDE, UPLO, TRANSA, DIAG;
       String           SNAME;
@@ -1280,17 +1280,17 @@
       PARAMETER          ( RONE = 1.0, RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX )
       REAL               G( NMAX )
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS, BETA, BETS
       REAL               ERR, ERRMAX, RALPHA, RALS, RBETA, RBETS
-      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               CONJ, NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, TRANST, UPLO, UPLOS;
       String             ICHT, ICHU;
@@ -1304,7 +1304,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          CMPLX, MAX, REAL
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1559,7 +1559,7 @@
       END
 *
       SUBROUTINE CPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
-      int              NOUT, NC, IORDER, N, K, LDA, LDC
+      int              NOUT, NC, IORDER, N, K, LDA, LDC;
       COMPLEX          ALPHA, BETA
       String           UPLO, TRANSA;
       String           SNAME;
@@ -1592,7 +1592,7 @@
 *
 *
       SUBROUTINE CPRCN6(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
-      int              NOUT, NC, IORDER, N, K, LDA, LDC
+      int              NOUT, NC, IORDER, N, K, LDA, LDC;
       REAL             ALPHA, BETA
       String           UPLO, TRANSA;
       String           SNAME;
@@ -1642,17 +1642,17 @@
       PARAMETER          ( RONE = 1.0, RZERO = 0.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX )
       REAL               G( NMAX )
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX            ALPHA, ALS, BETA, BETS
       REAL               ERR, ERRMAX, RBETA, RBETS
-      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               CONJ, NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, TRANST, UPLO, UPLOS;
       String             ICHT, ICHU;
@@ -1666,7 +1666,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          CMPLX, CONJG, MAX, REAL
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1946,7 +1946,7 @@
       END
 *
       SUBROUTINE CPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
-      int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC
+      int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       COMPLEX          ALPHA, BETA
       String           UPLO, TRANSA;
       String           SNAME;
@@ -1979,7 +1979,7 @@
 *
 *
       SUBROUTINE CPRCN7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
-      int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC
+      int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       COMPLEX          ALPHA
       REAL             BETA
       String           UPLO, TRANSA;
@@ -2038,14 +2038,14 @@
       PARAMETER          ( RROGUE = -1.0E10 )
 *     .. Scalar Arguments ..
       COMPLEX            TRANSL
-      int                LDA, M, N, NMAX
+      int                LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
-      int                I, IBEG, IEND, J, JJ
+      int                I, IBEG, IEND, J, JJ;
       bool               GEN, HER, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       COMPLEX            CBEG
@@ -2151,7 +2151,7 @@
 *     .. Scalar Arguments ..
       COMPLEX            ALPHA, BETA
       REAL               EPS, ERR
-      int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT
+      int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT;
       bool               FATAL, MV;
       String             TRANSA, TRANSB;
 *     .. Array Arguments ..
@@ -2160,7 +2160,7 @@
 *     .. Local Scalars ..
       COMPLEX            CL
       REAL               ERRI
-      int                I, J, K
+      int                I, J, K;
       bool               CTRANA, CTRANB, TRANA, TRANB;
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, AIMAG, CONJG, MAX, REAL, SQRT
@@ -2315,11 +2315,11 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      int                LR
+      int                LR;
 *     .. Array Arguments ..
       COMPLEX            RI( * ), RJ( * )
 *     .. Local Scalars ..
-      int                I
+      int                I;
 *     .. Executable Statements ..
       DO 10 I = 1, LR
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
@@ -2348,13 +2348,13 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      int                LDA, M, N
+      int                LDA, M, N;
       String             UPLO;
       String             TYPE;
 *     .. Array Arguments ..
       COMPLEX            AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
-      int                I, IBEG, IEND, J
+      int                I, IBEG, IEND, J;
       bool               UPPER;
 *     .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
@@ -2408,7 +2408,7 @@
 *     .. Scalar Arguments ..
       bool               RESET;
 *     .. Local Scalars ..
-      int                I, IC, J, MI, MJ
+      int                I, IC, J, MI, MJ;
 *     .. Save statement ..
       SAVE               I, IC, J, MI, MJ
 *     .. Intrinsic Functions ..

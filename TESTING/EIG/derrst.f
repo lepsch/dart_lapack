@@ -6,22 +6,22 @@
 *
 *     .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT
+      int                NUNIT;
 *     ..
 *
 *  =====================================================================
 *
 *     NMAX has to be at least 3 or LIW may be too small
 *     .. Parameters ..
-      int                NMAX, LIW, LW
+      int                NMAX, LIW, LW;
       PARAMETER          ( NMAX = 3, LIW = 12*NMAX, LW = 20*NMAX )
 *     ..
 *     .. Local Scalars ..
       String             C2;
-      int                I, INFO, J, M, N, NSPLIT, NT
+      int                I, INFO, J, M, N, NSPLIT, NT;
 *     ..
 *     .. Local Arrays ..
-      int                I1( NMAX ), I2( NMAX ), I3( NMAX ), IW( LIW )
+      int                I1( NMAX ), I2( NMAX ), I3( NMAX ), IW( LIW );
       double             A( NMAX, NMAX ), C( NMAX, NMAX ), D( NMAX ), E( NMAX ), Q( NMAX, NMAX ), R( NMAX ), TAU( NMAX ), W( LW ), X( NMAX ), Z( NMAX, NMAX );
 *     ..
 *     .. External Functions ..
@@ -34,7 +34,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

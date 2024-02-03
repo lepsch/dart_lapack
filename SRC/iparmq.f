@@ -1,25 +1,25 @@
-      int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK )
+      int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IHI, ILO, ISPEC, LWORK, N
+      int                IHI, ILO, ISPEC, LWORK, N;
       String             NAME*( * ), OPTS*( * );
 *
 *  ================================================================
 *     .. Parameters ..
-      int                INMIN, INWIN, INIBL, ISHFTS, IACC22, ICOST
+      int                INMIN, INWIN, INIBL, ISHFTS, IACC22, ICOST;
       PARAMETER          ( INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16, ICOST = 17 )
-      int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP, RCOST
+      int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP, RCOST;
       PARAMETER          ( NMIN = 75, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500, RCOST = 10 )
       REAL               TWO
       PARAMETER          ( TWO = 2.0 )
 *     ..
 *     .. Local Scalars ..
-      int                NH, NS
-      int                I, IC, IZ
+      int                NH, NS;
+      int                I, IC, IZ;
       String             SUBNAM*6;
 *     ..
 *     .. Intrinsic Functions ..

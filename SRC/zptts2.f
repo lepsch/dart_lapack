@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IUPLO, LDB, N, NRHS
+      int                IUPLO, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             D( * );
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZDSCAL

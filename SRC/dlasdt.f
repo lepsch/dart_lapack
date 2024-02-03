@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LVL, MSUB, N, ND
+      int                LVL, MSUB, N, ND;
 *     ..
 *     .. Array Arguments ..
-      int                INODE( * ), NDIML( * ), NDIMR( * )
+      int                INODE( * ), NDIML( * ), NDIMR( * );
 *     ..
 *
 *  =====================================================================
@@ -18,7 +18,7 @@
       PARAMETER          ( TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IL, IR, LLST, MAXN, NCRNT, NLVL
+      int                I, IL, IR, LLST, MAXN, NCRNT, NLVL;
       double             TEMP;
 *     ..
 *     .. Intrinsic Functions ..

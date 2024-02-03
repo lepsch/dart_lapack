@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                ITYPE, LDA, LDB, LDZ, M, N
+      int                ITYPE, LDA, LDB, LDZ, M, N;
 *     ..
 *     .. Array Arguments ..
       double             D( * ), RESULT( * ), RWORK( * );
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       double             ANORM, ULP;
 *     ..
 *     .. External Functions ..

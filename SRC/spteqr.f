@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             COMPZ;
-      int                INFO, LDZ, N
+      int                INFO, LDZ, N;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * )
@@ -29,7 +29,7 @@
       REAL               C( 1, 1 ), VT( 1, 1 )
 *     ..
 *     .. Local Scalars ..
-      int                I, ICOMPZ, NRU
+      int                I, ICOMPZ, NRU;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT

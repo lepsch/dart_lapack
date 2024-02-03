@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
-      int                IMAT, INFO, LDA, N
+      int                IMAT, INFO, LDA, N;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             A( LDA, * ), B( * ), WORK( * );
 *     ..
 *
@@ -23,12 +23,12 @@
       bool               UPPER;
       String             DIST, TYPE;
       String             PATH;
-      int                I, IY, J, JCOUNT, KL, KU, MODE
+      int                I, IY, J, JCOUNT, KL, KU, MODE;
       double             ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH, DLARND;
       EXTERNAL           LSAME, IDAMAX, DLAMCH, DLARND
 *     ..

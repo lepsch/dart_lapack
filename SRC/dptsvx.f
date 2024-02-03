@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             FACT;
-      int                INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS;
       double             RCOND;
 *     ..
 *     .. Array Arguments ..

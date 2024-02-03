@@ -4,11 +4,11 @@
       REAL               THRESH
       String             PATH;
 
-      int                NMAX, NPARAMS, NERRBND, NTESTS, KL, KU
+      int                NMAX, NPARAMS, NERRBND, NTESTS, KL, KU;
       PARAMETER          (NMAX = 6, NPARAMS = 2, NERRBND = 3, NTESTS = 6)
 
 *     .. Local Scalars ..
-      int                N, NRHS, INFO, I ,J, k, NFAIL, LDA, LDAB, LDAFB, N_AUX_TESTS
+      int                N, NRHS, INFO, I ,J, k, NFAIL, LDA, LDAB, LDAFB, N_AUX_TESTS;
       String             FACT, TRANS, UPLO, EQUED;
       String             C2;
       String   (3)       NGUAR, CGUAR;
@@ -17,7 +17,7 @@
 
 *     .. Local Arrays ..
       REAL               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), A(NMAX, NMAX), ACOPY(NMAX, NMAX), INVHILB(NMAX, NMAX), R(NMAX), C(NMAX), S(NMAX), WORK(NMAX * 5), B(NMAX, NMAX), X(NMAX, NMAX), DIFF(NMAX, NMAX), AF(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX ), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3)
-      int                IWORK(NMAX), IPIV(NMAX)
+      int                IWORK(NMAX), IPIV(NMAX);
 
 *     .. External Functions ..
       REAL               SLAMCH
@@ -30,9 +30,9 @@
       INTRINSIC          SQRT, MAX, ABS
 
 *     .. Parameters ..
-      int                NWISE_I, CWISE_I
+      int                NWISE_I, CWISE_I;
       PARAMETER          (NWISE_I = 1, CWISE_I = 1)
-      int                BND_I, COND_I
+      int                BND_I, COND_I;
       PARAMETER          (BND_I = 2, COND_I = 3)
 
 *     Create the loop to test out the Hilbert matrices

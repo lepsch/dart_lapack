@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, N
+      int                INFO, LDA, N;
 *     ..
 *     .. Array Arguments ..
       double             D( * ), E( * );
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                I
+      int                I;
       COMPLEX*16         ALPHA, TAUI
 *     ..
 *     .. External Subroutines ..

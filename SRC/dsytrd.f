@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, LWORK, N
+      int                INFO, LDA, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), D( * ), E( * ), TAU( * ), WORK( * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, UPPER;
-      int                I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX
+      int                I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLATRD, DSYR2K, DSYTD2, XERBLA
@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. Executable Statements ..

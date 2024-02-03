@@ -3,11 +3,11 @@
 *
 *     .. Scalar Arguments ..
       String             TRANA, TRANB;
-      int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK
+      int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK;
       REAL               SCALE
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), SWORK( LDSWORK, * )
 *     ..
 *     .. Parameters ..
@@ -16,14 +16,14 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY, SKIP;
-      int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC       REAL               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM
+      int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC       REAL               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
 *     ..
 *     .. Local Arrays ..
       REAL               WNRM( MAX( M, N ) )
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SLANGE, SLAMCH, SLARMM
       EXTERNAL           SLANGE, SLAMCH, SLARMM, ILAENV, LSAME
 *     ..

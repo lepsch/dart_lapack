@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                CURLVL, CURPBM, CUTPNT, INFO, LDQ, N, QSIZ, TLVLS
+      int                CURLVL, CURPBM, CUTPNT, INFO, LDQ, N, QSIZ, TLVLS;
       REAL               RHO
 *     ..
 *     .. Array Arguments ..
-      int                GIVCOL( 2, * ), GIVPTR( * ), INDXQ( * ), IWORK( * ), PERM( * ), PRMPTR( * ), QPTR( * )
+      int                GIVCOL( 2, * ), GIVPTR( * ), INDXQ( * ), IWORK( * ), PERM( * ), PRMPTR( * ), QPTR( * );
       REAL               D( * ), GIVNUM( 2, * ), QSTORE( * ), RWORK( * )
       COMPLEX            Q( LDQ, * ), WORK( * )
 *     ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                COLTYP, CURR, I, IDLMDA, INDX, INDXC, INDXP, IQ, IW, IZ, K, N1, N2, PTR
+      int                COLTYP, CURR, I, IDLMDA, INDX, INDXC, INDXP, IQ, IW, IZ, K, N1, N2, PTR;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CLACRM, CLAED8, SLAED9, SLAEDA, SLAMRG, XERBLA

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDA, LDB, M, N
+      int                LDA, LDB, M, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

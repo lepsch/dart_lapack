@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDB, LDX, N, NRHS
+      int                LDB, LDX, N, NRHS;
       double             ALPHA, BETA;
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
 *     ..
 *     .. Executable Statements ..
 *

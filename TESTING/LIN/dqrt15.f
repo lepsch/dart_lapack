@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE
+      int                LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE;
       double             NORMA, NORMB;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             A( LDA, * ), B( LDB, * ), S( * ), WORK( LWORK );
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, SVMIN = 0.1D0 )
 *     ..
 *     .. Local Scalars ..
-      int                INFO, J, MN
+      int                INFO, J, MN;
       double             BIGNUM, EPS, SMLNUM, TEMP;
 *     ..
 *     .. Local Arrays ..

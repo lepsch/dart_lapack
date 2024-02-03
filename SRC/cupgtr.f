@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDQ, N
+      int                INFO, LDQ, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            AP( * ), Q( LDQ, * ), TAU( * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                I, IINFO, IJ, J
+      int                I, IINFO, IJ, J;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

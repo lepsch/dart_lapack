@@ -1,4 +1,4 @@
-      int     FUNCTION ILADIAG( DIAG )
+      int     FUNCTION ILADIAG( DIAG );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int     BLAS_NON_UNIT_DIAG, BLAS_UNIT_DIAG
+      int     BLAS_NON_UNIT_DIAG, BLAS_UNIT_DIAG;
       PARAMETER ( BLAS_NON_UNIT_DIAG = 131, BLAS_UNIT_DIAG = 132 )
 *     ..
 *     .. External Functions ..

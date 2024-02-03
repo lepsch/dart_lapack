@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       bool               WANTNC;
-      int       B1, BN, N, NEGCNT, R
+      int       B1, BN, N, NEGCNT, R;
       double             GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ;
 *     ..
 *     .. Array Arguments ..
-      int                ISUPPZ( * )
+      int                ISUPPZ( * );
       double             D( * ), L( * ), LD( * ), LLD( * ), WORK( * );
       double           Z( * );
 *     ..
@@ -24,7 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               SAWNAN1, SAWNAN2;
-      int                I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2
+      int                I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2;
       double             DMINUS, DPLUS, EPS, S, TMP;
 *     ..
 *     .. External Functions ..

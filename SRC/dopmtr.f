@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIDE, TRANS, UPLO;
-      int                INFO, LDC, M, N
+      int                INFO, LDC, M, N;
 *     ..
 *     .. Array Arguments ..
       double             AP( * ), C( LDC, * ), TAU( * ), WORK( * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               FORWRD, LEFT, NOTRAN, UPPER;
-      int                I, I1, I2, I3, IC, II, JC, MI, NI, NQ
+      int                I, I1, I2, I3, IC, II, JC, MI, NI, NQ;
       double             AII;
 *     ..
 *     .. External Functions ..

@@ -7,10 +7,10 @@
 *
 *     .. Scalar Arguments ..
       bool               DONE;
-      int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       double             ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
+      int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       double             ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * ), JPIV( * )
+      int                IWORK( * ), JPIV( * );
       double             A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * );
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF
+      int                ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF;
       double             AIK, HUGEVAL, TEMP, TEMP2, TOL3Z;
 *     ..
 *     .. External Subroutines ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       bool               DISNAN;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH, DNRM2;
       EXTERNAL           DISNAN, DLAMCH, IDAMAX, DNRM2
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String           UPLO;
-      int              I1, I2, LDA, N
+      int              I1, I2, LDA, N;
 *     ..
 *     .. Array Arguments ..
       REAL             A( LDA, * )

@@ -5,26 +5,26 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, NIN, NM, NMATS, NMAX, NOUT
+      int                INFO, NIN, NM, NMATS, NMAX, NOUT;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * )       REAL               A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * )
+      int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * )       REAL               A( * ), AF( * ), ALPHA( * ), B( * ), BETA( * ), BF( * ), Q( * ), R( * ), RWORK( * ), U( * ), V( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 12 )
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 8 )
 *     ..
 *     .. Local Scalars ..
       bool               FIRSTT;
       String             DISTA, DISTB, TYPE;
       String             PATH;
-      int                I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
+      int                I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P;
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
 *     ..
 *     .. Local Arrays ..

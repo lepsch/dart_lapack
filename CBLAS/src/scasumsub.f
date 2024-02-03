@@ -2,7 +2,7 @@
 c
       external scasum
       real scasum,asum
-      int     n,incx
+      int     n,incx;
       complex x(*)
 c
       asum=scasum(n,x,incx)

@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       REAL               RESID
-      int                LDA, LDAFAC, LDPERM, N, RANK
+      int                LDA, LDAFAC, LDPERM, N, RANK;
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * )
       REAL               RWORK( * )
-      int                PIV( * )
+      int                PIV( * );
 *     ..
 *
 *  =====================================================================
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       COMPLEX            TC
       REAL               ANORM, EPS, TR
-      int                I, J, K
+      int                I, J, K;
 *     ..
 *     .. External Functions ..
       COMPLEX            CDOTC

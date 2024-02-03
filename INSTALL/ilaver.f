@@ -6,7 +6,7 @@
 *
 *  =====================================================================
 *
-      int     VERS_MAJOR, VERS_MINOR, VERS_PATCH
+      int     VERS_MAJOR, VERS_MINOR, VERS_PATCH;
 *  =====================================================================
       VERS_MAJOR = 3
       VERS_MINOR = 12

@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, N
+      int                INFO, N;
       REAL               LAMBDA, TOL
 *     ..
 *     .. Array Arguments ..
-      int                IN( * )
+      int                IN( * );
       REAL               A( * ), B( * ), C( * ), D( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                K
+      int                K;
       REAL               EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL
 *     ..
 *     .. Intrinsic Functions ..

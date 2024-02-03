@@ -1,4 +1,4 @@
-      int              FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+      int              FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       List<String>       NAME, OPTS;
-      int                ISPEC, N1, N2, N3, N4
+      int                ISPEC, N1, N2, N3, N4;
 *     ..
 *
 *  =====================================================================
@@ -15,11 +15,11 @@
       INTRINSIC          INT, MIN, REAL
 *     ..
 *     .. External Functions ..
-      int                IEEECK
+      int                IEEECK;
       EXTERNAL           IEEECK
 *     ..
 *     .. Arrays in Common ..
-      int                IPARMS( 100 )
+      int                IPARMS( 100 );
 *     ..
 *     .. Common blocks ..
       COMMON             / CLAENV / IPARMS
@@ -93,22 +93,22 @@ C        ILAENV = 0
 *     End of ILAENV
 *
       END
-      int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+      int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
 *     .. Scalar Arguments ..
       List<String>       NAME, OPTS;
-      int                ISPEC, N1, N2, N3, N4
+      int                ISPEC, N1, N2, N3, N4;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local variables ..
-      int                IISPEC
+      int                IISPEC;
 *     .. External Functions ..
-      int                IPARAM2STAGE
+      int                IPARAM2STAGE;
       EXTERNAL           IPARAM2STAGE
 *     ..
 *     .. Arrays in Common ..
-      int                IPARMS( 100 )
+      int                IPARMS( 100 );
 *     ..
 *     .. Common blocks ..
       COMMON             / CLAENV / IPARMS

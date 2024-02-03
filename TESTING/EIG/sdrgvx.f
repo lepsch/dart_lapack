@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT, NSIZE
+      int                IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT, NSIZE;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               A( LDA, * ), AI( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), DIF( * ), DIFTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), S( * ), STRU( * ), VL( LDA, * ), VR( LDA, * ), WORK( * )
 *     ..
 *
@@ -21,13 +21,13 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1, TNTH = 1.0E-1, HALF = 0.5D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT       REAL               ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV
+      int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT       REAL               ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;
 *     ..
 *     .. Local Arrays ..
       REAL               WEIGHT( 5 )
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       REAL               SLAMCH, SLANGE
       EXTERNAL           ILAENV, SLAMCH, SLANGE
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               IEEE;
-      int                I0, N0, PP
+      int                I0, N0, PP;
       REAL               DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5 )
 *     ..
 *     .. Local Scalars ..
-      int                J4, J4P2
+      int                J4, J4P2;
       REAL               D, EMIN, TEMP, DTHRESH
 *     ..
 *     .. Intrinsic Functions ..

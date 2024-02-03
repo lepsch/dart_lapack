@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDC, NN, NOUT
+      int                LDA, LDC, NN, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
-      int                NVAL( NN )
+      int                NVAL( NN );
       double             D_WORK_ZLANGE( * );
       COMPLEX*16         A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * )
 *     ..
@@ -19,17 +19,17 @@
 *     .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE  = 1.0D+0 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       String             UPLO, CFORM, TRANS;
-      int                I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS
+      int                I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS;
       double             ALPHA, BETA, EPS, NORMA, NORMC;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..

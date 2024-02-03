@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             COMPZ;
-      int                INFO, LDZ, N
+      int                INFO, LDZ, N;
 *     ..
 *     .. Array Arguments ..
       double             D( * ), E( * ), WORK( * ), Z( LDZ, * );
@@ -17,11 +17,11 @@
 *     .. Parameters ..
       double             ZERO, ONE, TWO, THREE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0 )
-      int                MAXIT
+      int                MAXIT;
       PARAMETER          ( MAXIT = 30 )
 *     ..
 *     .. Local Scalars ..
-      int                I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT
+      int                I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT;
       double             ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST;
 *     ..
 *     .. External Functions ..

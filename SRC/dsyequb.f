@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, N
+      int                INFO, LDA, N;
       double             AMAX, SCOND;
       String             UPLO;
 *     ..
@@ -18,11 +18,11 @@
 *     .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
-      int                MAX_ITER
+      int                MAX_ITER;
       PARAMETER          ( MAX_ITER = 100 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, ITER
+      int                I, J, ITER;
       double             AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
       bool               UP;
 *     ..

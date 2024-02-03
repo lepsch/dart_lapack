@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KBAND, LDU, LDWORK, M, N
+      int                KBAND, LDU, LDWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       REAL               AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( LDWORK, * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, K
+      int                I, J, K;
       REAL               ANORM, AUKJ, ULP, UNFL, WNORM
 *     ..
 *     .. External Functions ..

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NMAX, NN, NNB, NNS, NOUT
+      int                NMAX, NN, NNB, NNS, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
+      int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
       double             A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
 *     ..
 *
@@ -20,21 +20,21 @@
 *     .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 10 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 9 )
 *     ..
 *     .. Local Scalars ..
       bool               TRFCON, ZEROT;
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH;
-      int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
+      int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
       double             ANORM, CNDNUM, RCOND, RCONDC;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
@@ -50,7 +50,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

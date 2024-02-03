@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, ITYPE, LDA, LDB, N
+      int                INFO, ITYPE, LDA, LDB, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * )
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                K
+      int                K;
       REAL               AKK, BKK
       COMPLEX            CT
 *     ..

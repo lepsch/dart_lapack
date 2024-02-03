@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES, NTYPES;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                ISEED( 4 ), NN( * )
+      int                ISEED( 4 ), NN( * );
       double             RESULT( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA( * ), ALPHA1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * )
 *     ..
@@ -22,22 +22,22 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-      int                MAXTYP
+      int                MAXTYP;
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
       bool               BADNN;
-      int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTESTT
+      int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTESTT;
       double             SAFMAX, SAFMIN, ULP, ULPINV;
       COMPLEX*16         CTEMP
 *     ..
 *     .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
-      int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
+      int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
       double             RMAGN( 0: 3 );
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH;
       COMPLEX*16         ZLARND
       EXTERNAL           ILAENV, DLAMCH, ZLARND

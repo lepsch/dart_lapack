@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * )

@@ -6,20 +6,20 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NM, NN, NNB, NNS, NOUT
+      int                NM, NN, NNB, NNS, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), B( * ), C( * ), COPYA( * ), COPYB( * ), COPYS( * ), S( * );
+      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )       double             A( * ), B( * ), C( * ), COPYA( * ), COPYB( * ), COPYS( * ), S( * );;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 18 )
-      int                SMLSIZ
+      int                SMLSIZ;
       PARAMETER          ( SMLSIZ = 25 )
       double             ONE, TWO, ZERO;
       PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0, ZERO = 0.0D0 )
@@ -27,16 +27,16 @@
 *     .. Local Scalars ..
       String             TRANS;
       String             PATH;
-      int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LWORK_DGELS, LWORK_DGELST, LWORK_DGETSLS, LWORK_DGELSS, LWORK_DGELSY, LWORK_DGELSD
+      int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LWORK_DGELS, LWORK_DGELST, LWORK_DGETSLS, LWORK_DGELSS, LWORK_DGELSY, LWORK_DGELSD;
       double             EPS, NORMA, NORMB, RCOND;
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 )
+      int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 );
       double             RESULT( NTESTS ), WQ( 1 );
 *     ..
 *     .. Allocatable Arrays ..
       double          , ALLOCATABLE :: WORK (:);
-      int    , ALLOCATABLE :: IWORK (:)
+      int    , ALLOCATABLE :: IWORK (:);
 *     ..
 *     .. External Functions ..
       double             DASUM, DLAMCH, DQRT12, DQRT14, DQRT17;
@@ -51,7 +51,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, IOUNIT
+      int                INFOT, IOUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

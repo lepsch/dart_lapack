@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               LEFT;
-      int                LDA, LDB, LDE, N
+      int                LDA, LDB, LDE, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), E( LDE, * ), RESULT( 2 ), WORK( * )
@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       bool               ILCPLX;
       String             NORMAB, TRANS;
-      int                J, JVEC
+      int                J, JVEC;
       REAL               ABMAX, ACOEF, ALFMAX, ANORM, BCOEFI, BCOEFR, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SALFI, SALFR, SBETA, SCALE, TEMP1, ULP
 *     ..
 *     .. External Functions ..

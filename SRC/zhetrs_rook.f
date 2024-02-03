@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, LDB, N, NRHS
+      int                INFO, LDA, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * )
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                J, K, KP
+      int                J, K, KP;
       double             S;
       COMPLEX*16         AK, AKM1, AKM1K, BK, BKM1, DENOM
 *     ..

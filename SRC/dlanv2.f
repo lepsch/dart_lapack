@@ -18,7 +18,7 @@
 *     ..
 *     .. Local Scalars ..
       double             AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB, SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, SAFMN2, SAFMX2;
-      int                COUNT
+      int                COUNT;
 *     ..
 *     .. External Functions ..
       double             DLAMCH, DLAPY2;

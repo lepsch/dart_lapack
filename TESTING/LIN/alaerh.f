@@ -8,7 +8,7 @@
       String             PATH;
       List<String>       SUBNAM;
       List<String>       OPTS;
-      int                IMAT, INFO, INFOE, KL, KU, M, N, N5, NERRS, NFAIL, NOUT
+      int                IMAT, INFO, INFOE, KL, KU, M, N, N5, NERRS, NFAIL, NOUT;
 *     ..
 *
 *  =====================================================================

@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, KL, KU, LDAB, M, N
+      int                INFO, KL, KU, LDAB, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX            AB( LDAB, * )
 *     ..
 *
@@ -17,18 +17,18 @@
 *     .. Parameters ..
       COMPLEX            ONE, ZERO
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
-      int                NBMAX, LDWORK
+      int                NBMAX, LDWORK;
       PARAMETER          ( NBMAX = 64, LDWORK = NBMAX+1 )
 *     ..
 *     .. Local Scalars ..
-      int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW
+      int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW;
       COMPLEX            TEMP
 *     ..
 *     .. Local Arrays ..
       COMPLEX            WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX )
 *     ..
 *     .. External Functions ..
-      int                ICAMAX, ILAENV
+      int                ICAMAX, ILAENV;
       EXTERNAL           ICAMAX, ILAENV
 *     ..
 *     .. External Subroutines ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO, EQUED;
-      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
+      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
       double             RCOND;
 *     ..
 *     .. Array Arguments ..
@@ -26,21 +26,21 @@
       PARAMETER          ( COMPONENTWISE_DEFAULT = 1.0D+0 )
       PARAMETER          ( RTHRESH_DEFAULT = 0.5D+0 )
       PARAMETER          ( DZTHRESH_DEFAULT = 0.25D+0 )
-      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
+      int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 );
       PARAMETER          ( LA_LINRX_CWISE_I = 3 )
-      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
+      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. Local Scalars ..
       String   (1)       NORM;
       bool               RCEQU;
-      int                J, PREC_TYPE, REF_TYPE
-      int                N_NORMS
+      int                J, PREC_TYPE, REF_TYPE;
+      int                N_NORMS;
       double             ANORM, RCOND_TMP;
       double             ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG;
       bool               IGNORE_CWISE;
-      int                ITHRESH
+      int                ITHRESH;
       double             RTHRESH, UNSTABLE_THRESH;
 *     ..
 *     .. External Subroutines ..
@@ -54,7 +54,7 @@
       EXTERNAL           DLAMCH, ZLANHE, ZLA_PORCOND_X, ZLA_PORCOND_C
       double             DLAMCH, ZLANHE, ZLA_PORCOND_X, ZLA_PORCOND_C;
       bool               LSAME;
-      int                ILAPREC
+      int                ILAPREC;
 *     ..
 *     .. Executable Statements ..
 *

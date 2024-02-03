@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             COMPZ;
-      int                INFO, LDZ, N
+      int                INFO, LDZ, N;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), WORK( * )
@@ -20,11 +20,11 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
-      int                MAXIT
+      int                MAXIT;
       PARAMETER          ( MAXIT = 30 )
 *     ..
 *     .. Local Scalars ..
-      int                I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT
+      int                I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT;
       REAL               ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST
 *     ..
 *     .. External Functions ..

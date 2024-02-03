@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDB, LDX, LDXACT, N, NRHS
+      int                LDB, LDX, LDXACT, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * )
@@ -21,13 +21,13 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                I, IMAX, J, JC, K
+      int                I, IMAX, J, JC, K;
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
       COMPLEX            ZDUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ICAMAX
+      int                ICAMAX;
       REAL               SLAMCH
       EXTERNAL           LSAME, ICAMAX, SLAMCH
 *     ..

@@ -7,21 +7,21 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NIN
+      int                NIN;
       PARAMETER          ( NIN = 5 )
-      int                NSUBS
+      int                NSUBS;
       PARAMETER          ( NSUBS = 9 )
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
       double             RZERO;
       PARAMETER          ( RZERO = 0.0D0 )
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX = 65 )
-      int                NIDMAX, NALMAX, NBEMAX
+      int                NIDMAX, NALMAX, NBEMAX;
       PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       double             EPS, ERR, THRESH;
-      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NOUT, NTRA
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NOUT, NTRA;
       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;
       String             TRANSA, TRANSB;
       String             SNAMET;
@@ -29,7 +29,7 @@
 *     .. Local Arrays ..
       COMPLEX*16         AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX )
       double             G( NMAX );
-      int                IDIM( NIDMAX )
+      int                IDIM( NIDMAX );
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
 *     .. External Functions ..
@@ -41,7 +41,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
       String             SRNAMT;
 *     .. Common blocks ..
@@ -315,17 +315,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       double             EPS, THRESH;
-      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX )
       double             G( NMAX );
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, BETA, BLS
       double             ERR, ERRMAX;
-      int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
+      int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS;
       bool               NULL, RESET, SAME, TRANA, TRANB;
       String             TRANAS, TRANBS, TRANSA, TRANSB;
       String             ICH;
@@ -339,7 +339,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -570,17 +570,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       double             EPS, THRESH;
-      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX )
       double             G( NMAX );
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, BETA, BLS
       double             ERR, ERRMAX;
-      int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS;
       bool               CONJ, LEFT, NULL, RESET, SAME;
       String             SIDE, SIDES, UPLO, UPLOS;
       String             ICHS, ICHU;
@@ -594,7 +594,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -817,17 +817,17 @@
       PARAMETER          ( RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       double             EPS, THRESH;
-      int                NALF, NIDIM, NMAX, NOUT, NTRA
+      int                NALF, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX )
       double             G( NMAX );
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS
       double             ERR, ERRMAX;
-      int                I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
+      int                I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS;
       bool               LEFT, NULL, RESET, SAME;
       String             DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS;
       String             ICHD, ICHS, ICHU;
@@ -842,7 +842,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1078,17 +1078,17 @@
       PARAMETER          ( RONE = 1.0D0, RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       double             EPS, THRESH;
-      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX )
       double             G( NMAX );
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, BETA, BETS
       double             ERR, ERRMAX, RALPHA, RALS, RBETA, RBETS;
-      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               CONJ, NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, TRANST, UPLO, UPLOS;
       String             ICHT, ICHU;
@@ -1102,7 +1102,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          DCMPLX, MAX, DBLE
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1367,17 +1367,17 @@
       PARAMETER          ( RONE = 1.0D0, RZERO = 0.0D0 )
 *     .. Scalar Arguments ..
       double             EPS, THRESH;
-      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
+      int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       COMPLEX*16         AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX )
       double             G( NMAX );
-      int                IDIM( NIDIM )
+      int                IDIM( NIDIM );
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, ALS, BETA, BETS
       double             ERR, ERRMAX, RBETA, RBETS;
-      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
+      int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               CONJ, NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, TRANST, UPLO, UPLOS;
       String             ICHT, ICHU;
@@ -1391,7 +1391,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          DCMPLX, DCONJG, MAX, DBLE
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
@@ -1682,10 +1682,10 @@
 *  10-9-00:  Declared INTRINSIC DCMPLX (susan)
 *
 *     .. Scalar Arguments ..
-      int                ISNUM, NOUT
+      int                ISNUM, NOUT;
       String             SRNAMT;
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               LERR, OK;
 *     .. Parameters ..
       REAL               ONE, TWO
@@ -2631,14 +2631,14 @@
       PARAMETER          ( RROGUE = -1.0D10 )
 *     .. Scalar Arguments ..
       COMPLEX*16         TRANSL
-      int                LDA, M, N, NMAX
+      int                LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
 *     .. Array Arguments ..
       COMPLEX*16         A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
-      int                I, IBEG, IEND, J, JJ
+      int                I, IBEG, IEND, J, JJ;
       bool               GEN, HER, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       COMPLEX*16         ZBEG
@@ -2744,7 +2744,7 @@
 *     .. Scalar Arguments ..
       COMPLEX*16         ALPHA, BETA
       double             EPS, ERR;
-      int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT
+      int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT;
       bool               FATAL, MV;
       String             TRANSA, TRANSB;
 *     .. Array Arguments ..
@@ -2753,7 +2753,7 @@
 *     .. Local Scalars ..
       COMPLEX*16         CL
       double             ERRI;
-      int                I, J, K
+      int                I, J, K;
       bool               CTRANA, CTRANB, TRANA, TRANB;
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DIMAG, DCONJG, MAX, DBLE, SQRT
@@ -2906,11 +2906,11 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      int                LR
+      int                LR;
 *     .. Array Arguments ..
       COMPLEX*16         RI( * ), RJ( * )
 *     .. Local Scalars ..
-      int                I
+      int                I;
 *     .. Executable Statements ..
       DO 10 I = 1, LR
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
@@ -2939,13 +2939,13 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      int                LDA, M, N
+      int                LDA, M, N;
       String             UPLO;
       String             TYPE;
 *     .. Array Arguments ..
       COMPLEX*16         AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
-      int                I, IBEG, IEND, J
+      int                I, IBEG, IEND, J;
       bool               UPPER;
 *     .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
@@ -2998,7 +2998,7 @@
 *     .. Scalar Arguments ..
       bool               RESET;
 *     .. Local Scalars ..
-      int                I, IC, J, MI, MJ
+      int                I, IC, J, MI, MJ;
 *     .. Save statement ..
       SAVE               I, IC, J, MI, MJ
 *     .. Intrinsic Functions ..
@@ -3068,7 +3068,7 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
       bool               LERR, OK;
       String             SRNAMT;
 *     .. Executable Statements ..
@@ -3105,10 +3105,10 @@
 *     Sven Hammarling, Numerical Algorithms Group Ltd.
 *
 *     .. Scalar Arguments ..
-      int                INFO
+      int                INFO;
       String             SRNAME;
 *     .. Scalars in Common ..
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
       bool               LERR, OK;
       String             SRNAMT;
 *     .. Common blocks ..

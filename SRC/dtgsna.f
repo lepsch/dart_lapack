@@ -6,25 +6,25 @@
 *
 *     .. Scalar Arguments ..
       String             HOWMNY, JOB;
-      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N
+      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
-      int                IWORK( * )
+      int                IWORK( * );
       double             A( LDA, * ), B( LDB, * ), DIF( * ), S( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                DIFDRI
+      int                DIFDRI;
       PARAMETER          ( DIFDRI = 3 )
       double             ZERO, ONE, TWO, FOUR;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, FOUR = 4.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, PAIR, SOMCON, WANTBH, WANTDF, WANTS;
-      int                I, IERR, IFST, ILST, IZ, K, KS, LWMIN, N1, N2
+      int                I, IERR, IFST, ILST, IZ, K, KS, LWMIN, N1, N2;
       double             ALPHAI, ALPHAR, ALPRQT, BETA, C1, C2, COND, EPS, LNRM, RNRM, ROOT1, ROOT2, SCALE, SMLNUM, TMPII, TMPIR, TMPRI, TMPRR, UHAV, UHAVI, UHBV, UHBVI;
 *     ..
 *     .. Local Arrays ..

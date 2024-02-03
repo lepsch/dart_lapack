@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIDE, TRANS;
-      int                IHI, ILO, INFO, LDA, LDC, LWORK, M, N
+      int                IHI, ILO, INFO, LDA, LDC, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
@@ -16,11 +16,11 @@
 *
 *     .. Local Scalars ..
       bool               LEFT, LQUERY;
-      int                I1, I2, IINFO, LWKOPT, MI, NB, NH, NI, NQ, NW
+      int                I1, I2, IINFO, LWKOPT, MI, NB, NH, NI, NQ, NW;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK
 *     ..

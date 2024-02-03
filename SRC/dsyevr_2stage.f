@@ -8,11 +8,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
-      int                IL, INFO, IU, LDA, LDZ, LIWORK, LWORK, M, N
+      int                IL, INFO, IU, LDA, LDZ, LIWORK, LWORK, M, N;
       double             ABSTOL, VL, VU;
 *     ..
 *     .. Array Arguments ..
-      int                ISUPPZ( * ), IWORK( * )
+      int                ISUPPZ( * ), IWORK( * );
       double             A( LDA, * ), W( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
@@ -25,12 +25,12 @@
 *     .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, VALEIG, WANTZ, TRYRAC;
       String             ORDER;
-      int                I, IEEEOK, IINFO, IMAX, INDD, INDDD, INDE, INDEE, INDIBL, INDIFL, INDISP, INDIWO, INDTAU, INDWK, INDWKN, ISCALE, J, JJ, LIWMIN, LLWORK, LLWRKN, LWMIN, NSPLIT, LHTRD, LWTRD, KD, IB, INDHOUS
+      int                I, IEEEOK, IINFO, IMAX, INDD, INDDD, INDE, INDEE, INDIBL, INDIFL, INDISP, INDIWO, INDTAU, INDWK, INDWKN, ISCALE, J, JJ, LIWMIN, LLWORK, LLWRKN, LWMIN, NSPLIT, LHTRD, LWTRD, KD, IB, INDHOUS;
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV, ILAENV2STAGE
+      int                ILAENV, ILAENV2STAGE;
       double             DLAMCH, DLANSY;
       EXTERNAL           LSAME, DLAMCH, DLANSY, ILAENV, ILAENV2STAGE
 *     ..

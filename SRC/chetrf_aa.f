@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       String       UPLO;
-      int          N, LDA, LWORK, INFO
+      int          N, LDA, LWORK, INFO;
 *     ..
 *     .. Array Arguments ..
-      int          IPIV( * )
+      int          IPIV( * );
       COMPLEX      A( LDA, * ), WORK( * )
 *     ..
 *
@@ -22,13 +22,13 @@
 *
 *     .. Local Scalars ..
       bool         LQUERY, UPPER;
-      int          J, LWKMIN, LWKOPT
-      int          NB, MJ, NJ, K1, K2, J1, J2, J3, JB
+      int          J, LWKMIN, LWKOPT;
+      int          NB, MJ, NJ, K1, K2, J1, J2, J3, JB;
       COMPLEX      ALPHA
 *     ..
 *     .. External Functions ..
       bool         LSAME;
-      int          ILAENV
+      int          ILAENV;
       REAL         SROUNDUP_LWORK
       EXTERNAL     LSAME, ILAENV, SROUNDUP_LWORK
 *     ..

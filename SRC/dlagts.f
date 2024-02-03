@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, JOB, N
+      int                INFO, JOB, N;
       double             TOL;
 *     ..
 *     .. Array Arguments ..
-      int                IN( * )
+      int                IN( * );
       double             A( * ), B( * ), C( * ), D( * ), Y( * );
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                K
+      int                K;
       double             ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP;
 *     ..
 *     .. Intrinsic Functions ..

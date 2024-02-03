@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANA, TRANB;
-      int                INFO, ISGN, LDA, LDB, LDC, M, N
+      int                INFO, ISGN, LDA, LDB, LDC, M, N;
       REAL               SCALE
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOTRNA, NOTRNB;
-      int                IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT
+      int                IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT;
       REAL               A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM
 *     ..
 *     .. Local Arrays ..

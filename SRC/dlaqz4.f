@@ -3,17 +3,17 @@
 
 *     Function arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
-      int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC
+      int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC;
        double          , INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ), SR( * ), SI( * ), SS( * );
 
-      int    , INTENT( OUT ) :: INFO
+      int    , INTENT( OUT ) :: INFO;
 
 *     Parameters
       double           :: ZERO, ONE, HALF;
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 
 *     Local scalars
-      int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS
+      int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS;
       double           :: TEMP, V( 3 ), C1, S1, C2, S2, SWAP;
 *
 *     External functions

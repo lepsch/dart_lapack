@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIDE;
-      int                INCV, L, LDC, M, N
+      int                INCV, L, LDC, M, N;
       double             TAU;
 *     ..
 *     .. Array Arguments ..

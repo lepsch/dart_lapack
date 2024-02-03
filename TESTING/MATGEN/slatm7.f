@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       REAL               COND
-      int                IDIST, INFO, IRSIGN, MODE, N, RANK
+      int                IDIST, INFO, IRSIGN, MODE, N, RANK;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * )
-      int                ISEED( 4 )
+      int                ISEED( 4 );
 *     ..
 *
 *  =====================================================================
@@ -25,7 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL               ALPHA, TEMP
-      int                I
+      int                I;
 *     ..
 *     .. External Functions ..
       REAL               SLARAN

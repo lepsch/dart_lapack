@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       List<String>       CA, CB;
-      int                N
+      int                N;
 *     ..
 *
 * =====================================================================
 *
 *     .. Local Scalars ..
-      int                I
+      int                I;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

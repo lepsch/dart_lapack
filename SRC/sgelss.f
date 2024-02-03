@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
@@ -20,8 +20,8 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR
-      int                LWORK_SGEQRF, LWORK_SORMQR, LWORK_SGEBRD, LWORK_SORMBR, LWORK_SORGBR, LWORK_SORMLQ
+      int                BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR;
+      int                LWORK_SGEQRF, LWORK_SORMQR, LWORK_SGEBRD, LWORK_SORMBR, LWORK_SORGBR, LWORK_SORMLQ;
       REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR
 *     ..
 *     .. Local Arrays ..
@@ -31,7 +31,7 @@
       EXTERNAL           SBDSQR, SCOPY, SGEBRD, SGELQF, SGEMM, SGEMV, SGEQRF, SLACPY, SLASCL, SLASET, SORGBR, SORMBR, SORMLQ, SORMQR, SRSCL, XERBLA
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..

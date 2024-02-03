@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                K, LDA, LWORK, M, N
+      int                K, LDA, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       double             AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK );
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       String             SIDE, TRANS;
-      int                INFO, ISIDE, ITRANS, J, MC, MINMN, NC
+      int                INFO, ISIDE, ITRANS, J, MC, MINMN, NC;
       double             CNORM, EPS, RESID;
 *     ..
 *     .. External Functions ..
@@ -33,7 +33,7 @@
       EXTERNAL           DGEMM, DLACPY, DLARNV, DLASET, DORGQL, DORMQL
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, MIN

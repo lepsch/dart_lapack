@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIDE, TRANS;
-      int                M, N, N1, N2, LDQ, LDC, LWORK, INFO
+      int                M, N, N1, N2, LDQ, LDC, LWORK, INFO;
 *     ..
 *     .. Array Arguments ..
       double             Q( LDQ, * ), C( LDC, * ), WORK( * );
@@ -22,7 +22,7 @@
 *
 *     .. Local Scalars ..
       bool               LEFT, LQUERY, NOTRAN;
-      int                I, LDWORK, LEN, LWKOPT, NB, NQ, NW
+      int                I, LDWORK, LEN, LWKOPT, NB, NQ, NW;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

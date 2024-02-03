@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, LWORK, M, N
+      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, LWORK, M, N;
       double             DIF, SCALE;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), WORK( * );
 *     ..
 *
@@ -24,12 +24,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, NOTRAN;
-      int                I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LINFO, LWMIN, MB, NB, P, PPQQ, PQ, Q
+      int                I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LINFO, LWMIN, MB, NB, P, PPQQ, PQ, Q;
       double             DSCALE, DSUM, SCALE2, SCALOC;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

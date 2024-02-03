@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
-      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
+      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
       double             RCOND, RPVGRW;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )       double             S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
 *     ..
 *
@@ -19,16 +19,16 @@
 *     .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
-      int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
-      int                CMP_ERR_I, PIV_GROWTH_I
+      int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
+      int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
+      int                CMP_ERR_I, PIV_GROWTH_I;
       PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
       PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
 *     ..
 *     .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU;
-      int                INFEQU, J
+      int                INFEQU, J;
       double             AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM;
 *     ..
 *     .. External Functions ..

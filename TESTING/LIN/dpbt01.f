@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                KD, LDA, LDAFAC, N
+      int                KD, LDA, LDAFAC, N;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, K, KC, KLEN, ML, MU
+      int                I, J, K, KC, KLEN, ML, MU;
       double             ANORM, EPS, T;
 *     ..
 *     .. External Functions ..

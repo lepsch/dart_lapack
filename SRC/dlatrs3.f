@@ -3,7 +3,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, NORMIN, UPLO;
-      int                INFO, LDA, LWORK, LDX, N, NRHS
+      int                INFO, LDA, LWORK, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * );
@@ -14,7 +14,7 @@
 *     .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      int                NBMAX, NBMIN, NBRHS, NRHSMIN
+      int                NBMAX, NBMIN, NBRHS, NRHSMIN;
       PARAMETER          ( NRHSMIN = 2, NBRHS = 32 )
       PARAMETER          ( NBMIN = 8, NBMAX = 64 )
 *     ..
@@ -23,12 +23,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, NOTRAN, NOUNIT, UPPER;
-      int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN
+      int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN;
       double             ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, DLANGE, DLARMM;
       EXTERNAL           DLAMCH, DLANGE, DLARMM, ILAENV, LSAME
 *     ..

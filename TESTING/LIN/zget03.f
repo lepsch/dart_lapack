@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDAINV, LDWORK, N
+      int                LDA, LDAINV, LDWORK, N;
       double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       double             AINVNM, ANORM, EPS;
 *     ..
 *     .. External Functions ..

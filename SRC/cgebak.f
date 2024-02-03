@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOB, SIDE;
-      int                IHI, ILO, INFO, LDV, M, N
+      int                IHI, ILO, INFO, LDV, M, N;
 *     ..
 *     .. Array Arguments ..
       REAL               SCALE( * )
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LEFTV, RIGHTV;
-      int                I, II, K
+      int                I, II, K;
       REAL               S
 *     ..
 *     .. External Functions ..

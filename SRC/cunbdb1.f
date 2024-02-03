@@ -24,7 +24,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LWORK, M, P, Q, LDX11, LDX21
+      int                INFO, LWORK, M, P, Q, LDX11, LDX21;
 *     ..
 *     .. Array Arguments ..
       REAL               PHI(*), THETA(*)
@@ -39,7 +39,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL               C, S
-      int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT
+      int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
 *     ..
 *     .. External Subroutines ..

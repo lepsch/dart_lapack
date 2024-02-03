@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       REAL               BERR( * ), FERR( * ), RWORK( * )
       COMPLEX            B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * )
 *     ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                ITMAX
+      int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -29,12 +29,12 @@
 *     .. Local Scalars ..
       bool               NOTRAN;
       String             TRANSN, TRANST;
-      int                COUNT, I, J, KASE, NZ
+      int                COUNT, I, J, KASE, NZ;
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CAXPY, CCOPY, CGTTRS, CLACN2, CLAGTM, XERBLA

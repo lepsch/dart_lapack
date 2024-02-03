@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, TPSD;
-      int                BROW, I, IASCL, IBSCL, J, LWOPT, MN, MNNRHS, NB, NBMIN, SCLLEN
+      int                BROW, I, IASCL, IBSCL, J, LWOPT, MN, MNNRHS, NB, NBMIN, SCLLEN;
       REAL               ANRM, BIGNUM, BNRM, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -28,7 +28,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..

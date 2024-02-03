@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             D( * );
@@ -17,10 +17,10 @@
 *
 *     .. Local Scalars ..
       bool               UPPER;
-      int                IUPLO, J, JB, NB
+      int                IUPLO, J, JB, NB;
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV
 *     ..
 *     .. External Subroutines ..

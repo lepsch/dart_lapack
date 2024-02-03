@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOB;
-      int                IHI, ILO, INFO, LDA, N
+      int                IHI, ILO, INFO, LDA, N;
 *     ..
 *     .. Array Arguments ..
       double             SCALE( * );
@@ -25,12 +25,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOCONV, CANSWAP;
-      int                I, ICA, IRA, J, K, L
+      int                I, ICA, IRA, J, K, L;
       double             C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
 *     ..
 *     .. External Functions ..
       bool               DISNAN, LSAME;
-      int                IZAMAX
+      int                IZAMAX;
       double             DLAMCH, DZNRM2;
       EXTERNAL           DISNAN, LSAME, IZAMAX, DLAMCH, DZNRM2
 *     ..

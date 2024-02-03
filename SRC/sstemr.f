@@ -7,11 +7,11 @@
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE;
       bool               TRYRAC;
-      int                IL, INFO, IU, LDZ, NZC, LIWORK, LWORK, M, N
+      int                IL, INFO, IU, LDZ, NZC, LIWORK, LWORK, M, N;
       REAL               VL, VU
 *     ..
 *     .. Array Arguments ..
-      int                ISUPPZ( * ), IWORK( * )
+      int                ISUPPZ( * ), IWORK( * );
       REAL               D( * ), E( * ), W( * ), WORK( * )
       REAL               Z( LDZ, * )
 *     ..
@@ -23,7 +23,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, FOUR = 4.0E0, MINRGP = 3.0E-3 )
 *     ..
 *     .. Local Scalars ..
-      bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP       int                I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW, IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD, INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP, ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT, NZCMIN, OFFSET, WBEGIN, WEND;
+      bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP       int                I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW, IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD, INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP, ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT, NZCMIN, OFFSET, WBEGIN, WEND;;
       REAL               BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN, RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN, THRESH, TMP, TNRM, WL, WU
 *     ..
 *     ..

@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, NN, NOUT
+      int                LDA, NN, NOUT;
 *     ..
 *     .. Array Arguments ..
-      int                NVAL( NN )
+      int                NVAL( NN );
       COMPLEX            A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * )
 *     ..
 *
@@ -17,11 +17,11 @@
 *     .. Local Scalars ..
       bool               LOWER, OK1, OK2;
       String             UPLO, CFORM;
-      int                I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN
+      int                I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
 *     ..
 *     .. External Functions ..
       COMPLEX            CLARND

@@ -3,10 +3,10 @@
 
 *     Function arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
-      int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC
+      int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC;
        COMPLEX*16, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ), ALPHA( * ), BETA( * )
 
-      int    , INTENT( OUT ) :: INFO
+      int    , INTENT( OUT ) :: INFO;
 
 *     Parameters
       COMPLEX*16         CZERO, CONE
@@ -15,7 +15,7 @@
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 
 *     Local scalars
-      int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS
+      int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS;
       double           :: SAFMIN, SAFMAX, C, SCALE;
       COMPLEX*16 :: TEMP, TEMP2, TEMP3, S
 

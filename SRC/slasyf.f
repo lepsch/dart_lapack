@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, KB, LDA, LDW, N, NB
+      int                INFO, KB, LDA, LDW, N, NB;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       REAL               A( LDA, * ), W( LDW, * )
 *     ..
 *
@@ -22,11 +22,11 @@
       PARAMETER          ( EIGHT = 8.0E+0, SEVTEN = 17.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW       REAL               ABSAKK, ALPHA, COLMAX, D11, D21, D22, R1, ROWMAX, T
+      int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW       REAL               ABSAKK, ALPHA, COLMAX, D11, D21, D22, R1, ROWMAX, T;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ISAMAX
+      int                ISAMAX;
       EXTERNAL           LSAME, ISAMAX
 *     ..
 *     .. External Subroutines ..

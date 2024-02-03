@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double           ALPHA,BETA;
-      int     INCX,INCY,LDA,M,N
+      int     INCX,INCY,LDA,M,N;
       String    TRANS;
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       double           TEMP;
-      int     I,INFO,IX,IY,J,JX,JY,KX,KY,LENX,LENY
+      int     I,INFO,IX,IY,J,JX,JY,KX,KY,LENX,LENY;
 *     ..
 *     .. External Functions ..
       bool    LSAME;

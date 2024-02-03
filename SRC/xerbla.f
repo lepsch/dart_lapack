@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       List<String>         SRNAME;
-      int                INFO
+      int                INFO;
 *     ..
 *
 * =====================================================================

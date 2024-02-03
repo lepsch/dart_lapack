@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double           DA;
-      int     INCX,INCY,N
+      int     INCX,INCY,N;
 *     ..
 *     .. Array Arguments ..
       double           DX(*),DY(*);
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int     I,IX,IY,M,MP1
+      int     I,IX,IY,M,MP1;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC MOD

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             COMPQ, COMPZ;
-      int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N
+      int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               ILQ, ILZ;
-      int                ICOMPQ, ICOMPZ, JCOL, JROW
+      int                ICOMPQ, ICOMPZ, JCOL, JROW;
       double             C;
       COMPLEX*16         CTEMP, S
 *     ..

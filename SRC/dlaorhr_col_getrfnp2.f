@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), D( * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       double             SFMIN;
-      int                I, IINFO, N1, N2
+      int                I, IINFO, N1, N2;
 *     ..
 *     .. External Functions ..
       double             DLAMCH;

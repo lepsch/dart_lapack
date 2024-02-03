@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, N, NSPLIT
+      int                INFO, N, NSPLIT;
       REAL                SPLTOL, TNRM
 *     ..
 *     .. Array Arguments ..
-      int                ISPLIT( * )
+      int                ISPLIT( * );
       REAL               D( * ), E( * ), E2( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       REAL               EABS, TMP1
 
 *     ..

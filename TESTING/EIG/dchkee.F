@@ -11,21 +11,21 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX = 132 )
-      int                NCMAX
+      int                NCMAX;
       PARAMETER          ( NCMAX = 20 )
-      int                NEED
+      int                NEED;
       PARAMETER          ( NEED = 14 )
-      int                LWORK
+      int                LWORK;
       PARAMETER          ( LWORK = NMAX*( 5*NMAX+5 )+1 )
-      int                LIWORK
+      int                LIWORK;
       PARAMETER          ( LIWORK = NMAX*( 5*NMAX+20 ) )
-      int                MAXIN
+      int                MAXIN;
       PARAMETER          ( MAXIN = 20 )
-      int                MAXT
+      int                MAXT;
       PARAMETER          ( MAXT = 30 )
-      int                NIN, NOUT
+      int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
 *     ..
 *     .. Local Scalars ..
@@ -35,17 +35,17 @@
       String             VNAME;
       String             INTSTR;
       String             LINE;
-      int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
-      int    *4          N_THREADS, ONE_THREAD
+      int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
+      int    *4          N_THREADS, ONE_THREAD;
       double             EPS, S1, S2, THRESH, THRSHN;
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( MAXT ), LOGWRK( NMAX );
-      int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN )
-      int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN )       double             D( NMAX, 12 ), RESULT( 500 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
+      int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN );
+      int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN )       double             D( NMAX, 12 ), RESULT( 500 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );;
 *     ..
 *     .. Allocatable Arrays ..
-      int     AllocateStatus
+      int     AllocateStatus;
       double          , DIMENSION(:), ALLOCATABLE :: WORK;
       double          , DIMENSION(:,:), ALLOCATABLE :: A, B, C;
 *     ..
@@ -63,11 +63,11 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT
+      int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT;
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );
-      int                IPARMS( 100 )
+      int                IPARMS( 100 );
       double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Common blocks ..
@@ -1221,7 +1221,7 @@
  9994 FORMAT( / / ' End of tests' )
  9993 FORMAT( ' Total time used = ', F12.2, ' seconds', / )
  9992 FORMAT( 1X, A3, ':  Unrecognized path name' )
- 9991 FORMAT( / / ' *** Invalid int     value in column ', I2,
+ 9991 FORMAT( / / ' *** Invalid int     value in column ', I2,;
      $      ' of input', ' line:', / A79 )
  9990 FORMAT( / / 1X, A3, ' routines were not tested' )
  9989 FORMAT( ' Invalid input value: ', A, '=', I6, '; must be >=',

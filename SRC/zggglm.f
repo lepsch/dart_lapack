@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDB, LWORK, M, N, P
+      int                INFO, LDA, LDB, LWORK, M, N, P;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), D( * ), WORK( * ), X( * ), Y( * )
@@ -19,13 +19,13 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                I, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3, NB4, NP
+      int                I, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3, NB4, NP;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZCOPY, ZGEMV, ZGGQRF, ZTRTRS, ZUNMQR, ZUNMRQ
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV
 *     ..
 *     .. Intrinsic Functions ..

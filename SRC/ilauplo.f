@@ -1,4 +1,4 @@
-      int     FUNCTION ILAUPLO( UPLO )
+      int     FUNCTION ILAUPLO( UPLO );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int     BLAS_UPPER, BLAS_LOWER
+      int     BLAS_UPPER, BLAS_LOWER;
       PARAMETER ( BLAS_UPPER = 121, BLAS_LOWER = 122 )
 *     ..
 *     .. External Functions ..

@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IDIST, N
+      int                IDIST, N;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             X( * );
 *     ..
 *
@@ -17,13 +17,13 @@
 *     .. Parameters ..
       double             ONE, TWO;
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0 )
-      int                LV
+      int                LV;
       PARAMETER          ( LV = 128 )
       double             TWOPI;
       PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IL, IL2, IV
+      int                I, IL, IL2, IV;
 *     ..
 *     .. Local Arrays ..
       double             U( LV );

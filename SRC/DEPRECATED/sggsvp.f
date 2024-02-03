@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
-      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P
+      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P;
       REAL               TOLA, TOLB
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               FORWRD, WANTQ, WANTU, WANTV;
-      int                I, J
+      int                I, J;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

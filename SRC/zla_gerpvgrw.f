@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                N, NCOLS, LDA, LDAF
+      int                N, NCOLS, LDA, LDAF;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AF( LDAF, * )
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
       double             AMAX, UMAX, RPVGRW;
       COMPLEX*16         ZDUM
 *     ..

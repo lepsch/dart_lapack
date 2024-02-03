@@ -2,7 +2,7 @@
       IMPLICIT NONE
 *
 *     Arguments
-      int    , INTENT( IN ) :: LDA, LDB
+      int    , INTENT( IN ) :: LDA, LDB;
       double          , INTENT( IN ) :: A( LDA, * ), B( LDB, * ), SR1, SR2, SI, BETA1, BETA2;
       double          , INTENT( OUT ) :: V( * );
 *

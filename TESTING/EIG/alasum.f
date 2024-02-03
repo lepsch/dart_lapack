@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TYPE;
-      int                NFAIL, NOUT, NRUN, NERRS
+      int                NFAIL, NOUT, NRUN, NERRS;
 *     ..
 *
 *  =====================================================================

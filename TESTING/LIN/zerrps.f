@@ -5,29 +5,29 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                NUNIT
+      int                NUNIT;
       String             PATH;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX = 4 )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, J, RANK
+      int                I, INFO, J, RANK;
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         A( NMAX, NMAX )
       double             RWORK( 2*NMAX );
-      int                PIV( NMAX )
+      int                PIV( NMAX );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAESM, CHKXER, ZPSTF2, ZPSTRF
 *     ..
 *     .. Scalars in Common ..
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
       bool               LERR, OK;
       String             SRNAMT;
 *     ..

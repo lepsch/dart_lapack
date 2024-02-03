@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, LDAB, LWORK, N, KD
+      int                INFO, LDA, LDAB, LWORK, N, KD;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * );
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, UPPER;
-      int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS
+      int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, DSYR2K, DSYMM, DGEMM, DCOPY, DLARFT, DGELQF, DGEQRF, DLASET
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV2STAGE
+      int                ILAENV2STAGE;
       EXTERNAL           LSAME, ILAENV2STAGE
 *     ..
 *     .. Executable Statements ..

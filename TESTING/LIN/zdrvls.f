@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NM, NN, NNB, NNS, NOUT
+      int                NM, NN, NNB, NNS, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )
+      int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * );
       double             COPYS( * ), S( * );
       COMPLEX*16         A( * ), B( * ), C( * ), COPYA( * ), COPYB( * )
 *     ..
@@ -19,9 +19,9 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 18 )
-      int                SMLSIZ
+      int                SMLSIZ;
       PARAMETER          ( SMLSIZ = 25 )
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
@@ -31,18 +31,18 @@
 *     .. Local Scalars ..
       String             TRANS;
       String             PATH;
-      int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD
+      int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD;
       double             EPS, NORMA, NORMB, RCOND;
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 )
+      int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 );
       double             RESULT( NTESTS ), RWQ( 1 );
       COMPLEX*16         WQ( 1 )
 *     ..
 *     .. Allocatable Arrays ..
       COMPLEX*16, ALLOCATABLE :: WORK (:)
       double          , ALLOCATABLE :: RWORK (:), WORK2 (:);
-      int    , ALLOCATABLE :: IWORK (:)
+      int    , ALLOCATABLE :: IWORK (:);
 *     ..
 *     .. External Functions ..
       double             DASUM, DLAMCH, ZQRT12, ZQRT14, ZQRT17;
@@ -57,7 +57,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, IOUNIT
+      int                INFOT, IOUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

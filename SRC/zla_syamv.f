@@ -6,8 +6,8 @@
 *
 *     .. Scalar Arguments ..
       double             ALPHA, BETA;
-      int                INCX, INCY, LDA, N
-      int                UPLO
+      int                INCX, INCY, LDA, N;
+      int                UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), X( * )
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       bool               SYMB_ZERO;
       double             TEMP, SAFE1;
-      int                I, INFO, IY, J, JX, KX, KY
+      int                I, INFO, IY, J, JX, KX, KY;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Subroutines ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       EXTERNAL           ILAUPLO
-      int                ILAUPLO
+      int                ILAUPLO;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, ABS, SIGN, REAL, DIMAG

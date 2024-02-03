@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, LWORK, N
+      int                INFO, LDA, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), TAU( * ), WORK( * )
@@ -20,11 +20,11 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, UPPER;
-      int                I, IINFO, J, LWKOPT, NB
+      int                I, IINFO, J, LWKOPT, NB;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK
 *     ..

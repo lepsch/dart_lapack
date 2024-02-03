@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IHI, ILO, INFO, LDA, LWORK, N
+      int                IHI, ILO, INFO, LDA, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), TAU( * ), WORK( * )
@@ -14,14 +14,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NBMAX, LDT, TSIZE
+      int                NBMAX, LDT, TSIZE;
       PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX
+      int                I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX;
       REAL               EI
 *     ..
 *     .. External Subroutines ..
@@ -31,7 +31,7 @@
       INTRINSIC          MAX, MIN
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, SROUNDUP_LWORK
 *     ..

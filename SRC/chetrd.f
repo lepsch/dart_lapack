@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, LWORK, N
+      int                INFO, LDA, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, UPPER;
-      int                I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX
+      int                I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHER2K, CHETD2, CLATRD, XERBLA
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
 *     ..

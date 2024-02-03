@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IDIST, ISIGN, ITYPE, LDA, N, NZ1, NZ2
+      int                IDIST, ISIGN, ITYPE, LDA, N, NZ1, NZ2;
       REAL               AMAGN, RCOND, TRIANG
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       REAL               A( LDA, * )
 *     ..
 *
@@ -22,7 +22,7 @@
       PARAMETER          ( HALF = ONE / TWO )
 *     ..
 *     .. Local Scalars ..
-      int                I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN
+      int                I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
       REAL               ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP
 *     ..
 *     .. External Functions ..

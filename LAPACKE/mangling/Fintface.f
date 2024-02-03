@@ -1,6 +1,6 @@
        program intface
        external c_intface
-       int     i
+       int     i;
 
        call c_intface(i)
 

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
-      int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS
+      int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             BERR( * ), FERR( * ), RESLTS( * );
@@ -21,13 +21,13 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN, UNIT, UPPER;
-      int                I, IFU, IMAX, J, K, NZ
+      int                I, IFU, IMAX, J, K, NZ;
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IZAMAX
+      int                IZAMAX;
       double             DLAMCH;
       EXTERNAL           LSAME, IZAMAX, DLAMCH
 *     ..

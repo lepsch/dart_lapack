@@ -7,12 +7,12 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDU, LDVT, LWORK, NOUT, NSIZES, NTYPES
+      int                INFO, LDA, LDU, LDVT, LWORK, NOUT, NSIZES, NTYPES;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * );
       REAL               A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
 *     ..
 *
@@ -21,25 +21,25 @@
 *     .. Parameters ..
       REAL              ZERO, ONE, TWO, HALF
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 )
-      int                MAXTYP
+      int                MAXTYP;
       PARAMETER          ( MAXTYP = 5 )
 *     ..
 *     .. Local Scalars ..
       bool               BADMM, BADNN;
       String             JOBQ, JOBU, JOBVT, RANGE;
       String             PATH;
-      int                I, IINFO, IJQ, IJU, IJVT, IL,IU, IWS, IWTMP, ITEMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NFAIL, NMAX, NS, NSI, NSV, NTEST
+      int                I, IINFO, IJQ, IJU, IJVT, IL,IU, IWS, IWTMP, ITEMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NFAIL, NMAX, NS, NSI, NSV, NTEST;
       REAL               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Scalars for DGESVDQ ..
-      int                LIWORK, LRWORK, NUMRANK
+      int                LIWORK, LRWORK, NUMRANK;
 *     ..
 *     .. Local Arrays for DGESVDQ ..
       REAL               RWORK( 2 )
 *     ..
 *     .. Local Arrays ..
       String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
-      int                IOLDSD( 4 ), ISEED2( 4 )
+      int                IOLDSD( 4 ), ISEED2( 4 );
       REAL               RESULT( 39 )
 *     ..
 *     .. External Functions ..
@@ -55,7 +55,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

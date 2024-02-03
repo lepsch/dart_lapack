@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       String            TSSW;
-      int               M, N, MB, NB
+      int               M, N, MB, NB;
 *     .. Return values ..
       REAL              RESULT(6)
 *
@@ -23,17 +23,17 @@
 *     ..
 *     .. Local Scalars ..
       bool    TESTZEROS, TS;
-      int     INFO, J, K, L, LWORK, TSIZE, MNB
+      int     INFO, J, K, L, LWORK, TSIZE, MNB;
       REAL   ANORM, EPS, RESID, CNORM, DNORM
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       REAL               TQUERY( 5 ), WORKQUERY( 1 )
 *     ..
 *     .. External Functions ..
       REAL     SLAMCH, SLANGE, SLANSY
       bool     LSAME;
-      int      ILAENV
+      int      ILAENV;
       EXTERNAL SLAMCH, SLARNV, SLANGE, SLANSY, LSAME, ILAENV
 *     ..
 *     .. Intrinsic Functions ..

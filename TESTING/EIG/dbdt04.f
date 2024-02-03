@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDU, LDVT, N, NS
+      int                LDU, LDVT, N, NS;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, K
+      int                I, J, K;
       double             BNORM, EPS;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DASUM, DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DASUM, DLAMCH
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
-      int                LDA, LDB, LDX, N, NRHS
+      int                LDA, LDB, LDX, N, NRHS;
       double             RESID, SCALE, TSCAL;
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                IX, J
+      int                IX, J;
       double             BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

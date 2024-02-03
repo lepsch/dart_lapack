@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                N
+      int                N;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( * )
+      int                ISEED( * );
       COMPLEX*16         X( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( EYE = ( 0.0D0, 1.0D0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                J, JJ, N5
+      int                J, JJ, N5;
       double             ALPHA, ALPHA3, BETA;
       COMPLEX*16         A, B, C, R
 *     ..

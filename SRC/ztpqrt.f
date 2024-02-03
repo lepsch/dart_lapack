@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     INFO, LDA, LDB, LDT, N, M, L, NB
+      int     INFO, LDA, LDB, LDT, N, M, L, NB;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
@@ -15,7 +15,7 @@
 *
 *     ..
 *     .. Local Scalars ..
-      int        I, IB, LB, MB, IINFO
+      int        I, IB, LB, MB, IINFO;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL   ZTPQRT2, ZTPRFB, XERBLA

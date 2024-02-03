@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOB;
-      int                INFO, M, N
+      int                INFO, M, N;
 *     ..
 *     .. Array Arguments ..
       double             D( * ), SEP( * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               DECR, EIGEN, INCR, LEFT, RIGHT, SING;
-      int                I, K
+      int                I, K;
       double             ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH;
 *     ..
 *     .. External Functions ..

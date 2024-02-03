@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, N, P
+      int                LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, N, P;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               A( LDA, * ), AF( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), BF( LDB, * ), Q( LDQ, * ), R( LDR, * ), RESULT( 6 ), RWORK( * ), U( LDU, * ), V( LDV, * ), WORK( LWORK )
 *     ..
 *
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, J, K, L
+      int                I, INFO, J, K, L;
       REAL               ANORM, BNORM, RESID, TEMP, ULP, ULPINV, UNFL
 *     ..
 *     .. External Functions ..

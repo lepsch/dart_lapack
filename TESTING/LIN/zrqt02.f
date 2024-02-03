@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                K, LDA, LWORK, M, N
+      int                K, LDA, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       double             RESULT( * ), RWORK( * );
@@ -21,7 +21,7 @@
       PARAMETER          ( ROGUE = ( -1.0D+10, -1.0D+10 ) )
 *     ..
 *     .. Local Scalars ..
-      int                INFO
+      int                INFO;
       double             ANORM, EPS, RESID;
 *     ..
 *     .. External Functions ..

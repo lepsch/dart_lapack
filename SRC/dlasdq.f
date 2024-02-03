@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU, SQRE
+      int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU, SQRE;
 *     ..
 *     .. Array Arguments ..
       double             C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               ROTATE;
-      int                I, ISUB, IUPLO, J, NP1, SQRE1
+      int                I, ISUB, IUPLO, J, NP1, SQRE1;
       double             CS, R, SMIN, SN;
 *     ..
 *     .. External Subroutines ..

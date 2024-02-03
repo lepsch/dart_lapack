@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                N
+      int                N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         X( * ), Y( * ), W( * )
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       COMPLEX*16         S
-      int                I
+      int                I;
 *     ..
 *     .. Executable Statements ..
       DO 10 I = 1, N

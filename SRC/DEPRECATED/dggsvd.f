@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
-      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P
+      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
 *     ..
 *
@@ -17,7 +17,7 @@
 *
 *     .. Local Scalars ..
       bool               WANTQ, WANTU, WANTV;
-      int                I, IBND, ISUB, J, NCYCLE
+      int                I, IBND, ISUB, J, NCYCLE;
       double             ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL;
 *     ..
 *     .. External Functions ..

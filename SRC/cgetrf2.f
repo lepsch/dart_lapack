@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX            A( LDA, * )
 *     ..
 *
@@ -21,11 +21,11 @@
 *     .. Local Scalars ..
       REAL               SFMIN
       COMPLEX            TEMP
-      int                I, IINFO, N1, N2
+      int                I, IINFO, N1, N2;
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      int                ICAMAX
+      int                ICAMAX;
       EXTERNAL           SLAMCH, ICAMAX
 *     ..
 *     .. External Subroutines ..

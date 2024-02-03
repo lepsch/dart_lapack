@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KNT, LMAX, NINFO
+      int                KNT, LMAX, NINFO;
       double             RMAX;
 *     ..
 *
@@ -18,7 +18,7 @@
       PARAMETER          ( TWO = 2.0D0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3
+      int                I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3;
       double             BIGNUM, CS, EPS, RES, SMLNUM, SN, SUM, TNRM, WI1, WI2, WR1, WR2;
 *     ..
 *     .. Local Arrays ..

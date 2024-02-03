@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, K, LDQ, N, N1
+      int                INFO, K, LDQ, N, N1;
       REAL               RHO
 *     ..
 *     .. Array Arguments ..
-      int                CTOT( * ), INDX( * )
+      int                CTOT( * ), INDX( * );
       REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, II, IQ2, J, N12, N2, N23
+      int                I, II, IQ2, J, N12, N2, N23;
       REAL               TEMP
 *     ..
 *     .. External Functions ..

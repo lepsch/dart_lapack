@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             HOWMNY, JOB;
-      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N
+      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
-      int                IWORK( * )
+      int                IWORK( * );
       double             DIF( * ), S( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
@@ -19,12 +19,12 @@
 *
 *     .. Parameters ..
       double             ZERO, ONE;
-      int                IDIFJB
+      int                IDIFJB;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, IDIFJB = 3 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, SOMCON, WANTBH, WANTDF, WANTS;
-      int                I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2
+      int                I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2;
       double             BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM;
       COMPLEX*16         YHAX, YHBX
 *     ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     INCX,N
+      int     INCX,N;
 *     ..
 *     .. Array Arguments ..
       double           DX(*);
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       double           DTEMP;
-      int     I,M,MP1,NINCX
+      int     I,M,MP1,NINCX;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC DABS,MOD

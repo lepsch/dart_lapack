@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
-      int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N
+      int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                HERE
+      int                HERE;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CTGEX2, XERBLA

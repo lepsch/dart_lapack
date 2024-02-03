@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KASE, N
+      int                KASE, N;
       double             EST;
 *     ..
 *     .. Array Arguments ..
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                ITMAX
+      int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       double             ONE, TWO;
       PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0 )
@@ -23,11 +23,11 @@
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, ITER, J, JLAST, JUMP
+      int                I, ITER, J, JLAST, JUMP;
       double             ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP;
 *     ..
 *     .. External Functions ..
-      int                IZMAX1
+      int                IZMAX1;
       double             DLAMCH, DZSUM1;
       EXTERNAL           IZMAX1, DLAMCH, DZSUM1
 *     ..

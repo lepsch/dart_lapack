@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
-      int                K, LDAB, N
+      int                K, LDAB, N;
 *     ..
 *     .. Array Arguments ..
       REAL               AB( LDAB, * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UDIAG;
-      int                I, J, L
+      int                I, J, L;
       REAL               SCALE, SUM, VALUE
 *     ..
 *     .. External Subroutines ..

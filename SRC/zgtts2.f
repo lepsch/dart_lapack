@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                ITRANS, LDB, N, NRHS
+      int                ITRANS, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
       COMPLEX*16         TEMP
 *     ..
 *     .. Intrinsic Functions ..

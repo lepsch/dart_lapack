@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
-      int                N
+      int                N;
 *     ..
 *     .. Array Arguments ..
       double             WORK( * );
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UDIAG;
-      int                I, J, K
+      int                I, J, K;
       double             SCALE, SUM, VALUE;
 *     ..
 *     .. External Functions ..

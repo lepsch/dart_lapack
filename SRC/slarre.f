@@ -6,28 +6,28 @@
 *
 *     .. Scalar Arguments ..
       String             RANGE;
-      int                IL, INFO, IU, M, N, NSPLIT
+      int                IL, INFO, IU, M, N, NSPLIT;
       REAL               PIVMIN, RTOL1, RTOL2, SPLTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      int                IBLOCK( * ), ISPLIT( * ), IWORK( * ), INDEXW( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * )
+      int                IBLOCK( * ), ISPLIT( * ), IWORK( * ), INDEXW( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       REAL               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, FOUR=4.0E0, HNDRD = 100.0E0, PERT = 4.0E0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0E0, FUDGE = 2.0E0 )
-      int                MAXTRY, ALLRNG, INDRNG, VALRNG
+      int                MAXTRY, ALLRNG, INDRNG, VALRNG;
       PARAMETER          ( MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 )
 *     ..
 *     .. Local Scalars ..
       bool               FORCEB, NOREP, USEDQD;
-      int                CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO, IN, INDL, INDU, IRANGE, J, JBLK, MB, MM, WBEGIN, WEND       REAL               AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1
+      int                CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO, IN, INDL, INDU, IRANGE, J, JBLK, MB, MM, WBEGIN, WEND       REAL               AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1;
 
 
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

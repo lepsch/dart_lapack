@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double           ALPHA,BETA;
-      int     LDA,LDB,LDC,M,N
+      int     LDA,LDB,LDC,M,N;
       String    SIDE,UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       double           TEMP1,TEMP2;
-      int     I,INFO,J,K,NROWA
+      int     I,INFO,J,K,NROWA;
       bool    UPPER;
 *     ..
 *     .. Parameters ..

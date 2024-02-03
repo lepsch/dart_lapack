@@ -15,13 +15,13 @@
       double             SELWI( 20 ), SELWR( 20 );
 *     ..
 *     .. Scalars in Common ..
-      int                SELDIM, SELOPT
+      int                SELDIM, SELOPT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       double             RMIN, X;
 *     ..
 *     .. Parameters ..

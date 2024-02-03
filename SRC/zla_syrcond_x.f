@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                N, LDA, LDAF, INFO
+      int                N, LDA, LDAF, INFO;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * )
       double             RWORK( * );
 *     ..
@@ -17,14 +17,14 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                KASE
+      int                KASE;
       double             AINVNM, ANORM, TMP;
-      int                I, J
+      int                I, J;
       bool               UP, UPPER;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

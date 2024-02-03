@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, K, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE
+      int                INFO, K, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE;
       REAL               ALPHA, BETA
 *     ..
 *     .. Array Arguments ..
-      int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * )       REAL               D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * )
+      int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * )       REAL               D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
 *     ..
 *
 *  =====================================================================
@@ -19,10 +19,10 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, EIGHT = 8.0E+0 )
 *     ..
 *     .. Local Arrays ..
-      int                CTOT( 4 ), PSM( 4 )
+      int                CTOT( 4 ), PSM( 4 );
 *     ..
 *     .. Local Scalars ..
-      int                CT, I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2
+      int                CT, I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2;
       REAL               C, EPS, HLFTOL, S, TAU, TOL, Z1
 *     ..
 *     .. External Functions ..

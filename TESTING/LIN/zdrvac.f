@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                NMAX, NM, NNS, NOUT
+      int                NMAX, NM, NNS, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                MVAL( * ), NSVAL( * )
+      int                MVAL( * ), NSVAL( * );
       double             RWORK( * );
       COMPLEX            SWORK(*)
       COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * )
@@ -21,25 +21,25 @@
 *     .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 9 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       bool               ZEROT;
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH;
-      int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
+      int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             ANORM, CNDNUM;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
 *     ..
 *     .. Local Variables ..
-      int                ITER, KASE
+      int                ITER, KASE;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAERH, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPOT06, ZCPOSV
@@ -50,7 +50,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

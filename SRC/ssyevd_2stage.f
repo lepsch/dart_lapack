@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, UPLO;
-      int                INFO, LDA, LIWORK, LWORK, N
+      int                INFO, LDA, LIWORK, LWORK, N;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               A( LDA, * ), W( * ), WORK( * )
 *     ..
 *
@@ -24,12 +24,12 @@
 *     .. Local Scalars ..
 *
       bool               LOWER, LQUERY, WANTZ;
-      int                IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LLWRK2, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
+      int                IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LLWRK2, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS;
       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV2STAGE
+      int                ILAENV2STAGE;
       REAL               SLAMCH, SLANSY
       EXTERNAL           LSAME, SLAMCH, SLANSY, ILAENV2STAGE
 *     ..

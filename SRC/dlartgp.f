@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
 *     LOGICAL            FIRST
-      int                COUNT, I
+      int                COUNT, I;
       double             EPS, F1, G1, SAFMIN, SAFMN2, SAFMX2, SCALE;
 *     ..
 *     .. External Functions ..

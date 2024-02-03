@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBU, JOBVT, RANGE;
-      int                IL, INFO, IU, LDA, LDU, LDVT, LWORK, M, N, NS
+      int                IL, INFO, IU, LDA, LDU, LDVT, LWORK, M, N, NS;
       REAL               VL, VU
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       String             JOBZ, RNGTGK;
       bool               ALLS, INDS, LQUERY, VALS, WANTU, WANTVT;
-      int                I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL, ITAU, ITAUP, ITAUQ, ITEMP, ITGKZ, IUTGK, J, MAXWRK, MINMN, MINWRK, MNTHR
+      int                I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL, ITAU, ITAUP, ITAUQ, ITEMP, ITGKZ, IUTGK, J, MAXWRK, MINMN, MINWRK, MNTHR;
       REAL               ABSTOL, ANRM, BIGNUM, EPS, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -34,7 +34,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..

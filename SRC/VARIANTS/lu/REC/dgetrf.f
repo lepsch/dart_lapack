@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             A( LDA, * );
 *     ..
 *
@@ -21,12 +21,12 @@
 *     ..
 *     .. Local Scalars ..
       double             SFMIN, TMP;
-      int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD
-      int                KSTART, IPIVSTART, JPIVSTART, KCOLS
+      int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD;
+      int                KSTART, IPIVSTART, JPIVSTART, KCOLS;
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      int                IDAMAX
+      int                IDAMAX;
       bool               DISNAN;
       EXTERNAL           DLAMCH, IDAMAX, DISNAN
 *     ..

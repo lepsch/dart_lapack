@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
-      int                INFO, LDA, LDB, N, NRHS
+      int                INFO, LDA, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * )
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOUNIT;
-      int                J, K, KP
+      int                J, K, KP;
       COMPLEX*16         D11, D12, D21, D22, T1, T2
 *     ..
 *     .. External Functions ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             PATH;
-      int                NIN, NMATS, NOUT, NTYPES
+      int                NIN, NMATS, NOUT, NTYPES;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
@@ -19,10 +19,10 @@
       String             C1;
       String             INTSTR;
       String             LINE;
-      int                I, I1, IC, J, K, LENP, NT
+      int                I, I1, IC, J, K, LENP, NT;
 *     ..
 *     .. Local Arrays ..
-      int                NREQ( 100 )
+      int                NREQ( 100 );
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LEN
@@ -116,7 +116,7 @@
      $      ' right number of types for each path', / )
  9997 FORMAT( ' *** Warning:  duplicate request of matrix type ', I2,
      $      ' for ', A3 )
- 9996 FORMAT( //' *** Invalid int     value in column ', I2,
+ 9996 FORMAT( //' *** Invalid int     value in column ', I2,;
      $      ' of input', ' line:', /A79 )
  9995 FORMAT( //' *** Not enough matrix types on input line', /A79 )
  9994 FORMAT( ' ==> Specify ', I4, ' matrix types on this line or ',

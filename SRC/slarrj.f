@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IFIRST, ILAST, INFO, N, OFFSET
+      int                IFIRST, ILAST, INFO, N, OFFSET;
       REAL               PIVMIN, RTOL, SPDIAM
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               D( * ), E2( * ), W( * ), WERR( * ), WORK( * )
 *     ..
 *
@@ -18,10 +18,10 @@
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF
       PARAMETER        ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 )
-      int       MAXITR
+      int       MAXITR;
 *     ..
 *     .. Local Scalars ..
-      int                CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT, OLNINT, P, PREV, SAVI1
+      int                CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT, OLNINT, P, PREV, SAVI1;
       REAL               DPLUS, FAC, LEFT, MID, RIGHT, S, TMP, WIDTH
 *
 *     ..

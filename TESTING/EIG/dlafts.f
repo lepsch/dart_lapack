@@ -6,18 +6,18 @@
 *
 *     .. Scalar Arguments ..
       String             TYPE;
-      int                IE, IMAT, IOUNIT, M, N, NTESTS
+      int                IE, IMAT, IOUNIT, M, N, NTESTS;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             RESULT( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                K
+      int                K;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLAHD2

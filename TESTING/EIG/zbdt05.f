@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDU, LDVT, M, N, NS
+      int                LDA, LDU, LDVT, M, N, NS;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
       double             ANORM, EPS;
 *     ..
 *     .. Local Arrays ..
@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DASUM, DZASUM, DLAMCH, ZLANGE;
       EXTERNAL           LSAME, IDAMAX, DASUM, DZASUM, DLAMCH, ZLANGE
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             COMPQ, COMPZ, JOB;
-      int                IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N
+      int                IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       double             ALPHAI( * ), ALPHAR( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * );
@@ -20,7 +20,7 @@
       PARAMETER          ( HALF = 0.5D+0, ZERO = 0.0D+0, ONE = 1.0D+0, SAFETY = 1.0D+2 )
 *     ..
 *     .. Local Scalars ..
-      bool               ILAZR2, ILAZRO, ILPIVT, ILQ, ILSCHR, ILZ, LQUERY       int                ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT       double             A11, A12, A1I, A1R, A21, A22, A2I, A2R, AD11, AD11L, AD12, AD12L, AD21, AD21L, AD22, AD22L, AD32L, AN, ANORM, ASCALE, ATOL, B11, B1A, B1I, B1R, B22, B2A, B2I, B2R, BN, BNORM, BSCALE, BTOL, C, C11I, C11R, C12, C21, C22I, C22R, CL, CQ, CR, CZ, ESHIFT, S, S1, S1INV, S2, SAFMAX, SAFMIN, SCALE, SL, SQI, SQR, SR, SZI, SZR, T1, T2, T3, TAU, TEMP, TEMP2, TEMPI, TEMPR, U1, U12, U12L, U2, ULP, VS, W11, W12, W21, W22, WABS, WI, WR, WR2;;
+      bool               ILAZR2, ILAZRO, ILPIVT, ILQ, ILSCHR, ILZ, LQUERY       int                ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT       double             A11, A12, A1I, A1R, A21, A22, A2I, A2R, AD11, AD11L, AD12, AD12L, AD21, AD21L, AD22, AD22L, AD32L, AN, ANORM, ASCALE, ATOL, B11, B1A, B1I, B1R, B22, B2A, B2I, B2R, BN, BNORM, BSCALE, BTOL, C, C11I, C11R, C12, C21, C22I, C22R, CL, CQ, CR, CZ, ESHIFT, S, S1, S1INV, S2, SAFMAX, SAFMIN, SCALE, SL, SQI, SQR, SR, SZI, SZR, T1, T2, T3, TAU, TEMP, TEMP2, TEMPI, TEMPR, U1, U12, U12L, U2, ULP, VS, W11, W12, W21, W22, WABS, WI, WR, WR2;;;
 *     ..
 *     .. Local Arrays ..
       double             V( 3 );

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIRECT, STOREV;
-      int                K, LDT, LDV, N
+      int                K, LDT, LDV, N;
 *     ..
 *     .. Array Arguments ..
       REAL               T( LDT, * ), TAU( * ), V( LDV, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, J
+      int                I, INFO, J;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGEMV, STRMV, XERBLA

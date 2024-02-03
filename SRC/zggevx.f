@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       String             BALANC, JOBVL, JOBVR, SENSE;
-      int                IHI, ILO, INFO, LDA, LDB, LDVL, LDVR, LWORK, N
+      int                IHI, ILO, INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
       double             ABNRM, BBNRM;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
-      int                IWORK( * )
+      int                IWORK( * );
       double             LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), RWORK( * )       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
 *     ..
 *
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL, WANTSB, WANTSE, WANTSN, WANTSV;
       String             CHTEMP;
-      int                I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
+      int                I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;;
       COMPLEX*16         X
 *     ..
 *     .. Local Arrays ..
@@ -37,7 +37,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, ZLANGE;
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..

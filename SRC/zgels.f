@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, TPSD;
-      int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE
+      int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE;
       double             ANRM, BIGNUM, BNRM, SMLNUM;
 *     ..
 *     .. Local Arrays ..
@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, ZLANGE;
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..

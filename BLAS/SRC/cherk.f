@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
-      int     K,LDA,LDC,N
+      int     K,LDA,LDC,N;
       String    TRANS,UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       COMPLEX TEMP
       REAL RTEMP
-      int     I,INFO,J,L,NROWA
+      int     I,INFO,J,L,NROWA;
       bool    UPPER;
 *     ..
 *     .. Parameters ..

@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             COMPZ;
-      int                INFO, LDZ, LIWORK, LRWORK, LWORK, N
+      int                INFO, LDZ, LIWORK, LRWORK, LWORK, N;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             D( * ), E( * ), RWORK( * );
       COMPLEX*16         WORK( * ), Z( LDZ, * )
 *     ..
@@ -22,12 +22,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LL, LRWMIN, LWMIN, M, SMLSIZ, START
+      int                FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LL, LRWMIN, LWMIN, M, SMLSIZ, START;
       double             EPS, ORGNRM, P, TINY;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, DLANST;
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST
 *     ..

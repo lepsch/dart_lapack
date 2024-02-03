@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KBAND, LDU, N
+      int                KBAND, LDU, N;
 *     ..
 *     .. Array Arguments ..
       double             AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
@@ -21,7 +21,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                J
+      int                J;
       double             ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
 *     ..
 *     .. External Functions ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                K, LDA, LWORK, M, N
+      int                K, LDA, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       REAL               RESULT( * ), RWORK( * )
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       String             SIDE, TRANS;
-      int                INFO, ISIDE, ITRANS, J, MC, MINMN, NC
+      int                INFO, ISIDE, ITRANS, J, MC, MINMN, NC;
       REAL               CNORM, EPS, RESID
 *     ..
 *     .. External Functions ..
@@ -34,7 +34,7 @@
       EXTERNAL           CGEMM, CLACPY, CLARNV, CLASET, CUNGQL, CUNMQL
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CMPLX, MAX, MIN, REAL

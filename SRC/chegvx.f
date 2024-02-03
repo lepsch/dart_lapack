@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
-      int                IL, INFO, ITYPE, IU, LDA, LDB, LDZ, LWORK, M, N
+      int                IL, INFO, ITYPE, IU, LDA, LDB, LDZ, LWORK, M, N;
       REAL               ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      int                IFAIL( * ), IWORK( * )
+      int                IFAIL( * ), IWORK( * );
       REAL               RWORK( * ), W( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -24,11 +24,11 @@
 *     .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, UPPER, VALEIG, WANTZ;
       String             TRANS;
-      int                LWKOPT, NB
+      int                LWKOPT, NB;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK
 *     ..

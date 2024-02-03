@@ -9,7 +9,7 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       bool               WANTZ;
-      int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT
+      int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), V( * ), TAU( * ), WORK( * )
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER
+      int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER;
       COMPLEX*16         CTMP
 *     ..
 *     .. External Subroutines ..

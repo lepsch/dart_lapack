@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO, WAY;
-      int                INFO, LDA, N
+      int                INFO, LDA, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         A( LDA, * ), E( * )
 *     ..
 *
@@ -27,7 +27,7 @@
       EXTERNAL           ZSWAP, XERBLA
 *     .. Local Scalars ..
       bool               UPPER, CONVERT;
-      int                I, IP
+      int                I, IP;
 *     ..
 *     .. Executable Statements ..
 *

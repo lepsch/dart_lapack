@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
-      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P
+      int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P;
       REAL               TOLA, TOLB
 *     ..
 *     .. Array Arguments ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                MAXIT
+      int                MAXIT;
       PARAMETER          ( MAXIT = 40 )
       REAL               ZERO, ONE, HUGENUM
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
@@ -27,7 +27,7 @@
 *     .. Local Scalars ..
 *
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
-      int                I, J, KCYCLE
+      int                I, J, KCYCLE;
       REAL               A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN
       COMPLEX            A2, B2, SNQ, SNU, SNV
 *     ..

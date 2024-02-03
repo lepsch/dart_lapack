@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                ITYPE, KBAND, LDU, N
+      int                ITYPE, KBAND, LDU, N;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * )
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
-      int                IINFO, J, JP, JP1, JR, LAP
+      int                IINFO, J, JP, JP1, JR, LAP;
       REAL               ANORM, ULP, UNFL, WNORM
       COMPLEX            TEMP, VSAVE
 *     ..

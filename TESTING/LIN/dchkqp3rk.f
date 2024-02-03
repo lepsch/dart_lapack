@@ -6,20 +6,20 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                NM, NN, NNB, NNS, NOUT
+      int                NM, NN, NNB, NNS, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )       double             A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * );
+      int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )       double             A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * );;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 19 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 5 )
       double             ONE, ZERO, BIGNUM;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, BIGNUM = 1.0D+38 )
@@ -27,11 +27,11 @@
 *     .. Local Scalars ..
       String             DIST, TYPE;
       String             PATH;
-      int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T
+      int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T;
       double             ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK;
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS ), RDUMMY( 1 );
 *     ..
 *     .. External Functions ..
@@ -47,7 +47,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, IOUNIT
+      int                INFOT, IOUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, UPLO;
-      int                INFO, LDA, N
+      int                INFO, LDA, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOUNIT, UPPER;
-      int                J
+      int                J;
       COMPLEX            AJJ
 *     ..
 *     .. External Functions ..

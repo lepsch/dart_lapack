@@ -3,9 +3,9 @@
 
 *     Arguments
       String   , INTENT( IN ) :: WANTS, WANTQ, WANTZ;
-      int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, REC
+      int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, REC;
 
-      int    , INTENT( OUT ) :: INFO
+      int    , INTENT( OUT ) :: INFO;
        double          , INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * ), WORK( * );
 
 *     Parameters
@@ -13,7 +13,7 @@
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 
 *     Local scalars
-      double           :: SMLNUM, ULP, ESHIFT, SAFMIN, SAFMAX, C1, S1, TEMP, SWAP, BNORM, BTOL       int     :: ISTART, ISTOP, IITER, MAXIT, ISTART2, K, LD, NSHIFTS, NBLOCK, NW, NMIN, NIBBLE, N_UNDEFLATED, N_DEFLATED, NS, SWEEP_INFO, SHIFTPOS, LWORKREQ, K2, ISTARTM, ISTOPM, IWANTS, IWANTQ, IWANTZ, NORM_INFO, AED_INFO, NWR, NBR, NSR, ITEMP1, ITEMP2, RCOST, I;
+      double           :: SMLNUM, ULP, ESHIFT, SAFMIN, SAFMAX, C1, S1, TEMP, SWAP, BNORM, BTOL       int     :: ISTART, ISTOP, IITER, MAXIT, ISTART2, K, LD, NSHIFTS, NBLOCK, NW, NMIN, NIBBLE, N_UNDEFLATED, N_DEFLATED, NS, SWEEP_INFO, SHIFTPOS, LWORKREQ, K2, ISTARTM, ISTOPM, IWANTS, IWANTQ, IWANTZ, NORM_INFO, AED_INFO, NWR, NBR, NSR, ITEMP1, ITEMP2, RCOST, I;;
       bool    :: ILSCHUR, ILQ, ILZ;
       String    :: JBCMPZ*3;
 
@@ -21,7 +21,7 @@
       EXTERNAL :: XERBLA, DHGEQZ, DLASET, DLAQZ3, DLAQZ4, DLARTG, DROT
       double          , EXTERNAL :: DLAMCH, DLANHS;
       bool   , EXTERNAL :: LSAME;
-      int    , EXTERNAL :: ILAENV
+      int    , EXTERNAL :: ILAENV;
 
 *
 *     Decode wantS,wantQ,wantZ

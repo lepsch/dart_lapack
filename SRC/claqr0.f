@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, LWORK, N
+      int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, LWORK, N;
       bool               WANTT, WANTZ;
 *     ..
 *     .. Array Arguments ..
@@ -18,19 +18,19 @@
 *     ==== Matrices of order NTINY or smaller must be processed by
 *     .    CLAHQR because of insufficient subdiagonal scratch space.
 *     .    (This is a hard limit.) ====
-      int                NTINY
+      int                NTINY;
       PARAMETER          ( NTINY = 15 )
 *
 *     ==== Exceptional deflation windows:  try to cure rare
 *     .    slow convergence by varying the size of the
 *     .    deflation window after KEXNW iterations. ====
-      int                KEXNW
+      int                KEXNW;
       PARAMETER          ( KEXNW = 5 )
 *
 *     ==== Exceptional shifts: try to cure rare slow convergence
 *     .    with ad-hoc exceptional shifts every KEXSH iterations.
 *     .    ====
-      int                KEXSH
+      int                KEXSH;
       PARAMETER          ( KEXSH = 6 )
 *
 *     ==== The constant WILK1 is used to form the exceptional
@@ -45,12 +45,12 @@
 *     .. Local Scalars ..
       COMPLEX            AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2
       REAL               S
-      int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
+      int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD;
       bool               SORTED;
       String             JBCMPZ*2;
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV
 *     ..
 *     .. Local Arrays ..

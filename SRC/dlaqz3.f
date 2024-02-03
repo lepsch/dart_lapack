@@ -3,9 +3,9 @@
 
 *     Arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
-      int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC
+      int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC;
        double          , INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * );
-      int    , INTENT( OUT ) :: NS, ND, INFO
+      int    , INTENT( OUT ) :: NS, ND, INFO;
       double           :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * );
 
 *     Parameters
@@ -14,7 +14,7 @@
 
 *     Local Scalars
       bool    :: BULGE;
-      int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, DTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO
+      int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, DTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;
       double           :: S, SMLNUM, ULP, SAFMIN, SAFMAX, C1, S1, TEMP;
 
 *     External Functions

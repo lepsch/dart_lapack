@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                NN, NNS, NNT, NOUT
+      int                NN, NNS, NNT, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
-      int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT )
+      int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT );
       double             A( * );
       double             AINV( * );
       double             ASAV( * );
@@ -34,19 +34,19 @@
 *     .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 4 )
 *     ..
 *     .. Local Scalars ..
       bool               ZEROT;
-      int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS
+      int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS;
       String             DIST, CTYPE, UPLO, CFORM;
-      int                KL, KU, MODE
+      int                KL, KU, MODE;
       double             ANORM, AINVNM, CNDNUM, RCONDC;
 *     ..
 *     .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..

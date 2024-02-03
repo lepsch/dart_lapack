@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     INCX,INCY,N
+      int     INCX,INCY,N;
 *     ..
 *     .. Array Arguments ..
       double           DPARAM(5),DX(*),DY(*);
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       double           DFLAG,DH11,DH12,DH21,DH22,TWO,W,Z,ZERO;
-      int     I,KX,KY,NSTEPS
+      int     I,KX,KY,NSTEPS;
 *     ..
 *     .. Data statements ..
       DATA ZERO,TWO/0.D0,2.D0/

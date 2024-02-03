@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
-      int                INFO, LDA, LDB, N, NRHS
+      int                INFO, LDA, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * )

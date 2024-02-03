@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, M, N, SCALE
+      int                LDA, M, N, SCALE;
       double             NORMA;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             A( LDA, * );
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                INFO, J
+      int                INFO, J;
       double             BIGNUM, SMLNUM;
 *     ..
 *     .. External Functions ..

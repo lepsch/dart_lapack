@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                LDA, LDB, LDX, M, N, NRHS
+      int                LDA, LDB, LDX, M, N, NRHS;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                J, N1, N2
+      int                J, N1, N2;
       double             ANORM, BNORM, EPS, XNORM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH, DLANGE;
       EXTERNAL           LSAME, IDAMAX, DLAMCH, DLANGE
 *     ..

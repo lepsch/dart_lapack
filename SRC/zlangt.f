@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             NORM;
-      int                N
+      int                N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         D( * ), DL( * ), DU( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       double             ANORM, SCALE, SUM, TEMP;
 *     ..
 *     .. External Functions ..

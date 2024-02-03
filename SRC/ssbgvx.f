@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
-      int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N
+      int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N;
       REAL               ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      int                IFAIL( * ), IWORK( * )
+      int                IFAIL( * ), IWORK( * );
       REAL               AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ;
       String             ORDER, VECT;
-      int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWO, INDWRK, ITMP1, J, JJ, NSPLIT
+      int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWO, INDWRK, ITMP1, J, JJ, NSPLIT;
       REAL               TMP1
 *     ..
 *     .. External Functions ..

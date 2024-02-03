@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             COMPQ, UPLO;
-      int                INFO, LDU, LDVT, N
+      int                INFO, LDU, LDVT, N;
 *     ..
 *     .. Array Arguments ..
-      int                IQ( * ), IWORK( * )
+      int                IQ( * ), IWORK( * );
       REAL               D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
@@ -23,12 +23,12 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z
+      int                DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z;
       REAL               CS, EPS, ORGNRM, P, R, SN
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SLAMCH, SLANST
       EXTERNAL           SLAMCH, SLANST, ILAENV, LSAME
 *     ..

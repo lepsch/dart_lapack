@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
-      int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS
+      int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS;
       double             RCOND;
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU, UPPER;
-      int                I, INFEQU, J, J1, J2
+      int                I, INFEQU, J, J1, J2;
       double             AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM;
 *     ..
 *     .. External Functions ..

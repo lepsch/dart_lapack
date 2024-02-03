@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIDE;
-      int                INCV, LDC, M, N
+      int                INCV, LDC, M, N;
       double             TAU;
 *     ..
 *     .. Array Arguments ..
@@ -21,14 +21,14 @@
 *     ..
 *     .. Local Scalars ..
       bool               APPLYLEFT;
-      int                I, LASTV, LASTC
+      int                I, LASTV, LASTC;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMV, DGER
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILADLR, ILADLC
+      int                ILADLR, ILADLC;
       EXTERNAL           LSAME, ILADLR, ILADLC
 *     ..
 *     .. Executable Statements ..

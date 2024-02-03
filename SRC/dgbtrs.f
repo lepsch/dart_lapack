@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                INFO, KL, KU, LDAB, LDB, N, NRHS
+      int                INFO, KL, KU, LDAB, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             AB( LDAB, * ), B( LDB, * );
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LNOTI, NOTRAN;
-      int                I, J, KD, L, LM
+      int                I, J, KD, L, LM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

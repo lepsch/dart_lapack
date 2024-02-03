@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IFIRST, ILAST, INFO, N, OFFSET, TWIST
+      int                IFIRST, ILAST, INFO, N, OFFSET, TWIST;
       double             PIVMIN, RTOL1, RTOL2, SPDIAM;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             D( * ), LLD( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
 *     ..
 *
@@ -18,13 +18,13 @@
 *     .. Parameters ..
       double             ZERO, TWO, HALF;
       PARAMETER        ( ZERO = 0.0D0, TWO = 2.0D0, HALF = 0.5D0 )
-      int       MAXITR
+      int       MAXITR;
 *     ..
 *     .. Local Scalars ..
-      int                I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R       double             BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH;
+      int                I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R       double             BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH;;
 *     ..
 *     .. External Functions ..
-      int                DLANEG
+      int                DLANEG;
       EXTERNAL           DLANEG
 *
 *     ..

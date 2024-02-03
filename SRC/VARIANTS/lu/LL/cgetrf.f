@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX            A( LDA, * )
 *     ..
 *
@@ -19,13 +19,13 @@
       PARAMETER          ( ONE = (1.0E+0, 0.0E+0) )
 *     ..
 *     .. Local Scalars ..
-      int                I, IINFO, J, JB, K, NB
+      int                I, IINFO, J, JB, K, NB;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGEMM, CGETF2, CLASWP, CTRSM, XERBLA
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV
 *     ..
 *     .. Intrinsic Functions ..

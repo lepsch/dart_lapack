@@ -7,17 +7,17 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX = 132 )
-      int                MAXIN
+      int                MAXIN;
       PARAMETER          ( MAXIN = 12 )
-      int                MAXRHS
+      int                MAXRHS;
       PARAMETER          ( MAXRHS = 16 )
-      int                MATMAX
+      int                MATMAX;
       PARAMETER          ( MATMAX = 30 )
-      int                NIN, NOUT
+      int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
-      int                KDMAX
+      int                KDMAX;
       PARAMETER          ( KDMAX = NMAX+( NMAX+1 ) / 4 )
 *     ..
 *     .. Local Scalars ..
@@ -27,15 +27,15 @@
       String             PATH;
       String             INTSTR;
       String             ALINE;
-      int                I, IC, J, K, LA, LAFAC, LDA, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH
+      int                I, IC, J, K, LA, LAFAC, LDA, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       REAL               EPS, S1, S2, THREQ, THRESH
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( MATMAX );
-      int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX )
+      int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX );
 *     ..
 *     .. Allocatable Arrays ..
-      int     AllocateStatus
+      int     AllocateStatus;
       REAL, DIMENSION(:), ALLOCATABLE :: RWORK, S
       COMPLEX, DIMENSION(:), ALLOCATABLE :: E
       COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
@@ -51,10 +51,10 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Arrays in Common ..
-      int                IPARMS( 100 )
+      int                IPARMS( 100 );
 *     ..
 *     .. Common blocks ..
       COMMON             / CLAENV / IPARMS

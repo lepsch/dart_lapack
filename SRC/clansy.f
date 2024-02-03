@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             NORM, UPLO;
-      int                LDA, N
+      int                LDA, N;
 *     ..
 *     .. Array Arguments ..
       REAL               WORK( * )
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
       REAL               ABSA, SCALE, SUM, VALUE
 *     ..
 *     .. External Functions ..

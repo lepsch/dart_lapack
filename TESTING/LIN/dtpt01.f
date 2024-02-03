@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, UPLO;
-      int                N
+      int                N;
       double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UNITD;
-      int                J, JC
+      int                J, JC;
       double             AINVNM, ANORM, EPS;
 *     ..
 *     .. External Functions ..

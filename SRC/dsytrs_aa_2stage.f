@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                N, NRHS, LDA, LTB, LDB, INFO
+      int                N, NRHS, LDA, LTB, LDB, INFO;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * ), IPIV2( * )
+      int                IPIV( * ), IPIV2( * );
       double             A( LDA, * ), TB( * ), B( LDB, * );
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                LDTB, NB
+      int                LDTB, NB;
       bool               UPPER;
 *     ..
 *     .. External Functions ..

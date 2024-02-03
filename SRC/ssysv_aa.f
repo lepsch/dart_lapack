@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, LDB, LWORK, N, NRHS
+      int                INFO, LDA, LDB, LWORK, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       REAL               A( LDA, * ), B( LDB, * ), WORK( * )
 *     ..
 *
@@ -17,7 +17,7 @@
 *
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                LWKMIN, LWKOPT, LWKOPT_SYTRF, LWKOPT_SYTRS
+      int                LWKMIN, LWKOPT, LWKOPT_SYTRF, LWKOPT_SYTRS;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

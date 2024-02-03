@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBT;
-      int                EIGCNT, INFO, LCNT, N, RCNT
+      int                EIGCNT, INFO, LCNT, N, RCNT;
       REAL               PIVMIN, VL, VU
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       bool               MATT;
       REAL               LPIVOT, RPIVOT, SL, SU, TMP, TMP2
 

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
-      int                IL, INFO, ITYPE, IU, LDZ, M, N
+      int                IL, INFO, ITYPE, IU, LDZ, M, N;
       double             ABSTOL, VL, VU;
 *     ..
 *     .. Array Arguments ..
-      int                IFAIL( * ), IWORK( * )
+      int                IFAIL( * ), IWORK( * );
       double             RWORK( * ), W( * );
       COMPLEX*16         AP( * ), BP( * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -20,7 +20,7 @@
 *     .. Local Scalars ..
       bool               ALLEIG, INDEIG, UPPER, VALEIG, WANTZ;
       String             TRANS;
-      int                J
+      int                J;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

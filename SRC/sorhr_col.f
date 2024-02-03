@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int               INFO, LDA, LDT, M, N, NB
+      int               INFO, LDA, LDT, M, N, NB;
 *     ..
 *     .. Array Arguments ..
       REAL              A( LDA, * ), D( * ), T( LDT, * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE
+      int                I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SCOPY, SLAORHR_COL_GETRFNP, SSCAL, STRSM, XERBLA

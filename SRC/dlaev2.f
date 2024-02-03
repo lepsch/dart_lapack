@@ -21,7 +21,7 @@
       PARAMETER          ( HALF = 0.5D0 )
 *     ..
 *     .. Local Scalars ..
-      int                SGN1, SGN2
+      int                SGN1, SGN2;
       double             AB, ACMN, ACMX, ACS, ADF, CS, CT, DF, RT, SM, TB, TN;
 *     ..
 *     .. Intrinsic Functions ..

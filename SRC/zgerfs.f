@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS
+      int                INFO, LDA, LDAF, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             BERR( * ), FERR( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                ITMAX
+      int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -31,12 +31,12 @@
 *     .. Local Scalars ..
       bool               NOTRAN;
       String             TRANSN, TRANST;
-      int                COUNT, I, J, K, KASE, NZ
+      int                COUNT, I, J, K, KASE, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

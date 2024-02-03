@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KNT, LMAX, NIN
+      int                KNT, LMAX, NIN;
       double             RMAX;
 *     ..
 *     .. Array Arguments ..
-      int                NINFO( 2 )
+      int                NINFO( 2 );
 *     ..
 *
 *  =====================================================================
@@ -17,11 +17,11 @@
 *     .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-      int                LDT, LWORK
+      int                LDT, LWORK;
       PARAMETER          ( LDT = 10, LWORK = 100 + 4*LDT + 16 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IFST, IFST1, IFST2, IFSTSV, ILST, ILST1, ILST2, ILSTSV, J, LOC, N
+      int                I, IFST, IFST1, IFST2, IFSTSV, ILST, ILST1, ILST2, ILSTSV, J, LOC, N;
       double             EPS, RES;
 *     ..
 *     .. Local Arrays ..

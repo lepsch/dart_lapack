@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDWORK, N
+      int                LDWORK, N;
       double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, JJ
+      int                I, J, JJ;
       double             AINVNM, ANORM, EPS;
 *     ..
 *     .. External Functions ..

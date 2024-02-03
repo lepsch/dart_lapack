@@ -7,25 +7,25 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                MAXIN
+      int                MAXIN;
       PARAMETER          ( MAXIN = 12 )
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX =  50 )
-      int                MAXRHS
+      int                MAXRHS;
       PARAMETER          ( MAXRHS = 16 )
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 9 )
-      int                NIN, NOUT
+      int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
 *     ..
 *     .. Local Scalars ..
       bool               FATAL, TSTERR;
-      int                VERS_MAJOR, VERS_MINOR, VERS_PATCH
-      int                I, NN, NNS, NNT
+      int                VERS_MAJOR, VERS_MINOR, VERS_PATCH;
+      int                I, NN, NNS, NNT;
       REAL               EPS, S1, S2, THRESH
 *     ..
 *     .. Local Arrays ..
-      int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES )
+      int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
       REAL               WORKA( NMAX, NMAX )
       REAL               WORKASAV( NMAX, NMAX )
       REAL               WORKB( NMAX, MAXRHS )

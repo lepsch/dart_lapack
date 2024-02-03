@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANSR, UPLO;
-      int                INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               A( 0: * ), B( LDB, * )

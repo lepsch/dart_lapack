@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             FACT, UPLO;
-      int                INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS;
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       REAL               BERR( * ), FERR( * ), RWORK( * )
       COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..

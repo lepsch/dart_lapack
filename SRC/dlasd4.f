@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                I, INFO, N
+      int                I, INFO, N;
       double             RHO, SIGMA;
 *     ..
 *     .. Array Arguments ..
@@ -15,14 +15,14 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                MAXIT
+      int                MAXIT;
       PARAMETER          ( MAXIT = 400 )
       double             ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0, FOUR = 4.0D+0, EIGHT = 8.0D+0, TEN = 10.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               ORGATI, SWTCH, SWTCH3, GEOMAVG;
-      int                II, IIM1, IIP1, IP1, ITER, J, NITER
+      int                II, IIM1, IIP1, IP1, ITER, J, NITER;
       double             A, B, C, DELSQ, DELSQ2, SQ2, DPHI, DPSI, DTIIM, DTIIP, DTIPSQ, DTISQ, DTNSQ, DTNSQ1, DW, EPS, ERRETM, ETA, PHI, PREW, PSI, RHOINV, SGLB, SGUB, TAU, TAU2, TEMP, TEMP1, TEMP2, W;
 *     ..
 *     .. Local Arrays ..

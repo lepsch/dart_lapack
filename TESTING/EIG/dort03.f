@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       List<String>       RC;
-      int                INFO, K, LDU, LDV, LWORK, MU, MV, N
+      int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
       double             RESULT;
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IRC, J, LMX
+      int                I, IRC, J, LMX;
       double             RES1, RES2, S, ULP;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

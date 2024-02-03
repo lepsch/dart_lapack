@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double           DA;
-      int     INCX,N
+      int     INCX,N;
 *     ..
 *     .. Array Arguments ..
       double           DX(*);
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int     I,M,MP1,NINCX
+      int     I,M,MP1,NINCX;
 *     .. Parameters ..
       double           ONE;
       PARAMETER (ONE=1.0D+0)

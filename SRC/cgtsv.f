@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                J, K
+      int                J, K;
       COMPLEX            MULT, TEMP, ZDUM
 *     ..
 *     .. Intrinsic Functions ..

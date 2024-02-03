@@ -8,11 +8,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KNT
+      int                KNT;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      int                NFAIL( 3 ), NINFO( 2 )
+      int                NFAIL( 3 ), NINFO( 2 );
       REAL               RMAX( 2 )
 *     ..
 *
@@ -23,21 +23,21 @@
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
       REAL               ONE, ZERO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-      int                MAXM, MAXN, LDSWORK
+      int                MAXM, MAXN, LDSWORK;
       PARAMETER          ( MAXM = 101, MAXN = 138, LDSWORK = 18 )
 *     ..
 *     .. Local Scalars ..
       String             TRANA, TRANB;
-      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N       REAL               ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM
+      int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N       REAL               ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
       COMPLEX            RMUL
 *     ..
 *     .. Local Arrays ..
       COMPLEX            DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) )
       REAL               DUM( MAXN ), VM( 2 )
-      int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 )
+      int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 );
 *     ..
 *     .. Allocatable Arrays ..
-      int                AllocateStatus
+      int                AllocateStatus;
       COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X
       REAL,    DIMENSION(:,:), ALLOCATABLE :: SWORK
 *     ..

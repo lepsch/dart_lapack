@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             NORM;
-      int                KL, KU, LDAB, N
+      int                KL, KU, LDAB, N;
 *     ..
 *     .. Array Arguments ..
       REAL               AB( LDAB, * ), WORK( * )
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, K, L
+      int                I, J, K, L;
       REAL               SCALE, SUM, VALUE, TEMP
 *     ..
 *     .. External Subroutines ..

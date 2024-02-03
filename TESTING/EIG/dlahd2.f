@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             PATH;
-      int                IOUNIT
+      int                IOUNIT;
 *     ..
 *
 *  =====================================================================
@@ -14,7 +14,7 @@
 *     .. Local Scalars ..
       bool               CORZ, SORD;
       String             C2;
-      int                J
+      int                J;
 *     ..
 *     .. External Functions ..
       bool               LSAME, LSAMEN;

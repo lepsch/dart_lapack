@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS
+      int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                ISEED( 4 ), KK( * ), NN( * )
+      int                ISEED( 4 ), KK( * ), NN( * );
       REAL               RESULT( * ), RWORK( * ), SD( * ), SE( * ), D1( * ), D2( * ), D3( * )
       COMPLEX            A( LDA, * ), U( LDU, * ), WORK( * )
 *     ..
@@ -24,16 +24,16 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, TEN = 10.0E+0 )
       REAL               HALF
       PARAMETER          ( HALF = ONE / TWO )
-      int                MAXTYP
+      int                MAXTYP;
       PARAMETER          ( MAXTYP = 15 )
 *     ..
 *     .. Local Scalars ..
       bool               BADNN, BADNNB;
-      int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, LH, LW, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
+      int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, LH, LW, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
       REAL               ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
+      int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH

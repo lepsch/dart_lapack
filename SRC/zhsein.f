@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             EIGSRC, INITV, SIDE;
-      int                INFO, LDH, LDVL, LDVR, M, MM, N
+      int                INFO, LDH, LDVL, LDVR, M, MM, N;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
-      int                IFAILL( * ), IFAILR( * )
+      int                IFAILL( * ), IFAILR( * );
       double             RWORK( * );
       COMPLEX*16         H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * )
 *     ..
@@ -25,7 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;
-      int                I, IINFO, K, KL, KLN, KR, KS, LDWORK
+      int                I, IINFO, K, KL, KLN, KR, KS, LDWORK;
       double             EPS3, HNORM, SMLNUM, ULP, UNFL;
       COMPLEX*16         CDUM, WK
 *     ..

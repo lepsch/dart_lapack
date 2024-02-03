@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
-      int                INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N;
       double             RCOND;
 *     ..
 *     .. Array Arguments ..
@@ -23,16 +23,16 @@
 *     .. Local Scalars ..
       bool               NOUNIT, ONENRM, UPPER;
       String             NORMIN;
-      int                IX, KASE, KASE1
+      int                IX, KASE, KASE1;
       double             AINVNM, ANORM, SCALE, SMLNUM, XNORM;
       COMPLEX*16         ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IZAMAX
+      int                IZAMAX;
       double             DLAMCH, ZLANTB;
       EXTERNAL           LSAME, IZAMAX, DLAMCH, ZLANTB
 *     ..

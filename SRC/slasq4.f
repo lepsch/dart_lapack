@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                I0, N0, N0IN, PP, TTYPE
+      int                I0, N0, N0IN, PP, TTYPE;
       REAL               DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, TAU
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( QURTR = 0.250E0, THIRD = 0.3330E0, HALF = 0.50E0, ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HUNDRD = 100.0E0 )
 *     ..
 *     .. Local Scalars ..
-      int                I4, NN, NP
+      int                I4, NN, NP;
       REAL               A2, B1, B2, GAM, GAP1, GAP2, S
 *     ..
 *     .. Intrinsic Functions ..

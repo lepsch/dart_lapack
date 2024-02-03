@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     INCX,LDA,N
+      int     INCX,LDA,N;
       String    DIAG,TRANS,UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       double           TEMP;
-      int     I,INFO,IX,J,JX,KX
+      int     I,INFO,IX,J,JX,KX;
       bool    NOUNIT;
 *     ..
 *     .. External Functions ..

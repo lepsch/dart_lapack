@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBVS, SORT;
-      int                INFO, LDA, LDVS, LWORK, N, SDIM
+      int                INFO, LDA, LDVS, LWORK, N, SDIM;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
@@ -26,7 +26,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTST, WANTVS;
-      int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, MAXWRK, MINWRK
+      int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, MAXWRK, MINWRK;
       double             ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM;
 *     ..
 *     .. Local Arrays ..
@@ -37,7 +37,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, ZLANGE;
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..

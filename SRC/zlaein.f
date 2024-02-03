@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
-      int                INFO, LDB, LDH, N
+      int                INFO, LDB, LDH, N;
       double             EPS3, SMLNUM;
       COMPLEX*16         W
 *     ..
@@ -25,12 +25,12 @@
 *     ..
 *     .. Local Scalars ..
       String             NORMIN, TRANS;
-      int                I, IERR, ITS, J
+      int                I, IERR, ITS, J;
       double             GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM;
       COMPLEX*16         CDUM, EI, EJ, TEMP, X
 *     ..
 *     .. External Functions ..
-      int                IZAMAX
+      int                IZAMAX;
       double             DZASUM, DZNRM2;
       COMPLEX*16         ZLADIV
       EXTERNAL           IZAMAX, DZASUM, DZNRM2, ZLADIV

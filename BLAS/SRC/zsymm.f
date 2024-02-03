@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX*16 ALPHA,BETA
-      int     LDA,LDB,LDC,M,N
+      int     LDA,LDB,LDC,M,N;
       String    SIDE,UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16 TEMP1,TEMP2
-      int     I,INFO,J,K,NROWA
+      int     I,INFO,J,K,NROWA;
       bool    UPPER;
 *     ..
 *     .. Parameters ..

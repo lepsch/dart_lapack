@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KL, KU, LDA, LDAFAC, M, N
+      int                KL, KU, LDA, LDAFAC, M, N;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             A( LDA, * ), AFAC( LDAFAC, * ), WORK( * );
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, I1, I2, IL, IP, IW, J, JL, JU, JUA, KD, LENJ
+      int                I, I1, I2, IL, IP, IW, J, JL, JU, JUA, KD, LENJ;
       double             ANORM, EPS, T;
 *     ..
 *     .. External Functions ..

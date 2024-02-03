@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL               SI1, SI2, SR1, SR2
-      int                LDH, N
+      int                LDH, N;
 *     ..
 *     .. Array Arguments ..
       REAL               H( LDH, * ), V( * )

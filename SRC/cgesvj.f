@@ -6,7 +6,7 @@
 *
       IMPLICIT NONE
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDV, LWORK, LRWORK, M, MV, N
+      int                INFO, LDA, LDV, LWORK, LRWORK, M, MV, N;
       String             JOBA, JOBU, JOBV;
 *     ..
 *     .. Array Arguments ..
@@ -21,12 +21,12 @@
       PARAMETER  ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0)
       COMPLEX      CZERO,                  CONE
       PARAMETER  ( CZERO = (0.0E0, 0.0E0), CONE = (1.0E0, 0.0E0) )
-      int          NSWEEP
+      int          NSWEEP;
       PARAMETER  ( NSWEEP = 30 )
 *     ..
 *     .. Local Scalars ..
       COMPLEX    AAPQ, OMPQ
-      REAL       AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL       int        BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN, LRWMIN
+      REAL       AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL       int        BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN, LRWMIN;
       bool       APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
 *     ..
 *     ..
@@ -39,7 +39,7 @@
       REAL               SCNRM2
       COMPLEX            CDOTC
       EXTERNAL           CDOTC, SCNRM2
-      int                ISAMAX
+      int                ISAMAX;
       EXTERNAL           ISAMAX
 *     from LAPACK
       REAL               SLAMCH, SROUNDUP_LWORK

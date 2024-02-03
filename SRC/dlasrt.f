@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             ID;
-      int                INFO, N
+      int                INFO, N;
 *     ..
 *     .. Array Arguments ..
       double             D( * );
@@ -15,15 +15,15 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                SELECT
+      int                SELECT;
       PARAMETER          ( SELECT = 20 )
 *     ..
 *     .. Local Scalars ..
-      int                DIR, ENDD, I, J, START, STKPNT
+      int                DIR, ENDD, I, J, START, STKPNT;
       double             D1, D2, D3, DMNMX, TMP;
 *     ..
 *     .. Local Arrays ..
-      int                STACK( 2, 32 )
+      int                STACK( 2, 32 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             UPLO;
       bool               CAPPLY;
-      int                N, LDA, LDAF, INFO
+      int                N, LDA, LDAF, INFO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), AF( LDAF, * ), WORK( * )
@@ -17,14 +17,14 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                KASE
+      int                KASE;
       REAL               AINVNM, ANORM, TMP
-      int                I, J
+      int                I, J;
       bool               UP, UPPER;
       COMPLEX            ZDUM
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -63,25 +63,25 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Parameters ..
-      int                NIN, NOUT
+      int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
-      int                NSUBS
+      int                NSUBS;
       PARAMETER          ( NSUBS = 16 )
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
-      int                NMAX, INCMAX
+      int                NMAX, INCMAX;
       PARAMETER          ( NMAX = 65, INCMAX = 2 )
-      int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX
+      int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
       PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       REAL               EPS, ERR, THRESH
-      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;
+      int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;;
       String             TRANS;
       String             SNAMET;
       String             SNAPS;
 *     .. Local Arrays ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX )
-      int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
+      int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX );
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
 *     .. External Functions ..
@@ -93,7 +93,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               OK;
       String             SRNAMT;
 *     .. Common blocks ..
@@ -410,15 +410,15 @@
       PARAMETER          ( ZERO = 0.0, HALF = 0.5 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
-      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL
-      int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
+      int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS;
       bool               BANDED, FULL, NULL, RESET, SAME, TRAN;
       String             TRANS, TRANSS;
       String             CTRANS;
@@ -433,7 +433,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -724,15 +724,15 @@
       PARAMETER          ( ZERO = 0.0, HALF = 0.5 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
-      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL
-      int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
+      int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             UPLO, UPLOS;
       String             CUPLO;
@@ -747,7 +747,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1039,15 +1039,15 @@
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX )
-      int                IDIM( NIDIM ), INC( NINC ), KB( NKB )
+      int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
 *     .. Local Scalars ..
       REAL               ERR, ERRMAX, TRANSL
-      int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
+      int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS;
       String             CUPLO,CTRANS,CDIAG;
@@ -1063,7 +1063,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1366,15 +1366,15 @@
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
-      int                IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC );
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL
-      int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS
+      int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS;
       bool               NULL, RESET, SAME;
 *     .. Local Arrays ..
       REAL               W( 1 )
@@ -1387,7 +1387,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1609,15 +1609,15 @@
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
-      int                IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC );
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL
-      int                I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
+      int                I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             CUPLO;
@@ -1633,7 +1633,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -1877,15 +1877,15 @@
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
 *     .. Scalar Arguments ..
       REAL               EPS, THRESH
-      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER
+      int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 )
-      int                IDIM( NIDIM ), INC( NINC )
+      int                IDIM( NIDIM ), INC( NINC );
 *     .. Local Scalars ..
       REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL
-      int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
+      int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             CUPLO;
@@ -1901,7 +1901,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
 *     .. Scalars in Common ..
-      int                INFOT, NOUTC
+      int                INFOT, NOUTC;
       bool               OK;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
@@ -2182,14 +2182,14 @@
       PARAMETER          ( ROGUE = -1.0E10 )
 *     .. Scalar Arguments ..
       REAL               TRANSL
-      int                KL, KU, LDA, M, N, NMAX
+      int                KL, KU, LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
 *     .. Array Arguments ..
       REAL               A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
-      int                I, I1, I2, I3, IBEG, IEND, IOFF, J, KK
+      int                I, I1, I2, I3, IBEG, IEND, IOFF, J, KK;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
 *     .. External Functions ..
       REAL               SBEG
@@ -2343,14 +2343,14 @@
       PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
 *     .. Scalar Arguments ..
       REAL               ALPHA, BETA, EPS, ERR
-      int                INCX, INCY, M, N, NMAX, NOUT
+      int                INCX, INCY, M, N, NMAX, NOUT;
       bool               FATAL, MV;
       String             TRANS;
 *     .. Array Arguments ..
       REAL               A( NMAX, * ), G( * ), X( * ), Y( * ), YT( * ), YY( * )
 *     .. Local Scalars ..
       REAL               ERRI
-      int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL
+      int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
       bool               TRAN;
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SQRT
@@ -2450,11 +2450,11 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      int                LR
+      int                LR;
 *     .. Array Arguments ..
       REAL               RI( * ), RJ( * )
 *     .. Local Scalars ..
-      int                I
+      int                I;
 *     .. Executable Statements ..
       DO 10 I = 1, LR
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
@@ -2481,13 +2481,13 @@
 *     Jeremy Du Croz, NAG Central Office.
 *
 *     .. Scalar Arguments ..
-      int                LDA, M, N
+      int                LDA, M, N;
       String             UPLO;
       String             TYPE;
 *     .. Array Arguments ..
       REAL               AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
-      int                I, IBEG, IEND, J
+      int                I, IBEG, IEND, J;
       bool               UPPER;
 *     .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
@@ -2538,7 +2538,7 @@
 *     .. Scalar Arguments ..
       bool               RESET;
 *     .. Local Scalars ..
-      int                I, IC, MI
+      int                I, IC, MI;
 *     .. Save statement ..
       SAVE               I, IC, MI
 *     .. Intrinsic Functions ..

@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                N, LDA, LDAF, INFO, CMODE
+      int                N, LDA, LDAF, INFO, CMODE;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * );
       double             A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
 *     ..
 *
@@ -17,11 +17,11 @@
 *
 *     .. Local Scalars ..
       bool               NOTRANS;
-      int                KASE, I, J
+      int                KASE, I, J;
       double             AINVNM, TMP;
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

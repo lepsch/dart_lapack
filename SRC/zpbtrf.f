@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         AB( LDAB, * )
@@ -19,18 +19,18 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
-      int                NBMAX, LDWORK
+      int                NBMAX, LDWORK;
       PARAMETER          ( NBMAX = 32, LDWORK = NBMAX+1 )
 *     ..
 *     .. Local Scalars ..
-      int                I, I2, I3, IB, II, J, JJ, NB
+      int                I, I2, I3, IB, II, J, JJ, NB;
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         WORK( LDWORK, NBMAX )
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

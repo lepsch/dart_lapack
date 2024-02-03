@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, ITYPE, LDA, LDB, N
+      int                INFO, ITYPE, LDA, LDB, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                K, KB, NB
+      int                K, KB, NB;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SSYGS2, SSYMM, SSYR2K, STRMM, STRSM, XERBLA
@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. Executable Statements ..

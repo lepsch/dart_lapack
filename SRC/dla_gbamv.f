@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double             ALPHA, BETA;
-      int                INCX, INCY, LDAB, M, N, KL, KU, TRANS
+      int                INCX, INCY, LDAB, M, N, KL, KU, TRANS;
 *     ..
 *     .. Array Arguments ..
       double             AB( LDAB, * ), X( * ), Y( * );
@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       bool               SYMB_ZERO;
       double             TEMP, SAFE1;
-      int                I, INFO, IY, J, JX, KX, KY, LENX, LENY, KD, KE
+      int                I, INFO, IY, J, JX, KX, KY, LENX, LENY, KD, KE;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, DLAMCH
@@ -29,7 +29,7 @@
 *     ..
 *     .. External Functions ..
       EXTERNAL           ILATRANS
-      int                ILATRANS
+      int                ILATRANS;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, ABS, SIGN

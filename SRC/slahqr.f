@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N
+      int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N;
       bool               WANTT, WANTZ;
 *     ..
 *     .. Array Arguments ..
@@ -20,12 +20,12 @@
       PARAMETER          ( ZERO = 0.0e0, ONE = 1.0e0, TWO = 2.0e0 )
       REAL               DAT1, DAT2
       PARAMETER          ( DAT1 = 3.0e0 / 4.0e0, DAT2 = -0.4375e0 )
-      int                KEXSH
+      int                KEXSH;
       PARAMETER          ( KEXSH = 10 )
 *     ..
 *     .. Local Scalars ..
       REAL               AA, AB, BA, BB, CS, DET, H11, H12, H21, H21S, H22, RT1I, RT1R, RT2I, RT2R, RTDISC, S, SAFMAX, SAFMIN, SMLNUM, SN, SUM, T1, T2, T3, TR, TST, ULP, V2, V3
-      int                I, I1, I2, ITS, ITMAX, J, K, L, M, NH, NR, NZ, KDEFL
+      int                I, I1, I2, ITS, ITMAX, J, K, L, M, NH, NR, NZ, KDEFL;
 *     ..
 *     .. Local Arrays ..
       REAL               V( 3 )

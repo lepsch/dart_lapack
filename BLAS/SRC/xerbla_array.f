@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     SRNAME_LEN, INFO
+      int     SRNAME_LEN, INFO;
 *     ..
 *     .. Array Arguments ..
       String   (1) SRNAME_ARRAY(SRNAME_LEN);
@@ -15,7 +15,7 @@
 *
 *     ..
 *     .. Local Scalars ..
-      int     I
+      int     I;
 *     ..
 *     .. Local Arrays ..
       String       SRNAME;

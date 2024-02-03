@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, KL, KU, LDAB, LDB, N, NRHS
+      int                INFO, KL, KU, LDAB, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             AB( LDAB, * ), B( LDB, * );
 *     ..
 *

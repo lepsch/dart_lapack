@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IDIST, INFO, IRSIGN, MODE, N
+      int                IDIST, INFO, IRSIGN, MODE, N;
       double             COND;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             D( * );
 *     ..
 *
@@ -22,7 +22,7 @@
       PARAMETER          ( HALF = 0.5D0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       double             ALPHA, TEMP;
 *     ..
 *     .. External Functions ..

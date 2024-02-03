@@ -1,4 +1,4 @@
-      int                I1, I2
+      int                I1, I2;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

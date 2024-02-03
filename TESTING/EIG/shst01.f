@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IHI, ILO, LDA, LDH, LDQ, LWORK, N
+      int                IHI, ILO, LDA, LDH, LDQ, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), H( LDH, * ), Q( LDQ, * ), RESULT( 2 ), WORK( LWORK )
@@ -18,7 +18,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                LDWORK
+      int                LDWORK;
       REAL               ANORM, EPS, OVFL, SMLNUM, UNFL, WNORM
 *     ..
 *     .. External Functions ..

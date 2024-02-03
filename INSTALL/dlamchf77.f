@@ -16,7 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               FIRST, LRND;
-      int                BETA, IMAX, IMIN, IT
+      int                BETA, IMAX, IMIN, IT;
       double             BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T;
 *     ..
 *     .. External Functions ..
@@ -146,13 +146,13 @@
 *
 *     .. Scalar Arguments ..
       bool               IEEE1, RND;
-      int                BETA, T
+      int                BETA, T;
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
       bool               FIRST, LIEEE1, LRND;
-      int                LBETA, LT
+      int                LBETA, LT;
       double             A, B, C, F, ONE, QTR, SAVEC, T1, T2;
 *     ..
 *     .. External Functions ..
@@ -356,14 +356,14 @@
 *
 *     .. Scalar Arguments ..
       bool               RND;
-      int                BETA, EMAX, EMIN, T
+      int                BETA, EMAX, EMIN, T;
       double             EPS, RMAX, RMIN;
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
       bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
-      int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       double             A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;
+      int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       double             A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;;
 *     ..
 *     .. External Functions ..
       double             DLAMC3;
@@ -618,13 +618,13 @@
 *     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
 *     .. Scalar Arguments ..
-      int                BASE, EMIN
+      int                BASE, EMIN;
       double             START;
 *     ..
 * =====================================================================
 *
 *     .. Local Scalars ..
-      int                I
+      int                I;
       double             A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
 *     ..
 *     .. External Functions ..
@@ -725,7 +725,7 @@
 *
 *     .. Scalar Arguments ..
       bool               IEEE;
-      int                BETA, EMAX, EMIN, P
+      int                BETA, EMAX, EMIN, P;
       double             RMAX;
 *     ..
 * =====================================================================
@@ -735,7 +735,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP
+      int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP;
       double             OLDY, RECBAS, Y, Z;
 *     ..
 *     .. External Functions ..

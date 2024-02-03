@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KNT, LMAX, NINFO
+      int                KNT, LMAX, NINFO;
       REAL               RMAX
 *     ..
 *
@@ -19,10 +19,10 @@
 *     ..
 *     .. Local Scalars ..
       bool               LTRANL, LTRANR;
-      int                IB, IB1, IB2, IB3, INFO, ISGN, ITL, ITLSCL, ITR, ITRANL, ITRANR, ITRSCL, N1, N2       REAL               BIGNUM, DEN, EPS, RES, SCALE, SGN, SMLNUM, TMP, TNRM, XNORM, XNRM
+      int                IB, IB1, IB2, IB3, INFO, ISGN, ITL, ITLSCL, ITR, ITRANL, ITRANR, ITRSCL, N1, N2       REAL               BIGNUM, DEN, EPS, RES, SCALE, SGN, SMLNUM, TMP, TNRM, XNORM, XNRM;
 *     ..
 *     .. Local Arrays ..
-      int                ITVAL( 2, 2, 8 )
+      int                ITVAL( 2, 2, 8 );
       REAL               B( 2, 2 ), TL( 2, 2 ), TR( 2, 2 ), VAL( 3 ), X( 2, 2 )
 *     ..
 *     .. External Functions ..

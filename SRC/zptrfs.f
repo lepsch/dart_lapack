@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDB, LDX, N, NRHS
+      int                INFO, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                ITMAX
+      int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -28,13 +28,13 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                COUNT, I, IX, J, NZ
+      int                COUNT, I, IX, J, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
       COMPLEX*16         BI, CX, DX, EX, ZDUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

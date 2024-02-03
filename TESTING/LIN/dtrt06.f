@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, UPLO;
-      int                LDA, N
+      int                LDA, N;
       double             RAT, RCOND, RCONDC;
 *     ..
 *     .. Array Arguments ..

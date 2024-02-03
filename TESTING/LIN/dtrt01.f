@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, UPLO;
-      int                LDA, LDAINV, N
+      int                LDA, LDAINV, N;
       double             RCOND, RESID;
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                J
+      int                J;
       double             AINVNM, ANORM, EPS;
 *     ..
 *     .. External Functions ..

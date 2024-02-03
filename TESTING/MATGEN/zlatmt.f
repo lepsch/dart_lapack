@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       double             COND, DMAX;
-      int                INFO, KL, KU, LDA, M, MODE, N, RANK
+      int                INFO, KL, KU, LDA, M, MODE, N, RANK;
       String             DIST, PACK, SYM;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), WORK( * )
       double             D( * );
-      int                ISEED( 4 )
+      int                ISEED( 4 );
 *     ..
 *
 *  =====================================================================
@@ -30,7 +30,7 @@
 *     .. Local Scalars ..
       COMPLEX*16         C, CT, DUMMY, EXTRA, S, ST, ZTEMP
       double             ALPHA, ANGLE, REALC, TEMP;
-      int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
+      int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
       bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;
 *     ..
 *     .. External Functions ..

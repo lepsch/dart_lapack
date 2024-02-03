@@ -3,7 +3,7 @@
 *
 *     Arguments
       bool   , INTENT( IN ) :: ILQ, ILZ;
-      int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI       double           :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
+      int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI       double           :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );;
 *
 *     Parameters
       double           :: ZERO, ONE, HALF;

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
-      int                INFO, LDB, LDH, N
+      int                INFO, LDB, LDH, N;
       REAL               EPS3, SMLNUM
       COMPLEX            W
 *     ..
@@ -25,12 +25,12 @@
 *     ..
 *     .. Local Scalars ..
       String             NORMIN, TRANS;
-      int                I, IERR, ITS, J
+      int                I, IERR, ITS, J;
       REAL               GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM
       COMPLEX            CDUM, EI, EJ, TEMP, X
 *     ..
 *     .. External Functions ..
-      int                ICAMAX
+      int                ICAMAX;
       REAL               SCASUM, SCNRM2
       COMPLEX            CLADIV
       EXTERNAL           ICAMAX, SCASUM, SCNRM2, CLADIV

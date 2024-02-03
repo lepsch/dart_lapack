@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                N, INFO
+      int                N, INFO;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0, RELCOND = 0.999E0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       bool               YESREL;
       REAL               EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2
 

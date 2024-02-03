@@ -24,7 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               GASMAL, SWAP;
-      int                PMAX
+      int                PMAX;
       REAL               A, CLT, CRT, D, FA, FT, GA, GT, HA, HT, L, M, MM, R, S, SLT, SRT, T, TEMP, TSIGN, TT
 *     ..
 *     .. Intrinsic Functions ..

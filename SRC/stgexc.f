@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
-      int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, LWORK, N
+      int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                HERE, LWMIN, NBF, NBL, NBNEXT
+      int                HERE, LWMIN, NBF, NBL, NBNEXT;
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK

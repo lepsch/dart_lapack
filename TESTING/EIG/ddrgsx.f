@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE
+      int                INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
-      int                IWORK( * )
+      int                IWORK( * );
       double             A( LDA, * ), AI( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), S( * ), WORK( * ), Z( LDA, * );
 *     ..
 *
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       bool               ILABAD;
       String             SENSE;
-      int                BDSPAC, I, I1, IFUNC, IINFO, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB
+      int                BDSPAC, I, I1, IFUNC, IINFO, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB;
       double             ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT;
 *     ..
 *     .. Local Arrays ..
@@ -31,7 +31,7 @@
 *     ..
 *     .. External Functions ..
       bool               DLCTSX;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, DLANGE;
       EXTERNAL           DLCTSX, ILAENV, DLAMCH, DLANGE
 *     ..
@@ -43,7 +43,7 @@
 *     ..
 *     .. Scalars in Common ..
       bool               FS;
-      int                K, M, MPLUSN, N
+      int                K, M, MPLUSN, N;
 *     ..
 *     .. Common blocks ..
       COMMON             / MN / M, N, MPLUSN, K, FS

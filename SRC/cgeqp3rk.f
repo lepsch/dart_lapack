@@ -6,11 +6,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, K, KF, KMAX, LDA, LWORK, M, N, NRHS
+      int                INFO, K, KF, KMAX, LDA, LWORK, M, N, NRHS;
       REAL               ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * ), JPIV( * )
+      int                IWORK( * ), JPIV( * );
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
 *     ..
@@ -18,7 +18,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                INB, INBMIN, IXOVER
+      int                INB, INBMIN, IXOVER;
       PARAMETER          ( INB = 1, INBMIN = 2, IXOVER = 3 )
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, DONE;
-      int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX
+      int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX;
       REAL               EPS, HUGEVAL, MAXC2NRM, SAFMIN
 *     ..
 *     .. External Subroutines ..
@@ -35,7 +35,7 @@
 *     ..
 *     .. External Functions ..
       bool               SISNAN;
-      int                ISAMAX, ILAENV
+      int                ISAMAX, ILAENV;
       REAL               SLAMCH, SCNRM2, SROUNDUP_LWORK
       EXTERNAL           SISNAN, SLAMCH, SCNRM2, ISAMAX, ILAENV, SROUNDUP_LWORK
 *     ..

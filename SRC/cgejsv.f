@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       IMPLICIT    NONE
-      int         INFO, LDA, LDU, LDV, LWORK, LRWORK, M, N
+      int         INFO, LDA, LDU, LDV, LWORK, LRWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX     A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( LWORK )
       REAL        SVA( N ), RWORK( LRWORK )
-      int         IWORK( * )
+      int         IWORK( * );
       String      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
 *     ..
 *
@@ -26,11 +26,11 @@
 *     .. Local Scalars ..
       COMPLEX CTEMP
       REAL    AAPP,   AAQQ,   AATMAX, AATMIN, BIG,    BIG1,   COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC
-      int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING
+      int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING;
       bool    ALMORT, DEFR,   ERREST, GOSCAL,  JRACC,  KILL,   LQUERY, LSVEC,  L2ABER, L2KILL, L2PERT,  L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
 *
-      int     OPTWRK, MINWRK, MINRWRK, MINIWRK
-      int     LWCON,  LWLQF, LWQP3, LWQRF, LWUNMLQ, LWUNMQR, LWUNMQRM, LWSVDJ, LWSVDJV, LRWQP3, LRWCON, LRWSVDJ, IWOFF       int     LWRK_CGELQF, LWRK_CGEQP3,  LWRK_CGEQP3N, LWRK_CGEQRF,   LWRK_CGESVJ, LWRK_CGESVJV, LWRK_CGESVJU, LWRK_CUNMLQ, LWRK_CUNMQR, LWRK_CUNMQRM
+      int     OPTWRK, MINWRK, MINRWRK, MINIWRK;
+      int     LWCON,  LWLQF, LWQP3, LWQRF, LWUNMLQ, LWUNMQR, LWUNMQRM, LWSVDJ, LWSVDJV, LRWQP3, LRWCON, LRWSVDJ, IWOFF       int     LWRK_CGELQF, LWRK_CGEQP3,  LWRK_CGEQP3N, LWRK_CGEQRF,   LWRK_CGESVJ, LWRK_CGESVJV, LWRK_CGESVJU, LWRK_CUNMLQ, LWRK_CUNMQR, LWRK_CUNMQRM;
 *     ..
 *     .. Local Arrays
       COMPLEX CDUMMY(1)
@@ -41,7 +41,7 @@
 *     ..
 *     .. External Functions ..
       REAL      SLAMCH, SCNRM2
-      int       ISAMAX, ICAMAX
+      int       ISAMAX, ICAMAX;
       bool      LSAME;
       EXTERNAL  ISAMAX, ICAMAX, LSAME, SLAMCH, SCNRM2
 *     ..

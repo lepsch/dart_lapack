@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
-      int                INFO, LDA, LDB, LDX, N, NRHS
+      int                INFO, LDA, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             A( LDA, * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
 *     ..
 *
@@ -24,11 +24,11 @@
 *     .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       String             TRANST;
-      int                I, J, K, KASE, NZ
+      int                I, J, K, KASE, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DCOPY, DLACN2, DTRMV, DTRSV, XERBLA

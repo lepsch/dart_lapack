@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INCX, N
+      int                INCX, N;
       COMPLEX            ALPHA
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, IX, J, JX, K, KK, KX
+      int                I, INFO, IX, J, JX, K, KK, KX;
       COMPLEX            TEMP
 *     ..
 *     .. External Functions ..

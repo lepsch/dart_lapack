@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDWORK, N
+      int                LDWORK, N;
       REAL               RCOND, RESID
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, JJ
+      int                I, J, JJ;
       REAL               AINVNM, ANORM, EPS
 *     ..
 *     .. External Functions ..

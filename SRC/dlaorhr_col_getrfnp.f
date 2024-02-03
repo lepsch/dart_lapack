@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), D( * );
@@ -19,13 +19,13 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                IINFO, J, JB, NB
+      int                IINFO, J, JB, NB;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEMM, DLAORHR_COL_GETRFNP2, DTRSM, XERBLA
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV
 *     ..
 *     .. Intrinsic Functions ..

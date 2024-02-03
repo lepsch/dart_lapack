@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       REAL               TOL
-      int                INFO, LDA, N, RANK
+      int                INFO, LDA, N, RANK;
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), WORK( 2*N )
-      int                PIV( N )
+      int                PIV( N );
 *     ..
 *
 *  =====================================================================
@@ -22,12 +22,12 @@
 *     ..
 *     .. Local Scalars ..
       REAL               AJJ, SSTOP, STEMP
-      int                I, ITEMP, J, JB, K, NB, PVT
+      int                I, ITEMP, J, JB, K, NB, PVT;
       bool               UPPER;
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
-      int                ILAENV
+      int                ILAENV;
       bool               LSAME, SISNAN;
       EXTERNAL           SLAMCH, ILAENV, LSAME, SISNAN
 *     ..

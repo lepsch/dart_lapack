@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N, TSIZE, LWORK
+      int                INFO, LDA, M, N, TSIZE, LWORK;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), T( * ), WORK( * )
@@ -16,7 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, LMINWS, MINT, MINW;
-      int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWREQ
+      int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWREQ;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
@@ -31,7 +31,7 @@
       INTRINSIC          MAX, MIN, MOD
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV
 *     ..
 *     .. Executable statements ..

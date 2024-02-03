@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             NORM, TRANSR, UPLO;
-      int                N
+      int                N;
 *     ..
 *     .. Array Arguments ..
       double             WORK( 0: * );
@@ -20,7 +20,7 @@
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, IFM, ILU, NOE, N1, K, L, LDA
+      int                I, J, IFM, ILU, NOE, N1, K, L, LDA;
       double             SCALE, S, VALUE, AA, TEMP;
 *     ..
 *     .. External Functions ..

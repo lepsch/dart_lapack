@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KNT, NIN
+      int                KNT, NIN;
 *     ..
 *     .. Array Arguments ..
-      int                LMAX( 3 ), NINFO( 3 )
+      int                LMAX( 3 ), NINFO( 3 );
       double             RMAX( 3 );
 *     ..
 *
@@ -19,16 +19,16 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
       double             EPSIN;
       PARAMETER          ( EPSIN = 5.9605D-8 )
-      int                LDT, LWORK
+      int                LDT, LWORK;
       PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, ICMP, INFO, ISCL, ISRT, J, KMIN, M, N
+      int                I, ICMP, INFO, ISCL, ISRT, J, KMIN, M, N;
       double             BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VCMIN, VMAX, VMIN, VMUL;
 *     ..
 *     .. Local Arrays ..
       bool               SELECT( LDT );
-      int                LCMP( 3 )
+      int                LCMP( 3 );
       double             DUM( 1 ), RWORK( 2*LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), VAL( 3 ), WIIN( LDT ), WRIN( LDT ), WSRT( LDT );
       COMPLEX*16         CDUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT )
 *     ..

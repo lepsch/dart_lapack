@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               LREAL, LTRAN;
-      int                INFO, LDT, N
+      int                INFO, LDT, N;
       double             SCALE, W;
 *     ..
 *     .. Array Arguments ..
@@ -21,14 +21,14 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
-      int                I, IERR, J, J1, J2, JNEXT, K, N1, N2
+      int                I, IERR, J, J1, J2, JNEXT, K, N1, N2;
       double             BIGNUM, EPS, REC, SCALOC, SI, SMIN, SMINW, SMLNUM, SR, TJJ, TMP, XJ, XMAX, XNORM, Z;
 *     ..
 *     .. Local Arrays ..
       double             D( 2, 2 ), V( 2, 2 );
 *     ..
 *     .. External Functions ..
-      int                IDAMAX
+      int                IDAMAX;
       double             DASUM, DDOT, DLAMCH, DLANGE;
       EXTERNAL           IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
 *     ..

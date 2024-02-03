@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
-      int     INCX,N
+      int     INCX,N;
       String    UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX TEMP
-      int     I,INFO,IX,J,JX,K,KK,KX
+      int     I,INFO,IX,J,JX,K,KK,KX;
 *     ..
 *     .. External Functions ..
       bool    LSAME;

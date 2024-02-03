@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
 *
-      int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N
+      int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N;
       double             SPARSE;
 *     ..
 *
 *     .. Array Arguments ..
 *
-      int                ISEED( 4 ), IWORK( * )
+      int                ISEED( 4 ), IWORK( * );
       COMPLEX*16         D( * ), DL( * ), DR( * )
 *     ..
 *

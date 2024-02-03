@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       double             TOL;
-      int                INFO, LDA, N, RANK
+      int                INFO, LDA, N, RANK;
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), WORK( 2*N );
-      int                PIV( N )
+      int                PIV( N );
 *     ..
 *
 *  =====================================================================
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       double             AJJ, DSTOP, DTEMP;
-      int                I, ITEMP, J, PVT
+      int                I, ITEMP, J, PVT;
       bool               UPPER;
 *     ..
 *     .. External Functions ..

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
-      int                IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N
+      int                IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N;
       REAL               PL, PR
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               DIF( * )
       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -19,19 +19,19 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                IDIFJB
+      int                IDIFJB;
       PARAMETER          ( IDIFJB = 3 )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP;
-      int                I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2
+      int                I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2;
       REAL               DSCALE, DSUM, RDSCAL, SAFMIN
       COMPLEX            TEMP1, TEMP2
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       REAL               SROUNDUP_LWORK

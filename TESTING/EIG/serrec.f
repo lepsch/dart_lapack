@@ -6,23 +6,23 @@
 *
 *     .. Scalar Arguments ..
       String             PATH;
-      int                NUNIT
+      int                NUNIT;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NMAX
+      int                NMAX;
       REAL               ONE, ZERO
       PARAMETER          ( NMAX = 4, ONE = 1.0E0, ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IFST, ILST, INFO, J, M, NT
+      int                I, IFST, ILST, INFO, J, M, NT;
       REAL               SCALE
 *     ..
 *     .. Local Arrays ..
       bool               SEL( NMAX );
-      int                IWORK( NMAX )
+      int                IWORK( NMAX );
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), S( NMAX ), SEP( NMAX ), WI( NMAX ), WORK( NMAX ), WR( NMAX )
 *     ..
 *     .. External Subroutines ..
@@ -31,7 +31,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

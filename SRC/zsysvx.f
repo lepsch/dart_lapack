@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             FACT, UPLO;
-      int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS
+      int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS;
       double             RCOND;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             BERR( * ), FERR( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
@@ -23,12 +23,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, NOFACT;
-      int                LWKOPT, NB
+      int                LWKOPT, NB;
       double             ANORM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, ZLANSY;
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANSY
 *     ..

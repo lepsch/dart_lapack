@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                NM, NMAX, NNS, NOUT
+      int                NM, NMAX, NNS, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                MVAL( * ), NSVAL( * ), IWORK( * )
+      int                MVAL( * ), NSVAL( * ), IWORK( * );
       REAL               SWORK(*)
       double             A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * );
 *     ..
@@ -20,24 +20,24 @@
 *     .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 11 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       bool               ZEROT;
       String             DIST, TRANS, TYPE, XTYPE;
       String             PATH;
-      int                I, IM, IMAT, INFO, IOFF, IRHS, IZERO, KL, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
+      int                I, IM, IMAT, INFO, IOFF, IRHS, IZERO, KL, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             ANORM, CNDNUM;
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
 *     ..
 *     .. Local Variables ..
-      int                ITER, KASE
+      int                ITER, KASE;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAERH, ALAHD, DGET08, DLACPY, DLARHS, DLASET, DLATB4, DLATMS
@@ -48,7 +48,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             HOWMNY, SIDE;
-      int                INFO, LDT, LDVL, LDVR, M, MM, N
+      int                INFO, LDT, LDVL, LDVR, M, MM, N;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
@@ -24,13 +24,13 @@
 *     ..
 *     .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV;
-      int                I, II, IS, J, K, KI
+      int                I, II, IS, J, K, KI;
       double             OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL;
       COMPLEX*16         CDUM
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IZAMAX
+      int                IZAMAX;
       double             DLAMCH, DZASUM;
       EXTERNAL           LSAME, IZAMAX, DLAMCH, DZASUM
 *     ..

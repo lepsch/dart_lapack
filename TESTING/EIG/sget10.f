@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDB, M, N
+      int                LDA, LDB, M, N;
       REAL               RESULT
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                J
+      int                J;
       REAL               ANORM, EPS, UNFL, WNORM
 *     ..
 *     .. External Functions ..

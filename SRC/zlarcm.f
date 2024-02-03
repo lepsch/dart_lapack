@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDB, LDC, M, N
+      int                LDA, LDB, LDC, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), RWORK( * );
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, L
+      int                I, J, L;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DCMPLX, DIMAG

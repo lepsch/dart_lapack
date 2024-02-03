@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE;
-      int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
+      int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N;
       double           ABSTOL, VL, VU;
 *     ..
 *     .. Array Arguments ..
-      int                ISUPPZ( * ), IWORK( * )
+      int                ISUPPZ( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * );
       double             Z( LDZ, * );
 *     ..

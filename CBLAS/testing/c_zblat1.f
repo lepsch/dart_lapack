@@ -3,14 +3,14 @@
 *     Based upon the original CBLAS test routine together with:
 *     F06GAF Example Program Text
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
 *     .. Local Scalars ..
       double           SFAC;
-      int              IC
+      int              IC;
 *     .. External Subroutines ..
       EXTERNAL         CHECK1, CHECK2, HEADER
 *     .. Common blocks ..
@@ -47,10 +47,10 @@
       END
       SUBROUTINE HEADER
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
 *     .. Local Arrays ..
       String            L(10);
@@ -75,24 +75,24 @@
       END
       SUBROUTINE CHECK1(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
 *     .. Local Scalars ..
       COMPLEX*16        CA
       double            SA;
-      int               I, J, LEN, NP1
+      int               I, J, LEN, NP1;
 *     .. Local Arrays ..
       COMPLEX*16        CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CX(8), MWPCS(5), MWPCT(5)
       double            STRUE2(5), STRUE4(5);
-      int               ITRUE3(5)
+      int               ITRUE3(5);
 *     .. External Functions ..
       double            DZASUMTEST, DZNRM2TEST;
-      int               IZAMAXTEST
+      int               IZAMAXTEST;
       EXTERNAL          DZASUMTEST, DZNRM2TEST, IZAMAXTEST
 *     .. External Subroutines ..
       EXTERNAL          ZSCALTEST, ZDSCALTEST, CTEST, ITEST1, STEST1
@@ -184,19 +184,19 @@
       END
       SUBROUTINE CHECK2(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
 *     .. Local Scalars ..
       COMPLEX*16        CA,ZTEMP
-      int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY
+      int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY;
 *     .. Local Arrays ..
       COMPLEX*16        CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CX(7), CX1(7), CY(7), CY1(7)
-      int               INCXS(4), INCYS(4), LENS(4,2), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
 *     .. External Functions ..
       EXTERNAL          ZDOTCTEST, ZDOTUTEST
 *     .. External Subroutines ..
@@ -273,19 +273,19 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       PARAMETER        (NOUT=6)
 *     .. Scalar Arguments ..
       double           SFAC;
-      int              LEN
+      int              LEN;
 *     .. Array Arguments ..
       double           SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
 *     .. Local Scalars ..
       double           SD;
-      int              I
+      int              I;
 *     .. External Functions ..
       double           SDIFF;
       EXTERNAL         SDIFF
@@ -359,11 +359,11 @@
 *
 *     .. Scalar Arguments ..
       double           SFAC;
-      int              LEN
+      int              LEN;
 *     .. Array Arguments ..
       COMPLEX*16       CCOMP(LEN), CSIZE(LEN), CTRUE(LEN)
 *     .. Local Scalars ..
-      int              I
+      int              I;
 *     .. Local Arrays ..
       double           SCOMP(20), SSIZE(20), STRUE(20);
 *     .. External Subroutines ..
@@ -391,15 +391,15 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      int               ICOMP, ITRUE
+      int               ICOMP, ITRUE;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
 *     .. Local Scalars ..
-      int               ID
+      int               ID;
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Executable Statements ..

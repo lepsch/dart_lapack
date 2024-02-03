@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             A( LDA, * );
 *     ..
 *
@@ -20,11 +20,11 @@
 *     ..
 *     .. Local Scalars ..
       double             SFMIN, TEMP;
-      int                I, IINFO, N1, N2
+      int                I, IINFO, N1, N2;
 *     ..
 *     .. External Functions ..
       double             DLAMCH;
-      int                IDAMAX
+      int                IDAMAX;
       EXTERNAL           DLAMCH, IDAMAX
 *     ..
 *     .. External Subroutines ..

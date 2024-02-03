@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       String             IDENT;
-      int                K, LDA, LDB, LDT, LDWORK, M, N
+      int                K, LDA, LDB, LDT, LDWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * );
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LNOTIDENT;
-      int                I, J
+      int                I, J;
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
       bool               LSAME;

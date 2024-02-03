@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               ORGATI;
-      int                INFO, KNITER
+      int                INFO, KNITER;
       double             FINIT, RHO, TAU;
 *     ..
 *     .. Array Arguments ..
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                MAXIT
+      int                MAXIT;
       PARAMETER          ( MAXIT = 40 )
       double             ZERO, ONE, TWO, THREE, FOUR, EIGHT;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, EIGHT = 8.0D0 )
@@ -30,7 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               SCALE;
-      int                I, ITER, NITER
+      int                I, ITER, NITER;
       double             A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD;
 *     ..
 *     .. Intrinsic Functions ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX*16 ALPHA
-      int     INCX,INCY,LDA,M,N
+      int     INCX,INCY,LDA,M,N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 A(LDA,*),X(*),Y(*)
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16 TEMP
-      int     I,INFO,IX,J,JY,KX
+      int     I,INFO,IX,J,JY,KX;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL XERBLA

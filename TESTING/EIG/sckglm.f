@@ -5,25 +5,25 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, NIN, NMATS, NMAX, NN, NOUT
+      int                INFO, NIN, NMATS, NMAX, NN, NOUT;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * )
+      int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * );
       REAL               A( * ), AF( * ), B( * ), BF( * ), RWORK( * ), WORK( * ), X( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 8 )
 *     ..
 *     .. Local Scalars ..
       bool               FIRSTT;
       String             DISTA, DISTB, TYPE;
       String             PATH;
-      int                I, IINFO, IK, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, P
+      int                I, IINFO, IK, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, P;
       REAL               ANORM, BNORM, CNDNMA, CNDNMB, RESID
 *     ..
 *     .. Local Arrays ..

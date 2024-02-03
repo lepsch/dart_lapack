@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IHI, ILO, INFO, LDH, LDZ, LWORK, N
+      int                IHI, ILO, INFO, LDH, LDZ, LWORK, N;
       String             COMPZ, JOB;
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
 *     ==== Matrices of order NTINY or smaller must be processed by
 *     .    CLAHQR because of insufficient subdiagonal scratch space.
 *     .    (This is a hard limit.) ====
-      int                NTINY
+      int                NTINY;
       PARAMETER          ( NTINY = 15 )
 *
 *     ==== NL allocates some local workspace to help small matrices
@@ -28,7 +28,7 @@
 *     .    mended.  (The default value of NMIN is 75.)  Using NL = 49
 *     .    allows up to six simultaneous shifts and a 16-by-16
 *     .    deflation window.  ====
-      int                NL
+      int                NL;
       PARAMETER          ( NL = 49 )
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) )
@@ -39,11 +39,11 @@
       COMPLEX            HL( NL, NL ), WORKL( NL )
 *     ..
 *     .. Local Scalars ..
-      int                KBOT, NMIN
+      int                KBOT, NMIN;
       bool               INITZ, LQUERY, WANTT, WANTZ;
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK

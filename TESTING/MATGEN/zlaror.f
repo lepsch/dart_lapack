@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             INIT, SIDE;
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       COMPLEX*16         A( LDA, * ), X( * )
 *     ..
 *
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
+      int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
       double             FACTOR, XABS, XNORM;
       COMPLEX*16         CSIGN, XNORMS
 *     ..

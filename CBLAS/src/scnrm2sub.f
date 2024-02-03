@@ -2,7 +2,7 @@
 c
       external scnrm2
       real scnrm2,nrm2
-      int     n,incx
+      int     n,incx;
       complex x(*)
 c
       nrm2=scnrm2(n,x,incx)

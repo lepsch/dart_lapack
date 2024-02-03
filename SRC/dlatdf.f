@@ -5,28 +5,28 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IJOB, LDZ, N
+      int                IJOB, LDZ, N;
       double             RDSCAL, RDSUM;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * ), JPIV( * )
+      int                IPIV( * ), JPIV( * );
       double             RHS( * ), Z( LDZ, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                MAXDIM
+      int                MAXDIM;
       PARAMETER          ( MAXDIM = 8 )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, J, K
+      int                I, INFO, J, K;
       double             BM, BP, PMONE, SMINU, SPLUS, TEMP;
 *     ..
 *     .. Local Arrays ..
-      int                IWORK( MAXDIM )
+      int                IWORK( MAXDIM );
       double             WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
 *     ..
 *     .. External Subroutines ..

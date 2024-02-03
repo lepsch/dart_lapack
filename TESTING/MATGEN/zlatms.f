@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             DIST, PACK, SYM;
-      int                INFO, KL, KU, LDA, M, MODE, N
+      int                INFO, KL, KU, LDA, M, MODE, N;
       double             COND, DMAX;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       double             D( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
 *     ..
@@ -29,7 +29,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN, ZSYM;
-      int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
+      int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
       double             ALPHA, ANGLE, REALC, TEMP;
       COMPLEX*16         C, CT, CTEMP, DUMMY, EXTRA, S, ST
 *     ..

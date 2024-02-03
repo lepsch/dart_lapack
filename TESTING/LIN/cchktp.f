@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NMAX, NN, NNS, NOUT
+      int                NMAX, NN, NNS, NOUT;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                NSVAL( * ), NVAL( * )
+      int                NSVAL( * ), NVAL( * );
       REAL               RWORK( * )
       COMPLEX            AINVP( * ), AP( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -19,11 +19,11 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTYPE1, NTYPES
+      int                NTYPE1, NTYPES;
       PARAMETER          ( NTYPE1 = 10, NTYPES = 18 )
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 9 )
-      int                NTRAN
+      int                NTRAN;
       PARAMETER          ( NTRAN = 3 )
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
@@ -31,11 +31,11 @@
 *     .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
-      int                I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN       REAL               AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE
+      int                I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN       REAL               AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
 *     ..
 *     .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Functions ..
@@ -49,7 +49,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, IOUNIT
+      int                INFOT, IOUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR

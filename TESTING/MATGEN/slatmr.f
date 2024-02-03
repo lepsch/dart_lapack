@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
-      int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N
+      int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N;
       REAL               ANORM, COND, CONDL, CONDR, DMAX, SPARSE
 *     ..
 *     .. Array Arguments ..
-      int                IPIVOT( * ), ISEED( 4 ), IWORK( * )
+      int                IPIVOT( * ), ISEED( 4 ), IWORK( * );
       REAL               A( LDA, * ), D( * ), DL( * ), DR( * )
 *     ..
 *
@@ -24,7 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
-      int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
+      int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS;
       REAL               ALPHA, ONORM, TEMP
 *     ..
 *     .. Local Arrays ..

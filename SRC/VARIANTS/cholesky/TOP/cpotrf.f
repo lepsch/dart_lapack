@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, N
+      int                INFO, LDA, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * )
@@ -21,11 +21,11 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                J, JB, NB
+      int                J, JB, NB;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

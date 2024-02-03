@@ -6,11 +6,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, IOFFSET, KP1, K, KMAX, LDA, M, N, NRHS
+      int                INFO, IOFFSET, KP1, K, KMAX, LDA, M, N, NRHS;
       double             ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
 *     ..
 *     .. Array Arguments ..
-      int                JPIV( * )
+      int                JPIV( * );
       double             A( LDA, * ), TAU( * ), VN1( * ), VN2( * ), WORK( * );
 *     ..
 *
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT
+      int                I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT;
       double             AIKK, HUGEVAL, TEMP, TEMP2, TOL3Z;
 *     ..
 *     .. External Subroutines ..
@@ -32,7 +32,7 @@
 *     ..
 *     .. External Functions ..
       bool               DISNAN;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH, DNRM2;
       EXTERNAL           DISNAN, DLAMCH, IDAMAX, DNRM2
 *     ..

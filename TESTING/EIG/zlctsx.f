@@ -18,7 +18,7 @@
 *     ..
 *     .. Scalars in Common ..
       bool               FS;
-      int                I, M, MPLUSN, N
+      int                I, M, MPLUSN, N;
 *     ..
 *     .. Common blocks ..
       COMMON             / MN / M, N, MPLUSN, I, FS

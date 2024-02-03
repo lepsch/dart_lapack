@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         AB( LDAB, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                J, KLD, KM, M
+      int                J, KLD, KM, M;
       double             AJJ;
 *     ..
 *     .. External Functions ..

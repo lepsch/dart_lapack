@@ -5,18 +5,18 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                DOL, DOU, INFO, LDZ, M, N
+      int                DOL, DOU, INFO, LDZ, M, N;
       double             MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU;
 *     ..
 *     .. Array Arguments ..
-      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * )       double             D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
+      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * )       double             D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );;
       COMPLEX*16        Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                MAXITR
+      int                MAXITR;
       PARAMETER          ( MAXITR = 10 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ) )
@@ -25,8 +25,8 @@
 *     ..
 *     .. Local Scalars ..
       bool               ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ;
-      int                DONE, I, IBEGIN, IDONE, IEND, II, IINDC1, IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG, INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER, ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS, NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST, NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST, OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX, WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU, ZUSEDW
-      int                INDIN1, INDIN2
+      int                DONE, I, IBEGIN, IDONE, IEND, II, IINDC1, IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG, INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER, ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS, NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST, NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST, OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX, WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU, ZUSEDW;
+      int                INDIN1, INDIN2;
       double             BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ;
 *     ..
 *     .. External Functions ..

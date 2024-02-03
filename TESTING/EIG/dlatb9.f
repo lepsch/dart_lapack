@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             DISTA, DISTB, TYPE;
       String             PATH;
-      int                IMAT, KLA, KLB, KUA, KUB, M, MODEA, MODEB, N, P
+      int                IMAT, KLA, KLB, KUA, KUB, M, MODEA, MODEB, N, P;
       double             ANORM, BNORM, CNDNMA, CNDNMB;
 *     ..
 *

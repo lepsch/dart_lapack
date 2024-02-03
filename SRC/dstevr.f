@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, RANGE;
-      int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N
+      int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N;
       double             ABSTOL, VL, VU;
 *     ..
 *     .. Array Arguments ..
-      int                ISUPPZ( * ), IWORK( * )
+      int                ISUPPZ( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
@@ -23,12 +23,12 @@
 *     .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, LQUERY, VALEIG, WANTZ, TRYRAC;
       String             ORDER;
-      int                I, IEEEOK, IMAX, INDIBL, INDIFL, INDISP, INDIWO, ISCALE, ITMP1, J, JJ, LIWMIN, LWMIN, NSPLIT
+      int                I, IEEEOK, IMAX, INDIBL, INDIFL, INDISP, INDIWO, ISCALE, ITMP1, J, JJ, LIWMIN, LWMIN, NSPLIT;
       double             BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, DLANST;
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST
 *     ..

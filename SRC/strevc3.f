@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       String             HOWMNY, SIDE;
-      int                INFO, LDT, LDVL, LDVR, LWORK, M, MM, N
+      int                INFO, LDT, LDVL, LDVR, LWORK, M, MM, N;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
@@ -19,15 +19,15 @@
 *     .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-      int                NBMIN, NBMAX
+      int                NBMIN, NBMAX;
       PARAMETER          ( NBMIN = 8, NBMAX = 128 )
 *     ..
 *     .. Local Scalars ..
-      bool               ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV       int                I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, IV, MAXWRK, NB, KI2       REAL               BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;
+      bool               ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV       int                I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, IV, MAXWRK, NB, KI2       REAL               BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ISAMAX, ILAENV
+      int                ISAMAX, ILAENV;
       REAL   SDOT, SLAMCH
       EXTERNAL           LSAME, ISAMAX, ILAENV, SDOT, SLAMCH
 *     ..
@@ -39,7 +39,7 @@
 *     ..
 *     .. Local Arrays ..
       REAL   X( 2, 2 )
-      int                ISCOMPLEX( NBMAX )
+      int                ISCOMPLEX( NBMAX );
 *     ..
 *     .. Executable Statements ..
 *

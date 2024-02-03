@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       REAL               THRESH
-      int                NMAX, NN, NNB, NOUT, NRANK
+      int                NMAX, NN, NNB, NOUT, NRANK;
       bool               TSTERR;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( * ), AFAC( * ), PERM( * ), WORK( * )
       REAL               RWORK( * )
-      int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * )
+      int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * );
       bool               DOTYPE( * );
 *     ..
 *
@@ -21,24 +21,24 @@
 *     .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 9 )
 *     ..
 *     .. Local Scalars ..
       REAL               ANORM, CNDNUM, RESULT, TOL
-      int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF
+      int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF;
       String             DIST, TYPE, UPLO;
       String             PATH;
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 ), ISEEDY( 4 )
+      int                ISEED( 4 ), ISEEDY( 4 );
       String             UPLOS( 2 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAERH, ALAHD, ALASUM, CERRPS, CLACPY, CLATB5, CLATMT, CPST01, CPSTRF, XLAENV
 *     ..
 *     .. Scalars in Common ..
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
       bool               LERR, OK;
       String             SRNAMT;
 *     ..

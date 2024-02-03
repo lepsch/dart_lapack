@@ -2,12 +2,12 @@
 *     .. Scalar Arguments ..
       IMPLICIT    NONE
       String      JOBA, JOBP, JOBR, JOBU, JOBV;
-      int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LCWORK, LRWORK, INFO
+      int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LCWORK, LRWORK, INFO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16       A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( * )
       double           S( * ), RWORK( * );
-      int              IWORK( * )
+      int              IWORK( * );
 *
 *  =====================================================================
 *
@@ -18,8 +18,8 @@
       PARAMETER      ( CZERO = (0.0D0,0.0D0), CONE = (1.0D0,0.0D0) )
 *     ..
 *     .. Local Scalars ..
-      int         IERR, NR, N1, OPTRATIO, p, q
-      int         LWCON, LWQP3, LWRK_ZGELQF, LWRK_ZGESVD, LWRK_ZGESVD2, LWRK_ZGEQP3, LWRK_ZGEQRF, LWRK_ZUNMLQ, LWRK_ZUNMQR, LWRK_ZUNMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWUNQ, LWUNQ2, LWUNLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK
+      int         IERR, NR, N1, OPTRATIO, p, q;
+      int         LWCON, LWQP3, LWRK_ZGELQF, LWRK_ZGESVD, LWRK_ZGESVD2, LWRK_ZGEQP3, LWRK_ZGEQRF, LWRK_ZUNMLQ, LWRK_ZUNMQR, LWRK_ZUNMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWUNQ, LWUNQ2, LWUNLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK;
       bool        ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR;
       double           BIG, EPSLN, RTMP, SCONDA, SFMIN;
       COMPLEX*16       CTMP
@@ -33,7 +33,7 @@
 *     ..
 *     .. External Functions (BLAS, LAPACK)
       bool        LSAME;
-      int                         IDAMAX
+      int                         IDAMAX;
       double             ZLANGE,          DZNRM2, DLAMCH;
       EXTERNAL    LSAME, ZLANGE,  IDAMAX, DZNRM2, DLAMCH
 *     ..

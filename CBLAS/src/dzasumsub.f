@@ -2,7 +2,7 @@
 c
       external dzasum
       double           dzasum,asum;
-      int     n,incx
+      int     n,incx;
       double complex x(*)
 c
       asum=dzasum(n,x,incx)

@@ -6,18 +6,18 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                N, INFO, LDA, LDAF
+      int                N, INFO, LDA, LDAF;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), AF( LDAF, * )
       REAL               WORK( * )
-      int                IPIV( * )
+      int                IPIV( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                NCOLS, I, J, K, KP
+      int                NCOLS, I, J, K, KP;
       REAL               AMAX, UMAX, RPVGRW, TMP
       bool               UPPER;
       COMPLEX            ZDUM

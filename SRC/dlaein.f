@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
-      int                INFO, LDB, LDH, N
+      int                INFO, LDB, LDH, N;
       double             BIGNUM, EPS3, SMLNUM, WI, WR;
 *     ..
 *     .. Array Arguments ..
@@ -21,11 +21,11 @@
 *     ..
 *     .. Local Scalars ..
       String             NORMIN, TRANS;
-      int                I, I1, I2, I3, IERR, ITS, J
+      int                I, I1, I2, I3, IERR, ITS, J;
       double             ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y;
 *     ..
 *     .. External Functions ..
-      int                IDAMAX
+      int                IDAMAX;
       double             DASUM, DLAPY2, DNRM2;
       EXTERNAL           IDAMAX, DASUM, DLAPY2, DNRM2
 *     ..

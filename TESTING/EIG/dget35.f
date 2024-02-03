@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KNT, LMAX, NINFO
+      int                KNT, LMAX, NINFO;
       double             RMAX;
 *     ..
 *
@@ -19,10 +19,10 @@
 *     ..
 *     .. Local Scalars ..
       String             TRANA, TRANB;
-      int                I, IMA, IMB, IMLDA1, IMLDA2, IMLDB1, IMLOFF, INFO, ISGN, ITRANA, ITRANB, J, M, N       double             BIGNUM, CNRM, EPS, RES, RES1, RMUL, SCALE, SMLNUM, TNRM, XNRM;
+      int                I, IMA, IMB, IMLDA1, IMLDA2, IMLDB1, IMLOFF, INFO, ISGN, ITRANA, ITRANB, J, M, N       double             BIGNUM, CNRM, EPS, RES, RES1, RMUL, SCALE, SMLNUM, TNRM, XNRM;;
 *     ..
 *     .. Local Arrays ..
-      int                IDIM( 8 ), IVAL( 6, 6, 8 )
+      int                IDIM( 8 ), IVAL( 6, 6, 8 );
       double             A( 6, 6 ), B( 6, 6 ), C( 6, 6 ), CC( 6, 6 ), DUM( 1 ), VM1( 3 ), VM2( 3 );
 *     ..
 *     .. External Functions ..

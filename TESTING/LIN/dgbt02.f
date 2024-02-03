@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                KL, KU, LDA, LDB, LDX, M, N, NRHS
+      int                KL, KU, LDA, LDB, LDX, M, N, NRHS;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I1, I2, J, KD, N1
+      int                I1, I2, J, KD, N1;
       double             ANORM, BNORM, EPS, TEMP, XNORM;
 *     ..
 *     .. External Functions ..

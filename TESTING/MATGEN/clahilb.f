@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     N, NRHS, LDA, LDX, LDB, INFO
+      int     N, NRHS, LDA, LDX, LDB, INFO;
 *     .. Array Arguments ..
       REAL WORK(N)
       COMPLEX A(LDA,N), X(LDX, NRHS), B(LDB, NRHS)
@@ -14,9 +14,9 @@
 *
 *  =====================================================================
 *     .. Local Scalars ..
-      int     TM, TI, R
-      int     M
-      int     I, J
+      int     TM, TI, R;
+      int     M;
+      int     I, J;
       COMPLEX TMP
       String      C2;
 *     ..
@@ -26,7 +26,7 @@
 *     NMAX_APPROX  the largest dimension where the generated data has
 *                  a small componentwise relative error.
 *     ??? complex uses how many bits ???
-      int     NMAX_EXACT, NMAX_APPROX, SIZE_D
+      int     NMAX_EXACT, NMAX_APPROX, SIZE_D;
       PARAMETER (NMAX_EXACT = 6, NMAX_APPROX = 11, SIZE_D = 8)
 *
 *     d's are generated from random permutation of those eight elements.

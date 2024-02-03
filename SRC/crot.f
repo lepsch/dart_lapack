@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INCX, INCY, N
+      int                INCX, INCY, N;
       REAL               C
       COMPLEX            S
 *     ..
@@ -16,7 +16,7 @@
 * =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, IX, IY
+      int                I, IX, IY;
       COMPLEX            STEMP
 *     ..
 *     .. Intrinsic Functions ..

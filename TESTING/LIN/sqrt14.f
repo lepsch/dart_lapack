@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                LDA, LDX, LWORK, M, N, NRHS
+      int                LDA, LDX, LWORK, M, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), WORK( LWORK ), X( LDX, * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               TPSD;
-      int                I, INFO, J, LDWORK
+      int                I, INFO, J, LDWORK;
       REAL               ANRM, ERR, XNRM
 *     ..
 *     .. Local Arrays ..

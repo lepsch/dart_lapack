@@ -5,28 +5,28 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KASE, N
+      int                KASE, N;
       double             EST;
 *     ..
 *     .. Array Arguments ..
-      int                ISGN( * ), ISAVE( 3 )
+      int                ISGN( * ), ISAVE( 3 );
       double             V( * ), X( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                ITMAX
+      int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, JLAST
+      int                I, JLAST;
       double             ALTSGN, ESTOLD, TEMP, XS;
 *     ..
 *     .. External Functions ..
-      int                IDAMAX
+      int                IDAMAX;
       double             DASUM;
       EXTERNAL           IDAMAX, DASUM
 *     ..

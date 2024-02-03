@@ -6,7 +6,7 @@
 *
       IMPLICIT NONE
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDV, LWORK, LRWORK, M, MV, N
+      int                INFO, LDA, LDV, LWORK, LRWORK, M, MV, N;
       String             JOBA, JOBU, JOBV;
 *     ..
 *     .. Array Arguments ..
@@ -21,13 +21,13 @@
       PARAMETER        ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0)
       COMPLEX*16         CZERO,                  CONE
       PARAMETER        ( CZERO = (0.0D0, 0.0D0), CONE = (1.0D0, 0.0D0) )
-      int                NSWEEP
+      int                NSWEEP;
       PARAMETER        ( NSWEEP = 30 )
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16         AAPQ, OMPQ
       double             AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL;
-      int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN, LRWMIN
+      int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN, LRWMIN;
       bool               APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
 *     ..
 *     ..
@@ -40,7 +40,7 @@
       double             DZNRM2;
       COMPLEX*16         ZDOTC
       EXTERNAL           ZDOTC, DZNRM2
-      int                IDAMAX
+      int                IDAMAX;
       EXTERNAL           IDAMAX
 *     from LAPACK
       double             DLAMCH;

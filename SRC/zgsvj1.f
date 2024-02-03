@@ -7,7 +7,7 @@
       IMPLICIT NONE
 *     .. Scalar Arguments ..
       double             EPS, SFMIN, TOL;
-      int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP
+      int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP;
       String             JOBV;
 *     ..
 *     .. Array Arguments ..
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       COMPLEX*16         AAPQ, OMPQ
       double             AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
-      int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND
+      int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;
 *     ..
 *     ..
@@ -34,7 +34,7 @@
 *     .. External Functions ..
       double             DZNRM2;
       COMPLEX*16         ZDOTC
-      int                IDAMAX
+      int                IDAMAX;
       bool               LSAME;
       EXTERNAL           IDAMAX, LSAME, ZDOTC, DZNRM2
 *     ..

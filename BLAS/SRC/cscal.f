@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX CA
-      int     INCX,N
+      int     INCX,N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX CX(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int     I,NINCX
+      int     I,NINCX;
 *     ..
 *     .. Parameters ..
       COMPLEX ONE

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOB;
-      int                IHI, ILO, INFO, LDA, N
+      int                IHI, ILO, INFO, LDA, N;
 *     ..
 *     .. Array Arguments ..
       REAL               SCALE( * )
@@ -25,12 +25,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOCONV, CANSWAP;
-      int                I, ICA, IRA, J, K, L
+      int                I, ICA, IRA, J, K, L;
       REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2
 *     ..
 *     .. External Functions ..
       bool               SISNAN, LSAME;
-      int                ICAMAX
+      int                ICAMAX;
       REAL               SLAMCH, SCNRM2
       EXTERNAL           SISNAN, LSAME, ICAMAX, SLAMCH, SCNRM2
 *     ..

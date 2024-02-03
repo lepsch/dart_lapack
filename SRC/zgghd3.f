@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       String             COMPQ, COMPZ;
-      int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N, LWORK
+      int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N, LWORK;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), WORK( * )
@@ -23,13 +23,13 @@
 *     .. Local Scalars ..
       bool               BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ;
       String             COMPQ2, COMPZ2;
-      int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ
+      int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ;
       double             C;
       COMPLEX*16         C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV, LSAME
 *     ..
 *     .. External Subroutines ..

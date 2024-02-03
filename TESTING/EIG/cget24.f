@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               COMP;
-      int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT
+      int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT;
       REAL               RCDEIN, RCDVIN, THRESH
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * );
-      int                ISEED( 4 ), ISLCT( * )
+      int                ISEED( 4 ), ISLCT( * );
       REAL               RESULT( 17 ), RWORK( * )
       COMPLEX            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * )
 *     ..
@@ -28,11 +28,11 @@
 *     ..
 *     .. Local Scalars ..
       String             SORT;
-      int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1       REAL               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM
+      int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1       REAL               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
       COMPLEX            CTMP
 *     ..
 *     .. Local Arrays ..
-      int                IPNT( 20 )
+      int                IPNT( 20 );
 *     ..
 *     .. External Functions ..
       bool               CSLECT;
@@ -50,7 +50,7 @@
       REAL               SELWI( 20 ), SELWR( 20 )
 *     ..
 *     .. Scalars in Common ..
-      int                SELDIM, SELOPT
+      int                SELDIM, SELOPT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI

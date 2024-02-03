@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     INCX,INCY,N
+      int     INCX,INCY,N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 ZX(*),ZY(*)
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       COMPLEX*16 ZTEMP
-      int     I,IX,IY
+      int     I,IX,IY;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC DCONJG

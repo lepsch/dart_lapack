@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
       REAL               TOL
-      int                INFO, LDA, N, RANK
+      int                INFO, LDA, N, RANK;
       String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * )
       REAL               WORK( 2*N )
-      int                PIV( N )
+      int                PIV( N );
 *     ..
 *
 *  =====================================================================
@@ -26,7 +26,7 @@
 *     .. Local Scalars ..
       COMPLEX            CTEMP
       REAL               AJJ, SSTOP, STEMP
-      int                I, ITEMP, J, PVT
+      int                I, ITEMP, J, PVT;
       bool               UPPER;
 *     ..
 *     .. External Functions ..

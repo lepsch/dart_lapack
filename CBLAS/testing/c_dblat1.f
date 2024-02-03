@@ -3,14 +3,14 @@
 *     Based upon the original CBLAS test routine together with:
 *     F06EAF Example Program Text
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
 *     .. Local Scalars ..
       double           SFAC;
-      int              IC
+      int              IC;
 *     .. External Subroutines ..
       EXTERNAL         CHECK0, CHECK1, CHECK2, CHECK3, HEADER
 *     .. Common blocks ..
@@ -51,10 +51,10 @@
       END
       SUBROUTINE HEADER
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       PARAMETER        (NOUT=6)
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
 *     .. Local Arrays ..
       String            L(10);
@@ -79,16 +79,16 @@
       END
       SUBROUTINE CHECK0(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
 *     .. Local Scalars ..
       double            SA, SB, SC, SS;
-      int               K
+      int               K;
 *     .. Local Arrays ..
       double            DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8);
 *     .. External Subroutines ..
@@ -128,21 +128,21 @@
       END
       SUBROUTINE CHECK1(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
 *     .. Local Scalars ..
-      int               I, LEN, NP1
+      int               I, LEN, NP1;
 *     .. Local Arrays ..
       double            DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), SA(10), STEMP(1), STRUE(8), SX(8);
-      int               ITRUE2(5)
+      int               ITRUE2(5);
 *     .. External Functions ..
       double            DASUMTEST, DNRM2TEST;
-      int               IDAMAXTEST
+      int               IDAMAXTEST;
       EXTERNAL          DASUMTEST, DNRM2TEST, IDAMAXTEST
 *     .. External Subroutines ..
       EXTERNAL          ITEST1, DSCALTEST, STEST, STEST1
@@ -194,19 +194,19 @@
       END
       SUBROUTINE CHECK2(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
 *     .. Local Scalars ..
       double            SA;
-      int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY
+      int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY;
 *     .. Local Arrays ..
       double            DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
-      int               INCXS(4), INCYS(4), LENS(4,2), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
 *     .. External Functions ..
       EXTERNAL          DDOTTEST
       double            DDOTTEST;
@@ -281,19 +281,19 @@
       END
       SUBROUTINE CHECK3(SFAC)
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
       double            SFAC;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
 *     .. Local Scalars ..
       double            SC, SS;
-      int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY
+      int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY;
 *     .. Local Arrays ..
       double            COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
-      int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4)
+      int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4);
 *     .. External Subroutines ..
       EXTERNAL          STEST,DROTTEST
 *     .. Intrinsic Functions ..
@@ -446,19 +446,19 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      int              NOUT
+      int              NOUT;
       PARAMETER        (NOUT=6)
 *     .. Scalar Arguments ..
       double           SFAC;
-      int              LEN
+      int              LEN;
 *     .. Array Arguments ..
       double           SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
 *     .. Scalars in Common ..
-      int              ICASE, INCX, INCY, MODE, N
+      int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
 *     .. Local Scalars ..
       double           SD;
-      int              I
+      int              I;
 *     .. External Functions ..
       double           SDIFF;
       EXTERNAL         SDIFF
@@ -533,15 +533,15 @@
 *     C. L. LAWSON, JPL, 1974 DEC 10
 *
 *     .. Parameters ..
-      int               NOUT
+      int               NOUT;
       PARAMETER         (NOUT=6)
 *     .. Scalar Arguments ..
-      int               ICOMP, ITRUE
+      int               ICOMP, ITRUE;
 *     .. Scalars in Common ..
-      int               ICASE, INCX, INCY, MODE, N
+      int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
 *     .. Local Scalars ..
-      int               ID
+      int               ID;
 *     .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
 *     .. Executable Statements ..

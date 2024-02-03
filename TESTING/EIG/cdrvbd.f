@@ -7,12 +7,12 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDU, LDVT, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDU, LDVT, LWORK, NOUNIT, NSIZES, NTYPES;
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * )
+      int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * );
       REAL               E( * ), RWORK( * ), S( * ), SSAV( * )
       COMPLEX            A( LDA, * ), ASAV( LDA, * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
 *     ..
@@ -24,21 +24,21 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-      int                MAXTYP
+      int                MAXTYP;
       PARAMETER          ( MAXTYP = 5 )
 *     ..
 *     .. Local Scalars ..
       bool               BADMM, BADNN;
       String             JOBQ, JOBU, JOBVT, RANGE;
-      int                I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK
+      int                I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK;
       REAL               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Scalars for CGESVDQ ..
-      int                LIWORK, NUMRANK
+      int                LIWORK, NUMRANK;
 *     ..
 *     .. Local Arrays ..
       String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
-      int                IOLDSD( 4 ), ISEED2( 4 )
+      int                IOLDSD( 4 ), ISEED2( 4 );
       REAL               RESULT( 39 )
 *     ..
 *     .. External Functions ..

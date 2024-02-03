@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, LDSA, N
+      int                INFO, LDA, LDSA, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            SA( LDSA, * )
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, J
+      int                I, J;
       double             RMAX;
       bool               UPPER;
 *     ..

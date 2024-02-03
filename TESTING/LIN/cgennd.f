@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     M, N, LDA
+      int     M, N, LDA;
 *     ..
 *     .. Array Arguments ..
       COMPLEX A( LDA, * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      int     I, K
+      int     I, K;
       COMPLEX AII
 *     ..
 *     .. Intrinsics ..

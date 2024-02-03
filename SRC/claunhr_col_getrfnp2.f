@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX         A( LDA, * ), D( * )
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL               SFMIN
-      int                I, IINFO, N1, N2
+      int                I, IINFO, N1, N2;
       COMPLEX            Z
 *     ..
 *     .. External Functions ..

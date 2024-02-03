@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String           UPLO;
-      int              I1, I2, LDA, N
+      int              I1, I2, LDA, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX          A( LDA, N )
@@ -16,7 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                I
+      int                I;
       COMPLEX            TMP
 *
 *     .. External Functions ..

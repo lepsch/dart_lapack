@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             NORM;
-      int                INFO, N
+      int                INFO, N;
       double             ANORM, RCOND;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * );
       double             D( * ), DL( * ), DU( * ), DU2( * ), WORK( * );
 *     ..
 *
@@ -22,11 +22,11 @@
 *     ..
 *     .. Local Scalars ..
       bool               ONENRM;
-      int                I, KASE, KASE1
+      int                I, KASE, KASE1;
       double             AINVNM;
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;

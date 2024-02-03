@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NIN, NOUT
+      int                NIN, NOUT;
       double             THRESH;
 *     ..
 *
@@ -15,11 +15,11 @@
 *     .. Local Scalars ..
       bool               OK;
       String             PATH;
-      int                KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LTREXC, LTRSYL, NTESTS, NTREXC, NTRSYL
+      int                KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LTREXC, LTRSYL, NTESTS, NTREXC, NTRSYL;
       double             EPS, RTREXC, SFMIN;
 *     ..
 *     .. Local Arrays ..
-      int                FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NTRSEN( 3 ), NTRSNA( 3 )
+      int                FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NTRSEN( 3 ), NTRSNA( 3 );
       double             RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 );
 *     ..
 *     .. External Subroutines ..

@@ -15,11 +15,11 @@
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       double             RMIN, X;
 *     ..
 *     .. Scalars in Common ..
-      int                SELDIM, SELOPT
+      int                SELDIM, SELOPT;
 *     ..
 *     .. Arrays in Common ..
       bool               SELVAL( 20 );

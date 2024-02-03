@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             EQUED, UPLO;
-      int                N
+      int                N;
       double             AMAX, SCOND;
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ONE = 1.0D+0, THRESH = 0.1D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, JC
+      int                I, J, JC;
       double             CJ, LARGE, SMALL;
 *     ..
 *     .. External Functions ..

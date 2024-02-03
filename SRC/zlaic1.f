@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                J, JOB
+      int                J, JOB;
       double             SEST, SESTPR;
       COMPLEX*16         C, GAMMA, S
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANSA, TRANSE, TRANSW;
-      int                LDA, LDE, N
+      int                LDA, LDE, N;
 *     ..
 *     .. Array Arguments ..
       double             RESULT( 2 ), RWORK( * );
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       String             NORMA, NORME;
-      int                ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC
+      int                ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC;
       double             ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
       COMPLEX*16         WTEMP
 *     ..

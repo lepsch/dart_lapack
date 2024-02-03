@@ -6,17 +6,17 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                INFO, KL, KU, LDAB, LDAFB, LDB, LDX, N, NRHS
+      int                INFO, KL, KU, LDAB, LDAFB, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * );
       double             AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                ITMAX
+      int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
@@ -30,11 +30,11 @@
 *     .. Local Scalars ..
       bool               NOTRAN;
       String             TRANST;
-      int                COUNT, I, J, K, KASE, KK, NZ
+      int                COUNT, I, J, K, KASE, KK, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DCOPY, DGBMV, DGBTRS, DLACN2, XERBLA

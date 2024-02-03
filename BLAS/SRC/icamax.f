@@ -1,11 +1,11 @@
-      int     FUNCTION ICAMAX(N,CX,INCX)
+      int     FUNCTION ICAMAX(N,CX,INCX);
 *
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int     INCX,N
+      int     INCX,N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX CX(*)
@@ -15,7 +15,7 @@
 *
 *     .. Local Scalars ..
       REAL SMAX
-      int     I,IX
+      int     I,IX;
 *     ..
 *     .. External Functions ..
       REAL SCABS1

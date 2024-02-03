@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIDE, TRANS;
-      int                INFO, K, L, LDA, LDC, M, N
+      int                INFO, K, L, LDA, LDC, M, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       bool               LEFT, NOTRAN;
-      int                I, I1, I2, I3, IC, JA, JC, MI, NI, NQ
+      int                I, I1, I2, I3, IC, JA, JC, MI, NI, NQ;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

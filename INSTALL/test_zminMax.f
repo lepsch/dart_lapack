@@ -5,13 +5,13 @@
 
 *     ..
 *     .. Parameters ..
-      int               n
+      int               n;
       parameter       ( n = 8 )
       double            zero;
       parameter       ( zero = 0.0d0 )
 *     ..
 *     .. Local Variables ..
-      int               i, nFailingTests, nTests
+      int               i, nFailingTests, nTests;
       double            aInf, aNaN, OV, R, X(n), Y(n);
 *
 *     .. Intrinsic Functions ..

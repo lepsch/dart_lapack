@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double             SI1, SI2, SR1, SR2;
-      int                LDH, N
+      int                LDH, N;
 *     ..
 *     .. Array Arguments ..
       double             H( LDH, * ), V( * );

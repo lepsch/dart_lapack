@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX*16         S1, S2
-      int                LDH, N
+      int                LDH, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         H( LDH, * ), V( * )

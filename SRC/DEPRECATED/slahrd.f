@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                K, LDA, LDT, LDY, N, NB
+      int                K, LDA, LDT, LDY, N, NB;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       REAL               EI
 *     ..
 *     .. External Subroutines ..

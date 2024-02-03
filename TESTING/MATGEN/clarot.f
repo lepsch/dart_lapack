@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               LLEFT, LRIGHT, LROWS;
-      int                LDA, NL
+      int                LDA, NL;
       COMPLEX            C, S, XLEFT, XRIGHT
 *     ..
 *     .. Array Arguments ..
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                IINC, INEXT, IX, IY, IYT, J, NT
+      int                IINC, INEXT, IX, IY, IYT, J, NT;
       COMPLEX            TEMPX
 *     ..
 *     .. Local Arrays ..

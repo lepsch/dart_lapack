@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, UPLO;
-      int                INFO, KD, LDAB, LDZ, N, LWORK
+      int                INFO, KD, LDAB, LDZ, N, LWORK;
 *     ..
 *     .. Array Arguments ..
       double             RWORK( * ), W( * );
@@ -23,11 +23,11 @@
 *     ..
 *     .. Local Scalars ..
       bool               LOWER, WANTZ, LQUERY;
-      int                IINFO, IMAX, INDE, INDWRK, INDRWK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS       double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      int                IINFO, IMAX, INDE, INDWRK, INDRWK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS       double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV2STAGE
+      int                ILAENV2STAGE;
       double             DLAMCH, ZLANHB;
       EXTERNAL           LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
 *     ..

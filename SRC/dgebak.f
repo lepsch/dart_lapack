@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOB, SIDE;
-      int                IHI, ILO, INFO, LDV, M, N
+      int                IHI, ILO, INFO, LDV, M, N;
 *     ..
 *     .. Array Arguments ..
       double             SCALE( * ), V( LDV, * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LEFTV, RIGHTV;
-      int                I, II, K
+      int                I, II, K;
       double             S;
 *     ..
 *     .. External Functions ..

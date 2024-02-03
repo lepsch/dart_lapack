@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N, PQ
+      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N, PQ;
       REAL               RDSCAL, RDSUM, SCALE
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * )
 *     ..
 *
@@ -19,18 +19,18 @@
 *  Sven Hammarling, 27/5/02.
 *
 *     .. Parameters ..
-      int                LDZ
+      int                LDZ;
       PARAMETER          ( LDZ = 8 )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
-      int                I, IE, IERR, II, IS, ISP1, J, JE, JJ, JS, JSP1, K, MB, NB, P, Q, ZDIM
+      int                I, IE, IERR, II, IS, ISP1, J, JE, JJ, JS, JSP1, K, MB, NB, P, Q, ZDIM;
       REAL               ALPHA, SCALOC
 *     ..
 *     .. Local Arrays ..
-      int                IPIV( LDZ ), JPIV( LDZ )
+      int                IPIV( LDZ ), JPIV( LDZ );
       REAL               RHS( LDZ ), Z( LDZ, LDZ )
 *     ..
 *     .. External Functions ..

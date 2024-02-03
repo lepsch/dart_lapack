@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             INIT, SIDE;
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
       REAL               A( LDA, * ), X( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TOOSML = 1.0E-20 )
 *     ..
 *     .. Local Scalars ..
-      int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
+      int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
       REAL               FACTOR, XNORM, XNORMS
 *     ..
 *     .. External Functions ..

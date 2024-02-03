@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                ITYPE, KBAND, LDA, LDU, LDV, M, N
+      int                ITYPE, KBAND, LDA, LDU, LDV, M, N;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * )
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                J, JJ, JJ1, JJ2, NN, NNP1
+      int                J, JJ, JJ1, JJ2, NN, NNP1;
       REAL               ANORM, ULP, UNFL, WNORM
 *     ..
 *     .. External Functions ..

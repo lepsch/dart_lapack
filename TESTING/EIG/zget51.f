@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                ITYPE, LDA, LDB, LDU, LDV, N
+      int                ITYPE, LDA, LDB, LDU, LDV, N;
       double             RESULT;
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                JCOL, JDIAG, JROW
+      int                JCOL, JDIAG, JROW;
       double             ANORM, ULP, UNFL, WNORM;
 *     ..
 *     .. External Functions ..

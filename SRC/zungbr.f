@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             VECT;
-      int                INFO, K, LDA, LWORK, M, N
+      int                INFO, K, LDA, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, WANTQ;
-      int                I, IINFO, J, LWKOPT, MN
+      int                I, IINFO, J, LWKOPT, MN;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

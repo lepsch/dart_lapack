@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
 *
-      int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N
+      int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N;
       REAL               SPARSE
 *     ..
 *
 *     .. Array Arguments ..
 *
-      int                ISEED( 4 ), IWORK( * )
+      int                ISEED( 4 ), IWORK( * );
       COMPLEX            D( * ), DL( * ), DR( * )
 *     ..
 *
@@ -28,7 +28,7 @@
 *
 *     .. Local Scalars ..
 *
-      int                ISUB, JSUB
+      int                ISUB, JSUB;
       COMPLEX            CTEMP
 *     ..
 *

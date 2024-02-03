@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDQ, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDQ, LWORK, NOUNIT, NSIZES, NTYPES;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               BWORK( * ), DOTYPE( * );
-      int                ISEED( 4 ), NN( * )
+      int                ISEED( 4 ), NN( * );
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), RESULT( 13 ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
 *     ..
 *
@@ -19,22 +19,22 @@
 *     .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-      int                MAXTYP
+      int                MAXTYP;
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
       bool               BADNN, ILABAD;
       String             SORT;
-      int                I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM
+      int                I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM;
       double             SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
 *     ..
 *     .. Local Arrays ..
-      int                IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
+      int                IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
       double             RMAGN( 0: 3 );
 *     ..
 *     .. External Functions ..
       bool               DLCTES;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, DLARND;
       EXTERNAL           DLCTES, ILAENV, DLAMCH, DLARND
 *     ..

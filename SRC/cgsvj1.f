@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL               EPS, SFMIN, TOL
-      int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP
+      int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP;
       String             JOBV;
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       COMPLEX            AAPQ, OMPQ
       REAL               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
-      int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND
+      int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;
 *     ..
 *     ..
@@ -33,7 +33,7 @@
 *     .. External Functions ..
       REAL               SCNRM2
       COMPLEX            CDOTC
-      int                ISAMAX
+      int                ISAMAX;
       bool               LSAME;
       EXTERNAL           ISAMAX, LSAME, CDOTC, SCNRM2
 *     ..

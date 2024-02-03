@@ -1,4 +1,4 @@
-      int              FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+      int              FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       List<String>       NAME, OPTS;
-      int                ISPEC, N1, N2, N3, N4
+      int                ISPEC, N1, N2, N3, N4;
 *     ..
 *
 *  =====================================================================
@@ -15,11 +15,11 @@
       INTRINSIC          INT, MIN, REAL
 *     ..
 *     .. External Functions ..
-      int                IEEECK, IPARAM2STAGE
+      int                IEEECK, IPARAM2STAGE;
       EXTERNAL           IEEECK, IPARAM2STAGE
 *     ..
 *     .. Arrays in Common ..
-      int                IPARMS( 100 )
+      int                IPARMS( 100 );
 *     ..
 *     .. Common blocks ..
       COMMON             / CLAENV / IPARMS
@@ -97,22 +97,22 @@ C        ILAENV = 0
 *     End of ILAENV
 *
       END
-      int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+      int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
 *     .. Scalar Arguments ..
       List<String>       NAME, OPTS;
-      int                ISPEC, N1, N2, N3, N4
+      int                ISPEC, N1, N2, N3, N4;
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local variables ..
-      int                IISPEC
+      int                IISPEC;
 *     .. External Functions ..
-      int                IPARAM2STAGE
+      int                IPARAM2STAGE;
       EXTERNAL           IPARAM2STAGE
 *     ..
 *     .. Arrays in Common ..
-      int                IPARMS( 100 )
+      int                IPARMS( 100 );
 *     ..
 *     .. Common blocks ..
       COMMON             / CLAENV / IPARMS
@@ -145,21 +145,21 @@ C        ILAENV = 0
 *     End of ILAENV2STAGE
 *
       END
-      int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK )
+      int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK );
 *
-      int                INMIN, INWIN, INIBL, ISHFTS, IACC22
+      int                INMIN, INWIN, INIBL, ISHFTS, IACC22;
       PARAMETER          ( INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16 )
-      int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP
+      int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP;
       PARAMETER          ( NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500 )
       REAL               TWO
       PARAMETER          ( TWO = 2.0 )
 *     ..
 *     .. Scalar Arguments ..
-      int                IHI, ILO, ISPEC, LWORK, N
+      int                IHI, ILO, ISPEC, LWORK, N;
       String             NAME*( * ), OPTS*( * );
 *     ..
 *     .. Local Scalars ..
-      int                NH, NS
+      int                NH, NS;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LOG, MAX, MOD, NINT, REAL

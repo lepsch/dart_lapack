@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int       INFO, LDA, LDT, M, N
+      int       INFO, LDA, LDT, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), T( LDT, * );
@@ -18,7 +18,7 @@
       PARAMETER( ONE = 1.0D+00, ZERO = 0.0D+00 )
 *     ..
 *     .. Local Scalars ..
-      int       I, K
+      int       I, K;
       double             AII, ALPHA;
 *     ..
 *     .. External Subroutines ..

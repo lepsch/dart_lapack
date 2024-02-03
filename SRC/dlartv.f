@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INCC, INCX, INCY, N
+      int                INCC, INCX, INCY, N;
 *     ..
 *     .. Array Arguments ..
       double             C( * ), S( * ), X( * ), Y( * );
@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, IC, IX, IY
+      int                I, IC, IX, IY;
       double             XI, YI;
 *     ..
 *     .. Executable Statements ..

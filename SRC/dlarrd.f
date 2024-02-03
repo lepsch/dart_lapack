@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             ORDER, RANGE;
-      int                IL, INFO, IU, M, N, NSPLIT
+      int                IL, INFO, IU, M, N, NSPLIT;
       double              PIVMIN, RELTOL, VL, VU, WL, WU;
 *     ..
 *     .. Array Arguments ..
-      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       double             D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
+      int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       double             D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );;
 *     ..
 *
 *  =====================================================================
@@ -18,21 +18,21 @@
 *     .. Parameters ..
       double             ZERO, ONE, TWO, HALF, FUDGE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = ONE/TWO, FUDGE = TWO )
-      int       ALLRNG, VALRNG, INDRNG
+      int       ALLRNG, VALRNG, INDRNG;
       PARAMETER ( ALLRNG = 1, VALRNG = 2, INDRNG = 3 )
 *     ..
 *     .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
-      int                I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU
+      int                I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU;
       double             ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL;
 
 *     ..
 *     .. Local Arrays ..
-      int                IDUMMA( 1 )
+      int                IDUMMA( 1 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH;
       EXTERNAL           LSAME, ILAENV, DLAMCH
 *     ..

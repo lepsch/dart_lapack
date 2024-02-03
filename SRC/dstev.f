@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ;
-      int                INFO, LDZ, N
+      int                INFO, LDZ, N;
 *     ..
 *     .. Array Arguments ..
       double             D( * ), E( * ), WORK( * ), Z( LDZ, * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               WANTZ;
-      int                IMAX, ISCALE
+      int                IMAX, ISCALE;
       double             BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM;
 *     ..
 *     .. External Functions ..

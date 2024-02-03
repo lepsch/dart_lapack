@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDA, N
+      int                INFO, LDA, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX            A( LDA, * )
 *     ..
 *
@@ -25,13 +25,13 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER, DONE;
-      int                I, IMAX, J, JMAX, ITEMP, K, KK, KP, KSTEP, P, II
+      int                I, IMAX, J, JMAX, ITEMP, K, KK, KP, KSTEP, P, II;
       REAL               ABSAKK, ALPHA, COLMAX, ROWMAX, STEMP, SFMIN
       COMPLEX            D11, D12, D21, D22, T, WK, WKM1, WKP1, Z
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ICAMAX
+      int                ICAMAX;
       REAL               SLAMCH
       EXTERNAL           LSAME, ICAMAX, SLAMCH
 *     ..

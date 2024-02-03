@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double           C,S;
-      int     INCX,INCY,N
+      int     INCX,INCY,N;
 *     ..
 *     .. Array Arguments ..
       double           DX(*),DY(*);
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       double           DTEMP;
-      int     I,IX,IY
+      int     I,IX,IY;
 *     ..
       IF (N.LE.0) RETURN
       IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN

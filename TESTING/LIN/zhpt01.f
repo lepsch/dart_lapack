@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDC, N
+      int                LDC, N;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             RWORK( * );
       COMPLEX*16         A( * ), AFAC( * ), C( LDC, * )
 *     ..
@@ -24,7 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, J, JC
+      int                I, INFO, J, JC;
       double             ANORM, EPS;
 *     ..
 *     .. External Functions ..

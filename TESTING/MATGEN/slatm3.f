@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
 *
-      int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N
+      int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N;
       REAL               SPARSE
 *     ..
 *
 *     .. Array Arguments ..
 *
-      int                ISEED( 4 ), IWORK( * )
+      int                ISEED( 4 ), IWORK( * );
       REAL               D( * ), DL( * ), DR( * )
 *     ..
 *

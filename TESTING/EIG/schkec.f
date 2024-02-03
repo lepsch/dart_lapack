@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NIN, NOUT
+      int                NIN, NOUT;
       REAL               THRESH
 *     ..
 *
@@ -15,11 +15,11 @@
 *     .. Local Scalars ..
       bool               OK;
       String             PATH;
-      int                KLAEXC, KLALN2, KLANV2, KLAQTR, KLASY2, KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LLAEXC, LLALN2, LLANV2, LLAQTR, LLASY2, LTREXC, LTRSYL, NLANV2, NLAQTR, NLASY2, NTESTS, NTRSYL, KTGEXC, LTGEXC
+      int                KLAEXC, KLALN2, KLANV2, KLAQTR, KLASY2, KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LLAEXC, LLALN2, LLANV2, LLAQTR, LLASY2, LTREXC, LTRSYL, NLANV2, NLAQTR, NLASY2, NTESTS, NTRSYL, KTGEXC, LTGEXC;
       REAL               EPS, RLAEXC, RLALN2, RLANV2, RLAQTR, RLASY2, RTREXC, SFMIN, RTGEXC
 *     ..
 *     .. Local Arrays ..
-      int                FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NLAEXC( 2 ), NLALN2( 2 ), NTGEXC( 2 ), NTREXC( 3 ), NTRSEN( 3 ), NTRSNA( 3 )
+      int                FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NLAEXC( 2 ), NLALN2( 2 ), NTGEXC( 2 ), NTREXC( 3 ), NTRSEN( 3 ), NTRSNA( 3 );
       REAL               RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 )
 *     ..
 *     .. External Subroutines ..

@@ -7,7 +7,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBVL, JOBVR;
-      int                INFO, LDA, LDVL, LDVR, LWORK, N
+      int                INFO, LDA, LDVL, LDVR, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       double             RWORK( * );
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR;
       String             SIDE;
-      int                HSWORK, I, IBAL, IERR, IHI, ILO, IRWORK, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT
+      int                HSWORK, I, IBAL, IERR, IHI, ILO, IRWORK, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
       double             ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
       COMPLEX*16         TMP
 *     ..
@@ -36,7 +36,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX, ILAENV
+      int                IDAMAX, ILAENV;
       double             DLAMCH, DZNRM2, ZLANGE;
       EXTERNAL           LSAME, IDAMAX, ILAENV, DLAMCH, DZNRM2, ZLANGE
 *     ..

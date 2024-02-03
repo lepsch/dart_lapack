@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             NORM;
-      int                N
+      int                N;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), DL( * ), DU( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I
+      int                I;
       REAL               ANORM, SCALE, SUM, TEMP
 *     ..
 *     .. External Functions ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, KD, LDAB, LDB, N, NRHS
+      int                INFO, KD, LDAB, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               AB( LDAB, * ), B( LDB, * )

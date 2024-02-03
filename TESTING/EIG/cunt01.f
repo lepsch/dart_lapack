@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             ROWCOL;
-      int                LDU, LWORK, M, N
+      int                LDU, LWORK, M, N;
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       String             TRANSU;
-      int                I, J, K, LDWORK, MNMIN
+      int                I, J, K, LDWORK, MNMIN;
       REAL               EPS
       COMPLEX            TMP, ZDUM
 *     ..

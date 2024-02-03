@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       COMPLEX ALPHA,BETA
-      int     INCX,INCY,K,LDA,N
+      int     INCX,INCY,K,LDA,N;
       String    UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX TEMP1,TEMP2
-      int     I,INFO,IX,IY,J,JX,JY,KPLUS1,KX,KY,L
+      int     I,INFO,IX,IY,J,JX,JY,KPLUS1,KX,KY,L;
 *     ..
 *     .. External Functions ..
       bool    LSAME;

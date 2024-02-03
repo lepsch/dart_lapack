@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               LEFT;
-      int                LDA, LDB, LDE, N
+      int                LDA, LDB, LDE, N;
 *     ..
 *     .. Array Arguments ..
       double             RESULT( 2 ), RWORK( * );
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       String             NORMAB, TRANS;
-      int                J, JVEC
+      int                J, JVEC;
       double             ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP;
       COMPLEX*16         ACOEFF, ALPHAI, BCOEFF, BETAI, X
 *     ..

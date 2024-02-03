@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDA, LDB, LDX, N, NRHS
+      int                LDA, LDB, LDX, N, NRHS;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
@@ -21,11 +21,11 @@
       PARAMETER          ( NEGONE = -1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                IFAIL, J
+      int                IFAIL, J;
       double             ANORM, BNORM, EPS, XNORM;
 *     ..
 *     .. External Functions ..
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH, DLANSY;
       EXTERNAL           IDAMAX, DLAMCH, DLANSY
 *     ..

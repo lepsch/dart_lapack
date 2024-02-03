@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N;
 *     ..
 *     .. Array Arguments ..
       REAL               AB( LDAB, * )
@@ -17,18 +17,18 @@
 *     .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-      int                NBMAX, LDWORK
+      int                NBMAX, LDWORK;
       PARAMETER          ( NBMAX = 32, LDWORK = NBMAX+1 )
 *     ..
 *     .. Local Scalars ..
-      int                I, I2, I3, IB, II, J, JJ, NB
+      int                I, I2, I3, IB, II, J, JJ, NB;
 *     ..
 *     .. Local Arrays ..
       REAL               WORK( LDWORK, NBMAX )
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

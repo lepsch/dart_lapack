@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                N
+      int                N;
       double             RESID;
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, K, KC
+      int                I, K, KC;
       double             ANORM, EPS, TR;
       COMPLEX*16         TC
 *     ..

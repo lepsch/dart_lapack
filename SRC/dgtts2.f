@@ -5,17 +5,17 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                ITRANS, LDB, N, NRHS
+      int                ITRANS, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       double             B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * );
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, IP, J
+      int                I, IP, J;
       double             TEMP;
 *     ..
 *     .. Executable Statements ..

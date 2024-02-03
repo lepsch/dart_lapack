@@ -8,7 +8,7 @@
 *
 *     .. Scalar Arguments ..
       String             VECT, UPLO;
-      int                N, LDA, LWORK, LHOUS2, INFO
+      int                N, LDA, LWORK, LHOUS2, INFO;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
@@ -19,14 +19,14 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, UPPER, WANTQ;
-      int                KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS
+      int                KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, CHETRD_HE2HB, CHETRD_HB2ST
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV2STAGE
+      int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..

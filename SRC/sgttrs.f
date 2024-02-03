@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                INFO, LDB, N, NRHS
+      int                INFO, LDB, N, NRHS;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       REAL               B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * )
 *     ..
 *
@@ -17,10 +17,10 @@
 *
 *     .. Local Scalars ..
       bool               NOTRAN;
-      int                ITRANS, J, JB, NB
+      int                ITRANS, J, JB, NB;
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV
 *     ..
 *     .. External Subroutines ..

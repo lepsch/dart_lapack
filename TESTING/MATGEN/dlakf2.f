@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDZ, M, N
+      int                LDA, LDZ, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), B( LDA, * ), D( LDA, * ), E( LDA, * ), Z( LDZ, * );
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IK, J, JK, L, MN, MN2
+      int                I, IK, J, JK, L, MN, MN2;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLASET

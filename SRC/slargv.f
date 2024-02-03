@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INCC, INCX, INCY, N
+      int                INCC, INCX, INCY, N;
 *     ..
 *     .. Array Arguments ..
       REAL               C( * ), X( * ), Y( * )
@@ -18,7 +18,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IC, IX, IY
+      int                I, IC, IX, IY;
       REAL               F, G, T, TT
 *     ..
 *     .. Intrinsic Functions ..

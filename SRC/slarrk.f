@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int       INFO, IW, N
+      int       INFO, IW, N;
       REAL                PIVMIN, RELTOL, GL, GU, W, WERR
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( HALF = 0.5E0, TWO = 2.0E0, FUDGE = TWO, ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      int       I, IT, ITMAX, NEGCNT
+      int       I, IT, ITMAX, NEGCNT;
       REAL               ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM
 *     ..
 *     .. External Functions ..

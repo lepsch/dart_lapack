@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDQ, LDQS, N, QSIZ
+      int                INFO, LDQ, LDQS, N, QSIZ;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               D( * ), E( * ), RWORK( * )
       COMPLEX            Q( LDQ, * ), QSTORE( LDQS, * )
 *     ..
@@ -22,14 +22,14 @@
       PARAMETER          ( TWO = 2.E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, LL, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS
+      int                CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, LL, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS;
       REAL               TEMP
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CCOPY, CLACRM, CLAED7, SCOPY, SSTEQR, XERBLA
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           ILAENV
 *     ..
 *     .. Intrinsic Functions ..

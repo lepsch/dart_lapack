@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOB;
-      int                INCX, N
+      int                INCX, N;
 *     ..
 *     .. Array Arguments ..
       REAL               X( * )
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                I, INC, IX, IXNEXT
+      int                I, INC, IX, IXNEXT;
       REAL               TEMP
 *     ..
 *     .. External Functions ..

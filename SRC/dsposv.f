@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, ITER, LDA, LDB, LDX, N, NRHS
+      int                INFO, ITER, LDA, LDB, LDX, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       REAL               SWORK( * )
@@ -19,7 +19,7 @@
       bool               DOITREF;
       PARAMETER          ( DOITREF = .TRUE. )
 *
-      int                ITERMAX
+      int                ITERMAX;
       PARAMETER          ( ITERMAX = 30 )
 *
       double             BWDMAX;
@@ -29,14 +29,14 @@
       PARAMETER          ( NEGONE = -1.0D+0, ONE = 1.0D+0 )
 *
 *     .. Local Scalars ..
-      int                I, IITER, PTSA, PTSX
+      int                I, IITER, PTSA, PTSX;
       double             ANRM, CTE, EPS, RNRM, XNRM;
 *
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DSYMM, DLACPY, DLAT2S, DLAG2S, SLAG2D, SPOTRF, SPOTRS, DPOTRF, DPOTRS, XERBLA
 *     ..
 *     .. External Functions ..
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH, DLANSY;
       bool               LSAME;
       EXTERNAL           IDAMAX, DLAMCH, DLANSY, LSAME

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, N
+      int                INFO, N;
 *     ..
 *     .. Array Arguments ..
       double             AP( * );
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                J, JC, JJ, JJN
+      int                J, JC, JJ, JJN;
       double             AJJ;
 *     ..
 *     .. External Functions ..

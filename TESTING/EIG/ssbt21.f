@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                KA, KS, LDA, LDU, N
+      int                KA, KS, LDA, LDU, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), D( * ), E( * ), RESULT( 2 ), U( LDU, * ), WORK( * )
@@ -21,7 +21,7 @@
 *     .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
-      int                IKA, J, JC, JR, LW
+      int                IKA, J, JC, JR, LW;
       REAL               ANORM, ULP, UNFL, WNORM
 *     ..
 *     .. External Functions ..

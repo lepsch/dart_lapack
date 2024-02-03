@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL SA
-      int     INCX,INCY,N
+      int     INCX,INCY,N;
 *     ..
 *     .. Array Arguments ..
       REAL SX(*),SY(*)
@@ -15,7 +15,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int     I,IX,IY,M,MP1
+      int     I,IX,IY,M,MP1;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC MOD

@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       bool               LERR, OK;
       List<String>         SRNAMT;
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LEN_TRIM

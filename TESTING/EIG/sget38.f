@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                KNT, NIN
+      int                KNT, NIN;
 *     ..
 *     .. Array Arguments ..
-      int                LMAX( 3 ), NINFO( 3 )
+      int                LMAX( 3 ), NINFO( 3 );
       REAL               RMAX( 3 )
 *     ..
 *
@@ -19,18 +19,18 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
       REAL               EPSIN
       PARAMETER          ( EPSIN = 5.9605E-8 )
-      int                LDT, LWORK
+      int                LDT, LWORK;
       PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
-      int                LIWORK
+      int                LIWORK;
       PARAMETER          ( LIWORK = LDT*LDT )
 *     ..
 *     .. Local Scalars ..
-      int                I, INFO, ISCL, ITMP, J, KMIN, M, N, NDIM
+      int                I, INFO, ISCL, ITMP, J, KMIN, M, N, NDIM;
       REAL               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN
 *     ..
 *     .. Local Arrays ..
       bool               SELECT( LDT );
-      int                IPNT( LDT ), ISELEC( LDT ), IWORK( LIWORK )
+      int                IPNT( LDT ), ISELEC( LDT ), IWORK( LIWORK );
       REAL               Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), RESULT( 2 ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRTMP( LDT )
 *     ..
 *     .. External Functions ..

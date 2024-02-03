@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, UPLO;
-      int                INFO, ITYPE, LDZ, LIWORK, LRWORK, LWORK, N
+      int                INFO, ITYPE, LDZ, LIWORK, LRWORK, LWORK, N;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             RWORK( * ), W( * );
       COMPLEX*16         AP( * ), BP( * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -19,7 +19,7 @@
 *     .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
-      int                J, LIWMIN, LRWMIN, LWMIN, NEIG
+      int                J, LIWMIN, LRWMIN, LWMIN, NEIG;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

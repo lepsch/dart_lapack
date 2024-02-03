@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IJOB, INFO, MINP, MMAX, MOUT, N, NBMIN, NITMAX
+      int                IJOB, INFO, MINP, MMAX, MOUT, N, NBMIN, NITMAX;
       REAL               ABSTOL, PIVMIN, RELTOL
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * ), NAB( MMAX, * ), NVAL( * )
+      int                IWORK( * ), NAB( MMAX, * ), NVAL( * );
       REAL               AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ), WORK( * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E0, TWO = 2.0E0, HALF = 1.0E0 / TWO )
 *     ..
 *     .. Local Scalars ..
-      int                ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW
+      int                ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW;
       REAL               TMP1, TMP2
 *     ..
 *     .. Intrinsic Functions ..

@@ -6,13 +6,13 @@
 *
 *     .. Scalar Arguments ..
 *
-      int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N
+      int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N;
       double             SPARSE;
 *     ..
 *
 *     .. Array Arguments ..
 *
-      int                ISEED( 4 ), IWORK( * )
+      int                ISEED( 4 ), IWORK( * );
       double             D( * ), DL( * ), DR( * );
 *     ..
 *
@@ -26,7 +26,7 @@
 *
 *     .. Local Scalars ..
 *
-      int                ISUB, JSUB
+      int                ISUB, JSUB;
       double             TEMP;
 *     ..
 *

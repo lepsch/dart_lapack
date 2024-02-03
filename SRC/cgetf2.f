@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N
+      int                INFO, LDA, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX            A( LDA, * )
 *     ..
 *
@@ -19,10 +19,10 @@
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                J, JP
+      int                J, JP;
 *     ..
 *     .. External Functions ..
-      int                ICAMAX
+      int                ICAMAX;
       EXTERNAL           ICAMAX
 *     ..
 *     .. External Subroutines ..

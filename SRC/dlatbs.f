@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             DIAG, NORMIN, TRANS, UPLO;
-      int                INFO, KD, LDAB, N
+      int                INFO, KD, LDAB, N;
       double             SCALE;
 *     ..
 *     .. Array Arguments ..
@@ -21,12 +21,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
-      int                I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND
+      int                I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND;
       double             BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DASUM, DDOT, DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DASUM, DDOT, DLAMCH
 *     ..

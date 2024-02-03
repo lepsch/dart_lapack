@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                LDA, LDB, LWORK, M, N, P
+      int                LDA, LDB, LWORK, M, N, P;
 *     ..
 *     .. Array Arguments ..
 *
@@ -14,7 +14,7 @@
       double             A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), RESULT( 2 ), RWORK( * ), WORK( LWORK ), X( * );
 *     ..
 *     .. Local Scalars ..
-      int                INFO
+      int                INFO;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DGET02, DGGLSE, DLACPY

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDA, LDW, N, NB
+      int                LDA, LDW, N, NB;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), E( * ), TAU( * ), W( LDW, * );
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, HALF = 0.5D+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IW
+      int                I, IW;
       double             ALPHA;
 *     ..
 *     .. External Subroutines ..

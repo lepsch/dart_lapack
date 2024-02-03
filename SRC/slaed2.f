@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, K, LDQ, N, N1
+      int                INFO, K, LDQ, N, N1;
       REAL               RHO
 *     ..
 *     .. Array Arguments ..
-      int                COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ), INDXQ( * )       REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * )
+      int                COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ), INDXQ( * )       REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * );
 *     ..
 *
 *  =====================================================================
@@ -19,14 +19,14 @@
       PARAMETER          ( MONE = -1.0E0, ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, EIGHT = 8.0E0 )
 *     ..
 *     .. Local Arrays ..
-      int                CTOT( 4 ), PSM( 4 )
+      int                CTOT( 4 ), PSM( 4 );
 *     ..
 *     .. Local Scalars ..
-      int                CT, I, IMAX, IQ1, IQ2, J, JMAX, JS, K2, N1P1, N2, NJ, PJ
+      int                CT, I, IMAX, IQ1, IQ2, J, JMAX, JS, K2, N1P1, N2, NJ, PJ;
       REAL               C, EPS, S, T, TAU, TOL
 *     ..
 *     .. External Functions ..
-      int                ISAMAX
+      int                ISAMAX;
       REAL               SLAMCH, SLAPY2
       EXTERNAL           ISAMAX, SLAMCH, SLAPY2
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, UPLO;
-      int                INFO, ITYPE, LDA, LDB, LWORK, N
+      int                INFO, ITYPE, LDA, LDB, LWORK, N;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), W( * ), WORK( * )
@@ -21,11 +21,11 @@
 *     .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
-      int                LWKMIN, LWKOPT, NB, NEIG
+      int                LWKMIN, LWKOPT, NB, NEIG;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       REAL               SROUNDUP_LWORK
       EXTERNAL           ILAENV, LSAME, SROUNDUP_LWORK
 *     ..

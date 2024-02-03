@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIDE, TRANS;
-      int                INFO, LDA, M, N, K, MB, NB, LDT, LWORK, LDC
+      int                INFO, LDA, M, N, K, MB, NB, LDT, LWORK, LDC;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), WORK( * ), C( LDC, * ), T( LDT, * );
@@ -17,7 +17,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
-      int                I, II, KK, LW, CTR, Q, MINMNK, LWMIN
+      int                I, II, KK, LW, CTR, Q, MINMNK, LWMIN;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             NORM;
-      int                INFO, KL, KU, LDAB, N
+      int                INFO, KL, KU, LDAB, N;
       REAL               ANORM, RCOND
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * ), IWORK( * )
+      int                IPIV( * ), IWORK( * );
       REAL               AB( LDAB, * ), WORK( * )
 *     ..
 *
@@ -23,15 +23,15 @@
 *     .. Local Scalars ..
       bool               LNOTI, ONENRM;
       String             NORMIN;
-      int                IX, J, JP, KASE, KASE1, KD, LM
+      int                IX, J, JP, KASE, KASE1, KD, LM;
       REAL               AINVNM, SCALE, SMLNUM, T
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ISAMAX
+      int                ISAMAX;
       REAL               SDOT, SLAMCH
       EXTERNAL           LSAME, ISAMAX, SDOT, SLAMCH
 *     ..

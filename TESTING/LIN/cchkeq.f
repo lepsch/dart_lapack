@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                NOUT
+      int                NOUT;
       REAL               THRESH
 *     ..
 *
@@ -18,15 +18,15 @@
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ) )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E0, 0.0E0 ) )
-      int                NSZ, NSZB
+      int                NSZ, NSZB;
       PARAMETER          ( NSZ = 5, NSZB = 3*NSZ-2 )
-      int                NSZP, NPOW
+      int                NSZP, NPOW;
       PARAMETER          ( NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 )
 *     ..
 *     .. Local Scalars ..
       bool               OK;
       String             PATH;
-      int                I, INFO, J, KL, KU, M, N
+      int                I, INFO, J, KL, KU, M, N;
       REAL               CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND
 *     ..
 *     .. Local Arrays ..

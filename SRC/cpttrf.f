@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, N
+      int                INFO, N;
 *     ..
 *     .. Array Arguments ..
       REAL               D( * )
@@ -19,7 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, I4
+      int                I, I4;
       REAL               EII, EIR, F, G
 *     ..
 *     .. External Subroutines ..

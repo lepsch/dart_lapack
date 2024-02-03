@@ -55,7 +55,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, M, N, MB, NB, LWORK, LDT
+      int                INFO, LDA, M, N, MB, NB, LWORK, LDT;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), WORK( * ), T( LDT, * )
@@ -66,7 +66,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                I, II, KK, CTR, MINMN, LWMIN
+      int                I, II, KK, CTR, MINMN, LWMIN;
 *     ..
 *     .. EXTERNAL FUNCTIONS ..
       bool               LSAME;

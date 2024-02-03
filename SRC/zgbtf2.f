@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, KL, KU, LDAB, M, N
+      int                INFO, KL, KU, LDAB, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         AB( LDAB, * )
 *     ..
 *
@@ -19,10 +19,10 @@
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, JP, JU, KM, KV
+      int                I, J, JP, JU, KM, KV;
 *     ..
 *     .. External Functions ..
-      int                IZAMAX
+      int                IZAMAX;
       EXTERNAL           IZAMAX
 *     ..
 *     .. External Subroutines ..

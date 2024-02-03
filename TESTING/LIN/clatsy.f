@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDX, N
+      int                LDX, N;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( * )
+      int                ISEED( * );
       COMPLEX            X( LDX, * )
 *     ..
 *
@@ -20,7 +20,7 @@
       PARAMETER          ( EYE = ( 0.0, 1.0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, N5
+      int                I, J, N5;
       REAL               ALPHA, ALPHA3, BETA
       COMPLEX            A, B, C, R
 *     ..

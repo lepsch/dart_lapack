@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       bool               OK;
       String             PATH;
-      int                NOUT
+      int                NOUT;
 *     ..
 *
 *  =====================================================================

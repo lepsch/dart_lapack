@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N
+      int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N;
 *     ..
 *     .. Array Arguments ..
       double             Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
@@ -20,7 +20,7 @@
       PARAMETER          ( NEGONE = -1.0D0, ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                I, IX
+      int                I, IX;
       double             EPS, NORM, NORM_NEW, SCL, SSQ;
 *     ..
 *     .. External Functions ..

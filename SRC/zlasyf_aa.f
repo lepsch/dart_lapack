@@ -8,10 +8,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                M, NB, J1, LDA, LDH
+      int                M, NB, J1, LDA, LDH;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         A( LDA, * ), H( LDH, * ), WORK( * )
 *     ..
 *
@@ -21,12 +21,12 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *
 *     .. Local Scalars ..
-      int                J, K, K1, I1, I2, MJ
+      int                J, K, K1, I1, I2, MJ;
       COMPLEX*16         PIV, ALPHA
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IZAMAX, ILAENV
+      int                IZAMAX, ILAENV;
       EXTERNAL           LSAME, ILAENV, IZAMAX
 *     ..
 *     .. External Subroutines ..

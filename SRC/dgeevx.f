@@ -7,11 +7,11 @@
 *
 *     .. Scalar Arguments ..
       String             BALANC, JOBVL, JOBVR, SENSE;
-      int                IHI, ILO, INFO, LDA, LDVL, LDVR, LWORK, N
+      int                IHI, ILO, INFO, LDA, LDVL, LDVR, LWORK, N;
       double             ABNRM;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             A( LDA, * ), RCONDE( * ), RCONDV( * ), SCALE( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * );
 *     ..
 *
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV;
       String             JOB, SIDE;
-      int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT       double             ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN;
+      int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT       double             ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN;;
 *     ..
 *     .. Local Arrays ..
       bool               SELECT( 1 );
@@ -35,7 +35,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX, ILAENV
+      int                IDAMAX, ILAENV;
       double             DLAMCH, DLANGE, DLAPY2, DNRM2;
       EXTERNAL           LSAME, IDAMAX, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
 *     ..

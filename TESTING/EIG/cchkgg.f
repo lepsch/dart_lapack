@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTDIF;
-      int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES
+      int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES;
       REAL               THRESH, THRSHN
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * ), LLWORK( * );
-      int                ISEED( 4 ), NN( * )
+      int                ISEED( 4 ), NN( * );
       REAL               RESULT( 15 ), RWORK( * )
       COMPLEX            A( LDA, * ), ALPHA1( * ), ALPHA3( * ), B( LDA, * ), BETA1( * ), BETA3( * ), EVECTL( LDU, * ), EVECTR( LDU, * ), H( LDA, * ), P1( LDA, * ), P2( LDA, * ), Q( LDU, * ), S1( LDA, * ), S2( LDA, * ), T( LDA, * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * )
 *     ..
@@ -23,18 +23,18 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-      int                MAXTYP
+      int                MAXTYP;
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
       bool               BADNN;
-      int                I1, IADD, IINFO, IN, J, JC, JR, JSIZE, JTYPE, LWKOPT, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT
+      int                I1, IADD, IINFO, IN, J, JC, JR, JSIZE, JTYPE, LWKOPT, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT;
       REAL               ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
       COMPLEX            CTEMP
 *     ..
 *     .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
-      int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
+      int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
       REAL               DUMMA( 4 ), RMAGN( 0: 3 )
       COMPLEX            CDUMMA( 4 )
 *     ..

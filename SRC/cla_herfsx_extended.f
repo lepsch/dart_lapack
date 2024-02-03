@@ -5,41 +5,41 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH
+      int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH;
       String             UPLO;
       bool               COLEQU, IGNORE_CWISE;
       REAL               RTHRESH, DZ_UB
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      int                UPLO2, CNT, I, J, X_STATE, Z_STATE, Y_PREC_STATE       REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
+      int                UPLO2, CNT, I, J, X_STATE, Z_STATE, Y_PREC_STATE       REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC, UPPER;
       COMPLEX            ZDUM
 *     ..
 *     .. Parameters ..
-      int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y
+      int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y;
       PARAMETER          ( UNSTABLE_STATE = 0, WORKING_STATE = 1, CONV_STATE = 2, NOPROG_STATE = 3 )       PARAMETER          ( BASE_RESIDUAL = 0, EXTRA_RESIDUAL = 1, EXTRA_Y = 2 )
-      int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
-      int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
-      int                CMP_ERR_I, PIV_GROWTH_I
+      int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
+      int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
+      int                CMP_ERR_I, PIV_GROWTH_I;
       PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
-      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )       int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
+      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )       int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 );
       PARAMETER          ( LA_LINRX_CWISE_I = 3 )
-      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
+      int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. External Functions ..
       bool               LSAME;
       EXTERNAL           ILAUPLO
-      int                ILAUPLO
+      int                ILAUPLO;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CAXPY, CCOPY, CHETRS, CHEMV, BLAS_CHEMV_X, BLAS_CHEMV2_X, CLA_HEAMV, CLA_WWADDW, CLA_LIN_BERR

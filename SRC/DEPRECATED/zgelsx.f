@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDB, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, M, N, NRHS, RANK;
       double             RCOND;
 *     ..
 *     .. Array Arguments ..
-      int                JPVT( * )
+      int                JPVT( * );
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
 *     ..
@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                IMAX, IMIN
+      int                IMAX, IMIN;
       PARAMETER          ( IMAX = 1, IMIN = 2 )
       double             ZERO, ONE, DONE, NTDONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, DONE = ZERO, NTDONE = ONE )
@@ -25,7 +25,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN
+      int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;
       double             ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM;
       COMPLEX*16         C1, C2, S1, S2, T1, T2
 *     ..

@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               TSTERR;
-      int                NMAX, NN, NOUT, NRHS
+      int                NMAX, NN, NOUT, NRHS;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
       bool               DOTYPE( * );
-      int                NVAL( * )
+      int                NVAL( * );
       double             RWORK( * ), S( * );
       COMPLEX*16         A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
 *     ..
@@ -21,21 +21,21 @@
 *     .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      int                NTYPES, NTESTS
+      int                NTYPES, NTESTS;
       PARAMETER          ( NTYPES = 8, NTESTS = 6 )
-      int                NBW
+      int                NBW;
       PARAMETER          ( NBW = 4 )
 *     ..
 *     .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, ZEROT;
       String             DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
-      int                I, I1, I2, IEQUED, IFACT, IKD, IMAT, IN, INFO, IOFF, IUPLO, IW, IZERO, K, K1, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKD, NRUN, NT
+      int                I, I1, I2, IEQUED, IFACT, IKD, IMAT, IN, INFO, IOFF, IUPLO, IW, IZERO, K, K1, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKD, NRUN, NT;
       double             AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND;
 *     ..
 *     .. Local Arrays ..
       String             EQUEDS( 2 ), FACTS( 3 );
-      int                ISEED( 4 ), ISEEDY( 4 ), KDVAL( NBW )
+      int                ISEED( 4 ), ISEEDY( 4 ), KDVAL( NBW );
       double             RESULT( NTESTS );
 *     ..
 *     .. External Functions ..
@@ -52,7 +52,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

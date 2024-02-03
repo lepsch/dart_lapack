@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDV, LWORK, M, MV, N
+      int                INFO, LDA, LDV, LWORK, M, MV, N;
       String             JOBA, JOBU, JOBV;
 *     ..
 *     .. Array Arguments ..
@@ -17,12 +17,12 @@
 *     .. Local Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0)
-      int                NSWEEP
+      int                NSWEEP;
       PARAMETER          ( NSWEEP = 30 )
 *     ..
 *     .. Local Scalars ..
       REAL               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL
-      int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN
+      int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN;
       bool               APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
 *     ..
 *     .. Local Arrays ..
@@ -36,7 +36,7 @@
 *     from BLAS
       REAL               SDOT, SNRM2
       EXTERNAL           SDOT, SNRM2
-      int                ISAMAX
+      int                ISAMAX;
       EXTERNAL           ISAMAX
 *     from LAPACK
       REAL               SLAMCH, SROUNDUP_LWORK

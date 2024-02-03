@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                N, NZ, NRHS
+      int                N, NZ, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             AYB( N, NRHS ), BERR( NRHS );
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       double             TMP;
-      int                I, J
+      int                I, J;
       COMPLEX*16         CDUM
 *     ..
 *     .. Intrinsic Functions ..

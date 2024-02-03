@@ -2,7 +2,7 @@
 c
       external dasum
       double           dasum,asum;
-      int     n,incx
+      int     n,incx;
       double           x(*);
 c
       asum=dasum(n,x,incx)

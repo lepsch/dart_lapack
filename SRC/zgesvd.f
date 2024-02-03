@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             JOBU, JOBVT;
-      int                INFO, LDA, LDU, LDVT, LWORK, M, N
+      int                INFO, LDA, LDU, LDVT, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       double             RWORK( * ), S( * );
@@ -22,8 +22,8 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      bool               LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS       int                BLK, CHUNK, I, IE, IERR, IR, IRWORK, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL;
-      int                LWORK_ZGEQRF, LWORK_ZUNGQR_N, LWORK_ZUNGQR_M, LWORK_ZGEBRD, LWORK_ZUNGBR_P, LWORK_ZUNGBR_Q, LWORK_ZGELQF, LWORK_ZUNGLQ_N, LWORK_ZUNGLQ_M
+      bool               LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS       int                BLK, CHUNK, I, IE, IERR, IR, IRWORK, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL;;
+      int                LWORK_ZGEQRF, LWORK_ZUNGQR_N, LWORK_ZUNGQR_M, LWORK_ZGEBRD, LWORK_ZUNGBR_P, LWORK_ZUNGBR_Q, LWORK_ZGELQF, LWORK_ZUNGLQ_N, LWORK_ZUNGLQ_M;
       double             ANRM, BIGNUM, EPS, SMLNUM;
 *     ..
 *     .. Local Arrays ..
@@ -35,7 +35,7 @@
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, ZLANGE;
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANGE
 *     ..

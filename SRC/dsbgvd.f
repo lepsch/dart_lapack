@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             JOBZ, UPLO;
-      int                INFO, KA, KB, LDAB, LDBB, LDZ, LIWORK, LWORK, N
+      int                INFO, KA, KB, LDAB, LDBB, LDZ, LIWORK, LWORK, N;
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       double             AB( LDAB, * ), BB( LDBB, * ), W( * ), WORK( * ), Z( LDZ, * );
 *     ..
 *
@@ -22,7 +22,7 @@
 *     .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             VECT;
-      int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLWRK2, LWMIN
+      int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLWRK2, LWMIN;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

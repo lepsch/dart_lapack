@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, N
+      int                INFO, LDA, N;
       REAL               AMAX, SCOND
       String             UPLO;
 *     ..
@@ -19,11 +19,11 @@
 *     .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
-      int                MAX_ITER
+      int                MAX_ITER;
       PARAMETER          ( MAX_ITER = 100 )
 *     ..
 *     .. Local Scalars ..
-      int                I, J, ITER
+      int                I, J, ITER;
       REAL               AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ
       bool               UP;
       COMPLEX            ZDUM

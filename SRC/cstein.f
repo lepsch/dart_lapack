@@ -5,10 +5,10 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDZ, M, N
+      int                INFO, LDZ, M, N;
 *     ..
 *     .. Array Arguments ..
-      int                IBLOCK( * ), IFAIL( * ), ISPLIT( * ), IWORK( * )
+      int                IBLOCK( * ), IFAIL( * ), ISPLIT( * ), IWORK( * );
       REAL               D( * ), E( * ), W( * ), WORK( * )
       COMPLEX            Z( LDZ, * )
 *     ..
@@ -20,18 +20,18 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       REAL               ZERO, ONE, TEN, ODM3, ODM1
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1, ODM3 = 1.0E-3, ODM1 = 1.0E-1 )
-      int                MAXITS, EXTRA
+      int                MAXITS, EXTRA;
       PARAMETER          ( MAXITS = 5, EXTRA = 2 )
 *     ..
 *     .. Local Scalars ..
-      int                B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1, INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1, JBLK, JMAX, JR, NBLK, NRMCHK
+      int                B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1, INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1, JBLK, JMAX, JR, NBLK, NRMCHK;
       REAL               CTR, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL, SCL, SEP, STPCRT, TOL, XJ, XJM
 *     ..
 *     .. Local Arrays ..
-      int                ISEED( 4 )
+      int                ISEED( 4 );
 *     ..
 *     .. External Functions ..
-      int                ISAMAX
+      int                ISAMAX;
       REAL               SLAMCH, SNRM2
       EXTERNAL           ISAMAX, SLAMCH, SNRM2
 *     ..

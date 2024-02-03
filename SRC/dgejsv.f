@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       IMPLICIT    NONE
-      int         INFO, LDA, LDU, LDV, LWORK, M, N
+      int         INFO, LDA, LDU, LDV, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       double           A( LDA, * ), SVA( N ), U( LDU, * ), V( LDV, * ), WORK( LWORK );
-      int         IWORK( * )
+      int         IWORK( * );
       String      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
 *     ..
 *
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       double           AAPP, AAQQ, AATMAX, AATMIN, BIG, BIG1, COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC;
-      int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING
+      int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING;
       bool    ALMORT, DEFR,   ERREST, GOSCAL, JRACC,  KILL,   LSVEC, L2ABER, L2KILL, L2PERT, L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
 *     ..
 *     .. Intrinsic Functions ..
@@ -30,7 +30,7 @@
 *     ..
 *     .. External Functions ..
       double            DLAMCH, DNRM2;
-      int       IDAMAX
+      int       IDAMAX;
       bool      LSAME;
       EXTERNAL  IDAMAX, LSAME, DLAMCH, DNRM2
 *     ..

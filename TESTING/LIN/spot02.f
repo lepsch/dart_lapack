@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                LDA, LDB, LDX, N, NRHS
+      int                LDA, LDB, LDX, N, NRHS;
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      int                J
+      int                J;
       REAL               ANORM, BNORM, EPS, XNORM
 *     ..
 *     .. External Functions ..

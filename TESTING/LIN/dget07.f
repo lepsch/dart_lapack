@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             TRANS;
       bool               CHKFERR;
-      int                LDA, LDB, LDX, LDXACT, N, NRHS
+      int                LDA, LDB, LDX, LDXACT, N, NRHS;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * );
@@ -21,12 +21,12 @@
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
-      int                I, IMAX, J, K
+      int                I, IMAX, J, K;
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                IDAMAX
+      int                IDAMAX;
       double             DLAMCH;
       EXTERNAL           LSAME, IDAMAX, DLAMCH
 *     ..

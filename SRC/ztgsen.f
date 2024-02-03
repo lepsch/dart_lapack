@@ -6,12 +6,12 @@
 *
 *     .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
-      int                IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N
+      int                IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N;
       double             PL, PR;
 *     ..
 *     .. Array Arguments ..
       bool               SELECT( * );
-      int                IWORK( * )
+      int                IWORK( * );
       double             DIF( * );
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
@@ -19,19 +19,19 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                IDIFJB
+      int                IDIFJB;
       PARAMETER          ( IDIFJB = 3 )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP;
-      int                I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2
+      int                I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2;
       double             DSCALE, DSUM, RDSCAL, SAFMIN;
       COMPLEX*16         TEMP1, TEMP2
 *     ..
 *     .. Local Arrays ..
-      int                ISAVE( 3 )
+      int                ISAVE( 3 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZLACN2, ZLACPY, ZLASSQ, ZSCAL, ZTGEXC, ZTGSYL

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                I
+      int                I;
       double             DSIGMA, RHO;
 *     ..
 *     .. Array Arguments ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK
+      int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
       double             RCOND;
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LQUERY;
-      int                BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       int                LWORK_DGEQRF, LWORK_DORMQR, LWORK_DGEBRD, LWORK_DORMBR, LWORK_DORGBR, LWORK_DORMLQ, LWORK_DGELQF
+      int                BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       int                LWORK_DGEQRF, LWORK_DORMQR, LWORK_DGEBRD, LWORK_DORMBR, LWORK_DORGBR, LWORK_DORMLQ, LWORK_DGELQF;
       double             ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
 *     ..
 *     .. Local Arrays ..
@@ -30,7 +30,7 @@
       EXTERNAL           DBDSQR, DCOPY, DGEBRD, DGELQF, DGEMM, DGEMV, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORMBR, DORMLQ, DORMQR, DRSCL, XERBLA
 *     ..
 *     .. External Functions ..
-      int                ILAENV
+      int                ILAENV;
       double             DLAMCH, DLANGE;
       EXTERNAL           ILAENV, DLAMCH, DLANGE
 *     ..

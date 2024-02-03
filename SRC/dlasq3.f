@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       bool               IEEE;
-      int                I0, ITER, N0, NDIV, NFAIL, PP
+      int                I0, ITER, N0, NDIV, NFAIL, PP;
       double             DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU;
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( ZERO = 0.0D0, QURTR = 0.250D0, HALF = 0.5D0, ONE = 1.0D0, TWO = 2.0D0, HUNDRD = 100.0D0 )
 *     ..
 *     .. Local Scalars ..
-      int                IPN4, J4, N0IN, NN, TTYPE
+      int                IPN4, J4, N0IN, NN, TTYPE;
       double             EPS, S, T, TEMP, TOL, TOL2;
 *     ..
 *     .. External Subroutines ..

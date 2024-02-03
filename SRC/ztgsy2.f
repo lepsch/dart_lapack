@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TRANS;
-      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N
+      int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N;
       double             RDSCAL, RDSUM, SCALE;
 *     ..
 *     .. Array Arguments ..
@@ -17,17 +17,17 @@
 *
 *     .. Parameters ..
       double             ZERO, ONE;
-      int                LDZ
+      int                LDZ;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, LDZ = 2 )
 *     ..
 *     .. Local Scalars ..
       bool               NOTRAN;
-      int                I, IERR, J, K
+      int                I, IERR, J, K;
       double             SCALOC;
       COMPLEX*16         ALPHA
 *     ..
 *     .. Local Arrays ..
-      int                IPIV( LDZ ), JPIV( LDZ )
+      int                IPIV( LDZ ), JPIV( LDZ );
       COMPLEX*16         RHS( LDZ ), Z( LDZ, LDZ )
 *     ..
 *     .. External Functions ..

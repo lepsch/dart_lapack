@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL               ANORM, CNDNUM
-      int                IMAT, KL, KU, MODE, N
+      int                IMAT, KL, KU, MODE, N;
       String             DIST, TYPE;
       String             PATH;
 *     ..

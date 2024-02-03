@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIDE, TRANS, UPLO;
-      int                INFO, LDA, LDC, LWORK, M, N
+      int                INFO, LDA, LDC, LWORK, M, N;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
@@ -16,11 +16,11 @@
 *
 *     .. Local Scalars ..
       bool               LEFT, LQUERY, UPPER;
-      int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW
+      int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW;
 *     ..
 *     .. External Functions ..
       bool               LSAME;
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           LSAME, ILAENV
 *     ..
 *     .. External Subroutines ..

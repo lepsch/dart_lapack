@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       List<String>         SRNAME;
-      int                INFO
+      int                INFO;
 *     ..
 *
 *  =====================================================================
@@ -14,7 +14,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NOUT
+      int                INFOT, NOUT;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LEN_TRIM

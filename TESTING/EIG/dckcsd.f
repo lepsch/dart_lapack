@@ -5,11 +5,11 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                INFO, NIN, NM, NMATS, MMAX, NOUT
+      int                INFO, NIN, NM, NMATS, MMAX, NOUT;
       double             THRESH;
 *     ..
 *     .. Array Arguments ..
-      int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * )
+      int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * );
       double             RWORK( * ), THETA( * );
       double             U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * );
 *     ..
@@ -17,9 +17,9 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NTESTS
+      int                NTESTS;
       PARAMETER          ( NTESTS = 15 )
-      int                NTYPES
+      int                NTYPES;
       PARAMETER          ( NTYPES = 4 )
       double             GAPDIGIT, ONE, ORTH, TEN, ZERO;
       PARAMETER          ( GAPDIGIT = 18.0D0, ONE = 1.0D0, ORTH = 1.0D-12, TEN = 10.0D0, ZERO = 0.0D0 )
@@ -29,7 +29,7 @@
 *     .. Local Scalars ..
       bool               FIRSTT;
       String             PATH;
-      int                I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
+      int                I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R;
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( NTYPES );
@@ -156,15 +156,15 @@
       SUBROUTINE DLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK )
       IMPLICIT NONE
 *
-      int                LDX, M, P, Q
-      int                ISEED( 4 )
+      int                LDX, M, P, Q;
+      int                ISEED( 4 );
       double             THETA( * );
       double             WORK( * ), X( LDX, * );
 *
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *
-      int                I, INFO, R
+      int                I, INFO, R;
 *
       R = MIN( P, M-P, Q, M-Q )
 *

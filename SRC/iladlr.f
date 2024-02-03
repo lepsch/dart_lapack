@@ -1,11 +1,11 @@
-      int     FUNCTION ILADLR( M, N, A, LDA )
+      int     FUNCTION ILADLR( M, N, A, LDA );
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                M, N, LDA
+      int                M, N, LDA;
 *     ..
 *     .. Array Arguments ..
       double             A( LDA, * );
@@ -18,7 +18,7 @@
       PARAMETER ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      int     I, J
+      int     I, J;
 *     ..
 *     .. Executable Statements ..
 *

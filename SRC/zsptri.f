@@ -6,10 +6,10 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, N
+      int                INFO, N;
 *     ..
 *     .. Array Arguments ..
-      int                IPIV( * )
+      int                IPIV( * );
       COMPLEX*16         AP( * ), WORK( * )
 *     ..
 *
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               UPPER;
-      int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP
+      int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP;
       COMPLEX*16         AK, AKKP1, AKP1, D, T, TEMP
 *     ..
 *     .. External Functions ..

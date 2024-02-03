@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             TYPE;
-      int                INFO, KL, KU, LDA, M, N
+      int                INFO, KL, KU, LDA, M, N;
       double             CFROM, CTO;
 *     ..
 *     .. Array Arguments ..
@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               DONE;
-      int                I, ITYPE, J, K1, K2, K3, K4
+      int                I, ITYPE, J, K1, K2, K3, K4;
       double             BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM;
 *     ..
 *     .. External Functions ..

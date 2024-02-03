@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       String             DIST, TYPE;
       String             PATH;
-      int                IMAT, KL, KU, M, MODE, N
+      int                IMAT, KL, KU, M, MODE, N;
       double             ANORM, CNDNUM;
 *     ..
 *
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       bool               FIRST;
       String             C2;
-      int                MAT
+      int                MAT;
       double             BADC1, BADC2, EPS, LARGE, SMALL;
 *     ..
 *     .. External Functions ..

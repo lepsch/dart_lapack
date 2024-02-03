@@ -7,17 +7,17 @@
 *  =====================================================================
 *
 *     .. Parameters ..
-      int                NMAX
+      int                NMAX;
       PARAMETER          ( NMAX = 132 )
-      int                MAXIN
+      int                MAXIN;
       PARAMETER          ( MAXIN = 12 )
-      int                MAXRHS
+      int                MAXRHS;
       PARAMETER          ( MAXRHS = 16 )
-      int                MATMAX
+      int                MATMAX;
       PARAMETER          ( MATMAX = 30 )
-      int                NIN, NOUT
+      int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
-      int                LDAMAX
+      int                LDAMAX;
       PARAMETER          ( LDAMAX = NMAX )
 *     ..
 *     .. Local Scalars ..
@@ -27,13 +27,13 @@
       String             PATH;
       String             INTSTR;
       String             ALINE;
-      int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
+      int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       double             EPS, S1, S2, THRESH;
       REAL               SEPS
 *     ..
 *     .. Local Arrays ..
       bool               DOTYPE( MATMAX );
-      int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN )
+      int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN );
       double             RWORK(NMAX);
       COMPLEX*16         A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), WORK( NMAX*MAXRHS*2 )
       COMPLEX            SWORK(NMAX*(NMAX+MAXRHS))
@@ -50,7 +50,7 @@
 *     .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
-      int                INFOT, NUNIT
+      int                INFOT, NUNIT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

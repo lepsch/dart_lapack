@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      int                IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW
+      int                IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW;
       bool               WANTT, WANTZ;
 *     ..
 *     .. Array Arguments ..
@@ -18,12 +18,12 @@
       PARAMETER          ( ZERO = 0.0e0, ONE = 1.0e0 )
 *     ..
 *     .. Local Scalars ..
-      REAL               AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S, SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP       int                I, IFST, ILST, INFO, INFQR, J, JW, K, KCOL, KEND, KLN, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN
+      REAL               AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S, SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP       int                I, IFST, ILST, INFO, INFQR, J, JW, K, KCOL, KEND, KLN, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN;
       bool               BULGE, SORTED;
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SROUNDUP_LWORK
-      int                ILAENV
+      int                ILAENV;
       EXTERNAL           SLAMCH, SROUNDUP_LWORK, ILAENV
 *     ..
 *     .. External Subroutines ..

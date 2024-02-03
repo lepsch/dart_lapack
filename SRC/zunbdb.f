@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             SIGNS, TRANS;
-      int                INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q
+      int                INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q;
 *     ..
 *     .. Array Arguments ..
       double             PHI( * ), THETA( * );
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               COLMAJOR, LQUERY;
-      int                I, LWORKMIN, LWORKOPT
+      int                I, LWORKMIN, LWORKOPT;
       double             Z1, Z2, Z3, Z4;
 *     ..
 *     .. External Subroutines ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU
+      int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU;
 *     ..
 *     .. Array Arguments ..
       double             C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
@@ -29,12 +29,12 @@
       PARAMETER          ( HNDRD = 100.0D0 )
       double             MEIGTH;
       PARAMETER          ( MEIGTH = -0.125D0 )
-      int                MAXITR
+      int                MAXITR;
       PARAMETER          ( MAXITR = 6 )
 *     ..
 *     .. Local Scalars ..
       bool               LOWER, ROTATE;
-      int                I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M, MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM       double             ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL;
+      int                I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M, MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM       double             ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL;;
 *     ..
 *     .. External Functions ..
       bool               LSAME;

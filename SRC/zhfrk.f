@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       double             ALPHA, BETA;
-      int                K, LDA, N
+      int                K, LDA, N;
       String             TRANS, TRANSR, UPLO;
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       bool               LOWER, NORMALTRANSR, NISODD, NOTRANS;
-      int                INFO, NROWA, J, NK, N1, N2
+      int                INFO, NROWA, J, NK, N1, N2;
       COMPLEX*16         CALPHA, CBETA
 *     ..
 *     .. External Functions ..

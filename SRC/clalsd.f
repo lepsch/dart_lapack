@@ -6,11 +6,11 @@
 *
 *     .. Scalar Arguments ..
       String             UPLO;
-      int                INFO, LDB, N, NRHS, RANK, SMLSIZ
+      int                INFO, LDB, N, NRHS, RANK, SMLSIZ;
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
-      int                IWORK( * )
+      int                IWORK( * );
       REAL               D( * ), E( * ), RWORK( * )
       COMPLEX            B( LDB, * ), WORK( * )
 *     ..
@@ -24,11 +24,11 @@
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
-      int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IRWB, IRWIB, IRWRB, IRWU, IRWVT, IRWWRK, IWK, J, JCOL, JIMAG, JREAL, JROW, K, NLVL, NM1, NRWORK, NSIZE, NSUB, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z
+      int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IRWB, IRWIB, IRWRB, IRWU, IRWVT, IRWWRK, IWK, J, JCOL, JIMAG, JREAL, JROW, K, NLVL, NM1, NRWORK, NSIZE, NSUB, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z;
       REAL               CS, EPS, ORGNRM, R, RCND, SN, TOL
 *     ..
 *     .. External Functions ..
-      int                ISAMAX
+      int                ISAMAX;
       REAL               SLAMCH, SLANST
       EXTERNAL           ISAMAX, SLAMCH, SLANST
 *     ..

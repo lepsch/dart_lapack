@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       REAL ALPHA
-      int     INCX,INCY,LDA,M,N
+      int     INCX,INCY,LDA,M,N;
 *     ..
 *     .. Array Arguments ..
       REAL A(LDA,*),X(*),Y(*)
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL TEMP
-      int     I,INFO,IX,J,JY,KX
+      int     I,INFO,IX,J,JY,KX;
 *     ..
 *     .. External Subroutines ..
       EXTERNAL XERBLA
