@@ -252,6 +252,55 @@ $1e$2
 $1// $2
 ```
 
+### DATA
+Repeaters
+```
+^(\s+DATA\s+.*?/.*)\b6\b\s*\*\s*\b(\d+)\b\s* (.*/);?$
+$1$2, $2, $2, $2, $2, \2$3;
+```
+
+Scalar (non-string)
+```
+^(\s+)DATA\s+(\w+)\s*/\s*([^',/]+?)\s*/;?$
+$1const $2 = $3;
+```
+
+Scalar (string)
+```
+^(\s+)DATA\s+(\w+)\s*/\s*('[^']+?')\s*/;?$
+$1const $2 = $3;
+```
+
+
+```
+^(\s+)DATA\s+(\w+)\s*/(.*)/;?$
+$1const $2 = [$3];
+```
+
+Multiple declarations (last item)
+```
+^(\s+DATA.+)\s+(\w+)\s*\/\s*(.*?)\s*\/;
+$1 $2 = $3;
+```
+
+Multiple declarations (inner)
+```
+^(\s+DATA.+\/,)\s+(\w+)\s*\/\s*(.*?)\s*\/,
+$1 $2 = $3,
+```
+
+Multiple declarations (first item)
+```
+^(\s+DATA.+)\s+(\w+)\s*\/\s*(.*?)\s*\/,
+$1 $2 = $3,
+```
+
+Array
+```
+^(\s+)DATA\s+(\w+)\s*/\s*(.*?)\s*/;?$
+$1const $2 = [$3];
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)
