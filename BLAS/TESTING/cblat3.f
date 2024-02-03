@@ -47,7 +47,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
-      DATA               SNAMES/'CGEMM ', 'CHEMM ', 'CSYMM ', 'CTRMM ', 'CTRSM ', 'CHERK ', 'CSYRK ', 'CHER2K', 'CSYR2K'/;
+      const SNAMES = ['CGEMM ', 'CHEMM ', 'CSYMM ', 'CTRMM ', 'CTRSM ', 'CHERK ', 'CSYRK ', 'CHER2K', 'CSYR2K'];
       // .. Executable Statements ..
 
       // Read name and unit number for summary output file and open file.

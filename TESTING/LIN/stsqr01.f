@@ -45,7 +45,7 @@
       // COMMON / srnamc / srnamt
       // ..
       // .. Data statements ..
-      DATA ISEED / 1988, 1989, 1990, 1991 /;
+      const ISEED = [ 1988, 1989, 1990, 1991 ];
 
       // TEST TALL SKINNY OR SHORT WIDE
 

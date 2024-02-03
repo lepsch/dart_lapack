@@ -58,9 +58,9 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               CJOB / 'N', 'O', 'S', 'A' /;
-      DATA               CJOBR / 'A', 'V', 'I' /;
-      DATA               CJOBV / 'N', 'V' /;
+      const CJOB = [ 'N', 'O', 'S', 'A' ];
+      const CJOBR = [ 'A', 'V', 'I' ];
+      const CJOBV = [ 'N', 'V' ];
       // ..
       // .. Executable Statements ..
 

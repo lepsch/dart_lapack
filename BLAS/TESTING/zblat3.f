@@ -47,7 +47,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
-      DATA               SNAMES/'ZGEMM ', 'ZHEMM ', 'ZSYMM ', 'ZTRMM ', 'ZTRSM ', 'ZHERK ', 'ZSYRK ', 'ZHER2K', 'ZSYR2K'/;
+      const SNAMES = ['ZGEMM ', 'ZHEMM ', 'ZSYMM ', 'ZTRMM ', 'ZTRSM ', 'ZHERK ', 'ZSYRK ', 'ZHER2K', 'ZSYR2K'];
       // .. Executable Statements ..
 
       // Read name and unit number for summary output file and open file.

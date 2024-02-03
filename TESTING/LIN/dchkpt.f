@@ -57,7 +57,7 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 0, 0, 0, 1 /;
+      const ISEEDY = [ 0, 0, 0, 1 ];
       // ..
       // .. Executable Statements ..
 

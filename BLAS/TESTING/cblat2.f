@@ -47,7 +47,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
-      DATA               SNAMES/'CGEMV ', 'CGBMV ', 'CHEMV ', 'CHBMV ', 'CHPMV ', 'CTRMV ', 'CTBMV ', 'CTPMV ', 'CTRSV ', 'CTBSV ', 'CTPSV ', 'CGERC ', 'CGERU ', 'CHER  ', 'CHPR  ', 'CHER2 ', 'CHPR2 '/;
+      const SNAMES = ['CGEMV ', 'CGBMV ', 'CHEMV ', 'CHBMV ', 'CHPMV ', 'CTRMV ', 'CTBMV ', 'CTPMV ', 'CTRSV ', 'CTBSV ', 'CTPSV ', 'CGERC ', 'CGERU ', 'CHER  ', 'CHPR  ', 'CHER2 ', 'CHPR2 '];
       // .. Executable Statements ..
 
       // Read name and unit number for summary output file and open file.

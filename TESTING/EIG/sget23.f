@@ -46,7 +46,7 @@
       // INTRINSIC ABS, MAX, MIN, REAL
       // ..
       // .. Data statements ..
-      DATA               SENS / 'N', 'V' /;
+      const SENS = [ 'N', 'V' ];
       // ..
       // .. Executable Statements ..
 

@@ -43,7 +43,7 @@
       // INTRINSIC ABS, MAX, SQRT
       // ..
       // .. Data statements ..
-      DATA               LTRANS / false , true /;
+      const LTRANS = [ false , true ];
       // ..
       // .. Executable Statements ..
 

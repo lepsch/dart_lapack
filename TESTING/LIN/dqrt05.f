@@ -33,7 +33,7 @@
       // EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME
       // ..
       // .. Data statements ..
-      DATA ISEED / 1988, 1989, 1990, 1991 /;
+      const ISEED = [ 1988, 1989, 1990, 1991 ];
 
       EPS = DLAMCH( 'Epsilon' );
       K = N;

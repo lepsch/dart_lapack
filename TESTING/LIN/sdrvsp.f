@@ -57,8 +57,8 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
-      DATA               FACTS / 'F', 'N' /;
+      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
+      const FACTS = [ 'F', 'N' ];
       // ..
       // .. Executable Statements ..
 

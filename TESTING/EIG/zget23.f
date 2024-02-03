@@ -48,7 +48,7 @@
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
       // ..
       // .. Data statements ..
-      DATA               SENS / 'N', 'V' /;
+      const SENS = [ 'N', 'V' ];
       // ..
       // .. Executable Statements ..
 

@@ -104,7 +104,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK
       // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
-      DATA               SNAMES/'cblas_zgemv ', 'cblas_zgbmv ', 'cblas_zhemv ','cblas_zhbmv ','cblas_zhpmv ', 'cblas_ztrmv ','cblas_ztbmv ','cblas_ztpmv ', 'cblas_ztrsv ','cblas_ztbsv ','cblas_ztpsv ', 'cblas_zgerc ','cblas_zgeru ','cblas_zher  ', 'cblas_zhpr  ','cblas_zher2 ','cblas_zhpr2 '/;
+      const SNAMES = ['cblas_zgemv ', 'cblas_zgbmv ', 'cblas_zhemv ','cblas_zhbmv ','cblas_zhpmv ', 'cblas_ztrmv ','cblas_ztbmv ','cblas_ztpmv ', 'cblas_ztrsv ','cblas_ztbsv ','cblas_ztpsv ', 'cblas_zgerc ','cblas_zgeru ','cblas_zher  ', 'cblas_zhpr  ','cblas_zher2 ','cblas_zhpr2 '];
       // .. Executable Statements ..
 
       NOUTC = NOUT;

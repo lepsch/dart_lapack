@@ -48,7 +48,7 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. Data statements ..
-      DATA               SENS / 'N', 'V' /;
+      const SENS = [ 'N', 'V' ];
       // ..
       // .. Executable Statements ..
 

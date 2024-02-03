@@ -81,7 +81,7 @@
       // ..
       // .. Data statements ..
       const INTSTR = '0123456789';
-      DATA               IOLDSD / 0, 0, 0, 1 /;
+      const IOLDSD = [ 0, 0, 0, 1 ];
       // ..
       // .. Allocate memory dynamically ..
 

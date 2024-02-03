@@ -63,9 +63,9 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
-      DATA               UPLOS / 'U', 'L' /;
-      DATA               FORMS / 'N', 'T' /;
+      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
+      const UPLOS = [ 'U', 'L' ];
+      const FORMS = [ 'N', 'T' ];
       // ..
       // .. Executable Statements ..
 

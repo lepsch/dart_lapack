@@ -44,9 +44,9 @@
       EQUIVALENCE        ( CI( 1, 1 ), CIV( 1 ) ), ( CR( 1, 1 ), CRV( 1 ) );
       // ..
       // .. Data statements ..
-      DATA               CSWAP / false , false , true , true /;
-      DATA               RSWAP / false , true , false , true /;
-      DATA               IPIVOT / 1, 2, 3, 4, 2, 1, 4, 3, 3, 4, 1, 2, 4, 3, 2, 1 /;
+      const CSWAP = [ false , false , true , true ];
+      const RSWAP = [ false , true , false , true ];
+      const IPIVOT = [ 1, 2, 3, 4, 2, 1, 4, 3, 3, 4, 1, 2, 4, 3, 2, 1 ];
       // ..
       // .. Executable Statements ..
 

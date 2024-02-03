@@ -289,7 +289,7 @@ Scalar (string)
 $1const $2 = $3;
 ```
 
-
+Single arrays
 ```
 ^(\s+)DATA\s+(\w+)\s*/(.*)/;?$
 $1const $2 = [$3];

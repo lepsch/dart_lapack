@@ -55,7 +55,7 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 2006, 2007, 2008, 2009 /;
+      const ISEEDY = [ 2006, 2007, 2008, 2009 ];
       // ..
       // .. Executable Statements ..
 

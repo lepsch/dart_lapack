@@ -80,7 +80,7 @@
       // COMMON /INFOC/INFOT, NOUTC, OK
       // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
-      DATA               SNAMES/'cblas_sgemm ', 'cblas_ssymm ', 'cblas_strmm ', 'cblas_strsm ','cblas_ssyrk ', 'cblas_ssyr2k'/;
+      const SNAMES = ['cblas_sgemm ', 'cblas_ssymm ', 'cblas_strmm ', 'cblas_strsm ','cblas_ssyrk ', 'cblas_ssyr2k'];
       // .. Executable Statements ..
 
       NOUTC = NOUT;

@@ -60,10 +60,10 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
-      DATA               TRANSS / 'N', 'T', 'C' /;
-      DATA               FACTS / 'F', 'N', 'E' /;
-      DATA               EQUEDS / 'N', 'R', 'C', 'B' /;
+      const ISEEDY = [ 1988, 1989, 1990, 1991 ];
+      const TRANSS = [ 'N', 'T', 'C' ];
+      const FACTS = [ 'F', 'N', 'E' ];
+      const EQUEDS = [ 'N', 'R', 'C', 'B' ];
       // ..
       // .. Executable Statements ..
 
