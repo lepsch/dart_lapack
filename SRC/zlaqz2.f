@@ -45,7 +45,7 @@
          // workspace query, quick return
          WORK( 1 ) = LWORKREQ
          RETURN
-      } else if ( LWORK .LT. LWORKREQ ) {
+      } else if ( LWORK < LWORKREQ ) {
          INFO = -26
       }
 

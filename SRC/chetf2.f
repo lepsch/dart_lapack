@@ -53,9 +53,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -79,7 +79,7 @@
 
          // If K < 1, exit from loop
 
-         if (K.LT.1) GO TO 90;
+         if (K < 1) GO TO 90;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -269,7 +269,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + ICAMAX( N-K, A( K+1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
@@ -297,7 +297,7 @@
 
                JMAX = K - 1 + ICAMAX( IMAX-K, A( IMAX, K ), LDA )
                ROWMAX = CABS1( A( IMAX, JMAX ) )
-               if ( IMAX.LT.N ) {
+               if ( IMAX < N ) {
                   JMAX = IMAX + ICAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) )
                }
@@ -329,7 +329,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP.LT.N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                for (J = KK + 1; J <= KP - 1; J++) { // 60
                   T = CONJG( A( J, KK ) )
                   A( J, KK ) = CONJG( A( KP, J ) )
@@ -360,7 +360,7 @@
 
                // where L(k) is the k-th column of L
 
-               if ( K.LT.N ) {
+               if ( K < N ) {
 
                   // Perform a rank-1 update of A(k+1:n,k+1:n) as
 
@@ -377,7 +377,7 @@
 
                // 2-by-2 pivot block D(k)
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                   // Perform a rank-2 update of A(k+2:n,k+2:n) as
 

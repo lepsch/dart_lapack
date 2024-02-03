@@ -87,17 +87,17 @@
          INFO = -1
       } else if ( IJOBVR.LE.0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 || ( ILVL && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -11
-      } else if ( LDVR.LT.1 || ( ILVR && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
          INFO = -13
-      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWKMIN && .NOT.LQUERY ) {
          INFO = -15
       }
 
@@ -133,8 +133,8 @@
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ANRM1 = ANRM
       ANRM2 = ONE
-      if ( ANRM.LT.ONE ) {
-         if ( SAFMAX*ANRM.LT.ONE ) {
+      if ( ANRM < ONE ) {
+         if ( SAFMAX*ANRM < ONE ) {
             ANRM1 = SAFMIN
             ANRM2 = SAFMAX*ANRM
          }
@@ -153,8 +153,8 @@
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       BNRM1 = BNRM
       BNRM2 = ONE
-      if ( BNRM.LT.ONE ) {
-         if ( SAFMAX*BNRM.LT.ONE ) {
+      if ( BNRM < ONE ) {
+         if ( SAFMAX*BNRM < ONE ) {
             BNRM1 = SAFMIN
             BNRM2 = SAFMAX*BNRM
          }
@@ -285,7 +285,7 @@
                for (JR = 1; JR <= N; JR++) { // 10
                   TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
                } // 10
-               if (TEMP.LT.SAFMIN) GO TO 30;
+               if (TEMP < SAFMIN) GO TO 30;
                TEMP = ONE / TEMP
                for (JR = 1; JR <= N; JR++) { // 20
                   VL( JR, JC ) = VL( JR, JC )*TEMP
@@ -303,7 +303,7 @@
                for (JR = 1; JR <= N; JR++) { // 40
                   TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
                } // 40
-               if (TEMP.LT.SAFMIN) GO TO 60;
+               if (TEMP < SAFMIN) GO TO 60;
                TEMP = ONE / TEMP
                for (JR = 1; JR <= N; JR++) { // 50
                   VR( JR, JC ) = VR( JR, JC )*TEMP
@@ -335,21 +335,21 @@
 
          // Check for significant underflow in imaginary part of ALPHA
 
-         if ( ABS( SALFAI ).LT.SAFMIN && ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
+         if ( ABS( SALFAI ) < SAFMIN && ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAI )
          }
 
          // Check for significant underflow in real part of ALPHA
 
-         if ( ABS( SALFAR ).LT.SAFMIN && ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
+         if ( ABS( SALFAR ) < SAFMIN && ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = MAX( SCALE, ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAR ) )
          }
 
          // Check for significant underflow in BETA
 
-         if ( ABS( SBETA ).LT.SAFMIN && ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
+         if ( ABS( SBETA ) < SAFMIN && ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
             SCALE = MAX( SCALE, ( SAFMIN / BNRM1 ) / MAX( SAFMIN, BNRM2*ABSB ) )
          }
@@ -357,7 +357,7 @@
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHA, BETA if necessary.

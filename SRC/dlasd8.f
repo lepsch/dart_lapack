@@ -37,11 +37,11 @@
 
       INFO = 0
 
-      if ( ( ICOMPQ.LT.0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      } else if ( K.LT.1 ) {
+      } else if ( K < 1 ) {
          INFO = -2
-      } else if ( LDDIFR.LT.K ) {
+      } else if ( LDDIFR < K ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -113,7 +113,7 @@
          DIFLJ = DIFL( J )
          DJ = D( J )
          DSIGJ = -DSIGMA( J )
-         if ( J.LT.K ) {
+         if ( J < K ) {
             DIFRJ = -DIFR( J, 1 )
             DSIGJP = -DSIGMA( J+1 )
          }

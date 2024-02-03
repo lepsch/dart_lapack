@@ -58,7 +58,7 @@
 
       TMP1 = ABS( RIGHT - LEFT )
       TMP2 = MAX( ABS(RIGHT), ABS(LEFT) )
-      if ( TMP1.LT.MAX( ATOLI, PIVMIN, RTOLI*TMP2 ) ) {
+      if ( TMP1 < MAX( ATOLI, PIVMIN, RTOLI*TMP2 ) ) {
          INFO = 0
          GOTO 30
       }
@@ -71,11 +71,11 @@
       MID = HALF * (LEFT + RIGHT)
       NEGCNT = 0
       TMP1 = D( 1 ) - MID
-      IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN       IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
+      IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN       IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
 
       for (I = 2; I <= N; I++) { // 20
          TMP1 = D( I ) - E2( I-1 ) / TMP1 - MID
-         IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN          IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
+         IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN          IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
       } // 20
 
       if (NEGCNT.GE.IW) {

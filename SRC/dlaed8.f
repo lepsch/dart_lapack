@@ -41,17 +41,17 @@
 
       INFO = 0
 
-      if ( ICOMPQ.LT.0 || ICOMPQ.GT.1 ) {
+      if ( ICOMPQ < 0 || ICOMPQ.GT.1 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ICOMPQ == 1 && QSIZ.LT.N ) {
+      } else if ( ICOMPQ == 1 && QSIZ < N ) {
          INFO = -4
-      } else if ( LDQ.LT.MAX( 1, N ) ) {
+      } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( CUTPNT.LT.MIN( 1, N ) || CUTPNT.GT.N ) {
+      } else if ( CUTPNT < MIN( 1, N ) || CUTPNT.GT.N ) {
          INFO = -10
-      } else if ( LDQ2.LT.MAX( 1, N ) ) {
+      } else if ( LDQ2 < MAX( 1, N ) ) {
          INFO = -14
       }
       if ( INFO != 0 ) {
@@ -74,7 +74,7 @@
       N2 = N - N1
       N1P1 = N1 + 1
 
-      if ( RHO.LT.ZERO ) {
+      if ( RHO < ZERO ) {
          dscal(N2, MONE, Z( N1P1 ), 1 );
       }
 
@@ -199,7 +199,7 @@
             I = 1
             } // 90
             if ( K2+I.LE.N ) {
-               if ( D( JLAM ).LT.D( INDXP( K2+I ) ) ) {
+               if ( D( JLAM ) < D( INDXP( K2+I ) ) ) {
                   INDXP( K2+I-1 ) = INDXP( K2+I )
                   INDXP( K2+I ) = JLAM
                   I = I + 1
@@ -254,7 +254,7 @@
       // The deflated eigenvalues and their corresponding vectors go back
       // into the last N - K slots of D and Q respectively.
 
-      if ( K.LT.N ) {
+      if ( K < N ) {
          if ( ICOMPQ == 0 ) {
             dcopy(N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 );
          } else {

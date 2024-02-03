@@ -69,7 +69,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB.LT.N ) || K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB < N ) || K < 1 ) GO TO 30
 
          KSTEP = 1
 
@@ -77,7 +77,7 @@
 
          zcopy(K-1, A( 1, K ), 1, W( 1, KW ), 1 );
          W( K, KW ) = DBLE( A( K, K ) )
-         if ( K.LT.N ) {
+         if ( K < N ) {
             zgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
             W( K, KW ) = DBLE( W( K, KW ) )
          }
@@ -128,7 +128,7 @@
                W( IMAX, KW-1 ) = DBLE( A( IMAX, IMAX ) )
                zcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
                zlacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
-               if ( K.LT.N ) {
+               if ( K < N ) {
                   zgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
                   W( IMAX, KW-1 ) = DBLE( W( IMAX, KW-1 ) )
                }
@@ -210,7 +210,7 @@
                // later overwritten). Interchange rows KK and KP
                // in last KKW to NB columns of W.
 
-               if (K.LT.N) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
+               if (K < N) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
                zswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
@@ -390,7 +390,7 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            if ( JP.LT.0 ) {
+            if ( JP < 0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J + 1
@@ -398,7 +398,7 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
-            if (JP != JJ && J.LE.N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
+            if (JP != JJ && J.LE.N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J < N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -417,14 +417,14 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB.LT.N ) || K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB < N ) || K.GT.N ) GO TO 90
 
          KSTEP = 1
 
          // Copy column K of A to column K of W and update it
 
          W( K, K ) = DBLE( A( K, K ) )
-         if (K.LT.N) CALL ZCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
+         if (K < N) CALL ZCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          zgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
          W( K, K ) = DBLE( W( K, K ) )
 
@@ -437,7 +437,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + IZAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
          } else {
@@ -473,7 +473,7 @@
                zcopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 );
                zlacgv(IMAX-K, W( K, K+1 ), 1 );
                W( IMAX, K+1 ) = DBLE( A( IMAX, IMAX ) )
-               if (IMAX.LT.N) CALL ZCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
+               if (IMAX < N) CALL ZCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
                zgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
                W( IMAX, K+1 ) = DBLE( W( IMAX, K+1 ) )
 
@@ -483,7 +483,7 @@
 
                JMAX = K - 1 + IZAMAX( IMAX-K, W( K, K+1 ), 1 )
                ROWMAX = CABS1( W( JMAX, K+1 ) )
-               if ( IMAX.LT.N ) {
+               if ( IMAX < N ) {
                   JMAX = IMAX + IZAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) )
                }
@@ -543,7 +543,7 @@
                A( KP, KP ) = DBLE( A( KK, KK ) )
                zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                zlacgv(KP-KK-1, A( KP, KK+1 ), LDA );
-               if (KP.LT.N) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
 
                // Interchange rows KK and KP in first K-1 columns of A
                // (columns K (or K and K+1 for 2-by-2 pivot) of A will be
@@ -573,7 +573,7 @@
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                zcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
-               if ( K.LT.N ) {
+               if ( K < N ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
                    // since that was ensured earlier in pivot search:
@@ -604,7 +604,7 @@
                   // A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
                   // = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                   // Factor out the columns of the inverse of 2-by-2 pivot
                   // block D, so that each column contains 1, to reduce the
@@ -730,7 +730,7 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            if ( JP.LT.0 ) {
+            if ( JP < 0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J - 1

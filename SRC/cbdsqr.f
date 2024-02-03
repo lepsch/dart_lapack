@@ -57,19 +57,19 @@
       LOWER = LSAME( UPLO, 'L' )
       if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LOWER ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NCVT.LT.0 ) {
+      } else if ( NCVT < 0 ) {
          INFO = -3
-      } else if ( NRU.LT.0 ) {
+      } else if ( NRU < 0 ) {
          INFO = -4
-      } else if ( NCC.LT.0 ) {
+      } else if ( NCC < 0 ) {
          INFO = -5
-      } else if ( ( NCVT == 0 && LDVT.LT.1 ) || ( NCVT.GT.0 && LDVT.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT.GT.0 && LDVT < MAX( 1, N ) ) ) {
          INFO = -9
-      } else if ( LDU.LT.MAX( 1, NRU ) ) {
+      } else if ( LDU < MAX( 1, NRU ) ) {
          INFO = -11
-      } else if ( ( NCC == 0 && LDC.LT.1 ) || ( NCC.GT.0 && LDC.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC.GT.0 && LDC < MAX( 1, N ) ) ) {
          INFO = -13
       }
       if ( INFO != 0 ) {
@@ -189,13 +189,13 @@
 
       // Find diagonal block of matrix to work on
 
-      IF( TOL.LT.ZERO && ABS( D( M ) ).LE.THRESH ) D( M ) = ZERO
+      IF( TOL < ZERO && ABS( D( M ) ).LE.THRESH ) D( M ) = ZERO
       SMAX = ABS( D( M ) )
       for (LLL = 1; LLL <= M - 1; LLL++) { // 70
          LL = M - LLL
          ABSS = ABS( D( LL ) )
          ABSE = ABS( E( LL ) )
-         if (TOL.LT.ZERO && ABSS.LE.THRESH) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80;
+         if (TOL < ZERO && ABSS.LE.THRESH) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80;
          SMAX = MAX( SMAX, ABSS, ABSE )
       } // 70
       LL = 0
@@ -236,7 +236,7 @@
       // If working on new submatrix, choose shift direction
       // (from larger end diagonal element towards smaller)
 
-      if ( LL.GT.OLDM || M.LT.OLDLL ) {
+      if ( LL.GT.OLDM || M < OLDLL ) {
          if ( ABS( D( LL ) ).GE.ABS( D( M ) ) ) {
 
             // Chase bulge from top (big end) to bottom (small end)
@@ -257,7 +257,7 @@
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
 
-         if ( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) || ( TOL.LT.ZERO && ABS( E( M-1 ) ).LE.THRESH ) ) {
+         if ( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) || ( TOL < ZERO && ABS( E( M-1 ) ).LE.THRESH ) ) {
             E( M-1 ) = ZERO
             GO TO 60
          }
@@ -284,7 +284,7 @@
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
 
-         if ( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) || ( TOL.LT.ZERO && ABS( E( LL ) ).LE.THRESH ) ) {
+         if ( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) || ( TOL < ZERO && ABS( E( LL ) ).LE.THRESH ) ) {
             E( LL ) = ZERO
             GO TO 60
          }
@@ -332,7 +332,7 @@
          // Test if shift negligible, and if so set to zero
 
          if ( SLL.GT.ZERO ) {
-            IF( ( SHIFT / SLL )**2.LT.EPS ) SHIFT = ZERO
+            IF( ( SHIFT / SLL )**2 < EPS ) SHIFT = ZERO
          }
       }
 
@@ -380,7 +380,7 @@
             OLDCS = ONE
             DO 130 I = M, LL + 1, -1
                slartg(D( I )*CS, E( I-1 ), CS, SN, R );
-               if (I.LT.M) E( I ) = OLDSN*R;
+               if (I < M) E( I ) = OLDSN*R;
                slartg(OLDCS*R, D( I-1 )*SN, OLDCS, OLDSN, D( I ) );
                RWORK( I-LL ) = CS
                RWORK( I-LL+NM1 ) = -SN
@@ -421,7 +421,7 @@
                D( I ) = R
                F = COSL*E( I ) + SINL*D( I+1 )
                D( I+1 ) = COSL*D( I+1 ) - SINL*E( I )
-               if ( I.LT.M-1 ) {
+               if ( I < M-1 ) {
                   G = SINL*E( I+1 )
                   E( I+1 ) = COSL*E( I+1 )
                }
@@ -449,7 +449,7 @@
             G = E( M-1 )
             DO 150 I = M, LL + 1, -1
                slartg(F, G, COSR, SINR, R );
-               if (I.LT.M) E( I ) = R;
+               if (I < M) E( I ) = R;
                F = COSR*D( I ) + SINR*E( I-1 )
                E( I-1 ) = COSR*E( I-1 ) - SINR*D( I )
                G = SINR*D( I-1 )
@@ -487,7 +487,7 @@
 
       } // 160
       for (I = 1; I <= N; I++) { // 170
-         if ( D( I ).LT.ZERO ) {
+         if ( D( I ) < ZERO ) {
             D( I ) = -D( I )
 
             // Change sign of singular vectors, if desired

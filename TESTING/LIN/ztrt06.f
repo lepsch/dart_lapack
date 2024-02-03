@@ -38,7 +38,7 @@
 
       // Do the easy cases first.
 
-      if ( RMIN.LT.ZERO ) {
+      if ( RMIN < ZERO ) {
 
          // Invalid value for RCOND or RCONDC, return 1/EPS.
 

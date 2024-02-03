@@ -49,13 +49,13 @@
       TQUERY = ( LTB == -1 )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LTB.LT.MAX( 1, 4*N ) && .NOT.TQUERY ) {
+      } else if ( LTB < MAX( 1, 4*N ) && .NOT.TQUERY ) {
          INFO = -6
-      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.WQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && .NOT.WQUERY ) {
          INFO = -10
       }
 
@@ -88,10 +88,10 @@
       // Determine the number of the block size
 
       LDTB = LTB/N
-      if ( LDTB .LT. 3*NB+1 ) {
+      if ( LDTB < 3*NB+1 ) {
          NB = (LDTB-1)/3
       }
-      if ( LWORK .LT. NB*N ) {
+      if ( LWORK < NB*N ) {
          NB = LWORK/N
       }
 
@@ -165,7 +165,7 @@
                }
             }
 
-            if ( J.LT.NT-1 ) {
+            if ( J < NT-1 ) {
                if ( J.GT.0 ) {
 
                   // Compute H(J,J)
@@ -244,7 +244,7 @@
                      }
                      clacgv(I2-I1, A( I1, I1+1 ), LDA );
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
-                     if (I2.LT.N) CALL CSWAP( N-I2, A( I1, I2+1 ), LDA, A( I2, I2+1 ), LDA );
+                     if (I2 < N) CALL CSWAP( N-I2, A( I1, I2+1 ), LDA, A( I2, I2+1 ), LDA );
                      // > Swap A(I1, I1) with A(I2, I2)
                      PIV = A( I1, I1 )
                      A( I1, I1 ) = A( I2, I2 )
@@ -311,7 +311,7 @@
                }
             }
 
-            if ( J.LT.NT-1 ) {
+            if ( J < NT-1 ) {
                if ( J.GT.0 ) {
 
                   // Compute H(J,J)
@@ -371,7 +371,7 @@
                      }
                      clacgv(I2-I1, A( I1+1, I1 ), 1 );
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
-                     if (I2.LT.N) CALL CSWAP( N-I2, A( I2+1, I1 ), 1, A( I2+1, I2 ), 1 );
+                     if (I2 < N) CALL CSWAP( N-I2, A( I2+1, I1 ), 1, A( I2+1, I2 ), 1 );
                      // > Swap A(I1, I1) with A(I2, I2)
                      PIV = A( I1, I1 )
                      A( I1, I1 ) = A( I2, I2 )

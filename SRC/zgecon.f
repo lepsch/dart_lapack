@@ -58,11 +58,11 @@
       ONENRM = NORM == '1' || LSAME( NORM, 'O' )
       if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( ANORM.LT.ZERO ) {
+      } else if ( ANORM < ZERO ) {
          INFO = -5
       }
       if ( INFO != 0 ) {
@@ -128,7 +128,7 @@
          NORMIN = 'Y'
          if ( SCALE != ONE ) {
             IX = IZAMAX( N, WORK, 1 )
-            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
+            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
             zdrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

@@ -37,9 +37,9 @@
       // Test the input arguments.
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( ANORM.LT.ZERO ) {
+      } else if ( ANORM < ZERO ) {
          INFO = -4
       }
       if ( INFO != 0 ) {

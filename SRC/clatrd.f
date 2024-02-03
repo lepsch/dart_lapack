@@ -46,7 +46,7 @@
 
          DO 10 I = N, N - NB + 1, -1
             IW = I - N + NB
-            if ( I.LT.N ) {
+            if ( I < N ) {
 
                // Update A(1:i,i)
 
@@ -72,7 +72,7 @@
                // Compute W(1:i-1,i)
 
                chemv('Upper', I-1, ONE, A, LDA, A( 1, I ), 1, ZERO, W( 1, IW ), 1 );
-               if ( I.LT.N ) {
+               if ( I < N ) {
                   cgemv('Conjugate transpose', I-1, N-I, ONE, W( 1, IW+1 ), LDW, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 );
                   cgemv('No transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 );
                   cgemv('Conjugate transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 );
@@ -100,7 +100,7 @@
             cgemv('No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 );
             clacgv(I-1, A( I, 1 ), LDA );
             A( I, I ) = REAL( A( I, I ) )
-            if ( I.LT.N ) {
+            if ( I < N ) {
 
                // Generate elementary reflector H(i) to annihilate
                // A(i+2:n,i)

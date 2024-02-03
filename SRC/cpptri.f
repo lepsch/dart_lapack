@@ -42,7 +42,7 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
       }
       if ( INFO != 0 ) {
@@ -79,7 +79,7 @@
          for (J = 1; J <= N; J++) { // 20
             JJN = JJ + N - J + 1
             AP( JJ ) = REAL( CDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) )
-            if (J.LT.N) CALL CTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
+            if (J < N) CALL CTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
             JJ = JJN
          } // 20
       }

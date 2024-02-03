@@ -42,7 +42,7 @@
       // .. Executable Statements ..
 
       MN = MIN( M, N )
-      if ( LWORK.LT.MAX( M+MN, MN*NRHS, 2*N+M ) ) {
+      if ( LWORK < MAX( M+MN, MN*NRHS, 2*N+M ) ) {
          xerbla('CQRT15', 16 );
          RETURN
       }
@@ -103,7 +103,7 @@
          for (J = 1; J <= RANK; J++) { // 40
             csscal(M, S( J ), A( 1, J ), 1 );
          } // 40
-         if (RANK.LT.N) CALL CLASET( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA );
+         if (RANK < N) CALL CLASET( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA );
          claror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO );
 
       } else {

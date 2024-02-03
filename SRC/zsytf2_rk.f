@@ -55,9 +55,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -90,7 +90,7 @@
 
          // If K < 1, exit from loop
 
-         if (K.LT.1) GO TO 34;
+         if (K < 1) GO TO 34;
          KSTEP = 1
          P = K
 
@@ -128,7 +128,7 @@
             // Equivalent to testing for (used to handle NaN and Inf)
             // ABSAKK.GE.ALPHA*COLMAX
 
-            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
+            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange,
                // use 1-by-1 pivot block
@@ -167,7 +167,7 @@
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX
 
-                  if ( .NOT.( CABS1( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX )) {
+                  if ( .NOT.( CABS1( A( IMAX, IMAX ) ) < ALPHA*ROWMAX )) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -210,7 +210,7 @@
                // Interchange rows and column K and P in the leading
                // submatrix A(1:k,1:k) if we have a 2-by-2 pivot
 
-               if (P.GT.1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )                IF( P.LT.(K-1) ) CALL ZSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
+               if (P.GT.1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )                IF( P < (K-1) ) CALL ZSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
                T = A( K, K )
                A( K, K ) = A( P, P )
                A( P, P ) = T
@@ -218,7 +218,7 @@
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
 
-               if (K.LT.N) CALL ZSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
+               if (K < N) CALL ZSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
 
             }
 
@@ -230,7 +230,7 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )                IF( ( KK.GT.1 ) && ( KP.LT.(KK-1) ) ) CALL ZSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
+               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )                IF( ( KK.GT.1 ) && ( KP < (KK-1) ) ) CALL ZSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -243,7 +243,7 @@
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
 
-               if (K.LT.N) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
+               if (K < N) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
 
             }
 
@@ -396,7 +396,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + IZAMAX( N-K, A( K+1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
@@ -412,7 +412,7 @@
 
             // Set E( K ) to zero
 
-            if (K.LT.N) E( K ) = CZERO;
+            if (K < N) E( K ) = CZERO;
 
          } else {
 
@@ -421,7 +421,7 @@
             // Equivalent to testing for (used to handle NaN and Inf)
             // ABSAKK.GE.ALPHA*COLMAX
 
-            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
+            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -448,7 +448,7 @@
                      ROWMAX = ZERO
                   }
 
-                  if ( IMAX.LT.N ) {
+                  if ( IMAX < N ) {
                      ITEMP = IMAX + IZAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                      DTEMP = CABS1( A( ITEMP, IMAX ) )
                      if ( DTEMP.GT.ROWMAX ) {
@@ -460,7 +460,7 @@
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX
 
-                  if ( .NOT.( CABS1( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX )) {
+                  if ( .NOT.( CABS1( A( IMAX, IMAX ) ) < ALPHA*ROWMAX )) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -503,7 +503,7 @@
                // Interchange rows and column K and P in the trailing
                // submatrix A(k:n,k:n) if we have a 2-by-2 pivot
 
-               if (P.LT.N) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )                IF( P.GT.(K+1) ) CALL ZSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
+               if (P < N) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )                IF( P.GT.(K+1) ) CALL ZSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                T = A( K, K )
                A( K, K ) = A( P, P )
                A( P, P ) = T
@@ -523,7 +523,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                IF( ( KK.LT.N ) && ( KP.GT.(KK+1) ) ) CALL ZSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
+               if (KP < N) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                IF( ( KK < N ) && ( KP.GT.(KK+1) ) ) CALL ZSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -550,7 +550,7 @@
 
                // where L(k) is the k-th column of L
 
-               if ( K.LT.N ) {
+               if ( K < N ) {
 
                // Perform a rank-1 update of A(k+1:n,k+1:n) and
                // store L(k) in column k
@@ -607,7 +607,7 @@
 
                // and store L(k) and L(k+1) in columns k and k+1
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                   D21 = A( K+1, K )
                   D11 = A( K+1, K+1 ) / D21

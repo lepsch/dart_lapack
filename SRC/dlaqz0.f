@@ -72,19 +72,19 @@
          INFO = -2
       } else if ( IWANTZ == 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( ILO.LT.1 ) {
+      } else if ( ILO < 1 ) {
          INFO = -5
-      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI < ILO-1 ) {
          INFO = -6
-      } else if ( LDA.LT.N ) {
+      } else if ( LDA < N ) {
          INFO = -8
-      } else if ( LDB.LT.N ) {
+      } else if ( LDB < N ) {
          INFO = -10
-      } else if ( LDQ.LT.1 || ( ILQ && LDQ.LT.N ) ) {
+      } else if ( LDQ < 1 || ( ILQ && LDQ < N ) ) {
          INFO = -15
-      } else if ( LDZ.LT.1 || ( ILZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( ILZ && LDZ < N ) ) {
          INFO = -17
       }
       if ( INFO != 0 ) {
@@ -124,7 +124,7 @@
       ITEMP1 = ( ( ITEMP1-1 )/4 )*4+4
       NBR = NSR+ITEMP1
 
-      if ( N .LT. NMIN || REC .GE. 2 ) {
+      if ( N < NMIN || REC .GE. 2 ) {
          dhgeqz(WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, INFO );
          RETURN
       }
@@ -145,7 +145,7 @@
       if ( LWORK == -1 ) {
          WORK( 1 ) = DBLE( LWORKREQ )
          RETURN
-      } else if ( LWORK .LT. LWORKREQ ) {
+      } else if ( LWORK < LWORKREQ ) {
          INFO = -19
       }
       if ( INFO != 0 ) {
@@ -235,7 +235,7 @@
          K = ISTOP
          DO WHILE ( K.GE.ISTART2 )
 
-            if ( ABS( B( K, K ) ) .LT. BTOL ) {
+            if ( ABS( B( K, K ) ) < BTOL ) {
                // A diagonal element of B is negligible, move it
                // to the top and deflate it
 
@@ -249,7 +249,7 @@
                      drot(N, Z( 1, K2 ), 1, Z( 1, K2-1 ), 1, C1, S1 );
                   }
 
-                  if ( K2.LT.ISTOP ) {
+                  if ( K2 < ISTOP ) {
                      dlartg(A( K2, K2-1 ), A( K2+1, K2-1 ), C1, S1, TEMP );
                      A( K2, K2-1 ) = TEMP
                      A( K2+1, K2-1 ) = ZERO
@@ -262,7 +262,7 @@
 
                }
 
-               if ( ISTART2.LT.ISTOP ) {
+               if ( ISTART2 < ISTOP ) {
                   dlartg(A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP );
                   A( ISTART2, ISTART2 ) = TEMP
                   A( ISTART2+1, ISTART2 ) = ZERO
@@ -292,11 +292,11 @@
          NSHIFTS = NSR
          NBLOCK = NBR
 
-         if ( ISTOP-ISTART2+1 .LT. NMIN ) {
+         if ( ISTOP-ISTART2+1 < NMIN ) {
             // Setting nw to the size of the subblock will make AED deflate
             // all the eigenvalues. This is slightly more efficient than just
             // using DHGEQZ because the off diagonal part gets updated via BLAS.
-            if ( ISTOP-ISTART+1 .LT. NMIN ) {
+            if ( ISTOP-ISTART+1 < NMIN ) {
                NW = ISTOP-ISTART+1
                ISTART2 = ISTART
             } else {
@@ -314,7 +314,7 @@
             LD = 0
             ESHIFT = ZERO
          }
-          if ( 100*N_DEFLATED > NIBBLE*( N_DEFLATED+N_UNDEFLATED ) || ISTOP-ISTART2+1 .LT. NMIN ) {
+          if ( 100*N_DEFLATED > NIBBLE*( N_DEFLATED+N_UNDEFLATED ) || ISTOP-ISTART2+1 < NMIN ) {
             // AED has uncovered many eigenvalues. Skip a QZ sweep and run
             // AED again.
             CYCLE
@@ -353,7 +353,7 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            if ( ( DBLE( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ).LT.ABS( A( ISTOP-1, ISTOP-1 ) ) ) {
+            if ( ( DBLE( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ) < ABS( A( ISTOP-1, ISTOP-1 ) ) ) {
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 )
             } else {
                ESHIFT = ESHIFT+ONE/( SAFMIN*DBLE( MAXIT ) )

@@ -39,15 +39,15 @@
       INFO = 0
       if (.NOT.LSAME(TRANS,'N') && .NOT.LSAME(TRANS,'T') && .NOT.LSAME(TRANS,'C')) {
           INFO = 1
-      } else if (M.LT.0) {
+      } else if (M < 0) {
           INFO = 2
-      } else if (N.LT.0) {
+      } else if (N < 0) {
           INFO = 3
-      } else if (KL.LT.0) {
+      } else if (KL < 0) {
           INFO = 4
-      } else if (KU.LT.0) {
+      } else if (KU < 0) {
           INFO = 5
-      } else if (LDA.LT. (KL+KU+1)) {
+      } else if (LDA < (KL+KU+1)) {
           INFO = 8
       } else if (INCX == 0) {
           INFO = 10

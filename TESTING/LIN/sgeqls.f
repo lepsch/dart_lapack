@@ -28,17 +28,17 @@
       // Test the input arguments.
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 || N.GT.M ) {
+      } else if ( N < 0 || N.GT.M ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, M ) ) {
+      } else if ( LDB < MAX( 1, M ) ) {
          INFO = -8
-      } else if ( LWORK.LT.1 || LWORK.LT.NRHS && M.GT.0 && N.GT.0 ) {
+      } else if ( LWORK < 1 || LWORK < NRHS && M.GT.0 && N.GT.0 ) {
          INFO = -10
       }
       if ( INFO != 0 ) {

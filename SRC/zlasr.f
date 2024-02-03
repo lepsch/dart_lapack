@@ -45,11 +45,11 @@
          INFO = 2
       } else if ( .NOT.( LSAME( DIRECT, 'F' ) || LSAME( DIRECT, 'B' ) ) ) {
          INFO = 3
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = 4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = 5
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = 9
       }
       if ( INFO != 0 ) {

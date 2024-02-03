@@ -31,7 +31,7 @@
       // Check for Errors
 
       INFO = 0
-      if ( IJOB.LT.1 || IJOB.GT.3 ) {
+      if ( IJOB < 1 || IJOB.GT.3 ) {
          INFO = -1
          RETURN
       }
@@ -46,13 +46,13 @@
          for (JI = 1; JI <= MINP; JI++) { // 30
             for (JP = 1; JP <= 2; JP++) { // 20
                TMP1 = D( 1 ) - AB( JI, JP )
-               IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN
+               IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN
                NAB( JI, JP ) = 0
                if (TMP1.LE.ZERO) NAB( JI, JP ) = 1;
 
                for (J = 2; J <= N; J++) { // 10
                   TMP1 = D( J ) - E2( J-1 ) / TMP1 - AB( JI, JP )
-                  IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN                   IF( TMP1.LE.ZERO ) NAB( JI, JP ) = NAB( JI, JP ) + 1
+                  IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN                   IF( TMP1.LE.ZERO ) NAB( JI, JP ) = NAB( JI, JP ) + 1
                } // 10
             } // 20
             MOUT = MOUT + NAB( JI, 2 ) - NAB( JI, 1 )
@@ -223,7 +223,7 @@
                      // just use the upper interval.
 
                      AB( JI, 1 ) = TMP1
-                  } else if ( KLNEW.LT.MMAX ) {
+                  } else if ( KLNEW < MMAX ) {
 
                      // Eigenvalue in both intervals -- add upper to queue.
 
@@ -263,7 +263,7 @@
          for (JI = KF; JI <= KL; JI++) { // 110
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) )
             TMP2 = MAX( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) )
-            if ( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ).GE.NAB( JI, 2 ) ) {
+            if ( TMP1 < MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ).GE.NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,
                             // then increment KFNEW

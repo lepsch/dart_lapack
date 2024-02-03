@@ -131,7 +131,7 @@
                   zgbequ(M, N, KL, KU, AB, NSZB, R, C, RCOND, CCOND, NORM, INFO );
 
                   if ( INFO != 0 ) {
-                     if ( .NOT.( ( N+KL.LT.M && INFO == N+KL+1 ) || ( M+KU.LT.N && INFO == 2*M+KU+1 ) ) ) {
+                     if ( .NOT.( ( N+KL < M && INFO == N+KL+1 ) || ( M+KU < N && INFO == 2*M+KU+1 ) ) ) {
                         RESLTS( 2 ) = ONE
                      }
                   } else {

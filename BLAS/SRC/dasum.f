@@ -34,7 +34,7 @@
             for (I = 1; I <= M; I++) {
                DTEMP = DTEMP + DABS(DX(I))
             }
-            if (N.LT.6) {
+            if (N < 6) {
                DASUM = DTEMP
                RETURN
             }

@@ -37,17 +37,17 @@
       N = NL + NR + 1
       M = N + SQRE
 
-      if ( ( ICOMPQ.LT.0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      } else if ( NL.LT.1 ) {
+      } else if ( NL < 1 ) {
          INFO = -2
-      } else if ( NR.LT.1 ) {
+      } else if ( NR < 1 ) {
          INFO = -3
-      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
          INFO = -4
-      } else if ( LDGCOL.LT.N ) {
+      } else if ( LDGCOL < N ) {
          INFO = -14
-      } else if ( LDGNUM.LT.N ) {
+      } else if ( LDGNUM < N ) {
          INFO = -16
       }
       if ( INFO != 0 ) {

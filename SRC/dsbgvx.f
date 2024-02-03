@@ -53,31 +53,31 @@
          INFO = -2
       } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( KA.LT.0 ) {
+      } else if ( KA < 0 ) {
          INFO = -5
-      } else if ( KB.LT.0 || KB.GT.KA ) {
+      } else if ( KB < 0 || KB.GT.KA ) {
          INFO = -6
-      } else if ( LDAB.LT.KA+1 ) {
+      } else if ( LDAB < KA+1 ) {
          INFO = -8
-      } else if ( LDBB.LT.KB+1 ) {
+      } else if ( LDBB < KB+1 ) {
          INFO = -10
-      } else if ( LDQ.LT.1 || ( WANTZ && LDQ.LT.N ) ) {
+      } else if ( LDQ < 1 || ( WANTZ && LDQ < N ) ) {
          INFO = -12
       } else {
          if ( VALEIG ) {
             if (N.GT.0 && VU.LE.VL) INFO = -14;
          } else if ( INDEIG ) {
-            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
                INFO = -15
-            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
                INFO = -16
             }
          }
       }
       if ( INFO == 0) {
-         if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+         if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
             INFO = -21
          }
       }
@@ -182,7 +182,7 @@
             I = 0
             TMP1 = W( J )
             for (JJ = J + 1; JJ <= M; JJ++) { // 40
-               if ( W( JJ ).LT.TMP1 ) {
+               if ( W( JJ ) < TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )
                }

@@ -46,15 +46,15 @@
       LQUERY = ( LWORK == -1 || LWORK == -2 )
       if ( .NOT.( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LDB.LT.MAX( 1, M, N ) ) {
+      } else if ( LDB < MAX( 1, M, N ) ) {
          INFO = -8
       }
 
@@ -93,7 +93,7 @@
          WSIZEM = TSZM + LWM
        }
 
-       if ( ( LWORK.LT.WSIZEM ) && ( .NOT.LQUERY ) ) {
+       if ( ( LWORK < WSIZEM ) && ( .NOT.LQUERY ) ) {
           INFO = -10
        }
 
@@ -109,7 +109,7 @@
         if (LWORK == -2) WORK( 1 ) = SROUNDUP_LWORK( WSIZEM );
         RETURN
       }
-      if ( LWORK.LT.WSIZEO ) {
+      if ( LWORK < WSIZEO ) {
         LW1 = TSZM
         LW2 = LWM
       } else {
@@ -133,7 +133,7 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -159,7 +159,7 @@
       }
       BNRM = SLANGE( 'M', BROW, NRHS, B, LDB, WORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 

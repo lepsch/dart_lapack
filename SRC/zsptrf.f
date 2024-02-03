@@ -54,7 +54,7 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
       }
       if ( INFO != 0 ) {
@@ -80,7 +80,7 @@
 
          // If K < 1, exit from loop
 
-         if (K.LT.1) GO TO 110;
+         if (K < 1) GO TO 110;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -270,7 +270,7 @@
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + IZAMAX( N-K, AP( KC+1 ), 1 )
             COLMAX = CABS1( AP( KC+IMAX-K ) )
          } else {
@@ -304,7 +304,7 @@
                   KX = KX + N - J
                } // 70
                KPC = NPP - ( N-IMAX+1 )*( N-IMAX+2 ) / 2 + 1
-               if ( IMAX.LT.N ) {
+               if ( IMAX < N ) {
                   JMAX = IMAX + IZAMAX( N-IMAX, AP( KPC+1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( AP( KPC+JMAX-IMAX ) ) )
                }
@@ -337,7 +337,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP.LT.N) CALL ZSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 );
+               if (KP < N) CALL ZSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 );
                KX = KNC + KP - KK
                for (J = KK + 1; J <= KP - 1; J++) { // 80
                   KX = KX + N - J + 1
@@ -365,7 +365,7 @@
 
                // where L(k) is the k-th column of L
 
-               if ( K.LT.N ) {
+               if ( K < N ) {
 
                   // Perform a rank-1 update of A(k+1:n,k+1:n) as
 
@@ -387,7 +387,7 @@
                // where L(k) and L(k+1) are the k-th and (k+1)-th columns
                // of L
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                   // Perform a rank-2 update of A(k+2:n,k+2:n) as
 

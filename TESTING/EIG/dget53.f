@@ -63,9 +63,9 @@
 
       // Check for W and SCALE essentially zero.
 
-      if ( S1.LT.SAFMIN ) {
+      if ( S1 < SAFMIN ) {
          INFO = 2
-         if ( SCALES.LT.SAFMIN && ABSW.LT.SAFMIN ) {
+         if ( SCALES < SAFMIN && ABSW < SAFMIN ) {
             INFO = 3
             RESULT = ONE / ULP
             RETURN
@@ -79,7 +79,7 @@
          WIS = WIS*TEMP
          ABSW = ABS( WRS ) + ABS( WIS )
          S1 = MAX( ULP*MAX( SCALES*ANORM, ABSW*BNORM ), SAFMIN*MAX( SCALES, ABSW ) )
-         if ( S1.LT.SAFMIN ) {
+         if ( S1 < SAFMIN ) {
             INFO = 3
             RESULT = ONE / ULP
             RETURN

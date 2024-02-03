@@ -227,7 +227,7 @@ void main() {
       // Read the number of values of M, P, and N.
 
       READ( NIN, FMT = * )NN
-      if ( NN.LT.0 ) {
+      if ( NN < 0 ) {
          WRITE( NOUT, FMT = 9989 )'   NN ', NN, 1
          NN = 0
          FATAL = true;
@@ -247,7 +247,7 @@ void main() {
             VNAME = '    N '
          }
          for (I = 1; I <= NN; I++) { // 20
-            if ( MVAL( I ).LT.0 ) {
+            if ( MVAL( I ) < 0 ) {
                WRITE( NOUT, FMT = 9989 )VNAME, MVAL( I ), 0
                FATAL = true;
             } else if ( MVAL( I ).GT.NMAX ) {
@@ -263,7 +263,7 @@ void main() {
       if ( GLM || GQR || GSV || CSD || LSE ) {
          READ( NIN, FMT = * )( PVAL( I ), I = 1, NN )
          for (I = 1; I <= NN; I++) { // 30
-            if ( PVAL( I ).LT.0 ) {
+            if ( PVAL( I ) < 0 ) {
                WRITE( NOUT, FMT = 9989 )' P  ', PVAL( I ), 0
                FATAL = true;
             } else if ( PVAL( I ).GT.NMAX ) {
@@ -279,7 +279,7 @@ void main() {
       if ( SVD || CBB || GLM || GQR || GSV || CSD || LSE ) {
          READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
          for (I = 1; I <= NN; I++) { // 40
-            if ( NVAL( I ).LT.0 ) {
+            if ( NVAL( I ) < 0 ) {
                WRITE( NOUT, FMT = 9989 )'    N ', NVAL( I ), 0
                FATAL = true;
             } else if ( NVAL( I ).GT.NMAX ) {
@@ -304,7 +304,7 @@ void main() {
          READ( NIN, FMT = * )NK
          READ( NIN, FMT = * )( KVAL( I ), I = 1, NK )
          for (I = 1; I <= NK; I++) { // 60
-            if ( KVAL( I ).LT.0 ) {
+            if ( KVAL( I ) < 0 ) {
                WRITE( NOUT, FMT = 9989 )'    K ', KVAL( I ), 0
                FATAL = true;
             } else if ( KVAL( I ).GT.NMAX ) {
@@ -321,28 +321,28 @@ void main() {
          // parameters is allowed.
 
          READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), INMIN( 1 ), INWIN( 1 ), INIBL(1), ISHFTS(1), IACC22(1)
-         if ( NBVAL( 1 ).LT.1 ) {
+         if ( NBVAL( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1
             FATAL = true;
-         } else if ( NBMIN( 1 ).LT.1 ) {
+         } else if ( NBMIN( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1
             FATAL = true;
-         } else if ( NXVAL( 1 ).LT.1 ) {
+         } else if ( NXVAL( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1
             FATAL = true;
-         } else if ( INMIN( 1 ).LT.1 ) {
+         } else if ( INMIN( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'   INMIN ', INMIN( 1 ), 1
             FATAL = true;
-         } else if ( INWIN( 1 ).LT.1 ) {
+         } else if ( INWIN( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'   INWIN ', INWIN( 1 ), 1
             FATAL = true;
-         } else if ( INIBL( 1 ).LT.1 ) {
+         } else if ( INIBL( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'   INIBL ', INIBL( 1 ), 1
             FATAL = true;
-         } else if ( ISHFTS( 1 ).LT.1 ) {
+         } else if ( ISHFTS( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'   ISHFTS ', ISHFTS( 1 ), 1
             FATAL = true;
-         } else if ( IACC22( 1 ).LT.0 ) {
+         } else if ( IACC22( 1 ) < 0 ) {
             WRITE( NOUT, FMT = 9989 )'   IACC22 ', IACC22( 1 ), 0
             FATAL = true;
          }
@@ -369,19 +369,19 @@ void main() {
          // parameters is allowed.
 
          READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), NSVAL( 1 ), MXBVAL( 1 )
-         if ( NBVAL( 1 ).LT.1 ) {
+         if ( NBVAL( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1
             FATAL = true;
-         } else if ( NBMIN( 1 ).LT.1 ) {
+         } else if ( NBMIN( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1
             FATAL = true;
-         } else if ( NXVAL( 1 ).LT.1 ) {
+         } else if ( NXVAL( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1
             FATAL = true;
-         } else if ( NSVAL( 1 ).LT.2 ) {
+         } else if ( NSVAL( 1 ) < 2 ) {
             WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( 1 ), 2
             FATAL = true;
-         } else if ( MXBVAL( 1 ).LT.1 ) {
+         } else if ( MXBVAL( 1 ) < 1 ) {
             WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( 1 ), 1
             FATAL = true;
          }
@@ -401,7 +401,7 @@ void main() {
          // from the input file.  Read the number of parameter values.
 
          READ( NIN, FMT = * )NPARMS
-         if ( NPARMS.LT.1 ) {
+         if ( NPARMS < 1 ) {
             WRITE( NOUT, FMT = 9989 )'NPARMS', NPARMS, 1
             NPARMS = 0
             FATAL = true;
@@ -416,7 +416,7 @@ void main() {
          if ( .NOT.CBB ) {
             READ( NIN, FMT = * )( NBVAL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 70
-               if ( NBVAL( I ).LT.0 ) {
+               if ( NBVAL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( I ), 0
                   FATAL = true;
                } else if ( NBVAL( I ).GT.NMAX ) {
@@ -432,7 +432,7 @@ void main() {
          if ( NEP || SEP || SVD || CGG ) {
             READ( NIN, FMT = * )( NBMIN( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 80
-               if ( NBMIN( I ).LT.0 ) {
+               if ( NBMIN( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( I ), 0
                   FATAL = true;
                } else if ( NBMIN( I ).GT.NMAX ) {
@@ -452,7 +452,7 @@ void main() {
          if ( NEP || SEP || SVD ) {
             READ( NIN, FMT = * )( NXVAL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 100
-               if ( NXVAL( I ).LT.0 ) {
+               if ( NXVAL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( I ), 0
                   FATAL = true;
                } else if ( NXVAL( I ).GT.NMAX ) {
@@ -473,7 +473,7 @@ void main() {
          if ( SVD || CBB || CGG ) {
             READ( NIN, FMT = * )( NSVAL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 120
-               if ( NSVAL( I ).LT.0 ) {
+               if ( NSVAL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( I ), 0
                   FATAL = true;
                } else if ( NSVAL( I ).GT.NMAX ) {
@@ -493,7 +493,7 @@ void main() {
          if ( CGG ) {
             READ( NIN, FMT = * )( MXBVAL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 140
-               if ( MXBVAL( I ).LT.0 ) {
+               if ( MXBVAL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( I ), 0
                   FATAL = true;
                } else if ( MXBVAL( I ).GT.NMAX ) {
@@ -513,7 +513,7 @@ void main() {
          if ( NEP ) {
             READ( NIN, FMT = * )( INMIN( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 540
-               if ( INMIN( I ).LT.0 ) {
+               if ( INMIN( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )' INMIN ', INMIN( I ), 0
                   FATAL = true;
                }
@@ -530,7 +530,7 @@ void main() {
          if ( NEP ) {
             READ( NIN, FMT = * )( INWIN( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 560
-               if ( INWIN( I ).LT.0 ) {
+               if ( INWIN( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )' INWIN ', INWIN( I ), 0
                   FATAL = true;
                }
@@ -547,7 +547,7 @@ void main() {
          if ( NEP ) {
             READ( NIN, FMT = * )( INIBL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 580
-               if ( INIBL( I ).LT.0 ) {
+               if ( INIBL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )' INIBL ', INIBL( I ), 0
                   FATAL = true;
                }
@@ -564,7 +564,7 @@ void main() {
          if ( NEP ) {
             READ( NIN, FMT = * )( ISHFTS( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 600
-               if ( ISHFTS( I ).LT.0 ) {
+               if ( ISHFTS( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )' ISHFTS ', ISHFTS( I ), 0
                   FATAL = true;
                }
@@ -581,7 +581,7 @@ void main() {
          if ( NEP || CGG ) {
             READ( NIN, FMT = * )( IACC22( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 620
-               if ( IACC22( I ).LT.0 ) {
+               if ( IACC22( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )' IACC22 ', IACC22( I ), 0
                   FATAL = true;
                }
@@ -598,7 +598,7 @@ void main() {
          if ( CGG ) {
             READ( NIN, FMT = * )( NBCOL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 160
-               if ( NBCOL( I ).LT.0 ) {
+               if ( NBCOL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'NBCOL ', NBCOL( I ), 0
                   FATAL = true;
                } else if ( NBCOL( I ).GT.NMAX ) {
@@ -947,7 +947,7 @@ void main() {
 
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
-         if ( NTYPES.LT.0 ) {
+         if ( NTYPES < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             if (TSTERR) CALL CERRED( C3, NOUT );
@@ -967,7 +967,7 @@ void main() {
 
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
-         if ( NTYPES.LT.0 ) {
+         if ( NTYPES < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             if (TSTERR) CALL CERRED( C3, NOUT );
@@ -1056,7 +1056,7 @@ void main() {
 
          MAXTYP = 5
          NTYPES = MAXTYP
-         if ( NN.LT.0 ) {
+         if ( NN < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             if (TSTERR) CALL CERRGG( C3, NOUT );
@@ -1103,7 +1103,7 @@ void main() {
 
          MAXTYP = 2
          NTYPES = MAXTYP
-         if ( NN.LT.0 ) {
+         if ( NN < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             if (TSTERR) CALL CERRGG( C3, NOUT );

@@ -39,13 +39,13 @@
       INFO = 0
       if (.NOT.LSAME(UPLO,'U') && .NOT.LSAME(UPLO,'L')) {
           INFO = 1
-      } else if (N.LT.0) {
+      } else if (N < 0) {
           INFO = 2
       } else if (INCX == 0) {
           INFO = 5
       } else if (INCY == 0) {
           INFO = 7
-      } else if (LDA.LT.MAX(1,N)) {
+      } else if (LDA < MAX(1,N)) {
           INFO = 9
       }
       if (INFO != 0) {

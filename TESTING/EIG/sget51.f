@@ -44,7 +44,7 @@
 
       // Some Error Checks
 
-      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE.GT.3 ) {
          RESULT = TEN / ULP
          RETURN
       }
@@ -84,7 +84,7 @@
          if ( ANORM.GT.WNORM ) {
             RESULT = ( WNORM / ANORM ) / ( N*ULP )
          } else {
-            if ( ANORM.LT.ONE ) {
+            if ( ANORM < ONE ) {
                RESULT = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
             } else {
                RESULT = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )

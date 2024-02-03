@@ -79,26 +79,26 @@
       NMAX = 12
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = true;
+         IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADNN ) {
          INFO = -2
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -3
-      } else if ( THRESH.LT.ZERO ) {
+      } else if ( THRESH < ZERO ) {
          INFO = -6
       } else if ( NIUNIT.LE.0 ) {
          INFO = -7
       } else if ( NOUNIT.LE.0 ) {
          INFO = -8
-      } else if ( LDA.LT.1 || LDA.LT.NMAX ) {
+      } else if ( LDA < 1 || LDA < NMAX ) {
          INFO = -10
-      } else if ( LDVS.LT.1 || LDVS.LT.NMAX ) {
+      } else if ( LDVS < 1 || LDVS < NMAX ) {
          INFO = -20
       } else if ( MAX( 3*NMAX, 2*NMAX**2 ).GT.LWORK ) {
          INFO = -24

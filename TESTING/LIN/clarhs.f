@@ -58,21 +58,21 @@
          INFO = -3
       } else if ( ( GEN || QRS ) && .NOT.( TRAN || LSAME( TRANS, 'N' ) ) ) {
          INFO = -4
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -5
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -6
-      } else if ( BAND && KL.LT.0 ) {
+      } else if ( BAND && KL < 0 ) {
          INFO = -7
-      } else if ( BAND && KU.LT.0 ) {
+      } else if ( BAND && KU < 0 ) {
          INFO = -8
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -9
-      } else if ( ( .NOT.BAND && LDA.LT.MAX( 1, M ) ) || ( BAND && ( SYM || TRI ) && LDA.LT.KL+1 ) || ( BAND && GEN && LDA.LT.KL+KU+1 ) ) {
+      } else if ( ( .NOT.BAND && LDA < MAX( 1, M ) ) || ( BAND && ( SYM || TRI ) && LDA < KL+1 ) || ( BAND && GEN && LDA < KL+KU+1 ) ) {
          INFO = -11
-      } else if ( ( NOTRAN && LDX.LT.MAX( 1, N ) ) || ( TRAN && LDX.LT.MAX( 1, M ) ) ) {
+      } else if ( ( NOTRAN && LDX < MAX( 1, N ) ) || ( TRAN && LDX < MAX( 1, M ) ) ) {
          INFO = -13
-      } else if ( ( NOTRAN && LDB.LT.MAX( 1, M ) ) || ( TRAN && LDB.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NOTRAN && LDB < MAX( 1, M ) ) || ( TRAN && LDB < MAX( 1, N ) ) ) {
          INFO = -15
       }
       if ( INFO != 0 ) {

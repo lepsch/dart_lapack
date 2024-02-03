@@ -73,15 +73,15 @@
          INFO = -2
       } else if ( .NOT.NOINIT && .NOT.LSAME( INITV, 'U' ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( LDH.LT.MAX( 1, N ) ) {
+      } else if ( LDH < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 || ( LEFTV && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( LEFTV && LDVL < N ) ) {
          INFO = -10
-      } else if ( LDVR.LT.1 || ( RIGHTV && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( RIGHTV && LDVR < N ) ) {
          INFO = -12
-      } else if ( MM.LT.M ) {
+      } else if ( MM < M ) {
          INFO = -13
       }
       if ( INFO != 0 ) {
@@ -166,7 +166,7 @@
             WK = W( K )
             } // 60
             DO 70 I = K - 1, KL, -1
-               if ( SELECT( I ) && CABS1( W( I )-WK ).LT.EPS3 ) {
+               if ( SELECT( I ) && CABS1( W( I )-WK ) < EPS3 ) {
                   WK = WK + EPS3
                   GO TO 60
                }

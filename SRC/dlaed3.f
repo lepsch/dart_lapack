@@ -39,11 +39,11 @@
 
       INFO = 0
 
-      if ( K.LT.0 ) {
+      if ( K < 0 ) {
          INFO = -1
-      } else if ( N.LT.K ) {
+      } else if ( N < K ) {
          INFO = -2
-      } else if ( LDQ.LT.MAX( 1, N ) ) {
+      } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {

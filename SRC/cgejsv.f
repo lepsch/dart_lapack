@@ -80,15 +80,15 @@
          INFO = - 5
       } else if ( .NOT. ( L2PERT || LSAME( JOBP, 'N' ) ) ) {
          INFO = - 6
-      } else if ( M .LT. 0 ) {
+      } else if ( M < 0 ) {
          INFO = - 7
-      } else if ( ( N .LT. 0 ) || ( N .GT. M ) ) {
+      } else if ( ( N < 0 ) || ( N .GT. M ) ) {
          INFO = - 8
-      } else if ( LDA .LT. M ) {
+      } else if ( LDA < M ) {
          INFO = - 10
-      } else if ( LSVEC && ( LDU .LT. M ) ) {
+      } else if ( LSVEC && ( LDU < M ) ) {
          INFO = - 13
-      } else if ( RSVEC && ( LDV .LT. N ) ) {
+      } else if ( RSVEC && ( LDV < N ) ) {
          INFO = - 15
       } else {
          // #:)
@@ -292,8 +292,8 @@
           }
           MINWRK = MAX( 2, MINWRK )
           OPTWRK = MAX( OPTWRK, MINWRK )
-          IF ( LWORK  .LT. MINWRK && (.NOT.LQUERY) ) INFO = - 17
-          IF ( LRWORK .LT. MINRWRK && (.NOT.LQUERY) ) INFO = - 19
+          IF ( LWORK < MINWRK && (.NOT.LQUERY) ) INFO = - 17
+          IF ( LRWORK < MINRWRK && (.NOT.LQUERY) ) INFO = - 19
       }
 
       if ( INFO != 0 ) {
@@ -352,7 +352,7 @@
             RETURN
          }
          AAQQ = SQRT(AAQQ)
-         if ( ( AAPP .LT. (BIG / AAQQ) ) && NOSCAL  ) {
+         if ( ( AAPP < (BIG / AAQQ) ) && NOSCAL  ) {
             SVA(p)  = AAPP * AAQQ
          } else {
             NOSCAL  = false;
@@ -424,7 +424,7 @@
          if ( RSVEC ) {
              V(1,1) = CONE
          }
-         if ( SVA(1) .LT. (BIG*SCALEM) ) {
+         if ( SVA(1) < (BIG*SCALEM) ) {
             SVA(1)  = SVA(1) / SCALEM
             SCALEM  = ONE
          }
@@ -528,7 +528,7 @@
          // Analyze the entropies and decide A or A^*. Smaller entropy
          // usually means better input for the algorithm.
 
-         TRANSP = ( ENTRAT .LT. ENTRA )
+         TRANSP = ( ENTRAT < ENTRA )
 
          // If A^* is better than A, take the adjoint of A. This is allowed
          // only for square matrices, M=N.
@@ -614,14 +614,14 @@
          // time. Depending on the concrete implementation of BLAS and LAPACK
          // (i.e. how they behave in presence of extreme ill-conditioning) the
          // implementor may decide to remove this switch.
-         if ( ( AAQQ.LT.SQRT(SFMIN) ) && LSVEC && RSVEC ) {
+         if ( ( AAQQ < SQRT(SFMIN) ) && LSVEC && RSVEC ) {
             JRACC = true;
          }
 
       }
-      if ( AAQQ .LT. XSC ) {
+      if ( AAQQ < XSC ) {
          for (p = 1; p <= N; p++) { // 700
-            if ( SVA(p) .LT. XSC ) {
+            if ( SVA(p) < XSC ) {
                claset('A', M, 1, CZERO, CZERO, A(1,p), LDA );
                SVA(p) = ZERO
             }
@@ -703,7 +703,7 @@
          // close-to-rank-deficient.
          TEMP1 = SQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) .LT. SMALL ) || ( L2KILL && (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
+            IF ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3402
             NR = NR + 1
          } // 3401
          } // 3402
@@ -718,7 +718,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = SQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3301
-            IF ( ( ABS(A(p,p)) .LT. SMALL ) || ( L2KILL && (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
+            IF ( ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3302
             NR = NR + 1
          } // 3301
          } // 3302
@@ -827,7 +827,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO)
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p .LT. q ) )
+                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p < q ) )
       // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 4949
                } // 4947
@@ -857,7 +857,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO)
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p .LT. q ) )
+                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p < q ) )
       // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 1949
                } // 1947
@@ -911,7 +911,7 @@
             cgesvj('L', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, CWORK(N+1), LWORK-N, RWORK, LRWORK, INFO );
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
-            if ( NR .LT. N ) {
+            if ( NR < N ) {
                claset('A',N-NR, NR, CZERO,CZERO, V(NR+1,1),  LDV );
                claset('A',NR, N-NR, CZERO,CZERO, V(1,NR+1),  LDV );
                claset('A',N-NR,N-NR,CZERO,CONE, V(NR+1,NR+1),LDV );
@@ -964,9 +964,9 @@
          SCALEM  = RWORK(1)
          NUMRANK = NINT(RWORK(2))
 
-         if ( NR .LT. M ) {
+         if ( NR < M ) {
             claset('A',  M-NR, NR,CZERO, CZERO, U(NR+1,1), LDU );
-            if ( NR .LT. N1 ) {
+            if ( NR < N1 ) {
                claset('A',NR, N1-NR, CZERO, CZERO, U(1,NR+1),LDU );
                claset('A',M-NR,N1-NR,CZERO,CONE,U(NR+1,NR+1),LDU );
             }
@@ -1022,9 +1022,9 @@
                for (q = 1; q <= NR; q++) { // 2969
                   CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO)
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p .LT. q ) )
+                     IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) )
       // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
-                     if (p .LT. q) V(p,q) = - V(p,q);
+                     if (p < q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
             } else {
@@ -1044,13 +1044,13 @@
             CONDR1 = ONE / SQRT(TEMP1)
             // .. here need a second opinion on the condition number
             // .. then assume worst case scenario
-            // R1 is OK for inverse <=> CONDR1 .LT. REAL(N)
-            // more conservative    <=> CONDR1 .LT. SQRT(REAL(N))
+            // R1 is OK for inverse <=> CONDR1 < REAL(N)
+            // more conservative    <=> CONDR1 < SQRT(REAL(N))
 
             COND_OK = SQRT(SQRT(REAL(NR)))
 *[TP]       COND_OK is a tuning parameter.
 
-            if ( CONDR1 .LT. COND_OK ) {
+            if ( CONDR1 < COND_OK ) {
                // .. the second QRF without pivoting. Note: in an optimized
                // implementation, this QRF should be implemented as the QRF
                // of a lower triangular matrix.
@@ -1164,7 +1164,7 @@
          // Recover the right singular vectors as solution of a well
          // conditioned triangular matrix equation.
 
-            if ( CONDR1 .LT. COND_OK ) {
+            if ( CONDR1 < COND_OK ) {
 
                cgesvj('L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU, CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,RWORK, LRWORK, INFO );
                SCALEM  = RWORK(1)
@@ -1188,7 +1188,7 @@
                   // used in CGESVJ. The Q-factor from the second QR
                   // factorization is then built in explicitly.
                   ctrsm('L','U','C','N',NR,NR,CONE,CWORK(2*N+1), N,V,LDV);
-                  if ( NR .LT. N ) {
+                  if ( NR < N ) {
                   claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV);
                   claset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
                   claset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
@@ -1196,7 +1196,7 @@
                   cunmqr('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR);
                }
 
-            } else if ( CONDR2 .LT. COND_OK ) {
+            } else if ( CONDR2 < COND_OK ) {
 
                // The matrix R2 is inverted. The solution of the matrix equation
                // is Q3^* * V3 = the product of the Jacobi rotations (applied to
@@ -1219,7 +1219,7 @@
                      U(p,q) = CWORK(2*N+N*NR+NR+p)
                   } // 874
                } // 873
-               if ( NR .LT. N ) {
+               if ( NR < N ) {
                   claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV );
                   claset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV );
                   claset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
@@ -1240,7 +1240,7 @@
                cgesvj('L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, RWORK, LRWORK, INFO );
                SCALEM  = RWORK(1)
                NUMRANK = NINT(RWORK(2))
-               if ( NR .LT. N ) {
+               if ( NR < N ) {
                   claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV );
                   claset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV );
                   claset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
@@ -1272,13 +1272,13 @@
                   V(p,q) = CWORK(2*N+N*NR+NR+p)
                } // 973
                XSC = ONE / SCNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
-            if ( NR .LT. M ) {
+            if ( NR < M ) {
                claset('A', M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU);
-               if ( NR .LT. N1 ) {
+               if ( NR < N1 ) {
                   claset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
                   claset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1),LDU);
                }
@@ -1293,7 +1293,7 @@
             TEMP1 = SQRT(REAL(M)) * EPSLN
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / SCNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
@@ -1337,14 +1337,14 @@
             TEMP1 = SQRT(REAL(N))*EPSLN
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / SCNRM2( N, V(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,p), 1 )
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
 
-            if ( N .LT. M ) {
+            if ( N < M ) {
                claset('A',  M-N, N, CZERO, CZERO, U(N+1,1), LDU );
-               if ( N .LT. N1 ) {
+               if ( N < N1 ) {
                   claset('A',N,  N1-N, CZERO, CZERO,  U(1,N+1),LDU);
                   claset('A',M-N,N1-N, CZERO, CONE,U(N+1,N+1),LDU);
                }
@@ -1353,7 +1353,7 @@
             TEMP1 = SQRT(REAL(M))*EPSLN
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / SCNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 )
             } // 6973
 
             if (ROWPIV) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
@@ -1385,9 +1385,9 @@
             for (q = 1; q <= NR; q++) { // 5969
                CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO)
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p .LT. q ) )
+                  IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) )
       // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
-                  if (p .LT. q) V(p,q) = - V(p,q);
+                  if (p < q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
          } else {
@@ -1417,7 +1417,7 @@
          SCALEM  = RWORK(1)
          NUMRANK = NINT(RWORK(2))
 
-         if ( NR .LT. N ) {
+         if ( NR < N ) {
             claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV );
             claset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV );
             claset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV );
@@ -1437,15 +1437,15 @@
                   V(p,q) = CWORK(2*N+N*NR+NR+p)
                } // 8973
                XSC = ONE / SCNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 )
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
 
-         if ( NR .LT. M ) {
+         if ( NR < M ) {
             claset('A',  M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU );
-            if ( NR .LT. N1 ) {
+            if ( NR < N1 ) {
                claset('A',NR,  N1-NR, CZERO, CZERO,  U(1,NR+1),LDU);
                claset('A',M-NR,N1-NR, CZERO, CONE,U(NR+1,NR+1),LDU);
             }
@@ -1475,7 +1475,7 @@
          USCAL2 = ONE
       }
 
-      if ( NR .LT. N ) {
+      if ( NR < N ) {
          for (p = NR+1; p <= N; p++) { // 3004
             SVA(p) = ZERO
          } // 3004

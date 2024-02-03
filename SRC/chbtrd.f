@@ -54,13 +54,13 @@
          INFO = -1
       } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -4
-      } else if ( LDAB.LT.KD1 ) {
+      } else if ( LDAB < KD1 ) {
          INFO = -6
-      } else if ( LDQ.LT.MAX( 1, N ) && WANTQ ) {
+      } else if ( LDQ < MAX( 1, N ) && WANTQ ) {
          INFO = -10
       }
       if ( INFO != 0 ) {
@@ -157,7 +157,7 @@
 
                   if ( NR.GT.0 ) {
                      clacgv(NR, WORK( J1 ), KD1 );
-                     if ( 2*KD-1.LT.NR ) {
+                     if ( 2*KD-1 < NR ) {
 
                      // Dependent on the the number of diagonals either
                      // CLARTV or CROT is used
@@ -248,7 +248,7 @@
                } else {
                   T = CONE
                }
-               if (I.LT.N-1) AB( KD, I+2 ) = AB( KD, I+2 )*T;
+               if (I < N-1) AB( KD, I+2 ) = AB( KD, I+2 )*T;
                if ( WANTQ ) {
                   cscal(N, CONJG( T ), Q( 1, I+1 ), 1 );
                }
@@ -432,7 +432,7 @@
                } else {
                   T = CONE
                }
-               if (I.LT.N-1) AB( 2, I+1 ) = AB( 2, I+1 )*T;
+               if (I < N-1) AB( 2, I+1 ) = AB( 2, I+1 )*T;
                if ( WANTQ ) {
                   cscal(N, T, Q( 1, I+1 ), 1 );
                }

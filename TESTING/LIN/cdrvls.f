@@ -272,7 +272,7 @@
                               // Test 2: Check correctness of results
                               // for CGELS.
 
-                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
+                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M < N ) ) {
 
                                  // Solving LS system
 
@@ -361,7 +361,7 @@
                               // Test 4: Check correctness of results
                               // for CGELST.
 
-                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
+                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M < N ) ) {
 
                                  // Solving LS system
 
@@ -454,7 +454,7 @@
                               // Test 6: Check correctness of results
                               // for CGETSLS.
 
-                                 if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M.LT.N ) ) {
+                                 if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M < N ) ) {
 
                                     // Solving LS system, compute:
                                     // r = norm((B- A*X)**T * A) /

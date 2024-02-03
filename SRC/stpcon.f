@@ -56,7 +56,7 @@
          INFO = -2
       } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -113,7 +113,7 @@
             if ( SCALE != ONE ) {
                IX = ISAMAX( N, WORK, 1 )
                XNORM = ABS( WORK( IX ) )
-               if (SCALE.LT.XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
+               if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                srscl(N, SCALE, WORK, 1 );
             }
             GO TO 10

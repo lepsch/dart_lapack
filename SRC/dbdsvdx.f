@@ -57,25 +57,25 @@
          INFO = -2
       } else if ( .NOT.( ALLSV || VALSV || INDSV ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
       } else if ( N.GT.0 ) {
          if ( VALSV ) {
-            if ( VL.LT.ZERO ) {
+            if ( VL < ZERO ) {
                INFO = -7
             } else if ( VU.LE.VL ) {
                INFO = -8
             }
          } else if ( INDSV ) {
-            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
                INFO = -9
-            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
                INFO = -10
             }
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ.LT.1 || ( WANTZ && LDZ.LT.N*2 ) ) INFO = -14
+         IF( LDZ < 1 || ( WANTZ && LDZ < N*2 ) ) INFO = -14
       }
 
       if ( INFO != 0 ) {
@@ -93,7 +93,7 @@
             NS = 1
             S( 1 ) = ABS( D( 1 ) )
          } else {
-            if ( VL.LT.ABS( D( 1 ) ) && VU.GE.ABS( D( 1 ) ) ) {
+            if ( VL < ABS( D( 1 ) ) && VU.GE.ABS( D( 1 ) ) ) {
                NS = 1
                S( 1 ) = ABS( D( 1 ) )
             }
@@ -334,7 +334,7 @@
                   ILTGK = 1
                   IUTGK = NTGK / 2
                   if ( ALLSV || VUTGK == ZERO ) {
-                     if ( SVEQ0 || SMIN.LT.EPS || MOD(NTGK,2).GT.0 ) {
+                     if ( SVEQ0 || SMIN < EPS || MOD(NTGK,2).GT.0 ) {
                          // Special case: eigenvalue equal to zero or very
                          // small, additional eigenvector is needed.
                          IUTGK = IUTGK + 1
@@ -407,7 +407,7 @@
                            dscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );
                         }
                      }
-                     if ( VUTGK == ZERO && IDPTR.LT.IDEND && MOD(NTGK,2).GT.0 ) {
+                     if ( VUTGK == ZERO && IDPTR < IDEND && MOD(NTGK,2).GT.0 ) {
 
                         // D=0 in the middle of the active submatrix (one
                         // eigenvalue is equal to zero): save the corresponding
@@ -440,7 +440,7 @@
                   NRU = 0
                   NRV = 0
                END IF !** NTGK.GT.0 **!
-               if ( IROWZ.LT.N*2 && WANTZ ) {
+               if ( IROWZ < N*2 && WANTZ ) {
                   Z( 1:IROWZ-1, ICOLZ ) = ZERO
                }
             END DO !** IDPTR loop **!
@@ -483,7 +483,7 @@
 
       if ( INDSV ) {
          K = IU - IL + 1
-         if ( K.LT.NS ) {
+         if ( K < NS ) {
             S( K+1:NS ) = ZERO
             if (WANTZ) Z( 1:N*2,K+1:NS ) = ZERO;
             NS = K

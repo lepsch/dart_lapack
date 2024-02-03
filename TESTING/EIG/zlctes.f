@@ -26,7 +26,7 @@
       // .. Executable Statements ..
 
       if ( D == CZERO ) {
-         ZLCTES = ( DBLE( Z ).LT.ZERO )
+         ZLCTES = ( DBLE( Z ) < ZERO )
       } else {
          if ( DBLE( Z ) == ZERO || DBLE( D ) == ZERO ) {
             ZLCTES = ( SIGN( ONE, DIMAG( Z ) ) != SIGN( ONE, DIMAG( D ) ) )
@@ -34,7 +34,7 @@
             ZLCTES = ( SIGN( ONE, DBLE( Z ) ) != SIGN( ONE, DBLE( D ) ) )
          } else {
             ZMAX = MAX( ABS( DBLE( Z ) ), ABS( DIMAG( Z ) ) )
-            ZLCTES = ( ( DBLE( Z ) / ZMAX )*DBLE( D )+ ( DIMAG( Z ) / ZMAX )*DIMAG( D ).LT.ZERO )
+            ZLCTES = ( ( DBLE( Z ) / ZMAX )*DBLE( D )+ ( DIMAG( Z ) / ZMAX )*DIMAG( D ) < ZERO )
          }
       }
 

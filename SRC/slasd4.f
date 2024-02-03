@@ -109,7 +109,7 @@
                DELSQ = ( D( N )-D( N-1 ) )*( D( N )+D( N-1 ) )
                A = -C*DELSQ + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N )
                B = Z( N )*Z( N )*DELSQ
-               if ( A.LT.ZERO ) {
+               if ( A < ZERO ) {
                   TAU2 = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
                } else {
                   TAU2 = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
@@ -128,7 +128,7 @@
             // The following TAU2 is to approximate
             // SIGMA_n^2 - D( N )*D( N )
 
-            if ( A.LT.ZERO ) {
+            if ( A < ZERO ) {
                TAU2 = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
             } else {
                TAU2 = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
@@ -188,7 +188,7 @@
          C = W - DTNSQ1*DPSI - DTNSQ*DPHI
          A = ( DTNSQ+DTNSQ1 )*W - DTNSQ*DTNSQ1*( DPSI+DPHI )
          B = DTNSQ*DTNSQ1*W
-         if (C.LT.ZERO) C = ABS( C );
+         if (C < ZERO) C = ABS( C );
          if ( C == ZERO ) {
             ETA = RHO - SIGMA*SIGMA
          } else if ( A.GE.ZERO ) {
@@ -387,7 +387,7 @@
             SGUB = ZERO
             A = C*DELSQ - Z( I )*Z( I ) - Z( IP1 )*Z( IP1 )
             B = Z( IP1 )*Z( IP1 )*DELSQ
-            if ( A.LT.ZERO ) {
+            if ( A < ZERO ) {
                TAU2 = TWO*B / ( A-SQRT( ABS( A*A+FOUR*B*C ) ) )
             } else {
                TAU2 = -( A+SQRT( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C )
@@ -439,7 +439,7 @@
 
          SWTCH3 = false;
          if ( ORGATI ) {
-            if (W.LT.ZERO) SWTCH3 = true ;
+            if (W < ZERO) SWTCH3 = true ;
          } else {
             if (W.GT.ZERO) SWTCH3 = true ;
          }
@@ -503,7 +503,7 @@
                TEMP1 = TEMP1*TEMP1
                C = ( TEMP - DTIIP*( DPSI+DPHI ) ) - ( D( IIM1 )-D( IIP1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1
                ZZ( 1 ) = Z( IIM1 )*Z( IIM1 )
-               if ( DPSI.LT.TEMP1 ) {
+               if ( DPSI < TEMP1 ) {
                   ZZ( 3 ) = DTIIP*DTIIP*DPHI
                } else {
                   ZZ( 3 ) = DTIIP*DTIIP*( ( DPSI-TEMP1 )+DPHI )
@@ -512,7 +512,7 @@
                TEMP1 = Z( IIP1 ) / DTIIP
                TEMP1 = TEMP1*TEMP1
                C = ( TEMP - DTIIM*( DPSI+DPHI ) ) - ( D( IIP1 )-D( IIM1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1
-               if ( DPHI.LT.TEMP1 ) {
+               if ( DPHI < TEMP1 ) {
                   ZZ( 1 ) = DTIIM*DTIIM*DPSI
                } else {
                   ZZ( 1 ) = DTIIM*DTIIM*( DPSI+( DPHI-TEMP1 ) )
@@ -568,14 +568,14 @@
 
          ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
          TEMP = TAU + ETA
-         if ( TEMP.GT.SGUB || TEMP.LT.SGLB ) {
-            if ( W.LT.ZERO ) {
+         if ( TEMP.GT.SGUB || TEMP < SGLB ) {
+            if ( W < ZERO ) {
                ETA = ( SGUB-TAU ) / TWO
             } else {
                ETA = ( SGLB-TAU ) / TWO
             }
             if ( GEOMAVG ) {
-               if ( W .LT. ZERO ) {
+               if ( W < ZERO ) {
                   if ( TAU .GT. ZERO ) {
                      ETA = SQRT(SGUB*TAU)-TAU
                   }
@@ -713,7 +713,7 @@
                      TEMP2 = ( D( IIM1 )-D( IIP1 ) )* ( D( IIM1 )+D( IIP1 ) )*TEMP1
                      C = TEMP - DTIIP*( DPSI+DPHI ) - TEMP2
                      ZZ( 1 ) = Z( IIM1 )*Z( IIM1 )
-                     if ( DPSI.LT.TEMP1 ) {
+                     if ( DPSI < TEMP1 ) {
                         ZZ( 3 ) = DTIIP*DTIIP*DPHI
                      } else {
                         ZZ( 3 ) = DTIIP*DTIIP*( ( DPSI-TEMP1 )+DPHI )
@@ -723,7 +723,7 @@
                      TEMP1 = TEMP1*TEMP1
                      TEMP2 = ( D( IIP1 )-D( IIM1 ) )* ( D( IIM1 )+D( IIP1 ) )*TEMP1
                      C = TEMP - DTIIM*( DPSI+DPHI ) - TEMP2
-                     if ( DPHI.LT.TEMP1 ) {
+                     if ( DPHI < TEMP1 ) {
                         ZZ( 1 ) = DTIIM*DTIIM*DPSI
                      } else {
                         ZZ( 1 ) = DTIIM*DTIIM*( DPSI+( DPHI-TEMP1 ) )
@@ -793,14 +793,14 @@
 
             ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
             TEMP=TAU+ETA
-            if ( TEMP.GT.SGUB || TEMP.LT.SGLB ) {
-               if ( W.LT.ZERO ) {
+            if ( TEMP.GT.SGUB || TEMP < SGLB ) {
+               if ( W < ZERO ) {
                   ETA = ( SGUB-TAU ) / TWO
                } else {
                   ETA = ( SGLB-TAU ) / TWO
                }
                if ( GEOMAVG ) {
-                  if ( W .LT. ZERO ) {
+                  if ( W < ZERO ) {
                      if ( TAU .GT. ZERO ) {
                         ETA = SQRT(SGUB*TAU)-TAU
                      }

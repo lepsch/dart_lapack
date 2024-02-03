@@ -73,7 +73,7 @@
       if ( ABNORM.GT.WNORM ) {
          RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP )
       } else {
-         if ( ABNORM.LT.ONE ) {
+         if ( ABNORM < ONE ) {
             RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP )
          } else {
             RESULT = MIN( WNORM / ABNORM, REAL( 2*N ) ) / ( 2*N*ULP )

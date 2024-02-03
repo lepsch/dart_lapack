@@ -61,7 +61,7 @@
                dgemv('No transpose', M, N, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
             } // 20
-         } else if ( KD.LT.0 ) {
+         } else if ( KD < 0 ) {
 
             // B is upper bidiagonal and M < N.
 
@@ -124,7 +124,7 @@
          if ( ANORM.GE.RESID ) {
             RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS )
          } else {
-            if ( ANORM.LT.ONE ) {
+            if ( ANORM < ONE ) {
                RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS )
             } else {
                RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS )

@@ -61,7 +61,7 @@
          } // 10
       } // 20
 
-      if ( M-K-L.LT.0 ) {
+      if ( M-K-L < 0 ) {
          for (I = M + 1; I <= K + L; I++) { // 40
             for (J = I; J <= K + L; J++) { // 30
                R( I, J ) = BF( I-K, N-K-L+J )
@@ -161,7 +161,7 @@
 
       RESULT( 6 ) = ZERO
       DO 120 I = K + 1, MIN( K+L, M ) - 1
-         IF( RWORK( I ).LT.RWORK( I+1 ) ) RESULT( 6 ) = ULPINV
+         IF( RWORK( I ) < RWORK( I+1 ) ) RESULT( 6 ) = ULPINV
       } // 120
 
       RETURN

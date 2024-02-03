@@ -52,23 +52,23 @@
       RSVEC = LSAME( JOBV, 'V' )
       if ( .NOT.( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -2
-      } else if ( ( N.LT.0 ) || ( N.GT.M ) ) {
+      } else if ( ( N < 0 ) || ( N.GT.M ) ) {
          INFO = -3
-      } else if ( N1.LT.0 ) {
+      } else if ( N1 < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.M ) {
+      } else if ( LDA < M ) {
          INFO = -6
-      } else if ( ( RSVEC || APPLV ) && ( MV.LT.0 ) ) {
+      } else if ( ( RSVEC || APPLV ) && ( MV < 0 ) ) {
          INFO = -9
-      } else if ( ( RSVEC && ( LDV.LT.N ) ) || ( APPLV && ( LDV.LT.MV ) )  ) {
+      } else if ( ( RSVEC && ( LDV < N ) ) || ( APPLV && ( LDV < MV ) )  ) {
          INFO = -11
       } else if ( TOL.LE.EPS ) {
          INFO = -14
-      } else if ( NSWEEP.LT.0 ) {
+      } else if ( NSWEEP < 0 ) {
          INFO = -15
-      } else if ( LWORK.LT.M ) {
+      } else if ( LWORK < M ) {
          INFO = -17
       } else {
          INFO = 0
@@ -189,7 +189,7 @@
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
                               }
-                              if ( AAPP.LT.( BIG / AAQQ ) ) {
+                              if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
                                  zcopy(M, A( 1, p ), 1, WORK, 1 );
@@ -283,7 +283,7 @@
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
                                     SVA( q ) = DZNRM2( M, A( 1, q ), 1)
                                   } else {
                                     T = ZERO
@@ -293,7 +293,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
-                                 if ( ( AAPP.LT.ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
+                                 if ( ( AAPP < ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
                                     AAPP = DZNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
@@ -336,7 +336,7 @@
                   } else {
 
                      if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
-                     if (AAPP.LT.ZERO) NOTROT = 0;
+                     if (AAPP < ZERO) NOTROT = 0;
 
                   }
 
@@ -354,7 +354,7 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         if ( ( SVA( N ).LT.ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
+         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
             SVA( N ) = DZNRM2( M, A( 1, N ), 1 )
          } else {
             T = ZERO
@@ -365,9 +365,9 @@
 
       // Additional steering devices
 
-         IF( ( i.LT.SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i < SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
 
-         if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ.LT.SQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
+         if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ < SQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994
          }
 

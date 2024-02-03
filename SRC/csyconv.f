@@ -39,9 +39,9 @@
          INFO = -1
       } else if ( .NOT.CONVERT && .NOT.LSAME( WAY, 'R' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
 
       }
@@ -66,7 +66,7 @@
             I=N
             E(1)=ZERO
             DO WHILE ( I .GT. 1 )
-               if ( IPIV(I) .LT. 0 ) {
+               if ( IPIV(I) < 0 ) {
                   E(I)=A(I-1,I)
                   E(I-1)=ZERO
                   A(I-1,I)=ZERO
@@ -83,7 +83,7 @@
          DO WHILE ( I .GE. 1 )
             if ( IPIV(I) .GT. 0) {
                IP=IPIV(I)
-               if ( I .LT. N) {
+               if ( I < N) {
                   for (J = I+1; J <= N; J++) { // 12
                     TEMP=A(IP,J)
                     A(IP,J)=A(I,J)
@@ -92,7 +92,7 @@
                }
             } else {
               IP=-IPIV(I)
-               if ( I .LT. N) {
+               if ( I < N) {
              for (J = I+1; J <= N; J++) { // 13
                  TEMP=A(IP,J)
                  A(IP,J)=A(I-1,J)
@@ -115,7 +115,7 @@
             DO WHILE ( I .LE. N )
                if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
-                  if ( I .LT. N) {
+                  if ( I < N) {
                   for (J = I+1; J <= N; J++) {
                     TEMP=A(IP,J)
                     A(IP,J)=A(I,J)
@@ -125,7 +125,7 @@
                } else {
                  IP=-IPIV(I)
                  I=I+1
-                 if ( I .LT. N) {
+                 if ( I < N) {
                     for (J = I+1; J <= N; J++) {
                        TEMP=A(IP,J)
                        A(IP,J)=A(I-1,J)
@@ -140,7 +140,7 @@
 
             I=N
             DO WHILE ( I .GT. 1 )
-               if ( IPIV(I) .LT. 0 ) {
+               if ( IPIV(I) < 0 ) {
                   A(I-1,I)=E(I)
                   I=I-1
                }
@@ -161,7 +161,7 @@
             I=1
             E(N)=ZERO
             DO WHILE ( I .LE. N )
-               if ( I.LT.N && IPIV(I) .LT. 0 ) {
+               if ( I < N && IPIV(I) < 0 ) {
                   E(I)=A(I+1,I)
                   E(I+1)=ZERO
                   A(I+1,I)=ZERO
@@ -234,7 +234,7 @@
 
             I=1
             DO WHILE ( I .LE. N-1 )
-               if ( IPIV(I) .LT. 0 ) {
+               if ( IPIV(I) < 0 ) {
                   A(I+1,I)=E(I)
                   I=I+1
                }

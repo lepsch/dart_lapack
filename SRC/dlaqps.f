@@ -43,7 +43,7 @@
       // Beginning of while loop.
 
       } // 10
-      if ( ( K.LT.NB ) && ( LSTICC == 0 ) ) {
+      if ( ( K < NB ) && ( LSTICC == 0 ) ) {
          K = K + 1
          RK = OFFSET + K
 
@@ -69,7 +69,7 @@
 
          // Generate elementary reflector H(k).
 
-         if ( RK.LT.M ) {
+         if ( RK < M ) {
             dlarfg(M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) );
          } else {
             dlarfg(1, A( RK, K ), A( RK, K ), 1, TAU( K ) );
@@ -82,7 +82,7 @@
 
          // Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**T*A(RK:M,K).
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             dgemv('Transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, ZERO, F( K+1, K ), 1 );
          }
 
@@ -105,13 +105,13 @@
          // Update the current row of A:
          // A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**T.
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             dgemv('No transpose', N-K, K, -ONE, F( K+1, 1 ), LDF, A( RK, 1 ), LDA, ONE, A( RK, K+1 ), LDA );
          }
 
          // Update partial column norms.
 
-         if ( RK.LT.LASTRK ) {
+         if ( RK < LASTRK ) {
             for (J = K + 1; J <= N; J++) { // 30
                if ( VN1( J ) != ZERO ) {
 
@@ -144,7 +144,7 @@
       // A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
                           // A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**T.
 
-      if ( KB.LT.MIN( N, M-OFFSET ) ) {
+      if ( KB < MIN( N, M-OFFSET ) ) {
          dgemm('No transpose', 'Transpose', M-RK, N-KB, KB, -ONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( RK+1, KB+1 ), LDA );
       }
 

@@ -44,7 +44,7 @@
       }
       if ( ADF.GT.AB ) {
          RT = ADF*SQRT( ONE+( AB / ADF )**2 )
-      } else if ( ADF.LT.AB ) {
+      } else if ( ADF < AB ) {
          RT = AB*SQRT( ONE+( ADF / AB )**2 )
       } else {
 
@@ -52,7 +52,7 @@
 
          RT = AB*SQRT( TWO )
       }
-      if ( SM.LT.ZERO ) {
+      if ( SM < ZERO ) {
          RT1 = HALF*( SM-RT )
 
          // Order of execution important.

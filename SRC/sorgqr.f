@@ -41,15 +41,15 @@
       LWKOPT = MAX( 1, N )*NB
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 || N.GT.M ) {
+      } else if ( N < 0 || N.GT.M ) {
          INFO = -2
-      } else if ( K.LT.0 || K.GT.N ) {
+      } else if ( K < 0 || K.GT.N ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -69,18 +69,18 @@
       NBMIN = 2
       NX = 0
       IWS = N
-      if ( NB.GT.1 && NB.LT.K ) {
+      if ( NB.GT.1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
          NX = MAX( 0, ILAENV( 3, 'SORGQR', ' ', M, N, K, -1 ) )
-         if ( NX.LT.K ) {
+         if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
 
             LDWORK = N
             IWS = LDWORK*NB
-            if ( LWORK.LT.IWS ) {
+            if ( LWORK < IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
@@ -91,7 +91,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN && NB.LT.K && NX.LT.K ) {
+      if ( NB.GE.NBMIN && NB < K && NX < K ) {
 
          // Use blocked code after the last block.
          // The first kk columns are handled by the block method.
@@ -112,7 +112,7 @@
 
       // Use unblocked code for the last or only block.
 
-      if (KK.LT.N) CALL SORG2R( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO );
+      if (KK < N) CALL SORG2R( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO );
 
       if ( KK.GT.0 ) {
 

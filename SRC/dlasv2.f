@@ -76,7 +76,7 @@
          GASMAL = true;
          if ( GA.GT.FA ) {
             PMAX = 2
-            if ( ( FA / GA ).LT.DLAMCH( 'EPS' ) ) {
+            if ( ( FA / GA ) < DLAMCH( 'EPS' ) ) {
 
                // Case of very large GA
 

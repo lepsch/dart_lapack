@@ -45,19 +45,19 @@
         LWMIN = N*NB
       }
 
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
         INFO = -1
-      } else if ( N.LT.0 || M.LT.N ) {
+      } else if ( N < 0 || M < N ) {
         INFO = -2
-      } else if ( MB.LT.1 ) {
+      } else if ( MB < 1 ) {
         INFO = -3
-      } else if ( NB.LT.1 || ( NB.GT.N && N.GT.0 ) ) {
+      } else if ( NB < 1 || ( NB.GT.N && N.GT.0 ) ) {
         INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
         INFO = -6
-      } else if ( LDT.LT.NB ) {
+      } else if ( LDT < NB ) {
         INFO = -8
-      } else if ( LWORK.LT.LWMIN && (.NOT.LQUERY) ) {
+      } else if ( LWORK < LWMIN && (.NOT.LQUERY) ) {
         INFO = -10
       }
 

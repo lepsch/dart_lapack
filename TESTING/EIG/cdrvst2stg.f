@@ -62,20 +62,20 @@
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = true;
+         IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADNN ) {
          INFO = -2
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.NMAX ) {
+      } else if ( LDA < NMAX ) {
          INFO = -9
-      } else if ( LDU.LT.NMAX ) {
+      } else if ( LDU < NMAX ) {
          INFO = -16
       } else if ( 2*MAX( 2, NMAX )**2.GT.LWORK ) {
          INFO = -22
@@ -113,7 +113,7 @@
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) )
-            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
+            if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = MAX( 2*N+N*N, 2*N*N )
             LRWEDC = 1 + 4*N + 2*N*LGN + 3*N**2
             LIWEDC = 3 + 5*N
@@ -284,7 +284,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -305,7 +305,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'CHEEVD_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -350,7 +350,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -371,7 +371,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'CHEEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -398,7 +398,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -418,7 +418,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'CHEEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -446,7 +446,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -466,7 +466,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'CHEEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -523,7 +523,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -561,7 +561,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -625,7 +625,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -663,7 +663,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -705,7 +705,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -743,7 +743,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -786,7 +786,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -824,7 +824,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -882,7 +882,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVD(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -915,7 +915,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 ) 'CHBEVD_2STAGE(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -956,7 +956,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHBEVX(V,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -990,7 +990,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 ) 'CHBEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1031,7 +1031,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(V,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1064,7 +1064,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 ) 'CHBEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1105,7 +1105,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(V,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1138,7 +1138,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 ) 'CHBEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1173,7 +1173,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1194,7 +1194,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'CHEEV_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1245,7 +1245,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1283,7 +1283,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1335,7 +1335,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEV(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1368,7 +1368,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9998 ) 'CHBEV_2STAGE(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1394,7 +1394,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1415,7 +1415,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'CHEEVR_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1441,7 +1441,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1463,7 +1463,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'CHEEVR_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1484,7 +1484,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1506,7 +1506,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'CHEEVR_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV

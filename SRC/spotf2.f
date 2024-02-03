@@ -42,9 +42,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -74,7 +74,7 @@
 
             // Compute elements J+1:N of row J.
 
-            if ( J.LT.N ) {
+            if ( J < N ) {
                sgemv('Transpose', J-1, N-J, -ONE, A( 1, J+1 ), LDA, A( 1, J ), 1, ONE, A( J, J+1 ), LDA );
                sscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
             }
@@ -97,7 +97,7 @@
 
             // Compute elements J+1:N of column J.
 
-            if ( J.LT.N ) {
+            if ( J < N ) {
                sgemv('No transpose', N-J, J-1, -ONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+1, J ), 1 );
                sscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
             }

@@ -37,11 +37,11 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.M ) {
+      } else if ( N < M ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       }
 
@@ -59,7 +59,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWKMIN && .NOT.LQUERY ) {
             INFO = -7
          }
       }
@@ -85,18 +85,18 @@
       NBMIN = 2
       NX = 1
       IWS = M
-      if ( NB.GT.1 && NB.LT.M ) {
+      if ( NB.GT.1 && NB < M ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
          NX = MAX( 0, ILAENV( 3, 'ZGERQF', ' ', M, N, -1, -1 ) )
-         if ( NX.LT.M ) {
+         if ( NX < M ) {
 
             // Determine if workspace is large enough for blocked code.
 
             LDWORK = M
             IWS = LDWORK*NB
-            if ( LWORK.LT.IWS ) {
+            if ( LWORK < IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
@@ -107,7 +107,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN && NB.LT.M && NX.LT.M ) {
+      if ( NB.GE.NBMIN && NB < M && NX < M ) {
 
          // Use blocked code initially.
          // The last kk rows are handled by the block method.

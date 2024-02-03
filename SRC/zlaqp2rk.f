@@ -234,7 +234,7 @@
          // the elementary reflector would be an identity matrix,
          // and TAU(KK) = CZERO.
 
-         if ( I.LT.M ) {
+         if ( I < M ) {
             zlarfg(M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) );
          } else {
             TAU( KK ) = CZERO
@@ -285,14 +285,14 @@
           // KK < MINMNUPDT = min(M-IOFFSET, N+NRHS)
           // condition is satisfied, not only KK < N+NRHS )
 
-         if ( KK.LT.MINMNUPDT ) {
+         if ( KK < MINMNUPDT ) {
             AIKK = A( I, KK )
             A( I, KK ) = CONE
             zlarf('Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, DCONJG( TAU( KK ) ), A( I, KK+1 ), LDA, WORK( 1 ) );
             A( I, KK ) = AIKK
          }
 
-         if ( KK.LT.MINMNFACT ) {
+         if ( KK < MINMNFACT ) {
 
             // Update the partial column 2-norms for the residual matrix,
             // only if the residual matrix A(I+1:M,KK+1:N) exists, i.e.
@@ -346,7 +346,7 @@
       // factorized, we need to set MAXC2NRMK and RELMAXC2NRMK before
       // we return.
 
-      if ( K.LT.MINMNFACT ) {
+      if ( K < MINMNFACT ) {
 
          JMAXC2NRM = K + IDAMAX( N-K, VN1( K+1 ), 1 )
          MAXC2NRMK = VN1( JMAXC2NRM )

@@ -69,7 +69,7 @@
          if ( ANORM.GE.RESID ) {
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )
          } else {
-            if ( ANORM.LT.ONE ) {
+            if ( ANORM < ONE ) {
                RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS )
             } else {
                RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS )

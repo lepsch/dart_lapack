@@ -32,11 +32,11 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -51,7 +51,7 @@
          // Generate elementary reflector H(i) to annihilate A(i,i+1:n)
 
          dlarfg(N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAU( I ) );
-         if ( I.LT.M ) {
+         if ( I < M ) {
 
             // Apply H(i) to A(i+1:m,i:n) from the right
 

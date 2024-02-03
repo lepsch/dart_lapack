@@ -43,11 +43,11 @@
           INFO = 2
       } else if (.NOT.LSAME(DIAG,'U') && .NOT.LSAME(DIAG,'N')) {
           INFO = 3
-      } else if (N.LT.0) {
+      } else if (N < 0) {
           INFO = 4
-      } else if (K.LT.0) {
+      } else if (K < 0) {
           INFO = 5
-      } else if (LDA.LT. (K+1)) {
+      } else if (LDA < (K+1)) {
           INFO = 7
       } else if (INCX == 0) {
           INFO = 9

@@ -50,7 +50,7 @@
 
       // ==== If there are no shifts, then there is nothing to do. ====
 
-      if (NSHFTS.LT.2) RETURN;
+      if (NSHFTS < 2) RETURN;
 
       // ==== If the active block is empty or 1-by-1, then there
       // .    is nothing to do. ====
@@ -127,7 +127,7 @@
             MTOP = MAX( 1, ( KTOP-KRCOL ) / 2+1 )
             MBOT = MIN( NBMPS, ( KBOT-KRCOL-1 ) / 2 )
             M22 = MBOT + 1
-            BMP22 = ( MBOT.LT.NBMPS ) && ( KRCOL+2*( M22-1 ) ) == ( KBOT-2 )
+            BMP22 = ( MBOT < NBMPS ) && ( KRCOL+2*( M22-1 ) ) == ( KBOT-2 )
 
             // ==== Generate reflections to chase the chain right
             // .    one column.  (The minimum value of K is KTOP-1.) ====
@@ -342,7 +342,7 @@
                // .    is zero (as done here) is traditional but probably
                // .    unnecessary. ====
 
-               if (K.LT.KTOP) CYCLE;
+               if (K < KTOP) CYCLE;
                if ( H( K+1, K ) != ZERO ) {
                   TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                   if ( TST1 == RZERO ) {

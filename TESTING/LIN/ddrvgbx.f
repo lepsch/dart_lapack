@@ -161,7 +161,7 @@
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
                   ZEROT = IMAT.GE.2 && IMAT.LE.4
-                  if (ZEROT && N.LT.IMAT-1) GO TO 120;
+                  if (ZEROT && N < IMAT-1) GO TO 120;
 
                   // Set up parameters with DLATB4 and generate a
                   // test matrix with DLATMS.
@@ -192,7 +192,7 @@
                         IZERO = N / 2 + 1
                      }
                      IOFF = ( IZERO-1 )*LDA
-                     if ( IMAT.LT.4 ) {
+                     if ( IMAT < 4 ) {
                         I1 = MAX( 1, KU+2-IZERO )
                         I2 = MIN( KL+KU+1, KU+1+( N-IZERO ) )
                         for (I = I1; I <= I2; I++) { // 20
@@ -554,7 +554,7 @@
                      // reciprocal pivot growth factor RPVGRW
 
 
-                     if ( INFO .GT. 0 && INFO .LT. N+1 ) {
+                     if ( INFO .GT. 0 && INFO < N+1 ) {
                         RPVGRW = DLA_GBRPVGRW(N, KL, KU, INFO, A, LDA, AFB, LDAFB)
                      } else {
                         RPVGRW = DLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB)

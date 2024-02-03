@@ -42,11 +42,11 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -3
-      } else if ( LDAB.LT.KD+1 ) {
+      } else if ( LDAB < KD+1 ) {
          INFO = -5
       }
       if ( INFO != 0 ) {

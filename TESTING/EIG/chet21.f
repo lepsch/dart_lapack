@@ -57,7 +57,7 @@
 
       // Some Error Checks
 
-      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE.GT.3 ) {
          RESULT( 1 ) = TEN / ULP
          RETURN
       }
@@ -149,7 +149,7 @@
 
          // ITYPE=3: error = U V**H - I
 
-         if (N.LT.2) RETURN;
+         if (N < 2) RETURN;
          clacpy(' ', N, N, U, LDU, WORK, N );
          if ( LOWER ) {
             cunm2r('R', 'C', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO );
@@ -171,7 +171,7 @@
       if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
-         if ( ANORM.LT.ONE ) {
+         if ( ANORM < ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )

@@ -39,15 +39,15 @@
       INFO = 0
       NH = IHI - ILO
       LQUERY = ( LWORK == -1 )
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( ILO.LT.1 || ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO.GT.MAX( 1, N ) ) {
          INFO = -2
-      } else if ( IHI.LT.MIN( ILO, N ) || IHI.GT.N ) {
+      } else if ( IHI < MIN( ILO, N ) || IHI.GT.N ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LWORK.LT.MAX( 1, NH ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, NH ) && .NOT.LQUERY ) {
          INFO = -8
       }
 

@@ -51,7 +51,7 @@
          RETURN
       }
 
-      if ( LWORK.LT.NCOLS*NRHS ) {
+      if ( LWORK < NCOLS*NRHS ) {
          xerbla('ZQRT17', 13 );
          RETURN
       }

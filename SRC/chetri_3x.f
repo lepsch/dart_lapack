@@ -45,9 +45,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
 
@@ -143,7 +143,7 @@
                ICOUNT = 0
                // count negative elements,
                for (I = CUT+1-NNB; I <= CUT; I++) {
-                  IF( IPIV( I ).LT.0 ) ICOUNT = ICOUNT + 1
+                  IF( IPIV( I ) < 0 ) ICOUNT = ICOUNT + 1
                }
                // need a even number for a clear cut
                IF( MOD( ICOUNT, 2 ) == 1 ) NNB = NNB + 1
@@ -263,7 +263,7 @@
          for (I = 1; I <= N; I++) {
              IP = ABS( IPIV( I ) )
              if ( IP != I ) {
-                if (I .LT. IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP );
+                if (I < IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP );
                 if (I .GT. IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I );
              }
          }
@@ -305,7 +305,7 @@
          // inv(L**H) * inv(D) * inv(L)
 
          CUT = 0
-         DO WHILE( CUT.LT.N )
+         DO WHILE( CUT < N )
             NNB = NB
             if ( (CUT + NNB).GT.N ) {
                NNB = N - CUT
@@ -313,7 +313,7 @@
                ICOUNT = 0
                // count negative elements,
                for (I = CUT + 1; I <= CUT+NNB; I++) {
-                  IF ( IPIV( I ).LT.0 ) ICOUNT = ICOUNT + 1
+                  IF ( IPIV( I ) < 0 ) ICOUNT = ICOUNT + 1
                }
                // need a even number for a clear cut
                IF( MOD( ICOUNT, 2 ) == 1 ) NNB = NNB + 1
@@ -389,7 +389,7 @@
                }
             }
 
-            if ( (CUT+NNB).LT.N ) {
+            if ( (CUT+NNB) < N ) {
 
                // L21**H * invD2*L21 -> A( CUT+I, CUT+J )
 
@@ -447,7 +447,7 @@
          DO I = N, 1, -1
              IP = ABS( IPIV( I ) )
              if ( IP != I ) {
-                if (I .LT. IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP );
+                if (I < IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP );
                 if (I .GT. IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I );
              }
          }

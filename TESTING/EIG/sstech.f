@@ -38,11 +38,11 @@
 
       INFO = 0
       if (N == 0) RETURN;
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
          RETURN
       }
-      if ( TOL.LT.ZERO ) {
+      if ( TOL < ZERO ) {
          INFO = -5
          RETURN
       }
@@ -70,7 +70,7 @@
          ISUB = 1
          EMIN = WORK( 1 )
          for (J = 2; J <= N + 1 - I; J++) { // 30
-            if ( WORK( J ).LT.EMIN ) {
+            if ( WORK( J ) < EMIN ) {
                ISUB = J
                EMIN = WORK( J )
             }
@@ -98,7 +98,7 @@
       } // 60
       if (BPNT == N) GO TO 70;
       TUPPR = WORK( BPNT+1 ) + EPS
-      if (TUPPR.LT.LOWER) GO TO 70;
+      if (TUPPR < LOWER) GO TO 70;
 
       // Merge
 

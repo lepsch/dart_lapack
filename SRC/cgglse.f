@@ -39,15 +39,15 @@
       INFO = 0
       MN = MIN( M, N )
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( P.LT.0 || P.GT.N || P.LT.N-M ) {
+      } else if ( P < 0 || P.GT.N || P < N-M ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, P ) ) {
+      } else if ( LDB < MAX( 1, P ) ) {
          INFO = -7
       }
 
@@ -68,7 +68,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWKMIN && .NOT.LQUERY ) {
             INFO = -12
          }
       }
@@ -138,7 +138,7 @@
 
       // Compute the residual vector:
 
-      if ( M.LT.N ) {
+      if ( M < N ) {
          NR = M + P - N
          if (NR.GT.0) CALL CGEMV( 'No transpose', NR, N-M, -CONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, CONE, C( N-P+1 ), 1 );
       } else {

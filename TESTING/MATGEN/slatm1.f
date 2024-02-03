@@ -47,15 +47,15 @@
 
       // Set INFO if an error
 
-      if ( MODE.LT.-6 || MODE.GT.6 ) {
+      if ( MODE < -6 || MODE.GT.6 ) {
          INFO = -1
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && ( IRSIGN != 0 && IRSIGN != 1 ) ) {
          INFO = -2
-      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND.LT.ONE ) {
+      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND < ONE ) {
          INFO = -3
-      } else if ( ( MODE == 6 || MODE == -6 ) && ( IDIST.LT.1 || IDIST.GT.3 ) ) {
+      } else if ( ( MODE == 6 || MODE == -6 ) && ( IDIST < 1 || IDIST.GT.3 ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -7
       }
 
@@ -140,7 +140,7 @@
 
          // Reverse if MODE < 0
 
-         if ( MODE.LT.0 ) {
+         if ( MODE < 0 ) {
             for (I = 1; I <= N / 2; I++) { // 140
                TEMP = D( I )
                D( I ) = D( N+1-I )

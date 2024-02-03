@@ -69,7 +69,7 @@ void main() {
       // Read the values of N
 
       READ( NIN, FMT = * )NN
-      if ( NN.LT.1 ) {
+      if ( NN < 1 ) {
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
          NN = 0
          FATAL = true;
@@ -80,7 +80,7 @@ void main() {
       }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
       for (I = 1; I <= NN; I++) { // 10
-         if ( NVAL( I ).LT.0 ) {
+         if ( NVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', NVAL( I ), 0
             FATAL = true;
          } else if ( NVAL( I ).GT.NMAX ) {
@@ -93,7 +93,7 @@ void main() {
       // Read the values of NRHS
 
       READ( NIN, FMT = * )NNS
-      if ( NNS.LT.1 ) {
+      if ( NNS < 1 ) {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
          FATAL = true;
@@ -104,7 +104,7 @@ void main() {
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
       for (I = 1; I <= NNS; I++) { // 30
-         if ( NSVAL( I ).LT.0 ) {
+         if ( NSVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = true;
          } else if ( NSVAL( I ).GT.MAXRHS ) {
@@ -117,7 +117,7 @@ void main() {
       // Read the matrix types
 
       READ( NIN, FMT = * )NNT
-      if ( NNT.LT.1 ) {
+      if ( NNT < 1 ) {
          WRITE( NOUT, FMT = 9996 )' NMA', NNT, 1
          NNT = 0
          FATAL = true;
@@ -128,7 +128,7 @@ void main() {
       }
       READ( NIN, FMT = * )( NTVAL( I ), I = 1, NNT )
       for (I = 1; I <= NNT; I++) { // 320
-         if ( NTVAL( I ).LT.0 ) {
+         if ( NTVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )'TYPE', NTVAL( I ), 0
             FATAL = true;
          } else if ( NTVAL( I ).GT.NTYPES ) {

@@ -58,27 +58,27 @@
          INFO = -2
       } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -5
-      } else if ( LDAB.LT.KD+1 ) {
+      } else if ( LDAB < KD+1 ) {
          INFO = -7
-      } else if ( WANTZ && LDQ.LT.MAX( 1, N ) ) {
+      } else if ( WANTZ && LDQ < MAX( 1, N ) ) {
          INFO = -9
       } else {
          if ( VALEIG ) {
             if (N.GT.0 && VU.LE.VL) INFO = -11;
          } else if ( INDEIG ) {
-            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
                INFO = -12
-            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
                INFO = -13
             }
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) INFO = -18
+         IF( LDZ < 1 || ( WANTZ && LDZ < N ) ) INFO = -18
       }
 
       if ( INFO == 0 ) {
@@ -91,7 +91,7 @@
             WORK( 1 )  = LWMIN
          }
 
-         if (LWORK.LT.LWMIN && .NOT.LQUERY) INFO = -20;
+         if (LWORK < LWMIN && .NOT.LQUERY) INFO = -20;
       }
 
       if ( INFO != 0 ) {
@@ -114,7 +114,7 @@
             TMP1 = AB( KD+1, 1 )
          }
          if ( VALEIG ) {
-            IF( .NOT.( VL.LT.TMP1 && VU.GE.TMP1 ) ) M = 0
+            IF( .NOT.( VL < TMP1 && VU.GE.TMP1 ) ) M = 0
          }
          if ( M == 1 ) {
             W( 1 ) = TMP1
@@ -144,7 +144,7 @@
          VUU = ZERO
       }
       ANRM = DLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK )
-      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {
@@ -251,7 +251,7 @@
             I = 0
             TMP1 = W( J )
             for (JJ = J + 1; JJ <= M; JJ++) { // 40
-               if ( W( JJ ).LT.TMP1 ) {
+               if ( W( JJ ) < TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )
                }

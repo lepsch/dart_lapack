@@ -38,17 +38,17 @@
          INFO = -1
       } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( KA.LT.0 ) {
+      } else if ( KA < 0 ) {
          INFO = -4
-      } else if ( KB.LT.0 || KB.GT.KA ) {
+      } else if ( KB < 0 || KB.GT.KA ) {
          INFO = -5
-      } else if ( LDAB.LT.KA+1 ) {
+      } else if ( LDAB < KA+1 ) {
          INFO = -7
-      } else if ( LDBB.LT.KB+1 ) {
+      } else if ( LDBB < KB+1 ) {
          INFO = -9
-      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
          INFO = -12
       }
       if ( INFO != 0 ) {

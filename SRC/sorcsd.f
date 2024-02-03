@@ -50,41 +50,41 @@
       COLMAJOR = .NOT. LSAME( TRANS, 'T' )
       DEFAULTSIGNS = .NOT. LSAME( SIGNS, 'O' )
       LQUERY = LWORK == -1
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -7
-      } else if ( P .LT. 0 || P .GT. M ) {
+      } else if ( P < 0 || P .GT. M ) {
          INFO = -8
-      } else if ( Q .LT. 0 || Q .GT. M ) {
+      } else if ( Q < 0 || Q .GT. M ) {
          INFO = -9
-      } else if ( COLMAJOR && LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
         INFO = -11
-      } else if (.NOT. COLMAJOR && LDX11 .LT. MAX( 1, Q ) ) {
+      } else if (.NOT. COLMAJOR && LDX11 < MAX( 1, Q ) ) {
         INFO = -11
-      } else if (COLMAJOR && LDX12 .LT. MAX( 1, P ) ) {
+      } else if (COLMAJOR && LDX12 < MAX( 1, P ) ) {
         INFO = -13
-      } else if (.NOT. COLMAJOR && LDX12 .LT. MAX( 1, M-Q ) ) {
+      } else if (.NOT. COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
         INFO = -13
-      } else if (COLMAJOR && LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if (COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
         INFO = -15
-      } else if (.NOT. COLMAJOR && LDX21 .LT. MAX( 1, Q ) ) {
+      } else if (.NOT. COLMAJOR && LDX21 < MAX( 1, Q ) ) {
         INFO = -15
-      } else if (COLMAJOR && LDX22 .LT. MAX( 1, M-P ) ) {
+      } else if (COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
         INFO = -17
-      } else if (.NOT. COLMAJOR && LDX22 .LT. MAX( 1, M-Q ) ) {
+      } else if (.NOT. COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
         INFO = -17
-      } else if ( WANTU1 && LDU1 .LT. P ) {
+      } else if ( WANTU1 && LDU1 < P ) {
          INFO = -20
-      } else if ( WANTU2 && LDU2 .LT. M-P ) {
+      } else if ( WANTU2 && LDU2 < M-P ) {
          INFO = -22
-      } else if ( WANTV1T && LDV1T .LT. Q ) {
+      } else if ( WANTV1T && LDV1T < Q ) {
          INFO = -24
-      } else if ( WANTV2T && LDV2T .LT. M-Q ) {
+      } else if ( WANTV2T && LDV2T < M-Q ) {
          INFO = -26
       }
 
       // Work with transpose if convenient
 
-      if ( INFO == 0 && MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) {
+      if ( INFO == 0 && MIN( P, M-P ) < MIN( Q, M-Q ) ) {
          if ( COLMAJOR ) {
             TRANST = 'T'
          } else {
@@ -102,7 +102,7 @@
       // Work with permutation [ 0 I; I 0 ] * X * [ 0 I; I 0 ] if
       // convenient
 
-      if ( INFO == 0 && M-Q .LT. Q ) {
+      if ( INFO == 0 && M-Q < Q ) {
          if ( DEFAULTSIGNS ) {
             SIGNST = 'O'
          } else {
@@ -148,7 +148,7 @@
          LWORKOPT = MAX( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKOPT ) - 1          LWORKMIN = MAX( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKMIN ) - 1
          WORK(1) = MAX(LWORKOPT,LWORKMIN)
 
-         if ( LWORK .LT. LWORKMIN && .NOT. LQUERY ) {
+         if ( LWORK < LWORKMIN && .NOT. LQUERY ) {
             INFO = -22
          } else {
             LORGQRWORK = LWORK - IORGQR + 1

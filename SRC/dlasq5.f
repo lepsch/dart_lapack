@@ -31,7 +31,7 @@
       IF( ( N0-I0-1 ).LE.0 ) RETURN
 
       DTHRESH = EPS*(SIGMA+TAU)
-      if (TAU.LT.DTHRESH*HALF) TAU = ZERO;
+      if (TAU < DTHRESH*HALF) TAU = ZERO;
       if ( TAU != ZERO ) {
       J4 = 4*I0 + PP - 3
       EMIN = Z( J4+4 )
@@ -89,7 +89,7 @@
          if ( PP == 0 ) {
             DO 30 J4 = 4*I0, 4*( N0-3 ), 4
                Z( J4-2 ) = D + Z( J4-1 )
-               if ( D.LT.ZERO ) {
+               if ( D < ZERO ) {
                   RETURN
                } else {
                   Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) )
@@ -101,7 +101,7 @@
          } else {
             DO 40 J4 = 4*I0, 4*( N0-3 ), 4
                Z( J4-3 ) = D + Z( J4 )
-               if ( D.LT.ZERO ) {
+               if ( D < ZERO ) {
                   RETURN
                } else {
                   Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) )
@@ -119,7 +119,7 @@
          J4 = 4*( N0-2 ) - PP
          J4P2 = J4 + 2*PP - 1
          Z( J4-2 ) = DNM2 + Z( J4P2 )
-         if ( DNM2.LT.ZERO ) {
+         if ( DNM2 < ZERO ) {
             RETURN
          } else {
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
@@ -131,7 +131,7 @@
          J4 = J4 + 4
          J4P2 = J4 + 2*PP - 1
          Z( J4-2 ) = DNM1 + Z( J4P2 )
-         if ( DNM1.LT.ZERO ) {
+         if ( DNM1 < ZERO ) {
             RETURN
          } else {
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
@@ -156,7 +156,7 @@
                   Z( J4-2 ) = D + Z( J4-1 )
                   TEMP = Z( J4+1 ) / Z( J4-2 )
                   D = D*TEMP - TAU
-                  if (D.LT.DTHRESH) D = ZERO;
+                  if (D < DTHRESH) D = ZERO;
                   DMIN = MIN( DMIN, D )
                   Z( J4 ) = Z( J4-1 )*TEMP
                   EMIN = MIN( Z( J4 ), EMIN )
@@ -166,7 +166,7 @@
                   Z( J4-3 ) = D + Z( J4 )
                   TEMP = Z( J4+2 ) / Z( J4-3 )
                   D = D*TEMP - TAU
-                  if (D.LT.DTHRESH) D = ZERO;
+                  if (D < DTHRESH) D = ZERO;
                   DMIN = MIN( DMIN, D )
                   Z( J4-1 ) = Z( J4 )*TEMP
                   EMIN = MIN( Z( J4-1 ), EMIN )
@@ -199,26 +199,26 @@
             if ( PP == 0 ) {
                DO 70 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-2 ) = D + Z( J4-1 )
-                  if ( D.LT.ZERO ) {
+                  if ( D < ZERO ) {
                      RETURN
                   } else {
                      Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) )
                      D = Z( J4+1 )*( D / Z( J4-2 ) ) - TAU
                   }
-                  if (D.LT.DTHRESH) D = ZERO;
+                  if (D < DTHRESH) D = ZERO;
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4 ) )
                } // 70
             } else {
                DO 80 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-3 ) = D + Z( J4 )
-                  if ( D.LT.ZERO ) {
+                  if ( D < ZERO ) {
                      RETURN
                   } else {
                      Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) )
                      D = Z( J4+2 )*( D / Z( J4-3 ) ) - TAU
                   }
-                  if (D.LT.DTHRESH) D = ZERO;
+                  if (D < DTHRESH) D = ZERO;
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4-1 ) )
                } // 80
@@ -231,7 +231,7 @@
             J4 = 4*( N0-2 ) - PP
             J4P2 = J4 + 2*PP - 1
             Z( J4-2 ) = DNM2 + Z( J4P2 )
-            if ( DNM2.LT.ZERO ) {
+            if ( DNM2 < ZERO ) {
                RETURN
             } else {
                Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
@@ -243,7 +243,7 @@
             J4 = J4 + 4
             J4P2 = J4 + 2*PP - 1
             Z( J4-2 ) = DNM1 + Z( J4P2 )
-            if ( DNM1.LT.ZERO ) {
+            if ( DNM1 < ZERO ) {
                RETURN
             } else {
                Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )

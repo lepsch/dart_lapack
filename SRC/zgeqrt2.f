@@ -29,13 +29,13 @@
       // Test the input arguments
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -2
-      } else if ( M.LT.N ) {
+      } else if ( M < N ) {
          INFO = -1
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -50,7 +50,7 @@
          // Generate elem. refl. H(i) to annihilate A(i+1:m,i), tau(I) -> T(I,1)
 
          zlarfg(M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, T( I, 1 ) );
-         if ( I.LT.N ) {
+         if ( I < N ) {
 
             // Apply H(i) to A(I:M,I+1:N) from the left
 

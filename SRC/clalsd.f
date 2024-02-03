@@ -44,11 +44,11 @@
 
       INFO = 0
 
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -3
-      } else if ( NRHS.LT.1 ) {
+      } else if ( NRHS < 1 ) {
          INFO = -4
-      } else if ( ( LDB.LT.1 ) || ( LDB.LT.N ) ) {
+      } else if ( ( LDB < 1 ) || ( LDB < N ) ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -256,20 +256,20 @@
       NSUB = 0
 
       for (I = 1; I <= N; I++) { // 170
-         if ( ABS( D( I ) ).LT.EPS ) {
+         if ( ABS( D( I ) ) < EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
          }
       } // 170
 
       for (I = 1; I <= NM1; I++) { // 240
-         if ( ( ABS( E( I ) ).LT.EPS ) || ( I == NM1 ) ) {
+         if ( ( ABS( E( I ) ) < EPS ) || ( I == NM1 ) ) {
             NSUB = NSUB + 1
             IWORK( NSUB ) = ST
 
             // Subproblem found. First determine its size and then
             // apply divide and conquer on it.
 
-            if ( I.LT.NM1 ) {
+            if ( I < NM1 ) {
 
                // A subproblem with E(I) small for I < NM1.
 

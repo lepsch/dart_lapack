@@ -55,17 +55,17 @@
       NOTRAN = LSAME( TRANS, 'N' )
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDAF.LT.MAX( 1, N ) ) {
+      } else if ( LDAF < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -10
-      } else if ( LDX.LT.MAX( 1, N ) ) {
+      } else if ( LDX < MAX( 1, N ) ) {
          INFO = -12
       }
       if ( INFO != 0 ) {

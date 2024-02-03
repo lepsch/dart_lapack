@@ -96,7 +96,7 @@
       I = IHI
       } // 20
       L = ILO
-      if (I.LT.ILO) GO TO 160;
+      if (I < ILO) GO TO 160;
 
       // Perform QR iterations on rows and columns ILO to I until a
       // submatrix of order 1 or 2 splits off at the bottom because a
@@ -256,7 +256,7 @@
             if ( K.GT.M ) {
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
-               if (K.LT.I-1) H( K+2, K-1 ) = ZERO;
+               if (K < I-1) H( K+2, K-1 ) = ZERO;
             } else if ( M.GT.L ) {
                 // ==== Use the following instead of
                 // .    H( K, K-1 ) = -H( K, K-1 ) to

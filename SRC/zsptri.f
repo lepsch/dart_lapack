@@ -43,7 +43,7 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
       }
       if ( INFO != 0 ) {
@@ -180,7 +180,7 @@
 
          // If K < 1, exit from loop.
 
-         if (K.LT.1) GO TO 80;
+         if (K < 1) GO TO 80;
 
          KCNEXT = KC - ( N-K+2 )
          if ( IPIV( K ).GT.0 ) {
@@ -193,7 +193,7 @@
 
             // Compute column K of the inverse.
 
-            if ( K.LT.N ) {
+            if ( K < N ) {
                zcopy(N-K, AP( KC+1 ), 1, WORK, 1 );
                zspmv(UPLO, N-K, -ONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ), 1 );
             }
@@ -215,7 +215,7 @@
 
             // Compute columns K-1 and K of the inverse.
 
-            if ( K.LT.N ) {
+            if ( K < N ) {
                zcopy(N-K, AP( KC+1 ), 1, WORK, 1 );
                zspmv(UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ), 1 )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - ZDOTU( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 );
                zcopy(N-K, AP( KCNEXT+2 ), 1, WORK, 1 );
@@ -232,7 +232,7 @@
             // submatrix A(k-1:n,k-1:n)
 
             KPC = NPP - ( N-KP+1 )*( N-KP+2 ) / 2 + 1
-            if (KP.LT.N) CALL ZSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 );
+            if (KP < N) CALL ZSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 );
             KX = KC + KP - K
             for (J = K + 1; J <= KP - 1; J++) { // 70
                KX = KX + N - J + 1

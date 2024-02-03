@@ -72,12 +72,12 @@
          INFO = -1
       } else if ( .NOT.(LSAME(ORDER,'B') || LSAME(ORDER,'E')) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
       } else if ( IRANGE == VALRNG ) {
-         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == INDRNG && ( IL.LT.1 || IL.GT.MAX( 1, N ) ) ) {
+         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL.GT.MAX( 1, N ) ) ) {
          INFO = -6
-      } else if ( IRANGE == INDRNG && ( IU.LT.MIN( N, IL ) || IU.GT.N ) ) {
+      } else if ( IRANGE == INDRNG && ( IU < MIN( N, IL ) || IU.GT.N ) ) {
          INFO = -7
       }
 
@@ -183,7 +183,7 @@
          }
          // On exit, the interval [WL, WLU] contains a value with negcount NWL,
          // and [WUL, WU] contains a value with negcount NWU.
-         if ( NWL.LT.0 || NWL.GE.N || NWU.LT.1 || NWU.GT.N ) {
+         if ( NWL < 0 || NWL.GE.N || NWU < 1 || NWU.GT.N ) {
             INFO = 4
             RETURN
          }
@@ -216,7 +216,7 @@
 
          if ( IN == 1 ) {
             // 1x1 block
-            if ( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == ALLRNG || ( WL.LT.D( IBEGIN )-PIVMIN && WU.GE. D( IBEGIN )-PIVMIN ) ) {
+            if ( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == ALLRNG || ( WL < D( IBEGIN )-PIVMIN && WU.GE. D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -249,7 +249,7 @@
       // $         NWL = NWL + 1
              // IF( WU.GE. L1-PIVMIN )
       // $         NWU = NWU + 1
-             // IF( IRANGE == ALLRNG || ( WL.LT.L1-PIVMIN && WU.GE.
+             // IF( IRANGE == ALLRNG || ( WL < L1-PIVMIN && WU.GE.
       // $          L1-PIVMIN ) ) THEN
                 // M = M + 1
                 // W( M ) = L1
@@ -263,7 +263,7 @@
       // $         NWL = NWL + 1
              // IF( WU.GE. L2-PIVMIN )
       // $         NWU = NWU + 1
-             // IF( IRANGE == ALLRNG || ( WL.LT.L2-PIVMIN && WU.GE.
+             // IF( IRANGE == ALLRNG || ( WL < L2-PIVMIN && WU.GE.
       // $          L2-PIVMIN ) ) THEN
                 // M = M + 1
                 // W( M ) = L2
@@ -294,7 +294,7 @@
             GU = GU + FUDGE*TNORM*EPS*IN + FUDGE*PIVMIN
 
             if ( IRANGE.GT.1 ) {
-               if ( GU.LT.WL ) {
+               if ( GU < WL ) {
                   // the local block contains none of the wanted eigenvalues
                   NWL = NWL + IN
                   NWU = NWU + IN
@@ -415,7 +415,7 @@
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 90
-                     if ( IBLOCK( JE ) != 0 && ( W( JE ).LT.WKILL || IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 && ( W( JE ) < WKILL || IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -449,7 +449,7 @@
             } // 130
             M = IM
          }
-         if ( IDISCL.LT.0 || IDISCU.LT.0 ) {
+         if ( IDISCL < 0 || IDISCU < 0 ) {
             TOOFEW = true;
          }
       }
@@ -467,7 +467,7 @@
             IE = 0
             TMP1 = W( JE )
             for (J = JE + 1; J <= M; J++) { // 140
-               if ( W( J ).LT.TMP1 ) {
+               if ( W( J ) < TMP1 ) {
                   IE = J
                   TMP1 = W( J )
                }

@@ -40,14 +40,14 @@
       // Test the input arguments
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( K.LT.0 || K.GT.N-1 ) {
+      } else if ( K < 0 || K.GT.N-1 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
       }
-      if ( INFO.LT.0 ) {
+      if ( INFO < 0 ) {
          xerbla('ZLAGSY', -INFO );
          RETURN
       }

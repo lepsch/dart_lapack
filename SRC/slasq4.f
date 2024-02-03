@@ -98,14 +98,14 @@
                   IF( Z( I4 ) .GT. Z( I4-2 ) ) RETURN
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
                   A2 = A2 + B2
-                  IF( HUNDRD*MAX( B2, B1 ).LT.A2 || CNST1.LT.A2 ) GO TO 20
+                  IF( HUNDRD*MAX( B2, B1 ) < A2 || CNST1 < A2 ) GO TO 20
                } // 10
                } // 20
                A2 = CNST3*A2
 
                // Rayleigh quotient residual bound.
 
-               if (A2.LT.CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
+               if (A2 < CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
             }
          } else if ( DMIN == DN2 ) {
 
@@ -134,13 +134,13 @@
                   IF( Z( I4 ) .GT. Z( I4-2 ) ) RETURN
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
                   A2 = A2 + B2
-                  IF( HUNDRD*MAX( B2, B1 ).LT.A2 || CNST1.LT.A2 ) GO TO 40
+                  IF( HUNDRD*MAX( B2, B1 ) < A2 || CNST1 < A2 ) GO TO 40
                } // 30
                } // 40
                A2 = CNST3*A2
             }
 
-            if (A2.LT.CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
+            if (A2 < CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
          } else {
 
             // Case 6, no information to guide us.
@@ -175,7 +175,7 @@
                IF( Z( I4 ).GT.Z( I4-2 ) ) RETURN
                B1 = B1*( Z( I4 ) / Z( I4-2 ) )
                B2 = B2 + B1
-               IF( HUNDRD*MAX( B1, A2 ).LT.B2 ) GO TO 60
+               IF( HUNDRD*MAX( B1, A2 ) < B2 ) GO TO 60
             } // 50
             } // 60
             B2 = SQRT( CNST3*B2 )
@@ -202,7 +202,7 @@
 
          // Cases 10 and 11.
 
-         if ( DMIN2 == DN2 && TWO*Z( NN-5 ).LT.Z( NN-7 ) ) {
+         if ( DMIN2 == DN2 && TWO*Z( NN-5 ) < Z( NN-7 ) ) {
             TTYPE = -10
             S = THIRD*DMIN2
             IF( Z( NN-5 ).GT.Z( NN-7 ) ) RETURN
@@ -213,7 +213,7 @@
                IF( Z( I4 ).GT.Z( I4-2 ) ) RETURN
                B1 = B1*( Z( I4 ) / Z( I4-2 ) )
                B2 = B2 + B1
-               if (HUNDRD*B1.LT.B2) GO TO 80;
+               if (HUNDRD*B1 < B2) GO TO 80;
             } // 70
             } // 80
             B2 = SQRT( CNST3*B2 )

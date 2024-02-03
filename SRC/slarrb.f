@@ -46,7 +46,7 @@
       MNWDTH = TWO * PIVMIN
 
       R = TWIST
-      IF((R.LT.1) || (R.GT.N)) R = N
+      IF((R < 1) || (R.GT.N)) R = N
 
       // Initialize unconverged intervals in [ WORK(2*I-1), WORK(2*I) ].
       // The Sturm Count, Count( WORK(2*I-1) ) is arranged to be I-1, while
@@ -85,14 +85,14 @@
             GO TO 20
          }
 
-         // Do while( NEGCNT(RIGHT).LT.I )
+         // Do while( NEGCNT(RIGHT) < I )
          // Compute negcount from dstqds facto L+D+L+^T = L D L^T - RIGHT
 
          BACK = WERR( II )
          } // 50
 
          NEGCNT = SLANEG( N, D, LLD, RIGHT, PIVMIN, R )
-          if ( NEGCNT.LT.I ) {
+          if ( NEGCNT < I ) {
              RIGHT = RIGHT + BACK
              BACK = TWO*BACK
              GO TO 50
@@ -107,7 +107,7 @@
             // Remove it from the list.
             IWORK( K-1 ) = -1
             // Make sure that I1 always points to the first unconverged interval
-            IF((I == I1) && (I.LT.ILAST)) I1 = I + 1
+            IF((I == I1) && (I < ILAST)) I1 = I + 1
             IF((PREV.GE.I1) && (I.LE.ILAST)) IWORK( 2*PREV-1 ) = I + 1
          } else {
             // unconverged interval found
@@ -122,7 +122,7 @@
 
 
       // Do while( NINT.GT.0 ), i.e. there are still unconverged intervals
-      // and while (ITER.LT.MAXITR)
+      // and while (ITER < MAXITR)
 
       ITER = 0
       } // 80

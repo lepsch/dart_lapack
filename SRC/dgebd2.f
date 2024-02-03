@@ -31,14 +31,14 @@
       // Test the input parameters
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       }
-      if ( INFO.LT.0 ) {
+      if ( INFO < 0 ) {
          xerbla('DGEBD2', -INFO );
          RETURN
       }
@@ -57,10 +57,10 @@
 
             // Apply H(i) to A(i:m,i+1:n) from the left
 
-            if (I.LT.N) CALL DLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK );
+            if (I < N) CALL DLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK );
             A( I, I ) = D( I )
 
-            if ( I.LT.N ) {
+            if ( I < N ) {
 
                // Generate elementary reflector G(i) to annihilate
                // A(i,i+2:n)
@@ -91,10 +91,10 @@
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
-            if (I.LT.M) CALL DLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
+            if (I < M) CALL DLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
             A( I, I ) = D( I )
 
-            if ( I.LT.M ) {
+            if ( I < M ) {
 
                // Generate elementary reflector H(i) to annihilate
                // A(i+2:m,i)

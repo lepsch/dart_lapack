@@ -37,21 +37,21 @@
       // Test input arguments
 
       INFO = 0
-      if ( M1 .LT. 0 ) {
+      if ( M1 < 0 ) {
          INFO = -1
-      } else if ( M2 .LT. 0 ) {
+      } else if ( M2 < 0 ) {
          INFO = -2
-      } else if ( N .LT. 0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( INCX1 .LT. 1 ) {
+      } else if ( INCX1 < 1 ) {
          INFO = -5
-      } else if ( INCX2 .LT. 1 ) {
+      } else if ( INCX2 < 1 ) {
          INFO = -7
-      } else if ( LDQ1 .LT. MAX( 1, M1 ) ) {
+      } else if ( LDQ1 < MAX( 1, M1 ) ) {
          INFO = -9
-      } else if ( LDQ2 .LT. MAX( 1, M2 ) ) {
+      } else if ( LDQ2 < MAX( 1, M2 ) ) {
          INFO = -11
-      } else if ( LWORK .LT. N ) {
+      } else if ( LWORK < N ) {
          INFO = -13
       }
 
@@ -137,7 +137,7 @@
       // nothing more. Alternatively, if it shrunk significantly, then
       // truncate it to zero.
 
-      if ( NORM_NEW .LT. ALPHA * NORM ) {
+      if ( NORM_NEW < ALPHA * NORM ) {
          DO IX = 1, 1 + (M1-1)*INCX1, INCX1
             X1(IX) = ZERO
          }

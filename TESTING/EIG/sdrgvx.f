@@ -46,17 +46,17 @@
 
       NMAX = 5
 
-      if ( NSIZE.LT.0 ) {
+      if ( NSIZE < 0 ) {
          INFO = -1
-      } else if ( THRESH.LT.ZERO ) {
+      } else if ( THRESH < ZERO ) {
          INFO = -2
       } else if ( NIN.LE.0 ) {
          INFO = -3
       } else if ( NOUT.LE.0 ) {
          INFO = -4
-      } else if ( LDA.LT.1 || LDA.LT.NMAX ) {
+      } else if ( LDA < 1 || LDA < NMAX ) {
          INFO = -6
-      } else if ( LIWORK.LT.NMAX+6 ) {
+      } else if ( LIWORK < NMAX+6 ) {
          INFO = -26
       }
 
@@ -75,7 +75,7 @@
          WORK( 1 ) = MAXWRK
       }
 
-      if (LWORK.LT.MINWRK) INFO = -24;
+      if (LWORK < MINWRK) INFO = -24;
 
       if ( INFO != 0 ) {
          xerbla('SDRGVX', -INFO );
@@ -201,7 +201,7 @@
 
                            }
                            NERRS = NERRS + 1
-                           if ( RESULT( J ).LT.10000.0 ) {
+                           if ( RESULT( J ) < 10000.0 ) {
                               WRITE( NOUT, FMT = 9991 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
                            } else {
                               WRITE( NOUT, FMT = 9990 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
@@ -327,7 +327,7 @@
 
             }
             NERRS = NERRS + 1
-            if ( RESULT( J ).LT.10000.0 ) {
+            if ( RESULT( J ) < 10000.0 ) {
                WRITE( NOUT, FMT = 9989 )NPTKNT, N, J, RESULT( J )
             } else {
                WRITE( NOUT, FMT = 9988 )NPTKNT, N, J, RESULT( J )

@@ -59,27 +59,27 @@
       }
       LQUERY = LWORK == -1
 
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -3
-      } else if ( P .LT. 0 || P .GT. M ) {
+      } else if ( P < 0 || P .GT. M ) {
          INFO = -4
-      } else if ( Q .LT. 0 || Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
+      } else if ( Q < 0 || Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
          INFO = -5
-      } else if ( COLMAJOR && LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
          INFO = -7
-      } else if ( .NOT.COLMAJOR && LDX11 .LT. MAX( 1, Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX11 < MAX( 1, Q ) ) {
          INFO = -7
-      } else if ( COLMAJOR && LDX12 .LT. MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX12 < MAX( 1, P ) ) {
          INFO = -9
-      } else if ( .NOT.COLMAJOR && LDX12 .LT. MAX( 1, M-Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
          INFO = -9
-      } else if ( COLMAJOR && LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if ( COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
          INFO = -11
-      } else if ( .NOT.COLMAJOR && LDX21 .LT. MAX( 1, Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX21 < MAX( 1, Q ) ) {
          INFO = -11
-      } else if ( COLMAJOR && LDX22 .LT. MAX( 1, M-P ) ) {
+      } else if ( COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
          INFO = -13
-      } else if ( .NOT.COLMAJOR && LDX22 .LT. MAX( 1, M-Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
          INFO = -13
       }
 
@@ -89,7 +89,7 @@
          LWORKOPT = M - Q
          LWORKMIN = M - Q
          WORK(1) = LWORKOPT
-         if ( LWORK .LT. LWORKMIN && .NOT. LQUERY ) {
+         if ( LWORK < LWORKMIN && .NOT. LQUERY ) {
             INFO = -21
          }
       }
@@ -145,16 +145,16 @@
                zlarf('L', M-P-I+1, M-Q-I+1, X21(I,I), 1, DCONJG(TAUP2(I)), X22(I,I), LDX22, WORK );
             }
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0D0 ), X11(I,I+1), LDX11 );
                zaxpy(Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0D0 ), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
             }
             zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), LDX12 );
             zaxpy(M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), LDX22, X12(I,I), LDX12 );
 
-            if (I .LT. Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I,I+1), LDX11 ), DZNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
+            if (I < Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I,I+1), LDX11 ), DZNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                zlacgv(Q-I, X11(I,I+1), LDX11 );
                if ( I == Q-1 ) {
                   zlarfgp(Q-I, X11(I,I+1), X11(I,I+1), LDX11, TAUQ1(I) );
@@ -173,7 +173,7 @@
             }
             X12(I,I) = ONE
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                zlarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
                zlarf('R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
@@ -184,7 +184,7 @@
                zlarf('R', M-P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(I+1,I), LDX22, WORK );
             }
 
-            if (I .LT. Q) CALL ZLACGV( Q-I, X11(I,I+1), LDX11 );
+            if (I < Q) CALL ZLACGV( Q-I, X11(I,I+1), LDX11 );
             zlacgv(M-Q-I+1, X12(I,I), LDX12 );
 
          }
@@ -266,23 +266,23 @@
             zlacgv(P-I+1, X11(I,I), LDX11 );
             zlacgv(M-P-I+1, X21(I,I), LDX21 );
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0D0 ), X11(I+1,I), 1 );
                zaxpy(Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0D0 ), X21(I+1,I), 1, X11(I+1,I), 1 );
             }
             zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), 1 );
             zaxpy(M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), 1, X12(I,I), 1 );
 
-            if (I .LT. Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I+1,I), 1 ), DZNRM2( M-Q-I+1, X12(I,I), 1 ) );
+            if (I < Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I+1,I), 1 ), DZNRM2( M-Q-I+1, X12(I,I), 1 ) );
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                zlarfgp(Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) );
                X11(I+1,I) = ONE
             }
             zlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             X12(I,I) = ONE
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                zlarf('L', Q-I, P-I, X11(I+1,I), 1, DCONJG(TAUQ1(I)), X11(I+1,I+1), LDX11, WORK );
                zlarf('L', Q-I, M-P-I, X11(I+1,I), 1, DCONJG(TAUQ1(I)), X21(I+1,I+1), LDX21, WORK );
             }

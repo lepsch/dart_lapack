@@ -52,9 +52,9 @@
          INFO = -1
       } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
       }
 
@@ -75,9 +75,9 @@
          WORK( 1 )  = LWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && .NOT.LQUERY ) {
             INFO = -8
-         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
             INFO = -10
          }
       }
@@ -112,7 +112,7 @@
 
       ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

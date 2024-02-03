@@ -31,13 +31,13 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.M ) {
+      } else if ( N < M ) {
          INFO = -2
-      } else if ( K.LT.0 || K.GT.M ) {
+      } else if ( K < 0 || K.GT.M ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
       }
       if ( INFO != 0 ) {
@@ -49,7 +49,7 @@
 
       if (M.LE.0) RETURN;
 
-      if ( K.LT.M ) {
+      if ( K < M ) {
 
          // Initialise rows k+1:m to rows of the unit matrix
 
@@ -65,9 +65,9 @@
 
          // Apply H(i)**H to A(i:m,i:n) from the right
 
-         if ( I.LT.N ) {
+         if ( I < N ) {
             zlacgv(N-I, A( I, I+1 ), LDA );
-            if ( I.LT.M ) {
+            if ( I < M ) {
                A( I, I ) = ONE
                zlarf('Right', M-I, N-I+1, A( I, I ), LDA, DCONJG( TAU( I ) ), A( I+1, I ), LDA, WORK );
             }

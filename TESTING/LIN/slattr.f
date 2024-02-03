@@ -187,7 +187,7 @@
                PLUS1 = STAR1 / PLUS2
                REXP = SLARND( 2, ISEED )
                STAR1 = STAR1*( SFAC**REXP )
-               if ( REXP.LT.ZERO ) {
+               if ( REXP < ZERO ) {
                   STAR1 = -SFAC**( ONE-REXP )
                } else {
                   STAR1 = SFAC**( ONE+REXP )
@@ -415,7 +415,7 @@
                for (I = J + 2; I <= N; I++) { // 280
                   A( I, J ) = 0.
                } // 280
-               if (J.LT.N) A( J+1, J ) = -ONE;
+               if (J < N) A( J+1, J ) = -ONE;
                A( J, J ) = TSCAL
             } // 290
             B( 1 ) = ONE
@@ -500,7 +500,7 @@
             } // 360
          } else {
             for (J = 1; J <= N; J++) { // 370
-               if (J.LT.N) CALL SLARNV( 2, ISEED, N-J, A( J+1, J ) );
+               if (J < N) CALL SLARNV( 2, ISEED, N-J, A( J+1, J ) );
                A( J, J ) = ZERO
             } // 370
          }

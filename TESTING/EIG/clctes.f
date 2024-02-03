@@ -26,7 +26,7 @@
       // .. Executable Statements ..
 
       if ( D == CZERO ) {
-         CLCTES = ( REAL( Z ).LT.ZERO )
+         CLCTES = ( REAL( Z ) < ZERO )
       } else {
          if ( REAL( Z ) == ZERO || REAL( D ) == ZERO ) {
             CLCTES = ( SIGN( ONE, AIMAG( Z ) ) != SIGN( ONE, AIMAG( D ) ) )
@@ -34,7 +34,7 @@
             CLCTES = ( SIGN( ONE, REAL( Z ) ) != SIGN( ONE, REAL( D ) ) )
          } else {
             ZMAX = MAX( ABS( REAL( Z ) ), ABS( AIMAG( Z ) ) )
-            CLCTES = ( ( REAL( Z ) / ZMAX )*REAL( D )+ ( AIMAG( Z ) / ZMAX )*AIMAG( D ).LT.ZERO )
+            CLCTES = ( ( REAL( Z ) / ZMAX )*REAL( D )+ ( AIMAG( Z ) / ZMAX )*AIMAG( D ) < ZERO )
          }
       }
 

@@ -41,11 +41,11 @@
       LWKOPT = MAX( 1, N*NB )
       WORK( 1 ) = LWKOPT
       LQUERY = ( LWORK == -1 )
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -3
-      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -67,9 +67,9 @@
 
       NBMIN = 2
       LDWORK = N
-      if ( NB.GT.1 && NB.LT.N ) {
+      if ( NB.GT.1 && NB < N ) {
          IWS = MAX( LDWORK*NB, 1 )
-         if ( LWORK.LT.IWS ) {
+         if ( LWORK < IWS ) {
             NB = LWORK / LDWORK
             NBMIN = MAX( 2, ILAENV( 2, 'ZGETRI', ' ', N, -1, -1, -1 ) )
          }
@@ -79,7 +79,7 @@
 
       // Solve the equation inv(A)*L = inv(U) for inv(A).
 
-      if ( NB.LT.NBMIN || NB.GE.N ) {
+      if ( NB < NBMIN || NB.GE.N ) {
 
          // Use unblocked code.
 
@@ -94,7 +94,7 @@
 
             // Compute current column of inv(A).
 
-            if (J.LT.N) CALL ZGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 );
+            if (J < N) CALL ZGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 );
          } // 20
       } else {
 

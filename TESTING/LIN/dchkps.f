@@ -93,7 +93,7 @@
                // Only repeat test 3 to 5 for different ranks
                // Other tests use full rank
 
-               IF( ( IMAT.LT.3 || IMAT.GT.5 ) && IRANK.GT.1 ) GO TO 130
+               IF( ( IMAT < 3 || IMAT.GT.5 ) && IRANK.GT.1 ) GO TO 130
 
                RANK = CEILING( ( N * DBLE( RANKVAL( IRANK ) ) ) / 100.D+0 )
 
@@ -137,7 +137,7 @@
 
                   // Check error code from DPSTRF.
 
-                     IF( (INFO.LT.IZERO) || (INFO != IZERO && RANK == N) || (INFO.LE.IZERO && RANK.LT.N) ) THEN;
+                     IF( (INFO < IZERO) || (INFO != IZERO && RANK == N) || (INFO.LE.IZERO && RANK < N) ) THEN;
                         alaerh(PATH, 'DPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 110
                      }

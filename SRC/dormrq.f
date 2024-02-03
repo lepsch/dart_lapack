@@ -56,17 +56,17 @@
          INFO = -1
       } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -2
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K.LT.0 || K.GT.NQ ) {
+      } else if ( K < 0 || K.GT.NQ ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, K ) ) {
+      } else if ( LDA < MAX( 1, K ) ) {
          INFO = -7
-      } else if ( LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < MAX( 1, M ) ) {
          INFO = -10
-      } else if ( LWORK.LT.NW && .NOT.LQUERY ) {
+      } else if ( LWORK < NW && .NOT.LQUERY ) {
          INFO = -12
       }
 
@@ -98,14 +98,14 @@
 
       NBMIN = 2
       LDWORK = NW
-      if ( NB.GT.1 && NB.LT.K ) {
-         if ( LWORK.LT.LWKOPT ) {
+      if ( NB.GT.1 && NB < K ) {
+         if ( LWORK < LWKOPT ) {
             NB = (LWORK-TSIZE) / LDWORK
             NBMIN = MAX( 2, ILAENV( 2, 'DORMRQ', SIDE // TRANS, M, N, K, -1 ) )
          }
       }
 
-      if ( NB.LT.NBMIN || NB.GE.K ) {
+      if ( NB < NBMIN || NB.GE.K ) {
 
          // Use unblocked code
 

@@ -48,9 +48,9 @@
          INFO = -1
       } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
       }
 
@@ -59,7 +59,7 @@
          LWKOPT = MAX( 1, ( NB+2 )*N )
          WORK( 1 ) = LWKOPT
 
-         IF( LWORK.LT.MAX( 1, 3*N-1 ) && .NOT.LQUERY ) INFO = -8
+         IF( LWORK < MAX( 1, 3*N-1 ) && .NOT.LQUERY ) INFO = -8
       }
 
       if ( INFO != 0 ) {
@@ -95,7 +95,7 @@
 
       ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

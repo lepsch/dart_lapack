@@ -72,7 +72,7 @@
       if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP )
       } else {
-         if ( ANORM.LT.ONE ) {
+         if ( ANORM < ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*ULP )

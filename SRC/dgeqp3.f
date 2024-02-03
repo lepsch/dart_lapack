@@ -40,11 +40,11 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       }
 
@@ -60,7 +60,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if ( ( LWORK.LT.IWS ) && .NOT.LQUERY ) {
+         if ( ( LWORK < IWS ) && .NOT.LQUERY ) {
             INFO = -8
          }
       }
@@ -102,7 +102,7 @@
 *CC      CALL DGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
          dgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
          IWS = MAX( IWS, INT( WORK( 1 ) ) )
-         if ( NA.LT.N ) {
+         if ( NA < N ) {
 *CC         CALL DORM2R( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
 *CC  $                   TAU, A( 1, NA+1 ), LDA, WORK, INFO )
             dormqr('Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO );
@@ -113,7 +113,7 @@
       // Factorize free columns
 *  ======================
 
-      if ( NFXD.LT.MINMN ) {
+      if ( NFXD < MINMN ) {
 
          SM = M - NFXD
          SN = N - NFXD
@@ -125,20 +125,20 @@
          NBMIN = 2
          NX = 0
 
-         if ( ( NB.GT.1 ) && ( NB.LT.SMINMN ) ) {
+         if ( ( NB.GT.1 ) && ( NB < SMINMN ) ) {
 
             // Determine when to cross over from blocked to unblocked code.
 
             NX = MAX( 0, ILAENV( IXOVER, 'DGEQRF', ' ', SM, SN, -1, -1 ) )
 
 
-            if ( NX.LT.SMINMN ) {
+            if ( NX < SMINMN ) {
 
                // Determine if workspace is large enough for blocked code.
 
                MINWS = 2*SN + ( SN+1 )*NB
                IWS = MAX( IWS, MINWS )
-               if ( LWORK.LT.MINWS ) {
+               if ( LWORK < MINWS ) {
 
                   // Not enough workspace to use optimal NB: Reduce NB and
                   // determine the minimum value of NB.
@@ -159,7 +159,7 @@
             WORK( N+J ) = WORK( J )
          } // 20
 
-         if ( ( NB.GE.NBMIN ) && ( NB.LT.SMINMN ) && ( NX.LT.SMINMN ) ) {
+         if ( ( NB.GE.NBMIN ) && ( NB < SMINMN ) && ( NX < SMINMN ) ) {
 
             // Use blocked code initially.
 

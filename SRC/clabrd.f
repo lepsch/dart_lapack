@@ -52,7 +52,7 @@
             ALPHA = A( I, I )
             clarfg(M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
             D( I ) = REAL( ALPHA )
-            if ( I.LT.N ) {
+            if ( I < N ) {
                A( I, I ) = ONE
 
                // Compute Y(i+1:n,i)
@@ -113,7 +113,7 @@
             ALPHA = A( I, I )
             clarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
             D( I ) = REAL( ALPHA )
-            if ( I.LT.M ) {
+            if ( I < M ) {
                A( I, I ) = ONE
 
                // Compute X(i+1:m,i)

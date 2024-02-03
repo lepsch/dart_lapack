@@ -32,17 +32,17 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( L.LT.0 || L.GT.MIN(M,N) ) {
+      } else if ( L < 0 || L.GT.MIN(M,N) ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, M ) ) {
+      } else if ( LDB < MAX( 1, M ) ) {
          INFO = -7
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -60,7 +60,7 @@
 
          P = M-L+MIN( L, I )
          clarfg(P+1, A( I, I ), B( 1, I ), 1, T( I, 1 ) );
-         if ( I.LT.N ) {
+         if ( I < N ) {
 
             // W(1:N-I) := C(I:M,I+1:N)**H * C(I:M,I) [use W = T(:,N)]
 

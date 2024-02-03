@@ -143,7 +143,7 @@
          // Clean-up for N not a multiple of 5.
 
          J = N5 + 1
-         if ( J.LT.N-1 ) {
+         if ( J < N-1 ) {
             A = ALPHA3*ZLARND( 5, ISEED )
             B = ZLARND( 5, ISEED ) / ALPHA
             C = A - 2.D0*B*EYE
@@ -158,7 +158,7 @@
             JJ = JJ + ( N-J-1 )
             J = J + 3
          }
-         if ( J.LT.N ) {
+         if ( J < N ) {
             X( JJ ) = ZLARND( 2, ISEED )
             X( JJ+( N-J+1 ) ) = ZLARND( 2, ISEED )
             if ( ABS( X( JJ ) ).GT.ABS( X( JJ+( N-J+1 ) ) ) ) {

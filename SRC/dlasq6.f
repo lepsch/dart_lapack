@@ -47,7 +47,7 @@
                D = Z( J4+1 )
                DMIN = D
                EMIN = ZERO
-            } else if ( SAFMIN*Z( J4+1 ).LT.Z( J4-2 ) && SAFMIN*Z( J4-2 ).LT.Z( J4+1 ) ) {
+            } else if ( SAFMIN*Z( J4+1 ) < Z( J4-2 ) && SAFMIN*Z( J4-2 ) < Z( J4+1 ) ) {
                TEMP = Z( J4+1 ) / Z( J4-2 )
                Z( J4 ) = Z( J4-1 )*TEMP
                D = D*TEMP
@@ -66,7 +66,7 @@
                D = Z( J4+2 )
                DMIN = D
                EMIN = ZERO
-            } else if ( SAFMIN*Z( J4+2 ).LT.Z( J4-3 ) && SAFMIN*Z( J4-3 ).LT.Z( J4+2 ) ) {
+            } else if ( SAFMIN*Z( J4+2 ) < Z( J4-3 ) && SAFMIN*Z( J4-3 ) < Z( J4+2 ) ) {
                TEMP = Z( J4+2 ) / Z( J4-3 )
                Z( J4-1 ) = Z( J4 )*TEMP
                D = D*TEMP
@@ -91,7 +91,7 @@
          DNM1 = Z( J4P2+2 )
          DMIN = DNM1
          EMIN = ZERO
-      } else if ( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) && SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) {
+      } else if ( SAFMIN*Z( J4P2+2 ) < Z( J4-2 ) && SAFMIN*Z( J4-2 ) < Z( J4P2+2 ) ) {
          TEMP = Z( J4P2+2 ) / Z( J4-2 )
          Z( J4 ) = Z( J4P2 )*TEMP
          DNM1 = DNM2*TEMP
@@ -110,7 +110,7 @@
          DN = Z( J4P2+2 )
          DMIN = DN
          EMIN = ZERO
-      } else if ( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) && SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) {
+      } else if ( SAFMIN*Z( J4P2+2 ) < Z( J4-2 ) && SAFMIN*Z( J4-2 ) < Z( J4P2+2 ) ) {
          TEMP = Z( J4P2+2 ) / Z( J4-2 )
          Z( J4 ) = Z( J4P2 )*TEMP
          DN = DNM1*TEMP

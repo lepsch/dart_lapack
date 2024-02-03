@@ -49,11 +49,11 @@
       } else {
          ICOMPZ = -1
       }
-      if ( ICOMPZ.LT.0 ) {
+      if ( ICOMPZ < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( ( LDZ.LT.1 ) || ( ICOMPZ.GT.0 && LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ.GT.0 && LDZ < MAX( 1, N ) ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {

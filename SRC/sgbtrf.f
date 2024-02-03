@@ -47,15 +47,15 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( KL.LT.0 ) {
+      } else if ( KL < 0 ) {
          INFO = -3
-      } else if ( KU.LT.0 ) {
+      } else if ( KU < 0 ) {
          INFO = -4
-      } else if ( LDAB.LT.KL+KV+1 ) {
+      } else if ( LDAB < KL+KV+1 ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -160,7 +160,7 @@
 
                      // Apply interchange to columns J to J+JB-1
 
-                     if ( JP+JJ-1.LT.J+KL ) {
+                     if ( JP+JJ-1 < J+KL ) {
 
                         sswap(JB, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 );
                      } else {
@@ -309,7 +309,7 @@
 
                   // Apply interchange to columns J to JJ-1
 
-                  if ( JP+JJ-1.LT.J+KL ) {
+                  if ( JP+JJ-1 < J+KL ) {
 
                      // The interchange does not affect A31
 

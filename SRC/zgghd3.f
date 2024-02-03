@@ -61,21 +61,21 @@
          INFO = -1
       } else if ( .NOT.LSAME( COMPZ, 'N' ) && .NOT.WANTZ ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ILO.LT.1 ) {
+      } else if ( ILO < 1 ) {
          INFO = -4
-      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI < ILO-1 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -9
-      } else if ( ( WANTQ && LDQ.LT.N ) || LDQ.LT.1 ) {
+      } else if ( ( WANTQ && LDQ < N ) || LDQ < 1 ) {
          INFO = -11
-      } else if ( ( WANTZ && LDZ.LT.N ) || LDZ.LT.1 ) {
+      } else if ( ( WANTZ && LDZ < N ) || LDZ < 1 ) {
          INFO = -13
-      } else if ( LWORK.LT.1 && .NOT.LQUERY ) {
+      } else if ( LWORK < 1 && .NOT.LQUERY ) {
          INFO = -15
       }
       if ( INFO != 0 ) {
@@ -103,16 +103,16 @@
       // Determine the blocksize.
 
       NBMIN = ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 )
-      if ( NB.GT.1 && NB.LT.NH ) {
+      if ( NB.GT.1 && NB < NH ) {
 
          // Determine when to use unblocked instead of blocked code.
 
          NX = MAX( NB, ILAENV( 3, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) )
-         if ( NX.LT.NH ) {
+         if ( NX < NH ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            if ( LWORK.LT.LWKOPT ) {
+            if ( LWORK < LWKOPT ) {
 
                // Not enough workspace to use optimal NB:  determine the
                // minimum value of NB, and reduce NB or force use of
@@ -128,7 +128,7 @@
          }
       }
 
-      if ( NB.LT.NBMIN || NB.GE.NH ) {
+      if ( NB < NBMIN || NB.GE.NH ) {
 
          // Use unblocked code below
 
@@ -234,7 +234,7 @@
 
                   // Annihilate B( JJ+1, JJ ).
 
-                  if ( JJ.LT.IHI ) {
+                  if ( JJ < IHI ) {
                      TEMP = B( JJ+1, JJ+1 )
                      zlartg(TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) );
                      B( JJ+1, JJ ) = CZERO
@@ -278,7 +278,7 @@
 
                // Update (J+1)th column of A by transformations from left.
 
-               if ( J .LT. JCOL + NNB - 1 ) {
+               if ( J < JCOL + NNB - 1 ) {
                   LEN  = 1 + J - JCOL
 
                   // Multiply with the trailing accumulated unitary
@@ -567,7 +567,7 @@
          if (WANTQ) COMPQ2 = 'V'          IF ( WANTZ ) COMPZ2 = 'V';
       }
 
-      if (JCOL.LT.IHI) CALL ZGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
+      if (JCOL < IHI) CALL ZGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
 
       WORK( 1 ) = DCMPLX( LWKOPT )
 

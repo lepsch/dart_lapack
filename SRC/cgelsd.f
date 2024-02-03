@@ -46,15 +46,15 @@
       MINMN = MIN( M, N )
       MAXMN = MAX( M, N )
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, MAXMN ) ) {
+      } else if ( LDB < MAX( 1, MAXMN ) ) {
          INFO = -7
       }
 
@@ -124,7 +124,7 @@
          IWORK( 1 ) = LIWORK
          RWORK( 1 ) = LRWORK
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -12
          }
       }
@@ -154,7 +154,7 @@
 
       ANRM = CLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -180,7 +180,7 @@
 
       BNRM = CLANGE( 'M', M, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
@@ -196,7 +196,7 @@
 
       // If M < N make sure B(M+1:N,:) = 0
 
-      if (M.LT.N) CALL CLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
+      if (M < N) CALL CLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
 
       // Overdetermined case.
 

@@ -90,7 +90,7 @@
 
          for (I = 1; I <= N - 1; I++) { // 60
             EI = H( I+1, I )
-            if ( CABS1( B( I, I ) ).LT.CABS1( EI ) ) {
+            if ( CABS1( B( I, I ) ) < CABS1( EI ) ) {
 
                // Interchange rows and eliminate.
 
@@ -125,7 +125,7 @@
 
          DO 90 J = N, 2, -1
             EJ = H( J, J-1 )
-            if ( CABS1( B( J, J ) ).LT.CABS1( EJ ) ) {
+            if ( CABS1( B( J, J ) ) < CABS1( EJ ) ) {
 
                // Interchange columns and eliminate.
 

@@ -55,7 +55,7 @@
             DO 30 I = N - 2, 1, -1
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
             } // 30
-            if ( J.LT.NRHS ) {
+            if ( J < NRHS ) {
                J = J + 1
                GO TO 10
             }
@@ -110,7 +110,7 @@
                   B( I, J ) = TEMP
                }
             } // 90
-            if ( J.LT.NRHS ) {
+            if ( J < NRHS ) {
                J = J + 1
                GO TO 70
             }
@@ -165,7 +165,7 @@
                   B( I, J ) = TEMP
                }
             } // 150
-            if ( J.LT.NRHS ) {
+            if ( J < NRHS ) {
                J = J + 1
                GO TO 130
             }

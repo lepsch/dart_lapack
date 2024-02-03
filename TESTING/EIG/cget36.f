@@ -83,7 +83,7 @@
       // Test for successful reordering of T2
 
       ccopy(N, TMP, LDT+1, DIAG, 1 );
-      if ( IFST.LT.ILST ) {
+      if ( IFST < ILST ) {
          for (I = IFST + 1; I <= ILST; I++) { // 70
             CTEMP = DIAG( I )
             DIAG( I ) = DIAG( I-1 )

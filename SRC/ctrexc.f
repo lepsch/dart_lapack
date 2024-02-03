@@ -38,15 +38,15 @@
       WANTQ = LSAME( COMPQ, 'V' )
       if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDQ < 1 || ( WANTQ && LDQ < MAX( 1, N ) ) ) {
          INFO = -6
-      } else if (( IFST.LT.1 || IFST.GT.N ) && ( N.GT.0 )) {
+      } else if (( IFST < 1 || IFST.GT.N ) && ( N.GT.0 )) {
          INFO = -7
-      } else if (( ILST.LT.1 || ILST.GT.N ) && ( N.GT.0 )) {
+      } else if (( ILST < 1 || ILST.GT.N ) && ( N.GT.0 )) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -58,7 +58,7 @@
 
       if (N.LE.1 || IFST == ILST) RETURN;
 
-      if ( IFST.LT.ILST ) {
+      if ( IFST < ILST ) {
 
          // Move the IFST-th diagonal element forward down the diagonal.
 

@@ -77,15 +77,15 @@
       }
 
       INFO = 0
-      if ( ISIDE.LT.0 ) {
+      if ( ISIDE < 0 ) {
          INFO = -1
-      } else if ( IHWMNY.LT.0 ) {
+      } else if ( IHWMNY < 0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDS.LT.MAX( 1, N ) ) {
+      } else if ( LDS < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDP.LT.MAX( 1, N ) ) {
+      } else if ( LDP < MAX( 1, N ) ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -103,7 +103,7 @@
                ILCPLX = false;
                GO TO 10
             }
-            if ( J.LT.N ) {
+            if ( J < N ) {
                IF( S( J+1, J ) != ZERO ) ILCPLX = true;
             }
             if ( ILCPLX ) {
@@ -123,7 +123,7 @@
       for (J = 1; J <= N - 1; J++) { // 20
          if ( S( J+1, J ) != ZERO ) {
             IF( P( J, J ) == ZERO || P( J+1, J+1 ) == ZERO || P( J, J+1 ) != ZERO )ILBBAD = true;
-            if ( J.LT.N-1 ) {
+            if ( J < N-1 ) {
                IF( S( J+2, J+1 ) != ZERO ) ILABAD = true;
             }
          }
@@ -133,11 +133,11 @@
          INFO = -5
       } else if ( ILBBAD ) {
          INFO = -7
-      } else if ( COMPL && LDVL.LT.N || LDVL.LT.1 ) {
+      } else if ( COMPL && LDVL < N || LDVL < 1 ) {
          INFO = -10
-      } else if ( COMPR && LDVR.LT.N || LDVR.LT.1 ) {
+      } else if ( COMPR && LDVR < N || LDVR < 1 ) {
          INFO = -12
-      } else if ( MM.LT.IM ) {
+      } else if ( MM < IM ) {
          INFO = -13
       }
       if ( INFO != 0 ) {
@@ -215,7 +215,7 @@
                GO TO 220
             }
             NW = 1
-            if ( JE.LT.N ) {
+            if ( JE < N ) {
                if ( S( JE+1, JE ) != ZERO ) {
                   ILCPLX = true;
                   NW = 2
@@ -271,8 +271,8 @@
                // Scale to avoid underflow
 
                SCALE = ONE
-               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ).LT.SMALL
-               LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
+               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ) < SMALL
+               LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
                if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   if ( LSA ) {
@@ -309,7 +309,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               if (ACOEFA*ULP.LT.SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP < SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -356,7 +356,7 @@
 
                NA = 1
                BDIAG( 1 ) = P( J, J )
-               if ( J.LT.N ) {
+               if ( J < N ) {
                   if ( S( J+1, J ) != ZERO ) {
                      IL2BY2 = true;
                      BDIAG( 2 ) = P( J+1, J+1 )
@@ -417,7 +417,7 @@
                // with scaling and perturbation of the denominator
 
                dlaln2( true , NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR, BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP, IINFO );
-               if ( SCALE.LT.ONE ) {
+               if ( SCALE < ONE ) {
                   for (JW = 0; JW <= NW - 1; JW++) { // 150
                      for (JR = JE; JR <= J - 1; JR++) { // 140
                         WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR )
@@ -551,8 +551,8 @@
                // Scale to avoid underflow
 
                SCALE = ONE
-               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ).LT.SMALL
-               LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
+               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ) < SMALL
+               LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
                if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   if ( LSA ) {
@@ -595,7 +595,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               if (ACOEFA*ULP.LT.SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP < SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -667,7 +667,7 @@
                // Compute x(j) (and x(j+1), if 2-by-2 block)
 
                dlaln2( false , NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ), N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO );
-               if ( SCALE.LT.ONE ) {
+               if ( SCALE < ONE ) {
 
                   for (JW = 0; JW <= NW - 1; JW++) { // 290
                      for (JR = 1; JR <= JE; JR++) { // 280

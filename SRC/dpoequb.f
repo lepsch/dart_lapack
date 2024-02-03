@@ -39,9 +39,9 @@
       // Positive definite only performs 1 pass of equilibration.
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -3
       }
       if ( INFO != 0 ) {

@@ -63,7 +63,7 @@
       INFO = 0
       REF_TYPE = INT( ITREF_DEFAULT )
       if ( NPARAMS .GE. LA_LINRX_ITREF_I ) {
-         if ( PARAMS( LA_LINRX_ITREF_I ) .LT. 0.0 ) {
+         if ( PARAMS( LA_LINRX_ITREF_I ) < 0.0 ) {
             PARAMS( LA_LINRX_ITREF_I ) = ITREF_DEFAULT
          } else {
             REF_TYPE = PARAMS( LA_LINRX_ITREF_I )
@@ -79,14 +79,14 @@
       IGNORE_CWISE = COMPONENTWISE_DEFAULT == 0.0
 
       if ( NPARAMS.GE.LA_LINRX_ITHRESH_I ) {
-         if ( PARAMS( LA_LINRX_ITHRESH_I ).LT.0.0 ) {
+         if ( PARAMS( LA_LINRX_ITHRESH_I ) < 0.0 ) {
             PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH
          } else {
             ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) )
          }
       }
       if ( NPARAMS.GE.LA_LINRX_CWISE_I ) {
-         if ( PARAMS( LA_LINRX_CWISE_I ).LT.0.0 ) {
+         if ( PARAMS( LA_LINRX_CWISE_I ) < 0.0 ) {
             if ( IGNORE_CWISE ) {
                PARAMS( LA_LINRX_CWISE_I ) = 0.0
             } else {
@@ -112,17 +112,17 @@
         INFO = -1
       } else if ( .NOT.RCEQU && .NOT.LSAME( EQUED, 'N' ) ) {
         INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
         INFO = -3
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
         INFO = -4
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
         INFO = -6
-      } else if ( LDAF.LT.MAX( 1, N ) ) {
+      } else if ( LDAF < MAX( 1, N ) ) {
         INFO = -8
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
         INFO = -12
-      } else if ( LDX.LT.MAX( 1, N ) ) {
+      } else if ( LDX < MAX( 1, N ) ) {
         INFO = -14
       }
       if ( INFO != 0 ) {
@@ -204,11 +204,11 @@
 
       // Threshold the error (see LAWN).
 
-            if ( RCOND_TMP .LT. ILLRCOND_THRESH ) {
+            if ( RCOND_TMP < ILLRCOND_THRESH ) {
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 0.0
                if (INFO .LE. N) INFO = N + J;
-            } else if (ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .LT. ERR_LBND) {
+            } else if (ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) < ERR_LBND) {
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0
             }
@@ -233,7 +233,7 @@
 
          CWISE_WRONG = SQRT( SLAMCH( 'Epsilon' ) )
          for (J = 1; J <= NRHS; J++) {
-            IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. CWISE_WRONG ) THEN                RCOND_TMP = SLA_SYRCOND( UPLO, N, A, LDA, AF, LDAF, IPIV, 1, X(1,J), INFO, WORK, IWORK )
+            IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) THEN                RCOND_TMP = SLA_SYRCOND( UPLO, N, A, LDA, AF, LDAF, IPIV, 1, X(1,J), INFO, WORK, IWORK )
             } else {
                RCOND_TMP = 0.0
             }
@@ -244,10 +244,10 @@
 
       // Threshold the error (see LAWN).
 
-            if ( RCOND_TMP .LT. ILLRCOND_THRESH ) {
+            if ( RCOND_TMP < ILLRCOND_THRESH ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0
-               if ( .NOT. IGNORE_CWISE && INFO.LT.N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) {
+               if ( .NOT. IGNORE_CWISE && INFO < N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0
             }

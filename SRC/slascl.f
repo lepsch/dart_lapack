@@ -65,18 +65,18 @@
          INFO = -4
       } else if ( SISNAN(CTO) ) {
          INFO = -5
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -6
-      } else if ( N.LT.0 || ( ITYPE == 4 && N != M ) || ( ITYPE == 5 && N != M ) ) {
+      } else if ( N < 0 || ( ITYPE == 4 && N != M ) || ( ITYPE == 5 && N != M ) ) {
          INFO = -7
-      } else if ( ITYPE.LE.3 && LDA.LT.MAX( 1, M ) ) {
+      } else if ( ITYPE.LE.3 && LDA < MAX( 1, M ) ) {
          INFO = -9
       } else if ( ITYPE.GE.4 ) {
-         if ( KL.LT.0 || KL.GT.MAX( M-1, 0 ) ) {
+         if ( KL < 0 || KL.GT.MAX( M-1, 0 ) ) {
             INFO = -2
-         } else if ( KU.LT.0 || KU.GT.MAX( N-1, 0 ) || ( ( ITYPE == 4 || ITYPE == 5 ) && KL != KU ) ) {
+         } else if ( KU < 0 || KU.GT.MAX( N-1, 0 ) || ( ( ITYPE == 4 || ITYPE == 5 ) && KL != KU ) ) {
             INFO = -3
-         } else if ( ( ITYPE == 4 && LDA.LT.KL+1 ) || ( ITYPE == 5 && LDA.LT.KU+1 ) || ( ITYPE == 6 && LDA.LT.2*KL+KU+1 ) ) {
+         } else if ( ( ITYPE == 4 && LDA < KL+1 ) || ( ITYPE == 5 && LDA < KU+1 ) || ( ITYPE == 6 && LDA < 2*KL+KU+1 ) ) {
             INFO = -9
          }
       }

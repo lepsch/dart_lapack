@@ -53,11 +53,11 @@
       } else {
          ICOMPZ = -1
       }
-      if ( ICOMPZ.LT.0 ) {
+      if ( ICOMPZ < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( ( LDZ.LT.1 ) || ( ICOMPZ.GT.0 && LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ.GT.0 && LDZ < MAX( 1, N ) ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -128,7 +128,7 @@
          ISCALE = 1
          slascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO );
          slascl('G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
-      } else if ( ANORM.LT.SSFMIN ) {
+      } else if ( ANORM < SSFMIN ) {
          ISCALE = 2
          slascl('G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO );
          slascl('G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO );
@@ -136,7 +136,7 @@
 
       // Choose between QL and QR iteration
 
-      if ( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) {
+      if ( ABS( D( LEND ) ) < ABS( D( L ) ) ) {
          LEND = LSV
          L = LENDSV
       }
@@ -159,7 +159,7 @@
          M = LEND
 
          } // 60
-         if (M.LT.LEND) E( M ) = ZERO;
+         if (M < LEND) E( M ) = ZERO;
          P = D( L )
          if (M == L) GO TO 80;
 
@@ -379,7 +379,7 @@
             K = I
             P = D( I )
             for (J = II; J <= N; J++) { // 170
-               if ( D( J ).LT.P ) {
+               if ( D( J ) < P ) {
                   K = J
                   P = D( J )
                }

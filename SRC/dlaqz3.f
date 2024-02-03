@@ -44,7 +44,7 @@
          // workspace query, quick return
          WORK( 1 ) = LWORKREQ
          RETURN
-      } else if ( LWORK .LT. LWORKREQ ) {
+      } else if ( LWORK < LWORKREQ ) {
          INFO = -26
       }
 
@@ -154,7 +154,7 @@
       K = KWTOP
       DO WHILE ( K .LE. IHI )
          BULGE = false;
-         if ( K .LT. IHI ) {
+         if ( K < IHI ) {
             if ( A( K+1, K ) != ZERO ) {
                BULGE = true;
             }

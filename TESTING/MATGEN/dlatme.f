@@ -128,13 +128,13 @@
 
       // Set INFO if an error
 
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
       } else if ( IDIST == -1 ) {
          INFO = -2
       } else if ( ABS( MODE ).GT.6 ) {
          INFO = -5
-      } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND.LT.ONE ) {
+      } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
          INFO = -6
       } else if ( BADEI ) {
          INFO = -8
@@ -148,13 +148,13 @@
          INFO = -12
       } else if ( ISIM == 1 && ABS( MODES ).GT.5 ) {
          INFO = -13
-      } else if ( ISIM == 1 && MODES != 0 && CONDS.LT.ONE ) {
+      } else if ( ISIM == 1 && MODES != 0 && CONDS < ONE ) {
          INFO = -14
-      } else if ( KL.LT.1 ) {
+      } else if ( KL < 1 ) {
          INFO = -15
-      } else if ( KU.LT.1 || ( KU.LT.N-1 && KL.LT.N-1 ) ) {
+      } else if ( KU < 1 || ( KU < N-1 && KL < N-1 ) ) {
          INFO = -16
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -19
       }
 
@@ -292,7 +292,7 @@
 
       // 5)      Reduce the bandwidth.
 
-      if ( KL.LT.N-1 ) {
+      if ( KL < N-1 ) {
 
          // Reduce bandwidth -- kill column
 
@@ -315,7 +315,7 @@
             A( JCR, IC ) = XNORMS
             dlaset('Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA );
          } // 90
-      } else if ( KU.LT.N-1 ) {
+      } else if ( KU < N-1 ) {
 
          // Reduce upper bandwidth -- kill a row at a time.
 

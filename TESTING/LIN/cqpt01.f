@@ -41,7 +41,7 @@
 
       // Test if there is enough workspace
 
-      if ( LWORK.LT.M*N+N ) {
+      if ( LWORK < M*N+N ) {
          xerbla('CQPT01', 10 );
          RETURN
       }

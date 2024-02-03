@@ -54,9 +54,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -84,7 +84,7 @@
 
          // If K < 1, exit from loop
 
-         if (K.LT.1) GO TO 70;
+         if (K < 1) GO TO 70;
          KSTEP = 1
          P = K
 
@@ -121,7 +121,7 @@
             // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
+            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -163,7 +163,7 @@
                   // ABS( REAL( W( IMAX,KW-1 ) ) ).GE.ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.( ABS( REAL( A( IMAX, IMAX ) ) ) .LT.ALPHA*ROWMAX ) ) {
+                  if ( .NOT.( ABS( REAL( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -397,7 +397,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + ICAMAX( N-K, A( K+1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
@@ -421,7 +421,7 @@
             // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
+            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -449,7 +449,7 @@
                      ROWMAX = ZERO
                   }
 
-                  if ( IMAX.LT.N ) {
+                  if ( IMAX < N ) {
                      ITEMP = IMAX + ICAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                      STEMP = CABS1( A( ITEMP, IMAX ) )
                      if ( STEMP.GT.ROWMAX ) {
@@ -463,7 +463,7 @@
                   // ABS( REAL( W( IMAX,KW-1 ) ) ).GE.ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.( ABS( REAL( A( IMAX, IMAX ) ) ) .LT.ALPHA*ROWMAX ) ) {
+                  if ( .NOT.( ABS( REAL( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -514,7 +514,7 @@
 
             if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
-               if (P.LT.N) CALL CSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
+               if (P < N) CALL CSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = K + 1; J <= P - 1; J++) { // 44
                   T = CONJG( A( J, K ) )
@@ -534,7 +534,7 @@
 
             if ( KP != KK ) {
                // (1) Swap columnar parts
-               if (KP.LT.N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KK + 1; J <= KP - 1; J++) { // 45
                   T = CONJG( A( J, KK ) )
@@ -572,7 +572,7 @@
 
                // where L(k) is the k-th column of L
 
-               if ( K.LT.N ) {
+               if ( K < N ) {
 
                   // Perform a rank-1 update of A(k+1:n,k+1:n) and
                   // store L(k) in column k
@@ -626,7 +626,7 @@
 
                // and store L(k) and L(k+1) in columns k and k+1
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
                   // D = |A21|
                   D = SLAPY2( REAL( A( K+1, K ) ), AIMAG( A( K+1, K ) ) )
                   D11 = REAL( A( K+1, K+1 ) ) / D

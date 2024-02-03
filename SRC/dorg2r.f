@@ -31,13 +31,13 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 || N.GT.M ) {
+      } else if ( N < 0 || N.GT.M ) {
          INFO = -2
-      } else if ( K.LT.0 || K.GT.N ) {
+      } else if ( K < 0 || K.GT.N ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
       }
       if ( INFO != 0 ) {
@@ -62,11 +62,11 @@
 
          // Apply H(i) to A(i:m,i:n) from the left
 
-         if ( I.LT.N ) {
+         if ( I < N ) {
             A( I, I ) = ONE
             dlarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
          }
-         if (I.LT.M) CALL DSCAL( M-I, -TAU( I ), A( I+1, I ), 1 );
+         if (I < M) CALL DSCAL( M-I, -TAU( I ), A( I+1, I ), 1 );
          A( I, I ) = ONE - TAU( I )
 
          // Set A(1:i-1,i) to zero

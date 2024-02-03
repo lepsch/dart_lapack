@@ -67,13 +67,13 @@
          INFO = -1
       } else if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDAF.LT.MAX( 1, N ) ) {
+      } else if ( LDAF < MAX( 1, N ) ) {
          INFO = -8
       } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -9
@@ -94,9 +94,9 @@
             }
          }
          if ( INFO == 0 ) {
-            if ( LDB.LT.MAX( 1, N ) ) {
+            if ( LDB < MAX( 1, N ) ) {
                INFO = -12
-            } else if ( LDX.LT.MAX( 1, N ) ) {
+            } else if ( LDX < MAX( 1, N ) ) {
                INFO = -14
             }
          }

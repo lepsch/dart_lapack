@@ -26,7 +26,7 @@
       if (INCX == INCY && INCX.GT.0) {
 
          NSTEPS = N*INCX
-         if (SFLAG.LT.ZERO) {
+         if (SFLAG < ZERO) {
             SH11 = SPARAM(2)
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
@@ -59,10 +59,10 @@
       } else {
          KX = 1
          KY = 1
-         if (INCX.LT.0) KX = 1 + (1-N)*INCX;
-         if (INCY.LT.0) KY = 1 + (1-N)*INCY;
+         if (INCX < 0) KX = 1 + (1-N)*INCX;
+         if (INCY < 0) KY = 1 + (1-N)*INCY;
 
-         if (SFLAG.LT.ZERO) {
+         if (SFLAG < ZERO) {
             SH11 = SPARAM(2)
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)

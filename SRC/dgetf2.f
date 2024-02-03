@@ -38,11 +38,11 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -72,7 +72,7 @@
 
             // Compute elements J+1:M of J-th column.
 
-            if ( J.LT.M ) {
+            if ( J < M ) {
                if ( ABS(A( J, J )) .GE. SFMIN ) {
                   dscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
@@ -87,7 +87,7 @@
             INFO = J
          }
 
-         if ( J.LT.MIN( M, N ) ) {
+         if ( J < MIN( M, N ) ) {
 
             // Update trailing submatrix.
 

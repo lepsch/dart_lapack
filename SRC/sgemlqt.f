@@ -50,19 +50,19 @@
          INFO = -1
       } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
          INFO = -2
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K.LT.0 || K.GT.Q ) {
+      } else if ( K < 0 || K.GT.Q ) {
          INFO = -5
-      } else if ( MB.LT.1 || (MB.GT.K && K.GT.0)) {
+      } else if ( MB < 1 || (MB.GT.K && K.GT.0)) {
          INFO = -6
-      } else if ( LDV.LT.MAX( 1, K ) ) {
+      } else if ( LDV < MAX( 1, K ) ) {
           INFO = -8
-      } else if ( LDT.LT.MB ) {
+      } else if ( LDT < MB ) {
          INFO = -10
-      } else if ( LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < MAX( 1, M ) ) {
          INFO = -12
       }
 

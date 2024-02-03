@@ -59,15 +59,15 @@
       INFO = 0
       LQUERY = LWORK == -1
 
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( P .LT. M-Q || M-P .LT. M-Q ) {
+      } else if ( P < M-Q || M-P < M-Q ) {
          INFO = -2
-      } else if ( Q .LT. M-Q || Q .GT. M ) {
+      } else if ( Q < M-Q || Q .GT. M ) {
          INFO = -3
-      } else if ( LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( LDX11 < MAX( 1, P ) ) {
          INFO = -5
-      } else if ( LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if ( LDX21 < MAX( 1, M-P ) ) {
          INFO = -7
       }
 
@@ -82,7 +82,7 @@
          LWORKOPT = MAX( LWORKOPT, IORBDB5 + LORBDB5 - 1 )
          LWORKMIN = LWORKOPT
          WORK(1) = SROUNDUP_LWORK(LWORKOPT)
-         if ( LWORK .LT. LWORKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWORKMIN && .NOT.LQUERY ) {
            INFO = -14
          }
       }
@@ -134,7 +134,7 @@
          clarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          clarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          clacgv(Q-I+1, X21(I,I), LDX21 );
-         if ( I .LT. M-Q ) {
+         if ( I < M-Q ) {
             S = SQRT( SCNRM2( P-I, X11(I+1,I), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 )
             PHI(I) = ATAN2( S, C )
          }

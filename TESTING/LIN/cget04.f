@@ -49,7 +49,7 @@
       // Exit with RESID = 1/EPS if RCOND is invalid.
 
       EPS = SLAMCH( 'Epsilon' )
-      if ( RCOND.LT.ZERO ) {
+      if ( RCOND < ZERO ) {
          RESID = 1.0 / EPS
          RETURN
       }
@@ -72,7 +72,7 @@
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
          }
       } // 20
-      if (RESID*EPS.LT.1.0) RESID = RESID / EPS;
+      if (RESID*EPS < 1.0) RESID = RESID / EPS;
 
       RETURN
 

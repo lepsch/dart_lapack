@@ -74,13 +74,13 @@
          INFO = -1
       } else if ( IORDER.LE.0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
       } else if ( IRANGE == 2 ) {
          if (VL.GE.VU) INFO = -5;
-      } else if ( IRANGE == 3 && ( IL.LT.1 || IL.GT.MAX( 1, N ) ) ) {
+      } else if ( IRANGE == 3 && ( IL < 1 || IL.GT.MAX( 1, N ) ) ) {
          INFO = -6
-      } else if ( IRANGE == 3 && ( IU.LT.MIN( N, IL ) || IU.GT.N ) ) {
+      } else if ( IRANGE == 3 && ( IU < MIN( N, IL ) || IU.GT.N ) ) {
          INFO = -7
       }
 
@@ -119,7 +119,7 @@
       if ( N == 1 ) {
          NSPLIT = 1
          ISPLIT( 1 ) = 1
-         if ( IRANGE == 2 && ( VL.GE.D( 1 ) || VU.LT.D( 1 ) ) ) {
+         if ( IRANGE == 2 && ( VL.GE.D( 1 ) || VU < D( 1 ) ) ) {
             M = 0
          } else {
             W( 1 ) = D( 1 )
@@ -216,7 +216,7 @@
             NWU = IWORK( 3 )
          }
 
-         if ( NWL.LT.0 || NWL.GE.N || NWU.LT.1 || NWU.GT.N ) {
+         if ( NWL < 0 || NWL.GE.N || NWU < 1 || NWU.GT.N ) {
             INFO = 4
             RETURN
          }
@@ -265,7 +265,7 @@
 
             // Special Case -- IN=1
 
-            if ( IRANGE == 1 || WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 || WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 || ( WL.LT.D( IBEGIN )-PIVMIN && WU.GE. D( IBEGIN )-PIVMIN ) ) {
+            if ( IRANGE == 1 || WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 || WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 || ( WL < D( IBEGIN )-PIVMIN && WU.GE. D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                IBLOCK( M ) = JB
@@ -303,7 +303,7 @@
             }
 
             if ( IRANGE.GT.1 ) {
-               if ( GU.LT.WL ) {
+               if ( GU < WL ) {
                   NWL = NWL + IN
                   NWU = NWU + IN
                   GO TO 70
@@ -391,7 +391,7 @@
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 90
-                     if ( IBLOCK( JE ) != 0 && ( W( JE ).LT.WKILL || IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 && ( W( JE ) < WKILL || IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -423,7 +423,7 @@
             } // 130
             M = IM
          }
-         if ( IDISCL.LT.0 || IDISCU.LT.0 ) {
+         if ( IDISCL < 0 || IDISCU < 0 ) {
             TOOFEW = true;
          }
       }
@@ -437,7 +437,7 @@
             IE = 0
             TMP1 = W( JE )
             for (J = JE + 1; J <= M; J++) { // 140
-               if ( W( J ).LT.TMP1 ) {
+               if ( W( J ) < TMP1 ) {
                   IE = J
                   TMP1 = W( J )
                }

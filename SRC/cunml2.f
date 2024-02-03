@@ -52,15 +52,15 @@
          INFO = -1
       } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K.LT.0 || K.GT.NQ ) {
+      } else if ( K < 0 || K.GT.NQ ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, K ) ) {
+      } else if ( LDA < MAX( 1, K ) ) {
          INFO = -7
-      } else if ( LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < MAX( 1, M ) ) {
          INFO = -10
       }
       if ( INFO != 0 ) {
@@ -112,12 +112,12 @@
          } else {
             TAUI = TAU( I )
          }
-         if (I.LT.NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
+         if (I < NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
          AII = A( I, I )
          A( I, I ) = ONE
          clarf(SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII
-         if (I.LT.NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
+         if (I < NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
       } // 10
       RETURN
 

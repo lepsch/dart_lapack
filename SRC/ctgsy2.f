@@ -50,7 +50,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB.LT.0 ) || ( IJOB.GT.2 ) ) {
+         if ( ( IJOB < 0 ) || ( IJOB.GT.2 ) ) {
             INFO = -2
          }
       }
@@ -59,17 +59,17 @@
             INFO = -3
          } else if ( N.LE.0 ) {
             INFO = -4
-         } else if ( LDA.LT.MAX( 1, M ) ) {
+         } else if ( LDA < MAX( 1, M ) ) {
             INFO = -6
-         } else if ( LDB.LT.MAX( 1, N ) ) {
+         } else if ( LDB < MAX( 1, N ) ) {
             INFO = -8
-         } else if ( LDC.LT.MAX( 1, M ) ) {
+         } else if ( LDC < MAX( 1, M ) ) {
             INFO = -10
-         } else if ( LDD.LT.MAX( 1, M ) ) {
+         } else if ( LDD < MAX( 1, M ) ) {
             INFO = -12
-         } else if ( LDE.LT.MAX( 1, N ) ) {
+         } else if ( LDE < MAX( 1, N ) ) {
             INFO = -14
-         } else if ( LDF.LT.MAX( 1, M ) ) {
+         } else if ( LDF < MAX( 1, M ) ) {
             INFO = -16
          }
       }
@@ -131,7 +131,7 @@
                   caxpy(I-1, ALPHA, A( 1, I ), 1, C( 1, J ), 1 );
                   caxpy(I-1, ALPHA, D( 1, I ), 1, F( 1, J ), 1 );
                }
-               if ( J.LT.N ) {
+               if ( J < N ) {
                   caxpy(N-J, RHS( 2 ), B( J, J+1 ), LDB, C( I, J+1 ), LDC );
                   caxpy(N-J, RHS( 2 ), E( J, J+1 ), LDE, F( I, J+1 ), LDF );
                }

@@ -42,17 +42,17 @@
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 
       LQUERY = ( LWORK == -1 )
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -2
-      } else if ( P.LT.0 ) {
+      } else if ( P < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.MAX( 1, N, M, P ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N, M, P ) && .NOT.LQUERY ) {
          INFO = -11
       }
       if ( INFO != 0 ) {

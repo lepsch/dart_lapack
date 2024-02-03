@@ -63,13 +63,13 @@
          INFO = -3
       } else if ( .NOT.( WNTSNN || WNTSNE || WNTSNB || WNTSNV ) || ( ( WNTSNE || WNTSNB ) && .NOT.( WANTVL && WANTVR ) ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 || ( WANTVL && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( WANTVL && LDVL < N ) ) {
          INFO = -11
-      } else if ( LDVR.LT.1 || ( WANTVR && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( WANTVR && LDVR < N ) ) {
          INFO = -13
       }
 
@@ -125,7 +125,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -21
          }
       }
@@ -154,7 +154,7 @@
       ICOND = 0
       ANRM = DLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {

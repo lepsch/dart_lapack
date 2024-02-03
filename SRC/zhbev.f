@@ -47,13 +47,13 @@
          INFO = -1
       } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -4
-      } else if ( LDAB.LT.KD+1 ) {
+      } else if ( LDAB < KD+1 ) {
          INFO = -6
-      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
          INFO = -9
       }
 
@@ -89,7 +89,7 @@
 
       ANRM = ZLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

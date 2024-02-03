@@ -55,7 +55,7 @@
             DO 40 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*E( I )
             } // 40
-            if ( J.LT.NRHS ) {
+            if ( J < NRHS ) {
                J = J + 1
                GO TO 10
             }
@@ -99,7 +99,7 @@
             DO 110 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*DCONJG( E( I ) )
             } // 110
-            if ( J.LT.NRHS ) {
+            if ( J < NRHS ) {
                J = J + 1
                GO TO 80
             }

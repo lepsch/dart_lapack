@@ -61,9 +61,9 @@
       MNMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) )
-         IF( MVAL( J ).LT.0 ) BADMM = true;
+         IF( MVAL( J ) < 0 ) BADMM = true;
          NMAX = MAX( NMAX, NVAL( J ) )
-         IF( NVAL( J ).LT.0 ) BADNN = true;
+         IF( NVAL( J ) < 0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
       } // 10
 
@@ -71,34 +71,34 @@
       KMAX = 0
       for (J = 1; J <= NWDTHS; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) )
-         IF( KK( J ).LT.0 ) BADNNB = true;
+         IF( KK( J ) < 0 ) BADNNB = true;
       } // 20
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADMM ) {
          INFO = -2
       } else if ( BADNN ) {
          INFO = -3
-      } else if ( NWDTHS.LT.0 ) {
+      } else if ( NWDTHS < 0 ) {
          INFO = -4
       } else if ( BADNNB ) {
          INFO = -5
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -6
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -8
-      } else if ( LDA.LT.NMAX ) {
+      } else if ( LDA < NMAX ) {
          INFO = -13
-      } else if ( LDAB.LT.2*KMAX+1 ) {
+      } else if ( LDAB < 2*KMAX+1 ) {
          INFO = -15
-      } else if ( LDQ.LT.NMAX ) {
+      } else if ( LDQ < NMAX ) {
          INFO = -19
-      } else if ( LDP.LT.NMAX ) {
+      } else if ( LDP < NMAX ) {
          INFO = -21
-      } else if ( LDC.LT.NMAX ) {
+      } else if ( LDC < NMAX ) {
          INFO = -23
       } else if ( ( MAX( LDA, NMAX )+1 )*NMAX.GT.LWORK ) {
          INFO = -26
@@ -266,7 +266,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SGBBRD', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 1 ) = ULPINV

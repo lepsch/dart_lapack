@@ -36,7 +36,7 @@
             for (I = 1; I <= M; I++) {
                DX(I) = DA*DX(I)
             }
-            if (N.LT.5) RETURN;
+            if (N < 5) RETURN;
          }
          MP1 = M + 1
          DO I = MP1,N,5

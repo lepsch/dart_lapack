@@ -38,9 +38,9 @@
          INFO = -1
       } else if ( .NOT.CONVERT && .NOT.LSAME( WAY, 'R' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
 
       }
@@ -70,7 +70,7 @@
             I = N
             E( 1 ) = ZERO
             DO WHILE ( I.GT.1 )
-               if ( IPIV( I ).LT.0 ) {
+               if ( IPIV( I ) < 0 ) {
                   E( I ) = A( I-1, I )
                   E( I-1 ) = ZERO
                   A( I-1, I ) = ZERO
@@ -95,7 +95,7 @@
                   // Swap rows i and IPIV(i) in A(1:i,N-i:N)
 
                   IP = IPIV( I )
-                  if ( I.LT.N ) {
+                  if ( I < N ) {
                      if ( IP != I ) {
                         cswap(N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA );
                      }
@@ -110,7 +110,7 @@
 
                   IP = -IPIV( I )
                   IP2 = -IPIV( I-1 )
-                  if ( I.LT.N ) {
+                  if ( I < N ) {
                      if ( IP != I ) {
                         cswap(N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA );
                      }
@@ -143,7 +143,7 @@
                   // Swap rows i and IPIV(i) in A(1:i,N-i:N)
 
                   IP = IPIV( I )
-                  if ( I.LT.N ) {
+                  if ( I < N ) {
                      if ( IP != I ) {
                         cswap(N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA );
                      }
@@ -159,7 +159,7 @@
                   I = I + 1
                   IP = -IPIV( I )
                   IP2 = -IPIV( I-1 )
-                  if ( I.LT.N ) {
+                  if ( I < N ) {
                      if ( IP2 != (I-1) ) {
                         cswap(N-I, A( IP2, I+1 ), LDA, A( I-1, I+1 ), LDA );
                      }
@@ -178,7 +178,7 @@
 
             I = N
             DO WHILE ( I.GT.1 )
-               if ( IPIV( I ).LT.0 ) {
+               if ( IPIV( I ) < 0 ) {
                   A( I-1, I ) = E( I )
                   I = I - 1
                }
@@ -205,7 +205,7 @@
             I = 1
             E( N ) = ZERO
             DO WHILE ( I.LE.N )
-               if ( I.LT.N && IPIV(I).LT.0 ) {
+               if ( I < N && IPIV(I) < 0 ) {
                   E( I ) = A( I+1, I )
                   E( I+1 ) = ZERO
                   A( I+1, I ) = ZERO
@@ -313,7 +313,7 @@
 
             I = 1
             DO WHILE ( I.LE.N-1 )
-               if ( IPIV( I ).LT.0 ) {
+               if ( IPIV( I ) < 0 ) {
                   A( I + 1, I ) = E( I )
                   I = I + 1
                }

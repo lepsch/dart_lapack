@@ -57,7 +57,7 @@
         MB = 1
         NB = N
       }
-      IF( MB.GT.MIN( M, N ) || MB.LT.1 ) MB = 1
+      IF( MB.GT.MIN( M, N ) || MB < 1 ) MB = 1
       if (NB.GT.N || NB.LE.M) NB = N;
       MINTSZ = M + 5
       if ( NB.GT.M && N.GT.M ) {
@@ -80,13 +80,13 @@
          LWOPT = MAX( 1, MB*M )
       }
       LMINWS = false;
-      if ( ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) || LWORK.LT.LWOPT ) && ( LWORK.GE.LWMIN ) && ( TSIZE.GE.MINTSZ ) && ( .NOT.LQUERY ) ) {
-        if ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) ) {
+      if ( ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) || LWORK < LWOPT ) && ( LWORK.GE.LWMIN ) && ( TSIZE.GE.MINTSZ ) && ( .NOT.LQUERY ) ) {
+        if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) ) {
           LMINWS = true;
           MB = 1
           NB = N
         }
-        if ( LWORK.LT.LWOPT ) {
+        if ( LWORK < LWOPT ) {
           LMINWS = true;
           MB = 1
         }
@@ -97,15 +97,15 @@
          LWREQ = MAX( 1, MB*M )
       }
 
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
         INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
         INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
         INFO = -4
-      } else if ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) && ( .NOT.LQUERY ) && ( .NOT.LMINWS ) ) {
+      } else if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) && ( .NOT.LQUERY ) && ( .NOT.LMINWS ) ) {
         INFO = -6
-      } else if ( ( LWORK.LT.LWREQ ) .AND .( .NOT.LQUERY ) && ( .NOT.LMINWS ) ) {
+      } else if ( ( LWORK < LWREQ ) .AND .( .NOT.LQUERY ) && ( .NOT.LMINWS ) ) {
         INFO = -8
       }
 

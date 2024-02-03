@@ -36,7 +36,7 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
          xerbla('DLAGTF', -INFO );
          RETURN
@@ -58,7 +58,7 @@
       for (K = 1; K <= N - 1; K++) { // 10
          A( K+1 ) = A( K+1 ) - LAMBDA
          SCALE2 = ABS( C( K ) ) + ABS( A( K+1 ) )
-         IF( K.LT.( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) )
+         IF( K < ( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) )
          if ( A( K ) == ZERO ) {
             PIV1 = ZERO
          } else {
@@ -68,7 +68,7 @@
             IN( K ) = 0
             PIV2 = ZERO
             SCALE1 = SCALE2
-            IF( K.LT.( N-1 ) ) D( K ) = ZERO
+            IF( K < ( N-1 ) ) D( K ) = ZERO
          } else {
             PIV2 = ABS( C( K ) ) / SCALE2
             if ( PIV2.LE.PIV1 ) {
@@ -76,14 +76,14 @@
                SCALE1 = SCALE2
                C( K ) = C( K ) / A( K )
                A( K+1 ) = A( K+1 ) - C( K )*B( K )
-               IF( K.LT.( N-1 ) ) D( K ) = ZERO
+               IF( K < ( N-1 ) ) D( K ) = ZERO
             } else {
                IN( K ) = 1
                MULT = A( K ) / C( K )
                A( K ) = C( K )
                TEMP = A( K+1 )
                A( K+1 ) = B( K ) - MULT*TEMP
-               if ( K.LT.( N-1 ) ) {
+               if ( K < ( N-1 ) ) {
                   D( K ) = B( K+1 )
                   B( K+1 ) = -MULT*D( K )
                }

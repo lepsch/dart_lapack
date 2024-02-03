@@ -124,7 +124,7 @@
 
       I = IHI
       } // 30
-      if (I.LT.ILO) GO TO 150;
+      if (I < ILO) GO TO 150;
 
       // Perform QR iterations on rows and columns ILO to I until a
       // submatrix of order 1 splits off at the bottom because a
@@ -201,7 +201,7 @@
                S = MAX( S, CABS1( X ) )
                Y = S*SQRT( ( X / S )**2+( U / S )**2 )
                if ( SX.GT.RZERO ) {
-                  IF( DBLE( X / SX )*DBLE( Y )+DIMAG( X / SX )* DIMAG( Y ).LT.RZERO )Y = -Y
+                  IF( DBLE( X / SX )*DBLE( Y )+DIMAG( X / SX )* DIMAG( Y ) < RZERO )Y = -Y
                }
                T = T - U*ZLADIV( U, ( X+Y ) )
             }

@@ -59,23 +59,23 @@
          INFO = -2
       } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -6
       } else {
          if ( VALEIG ) {
             if (N.GT.0 && VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
-            if ( IL.LT.1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
                INFO = -9
-            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
                INFO = -10
             }
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+         if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
             INFO = -15
          }
       }
@@ -92,7 +92,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 
-         if (LWORK.LT.LWKMIN && .NOT.LQUERY) INFO = -17;
+         if (LWORK < LWKMIN && .NOT.LQUERY) INFO = -17;
       }
 
       if ( INFO != 0 ) {
@@ -114,7 +114,7 @@
             M = 1
             W( 1 ) = REAL( A( 1, 1 ) )
          } else if ( VALEIG ) {
-            if ( VL.LT.REAL( A( 1, 1 ) ) && VU.GE.REAL( A( 1, 1 ) ) ) {
+            if ( VL < REAL( A( 1, 1 ) ) && VU.GE.REAL( A( 1, 1 ) ) ) {
                M = 1
                W( 1 ) = REAL( A( 1, 1 ) )
             }
@@ -141,7 +141,7 @@
          VUU = VU
       }
       ANRM = CLANHE( 'M', UPLO, N, A, LDA, RWORK )
-      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {
@@ -250,7 +250,7 @@
             I = 0
             TMP1 = W( J )
             for (JJ = J + 1; JJ <= M; JJ++) { // 50
-               if ( W( JJ ).LT.TMP1 ) {
+               if ( W( JJ ) < TMP1 ) {
                   I = JJ
                   TMP1 = W( JJ )
                }

@@ -74,15 +74,15 @@
          INFO = -1
       } else if ( IJOBVR.LE.0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 || ( ILVL && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -12
-      } else if ( LDVR.LT.1 || ( ILVR && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
          INFO = -14
       }
 
@@ -102,7 +102,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if (LWORK.LT.MINWRK && .NOT.LQUERY) INFO = -16;
+         if (LWORK < MINWRK && .NOT.LQUERY) INFO = -16;
       }
 
       if ( INFO != 0 ) {
@@ -128,7 +128,7 @@
 
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
@@ -141,7 +141,7 @@
 
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
@@ -250,7 +250,7 @@
          if ( ILVL ) {
             dggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR );
             for (JC = 1; JC <= N; JC++) { // 50
-               IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
+               IF( ALPHAI( JC ) < ZERO ) GO TO 50
                TEMP = ZERO
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
@@ -261,7 +261,7 @@
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
                   } // 20
                }
-               if (TEMP.LT.SMLNUM) GO TO 50;
+               if (TEMP < SMLNUM) GO TO 50;
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
@@ -278,7 +278,7 @@
          if ( ILVR ) {
             dggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR );
             for (JC = 1; JC <= N; JC++) { // 100
-               IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
+               IF( ALPHAI( JC ) < ZERO ) GO TO 100
                TEMP = ZERO
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
@@ -289,7 +289,7 @@
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
                   } // 70
                }
-               if (TEMP.LT.SMLNUM) GO TO 100;
+               if (TEMP < SMLNUM) GO TO 100;
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80

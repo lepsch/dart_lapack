@@ -44,9 +44,9 @@
       INFO = 0
       if ( .NOT. ( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
          INFO = -1
-      } else if ( N .LT. 0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA .LT. MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -135,7 +135,7 @@
          slassq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
          STD = SCALE * SQRT( SUMSQ / N )
 
-         if (STD .LT. TOL * AVG) GOTO 999;
+         if (STD < TOL * AVG) GOTO 999;
 
          for (I = 1; I <= N; I++) {
             T = ABS( A( I, I ) )

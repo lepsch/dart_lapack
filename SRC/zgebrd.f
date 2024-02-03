@@ -49,16 +49,16 @@
       WORK( 1 ) = DBLE( LWKOPT )
 
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
-      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWKMIN && .NOT.LQUERY ) {
          INFO = -10
       }
-      if ( INFO.LT.0 ) {
+      if ( INFO < 0 ) {
          xerbla('ZGEBRD', -INFO );
          RETURN
       } else if ( LQUERY ) {
@@ -76,7 +76,7 @@
       LDWRKX = M
       LDWRKY = N
 
-      if ( NB.GT.1 && NB.LT.MINMN ) {
+      if ( NB.GT.1 && NB < MINMN ) {
 
          // Set the crossover point NX.
 
@@ -84,9 +84,9 @@
 
          // Determine when to switch from blocked to unblocked code.
 
-         if ( NX.LT.MINMN ) {
+         if ( NX < MINMN ) {
             WS = LWKOPT
-            if ( LWORK.LT.WS ) {
+            if ( LWORK < WS ) {
 
                // Not enough work space for the optimal NB, consider using
                // a smaller block size.

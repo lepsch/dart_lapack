@@ -62,21 +62,21 @@
          INFO = -2
       } else if ( .NOT.( INITQ || WANTQ || LSAME( JOBQ, 'N' ) ) ) {
          INFO = -3
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -4
-      } else if ( P.LT.0 ) {
+      } else if ( P < 0 ) {
          INFO = -5
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -6
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -10
-      } else if ( LDB.LT.MAX( 1, P ) ) {
+      } else if ( LDB < MAX( 1, P ) ) {
          INFO = -12
-      } else if ( LDU.LT.1 || ( WANTU && LDU.LT.M ) ) {
+      } else if ( LDU < 1 || ( WANTU && LDU < M ) ) {
          INFO = -18
-      } else if ( LDV.LT.1 || ( WANTV && LDV.LT.P ) ) {
+      } else if ( LDV < 1 || ( WANTV && LDV < P ) ) {
          INFO = -20
-      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.N ) ) {
+      } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
          INFO = -22
       }
       if ( INFO != 0 ) {
@@ -203,7 +203,7 @@
 
          if ( (GAMMA.LE.HUGENUM) && (GAMMA.GE.-HUGENUM) ) {
 
-            if ( GAMMA.LT.ZERO ) {
+            if ( GAMMA < ZERO ) {
                zdscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
                if (WANTV) CALL ZDSCAL( P, -ONE, V( 1, I ), 1 );
             }
@@ -232,7 +232,7 @@
          BETA( I ) = ONE
       } // 80
 
-      if ( K+L.LT.N ) {
+      if ( K+L < N ) {
          for (I = K + L + 1; I <= N; I++) { // 90
             ALPHA( I ) = ZERO
             BETA( I ) = ZERO

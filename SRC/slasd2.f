@@ -42,9 +42,9 @@
 
       INFO = 0
 
-      if ( NL.LT.1 ) {
+      if ( NL < 1 ) {
          INFO = -1
-      } else if ( NR.LT.1 ) {
+      } else if ( NR < 1 ) {
          INFO = -2
       } else if ( ( SQRE != 1 ) && ( SQRE != 0 ) ) {
          INFO = -3
@@ -53,13 +53,13 @@
       N = NL + NR + 1
       M = N + SQRE
 
-      if ( LDU.LT.N ) {
+      if ( LDU < N ) {
          INFO = -10
-      } else if ( LDVT.LT.M ) {
+      } else if ( LDVT < M ) {
          INFO = -12
-      } else if ( LDU2.LT.N ) {
+      } else if ( LDU2 < N ) {
          INFO = -15
-      } else if ( LDVT2.LT.M ) {
+      } else if ( LDVT2 < M ) {
          INFO = -17
       }
       if ( INFO != 0 ) {

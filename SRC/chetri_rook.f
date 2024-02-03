@@ -45,9 +45,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -222,7 +222,7 @@
 
          // If K < 1, exit from loop.
 
-         if (K.LT.1) GO TO 120;
+         if (K < 1) GO TO 120;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -234,7 +234,7 @@
 
             // Compute column K of the inverse.
 
-            if ( K.LT.N ) {
+            if ( K < N ) {
                ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
                chemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) );
             }
@@ -256,7 +256,7 @@
 
             // Compute columns K-1 and K of the inverse.
 
-            if ( K.LT.N ) {
+            if ( K < N ) {
                ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
                chemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
                ccopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
@@ -273,7 +273,7 @@
             KP = IPIV( K )
             if ( KP != K ) {
 
-               if (KP.LT.N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 90
                   TEMP = CONJG( A( J, K ) )
@@ -297,7 +297,7 @@
             KP = -IPIV( K )
             if ( KP != K ) {
 
-               if (KP.LT.N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 100
                   TEMP = CONJG( A( J, K ) )
@@ -322,7 +322,7 @@
             KP = -IPIV( K )
             if ( KP != K ) {
 
-               if (KP.LT.N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 110
                   TEMP = CONJG( A( J, K ) )

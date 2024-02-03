@@ -97,15 +97,15 @@
          INFO = -3
       } else if ( .NOT.( WANTSN || WANTSE || WANTSV || WANTSB ) || ( .NOT.WANTST && .NOT.WANTSN ) ) {
          INFO = -5
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -6
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -10
-      } else if ( LDVSL.LT.1 || ( ILVSL && LDVSL.LT.N ) ) {
+      } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
          INFO = -16
-      } else if ( LDVSR.LT.1 || ( ILVSR && LDVSR.LT.N ) ) {
+      } else if ( LDVSR < 1 || ( ILVSR && LDVSR < N ) ) {
          INFO = -18
       }
 
@@ -138,9 +138,9 @@
          }
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -22
-         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
             INFO = -24
          }
       }
@@ -171,7 +171,7 @@
 
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
@@ -184,7 +184,7 @@
 
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {

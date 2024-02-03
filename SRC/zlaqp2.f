@@ -62,13 +62,13 @@
 
          // Generate elementary reflector H(i).
 
-         if ( OFFPI.LT.M ) {
+         if ( OFFPI < M ) {
             zlarfg(M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) );
          } else {
             zlarfg(1, A( M, I ), A( M, I ), 1, TAU( I ) );
          }
 
-         if ( I.LT.N ) {
+         if ( I < N ) {
 
             // Apply H(i)**H to A(offset+i:m,i+1:n) from the left.
 
@@ -90,7 +90,7 @@
                TEMP = MAX( TEMP, ZERO )
                TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
                if ( TEMP2 .LE. TOL3Z ) {
-                  if ( OFFPI.LT.M ) {
+                  if ( OFFPI < M ) {
                      VN1( J ) = DZNRM2( M-OFFPI, A( OFFPI+1, J ), 1 )
                      VN2( J ) = VN1( J )
                   } else {

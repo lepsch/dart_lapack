@@ -49,11 +49,11 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( ANORM.LT.ZERO ) {
+      } else if ( ANORM < ZERO ) {
          INFO = -5
       }
       if ( INFO != 0 ) {
@@ -107,7 +107,7 @@
          SCALE = SCALEL*SCALEU
          if ( SCALE != ONE ) {
             IX = IDAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
+            IF( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
             drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

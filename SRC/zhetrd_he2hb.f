@@ -52,15 +52,15 @@
 
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDAB.LT.MAX( 1, KD+1 ) ) {
+      } else if ( LDAB < MAX( 1, KD+1 ) ) {
          INFO = -7
-      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
          INFO = -10
       }
 

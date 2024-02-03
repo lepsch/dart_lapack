@@ -39,7 +39,7 @@
       }
 
       // Compute splitting points
-      if (SPLTOL.LT.ZERO) {
+      if (SPLTOL < ZERO) {
          // Criterion based on absolute off-diagonal value
          TMP1 = ABS(SPLTOL)* TNRM
          for (I = 1; I <= N-1; I++) { // 9

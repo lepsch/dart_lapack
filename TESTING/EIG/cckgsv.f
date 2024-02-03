@@ -81,7 +81,7 @@
             EXIT
          }
       } // 40
-      if ( INFO.LT.0 ) {
+      if ( INFO < 0 ) {
          if ( NFAIL == 0 && FIRSTT ) {
             FIRSTT = false;
             alahdg(NOUT, PATH );

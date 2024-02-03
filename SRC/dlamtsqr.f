@@ -54,21 +54,21 @@
         INFO = -1
       } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
         INFO = -2
-      } else if ( M.LT.K ) {
+      } else if ( M < K ) {
         INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
         INFO = -4
-      } else if ( K.LT.0 ) {
+      } else if ( K < 0 ) {
         INFO = -5
-      } else if ( K.LT.NB || NB.LT.1 ) {
+      } else if ( K < NB || NB < 1 ) {
         INFO = -7
-      } else if ( LDA.LT.MAX( 1, Q ) ) {
+      } else if ( LDA < MAX( 1, Q ) ) {
         INFO = -9
-      } else if ( LDT.LT.MAX( 1, NB ) ) {
+      } else if ( LDT < MAX( 1, NB ) ) {
         INFO = -11
-      } else if ( LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < MAX( 1, M ) ) {
         INFO = -13
-      } else if ( LWORK.LT.LWMIN && (.NOT.LQUERY) ) {
+      } else if ( LWORK < LWMIN && (.NOT.LQUERY) ) {
         INFO = -15
       }
 

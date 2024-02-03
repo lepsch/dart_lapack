@@ -45,9 +45,9 @@
          INFO = -2
       } else if ( .NOT.LSAME( DIAG, 'U' ) && .NOT.LSAME( DIAG, 'N' ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -153,7 +153,7 @@
             K = N
             KC = N*( N+1 ) / 2 + 1
             } // 40
-            if (K.LT.1) GO TO 60;
+            if (K < 1) GO TO 60;
             KC = KC - ( N-K+1 )
 
             // Test the pivot index.  If greater than zero, a 1 x 1
@@ -243,7 +243,7 @@
             K = N
             KC = N*( N+1 ) / 2 + 1
             } // 70
-            if (K.LT.1) GO TO 90;
+            if (K < 1) GO TO 90;
             KC = KC - K
 
             // 1 x 1 pivot block.
@@ -316,7 +316,7 @@
             // 1 x 1 pivot block
 
             if ( IPIV( K ).GT.0 ) {
-               if ( K.LT.N ) {
+               if ( K < N ) {
 
                   // Interchange if P(K) != I.
 
@@ -335,7 +335,7 @@
 
             } else {
                KCNEXT = KC + N - K + 1
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                // Interchange if P(K) != I.
 

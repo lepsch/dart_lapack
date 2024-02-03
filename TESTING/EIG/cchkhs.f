@@ -62,22 +62,22 @@
       NMAX = 0
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = true;
+         IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADNN ) {
          INFO = -2
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -3
-      } else if ( THRESH.LT.ZERO ) {
+      } else if ( THRESH < ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA < NMAX ) {
          INFO = -9
-      } else if ( LDU.LE.1 || LDU.LT.NMAX ) {
+      } else if ( LDU.LE.1 || LDU < NMAX ) {
          INFO = -14
       } else if ( 4*NMAX*NMAX+2.GT.NWORK ) {
          INFO = -26
@@ -481,14 +481,14 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if (IINFO.LT.0) GO TO 240;
+               if (IINFO < 0) GO TO 240;
             } else {
 
                // Test 11:  | HX - XW | / ( |H| |X| ulp )
 
                          // (from inverse iteration)
 
-               CALL CGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, W3, WORK, RWORK, DUMMA( 1 ) )                IF( DUMMA( 1 ).LT.ULPINV ) RESULT( 11 ) = DUMMA( 1 )*ANINV
+               CALL CGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, W3, WORK, RWORK, DUMMA( 1 ) )                IF( DUMMA( 1 ) < ULPINV ) RESULT( 11 ) = DUMMA( 1 )*ANINV
                if ( DUMMA( 2 ).GT.THRESH ) {
                   WRITE( NOUNIT, FMT = 9998 )'Right', 'CHSEIN', DUMMA( 2 ), N, JTYPE, IOLDSD
                }
@@ -506,14 +506,14 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if (IINFO.LT.0) GO TO 240;
+               if (IINFO < 0) GO TO 240;
             } else {
 
                // Test 12:  | YH - WY | / ( |H| |Y| ulp )
 
                          // (from inverse iteration)
 
-               CALL CGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, W3, WORK, RWORK, DUMMA( 3 ) )                IF( DUMMA( 3 ).LT.ULPINV ) RESULT( 12 ) = DUMMA( 3 )*ANINV
+               CALL CGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, W3, WORK, RWORK, DUMMA( 3 ) )                IF( DUMMA( 3 ) < ULPINV ) RESULT( 12 ) = DUMMA( 3 )*ANINV
                if ( DUMMA( 4 ).GT.THRESH ) {
                   WRITE( NOUNIT, FMT = 9998 )'Left', 'CHSEIN', DUMMA( 4 ), N, JTYPE, IOLDSD
                }
@@ -528,14 +528,14 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if (IINFO.LT.0) GO TO 240;
+               if (IINFO < 0) GO TO 240;
             } else {
 
                // Test 13:  | AX - XW | / ( |A| |X| ulp )
 
                          // (from inverse iteration)
 
-               CALL CGET22( 'N', 'N', 'N', N, A, LDA, EVECTX, LDU, W3, WORK, RWORK, DUMMA( 1 ) )                IF( DUMMA( 1 ).LT.ULPINV ) RESULT( 13 ) = DUMMA( 1 )*ANINV
+               CALL CGET22( 'N', 'N', 'N', N, A, LDA, EVECTX, LDU, W3, WORK, RWORK, DUMMA( 1 ) )                IF( DUMMA( 1 ) < ULPINV ) RESULT( 13 ) = DUMMA( 1 )*ANINV
             }
 
             // Call CUNMHR for Left eigenvectors of A, do test 14
@@ -547,14 +547,14 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if (IINFO.LT.0) GO TO 240;
+               if (IINFO < 0) GO TO 240;
             } else {
 
                // Test 14:  | YA - WY | / ( |A| |Y| ulp )
 
                          // (from inverse iteration)
 
-               CALL CGET22( 'C', 'N', 'C', N, A, LDA, EVECTY, LDU, W3, WORK, RWORK, DUMMA( 3 ) )                IF( DUMMA( 3 ).LT.ULPINV ) RESULT( 14 ) = DUMMA( 3 )*ANINV
+               CALL CGET22( 'C', 'N', 'C', N, A, LDA, EVECTY, LDU, W3, WORK, RWORK, DUMMA( 3 ) )                IF( DUMMA( 3 ) < ULPINV ) RESULT( 14 ) = DUMMA( 3 )*ANINV
             }
 
             // Compute Left and Right Eigenvectors of A

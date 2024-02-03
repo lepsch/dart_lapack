@@ -95,19 +95,19 @@
         LWMIN = M*MB
       }
 
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
         INFO = -1
-      } else if ( N.LT.0 || N.LT.M ) {
+      } else if ( N < 0 || N < M ) {
         INFO = -2
-      } else if ( MB.LT.1 || ( MB.GT.M && M.GT.0 ) ) {
+      } else if ( MB < 1 || ( MB.GT.M && M.GT.0 ) ) {
         INFO = -3
       } else if ( NB.LE.0 ) {
         INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
         INFO = -6
-      } else if ( LDT.LT.MB ) {
+      } else if ( LDT < MB ) {
         INFO = -8
-      } else if ( LWORK.LT.LWMIN && (.NOT.LQUERY) ) {
+      } else if ( LWORK < LWMIN && (.NOT.LQUERY) ) {
         INFO = -10
       }
       if ( INFO == 0 ) {

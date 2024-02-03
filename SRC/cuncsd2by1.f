@@ -51,21 +51,21 @@
       WANTV1T = LSAME( JOBV1T, 'Y' )
       LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 )
 
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -4
-      } else if ( P .LT. 0 || P .GT. M ) {
+      } else if ( P < 0 || P .GT. M ) {
          INFO = -5
-      } else if ( Q .LT. 0 || Q .GT. M ) {
+      } else if ( Q < 0 || Q .GT. M ) {
          INFO = -6
-      } else if ( LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( LDX11 < MAX( 1, P ) ) {
          INFO = -8
-      } else if ( LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if ( LDX21 < MAX( 1, M-P ) ) {
          INFO = -10
-      } else if ( WANTU1 && LDU1 .LT. MAX( 1, P ) ) {
+      } else if ( WANTU1 && LDU1 < MAX( 1, P ) ) {
          INFO = -13
-      } else if ( WANTU2 && LDU2 .LT. MAX( 1, M - P ) ) {
+      } else if ( WANTU2 && LDU2 < MAX( 1, M - P ) ) {
          INFO = -15
-      } else if ( WANTV1T && LDV1T .LT. MAX( 1, Q ) ) {
+      } else if ( WANTV1T && LDV1T < MAX( 1, Q ) ) {
          INFO = -17
       }
 
@@ -211,10 +211,10 @@
          RWORK(1) = LRWORKOPT
          LWORKMIN = MAX( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1 )          LWORKOPT = MAX( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1 )
          WORK(1) = SROUNDUP_LWORK(LWORKOPT)
-         if ( LWORK .LT. LWORKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWORKMIN && .NOT.LQUERY ) {
             INFO = -19
          }
-         if ( LRWORK .LT. LRWORKMIN && .NOT.LQUERY ) {
+         if ( LRWORK < LRWORKMIN && .NOT.LQUERY ) {
             INFO = -21
          }
       }

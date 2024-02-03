@@ -53,7 +53,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB.LT.0 ) || ( IJOB.GT.2 ) ) {
+         if ( ( IJOB < 0 ) || ( IJOB.GT.2 ) ) {
             INFO = -2
          }
       }
@@ -62,17 +62,17 @@
             INFO = -3
          } else if ( N.LE.0 ) {
             INFO = -4
-         } else if ( LDA.LT.MAX( 1, M ) ) {
+         } else if ( LDA < MAX( 1, M ) ) {
             INFO = -6
-         } else if ( LDB.LT.MAX( 1, N ) ) {
+         } else if ( LDB < MAX( 1, N ) ) {
             INFO = -8
-         } else if ( LDC.LT.MAX( 1, M ) ) {
+         } else if ( LDC < MAX( 1, M ) ) {
             INFO = -10
-         } else if ( LDD.LT.MAX( 1, M ) ) {
+         } else if ( LDD < MAX( 1, M ) ) {
             INFO = -12
-         } else if ( LDE.LT.MAX( 1, N ) ) {
+         } else if ( LDE < MAX( 1, N ) ) {
             INFO = -14
-         } else if ( LDF.LT.MAX( 1, M ) ) {
+         } else if ( LDF < MAX( 1, M ) ) {
             INFO = -16
          }
       }
@@ -186,7 +186,7 @@
                      daxpy(IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ), 1 );
                      daxpy(IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ), 1 );
                   }
-                  if ( J.LT.Q ) {
+                  if ( J < Q ) {
                      daxpy(N-JE, RHS( 2 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC );
                      daxpy(N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
@@ -254,7 +254,7 @@
                      dger(IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC );
                      dger(IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF );
                   }
-                  if ( J.LT.Q ) {
+                  if ( J < Q ) {
                      daxpy(N-JE, RHS( 3 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC );
                      daxpy(N-JE, RHS( 3 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                      daxpy(N-JE, RHS( 4 ), B( JSP1, JE+1 ), LDB, C( IS, JE+1 ), LDC );
@@ -323,7 +323,7 @@
                      dgemv('N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 );
                      dgemv('N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 );
                   }
-                  if ( J.LT.Q ) {
+                  if ( J < Q ) {
                      dger(MB, N-JE, ONE, RHS( 3 ), 1, B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC );
                      dger(MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
@@ -416,7 +416,7 @@
                      dgemm('N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC );
                      dgemm('N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF );
                   }
-                  if ( J.LT.Q ) {
+                  if ( J < Q ) {
                      K = MB*NB + 1
                      dgemm('N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC );
                      dgemm('N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF );
@@ -490,7 +490,7 @@
                      ALPHA = RHS( 2 )
                      daxpy(JS-1, ALPHA, E( 1, JS ), 1, F( IS, 1 ), LDF );
                   }
-                  if ( I.LT.P ) {
+                  if ( I < P ) {
                      ALPHA = -RHS( 1 )
                      daxpy(M-IE, ALPHA, A( IS, IE+1 ), LDA, C( IE+1, JS ), 1 );
                      ALPHA = -RHS( 2 )
@@ -557,7 +557,7 @@
                      daxpy(JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF );
                      daxpy(JS-1, RHS( 4 ), E( 1, JSP1 ), 1, F( IS, 1 ), LDF );
                   }
-                  if ( I.LT.P ) {
+                  if ( I < P ) {
                      dger(M-IE, NB, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, C( IE+1, JS ), LDC );
                      dger(M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC );
                   }
@@ -621,7 +621,7 @@
                      dger(MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF );
                      dger(MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF );
                   }
-                  if ( I.LT.P ) {
+                  if ( I < P ) {
                      dgemv('T', MB, M-IE, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, ONE, C( IE+1, JS ), 1 );
                      dgemv('T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 );
                   }
@@ -712,7 +712,7 @@
                      dgemm('N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF );
                      dgemm('N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF );
                   }
-                  if ( I.LT.P ) {
+                  if ( I < P ) {
                      dgemm('T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC );
                      dgemm('T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC );
                   }

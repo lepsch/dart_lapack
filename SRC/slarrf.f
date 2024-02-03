@@ -111,7 +111,7 @@
       // Left end
       S = -LSIGMA
       DPLUS( 1 ) = D( 1 ) + S
-      if (ABS(DPLUS(1)).LT.PIVMIN) {
+      if (ABS(DPLUS(1)) < PIVMIN) {
          DPLUS(1) = -PIVMIN
          // Need to set SAWNAN1 because refined RRR test should not be used
          // in this case
@@ -122,7 +122,7 @@
          LPLUS( I ) = LD( I ) / DPLUS( I )
          S = S*LPLUS( I )*L( I ) - LSIGMA
          DPLUS( I+1 ) = D( I+1 ) + S
-         if (ABS(DPLUS(I+1)).LT.PIVMIN) {
+         if (ABS(DPLUS(I+1)) < PIVMIN) {
             DPLUS(I+1) = -PIVMIN
             // Need to set SAWNAN1 because refined RRR test should not be used
             // in this case
@@ -140,7 +140,7 @@
       // Right end
       S = -RSIGMA
       WORK( 1 ) = D( 1 ) + S
-      if (ABS(WORK(1)).LT.PIVMIN) {
+      if (ABS(WORK(1)) < PIVMIN) {
          WORK(1) = -PIVMIN
          // Need to set SAWNAN2 because refined RRR test should not be used
          // in this case
@@ -151,7 +151,7 @@
          WORK( N+I ) = LD( I ) / WORK( I )
          S = S*WORK( N+I )*L( I ) - RSIGMA
          WORK( I+1 ) = D( I+1 ) + S
-         if (ABS(WORK(I+1)).LT.PIVMIN) {
+         if (ABS(WORK(I+1)) < PIVMIN) {
             WORK(I+1) = -PIVMIN
             // Need to set SAWNAN2 because refined RRR test should not be used
             // in this case
@@ -193,7 +193,7 @@
       // we may still accept the representation, if it passes a
       // refined test for RRR. This test supposes that no NaN occurred.
       // Moreover, we use the refined RRR test only for isolated clusters.
-      if ((CLWDTH.LT.MINGAP/REAL(128)) && (MIN(MAX1,MAX2).LT.FAIL2) && (.NOT.SAWNAN1) && (.NOT.SAWNAN2)) {
+      if ((CLWDTH < MINGAP/REAL(128)) && (MIN(MAX1,MAX2) < FAIL2) && (.NOT.SAWNAN1) && (.NOT.SAWNAN2)) {
          DORRR1 = true;
       } else {
          DORRR1 = false;
@@ -247,7 +247,7 @@
 
       } // 50
 
-      if (KTRY.LT.KTRYMAX) {
+      if (KTRY < KTRYMAX) {
          // If we are here, both shifts failed also the RRR test.
          // Back off to the outside
          LSIGMA = MAX( LSIGMA - LDELTA, LSIGMA - LDMAX)          RSIGMA = MIN( RSIGMA + RDELTA, RSIGMA + RDMAX )
@@ -258,7 +258,7 @@
       } else {
          // None of the representations investigated satisfied our
          // criteria. Take the best one we found.
-         if ((SMLGROWTH.LT.FAIL) || NOFAIL) {
+         if ((SMLGROWTH < FAIL) || NOFAIL) {
             LSIGMA = BESTSHIFT
             RSIGMA = BESTSHIFT
             FORCER = true;

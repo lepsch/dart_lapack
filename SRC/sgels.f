@@ -47,17 +47,17 @@
       LQUERY = ( LWORK == -1 )
       if ( .NOT.( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LDB.LT.MAX( 1, M, N ) ) {
+      } else if ( LDB < MAX( 1, M, N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.MAX( 1, MN + MAX( MN, NRHS ) ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, MN + MAX( MN, NRHS ) ) && .NOT.LQUERY ) {
          INFO = -10
       }
 
@@ -112,7 +112,7 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -136,7 +136,7 @@
       if (TPSD) BROW = N;
       BNRM = SLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 

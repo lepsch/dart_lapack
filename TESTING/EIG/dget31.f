@@ -113,14 +113,14 @@
                               }
                               WI = ZERO
                               dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
-                              if (INFO.LT.0) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )-SCALE*B( 1, 1 ) );
+                              if (INFO < 0) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )-SCALE*B( 1, 1 ) );
                               if ( INFO == 0 ) {
                                  DEN = MAX( EPS*( ABS( ( CA*A( 1, 1 )-WR*D1 )*X( 1, 1 ) ) ), SMLNUM )
                               } else {
                                  DEN = MAX( SMIN*ABS( X( 1, 1 ) ), SMLNUM )
                               }
                               RES = RES / DEN
-                              IF( ABS( X( 1, 1 ) ).LT.UNFL && ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) )RES = ZERO
+                              IF( ABS( X( 1, 1 ) ) < UNFL && ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) )RES = ZERO
                               if (SCALE.GT.ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                               IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
                               KNT = KNT + 1
                               if ( RES.GT.RMAX ) {
@@ -151,14 +151,14 @@
                                     WI = VWI( IWI )
                                  }
                                  dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
-                                 if (INFO.LT.0) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( -WI*D1 )*X( 1, 1 )+ ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )- SCALE*B( 1, 2 ) );
+                                 if (INFO < 0) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( -WI*D1 )*X( 1, 1 )+ ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )- SCALE*B( 1, 2 ) );
                                  if ( INFO == 0 ) {
                                     DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 ), ABS( D1*WI ) )* ( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ) ), SMLNUM )
                                  } else {
                                     DEN = MAX( SMIN*( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ), SMLNUM )
                                  }
                                  RES = RES / DEN
-                                 IF( ABS( X( 1, 1 ) ).LT.UNFL && ABS( X( 1, 2 ) ).LT.UNFL && ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) ) RES = ZERO
+                                 IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 1, 2 ) ) < UNFL && ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) ) RES = ZERO
                                  if (SCALE.GT.ONE) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- ABS( X( 1, 1 ) )- ABS( X( 1, 2 ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
                                  if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                                  KNT = KNT + 1
@@ -189,7 +189,7 @@
                               }
                               WI = ZERO
                               dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
-                              if (INFO.LT.0) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
+                              if (INFO < 0) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
                               if ( ITRANS == 1 ) {
                                  TMP = A( 1, 2 )
                                  A( 1, 2 ) = A( 2, 1 )
@@ -202,7 +202,7 @@
                                  DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
                               }
                               RES = RES / DEN
-                              IF( ABS( X( 1, 1 ) ).LT.UNFL && ABS( X( 2, 1 ) ).LT.UNFL && ABS( B( 1, 1 ) )+ABS( B( 2, 1 ) ).LE. SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) ) RES = ZERO
+                              IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 2, 1 ) ) < UNFL && ABS( B( 1, 1 ) )+ABS( B( 2, 1 ) ).LE. SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) ) RES = ZERO
                               if (SCALE.GT.ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
                               if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                               KNT = KNT + 1
@@ -239,7 +239,7 @@
                                     WI = VWI( IWI )
                                  }
                                  dlaln2(LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO );
-                                 if (INFO.LT.0) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
+                                 if (INFO < 0) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1;
                                  if ( ITRANS == 1 ) {
                                     TMP = A( 1, 2 )
                                     A( 1, 2 ) = A( 2, 1 )
@@ -253,7 +253,7 @@
                                     DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )
                                  }
                                  RES = RES / DEN
-                                 IF( ABS( X( 1, 1 ) ).LT.UNFL && ABS( X( 2, 1 ) ).LT.UNFL && ABS( X( 1, 2 ) ).LT.UNFL && ABS( X( 2, 2 ) ).LT.UNFL && ABS( B( 1, 1 ) )+ ABS( B( 2, 1 ) ).LE.SMLNUM* ( ABS( CA*A( 1, 1 )-WR*D1 )+ ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 )+ABS( WI* D1 ) ) )RES = ZERO
+                                 IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 2, 1 ) ) < UNFL && ABS( X( 1, 2 ) ) < UNFL && ABS( X( 2, 2 ) ) < UNFL && ABS( B( 1, 1 ) )+ ABS( B( 2, 1 ) ).LE.SMLNUM* ( ABS( CA*A( 1, 1 )-WR*D1 )+ ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 )+ABS( WI* D1 ) ) )RES = ZERO
                                  if (SCALE.GT.ONE) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) )+ABS( X( 2, 2 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
                                  if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                                  KNT = KNT + 1

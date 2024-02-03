@@ -93,7 +93,7 @@
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 && IMAT.LE.5
-            if (ZEROT && N.LT.IMAT-2) GO TO 110;
+            if (ZEROT && N < IMAT-2) GO TO 110;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -177,7 +177,7 @@
 
                   zcposv(UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO );
 
-                  if (ITER.LT.0) {
+                  if (ITER < 0) {
                      zlacpy('All', N, N, A, LDA, AFAC, LDA );
                   }
 
@@ -217,7 +217,7 @@
                   // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
                   // (Cf. the linear solver testing routines)
 
-                  if ((THRESH.LE.0.0E+00) || ((ITER.GE.0) && (N.GT.0) && (RESULT(1).GE.SQRT(DBLE(N)))) || ((ITER.LT.0) && (RESULT(1).GE.THRESH))) {
+                  if ((THRESH.LE.0.0E+00) || ((ITER.GE.0) && (N.GT.0) && (RESULT(1).GE.SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1).GE.THRESH))) {
 
                      if ( NFAIL == 0 && NERRS == 0 ) {
                         WRITE( NOUT, FMT = 8999 )'ZPO'

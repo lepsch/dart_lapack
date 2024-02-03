@@ -40,15 +40,15 @@
       INFO = 0
       LQUERY = LWORK == -1
 
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( P .LT. Q || M-P .LT. Q ) {
+      } else if ( P < Q || M-P < Q ) {
          INFO = -2
-      } else if ( Q .LT. 0 || M-Q .LT. Q ) {
+      } else if ( Q < 0 || M-Q < Q ) {
          INFO = -3
-      } else if ( LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( LDX11 < MAX( 1, P ) ) {
          INFO = -5
-      } else if ( LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if ( LDX21 < MAX( 1, M-P ) ) {
          INFO = -7
       }
 
@@ -62,7 +62,7 @@
          LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 )
          LWORKMIN = LWORKOPT
          WORK(1) = LWORKOPT
-         if ( LWORK .LT. LWORKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWORKMIN && .NOT.LQUERY ) {
            INFO = -14
          }
       }
@@ -87,7 +87,7 @@
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
          dlarf('L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) );
 
-         if ( I .LT. Q ) {
+         if ( I < Q ) {
             drot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
             dlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = X21(I,I+1)

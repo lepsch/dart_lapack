@@ -82,7 +82,7 @@
       if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
-         if ( ANORM.LT.ONE ) {
+         if ( ANORM < ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )

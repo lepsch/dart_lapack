@@ -25,7 +25,7 @@
       DATA GAM,GAMSQ,RGAMSQ/4096.E0,1.67772E7,5.96046E-8/
       // ..
 
-      if (SD1.LT.ZERO) {
+      if (SD1 < ZERO) {
          // GO ZERO-H-D-AND-SX1..
          SFLAG = -ONE
          SH11 = ZERO
@@ -76,7 +76,7 @@
            }
          } else {
 
-            if (SQ2.LT.ZERO) {
+            if (SQ2 < ZERO) {
                // GO ZERO-H-D-AND-SX1..
                SFLAG = -ONE
                SH11 = ZERO
@@ -150,7 +150,7 @@
 
       }
 
-      if (SFLAG.LT.ZERO) {
+      if (SFLAG < ZERO) {
          SPARAM(2) = SH11
          SPARAM(3) = SH21
          SPARAM(4) = SH12

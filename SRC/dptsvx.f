@@ -42,13 +42,13 @@
       NOFACT = LSAME( FACT, 'N' )
       if ( .NOT.NOFACT && .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDX.LT.MAX( 1, N ) ) {
+      } else if ( LDX < MAX( 1, N ) ) {
          INFO = -11
       }
       if ( INFO != 0 ) {
@@ -92,7 +92,7 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1
 
       RETURN
 

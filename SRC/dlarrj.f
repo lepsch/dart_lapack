@@ -64,14 +64,14 @@
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
 
          // The following test prevents the test of converged intervals
-         if ( WIDTH.LT.RTOL*TMP ) {
+         if ( WIDTH < RTOL*TMP ) {
             // This interval has already converged and does not need refinement.
             // (Note that the gaps might change through refining the
              // eigenvalues, however, they can only get bigger.)
             // Remove it from the list.
             IWORK( K-1 ) = -1
             // Make sure that I1 always points to the first unconverged interval
-            IF((I == I1) && (I.LT.I2)) I1 = I + 1
+            IF((I == I1) && (I < I2)) I1 = I + 1
             IF((PREV.GE.I1) && (I.LE.I2)) IWORK( 2*PREV-1 ) = I + 1
          } else {
             // unconverged interval found
@@ -85,10 +85,10 @@
             CNT = 0
             S = LEFT
             DPLUS = D( 1 ) - S
-            if (DPLUS.LT.ZERO) CNT = CNT + 1;
+            if (DPLUS < ZERO) CNT = CNT + 1;
             for (J = 2; J <= N; J++) { // 30
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
-               if (DPLUS.LT.ZERO) CNT = CNT + 1;
+               if (DPLUS < ZERO) CNT = CNT + 1;
             } // 30
             if ( CNT.GT.I-1 ) {
                LEFT = LEFT - WERR( II )*FAC
@@ -96,19 +96,19 @@
                GO TO 20
             }
 
-            // Do while( CNT(RIGHT).LT.I )
+            // Do while( CNT(RIGHT) < I )
 
             FAC = ONE
             } // 50
             CNT = 0
             S = RIGHT
             DPLUS = D( 1 ) - S
-            if (DPLUS.LT.ZERO) CNT = CNT + 1;
+            if (DPLUS < ZERO) CNT = CNT + 1;
             for (J = 2; J <= N; J++) { // 60
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
-               if (DPLUS.LT.ZERO) CNT = CNT + 1;
+               if (DPLUS < ZERO) CNT = CNT + 1;
             } // 60
-            if ( CNT.LT.I ) {
+            if ( CNT < I ) {
                RIGHT = RIGHT + WERR( II )*FAC
                FAC = TWO*FAC
                GO TO 50
@@ -125,7 +125,7 @@
       SAVI1 = I1
 
       // Do while( NINT.GT.0 ), i.e. there are still unconverged intervals
-      // and while (ITER.LT.MAXITR)
+      // and while (ITER < MAXITR)
 
       ITER = 0
       } // 80
@@ -144,7 +144,7 @@
          // semiwidth of interval
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
-          if ( ( WIDTH.LT.RTOL*TMP ) || (ITER == MAXITR) ) {
+          if ( ( WIDTH < RTOL*TMP ) || (ITER == MAXITR) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1
             // Mark interval as converged.
@@ -165,10 +165,10 @@
          CNT = 0
          S = MID
          DPLUS = D( 1 ) - S
-         if (DPLUS.LT.ZERO) CNT = CNT + 1;
+         if (DPLUS < ZERO) CNT = CNT + 1;
          for (J = 2; J <= N; J++) { // 90
             DPLUS = D( J ) - S - E2( J-1 )/DPLUS
-            if (DPLUS.LT.ZERO) CNT = CNT + 1;
+            if (DPLUS < ZERO) CNT = CNT + 1;
          } // 90
          if ( CNT.LE.I-1 ) {
             WORK( K-1 ) = MID

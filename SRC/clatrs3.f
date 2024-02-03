@@ -94,15 +94,15 @@
          INFO = -3
       } else if ( .NOT.LSAME( NORMIN, 'Y' ) && .NOT. LSAME( NORMIN, 'N' ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -6
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LDX.LT.MAX( 1, N ) ) {
+      } else if ( LDX < MAX( 1, N ) ) {
          INFO = -10
-      } else if ( .NOT.LQUERY && LWORK.LT.LWMIN ) {
+      } else if ( .NOT.LQUERY && LWORK < LWMIN ) {
          INFO = -14
       }
       if ( INFO != 0 ) {
@@ -129,7 +129,7 @@
 
       // Use unblocked code for small problems
 
-      if ( NRHS.LT.NRHSMIN ) {
+      if ( NRHS < NRHSMIN ) {
          clatrs(UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1 ), SCALE( 1 ), CNORM, INFO );
          for (K = 2; K <= NRHS; K++) {
             clatrs(UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );

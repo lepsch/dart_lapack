@@ -72,7 +72,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB.LT.N ) || K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB < N ) || K < 1 ) GO TO 30
 
          KSTEP = 1
          P = K
@@ -80,7 +80,7 @@
          // Copy column K of A to column KW of W and update it
 
          dcopy(K, A( 1, K ), 1, W( 1, KW ), 1 );
-         if (K.LT.N) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, ONE, W( 1, KW ), 1 );
+         if (K < N) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, ONE, W( 1, KW ), 1 );
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
@@ -119,7 +119,7 @@
             // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
+            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -141,7 +141,7 @@
                   dcopy(IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
                   dcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
 
-                  if (K.LT.N) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, ONE, W( 1, KW-1 ), 1 );
+                  if (K < N) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, ONE, W( 1, KW-1 ), 1 );
 
                   // JMAX is the column-index of the largest off-diagonal
                   // element in row IMAX, and ROWMAX is its absolute value.
@@ -167,7 +167,7 @@
                   // ABS( W( IMAX, KW-1 ) ).GE.ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.(ABS( W( IMAX, KW-1 ) ).LT.ALPHA*ROWMAX ) ) {
+                  if ( .NOT.(ABS( W( IMAX, KW-1 ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -373,7 +373,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB.LT.N ) || K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB < N ) || K.GT.N ) GO TO 90
 
          KSTEP = 1
          P = K
@@ -392,7 +392,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + IDAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = ABS( W( IMAX, K ) )
          } else {
@@ -409,7 +409,7 @@
 
             // Set E( K ) to zero
 
-            if (K.LT.N) E( K ) = ZERO;
+            if (K < N) E( K ) = ZERO;
 
          } else {
 
@@ -420,7 +420,7 @@
             // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
+            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -453,7 +453,7 @@
                      ROWMAX = ZERO
                   }
 
-                  if ( IMAX.LT.N ) {
+                  if ( IMAX < N ) {
                      ITEMP = IMAX + IDAMAX( N-IMAX, W( IMAX+1, K+1 ), 1)
                      DTEMP = ABS( W( ITEMP, K+1 ) )
                      if ( DTEMP.GT.ROWMAX ) {
@@ -466,7 +466,7 @@
                   // ABS( W( IMAX, K+1 ) ).GE.ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.( ABS( W( IMAX, K+1 ) ).LT.ALPHA*ROWMAX ) ) {
+                  if ( .NOT.( ABS( W( IMAX, K+1 ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -555,7 +555,7 @@
                // Store L(k) in column k of A
 
                dcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
-               if ( K.LT.N ) {
+               if ( K < N ) {
                   if ( ABS( A( K, K ) ).GE.SFMIN ) {
                      R1 = ONE / A( K, K )
                      dscal(N-K, R1, A( K+1, K ), 1 );
@@ -580,7 +580,7 @@
                // where L(k) and L(k+1) are the k-th and (k+1)-th columns
                // of L
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                   // Store L(k) and L(k+1) in columns k and k+1 of A
 

@@ -58,11 +58,11 @@
 
       if ( ITYPE == 0 ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -3
-      } else if ( N.LT.0 || ( ITYPE == 3 && N != M ) ) {
+      } else if ( N < 0 || ( ITYPE == 3 && N != M ) ) {
          INFO = -4
-      } else if ( LDA.LT.M ) {
+      } else if ( LDA < M ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -112,7 +112,7 @@
          XNORMS = CSIGN*XNORM
          X( NXFRM+KBEG ) = -CSIGN
          FACTOR = XNORM*( XNORM+XABS )
-         if ( ABS( FACTOR ).LT.TOOSML ) {
+         if ( ABS( FACTOR ) < TOOSML ) {
             INFO = 1
             xerbla('ZLAROR', -INFO );
             RETURN

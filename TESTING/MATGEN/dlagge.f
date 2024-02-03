@@ -37,18 +37,18 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( KL.LT.0 || KL.GT.M-1 ) {
+      } else if ( KL < 0 || KL.GT.M-1 ) {
          INFO = -3
-      } else if ( KU.LT.0 || KU.GT.N-1 ) {
+      } else if ( KU < 0 || KU.GT.N-1 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -7
       }
-      if ( INFO.LT.0 ) {
+      if ( INFO < 0 ) {
          xerbla('DLAGGE', -INFO );
          RETURN
       }
@@ -71,7 +71,7 @@
       // pre- and post-multiply A by random orthogonal matrices
 
       DO 40 I = MIN( M, N ), 1, -1
-         if ( I.LT.M ) {
+         if ( I < M ) {
 
             // generate random reflection
 
@@ -92,7 +92,7 @@
             dgemv('Transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( M+1 ), 1 );
             dger(M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1, A( I, I ), LDA );
          }
-         if ( I.LT.N ) {
+         if ( I < N ) {
 
             // generate random reflection
 

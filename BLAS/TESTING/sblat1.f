@@ -869,7 +869,7 @@ void main() {
                X(I) = ROGUE
             }
             IX = 1
-            if (INCX.LT.0) IX = 1 - (N-1)*INCX;
+            if (INCX < 0) IX = 1 - (N-1)*INCX;
             for (I = 1; I <= N; I++) {
                X(IX) = Z(I)
                IX = IX + INCX

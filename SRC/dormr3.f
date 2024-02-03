@@ -47,17 +47,17 @@
          INFO = -1
       } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -2
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K.LT.0 || K.GT.NQ ) {
+      } else if ( K < 0 || K.GT.NQ ) {
          INFO = -5
-      } else if ( L.LT.0 || ( LEFT && ( L.GT.M ) ) || ( .NOT.LEFT && ( L.GT.N ) ) ) {
+      } else if ( L < 0 || ( LEFT && ( L.GT.M ) ) || ( .NOT.LEFT && ( L.GT.N ) ) ) {
          INFO = -6
-      } else if ( LDA.LT.MAX( 1, K ) ) {
+      } else if ( LDA < MAX( 1, K ) ) {
          INFO = -8
-      } else if ( LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < MAX( 1, M ) ) {
          INFO = -11
       }
       if ( INFO != 0 ) {

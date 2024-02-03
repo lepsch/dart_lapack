@@ -61,11 +61,11 @@
 
       // Check for errors
 
-      if ( NL.LT.NT ) {
+      if ( NL < NT ) {
          xerbla('ZLAROT', 4 );
          RETURN
       }
-      if ( LDA.LE.0 || ( .NOT.LROWS && LDA.LT.NL-NT ) ) {
+      if ( LDA.LE.0 || ( .NOT.LROWS && LDA < NL-NT ) ) {
          xerbla('ZLAROT', 8 );
          RETURN
       }

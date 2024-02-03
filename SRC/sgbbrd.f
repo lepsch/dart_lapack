@@ -45,23 +45,23 @@
       INFO = 0
       if ( .NOT.WANTQ && .NOT.WANTPT && .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( NCC.LT.0 ) {
+      } else if ( NCC < 0 ) {
          INFO = -4
-      } else if ( KL.LT.0 ) {
+      } else if ( KL < 0 ) {
          INFO = -5
-      } else if ( KU.LT.0 ) {
+      } else if ( KU < 0 ) {
          INFO = -6
-      } else if ( LDAB.LT.KLU1 ) {
+      } else if ( LDAB < KLU1 ) {
          INFO = -8
-      } else if ( LDQ.LT.1 || WANTQ && LDQ.LT.MAX( 1, M ) ) {
+      } else if ( LDQ < 1 || WANTQ && LDQ < MAX( 1, M ) ) {
          INFO = -12
-      } else if ( LDPT.LT.1 || WANTPT && LDPT.LT.MAX( 1, N ) ) {
+      } else if ( LDPT < 1 || WANTPT && LDPT < MAX( 1, N ) ) {
          INFO = -14
-      } else if ( LDC.LT.1 || WANTC && LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < 1 || WANTC && LDC < MAX( 1, M ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -143,7 +143,7 @@
 
                      slartg(AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA );
                      AB( KU+ML-1, I ) = RA
-                     if (I.LT.N) CALL SROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) );
+                     if (I < N) CALL SROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) );
                   }
                   NR = NR + 1
                   J1 = J1 - KB1
@@ -260,7 +260,7 @@
          DO 100 I = 1, MIN( M-1, N )
             slartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
             D( I ) = RA
-            if ( I.LT.N ) {
+            if ( I < N ) {
                E( I ) = RS*AB( 1, I+1 )
                AB( 1, I+1 ) = RC*AB( 1, I+1 )
             }
@@ -271,7 +271,7 @@
 
          // A has been reduced to upper bidiagonal form
 
-         if ( M.LT.N ) {
+         if ( M < N ) {
 
             // Annihilate a(m,m+1) by applying plane rotations from the
             // right, storing diagonal elements in D and off-diagonal

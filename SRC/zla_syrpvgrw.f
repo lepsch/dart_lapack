@@ -82,7 +82,7 @@
 
       if ( UPPER ) {
          K = N
-         DO WHILE ( K .LT. NCOLS && K.GT.0 )
+         DO WHILE ( K < NCOLS && K.GT.0 )
             if ( IPIV( K ).GT.0 ) {
                // 1x1 pivot
                KP = IPIV( K )

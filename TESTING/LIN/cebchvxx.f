@@ -111,7 +111,7 @@
          }
 
          N_AUX_TESTS = N_AUX_TESTS + 1
-         if (ORCOND .LT. EPS) {
+         if (ORCOND < EPS) {
          // Either factorization failed or the matrix is flagged, and 1 <=
          // INFO <= N+1. We don't decide based on rcond anymore.
              // IF (INFO == 0 || INFO .GT. N+1) THEN
@@ -258,7 +258,7 @@
                }
             } else {
                NGUAR = 'NO'
-               if (NWISE_BND .LT. 1.0) {
+               if (NWISE_BND < 1.0) {
                   TSTRAT(1) = 1/(8.0*EPS)
                } else {
                   TSTRAT(1) = 1.0
@@ -283,7 +283,7 @@
                }
             } else {
                CGUAR = 'NO'
-               if (CWISE_BND .LT. 1.0) {
+               if (CWISE_BND < 1.0) {
                   TSTRAT(2) = 1/(8.0*EPS)
                } else {
                   TSTRAT(2) = 1.0
@@ -295,13 +295,13 @@
 
       // Condition number tests
             TSTRAT(4) = RCOND / ORCOND
-            IF (RCOND .GE. CONDTHRESH && TSTRAT(4) .LT. 1.0) TSTRAT(4) = 1.0 / TSTRAT(4)
+            IF (RCOND .GE. CONDTHRESH && TSTRAT(4) < 1.0) TSTRAT(4) = 1.0 / TSTRAT(4)
 
             TSTRAT(5) = NCOND / NWISE_RCOND
-            IF (NCOND .GE. CONDTHRESH && TSTRAT(5) .LT. 1.0) TSTRAT(5) = 1.0 / TSTRAT(5)
+            IF (NCOND .GE. CONDTHRESH && TSTRAT(5) < 1.0) TSTRAT(5) = 1.0 / TSTRAT(5)
 
             TSTRAT(6) = CCOND / NWISE_RCOND
-            IF (CCOND .GE. CONDTHRESH && TSTRAT(6) .LT. 1.0) TSTRAT(6) = 1.0 / TSTRAT(6)
+            IF (CCOND .GE. CONDTHRESH && TSTRAT(6) < 1.0) TSTRAT(6) = 1.0 / TSTRAT(6)
 
             for (I = 1; I <= NTESTS; I++) {
                if (TSTRAT(I) .GT. THRESH) {

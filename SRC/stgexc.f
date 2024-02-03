@@ -38,19 +38,19 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDQ.LT.1 || WANTQ && ( LDQ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDQ < 1 || WANTQ && ( LDQ < MAX( 1, N ) ) ) {
          INFO = -9
-      } else if ( LDZ.LT.1 || WANTZ && ( LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDZ < 1 || WANTZ && ( LDZ < MAX( 1, N ) ) ) {
          INFO = -11
-      } else if ( IFST.LT.1 || IFST.GT.N ) {
+      } else if ( IFST < 1 || IFST.GT.N ) {
          INFO = -12
-      } else if ( ILST.LT.1 || ILST.GT.N ) {
+      } else if ( ILST < 1 || ILST.GT.N ) {
          INFO = -13
       }
 
@@ -62,7 +62,7 @@
          }
          WORK(1) = LWMIN
 
-         if (LWORK.LT.LWMIN && .NOT.LQUERY) {
+         if (LWORK < LWMIN && .NOT.LQUERY) {
             INFO = -15
          }
       }
@@ -85,7 +85,7 @@
          IF( A( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1
       }
       NBF = 1
-      if ( IFST.LT.N ) {
+      if ( IFST < N ) {
          IF( A( IFST+1, IFST ) != ZERO ) NBF = 2
       }
 
@@ -96,12 +96,12 @@
          IF( A( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1
       }
       NBL = 1
-      if ( ILST.LT.N ) {
+      if ( ILST < N ) {
          IF( A( ILST+1, ILST ) != ZERO ) NBL = 2
       }
       if (IFST == ILST) RETURN;
 
-      if ( IFST.LT.ILST ) {
+      if ( IFST < ILST ) {
 
          // Update ILST.
 
@@ -194,7 +194,7 @@
 
             }
          }
-         if (HERE.LT.ILST) GO TO 10;
+         if (HERE < ILST) GO TO 10;
       } else {
          HERE = IFST
 

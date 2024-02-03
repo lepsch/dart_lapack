@@ -61,20 +61,20 @@
       NMAX = 0
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = true;
+         IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADNN ) {
          INFO = -2
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -3
-      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA < NMAX ) {
          INFO = -9
-      } else if ( LDZ.LE.1 || LDZ.LT.NMAX ) {
+      } else if ( LDZ.LE.1 || LDZ < NMAX ) {
          INFO = -16
       } else if ( 2*MAX( NMAX, 2 )**2.GT.NWORK ) {
          INFO = -21
@@ -306,7 +306,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -329,7 +329,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -352,7 +352,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -380,7 +380,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -401,7 +401,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -445,7 +445,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -487,7 +487,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -529,7 +529,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -571,7 +571,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -611,7 +611,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( NTEST ) = ULPINV
@@ -657,7 +657,7 @@
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        if ( IINFO.LT.0 ) {
+                        if ( IINFO < 0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
@@ -699,7 +699,7 @@
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        if ( IINFO.LT.0 ) {
+                        if ( IINFO < 0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
@@ -741,7 +741,7 @@
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        if ( IINFO.LT.0 ) {
+                        if ( IINFO < 0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
@@ -783,7 +783,7 @@
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        if ( IINFO.LT.0 ) {
+                        if ( IINFO < 0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV
@@ -823,7 +823,7 @@
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        if ( IINFO.LT.0 ) {
+                        if ( IINFO < 0 ) {
                            RETURN
                         } else {
                            RESULT( NTEST ) = ULPINV

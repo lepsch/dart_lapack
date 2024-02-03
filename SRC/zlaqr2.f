@@ -79,7 +79,7 @@
       WORK( 1 ) = ONE
       if (KTOP.GT.KBOT) RETURN;
       // ... nor for an empty deflation window. ====
-      if (NW.LT.1) RETURN;
+      if (NW < 1) RETURN;
 
       // ==== Machine constants ====
 
@@ -155,7 +155,7 @@
 
       if (NS == 0) S = ZERO;
 
-      if ( NS.LT.JW ) {
+      if ( NS < JW ) {
 
          // ==== sorting the diagonal of T improves accuracy for
          // .    graded matrices.  ====
@@ -177,7 +177,7 @@
       } // 40
 
 
-      if ( NS.LT.JW || S == ZERO ) {
+      if ( NS < JW || S == ZERO ) {
          if ( NS.GT.1 && S != ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====

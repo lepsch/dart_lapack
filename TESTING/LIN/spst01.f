@@ -57,7 +57,7 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
 
-         if ( RANK.LT.N ) {
+         if ( RANK < N ) {
             for (J = RANK + 1; J <= N; J++) { // 110
                for (I = RANK + 1; I <= J; I++) { // 100
                   AFAC( I, J ) = ZERO
@@ -82,7 +82,7 @@
 
       } else {
 
-         if ( RANK.LT.N ) {
+         if ( RANK < N ) {
             for (J = RANK + 1; J <= N; J++) { // 140
                for (I = J; I <= N; I++) { // 130
                   AFAC( I, J ) = ZERO

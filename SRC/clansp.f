@@ -47,7 +47,7 @@
             for (J = 1; J <= N; J++) { // 20
                for (I = K; I <= K + J - 1; I++) { // 10
                   SUM = ABS( AP( I ) )
-                  IF( VALUE .LT. SUM || SISNAN( SUM ) ) VALUE = SUM
+                  IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM
                } // 10
                K = K + J
             } // 20
@@ -56,7 +56,7 @@
             for (J = 1; J <= N; J++) { // 40
                for (I = K; I <= K + N - J; I++) { // 30
                   SUM = ABS( AP( I ) )
-                  IF( VALUE .LT. SUM || SISNAN( SUM ) ) VALUE = SUM
+                  IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM
                } // 30
                K = K + N - J + 1
             } // 40
@@ -81,7 +81,7 @@
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I )
-               IF( VALUE .LT. SUM || SISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
@@ -96,7 +96,7 @@
                   WORK( I ) = WORK( I ) + ABSA
                   K = K + 1
                } // 90
-               IF( VALUE .LT. SUM || SISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM
             } // 100
          }
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
@@ -122,7 +122,7 @@
          for (I = 1; I <= N; I++) { // 130
             if ( REAL( AP( K ) ) != ZERO ) {
                ABSA = ABS( REAL( AP( K ) ) )
-               if ( SCALE.LT.ABSA ) {
+               if ( SCALE < ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2
                   SCALE = ABSA
                } else {
@@ -131,7 +131,7 @@
             }
             if ( AIMAG( AP( K ) ) != ZERO ) {
                ABSA = ABS( AIMAG( AP( K ) ) )
-               if ( SCALE.LT.ABSA ) {
+               if ( SCALE < ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2
                   SCALE = ABSA
                } else {

@@ -784,7 +784,7 @@
  9934 FORMAT( 3X, I2, ': norm( (A*X-B)'' *A ) / ', '( max(M,N,NRHS) * norm(A) * norm(B) * EPS )' )
  9933 FORMAT( 3X, I2, ': norm(svd(A)-svd(R)) / ', '( min(M,N) * norm(svd(R)) * EPS )' )
  9932 FORMAT( 3X, I2, ': Check if X is in the row space of A or A''' )
- 9931 FORMAT( 3X, I2, ': norm( (A*X-B)'' *A ) / ', '( max(M,N,NRHS) * norm(A) * norm(B) * EPS )', / 7X, 'if TRANS=''N'' and M.GE.N or TRANS=''T'' and M.LT.N, ', 'otherwise', / 7X, 'check if X is in the row space of A or A'' ', '(overdetermined case)' )
+ 9931 FORMAT( 3X, I2, ': norm( (A*X-B)'' *A ) / ', '( max(M,N,NRHS) * norm(A) * norm(B) * EPS )', / 7X, 'if TRANS=''N'' and M.GE.N or TRANS=''T'' and M < N, ', 'otherwise', / 7X, 'check if X is in the row space of A or A'' ', '(overdetermined case)' )
  9929 FORMAT( ' Test ratios (1-3: ', A1, 'TZRZF):' )
  9919 FORMAT( 3X, ' 3-4: same as 1-2', 3X, ' 5-6: same as 1-2' )
  9920 FORMAT( 3X, ' 11-14: same as 7-10', 3X, ' 15-18: same as 7-10' )

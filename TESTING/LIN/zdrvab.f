@@ -93,7 +93,7 @@
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
             ZEROT = IMAT.GE.5 && IMAT.LE.7
-            if (ZEROT && N.LT.IMAT-4) GO TO 100;
+            if (ZEROT && N < IMAT-4) GO TO 100;
 
             // Set up parameters with ZLATB4 and generate a test matrix
             // with ZLATMS.
@@ -122,7 +122,7 @@
                   IZERO = MIN( M, N ) / 2 + 1
                }
                IOFF = ( IZERO-1 )*LDA
-               if ( IMAT.LT.7 ) {
+               if ( IMAT < 7 ) {
                   for (I = 1; I <= M; I++) { // 20
                      A( IOFF+I ) = ZERO
                   } // 20
@@ -149,7 +149,7 @@
 
                zcgesv(N, NRHS, A, LDA, IWORK, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO);
 
-               if (ITER.LT.0) {
+               if (ITER < 0) {
                    zlacpy('Full', M, N, AFAC, LDA, A, LDA );
                }
 
@@ -190,7 +190,7 @@
                  // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
                // (Cf. the linear solver testing routines)
 
-               if ((THRESH.LE.0.0E+00) || ((ITER.GE.0) && (N.GT.0) && (RESULT(1).GE.SQRT(DBLE(N)))) || ((ITER.LT.0) && (RESULT(1).GE.THRESH))) {
+               if ((THRESH.LE.0.0E+00) || ((ITER.GE.0) && (N.GT.0) && (RESULT(1).GE.SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1).GE.THRESH))) {
 
                   if ( NFAIL == 0 && NERRS == 0 ) {
                      WRITE( NOUT, FMT = 8999 )'DGE'

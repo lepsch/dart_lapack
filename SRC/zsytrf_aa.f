@@ -50,11 +50,11 @@
       LQUERY = ( LWORK == -1 )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LWORK.LT.MAX( 1, 2*N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, 2*N ) && .NOT.LQUERY ) {
          INFO = -7
       }
 
@@ -82,7 +82,7 @@
 
       // Adjust block size based on the workspace size
 
-      if ( LWORK.LT.((1+NB)*N) ) {
+      if ( LWORK < ((1+NB)*N) ) {
          NB = ( LWORK-N ) / N
       }
 
@@ -133,7 +133,7 @@
           // the row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
           // WORK stores the current block of the auxiriarly matrix H
 
-         if ( J.LT.N ) {
+         if ( J < N ) {
 
             // If first panel and JB=1 (NB=1), then nothing to do
 
@@ -240,7 +240,7 @@
            // A(J2+1, J1-1) stores L(J2+1, J1) and
            // WORK(J2+1, 1) stores H(J2+1, 1)
 
-         if ( J.LT.N ) {
+         if ( J < N ) {
 
             // if first panel and JB=1 (NB=1), then nothing to do
 

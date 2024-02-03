@@ -131,7 +131,7 @@
       } // 110
       JLAST = ISAVE( 2 )
       ISAVE( 2 ) = IDAMAX( N, X, 1 )
-      if ( ( X( JLAST ) != ABS( X( ISAVE( 2 ) ) ) ) && ( ISAVE( 3 ).LT.ITMAX ) ) {
+      if ( ( X( JLAST ) != ABS( X( ISAVE( 2 ) ) ) ) && ( ISAVE( 3 ) < ITMAX ) ) {
          ISAVE( 3 ) = ISAVE( 3 ) + 1
          GO TO 50
       }

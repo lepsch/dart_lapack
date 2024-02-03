@@ -56,27 +56,27 @@
       }
       LQUERY = LWORK == -1
 
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -3
-      } else if ( P .LT. 0 || P .GT. M ) {
+      } else if ( P < 0 || P .GT. M ) {
          INFO = -4
-      } else if ( Q .LT. 0 || Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
+      } else if ( Q < 0 || Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
          INFO = -5
-      } else if ( COLMAJOR && LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
          INFO = -7
-      } else if ( .NOT.COLMAJOR && LDX11 .LT. MAX( 1, Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX11 < MAX( 1, Q ) ) {
          INFO = -7
-      } else if ( COLMAJOR && LDX12 .LT. MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX12 < MAX( 1, P ) ) {
          INFO = -9
-      } else if ( .NOT.COLMAJOR && LDX12 .LT. MAX( 1, M-Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
          INFO = -9
-      } else if ( COLMAJOR && LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if ( COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
          INFO = -11
-      } else if ( .NOT.COLMAJOR && LDX21 .LT. MAX( 1, Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX21 < MAX( 1, Q ) ) {
          INFO = -11
-      } else if ( COLMAJOR && LDX22 .LT. MAX( 1, M-P ) ) {
+      } else if ( COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
          INFO = -13
-      } else if ( .NOT.COLMAJOR && LDX22 .LT. MAX( 1, M-Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
          INFO = -13
       }
 
@@ -86,7 +86,7 @@
          LWORKOPT = M - Q
          LWORKMIN = M - Q
          WORK(1) = LWORKOPT
-         if ( LWORK .LT. LWORKMIN && .NOT. LQUERY ) {
+         if ( LWORK < LWORKMIN && .NOT. LQUERY ) {
             INFO = -21
          }
       }
@@ -146,16 +146,16 @@
                slarf('L', M-P-I+1, M-Q-I+1, X21(I,I), 1, TAUP2(I), X22(I,I), LDX22, WORK );
             }
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                sscal(Q-I, -Z1*Z3*SIN(THETA(I)), X11(I,I+1), LDX11 );
                saxpy(Q-I, Z2*Z3*COS(THETA(I)), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
             }
             sscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), LDX12 );
             saxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), LDX22, X12(I,I), LDX12 );
 
-            if (I .LT. Q) PHI(I) = ATAN2( SNRM2( Q-I, X11(I,I+1), LDX11 ), SNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
+            if (I < Q) PHI(I) = ATAN2( SNRM2( Q-I, X11(I,I+1), LDX11 ), SNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                if ( Q-I == 1 ) {
                   slarfgp(Q-I, X11(I,I+1), X11(I,I+1), LDX11, TAUQ1(I) );
                } else {
@@ -163,7 +163,7 @@
                }
                X11(I,I+1) = ONE
             }
-            if ( Q+I-1 .LT. M ) {
+            if ( Q+I-1 < M ) {
                if ( M-Q == I ) {
                   slarfgp(M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) );
                } else {
@@ -172,7 +172,7 @@
             }
             X12(I,I) = ONE
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                slarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
                slarf('R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
@@ -215,7 +215,7 @@
                slarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) );
             }
             X22(Q+I,P+I) = ONE
-            if ( I .LT. M-P-Q ) {
+            if ( I < M-P-Q ) {
                slarf('R', M-P-Q-I, M-P-Q-I+1, X22(Q+I,P+I), LDX22, TAUQ2(P+I), X22(Q+I+1,P+I), LDX22, WORK );
             }
 
@@ -264,16 +264,16 @@
                slarf('R', M-Q-I+1, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X22(I,I), LDX22, WORK );
             }
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                sscal(Q-I, -Z1*Z3*SIN(THETA(I)), X11(I+1,I), 1 );
                saxpy(Q-I, Z2*Z3*COS(THETA(I)), X21(I+1,I), 1, X11(I+1,I), 1 );
             }
             sscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), 1 );
             saxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), 1, X12(I,I), 1 );
 
-            if (I .LT. Q) PHI(I) = ATAN2( SNRM2( Q-I, X11(I+1,I), 1 ), SNRM2( M-Q-I+1, X12(I,I), 1 ) );
+            if (I < Q) PHI(I) = ATAN2( SNRM2( Q-I, X11(I+1,I), 1 ), SNRM2( M-Q-I+1, X12(I,I), 1 ) );
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                if ( Q-I == 1) {
                   slarfgp(Q-I, X11(I+1,I), X11(I+1,I), 1, TAUQ1(I) );
                } else {
@@ -288,7 +288,7 @@
             }
             X12(I,I) = ONE
 
-            if ( I .LT. Q ) {
+            if ( I < Q ) {
                slarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
                slarf('L', Q-I, M-P-I, X11(I+1,I), 1, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }

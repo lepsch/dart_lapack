@@ -38,11 +38,11 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -77,12 +77,12 @@
       if ( ITEMP.GT.0 ) {
          MA = MIN( ITEMP, M )
          sgeqr2(M, MA, A, LDA, TAU, WORK, INFO );
-         if ( MA.LT.N ) {
+         if ( MA < N ) {
             sorm2r('Left', 'Transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO );
          }
       }
 
-      if ( ITEMP.LT.MN ) {
+      if ( ITEMP < MN ) {
 
          // Initialize partial column norms. The first n elements of
          // work store the exact column norms.
@@ -111,13 +111,13 @@
 
             // Generate elementary reflector H(i)
 
-            if ( I.LT.M ) {
+            if ( I < M ) {
                slarfg(M-I+1, A( I, I ), A( I+1, I ), 1, TAU( I ) );
             } else {
                slarfg(1, A( M, M ), A( M, M ), 1, TAU( M ) );
             }
 
-            if ( I.LT.N ) {
+            if ( I < N ) {
 
                // Apply H(i) to A(i:m,i+1:n) from the left
 

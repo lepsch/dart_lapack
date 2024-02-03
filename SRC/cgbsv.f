@@ -25,17 +25,17 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( KL.LT.0 ) {
+      } else if ( KL < 0 ) {
          INFO = -2
-      } else if ( KU.LT.0 ) {
+      } else if ( KU < 0 ) {
          INFO = -3
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -4
-      } else if ( LDAB.LT.2*KL+KU+1 ) {
+      } else if ( LDAB < 2*KL+KU+1 ) {
          INFO = -6
-      } else if ( LDB.LT.MAX( N, 1 ) ) {
+      } else if ( LDB < MAX( N, 1 ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {

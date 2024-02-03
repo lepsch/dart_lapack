@@ -69,35 +69,35 @@
          INFO = -2
       } else if ( .NOT.( ALLS || VALS || INDS ) ) {
          INFO = -3
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
       } else if ( M.GT.LDA ) {
          INFO = -7
       } else if ( MINMN.GT.0 ) {
          if ( VALS ) {
-            if ( VL.LT.ZERO ) {
+            if ( VL < ZERO ) {
                INFO = -8
             } else if ( VU.LE.VL ) {
                INFO = -9
             }
          } else if ( INDS ) {
-            if ( IL.LT.1 || IL.GT.MAX( 1, MINMN ) ) {
+            if ( IL < 1 || IL.GT.MAX( 1, MINMN ) ) {
                INFO = -10
-            } else if ( IU.LT.MIN( MINMN, IL ) || IU.GT.MINMN ) {
+            } else if ( IU < MIN( MINMN, IL ) || IU.GT.MINMN ) {
                INFO = -11
             }
          }
          if ( INFO == 0 ) {
-            if ( WANTU && LDU.LT.M ) {
+            if ( WANTU && LDU < M ) {
                INFO = -15
             } else if ( WANTVT ) {
                if ( INDS ) {
-                   if ( LDVT.LT.IU-IL+1 ) {
+                   if ( LDVT < IU-IL+1 ) {
                        INFO = -17
                    }
-               } else if ( LDVT.LT.MINMN ) {
+               } else if ( LDVT < MINMN ) {
                    INFO = -17
                }
             }
@@ -174,7 +174,7 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = DBLE( MAXWRK )
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
              INFO = -19
          }
       }
@@ -218,7 +218,7 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          ISCL = 1
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
       } else if ( ANRM.GT.BIGNUM ) {
@@ -490,7 +490,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
+         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
 
       // Return optimal workspace in WORK(1)

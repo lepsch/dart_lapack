@@ -183,7 +183,7 @@
                   // and TNORM.
 
                   REXP = SLARND( 2, ISEED )
-                  if ( REXP.LT.ZERO ) {
+                  if ( REXP < ZERO ) {
                      STAR1 = -SFAC**( ONE-REXP )*CLARND( 5, ISEED )
                   } else {
                      STAR1 = SFAC**( ONE+REXP )*CLARND( 5, ISEED )
@@ -362,7 +362,7 @@
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
                } // 260
-               if (J.LT.N && KD.GT.0) AB( 2, J ) = CMPLX( -ONE, -ONE );
+               if (J < N && KD.GT.0) AB( 2, J ) = CMPLX( -ONE, -ONE );
                AB( 1, J ) = TSCAL*CLARND( 5, ISEED )
             } // 270
             B( 1 ) = CMPLX( ONE, ONE )
@@ -436,7 +436,7 @@
                      AB( LENJ-( I-J ), J ) = -TSCAL / REAL( KD+2 )
                      AB( 1, J ) = ONE
                      B( J ) = TEXP*( ONE-ULP )
-                     if ( I.LT.MIN( N, J+KD-1 ) ) {
+                     if ( I < MIN( N, J+KD-1 ) ) {
                         AB( LENJ-( I-J+1 ), I+1 ) = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 )
                         AB( 1, I+1 ) = ONE
                         B( I+1 ) = TEXP*REAL( ( KD+1 )*( KD+1 )+KD )

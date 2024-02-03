@@ -45,15 +45,15 @@
          INFO = -1
       } else if ( .NOT.RIGHTV && .NOT.LEFTV ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ILO.LT.1 || ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO.GT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( IHI.LT.MIN( ILO, N ) || IHI.GT.N ) {
+      } else if ( IHI < MIN( ILO, N ) || IHI.GT.N ) {
          INFO = -5
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -7
-      } else if ( LDV.LT.MAX( 1, N ) ) {
+      } else if ( LDV < MAX( 1, N ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -97,7 +97,7 @@
          if ( RIGHTV ) {
             for (II = 1; II <= N; II++) { // 40
                I = II
-               if (I.GE.ILO && I.LE.IHI) GO TO 40                IF( I.LT.ILO ) I = ILO - II;
+               if (I.GE.ILO && I.LE.IHI) GO TO 40                IF( I < ILO ) I = ILO - II;
                K = INT( SCALE( I ) )
                if (K == I) GO TO 40;
                sswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
@@ -107,7 +107,7 @@
          if ( LEFTV ) {
             for (II = 1; II <= N; II++) { // 50
                I = II
-               if (I.GE.ILO && I.LE.IHI) GO TO 50                IF( I.LT.ILO ) I = ILO - II;
+               if (I.GE.ILO && I.LE.IHI) GO TO 50                IF( I < ILO ) I = ILO - II;
                K = INT( SCALE( I ) )
                if (K == I) GO TO 50;
                sswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );

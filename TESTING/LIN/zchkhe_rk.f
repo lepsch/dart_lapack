@@ -123,7 +123,7 @@
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 && IMAT.LE.6
-            if (ZEROT && N.LT.IMAT-2) GO TO 260;
+            if (ZEROT && N < IMAT-2) GO TO 260;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -165,7 +165,7 @@
                         IZERO = N / 2 + 1
                      }
 
-                     if ( IMAT.LT.6 ) {
+                     if ( IMAT < 6 ) {
 
                         // Set row and column IZERO to zero.
 
@@ -255,7 +255,7 @@
                   K = IZERO
                   if ( K.GT.0 ) {
                      } // 100
-                     if ( IWORK( K ).LT.0 ) {
+                     if ( IWORK( K ) < 0 ) {
                         if ( IWORK( K ) != -K ) {
                            K = -IWORK( K )
                            GO TO 100
@@ -419,7 +419,7 @@
                      } // 160
                      if (K.LE.1) GO TO 170;
 
-                     if ( IWORK( K ).LT.ZERO ) {
+                     if ( IWORK( K ) < ZERO ) {
 
                         // Get the two singular values
                         // (real and non-negative) of a 2-by-2 block,
@@ -459,7 +459,7 @@
                      } // 180
                      if (K.GE.N) GO TO 190;
 
-                     if ( IWORK( K ).LT.ZERO ) {
+                     if ( IWORK( K ) < ZERO ) {
 
                         // Get the two singular values
                         // (real and non-negative) of a 2-by-2 block,

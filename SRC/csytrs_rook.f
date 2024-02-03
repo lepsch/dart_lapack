@@ -40,13 +40,13 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -72,7 +72,7 @@
 
          // If K < 1, exit from loop.
 
-         if (K.LT.1) GO TO 30;
+         if (K < 1) GO TO 30;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -210,7 +210,7 @@
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in column K of A.
 
-            if (K.LT.N) CALL CGERU( N-K, NRHS, -CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
+            if (K < N) CALL CGERU( N-K, NRHS, -CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
@@ -231,7 +231,7 @@
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in columns K and K+1 of A.
 
-            if ( K.LT.N-1 ) {
+            if ( K < N-1 ) {
                cgeru(N-K-1, NRHS,-CONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB );
                cgeru(N-K-1, NRHS,-CONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
             }
@@ -264,7 +264,7 @@
 
          // If K < 1, exit from loop.
 
-         if (K.LT.1) GO TO 100;
+         if (K < 1) GO TO 100;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -273,7 +273,7 @@
             // Multiply by inv(L**T(K)), where L(K) is the transformation
             // stored in column K of A.
 
-            if (K.LT.N) CALL CGEMV( 'Transpose', N-K, NRHS, -CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
+            if (K < N) CALL CGEMV( 'Transpose', N-K, NRHS, -CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
 
             // Interchange rows K and IPIV(K).
 
@@ -287,7 +287,7 @@
             // Multiply by inv(L**T(K-1)), where L(K-1) is the transformation
             // stored in columns K-1 and K of A.
 
-            if ( K.LT.N ) {
+            if ( K < N ) {
                cgemv('Transpose', N-K, NRHS, -CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
                cgemv('Transpose', N-K, NRHS, -CONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, CONE, B( K-1, 1 ), LDB );
             }

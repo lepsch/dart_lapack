@@ -32,15 +32,15 @@
       // Test the input parameters
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 || N.GT.M ) {
+      } else if ( N < 0 || N.GT.M ) {
          INFO = -2
-      } else if ( NB.LT.1 ) {
+      } else if ( NB < 1 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDT.LT.MAX( 1, MIN( NB, N ) ) ) {
+      } else if ( LDT < MAX( 1, MIN( NB, N ) ) ) {
          INFO = -7
       }
 

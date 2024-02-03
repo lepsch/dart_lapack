@@ -42,7 +42,7 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
       }
       if ( INFO != 0 ) {
@@ -96,7 +96,7 @@
             // Compute elements J+1:N of column J and update the trailing
             // submatrix.
 
-            if ( J.LT.N ) {
+            if ( J < N ) {
                sscal(N-J, ONE / AJJ, AP( JJ+1 ), 1 );
                sspr('Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) );
                JJ = JJ + N - J + 1

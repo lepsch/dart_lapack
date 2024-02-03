@@ -63,7 +63,7 @@
          INFO = -3
       } else if ( .NOT.LSAME( NORMIN, 'Y' ) && .NOT. LSAME( NORMIN, 'N' ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
       }
       if ( INFO != 0 ) {
@@ -339,7 +339,7 @@
 
                      // abs(A(j,j)) > SMLNUM:
 
-                     if ( TJJ.LT.ONE ) {
+                     if ( TJJ < ONE ) {
                         if ( XJ.GT.TJJ*BIGNUM ) {
 
                            // Scale x by 1/b(j).
@@ -423,7 +423,7 @@
                   }
                   IP = IP - J
                } else {
-                  if ( J.LT.N ) {
+                  if ( J < N ) {
 
                      // Compute the update
                         // x(j+1:n) := x(j+1:n) - x(j) * A(j+1:n,j)
@@ -468,7 +468,7 @@
                         REC = MIN( ONE, REC*TJJ )
                         USCAL = CLADIV( USCAL, TJJS )
                      }
-                  if ( REC.LT.ONE ) {
+                  if ( REC < ONE ) {
                      csscal(N, REC, X, 1 );
                      SCALE = SCALE*REC
                      XMAX = XMAX*REC
@@ -483,7 +483,7 @@
 
                   if ( UPPER ) {
                      CSUMJ = CDOTU( J-1, AP( IP-J+1 ), 1, X, 1 )
-                  } else if ( J.LT.N ) {
+                  } else if ( J < N ) {
                      CSUMJ = CDOTU( N-J, AP( IP+1 ), 1, X( J+1 ), 1 )
                   }
                } else {
@@ -494,7 +494,7 @@
                      for (I = 1; I <= J - 1; I++) { // 120
                         CSUMJ = CSUMJ + ( AP( IP-J+I )*USCAL )*X( I )
                      } // 120
-                  } else if ( J.LT.N ) {
+                  } else if ( J < N ) {
                      for (I = 1; I <= N - J; I++) { // 130
                         CSUMJ = CSUMJ + ( AP( IP+I )*USCAL )*X( J+I )
                      } // 130
@@ -522,7 +522,7 @@
 
                         // abs(A(j,j)) > SMLNUM:
 
-                        if ( TJJ.LT.ONE ) {
+                        if ( TJJ < ONE ) {
                            if ( XJ.GT.TJJ*BIGNUM ) {
 
                               // Scale X by 1/abs(x(j)).
@@ -605,7 +605,7 @@
                         REC = MIN( ONE, REC*TJJ )
                         USCAL = CLADIV( USCAL, TJJS )
                      }
-                  if ( REC.LT.ONE ) {
+                  if ( REC < ONE ) {
                      csscal(N, REC, X, 1 );
                      SCALE = SCALE*REC
                      XMAX = XMAX*REC
@@ -620,7 +620,7 @@
 
                   if ( UPPER ) {
                      CSUMJ = CDOTC( J-1, AP( IP-J+1 ), 1, X, 1 )
-                  } else if ( J.LT.N ) {
+                  } else if ( J < N ) {
                      CSUMJ = CDOTC( N-J, AP( IP+1 ), 1, X( J+1 ), 1 )
                   }
                } else {
@@ -631,7 +631,7 @@
                      for (I = 1; I <= J - 1; I++) { // 160
                         CSUMJ = CSUMJ + ( CONJG( AP( IP-J+I ) )*USCAL )* X( I )
                      } // 160
-                  } else if ( J.LT.N ) {
+                  } else if ( J < N ) {
                      for (I = 1; I <= N - J; I++) { // 170
                         CSUMJ = CSUMJ + ( CONJG( AP( IP+I ) )*USCAL )* X( J+I )
                      } // 170
@@ -659,7 +659,7 @@
 
                         // abs(A(j,j)) > SMLNUM:
 
-                        if ( TJJ.LT.ONE ) {
+                        if ( TJJ < ONE ) {
                            if ( XJ.GT.TJJ*BIGNUM ) {
 
                               // Scale X by 1/abs(x(j)).

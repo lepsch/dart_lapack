@@ -78,7 +78,7 @@
          ZUSEDL = DOL-1
       }
       ZUSEDU = M
-      if (DOU.LT.M) {
+      if (DOU < M) {
          // Set lower bound for use of Z
          ZUSEDU = DOU+1
       }
@@ -119,16 +119,16 @@
          // through IEND.
          WEND = WBEGIN - 1
          } // 15
-         if ( WEND.LT.M ) {
+         if ( WEND < M ) {
             if ( IBLOCK( WEND+1 ) == JBLK ) {
                WEND = WEND + 1
                GO TO 15
             }
          }
-         if ( WEND.LT.WBEGIN ) {
+         if ( WEND < WBEGIN ) {
             IBEGIN = IEND + 1
             GO TO 170
-         } else if ( (WEND.LT.DOL) || (WBEGIN.GT.DOU) ) {
+         } else if ( (WEND < DOL) || (WBEGIN.GT.DOU) ) {
             IBEGIN = IEND + 1
             WBEGIN = WEND + 1
             GO TO 170
@@ -191,11 +191,11 @@
          // IDONE is the number of eigenvectors already computed in the current
          // block
          IDONE = 0
-         // loop while( IDONE.LT.IM )
+         // loop while( IDONE < IM )
          // generate the representation tree for the current block and
          // compute the eigenvectors
          } // 40
-         if ( IDONE.LT.IM ) {
+         if ( IDONE < IM ) {
             // This is a crude protection against infinitely deep trees
             if ( NDEPTH.GT.M ) {
                INFO = -2
@@ -234,7 +234,7 @@
                      // of the cluster
                      J = WBEGIN + OLDFST - 1
                   } else {
-                     if (WBEGIN+OLDFST-1.LT.DOL) {
+                     if (WBEGIN+OLDFST-1 < DOL) {
                         // Get representation from the left end of Z array
                         J = DOL - 1
                      } else if (WBEGIN+OLDFST-1.GT.DOU) {
@@ -285,7 +285,7 @@
                   if ( OLDFST.GT.1) {
                      WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) )
                   }
-                  if ( WBEGIN + OLDLST -1 .LT. WEND ) {
+                  if ( WBEGIN + OLDLST -1 < WEND ) {
                      WGAP( WBEGIN+OLDLST-1 ) = MAX(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) )
                   }
                   // Each time the eigenvalues in WORK get refined, we store
@@ -322,7 +322,7 @@
                      // of the cluster
                      NEWFTT = WBEGIN + NEWFST - 1
                   } else {
-                     if (WBEGIN+NEWFST-1.LT.DOL) {
+                     if (WBEGIN+NEWFST-1 < DOL) {
                         // Store representation at the left end of Z array
                         NEWFTT = DOL - 1
                      } else if (WBEGIN+NEWFST-1.GT.DOU) {
@@ -370,7 +370,7 @@
                         slarrb(IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
                      } // 55
 
-                     if ((WBEGIN+NEWLST-1.LT.DOL) || (WBEGIN+NEWFST-1.GT.DOU)) {
+                     if ((WBEGIN+NEWLST-1 < DOL) || (WBEGIN+NEWFST-1.GT.DOU)) {
                         // if the cluster contains no desired eigenvalues
                         // skip the computation of that branch of the rep. tree
 
@@ -430,7 +430,7 @@
                      LAMBDA = WORK( WINDEX )
                      DONE = DONE + 1
                      // Check if eigenvector computation is to be skipped
-                     if ((WINDEX.LT.DOL) || (WINDEX.GT.DOU)) {
+                     if ((WINDEX < DOL) || (WINDEX.GT.DOU)) {
                         ESKIP = true;
                         GOTO 125
                      } else {
@@ -517,7 +517,7 @@
                      if (ITER == 0) {
                         BSTRES = RESID
                         BSTW = LAMBDA
-                     } else if (RESID.LT.BSTRES) {
+                     } else if (RESID < BSTRES) {
                         BSTRES = RESID
                         BSTW = LAMBDA
                      }
@@ -577,12 +577,12 @@
                         } else {
                            NEEDBS = true;
                         }
-                        if (RIGHT-LEFT.LT.RQTOL*ABS(LAMBDA)) {
+                        if (RIGHT-LEFT < RQTOL*ABS(LAMBDA)) {
                               // The eigenvalue is computed to bisection accuracy
                               // compute eigenvector and stop
                            USEDBS = true;
                            GOTO 120
-                        } else if ( ITER.LT.MAXITR ) {
+                        } else if ( ITER < MAXITR ) {
                            GOTO 120
                         } else if ( ITER == MAXITR ) {
                            NEEDBS = true;
@@ -613,7 +613,7 @@
                      ISUPMN = ISUPMN + OLDIEN
                      ISUPMX = ISUPMX + OLDIEN
                      // Ensure vector is ok if support in the RQI has changed
-                     if (ISUPMN.LT.ZFROM) {
+                     if (ISUPMN < ZFROM) {
                         for (II = ISUPMN; II <= ZFROM-1; II++) { // 122
                            Z( II, WINDEX ) = ZERO
                         } // 122
@@ -637,7 +637,7 @@
                         if ( K.GT.1) {
                            WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) )
                         }
-                        if ( WINDEX.LT.WEND ) {
+                        if ( WINDEX < WEND ) {
                            WGAP( WINDEX ) = MAX( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) )
                         }
                      }

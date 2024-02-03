@@ -55,7 +55,7 @@
 
             // general case
 
-            if ( I.LT.K ) {
+            if ( I < K ) {
 
                // T(i+1:k,i) = - tau(i) * V(i+1:k,1:n) * V(i,1:n)**H
 

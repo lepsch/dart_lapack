@@ -57,19 +57,19 @@
          INFO = -1
       } else if ( .NOT.LSAME( TRANS, 'N' ) && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( N1.LT.0 || N1+N2 != NQ ) {
+      } else if ( N1 < 0 || N1+N2 != NQ ) {
          INFO = -5
-      } else if ( N2.LT.0 ) {
+      } else if ( N2 < 0 ) {
          INFO = -6
-      } else if ( LDQ.LT.MAX( 1, NQ ) ) {
+      } else if ( LDQ < MAX( 1, NQ ) ) {
          INFO = -8
-      } else if ( LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < MAX( 1, M ) ) {
          INFO = -10
-      } else if ( LWORK.LT.NW && .NOT.LQUERY ) {
+      } else if ( LWORK < NW && .NOT.LQUERY ) {
          INFO = -12
       }
 

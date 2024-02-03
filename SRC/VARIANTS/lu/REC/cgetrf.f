@@ -44,11 +44,11 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -86,7 +86,7 @@
          NTOPIV = 1
          IPIVSTART = J
          JPIVSTART = J - NTOPIV
-         DO WHILE ( NTOPIV .LT. KAHEAD )
+         DO WHILE ( NTOPIV < KAHEAD )
             claswp(NTOPIV, A( 1, JPIVSTART ), LDA, IPIVSTART, J, IPIV, 1 );
             IPIVSTART = IPIVSTART - NTOPIV;
             NTOPIV = NTOPIV * 2;
@@ -126,7 +126,7 @@
       }
 
       // If short and wide, handle the rest of the columns.
-      if ( M .LT. N ) {
+      if ( M < N ) {
          claswp(N-M, A( 1, M+KCOLS+1 ), LDA, 1, M, IPIV, 1 );
          ctrsm('Left', 'Lower', 'No transpose', 'Unit', M, N-M, ONE, A, LDA, A( 1,M+KCOLS+1 ), LDA );
       }

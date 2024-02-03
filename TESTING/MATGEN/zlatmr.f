@@ -185,19 +185,19 @@
 
       // Set INFO if an error
 
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
       } else if ( M != N && ( ISYM == 0 || ISYM == 2 ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
       } else if ( IDIST == -1 ) {
          INFO = -3
       } else if ( ISYM == -1 ) {
          INFO = -5
-      } else if ( MODE.LT.-6 || MODE.GT.6 ) {
+      } else if ( MODE < -6 || MODE.GT.6 ) {
          INFO = -7
-      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND.LT.ONE ) {
+      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND < ONE ) {
          INFO = -8
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == -1 ) {
          INFO = -10
@@ -205,27 +205,27 @@
          INFO = -11
       } else if ( IGRADE == 4 && DZERO ) {
          INFO = -12
-      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 || IGRADE == 6 ) && ( MODEL.LT.-6 || MODEL.GT.6 ) ) {
+      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 || IGRADE == 6 ) && ( MODEL < -6 || MODEL.GT.6 ) ) {
          INFO = -13
-      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 || IGRADE == 6 ) && ( MODEL != -6 && MODEL != 0 && MODEL != 6 ) && CONDL.LT.ONE ) {
+      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 || IGRADE == 6 ) && ( MODEL != -6 && MODEL != 0 && MODEL != 6 ) && CONDL < ONE ) {
          INFO = -14
-      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER.LT.-6 || MODER.GT.6 ) ) {
+      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER < -6 || MODER.GT.6 ) ) {
          INFO = -16
-      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER != -6 && MODER != 0 && MODER != 6 ) && CONDR.LT.ONE ) {
+      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER != -6 && MODER != 0 && MODER != 6 ) && CONDR < ONE ) {
          INFO = -17
       } else if ( IPVTNG == -1 || ( IPVTNG == 3 && M != N ) || ( ( IPVTNG == 1 || IPVTNG == 2 ) && ( ISYM == 0 || ISYM == 2 ) ) ) {
          INFO = -18
       } else if ( IPVTNG != 0 && BADPVT ) {
          INFO = -19
-      } else if ( KL.LT.0 ) {
+      } else if ( KL < 0 ) {
          INFO = -20
-      } else if ( KU.LT.0 || ( ( ISYM == 0 || ISYM == 2 ) && KL != KU ) ) {
+      } else if ( KU < 0 || ( ( ISYM == 0 || ISYM == 2 ) && KL != KU ) ) {
          INFO = -21
-      } else if ( SPARSE.LT.ZERO || SPARSE.GT.ONE ) {
+      } else if ( SPARSE < ZERO || SPARSE.GT.ONE ) {
          INFO = -22
       } else if ( IPACK == -1 || ( ( IPACK == 1 || IPACK == 2 || IPACK == 5 || IPACK == 6 ) && ISYM == 1 ) || ( IPACK == 3 && ISYM == 1 && ( KL != 0 || M != N ) ) || ( IPACK == 4 && ISYM == 1 && ( KU != 0 || M != N ) ) ) {
          INFO = -24
-      } else if ( ( ( IPACK == 0 || IPACK == 1 || IPACK == 2 ) && LDA.LT.MAX( 1, M ) ) || ( ( IPACK == 3 || IPACK == 4 ) && LDA.LT.1 ) || ( ( IPACK == 5 || IPACK == 6 ) && LDA.LT.KUU+1 ) || ( IPACK == 7 && LDA.LT.KLL+KUU+1 ) ) {
+      } else if ( ( ( IPACK == 0 || IPACK == 1 || IPACK == 2 ) && LDA < MAX( 1, M ) ) || ( ( IPACK == 3 || IPACK == 4 ) && LDA < 1 ) || ( ( IPACK == 5 || IPACK == 6 ) && LDA < KUU+1 ) || ( IPACK == 7 && LDA < KLL+KUU+1 ) ) {
          INFO = -26
       }
 
@@ -457,7 +457,7 @@
 
             for (J = 1; J <= N; J++) { // 250
                for (I = J - KUU; I <= J; I++) { // 240
-                  if ( I.LT.1 ) {
+                  if ( I < 1 ) {
                      A( J-I+1, I+N ) = CZERO
                   } else {
                      CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
@@ -495,7 +495,7 @@
                      CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
-                     if (I.LT.1) A( J-I+1+KUU, I+N ) = CZERO;
+                     if (I < 1) A( J-I+1+KUU, I+N ) = CZERO;
                      if ( MXSUB == ISUB && ISYM == 0 ) {
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = DCONJG( CTEMP )
                      } else {
@@ -626,7 +626,7 @@
 
             for (J = 1; J <= N; J++) { // 490
                for (I = J - KUU; I <= J; I++) { // 480
-                  if ( I.LT.1 ) {
+                  if ( I < 1 ) {
                      A( J-I+1, I+N ) = CZERO
                   } else {
                      if ( ISYM == 0 ) {
@@ -652,7 +652,7 @@
                for (J = 1; J <= N; J++) { // 530
                   for (I = J - KUU; I <= J; I++) { // 520
                      A( I-J+KUU+1, J ) = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                     if (I.LT.1) A( J-I+1+KUU, I+N ) = CZERO;
+                     if (I < 1) A( J-I+1+KUU, I+N ) = CZERO;
                      if ( I.GE.1 && I != J ) {
                         if ( ISYM == 0 ) {
                            A( J-I+1+KUU, I ) = DCONJG( A( I-J+KUU+1, J ) )
@@ -703,7 +703,7 @@
             INFO = 5
             RETURN
 
-         } else if ( ( ANORM.GT.ONE && ONORM.LT.ONE ) || ( ANORM.LT.ONE && ONORM.GT.ONE ) ) {
+         } else if ( ( ANORM.GT.ONE && ONORM < ONE ) || ( ANORM < ONE && ONORM.GT.ONE ) ) {
 
             // Scale carefully to avoid over / underflow
 

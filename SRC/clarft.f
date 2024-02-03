@@ -102,7 +102,7 @@
 
                // general case
 
-               if ( I.LT.K ) {
+               if ( I < K ) {
                   if ( LSAME( STOREV, 'C' ) ) {
                      // Skip any leading zeros.
                      for (LASTV = 1; LASTV <= I-1; LASTV++) {

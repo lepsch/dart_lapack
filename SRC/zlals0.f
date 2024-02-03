@@ -41,27 +41,27 @@
       INFO = 0
       N = NL + NR + 1
 
-      if ( ( ICOMPQ.LT.0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      } else if ( NL.LT.1 ) {
+      } else if ( NL < 1 ) {
          INFO = -2
-      } else if ( NR.LT.1 ) {
+      } else if ( NR < 1 ) {
          INFO = -3
-      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
          INFO = -4
-      } else if ( NRHS.LT.1 ) {
+      } else if ( NRHS < 1 ) {
          INFO = -5
-      } else if ( LDB.LT.N ) {
+      } else if ( LDB < N ) {
          INFO = -7
-      } else if ( LDBX.LT.N ) {
+      } else if ( LDBX < N ) {
          INFO = -9
-      } else if ( GIVPTR.LT.0 ) {
+      } else if ( GIVPTR < 0 ) {
          INFO = -11
-      } else if ( LDGCOL.LT.N ) {
+      } else if ( LDGCOL < N ) {
          INFO = -13
-      } else if ( LDGNUM.LT.N ) {
+      } else if ( LDGNUM < N ) {
          INFO = -15
-      } else if ( K.LT.1 ) {
+      } else if ( K < 1 ) {
          INFO = -20
       }
       if ( INFO != 0 ) {
@@ -94,7 +94,7 @@
 
          if ( K == 1 ) {
             zcopy(NRHS, BX, LDBX, B, LDB );
-            if ( Z( 1 ).LT.ZERO ) {
+            if ( Z( 1 ) < ZERO ) {
                zdscal(NRHS, NEGONE, B, LDB );
             }
          } else {
@@ -102,7 +102,7 @@
                DIFLJ = DIFL( J )
                DJ = POLES( J, 1 )
                DSIGJ = -POLES( J, 2 )
-               if ( J.LT.K ) {
+               if ( J < K ) {
                   DIFRJ = -DIFR( J, 1 )
                   DSIGJP = -POLES( J+1, 2 )
                }
@@ -164,7 +164,7 @@
 
          // Move the deflated rows of BX to B also.
 
-         IF( K.LT.MAX( M, N ) ) CALL ZLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB )
+         IF( K < MAX( M, N ) ) CALL ZLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB )
       } else {
 
          // Apply back the right orthogonal transformations.
@@ -237,7 +237,7 @@
             zcopy(NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX );
             zdrot(NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S );
          }
-         IF( K.LT.MAX( M, N ) ) CALL ZLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
+         IF( K < MAX( M, N ) ) CALL ZLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
 
          // Step (3R): permute rows of B.
 

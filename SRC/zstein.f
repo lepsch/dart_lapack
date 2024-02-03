@@ -50,19 +50,19 @@
          IFAIL( I ) = 0
       } // 10
 
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( M.LT.0 || M.GT.N ) {
+      } else if ( M < 0 || M.GT.N ) {
          INFO = -4
-      } else if ( LDZ.LT.MAX( 1, N ) ) {
+      } else if ( LDZ < MAX( 1, N ) ) {
          INFO = -9
       } else {
          for (J = 2; J <= M; J++) { // 20
-            if ( IBLOCK( J ).LT.IBLOCK( J-1 ) ) {
+            if ( IBLOCK( J ) < IBLOCK( J-1 ) ) {
                INFO = -6
                GO TO 30
             }
-            if ( IBLOCK( J ) == IBLOCK( J-1 ) && W( J ).LT.W( J-1 ) ) {
+            if ( IBLOCK( J ) == IBLOCK( J-1 ) && W( J ) < W( J-1 ) ) {
                INFO = -5
                GO TO 30
             }
@@ -156,7 +156,7 @@
                EPS1 = ABS( EPS*XJ )
                PERTOL = TEN*EPS1
                SEP = XJ - XJM
-               if (SEP.LT.PERTOL) XJ = XJM + PERTOL;
+               if (SEP < PERTOL) XJ = XJM + PERTOL;
             }
 
             ITS = 0
@@ -218,9 +218,9 @@
             // Continue for additional iterations after norm reaches
             // stopping criterion.
 
-            if (NRM.LT.DTPCRT) GO TO 70;
+            if (NRM < DTPCRT) GO TO 70;
             NRMCHK = NRMCHK + 1
-            if (NRMCHK.LT.EXTRA+1) GO TO 70;
+            if (NRMCHK < EXTRA+1) GO TO 70;
 
             GO TO 130
 
@@ -236,7 +236,7 @@
             } // 130
             SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 )
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
-            IF( WORK( INDRV1+JMAX ).LT.ZERO ) SCL = -SCL
+            IF( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
             } // 140
             for (I = 1; I <= N; I++) { // 150

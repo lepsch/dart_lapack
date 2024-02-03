@@ -39,11 +39,11 @@
       INFO = 0
       if (.NOT.LSAME(TRANS,'N') && .NOT.LSAME(TRANS,'T') && .NOT.LSAME(TRANS,'C')) {
           INFO = 1
-      } else if (M.LT.0) {
+      } else if (M < 0) {
           INFO = 2
-      } else if (N.LT.0) {
+      } else if (N < 0) {
           INFO = 3
-      } else if (LDA.LT.MAX(1,M)) {
+      } else if (LDA < MAX(1,M)) {
           INFO = 6
       } else if (INCX == 0) {
           INFO = 8

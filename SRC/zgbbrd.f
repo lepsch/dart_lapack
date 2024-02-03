@@ -49,23 +49,23 @@
       INFO = 0
       if ( .NOT.WANTQ && .NOT.WANTPT && .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( NCC.LT.0 ) {
+      } else if ( NCC < 0 ) {
          INFO = -4
-      } else if ( KL.LT.0 ) {
+      } else if ( KL < 0 ) {
          INFO = -5
-      } else if ( KU.LT.0 ) {
+      } else if ( KU < 0 ) {
          INFO = -6
-      } else if ( LDAB.LT.KLU1 ) {
+      } else if ( LDAB < KLU1 ) {
          INFO = -8
-      } else if ( LDQ.LT.1 || WANTQ && LDQ.LT.MAX( 1, M ) ) {
+      } else if ( LDQ < 1 || WANTQ && LDQ < MAX( 1, M ) ) {
          INFO = -12
-      } else if ( LDPT.LT.1 || WANTPT && LDPT.LT.MAX( 1, N ) ) {
+      } else if ( LDPT < 1 || WANTPT && LDPT < MAX( 1, N ) ) {
          INFO = -14
-      } else if ( LDC.LT.1 || WANTC && LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < 1 || WANTC && LDC < MAX( 1, M ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -146,7 +146,7 @@
 
                      zlartg(AB( KU+ML-1, I ), AB( KU+ML, I ), RWORK( I+ML-1 ), WORK( I+ML-1 ), RA );
                      AB( KU+ML-1, I ) = RA
-                     if (I.LT.N) CALL ZROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) );
+                     if (I < N) CALL ZROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) );
                   }
                   NR = NR + 1
                   J1 = J1 - KB1
@@ -263,7 +263,7 @@
          DO 100 I = 1, MIN( M-1, N )
             zlartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
             AB( 1, I ) = RA
-            if ( I.LT.N ) {
+            if ( I < N ) {
                AB( 2, I ) = RS*AB( 1, I+1 )
                AB( 1, I+1 ) = RC*AB( 1, I+1 )
             }
@@ -274,7 +274,7 @@
          // A has been reduced to complex upper bidiagonal form or is
          // diagonal
 
-         if ( KU.GT.0 && M.LT.N ) {
+         if ( KU.GT.0 && M < N ) {
 
             // Annihilate a(m,m+1) by applying plane rotations from the
             // right
@@ -305,7 +305,7 @@
             T = CONE
          }
          if (WANTQ) CALL ZSCAL( M, T, Q( 1, I ), 1 )          IF( WANTC ) CALL ZSCAL( NCC, DCONJG( T ), C( I, 1 ), LDC );
-         if ( I.LT.MINMN ) {
+         if ( I < MINMN ) {
             if ( KU == 0 && KL == 0 ) {
                E( I ) = ZERO
                T = AB( 1, I+1 )

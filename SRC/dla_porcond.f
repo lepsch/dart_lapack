@@ -38,7 +38,7 @@
       DLA_PORCOND = 0.0D+0
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -2
       }
       if ( INFO != 0 ) {

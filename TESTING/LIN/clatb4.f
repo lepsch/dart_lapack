@@ -456,7 +456,7 @@
          if ( MAT == 1 || MAT == 7 ) {
             KL = 0
             KU = 0
-         } else if ( IMAT.LT.0 ) {
+         } else if ( IMAT < 0 ) {
             KL = MAX( N-1, 0 )
             KU = 0
          } else {

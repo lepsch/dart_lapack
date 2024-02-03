@@ -51,7 +51,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB.LT.0 ) || ( IJOB.GT.4 ) ) {
+         if ( ( IJOB < 0 ) || ( IJOB.GT.4 ) ) {
             INFO = -2
          }
       }
@@ -60,17 +60,17 @@
             INFO = -3
          } else if ( N.LE.0 ) {
             INFO = -4
-         } else if ( LDA.LT.MAX( 1, M ) ) {
+         } else if ( LDA < MAX( 1, M ) ) {
             INFO = -6
-         } else if ( LDB.LT.MAX( 1, N ) ) {
+         } else if ( LDB < MAX( 1, N ) ) {
             INFO = -8
-         } else if ( LDC.LT.MAX( 1, M ) ) {
+         } else if ( LDC < MAX( 1, M ) ) {
             INFO = -10
-         } else if ( LDD.LT.MAX( 1, M ) ) {
+         } else if ( LDD < MAX( 1, M ) ) {
             INFO = -12
-         } else if ( LDE.LT.MAX( 1, N ) ) {
+         } else if ( LDE < MAX( 1, N ) ) {
             INFO = -14
-         } else if ( LDF.LT.MAX( 1, M ) ) {
+         } else if ( LDF < MAX( 1, M ) ) {
             INFO = -16
          }
       }
@@ -87,7 +87,7 @@
          }
          WORK( 1 ) = LWMIN
 
-         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && .NOT.LQUERY ) {
             INFO = -20
          }
       }
@@ -247,7 +247,7 @@
                      zgemm('N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( 1, JS ), LDC );
                      zgemm('N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), F( 1, JS ), LDF );
                   }
-                  if ( J.LT.Q ) {
+                  if ( J < Q ) {
                      zgemm('N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, DCMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC );
                      zgemm('N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, DCMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF );
                   }
@@ -319,7 +319,7 @@
                   zgemm('N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
                   zgemm('N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
                }
-               if ( I.LT.P ) {
+               if ( I < P ) {
                   zgemm('C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
                   zgemm('C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
                }

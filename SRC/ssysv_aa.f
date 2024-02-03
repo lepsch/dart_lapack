@@ -40,15 +40,15 @@
       LWKMIN = MAX( 1, 2*N, 3*N-2 )
       if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWKMIN && .NOT.LQUERY ) {
          INFO = -10
       }
 

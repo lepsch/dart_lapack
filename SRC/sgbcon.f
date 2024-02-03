@@ -49,15 +49,15 @@
       ONENRM = NORM == '1' || LSAME( NORM, 'O' )
       if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( KL.LT.0 ) {
+      } else if ( KL < 0 ) {
          INFO = -3
-      } else if ( KU.LT.0 ) {
+      } else if ( KU < 0 ) {
          INFO = -4
-      } else if ( LDAB.LT.2*KL+KU+1 ) {
+      } else if ( LDAB < 2*KL+KU+1 ) {
          INFO = -6
-      } else if ( ANORM.LT.ZERO ) {
+      } else if ( ANORM < ZERO ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -139,7 +139,7 @@
          NORMIN = 'Y'
          if ( SCALE != ONE ) {
             IX = ISAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40
+            IF( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40
             srscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

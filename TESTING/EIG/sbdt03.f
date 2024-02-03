@@ -77,7 +77,7 @@
                } // 30
                sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
                WORK( J ) = WORK( J ) + D( J )
-               if ( J.LT.N ) {
+               if ( J < N ) {
                   WORK( J+1 ) = WORK( J+1 ) + E( J )
                   BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J ) ) )
                } else {
@@ -112,7 +112,7 @@
          if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS )
          } else {
-            if ( BNORM.LT.ONE ) {
+            if ( BNORM < ONE ) {
                RESID = ( MIN( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS )
             } else {
                RESID = MIN( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS )

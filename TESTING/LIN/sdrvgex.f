@@ -108,7 +108,7 @@
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
             ZEROT = IMAT.GE.5 && IMAT.LE.7
-            if (ZEROT && N.LT.IMAT-4) GO TO 80;
+            if (ZEROT && N < IMAT-4) GO TO 80;
 
             // Set up parameters with SLATB4 and generate a test matrix
             // with SLATMS.
@@ -138,7 +138,7 @@
                   IZERO = N / 2 + 1
                }
                IOFF = ( IZERO-1 )*LDA
-               if ( IMAT.LT.7 ) {
+               if ( IMAT < 7 ) {
                   for (I = 1; I <= N; I++) { // 20
                      A( IOFF+I ) = ZERO
                   } // 20
@@ -486,7 +486,7 @@
                      // reciprocal pivot growth factor RPVGRW
 
 
-                     if ( INFO .GT. 0 && INFO .LT. N+1 ) {
+                     if ( INFO .GT. 0 && INFO < N+1 ) {
                         RPVGRW = SLA_GERPVGRW (N, INFO, A, LDA, AFAC, LDA)
                      } else {
                         RPVGRW = SLA_GERPVGRW (N, N, A, LDA, AFAC, LDA)

@@ -34,7 +34,7 @@
       // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
-         CSLECT = ( REAL( Z ).LT.ZERO )
+         CSLECT = ( REAL( Z ) < ZERO )
       } else {
          RMIN = ABS( Z-CMPLX( SELWR( 1 ), SELWI( 1 ) ) )
          CSLECT = SELVAL( 1 )

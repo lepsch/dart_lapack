@@ -38,15 +38,15 @@
       INFO = 0
       NP = MIN( N, P )
       LQUERY = ( LWORK == -1 )
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( M.LT.0 || M.GT.N ) {
+      } else if ( M < 0 || M.GT.N ) {
          INFO = -2
-      } else if ( P.LT.0 || P.LT.N-M ) {
+      } else if ( P < 0 || P < N-M ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
       }
 
@@ -67,7 +67,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWKMIN && .NOT.LQUERY ) {
             INFO = -12
          }
       }

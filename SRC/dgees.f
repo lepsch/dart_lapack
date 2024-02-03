@@ -56,11 +56,11 @@
          INFO = -1
       } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVS.LT.1 || ( WANTVS && LDVS.LT.N ) ) {
+      } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
          INFO = -11
       }
 
@@ -94,7 +94,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -13
          }
       }
@@ -125,7 +125,7 @@
 
       ANRM = DLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {
@@ -218,7 +218,7 @@
             }
             INXT = I1 - 1
             for (I = I1; I <= I2; I++) { // 20
-               if (I.LT.INXT) GO TO 20;
+               if (I < INXT) GO TO 20;
                if ( WI( I ) == ZERO ) {
                   INXT = I + 1
                } else {

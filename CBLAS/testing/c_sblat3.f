@@ -7,7 +7,7 @@ void main() {
 *  file can be obtained by deleting the first 3 characters from the
 *  following 19 lines:
 *  'SBLAT3.SNAP'     NAME OF SNAPSHOT OUTPUT FILE
-*  -1                UNIT NUMBER OF SNAPSHOT FILE (NOT USED IF .LT. 0)
+*  -1                UNIT NUMBER OF SNAPSHOT FILE (NOT USED IF < 0)
 *  F        LOGICAL FLAG, T TO REWIND SNAPSHOT FILE AFTER EACH RECORD.
 *  F        LOGICAL FLAG, T TO STOP ON FAILURES.
 *  T        LOGICAL FLAG, T TO TEST ERROR EXITS.
@@ -109,27 +109,27 @@ void main() {
 
       // Values of N
       READ( NIN, FMT = * )NIDIM
-      if ( NIDIM.LT.1 || NIDIM.GT.NIDMAX ) {
+      if ( NIDIM < 1 || NIDIM.GT.NIDMAX ) {
          WRITE( NOUT, FMT = 9997 )'N', NIDMAX
          GO TO 220
       }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
       for (I = 1; I <= NIDIM; I++) { // 10
-         if ( IDIM( I ).LT.0 || IDIM( I ).GT.NMAX ) {
+         if ( IDIM( I ) < 0 || IDIM( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 220
          }
       } // 10
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
-      if ( NALF.LT.1 || NALF.GT.NALMAX ) {
+      if ( NALF < 1 || NALF.GT.NALMAX ) {
          WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
          GO TO 220
       }
       READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
       // Values of BETA
       READ( NIN, FMT = * )NBET
-      if ( NBET.LT.1 || NBET.GT.NBEMAX ) {
+      if ( NBET < 1 || NBET.GT.NBEMAX ) {
          WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
          GO TO 220
       }
@@ -408,7 +408,7 @@ void main() {
             N = IDIM( IN )
             // Set LDC to 1 more than minimum value if room.
             LDC = M
-            if (LDC.LT.NMAX) LDC = LDC + 1;
+            if (LDC < NMAX) LDC = LDC + 1;
             // Skip tests if not enough room.
             if (LDC.GT.NMAX) GO TO 100;
             LCC = LDC*N
@@ -430,7 +430,7 @@ void main() {
                   }
                   // Set LDA to 1 more than minimum value if room.
                   LDA = MA
-                  if (LDA.LT.NMAX) LDA = LDA + 1;
+                  if (LDA < NMAX) LDA = LDA + 1;
                   // Skip tests if not enough room.
                   if (LDA.GT.NMAX) GO TO 80;
                   LAA = LDA*NA
@@ -452,7 +452,7 @@ void main() {
                      }
                      // Set LDB to 1 more than minimum value if room.
                      LDB = MB
-                     if (LDB.LT.NMAX) LDB = LDB + 1;
+                     if (LDB < NMAX) LDB = LDB + 1;
                      // Skip tests if not enough room.
                      if (LDB.GT.NMAX) GO TO 70;
                      LBB = LDB*NB
@@ -570,7 +570,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          if (IORDER == 0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
          if (IORDER == 1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
@@ -693,7 +693,7 @@ void main() {
             N = IDIM( IN )
             // Set LDC to 1 more than minimum value if room.
             LDC = M
-            if (LDC.LT.NMAX) LDC = LDC + 1;
+            if (LDC < NMAX) LDC = LDC + 1;
             // Skip tests if not enough room.
             if (LDC.GT.NMAX) GO TO 90;
             LCC = LDC*N
@@ -701,7 +701,7 @@ void main() {
 
             // Set LDB to 1 more than minimum value if room.
             LDB = M
-            if (LDB.LT.NMAX) LDB = LDB + 1;
+            if (LDB < NMAX) LDB = LDB + 1;
             // Skip tests if not enough room.
             if (LDB.GT.NMAX) GO TO 90;
             LBB = LDB*N
@@ -721,7 +721,7 @@ void main() {
                }
                // Set LDA to 1 more than minimum value if room.
                LDA = NA
-               if (LDA.LT.NMAX) LDA = LDA + 1;
+               if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA.GT.NMAX) GO TO 80;
                LAA = LDA*NA
@@ -842,7 +842,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          if (IORDER == 0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
          if (IORDER == 1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
@@ -966,7 +966,7 @@ void main() {
             N = IDIM( IN )
             // Set LDB to 1 more than minimum value if room.
             LDB = M
-            if (LDB.LT.NMAX) LDB = LDB + 1;
+            if (LDB < NMAX) LDB = LDB + 1;
             // Skip tests if not enough room.
             if (LDB.GT.NMAX) GO TO 130;
             LBB = LDB*N
@@ -982,7 +982,7 @@ void main() {
                }
                // Set LDA to 1 more than minimum value if room.
                LDA = NA
-               if (LDA.LT.NMAX) LDA = LDA + 1;
+               if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA.GT.NMAX) GO TO 130;
                LAA = LDA*NA
@@ -1128,7 +1128,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          if (IORDER == 0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
          if (IORDER == 1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
@@ -1255,7 +1255,7 @@ void main() {
          N = IDIM( IN )
          // Set LDC to 1 more than minimum value if room.
          LDC = N
-         if (LDC.LT.NMAX) LDC = LDC + 1;
+         if (LDC < NMAX) LDC = LDC + 1;
          // Skip tests if not enough room.
          if (LDC.GT.NMAX) GO TO 100;
          LCC = LDC*N
@@ -1276,7 +1276,7 @@ void main() {
                }
                // Set LDA to 1 more than minimum value if room.
                LDA = MA
-               if (LDA.LT.NMAX) LDA = LDA + 1;
+               if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA.GT.NMAX) GO TO 80;
                LAA = LDA*NA
@@ -1406,7 +1406,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          if (IORDER == 0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
          if (IORDER == 1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
@@ -1527,7 +1527,7 @@ void main() {
          N = IDIM( IN )
          // Set LDC to 1 more than minimum value if room.
          LDC = N
-         if (LDC.LT.NMAX) LDC = LDC + 1;
+         if (LDC < NMAX) LDC = LDC + 1;
          // Skip tests if not enough room.
          if (LDC.GT.NMAX) GO TO 130;
          LCC = LDC*N
@@ -1548,7 +1548,7 @@ void main() {
                }
                // Set LDA to 1 more than minimum value if room.
                LDA = MA
-               if (LDA.LT.NMAX) LDA = LDA + 1;
+               if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA.GT.NMAX) GO TO 110;
                LAA = LDA*NA
@@ -1706,7 +1706,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          if (IORDER == 0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
          if (IORDER == 1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {

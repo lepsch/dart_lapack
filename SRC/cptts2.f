@@ -55,7 +55,7 @@
             DO 30 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*E( I )
             } // 30
-            if ( J.LT.NRHS ) {
+            if ( J < NRHS ) {
                J = J + 1
                GO TO 5
             }
@@ -99,7 +99,7 @@
             DO 90 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*CONJG( E( I ) )
             } // 90
-            if ( J.LT.NRHS ) {
+            if ( J < NRHS ) {
                J = J + 1
                GO TO 65
             }

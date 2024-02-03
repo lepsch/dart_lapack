@@ -120,7 +120,7 @@
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 && IMAT.LE.6
-            if (ZEROT && N.LT.IMAT-2) GO TO 170;
+            if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -163,7 +163,7 @@
                      IZERO = N / 2 + 1
                   }
 
-                  if ( IMAT.LT.6 ) {
+                  if ( IMAT < 6 ) {
 
                      // Set row and column IZERO to zero.
 
@@ -264,7 +264,7 @@
                      } else if ( IWORK( J ) == K ) {
                         K = J
                      }
-                     if ( J.LT.K ) {
+                     if ( J < K ) {
                         J = J + 1
                         GO TO 100
                      }

@@ -27,19 +27,19 @@
 
       // Decode and test input arguments.
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDQ.LT.1 || WANTQ && ( LDQ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDQ < 1 || WANTQ && ( LDQ < MAX( 1, N ) ) ) {
          INFO = -9
-      } else if ( LDZ.LT.1 || WANTZ && ( LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDZ < 1 || WANTZ && ( LDZ < MAX( 1, N ) ) ) {
          INFO = -11
-      } else if ( IFST.LT.1 || IFST.GT.N ) {
+      } else if ( IFST < 1 || IFST.GT.N ) {
          INFO = -12
-      } else if ( ILST.LT.1 || ILST.GT.N ) {
+      } else if ( ILST < 1 || ILST.GT.N ) {
          INFO = -13
       }
       if ( INFO != 0 ) {
@@ -51,7 +51,7 @@
 
       if (N.LE.1) RETURN       IF( IFST == ILST ) RETURN;
 
-      if ( IFST.LT.ILST ) {
+      if ( IFST < ILST ) {
 
          HERE = IFST
 
@@ -65,7 +65,7 @@
             RETURN
          }
          HERE = HERE + 1
-         if (HERE.LT.ILST) GO TO 10;
+         if (HERE < ILST) GO TO 10;
          HERE = HERE - 1
       } else {
          HERE = IFST - 1

@@ -42,15 +42,15 @@
       LQUERY = ( LWORK == -1 )
       if ( .NOT.WANTQ && .NOT.LSAME( VECT, 'P' ) ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -2
-      } else if ( N.LT.0 || ( WANTQ && ( N.GT.M || N.LT.MIN( M, K ) ) ) || ( .NOT.WANTQ && ( M.GT.N || M.LT. MIN( N, K ) ) ) ) {
+      } else if ( N < 0 || ( WANTQ && ( N.GT.M || N < MIN( M, K ) ) ) || ( .NOT.WANTQ && ( M.GT.N || M < MIN( N, K ) ) ) ) {
          INFO = -3
-      } else if ( K.LT.0 ) {
+      } else if ( K < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LWORK.LT.MAX( 1, MN ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, MN ) && .NOT.LQUERY ) {
          INFO = -9
       }
 
@@ -65,7 +65,7 @@
                }
             }
          } else {
-            if ( K.LT.N ) {
+            if ( K < N ) {
                zunglq(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
             } else {
                if ( N.GT.1 ) {
@@ -133,7 +133,7 @@
          // Form P**H, determined by a call to ZGEBRD to reduce a k-by-n
          // matrix
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
 
             // If k < n, assume k <= m <= n
 

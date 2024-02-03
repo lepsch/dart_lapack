@@ -55,13 +55,13 @@
           INFO = 3
       } else if ((.NOT.LSAME(DIAG,'U')) && (.NOT.LSAME(DIAG,'N'))) {
           INFO = 4
-      } else if (M.LT.0) {
+      } else if (M < 0) {
           INFO = 5
-      } else if (N.LT.0) {
+      } else if (N < 0) {
           INFO = 6
-      } else if (LDA.LT.MAX(1,NROWA)) {
+      } else if (LDA < MAX(1,NROWA)) {
           INFO = 9
-      } else if (LDB.LT.MAX(1,M)) {
+      } else if (LDB < MAX(1,M)) {
           INFO = 11
       }
       if (INFO != 0) {

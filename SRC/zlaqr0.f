@@ -190,7 +190,7 @@
 
             // ==== Done when KBOT falls below ILO ====
 
-            if (KBOT.LT.ILO) GO TO 80;
+            if (KBOT < ILO) GO TO 80;
 
             // ==== Locate active block ====
 
@@ -219,12 +219,12 @@
 
             NH = KBOT - KTOP + 1
             NWUPBD = MIN( NH, NWMAX )
-            if ( NDFL.LT.KEXNW ) {
+            if ( NDFL < KEXNW ) {
                NW = MIN( NWUPBD, NWR )
             } else {
                NW = MIN( NWUPBD, 2*NW )
             }
-            if ( NW.LT.NWMAX ) {
+            if ( NW < NWMAX ) {
                if ( NW.GE.NH-1 ) {
                   NW = NH
                } else {
@@ -232,11 +232,11 @@
                   IF( CABS1( H( KWTOP, KWTOP-1 ) ).GT. CABS1( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
                }
             }
-            if ( NDFL.LT.KEXNW ) {
+            if ( NDFL < KEXNW ) {
                NDEC = -1
             } else if ( NDEC.GE.0 || NW.GE.NWUPBD ) {
                NDEC = NDEC + 1
-               if (NW-NDEC.LT.2) NDEC = 0;
+               if (NW-NDEC < 2) NDEC = 0;
                NW = NW - NDEC
             }
 
@@ -348,7 +348,7 @@
                         if (SORTED) GO TO 60;
                         SORTED = true;
                         for (I = KS; I <= K - 1; I++) { // 40
-                           if ( CABS1( W( I ) ).LT.CABS1( W( I+1 ) ) ) {
+                           if ( CABS1( W( I ) ) < CABS1( W( I+1 ) ) ) {
                               SORTED = false;
                               SWAP = W( I )
                               W( I ) = W( I+1 )
@@ -364,7 +364,7 @@
                // .    only one.  ====
 
                if ( KBOT-KS+1 == 2 ) {
-                  if ( CABS1( W( KBOT )-H( KBOT, KBOT ) ).LT. CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) {
+                  if ( CABS1( W( KBOT )-H( KBOT, KBOT ) ) < CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) {
                      W( KBOT-1 ) = W( KBOT )
                   } else {
                      W( KBOT ) = W( KBOT-1 )

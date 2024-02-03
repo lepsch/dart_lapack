@@ -45,11 +45,11 @@
          INFO = -2
       } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
       }
       if ( INFO != 0 ) {

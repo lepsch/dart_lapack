@@ -36,7 +36,7 @@
 
       // Quick return if possible
 
-      if (M.LE.0 || N.LE.0 || K.LE.0 || L.LT.0) RETURN;
+      if (M.LE.0 || N.LE.0 || K.LE.0 || L < 0) RETURN;
 
       if ( LSAME( STOREV, 'C' ) ) {
          COLUMN = true;

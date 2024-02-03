@@ -30,11 +30,11 @@
 
       INFO = 0
 
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( LDQ.LT.MAX( 1, N ) ) {
+      } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( MIN( 1, N / 2 ).GT.CUTPNT || ( N / 2 ).LT.CUTPNT ) {
+      } else if ( MIN( 1, N / 2 ).GT.CUTPNT || ( N / 2 ) < CUTPNT ) {
          INFO = -7
       }
       if ( INFO != 0 ) {

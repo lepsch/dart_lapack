@@ -87,15 +87,15 @@
          INFO = -3
       } else if ( .NOT.( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDVL.LT.1 || ( ILVL && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -14
-      } else if ( LDVR.LT.1 || ( ILVR && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
          INFO = -16
       }
 
@@ -131,7 +131,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -26
          }
       }
@@ -160,7 +160,7 @@
 
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
@@ -173,7 +173,7 @@
 
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
@@ -310,7 +310,7 @@
                   GO TO 20
                }
                MM = 1
-               if ( I.LT.N ) {
+               if ( I < N ) {
                   if ( A( I+1, I ) != ZERO ) {
                      PAIR = true;
                      MM = 2
@@ -354,7 +354,7 @@
          dggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR );
 
          for (JC = 1; JC <= N; JC++) { // 70
-            IF( ALPHAI( JC ).LT.ZERO ) GO TO 70
+            IF( ALPHAI( JC ) < ZERO ) GO TO 70
             TEMP = ZERO
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 30
@@ -365,7 +365,7 @@
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
                } // 40
             }
-            if (TEMP.LT.SMLNUM) GO TO 70;
+            if (TEMP < SMLNUM) GO TO 70;
             TEMP = ONE / TEMP
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 50
@@ -382,7 +382,7 @@
       if ( ILVR ) {
          dggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
          for (JC = 1; JC <= N; JC++) { // 120
-            IF( ALPHAI( JC ).LT.ZERO ) GO TO 120
+            IF( ALPHAI( JC ) < ZERO ) GO TO 120
             TEMP = ZERO
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 80
@@ -393,7 +393,7 @@
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
                } // 90
             }
-            if (TEMP.LT.SMLNUM) GO TO 120;
+            if (TEMP < SMLNUM) GO TO 120;
             TEMP = ONE / TEMP
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 100

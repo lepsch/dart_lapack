@@ -31,16 +31,16 @@
 
       INFO = 0
 
-      // IF( ICOMPQ.LT.0 || ICOMPQ.GT.1 ) THEN
+      // IF( ICOMPQ < 0 || ICOMPQ.GT.1 ) THEN
          // INFO = -1
-      // ELSE IF( N.LT.0 ) THEN
-      if ( N.LT.0 ) {
+      // ELSE IF( N < 0 ) THEN
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( MIN( 1, N ).GT.CUTPNT || N.LT.CUTPNT ) {
+      } else if ( MIN( 1, N ).GT.CUTPNT || N < CUTPNT ) {
          INFO = -2
-      } else if ( QSIZ.LT.N ) {
+      } else if ( QSIZ < N ) {
          INFO = -3
-      } else if ( LDQ.LT.MAX( 1, N ) ) {
+      } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {

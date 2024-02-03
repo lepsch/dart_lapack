@@ -146,7 +146,7 @@
          // in the desired range. In case IRANGE = INDRNG, we also obtain the
          // interval (VL,VU] that contains all the wanted eigenvalues.
          // An interval [LEFT,RIGHT] has converged if
-         // RIGHT-LEFT.LT.RTOL*MAX(ABS(LEFT),ABS(RIGHT))
+         // RIGHT-LEFT < RTOL*MAX(ABS(LEFT),ABS(RIGHT))
          // SLARRD needs a WORK of size 4*N, IWORK of size 3*N
          slarrd(RANGE, 'B', N, VL, VU, IL, IU, GERS, BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, MM, W, WERR, VL, VU, IBLOCK, INDEXW, WORK, IWORK, IINFO );
          if ( IINFO != 0 ) {
@@ -389,7 +389,7 @@
                // All entries of D (of L D L^T) must have the same sign
                for (I = 1; I <= IN; I++) { // 71
                   TMP = SGNDEF*WORK( I )
-                  if (TMP.LT.ZERO) NOREP = true ;
+                  if (TMP < ZERO) NOREP = true ;
                } // 71
             }
             if (NOREP) {
@@ -512,7 +512,7 @@
             } else {
                // Test that all eigenvalues are positive as expected
                for (I = 1; I <= IN; I++) { // 149
-                  if ( WORK( I ).LT.ZERO ) {
+                  if ( WORK( I ) < ZERO ) {
                      INFO = -6
                      RETURN
                   }

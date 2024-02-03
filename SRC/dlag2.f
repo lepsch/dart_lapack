@@ -49,7 +49,7 @@
       B12 = B( 1, 2 )
       B22 = B( 2, 2 )
       BMIN = RTMIN*MAX( ABS( B11 ), ABS( B12 ), ABS( B22 ), RTMIN )
-      IF( ABS( B11 ).LT.BMIN ) B11 = SIGN( BMIN, B11 )       IF( ABS( B22 ).LT.BMIN ) B22 = SIGN( BMIN, B22 )
+      IF( ABS( B11 ) < BMIN ) B11 = SIGN( BMIN, B11 )       IF( ABS( B22 ) < BMIN ) B22 = SIGN( BMIN, B22 )
 
       // Scale B
 

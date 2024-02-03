@@ -83,21 +83,21 @@
          INFO = -2
       } else if ( .NOT.( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -3
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -4
-      } else if ( ( N.LT.0 ) || ( N.GT.M ) ) {
+      } else if ( ( N < 0 ) || ( N.GT.M ) ) {
          INFO = -5
-      } else if ( LDA.LT.M ) {
+      } else if ( LDA < M ) {
          INFO = -7
-      } else if ( MV.LT.0 ) {
+      } else if ( MV < 0 ) {
          INFO = -9
-      } else if ( ( RSVEC && ( LDV.LT.N ) ) || ( APPLV && ( LDV.LT.MV ) ) ) {
+      } else if ( ( RSVEC && ( LDV < N ) ) || ( APPLV && ( LDV < MV ) ) ) {
          INFO = -11
       } else if ( UCTOL && ( RWORK( 1 ).LE.ONE ) ) {
          INFO = -12
-      } else if ( LWORK.LT.LWMIN && ( .NOT.LQUERY ) ) {
+      } else if ( LWORK < LWMIN && ( .NOT.LQUERY ) ) {
          INFO = -13
-      } else if ( LRWORK.LT.LRWMIN && ( .NOT.LQUERY ) ) {
+      } else if ( LRWORK < LRWMIN && ( .NOT.LQUERY ) ) {
          INFO = -15
       } else {
          INFO = 0
@@ -193,7 +193,7 @@
                RETURN
             }
             AAQQ = SQRT( AAQQ )
-            if ( ( AAPP.LT.( BIG / AAQQ ) ) && NOSCALE ) {
+            if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = false;
@@ -218,7 +218,7 @@
                RETURN
             }
             AAQQ = SQRT( AAQQ )
-            if ( ( AAPP.LT.( BIG / AAQQ ) ) && NOSCALE ) {
+            if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = false;
@@ -243,7 +243,7 @@
                RETURN
             }
             AAQQ = SQRT( AAQQ )
-            if ( ( AAPP.LT.( BIG / AAQQ ) ) && NOSCALE ) {
+            if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = false;
@@ -483,7 +483,7 @@
          // If properly implemented SCNRM2 is available, the IF-THEN-ELSE-END IF
          // below should be replaced with "AAPP = SCNRM2( M, A(1,p), 1 )".
 
-                     if ( ( SVA( p ).LT.ROOTBIG ) && ( SVA( p ).GT.ROOTSFMIN ) ) {
+                     if ( ( SVA( p ) < ROOTBIG ) && ( SVA( p ).GT.ROOTSFMIN ) ) {
                         SVA( p ) = SCNRM2( M, A( 1, p ), 1 )
                      } else {
                         TEMP1 = ZERO
@@ -509,7 +509,7 @@
                            AAPP0 = AAPP
                            if ( AAQQ.GE.ONE ) {
                               ROTOK = ( SMALL*AAPP ).LE.AAQQ
-                              if ( AAPP.LT.( BIG / AAQQ ) ) {
+                              if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
                                  ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 );
@@ -594,7 +594,7 @@
             // In the case of cancellation in updating SVA(q), SVA(p)
             // recompute SVA(q), SVA(p).
 
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1 )
                                  } else {
                                     T = ZERO
@@ -604,7 +604,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 ).LE.ROOTEPS ) {
-                                 if ( ( AAPP.LT.ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
+                                 if ( ( AAPP < ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
@@ -686,7 +686,7 @@
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
                               }
-                              if ( AAPP.LT.( BIG / AAQQ ) ) {
+                              if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
                                  ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 );
@@ -780,7 +780,7 @@
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1)
                                   } else {
                                     T = ZERO
@@ -790,7 +790,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
-                                 if ( ( AAPP.LT.ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
+                                 if ( ( AAPP < ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
@@ -833,7 +833,7 @@
                   } else {
 
                      if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
-                     if (AAPP.LT.ZERO) NOTROT = 0;
+                     if (AAPP < ZERO) NOTROT = 0;
 
                   }
 
@@ -851,7 +851,7 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         if ( ( SVA( N ).LT.ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
+         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
             SVA( N ) = SCNRM2( M, A( 1, N ), 1 )
          } else {
             T = ZERO
@@ -862,9 +862,9 @@
 
       // Additional steering devices
 
-         IF( ( i.LT.SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i < SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
 
-         if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ.LT.SQRT( REAL( N ) )* TOL ) && ( REAL( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
+         if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ < SQRT( REAL( N ) )* TOL ) && ( REAL( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994
          }
 
@@ -928,7 +928,7 @@
       }
 
       // Undo scaling, if necessary (and possible).
-      if ( ( ( SKL.GT.ONE ) && ( SVA( 1 ).LT.( BIG / SKL ) ) ) || ( ( SKL.LT.ONE ) && ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL ) ) ) ) {
+      if ( ( ( SKL.GT.ONE ) && ( SVA( 1 ) < ( BIG / SKL ) ) ) || ( ( SKL < ONE ) && ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL ) ) ) ) {
          for (p = 1; p <= N; p++) { // 2400
             SVA( P ) = SKL*SVA( P )
          } // 2400

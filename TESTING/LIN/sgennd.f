@@ -26,7 +26,7 @@
       // .. Executable Statements ..
       K = MIN( M, N )
       for (I = 1; I <= K; I++) {
-         if ( A( I, I ).LT.ZERO ) {
+         if ( A( I, I ) < ZERO ) {
             SGENND = false;
             RETURN
          }

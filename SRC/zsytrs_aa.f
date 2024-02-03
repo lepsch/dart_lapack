@@ -41,15 +41,15 @@
       LQUERY = ( LWORK == -1 )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.MAX( 1, 3*N-2 ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, 3*N-2 ) && .NOT.LQUERY ) {
          INFO = -10
       }
       if ( INFO != 0 ) {

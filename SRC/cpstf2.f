@@ -48,9 +48,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -83,7 +83,7 @@
 
       // Compute stopping value if not supplied
 
-      if ( TOL.LT.ZERO ) {
+      if ( TOL < ZERO ) {
          SSTOP = N * SLAMCH( 'Epsilon' ) * AJJ
       } else {
          SSTOP = TOL
@@ -130,7 +130,7 @@
 
                A( PVT, PVT ) = A( J, J )
                cswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
-               if (PVT.LT.N) CALL CSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
+               if (PVT < N) CALL CSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                for (I = J + 1; I <= PVT - 1; I++) { // 140
                   CTEMP = CONJG( A( J, I ) )
                   A( J, I ) = CONJG( A( I, PVT ) )
@@ -153,7 +153,7 @@
 
             // Compute elements J+1:N of row J
 
-            if ( J.LT.N ) {
+            if ( J < N ) {
                clacgv(J-1, A( 1, J ), 1 );
                cgemv('Trans', J-1, N-J, -CONE, A( 1, J+1 ), LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA );
                clacgv(J-1, A( 1, J ), 1 );
@@ -197,7 +197,7 @@
 
                A( PVT, PVT ) = A( J, J )
                cswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
-               if (PVT.LT.N) CALL CSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
+               if (PVT < N) CALL CSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                for (I = J + 1; I <= PVT - 1; I++) { // 170
                   CTEMP = CONJG( A( I, J ) )
                   A( I, J ) = CONJG( A( PVT, I ) )
@@ -220,7 +220,7 @@
 
             // Compute elements J+1:N of column J
 
-            if ( J.LT.N ) {
+            if ( J < N ) {
                clacgv(J-1, A( J, 1 ), LDA );
                cgemv('No Trans', N-J, J-1, -CONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 );
                clacgv(J-1, A( J, 1 ), LDA );

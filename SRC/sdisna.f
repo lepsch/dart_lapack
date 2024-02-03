@@ -50,9 +50,9 @@
       }
       if ( .NOT.EIGEN && .NOT.SING ) {
          INFO = -1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -2
-      } else if ( K.LT.0 ) {
+      } else if ( K < 0 ) {
          INFO = -3
       } else {
          INCR = true;
@@ -89,7 +89,7 @@
          SEP( K ) = OLDGAP
       }
       if ( SING ) {
-         if ( ( LEFT && M.GT.N ) || ( RIGHT && M.LT.N ) ) {
+         if ( ( LEFT && M.GT.N ) || ( RIGHT && M < N ) ) {
             if (INCR) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) );
          }
       }

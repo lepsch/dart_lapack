@@ -42,15 +42,15 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE.GT.3 ) {
          INFO = -1
       } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
       }
       if ( INFO != 0 ) {
@@ -71,7 +71,7 @@
                BKK = DBLE( B( K, K ) )
                AKK = AKK / BKK**2
                A( K, K ) = AKK
-               if ( K.LT.N ) {
+               if ( K < N ) {
                   zdscal(N-K, ONE / BKK, A( K, K+1 ), LDA );
                   CT = -HALF*AKK
                   zlacgv(N-K, A( K, K+1 ), LDA );
@@ -96,7 +96,7 @@
                BKK = DBLE( B( K, K ) )
                AKK = AKK / BKK**2
                A( K, K ) = AKK
-               if ( K.LT.N ) {
+               if ( K < N ) {
                   zdscal(N-K, ONE / BKK, A( K+1, K ), 1 );
                   CT = -HALF*AKK
                   zaxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );

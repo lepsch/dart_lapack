@@ -57,17 +57,17 @@
       // Check for errors
 
       INFO = 0
-      if ( THRESH.LT.ZERO ) {
+      if ( THRESH < ZERO ) {
          INFO = -3
       } else if ( NOUNIT.LE.0 ) {
          INFO = -5
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -6
-      } else if ( LDA.LT.1 || LDA.LT.N ) {
+      } else if ( LDA < 1 || LDA < N ) {
          INFO = -8
-      } else if ( LDVS.LT.1 || LDVS.LT.N ) {
+      } else if ( LDVS < 1 || LDVS < N ) {
          INFO = -18
-      } else if ( LWORK.LT.3*N ) {
+      } else if ( LWORK < 3*N ) {
          INFO = -26
       }
 
@@ -159,7 +159,7 @@
          if ( ANORM.GT.WNORM ) {
             RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP )
          } else {
-            if ( ANORM.LT.ONE ) {
+            if ( ANORM < ONE ) {
                RESULT( 2+RSUB ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
             } else {
                RESULT( 2+RSUB ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )
@@ -223,7 +223,7 @@
             KNTEIG = 0
             for (I = 1; I <= N; I++) { // 110
                IF( SSLECT( WR( I ), WI( I ) ) || SSLECT( WR( I ), -WI( I ) ) )KNTEIG = KNTEIG + 1
-               if ( I.LT.N ) {
+               if ( I < N ) {
                   IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) || SSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( SSLECT( WR( I ), WI( I ) ) || SSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 )RESULT( 13 ) = ULPINV
                }
             } // 110
@@ -439,7 +439,7 @@
             VRMIN = WRTMP( I )
             VIMIN = WITMP( I )
             for (J = I + 1; J <= N; J++) { // 270
-               if ( WRTMP( J ).LT.VRMIN ) {
+               if ( WRTMP( J ) < VRMIN ) {
                   KMIN = J
                   VRMIN = WRTMP( J )
                   VIMIN = WITMP( J )
@@ -491,9 +491,9 @@
             RESULT( 16 ) = ULPINV
          } else if ( RCDEIN-TOLIN.GT.RCONDE+TOL ) {
             RESULT( 16 ) = ( RCDEIN-TOLIN ) / ( RCONDE+TOL )
-         } else if ( RCDEIN+TOLIN.LT.EPS*( RCONDE-TOL ) ) {
+         } else if ( RCDEIN+TOLIN < EPS*( RCONDE-TOL ) ) {
             RESULT( 16 ) = ULPINV
-         } else if ( RCDEIN+TOLIN.LT.RCONDE-TOL ) {
+         } else if ( RCDEIN+TOLIN < RCONDE-TOL ) {
             RESULT( 16 ) = ( RCONDE-TOL ) / ( RCDEIN+TOLIN )
          } else {
             RESULT( 16 ) = ONE
@@ -518,9 +518,9 @@
             RESULT( 17 ) = ULPINV
          } else if ( RCDVIN-TOLIN.GT.RCONDV+TOL ) {
             RESULT( 17 ) = ( RCDVIN-TOLIN ) / ( RCONDV+TOL )
-         } else if ( RCDVIN+TOLIN.LT.EPS*( RCONDV-TOL ) ) {
+         } else if ( RCDVIN+TOLIN < EPS*( RCONDV-TOL ) ) {
             RESULT( 17 ) = ULPINV
-         } else if ( RCDVIN+TOLIN.LT.RCONDV-TOL ) {
+         } else if ( RCDVIN+TOLIN < RCONDV-TOL ) {
             RESULT( 17 ) = ( RCONDV-TOL ) / ( RCDVIN+TOLIN )
          } else {
             RESULT( 17 ) = ONE

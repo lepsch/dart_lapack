@@ -74,7 +74,7 @@
             FS = FS*SAFMN2
             GS = GS*SAFMN2
             SCALE = SCALE*SAFMN2
-            if (SCALE.GE.SAFMX2 && COUNT .LT. 20) GO TO 10;
+            if (SCALE.GE.SAFMX2 && COUNT < 20) GO TO 10;
          } else if ( SCALE.LE.SAFMN2 ) {
             if ( G == CZERO ) {
                CS = ONE
@@ -109,11 +109,11 @@
             // G2 is at least SAFMIN, and G2S is at least SAFMN2
             G2S = SQRT( G2 )
             // Error in CS from underflow in F2S is at most
-            // UNFL / SAFMN2 .lt. sqrt(UNFL*EPS) .lt. EPS
-            // If MAX(G2,ONE)=G2, then F2 .lt. G2*SAFMIN,
-            // and so CS .lt. sqrt(SAFMIN)
-            // If MAX(G2,ONE)=ONE, then F2 .lt. SAFMIN
-            // and so CS .lt. sqrt(SAFMIN)/SAFMN2 = sqrt(EPS)
+            // UNFL / SAFMN2 < sqrt(UNFL*EPS) < EPS
+            // If MAX(G2,ONE)=G2, then F2 < G2*SAFMIN,
+            // and so CS < sqrt(SAFMIN)
+            // If MAX(G2,ONE)=ONE, then F2 < SAFMIN
+            // and so CS < sqrt(SAFMIN)/SAFMN2 = sqrt(EPS)
             // Therefore, CS = F2S/G2S / sqrt( 1 + (F2S/G2S)**2 ) = F2S/G2S
             CS = F2S / G2S
             // Make sure abs(FF) = 1

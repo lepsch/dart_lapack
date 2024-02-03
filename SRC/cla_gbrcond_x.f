@@ -49,15 +49,15 @@
       NOTRANS = LSAME( TRANS, 'N' )
       if ( .NOT. NOTRANS && .NOT. LSAME(TRANS, 'T') && .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( KL.LT.0 || KL.GT.N-1 ) {
+      } else if ( KL < 0 || KL.GT.N-1 ) {
          INFO = -3
-      } else if ( KU.LT.0 || KU.GT.N-1 ) {
+      } else if ( KU < 0 || KU.GT.N-1 ) {
          INFO = -4
-      } else if ( LDAB.LT.KL+KU+1 ) {
+      } else if ( LDAB < KL+KU+1 ) {
          INFO = -6
-      } else if ( LDAFB.LT.2*KL+KU+1 ) {
+      } else if ( LDAFB < 2*KL+KU+1 ) {
          INFO = -8
       }
       if ( INFO != 0 ) {

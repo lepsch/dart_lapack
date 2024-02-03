@@ -45,9 +45,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -172,7 +172,7 @@
 
          // If K < 1, exit from loop.
 
-         if (K.LT.1) GO TO 80;
+         if (K < 1) GO TO 80;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -184,7 +184,7 @@
 
             // Compute column K of the inverse.
 
-            if ( K.LT.N ) {
+            if ( K < N ) {
                zcopy(N-K, A( K+1, K ), 1, WORK, 1 );
                zhemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) );
             }
@@ -206,7 +206,7 @@
 
             // Compute columns K-1 and K of the inverse.
 
-            if ( K.LT.N ) {
+            if ( K < N ) {
                zcopy(N-K, A( K+1, K ), 1, WORK, 1 );
                zhemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - ZDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
                zcopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
@@ -221,7 +221,7 @@
             // Interchange rows and columns K and KP in the trailing
             // submatrix A(k-1:n,k-1:n)
 
-            if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+            if (KP < N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
             for (J = K + 1; J <= KP - 1; J++) { // 70
                TEMP = DCONJG( A( J, K ) )
                A( J, K ) = DCONJG( A( KP, J ) )

@@ -61,7 +61,7 @@
          if ( ABSI.GT.SAFMAX ) {
             zdscal(N, SAFMIN, X, INCX );
             zscal(N, DCMPLX( ZERO, -SAFMAX / AI ), X, INCX );
-         } else if ( ABSI.LT.SAFMIN ) {
+         } else if ( ABSI < SAFMIN ) {
             zscal(N, DCMPLX( ZERO, -SAFMIN / AI ), X, INCX );
             zdscal(N, SAFMAX, X, INCX );
          } else {
@@ -79,7 +79,7 @@
          UR = AR + AI * ( AI / AR )
          UI = AI + AR * ( AR / AI )
 
-         if ( (ABS( UR ).LT.SAFMIN) || (ABS( UI ).LT.SAFMIN) ) {
+         if ( (ABS( UR ) < SAFMIN) || (ABS( UI ) < SAFMIN) ) {
             // This means that both alphaR and alphaI are very small.
             zscal(N, DCMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX );
             zdscal(N, SAFMAX, X, INCX );

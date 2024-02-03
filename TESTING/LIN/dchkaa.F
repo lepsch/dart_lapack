@@ -97,7 +97,7 @@ void main() {
       // Read the values of M
 
       READ( NIN, FMT = * )NM
-      if ( NM.LT.1 ) {
+      if ( NM < 1 ) {
          WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
          NM = 0
          FATAL = true;
@@ -108,7 +108,7 @@ void main() {
       }
       READ( NIN, FMT = * )( MVAL( I ), I = 1, NM )
       for (I = 1; I <= NM; I++) { // 10
-         if ( MVAL( I ).LT.0 ) {
+         if ( MVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
             FATAL = true;
          } else if ( MVAL( I ).GT.NMAX ) {
@@ -121,7 +121,7 @@ void main() {
       // Read the values of N
 
       READ( NIN, FMT = * )NN
-      if ( NN.LT.1 ) {
+      if ( NN < 1 ) {
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
          NN = 0
          FATAL = true;
@@ -132,7 +132,7 @@ void main() {
       }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
       for (I = 1; I <= NN; I++) { // 20
-         if ( NVAL( I ).LT.0 ) {
+         if ( NVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' N  ', NVAL( I ), 0
             FATAL = true;
          } else if ( NVAL( I ).GT.NMAX ) {
@@ -145,7 +145,7 @@ void main() {
       // Read the values of NRHS
 
       READ( NIN, FMT = * )NNS
-      if ( NNS.LT.1 ) {
+      if ( NNS < 1 ) {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
          FATAL = true;
@@ -156,7 +156,7 @@ void main() {
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
       for (I = 1; I <= NNS; I++) { // 30
-         if ( NSVAL( I ).LT.0 ) {
+         if ( NSVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = true;
          } else if ( NSVAL( I ).GT.MAXRHS ) {
@@ -169,7 +169,7 @@ void main() {
       // Read the values of NB
 
       READ( NIN, FMT = * )NNB
-      if ( NNB.LT.1 ) {
+      if ( NNB < 1 ) {
          WRITE( NOUT, FMT = 9996 )'NNB ', NNB, 1
          NNB = 0
          FATAL = true;
@@ -180,7 +180,7 @@ void main() {
       }
       READ( NIN, FMT = * )( NBVAL( I ), I = 1, NNB )
       for (I = 1; I <= NNB; I++) { // 40
-         if ( NBVAL( I ).LT.0 ) {
+         if ( NBVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' NB ', NBVAL( I ), 0
             FATAL = true;
          }
@@ -203,7 +203,7 @@ void main() {
 
       READ( NIN, FMT = * )( NXVAL( I ), I = 1, NNB )
       for (I = 1; I <= NNB; I++) { // 70
-         if ( NXVAL( I ).LT.0 ) {
+         if ( NXVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' NX ', NXVAL( I ), 0
             FATAL = true;
          }
@@ -213,7 +213,7 @@ void main() {
       // Read the values of RANKVAL
 
       READ( NIN, FMT = * )NRANK
-      if ( NN.LT.1 ) {
+      if ( NN < 1 ) {
          WRITE( NOUT, FMT = 9996 )' NRANK ', NRANK, 1
          NRANK = 0
          FATAL = true;
@@ -224,7 +224,7 @@ void main() {
       }
       READ( NIN, FMT = * )( RANKVAL( I ), I = 1, NRANK )
       for (I = 1; I <= NRANK; I++) {
-         if ( RANKVAL( I ).LT.0 ) {
+         if ( RANKVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' RANK  ', RANKVAL( I ), 0
             FATAL = true;
          } else if ( RANKVAL( I ).GT.100 ) {

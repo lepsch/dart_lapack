@@ -37,7 +37,7 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
          xerbla('CGTTRF', -INFO );
          RETURN

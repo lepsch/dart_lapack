@@ -100,7 +100,7 @@
                DEL = D( N ) - D( N-1 )
                A = -C*DEL + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N )
                B = Z( N )*Z( N )*DEL
-               if ( A.LT.ZERO ) {
+               if ( A < ZERO ) {
                   TAU = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
                } else {
                   TAU = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
@@ -116,7 +116,7 @@
             DEL = D( N ) - D( N-1 )
             A = -C*DEL + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N )
             B = Z( N )*Z( N )*DEL
-            if ( A.LT.ZERO ) {
+            if ( A < ZERO ) {
                TAU = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
             } else {
                TAU = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
@@ -174,7 +174,7 @@
          C = W - DELTA( N-1 )*DPSI - DELTA( N )*DPHI
          A = ( DELTA( N-1 )+DELTA( N ) )*W - DELTA( N-1 )*DELTA( N )*( DPSI+DPHI )
          B = DELTA( N-1 )*DELTA( N )*W
-         if (C.LT.ZERO) C = ABS( C );
+         if (C < ZERO) C = ABS( C );
          if ( C == ZERO ) {
             // ETA = B/A
             // ETA = RHO - TAU
@@ -196,8 +196,8 @@
 
          if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
          TEMP = TAU + ETA
-         if ( TEMP.GT.DLTUB || TEMP.LT.DLTLB ) {
-            if ( W.LT.ZERO ) {
+         if ( TEMP.GT.DLTUB || TEMP < DLTLB ) {
+            if ( W < ZERO ) {
                ETA = ( DLTUB-TAU ) / TWO
             } else {
                ETA = ( DLTLB-TAU ) / TWO
@@ -269,8 +269,8 @@
 
             if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
             TEMP = TAU + ETA
-            if ( TEMP.GT.DLTUB || TEMP.LT.DLTLB ) {
-               if ( W.LT.ZERO ) {
+            if ( TEMP.GT.DLTUB || TEMP < DLTLB ) {
+               if ( W < ZERO ) {
                   ETA = ( DLTUB-TAU ) / TWO
                } else {
                   ETA = ( DLTLB-TAU ) / TWO
@@ -365,7 +365,7 @@
             ORGATI = false;
             A = C*DEL - Z( I )*Z( I ) - Z( IP1 )*Z( IP1 )
             B = Z( IP1 )*Z( IP1 )*DEL
-            if ( A.LT.ZERO ) {
+            if ( A < ZERO ) {
                TAU = TWO*B / ( A-SQRT( ABS( A*A+FOUR*B*C ) ) )
             } else {
                TAU = -( A+SQRT( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C )
@@ -422,7 +422,7 @@
 
          SWTCH3 = false;
          if ( ORGATI ) {
-            if (W.LT.ZERO) SWTCH3 = true ;
+            if (W < ZERO) SWTCH3 = true ;
          } else {
             if (W.GT.ZERO) SWTCH3 = true ;
          }
@@ -505,8 +505,8 @@
 
          if (W*ETA.GE.ZERO) ETA = -W / DW;
          TEMP = TAU + ETA
-         if ( TEMP.GT.DLTUB || TEMP.LT.DLTLB ) {
-            if ( W.LT.ZERO ) {
+         if ( TEMP.GT.DLTUB || TEMP < DLTLB ) {
+            if ( W < ZERO ) {
                ETA = ( DLTUB-TAU ) / TWO
             } else {
                ETA = ( DLTLB-TAU ) / TWO
@@ -653,8 +653,8 @@
 
             if (W*ETA.GE.ZERO) ETA = -W / DW;
             TEMP = TAU + ETA
-            if ( TEMP.GT.DLTUB || TEMP.LT.DLTLB ) {
-               if ( W.LT.ZERO ) {
+            if ( TEMP.GT.DLTUB || TEMP < DLTLB ) {
+               if ( W < ZERO ) {
                   ETA = ( DLTUB-TAU ) / TWO
                } else {
                   ETA = ( DLTLB-TAU ) / TWO

@@ -47,7 +47,7 @@
 
       } // 10
 
-      if (N0.LT.I0) RETURN       IF( N0 == I0 ) GO TO 20;
+      if (N0 < I0) RETURN       IF( N0 == I0 ) GO TO 20;
       NN = 4*N0 + PP
       IF( N0 == ( I0+1 ) ) GO TO 40
 
@@ -96,8 +96,8 @@
 
       // Reverse the qd-array, if warranted.
 
-      if ( DMIN.LE.ZERO || N0.LT.N0IN ) {
-         if ( CBIAS*Z( 4*I0+PP-3 ).LT.Z( 4*N0+PP-3 ) ) {
+      if ( DMIN.LE.ZERO || N0 < N0IN ) {
+         if ( CBIAS*Z( 4*I0+PP-3 ) < Z( 4*N0+PP-3 ) ) {
             IPN4 = 4*( I0+N0 )
             DO 60 J4 = 4*I0, 2*( I0+N0-1 ), 4
                TEMP = Z( J4-3 )
@@ -145,19 +145,19 @@
 
          GO TO 90
 
-      } else if ( DMIN.LT.ZERO && DMIN1.GT.ZERO && Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) && ABS( DN ).LT.TOL*SIGMA ) {
+      } else if ( DMIN < ZERO && DMIN1.GT.ZERO && Z( 4*( N0-1 )-PP ) < TOL*( SIGMA+DN1 ) && ABS( DN ) < TOL*SIGMA ) {
 
          // Convergence hidden by negative DN.
 
          Z( 4*( N0-1 )-PP+2 ) = ZERO
          DMIN = ZERO
          GO TO 90
-      } else if ( DMIN.LT.ZERO ) {
+      } else if ( DMIN < ZERO ) {
 
          // TAU too big. Select new TAU and try again.
 
          NFAIL = NFAIL + 1
-         if ( TTYPE.LT.-22 ) {
+         if ( TTYPE < -22 ) {
 
             // Failed twice. Play it safe.
 
@@ -202,7 +202,7 @@
       TAU = ZERO
 
       } // 90
-      if ( TAU.LT.SIGMA ) {
+      if ( TAU < SIGMA ) {
          DESIG = DESIG + TAU
          T = SIGMA + DESIG
          DESIG = DESIG - ( T-SIGMA )

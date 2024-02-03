@@ -53,11 +53,11 @@
          INFO = -3
       } else if ( .NOT.LSAME( NORMIN, 'Y' ) && .NOT. LSAME( NORMIN, 'N' ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -6
-      } else if ( LDAB.LT.KD+1 ) {
+      } else if ( LDAB < KD+1 ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -302,7 +302,7 @@
 
                      // abs(A(j,j)) > SMLNUM:
 
-                     if ( TJJ.LT.ONE ) {
+                     if ( TJJ < ONE ) {
                         if ( XJ.GT.TJJ*BIGNUM ) {
 
                            // Scale x by 1/b(j).
@@ -386,7 +386,7 @@
                      I = ISAMAX( J-1, X, 1 )
                      XMAX = ABS( X( I ) )
                   }
-               } else if ( J.LT.N ) {
+               } else if ( J < N ) {
 
                   // Compute the update
                      // x(j+1:min(j+kd,n)) := x(j+1:min(j+kd,n)) -
@@ -429,7 +429,7 @@
                         REC = MIN( ONE, REC*TJJ )
                         USCAL = USCAL / TJJS
                      }
-                  if ( REC.LT.ONE ) {
+                  if ( REC < ONE ) {
                      sscal(N, REC, X, 1 );
                      SCALE = SCALE*REC
                      XMAX = XMAX*REC
@@ -487,7 +487,7 @@
 
                         // abs(A(j,j)) > SMLNUM:
 
-                        if ( TJJ.LT.ONE ) {
+                        if ( TJJ < ONE ) {
                            if ( XJ.GT.TJJ*BIGNUM ) {
 
                               // Scale X by 1/abs(x(j)).

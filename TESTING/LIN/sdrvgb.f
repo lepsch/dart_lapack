@@ -162,7 +162,7 @@
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
                   ZEROT = IMAT.GE.2 && IMAT.LE.4
-                  if (ZEROT && N.LT.IMAT-1) GO TO 120;
+                  if (ZEROT && N < IMAT-1) GO TO 120;
 
                   // Set up parameters with SLATB4 and generate a
                   // test matrix with SLATMS.
@@ -193,7 +193,7 @@
                         IZERO = N / 2 + 1
                      }
                      IOFF = ( IZERO-1 )*LDA
-                     if ( IMAT.LT.4 ) {
+                     if ( IMAT < 4 ) {
                         I1 = MAX( 1, KU+2-IZERO )
                         I2 = MIN( KL+KU+1, KU+1+( N-IZERO ) )
                         for (I = I1; I <= I2; I++) { // 20

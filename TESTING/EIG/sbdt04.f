@@ -101,7 +101,7 @@
          if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS )
          } else {
-            if ( BNORM.LT.ONE ) {
+            if ( BNORM < ONE ) {
                RESID = ( MIN( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS )
             } else {
                RESID = MIN( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS )

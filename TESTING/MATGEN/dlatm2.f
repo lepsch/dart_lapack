@@ -43,14 +43,14 @@
 
       // Check for I and J in range
 
-      if ( I.LT.1 || I.GT.M || J.LT.1 || J.GT.N ) {
+      if ( I < 1 || I.GT.M || J < 1 || J.GT.N ) {
          DLATM2 = ZERO
          RETURN
       }
 
       // Check for banding
 
-      if ( J.GT.I+KU || J.LT.I-KL ) {
+      if ( J.GT.I+KU || J < I-KL ) {
          DLATM2 = ZERO
          RETURN
       }
@@ -58,7 +58,7 @@
       // Check for sparsity
 
       if ( SPARSE.GT.ZERO ) {
-         if ( DLARAN( ISEED ).LT.SPARSE ) {
+         if ( DLARAN( ISEED ) < SPARSE ) {
             DLATM2 = ZERO
             RETURN
          }

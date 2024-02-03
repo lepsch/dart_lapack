@@ -164,7 +164,7 @@
                      // small.
 
                      ZEROT = IMAT.GE.2 && IMAT.LE.4
-                     if (ZEROT && N.LT.IMAT-1) GO TO 120;
+                     if (ZEROT && N < IMAT-1) GO TO 120;
 
                      if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
 
@@ -207,7 +207,7 @@
                            IZERO = MIN( M, N ) / 2 + 1
                         }
                         IOFF = ( IZERO-1 )*LDA
-                        if ( IMAT.LT.4 ) {
+                        if ( IMAT < 4 ) {
 
                            // Store the column to be zeroed out in B.
 

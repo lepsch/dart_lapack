@@ -52,11 +52,11 @@
       } else {
          ICOMPZ = -1
       }
-      if ( ICOMPZ.LT.0 ) {
+      if ( ICOMPZ < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( ( LDZ.LT.1 ) || ( ICOMPZ.GT.0 && LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ.GT.0 && LDZ < MAX( 1, N ) ) ) {
          INFO = -6
       }
 
@@ -73,7 +73,7 @@
             LWMIN = 2*( N - 1 )
          } else {
             LGN = INT( LOG( REAL( N ) )/LOG( TWO ) )
-            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
+            if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
             if ( ICOMPZ == 1 ) {
                LWMIN = 1 + 3*N + 2*N*LGN + 4*N**2
                LIWMIN = 6 + 6*N + 5*N*LGN
@@ -85,9 +85,9 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK.LT.LWMIN && .NOT. LQUERY ) {
+         if ( LWORK < LWMIN && .NOT. LQUERY ) {
             INFO = -8
-         } else if ( LIWORK.LT.LIWMIN && .NOT. LQUERY ) {
+         } else if ( LIWORK < LIWMIN && .NOT. LQUERY ) {
             INFO = -10
          }
       }
@@ -167,7 +167,7 @@
 
             FINISH = START
             } // 20
-            if ( FINISH.LT.N ) {
+            if ( FINISH < N ) {
                TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) )
                if ( ABS( E( FINISH ) ).GT.TINY ) {
                   FINISH = FINISH + 1
@@ -247,7 +247,7 @@
               K = I
               P = D( I )
               for (J = II; J <= N; J++) { // 30
-                 if ( D( J ).LT.P ) {
+                 if ( D( J ) < P ) {
                     K = J
                     P = D( J )
                  }

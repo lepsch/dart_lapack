@@ -31,17 +31,17 @@
 
       INFO = 0
 
-      if ( ( ICOMPQ.LT.0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      } else if ( SMLSIZ.LT.3 ) {
+      } else if ( SMLSIZ < 3 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
          INFO = -4
-      } else if ( LDU.LT.( N+SQRE ) ) {
+      } else if ( LDU < ( N+SQRE ) ) {
          INFO = -8
-      } else if ( LDGCOL.LT.N ) {
+      } else if ( LDGCOL < N ) {
          INFO = -17
       }
       if ( INFO != 0 ) {

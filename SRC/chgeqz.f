@@ -101,21 +101,21 @@
          INFO = -2
       } else if ( ICOMPZ == 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( ILO.LT.1 ) {
+      } else if ( ILO < 1 ) {
          INFO = -5
-      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI < ILO-1 ) {
          INFO = -6
-      } else if ( LDH.LT.N ) {
+      } else if ( LDH < N ) {
          INFO = -8
-      } else if ( LDT.LT.N ) {
+      } else if ( LDT < N ) {
          INFO = -10
-      } else if ( LDQ.LT.1 || ( ILQ && LDQ.LT.N ) ) {
+      } else if ( LDQ < 1 || ( ILQ && LDQ < N ) ) {
          INFO = -14
-      } else if ( LDZ.LT.1 || ( ILZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( ILZ && LDZ < N ) ) {
          INFO = -16
-      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -18
       }
       if ( INFO != 0 ) {
@@ -173,7 +173,7 @@
 
       // If IHI < ILO, skip QZ steps
 
-      if (IHI.LT.ILO) GO TO 190;
+      if (IHI < ILO) GO TO 190;
 
       // MAIN QZ ITERATION LOOP
 
@@ -249,7 +249,7 @@
 
             // Test 2: for T(j,j)=0
 
-            if ( ABS( T( J, J ) ).LT.BTOL ) {
+            if ( ABS( T( J, J ) ) < BTOL ) {
                T( J, J ) = CZERO
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
@@ -294,7 +294,7 @@
                      CTEMP = T( JCH, JCH+1 )
                      clartg(CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = CZERO
-                     if (JCH.LT.ILASTM-1) CALL CROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
+                     if (JCH < ILASTM-1) CALL CROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
                      crot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) );
                      CTEMP = H( JCH+1, JCH )
                      clartg(CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
@@ -354,7 +354,7 @@
          // Go to next block -- exit if finished.
 
          ILAST = ILAST - 1
-         if (ILAST.LT.ILO) GO TO 190;
+         if (ILAST < ILO) GO TO 190;
 
          // Reset counters
 
@@ -405,7 +405,7 @@
                TEMP = MAX( TEMP, ABS1( X ) )
                Y = TEMP*SQRT( ( X / TEMP )**2+( CTEMP / TEMP )**2 )
                if ( TEMP2.GT.ZERO ) {
-                  IF( REAL( X / TEMP2 )*REAL( Y )+ AIMAG( X / TEMP2 )*AIMAG( Y ).LT.ZERO )Y = -Y
+                  IF( REAL( X / TEMP2 )*REAL( Y )+ AIMAG( X / TEMP2 )*AIMAG( Y ) < ZERO )Y = -Y
                }
                SHIFT = SHIFT - CTEMP*CLADIV( CTEMP, ( X+Y ) )
             }
@@ -428,7 +428,7 @@
             TEMP = ABS1( CTEMP )
             TEMP2 = ASCALE*ABS1( H( J+1, J ) )
             TEMPR = MAX( TEMP, TEMP2 )
-            if ( TEMPR.LT.ONE && TEMPR != ZERO ) {
+            if ( TEMPR < ONE && TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             }

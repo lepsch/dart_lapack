@@ -82,7 +82,7 @@
 
             for (I = 1; I <= N - 1; I++) { // 60
                EI = H( I+1, I )
-               if ( ABS( B( I, I ) ).LT.ABS( EI ) ) {
+               if ( ABS( B( I, I ) ) < ABS( EI ) ) {
 
                   // Interchange rows and eliminate.
 
@@ -117,7 +117,7 @@
 
             DO 90 J = N, 2, -1
                EJ = H( J, J-1 )
-               if ( ABS( B( J, J ) ).LT.ABS( EJ ) ) {
+               if ( ABS( B( J, J ) ) < ABS( EJ ) ) {
 
                   // Interchange columns and eliminate.
 
@@ -220,7 +220,7 @@
             for (I = 1; I <= N - 1; I++) { // 170
                ABSBII = DLAPY2( B( I, I ), B( I+1, I ) )
                EI = H( I+1, I )
-               if ( ABSBII.LT.ABS( EI ) ) {
+               if ( ABSBII < ABS( EI ) ) {
 
                   // Interchange rows and eliminate.
 
@@ -283,7 +283,7 @@
             DO 210 J = N, 2, -1
                EJ = H( J, J-1 )
                ABSBJJ = DLAPY2( B( J, J ), B( J+1, J ) )
-               if ( ABSBJJ.LT.ABS( EJ ) ) {
+               if ( ABSBJJ < ABS( EJ ) ) {
 
                   // Interchange columns and eliminate
 
@@ -368,7 +368,7 @@
 
                W = ABS( B( I, I ) ) + ABS( B( I+1, I ) )
                if ( W.GT.SMLNUM ) {
-                  if ( W.LT.ONE ) {
+                  if ( W < ONE ) {
                      W1 = ABS( XR ) + ABS( XI )
                      if ( W1.GT.W*BIGNUM ) {
                         REC = ONE / W1

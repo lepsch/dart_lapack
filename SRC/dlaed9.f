@@ -34,17 +34,17 @@
 
       INFO = 0
 
-      if ( K.LT.0 ) {
+      if ( K < 0 ) {
          INFO = -1
-      } else if ( KSTART.LT.1 || KSTART.GT.MAX( 1, K ) ) {
+      } else if ( KSTART < 1 || KSTART.GT.MAX( 1, K ) ) {
          INFO = -2
-      } else if ( MAX( 1, KSTOP ).LT.KSTART || KSTOP.GT.MAX( 1, K ) ) {
+      } else if ( MAX( 1, KSTOP ) < KSTART || KSTOP.GT.MAX( 1, K ) ) {
          INFO = -3
-      } else if ( N.LT.K ) {
+      } else if ( N < K ) {
          INFO = -4
-      } else if ( LDQ.LT.MAX( 1, K ) ) {
+      } else if ( LDQ < MAX( 1, K ) ) {
          INFO = -7
-      } else if ( LDS.LT.MAX( 1, K ) ) {
+      } else if ( LDS < MAX( 1, K ) ) {
          INFO = -12
       }
       if ( INFO != 0 ) {

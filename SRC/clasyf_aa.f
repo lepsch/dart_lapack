@@ -99,7 +99,7 @@
 
          A( K, J ) = WORK( 1 )
 
-         if ( J.LT.M ) {
+         if ( J < M ) {
 
             // Compute WORK(2:M) = T(J, J) L(J, (J+1):M)
              // where A(J, J) stores T(J, J) and A(J-1, (J+1):M) stores U(J, (J+1):M)
@@ -132,7 +132,7 @@
 
                // Swap A(I1, I2+1:M) with A(I2, I2+1:M)
 
-               if (I2.LT.M) CALL CSWAP( M-I2, A( J1+I1-1, I2+1 ), LDA, A( J1+I2-1, I2+1 ), LDA );
+               if (I2 < M) CALL CSWAP( M-I2, A( J1+I1-1, I2+1 ), LDA, A( J1+I2-1, I2+1 ), LDA );
 
                // Swap A(I1, I1) with A(I2,I2)
 
@@ -160,7 +160,7 @@
 
             A( K, J+1 ) = WORK( 2 )
 
-            if ( J.LT.NB ) {
+            if ( J < NB ) {
 
                // Copy A(J+1:M, J+1) into H(J:M, J),
 
@@ -170,7 +170,7 @@
             // Compute L(J+2, J+1) = WORK( 3:M ) / T(J, J+1),
              // where A(J, J+1) = T(J, J+1) and A(J+2:M, J) = L(J+2:M, J+1)
 
-            if ( J.LT.(M-1) ) {
+            if ( J < (M-1) ) {
                if ( A( K, J+1 ) != ZERO ) {
                   ALPHA = ONE / A( K, J+1 )
                   ccopy(M-J-1, WORK( 3 ), 1, A( K, J+2 ), LDA );
@@ -239,7 +239,7 @@
 
          A( J, K ) = WORK( 1 )
 
-         if ( J.LT.M ) {
+         if ( J < M ) {
 
             // Compute WORK(2:M) = T(J, J) L((J+1):M, J)
              // where A(J, J) = T(J, J) and A((J+1):M, J-1) = L((J+1):M, J)
@@ -272,7 +272,7 @@
 
                // Swap A(I2+1:M, I1) with A(I2+1:M, I2)
 
-               if (I2.LT.M) CALL CSWAP( M-I2, A( I2+1, J1+I1-1 ), 1, A( I2+1, J1+I2-1 ), 1 );
+               if (I2 < M) CALL CSWAP( M-I2, A( I2+1, J1+I1-1 ), 1, A( I2+1, J1+I2-1 ), 1 );
 
                // Swap A(I1, I1) with A(I2, I2)
 
@@ -300,7 +300,7 @@
 
             A( J+1, K ) = WORK( 2 )
 
-            if ( J.LT.NB ) {
+            if ( J < NB ) {
 
                // Copy A(J+1:M, J+1) into H(J+1:M, J),
 
@@ -310,7 +310,7 @@
             // Compute L(J+2, J+1) = WORK( 3:M ) / T(J, J+1),
              // where A(J, J+1) = T(J, J+1) and A(J+2:M, J) = L(J+2:M, J+1)
 
-            if ( J.LT.(M-1) ) {
+            if ( J < (M-1) ) {
                if ( A( J+1, K ) != ZERO ) {
                   ALPHA = ONE / A( J+1, K )
                   ccopy(M-J-1, WORK( 3 ), 1, A( J+2, K ), 1 );

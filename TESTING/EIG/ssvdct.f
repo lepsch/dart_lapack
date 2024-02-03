@@ -46,7 +46,7 @@
       } // 10
 
       if ( MX == ZERO ) {
-         if ( SHIFT.LT.ZERO ) {
+         if ( SHIFT < ZERO ) {
             NUM = 0
          } else {
             NUM = 2*N

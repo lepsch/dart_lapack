@@ -49,11 +49,11 @@
 
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LWORK.LT.MINSIZE && .NOT.LQUERY ) {
+      } else if ( LWORK < MINSIZE && .NOT.LQUERY ) {
          INFO = -7
       }
 

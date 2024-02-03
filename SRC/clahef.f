@@ -70,7 +70,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB.LT.N ) || K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB < N ) || K < 1 ) GO TO 30
 
          KSTEP = 1
 
@@ -78,7 +78,7 @@
 
          ccopy(K-1, A( 1, K ), 1, W( 1, KW ), 1 );
          W( K, KW ) = REAL( A( K, K ) )
-         if ( K.LT.N ) {
+         if ( K < N ) {
             cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
             W( K, KW ) = REAL( W( K, KW ) )
          }
@@ -129,7 +129,7 @@
                W( IMAX, KW-1 ) = REAL( A( IMAX, IMAX ) )
                ccopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
                clacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
-               if ( K.LT.N ) {
+               if ( K < N ) {
                   cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
                   W( IMAX, KW-1 ) = REAL( W( IMAX, KW-1 ) )
                }
@@ -211,7 +211,7 @@
                // later overwritten). Interchange rows KK and KP
                // in last KKW to NB columns of W.
 
-               if (K.LT.N) CALL CSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
+               if (K < N) CALL CSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
                cswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
@@ -391,7 +391,7 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            if ( JP.LT.0 ) {
+            if ( JP < 0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J + 1
@@ -418,14 +418,14 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB.LT.N ) || K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB < N ) || K.GT.N ) GO TO 90
 
          KSTEP = 1
 
          // Copy column K of A to column K of W and update it
 
          W( K, K ) = REAL( A( K, K ) )
-         if (K.LT.N) CALL CCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
+         if (K < N) CALL CCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
          W( K, K ) = REAL( W( K, K ) )
 
@@ -438,7 +438,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + ICAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
          } else {
@@ -474,7 +474,7 @@
                ccopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 );
                clacgv(IMAX-K, W( K, K+1 ), 1 );
                W( IMAX, K+1 ) = REAL( A( IMAX, IMAX ) )
-               if (IMAX.LT.N) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
+               if (IMAX < N) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
                cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
                W( IMAX, K+1 ) = REAL( W( IMAX, K+1 ) )
 
@@ -484,7 +484,7 @@
 
                JMAX = K - 1 + ICAMAX( IMAX-K, W( K, K+1 ), 1 )
                ROWMAX = CABS1( W( JMAX, K+1 ) )
-               if ( IMAX.LT.N ) {
+               if ( IMAX < N ) {
                   JMAX = IMAX + ICAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) )
                }
@@ -544,7 +544,7 @@
                A( KP, KP ) = REAL( A( KK, KK ) )
                ccopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                clacgv(KP-KK-1, A( KP, KK+1 ), LDA );
-               if (KP.LT.N) CALL CCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) CALL CCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
 
                // Interchange rows KK and KP in first K-1 columns of A
                // (columns K (or K and K+1 for 2-by-2 pivot) of A will be
@@ -574,7 +574,7 @@
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                ccopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
-               if ( K.LT.N ) {
+               if ( K < N ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
                    // since that was ensured earlier in pivot search:
@@ -605,7 +605,7 @@
                   // A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
                   // = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                   // Factor out the columns of the inverse of 2-by-2 pivot
                   // block D, so that each column contains 1, to reduce the
@@ -731,7 +731,7 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            if ( JP.LT.0 ) {
+            if ( JP < 0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J - 1

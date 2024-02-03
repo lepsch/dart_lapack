@@ -76,7 +76,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB.LT.N ) || K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB < N ) || K < 1 ) GO TO 30
 
          KSTEP = 1
          P = K
@@ -84,7 +84,7 @@
          // Copy column K of A to column KW of W and update it
 
          zcopy(K, A( 1, K ), 1, W( 1, KW ), 1 );
-         if (K.LT.N) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
+         if (K < N) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
@@ -118,7 +118,7 @@
             // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
+            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -140,7 +140,7 @@
                   zcopy(IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
                   zcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
 
-                  if (K.LT.N) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
+                  if (K < N) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
 
                   // JMAX is the column-index of the largest off-diagonal
                   // element in row IMAX, and ROWMAX is its absolute value.
@@ -166,7 +166,7 @@
                   // CABS1( W( IMAX, KW-1 ) ).GE.ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.(CABS1( W( IMAX, KW-1 ) ).LT.ALPHA*ROWMAX ) ) {
+                  if ( .NOT.(CABS1( W( IMAX, KW-1 ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -348,7 +348,7 @@
             JP1 = 1
             JJ = J
             JP2 = IPIV( J )
-            if ( JP2.LT.0 ) {
+            if ( JP2 < 0 ) {
                JP2 = -JP2
                J = J + 1
                JP1 = -IPIV( J )
@@ -377,7 +377,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB.LT.N ) || K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB < N ) || K.GT.N ) GO TO 90
 
          KSTEP = 1
          P = K
@@ -396,7 +396,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + IZAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
          } else {
@@ -419,7 +419,7 @@
             // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK.LT.ALPHA*COLMAX ) ) {
+            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -452,7 +452,7 @@
                      ROWMAX = ZERO
                   }
 
-                  if ( IMAX.LT.N ) {
+                  if ( IMAX < N ) {
                      ITEMP = IMAX + IZAMAX( N-IMAX, W( IMAX+1, K+1 ), 1)
                      DTEMP = CABS1( W( ITEMP, K+1 ) )
                      if ( DTEMP.GT.ROWMAX ) {
@@ -465,7 +465,7 @@
                   // CABS1( W( IMAX, K+1 ) ).GE.ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.( CABS1( W( IMAX, K+1 ) ).LT.ALPHA*ROWMAX ) ) {
+                  if ( .NOT.( CABS1( W( IMAX, K+1 ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -554,7 +554,7 @@
                // Store L(k) in column k of A
 
                zcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
-               if ( K.LT.N ) {
+               if ( K < N ) {
                   if ( CABS1( A( K, K ) ).GE.SFMIN ) {
                      R1 = CONE / A( K, K )
                      zscal(N-K, R1, A( K+1, K ), 1 );
@@ -574,7 +574,7 @@
                // where L(k) and L(k+1) are the k-th and (k+1)-th columns
                // of L
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                   // Store L(k) and L(k+1) in columns k and k+1 of A
 
@@ -641,7 +641,7 @@
             JP1 = 1
             JJ = J
             JP2 = IPIV( J )
-            if ( JP2.LT.0 ) {
+            if ( JP2 < 0 ) {
                JP2 = -JP2
                J = J - 1
                JP1 = -IPIV( J )

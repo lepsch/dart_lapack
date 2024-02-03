@@ -33,7 +33,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
          xerbla('ZPTTRF', -INFO );
          RETURN

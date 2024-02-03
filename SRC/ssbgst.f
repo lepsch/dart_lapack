@@ -46,17 +46,17 @@
          INFO = -1
       } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( KA.LT.0 ) {
+      } else if ( KA < 0 ) {
          INFO = -4
-      } else if ( KB.LT.0 || KB.GT.KA ) {
+      } else if ( KB < 0 || KB.GT.KA ) {
          INFO = -5
-      } else if ( LDAB.LT.KA+1 ) {
+      } else if ( LDAB < KA+1 ) {
          INFO = -7
-      } else if ( LDBB.LT.KB+1 ) {
+      } else if ( LDBB < KB+1 ) {
          INFO = -9
-      } else if ( LDX.LT.1 || WANTX && LDX.LT.MAX( 1, N ) ) {
+      } else if ( LDX < 1 || WANTX && LDX < MAX( 1, N ) ) {
          INFO = -11
       }
       if ( INFO != 0 ) {
@@ -150,7 +150,7 @@
          I0 = I - 1
          I1 = MIN( N, I+KA )
          I2 = I - KBT + KA1
-         if ( I.LT.M+1 ) {
+         if ( I < M+1 ) {
             UPDATE = false;
             I = I + 1
             I0 = M
@@ -214,7 +214,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I-K+KA.LT.N && I-K.GT.1 ) {
+               if ( I-K+KA < N && I-K.GT.1 ) {
 
                   // generate rotation to annihilate a(i,i-k+ka+1)
 
@@ -320,7 +320,7 @@
                AB( 1, J+1 ) = WORK( N+J )*AB( 1, J+1 )
             } // 160
             if ( UPDATE ) {
-               if (I-K.LT.N-KA && K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
+               if (I-K < N-KA && K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
             }
          } // 170
 
@@ -435,7 +435,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I-K+KA.LT.N && I-K.GT.1 ) {
+               if ( I-K+KA < N && I-K.GT.1 ) {
 
                   // generate rotation to annihilate a(i-k+ka+1,i)
 
@@ -541,7 +541,7 @@
                AB( KA1, J-KA+1 ) = WORK( N+J )*AB( KA1, J-KA+1 )
             } // 390
             if ( UPDATE ) {
-               if (I-K.LT.N-KA && K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
+               if (I-K < N-KA && K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
             }
          } // 400
 
@@ -644,10 +644,10 @@
          }
       } else {
          I = I - KA
-         if (I.LT.2) RETURN;
+         if (I < 2) RETURN;
       }
 
-      if ( I.LT.M-KBT ) {
+      if ( I < M-KBT ) {
          NX = M
       } else {
          NX = N
@@ -704,7 +704,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I+K-KA1.GT.0 && I+K.LT.M ) {
+               if ( I+K-KA1.GT.0 && I+K < M ) {
 
                   // generate rotation to annihilate a(i+k-ka-1,i)
 
@@ -928,7 +928,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I+K-KA1.GT.0 && I+K.LT.M ) {
+               if ( I+K-KA1.GT.0 && I+K < M ) {
 
                   // generate rotation to annihilate a(i,i+k-ka-1)
 

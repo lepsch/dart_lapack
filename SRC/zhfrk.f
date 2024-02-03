@@ -58,11 +58,11 @@
          INFO = -2
       } else if ( .NOT.NOTRANS && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K.LT.0 ) {
+      } else if ( K < 0 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, NROWA ) ) {
+      } else if ( LDA < MAX( 1, NROWA ) ) {
          INFO = -8
       }
       if ( INFO != 0 ) {

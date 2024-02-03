@@ -37,11 +37,11 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE.GT.3 ) {
          INFO = -1
       } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
       }
       if ( INFO != 0 ) {
@@ -85,7 +85,7 @@
                BKK = BP( KK )
                AKK = AKK / BKK**2
                AP( KK ) = AKK
-               if ( K.LT.N ) {
+               if ( K < N ) {
                   dscal(N-K, ONE / BKK, AP( KK+1 ), 1 );
                   CT = -HALF*AKK
                   daxpy(N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 );

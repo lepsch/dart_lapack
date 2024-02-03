@@ -60,32 +60,32 @@
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = true;
+         IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       BADNNB = false;
       KMAX = 0
       for (J = 1; J <= NSIZES; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) )
-         IF( KK( J ).LT.0 ) BADNNB = true;
+         IF( KK( J ) < 0 ) BADNNB = true;
       } // 20
       KMAX = MIN( NMAX-1, KMAX )
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADNN ) {
          INFO = -2
-      } else if ( NWDTHS.LT.0 ) {
+      } else if ( NWDTHS < 0 ) {
          INFO = -3
       } else if ( BADNNB ) {
          INFO = -4
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -5
-      } else if ( LDA.LT.KMAX+1 ) {
+      } else if ( LDA < KMAX+1 ) {
          INFO = -11
-      } else if ( LDU.LT.NMAX ) {
+      } else if ( LDU < NMAX ) {
          INFO = -15
       } else if ( ( MAX( LDA, NMAX )+1 )*NMAX.GT.LWORK ) {
          INFO = -17
@@ -267,7 +267,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBTRD(U)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 1 ) = ULPINV
@@ -303,7 +303,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBTRD(L)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 3 ) = ULPINV

@@ -41,15 +41,15 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( ILO.LT.1 || ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO.GT.MAX( 1, N ) ) {
          INFO = -2
-      } else if ( IHI.LT.MIN( ILO, N ) || IHI.GT.N ) {
+      } else if ( IHI < MIN( ILO, N ) || IHI.GT.N ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -8
       }
 
@@ -94,17 +94,17 @@
 
       NB = MIN( NBMAX, ILAENV( 1, 'SGEHRD', ' ', N, ILO, IHI, -1 ) )
       NBMIN = 2
-      if ( NB.GT.1 && NB.LT.NH ) {
+      if ( NB.GT.1 && NB < NH ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code)
 
          NX = MAX( NB, ILAENV( 3, 'SGEHRD', ' ', N, ILO, IHI, -1 ) )
-         if ( NX.LT.NH ) {
+         if ( NX < NH ) {
 
             // Determine if workspace is large enough for blocked code
 
-            if ( LWORK.LT.LWKOPT ) {
+            if ( LWORK < LWKOPT ) {
 
                // Not enough workspace to use optimal NB:  determine the
                // minimum value of NB, and reduce NB or force use of
@@ -121,7 +121,7 @@
       }
       LDWORK = N
 
-      if ( NB.LT.NBMIN || NB.GE.NH ) {
+      if ( NB < NBMIN || NB.GE.NH ) {
 
          // Use unblocked code below
 

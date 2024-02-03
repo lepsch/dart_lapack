@@ -57,13 +57,13 @@
       }
       if ( IUPLO == 0 ) {
          INFO = -1
-      } else if ( ICOMPQ.LT.0 ) {
+      } else if ( ICOMPQ < 0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ( LDU.LT.1 ) || ( ( ICOMPQ == 2 ) && ( LDU.LT. N ) ) ) {
+      } else if ( ( LDU < 1 ) || ( ( ICOMPQ == 2 ) && ( LDU < N ) ) ) {
          INFO = -7
-      } else if ( ( LDVT.LT.1 ) || ( ( ICOMPQ == 2 ) && ( LDVT.LT. N ) ) ) {
+      } else if ( ( LDVT < 1 ) || ( ( ICOMPQ == 2 ) && ( LDVT < N ) ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -178,7 +178,7 @@
       }
 
       for (I = 1; I <= N; I++) { // 20
-         if ( ABS( D( I ) ).LT.EPS ) {
+         if ( ABS( D( I ) ) < EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
          }
       } // 20
@@ -187,12 +187,12 @@
       SQRE = 0
 
       for (I = 1; I <= NM1; I++) { // 30
-         if ( ( ABS( E( I ) ).LT.EPS ) || ( I == NM1 ) ) {
+         if ( ( ABS( E( I ) ) < EPS ) || ( I == NM1 ) ) {
 
          // Subproblem found. First determine its size and then
          // apply divide and conquer on it.
 
-            if ( I.LT.NM1 ) {
+            if ( I < NM1 ) {
 
          // A subproblem with E(I) small for I < NM1.
 

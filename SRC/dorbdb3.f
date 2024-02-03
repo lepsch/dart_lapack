@@ -40,15 +40,15 @@
       INFO = 0
       LQUERY = LWORK == -1
 
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( 2*P .LT. M || P .GT. M ) {
+      } else if ( 2*P < M || P .GT. M ) {
          INFO = -2
-      } else if ( Q .LT. M-P || M-Q .LT. M-P ) {
+      } else if ( Q < M-P || M-Q < M-P ) {
          INFO = -3
-      } else if ( LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( LDX11 < MAX( 1, P ) ) {
          INFO = -5
-      } else if ( LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if ( LDX21 < MAX( 1, M-P ) ) {
          INFO = -7
       }
 
@@ -62,7 +62,7 @@
          LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 )
          LWORKMIN = LWORKOPT
          WORK(1) = LWORKOPT
-         if ( LWORK .LT. LWORKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWORKMIN && .NOT.LQUERY ) {
            INFO = -14
          }
       }
@@ -90,7 +90,7 @@
 
          dorbdb5(P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1, X11(I,I+1), LDX11, X21(I+1,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
-         if ( I .LT. M-P ) {
+         if ( I < M-P ) {
             dlarfgp(M-P-I, X21(I+1,I), X21(I+2,I), 1, TAUP2(I) );
             PHI(I) = ATAN2( X21(I+1,I), X11(I,I) )
             C = COS( PHI(I) )

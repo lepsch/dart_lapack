@@ -69,19 +69,19 @@
          INFO = -2
       } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -7
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC < MAX( 1, M ) ) {
          INFO = -11
-      } else if ( .NOT.LQUERY && LIWORK.LT.IWORK(1) ) {
+      } else if ( .NOT.LQUERY && LIWORK < IWORK(1) ) {
          INFO = -14
-      } else if ( .NOT.LQUERY && LDSWORK.LT.MAX( NBA, NBB ) ) {
+      } else if ( .NOT.LQUERY && LDSWORK < MAX( NBA, NBB ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -99,7 +99,7 @@
       // Use unblocked code for small problems or if insufficient
       // workspaces are provided
 
-      IF( MIN( NBA, NBB ) == 1 || LDSWORK.LT.MAX( NBA, NBB ) || LIWORK.LT.IWORK(1) ) THEN         CALL STRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
+      IF( MIN( NBA, NBB ) == 1 || LDSWORK < MAX( NBA, NBB ) || LIWORK < IWORK(1) ) THEN         CALL STRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
         RETURN
       }
 

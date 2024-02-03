@@ -43,9 +43,9 @@
       ONENRM = NORM == '1' || LSAME( NORM, 'O' )
       if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( ANORM.LT.ZERO ) {
+      } else if ( ANORM < ZERO ) {
          INFO = -8
       }
       if ( INFO != 0 ) {

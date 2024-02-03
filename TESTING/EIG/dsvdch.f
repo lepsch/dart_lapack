@@ -72,7 +72,7 @@
       } // 20
       if (BPNT == N) GO TO 30;
       TUPPR = ( ONE+EPS )*SVD( BPNT+1 ) + UNFLEP
-      if (TUPPR.LT.LOWER) GO TO 30;
+      if (TUPPR < LOWER) GO TO 30;
 
       // Merge
 
@@ -87,7 +87,7 @@
       dsvdct(N, S, E, LOWER, NUML );
       dsvdct(N, S, E, UPPER, NUMU );
       COUNT = NUMU - NUML
-      if (LOWER.LT.ZERO) COUNT = COUNT / 2;
+      if (LOWER < ZERO) COUNT = COUNT / 2;
       if ( COUNT != BPNT-TPNT+1 ) {
 
          // Wrong number of singular values in interval

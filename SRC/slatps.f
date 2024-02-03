@@ -53,7 +53,7 @@
          INFO = -3
       } else if ( .NOT.LSAME( NORMIN, 'Y' ) && .NOT. LSAME( NORMIN, 'N' ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
       }
       if ( INFO != 0 ) {
@@ -302,7 +302,7 @@
 
                      // abs(A(j,j)) > SMLNUM:
 
-                     if ( TJJ.LT.ONE ) {
+                     if ( TJJ < ONE ) {
                         if ( XJ.GT.TJJ*BIGNUM ) {
 
                            // Scale x by 1/b(j).
@@ -386,7 +386,7 @@
                   }
                   IP = IP - J
                } else {
-                  if ( J.LT.N ) {
+                  if ( J < N ) {
 
                      // Compute the update
                         // x(j+1:n) := x(j+1:n) - x(j) * A(j+1:n,j)
@@ -431,7 +431,7 @@
                         REC = MIN( ONE, REC*TJJ )
                         USCAL = USCAL / TJJS
                      }
-                  if ( REC.LT.ONE ) {
+                  if ( REC < ONE ) {
                      sscal(N, REC, X, 1 );
                      SCALE = SCALE*REC
                      XMAX = XMAX*REC
@@ -446,7 +446,7 @@
 
                   if ( UPPER ) {
                      SUMJ = SDOT( J-1, AP( IP-J+1 ), 1, X, 1 )
-                  } else if ( J.LT.N ) {
+                  } else if ( J < N ) {
                      SUMJ = SDOT( N-J, AP( IP+1 ), 1, X( J+1 ), 1 )
                   }
                } else {
@@ -457,7 +457,7 @@
                      for (I = 1; I <= J - 1; I++) { // 110
                         SUMJ = SUMJ + ( AP( IP-J+I )*USCAL )*X( I )
                      } // 110
-                  } else if ( J.LT.N ) {
+                  } else if ( J < N ) {
                      for (I = 1; I <= N - J; I++) { // 120
                         SUMJ = SUMJ + ( AP( IP+I )*USCAL )*X( J+I )
                      } // 120
@@ -485,7 +485,7 @@
 
                         // abs(A(j,j)) > SMLNUM:
 
-                        if ( TJJ.LT.ONE ) {
+                        if ( TJJ < ONE ) {
                            if ( XJ.GT.TJJ*BIGNUM ) {
 
                               // Scale X by 1/abs(x(j)).

@@ -50,13 +50,13 @@
          INFO = -1
       } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -4
-      } else if ( LDAB.LT.KD1 ) {
+      } else if ( LDAB < KD1 ) {
          INFO = -6
-      } else if ( LDQ.LT.MAX( 1, N ) && WANTQ ) {
+      } else if ( LDQ < MAX( 1, N ) && WANTQ ) {
          INFO = -10
       }
       if ( INFO != 0 ) {
@@ -150,7 +150,7 @@
                   // apply plane rotations from the left
 
                   if ( NR.GT.0 ) {
-                     if ( 2*KD-1.LT.NR ) {
+                     if ( 2*KD-1 < NR ) {
 
                      // Dependent on the the number of diagonals either
                      // DLARTV or DROT is used

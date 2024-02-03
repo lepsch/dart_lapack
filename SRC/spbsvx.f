@@ -57,15 +57,15 @@
          INFO = -1
       } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -4
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -5
-      } else if ( LDAB.LT.KD+1 ) {
+      } else if ( LDAB < KD+1 ) {
          INFO = -7
-      } else if ( LDAFB.LT.KD+1 ) {
+      } else if ( LDAFB < KD+1 ) {
          INFO = -9
       } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -10
@@ -86,9 +86,9 @@
             }
          }
          if ( INFO == 0 ) {
-            if ( LDB.LT.MAX( 1, N ) ) {
+            if ( LDB < MAX( 1, N ) ) {
                INFO = -13
-            } else if ( LDX.LT.MAX( 1, N ) ) {
+            } else if ( LDX < MAX( 1, N ) ) {
                INFO = -15
             }
          }
@@ -183,7 +183,7 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1
 
       RETURN
 

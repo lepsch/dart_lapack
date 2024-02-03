@@ -36,11 +36,11 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -2
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
       }
       if ( INFO != 0 ) {
@@ -72,7 +72,7 @@
             for (J = 1; J <= NRHS; J++) { // 10
                B( K+1, J ) = B( K+1, J ) - MULT*B( K, J )
             } // 10
-            IF( K.LT.( N-1 ) ) DL( K ) = ZERO
+            IF( K < ( N-1 ) ) DL( K ) = ZERO
          } else {
 
             // Interchange rows K and K+1
@@ -81,7 +81,7 @@
             D( K ) = DL( K )
             TEMP = D( K+1 )
             D( K+1 ) = DU( K ) - MULT*TEMP
-            if ( K.LT.( N-1 ) ) {
+            if ( K < ( N-1 ) ) {
                DL( K ) = DU( K+1 )
                DU( K+1 ) = -MULT*DL( K )
             }

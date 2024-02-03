@@ -67,17 +67,17 @@
          INFO = -1
       } else if ( .NOT.LSAME( COMPZ, 'N' ) && .NOT.WANTZ ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ILO.LT.1 || ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO.GT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( IHI.LT.MIN( ILO, N ) || IHI.GT.N ) {
+      } else if ( IHI < MIN( ILO, N ) || IHI.GT.N ) {
          INFO = -5
-      } else if ( LDH.LT.MAX( 1, N ) ) {
+      } else if ( LDH < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < MAX( 1, N ) ) ) {
          INFO = -11
-      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -13
       }
 

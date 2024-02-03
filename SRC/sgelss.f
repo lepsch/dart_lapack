@@ -46,15 +46,15 @@
       MINMN = MIN( M, N )
       MAXMN = MAX( M, N )
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, MAXMN ) ) {
+      } else if ( LDB < MAX( 1, MAXMN ) ) {
          INFO = -7
       }
 
@@ -170,7 +170,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if (LWORK.LT.MINWRK && .NOT.LQUERY) INFO = -12;
+         if (LWORK < MINWRK && .NOT.LQUERY) INFO = -12;
       }
 
       if ( INFO != 0 ) {
@@ -198,7 +198,7 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -224,7 +224,7 @@
 
       BNRM = SLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -299,7 +299,7 @@
          // Multiply B by reciprocals of singular values
 
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         if (RCOND.LT.ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
+         if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= N; I++) { // 10
             if ( S( I ).GT.THR ) {
@@ -379,7 +379,7 @@
          // Multiply B by reciprocals of singular values
 
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         if (RCOND.LT.ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
+         if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= M; I++) { // 30
             if ( S( I ).GT.THR ) {
@@ -454,7 +454,7 @@
          // Multiply B by reciprocals of singular values
 
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         if (RCOND.LT.ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
+         if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= M; I++) { // 50
             if ( S( I ).GT.THR ) {

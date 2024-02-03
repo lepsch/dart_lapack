@@ -151,7 +151,7 @@
 
           // Check termination criteria.
 
-            if (YMIN*RCOND .LT. INCR_THRESH*NORMY && Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = true ;
+            if (YMIN*RCOND < INCR_THRESH*NORMY && Y_PREC_STATE < EXTRA_Y) INCR_PREC = true ;
              if (X_STATE == NOPROG_STATE && DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE == WORKING_STATE ) {
                if ( DX_X .LE. EPS ) {
@@ -201,7 +201,7 @@
 
             // Update solution.
 
-            if (Y_PREC_STATE .LT. EXTRA_Y) {
+            if (Y_PREC_STATE < EXTRA_Y) {
                saxpy(N, 1.0, DY, 1, Y(1,J), 1 );
             } else {
                sla_wwaddw(N, Y( 1, J ), Y_TAIL, DY );

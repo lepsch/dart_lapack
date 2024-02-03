@@ -44,9 +44,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -82,7 +82,7 @@
 
       // Compute stopping value if not supplied
 
-      if ( TOL.LT.ZERO ) {
+      if ( TOL < ZERO ) {
          DSTOP = N * DLAMCH( 'Epsilon' ) * AJJ
       } else {
          DSTOP = TOL
@@ -129,7 +129,7 @@
 
                A( PVT, PVT ) = A( J, J )
                dswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
-               if (PVT.LT.N) CALL DSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
+               if (PVT < N) CALL DSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                dswap(PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 );
 
                // Swap dot products and PIV
@@ -147,7 +147,7 @@
 
             // Compute elements J+1:N of row J
 
-            if ( J.LT.N ) {
+            if ( J < N ) {
                dgemv('Trans', J-1, N-J, -ONE, A( 1, J+1 ), LDA, A( 1, J ), 1, ONE, A( J, J+1 ), LDA );
                dscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
             }
@@ -189,7 +189,7 @@
 
                A( PVT, PVT ) = A( J, J )
                dswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
-               if (PVT.LT.N) CALL DSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
+               if (PVT < N) CALL DSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                dswap(PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA );
 
                // Swap dot products and PIV
@@ -207,7 +207,7 @@
 
             // Compute elements J+1:N of column J
 
-            if ( J.LT.N ) {
+            if ( J < N ) {
                dgemv('No Trans', N-J, J-1, -ONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+1, J ), 1 );
                dscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
             }

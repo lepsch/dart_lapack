@@ -89,27 +89,27 @@
                   J = 0
                   // -> L(0,0)
                   TEMP = ABS( REAL( A( J+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 1; I <= N - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J - 1
                      // L(k+j,k+j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      I = J
                      // -> L(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J + 1; I <= N - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                } else {
@@ -117,29 +117,29 @@
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K + J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = K + J - 1
                      // -> U(i,i)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      I = I + 1
                      // =k+j; i -> U(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      for (I = K + J + 1; I <= N - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   for (I = 0; I <= N - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      // j=k-1
                   }
                   // i=n-1 -> U(n-1,n-1)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                }
             } else {
                // xpose case; A is k by n
@@ -148,34 +148,34 @@
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J
                      // L(i,i)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      I = J + 1
                      // L(j+k,j+k)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J + 2; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = K - 1
                   for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                   I = K - 1
                   // -> L(i,i) is at A(i,j)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   for (J = K; J <= N - 1; J++) {
                      for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                } else {
@@ -183,33 +183,33 @@
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = K - 1
                   // -> U(j,j) is at A(0,j)
                   TEMP = ABS( REAL( A( 0+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = K; J <= N - 1; J++) {
                      for (I = 0; I <= J - K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J - K
                      // -> U(i,i) at A(i,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      I = J - K + 1
                      // U(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J - K + 2; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                }
@@ -223,29 +223,29 @@
                   J = 0
                   // -> L(k,k) & j=1 -> L(0,0)
                   TEMP = ABS( REAL( A( J+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   TEMP = ABS( REAL( A( J+1+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 2; I <= N; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J
                      // L(k+j,k+j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      I = J + 1
                      // -> L(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J + 2; I <= N; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                } else {
@@ -253,33 +253,33 @@
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K + J - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = K + J
                      // -> U(i,i)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      I = I + 1
                      // =k+j+1; i -> U(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      for (I = K + J + 2; I <= N; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   for (I = 0; I <= N - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   // j=k-1
                   }
                   // i=n-1 -> U(n-1,n-1)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   I = N
                   // -> U(k-1,k-1)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                }
             } else {
                // xpose case; A is k by n+1
@@ -288,42 +288,42 @@
                   J = 0
                   // -> L(k,k) at A(0,0)
                   TEMP = ABS( REAL( A( J+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J - 1
                      // L(i,i)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      I = J
                      // L(j+k,j+k)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J + 1; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = K
                   for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                   I = K - 1
                   // -> L(i,i) is at A(i,j)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   for (J = K + 1; J <= N; J++) {
                      for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                } else {
@@ -331,44 +331,44 @@
                   for (J = 0; J <= K - 1; J++) {
                      for (I = 0; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = K
                   // -> U(j,j) is at A(0,j)
                   TEMP = ABS( REAL( A( 0+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                   for (J = K + 1; J <= N - 1; J++) {
                      for (I = 0; I <= J - K - 2; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                      I = J - K - 1
                      // -> U(i,i) at A(i,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      I = J - K
                      // U(j,j)
                      TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      for (I = J - K + 1; I <= K - 1; I++) {
                         TEMP = ABS( A( I+J*LDA ) )
-                        IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                        IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                      }
                   }
                   J = N
                   for (I = 0; I <= K - 2; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                   I = K - 1
                   // U(k,k) at A(i,j)
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
-                  IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                  IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                }
             }
          }
@@ -416,7 +416,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu = 1 & uplo = 'L'
@@ -457,7 +457,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             } else {
@@ -495,7 +495,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu = 1 & uplo = 'L'
@@ -532,7 +532,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             }
@@ -598,7 +598,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu=1 & uplo = 'L'
@@ -662,7 +662,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             } else {
@@ -735,7 +735,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                } else {
                   // ilu=1 & uplo = 'L'
@@ -809,7 +809,7 @@
                   VALUE = WORK( 0 )
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP || SISNAN( TEMP ) ) VALUE = TEMP
+                     IF( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP
                   }
                }
             }
@@ -843,7 +843,7 @@
                      AA = REAL( A( L ) )
                      // U(k+i,k+i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -853,7 +853,7 @@
                      AA = REAL( A( L+1 ) )
                      // U(i,i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -865,7 +865,7 @@
                   AA = REAL( A( L ) )
                   // U(n-1,n-1)
                   if ( AA != ZERO ) {
-                     if ( SCALE.LT.AA ) {
+                     if ( SCALE < AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
@@ -887,7 +887,7 @@
                   AA = REAL( A( 0 ) )
                   // L(0,0) at A(0,0)
                   if ( AA != ZERO ) {
-                     if ( SCALE.LT.AA ) {
+                     if ( SCALE < AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
@@ -900,7 +900,7 @@
                      AA = REAL( A( L ) )
                      // L(k-1+i,k-1+i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -910,7 +910,7 @@
                      AA = REAL( A( L+1 ) )
                      // L(i,i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -943,7 +943,7 @@
                   AA = REAL( A( L ) )
                   // U(k-1,k-1)
                   if ( AA != ZERO ) {
-                     if ( SCALE.LT.AA ) {
+                     if ( SCALE < AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
@@ -956,7 +956,7 @@
                      AA = REAL( A( L ) )
                      // -> U(j-k,j-k)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -966,7 +966,7 @@
                      AA = REAL( A( L+1 ) )
                      // -> U(j,j)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -997,7 +997,7 @@
                      AA = REAL( A( L ) )
                      // L(i,i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1007,7 +1007,7 @@
                      AA = REAL( A( L+1 ) )
                      // L(k+i,k+i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1020,7 +1020,7 @@
                   AA = REAL( A( L ) )
                   // L(k-1,k-1) at A(k-1,k-1)
                   if ( AA != ZERO ) {
-                     if ( SCALE.LT.AA ) {
+                     if ( SCALE < AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
@@ -1051,7 +1051,7 @@
                      AA = REAL( A( L ) )
                      // U(k+i,k+i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1061,7 +1061,7 @@
                      AA = REAL( A( L+1 ) )
                      // U(i,i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1088,7 +1088,7 @@
                      AA = REAL( A( L ) )
                      // L(k-1+i,k-1+i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1098,7 +1098,7 @@
                      AA = REAL( A( L+1 ) )
                      // L(i,i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1131,7 +1131,7 @@
                   AA = REAL( A( L ) )
                   // U(k,k)
                   if ( AA != ZERO ) {
-                     if ( SCALE.LT.AA ) {
+                     if ( SCALE < AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
@@ -1144,7 +1144,7 @@
                      AA = REAL( A( L ) )
                      // -> U(j-k-1,j-k-1)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1154,7 +1154,7 @@
                      AA = REAL( A( L+1 ) )
                      // -> U(j,j)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1168,7 +1168,7 @@
                   AA = REAL( A( L ) )
                   // U(k,k)
                   if ( AA != ZERO ) {
-                     if ( SCALE.LT.AA ) {
+                     if ( SCALE < AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
@@ -1196,7 +1196,7 @@
                   AA = REAL( A( L ) )
                   // L(k,k) at A(0,0)
                   if ( AA != ZERO ) {
-                     if ( SCALE.LT.AA ) {
+                     if ( SCALE < AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {
@@ -1209,7 +1209,7 @@
                      AA = REAL( A( L ) )
                      // L(i,i)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1219,7 +1219,7 @@
                      AA = REAL( A( L+1 ) )
                      // L(k+i+1,k+i+1)
                      if ( AA != ZERO ) {
-                        if ( SCALE.LT.AA ) {
+                        if ( SCALE < AA ) {
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
                         } else {
@@ -1232,7 +1232,7 @@
                   AA = REAL( A( L ) )
                   // L(k-1,k-1) at A(k-1,k)
                   if ( AA != ZERO ) {
-                     if ( SCALE.LT.AA ) {
+                     if ( SCALE < AA ) {
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
                      } else {

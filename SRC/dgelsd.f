@@ -44,15 +44,15 @@
       MAXMN = MAX( M, N )
       MNTHR = ILAENV( 6, 'DGELSD', ' ', M, N, NRHS, -1 )
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, MAXMN ) ) {
+      } else if ( LDB < MAX( 1, MAXMN ) ) {
          INFO = -7
       }
 
@@ -122,7 +122,7 @@
          WORK( 1 ) = MAXWRK
          IWORK( 1 ) = LIWORK
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -12
          }
       }
@@ -152,7 +152,7 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
@@ -178,7 +178,7 @@
 
       BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
@@ -194,7 +194,7 @@
 
       // If M < N make sure certain entries of B are zero.
 
-      if (M.LT.N) CALL DLASET( 'F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
+      if (M < N) CALL DLASET( 'F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
 
       // Overdetermined case.
 

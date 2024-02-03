@@ -27,19 +27,19 @@
 
       INFO = 0
 
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
          INFO = -2
       }
 
       M = N + SQRE
 
-      if ( LDU.LT.N ) {
+      if ( LDU < N ) {
          INFO = -6
-      } else if ( LDVT.LT.M ) {
+      } else if ( LDVT < M ) {
          INFO = -8
-      } else if ( SMLSIZ.LT.3 ) {
+      } else if ( SMLSIZ < 3 ) {
          INFO = -9
       }
       if ( INFO != 0 ) {

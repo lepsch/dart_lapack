@@ -21,7 +21,7 @@
       // INTRINSIC ABS
       // ..
       ISAMAX = 0
-      if (N.LT.1 || INCX.LE.0) RETURN;
+      if (N < 1 || INCX.LE.0) RETURN;
       ISAMAX = 1
       if (N == 1) RETURN;
       if (INCX == 1) {

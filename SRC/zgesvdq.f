@@ -86,17 +86,17 @@
          INFO = -5
       } else if ( .NOT.( RSVEC || DNTWV )) {
          INFO = -5
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -6
-      } else if ( ( N.LT.0 ) || ( N.GT.M ) ) {
+      } else if ( ( N < 0 ) || ( N.GT.M ) ) {
          INFO = -7
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -9
-      } else if ( LDU.LT.1 || ( LSVC0 && LDU.LT.M ) || ( WNTUF && LDU.LT.N ) ) {
+      } else if ( LDU < 1 || ( LSVC0 && LDU < M ) || ( WNTUF && LDU < N ) ) {
          INFO = -12
-      } else if ( LDV.LT.1 || ( RSVEC && LDV.LT.N ) || ( CONDA && LDV.LT.N ) ) {
+      } else if ( LDV < 1 || ( RSVEC && LDV < N ) || ( CONDA && LDV < N ) ) {
          INFO = -14
-      } else if ( LIWORK .LT. IMINWRK && .NOT. LQUERY ) {
+      } else if ( LIWORK < IMINWRK && .NOT. LQUERY ) {
          INFO = -17
       }
 
@@ -270,11 +270,11 @@
 
          MINWRK = MAX( 2, MINWRK )
          OPTWRK = MAX( 2, OPTWRK )
-         IF ( LCWORK .LT. MINWRK && (.NOT.LQUERY) ) INFO = -19
+         IF ( LCWORK < MINWRK && (.NOT.LQUERY) ) INFO = -19
 
       }
 
-      if (INFO == 0 && LRWORK .LT. RMINWRK && .NOT. LQUERY) {
+      if (INFO == 0 && LRWORK < RMINWRK && .NOT. LQUERY) {
          INFO = -21
       }
       if ( INFO != 0 ) {
@@ -407,7 +407,7 @@
          NR = 1
          RTMP = SQRT(DBLE(N))*EPSLN
          for (p = 2; p <= N; p++) { // 3001
-            IF ( ABS(A(p,p)) .LT. (RTMP*ABS(A(1,1))) ) GO TO 3002
+            IF ( ABS(A(p,p)) < (RTMP*ABS(A(1,1))) ) GO TO 3002
                NR = NR + 1
          } // 3001
          } // 3002
@@ -421,7 +421,7 @@
          // will be truncated.
          NR = 1
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) .LT. SFMIN ) ) GO TO 3402
+            IF ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SFMIN ) ) GO TO 3402
             NR = NR + 1
          } // 3401
          } // 3402
@@ -544,9 +544,9 @@
 
             // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
-         if ( ( NR .LT. M ) && ( .NOT.WNTUF ) ) {
+         if ( ( NR < M ) && ( .NOT.WNTUF ) ) {
              zlaset('A', M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU);
-             if ( NR .LT. N1 ) {
+             if ( NR < N1 ) {
                 zlaset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1), LDU );
                 zlaset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU );
              }
@@ -585,7 +585,7 @@
                    } // 1122
                } // 1121
 
-               if ( NR .LT. N ) {
+               if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1103
                       for (q = NR + 1; q <= N; q++) { // 1104
                           V(p,q) = CONJG(V(q,p))
@@ -669,7 +669,7 @@
                      V(p,q) = CTMP
                   } // 1116
                } // 1115
-               if ( NR .LT. N ) {
+               if ( NR < N ) {
                    for (p = 1; p <= NR; p++) { // 1101
                       for (q = NR+1; q <= N; q++) { // 1102
                          V(p,q) = CONJG(V(q,p))
@@ -687,9 +687,9 @@
                    } // 1118
                 } // 1117
 
-                if ( ( NR .LT. M ) && .NOT.(WNTUF)) {
+                if ( ( NR < M ) && .NOT.(WNTUF)) {
                   zlaset('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU);
-                  if ( NR .LT. N1 ) {
+                  if ( NR < N1 ) {
                      zlaset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
                      zlaset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU );
                   }
@@ -737,9 +737,9 @@
                       } // 1112
                    } // 1111
 
-                   if ( ( N .LT. M ) && .NOT.(WNTUF)) {
+                   if ( ( N < M ) && .NOT.(WNTUF)) {
                       zlaset('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU);
-                      if ( N .LT. N1 ) {
+                      if ( N < N1 ) {
                         zlaset('A',N,N1-N,CZERO,CZERO,U(1,N+1),LDU);
                         zlaset('A',M-N,N1-N,CZERO,CONE, U(N+1,N+1), LDU );
                       }
@@ -768,9 +768,9 @@
                   zlapmt( false , N, N, V, LDV, IWORK );
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x NR) or (M x N) or (M x M).
-                  if ( ( NR .LT. M ) && .NOT.(WNTUF)) {
+                  if ( ( NR < M ) && .NOT.(WNTUF)) {
                      zlaset('A',M-NR,NR,CZERO,CZERO,U(NR+1,1),LDU);
-                     if ( NR .LT. N1 ) {
+                     if ( NR < N1 ) {
                      zlaset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
                      zlaset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1),LDU);
                      }
@@ -793,9 +793,9 @@
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
-               if ( ( NR .LT. M ) && .NOT.(WNTUF)) {
+               if ( ( NR < M ) && .NOT.(WNTUF)) {
                   zlaset('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU);
-                  if ( NR .LT. N1 ) {
+                  if ( NR < N1 ) {
                      zlaset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
                      zlaset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU );
                   }
@@ -824,9 +824,9 @@
                   // are in [U](1:N,1:N)
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x N1), i.e. (M x N) or (M x M).
-                  if ( ( N .LT. M ) && .NOT.(WNTUF)) {
+                  if ( ( N < M ) && .NOT.(WNTUF)) {
                       zlaset('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU);
-                      if ( N .LT. N1 ) {
+                      if ( N < N1 ) {
                         zlaset('A',N,N1-N,CZERO,CZERO,U(1,N+1),LDU);
                         zlaset('A',M-N,N1-N,CZERO,CONE, U(N+1,N+1), LDU );
                       }
@@ -845,9 +845,9 @@
                   zlapmt( false , N, N, V, LDV, IWORK );
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
-                  if ( ( NR .LT. M ) && .NOT.(WNTUF)) {
+                  if ( ( NR < M ) && .NOT.(WNTUF)) {
                      zlaset('A',M-NR,NR,CZERO,CZERO,U(NR+1,1),LDU);
-                     if ( NR .LT. N1 ) {
+                     if ( NR < N1 ) {
                      zlaset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
                      zlaset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU );
                      }
@@ -877,7 +877,7 @@
 
       // .. if numerical rank deficiency is detected, the truncated
       // singular values are set to zero.
-      if (NR .LT. N) CALL DLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N );
+      if (NR < N) CALL DLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N );
       // .. undo scaling; this may cause overflow in the largest singular
       // values.
       if (ASCALED) CALL DLASCL( 'G',0,0, ONE,SQRT(DBLE(M)), NR,1, S, N, IERR );

@@ -70,20 +70,20 @@
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = true;
+         IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADNN ) {
          INFO = -2
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.NMAX ) {
+      } else if ( LDA < NMAX ) {
          INFO = -9
-      } else if ( LDU.LT.NMAX ) {
+      } else if ( LDU < NMAX ) {
          INFO = -16
       } else if ( 2*MAX( 2, NMAX )**2.GT.LWORK ) {
          INFO = -21
@@ -122,7 +122,7 @@
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) )
-            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
+            if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
             // LIWEDC = 6 + 6*N + 5*N*LGN
             LIWEDC = 3 + 5*N
@@ -292,7 +292,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEV(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 1 ) = ULPINV
@@ -321,7 +321,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEV(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 3 ) = ULPINV
@@ -354,7 +354,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVX(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 4 ) = ULPINV
@@ -388,7 +388,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVX(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 6 ) = ULPINV
@@ -420,7 +420,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 7 ) = ULPINV
@@ -453,7 +453,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 9 ) = ULPINV
@@ -486,7 +486,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVX(V,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 10 ) = ULPINV
@@ -516,7 +516,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVX(N,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 12 ) = ULPINV
@@ -560,7 +560,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVX(V,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 13 ) = ULPINV
@@ -596,7 +596,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVX(N,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 15 ) = ULPINV
@@ -624,7 +624,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVD(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 16 ) = ULPINV
@@ -653,7 +653,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVD(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 18 ) = ULPINV
@@ -685,7 +685,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVR(V,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 19 ) = ULPINV
@@ -715,7 +715,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVR(N,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 21 ) = ULPINV
@@ -759,7 +759,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVR(V,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 22 ) = ULPINV
@@ -795,7 +795,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEVR(N,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 24 ) = ULPINV
@@ -841,7 +841,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSYEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -863,7 +863,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSYEV_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -909,7 +909,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSYEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -931,7 +931,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSYEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -958,7 +958,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSYEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -981,7 +981,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSYEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1003,7 +1003,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSYEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1026,7 +1026,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSYEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1083,7 +1083,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1121,7 +1121,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1186,7 +1186,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1225,7 +1225,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1269,7 +1269,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1308,7 +1308,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1358,7 +1358,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1397,7 +1397,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1456,7 +1456,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1490,7 +1490,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSBEV_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1532,7 +1532,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1567,7 +1567,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSBEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1606,7 +1606,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1641,7 +1641,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSBEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1681,7 +1681,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1716,7 +1716,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSBEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1752,7 +1752,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSYEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1774,7 +1774,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSYEVD_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1825,7 +1825,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1864,7 +1864,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1916,7 +1916,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1950,7 +1950,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSBEVD_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -1978,7 +1978,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSYEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -2000,7 +2000,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSYEVR_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -2027,7 +2027,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSYEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -2050,7 +2050,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSYEVR_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -2072,7 +2072,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSYEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV
@@ -2095,7 +2095,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'SSYEVR_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( NTEST ) = ULPINV

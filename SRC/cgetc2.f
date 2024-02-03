@@ -51,7 +51,7 @@
       if ( N == 1 ) {
          IPIV( 1 ) = 1
          JPIV( 1 ) = 1
-         if ( ABS( A( 1, 1 ) ).LT.SMLNUM ) {
+         if ( ABS( A( 1, 1 ) ) < SMLNUM ) {
             INFO = 1
             A( 1, 1 ) = CMPLX( SMLNUM, ZERO )
          }
@@ -89,7 +89,7 @@
 
          // Check for singularity
 
-         if ( ABS( A( I, I ) ).LT.SMIN ) {
+         if ( ABS( A( I, I ) ) < SMIN ) {
             INFO = I
             A( I, I ) = CMPLX( SMIN, ZERO )
          }
@@ -99,7 +99,7 @@
          cgeru(N-I, N-I, -CMPLX( ONE ), A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA );
       } // 40
 
-      if ( ABS( A( N, N ) ).LT.SMIN ) {
+      if ( ABS( A( N, N ) ) < SMIN ) {
          INFO = N
          A( N, N ) = CMPLX( SMIN, ZERO )
       }

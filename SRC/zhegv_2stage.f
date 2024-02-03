@@ -46,17 +46,17 @@
       LQUERY = ( LWORK == -1 )
 
       INFO = 0
-      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE.GT.3 ) {
          INFO = -1
       } else if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
       } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
       }
 
@@ -68,7 +68,7 @@
          LWMIN = N + LHTRD + LWTRD
          WORK( 1 )  = LWMIN
 
-         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && .NOT.LQUERY ) {
             INFO = -11
          }
       }

@@ -56,7 +56,7 @@
       if ( ANORM.GT.WNORM ) {
          RESULT = ( WNORM / ANORM ) / ( M*EPS )
       } else {
-         if ( ANORM.LT.ONE ) {
+         if ( ANORM < ONE ) {
             RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS )
          } else {
             RESULT = MIN( WNORM / ANORM, REAL( M ) ) / ( M*EPS )

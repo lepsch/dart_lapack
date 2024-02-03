@@ -37,7 +37,7 @@
 
       SRZT02 = ZERO
 
-      if ( LWORK.LT.N*N+N ) {
+      if ( LWORK < N*N+N ) {
          xerbla('SRZT02', 7 );
          RETURN
       }

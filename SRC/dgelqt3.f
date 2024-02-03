@@ -26,13 +26,13 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N .LT. M ) {
+      } else if ( N < M ) {
          INFO = -2
-      } else if ( LDA .LT. MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
-      } else if ( LDT .LT. MAX( 1, M ) ) {
+      } else if ( LDT < MAX( 1, M ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {

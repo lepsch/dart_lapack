@@ -38,9 +38,9 @@
 
       INFO = 0
 
-      if ( NL.LT.1 ) {
+      if ( NL < 1 ) {
          INFO = -1
-      } else if ( NR.LT.1 ) {
+      } else if ( NR < 1 ) {
          INFO = -2
       } else if ( ( SQRE != 1 ) && ( SQRE != 0 ) ) {
          INFO = -3
@@ -51,17 +51,17 @@
       NLP1 = NL + 1
       NLP2 = NL + 2
 
-      if ( ( K.LT.1 ) || ( K.GT.N ) ) {
+      if ( ( K < 1 ) || ( K.GT.N ) ) {
          INFO = -4
-      } else if ( LDQ.LT.K ) {
+      } else if ( LDQ < K ) {
          INFO = -7
-      } else if ( LDU.LT.N ) {
+      } else if ( LDU < N ) {
          INFO = -10
-      } else if ( LDU2.LT.N ) {
+      } else if ( LDU2 < N ) {
          INFO = -12
-      } else if ( LDVT.LT.M ) {
+      } else if ( LDVT < M ) {
          INFO = -14
-      } else if ( LDVT2.LT.M ) {
+      } else if ( LDVT2 < M ) {
          INFO = -16
       }
       if ( INFO != 0 ) {

@@ -46,18 +46,18 @@
             for (J = 1; J <= N; J++) { // 20
                DO 10 I = MAX( K+2-J, 1 ), K
                   SUM = ABS( AB( I, J ) )
-                  IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
+                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
                } // 10
                SUM = ABS( DBLE( AB( K+1, J ) ) )
-               IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
                SUM = ABS( DBLE( AB( 1, J ) ) )
-               IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
                DO 30 I = 2, MIN( N+1-J, K+1 )
                   SUM = ABS( AB( I, J ) )
-                  IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
+                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
                } // 30
             } // 40
          }
@@ -79,7 +79,7 @@
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I )
-               IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
@@ -93,7 +93,7 @@
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
                } // 90
-               IF( VALUE .LT. SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
             } // 100
          }
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
@@ -121,7 +121,7 @@
          for (J = 1; J <= N; J++) { // 130
             if ( DBLE( AB( L, J ) ) != ZERO ) {
                ABSA = ABS( DBLE( AB( L, J ) ) )
-               if ( SCALE.LT.ABSA ) {
+               if ( SCALE < ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2
                   SCALE = ABSA
                } else {

@@ -73,7 +73,7 @@
       for (I = B1; I <= R1 - 1; I++) { // 50
          DPLUS = D( I ) + S
          WORK( INDLPL+I ) = LD( I ) / DPLUS
-         if (DPLUS.LT.ZERO) NEG1 = NEG1 + 1;
+         if (DPLUS < ZERO) NEG1 = NEG1 + 1;
          WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
          S = WORK( INDS+I ) - LAMBDA
       } // 50
@@ -94,16 +94,16 @@
          S = WORK( INDS+B1-1 ) - LAMBDA
          for (I = B1; I <= R1 - 1; I++) { // 70
             DPLUS = D( I ) + S
-            IF(ABS(DPLUS).LT.PIVMIN) DPLUS = -PIVMIN
+            IF(ABS(DPLUS) < PIVMIN) DPLUS = -PIVMIN
             WORK( INDLPL+I ) = LD( I ) / DPLUS
-            if (DPLUS.LT.ZERO) NEG1 = NEG1 + 1;
+            if (DPLUS < ZERO) NEG1 = NEG1 + 1;
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
             IF( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
          } // 70
          for (I = R1; I <= R2 - 1; I++) { // 71
             DPLUS = D( I ) + S
-            IF(ABS(DPLUS).LT.PIVMIN) DPLUS = -PIVMIN
+            IF(ABS(DPLUS) < PIVMIN) DPLUS = -PIVMIN
             WORK( INDLPL+I ) = LD( I ) / DPLUS
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
             IF( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I )
@@ -120,7 +120,7 @@
       DO 80 I = BN - 1, R1, -1
          DMINUS = LLD( I ) + WORK( INDP+I )
          TMP = D( I ) / DMINUS
-         if (DMINUS.LT.ZERO) NEG2 = NEG2 + 1;
+         if (DMINUS < ZERO) NEG2 = NEG2 + 1;
          WORK( INDUMN+I ) = L( I )*TMP
          WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
       } // 80
@@ -132,9 +132,9 @@
          NEG2 = 0
          DO 100 I = BN-1, R1, -1
             DMINUS = LLD( I ) + WORK( INDP+I )
-            IF(ABS(DMINUS).LT.PIVMIN) DMINUS = -PIVMIN
+            IF(ABS(DMINUS) < PIVMIN) DMINUS = -PIVMIN
             TMP = D( I ) / DMINUS
-            if (DMINUS.LT.ZERO) NEG2 = NEG2 + 1;
+            if (DMINUS < ZERO) NEG2 = NEG2 + 1;
             WORK( INDUMN+I ) = L( I )*TMP
             WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
             if (TMP == ZERO) WORK( INDP+I-1 ) = D( I ) - LAMBDA;
@@ -145,7 +145,7 @@
       // diagonal element of the inverse
 
       MINGMA = WORK( INDS+R1-1 ) + WORK( INDP+R1-1 )
-      if (MINGMA.LT.ZERO) NEG1 = NEG1 + 1;
+      if (MINGMA < ZERO) NEG1 = NEG1 + 1;
       if ( WANTNC ) {
          NEGCNT = NEG1 + NEG2
       } else {
@@ -174,7 +174,7 @@
       if ( .NOT.SAWNAN1 && .NOT.SAWNAN2 ) {
          DO 210 I = R-1, B1, -1
             Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
-            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
+            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)) < GAPTOL ) {
                Z( I ) = ZERO
                ISUPPZ( 1 ) = I + 1
                GOTO 220
@@ -190,7 +190,7 @@
             } else {
                Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
             }
-            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
+            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)) < GAPTOL ) {
                Z( I ) = ZERO
                ISUPPZ( 1 ) = I + 1
                GO TO 240
@@ -204,7 +204,7 @@
       if ( .NOT.SAWNAN1 && .NOT.SAWNAN2 ) {
          for (I = R; I <= BN-1; I++) { // 250
             Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
-            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
+            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)) < GAPTOL ) {
                Z( I+1 ) = ZERO
                ISUPPZ( 2 ) = I
                GO TO 260
@@ -220,7 +220,7 @@
             } else {
                Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
             }
-            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
+            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)) < GAPTOL ) {
                Z( I+1 ) = ZERO
                ISUPPZ( 2 ) = I
                GO TO 280

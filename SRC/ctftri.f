@@ -45,7 +45,7 @@
          INFO = -2
       } else if ( .NOT.LSAME( DIAG, 'N' ) && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
       }
       if ( INFO != 0 ) {

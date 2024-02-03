@@ -38,15 +38,15 @@
 
       INFO = 0
 
-      if ( ICOMPQ.LT.0 || ICOMPQ.GT.2 ) {
+      if ( ICOMPQ < 0 || ICOMPQ.GT.2 ) {
          INFO = -1
-      } else if ( ( ICOMPQ == 1 ) && ( QSIZ.LT.MAX( 0, N ) ) ) {
+      } else if ( ( ICOMPQ == 1 ) && ( QSIZ < MAX( 0, N ) ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDQ.LT.MAX( 1, N ) ) {
+      } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDQS.LT.MAX( 1, N ) ) {
+      } else if ( LDQS < MAX( 1, N ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -99,7 +99,7 @@
 
          TEMP = LOG( DBLE( N ) ) / LOG( TWO )
          LGN = INT( TEMP )
-         if (2**LGN.LT.N) LGN = LGN + 1          IF( 2**LGN.LT.N ) LGN = LGN + 1;
+         if (2**LGN < N) LGN = LGN + 1          IF( 2**LGN < N ) LGN = LGN + 1;
          IPRMPT = INDXQ + N + 1
          IPERM = IPRMPT + N*LGN
          IQPTR = IPERM + N*LGN

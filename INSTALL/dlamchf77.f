@@ -315,7 +315,7 @@
 *> \param[out] EPS
 *> \verbatim
 *>          The smallest positive number such that
-*>             fl( 1.0 - EPS ) .LT. 1.0,
+*>             fl( 1.0 - EPS ) < 1.0,
 *>          where fl denotes the computed value.
 *> \endverbatim
 *>
@@ -415,7 +415,7 @@
          B = DLAMC3( THIRD, -HALF )
          B = DLAMC3( B, SIXTH )
          B = ABS( B )
-         if (B.LT.LEPS) B = LEPS;
+         if (B < LEPS) B = LEPS;
 
          LEPS = 1
 
@@ -432,7 +432,7 @@
          }
 *+       END WHILE
 
-         if (A.LT.LEPS) LEPS = A;
+         if (A < LEPS) LEPS = A;
 
          // Computation of EPS complete.
 
@@ -818,7 +818,7 @@
       Y = ZERO
       for (I = 1; I <= P; I++) { // 20
          Z = Z*RECBAS
-         if (Y.LT.ONE) OLDY = Y;
+         if (Y < ONE) OLDY = Y;
          Y = DLAMC3( Y, Z )
       } // 20
       if (Y.GE.ONE) Y = OLDY;

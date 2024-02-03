@@ -44,9 +44,9 @@
          ANORM = ABS( D( N ) )
          for (I = 1; I <= N - 1; I++) { // 10
             SUM =  ABS( D( I ) )
-            IF( ANORM .LT. SUM || DISNAN( SUM ) ) ANORM = SUM
+            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM
             SUM = ABS( E( I ) )
-            IF( ANORM .LT. SUM || DISNAN( SUM ) ) ANORM = SUM
+            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM
          } // 10
       } else if ( LSAME( NORM, 'O' ) || NORM == '1' || LSAME( NORM, 'I' ) ) {
 
@@ -57,10 +57,10 @@
          } else {
             ANORM = ABS( D( 1 ) )+ABS( E( 1 ) )
             SUM = ABS( E( N-1 ) )+ABS( D( N ) )
-            IF( ANORM .LT. SUM || DISNAN( SUM ) ) ANORM = SUM
+            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM
             for (I = 2; I <= N - 1; I++) { // 20
                SUM = ABS( D( I ) )+ABS( E( I ) )+ABS( E( I-1 ) )
-               IF( ANORM .LT. SUM || DISNAN( SUM ) ) ANORM = SUM
+               IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM
             } // 20
          }
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {

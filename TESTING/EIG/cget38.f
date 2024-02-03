@@ -140,7 +140,7 @@
             KMIN = I
             VMIN = WSRT( I )
             for (J = I + 1; J <= N; J++) { // 90
-               if ( WSRT( J ).LT.VMIN ) {
+               if ( WSRT( J ) < VMIN ) {
                   KMIN = J
                   VMIN = WSRT( J )
                }
@@ -198,9 +198,9 @@
             VMAX = ONE / EPS
          } else if ( SIN-TOLIN.GT.STMP+TOL ) {
             VMAX = ( SIN-TOLIN ) / ( STMP+TOL )
-         } else if ( SIN+TOLIN.LT.EPS*( STMP-TOL ) ) {
+         } else if ( SIN+TOLIN < EPS*( STMP-TOL ) ) {
             VMAX = ONE / EPS
-         } else if ( SIN+TOLIN.LT.STMP-TOL ) {
+         } else if ( SIN+TOLIN < STMP-TOL ) {
             VMAX = ( STMP-TOL ) / ( SIN+TOLIN )
          } else {
             VMAX = ONE
@@ -229,9 +229,9 @@
             VMAX = ONE / EPS
          } else if ( SEPIN-TOLIN.GT.SEPTMP+TOL ) {
             VMAX = ( SEPIN-TOLIN ) / ( SEPTMP+TOL )
-         } else if ( SEPIN+TOLIN.LT.EPS*( SEPTMP-TOL ) ) {
+         } else if ( SEPIN+TOLIN < EPS*( SEPTMP-TOL ) ) {
             VMAX = ONE / EPS
-         } else if ( SEPIN+TOLIN.LT.SEPTMP-TOL ) {
+         } else if ( SEPIN+TOLIN < SEPTMP-TOL ) {
             VMAX = ( SEPTMP-TOL ) / ( SEPIN+TOLIN )
          } else {
             VMAX = ONE
@@ -250,9 +250,9 @@
             VMAX = ONE / EPS
          } else if ( SIN.GT.STMP ) {
             VMAX = SIN / STMP
-         } else if ( SIN.LT.EPS*STMP ) {
+         } else if ( SIN < EPS*STMP ) {
             VMAX = ONE / EPS
-         } else if ( SIN.LT.STMP ) {
+         } else if ( SIN < STMP ) {
             VMAX = STMP / SIN
          } else {
             VMAX = ONE
@@ -271,9 +271,9 @@
             VMAX = ONE / EPS
          } else if ( SEPIN.GT.SEPTMP ) {
             VMAX = SEPIN / SEPTMP
-         } else if ( SEPIN.LT.EPS*SEPTMP ) {
+         } else if ( SEPIN < EPS*SEPTMP ) {
             VMAX = ONE / EPS
-         } else if ( SEPIN.LT.SEPTMP ) {
+         } else if ( SEPIN < SEPTMP ) {
             VMAX = SEPTMP / SEPIN
          } else {
             VMAX = ONE

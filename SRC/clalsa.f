@@ -34,21 +34,21 @@
 
       INFO = 0
 
-      if ( ( ICOMPQ.LT.0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
          INFO = -1
-      } else if ( SMLSIZ.LT.3 ) {
+      } else if ( SMLSIZ < 3 ) {
          INFO = -2
-      } else if ( N.LT.SMLSIZ ) {
+      } else if ( N < SMLSIZ ) {
          INFO = -3
-      } else if ( NRHS.LT.1 ) {
+      } else if ( NRHS < 1 ) {
          INFO = -4
-      } else if ( LDB.LT.N ) {
+      } else if ( LDB < N ) {
          INFO = -6
-      } else if ( LDBX.LT.N ) {
+      } else if ( LDBX < N ) {
          INFO = -8
-      } else if ( LDU.LT.N ) {
+      } else if ( LDU < N ) {
          INFO = -10
-      } else if ( LDGCOL.LT.N ) {
+      } else if ( LDGCOL < N ) {
          INFO = -19
       }
       if ( INFO != 0 ) {

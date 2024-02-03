@@ -70,7 +70,7 @@
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = true;
+         IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       NBLOCK = ILAENV( 1, 'DSYTRD', 'L', NMAX, -1, -1, -1 )
@@ -78,15 +78,15 @@
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADNN ) {
          INFO = -2
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.NMAX ) {
+      } else if ( LDA < NMAX ) {
          INFO = -9
-      } else if ( LDU.LT.NMAX ) {
+      } else if ( LDU < NMAX ) {
          INFO = -23
       } else if ( 2*MAX( 2, NMAX )**2.GT.LWORK ) {
          INFO = -29
@@ -123,7 +123,7 @@
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
-            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
+            if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
             LIWEDC = 6 + 6*N + 5*N*LGN
          } else {
@@ -278,7 +278,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSYTRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 1 ) = ULPINV
@@ -293,7 +293,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 2 ) = ULPINV
@@ -317,7 +317,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSYTRD(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 3 ) = ULPINV
@@ -332,7 +332,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 4 ) = ULPINV
@@ -363,7 +363,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSPTRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 5 ) = ULPINV
@@ -376,7 +376,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DOPGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 6 ) = ULPINV
@@ -409,7 +409,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSPTRD(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 7 ) = ULPINV
@@ -422,7 +422,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DOPGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 8 ) = ULPINV
@@ -446,7 +446,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 9 ) = ULPINV
@@ -464,7 +464,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 11 ) = ULPINV
@@ -482,7 +482,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTERF', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 12 ) = ULPINV
@@ -542,7 +542,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DPTEQR(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 14 ) = ULPINV
@@ -564,7 +564,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DPTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 16 ) = ULPINV
@@ -604,7 +604,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 17 ) = ULPINV
@@ -634,7 +634,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 18 ) = ULPINV
@@ -663,7 +663,7 @@
             } else {
                IL = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) )
                IU = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) )
-               if ( IU.LT.IL ) {
+               if ( IU < IL ) {
                   ITEMP = IU
                   IU = IL
                   IL = ITEMP
@@ -674,7 +674,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 19 ) = ULPINV
@@ -705,7 +705,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 19 ) = ULPINV
@@ -739,7 +739,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 20 ) = ULPINV
@@ -752,7 +752,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEIN', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 20 ) = ULPINV
@@ -778,7 +778,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEDC(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 22 ) = ULPINV
@@ -803,7 +803,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEDC(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 24 ) = ULPINV
@@ -828,7 +828,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEDC(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 26 ) = ULPINV
@@ -868,7 +868,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( 27 ) = ULPINV
@@ -889,7 +889,7 @@
 
                   IL = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) )
                   IU = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) )
-                  if ( IU.LT.IL ) {
+                  if ( IU < IL ) {
                      ITEMP = IU
                      IU = IL
                      IL = ITEMP
@@ -903,7 +903,7 @@
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
-                        if ( IINFO.LT.0 ) {
+                        if ( IINFO < 0 ) {
                            RETURN
                         } else {
                            RESULT( 28 ) = ULPINV
@@ -942,7 +942,7 @@
                   NTEST = 29
                   IL = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) )
                   IU = 1 + ( N-1 )*INT( DLARND( 1, ISEED2 ) )
-                  if ( IU.LT.IL ) {
+                  if ( IU < IL ) {
                      ITEMP = IU
                      IU = IL
                      IL = ITEMP
@@ -951,7 +951,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( 29 ) = ULPINV
@@ -975,7 +975,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( 31 ) = ULPINV
@@ -1026,7 +1026,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( 32 ) = ULPINV
@@ -1050,7 +1050,7 @@
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
-                     if ( IINFO.LT.0 ) {
+                     if ( IINFO < 0 ) {
                         RETURN
                      } else {
                         RESULT( 34 ) = ULPINV
@@ -1092,7 +1092,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 35 ) = ULPINV
@@ -1116,7 +1116,7 @@
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
-                  if ( IINFO.LT.0 ) {
+                  if ( IINFO < 0 ) {
                      RETURN
                   } else {
                      RESULT( 37 ) = ULPINV

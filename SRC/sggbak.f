@@ -40,19 +40,19 @@
          INFO = -1
       } else if ( .NOT.RIGHTV && .NOT.LEFTV ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ILO.LT.1 ) {
+      } else if ( ILO < 1 ) {
          INFO = -4
       } else if ( N == 0 && IHI == 0 && ILO != 1 ) {
          INFO = -4
-      } else if ( N.GT.0 && ( IHI.LT.ILO || IHI.GT.MAX( 1, N ) ) ) {
+      } else if ( N.GT.0 && ( IHI < ILO || IHI.GT.MAX( 1, N ) ) ) {
          INFO = -5
       } else if ( N == 0 && ILO == 1 && IHI != 0 ) {
          INFO = -5
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -8
-      } else if ( LDV.LT.MAX( 1, N ) ) {
+      } else if ( LDV < MAX( 1, N ) ) {
          INFO = -10
       }
       if ( INFO != 0 ) {

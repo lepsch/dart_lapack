@@ -34,17 +34,17 @@
 
       LQUERY  = LWORK == -1
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 || M.LT.N ) {
+      } else if ( N < 0 || M < N ) {
          INFO = -2
       } else if ( MB.LE.N ) {
          INFO = -3
-      } else if ( NB.LT.1 ) {
+      } else if ( NB < 1 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LDT.LT.MAX( 1, MIN( NB, N ) ) ) {
+      } else if ( LDT < MAX( 1, MIN( NB, N ) ) ) {
          INFO = -8
       } else {
 
@@ -52,7 +52,7 @@
          // This workspace is used to store array C(LDC, N) and WORK(LWORK)
          // in the call to DLAMTSQR. See the documentation for DLAMTSQR.
 
-         if ( LWORK.LT.2 && (.NOT.LQUERY) ) {
+         if ( LWORK < 2 && (.NOT.LQUERY) ) {
             INFO = -10
          } else {
 
@@ -70,7 +70,7 @@
 
             LWORKOPT = LC+LW
 
-            if ( ( LWORK.LT.MAX( 1, LWORKOPT ) ) && (.NOT.LQUERY) ) {
+            if ( ( LWORK < MAX( 1, LWORKOPT ) ) && (.NOT.LQUERY) ) {
                INFO = -10
             }
          }

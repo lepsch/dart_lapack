@@ -38,7 +38,7 @@
       if ( ABS( B ) == ZERO ) {
          RT1 = A
          RT2 = C
-         if ( ABS( RT1 ).LT.ABS( RT2 ) ) {
+         if ( ABS( RT1 ) < ABS( RT2 ) ) {
             TMP = RT1
             RT1 = RT2
             RT2 = TMP
@@ -70,7 +70,7 @@
 
          RT1 = S + T
          RT2 = S - T
-         if ( ABS( RT1 ).LT.ABS( RT2 ) ) {
+         if ( ABS( RT1 ) < ABS( RT2 ) ) {
             TMP = RT1
             RT1 = RT2
             RT2 = TMP

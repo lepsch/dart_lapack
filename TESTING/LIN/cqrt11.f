@@ -39,7 +39,7 @@
 
       // Test for sufficient workspace
 
-      if ( LWORK.LT.M*M+M ) {
+      if ( LWORK < M*M+M ) {
          xerbla('CQRT11', 7 );
          RETURN
       }

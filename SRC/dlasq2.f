@@ -46,7 +46,7 @@
       TOL = EPS*HUNDRD
       TOL2 = TOL**2
 
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
          xerbla('DLASQ2', 1 );
          RETURN
@@ -56,7 +56,7 @@
 
          // 1-by-1 case.
 
-         if ( Z( 1 ).LT.ZERO ) {
+         if ( Z( 1 ) < ZERO ) {
             INFO = -201
             xerbla('DLASQ2', 2 );
          }
@@ -65,15 +65,15 @@
 
          // 2-by-2 case.
 
-         if ( Z( 1 ).LT.ZERO ) {
+         if ( Z( 1 ) < ZERO ) {
             INFO = -201
             xerbla('DLASQ2', 2 );
             RETURN
-         } else if ( Z( 2 ).LT.ZERO ) {
+         } else if ( Z( 2 ) < ZERO ) {
             INFO = -202
             xerbla('DLASQ2', 2 );
             RETURN
-         } else if ( Z( 3 ).LT.ZERO ) {
+         } else if ( Z( 3 ) < ZERO ) {
            INFO = -203
            xerbla('DLASQ2', 2 );
            RETURN
@@ -110,11 +110,11 @@
       E = ZERO
 
       DO 10 K = 1, 2*( N-1 ), 2
-         if ( Z( K ).LT.ZERO ) {
+         if ( Z( K ) < ZERO ) {
             INFO = -( 200+K )
             xerbla('DLASQ2', 2 );
             RETURN
-         } else if ( Z( K+1 ).LT.ZERO ) {
+         } else if ( Z( K+1 ) < ZERO ) {
             INFO = -( 200+K+1 )
             xerbla('DLASQ2', 2 );
             RETURN
@@ -125,7 +125,7 @@
          EMIN = MIN( EMIN, Z( K+1 ) )
          ZMAX = MAX( QMAX, ZMAX, Z( K+1 ) )
       } // 10
-      if ( Z( 2*N-1 ).LT.ZERO ) {
+      if ( Z( 2*N-1 ) < ZERO ) {
          INFO = -( 200+2*N-1 )
          xerbla('DLASQ2', 2 );
          RETURN
@@ -172,7 +172,7 @@
 
       // Reverse the qd-array, if warranted.
 
-      if ( CBIAS*Z( 4*I0-3 ).LT.Z( 4*N0-3 ) ) {
+      if ( CBIAS*Z( 4*I0-3 ) < Z( 4*N0-3 ) ) {
          IPN4 = 4*( I0+N0 )
          DO 40 I4 = 4*I0, 2*( I0+N0-1 ), 4
             TEMP = Z( I4-3 )
@@ -211,7 +211,7 @@
                Z( I4-2*PP-2 ) = D
                Z( I4-2*PP ) = ZERO
                D = Z( I4+1 )
-            } else if ( SAFMIN*Z( I4+1 ).LT.Z( I4-2*PP-2 ) && SAFMIN*Z( I4-2*PP-2 ).LT.Z( I4+1 ) ) {
+            } else if ( SAFMIN*Z( I4+1 ) < Z( I4-2*PP-2 ) && SAFMIN*Z( I4-2*PP-2 ) < Z( I4+1 ) ) {
                TEMP = Z( I4+1 ) / Z( I4-2*PP-2 )
                Z( I4-2*PP ) = Z( I4-1 )*TEMP
                D = D*TEMP
@@ -251,7 +251,7 @@
       NDIV = 2*( N0-I0 )
 
       for (IWHILA = 1; IWHILA <= N + 1; IWHILA++) { // 160
-         if (N0.LT.1) GO TO 170;
+         if (N0 < 1) GO TO 170;
 
          // While array unfinished do
 
@@ -264,7 +264,7 @@
          } else {
             SIGMA = -Z( 4*N0-1 )
          }
-         if ( SIGMA.LT.ZERO ) {
+         if ( SIGMA < ZERO ) {
             INFO = 1
             RETURN
          }
@@ -306,7 +306,7 @@
                   KMIN = ( I4+3 )/4
                }
             } // 110
-            if ( (KMIN-I0)*2.LT.N0-KMIN && DEEMIN.LE.HALF*Z(4*N0-3) ) {
+            if ( (KMIN-I0)*2 < N0-KMIN && DEEMIN.LE.HALF*Z(4*N0-3) ) {
                IPN4 = 4*( I0+N0 )
                PP = 2
                DO 120 I4 = 4*I0, 2*( I0+N0-1 ), 4
@@ -411,7 +411,7 @@
          // must be essentially zero, although sometimes other data
          // has been stored in them.
 
-            if ( K.LT.N0 ) {
+            if ( K < N0 ) {
                Z( 2*K ) = Z( 4*K-1 )
             } else {
                Z( 2*K ) = 0

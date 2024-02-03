@@ -72,13 +72,13 @@
          INFO = -1
       } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -4
-      } else if ( LDAB.LT.KD+1 ) {
+      } else if ( LDAB < KD+1 ) {
          INFO = -6
-      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
          INFO = -9
       }
 
@@ -87,11 +87,11 @@
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && .NOT.LQUERY ) {
             INFO = -11
-         } else if ( LRWORK.LT.LRWMIN && .NOT.LQUERY ) {
+         } else if ( LRWORK < LRWMIN && .NOT.LQUERY ) {
             INFO = -13
-         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
             INFO = -15
          }
       }
@@ -126,7 +126,7 @@
 
       ANRM = CLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

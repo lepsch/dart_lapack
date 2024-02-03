@@ -105,7 +105,7 @@
                // Skip types 5, 6, or 7 if the matrix size is too small.
 
                ZEROT = IMAT.GE.5 && IMAT.LE.7
-               if (ZEROT && N.LT.IMAT-4) GO TO 100;
+               if (ZEROT && N < IMAT-4) GO TO 100;
 
                // Set up parameters with CLATB4 and generate a test matrix
                // with CLATMS.
@@ -134,7 +134,7 @@
                      IZERO = MIN( M, N ) / 2 + 1
                   }
                   IOFF = ( IZERO-1 )*LDA
-                  if ( IMAT.LT.7 ) {
+                  if ( IMAT < 7 ) {
                      for (I = 1; I <= M; I++) { // 20
                         A( IOFF+I ) = ZERO
                      } // 20

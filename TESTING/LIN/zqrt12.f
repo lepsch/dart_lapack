@@ -41,7 +41,7 @@
 
       // Test that enough workspace is supplied
 
-      if ( LWORK.LT.M*N+2*MIN( M, N )+MAX( M, N ) ) {
+      if ( LWORK < M*N+2*MIN( M, N )+MAX( M, N ) ) {
          xerbla('ZQRT12', 7 );
          RETURN
       }
@@ -71,7 +71,7 @@
 
       ANRM = ZLANGE( 'M', M, N, WORK, M, DUMMY )
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -96,7 +96,7 @@
             if ( ANRM.GT.BIGNUM ) {
                dlascl('G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO );
             }
-            if ( ANRM.LT.SMLNUM ) {
+            if ( ANRM < SMLNUM ) {
                dlascl('G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO );
             }
          }

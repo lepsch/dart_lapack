@@ -156,7 +156,7 @@
             KMIN = I
             VMIN = WSRT( I )
             for (J = I + 1; J <= N; J++) { // 100
-               if ( WSRT( J ).LT.VMIN ) {
+               if ( WSRT( J ) < VMIN ) {
                   KMIN = J
                   VMIN = WSRT( J )
                }
@@ -196,9 +196,9 @@
                VMAX = ONE / EPS
             } else if ( SIN( I )-TOLIN.GT.STMP( I )+TOL ) {
                VMAX = ( SIN( I )-TOLIN ) / ( STMP( I )+TOL )
-            } else if ( SIN( I )+TOLIN.LT.EPS*( STMP( I )-TOL ) ) {
+            } else if ( SIN( I )+TOLIN < EPS*( STMP( I )-TOL ) ) {
                VMAX = ONE / EPS
-            } else if ( SIN( I )+TOLIN.LT.STMP( I )-TOL ) {
+            } else if ( SIN( I )+TOLIN < STMP( I )-TOL ) {
                VMAX = ( STMP( I )-TOL ) / ( SIN( I )+TOLIN )
             } else {
                VMAX = ONE
@@ -229,9 +229,9 @@
                VMAX = ONE / EPS
             } else if ( SEPIN( I )-TOLIN.GT.SEPTMP( I )+TOL ) {
                VMAX = ( SEPIN( I )-TOLIN ) / ( SEPTMP( I )+TOL )
-            } else if ( SEPIN( I )+TOLIN.LT.EPS*( SEPTMP( I )-TOL ) ) {
+            } else if ( SEPIN( I )+TOLIN < EPS*( SEPTMP( I )-TOL ) ) {
                VMAX = ONE / EPS
-            } else if ( SEPIN( I )+TOLIN.LT.SEPTMP( I )-TOL ) {
+            } else if ( SEPIN( I )+TOLIN < SEPTMP( I )-TOL ) {
                VMAX = ( SEPTMP( I )-TOL ) / ( SEPIN( I )+TOLIN )
             } else {
                VMAX = ONE
@@ -252,9 +252,9 @@
                VMAX = ONE / EPS
             } else if ( SIN( I ).GT.STMP( I ) ) {
                VMAX = SIN( I ) / STMP( I )
-            } else if ( SIN( I ).LT.EPS*STMP( I ) ) {
+            } else if ( SIN( I ) < EPS*STMP( I ) ) {
                VMAX = ONE / EPS
-            } else if ( SIN( I ).LT.STMP( I ) ) {
+            } else if ( SIN( I ) < STMP( I ) ) {
                VMAX = STMP( I ) / SIN( I )
             } else {
                VMAX = ONE
@@ -275,9 +275,9 @@
                VMAX = ONE / EPS
             } else if ( SEPIN( I ).GT.SEPTMP( I ) ) {
                VMAX = SEPIN( I ) / SEPTMP( I )
-            } else if ( SEPIN( I ).LT.EPS*SEPTMP( I ) ) {
+            } else if ( SEPIN( I ) < EPS*SEPTMP( I ) ) {
                VMAX = ONE / EPS
-            } else if ( SEPIN( I ).LT.SEPTMP( I ) ) {
+            } else if ( SEPIN( I ) < SEPTMP( I ) ) {
                VMAX = SEPTMP( I ) / SEPIN( I )
             } else {
                VMAX = ONE

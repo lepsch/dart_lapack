@@ -49,9 +49,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( ANORM.LT.ZERO ) {
+      } else if ( ANORM < ZERO ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -105,7 +105,7 @@
          SCALE = SCALEL*SCALEU
          if ( SCALE != ONE ) {
             IX = ISAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
+            IF( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
             srscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

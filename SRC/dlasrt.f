@@ -45,7 +45,7 @@
       }
       if ( DIR == -1 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
       }
       if ( INFO != 0 ) {
@@ -90,7 +90,7 @@
 
             for (I = START + 1; I <= ENDD; I++) { // 50
                DO 40 J = I, START + 1, -1
-                  if ( D( J ).LT.D( J-1 ) ) {
+                  if ( D( J ) < D( J-1 ) ) {
                      DMNMX = D( J )
                      D( J ) = D( J-1 )
                      D( J-1 ) = DMNMX
@@ -112,18 +112,18 @@
          D2 = D( ENDD )
          I = ( START+ENDD ) / 2
          D3 = D( I )
-         if ( D1.LT.D2 ) {
-            if ( D3.LT.D1 ) {
+         if ( D1 < D2 ) {
+            if ( D3 < D1 ) {
                DMNMX = D1
-            } else if ( D3.LT.D2 ) {
+            } else if ( D3 < D2 ) {
                DMNMX = D3
             } else {
                DMNMX = D2
             }
          } else {
-            if ( D3.LT.D2 ) {
+            if ( D3 < D2 ) {
                DMNMX = D2
-            } else if ( D3.LT.D1 ) {
+            } else if ( D3 < D1 ) {
                DMNMX = D3
             } else {
                DMNMX = D1
@@ -139,11 +139,11 @@
             } // 60
             } // 70
             J = J - 1
-            IF( D( J ).LT.DMNMX ) GO TO 70
+            IF( D( J ) < DMNMX ) GO TO 70
             } // 80
             I = I + 1
             IF( D( I ).GT.DMNMX ) GO TO 80
-            if ( I.LT.J ) {
+            if ( I < J ) {
                TMP = D( I )
                D( I ) = D( J )
                D( J ) = TMP
@@ -176,8 +176,8 @@
             IF( D( J ).GT.DMNMX ) GO TO 100
             } // 110
             I = I + 1
-            IF( D( I ).LT.DMNMX ) GO TO 110
-            if ( I.LT.J ) {
+            IF( D( I ) < DMNMX ) GO TO 110
+            if ( I < J ) {
                TMP = D( I )
                D( I ) = D( J )
                D( J ) = TMP

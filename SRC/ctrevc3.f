@@ -83,19 +83,19 @@
          INFO = -1
       } else if ( .NOT.ALLV && .NOT.OVER && .NOT.SOMEV ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 || ( LEFTV && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( LEFTV && LDVL < N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 || ( RIGHTV && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( RIGHTV && LDVR < N ) ) {
          INFO = -10
-      } else if ( MM.LT.M ) {
+      } else if ( MM < M ) {
          INFO = -11
-      } else if ( LWORK.LT.MAX( 1, 2*N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, 2*N ) && .NOT.LQUERY ) {
          INFO = -14
-      } else if ( LRWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LRWORK < MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -174,7 +174,7 @@
 
             for (K = 1; K <= KI - 1; K++) { // 50
                T( K, K ) = T( K, K ) - T( KI, KI )
-               IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
+               IF( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN
             } // 50
 
             if ( KI.GT.1 ) {
@@ -276,10 +276,10 @@
 
             for (K = KI + 1; K <= N; K++) { // 100
                T( K, K ) = T( K, K ) - T( KI, KI )
-               IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
+               IF( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN
             } // 100
 
-            if ( KI.LT.N ) {
+            if ( KI < N ) {
                clatrs('Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 + IV*N ), SCALE, RWORK, INFO );
                WORK( KI + IV*N ) = SCALE
             }
@@ -302,7 +302,7 @@
             } else if ( NB == 1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
-               if (KI.LT.N) CALL CGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 );
+               if (KI < N) CALL CGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 );
 
                II = ICAMAX( N, VL( 1, KI ), 1 )
                REMAX = ONE / CABS1( VL( II, KI ) )

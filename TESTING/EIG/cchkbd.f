@@ -74,32 +74,32 @@
       MINWRK = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) )
-         IF( MVAL( J ).LT.0 ) BADMM = true;
+         IF( MVAL( J ) < 0 ) BADMM = true;
          NMAX = MAX( NMAX, NVAL( J ) )
-         IF( NVAL( J ).LT.0 ) BADNN = true;
+         IF( NVAL( J ) < 0 ) BADNN = true;
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
          MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) )
       } // 10
 
       // Check for errors
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADMM ) {
          INFO = -2
       } else if ( BADNN ) {
          INFO = -3
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -4
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -6
-      } else if ( LDA.LT.MMAX ) {
+      } else if ( LDA < MMAX ) {
          INFO = -11
-      } else if ( LDX.LT.MMAX ) {
+      } else if ( LDX < MMAX ) {
          INFO = -17
-      } else if ( LDQ.LT.MMAX ) {
+      } else if ( LDQ < MMAX ) {
          INFO = -21
-      } else if ( LDPT.LT.MNMAX ) {
+      } else if ( LDPT < MNMAX ) {
          INFO = -23
       } else if ( MINWRK.GT.LWORK ) {
          INFO = -27
@@ -253,7 +253,7 @@
                TEMP1 = -TWO*LOG( ULP )
                for (J = 1; J <= MNMIN; J++) { // 90
                   BD( J ) = EXP( TEMP1*SLARND( 2, ISEED ) )
-                  if (J.LT.MNMIN) BE( J ) = EXP( TEMP1*SLARND( 2, ISEED ) );
+                  if (J < MNMIN) BE( J ) = EXP( TEMP1*SLARND( 2, ISEED ) );
                } // 90
 
                IINFO = 0
@@ -368,7 +368,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'CBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 4 ) = ULPINV
@@ -389,7 +389,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'CBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               if ( IINFO.LT.0 ) {
+               if ( IINFO < 0 ) {
                   RETURN
                } else {
                   RESULT( 9 ) = ULPINV
@@ -412,10 +412,10 @@
 
             RESULT( 8 ) = ZERO
             for (I = 1; I <= MNMIN - 1; I++) { // 110
-               IF( S1( I ).LT.S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 8 ) = ULPINV
+               IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV
             } // 110
             if ( MNMIN.GE.1 ) {
-               IF( S1( MNMIN ).LT.ZERO ) RESULT( 8 ) = ULPINV
+               IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV
             }
 
             // Test 9:  Compare CBDSQR with and without singular vectors

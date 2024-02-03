@@ -32,17 +32,17 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( L.LT.0 || L.GT.MIN(M,N) ) {
+      } else if ( L < 0 || L.GT.MIN(M,N) ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, M ) ) {
+      } else if ( LDB < MAX( 1, M ) ) {
          INFO = -7
-      } else if ( LDT.LT.MAX( 1, M ) ) {
+      } else if ( LDT < MAX( 1, M ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -60,7 +60,7 @@
 
          P = N-L+MIN( L, I )
          dlarfg(P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) );
-         if ( I.LT.M ) {
+         if ( I < M ) {
 
             // W(M-I:1) := C(I+1:M,I:N) * C(I,I:N) [use W = T(M,:)]
 

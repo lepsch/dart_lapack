@@ -63,11 +63,11 @@
          INFO = -2
       } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -5
-      } else if ( LDAB.LT.KD+1 ) {
+      } else if ( LDAB < KD+1 ) {
          INFO = -7
       }
       if ( INFO != 0 ) {
@@ -124,7 +124,7 @@
             if ( SCALE != ONE ) {
                IX = IZAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
-               if (SCALE.LT.XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
+               if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                zdrscl(N, SCALE, WORK, 1 );
             }
             GO TO 10

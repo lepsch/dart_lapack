@@ -196,7 +196,7 @@
 
          // Reverse if ITYPE < 0
 
-         if ( ITYPE.LT.0 ) {
+         if ( ITYPE < 0 ) {
             for (JD = KBEG; JD <= ( KBEG+KEND-1 ) / 2; JD++) { // 270
                CTEMP = A( JD, JD )
                A( JD, JD ) = A( KBEG+KEND-JD, KBEG+KEND-JD )

@@ -33,18 +33,18 @@
       // Test the input arguments
 
       INFO = 0
-      if (N .LT. 0 || N .GT. NMAX_APPROX) {
+      if (N < 0 || N .GT. NMAX_APPROX) {
          INFO = -1
-      } else if (NRHS .LT. 0) {
+      } else if (NRHS < 0) {
          INFO = -2
-      } else if (LDA .LT. N) {
+      } else if (LDA < N) {
          INFO = -4
-      } else if (LDX .LT. N) {
+      } else if (LDX < N) {
          INFO = -6
-      } else if (LDB .LT. N) {
+      } else if (LDB < N) {
          INFO = -8
       }
-      if (INFO .LT. 0) {
+      if (INFO < 0) {
          xerbla('SLAHILB', -INFO);
          RETURN
       }

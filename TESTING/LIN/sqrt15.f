@@ -39,7 +39,7 @@
       // .. Executable Statements ..
 
       MN = MIN( M, N )
-      if ( LWORK.LT.MAX( M+MN, MN*NRHS, 2*N+M ) ) {
+      if ( LWORK < MAX( M+MN, MN*NRHS, 2*N+M ) ) {
          xerbla('SQRT15', 16 );
          RETURN
       }
@@ -100,7 +100,7 @@
          for (J = 1; J <= RANK; J++) { // 40
             sscal(M, S( J ), A( 1, J ), 1 );
          } // 40
-         if (RANK.LT.N) CALL SLASET( 'Full', M, N-RANK, ZERO, ZERO, A( 1, RANK+1 ), LDA );
+         if (RANK < N) CALL SLASET( 'Full', M, N-RANK, ZERO, ZERO, A( 1, RANK+1 ), LDA );
          slaror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO );
 
       } else {

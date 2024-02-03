@@ -136,7 +136,7 @@
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
                   ZEROT = IMAT.GE.2 && IMAT.LE.4
-                  if (ZEROT && N.LT.IMAT-1) GO TO 80;
+                  if (ZEROT && N < IMAT-1) GO TO 80;
 
                   if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
 

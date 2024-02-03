@@ -89,19 +89,19 @@
          INFO = -1
       } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
       } else if ( VALEIG && N.GT.0 && WU.LE.WL ) {
          INFO = -7
-      } else if ( INDEIG && ( IIL.LT.1 || IIL.GT.N ) ) {
+      } else if ( INDEIG && ( IIL < 1 || IIL.GT.N ) ) {
          INFO = -8
-      } else if ( INDEIG && ( IIU.LT.IIL || IIU.GT.N ) ) {
+      } else if ( INDEIG && ( IIU < IIL || IIU.GT.N ) ) {
          INFO = -9
-      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
          INFO = -13
-      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
          INFO = -17
-      } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
+      } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
          INFO = -19
       }
 
@@ -130,7 +130,7 @@
          }
          if ( ZQUERY && INFO == 0 ) {
             Z( 1,1 ) = NZCMIN
-         } else if ( NZC.LT.NZCMIN && .NOT.ZQUERY ) {
+         } else if ( NZC < NZCMIN && .NOT.ZQUERY ) {
             INFO = -14
          }
       }
@@ -154,7 +154,7 @@
             M = 1
             W( 1 ) = D( 1 )
          } else {
-            if ( WL.LT.D( 1 ) && WU.GE.D( 1 ) ) {
+            if ( WL < D( 1 ) && WU.GE.D( 1 ) ) {
                M = 1
                W( 1 ) = D( 1 )
             }
@@ -176,7 +176,7 @@
          // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
          // the following code requires R1 >= R2. Hence, we correct
          // the order of R1, R2, CS, SN if R1 < R2 before further processing.
-         if ( R1.LT.R2 ) {
+         if ( R1 < R2 ) {
             E(2) = R1
             R1 = R2
             R2 = E(2)
@@ -259,7 +259,7 @@
 
          SCALE = ONE
          TNRM = DLANST( 'M', N, D, E )
-         if ( TNRM.GT.ZERO && TNRM.LT.RMIN ) {
+         if ( TNRM.GT.ZERO && TNRM < RMIN ) {
             SCALE = RMIN / TNRM
          } else if ( TNRM.GT.RMAX ) {
             SCALE = RMAX / TNRM
@@ -366,13 +366,13 @@
                WEND = WBEGIN - 1
                // check if any eigenvalues have to be refined in this block
                } // 36
-               if ( WEND.LT.M ) {
+               if ( WEND < M ) {
                   if ( IWORK( IINDBL+WEND ) == JBLK ) {
                      WEND = WEND + 1
                      GO TO 36
                   }
                }
-               if ( WEND.LT.WBEGIN ) {
+               if ( WEND < WBEGIN ) {
                   IBEGIN = IEND + 1
                   GO TO 39
                }
@@ -411,7 +411,7 @@
                I = 0
                TMP = W( J )
                for (JJ = J + 1; JJ <= M; JJ++) { // 50
-                  if ( W( JJ ).LT.TMP ) {
+                  if ( W( JJ ) < TMP ) {
                      I = JJ
                      TMP = W( JJ )
                   }

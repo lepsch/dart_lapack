@@ -44,9 +44,9 @@
       INFO = 0
       if ( .NOT.LSAME( JOB, 'N' ) && .NOT.LSAME( JOB, 'P' ) && .NOT.LSAME( JOB, 'S' ) && .NOT.LSAME( JOB, 'B' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -198,7 +198,7 @@
             F = ONE
             S = C + R
 
-            DO WHILE( C.LT.G && MAX( F, C, CA ).LT.SFMAX2 && MIN( R, G, RA ).GT.SFMIN2 )
+            DO WHILE( C < G && MAX( F, C, CA ) < SFMAX2 && MIN( R, G, RA ).GT.SFMIN2 )
                F = F*SCLFAC
                C = C*SCLFAC
                CA = CA*SCLFAC
@@ -209,7 +209,7 @@
 
             G = C / SCLFAC
 
-            DO WHILE( G.GE.R && MAX( R, RA ).LT.SFMAX2 && MIN( F, C, G, CA ).GT.SFMIN2 )
+            DO WHILE( G.GE.R && MAX( R, RA ) < SFMAX2 && MIN( F, C, G, CA ).GT.SFMIN2 )
                F = F / SCLFAC
                C = C / SCLFAC
                G = G / SCLFAC
@@ -221,7 +221,7 @@
             // Now balance.
 
             IF( ( C+R ).GE.FACTOR*S ) CYCLE
-            if ( F.LT.ONE && SCALE( I ).LT.ONE ) {
+            if ( F < ONE && SCALE( I ) < ONE ) {
                IF( F*SCALE( I ).LE.SFMIN1 ) CYCLE
             }
             if ( F.GT.ONE && SCALE( I ).GT.ONE ) {

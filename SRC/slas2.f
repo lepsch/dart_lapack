@@ -39,7 +39,7 @@
             SSMAX = MAX( FHMX, GA )*SQRT( ONE+ ( MIN( FHMX, GA ) / MAX( FHMX, GA ) )**2 )
          }
       } else {
-         if ( GA.LT.FHMX ) {
+         if ( GA < FHMX ) {
             AS = ONE + FHMN / FHMX
             AT = ( FHMX-FHMN ) / FHMX
             AU = ( GA / FHMX )**2

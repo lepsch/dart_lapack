@@ -61,15 +61,15 @@
          INFO = -1
       } else if ( .NOT.( WNTVA || WNTVS || WNTVO || WNTVN ) || ( WNTVO && WNTUO ) ) {
          INFO = -2
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LDU.LT.1 || ( WNTUAS && LDU.LT.M ) ) {
+      } else if ( LDU < 1 || ( WNTUAS && LDU < M ) ) {
          INFO = -9
-      } else if ( LDVT.LT.1 || ( WNTVA && LDVT.LT.N ) || ( WNTVS && LDVT.LT.MINMN ) ) {
+      } else if ( LDVT < 1 || ( WNTVA && LDVT < N ) || ( WNTVS && LDVT < MINMN ) ) {
          INFO = -11
       }
 
@@ -395,7 +395,7 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -13
          }
       }
@@ -423,7 +423,7 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          ISCL = 1
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM.GT.BIGNUM ) {
@@ -1539,7 +1539,7 @@
 
          } else {
 
-            // M .LT. MNTHR
+            // M < MNTHR
 
             // Path 10 (M at least N, but not much larger)
             // Reduce to bidiagonal form without QR decomposition
@@ -2726,7 +2726,7 @@
 
          } else {
 
-            // N .LT. MNTHR
+            // N < MNTHR
 
             // Path 10t(N greater than M, but not much larger)
             // Reduce to bidiagonal form without LQ decomposition
@@ -2816,7 +2816,7 @@
                WORK( I+1 ) = WORK( I+IE-1 )
             } // 50
          }
-         if ( IE.LT.2 ) {
+         if ( IE < 2 ) {
             DO 60 I = MINMN - 1, 1, -1
                WORK( I+1 ) = WORK( I+IE-1 )
             } // 60
@@ -2826,7 +2826,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

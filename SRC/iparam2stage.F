@@ -31,7 +31,7 @@
 
       // Invalid value for ISPEC
 
-      if ( (ISPEC.LT.17) || (ISPEC.GT.21) ) {
+      if ( (ISPEC < 17) || (ISPEC.GT.21) ) {
           IPARAM2STAGE = -1
           RETURN
       }

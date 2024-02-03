@@ -48,17 +48,17 @@
       INFO = 0
       LQUERY = ( LWORK == -1 || LIWORK == -1 )
 
-      if ( IJOB.LT.0 || IJOB.GT.5 ) {
+      if ( IJOB < 0 || IJOB.GT.5 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.N ) ) {
+      } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
          INFO = -14
-      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
          INFO = -16
       }
 
@@ -88,7 +88,7 @@
          if ( PAIR ) {
             PAIR = false;
          } else {
-            if ( K.LT.N ) {
+            if ( K < N ) {
                if ( A( K+1, K ) == ZERO ) {
                   IF( SELECT( K ) ) M = M + 1
                } else {
@@ -116,9 +116,9 @@
       WORK( 1 ) = LWMIN
       IWORK( 1 ) = LIWMIN
 
-      if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+      if ( LWORK < LWMIN && .NOT.LQUERY ) {
          INFO = -22
-      } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
+      } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
          INFO = -24
       }
 
@@ -159,7 +159,7 @@
          } else {
 
             SWAP = SELECT( K )
-            if ( K.LT.N ) {
+            if ( K < N ) {
                if ( A( K+1, K ) != ZERO ) {
                   PAIR = true;
                   SWAP = SWAP || SELECT( K+1 )
@@ -319,7 +319,7 @@
             PAIR = false;
          } else {
 
-            if ( K.LT.N ) {
+            if ( K < N ) {
                if ( A( K+1, K ) != ZERO ) {
                   PAIR = true;
                }
@@ -342,7 +342,7 @@
 
             } else {
 
-               if ( SIGN( ONE, B( K, K ) ).LT.ZERO ) {
+               if ( SIGN( ONE, B( K, K ) ) < ZERO ) {
 
                   // If B(K,K) is negative, make it positive
 

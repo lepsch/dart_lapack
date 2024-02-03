@@ -39,11 +39,11 @@
       LQUERY = ( LWORK == -1 )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LWORK.LT.1 && .NOT.LQUERY ) {
+      } else if ( LWORK < 1 && .NOT.LQUERY ) {
          INFO = -7
       }
 
@@ -65,16 +65,16 @@
 
       NBMIN = 2
       LDWORK = N
-      if ( NB.GT.1 && NB.LT.N ) {
+      if ( NB.GT.1 && NB < N ) {
          IWS = LDWORK*NB
-         if ( LWORK.LT.IWS ) {
+         if ( LWORK < IWS ) {
             NB = MAX( LWORK / LDWORK, 1 )
             NBMIN = MAX( 2, ILAENV( 2, 'ZSYTRF', UPLO, N, -1, -1, -1 ) )
          }
       } else {
          IWS = 1
       }
-      if (NB.LT.NBMIN) NB = N;
+      if (NB < NBMIN) NB = N;
 
       if ( UPPER ) {
 
@@ -89,7 +89,7 @@
 
          // If K < 1, exit from loop
 
-         if (K.LT.1) GO TO 40;
+         if (K < 1) GO TO 40;
 
          if ( K.GT.NB ) {
 

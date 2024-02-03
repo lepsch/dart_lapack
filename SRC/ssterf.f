@@ -41,7 +41,7 @@
 
       // Quick return if possible
 
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
          xerbla('SSTERF', -INFO );
          RETURN
@@ -96,7 +96,7 @@
          ISCALE = 1
          slascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO );
          slascl('G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
-      } else if ( ANORM.LT.SSFMIN ) {
+      } else if ( ANORM < SSFMIN ) {
          ISCALE = 2
          slascl('G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO );
          slascl('G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO );
@@ -108,7 +108,7 @@
 
       // Choose between QL and QR iteration
 
-      if ( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) {
+      if ( ABS( D( LEND ) ) < ABS( D( L ) ) ) {
          LEND = LSV
          L = LENDSV
       }
@@ -128,7 +128,7 @@
          M = LEND
 
          } // 70
-         if (M.LT.LEND) E( M ) = ZERO;
+         if (M < LEND) E( M ) = ZERO;
          P = D( L )
          if (M == L) GO TO 90;
 
@@ -283,7 +283,7 @@
       // Check for no convergence to an eigenvalue after a total
       // of N*MAXIT iterations.
 
-      if (JTOT.LT.NMAXIT) GO TO 10;
+      if (JTOT < NMAXIT) GO TO 10;
       for (I = 1; I <= N - 1; I++) { // 160
          IF( E( I ) != ZERO ) INFO = INFO + 1
       } // 160

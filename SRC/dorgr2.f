@@ -31,13 +31,13 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.M ) {
+      } else if ( N < M ) {
          INFO = -2
-      } else if ( K.LT.0 || K.GT.M ) {
+      } else if ( K < 0 || K.GT.M ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
       }
       if ( INFO != 0 ) {
@@ -49,7 +49,7 @@
 
       if (M.LE.0) RETURN;
 
-      if ( K.LT.M ) {
+      if ( K < M ) {
 
          // Initialise rows 1:m-k to rows of the unit matrix
 

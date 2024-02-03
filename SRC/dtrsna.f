@@ -55,13 +55,13 @@
          INFO = -1
       } else if ( .NOT.LSAME( HOWMNY, 'A' ) && .NOT.SOMCON ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 || ( WANTS && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( WANTS && LDVL < N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 || ( WANTS && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( WANTS && LDVR < N ) ) {
          INFO = -10
       } else {
 
@@ -75,7 +75,7 @@
                if ( PAIR ) {
                   PAIR = false;
                } else {
-                  if ( K.LT.N ) {
+                  if ( K < N ) {
                      if ( T( K+1, K ) == ZERO ) {
                         IF( SELECT( K ) ) M = M + 1
                      } else {
@@ -91,9 +91,9 @@
             M = N
          }
 
-         if ( MM.LT.M ) {
+         if ( MM < M ) {
             INFO = -13
-         } else if ( LDWORK.LT.1 || ( WANTSP && LDWORK.LT.N ) ) {
+         } else if ( LDWORK < 1 || ( WANTSP && LDWORK < N ) ) {
             INFO = -16
          }
       }
@@ -130,7 +130,7 @@
             PAIR = false;
             GO TO 60
          } else {
-            if (K.LT.N) PAIR = T( K+1, K ) != ZERO;
+            if (K < N) PAIR = T( K+1, K ) != ZERO;
          }
 
          // Determine whether condition numbers are required for the k-th

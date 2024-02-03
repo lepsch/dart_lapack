@@ -35,11 +35,11 @@
       NOTRAN = ( TRANS == 'N' || TRANS == 'n' )
       if ( .NOT.NOTRAN && .NOT.( TRANS == 'T' || TRANS == 't' ) && .NOT.( TRANS == 'C' || TRANS == 'c' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDB.LT.MAX( N, 1 ) ) {
+      } else if ( LDB < MAX( N, 1 ) ) {
          INFO = -10
       }
       if ( INFO != 0 ) {

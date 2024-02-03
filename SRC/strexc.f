@@ -40,15 +40,15 @@
       WANTQ = LSAME( COMPQ, 'V' )
       if ( .NOT.WANTQ && .NOT.LSAME( COMPQ, 'N' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDQ < 1 || ( WANTQ && LDQ < MAX( 1, N ) ) ) {
          INFO = -6
-      } else if (( IFST.LT.1 || IFST.GT.N ) && ( N.GT.0 )) {
+      } else if (( IFST < 1 || IFST.GT.N ) && ( N.GT.0 )) {
          INFO = -7
-      } else if (( ILST.LT.1 || ILST.GT.N ) && ( N.GT.0 )) {
+      } else if (( ILST < 1 || ILST.GT.N ) && ( N.GT.0 )) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -67,7 +67,7 @@
          IF( T( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1
       }
       NBF = 1
-      if ( IFST.LT.N ) {
+      if ( IFST < N ) {
          IF( T( IFST+1, IFST ) != ZERO ) NBF = 2
       }
 
@@ -78,13 +78,13 @@
          IF( T( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1
       }
       NBL = 1
-      if ( ILST.LT.N ) {
+      if ( ILST < N ) {
          IF( T( ILST+1, ILST ) != ZERO ) NBL = 2
       }
 
       if (IFST == ILST) RETURN;
 
-      if ( IFST.LT.ILST ) {
+      if ( IFST < ILST ) {
 
          // Update ILST
 
@@ -162,7 +162,7 @@
                }
             }
          }
-         if (HERE.LT.ILST) GO TO 10;
+         if (HERE < ILST) GO TO 10;
 
       } else {
 

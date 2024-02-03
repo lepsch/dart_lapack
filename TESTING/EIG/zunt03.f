@@ -52,17 +52,17 @@
       }
       if ( IRC == -1 ) {
          INFO = -1
-      } else if ( MU.LT.0 ) {
+      } else if ( MU < 0 ) {
          INFO = -2
-      } else if ( MV.LT.0 ) {
+      } else if ( MV < 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K.LT.0 || K.GT.MAX( MU, MV ) ) {
+      } else if ( K < 0 || K.GT.MAX( MU, MV ) ) {
          INFO = -5
-      } else if ( ( IRC == 0 && LDU.LT.MAX( 1, MU ) ) || ( IRC == 1 && LDU.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 && LDU < MAX( 1, MU ) ) || ( IRC == 1 && LDU < MAX( 1, N ) ) ) {
          INFO = -7
-      } else if ( ( IRC == 0 && LDV.LT.MAX( 1, MV ) ) || ( IRC == 1 && LDV.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 && LDV < MAX( 1, MV ) ) || ( IRC == 1 && LDV < MAX( 1, N ) ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {

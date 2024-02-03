@@ -115,7 +115,7 @@
                   XJ = ABS( X( J1 ) )
                   TJJ = ABS( T( J1, J1 ) )
                   TMP = T( J1, J1 )
-                  if ( TJJ.LT.SMIN ) {
+                  if ( TJJ < SMIN ) {
                      TMP = SMIN
                      TJJ = SMIN
                      INFO = 1
@@ -123,7 +123,7 @@
 
                   if (XJ == ZERO) GO TO 30;
 
-                  if ( TJJ.LT.ONE ) {
+                  if ( TJJ < ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         dscal(N, REC, X, 1 );
@@ -200,11 +200,11 @@
 
             JNEXT = 1
             for (J = 1; J <= N; J++) { // 40
-               if (J.LT.JNEXT) GO TO 40;
+               if (J < JNEXT) GO TO 40;
                J1 = J
                J2 = J
                JNEXT = J + 1
-               if ( J.LT.N ) {
+               if ( J < N ) {
                   if ( T( J+1, J ) != ZERO ) {
                      J2 = J + 1
                      JNEXT = J + 2
@@ -233,13 +233,13 @@
                   XJ = ABS( X( J1 ) )
                   TJJ = ABS( T( J1, J1 ) )
                   TMP = T( J1, J1 )
-                  if ( TJJ.LT.SMIN ) {
+                  if ( TJJ < SMIN ) {
                      TMP = SMIN
                      TJJ = SMIN
                      INFO = 1
                   }
 
-                  if ( TJJ.LT.ONE ) {
+                  if ( TJJ < ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         dscal(N, REC, X, 1 );
@@ -315,7 +315,7 @@
                   XJ = ABS( X( J1 ) ) + ABS( X( N+J1 ) )
                   TJJ = ABS( T( J1, J1 ) ) + ABS( Z )
                   TMP = T( J1, J1 )
-                  if ( TJJ.LT.SMINW ) {
+                  if ( TJJ < SMINW ) {
                      TMP = SMINW
                      TJJ = SMINW
                      INFO = 1
@@ -323,7 +323,7 @@
 
                   if (XJ == ZERO) GO TO 70;
 
-                  if ( TJJ.LT.ONE ) {
+                  if ( TJJ < ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         dscal(N2, REC, X, 1 );
@@ -418,11 +418,11 @@
 
             JNEXT = 1
             for (J = 1; J <= N; J++) { // 80
-               if (J.LT.JNEXT) GO TO 80;
+               if (J < JNEXT) GO TO 80;
                J1 = J
                J2 = J
                JNEXT = J + 1
-               if ( J.LT.N ) {
+               if ( J < N ) {
                   if ( T( J+1, J ) != ZERO ) {
                      J2 = J + 1
                      JNEXT = J + 2
@@ -462,13 +462,13 @@
 
                   TJJ = ABS( T( J1, J1 ) ) + ABS( Z )
                   TMP = T( J1, J1 )
-                  if ( TJJ.LT.SMINW ) {
+                  if ( TJJ < SMINW ) {
                      TMP = SMINW
                      TJJ = SMINW
                      INFO = 1
                   }
 
-                  if ( TJJ.LT.ONE ) {
+                  if ( TJJ < ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         dscal(N2, REC, X, 1 );

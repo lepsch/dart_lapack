@@ -52,19 +52,19 @@
 
       // Check for errors
 
-      if ( NSIZE.LT.0 ) {
+      if ( NSIZE < 0 ) {
          INFO = -1
-      } else if ( THRESH.LT.ZERO ) {
+      } else if ( THRESH < ZERO ) {
          INFO = -2
       } else if ( NIN.LE.0 ) {
          INFO = -3
       } else if ( NOUT.LE.0 ) {
          INFO = -4
-      } else if ( LDA.LT.1 || LDA.LT.NSIZE ) {
+      } else if ( LDA < 1 || LDA < NSIZE ) {
          INFO = -6
-      } else if ( LDC.LT.1 || LDC.LT.NSIZE*NSIZE / 2 ) {
+      } else if ( LDC < 1 || LDC < NSIZE*NSIZE / 2 ) {
          INFO = -17
-      } else if ( LIWORK.LT.NSIZE+6 ) {
+      } else if ( LIWORK < NSIZE+6 ) {
          INFO = -21
       }
 
@@ -95,7 +95,7 @@
          WORK( 1 ) = MAXWRK
       }
 
-      if (LWORK.LT.MINWRK) INFO = -19;
+      if (LWORK < MINWRK) INFO = -19;
 
       if ( INFO != 0 ) {
          xerbla('SDRGSX', -INFO );
@@ -195,7 +195,7 @@
                      ILABAD = false;
                      if ( ALPHAI( J ) == ZERO ) {
                         TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
-                        if ( J.LT.MPLUSN ) {
+                        if ( J < MPLUSN ) {
                            if ( AI( J+1, J ) != ZERO ) {
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
@@ -215,7 +215,7 @@
                         }
                         if ( I1.LE.0 || I1.GE.MPLUSN ) {
                            ILABAD = true;
-                        } else if ( I1.LT.MPLUSN-1 ) {
+                        } else if ( I1 < MPLUSN-1 ) {
                            if ( AI( I1+2, I1+1 ) != ZERO ) {
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
@@ -272,7 +272,7 @@
                      if ( DIFEST( 2 ) == ZERO ) {
                         if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
                      } else if ( DIFTRU == ZERO ) {
-                        IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
+                        IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
                      }
                      NTEST = NTEST + 1
                   }
@@ -308,7 +308,7 @@
 
                         }
                         NERRS = NERRS + 1
-                        if ( RESULT( J ).LT.10000.0 ) {
+                        if ( RESULT( J ) < 10000.0 ) {
                            WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
                         } else {
                            WRITE( NOUT, FMT = 9990 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
@@ -384,7 +384,7 @@
          ILABAD = false;
          if ( ALPHAI( J ) == ZERO ) {
             TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
-            if ( J.LT.MPLUSN ) {
+            if ( J < MPLUSN ) {
                if ( AI( J+1, J ) != ZERO ) {
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
@@ -404,7 +404,7 @@
             }
             if ( I1.LE.0 || I1.GE.MPLUSN ) {
                ILABAD = true;
-            } else if ( I1.LT.MPLUSN-1 ) {
+            } else if ( I1 < MPLUSN-1 ) {
                if ( AI( I1+2, I1+1 ) != ZERO ) {
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
@@ -445,7 +445,7 @@
       if ( DIFEST( 2 ) == ZERO ) {
          if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
       } else if ( DIFTRU == ZERO ) {
-         if ( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) {
+         if ( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
       }
 
@@ -464,7 +464,7 @@
       if ( PL( 1 ) == ZERO ) {
          if (PLTRU.GT.ABNRM*ULP) RESULT( 10 ) = ULPINV;
       } else if ( PLTRU == ZERO ) {
-         if ( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) || ( PLTRU*THRESH.LT.PL( 1 ) ) ) {
+         if ( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) || ( PLTRU*THRESH < PL( 1 ) ) ) {
          RESULT( 10 ) = ULPINV
       }
 
@@ -491,7 +491,7 @@
 
             }
             NERRS = NERRS + 1
-            if ( RESULT( J ).LT.10000.0 ) {
+            if ( RESULT( J ) < 10000.0 ) {
                WRITE( NOUT, FMT = 9989 )NPTKNT, MPLUSN, J, RESULT( J )
             } else {
                WRITE( NOUT, FMT = 9988 )NPTKNT, MPLUSN, J, RESULT( J )

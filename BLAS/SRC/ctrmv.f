@@ -43,9 +43,9 @@
           INFO = 2
       } else if (.NOT.LSAME(DIAG,'U') && .NOT.LSAME(DIAG,'N')) {
           INFO = 3
-      } else if (N.LT.0) {
+      } else if (N < 0) {
           INFO = 4
-      } else if (LDA.LT.MAX(1,N)) {
+      } else if (LDA < MAX(1,N)) {
           INFO = 6
       } else if (INCX == 0) {
           INFO = 8

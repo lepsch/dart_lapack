@@ -26,7 +26,7 @@
       if (INCX == INCY && INCX.GT.0) {
 
          NSTEPS = N*INCX
-         if (DFLAG.LT.ZERO) {
+         if (DFLAG < ZERO) {
             DH11 = DPARAM(2)
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
@@ -59,10 +59,10 @@
       } else {
          KX = 1
          KY = 1
-         if (INCX.LT.0) KX = 1 + (1-N)*INCX;
-         if (INCY.LT.0) KY = 1 + (1-N)*INCY;
+         if (INCX < 0) KX = 1 + (1-N)*INCX;
+         if (INCY < 0) KY = 1 + (1-N)*INCY;
 
-         if (DFLAG.LT.ZERO) {
+         if (DFLAG < ZERO) {
             DH11 = DPARAM(2)
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)

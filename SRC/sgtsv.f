@@ -30,11 +30,11 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -1
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -2
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
       }
       if ( INFO != 0 ) {
@@ -178,7 +178,7 @@
          DO 80 I = N - 2, 1, -1
             B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
          } // 80
-         if ( J.LT.NRHS ) {
+         if ( J < NRHS ) {
             J = J + 1
             GO TO 70
          }

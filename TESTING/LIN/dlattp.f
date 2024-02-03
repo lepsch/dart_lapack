@@ -197,7 +197,7 @@
                PLUS1 = STAR1 / PLUS2
                REXP = DLARND( 2, ISEED )
                STAR1 = STAR1*( SFAC**REXP )
-               if ( REXP.LT.ZERO ) {
+               if ( REXP < ZERO ) {
                   STAR1 = -SFAC**( ONE-REXP )
                } else {
                   STAR1 = SFAC**( ONE+REXP )
@@ -241,7 +241,7 @@
             JC = N + 1
             for (J = 2; J <= N - 1; J++) { // 130
                A( JC+1 ) = WORK( J-1 )
-               if (J.LT.N-1) A( JC+2 ) = WORK( N+J-1 );
+               if (J < N-1) A( JC+2 ) = WORK( N+J-1 );
                A( JC+N-J ) = Y
                JC = JC + N - J + 1
             } // 130
@@ -478,7 +478,7 @@
                for (I = J + 2; I <= N; I++) { // 320
                   A( JC+I-J ) = ZERO
                } // 320
-               if (J.LT.N) A( JC+1 ) = -ONE;
+               if (J < N) A( JC+1 ) = -ONE;
                A( JC ) = TSCAL
                JC = JC + N - J + 1
             } // 330
@@ -575,7 +575,7 @@
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 400
-               if (J.LT.N) CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) );
+               if (J < N) CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) );
                A( JC ) = ZERO
                JC = JC + N - J + 1
             } // 400

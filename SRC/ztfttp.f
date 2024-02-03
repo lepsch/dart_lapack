@@ -45,7 +45,7 @@
          INFO = -1
       } else if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
       }
       if ( INFO != 0 ) {

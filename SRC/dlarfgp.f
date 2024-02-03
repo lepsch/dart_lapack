@@ -67,7 +67,7 @@
          BETA = SIGN( DLAPY2( ALPHA, XNORM ), ALPHA )
          SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'E' )
          KNT = 0
-         if ( ABS( BETA ).LT.SMLNUM ) {
+         if ( ABS( BETA ) < SMLNUM ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -77,7 +77,7 @@
             dscal(N-1, BIGNUM, X, INCX );
             BETA = BETA*BIGNUM
             ALPHA = ALPHA*BIGNUM
-            IF( (ABS( BETA ).LT.SMLNUM) && (KNT .LT. 20) ) GO TO 10
+            IF( (ABS( BETA ) < SMLNUM) && (KNT < 20) ) GO TO 10
 
             // New BETA is at most 1, at least SMLNUM
 
@@ -86,7 +86,7 @@
          }
          SAVEALPHA = ALPHA
          ALPHA = ALPHA + BETA
-         if ( BETA.LT.ZERO ) {
+         if ( BETA < ZERO ) {
             BETA = -BETA
             TAU = -ALPHA / BETA
          } else {

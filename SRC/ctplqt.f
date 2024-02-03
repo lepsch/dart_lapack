@@ -25,19 +25,19 @@
       // Test the input arguments
 
       INFO = 0
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( L.LT.0 || (L.GT.MIN(M,N) && MIN(M,N).GE.0)) {
+      } else if ( L < 0 || (L.GT.MIN(M,N) && MIN(M,N).GE.0)) {
          INFO = -3
-      } else if ( MB.LT.1 || (MB.GT.M && M.GT.0)) {
+      } else if ( MB < 1 || (MB.GT.M && M.GT.0)) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LDB.LT.MAX( 1, M ) ) {
+      } else if ( LDB < MAX( 1, M ) ) {
          INFO = -8
-      } else if ( LDT.LT.MB ) {
+      } else if ( LDT < MB ) {
          INFO = -10
       }
       if ( INFO != 0 ) {

@@ -38,7 +38,7 @@
 
       DRZT01 = ZERO
 
-      if ( LWORK.LT.M*N+M ) {
+      if ( LWORK < M*N+M ) {
          xerbla('DRZT01', 8 );
          RETURN
       }

@@ -59,7 +59,7 @@
 
       // Some Error Checks
 
-      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE.GT.3 ) {
          RESULT( 1 ) = TEN / ULP
          RETURN
       }
@@ -155,7 +155,7 @@
 
          // ITYPE=3: error = U V**T - I
 
-         if (N.LT.2) RETURN;
+         if (N < 2) RETURN;
          dlacpy(' ', N, N, U, LDU, WORK, N );
          dopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          if ( IINFO != 0 ) {
@@ -173,7 +173,7 @@
       if ( ANORM.GT.WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
-         if ( ANORM.LT.ONE ) {
+         if ( ANORM < ONE ) {
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
          } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )

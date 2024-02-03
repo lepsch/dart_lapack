@@ -49,13 +49,13 @@
           INFO = 1
       } else if ((.NOT.LSAME(TRANS,'N')) && (.NOT.LSAME(TRANS,'T')) && (.NOT.LSAME(TRANS,'C'))) {
           INFO = 2
-      } else if (N.LT.0) {
+      } else if (N < 0) {
           INFO = 3
-      } else if (K.LT.0) {
+      } else if (K < 0) {
           INFO = 4
-      } else if (LDA.LT.MAX(1,NROWA)) {
+      } else if (LDA < MAX(1,NROWA)) {
           INFO = 7
-      } else if (LDC.LT.MAX(1,N)) {
+      } else if (LDC < MAX(1,N)) {
           INFO = 10
       }
       if (INFO != 0) {

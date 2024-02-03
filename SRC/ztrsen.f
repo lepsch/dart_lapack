@@ -75,13 +75,13 @@
          INFO = -1
       } else if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDQ.LT.1 || ( WANTQ && LDQ.LT.N ) ) {
+      } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
          INFO = -14
       }
 

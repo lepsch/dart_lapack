@@ -339,7 +339,7 @@
 
                } else {
 
-                     // IF(MINMN.LT.2) skip this size for this matrix type.
+                     // IF(MINMN < 2) skip this size for this matrix type.
 
                      CYCLE
                }
@@ -392,7 +392,7 @@
 
                   // Check error code from SGEQP3RK.
 
-                  if (INFO.LT.0) CALL ALAERH( PATH, 'SGEQP3RK', INFO, 0, ' ', M, N, NX, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO < 0) CALL ALAERH( PATH, 'SGEQP3RK', INFO, 0, ' ', M, N, NX, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute test 1:
 
@@ -468,7 +468,7 @@
                      DO J = 1, KFACT-1, 1
                          DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ABS( A(1) ) )
 
-                        if ( DTEMP.LT.ZERO ) {
+                        if ( DTEMP < ZERO ) {
                            RESULT( 4 ) = BIGNUM
                         }
 

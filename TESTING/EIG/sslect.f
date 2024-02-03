@@ -35,7 +35,7 @@
       // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
-         SSLECT = ( ZR.LT.ZERO )
+         SSLECT = ( ZR < ZERO )
       } else {
          RMIN = SLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) )
          SSLECT = SELVAL( 1 )

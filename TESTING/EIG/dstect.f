@@ -49,7 +49,7 @@
          NUM = N
          RETURN
       }
-      if ( SHIFT.LT.-THREE*MX ) {
+      if ( SHIFT < -THREE*MX ) {
          NUM = 0
          RETURN
       }

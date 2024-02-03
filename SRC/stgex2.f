@@ -53,7 +53,7 @@
 
       if (N.LE.1 || N1.LE.0 || N2.LE.0) RETURN       IF( N1.GT.N || ( J1+N1 ).GT.N ) RETURN;
       M = N1 + N2
-      if ( LWORK.LT.MAX( N*M, M*M*2 ) ) {
+      if ( LWORK < MAX( N*M, M*M*2 ) ) {
          INFO = -16
          WORK( 1 ) = MAX( N*M, M*M*2 )
          RETURN

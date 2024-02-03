@@ -69,12 +69,12 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB.LT.N ) || K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB < N ) || K < 1 ) GO TO 30
 
          // Copy column K of A to column KW of W and update it
 
          zcopy(K, A( 1, K ), 1, W( 1, KW ), 1 );
-         if (K.LT.N) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
+         if (K < N) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
 
          KSTEP = 1
 
@@ -110,7 +110,7 @@
                // Copy column IMAX to column KW-1 of W and update it
 
                zcopy(IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
-               zcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )                IF( K.LT.N ) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
+               zcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )                IF( K < N ) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
@@ -175,7 +175,7 @@
                // later overwritten). Interchange rows KK and KP
                // in last KKW to NB columns of W.
 
-               if (K.LT.N) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
+               if (K < N) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
                zswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
@@ -316,7 +316,7 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            if ( JP.LT.0 ) {
+            if ( JP < 0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J + 1
@@ -324,7 +324,7 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
-            if (JP != JJ && J.LE.N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
+            if (JP != JJ && J.LE.N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J < N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -343,7 +343,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB.LT.N ) || K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB < N ) || K.GT.N ) GO TO 90
 
          // Copy column K of A to column K of W and update it
 
@@ -360,7 +360,7 @@
          // IMAX is the row-index of the largest off-diagonal element in
 
 
-         if ( K.LT.N ) {
+         if ( K < N ) {
             IMAX = K + IZAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
          } else {
@@ -392,7 +392,7 @@
 
                JMAX = K - 1 + IZAMAX( IMAX-K, W( K, K+1 ), 1 )
                ROWMAX = CABS1( W( JMAX, K+1 ) )
-               if ( IMAX.LT.N ) {
+               if ( IMAX < N ) {
                   JMAX = IMAX + IZAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) )
                }
@@ -439,7 +439,7 @@
                // will be later overwritten.
 
                A( KP, KP ) = A( KK, KK )
-               zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )                IF( KP.LT.N ) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )                IF( KP < N ) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
 
                // Interchange rows KK and KP in first K-1 columns of A
                // (columns K (or K and K+1 for 2-by-2 pivot) of A will be
@@ -466,7 +466,7 @@
                   // A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
                zcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
-               if ( K.LT.N ) {
+               if ( K < N ) {
                   R1 = CONE / A( K, K )
                   zscal(N-K, R1, A( K+1, K ), 1 );
                }
@@ -488,7 +488,7 @@
                   // A(k+2:N,k:k+1) := L(k+2:N,k:k+1) =
                   // = W(k+2:N,k:k+1) * ( D(k:k+1,k:k+1)**(-1) )
 
-               if ( K.LT.N-1 ) {
+               if ( K < N-1 ) {
 
                   // Compose the columns of the inverse of 2-by-2 pivot
                   // block D in the following way to reduce the number
@@ -589,7 +589,7 @@
             // (Here, J is a diagonal index)
             JJ = J
             JP = IPIV( J )
-            if ( JP.LT.0 ) {
+            if ( JP < 0 ) {
                JP = -JP
                // (Here, J is a diagonal index)
                J = J - 1

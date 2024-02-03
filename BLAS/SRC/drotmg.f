@@ -25,7 +25,7 @@
       DATA GAM,GAMSQ,RGAMSQ/4096.D0,16777216.D0,5.9604645D-8/
       // ..
 
-      if (DD1.LT.ZERO) {
+      if (DD1 < ZERO) {
          // GO ZERO-H-D-AND-DX1..
          DFLAG = -ONE
          DH11 = ZERO
@@ -76,7 +76,7 @@
            }
          } else {
 
-            if (DQ2.LT.ZERO) {
+            if (DQ2 < ZERO) {
                // GO ZERO-H-D-AND-DX1..
                DFLAG = -ONE
                DH11 = ZERO
@@ -150,7 +150,7 @@
 
       }
 
-      if (DFLAG.LT.ZERO) {
+      if (DFLAG < ZERO) {
          DPARAM(2) = DH11
          DPARAM(3) = DH21
          DPARAM(4) = DH12

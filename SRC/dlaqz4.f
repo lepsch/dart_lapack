@@ -20,14 +20,14 @@
       // EXTERNAL :: XERBLA, DGEMM, DLAQZ1, DLAQZ2, DLASET, DLARTG, DROT, DLACPY
 
       INFO = 0
-      if ( NBLOCK_DESIRED .LT. NSHIFTS+1 ) {
+      if ( NBLOCK_DESIRED < NSHIFTS+1 ) {
          INFO = -8
       }
       if ( LWORK == -1 ) {
          // workspace query, quick return
          WORK( 1 ) = N*NBLOCK_DESIRED
          RETURN
-      } else if ( LWORK .LT. N*NBLOCK_DESIRED ) {
+      } else if ( LWORK < N*NBLOCK_DESIRED ) {
          INFO = -25
       }
 
@@ -38,7 +38,7 @@
 
       // Executable statements
 
-      if ( NSHIFTS .LT. 2 ) {
+      if ( NSHIFTS < 2 ) {
          RETURN
       }
 

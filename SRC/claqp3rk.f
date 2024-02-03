@@ -63,7 +63,7 @@
       LSTICC = 0
       DONE = false;
 
-      DO WHILE ( K.LT.NB && LSTICC == 0 )
+      DO WHILE ( K < NB && LSTICC == 0 )
          K = K + 1
          I = IOFFSET + K
 
@@ -129,7 +129,7 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-               if ( NRHS.GT.0 && KB.LT.(M-IOFFSET) ) {
+               if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
                   cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
                }
 
@@ -176,7 +176,7 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-               if ( NRHS.GT.0 && KB.LT.(M-IOFFSET) ) {
+               if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
                   cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
                }
 
@@ -250,7 +250,7 @@
                // A(IF+1:M,K+1:N+NRHS) := A(IF+1:M,KB+1:N+NRHS) -
                               // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 
-               if ( KB.LT.MINMNUPDT ) {
+               if ( KB < MINMNUPDT ) {
                   cgemm('No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB,-CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA );
                }
 
@@ -316,7 +316,7 @@
 
          // Generate elementary reflector H(k) using the column A(I:M,K).
 
-         if ( I.LT.M ) {
+         if ( I < M ) {
             clarfg(M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) );
          } else {
             TAU( K ) = CZERO
@@ -372,7 +372,7 @@
             // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                              // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-            if ( NRHS.GT.0 && KB.LT.(M-IOFFSET) ) {
+            if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
                cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
             }
 
@@ -397,7 +397,7 @@
          // Compute the current K-th column of F:
            // 1) F(K+1:N,K) := tau(K) * A(I:M,K+1:N)**H * A(I:M,K).
 
-         if ( K.LT.N+NRHS ) {
+         if ( K < N+NRHS ) {
             cgemv('Conjugate transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, CZERO, F( K+1, K ), 1 );
          }
 
@@ -424,7 +424,7 @@
          // A(I,K+1:N+NRHS) := A(I,K+1:N+NRHS)
                           // - A(I,1:K)*F(K+1:N+NRHS,1:K)**H.
 
-         if ( K.LT.N+NRHS ) {
+         if ( K < N+NRHS ) {
             cgemm('No transpose', 'Conjugate transpose', 1, N+NRHS-K, K, -CONE, A( I, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( I, K+1 ), LDA );
          }
 
@@ -434,7 +434,7 @@
          // only if the residual matrix A(I+1:M,K+1:N) exists, i.e.
          // when K < MINMNFACT = min( M-IOFFSET, N ).
 
-         if ( K.LT.MINMNFACT ) {
+         if ( K < MINMNFACT ) {
 
             for (J = K + 1; J <= N; J++) {
                if ( VN1( J ) != ZERO ) {
@@ -490,7 +490,7 @@
       // A(IF+1:M,K+1:N+NRHS) := A(IF+1:M,KB+1:N+NRHS) -
                           // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 
-      if ( KB.LT.MINMNUPDT ) {
+      if ( KB < MINMNUPDT ) {
          cgemm('No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB, -CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA );
       }
 

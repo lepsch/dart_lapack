@@ -50,11 +50,11 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LDAF.LT.MAX( 1, N ) ) {
+      } else if ( LDAF < MAX( 1, N ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {

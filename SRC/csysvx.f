@@ -49,19 +49,19 @@
          INFO = -1
       } else if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -4
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDAF.LT.MAX( 1, N ) ) {
+      } else if ( LDAF < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -11
-      } else if ( LDX.LT.MAX( 1, N ) ) {
+      } else if ( LDX < MAX( 1, N ) ) {
          INFO = -13
-      } else if ( LWORK.LT.MAX( 1, 2*N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, 2*N ) && .NOT.LQUERY ) {
          INFO = -18
       }
 
@@ -116,7 +116,7 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 

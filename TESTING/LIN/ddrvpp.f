@@ -98,7 +98,7 @@
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 && IMAT.LE.5
-            if (ZEROT && N.LT.IMAT-2) GO TO 130;
+            if (ZEROT && N < IMAT-2) GO TO 130;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 

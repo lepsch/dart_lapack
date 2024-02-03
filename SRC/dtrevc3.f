@@ -64,15 +64,15 @@
          INFO = -1
       } else if ( .NOT.ALLV && .NOT.OVER && .NOT.SOMEV ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 || ( LEFTV && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( LEFTV && LDVL < N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 || ( RIGHTV && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( RIGHTV && LDVR < N ) ) {
          INFO = -10
-      } else if ( LWORK.LT.MAX( 1, 3*N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, 3*N ) && .NOT.LQUERY ) {
          INFO = -14
       } else {
 
@@ -88,7 +88,7 @@
                   PAIR = false;
                   SELECT( J ) = false;
                } else {
-                  if ( J.LT.N ) {
+                  if ( J < N ) {
                      if ( T( J+1, J ) == ZERO ) {
                         IF( SELECT( J ) ) M = M + 1
                      } else {
@@ -107,7 +107,7 @@
             M = N
          }
 
-         if ( MM.LT.M ) {
+         if ( MM < M ) {
             INFO = -11
          }
       }
@@ -603,11 +603,11 @@
 
                JNXT = KI + 1
                for (J = KI + 1; J <= N; J++) { // 170
-                  if (J.LT.JNXT) GO TO 170;
+                  if (J < JNXT) GO TO 170;
                   J1 = J
                   J2 = J
                   JNXT = J + 1
-                  if ( J.LT.N ) {
+                  if ( J < N ) {
                      if ( T( J+1, J ) != ZERO ) {
                         J2 = J + 1
                         JNXT = J + 2
@@ -696,7 +696,7 @@
                } else if ( NB == 1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
-                  if (KI.LT.N) CALL DGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 );
+                  if (KI < N) CALL DGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 );
 
                   II = IDAMAX( N, VL( 1, KI ), 1 )
                   REMAX = ONE / ABS( VL( II, KI ) )
@@ -747,11 +747,11 @@
 
                JNXT = KI + 2
                for (J = KI + 2; J <= N; J++) { // 200
-                  if (J.LT.JNXT) GO TO 200;
+                  if (J < JNXT) GO TO 200;
                   J1 = J
                   J2 = J
                   JNXT = J + 1
-                  if ( J.LT.N ) {
+                  if ( J < N ) {
                      if ( T( J+1, J ) != ZERO ) {
                         J2 = J + 1
                         JNXT = J + 2
@@ -860,7 +860,7 @@
                } else if ( NB == 1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
-                  if ( KI.LT.N-1 ) {
+                  if ( KI < N-1 ) {
                      dgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV)*N ), 1, WORK( KI   + (IV)*N ), VL( 1, KI ), 1 );
                      dgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV+1)*N ), 1, WORK( KI+1 + (IV+1)*N ), VL( 1, KI+1 ), 1 );
                   } else {

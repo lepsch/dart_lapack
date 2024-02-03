@@ -50,7 +50,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB.LT.0 ) || ( IJOB.GT.4 ) ) {
+         if ( ( IJOB < 0 ) || ( IJOB.GT.4 ) ) {
             INFO = -2
          }
       }
@@ -59,17 +59,17 @@
             INFO = -3
          } else if ( N.LE.0 ) {
             INFO = -4
-         } else if ( LDA.LT.MAX( 1, M ) ) {
+         } else if ( LDA < MAX( 1, M ) ) {
             INFO = -6
-         } else if ( LDB.LT.MAX( 1, N ) ) {
+         } else if ( LDB < MAX( 1, N ) ) {
             INFO = -8
-         } else if ( LDC.LT.MAX( 1, M ) ) {
+         } else if ( LDC < MAX( 1, M ) ) {
             INFO = -10
-         } else if ( LDD.LT.MAX( 1, M ) ) {
+         } else if ( LDD < MAX( 1, M ) ) {
             INFO = -12
-         } else if ( LDE.LT.MAX( 1, N ) ) {
+         } else if ( LDE < MAX( 1, N ) ) {
             INFO = -14
-         } else if ( LDF.LT.MAX( 1, M ) ) {
+         } else if ( LDF < MAX( 1, M ) ) {
             INFO = -16
          }
       }
@@ -86,7 +86,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
 
-         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && .NOT.LQUERY ) {
             INFO = -20
          }
       }
@@ -249,7 +249,7 @@
                      sgemm('N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, C( IS, JS ), LDC, ONE, C( 1, JS ), LDC );
                      sgemm('N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, C( IS, JS ), LDC, ONE, F( 1, JS ), LDF );
                   }
-                  if ( J.LT.Q ) {
+                  if ( J < Q ) {
                      sgemm('N', 'N', MB, N-JE, NB, ONE, F( IS, JS ), LDF, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC );
                      sgemm('N', 'N', MB, N-JE, NB, ONE, F( IS, JS ), LDF, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF );
                   }
@@ -322,7 +322,7 @@
                   sgemm('N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF );
                   sgemm('N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF );
                }
-               if ( I.LT.P ) {
+               if ( I < P ) {
                   sgemm('T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC );
                   sgemm('T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC );
                }

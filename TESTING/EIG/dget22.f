@@ -73,7 +73,7 @@
          IPAIR = 0
          for (JVEC = 1; JVEC <= N; JVEC++) { // 30
             TEMP1 = ZERO
-            IF( IPAIR == 0 && JVEC.LT.N && WI( JVEC ) != ZERO ) IPAIR = 1
+            IF( IPAIR == 0 && JVEC < N && WI( JVEC ) != ZERO ) IPAIR = 1
             if ( IPAIR == 1 ) {
 
                // Complex eigenvector
@@ -110,7 +110,7 @@
          for (J = 1; J <= N; J++) { // 60
             IPAIR = 0
             for (JVEC = 1; JVEC <= N; JVEC++) { // 50
-               IF( IPAIR == 0 && JVEC.LT.N && WI( JVEC ) != ZERO ) IPAIR = 1
+               IF( IPAIR == 0 && JVEC < N && WI( JVEC ) != ZERO ) IPAIR = 1
                if ( IPAIR == 1 ) {
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) )
                   WORK( JVEC+1 ) = WORK( JVEC )
@@ -183,7 +183,7 @@
       if ( ANORM.GT.ERRNRM ) {
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
       } else {
-         if ( ANORM.LT.ONE ) {
+         if ( ANORM < ONE ) {
             RESULT( 1 ) = ONE / ULP
          } else {
             RESULT( 1 ) = MIN( ERRNRM / ANORM, ONE ) / ULP

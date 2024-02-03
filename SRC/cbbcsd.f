@@ -53,21 +53,21 @@
       WANTV2T = LSAME( JOBV2T, 'Y' )
       COLMAJOR = .NOT. LSAME( TRANS, 'T' )
 
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -6
-      } else if ( P .LT. 0 || P .GT. M ) {
+      } else if ( P < 0 || P .GT. M ) {
          INFO = -7
-      } else if ( Q .LT. 0 || Q .GT. M ) {
+      } else if ( Q < 0 || Q .GT. M ) {
          INFO = -8
       } else if ( Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
          INFO = -8
-      } else if ( WANTU1 && LDU1 .LT. P ) {
+      } else if ( WANTU1 && LDU1 < P ) {
          INFO = -12
-      } else if ( WANTU2 && LDU2 .LT. M-P ) {
+      } else if ( WANTU2 && LDU2 < M-P ) {
          INFO = -14
-      } else if ( WANTV1T && LDV1T .LT. Q ) {
+      } else if ( WANTV1T && LDV1T < Q ) {
          INFO = -16
-      } else if ( WANTV2T && LDV2T .LT. M-Q ) {
+      } else if ( WANTV2T && LDV2T < M-Q ) {
          INFO = -18
       }
 
@@ -93,7 +93,7 @@
          LRWORKOPT = IV2TSN + Q - 1
          LRWORKMIN = LRWORKOPT
          RWORK(1) = LRWORKOPT
-         if ( LRWORK .LT. LRWORKMIN && .NOT. LQUERY ) {
+         if ( LRWORK < LRWORKMIN && .NOT. LQUERY ) {
             INFO = -28
          }
       }
@@ -116,14 +116,14 @@
       // Test for negligible sines or cosines
 
       for (I = 1; I <= Q; I++) {
-         if ( THETA(I) .LT. THRESH ) {
+         if ( THETA(I) < THRESH ) {
             THETA(I) = ZERO
          } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
             THETA(I) = PIOVER2
          }
       }
       for (I = 1; I <= Q-1; I++) {
-         if ( PHI(I) .LT. THRESH ) {
+         if ( PHI(I) < THRESH ) {
             PHI(I) = ZERO
          } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
             PHI(I) = PIOVER2
@@ -201,7 +201,7 @@
             MU = ZERO
             NU = ONE
 
-         } else if ( THETAMIN .LT. THRESH ) {
+         } else if ( THETAMIN < THRESH ) {
 
             // Zero on diagonals of B12 and B22; induce deflation with a
             // zero shift
@@ -219,14 +219,14 @@
             if ( SIGMA11 .LE. SIGMA21 ) {
                MU = SIGMA11
                NU = SQRT( ONE - MU**2 )
-               if ( MU .LT. THRESH ) {
+               if ( MU < THRESH ) {
                   MU = ZERO
                   NU = ONE
                }
             } else {
                NU = SIGMA21
                MU = SQRT( 1.0 - NU**2 )
-               if ( NU .LT. THRESH ) {
+               if ( NU < THRESH ) {
                   MU = ONE
                   NU = ZERO
                }
@@ -265,7 +265,7 @@
          }
          if ( B21D(IMIN)**2+B21BULGE**2 .GT. THRESH**2 ) {
             slartgp(B21BULGE, B21D(IMIN), RWORK(IU2SN+IMIN-1), RWORK(IU2CS+IMIN-1), R );
-         } else if ( NU .LT. MU ) {
+         } else if ( NU < MU ) {
             slartgs(B21E( IMIN ), B21D( IMIN + 1 ), NU, RWORK(IU2CS+IMIN-1), RWORK(IU2SN+IMIN-1) );
          } else {
             slartgs(B22D(IMIN), B22E(IMIN), MU, RWORK(IU2CS+IMIN-1), RWORK(IU2SN+IMIN-1) );
@@ -340,7 +340,7 @@
                slartgp(B12BULGE, B12D(I-1), RWORK(IV2TSN+I-1-1), RWORK(IV2TCS+I-1-1), R );
             } else if ( RESTART12 && .NOT. RESTART22 ) {
                slartgp(B22BULGE, B22D(I-1), RWORK(IV2TSN+I-1-1), RWORK(IV2TCS+I-1-1), R );
-            } else if ( NU .LT. MU ) {
+            } else if ( NU < MU ) {
                slartgs(B12E(I-1), B12D(I), NU, RWORK(IV2TCS+I-1-1), RWORK(IV2TSN+I-1-1) );
             } else {
                slartgs(B22E(I-1), B22D(I), MU, RWORK(IV2TCS+I-1-1), RWORK(IV2TSN+I-1-1) );
@@ -403,7 +403,7 @@
                slartgp(B21BULGE, B21D(I), RWORK(IU2SN+I-1), RWORK(IU2CS+I-1), R );
             } else if ( RESTART21 && .NOT. RESTART22 ) {
                slartgp(B22BULGE, B22E(I-1), RWORK(IU2SN+I-1), RWORK(IU2CS+I-1), R );
-            } else if ( NU .LT. MU ) {
+            } else if ( NU < MU ) {
                slartgs(B21E(I), B21E(I+1), NU, RWORK(IU2CS+I-1), RWORK(IU2SN+I-1) );
             } else {
                slartgs(B22D(I), B22E(I), MU, RWORK(IU2CS+I-1), RWORK(IU2SN+I-1) );
@@ -414,14 +414,14 @@
             TEMP = RWORK(IU1CS+I-1)*B11E(I) + RWORK(IU1SN+I-1)*B11D(I+1)
             B11D(I+1) = RWORK(IU1CS+I-1)*B11D(I+1) - RWORK(IU1SN+I-1)*B11E(I)
             B11E(I) = TEMP
-            if ( I .LT. IMAX - 1 ) {
+            if ( I < IMAX - 1 ) {
                B11BULGE = RWORK(IU1SN+I-1)*B11E(I+1)
                B11E(I+1) = RWORK(IU1CS+I-1)*B11E(I+1)
             }
             TEMP = RWORK(IU2CS+I-1)*B21E(I) + RWORK(IU2SN+I-1)*B21D(I+1)
             B21D(I+1) = RWORK(IU2CS+I-1)*B21D(I+1) - RWORK(IU2SN+I-1)*B21E(I)
             B21E(I) = TEMP
-            if ( I .LT. IMAX - 1 ) {
+            if ( I < IMAX - 1 ) {
                B21BULGE = RWORK(IU2SN+I-1)*B21E(I+1)
                B21E(I+1) = RWORK(IU2CS+I-1)*B21E(I+1)
             }
@@ -456,7 +456,7 @@
             slartgp(B12BULGE, B12D(IMAX-1), RWORK(IV2TSN+IMAX-1-1), RWORK(IV2TCS+IMAX-1-1), R );
          } else if ( RESTART12 && .NOT. RESTART22 ) {
             slartgp(B22BULGE, B22D(IMAX-1), RWORK(IV2TSN+IMAX-1-1), RWORK(IV2TCS+IMAX-1-1), R );
-         } else if ( NU .LT. MU ) {
+         } else if ( NU < MU ) {
             slartgs(B12E(IMAX-1), B12D(IMAX), NU, RWORK(IV2TCS+IMAX-1-1), RWORK(IV2TSN+IMAX-1-1) );
          } else {
             slartgs(B22E(IMAX-1), B22D(IMAX), MU, RWORK(IV2TCS+IMAX-1-1), RWORK(IV2TSN+IMAX-1-1) );
@@ -521,7 +521,7 @@
          // Fix signs on B11(IMAX,IMAX), B12(IMAX,IMAX-1), B21(IMAX,IMAX),
          // and B22(IMAX,IMAX-1)
 
-         if ( B11D(IMAX)+B12E(IMAX-1) .LT. 0 ) {
+         if ( B11D(IMAX)+B12E(IMAX-1) < 0 ) {
             B12D(IMAX) = -B12D(IMAX)
             if ( WANTU1 ) {
                if ( COLMAJOR ) {
@@ -544,7 +544,7 @@
 
          // Fix signs on B12(IMAX,IMAX) and B22(IMAX,IMAX)
 
-         if ( B12D(IMAX)+B22D(IMAX) .LT. 0 ) {
+         if ( B12D(IMAX)+B22D(IMAX) < 0 ) {
             if ( WANTV2T ) {
                if ( COLMAJOR ) {
                   cscal(M-Q, NEGONECOMPLEX, V2T(IMAX,1), LDV2T );
@@ -557,14 +557,14 @@
          // Test for negligible sines or cosines
 
          for (I = IMIN; I <= IMAX; I++) {
-            if ( THETA(I) .LT. THRESH ) {
+            if ( THETA(I) < THRESH ) {
                THETA(I) = ZERO
             } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
                THETA(I) = PIOVER2
             }
          }
          for (I = IMIN; I <= IMAX-1; I++) {
-            if ( PHI(I) .LT. THRESH ) {
+            if ( PHI(I) < THRESH ) {
                PHI(I) = ZERO
             } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
                PHI(I) = PIOVER2
@@ -598,7 +598,7 @@
          MINI = I
          THETAMIN = THETA(I)
          for (J = I+1; J <= Q; J++) {
-            if ( THETA(J) .LT. THETAMIN ) {
+            if ( THETA(J) < THETAMIN ) {
                MINI = J
                THETAMIN = THETA(J)
             }

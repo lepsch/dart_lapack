@@ -40,15 +40,15 @@
       INFO = 0
       LQUERY = LWORK == -1
 
-      if ( M .LT. 0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( P .LT. 0 || P .GT. M-P ) {
+      } else if ( P < 0 || P .GT. M-P ) {
          INFO = -2
-      } else if ( Q .LT. 0 || Q .LT. P || M-Q .LT. P ) {
+      } else if ( Q < 0 || Q < P || M-Q < P ) {
          INFO = -3
-      } else if ( LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( LDX11 < MAX( 1, P ) ) {
          INFO = -5
-      } else if ( LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if ( LDX21 < MAX( 1, M-P ) ) {
          INFO = -7
       }
 
@@ -62,7 +62,7 @@
          LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 )
          LWORKMIN = LWORKOPT
          WORK(1) = LWORKOPT
-         if ( LWORK .LT. LWORKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWORKMIN && .NOT.LQUERY ) {
            INFO = -14
          }
       }
@@ -90,7 +90,7 @@
          sorbdb5(P-I, M-P-I+1, Q-I, X11(I+1,I), 1, X21(I,I), 1, X11(I+1,I+1), LDX11, X21(I,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          sscal(P-I, NEGONE, X11(I+1,I), 1 );
          slarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
-         if ( I .LT. P ) {
+         if ( I < P ) {
             slarfgp(P-I, X11(I+1,I), X11(I+2,I), 1, TAUP1(I) );
             PHI(I) = ATAN2( X11(I+1,I), X21(I,I) )
             C = COS( PHI(I) )

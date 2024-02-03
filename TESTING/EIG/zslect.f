@@ -34,7 +34,7 @@
       // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
-         ZSLECT = ( DBLE( Z ).LT.ZERO )
+         ZSLECT = ( DBLE( Z ) < ZERO )
       } else {
          RMIN = ABS( Z-DCMPLX( SELWR( 1 ), SELWI( 1 ) ) )
          ZSLECT = SELVAL( 1 )

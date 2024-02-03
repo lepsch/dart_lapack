@@ -73,22 +73,22 @@
       NMAX = 1
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 ) BADNN = true;
+         IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
-      if ( NSIZES.LT.0 ) {
+      if ( NSIZES < 0 ) {
          INFO = -1
       } else if ( BADNN ) {
          INFO = -2
-      } else if ( NTYPES.LT.0 ) {
+      } else if ( NTYPES < 0 ) {
          INFO = -3
-      } else if ( THRESH.LT.ZERO ) {
+      } else if ( THRESH < ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 || LDA.LT.NMAX ) {
+      } else if ( LDA.LE.1 || LDA < NMAX ) {
          INFO = -9
-      } else if ( LDQ.LE.1 || LDQ.LT.NMAX ) {
+      } else if ( LDQ.LE.1 || LDQ < NMAX ) {
          INFO = -14
-      } else if ( LDQE.LE.1 || LDQE.LT.NMAX ) {
+      } else if ( LDQE.LE.1 || LDQE < NMAX ) {
          INFO = -17
       }
 
@@ -107,7 +107,7 @@
          WORK( 1 ) = MAXWRK
       }
 
-      if (LWORK.LT.MINWRK) INFO = -23;
+      if (LWORK < MINWRK) INFO = -23;
 
       if ( INFO != 0 ) {
          xerbla('ZDRGEV', -INFO );
@@ -180,7 +180,7 @@
 
             if (MTYPES.GT.MAXTYP) GO TO 100;
             IERR = 0
-            if ( KCLASS( JTYPE ).LT.3 ) {
+            if ( KCLASS( JTYPE ) < 3 ) {
 
                // Generate A (w/o rotation)
 
@@ -388,7 +388,7 @@
 
                   }
                   NERRS = NERRS + 1
-                  if ( RESULT( JR ).LT.10000.0D0 ) {
+                  if ( RESULT( JR ) < 10000.0D0 ) {
                      WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   } else {
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )

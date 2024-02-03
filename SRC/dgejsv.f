@@ -66,17 +66,17 @@
          INFO = - 5
       } else if ( .NOT. ( L2PERT || LSAME( JOBP, 'N' ) ) ) {
          INFO = - 6
-      } else if ( M .LT. 0 ) {
+      } else if ( M < 0 ) {
          INFO = - 7
-      } else if ( ( N .LT. 0 ) || ( N .GT. M ) ) {
+      } else if ( ( N < 0 ) || ( N .GT. M ) ) {
          INFO = - 8
-      } else if ( LDA .LT. M ) {
+      } else if ( LDA < M ) {
          INFO = - 10
-      } else if ( LSVEC && ( LDU .LT. M ) ) {
+      } else if ( LSVEC && ( LDU < M ) ) {
          INFO = - 13
-      } else if ( RSVEC && ( LDV .LT. N ) ) {
+      } else if ( RSVEC && ( LDV < N ) ) {
          INFO = - 15
-      } else if ( (.NOT.(LSVEC || RSVEC || ERREST) && (LWORK .LT. MAX(7,4*N+1,2*M+N))) || (.NOT.(LSVEC || RSVEC) && ERREST && (LWORK .LT. MAX(7,4*N+N*N,2*M+N))) || (LSVEC && (.NOT.RSVEC) && (LWORK .LT. MAX(7,2*M+N,4*N+1))) || (RSVEC && (.NOT.LSVEC) && (LWORK .LT. MAX(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && (.NOT.JRACC) && (LWORK.LT.MAX(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK.LT.MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
+      } else if ( (.NOT.(LSVEC || RSVEC || ERREST) && (LWORK < MAX(7,4*N+1,2*M+N))) || (.NOT.(LSVEC || RSVEC) && ERREST && (LWORK < MAX(7,4*N+N*N,2*M+N))) || (LSVEC && (.NOT.RSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (RSVEC && (.NOT.LSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && (.NOT.JRACC) && (LWORK < MAX(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK < MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
          INFO = - 17
       } else {
          // #:)
@@ -133,7 +133,7 @@
             RETURN
          }
          AAQQ = DSQRT(AAQQ)
-         if ( ( AAPP .LT. (BIG / AAQQ) ) && NOSCAL  ) {
+         if ( ( AAPP < (BIG / AAQQ) ) && NOSCAL  ) {
             SVA(p)  = AAPP * AAQQ
          } else {
             NOSCAL  = false;
@@ -204,7 +204,7 @@
          if ( RSVEC ) {
              V(1,1) = ONE
          }
-         if ( SVA(1) .LT. (BIG*SCALEM) ) {
+         if ( SVA(1) < (BIG*SCALEM) ) {
             SVA(1)  = SVA(1) / SCALEM
             SCALEM  = ONE
          }
@@ -308,7 +308,7 @@
          // Analyze the entropies and decide A or A^t. Smaller entropy
          // usually means better input for the algorithm.
 
-         TRANSP = ( ENTRAT .LT. ENTRA )
+         TRANSP = ( ENTRAT < ENTRA )
 
          // If A^t is better than A, transpose A.
 
@@ -387,14 +387,14 @@
          // time. Depending on the concrete implementation of BLAS and LAPACK
          // (i.e. how they behave in presence of extreme ill-conditioning) the
          // implementor may decide to remove this switch.
-         if ( ( AAQQ.LT.DSQRT(SFMIN) ) && LSVEC && RSVEC ) {
+         if ( ( AAQQ < DSQRT(SFMIN) ) && LSVEC && RSVEC ) {
             JRACC = true;
          }
 
       }
-      if ( AAQQ .LT. XSC ) {
+      if ( AAQQ < XSC ) {
          for (p = 1; p <= N; p++) { // 700
-            if ( SVA(p) .LT. XSC ) {
+            if ( SVA(p) < XSC ) {
                dlaset('A', M, 1, ZERO, ZERO, A(1,p), LDA );
                SVA(p) = ZERO
             }
@@ -471,7 +471,7 @@
          // close-to-rank-deficient.
          TEMP1 = DSQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) || ( DABS(A(p,p)) .LT. SMALL ) || ( L2KILL && (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
+            IF ( ( DABS(A(p,p)) < (EPSLN*DABS(A(p-1,p-1))) ) || ( DABS(A(p,p)) < SMALL ) || ( L2KILL && (DABS(A(p,p)) < TEMP1) ) ) GO TO 3402
             NR = NR + 1
          } // 3401
          } // 3402
@@ -486,7 +486,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = DSQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3301
-            IF ( ( DABS(A(p,p)) .LT. SMALL ) || ( L2KILL && (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
+            IF ( ( DABS(A(p,p)) < SMALL ) || ( L2KILL && (DABS(A(p,p)) < TEMP1) ) ) GO TO 3302
             NR = NR + 1
          } // 3301
          } // 3302
@@ -577,7 +577,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) || ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
                   } // 4949
                } // 4947
             } else {
@@ -605,7 +605,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) || ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
                   } // 1949
                } // 1947
             } else {
@@ -656,7 +656,7 @@
             dgesvj('Lower', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, WORK(N+1), LWORK, INFO );
             SCALEM  = WORK(N+1)
             NUMRANK = IDNINT(WORK(N+2))
-            if ( NR .LT. N ) {
+            if ( NR < N ) {
                dlaset('A',N-NR, NR, ZERO,ZERO, V(NR+1,1),   LDV );
                dlaset('A',NR, N-NR, ZERO,ZERO, V(1,NR+1),   LDV );
                dlaset('A',N-NR,N-NR,ZERO,ONE, V(NR+1,NR+1), LDV );
@@ -697,9 +697,9 @@
          SCALEM  = WORK(N+1)
          NUMRANK = IDNINT(WORK(N+2))
 
-         if ( NR .LT. M ) {
+         if ( NR < M ) {
             dlaset('A',  M-NR, NR,ZERO, ZERO, U(NR+1,1), LDU );
-            if ( NR .LT. N1 ) {
+            if ( NR < N1 ) {
                dlaset('A',NR, N1-NR, ZERO, ZERO, U(1,NR+1), LDU );
                dlaset('A',M-NR,N1-NR,ZERO,ONE,U(NR+1,NR+1), LDU );
             }
@@ -754,8 +754,8 @@
                for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*DABS( V(q,q) )
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) || ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
-                     if (p .LT. q) V(p,q) = - V(p,q);
+                     IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
+                     if (p < q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
             } else {
@@ -775,13 +775,13 @@
             CONDR1 = ONE / DSQRT(TEMP1)
             // .. here need a second opinion on the condition number
             // .. then assume worst case scenario
-            // R1 is OK for inverse <=> CONDR1 .LT. DBLE(N)
-            // more conservative    <=> CONDR1 .LT. DSQRT(DBLE(N))
+            // R1 is OK for inverse <=> CONDR1 < DBLE(N)
+            // more conservative    <=> CONDR1 < DSQRT(DBLE(N))
 
             COND_OK = DSQRT(DBLE(NR))
 *[TP]       COND_OK is a tuning parameter.
 
-            if ( CONDR1 .LT. COND_OK ) {
+            if ( CONDR1 < COND_OK ) {
                // .. the second QRF without pivoting. Note: in an optimized
                // implementation, this QRF should be implemented as the QRF
                // of a lower triangular matrix.
@@ -889,7 +889,7 @@
          // Recover the right singular vectors as solution of a well
          // conditioned triangular matrix equation.
 
-            if ( CONDR1 .LT. COND_OK ) {
+            if ( CONDR1 < COND_OK ) {
 
                dgesvj('L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,INFO );
                SCALEM  = WORK(2*N+N*NR+NR+1)
@@ -913,7 +913,7 @@
                   // used in DGESVJ. The Q-factor from the second QR
                   // factorization is then built in explicitly.
                   dtrsm('L','U','T','N',NR,NR,ONE,WORK(2*N+1), N,V,LDV);
-                  if ( NR .LT. N ) {
+                  if ( NR < N ) {
                     dlaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV);
                     dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
                     dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV);
@@ -921,7 +921,7 @@
                   dormqr('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR);
                }
 
-            } else if ( CONDR2 .LT. COND_OK ) {
+            } else if ( CONDR2 < COND_OK ) {
 
 * :)           .. the input matrix A is very likely a relative of
                // the Kahan matrix :)
@@ -946,7 +946,7 @@
                      U(p,q) = WORK(2*N+N*NR+NR+p)
                   } // 874
                } // 873
-               if ( NR .LT. N ) {
+               if ( NR < N ) {
                   dlaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV );
                   dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV );
                   dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV );
@@ -967,7 +967,7 @@
                dgesvj('L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO );
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = IDNINT(WORK(2*N+N*NR+NR+2))
-               if ( NR .LT. N ) {
+               if ( NR < N ) {
                   dlaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV );
                   dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV );
                   dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV );
@@ -999,13 +999,13 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p)
                } // 973
                XSC = ONE / DNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
-            if ( NR .LT. M ) {
+            if ( NR < M ) {
                dlaset('A', M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU );
-               if ( NR .LT. N1 ) {
+               if ( NR < N1 ) {
                   dlaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
                   dlaset('A',M-NR,N1-NR,ZERO,ONE,U(NR+1,NR+1),LDU);
                }
@@ -1020,7 +1020,7 @@
             TEMP1 = DSQRT(DBLE(M)) * EPSLN
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / DNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
@@ -1062,14 +1062,14 @@
             TEMP1 = DSQRT(DBLE(N))*EPSLN
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / DNRM2( N, V(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,p), 1 )
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
 
-            if ( N .LT. M ) {
+            if ( N < M ) {
                dlaset('A',  M-N, N, ZERO, ZERO, U(N+1,1), LDU );
-               if ( N .LT. N1 ) {
+               if ( N < N1 ) {
                   dlaset('A',N,  N1-N, ZERO, ZERO,  U(1,N+1),LDU );
                   dlaset('A',M-N,N1-N, ZERO, ONE,U(N+1,N+1),LDU );
                }
@@ -1078,7 +1078,7 @@
             TEMP1 = DSQRT(DBLE(M))*EPSLN
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / DNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
             } // 6973
 
             if (ROWPIV) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
@@ -1108,8 +1108,8 @@
             for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*DABS( V(q,q) )
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) || ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
-                  if (p .LT. q) V(p,q) = - V(p,q);
+                  IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
+                  if (p < q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
          } else {
@@ -1137,7 +1137,7 @@
          SCALEM  = WORK(2*N+N*NR+1)
          NUMRANK = IDNINT(WORK(2*N+N*NR+2))
 
-         if ( NR .LT. N ) {
+         if ( NR < N ) {
             dlaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV );
             dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV );
             dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV );
@@ -1157,15 +1157,15 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p)
                } // 8973
                XSC = ONE / DNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
 
-         if ( NR .LT. M ) {
+         if ( NR < M ) {
             dlaset('A',  M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU );
-            if ( NR .LT. N1 ) {
+            if ( NR < N1 ) {
                dlaset('A',NR,  N1-NR, ZERO, ZERO,  U(1,NR+1),LDU );
                dlaset('A',M-NR,N1-NR, ZERO, ONE,U(NR+1,NR+1),LDU );
             }
@@ -1195,7 +1195,7 @@
          USCAL2 = ONE
       }
 
-      if ( NR .LT. N ) {
+      if ( NR < N ) {
          for (p = NR+1; p <= N; p++) { // 3004
             SVA(p) = ZERO
          } // 3004

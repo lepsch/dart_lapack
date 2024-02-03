@@ -58,7 +58,7 @@
 
       claset('Full', M, M, ROGUE, ROGUE, Q, LDA );
       if ( M.GE.N ) {
-         if (N.LT.M && N.GT.0) CALL CLACPY( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA )          IF( N.GT.1 ) CALL CLACPY( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA );
+         if (N < M && N.GT.0) CALL CLACPY( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA )          IF( N.GT.1 ) CALL CLACPY( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA );
       } else {
          if (M.GT.1) CALL CLACPY( 'Upper', M-1, M-1, AF( 1, N-M+2 ), LDA, Q( 1, 2 ), LDA );
       }

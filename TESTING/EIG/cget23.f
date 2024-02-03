@@ -61,21 +61,21 @@
          INFO = -2
       } else if ( .NOT.BALOK ) {
          INFO = -3
-      } else if ( THRESH.LT.ZERO ) {
+      } else if ( THRESH < ZERO ) {
          INFO = -5
       } else if ( NOUNIT.LE.0 ) {
          INFO = -7
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -8
-      } else if ( LDA.LT.1 || LDA.LT.N ) {
+      } else if ( LDA < 1 || LDA < N ) {
          INFO = -10
-      } else if ( LDVL.LT.1 || LDVL.LT.N ) {
+      } else if ( LDVL < 1 || LDVL < N ) {
          INFO = -15
-      } else if ( LDVR.LT.1 || LDVR.LT.N ) {
+      } else if ( LDVR < 1 || LDVR < N ) {
          INFO = -17
-      } else if ( LDLRE.LT.1 || LDLRE.LT.N ) {
+      } else if ( LDLRE < 1 || LDLRE < N ) {
          INFO = -19
-      } else if ( LWORK.LT.2*N || ( COMP && LWORK.LT.2*N+N*N ) ) {
+      } else if ( LWORK < 2*N || ( COMP && LWORK < 2*N+N*N ) ) {
          INFO = -30
       }
 
@@ -141,7 +141,7 @@
             VTST = ABS( VR( JJ, J ) )
             if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
          } // 20
-         if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
+         if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
       } // 30
 
       // Do Test (4)
@@ -155,7 +155,7 @@
             VTST = ABS( VL( JJ, J ) )
             if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
          } // 40
-         if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
+         if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
       } // 50
 
       // Test for all options of computing condition numbers
@@ -326,7 +326,7 @@
                } else {
                   VRICMP = AIMAG( W( J ) )
                }
-               if ( VRICMP.LT.VRIMIN ) {
+               if ( VRICMP < VRIMIN ) {
                   KMIN = J
                   VRIMIN = VRICMP
                }
@@ -366,9 +366,9 @@
                VMAX = ONE / EPS
             } else if ( RCDVIN( I )-TOLIN.GT.RCONDV( I )+TOL ) {
                VMAX = ( RCDVIN( I )-TOLIN ) / ( RCONDV( I )+TOL )
-            } else if ( RCDVIN( I )+TOLIN.LT.EPS*( RCONDV( I )-TOL ) ) {
+            } else if ( RCDVIN( I )+TOLIN < EPS*( RCONDV( I )-TOL ) ) {
                VMAX = ONE / EPS
-            } else if ( RCDVIN( I )+TOLIN.LT.RCONDV( I )-TOL ) {
+            } else if ( RCDVIN( I )+TOLIN < RCONDV( I )-TOL ) {
                VMAX = ( RCONDV( I )-TOL ) / ( RCDVIN( I )+TOLIN )
             } else {
                VMAX = ONE
@@ -397,9 +397,9 @@
                VMAX = ONE / EPS
             } else if ( RCDEIN( I )-TOLIN.GT.RCONDE( I )+TOL ) {
                VMAX = ( RCDEIN( I )-TOLIN ) / ( RCONDE( I )+TOL )
-            } else if ( RCDEIN( I )+TOLIN.LT.EPS*( RCONDE( I )-TOL ) ) {
+            } else if ( RCDEIN( I )+TOLIN < EPS*( RCONDE( I )-TOL ) ) {
                VMAX = ONE / EPS
-            } else if ( RCDEIN( I )+TOLIN.LT.RCONDE( I )-TOL ) {
+            } else if ( RCDEIN( I )+TOLIN < RCONDE( I )-TOL ) {
                VMAX = ( RCONDE( I )-TOL ) / ( RCDEIN( I )+TOLIN )
             } else {
                VMAX = ONE

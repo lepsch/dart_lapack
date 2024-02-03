@@ -41,7 +41,7 @@
          INFO = -1
       } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
       }
       if ( INFO != 0 ) {
@@ -100,7 +100,7 @@
             } else {
                AJJ = -ONE
             }
-            if ( J.LT.N ) {
+            if ( J < N ) {
 
                // Compute elements j+1:n of j-th column.
 

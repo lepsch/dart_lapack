@@ -64,11 +64,11 @@
          INFO = -2
       } else if ( .NOT.( WANTSN || WANTSE || WANTSV || WANTSB ) || ( .NOT.WANTST && .NOT.WANTSN ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVS.LT.1 || ( WANTVS && LDVS.LT.N ) ) {
+      } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
          INFO = -11
       }
 
@@ -108,7 +108,7 @@
          }
          WORK( 1 ) = LWRK
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -15
          }
       }
@@ -139,7 +139,7 @@
 
       ANRM = ZLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {

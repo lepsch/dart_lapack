@@ -56,13 +56,13 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -3
-      } else if ( LDAB.LT.KD+1 ) {
+      } else if ( LDAB < KD+1 ) {
          INFO = -5
-      } else if ( ANORM.LT.ZERO ) {
+      } else if ( ANORM < ZERO ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -116,7 +116,7 @@
          SCALE = SCALEL*SCALEU
          if ( SCALE != ONE ) {
             IX = ICAMAX( N, WORK, 1 )
-            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
+            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
             csrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10

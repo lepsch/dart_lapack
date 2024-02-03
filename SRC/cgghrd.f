@@ -73,19 +73,19 @@
          INFO = -1
       } else if ( ICOMPZ.LE.0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ILO.LT.1 ) {
+      } else if ( ILO < 1 ) {
          INFO = -4
-      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI < ILO-1 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -9
-      } else if ( ( ILQ && LDQ.LT.N ) || LDQ.LT.1 ) {
+      } else if ( ( ILQ && LDQ < N ) || LDQ < 1 ) {
          INFO = -11
-      } else if ( ( ILZ && LDZ.LT.N ) || LDZ.LT.1 ) {
+      } else if ( ( ILZ && LDZ < N ) || LDZ < 1 ) {
          INFO = -13
       }
       if ( INFO != 0 ) {

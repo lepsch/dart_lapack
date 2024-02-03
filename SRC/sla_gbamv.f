@@ -40,15 +40,15 @@
       INFO = 0
       if ( .NOT.( ( TRANS == ILATRANS( 'N' ) ) || ( TRANS == ILATRANS( 'T' ) ) || ( TRANS == ILATRANS( 'C' ) ) ) ) {
          INFO = 1
-      } else if ( M.LT.0 ) {
+      } else if ( M < 0 ) {
          INFO = 2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = 3
-      } else if ( KL.LT.0 || KL.GT.M-1 ) {
+      } else if ( KL < 0 || KL.GT.M-1 ) {
          INFO = 4
-      } else if ( KU.LT.0 || KU.GT.N-1 ) {
+      } else if ( KU < 0 || KU.GT.N-1 ) {
          INFO = 5
-      } else if ( LDAB.LT.KL+KU+1 ) {
+      } else if ( LDAB < KL+KU+1 ) {
          INFO = 6
       } else if ( INCX == 0 ) {
          INFO = 8

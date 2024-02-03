@@ -20,7 +20,7 @@
       // .. Executable Statements ..
 
       if ( D == ZERO ) {
-         DLCTES = ( ZR.LT.ZERO )
+         DLCTES = ( ZR < ZERO )
       } else {
          DLCTES = ( SIGN( ONE, ZR ) != SIGN( ONE, D ) )
       }

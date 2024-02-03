@@ -42,9 +42,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -62,7 +62,7 @@
 
          for (I = 1; I <= N; I++) { // 10
             AII = A( I, I )
-            if ( I.LT.N ) {
+            if ( I < N ) {
                A( I, I ) = DDOT( N-I+1, A( I, I ), LDA, A( I, I ), LDA )
                dgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, AII, A( 1, I ), 1 );
             } else {
@@ -76,7 +76,7 @@
 
          for (I = 1; I <= N; I++) { // 20
             AII = A( I, I )
-            if ( I.LT.N ) {
+            if ( I < N ) {
                A( I, I ) = DDOT( N-I+1, A( I, I ), 1, A( I, I ), 1 )
                dgemv('Transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, AII, A( I, 1 ), LDA );
             } else {

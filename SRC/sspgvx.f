@@ -42,7 +42,7 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      if ( ITYPE.LT.1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE.GT.3 ) {
          INFO = -1
       } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
@@ -50,7 +50,7 @@
          INFO = -3
       } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
       } else {
          if ( VALEIG ) {
@@ -58,15 +58,15 @@
                INFO = -9
             }
          } else if ( INDEIG ) {
-            if ( IL.LT.1 ) {
+            if ( IL < 1 ) {
                INFO = -10
-            } else if ( IU.LT.MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
                INFO = -11
             }
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+         if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
             INFO = -16
          }
       }

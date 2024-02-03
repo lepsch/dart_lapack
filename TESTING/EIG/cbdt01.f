@@ -62,7 +62,7 @@
                cgemv('No transpose', M, N, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
             } // 20
-         } else if ( KD.LT.0 ) {
+         } else if ( KD < 0 ) {
 
             // B is upper bidiagonal and M < N.
 
@@ -125,7 +125,7 @@
          if ( ANORM.GE.RESID ) {
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )
          } else {
-            if ( ANORM.LT.ONE ) {
+            if ( ANORM < ONE ) {
                RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS )
             } else {
                RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS )

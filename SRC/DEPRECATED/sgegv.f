@@ -77,17 +77,17 @@
          INFO = -1
       } else if ( IJOBVR.LE.0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 || ( ILVL && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -12
-      } else if ( LDVR.LT.1 || ( ILVR && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
          INFO = -14
-      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWKMIN && .NOT.LQUERY ) {
          INFO = -16
       }
 
@@ -124,8 +124,8 @@
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
       ANRM1 = ANRM
       ANRM2 = ONE
-      if ( ANRM.LT.ONE ) {
-         if ( SAFMAX*ANRM.LT.ONE ) {
+      if ( ANRM < ONE ) {
+         if ( SAFMAX*ANRM < ONE ) {
             ANRM1 = SAFMIN
             ANRM2 = SAFMAX*ANRM
          }
@@ -144,8 +144,8 @@
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
       BNRM1 = BNRM
       BNRM2 = ONE
-      if ( BNRM.LT.ONE ) {
-         if ( SAFMAX*BNRM.LT.ONE ) {
+      if ( BNRM < ONE ) {
+         if ( SAFMAX*BNRM < ONE ) {
             BNRM1 = SAFMIN
             BNRM2 = SAFMAX*BNRM
          }
@@ -277,7 +277,7 @@
                GO TO 120
             }
             for (JC = 1; JC <= N; JC++) { // 50
-               IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
+               IF( ALPHAI( JC ) < ZERO ) GO TO 50
                TEMP = ZERO
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
@@ -288,7 +288,7 @@
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
                   } // 20
                }
-               if (TEMP.LT.SAFMIN) GO TO 50;
+               if (TEMP < SAFMIN) GO TO 50;
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
@@ -309,7 +309,7 @@
                GO TO 120
             }
             for (JC = 1; JC <= N; JC++) { // 100
-               IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
+               IF( ALPHAI( JC ) < ZERO ) GO TO 100
                TEMP = ZERO
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
@@ -320,7 +320,7 @@
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
                   } // 70
                }
-               if (TEMP.LT.SAFMIN) GO TO 100;
+               if (TEMP < SAFMIN) GO TO 100;
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
@@ -359,7 +359,7 @@
 
          // Check for significant underflow in ALPHAI
 
-         if ( ABS( SALFAI ).LT.SAFMIN && ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
+         if ( ABS( SALFAI ) < SAFMIN && ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAI )
 
@@ -368,23 +368,23 @@
             // If insignificant underflow in ALPHAI, then make the
             // conjugate eigenvalue real.
 
-            if ( ALPHAI( JC ).LT.ZERO && JC.GT.1 ) {
+            if ( ALPHAI( JC ) < ZERO && JC.GT.1 ) {
                ALPHAI( JC-1 ) = ZERO
-            } else if ( ALPHAI( JC ).GT.ZERO && JC.LT.N ) {
+            } else if ( ALPHAI( JC ).GT.ZERO && JC < N ) {
                ALPHAI( JC+1 ) = ZERO
             }
          }
 
          // Check for significant underflow in ALPHAR
 
-         if ( ABS( SALFAR ).LT.SAFMIN && ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
+         if ( ABS( SALFAR ) < SAFMIN && ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) )
          }
 
          // Check for significant underflow in BETA
 
-         if ( ABS( SBETA ).LT.SAFMIN && ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
+         if ( ABS( SBETA ) < SAFMIN && ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
             SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) )
          }
@@ -392,7 +392,7 @@
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.

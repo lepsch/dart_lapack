@@ -34,19 +34,19 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 || M.LT.N ) {
+      } else if ( N < 0 || M < N ) {
          INFO = -2
       } else if ( MB1.LE.N ) {
          INFO = -3
-      } else if ( NB1.LT.1 ) {
+      } else if ( NB1 < 1 ) {
          INFO = -4
-      } else if ( NB2.LT.1 ) {
+      } else if ( NB2 < 1 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -7
-      } else if ( LDT.LT.MAX( 1, MIN( NB2, N ) ) ) {
+      } else if ( LDT < MAX( 1, MIN( NB2, N ) ) ) {
          INFO = -9
       } else {
 
@@ -57,7 +57,7 @@
          // c) Matrix T and array WORK for DORGTSQR_ROW;
          // d) Diagonal D for DORHR_COL.
 
-         if ( LWORK.LT.N*N+1 && .NOT.LQUERY ) {
+         if ( LWORK < N*N+1 && .NOT.LQUERY ) {
             INFO = -11
          } else {
 
@@ -85,7 +85,7 @@
             LWORKOPT = MAX( LWT + LW1, MAX( LWT+N*N+LW2, LWT+N*N+N ) )
             LWORKOPT = MAX( 1, LWORKOPT )
 
-            if ( LWORK.LT.LWORKOPT && .NOT.LQUERY ) {
+            if ( LWORK < LWORKOPT && .NOT.LQUERY ) {
                INFO = -11
             }
 

@@ -43,11 +43,11 @@
 
       INFO = 0
 
-      if ( N.LT.0 ) {
+      if ( N < 0 ) {
          INFO = -2
-      } else if ( LDQ.LT.MAX( 1, N ) ) {
+      } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( MIN( 1, ( N / 2 ) ).GT.N1 || ( N / 2 ).LT.N1 ) {
+      } else if ( MIN( 1, ( N / 2 ) ).GT.N1 || ( N / 2 ) < N1 ) {
          INFO = -3
       }
       if ( INFO != 0 ) {
@@ -62,7 +62,7 @@
       N2 = N - N1
       N1P1 = N1 + 1
 
-      if ( RHO.LT.ZERO ) {
+      if ( RHO < ZERO ) {
          sscal(N2, MONE, Z( N1P1 ), 1 );
       }
 
@@ -189,7 +189,7 @@
             I = 1
             } // 90
             if ( K2+I.LE.N ) {
-               if ( D( PJ ).LT.D( INDXP( K2+I ) ) ) {
+               if ( D( PJ ) < D( INDXP( K2+I ) ) ) {
                   INDXP( K2+I-1 ) = INDXP( K2+I )
                   INDXP( K2+I ) = PJ
                   I = I + 1
@@ -298,7 +298,7 @@
       // The deflated eigenvalues and their corresponding vectors go back
       // into the last N - K slots of D and Q respectively.
 
-      if ( K.LT.N ) {
+      if ( K < N ) {
          slacpy('A', N, CTOT( 4 ), Q2( IQ1 ), N, Q( 1, K+1 ), LDQ );
          scopy(N-K, Z( K+1 ), 1, D( K+1 ), 1 );
       }

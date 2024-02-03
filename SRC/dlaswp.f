@@ -28,7 +28,7 @@
          I1 = K1
          I2 = K2
          INC = 1
-      } else if ( INCX.LT.0 ) {
+      } else if ( INCX < 0 ) {
          IX0 = K1 + ( K1-K2 )*INCX
          I1 = K2
          I2 = K1

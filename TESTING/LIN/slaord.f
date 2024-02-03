@@ -57,7 +57,7 @@
             } // 30
             if (IX == 1) GO TO 40;
             IXNEXT = IX - INC
-            if ( X( IX ).LT.X( IXNEXT ) ) {
+            if ( X( IX ) < X( IXNEXT ) ) {
                GO TO 40
             } else {
                TEMP = X( IX )

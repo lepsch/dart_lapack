@@ -53,11 +53,11 @@
       INFO = 0
       if ( .NOT.LSAME( JOB, 'N' ) && .NOT.LSAME( JOB, 'P' ) && .NOT.LSAME( JOB, 'S' ) && .NOT.LSAME( JOB, 'B' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -311,7 +311,7 @@
          IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
          RSCALE( I ) = RSCALE( I ) + COR
       } // 340
-      if (CMAX.LT.HALF) GO TO 350;
+      if (CMAX < HALF) GO TO 350;
 
       daxpy(NR, -ALPHA, WORK( ILO+2*N ), 1, WORK( ILO+4*N ), 1 );
       daxpy(NR, -ALPHA, WORK( ILO+3*N ), 1, WORK( ILO+5*N ), 1 );

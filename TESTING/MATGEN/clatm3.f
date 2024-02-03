@@ -50,7 +50,7 @@
 
       // Check for I and J in range
 
-      if ( I.LT.1 || I.GT.M || J.LT.1 || J.GT.N ) {
+      if ( I < 1 || I.GT.M || J < 1 || J.GT.N ) {
          ISUB = I
          JSUB = J
          CLATM3 = CZERO
@@ -75,7 +75,7 @@
 
       // Check for banding
 
-      if ( JSUB.GT.ISUB+KU || JSUB.LT.ISUB-KL ) {
+      if ( JSUB.GT.ISUB+KU || JSUB < ISUB-KL ) {
          CLATM3 = CZERO
          RETURN
       }
@@ -83,7 +83,7 @@
       // Check for sparsity
 
       if ( SPARSE.GT.ZERO ) {
-         if ( SLARAN( ISEED ).LT.SPARSE ) {
+         if ( SLARAN( ISEED ) < SPARSE ) {
             CLATM3 = CZERO
             RETURN
          }

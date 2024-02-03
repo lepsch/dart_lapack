@@ -60,7 +60,7 @@
          if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( REALMN*EPS )
          } else {
-            if ( BNORM.LT.ONE ) {
+            if ( BNORM < ONE ) {
                RESID = ( MIN( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS )
             } else {
                RESID = MIN( RESID / BNORM, REALMN ) / ( REALMN*EPS )

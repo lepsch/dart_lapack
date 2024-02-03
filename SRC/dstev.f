@@ -43,9 +43,9 @@
       INFO = 0
       if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDZ.LT.1 || ( WANTZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
          INFO = -6
       }
 
@@ -76,7 +76,7 @@
 
       ISCALE = 0
       TNRM = DLANST( 'M', N, D, E )
-      if ( TNRM.GT.ZERO && TNRM.LT.RMIN ) {
+      if ( TNRM.GT.ZERO && TNRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
       } else if ( TNRM.GT.RMAX ) {

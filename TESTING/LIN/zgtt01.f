@@ -62,7 +62,7 @@
          } else {
             WORK( I, I ) = DF( I )
             WORK( I, I+1 ) = DUF( I )
-            if (I.LT.N-1) WORK( I, I+2 ) = DU2( I );
+            if (I < N-1) WORK( I, I+2 ) = DU2( I );
          }
       } // 30
 

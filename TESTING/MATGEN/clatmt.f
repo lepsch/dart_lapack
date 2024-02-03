@@ -140,19 +140,19 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         IF( REAL( LLB+UUB ).LT.0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = true;
+         IF( REAL( LLB+UUB ) < 0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = true;
       } else {
-         if (2*LLB.LT.M) GIVENS = true ;
+         if (2*LLB < M) GIVENS = true ;
       }
-      if (LDA.LT.M && LDA.GE.MINLDA) GIVENS = true ;
+      if (LDA < M && LDA.GE.MINLDA) GIVENS = true ;
 
       // Set INFO if an error
 
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
       } else if ( M != N && ISYM != 1 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
       } else if ( IDIST == -1 ) {
          INFO = -3
@@ -160,15 +160,15 @@
          INFO = -5
       } else if ( ABS( MODE ).GT.6 ) {
          INFO = -7
-      } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND.LT.ONE ) {
+      } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
          INFO = -8
-      } else if ( KL.LT.0 ) {
+      } else if ( KL < 0 ) {
          INFO = -10
-      } else if ( KU.LT.0 || ( ISYM != 1 && KL != KU ) ) {
+      } else if ( KU < 0 || ( ISYM != 1 && KL != KU ) ) {
          INFO = -11
       } else if ( IPACK == -1 || ( ISYMPK == 1 && ISYM == 1 ) || ( ISYMPK == 2 && ISYM == 1 && KL.GT.0 ) || ( ISYMPK == 3 && ISYM == 1 && KU.GT.0 ) || ( ISYMPK != 0 && M != N ) ) {
          INFO = -12
-      } else if ( LDA.LT.MAX( 1, MINLDA ) ) {
+      } else if ( LDA < MAX( 1, MINLDA ) ) {
          INFO = -14
       }
 
@@ -299,7 +299,7 @@
                      C = COS( ANGLE )*CLARND( 5, ISEED )
                      S = SIN( ANGLE )*CLARND( 5, ISEED )
                      ICOL = MAX( 1, JR-JKL )
-                     if ( JR.LT.M ) {
+                     if ( JR < M ) {
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
                         clarot( true , JR.GT.JKL, false , IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
                      }
@@ -309,7 +309,7 @@
                      IR = JR
                      IC = ICOL
                      DO 140 JCH = JR - JKL, 1, -JKL - JKU
-                        if ( IR.LT.M ) {
+                        if ( IR < M ) {
                            clartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
@@ -348,7 +348,7 @@
                      C = COS( ANGLE )*CLARND( 5, ISEED )
                      S = SIN( ANGLE )*CLARND( 5, ISEED )
                      IROW = MAX( 1, JC-JKU )
-                     if ( JC.LT.N ) {
+                     if ( JC < N ) {
                         IL = MIN( M, JC+JKL ) + 1 - IROW
                         clarot( false , JC.GT.JKU, false , IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
                      }
@@ -358,7 +358,7 @@
                      IC = JC
                      IR = IROW
                      DO 170 JCH = JC - JKU, 1, -JKL - JKU
-                        if ( IC.LT.N ) {
+                        if ( IC < N ) {
                            clartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
@@ -406,7 +406,7 @@
                      IROW = MAX( 1, JC-JKU+1 )
                      if ( JC.GT.0 ) {
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
-                        clarot( false , false , JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
+                        clarot( false , false , JC+JKL < M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
@@ -422,7 +422,7 @@
                         }
                         IC = MAX( 1, IC )
                         ICOL = MIN( N-1, JCH+JKU )
-                        ILTEMP = JCH + JKU.LT.N
+                        ILTEMP = JCH + JKU < N
                         CTEMP = CZERO
                         clarot( true , ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, CTEMP );
                         if ( ILTEMP ) {
@@ -456,7 +456,7 @@
                      ICOL = MAX( 1, JR-JKL+1 )
                      if ( JR.GT.0 ) {
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
-                        clarot( true , false , JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
+                        clarot( true , false , JR+JKU < N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
@@ -472,7 +472,7 @@
                         }
                         IR = MAX( 1, IR )
                         IROW = MIN( M-1, JCH+JKL )
-                        ILTEMP = JCH + JKL.LT.M
+                        ILTEMP = JCH + JKL < M
                         CTEMP = CZERO
                         clarot( false , ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, CTEMP );
                         if ( ILTEMP ) {

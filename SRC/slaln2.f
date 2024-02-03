@@ -79,7 +79,7 @@
 
             // If | C | < SMINI, use C = SMINI
 
-            if ( CNORM.LT.SMINI ) {
+            if ( CNORM < SMINI ) {
                CSR = SMINI
                CNORM = SMINI
                INFO = 1
@@ -88,7 +88,7 @@
             // Check scaling for  X = B / C
 
             BNORM = ABS( B( 1, 1 ) )
-            if ( CNORM.LT.ONE && BNORM.GT.ONE ) {
+            if ( CNORM < ONE && BNORM.GT.ONE ) {
                if (BNORM.GT.BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
 
@@ -108,7 +108,7 @@
 
             // If | C | < SMINI, use C = SMINI
 
-            if ( CNORM.LT.SMINI ) {
+            if ( CNORM < SMINI ) {
                CSR = SMINI
                CSI = ZERO
                CNORM = SMINI
@@ -118,7 +118,7 @@
             // Check scaling for  X = B / C
 
             BNORM = ABS( B( 1, 1 ) ) + ABS( B( 1, 2 ) )
-            if ( CNORM.LT.ONE && BNORM.GT.ONE ) {
+            if ( CNORM < ONE && BNORM.GT.ONE ) {
                if (BNORM.GT.BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
 
@@ -162,9 +162,9 @@
 
             // If norm(C) < SMINI, use SMINI*identity.
 
-            if ( CMAX.LT.SMINI ) {
+            if ( CMAX < SMINI ) {
                BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) )
-               if ( SMINI.LT.ONE && BNORM.GT.ONE ) {
+               if ( SMINI < ONE && BNORM.GT.ONE ) {
                   if (BNORM.GT.BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI
@@ -187,7 +187,7 @@
 
             // If smaller pivot < SMINI, use SMINI
 
-            if ( ABS( UR22 ).LT.SMINI ) {
+            if ( ABS( UR22 ) < SMINI ) {
                UR22 = SMINI
                INFO = 1
             }
@@ -200,7 +200,7 @@
             }
             BR2 = BR2 - LR21*BR1
             BBND = MAX( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) )
-            if ( BBND.GT.ONE && ABS( UR22 ).LT.ONE ) {
+            if ( BBND.GT.ONE && ABS( UR22 ) < ONE ) {
                IF( BBND.GE.BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND
             }
 
@@ -248,9 +248,9 @@
 
             // If norm(C) < SMINI, use SMINI*identity.
 
-            if ( CMAX.LT.SMINI ) {
+            if ( CMAX < SMINI ) {
                BNORM = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
-               if ( SMINI.LT.ONE && BNORM.GT.ONE ) {
+               if ( SMINI < ONE && BNORM.GT.ONE ) {
                   if (BNORM.GT.BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI
@@ -309,7 +309,7 @@
 
             // If smaller pivot < SMINI, use SMINI
 
-            if ( U22ABS.LT.SMINI ) {
+            if ( U22ABS < SMINI ) {
                UR22 = SMINI
                UI22 = ZERO
                INFO = 1
@@ -328,7 +328,7 @@
             BR2 = BR2 - LR21*BR1 + LI21*BI1
             BI2 = BI2 - LI21*BR1 - LR21*BI1
             BBND = MAX( ( ABS( BR1 )+ABS( BI1 ) )* ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ), ABS( BR2 )+ABS( BI2 ) )
-            if ( BBND.GT.ONE && U22ABS.LT.ONE ) {
+            if ( BBND.GT.ONE && U22ABS < ONE ) {
                if ( BBND.GE.BIGNUM*U22ABS ) {
                   SCALE = ONE / BBND
                   BR1 = SCALE*BR1

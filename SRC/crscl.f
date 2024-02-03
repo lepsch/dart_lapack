@@ -61,7 +61,7 @@
          if ( ABSI.GT.SAFMAX ) {
             csscal(N, SAFMIN, X, INCX );
             cscal(N, CMPLX( ZERO, -SAFMAX / AI ), X, INCX );
-         } else if ( ABSI.LT.SAFMIN ) {
+         } else if ( ABSI < SAFMIN ) {
             cscal(N, CMPLX( ZERO, -SAFMIN / AI ), X, INCX );
             csscal(N, SAFMAX, X, INCX );
          } else {
@@ -79,7 +79,7 @@
          UR = AR + AI * ( AI / AR )
          UI = AI + AR * ( AR / AI )
 
-         if ( (ABS( UR ).LT.SAFMIN) || (ABS( UI ).LT.SAFMIN) ) {
+         if ( (ABS( UR ) < SAFMIN) || (ABS( UI ) < SAFMIN) ) {
             // This means that both alphaR and alphaI are very small.
             cscal(N, CMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX );
             csscal(N, SAFMAX, X, INCX );

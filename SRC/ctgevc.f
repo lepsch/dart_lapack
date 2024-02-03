@@ -84,15 +84,15 @@
       }
 
       INFO = 0
-      if ( ISIDE.LT.0 ) {
+      if ( ISIDE < 0 ) {
          INFO = -1
-      } else if ( IHWMNY.LT.0 ) {
+      } else if ( IHWMNY < 0 ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDS.LT.MAX( 1, N ) ) {
+      } else if ( LDS < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDP.LT.MAX( 1, N ) ) {
+      } else if ( LDP < MAX( 1, N ) ) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -120,11 +120,11 @@
 
       if ( ILBBAD ) {
          INFO = -7
-      } else if ( COMPL && LDVL.LT.N || LDVL.LT.1 ) {
+      } else if ( COMPL && LDVL < N || LDVL < 1 ) {
          INFO = -10
-      } else if ( COMPR && LDVR.LT.N || LDVR.LT.1 ) {
+      } else if ( COMPR && LDVR < N || LDVR < 1 ) {
          INFO = -12
-      } else if ( MM.LT.IM ) {
+      } else if ( MM < IM ) {
          INFO = -13
       }
       if ( INFO != 0 ) {
@@ -208,8 +208,8 @@
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEFF ).LT.SMALL
-               LSB = ABS1( SALPHA ).GE.SAFMIN && ABS1( BCOEFF ).LT. SMALL
+               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEFF ) < SMALL
+               LSB = ABS1( SALPHA ).GE.SAFMIN && ABS1( BCOEFF ) < SMALL
 
                SCALE = ONE
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
@@ -273,7 +273,7 @@
                   D = CONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) )
                   IF( ABS1( D ).LE.DMIN ) D = CMPLX( DMIN )
 
-                  if ( ABS1( D ).LT.ONE ) {
+                  if ( ABS1( D ) < ONE ) {
                      if ( ABS1( SUM ).GE.BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( SUM )
                         for (JR = JE; JR <= J - 1; JR++) { // 90
@@ -362,8 +362,8 @@
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEFF ).LT.SMALL
-               LSB = ABS1( SALPHA ).GE.SAFMIN && ABS1( BCOEFF ).LT. SMALL
+               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEFF ) < SMALL
+               LSB = ABS1( SALPHA ).GE.SAFMIN && ABS1( BCOEFF ) < SMALL
 
                SCALE = ONE
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
@@ -408,7 +408,7 @@
                   D = ACOEFF*S( J, J ) - BCOEFF*P( J, J )
                   IF( ABS1( D ).LE.DMIN ) D = CMPLX( DMIN )
 
-                  if ( ABS1( D ).LT.ONE ) {
+                  if ( ABS1( D ) < ONE ) {
                      if ( ABS1( WORK( J ) ).GE.BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( WORK( J ) )
                         for (JR = 1; JR <= JE; JR++) { // 180

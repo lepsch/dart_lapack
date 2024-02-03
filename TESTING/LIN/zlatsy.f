@@ -137,7 +137,7 @@
          // Clean-up for N not a multiple of 5.
 
          I = N5 + 1
-         if ( I.LT.N-1 ) {
+         if ( I < N-1 ) {
             A = ALPHA3*ZLARND( 5, ISEED )
             B = ZLARND( 5, ISEED ) / ALPHA
             C = A - 2.D0*B*EYE
@@ -149,7 +149,7 @@
             X( I+1, I+1 ) = ZLARND( 2, ISEED )
             I = I + 3
          }
-         if ( I.LT.N ) {
+         if ( I < N ) {
             X( I, I ) = ZLARND( 2, ISEED )
             X( I+1, I+1 ) = ZLARND( 2, ISEED )
             if ( ABS( X( I, I ) ).GT.ABS( X( I+1, I+1 ) ) ) {

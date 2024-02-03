@@ -7,7 +7,7 @@ void main() {
 *  file can be obtained by deleting the first 3 characters from the
 *  following 34 lines:
 *  'CBLAT2.SNAP'     NAME OF SNAPSHOT OUTPUT FILE
-*  -1                UNIT NUMBER OF SNAPSHOT FILE (NOT USED IF .LT. 0)
+*  -1                UNIT NUMBER OF SNAPSHOT FILE (NOT USED IF < 0)
 *  F        LOGICAL FLAG, T TO REWIND SNAPSHOT FILE AFTER EACH RECORD.
 *  F        LOGICAL FLAG, T TO STOP ON FAILURES.
 *  T        LOGICAL FLAG, T TO TEST ERROR EXITS.
@@ -133,33 +133,33 @@ void main() {
 
       // Values of N
       READ( NIN, FMT = * )NIDIM
-      if ( NIDIM.LT.1 || NIDIM.GT.NIDMAX ) {
+      if ( NIDIM < 1 || NIDIM.GT.NIDMAX ) {
          WRITE( NOUT, FMT = 9997 )'N', NIDMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
       for (I = 1; I <= NIDIM; I++) { // 10
-         if ( IDIM( I ).LT.0 || IDIM( I ).GT.NMAX ) {
+         if ( IDIM( I ) < 0 || IDIM( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 230
          }
       } // 10
       // Values of K
       READ( NIN, FMT = * )NKB
-      if ( NKB.LT.1 || NKB.GT.NKBMAX ) {
+      if ( NKB < 1 || NKB.GT.NKBMAX ) {
          WRITE( NOUT, FMT = 9997 )'K', NKBMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( KB( I ), I = 1, NKB )
       for (I = 1; I <= NKB; I++) { // 20
-         if ( KB( I ).LT.0 ) {
+         if ( KB( I ) < 0 ) {
             WRITE( NOUT, FMT = 9995 )
             GO TO 230
          }
       } // 20
       // Values of INCX and INCY
       READ( NIN, FMT = * )NINC
-      if ( NINC.LT.1 || NINC.GT.NINMAX ) {
+      if ( NINC < 1 || NINC.GT.NINMAX ) {
          WRITE( NOUT, FMT = 9997 )'INCX AND INCY', NINMAX
          GO TO 230
       }
@@ -172,14 +172,14 @@ void main() {
       } // 30
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
-      if ( NALF.LT.1 || NALF.GT.NALMAX ) {
+      if ( NALF < 1 || NALF.GT.NALMAX ) {
          WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
       // Values of BETA
       READ( NIN, FMT = * )NBET
-      if ( NBET.LT.1 || NBET.GT.NBEMAX ) {
+      if ( NBET < 1 || NBET.GT.NBEMAX ) {
          WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
          GO TO 230
       }
@@ -475,7 +475,7 @@ void main() {
                } else {
                   LDA = M
                }
-               if (LDA.LT.NMAX) LDA = LDA + 1;
+               if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA.GT.NMAX) GO TO 100;
                LAA = LDA*N
@@ -661,7 +661,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
@@ -775,7 +775,7 @@ void main() {
             } else {
                LDA = N
             }
-            if (LDA.LT.NMAX) LDA = LDA + 1;
+            if (LDA < NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
             if (LDA.GT.NMAX) GO TO 100;
             if ( PACKED ) {
@@ -960,7 +960,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
@@ -1082,7 +1082,7 @@ void main() {
             } else {
                LDA = N
             }
-            if (LDA.LT.NMAX) LDA = LDA + 1;
+            if (LDA < NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
             if (LDA.GT.NMAX) GO TO 100;
             if ( PACKED ) {
@@ -1279,7 +1279,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
@@ -1373,7 +1373,7 @@ void main() {
 
             // Set LDA to 1 more than minimum value if room.
             LDA = M
-            if (LDA.LT.NMAX) LDA = LDA + 1;
+            if (LDA < NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
             if (LDA.GT.NMAX) GO TO 110;
             LAA = LDA*N
@@ -1522,7 +1522,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
@@ -1617,7 +1617,7 @@ void main() {
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
          LDA = N
-         if (LDA.LT.NMAX) LDA = LDA + 1;
+         if (LDA < NMAX) LDA = LDA + 1;
          // Skip tests if not enough room.
          if (LDA.GT.NMAX) GO TO 100;
          if ( PACKED ) {
@@ -1774,7 +1774,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
@@ -1874,7 +1874,7 @@ void main() {
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
          LDA = N
-         if (LDA.LT.NMAX) LDA = LDA + 1;
+         if (LDA < NMAX) LDA = LDA + 1;
          // Skip tests if not enough room.
          if (LDA.GT.NMAX) GO TO 140;
          if ( PACKED ) {
@@ -2061,7 +2061,7 @@ void main() {
 
       // Report result.
 
-      if ( ERRMAX.LT.THRESH ) {
+      if ( ERRMAX < THRESH ) {
          WRITE( NOUT, FMT = 9999 )SNAME, NC
       } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
@@ -2139,14 +2139,14 @@ void main() {
          ML = M
          NL = N
       }
-      if ( INCX.LT.0 ) {
+      if ( INCX < 0 ) {
          KX = NL
          INCXL = -1
       } else {
          KX = 1
          INCXL = 1
       }
-      if ( INCY.LT.0 ) {
+      if ( INCY < 0 ) {
          KY = ML
          INCYL = -1
       } else {

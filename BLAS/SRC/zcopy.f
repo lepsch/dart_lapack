@@ -31,8 +31,8 @@
 
          IX = 1
          IY = 1
-         if (INCX.LT.0) IX = (-N+1)*INCX + 1;
-         if (INCY.LT.0) IY = (-N+1)*INCY + 1;
+         if (INCX < 0) IX = (-N+1)*INCX + 1;
+         if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
             ZY(IY) = ZX(IX)
             IX = IX + INCX

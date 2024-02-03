@@ -77,17 +77,17 @@
          INFO = -1
       } else if ( .NOT.LSAME( HOWMNY, 'A' ) && .NOT.SOMCON ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( LDT.LT.MAX( 1, N ) ) {
+      } else if ( LDT < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 || ( WANTS && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( WANTS && LDVL < N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 || ( WANTS && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( WANTS && LDVR < N ) ) {
          INFO = -10
-      } else if ( MM.LT.M ) {
+      } else if ( MM < M ) {
          INFO = -13
-      } else if ( LDWORK.LT.1 || ( WANTSP && LDWORK.LT.N ) ) {
+      } else if ( LDWORK < 1 || ( WANTSP && LDWORK < N ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -179,7 +179,7 @@
 
                   IX = IZAMAX( N-1, WORK, 1 )
                   XNORM = CABS1( WORK( IX, 1 ) )
-                  if (SCALE.LT.XNORM*SMLNUM || SCALE == ZERO) GO TO 40;
+                  if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 40;
                   zdrscl(N, SCALE, WORK, 1 );
                }
                GO TO 30

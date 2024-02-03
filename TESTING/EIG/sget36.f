@@ -125,7 +125,7 @@
          } // 90
          LOC = LOC + 1
       }
-      if (LOC.LT.N) GO TO 70;
+      if (LOC < N) GO TO 70;
       if ( RES.GT.RMAX ) {
          RMAX = RES
          LMAX = KNT

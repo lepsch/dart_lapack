@@ -96,15 +96,15 @@
          INFO = -3
       } else if ( .NOT.( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
          INFO = -4
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -5
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDB.LT.MAX( 1, N ) ) {
+      } else if ( LDB < MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDVL.LT.1 || ( ILVL && LDVL.LT.N ) ) {
+      } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -13
-      } else if ( LDVR.LT.1 || ( ILVR && LDVR.LT.N ) ) {
+      } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
          INFO = -15
       }
 
@@ -135,7 +135,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && .NOT.LQUERY ) {
             INFO = -25
          }
       }
@@ -163,7 +163,7 @@
 
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
@@ -176,7 +176,7 @@
 
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
@@ -344,7 +344,7 @@
             for (JR = 1; JR <= N; JR++) { // 30
                TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
             } // 30
-            if (TEMP.LT.SMLNUM) GO TO 50;
+            if (TEMP < SMLNUM) GO TO 50;
             TEMP = ONE / TEMP
             for (JR = 1; JR <= N; JR++) { // 40
                VL( JR, JC ) = VL( JR, JC )*TEMP
@@ -359,7 +359,7 @@
             for (JR = 1; JR <= N; JR++) { // 60
                TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
             } // 60
-            if (TEMP.LT.SMLNUM) GO TO 80;
+            if (TEMP < SMLNUM) GO TO 80;
             TEMP = ONE / TEMP
             for (JR = 1; JR <= N; JR++) { // 70
                VR( JR, JC ) = VR( JR, JC )*TEMP

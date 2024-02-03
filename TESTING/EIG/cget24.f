@@ -61,17 +61,17 @@
       // Check for errors
 
       INFO = 0
-      if ( THRESH.LT.ZERO ) {
+      if ( THRESH < ZERO ) {
          INFO = -3
       } else if ( NOUNIT.LE.0 ) {
          INFO = -5
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -6
-      } else if ( LDA.LT.1 || LDA.LT.N ) {
+      } else if ( LDA < 1 || LDA < N ) {
          INFO = -8
-      } else if ( LDVS.LT.1 || LDVS.LT.N ) {
+      } else if ( LDVS < 1 || LDVS < N ) {
          INFO = -15
-      } else if ( LWORK.LT.2*N ) {
+      } else if ( LWORK < 2*N ) {
          INFO = -24
       }
 
@@ -153,7 +153,7 @@
          if ( ANORM.GT.WNORM ) {
             RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP )
          } else {
-            if ( ANORM.LT.ONE ) {
+            if ( ANORM < ONE ) {
                RESULT( 2+RSUB ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
             } else {
                RESULT( 2+RSUB ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )
@@ -207,7 +207,7 @@
             KNTEIG = 0
             for (I = 1; I <= N; I++) { // 80
                IF( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
-               if ( I.LT.N ) {
+               if ( I < N ) {
                   IF( CSLECT( W( I+1 ) ) && ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                }
             } // 80
@@ -431,7 +431,7 @@
                } else {
                   VRICMP = AIMAG( WTMP( J ) )
                }
-               if ( VRICMP.LT.VRIMIN ) {
+               if ( VRICMP < VRIMIN ) {
                   KMIN = J
                   VRIMIN = VRICMP
                }
@@ -481,9 +481,9 @@
             RESULT( 16 ) = ULPINV
          } else if ( RCDEIN-TOLIN.GT.RCONDE+TOL ) {
             RESULT( 16 ) = ( RCDEIN-TOLIN ) / ( RCONDE+TOL )
-         } else if ( RCDEIN+TOLIN.LT.EPS*( RCONDE-TOL ) ) {
+         } else if ( RCDEIN+TOLIN < EPS*( RCONDE-TOL ) ) {
             RESULT( 16 ) = ULPINV
-         } else if ( RCDEIN+TOLIN.LT.RCONDE-TOL ) {
+         } else if ( RCDEIN+TOLIN < RCONDE-TOL ) {
             RESULT( 16 ) = ( RCONDE-TOL ) / ( RCDEIN+TOLIN )
          } else {
             RESULT( 16 ) = ONE
@@ -508,9 +508,9 @@
             RESULT( 17 ) = ULPINV
          } else if ( RCDVIN-TOLIN.GT.RCONDV+TOL ) {
             RESULT( 17 ) = ( RCDVIN-TOLIN ) / ( RCONDV+TOL )
-         } else if ( RCDVIN+TOLIN.LT.EPS*( RCONDV-TOL ) ) {
+         } else if ( RCDVIN+TOLIN < EPS*( RCONDV-TOL ) ) {
             RESULT( 17 ) = ULPINV
-         } else if ( RCDVIN+TOLIN.LT.RCONDV-TOL ) {
+         } else if ( RCDVIN+TOLIN < RCONDV-TOL ) {
             RESULT( 17 ) = ( RCONDV-TOL ) / ( RCDVIN+TOLIN )
          } else {
             RESULT( 17 ) = ONE

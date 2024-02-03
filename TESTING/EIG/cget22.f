@@ -147,7 +147,7 @@
       if ( ANORM.GT.ERRNRM ) {
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
       } else {
-         if ( ANORM.LT.ONE ) {
+         if ( ANORM < ONE ) {
             RESULT( 1 ) = ONE / ULP
          } else {
             RESULT( 1 ) = MIN( ERRNRM / ANORM, ONE ) / ULP

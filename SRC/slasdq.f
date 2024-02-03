@@ -42,21 +42,21 @@
       IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
       if ( IUPLO == 0 ) {
          INFO = -1
-      } else if ( ( SQRE.LT.0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
          INFO = -2
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -3
-      } else if ( NCVT.LT.0 ) {
+      } else if ( NCVT < 0 ) {
          INFO = -4
-      } else if ( NRU.LT.0 ) {
+      } else if ( NRU < 0 ) {
          INFO = -5
-      } else if ( NCC.LT.0 ) {
+      } else if ( NCC < 0 ) {
          INFO = -6
-      } else if ( ( NCVT == 0 && LDVT.LT.1 ) || ( NCVT.GT.0 && LDVT.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT.GT.0 && LDVT < MAX( 1, N ) ) ) {
          INFO = -10
-      } else if ( LDU.LT.MAX( 1, NRU ) ) {
+      } else if ( LDU < MAX( 1, NRU ) ) {
          INFO = -12
-      } else if ( ( NCC == 0 && LDC.LT.1 ) || ( NCC.GT.0 && LDC.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC.GT.0 && LDC < MAX( 1, N ) ) ) {
          INFO = -14
       }
       if ( INFO != 0 ) {
@@ -160,7 +160,7 @@
          ISUB = I
          SMIN = D( I )
          for (J = I + 1; J <= N; J++) { // 30
-            if ( D( J ).LT.SMIN ) {
+            if ( D( J ) < SMIN ) {
                ISUB = J
                SMIN = D( J )
             }

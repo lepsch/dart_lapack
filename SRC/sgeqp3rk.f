@@ -46,19 +46,19 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( KMAX.LT.0 ) {
+      } else if ( KMAX < 0 ) {
          INFO = -4
       } else if ( SISNAN( ABSTOL ) ) {
          INFO = -5
       } else if ( SISNAN( RELTOL ) ) {
          INFO = -6
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -8
       }
 
@@ -113,7 +113,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 
-         if ( ( LWORK.LT.IWS ) && .NOT.LQUERY ) {
+         if ( ( LWORK < IWS ) && .NOT.LQUERY ) {
             INFO = -15
          }
       }
@@ -295,18 +295,18 @@
       NBMIN = 2
       NX = 0
 
-      if ( ( NB.GT.1 ) && ( NB.LT.MINMN ) ) {
+      if ( ( NB.GT.1 ) && ( NB < MINMN ) ) {
 
          // Determine when to cross over from blocked to unblocked code.
          // (for N less than NX, unblocked code should be used).
 
          NX = MAX( 0, ILAENV( IXOVER, 'SGEQP3RK', ' ', M, N, -1, -1 ))
 
-         if ( NX.LT.MINMN ) {
+         if ( NX < MINMN ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            if ( LWORK.LT.LWKOPT ) {
+            if ( LWORK < LWKOPT ) {
 
                // Not enough workspace to use optimal block size that
                // is currently stored in NB.
@@ -339,7 +339,7 @@
 
       JMAXB = MIN( KMAX, MINMN - NX )
 
-      if ( NB.GE.NBMIN && NB.LT.JMAX && JMAXB.GT.0 ) {
+      if ( NB.GE.NBMIN && NB < JMAX && JMAXB.GT.0 ) {
 
          // Loop over the column blocks of the matrix A(1:M,1:JMAXB). Here:
          // J   is the column index of a column block;
@@ -457,7 +457,7 @@
                // residual matrix, otherwise set them to ZERO;
             // 2) Set TAU(K+1:MINMN) to ZERO.
 
-         if ( K.LT.MINMN ) {
+         if ( K < MINMN ) {
             JMAXC2NRM = K + ISAMAX( N-K, WORK( K+1 ), 1 )
             MAXC2NRMK = WORK( JMAXC2NRM )
             if ( K == 0 ) {

@@ -89,21 +89,21 @@
          INFO = -2
       } else if ( ICOMPZ == 0 ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( ILO.LT.1 ) {
+      } else if ( ILO < 1 ) {
          INFO = -5
-      } else if ( IHI.GT.N || IHI.LT.ILO-1 ) {
+      } else if ( IHI.GT.N || IHI < ILO-1 ) {
          INFO = -6
-      } else if ( LDH.LT.N ) {
+      } else if ( LDH < N ) {
          INFO = -8
-      } else if ( LDT.LT.N ) {
+      } else if ( LDT < N ) {
          INFO = -10
-      } else if ( LDQ.LT.1 || ( ILQ && LDQ.LT.N ) ) {
+      } else if ( LDQ < 1 || ( ILQ && LDQ < N ) ) {
          INFO = -15
-      } else if ( LDZ.LT.1 || ( ILZ && LDZ.LT.N ) ) {
+      } else if ( LDZ < 1 || ( ILZ && LDZ < N ) ) {
          INFO = -17
-      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -19
       }
       if ( INFO != 0 ) {
@@ -140,7 +140,7 @@
       // Set Eigenvalues IHI+1:N
 
       for (J = IHI + 1; J <= N; J++) { // 30
-         if ( T( J, J ).LT.ZERO ) {
+         if ( T( J, J ) < ZERO ) {
             if ( ILSCHR ) {
                for (JR = 1; JR <= J; JR++) { // 10
                   H( JR, J ) = -H( JR, J )
@@ -163,7 +163,7 @@
 
       // If IHI < ILO, skip QZ steps
 
-      if (IHI.LT.ILO) GO TO 380;
+      if (IHI < ILO) GO TO 380;
 
       // MAIN QZ ITERATION LOOP
 
@@ -236,7 +236,7 @@
 
             // Test 2: for T(j,j)=0
 
-            if ( ABS( T( J, J ) ).LT.BTOL ) {
+            if ( ABS( T( J, J ) ) < BTOL ) {
                T( J, J ) = ZERO
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
@@ -246,7 +246,7 @@
                   TEMP = ABS( H( J, J-1 ) )
                   TEMP2 = ABS( H( J, J ) )
                   TEMPR = MAX( TEMP, TEMP2 )
-                  if ( TEMPR.LT.ONE && TEMPR != ZERO ) {
+                  if ( TEMPR < ONE && TEMPR != ZERO ) {
                      TEMP = TEMP / TEMPR
                      TEMP2 = TEMP2 / TEMPR
                   }
@@ -288,7 +288,7 @@
                      TEMP = T( JCH, JCH+1 )
                      slartg(TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = ZERO
-                     if (JCH.LT.ILASTM-1) CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
+                     if (JCH < ILASTM-1) CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
                      srot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      TEMP = H( JCH+1, JCH )
                      slartg(TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
@@ -329,7 +329,7 @@
                                // and BETA
 
          } // 80
-         if ( T( ILAST, ILAST ).LT.ZERO ) {
+         if ( T( ILAST, ILAST ) < ZERO ) {
             if ( ILSCHR ) {
                for (J = IFRSTM; J <= ILAST; J++) { // 90
                   H( J, ILAST ) = -H( J, ILAST )
@@ -352,7 +352,7 @@
          // Go to next block -- exit if finished.
 
          ILAST = ILAST - 1
-         if (ILAST.LT.ILO) GO TO 380;
+         if (ILAST < ILO) GO TO 380;
 
          // Reset counters
 
@@ -386,7 +386,7 @@
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)
 
-            IF( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ).LT. ABS( T( ILAST-1, ILAST-1 ) ) ) THEN                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 )
+            IF( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ) < ABS( T( ILAST-1, ILAST-1 ) ) ) THEN                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 )
             } else {
                ESHIFT = ESHIFT + ONE / ( SAFMIN*REAL( MAXIT ) )
             }
@@ -434,7 +434,7 @@
             TEMP = ABS( S1*H( J, J-1 ) )
             TEMP2 = ABS( S1*H( J, J )-WR*T( J, J ) )
             TEMPR = MAX( TEMP, TEMP2 )
-            if ( TEMPR.LT.ONE && TEMPR != ZERO ) {
+            if ( TEMPR < ONE && TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             }
@@ -522,7 +522,7 @@
 
             slasv2(T( ILAST-1, ILAST-1 ), T( ILAST-1, ILAST ), T( ILAST, ILAST ), B22, B11, SR, CR, SL, CL );
 
-            if ( B11.LT.ZERO ) {
+            if ( B11 < ZERO ) {
                CR = -CR
                SR = -SR
                B11 = -B11
@@ -532,7 +532,7 @@
             srot(ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL );
             srot(ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR );
 
-            if (ILAST.LT.ILASTM) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM.LT.ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
+            if (ILAST < ILASTM) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM < ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
 
             if (ILQ) CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL )             IF( ILZ ) CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
 
@@ -543,7 +543,7 @@
 
             // If B22 is negative, negate column ILAST
 
-            if ( B22.LT.ZERO ) {
+            if ( B22 < ZERO ) {
                for (J = IFRSTM; J <= ILAST; J++) { // 210
                   H( J, ILAST ) = -H( J, ILAST )
                   T( J, ILAST ) = -T( J, ILAST )
@@ -668,7 +668,7 @@
             // Step 3: Go to next block -- exit if finished.
 
             ILAST = IFIRST - 1
-            if (ILAST.LT.ILO) GO TO 380;
+            if (ILAST < ILO) GO TO 380;
 
             // Reset counters
 
@@ -753,7 +753,7 @@
                ILPIVT = false;
                TEMP = MAX( ABS( T( J+1, J+1 ) ), ABS( T( J+1, J+2 ) ) )
                TEMP2 = MAX( ABS( T( J+2, J+1 ) ), ABS( T( J+2, J+2 ) ) )
-               if ( MAX( TEMP, TEMP2 ).LT.SAFMIN ) {
+               if ( MAX( TEMP, TEMP2 ) < SAFMIN ) {
                   SCALE = ZERO
                   U1 = ONE
                   U2 = ZERO
@@ -796,13 +796,13 @@
                // Compute SCALE
 
                SCALE = ONE
-               if ( ABS( W22 ).LT.SAFMIN ) {
+               if ( ABS( W22 ) < SAFMIN ) {
                   SCALE = ZERO
                   U2 = ONE
                   U1 = -W12 / W11
                   GO TO 250
                }
-               IF( ABS( W22 ).LT.ABS( U2 ) ) SCALE = ABS( W22 / U2 )                IF( ABS( W11 ).LT.ABS( U1 ) ) SCALE = MIN( SCALE, ABS( W11 / U1 ) )
+               IF( ABS( W22 ) < ABS( U2 ) ) SCALE = ABS( W22 / U2 )                IF( ABS( W11 ) < ABS( U1 ) ) SCALE = MIN( SCALE, ABS( W11 / U1 ) )
 
                // Solve
 
@@ -925,7 +925,7 @@
       // Set Eigenvalues 1:ILO-1
 
       for (J = 1; J <= ILO - 1; J++) { // 410
-         if ( T( J, J ).LT.ZERO ) {
+         if ( T( J, J ) < ZERO ) {
             if ( ILSCHR ) {
                for (JR = 1; JR <= J; JR++) { // 390
                   H( JR, J ) = -H( JR, J )

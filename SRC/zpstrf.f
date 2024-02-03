@@ -49,9 +49,9 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( LDA.LT.MAX( 1, N ) ) {
+      } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
       }
       if ( INFO != 0 ) {
@@ -96,7 +96,7 @@
 
       // Compute stopping value if not supplied
 
-         if ( TOL.LT.ZERO ) {
+         if ( TOL < ZERO ) {
             DSTOP = N * DLAMCH( 'Epsilon' ) * AJJ
          } else {
             DSTOP = TOL
@@ -151,7 +151,7 @@
 
                      A( PVT, PVT ) = A( J, J )
                      zswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
-                     if (PVT.LT.N) CALL ZSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
+                     if (PVT < N) CALL ZSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                      for (I = J + 1; I <= PVT - 1; I++) { // 140
                         ZTEMP = DCONJG( A( J, I ) )
                         A( J, I ) = DCONJG( A( I, PVT ) )
@@ -174,7 +174,7 @@
 
                   // Compute elements J+1:N of row J.
 
-                  if ( J.LT.N ) {
+                  if ( J < N ) {
                      zlacgv(J-1, A( 1, J ), 1 );
                      zgemv('Trans', J-K, N-J, -CONE, A( K, J+1 ), LDA, A( K, J ), 1, CONE, A( J, J+1 ), LDA );
                      zlacgv(J-1, A( 1, J ), 1 );
@@ -239,7 +239,7 @@
 
                      A( PVT, PVT ) = A( J, J )
                      zswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
-                     if (PVT.LT.N) CALL ZSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
+                     if (PVT < N) CALL ZSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                      for (I = J + 1; I <= PVT - 1; I++) { // 190
                         ZTEMP = DCONJG( A( I, J ) )
                         A( I, J ) = DCONJG( A( PVT, I ) )
@@ -263,7 +263,7 @@
 
                   // Compute elements J+1:N of column J.
 
-                  if ( J.LT.N ) {
+                  if ( J < N ) {
                      zlacgv(J-1, A( J, 1 ), LDA );
                      zgemv('No Trans', N-J, J-K, -CONE, A( J+1, K ), LDA, A( J, K ), LDA, CONE, A( J+1, J ), 1 );
                      zlacgv(J-1, A( J, 1 ), LDA );

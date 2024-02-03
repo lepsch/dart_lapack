@@ -47,15 +47,15 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( M.LT.0 ) {
+      if ( M < 0 ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
-      } else if ( NRHS.LT.0 ) {
+      } else if ( NRHS < 0 ) {
          INFO = -3
-      } else if ( LDA.LT.MAX( 1, M ) ) {
+      } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDB.LT.MAX( 1, M, N ) ) {
+      } else if ( LDB < MAX( 1, M, N ) ) {
          INFO = -7
       }
 
@@ -76,7 +76,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWKMIN && .NOT.LQUERY ) {
             INFO = -12
          }
       }
@@ -104,7 +104,7 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -127,7 +127,7 @@
 
       BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -165,7 +165,7 @@
       }
 
       } // 10
-      if ( RANK.LT.MN ) {
+      if ( RANK < MN ) {
          I = RANK + 1
          dlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 );
          dlaic1(IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
@@ -192,7 +192,7 @@
 
       // [R11,R12] = [ T11, 0 ] * Y
 
-      if (RANK.LT.N) CALL DTZRZF( RANK, N, A, LDA, WORK( MN+1 ), WORK( 2*MN+1 ), LWORK-2*MN, INFO );
+      if (RANK < N) CALL DTZRZF( RANK, N, A, LDA, WORK( MN+1 ), WORK( 2*MN+1 ), LWORK-2*MN, INFO );
 
       // workspace: 2*MN.
       // Details of Householder rotations stored in WORK(MN+1:2*MN)
@@ -216,7 +216,7 @@
 
       // B(1:N,1:NRHS) := Y**T * B(1:N,1:NRHS)
 
-      if ( RANK.LT.N ) {
+      if ( RANK < N ) {
          dormrz('Left', 'Transpose', N, NRHS, RANK, N-RANK, A, LDA, WORK( MN+1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO );
       }
 

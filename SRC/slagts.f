@@ -38,7 +38,7 @@
       INFO = 0
       if ( ( ABS( JOB ).GT.2 ) || ( JOB == 0 ) ) {
          INFO = -1
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -2
       }
       if ( INFO != 0 ) {
@@ -52,7 +52,7 @@
       SFMIN = SLAMCH( 'Safe minimum' )
       BIGNUM = ONE / SFMIN
 
-      if ( JOB.LT.0 ) {
+      if ( JOB < 0 ) {
          if ( TOL.LE.ZERO ) {
             TOL = ABS( A( 1 ) )
             if (N.GT.1) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) );
@@ -85,8 +85,8 @@
                }
                AK = A( K )
                ABSAK = ABS( AK )
-               if ( ABSAK.LT.ONE ) {
-                  if ( ABSAK.LT.SFMIN ) {
+               if ( ABSAK < ONE ) {
+                  if ( ABSAK < SFMIN ) {
                      if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         INFO = K
                         RETURN
@@ -114,8 +114,8 @@
                PERT = SIGN( TOL, AK )
                } // 40
                ABSAK = ABS( AK )
-               if ( ABSAK.LT.ONE ) {
-                  if ( ABSAK.LT.SFMIN ) {
+               if ( ABSAK < ONE ) {
+                  if ( ABSAK < SFMIN ) {
                      if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
@@ -148,8 +148,8 @@
                }
                AK = A( K )
                ABSAK = ABS( AK )
-               if ( ABSAK.LT.ONE ) {
-                  if ( ABSAK.LT.SFMIN ) {
+               if ( ABSAK < ONE ) {
+                  if ( ABSAK < SFMIN ) {
                      if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         INFO = K
                         RETURN
@@ -177,8 +177,8 @@
                PERT = SIGN( TOL, AK )
                } // 70
                ABSAK = ABS( AK )
-               if ( ABSAK.LT.ONE ) {
-                  if ( ABSAK.LT.SFMIN ) {
+               if ( ABSAK < ONE ) {
+                  if ( ABSAK < SFMIN ) {
                      if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT

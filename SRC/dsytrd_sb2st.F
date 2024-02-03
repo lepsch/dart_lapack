@@ -69,15 +69,15 @@
          INFO = -2
       } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -3
-      } else if ( N.LT.0 ) {
+      } else if ( N < 0 ) {
          INFO = -4
-      } else if ( KD.LT.0 ) {
+      } else if ( KD < 0 ) {
          INFO = -5
-      } else if ( LDAB.LT.(KD+1) ) {
+      } else if ( LDAB < (KD+1) ) {
          INFO = -7
-      } else if ( LHOUS.LT.LHMIN && .NOT.LQUERY ) {
+      } else if ( LHOUS < LHMIN && .NOT.LQUERY ) {
          INFO = -11
-      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
          INFO = -13
       }
 

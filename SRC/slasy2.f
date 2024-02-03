@@ -236,7 +236,7 @@
          }
          if (JPSV != I) CALL SSWAP( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 );
          JPIV( I ) = JPSV
-         if ( ABS( T16( I, I ) ).LT.SMIN ) {
+         if ( ABS( T16( I, I ) ) < SMIN ) {
             INFO = 1
             T16( I, I ) = SMIN
          }
@@ -248,7 +248,7 @@
             } // 80
          } // 90
       } // 100
-      if ( ABS( T16( 4, 4 ) ).LT.SMIN ) {
+      if ( ABS( T16( 4, 4 ) ) < SMIN ) {
          INFO = 1
          T16( 4, 4 ) = SMIN
       }
