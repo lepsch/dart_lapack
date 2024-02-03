@@ -180,7 +180,7 @@
 
                // Generate A (w/o rotation)
 
-               if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
+               if ( ( KATYPE( JTYPE ) ).abs() == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
                   if (IN != N) dlaset( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
@@ -192,7 +192,7 @@
 
                // Generate B (w/o rotation)
 
-               if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
+               if ( ( KBTYPE( JTYPE ) ).abs() == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
                   if (IN != N) dlaset( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
@@ -255,7 +255,7 @@
 
             if ( IERR != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                return;
             }
 
@@ -273,7 +273,7 @@
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGGEV1', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                GO TO 190;
             }
 
@@ -299,7 +299,7 @@
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGGEV2', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                GO TO 190;
             }
 
@@ -316,7 +316,7 @@
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGGEV3', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                GO TO 190;
             }
 
@@ -339,7 +339,7 @@
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'DGGEV4', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                GO TO 190;
             }
 

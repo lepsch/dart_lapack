@@ -41,9 +41,9 @@
       // Compute splitting points
       if (SPLTOL < ZERO) {
          // Criterion based on absolute off-diagonal value
-         TMP1 = ABS(SPLTOL)* TNRM;
+         TMP1 = (SPLTOL).abs()* TNRM;
          for (I = 1; I <= N-1; I++) { // 9
-            EABS = ABS( E(I) );
+            EABS = ( E(I) ).abs();
             if ( EABS <= TMP1) {
                E(I) = ZERO;
                E2(I) = ZERO;
@@ -54,8 +54,8 @@
       } else {
          // Criterion that guarantees relative accuracy
          for (I = 1; I <= N-1; I++) { // 10
-            EABS = ABS( E(I) );
-            if ( EABS <= SPLTOL * sqrt(ABS(D(I)))*sqrt(ABS(D(I+1))) ) {
+            EABS = ( E(I) ).abs();
+            if ( EABS <= SPLTOL * sqrt((D(I))).abs()*sqrt((D(I+1))) ).abs() {
                E(I) = ZERO;
                E2(I) = ZERO;
                ISPLIT( NSPLIT ) = I;

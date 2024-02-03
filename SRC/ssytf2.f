@@ -77,7 +77,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( A( K, K ) );
+         ABSAKK = ( A( K, K ) ).abs();
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -85,7 +85,7 @@
 
          if ( K > 1 ) {
             IMAX = ISAMAX( K-1, A( 1, K ), 1 );
-            COLMAX = ABS( A( IMAX, K ) );
+            COLMAX = ( A( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
          }
@@ -109,10 +109,10 @@
                // element in row IMAX, and ROWMAX is its absolute value
 
                JMAX = IMAX + ISAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA );
-               ROWMAX = ABS( A( IMAX, JMAX ) );
+               ROWMAX = ( A( IMAX, JMAX ) ).abs();
                if ( IMAX > 1 ) {
                   JMAX = ISAMAX( IMAX-1, A( 1, IMAX ), 1 );
-                  ROWMAX = max( ROWMAX, ABS( A( JMAX, IMAX ) ) );
+                  ROWMAX = max( ROWMAX, ( A( JMAX, IMAX ) ) ).abs();
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
@@ -120,7 +120,7 @@
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K;
-               } else if ( ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX ) {
+               } else if ( ( A( IMAX, IMAX ) ).abs() >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -243,7 +243,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( A( K, K ) );
+         ABSAKK = ( A( K, K ) ).abs();
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -251,7 +251,7 @@
 
          if ( K < N ) {
             IMAX = K + ISAMAX( N-K, A( K+1, K ), 1 );
-            COLMAX = ABS( A( IMAX, K ) );
+            COLMAX = ( A( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
          }
@@ -275,10 +275,10 @@
                // element in row IMAX, and ROWMAX is its absolute value
 
                JMAX = K - 1 + ISAMAX( IMAX-K, A( IMAX, K ), LDA );
-               ROWMAX = ABS( A( IMAX, JMAX ) );
+               ROWMAX = ( A( IMAX, JMAX ) ).abs();
                if ( IMAX < N ) {
                   JMAX = IMAX + ISAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 );
-                  ROWMAX = max( ROWMAX, ABS( A( JMAX, IMAX ) ) );
+                  ROWMAX = max( ROWMAX, ( A( JMAX, IMAX ) ) ).abs();
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
@@ -286,7 +286,7 @@
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K;
-               } else if ( ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX ) {
+               } else if ( ( A( IMAX, IMAX ) ).abs() >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block

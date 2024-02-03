@@ -204,17 +204,17 @@
 
                if ( K >= KTOP ) {
                   if ( H( K+1, K ) != ZERO ) {
-                     TST1 = ABS( H( K, K ) ) + ABS( H( K+1, K+1 ) );
+                     TST1 = ( H( K, K ) ).abs() + ( H( K+1, K+1 ) ).abs();
                      if ( TST1 == ZERO ) {
-                        if (K >= KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) );
-                        if( K >= KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) );
-                        if( K >= KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) );
-                        if( K <= KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) );
-                        if( K <= KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) );
-                        IF( K <= KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
+                        if (K >= KTOP+1) TST1 = TST1 + ( H( K, K-1 ) ).abs();
+                        if( K >= KTOP+2 ) TST1 = TST1 + ( H( K, K-2 ) ).abs();
+                        if( K >= KTOP+3 ) TST1 = TST1 + ( H( K, K-3 ) ).abs();
+                        if( K <= KBOT-2 ) TST1 = TST1 + ( H( K+2, K+1 ) ).abs();
+                        if( K <= KBOT-3 ) TST1 = TST1 + ( H( K+3, K+1 ) ).abs();
+                        IF( K <= KBOT-4 ) TST1 = TST1 + ( H( K+4, K+1 ) ).abs();
                      }
-                     if( ABS( H( K+1, K ) ) <= max( SMLNUM, ULP*TST1 ) ) {
-                        H12 = max( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H21 = min( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H11 = max( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = min( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) );
+                     if( ( H( K+1, K ) ).abs() <= max( SMLNUM, ULP*TST1 ) ) {
+                        H12 = max( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ) ).abs()                         H21 = min( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ) ).abs()                         H11 = max( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = min( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) );
                         SCL = H11 + H12;
                         TST2 = H22*( H11 / SCL );
 
@@ -305,7 +305,7 @@
                      T3 = T2*VT( 3 );
                      REFSUM = H( K+1, K )+VT( 2 )*H( K+2, K );
 
-                     if ( ABS( H( K+2, K )-REFSUM*T2 )+ ABS( REFSUM*T3 ) > ULP* ( ABS( H( K, K ) )+ABS( H( K+1, K+1 ) )+ABS( H( K+2, K+2 ) ) ) ) {
+                     if ( ABS( H( K+2, K )-REFSUM*T2 )+ ( REFSUM*T3 ).abs() > ULP* ( ( H( K, K ) ).abs()+( H( K+1, K+1 ) ).abs()+( H( K+2, K+2 ) ) ) ).abs() {
 
                         // ==== Starting a new bulge here would
                         // .    create non-negligible fill.  Use
@@ -366,19 +366,19 @@
 
                if (K < KTOP) CYCLE;
                if ( H( K+1, K ) != ZERO ) {
-                  TST1 = ABS( H( K, K ) ) + ABS( H( K+1, K+1 ) );
+                  TST1 = ( H( K, K ) ).abs() + ( H( K+1, K+1 ) ).abs();
                   if ( TST1 == ZERO ) {
-                     if (K >= KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) );
-                     if( K >= KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) );
-                     if( K >= KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) );
-                     if( K <= KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) );
-                     if( K <= KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) );
-                     IF( K <= KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
+                     if (K >= KTOP+1) TST1 = TST1 + ( H( K, K-1 ) ).abs();
+                     if( K >= KTOP+2 ) TST1 = TST1 + ( H( K, K-2 ) ).abs();
+                     if( K >= KTOP+3 ) TST1 = TST1 + ( H( K, K-3 ) ).abs();
+                     if( K <= KBOT-2 ) TST1 = TST1 + ( H( K+2, K+1 ) ).abs();
+                     if( K <= KBOT-3 ) TST1 = TST1 + ( H( K+3, K+1 ) ).abs();
+                     IF( K <= KBOT-4 ) TST1 = TST1 + ( H( K+4, K+1 ) ).abs();
                   }
-                  if ( ABS( H( K+1, K ) ) <= max( SMLNUM, ULP*TST1 ) ) {
-                     H12 = max( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) );
-                     H21 = min( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) );
-                     H11 = max( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                      H22 = min( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) );
+                  if ( ( H( K+1, K ) ).abs() <= max( SMLNUM, ULP*TST1 ) ) {
+                     H12 = max( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ) ).abs();
+                     H21 = min( ( H( K+1, K ) ).abs(), ( H( K, K+1 ) ) ).abs();
+                     H11 = max( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) )                      H22 = min( ( H( K+1, K+1 ) ).abs(), ABS( H( K, K )-H( K+1, K+1 ) ) );
                      SCL = H11 + H12;
                      TST2 = H22*( H11 / SCL );
 

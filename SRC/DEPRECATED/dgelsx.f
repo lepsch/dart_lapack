@@ -126,9 +126,9 @@
 
       WORK( ISMIN ) = ONE;
       WORK( ISMAX ) = ONE;
-      SMAX = ABS( A( 1, 1 ) );
+      SMAX = ( A( 1, 1 ) ).abs();
       SMIN = SMAX;
-      if ( ABS( A( 1, 1 ) ) == ZERO ) {
+      if ( ( A( 1, 1 ) ).abs() == ZERO ) {
          RANK = 0;
          dlaset('F', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
          GO TO 100;

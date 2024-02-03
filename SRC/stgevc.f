@@ -164,9 +164,9 @@
       // blocks) of A and B to check for possible overflow in the
       // triangular solver.
 
-      ANORM = ABS( S( 1, 1 ) );
-      if (N > 1) ANORM = ANORM + ABS( S( 2, 1 ) );
-      BNORM = ABS( P( 1, 1 ) );
+      ANORM = ( S( 1, 1 ) ).abs();
+      if (N > 1) ANORM = ANORM + ( S( 2, 1 ) ).abs();
+      BNORM = ( P( 1, 1 ) ).abs();
       WORK( 1 ) = ZERO;
       WORK( N+1 ) = ZERO;
 
@@ -179,14 +179,14 @@
             IEND = J - 2;
          }
          for (I = 1; I <= IEND; I++) { // 30
-            TEMP = TEMP + ABS( S( I, J ) );
-            TEMP2 = TEMP2 + ABS( P( I, J ) );
+            TEMP = TEMP + ( S( I, J ) ).abs();
+            TEMP2 = TEMP2 + ( P( I, J ) ).abs();
          } // 30
          WORK( J ) = TEMP;
          WORK( N+J ) = TEMP2;
          DO 40 I = IEND + 1, min( J+1, N );
-            TEMP = TEMP + ABS( S( I, J ) );
-            TEMP2 = TEMP2 + ABS( P( I, J ) );
+            TEMP = TEMP + ( S( I, J ) ).abs();
+            TEMP2 = TEMP2 + ( P( I, J ) ).abs();
          } // 40
          ANORM = max( ANORM, TEMP );
          BNORM = max( BNORM, TEMP2 );
@@ -234,7 +234,7 @@
             // (c) complex eigenvalue.
 
             if ( !ILCPLX ) {
-               if ( ABS( S( JE, JE ) ) <= SAFMIN && ABS( P( JE, JE ) ) <= SAFMIN ) {
+               if ( ( S( JE, JE ) ).abs() <= SAFMIN && ( P( JE, JE ) ).abs() <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -261,7 +261,7 @@
 
                // Real eigenvalue
 
-               TEMP = ONE / max( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN );
+               TEMP = ONE / max( ( S( JE, JE ) ).abs()*ASCALE, ( P( JE, JE ) ).abs()*BSCALE, SAFMIN );
                SALFAR = ( TEMP*S( JE, JE ) )*ASCALE;
                SBETA = ( TEMP*P( JE, JE ) )*BSCALE;
                ACOEF = SBETA*ASCALE;
@@ -271,10 +271,10 @@
                // Scale to avoid underflow
 
                SCALE = ONE;
-               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEF ) < SMALL;
-               LSB = ABS( SALFAR ) >= SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*min( ANORM, BIG )                IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS( SALFAR ) )* min( BNORM, BIG ) );
+               LSA = ( SBETA ).abs() >= SAFMIN && ( ACOEF ).abs() < SMALL;
+               LSB = ( SALFAR ).abs() >= SAFMIN && ( BCOEFR ).abs() < SMALL                IF( LSA ) SCALE = ( SMALL / ( SBETA ).abs() )*min( ANORM, BIG )                IF( LSB ) SCALE = max( SCALE, ( SMALL / ( SALFAR ).abs() )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ( ACOEF ).abs(), ( BCOEFR ).abs() ) ) );
                   if ( LSA ) {
                      ACOEF = ASCALE*( SCALE*SBETA );
                   } else {
@@ -286,8 +286,8 @@
                      BCOEFR = SCALE*BCOEFR;
                   }
                }
-               ACOEFA = ABS( ACOEF );
-               BCOEFA = ABS( BCOEFR );
+               ACOEFA = ( ACOEF ).abs();
+               BCOEFA = ( BCOEFR ).abs();
 
                // First component is 1
 
@@ -306,8 +306,8 @@
 
                // Scale to avoid over/underflow
 
-               ACOEFA = ABS( ACOEF );
-               BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI );
+               ACOEFA = ( ACOEF ).abs();
+               BCOEFA = ( BCOEFR ).abs() + ( BCOEFI ).abs();
                SCALE = ONE;
                if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA;
                if( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = max( SCALE, ( SAFMIN / ULP ) / BCOEFA );
@@ -315,10 +315,10 @@
                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = min( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF;
-                  ACOEFA = ABS( ACOEF );
+                  ACOEFA = ( ACOEF ).abs();
                   BCOEFR = SCALE*BCOEFR;
                   BCOEFI = SCALE*BCOEFI;
-                  BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI );
+                  BCOEFA = ( BCOEFR ).abs() + ( BCOEFI ).abs();
                }
 
                // Compute first two components of eigenvector
@@ -326,7 +326,7 @@
                TEMP = ACOEF*S( JE+1, JE );
                TEMP2R = ACOEF*S( JE, JE ) - BCOEFR*P( JE, JE );
                TEMP2I = -BCOEFI*P( JE, JE );
-               if ( ABS( TEMP ) > ABS( TEMP2R )+ABS( TEMP2I ) ) {
+               if ( ( TEMP ).abs() > ( TEMP2R ).abs()+( TEMP2I ).abs() ) {
                   WORK( 2*N+JE ) = ONE;
                   WORK( 3*N+JE ) = ZERO;
                   WORK( 2*N+JE+1 ) = -TEMP2R / TEMP;
@@ -338,7 +338,7 @@
                   WORK( 2*N+JE ) = ( BCOEFR*P( JE+1, JE+1 )-ACOEF* S( JE+1, JE+1 ) ) / TEMP;
                   WORK( 3*N+JE ) = BCOEFI*P( JE+1, JE+1 ) / TEMP;
                }
-               XMAX = max( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE+1 ) )+ABS( WORK( 3*N+JE+1 ) ) );
+               XMAX = max( ( WORK( 2*N+JE ) ).abs()+( WORK( 3*N+JE ) ).abs(), ( WORK( 2*N+JE+1 ) ).abs()+( WORK( 3*N+JE+1 ) ) ).abs();
             }
 
             DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
@@ -451,11 +451,11 @@
             XMAX = ZERO;
             if ( ILCPLX ) {
                for (J = IBEG; J <= N; J++) { // 180
-                  XMAX = max( XMAX, ABS( VL( J, IEIG ) )+ ABS( VL( J, IEIG+1 ) ) );
+                  XMAX = max( XMAX, ( VL( J, IEIG ) ).abs()+ ( VL( J, IEIG+1 ) ) ).abs();
                } // 180
             } else {
                for (J = IBEG; J <= N; J++) { // 190
-                  XMAX = max( XMAX, ABS( VL( J, IEIG ) ) );
+                  XMAX = max( XMAX, ( VL( J, IEIG ) ) ).abs();
                } // 190
             }
 
@@ -515,7 +515,7 @@
             // (c) complex eigenvalue.
 
             if ( !ILCPLX ) {
-               if ( ABS( S( JE, JE ) ) <= SAFMIN && ABS( P( JE, JE ) ) <= SAFMIN ) {
+               if ( ( S( JE, JE ) ).abs() <= SAFMIN && ( P( JE, JE ) ).abs() <= SAFMIN ) {
 
                   // Singular matrix pencil -- unit eigenvector
 
@@ -544,7 +544,7 @@
 
                // Real eigenvalue
 
-               TEMP = ONE / max( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN );
+               TEMP = ONE / max( ( S( JE, JE ) ).abs()*ASCALE, ( P( JE, JE ) ).abs()*BSCALE, SAFMIN );
                SALFAR = ( TEMP*S( JE, JE ) )*ASCALE;
                SBETA = ( TEMP*P( JE, JE ) )*BSCALE;
                ACOEF = SBETA*ASCALE;
@@ -554,10 +554,10 @@
                // Scale to avoid underflow
 
                SCALE = ONE;
-               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEF ) < SMALL;
-               LSB = ABS( SALFAR ) >= SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*min( ANORM, BIG )                IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS( SALFAR ) )* min( BNORM, BIG ) );
+               LSA = ( SBETA ).abs() >= SAFMIN && ( ACOEF ).abs() < SMALL;
+               LSB = ( SALFAR ).abs() >= SAFMIN && ( BCOEFR ).abs() < SMALL                IF( LSA ) SCALE = ( SMALL / ( SBETA ).abs() )*min( ANORM, BIG )                IF( LSB ) SCALE = max( SCALE, ( SMALL / ( SALFAR ).abs() )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ( ACOEF ).abs(), ( BCOEFR ).abs() ) ) );
                   if ( LSA ) {
                      ACOEF = ASCALE*( SCALE*SBETA );
                   } else {
@@ -569,8 +569,8 @@
                      BCOEFR = SCALE*BCOEFR;
                   }
                }
-               ACOEFA = ABS( ACOEF );
-               BCOEFA = ABS( BCOEFR );
+               ACOEFA = ( ACOEF ).abs();
+               BCOEFA = ( BCOEFR ).abs();
 
                // First component is 1
 
@@ -595,8 +595,8 @@
 
                // Scale to avoid over/underflow
 
-               ACOEFA = ABS( ACOEF );
-               BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI );
+               ACOEFA = ( ACOEF ).abs();
+               BCOEFA = ( BCOEFR ).abs() + ( BCOEFI ).abs();
                SCALE = ONE;
                if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA;
                if( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = max( SCALE, ( SAFMIN / ULP ) / BCOEFA );
@@ -604,10 +604,10 @@
                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = min( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF;
-                  ACOEFA = ABS( ACOEF );
+                  ACOEFA = ( ACOEF ).abs();
                   BCOEFR = SCALE*BCOEFR;
                   BCOEFI = SCALE*BCOEFI;
-                  BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI );
+                  BCOEFA = ( BCOEFR ).abs() + ( BCOEFI ).abs();
                }
 
                // Compute first two components of eigenvector
@@ -616,7 +616,7 @@
                TEMP = ACOEF*S( JE, JE-1 );
                TEMP2R = ACOEF*S( JE, JE ) - BCOEFR*P( JE, JE );
                TEMP2I = -BCOEFI*P( JE, JE );
-               if ( ABS( TEMP ) >= ABS( TEMP2R )+ABS( TEMP2I ) ) {
+               if ( ( TEMP ).abs() >= ( TEMP2R ).abs()+( TEMP2I ).abs() ) {
                   WORK( 2*N+JE ) = ONE;
                   WORK( 3*N+JE ) = ZERO;
                   WORK( 2*N+JE-1 ) = -TEMP2R / TEMP;
@@ -629,7 +629,7 @@
                   WORK( 3*N+JE ) = BCOEFI*P( JE-1, JE-1 ) / TEMP;
                }
 
-               XMAX = max( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE-1 ) )+ABS( WORK( 3*N+JE-1 ) ) );
+               XMAX = max( ( WORK( 2*N+JE ) ).abs()+( WORK( 3*N+JE ) ).abs(), ( WORK( 2*N+JE-1 ) ).abs()+( WORK( 3*N+JE-1 ) ) ).abs();
 
                // Compute contribution from columns JE and JE-1
                // of A and B to the sums.
@@ -779,11 +779,11 @@
             XMAX = ZERO;
             if ( ILCPLX ) {
                for (J = 1; J <= IEND; J++) { // 460
-                  XMAX = max( XMAX, ABS( VR( J, IEIG ) )+ ABS( VR( J, IEIG+1 ) ) );
+                  XMAX = max( XMAX, ( VR( J, IEIG ) ).abs()+ ( VR( J, IEIG+1 ) ) ).abs();
                } // 460
             } else {
                for (J = 1; J <= IEND; J++) { // 470
-                  XMAX = max( XMAX, ABS( VR( J, IEIG ) ) );
+                  XMAX = max( XMAX, ( VR( J, IEIG ) ) ).abs();
                } // 470
             }
 

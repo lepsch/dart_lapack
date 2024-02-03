@@ -227,7 +227,7 @@
 
          dlarnv(2, ISEED, N, B );
          IY = IDAMAX( N, B, 1 );
-         BNORM = ABS( B( IY ) );
+         BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          dscal(N, BSCAL, B, 1 );
 
@@ -470,7 +470,7 @@
 
          dlarnv(2, ISEED, N, B );
          IY = IDAMAX( N, B, 1 );
-         BNORM = ABS( B( IY ) );
+         BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          dscal(N, BSCAL, B, 1 );
 

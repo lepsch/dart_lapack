@@ -45,7 +45,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) );
+      ABS1( X ) = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -154,7 +154,7 @@
       // Set Eigenvalues IHI+1:N
 
       for (J = IHI + 1; J <= N; J++) { // 10
-         ABSB = ABS( T( J, J ) );
+         ABSB = ( T( J, J ) ).abs();
          if ( ABSB > SAFMIN ) {
             SIGNBC = CONJG( T( J, J ) / ABSB );
             T( J, J ) = ABSB;
@@ -226,7 +226,7 @@
             }
          }
 
-         if ( ABS( T( ILAST, ILAST ) ) <= BTOL ) {
+         if ( ( T( ILAST, ILAST ) ).abs() <= BTOL ) {
             T( ILAST, ILAST ) = CZERO;
             GO TO 50;
          }
@@ -250,7 +250,7 @@
 
             // Test 2: for T(j,j)=0
 
-            if ( ABS( T( J, J ) ) < BTOL ) {
+            if ( ( T( J, J ) ).abs() < BTOL ) {
                T( J, J ) = CZERO;
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
@@ -335,7 +335,7 @@
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
 
          } // 60
-         ABSB = ABS( T( ILAST, ILAST ) );
+         ABSB = ( T( ILAST, ILAST ) ).abs();
          if ( ABSB > SAFMIN ) {
             SIGNBC = CONJG( T( ILAST, ILAST ) / ABSB );
             T( ILAST, ILAST ) = ABSB;
@@ -513,7 +513,7 @@
       // Set Eigenvalues 1:ILO-1
 
       for (J = 1; J <= ILO - 1; J++) { // 200
-         ABSB = ABS( T( J, J ) );
+         ABSB = ( T( J, J ) ).abs();
          if ( ABSB > SAFMIN ) {
             SIGNBC = CONJG( T( J, J ) / ABSB );
             T( J, J ) = ABSB;

@@ -276,7 +276,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -316,7 +316,7 @@
                   if ( IINFO != 0 ) {
                      RESULT( 1+RSUB ) = ULPINV;
                      WRITE( NOUNIT, FMT = 9992 )'CGEES1', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      GO TO 190;
                   }
 
@@ -350,7 +350,7 @@
                   if ( IINFO != 0 ) {
                      RESULT( 5+RSUB ) = ULPINV;
                      WRITE( NOUNIT, FMT = 9992 )'CGEES2', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      GO TO 190;
                   }
 

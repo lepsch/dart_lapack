@@ -70,11 +70,11 @@
 
       // Scale.
 
-      ORGNRM = max( ABS( ALPHA ), ABS( BETA ) );
+      ORGNRM = max( ( ALPHA ).abs(), ( BETA ).abs() );
       D( NL+1 ) = ZERO;
       for (I = 1; I <= N; I++) { // 10
-         if ( ABS( D( I ) ) > ORGNRM ) {
-            ORGNRM = ABS( D( I ) );
+         if ( ( D( I ) ).abs() > ORGNRM ) {
+            ORGNRM = ( D( I ) ).abs();
          }
       } // 10
       slascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO );

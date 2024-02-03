@@ -46,7 +46,7 @@
             K = 0;
             for (J = 1; J <= N; J++) { // 20
                for (I = K + 1; I <= K + J - 1; I++) { // 10
-                  SUM = ABS( AP( I ) );
+                  SUM = ( AP( I ) ).abs();
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 10
                K = K + J;
@@ -59,7 +59,7 @@
                SUM = ABS( REAL( AP( K ) ) );
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                for (I = K + 1; I <= K + N - J; I++) { // 30
-                  SUM = ABS( AP( I ) );
+                  SUM = ( AP( I ) ).abs();
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 30
                K = K + N - J + 1;
@@ -75,7 +75,7 @@
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO;
                for (I = 1; I <= J - 1; I++) { // 50
-                  ABSA = ABS( AP( K ) );
+                  ABSA = ( AP( K ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                   K = K + 1;
@@ -95,7 +95,7 @@
                SUM = WORK( J ) + ABS( REAL( AP( K ) ) );
                K = K + 1;
                for (I = J + 1; I <= N; I++) { // 90
-                  ABSA = ABS( AP( K ) );
+                  ABSA = ( AP( K ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                   K = K + 1;

@@ -98,8 +98,8 @@
       if ( INFO2 != 0 ) {
          NINFO( INFO2 ) = NINFO( INFO2 ) + 1;
       } else {
-         if( ABS( IFST2-IFSTSV ) > 1 ) RES = RES + ONE / EPS;
-         IF( ABS( ILST2-ILSTSV ) > 1 ) RES = RES + ONE / EPS;
+         if( ( IFST2-IFSTSV ).abs() > 1 ) RES = RES + ONE / EPS;
+         IF( ( ILST2-ILSTSV ).abs() > 1 ) RES = RES + ONE / EPS;
       }
 
       // Test for small residual, and orthogonality of Q

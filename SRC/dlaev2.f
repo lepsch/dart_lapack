@@ -33,10 +33,10 @@
 
       SM = A + C;
       DF = A - C;
-      ADF = ABS( DF );
+      ADF = ( DF ).abs();
       TB = B + B;
-      AB = ABS( TB );
-      if ( ABS( A ) > ABS( C ) ) {
+      AB = ( TB ).abs();
+      if ( ( A ).abs() > ( C ).abs() ) {
          ACMX = A;
          ACMN = C;
       } else {
@@ -89,7 +89,7 @@
          CS = DF - RT;
          SGN2 = -1;
       }
-      ACS = ABS( CS );
+      ACS = ( CS ).abs();
       if ( ACS > AB ) {
          CT = -TB / CS;
          SN1 = ONE / sqrt( ONE+CT*CT );

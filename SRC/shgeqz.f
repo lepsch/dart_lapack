@@ -207,13 +207,13 @@
 
             GO TO 80;
          } else {
-            if ( ABS( H( ILAST, ILAST-1 ) ) <= max( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) {
+            if ( ( H( ILAST, ILAST-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( ILAST, ILAST ) ).abs() + ( H( ILAST-1, ILAST-1 ) ) ) ) ).abs() {
                H( ILAST, ILAST-1 ) = ZERO;
                GO TO 80;
             }
          }
 
-         if ( ABS( T( ILAST, ILAST ) ) <= BTOL ) {
+         if ( ( T( ILAST, ILAST ) ).abs() <= BTOL ) {
             T( ILAST, ILAST ) = ZERO;
             GO TO 70;
          }
@@ -227,7 +227,7 @@
             if ( J == ILO ) {
                ILAZRO = true;
             } else {
-               if ( ABS( H( J, J-1 ) ) <= max( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) {
+               if ( ( H( J, J-1 ) ).abs() <= max( SAFMIN, ULP*(  ( H( J, J ) ).abs() + ( H( J-1, J-1 ) ) ) ) ).abs() {
                   H( J, J-1 ) = ZERO;
                   ILAZRO = true;
                } else {
@@ -237,21 +237,21 @@
 
             // Test 2: for T(j,j)=0
 
-            if ( ABS( T( J, J ) ) < BTOL ) {
+            if ( ( T( J, J ) ).abs() < BTOL ) {
                T( J, J ) = ZERO;
 
                // Test 1a: Check for 2 consecutive small subdiagonals in A
 
                ILAZR2 = false;
                if ( !ILAZRO ) {
-                  TEMP = ABS( H( J, J-1 ) );
-                  TEMP2 = ABS( H( J, J ) );
+                  TEMP = ( H( J, J-1 ) ).abs();
+                  TEMP2 = ( H( J, J ) ).abs();
                   TEMPR = max( TEMP, TEMP2 );
                   if ( TEMPR < ONE && TEMPR != ZERO ) {
                      TEMP = TEMP / TEMPR;
                      TEMP2 = TEMP2 / TEMPR;
                   }
-                  if( TEMP*( ASCALE*ABS( H( J+1, J ) ) ) <= TEMP2* ( ASCALE*ATOL ) )ILAZR2 = true;
+                  if( TEMP*( ASCALE*( H( J+1, J ) ) ).abs() <= TEMP2* ( ASCALE*ATOL ) )ILAZR2 = true;
                }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
@@ -269,7 +269,7 @@
                      srot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
                      ILAZR2 = false;
-                     if ( ABS( T( JCH+1, JCH+1 ) ) >= BTOL ) {
+                     if ( ( T( JCH+1, JCH+1 ) ).abs() >= BTOL ) {
                         if ( JCH+1 >= ILAST ) {
                            GO TO 80;
                         } else {
@@ -387,7 +387,7 @@
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)
 
-            if( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ) < ABS( T( ILAST-1, ILAST-1 ) ) ) {
+            if( ( REAL( MAXIT )*SAFMIN )*( H( ILAST, ILAST-1 ) ).abs() < ( T( ILAST-1, ILAST-1 ) ) ).abs() {
                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 );
             } else {
                ESHIFT = ESHIFT + ONE / ( SAFMIN*REAL( MAXIT ) );
@@ -411,7 +411,7 @@
                S1 = S2;
                S2 = TEMP;
             }
-            TEMP = max( S1, SAFMIN*max( ONE, ABS( WR ), ABS( WI ) ) );
+            TEMP = max( S1, SAFMIN*max( ONE, ( WR ).abs(), ( WI ).abs() ) );
             if (WI != ZERO) GO TO 200;
          }
 
@@ -425,7 +425,7 @@
          }
 
          TEMP = min( BSCALE, ONE )*( HALF*SAFMAX );
-         if( ABS( WR ) > TEMP ) SCALE = min( SCALE, TEMP / ABS( WR ) );
+         if( ( WR ).abs() > TEMP ) SCALE = min( SCALE, TEMP / ( WR ).abs() );
          S1 = SCALE*S1;
          WR = SCALE*WR;
 
@@ -433,7 +433,7 @@
 
          DO 120 J = ILAST - 1, IFIRST + 1, -1;
             ISTART = J;
-            TEMP = ABS( S1*H( J, J-1 ) );
+            TEMP = ( S1*H( J, J-1 ) ).abs();
             TEMP2 = ABS( S1*H( J, J )-WR*T( J, J ) );
             TEMPR = max( TEMP, TEMP2 );
             if ( TEMPR < ONE && TEMPR != ZERO ) {
@@ -593,7 +593,7 @@
             C22R = S1*A22 - WR*B22;
             C22I = -WI*B22;
 
-            if ( ABS( C11R )+ABS( C11I )+ABS( C12 ) > ABS( C21 )+ ABS( C22R )+ABS( C22I ) ) {
+            if ( ( C11R ).abs()+( C11I ).abs()+( C12 ).abs() > ( C21 ).abs()+ ( C22R ).abs()+( C22I ).abs() ) {
                T1 = SLAPY3( C12, C11R, C11I );
                CZ = C12 / T1;
                SZR = -C11R / T1;
@@ -620,9 +620,9 @@
             // (  __      )  A or B
             // ( -SQ   CQ )
 
-            AN = ABS( A11 ) + ABS( A12 ) + ABS( A21 ) + ABS( A22 );
-            BN = ABS( B11 ) + ABS( B22 );
-            WABS = ABS( WR ) + ABS( WI );
+            AN = ( A11 ).abs() + ( A12 ).abs() + ( A21 ).abs() + ( A22 ).abs();
+            BN = ( B11 ).abs() + ( B22 ).abs();
+            WABS = ( WR ).abs() + ( WI ).abs();
             if ( S1*AN > WABS*BN ) {
                CQ = CZ*B11;
                SQR = SZR*B22;
@@ -755,8 +755,8 @@
                // Swap rows to pivot
 
                ILPIVT = false;
-               TEMP = max( ABS( T( J+1, J+1 ) ), ABS( T( J+1, J+2 ) ) );
-               TEMP2 = max( ABS( T( J+2, J+1 ) ), ABS( T( J+2, J+2 ) ) );
+               TEMP = max( ( T( J+1, J+1 ) ).abs(), ( T( J+1, J+2 ) ) ).abs();
+               TEMP2 = max( ( T( J+2, J+1 ) ).abs(), ( T( J+2, J+2 ) ) ).abs();
                if ( max( TEMP, TEMP2 ) < SAFMIN ) {
                   SCALE = ZERO;
                   U1 = ONE;
@@ -780,7 +780,7 @@
 
                // Swap columns if nec.
 
-               if ( ABS( W12 ) > ABS( W11 ) ) {
+               if ( ( W12 ).abs() > ( W11 ).abs() ) {
                   ILPIVT = true;
                   TEMP = W12;
                   TEMP2 = W22;
@@ -800,14 +800,14 @@
                // Compute SCALE
 
                SCALE = ONE;
-               if ( ABS( W22 ) < SAFMIN ) {
+               if ( ( W22 ).abs() < SAFMIN ) {
                   SCALE = ZERO;
                   U2 = ONE;
                   U1 = -W12 / W11;
                   GO TO 250;
                }
-               if( ABS( W22 ) < ABS( U2 ) ) SCALE = ABS( W22 / U2 );
-               IF( ABS( W11 ) < ABS( U1 ) ) SCALE = min( SCALE, ABS( W11 / U1 ) );
+               if( ( W22 ).abs() < ( U2 ).abs() ) SCALE = ( W22 / U2 ).abs();
+               IF( ( W11 ).abs() < ( U1 ).abs() ) SCALE = min( SCALE, ( W11 / U1 ).abs() );
 
                // Solve
 

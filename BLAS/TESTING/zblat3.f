@@ -2678,7 +2678,7 @@
       // .. Statement Functions ..
       double             ABS1;
       // .. Statement Function definitions ..
-      ABS1( CL ) = ABS( DBLE( CL ) ) + ABS( DIMAG( CL ) );
+      ABS1( CL ) = ( DBLE( CL ) ).abs() + ( DIMAG( CL ) ).abs();
       // .. Executable Statements ..
       TRANA = TRANSA == 'T' || TRANSA == 'C';
       TRANB = TRANSB == 'T' || TRANSB == 'C';

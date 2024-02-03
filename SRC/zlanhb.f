@@ -45,7 +45,7 @@
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
                DO 10 I = max( K+2-J, 1 ), K;
-                  SUM = ABS( AB( I, J ) );
+                  SUM = ( AB( I, J ) ).abs();
                   if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 10
                SUM = ABS( DBLE( AB( K+1, J ) ) );
@@ -56,7 +56,7 @@
                SUM = ABS( DBLE( AB( 1, J ) ) );
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                DO 30 I = 2, min( N+1-J, K+1 );
-                  SUM = ABS( AB( I, J ) );
+                  SUM = ( AB( I, J ) ).abs();
                   if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 30
             } // 40
@@ -71,7 +71,7 @@
                SUM = ZERO;
                L = K + 1 - J;
                DO 50 I = max( 1, J-K ), J - 1;
-                  ABSA = ABS( AB( L+I, J ) );
+                  ABSA = ( AB( L+I, J ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                } // 50
@@ -89,7 +89,7 @@
                SUM = WORK( J ) + ABS( DBLE( AB( 1, J ) ) );
                L = 1 - J;
                DO 90 I = J + 1, min( N, J+K );
-                  ABSA = ABS( AB( L+I, J ) );
+                  ABSA = ( AB( L+I, J ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                } // 90

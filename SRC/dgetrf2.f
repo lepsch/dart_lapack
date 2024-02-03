@@ -87,7 +87,7 @@
 
             // Compute elements 2:M of the column
 
-            if ( ABS(A( 1, 1 )) >= SFMIN ) {
+            if ( (A( 1, 1 )).abs() >= SFMIN ) {
                dscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
             } else {
                for (I = 1; I <= M-1; I++) { // 10

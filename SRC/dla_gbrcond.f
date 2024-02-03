@@ -75,7 +75,7 @@
                   }
                } else if ( CMODE == 0 ) {
                   DO J = max( I-KL, 1 ), min( I+KU, N );
-                     TMP = TMP + ABS( AB( KD+I-J, J ) );
+                     TMP = TMP + ( AB( KD+I-J, J ) ).abs();
                   }
                } else {
                   DO J = max( I-KL, 1 ), min( I+KU, N );
@@ -93,7 +93,7 @@
                }
             } else if ( CMODE == 0 ) {
                DO J = max( I-KL, 1 ), min( I+KU, N );
-                  TMP = TMP + ABS( AB( KE-I+J, I ) );
+                  TMP = TMP + ( AB( KE-I+J, I ) ).abs();
                }
             } else {
                DO J = max( I-KL, 1 ), min( I+KU, N );

@@ -44,7 +44,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) );
+      CABS1( CDUM ) = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -306,10 +306,10 @@
       CMAX = ZERO;
       for (I = ILO; I <= IHI; I++) { // 340
          COR = ALPHA*WORK( I+N );
-         if( ABS( COR ) > CMAX ) CMAX = ABS( COR );
+         if( ( COR ).abs() > CMAX ) CMAX = ( COR ).abs();
          LSCALE( I ) = LSCALE( I ) + COR;
          COR = ALPHA*WORK( I );
-         if( ABS( COR ) > CMAX ) CMAX = ABS( COR );
+         if( ( COR ).abs() > CMAX ) CMAX = ( COR ).abs();
          RSCALE( I ) = RSCALE( I ) + COR;
       } // 340
       if (CMAX < HALF) GO TO 350;
@@ -330,17 +330,17 @@
       LSFMAX = INT( LOG10( SFMAX ) / BASL );
       for (I = ILO; I <= IHI; I++) { // 360
          IRAB = ICAMAX( N-ILO+1, A( I, ILO ), LDA );
-         RAB = ABS( A( I, IRAB+ILO-1 ) );
+         RAB = ( A( I, IRAB+ILO-1 ) ).abs();
          IRAB = ICAMAX( N-ILO+1, B( I, ILO ), LDB );
-         RAB = max( RAB, ABS( B( I, IRAB+ILO-1 ) ) );
+         RAB = max( RAB, ( B( I, IRAB+ILO-1 ) ) ).abs();
          LRAB = INT( LOG10( RAB+SFMIN ) / BASL+ONE );
          IR = INT( LSCALE( I ) + SIGN( HALF, LSCALE( I ) ) );
          IR = min( max( IR, LSFMIN ), LSFMAX, LSFMAX-LRAB );
          LSCALE( I ) = SCLFAC**IR;
          ICAB = ICAMAX( IHI, A( 1, I ), 1 );
-         CAB = ABS( A( ICAB, I ) );
+         CAB = ( A( ICAB, I ) ).abs();
          ICAB = ICAMAX( IHI, B( 1, I ), 1 );
-         CAB = max( CAB, ABS( B( ICAB, I ) ) );
+         CAB = max( CAB, ( B( ICAB, I ) ) ).abs();
          LCAB = INT( LOG10( CAB+SFMIN ) / BASL+ONE );
          JC = INT( RSCALE( I ) + SIGN( HALF, RSCALE( I ) ) );
          JC = min( max( JC, LSFMIN ), LSFMAX, LSFMAX-LCAB );

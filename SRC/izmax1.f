@@ -30,11 +30,11 @@
 
          // code for increment equal to 1
 
-         DMAX = ABS(ZX(1));
+         DMAX = (ZX(1)).abs();
          for (I = 2; I <= N; I++) {
-            if (ABS(ZX(I)) > DMAX) {
+            if ((ZX(I)).abs() > DMAX) {
                IZMAX1 = I;
-               DMAX = ABS(ZX(I));
+               DMAX = (ZX(I)).abs();
             }
          }
       } else {
@@ -42,12 +42,12 @@
          // code for increment not equal to 1
 
          IX = 1;
-         DMAX = ABS(ZX(1));
+         DMAX = (ZX(1)).abs();
          IX = IX + INCX;
          for (I = 2; I <= N; I++) {
-            if (ABS(ZX(IX)) > DMAX) {
+            if ((ZX(IX)).abs() > DMAX) {
                IZMAX1 = I;
-               DMAX = ABS(ZX(IX));
+               DMAX = (ZX(IX)).abs();
             }
             IX = IX + INCX;
          }

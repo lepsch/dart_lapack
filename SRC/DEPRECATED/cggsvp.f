@@ -40,7 +40,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( T ) = ABS( REAL( T ) ) + ABS( AIMAG( T ) );
+      CABS1( T ) = ( REAL( T ) ).abs() + ( AIMAG( T ) ).abs();
       // ..
       // .. Executable Statements ..
 

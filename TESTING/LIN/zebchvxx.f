@@ -35,7 +35,7 @@
       double             CABS1;
 
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
+      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
 
       // .. Parameters ..
       int                NWISE_I, CWISE_I;

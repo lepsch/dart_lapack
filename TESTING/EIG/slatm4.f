@@ -48,7 +48,7 @@
       // and RCOND
 
       if ( ITYPE != 0 ) {
-         if ( ABS( ITYPE ) >= 4 ) {
+         if ( ( ITYPE ).abs() >= 4 ) {
             KBEG = max( 1, min( N, NZ1+1 ) );
             KEND = max( KBEG, min( N, N-NZ2 ) );
             KLEN = KEND + 1 - KBEG;
@@ -59,7 +59,7 @@
          }
          ISDB = 1;
          ISDE = 0;
-         GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )ABS( ITYPE );
+         GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )( ITYPE ).abs();
 
          // abs(ITYPE) = 1: Identity
 

@@ -72,7 +72,7 @@
             } // 20
             TEMP = SLARND( 1, ISEED );
             if ( TEMP > SVMIN ) {
-               S( J ) = ABS( TEMP );
+               S( J ) = ( TEMP ).abs();
             } else {
                GO TO 20;
             }

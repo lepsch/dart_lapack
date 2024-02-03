@@ -452,7 +452,7 @@
 
          // Set the lower and upper bandwidths.
 
-         MAT = ABS( IMAT );
+         MAT = ( IMAT ).abs();
          if ( MAT == 1 || MAT == 7 ) {
             KL = 0;
             KU = 0;
@@ -492,7 +492,7 @@
 
          // Set the norm and condition number.
 
-         MAT = ABS( IMAT );
+         MAT = ( IMAT ).abs();
          if ( MAT == 2 || MAT == 8 ) {
             CNDNUM = BADC1;
          } else if ( MAT == 3 || MAT == 9 ) {

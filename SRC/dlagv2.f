@@ -38,7 +38,7 @@
 
       // Scale A
 
-      ANORM = max( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN );
+      ANORM = max( ( A( 1, 1 ) ).abs()+( A( 2, 1 ) ).abs(), ( A( 1, 2 ) ).abs()+( A( 2, 2 ) ).abs(), SAFMIN );
       ASCALE = ONE / ANORM;
       A( 1, 1 ) = ASCALE*A( 1, 1 );
       A( 1, 2 ) = ASCALE*A( 1, 2 );
@@ -47,7 +47,7 @@
 
       // Scale B
 
-      BNORM = max( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN );
+      BNORM = max( ( B( 1, 1 ) ).abs(), ( B( 1, 2 ) ).abs()+( B( 2, 2 ) ).abs(), SAFMIN );
       BSCALE = ONE / BNORM;
       B( 1, 1 ) = BSCALE*B( 1, 1 );
       B( 1, 2 ) = BSCALE*B( 1, 2 );
@@ -55,7 +55,7 @@
 
       // Check if A can be deflated
 
-      if ( ABS( A( 2, 1 ) ) <= ULP ) {
+      if ( ( A( 2, 1 ) ).abs() <= ULP ) {
          CSL = ONE;
          SNL = ZERO;
          CSR = ONE;
@@ -66,7 +66,7 @@
 
       // Check if B is singular
 
-      } else if ( ABS( B( 1, 1 ) ) <= ULP ) {
+      } else if ( ( B( 1, 1 ) ).abs() <= ULP ) {
          dlartg(A( 1, 1 ), A( 2, 1 ), CSL, SNL, R );
          CSR = ONE;
          SNR = ZERO;
@@ -77,7 +77,7 @@
          B( 2, 1 ) = ZERO;
          WI = ZERO;
 
-      } else if ( ABS( B( 2, 2 ) ) <= ULP ) {
+      } else if ( ( B( 2, 2 ) ).abs() <= ULP ) {
          dlartg(A( 2, 2 ), A( 2, 1 ), CSR, SNR, T );
          SNR = -SNR;
          drot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );
@@ -128,9 +128,9 @@
 
             // compute inf norms of A and B
 
-            H1 = max( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = max( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) );
+            H1 = max( ( A( 1, 1 ) ).abs()+( A( 1, 2 ) ).abs(), ( A( 2, 1 ) ).abs()+( A( 2, 2 ) ) ).abs()             H2 = max( ( B( 1, 1 ) ).abs()+( B( 1, 2 ) ).abs(), ( B( 2, 1 ) ).abs()+( B( 2, 2 ) ) ).abs();
 
-            if ( ( SCALE1*H1 ) >= ABS( WR1 )*H2 ) {
+            if ( ( SCALE1*H1 ) >= ( WR1 ).abs()*H2 ) {
 
                // find left rotation matrix Q to zero out B(2,1)
 

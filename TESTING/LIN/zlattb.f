@@ -230,7 +230,7 @@
 
          zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 );
-         BNORM = ABS( B( IY ) );
+         BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          zdscal(N, BSCAL, B, 1 );
 
@@ -472,7 +472,7 @@
 
          zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 );
-         BNORM = ABS( B( IY ) );
+         BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          zdscal(N, BSCAL, B, 1 );
 

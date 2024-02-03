@@ -406,7 +406,7 @@
          THIRD = SLAMC3( SIXTH, SIXTH );
          B = SLAMC3( THIRD, -HALF );
          B = SLAMC3( B, SIXTH );
-         B = ABS( B );
+         B = ( B ).abs();
          if (B < LEPS) B = LEPS;
 
          LEPS = 1;
@@ -461,7 +461,7 @@
             }
 
          } else if ( ( NGPMIN == GPMIN ) && ( NGNMIN == GNMIN ) ) {
-            if ( ABS( NGPMIN-NGNMIN ) == 1 ) {
+            if ( ( NGPMIN-NGNMIN ).abs() == 1 ) {
                LEMIN = max( NGPMIN, NGNMIN );
              // ( Twos-complement machines, no gradual underflow;
                // e.g., CYBER 205 )
@@ -471,7 +471,7 @@
                IWARN = true;
             }
 
-         } else if ( ( ABS( NGPMIN-NGNMIN ) == 1 ) && ( GPMIN == GNMIN ) ) {
+         } else if ( ( ( NGPMIN-NGNMIN ).abs() == 1 ) && ( GPMIN == GNMIN ) ) {
             if ( ( GPMIN-min( NGPMIN, NGNMIN ) ) == 3 ) {
                LEMIN = max( NGPMIN, NGNMIN ) - 1 + LT;
              // ( Twos-complement machines with gradual underflow;

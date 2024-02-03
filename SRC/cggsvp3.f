@@ -120,7 +120,7 @@
 
       L = 0;
       DO 20 I = 1, min( P, N );
-         if( ABS( B( I, I ) ) > TOLB ) L = L + 1;
+         if( ( B( I, I ) ).abs() > TOLB ) L = L + 1;
       } // 20
 
       if ( WANTV ) {
@@ -193,7 +193,7 @@
 
       K = 0;
       DO 80 I = 1, min( M, N-L );
-         if( ABS( A( I, I ) ) > TOLA ) K = K + 1;
+         if( ( A( I, I ) ).abs() > TOLA ) K = K + 1;
       } // 80
 
       // Update A12 := U**H*A12, where A12 = A( 1:M, N-L+1:N )

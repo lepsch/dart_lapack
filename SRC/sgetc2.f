@@ -51,7 +51,7 @@
       if ( N == 1 ) {
          IPIV( 1 ) = 1;
          JPIV( 1 ) = 1;
-         if ( ABS( A( 1, 1 ) ) < SMLNUM ) {
+         if ( ( A( 1, 1 ) ).abs() < SMLNUM ) {
             INFO = 1;
             A( 1, 1 ) = SMLNUM;
          }
@@ -68,8 +68,8 @@
          XMAX = ZERO;
          for (IP = I; IP <= N; IP++) { // 20
             for (JP = I; JP <= N; JP++) { // 10
-               if ( ABS( A( IP, JP ) ) >= XMAX ) {
-                  XMAX = ABS( A( IP, JP ) );
+               if ( ( A( IP, JP ) ).abs() >= XMAX ) {
+                  XMAX = ( A( IP, JP ) ).abs();
                   IPV = IP;
                   JPV = JP;
                }
@@ -89,7 +89,7 @@
 
          // Check for singularity
 
-         if ( ABS( A( I, I ) ) < SMIN ) {
+         if ( ( A( I, I ) ).abs() < SMIN ) {
             INFO = I;
             A( I, I ) = SMIN;
          }
@@ -99,7 +99,7 @@
          sger(N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA );
       } // 40
 
-      if ( ABS( A( N, N ) ) < SMIN ) {
+      if ( ( A( N, N ) ).abs() < SMIN ) {
          INFO = N;
          A( N, N ) = SMIN;
       }

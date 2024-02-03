@@ -97,7 +97,7 @@
          claswp(KCOLS, A( 1,J+1 ), LDA, KSTART, J, IPIV, 1 );
 
          // Factor the current column
-         PIVMAG = ABS( A( J, J ) );
+         PIVMAG = ( A( J, J ) ).abs();
          if ( PIVMAG != ZERO && !SISNAN( PIVMAG ) ) {
                if ( PIVMAG >= SFMIN ) {
                   cscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );

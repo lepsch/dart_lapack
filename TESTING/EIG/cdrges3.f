@@ -54,7 +54,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) );
+      ABS1( X ) = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Data statements ..
       const KCLASS = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,];
@@ -199,7 +199,7 @@
 
                // Generate A (w/o rotation)
 
-               if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
+               if ( ( KATYPE( JTYPE ) ).abs() == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
                   if (IN != N) claset( 'Full', N, N, CZERO, CZERO, A, LDA );
                } else {
@@ -211,7 +211,7 @@
 
                // Generate B (w/o rotation)
 
-               if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
+               if ( ( KBTYPE( JTYPE ) ).abs() == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
                   if (IN != N) claset( 'Full', N, N, CZERO, CZERO, B, LDA );
                } else {
@@ -243,11 +243,11 @@
                   CTEMP = CLARND( 3, ISEED );
                   Q( N, N ) = CONE;
                   WORK( N ) = CZERO;
-                  WORK( 3*N ) = CTEMP / ABS( CTEMP );
+                  WORK( 3*N ) = CTEMP / ( CTEMP ).abs();
                   CTEMP = CLARND( 3, ISEED );
                   Z( N, N ) = CONE;
                   WORK( 2*N ) = CZERO;
-                  WORK( 4*N ) = CTEMP / ABS( CTEMP );
+                  WORK( 4*N ) = CTEMP / ( CTEMP ).abs();
 
                   // Apply the diagonal matrices
 
@@ -276,7 +276,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -315,7 +315,7 @@
                if ( IINFO != 0 && IINFO != N+2 ) {
                   RESULT( 1+RSUB+ISORT ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9999 )'CGGES3', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 160;
                }
 

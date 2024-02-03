@@ -189,7 +189,7 @@
 
                // Generate A (w/o rotation)
 
-               if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
+               if ( ( KATYPE( JTYPE ) ).abs() == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
                   if (IN != N) slaset( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
@@ -201,7 +201,7 @@
 
                // Generate B (w/o rotation)
 
-               if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
+               if ( ( KBTYPE( JTYPE ) ).abs() == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
                   if (IN != N) slaset( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
@@ -264,7 +264,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -303,7 +303,7 @@
                if ( IINFO != 0 && IINFO != N+2 ) {
                   RESULT( 1+RSUB+ISORT ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9999 )'SGGES3', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 160;
                }
 
@@ -330,7 +330,7 @@
                for (J = 1; J <= N; J++) { // 130
                   ILABAD = false;
                   if ( ALPHAI( J ) == ZERO ) {
-                     TEMP2 = ( ABS( ALPHAR( J )-S( J, J ) ) / max( SAFMIN, ABS( ALPHAR( J ) ), ABS( S( J, J ) ) )+ABS( BETA( J )-T( J, J ) ) / max( SAFMIN, ABS( BETA( J ) ), ABS( T( J, J ) ) ) ) / ULP;
+                     TEMP2 = ( ABS( ALPHAR( J )-S( J, J ) ) / max( SAFMIN, ( ALPHAR( J ) ).abs(), ( S( J, J ) ) ).abs()+ABS( BETA( J )-T( J, J ) ) / max( SAFMIN, ( BETA( J ) ).abs(), ( T( J, J ) ) ) ).abs() / ULP;
 
                      if ( J < N ) {
                         if ( S( J+1, J ) != ZERO ) {
@@ -368,7 +368,7 @@
                         sget53(S( I1, I1 ), LDA, T( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IERR );
                         if ( IERR >= 3 ) {
                            WRITE( NOUNIT, FMT = 9998 )IERR, J, N, JTYPE, IOLDSD;
-                           INFO = ABS( IERR );
+                           INFO = ( IERR ).abs();
                         }
                      } else {
                         TEMP2 = ULPINV;

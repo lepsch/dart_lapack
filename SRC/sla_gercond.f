@@ -69,7 +69,7 @@
                }
             } else if ( CMODE == 0 ) {
                for (J = 1; J <= N; J++) {
-                  TMP = TMP + ABS( A( I, J ) );
+                  TMP = TMP + ( A( I, J ) ).abs();
                }
             } else {
                for (J = 1; J <= N; J++) {
@@ -87,7 +87,7 @@
                }
             } else if ( CMODE == 0 ) {
                for (J = 1; J <= N; J++) {
-                  TMP = TMP + ABS( A( J, I ) );
+                  TMP = TMP + ( A( J, I ) ).abs();
                }
             } else {
                for (J = 1; J <= N; J++) {

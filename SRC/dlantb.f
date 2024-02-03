@@ -46,14 +46,14 @@
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
                   DO 10 I = max( K+2-J, 1 ), K;
-                     SUM = ABS( AB( I, J ) );
+                     SUM = ( AB( I, J ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 10
                } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
                   DO 30 I = 2, min( N+1-J, K+1 );
-                     SUM = ABS( AB( I, J ) );
+                     SUM = ( AB( I, J ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 30
                } // 40
@@ -63,14 +63,14 @@
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
                   DO 50 I = max( K+2-J, 1 ), K + 1;
-                     SUM = ABS( AB( I, J ) );
+                     SUM = ( AB( I, J ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 50
                } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
                   DO 70 I = 1, min( N+1-J, K+1 );
-                     SUM = ABS( AB( I, J ) );
+                     SUM = ( AB( I, J ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 70
                } // 80
@@ -87,12 +87,12 @@
                if ( UDIAG ) {
                   SUM = ONE;
                   DO 90 I = max( K+2-J, 1 ), K;
-                     SUM = SUM + ABS( AB( I, J ) );
+                     SUM = SUM + ( AB( I, J ) ).abs();
                   } // 90
                } else {
                   SUM = ZERO;
                   DO 100 I = max( K+2-J, 1 ), K + 1;
-                     SUM = SUM + ABS( AB( I, J ) );
+                     SUM = SUM + ( AB( I, J ) ).abs();
                   } // 100
                }
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
@@ -102,12 +102,12 @@
                if ( UDIAG ) {
                   SUM = ONE;
                   DO 120 I = 2, min( N+1-J, K+1 );
-                     SUM = SUM + ABS( AB( I, J ) );
+                     SUM = SUM + ( AB( I, J ) ).abs();
                   } // 120
                } else {
                   SUM = ZERO;
                   DO 130 I = 1, min( N+1-J, K+1 );
-                     SUM = SUM + ABS( AB( I, J ) );
+                     SUM = SUM + ( AB( I, J ) ).abs();
                   } // 130
                }
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
@@ -126,7 +126,7 @@
                for (J = 1; J <= N; J++) { // 170
                   L = K + 1 - J;
                   DO 160 I = max( 1, J-K ), J - 1;
-                     WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) );
+                     WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 160
                } // 170
             } else {
@@ -136,7 +136,7 @@
                for (J = 1; J <= N; J++) { // 200
                   L = K + 1 - J;
                   DO 190 I = max( 1, J-K ), J;
-                     WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) );
+                     WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 190
                } // 200
             }
@@ -148,7 +148,7 @@
                for (J = 1; J <= N; J++) { // 230
                   L = 1 - J;
                   DO 220 I = J + 1, min( N, J+K );
-                     WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) );
+                     WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 220
                } // 230
             } else {
@@ -158,7 +158,7 @@
                for (J = 1; J <= N; J++) { // 260
                   L = 1 - J;
                   DO 250 I = J, min( N, J+K );
-                     WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) );
+                     WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 250
                } // 260
             }

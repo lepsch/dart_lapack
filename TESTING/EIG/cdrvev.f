@@ -269,7 +269,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9993 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -298,7 +298,7 @@
                if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV1', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 220;
                }
 
@@ -316,11 +316,11 @@
 
                for (J = 1; J <= N; J++) { // 120
                   TNRM = SCNRM2( N, VR( 1, J ), 1 );
-                  RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+                  RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
                   VMX = ZERO;
                   VRMX = ZERO;
                   for (JJ = 1; JJ <= N; JJ++) { // 110
-                     VTST = ABS( VR( JJ, J ) );
+                     VTST = ( VR( JJ, J ) ).abs();
                      if (VTST > VMX) VMX = VTST;
                      IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
                   } // 110
@@ -331,11 +331,11 @@
 
                for (J = 1; J <= N; J++) { // 140
                   TNRM = SCNRM2( N, VL( 1, J ), 1 );
-                  RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+                  RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
                   VMX = ZERO;
                   VRMX = ZERO;
                   for (JJ = 1; JJ <= N; JJ++) { // 130
-                     VTST = ABS( VL( JJ, J ) );
+                     VTST = ( VL( JJ, J ) ).abs();
                      if (VTST > VMX) VMX = VTST;
                      IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
                   } // 130
@@ -349,7 +349,7 @@
                if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV2', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 220;
                }
 
@@ -366,7 +366,7 @@
                if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV3', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 220;
                }
 
@@ -391,7 +391,7 @@
                if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV4', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 220;
                }
 

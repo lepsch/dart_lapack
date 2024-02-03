@@ -70,7 +70,7 @@
       for (I = 1; I <= N; I++) { // 50
          for (J = 1; J <= N; J++) { // 40
             X = ABS( E( I, J )-EIN( I, J ) ) / EPS;
-            if( ABS( E( I, J ) ) > SAFMIN ) X = X / ABS( E( I, J ) );
+            if( ( E( I, J ) ).abs() > SAFMIN ) X = X / ( E( I, J ) ).abs();
             VMAX = max( VMAX, X );
          } // 40
       } // 50

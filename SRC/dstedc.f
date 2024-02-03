@@ -169,8 +169,8 @@
             FINISH = START;
             } // 20
             if ( FINISH < N ) {
-               TINY = EPS*sqrt( ABS( D( FINISH ) ) )* sqrt( ABS( D( FINISH+1 ) ) );
-               if ( ABS( E( FINISH ) ) > TINY ) {
+               TINY = EPS*sqrt( ( D( FINISH ) ) ).abs()* sqrt( ( D( FINISH+1 ) ) ).abs();
+               if ( ( E( FINISH ) ).abs() > TINY ) {
                   FINISH = FINISH + 1;
                   GO TO 20;
                }

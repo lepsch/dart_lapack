@@ -53,7 +53,7 @@
          BETA = -SIGN( SLAPY2( ALPHA, XNORM ), ALPHA );
          SAFMIN = SLAMCH( 'S' ) / SLAMCH( 'E' );
          KNT = 0;
-         if ( ABS( BETA ) < SAFMIN ) {
+         if ( ( BETA ).abs() < SAFMIN ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -63,7 +63,7 @@
             sscal(N-1, RSAFMN, X, INCX );
             BETA = BETA*RSAFMN;
             ALPHA = ALPHA*RSAFMN;
-            if( (ABS( BETA ) < SAFMIN) && (KNT < 20) ) GO TO 10;
+            if( (( BETA ).abs() < SAFMIN) && (KNT < 20) ) GO TO 10;
 
             // New BETA is at most 1, at least SAFMIN
 

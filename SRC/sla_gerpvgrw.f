@@ -28,10 +28,10 @@
          AMAX = 0.0;
          UMAX = 0.0;
          for (I = 1; I <= N; I++) {
-            AMAX = max( ABS( A( I, J ) ), AMAX );
+            AMAX = max( ( A( I, J ) ).abs(), AMAX );
          }
          for (I = 1; I <= J; I++) {
-            UMAX = max( ABS( AF( I, J ) ), UMAX );
+            UMAX = max( ( AF( I, J ) ).abs(), UMAX );
          }
          if ( UMAX /= 0.0 ) {
             RPVGRW = min( AMAX / UMAX, RPVGRW );

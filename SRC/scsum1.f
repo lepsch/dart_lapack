@@ -34,7 +34,7 @@
 
          // NEXT LINE MODIFIED.
 
-         STEMP = STEMP + ABS( CX( I ) );
+         STEMP = STEMP + ( CX( I ) ).abs();
       } // 10
       SCSUM1 = STEMP;
       return;
@@ -46,7 +46,7 @@
 
          // NEXT LINE MODIFIED.
 
-         STEMP = STEMP + ABS( CX( I ) );
+         STEMP = STEMP + ( CX( I ) ).abs();
       } // 30
       SCSUM1 = STEMP;
       return;

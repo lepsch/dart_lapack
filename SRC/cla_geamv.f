@@ -41,7 +41,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) );
+      CABS1( CDUM ) = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -114,7 +114,7 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != 0.0 ) {
                   for (J = 1; J <= LENX; J++) {
@@ -137,7 +137,7 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != 0.0 ) {
                   for (J = 1; J <= LENX; J++) {
@@ -162,7 +162,7 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != 0.0 ) {
                   JX = KX;
@@ -187,7 +187,7 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != 0.0 ) {
                   JX = KX;

@@ -274,7 +274,7 @@
 
          EMAX = ZERO;
          if ( N0 > I0 ) {
-            EMIN = ABS( Z( 4*N0-5 ) );
+            EMIN = ( Z( 4*N0-5 ) ).abs();
          } else {
             EMIN = ZERO;
          }

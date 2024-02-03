@@ -33,7 +33,7 @@
       }
 
       if ( N == 2 ) {
-         S = ABS( H( 1, 1 )-SR2 ) + ABS( SI2 ) + ABS( H( 2, 1 ) );
+         S = ABS( H( 1, 1 )-SR2 ) + ( SI2 ).abs() + ( H( 2, 1 ) ).abs();
          if ( S == ZERO ) {
             V( 1 ) = ZERO;
             V( 2 ) = ZERO;
@@ -43,7 +43,7 @@
             V( 2 ) = H21S*( H( 1, 1 )+H( 2, 2 )-SR1-SR2 );
          }
       } else {
-         S = ABS( H( 1, 1 )-SR2 ) + ABS( SI2 ) + ABS( H( 2, 1 ) ) + ABS( H( 3, 1 ) );
+         S = ABS( H( 1, 1 )-SR2 ) + ( SI2 ).abs() + ( H( 2, 1 ) ).abs() + ( H( 3, 1 ) ).abs();
          if ( S == ZERO ) {
             V( 1 ) = ZERO;
             V( 2 ) = ZERO;

@@ -40,24 +40,24 @@
 
          // Find max(abs(A(i,j))).
 
-         ANORM = ABS( D( N ) );
+         ANORM = ( D( N ) ).abs();
          for (I = 1; I <= N - 1; I++) { // 10
-            if( ANORM < ABS( DL( I ) ) || DISNAN( ABS( DL( I ) ) ) ) ANORM = ABS(DL(I));
-            if( ANORM < ABS( D( I ) ) || DISNAN( ABS( D( I ) ) ) ) ANORM = ABS(D(I));
-            IF( ANORM < ABS( DU( I ) ) || DISNAN (ABS( DU( I ) ) ) ) ANORM = ABS(DU(I));
+            if( ANORM < ( DL( I ) ).abs() || DISNAN( ( DL( I ) ) ) ).abs() ANORM = (DL(I)).abs();
+            if( ANORM < ( D( I ) ).abs() || DISNAN( ( D( I ) ) ) ).abs() ANORM = (D(I)).abs();
+            IF( ANORM < ( DU( I ) ).abs() || DISNAN (( DU( I ) ) ) ).abs() ANORM = (DU(I)).abs();
          } // 10
       } else if ( LSAME( NORM, 'O' ) || NORM == '1' ) {
 
          // Find norm1(A).
 
          if ( N == 1 ) {
-            ANORM = ABS( D( 1 ) );
+            ANORM = ( D( 1 ) ).abs();
          } else {
-            ANORM = ABS( D( 1 ) )+ABS( DL( 1 ) );
-            TEMP = ABS( D( N ) )+ABS( DU( N-1 ) );
+            ANORM = ( D( 1 ) ).abs()+( DL( 1 ) ).abs();
+            TEMP = ( D( N ) ).abs()+( DU( N-1 ) ).abs();
             if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
             for (I = 2; I <= N - 1; I++) { // 20
-               TEMP = ABS( D( I ) )+ABS( DL( I ) )+ABS( DU( I-1 ) );
+               TEMP = ( D( I ) ).abs()+( DL( I ) ).abs()+( DU( I-1 ) ).abs();
                if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
             } // 20
          }
@@ -66,13 +66,13 @@
          // Find normI(A).
 
          if ( N == 1 ) {
-            ANORM = ABS( D( 1 ) );
+            ANORM = ( D( 1 ) ).abs();
          } else {
-            ANORM = ABS( D( 1 ) )+ABS( DU( 1 ) );
-            TEMP = ABS( D( N ) )+ABS( DL( N-1 ) );
+            ANORM = ( D( 1 ) ).abs()+( DU( 1 ) ).abs();
+            TEMP = ( D( N ) ).abs()+( DL( N-1 ) ).abs();
             if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
             for (I = 2; I <= N - 1; I++) { // 30
-               TEMP = ABS( D( I ) )+ABS( DU( I ) )+ABS( DL( I-1 ) );
+               TEMP = ( D( I ) ).abs()+( DU( I ) ).abs()+( DL( I-1 ) ).abs();
                if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
             } // 30
          }

@@ -132,8 +132,8 @@
                SUMR = 0.0;
                SUMRI = 0.0;
                for (J = 1; J <= N; J++) {
-                  SUMR = SUMR + S(I) * ABS(A(I,J)) * S(J);
-                  SUMRI = SUMRI + ABS(INVHILB(I, J)) / (S(J) * S(I));
+                  SUMR = SUMR + S(I) * (A(I,J)).abs() * S(J);
+                  SUMRI = SUMRI + (INVHILB(I, J)).abs() / (S(J) * S(I));
 
                }
                RNORM = max(RNORM,SUMR);
@@ -144,15 +144,15 @@
                SUMR = 0.0;
                SUMRI = 0.0;
                for (J = 1; J <= N; J++) {
-                  SUMR = SUMR + R(I) * ABS(A(I,J)) * C(J);
-                  SUMRI = SUMRI + ABS(INVHILB(I, J)) / (R(J) * C(I));
+                  SUMR = SUMR + R(I) * (A(I,J)).abs() * C(J);
+                  SUMRI = SUMRI + (INVHILB(I, J)).abs() / (R(J) * C(I));
                }
                RNORM = max(RNORM,SUMR);
                RINORM = max(RINORM,SUMRI);
             }
          }
 
-         RNORM = RNORM / ABS(A(1, 1));
+         RNORM = RNORM / (A(1, 1)).abs();
          RCOND = 1.0/(RNORM * RINORM);
 
          // Calculating the R for normwise rcond.
@@ -161,7 +161,7 @@
          }
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               RINV(I) = RINV(I) + ABS(A(I,J));
+               RINV(I) = RINV(I) + (A(I,J)).abs();
             }
          }
 
@@ -177,7 +177,7 @@
 
          // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
          // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
-         NCOND = ABS(A(1,1)) / RINORM;
+         NCOND = (A(1,1)).abs() / RINORM;
 
          CONDTHRESH = M * EPS;
          ERRTHRESH = M * EPS;
@@ -187,10 +187,10 @@
             NORMDIF = 0.0;
             CWISE_ERR = 0.0;
             for (I = 1; I <= N; I++) {
-               NORMT = max(ABS(INVHILB(I, K)), NORMT);
+               NORMT = max((INVHILB(I, K)).abs(), NORMT);
                NORMDIF = max(ABS(X(I,K) - INVHILB(I,K)), NORMDIF);
                if (INVHILB(I,K) != 0.0) {
-                  CWISE_ERR = max(ABS(X(I,K) - INVHILB(I,K)) /ABS(INVHILB(I,K)), CWISE_ERR);
+                  CWISE_ERR = max(ABS(X(I,K) - INVHILB(I,K)) /(INVHILB(I,K)).abs(), CWISE_ERR);
                } else if (X(I, K) != 0.0) {
                   CWISE_ERR = DLAMCH('OVERFLOW');
                }
@@ -221,7 +221,7 @@
             }
          // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
          // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
-            CCOND = ABS(A(1,1))/RINORM;
+            CCOND = (A(1,1)).abs()/RINORM;
 
          // Forward error bound tests
             NWISE_BND = ERRBND_N(K + (BND_I-1)*NRHS);

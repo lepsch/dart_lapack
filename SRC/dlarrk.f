@@ -41,7 +41,7 @@
       // Get machine constants
       EPS = DLAMCH( 'P' );
 
-      TNORM = max( ABS( GL ), ABS( GU ) );
+      TNORM = max( ( GL ).abs(), ( GU ).abs() );
       RTOLI = RELTOL;
       ATOLI = FUDGE*TWO*PIVMIN;
        ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2;
@@ -56,8 +56,8 @@
 
       // Check if interval converged or maximum number of iterations reached
 
-      TMP1 = ABS( RIGHT - LEFT );
-      TMP2 = max( ABS(RIGHT), ABS(LEFT) );
+      TMP1 = ( RIGHT - LEFT ).abs();
+      TMP2 = max( (RIGHT).abs(), (LEFT).abs() );
       if ( TMP1 < max( ATOLI, PIVMIN, RTOLI*TMP2 ) ) {
          INFO = 0;
          GOTO 30;
@@ -71,12 +71,12 @@
       MID = HALF * (LEFT + RIGHT);
       NEGCNT = 0;
       TMP1 = D( 1 ) - MID;
-      if( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN;
+      if( ( TMP1 ).abs() < PIVMIN ) TMP1 = -PIVMIN;
       IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1;
 
       for (I = 2; I <= N; I++) { // 20
          TMP1 = D( I ) - E2( I-1 ) / TMP1 - MID;
-         if( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN;
+         if( ( TMP1 ).abs() < PIVMIN ) TMP1 = -PIVMIN;
          IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1;
       } // 20
 
@@ -92,7 +92,7 @@
       // Converged or maximum number of iterations reached
 
       W = HALF * (LEFT + RIGHT);
-      WERR = HALF * ABS( RIGHT - LEFT );
+      WERR = HALF * ( RIGHT - LEFT ).abs();
 
       return;
       }

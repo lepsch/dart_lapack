@@ -68,7 +68,7 @@
             X( JJ ) = ZLARND( 2, ISEED );
             JJ = JJ - ( J-3 );
             X( JJ ) = ZLARND( 2, ISEED );
-            if ( ABS( X( JJ+( J-3 ) ) ) > ABS( X( JJ ) ) ) {
+            if ( ABS( X( JJ+( J-3 ) ) ) > ( X( JJ ) ) ).abs() {
                X( JJ+( J-4 ) ) = 2.0*X( JJ+( J-3 ) );
             } else {
                X( JJ+( J-4 ) ) = 2.0*X( JJ );
@@ -97,7 +97,7 @@
          if ( J > 1 ) {
             X( JJ ) = ZLARND( 2, ISEED );
             X( JJ-J ) = ZLARND( 2, ISEED );
-            if ( ABS( X( JJ ) ) > ABS( X( JJ-J ) ) ) {
+            if ( ( X( JJ ) ).abs() > ( X( JJ-J ) ) ).abs() {
                X( JJ-1 ) = 2.0*X( JJ );
             } else {
                X( JJ-1 ) = 2.0*X( JJ-J );
@@ -132,7 +132,7 @@
             X( JJ ) = ZLARND( 2, ISEED );
             JJ = JJ + ( N-J-2 );
             X( JJ ) = ZLARND( 2, ISEED );
-            if ( ABS( X( JJ-( N-J-2 ) ) ) > ABS( X( JJ ) ) ) {
+            if ( ABS( X( JJ-( N-J-2 ) ) ) > ( X( JJ ) ) ).abs() {
                X( JJ-( N-J-2 )+1 ) = 2.0*X( JJ-( N-J-2 ) );
             } else {
                X( JJ-( N-J-2 )+1 ) = 2.0*X( JJ );
@@ -161,7 +161,7 @@
          if ( J < N ) {
             X( JJ ) = ZLARND( 2, ISEED );
             X( JJ+( N-J+1 ) ) = ZLARND( 2, ISEED );
-            if ( ABS( X( JJ ) ) > ABS( X( JJ+( N-J+1 ) ) ) ) {
+            if ( ( X( JJ ) ).abs() > ABS( X( JJ+( N-J+1 ) ) ) ) {
                X( JJ+1 ) = 2.0*X( JJ );
             } else {
                X( JJ+1 ) = 2.0*X( JJ+( N-J+1 ) );

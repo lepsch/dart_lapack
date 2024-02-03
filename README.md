@@ -367,6 +367,18 @@ $1void \L$2() {
 $1 \L$2($3) {
 ```
 
+### ABS -> abs
+```
+^(\s+[^/\s].*[^.])\bABS\s*(\([^(]+?\))
+$1$2.abs()
+```
+
++ one level
+```
+^(\s+[^/\s].*[^.])\bABS\s*(\([^(]+?\([^(]+\)\s*\))
+$1$2.abs()
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

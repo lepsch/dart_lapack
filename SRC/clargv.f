@@ -43,7 +43,7 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1( FF ) = max( ABS( REAL( FF ) ), ABS( AIMAG( FF ) ) );
+      ABS1( FF ) = max( ( REAL( FF ) ).abs(), ( AIMAG( FF ) ) ).abs();
       ABSSQ( FF ) = REAL( FF )**2 + AIMAG( FF )**2;
       // ..
       // .. Executable Statements ..

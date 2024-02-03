@@ -91,11 +91,11 @@
       if ( N == 1 ) {
          if ( ALLSV || INDSV ) {
             NS = 1;
-            S( 1 ) = ABS( D( 1 ) );
+            S( 1 ) = ( D( 1 ) ).abs();
          } else {
-            if ( VL < ABS( D( 1 ) ) && VU >= ABS( D( 1 ) ) ) {
+            if ( VL < ( D( 1 ) ).abs() && VU >= ( D( 1 ) ) ).abs() {
                NS = 1;
-               S( 1 ) = ABS( D( 1 ) );
+               S( 1 ) = ( D( 1 ) ).abs();
             }
          }
          if ( WANTZ ) {
@@ -121,17 +121,17 @@
       // Compute approximate maximum, minimum singular values.
 
       I = ISAMAX( N, D, 1 );
-      SMAX = ABS( D( I ) );
+      SMAX = ( D( I ) ).abs();
       I = ISAMAX( N-1, E, 1 );
-      SMAX = max( SMAX, ABS( E( I ) ) );
+      SMAX = max( SMAX, ( E( I ) ) ).abs();
 
       // Compute threshold for neglecting D's and E's.
 
-      SMIN = ABS( D( 1 ) );
+      SMIN = ( D( 1 ) ).abs();
       if ( SMIN != ZERO ) {
          MU = SMIN;
          for (I = 2; I <= N; I++) {
-            MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) );
+            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ) ).abs();
             SMIN = min( SMIN, MU );
             if (SMIN == ZERO) EXIT;
          }
@@ -142,10 +142,10 @@
       // Check for zeros in D and E (splits), i.e. submatrices.
 
       for (I = 1; I <= N-1; I++) {
-         if( ABS( D( I ) ) <= THRESH ) D( I ) = ZERO;
-         if( ABS( E( I ) ) <= THRESH ) E( I ) = ZERO;
+         if( ( D( I ) ).abs() <= THRESH ) D( I ) = ZERO;
+         if( ( E( I ) ).abs() <= THRESH ) E( I ) = ZERO;
       }
-      if( ABS( D( N ) ) <= THRESH ) D( N ) = ZERO;
+      if( ( D( N ) ).abs() <= THRESH ) D( N ) = ZERO;
 
       // Pointers for arrays used by SSTEVX.
 
@@ -383,7 +383,7 @@
                            INFO = N*2 + 1;
                            return;
                         }
-                        CALL SSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU != ONE && ABS( NRMU-ORTOL )*SQRT2 > ONE ) THEN;
+                        CALL SSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU != ONE && ( NRMU-ORTOL ).abs()*SQRT2 > ONE ) THEN;
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -SDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
                               saxpy(NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
@@ -398,7 +398,7 @@
                            INFO = N*2 + 1;
                            return;
                         }
-                        CALL SSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV != ONE && ABS( NRMV-ORTOL )*SQRT2 > ONE ) THEN;
+                        CALL SSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV != ONE && ( NRMV-ORTOL ).abs()*SQRT2 > ONE ) THEN;
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -SDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
                               saxpy(NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
@@ -425,7 +425,7 @@
                   // Absolute values of the eigenvalues of TGK.
 
                   for (I = 0; I <= NSL-1; I++) {
-                     S( ISBEG+I ) = ABS( S( ISBEG+I ) );
+                     S( ISBEG+I ) = ( S( ISBEG+I ) ).abs();
                   }
 
                   // Update pointers for TGK, S and Z.

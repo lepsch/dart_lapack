@@ -424,7 +424,7 @@
                                  RPVGRW = CLANGB( 'M', N, KL, KU, A, LDA, RDUM ) / RPVGRW;
                               }
                            }
-                           RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / max( RWORK( 2*NRHS+1 ), RPVGRW ) / SLAMCH( 'E' );
+                           RESULT( 7 ) = ( RPVGRW-RWORK( 2*NRHS+1 ) ).abs() / max( RWORK( 2*NRHS+1 ), RPVGRW ) / SLAMCH( 'E' );
 
                            if ( !PREFAC ) {
 
@@ -562,7 +562,7 @@
                      } else {
                         RPVGRW = CLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB);
                      }
-                      RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) / max( rpvgrw_svxx, RPVGRW ) / SLAMCH( 'E' );
+                      RESULT( 7 ) = ( RPVGRW-rpvgrw_svxx ).abs() / max( rpvgrw_svxx, RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 

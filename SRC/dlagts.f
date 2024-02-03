@@ -36,7 +36,7 @@
       // .. Executable Statements ..
 
       INFO = 0;
-      if ( ( ABS( JOB ) > 2 ) || ( JOB == 0 ) ) {
+      if ( ( ( JOB ).abs() > 2 ) || ( JOB == 0 ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
@@ -54,17 +54,17 @@
 
       if ( JOB < 0 ) {
          if ( TOL <= ZERO ) {
-            TOL = ABS( A( 1 ) );
-            if (N > 1) TOL = max( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) );
+            TOL = ( A( 1 ) ).abs();
+            if (N > 1) TOL = max( TOL, ( A( 2 ) ).abs(), ( B( 1 ) ) ).abs();
             for (K = 3; K <= N; K++) { // 10
-               TOL = max( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) );
+               TOL = max( TOL, ( A( K ) ).abs(), ( B( K-1 ) ).abs(), ( D( K-2 ) ) ).abs();
             } // 10
             TOL = TOL*EPS;
             if (TOL == ZERO) TOL = EPS;
          }
       }
 
-      if ( ABS( JOB ) == 1 ) {
+      if ( ( JOB ).abs() == 1 ) {
          for (K = 2; K <= N; K++) { // 20
             if ( IN( K-1 ) == 0 ) {
                Y( K ) = Y( K ) - C( K-1 )*Y( K-1 );
@@ -84,17 +84,17 @@
                   TEMP = Y( K );
                }
                AK = A( K );
-               ABSAK = ABS( AK );
+               ABSAK = ( AK ).abs();
                if ( ABSAK < ONE ) {
                   if ( ABSAK < SFMIN ) {
-                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
+                     if ( ABSAK == ZERO || ( TEMP ).abs()*SFMIN > ABSAK ) {
                         INFO = K;
                         return;
                      } else {
                         TEMP = TEMP*BIGNUM;
                         AK = AK*BIGNUM;
                      }
-                  } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
+                  } else if ( ( TEMP ).abs() > ABSAK*BIGNUM ) {
                      INFO = K;
                      return;
                   }
@@ -113,10 +113,10 @@
                AK = A( K );
                PERT = SIGN( TOL, AK );
                } // 40
-               ABSAK = ABS( AK );
+               ABSAK = ( AK ).abs();
                if ( ABSAK < ONE ) {
                   if ( ABSAK < SFMIN ) {
-                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
+                     if ( ABSAK == ZERO || ( TEMP ).abs()*SFMIN > ABSAK ) {
                         AK = AK + PERT;
                         PERT = 2*PERT;
                         GO TO 40;
@@ -124,7 +124,7 @@
                         TEMP = TEMP*BIGNUM;
                         AK = AK*BIGNUM;
                      }
-                  } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
+                  } else if ( ( TEMP ).abs() > ABSAK*BIGNUM ) {
                      AK = AK + PERT;
                      PERT = 2*PERT;
                      GO TO 40;
@@ -147,17 +147,17 @@
                   TEMP = Y( K );
                }
                AK = A( K );
-               ABSAK = ABS( AK );
+               ABSAK = ( AK ).abs();
                if ( ABSAK < ONE ) {
                   if ( ABSAK < SFMIN ) {
-                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
+                     if ( ABSAK == ZERO || ( TEMP ).abs()*SFMIN > ABSAK ) {
                         INFO = K;
                         return;
                      } else {
                         TEMP = TEMP*BIGNUM;
                         AK = AK*BIGNUM;
                      }
-                  } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
+                  } else if ( ( TEMP ).abs() > ABSAK*BIGNUM ) {
                      INFO = K;
                      return;
                   }
@@ -176,10 +176,10 @@
                AK = A( K );
                PERT = SIGN( TOL, AK );
                } // 70
-               ABSAK = ABS( AK );
+               ABSAK = ( AK ).abs();
                if ( ABSAK < ONE ) {
                   if ( ABSAK < SFMIN ) {
-                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
+                     if ( ABSAK == ZERO || ( TEMP ).abs()*SFMIN > ABSAK ) {
                         AK = AK + PERT;
                         PERT = 2*PERT;
                         GO TO 70;
@@ -187,7 +187,7 @@
                         TEMP = TEMP*BIGNUM;
                         AK = AK*BIGNUM;
                      }
-                  } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
+                  } else if ( ( TEMP ).abs() > ABSAK*BIGNUM ) {
                      AK = AK + PERT;
                      PERT = 2*PERT;
                      GO TO 70;

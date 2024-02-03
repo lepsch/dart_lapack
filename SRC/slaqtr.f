@@ -56,7 +56,7 @@
       BIGNUM = ONE / SMLNUM;
 
       XNORM = SLANGE( 'M', N, N, T, LDT, D );
-      if ( !LREAL) XNORM = max( XNORM, ABS( W ), SLANGE( 'M', N, 1, B, N, D ) );
+      if ( !LREAL) XNORM = max( XNORM, ( W ).abs(), SLANGE( 'M', N, 1, B, N, D ) );
       SMIN = max( SMLNUM, EPS*XNORM );
 
       // Compute 1-norm of each column of strictly upper triangular
@@ -69,7 +69,7 @@
 
       if ( !LREAL ) {
          for (I = 2; I <= N; I++) { // 20
-            WORK( I ) = WORK( I ) + ABS( B( I ) );
+            WORK( I ) = WORK( I ) + ( B( I ) ).abs();
          } // 20
       }
 
@@ -77,7 +77,7 @@
       N1 = N;
       if ( !LREAL) N1 = N2;
       K = ISAMAX( N1, X, 1 );
-      XMAX = ABS( X( K ) );
+      XMAX = ( X( K ) ).abs();
       SCALE = ONE;
 
       if ( XMAX > BIGNUM ) {
@@ -112,8 +112,8 @@
                   // Scale to avoid overflow when computing
                       // x(j) = b(j)/T(j,j)
 
-                  XJ = ABS( X( J1 ) );
-                  TJJ = ABS( T( J1, J1 ) );
+                  XJ = ( X( J1 ) ).abs();
+                  TJJ = ( T( J1, J1 ) ).abs();
                   TMP = T( J1, J1 );
                   if ( TJJ < SMIN ) {
                      TMP = SMIN;
@@ -132,7 +132,7 @@
                      }
                   }
                   X( J1 ) = X( J1 ) / TMP;
-                  XJ = ABS( X( J1 ) );
+                  XJ = ( X( J1 ) ).abs();
 
                   // Scale x if necessary to avoid overflow when adding a
                   // multiple of column j1 of T.
@@ -147,7 +147,7 @@
                   if ( J1 > 1 ) {
                      saxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      K = ISAMAX( J1-1, X, 1 );
-                     XMAX = ABS( X( K ) );
+                     XMAX = ( X( K ) ).abs();
                   }
 
                } else {
@@ -172,7 +172,7 @@
                   // Scale V(1,1) (= X(J1)) and/or V(2,1) (=X(J2))
                   // to avoid overflow in updating right-hand side.
 
-                  XJ = max( ABS( V( 1, 1 ) ), ABS( V( 2, 1 ) ) );
+                  XJ = max( ( V( 1, 1 ) ).abs(), ( V( 2, 1 ) ) ).abs();
                   if ( XJ > ONE ) {
                      REC = ONE / XJ;
                      if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
@@ -187,7 +187,7 @@
                      saxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      saxpy(J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 );
                      K = ISAMAX( J1-1, X, 1 );
-                     XMAX = ABS( X( K ) );
+                     XMAX = ( X( K ) ).abs();
                   }
 
                }
@@ -218,7 +218,7 @@
                   // Scale if necessary to avoid overflow in forming the
                   // right-hand side element by inner product.
 
-                  XJ = ABS( X( J1 ) );
+                  XJ = ( X( J1 ) ).abs();
                   if ( XMAX > ONE ) {
                      REC = ONE / XMAX;
                      if ( WORK( J1 ) > ( BIGNUM-XJ )*REC ) {
@@ -230,8 +230,8 @@
 
                   X( J1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 );
 
-                  XJ = ABS( X( J1 ) );
-                  TJJ = ABS( T( J1, J1 ) );
+                  XJ = ( X( J1 ) ).abs();
+                  TJJ = ( T( J1, J1 ) ).abs();
                   TMP = T( J1, J1 );
                   if ( TJJ < SMIN ) {
                      TMP = SMIN;
@@ -248,7 +248,7 @@
                      }
                   }
                   X( J1 ) = X( J1 ) / TMP;
-                  XMAX = max( XMAX, ABS( X( J1 ) ) );
+                  XMAX = max( XMAX, ( X( J1 ) ) ).abs();
 
                } else {
 
@@ -257,7 +257,7 @@
                   // Scale if necessary to avoid overflow in forming the
                   // right-hand side elements by inner product.
 
-                  XJ = max( ABS( X( J1 ) ), ABS( X( J2 ) ) );
+                  XJ = max( ( X( J1 ) ).abs(), ( X( J2 ) ) ).abs();
                   if ( XMAX > ONE ) {
                      REC = ONE / XMAX;
                      if ( max( WORK( J2 ), WORK( J1 ) ) > ( BIGNUM-XJ )* REC ) {
@@ -278,7 +278,7 @@
                   }
                   X( J1 ) = V( 1, 1 );
                   X( J2 ) = V( 2, 1 );
-                  XMAX = max( ABS( X( J1 ) ), ABS( X( J2 ) ), XMAX );
+                  XMAX = max( ( X( J1 ) ).abs(), ( X( J2 ) ).abs(), XMAX );
 
                }
             } // 40
@@ -286,7 +286,7 @@
 
       } else {
 
-         SMINW = max( EPS*ABS( W ), SMIN );
+         SMINW = max( EPS*( W ).abs(), SMIN );
          if ( NOTRAN ) {
 
             // Solve (T + iB)*(p+iq) = c+id
@@ -312,8 +312,8 @@
 
                   Z = W;
                   if (J1 == 1) Z = B( 1 );
-                  XJ = ABS( X( J1 ) ) + ABS( X( N+J1 ) );
-                  TJJ = ABS( T( J1, J1 ) ) + ABS( Z );
+                  XJ = ( X( J1 ) ).abs() + ( X( N+J1 ) ).abs();
+                  TJJ = ( T( J1, J1 ) ).abs() + ( Z ).abs();
                   TMP = T( J1, J1 );
                   if ( TJJ < SMINW ) {
                      TMP = SMINW;
@@ -334,7 +334,7 @@
                   sladiv(X( J1 ), X( N+J1 ), TMP, Z, SR, SI );
                   X( J1 ) = SR;
                   X( N+J1 ) = SI;
-                  XJ = ABS( X( J1 ) ) + ABS( X( N+J1 ) );
+                  XJ = ( X( J1 ) ).abs() + ( X( N+J1 ) ).abs();
 
                   // Scale x if necessary to avoid overflow when adding a
                   // multiple of column j1 of T.
@@ -356,7 +356,7 @@
 
                      XMAX = ZERO;
                      for (K = 1; K <= J1 - 1; K++) { // 50
-                        XMAX = max( XMAX, ABS( X( K ) )+ ABS( X( K+N ) ) );
+                        XMAX = max( XMAX, ( X( K ) ).abs()+ ( X( K+N ) ) ).abs();
                      } // 50
                   }
 
@@ -383,7 +383,7 @@
                   // Scale X(J1), .... to avoid overflow in
                   // updating right hand side.
 
-                  XJ = max( ABS( V( 1, 1 ) )+ABS( V( 1, 2 ) ), ABS( V( 2, 1 ) )+ABS( V( 2, 2 ) ) );
+                  XJ = max( ( V( 1, 1 ) ).abs()+( V( 1, 2 ) ).abs(), ( V( 2, 1 ) ).abs()+( V( 2, 2 ) ) ).abs();
                   if ( XJ > ONE ) {
                      REC = ONE / XJ;
                      if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
@@ -405,7 +405,7 @@
 
                      XMAX = ZERO;
                      for (K = 1; K <= J1 - 1; K++) { // 60
-                        XMAX = max( ABS( X( K ) )+ABS( X( K+N ) ), XMAX );
+                        XMAX = max( ( X( K ) ).abs()+( X( K+N ) ).abs(), XMAX );
                      } // 60
                   }
 
@@ -436,7 +436,7 @@
                   // Scale if necessary to avoid overflow in forming the
                   // right-hand side element by inner product.
 
-                  XJ = ABS( X( J1 ) ) + ABS( X( J1+N ) );
+                  XJ = ( X( J1 ) ).abs() + ( X( J1+N ) ).abs();
                   if ( XMAX > ONE ) {
                      REC = ONE / XMAX;
                      if ( WORK( J1 ) > ( BIGNUM-XJ )*REC ) {
@@ -452,7 +452,7 @@
                      X( J1 ) = X( J1 ) - B( J1 )*X( N+1 );
                      X( N+J1 ) = X( N+J1 ) + B( J1 )*X( 1 );
                   }
-                  XJ = ABS( X( J1 ) ) + ABS( X( J1+N ) );
+                  XJ = ( X( J1 ) ).abs() + ( X( J1+N ) ).abs();
 
                   Z = W;
                   if (J1 == 1) Z = B( 1 );
@@ -460,7 +460,7 @@
                   // Scale if necessary to avoid overflow in
                   // complex division
 
-                  TJJ = ABS( T( J1, J1 ) ) + ABS( Z );
+                  TJJ = ( T( J1, J1 ) ).abs() + ( Z ).abs();
                   TMP = T( J1, J1 );
                   if ( TJJ < SMINW ) {
                      TMP = SMINW;
@@ -479,7 +479,7 @@
                   sladiv(X( J1 ), X( N+J1 ), TMP, -Z, SR, SI );
                   X( J1 ) = SR;
                   X( J1+N ) = SI;
-                  XMAX = max( ABS( X( J1 ) )+ABS( X( J1+N ) ), XMAX );
+                  XMAX = max( ( X( J1 ) ).abs()+( X( J1+N ) ).abs(), XMAX );
 
                } else {
 
@@ -488,7 +488,7 @@
                   // Scale if necessary to avoid overflow in forming the
                   // right-hand side element by inner product.
 
-                  XJ = max( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ) );
+                  XJ = max( ( X( J1 ) ).abs()+( X( N+J1 ) ).abs(), ( X( J2 ) ).abs()+( X( N+J2 ) ) ).abs();
                   if ( XMAX > ONE ) {
                      REC = ONE / XMAX;
                      if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XJ ) / XMAX ) {
@@ -515,7 +515,7 @@
                   X( J2 ) = V( 2, 1 );
                   X( N+J1 ) = V( 1, 2 );
                   X( N+J2 ) = V( 2, 2 );
-                  XMAX = max( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ), XMAX );
+                  XMAX = max( ( X( J1 ) ).abs()+( X( N+J1 ) ).abs(), ( X( J2 ) ).abs()+( X( N+J2 ) ).abs(), XMAX );
 
                }
 

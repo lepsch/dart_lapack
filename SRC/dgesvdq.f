@@ -410,7 +410,7 @@
          NR = 1;
          RTMP = sqrt(DBLE(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
-            if ( ABS(A(p,p)) < (RTMP*ABS(A(1,1))) ) GO TO 3002;
+            if ( (A(p,p)).abs() < (RTMP*(A(1,1))) ).abs() GO TO 3002;
                NR = NR + 1;
          } // 3001
          } // 3002
@@ -424,7 +424,7 @@
          // will be truncated.
          NR = 1;
          for (p = 2; p <= N; p++) { // 3401
-            if ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SFMIN ) ) GO TO 3402;
+            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1))) ).abs() || ( (A(p,p)) < SFMIN ) ).abs() GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402
@@ -436,7 +436,7 @@
          // R(i,i)=0 => R(i:N,i:N)=0.
          NR = 1;
          for (p = 2; p <= N; p++) { // 3501
-            if ( ABS(A(p,p)) == ZERO ) GO TO 3502;
+            if ( (A(p,p)).abs() == ZERO ) GO TO 3502;
             NR = NR + 1;
          } // 3501
          } // 3502

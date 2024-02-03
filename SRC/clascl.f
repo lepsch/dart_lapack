@@ -114,11 +114,11 @@
             MUL = CTOC;
             DONE = true;
             CFROMC = ONE;
-         } else if ( ABS( CFROM1 ) > ABS( CTOC ) && CTOC != ZERO ) {
+         } else if ( ( CFROM1 ).abs() > ( CTOC ).abs() && CTOC != ZERO ) {
             MUL = SMLNUM;
             DONE = false;
             CFROMC = CFROM1;
-         } else if ( ABS( CTO1 ) > ABS( CFROMC ) ) {
+         } else if ( ( CTO1 ).abs() > ( CFROMC ).abs() ) {
             MUL = BIGNUM;
             DONE = false;
             CTOC = CTO1;

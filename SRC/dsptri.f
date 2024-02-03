@@ -115,7 +115,7 @@
 
             // Invert the diagonal block.
 
-            T = ABS( AP( KCNEXT+K-1 ) );
+            T = ( AP( KCNEXT+K-1 ) ).abs();
             AK = AP( KC+K-1 ) / T;
             AKP1 = AP( KCNEXT+K ) / T;
             AKKP1 = AP( KCNEXT+K-1 ) / T;
@@ -136,7 +136,7 @@
             KCNEXT = KCNEXT + K + 1;
          }
 
-         KP = ABS( IPIV( K ) );
+         KP = ( IPIV( K ) ).abs();
          if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the leading
@@ -205,7 +205,7 @@
 
             // Invert the diagonal block.
 
-            T = ABS( AP( KCNEXT+1 ) );
+            T = ( AP( KCNEXT+1 ) ).abs();
             AK = AP( KCNEXT ) / T;
             AKP1 = AP( KC ) / T;
             AKKP1 = AP( KCNEXT+1 ) / T;
@@ -228,7 +228,7 @@
             KCNEXT = KCNEXT - ( N-K+3 );
          }
 
-         KP = ABS( IPIV( K ) );
+         KP = ( IPIV( K ) ).abs();
          if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the trailing

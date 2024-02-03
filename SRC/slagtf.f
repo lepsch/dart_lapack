@@ -54,15 +54,15 @@
       EPS = SLAMCH( 'Epsilon' );
 
       TL = max( TOL, EPS );
-      SCALE1 = ABS( A( 1 ) ) + ABS( B( 1 ) );
+      SCALE1 = ( A( 1 ) ).abs() + ( B( 1 ) ).abs();
       for (K = 1; K <= N - 1; K++) { // 10
          A( K+1 ) = A( K+1 ) - LAMBDA;
-         SCALE2 = ABS( C( K ) ) + ABS( A( K+1 ) );
-         if( K < ( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) );
+         SCALE2 = ( C( K ) ).abs() + ( A( K+1 ) ).abs();
+         if( K < ( N-1 ) ) SCALE2 = SCALE2 + ( B( K+1 ) ).abs();
          if ( A( K ) == ZERO ) {
             PIV1 = ZERO;
          } else {
-            PIV1 = ABS( A( K ) ) / SCALE1;
+            PIV1 = ( A( K ) ).abs() / SCALE1;
          }
          if ( C( K ) == ZERO ) {
             IN( K ) = 0;
@@ -70,7 +70,7 @@
             SCALE1 = SCALE2;
             if( K < ( N-1 ) ) D( K ) = ZERO;
          } else {
-            PIV2 = ABS( C( K ) ) / SCALE2;
+            PIV2 = ( C( K ) ).abs() / SCALE2;
             if ( PIV2 <= PIV1 ) {
                IN( K ) = 0;
                SCALE1 = SCALE2;
@@ -93,7 +93,7 @@
          }
          if( ( max( PIV1, PIV2 ) <= TL ) && ( IN( N ) == 0 ) ) IN( N ) = K;
       } // 10
-      if( ( ABS( A( N ) ) <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N;
+      if( ( ( A( N ) ).abs() <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N;
 
       return;
       }

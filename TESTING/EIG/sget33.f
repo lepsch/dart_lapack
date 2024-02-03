@@ -71,7 +71,7 @@
                               T( 1, 2 ) = VAL( I2 )*VM( IM2 );
                               T( 2, 1 ) = -VAL( I3 )*VM( IM3 );
                               T( 2, 2 ) = VAL( I4 )*VM( IM4 );
-                              TNRM = max( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 2, 1 ) ), ABS( T( 2, 2 ) ) );
+                              TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 2, 1 ) ).abs(), ( T( 2, 2 ) ) ).abs();
                               T1( 1, 1 ) = T( 1, 1 );
                               T1( 1, 2 ) = T( 1, 2 );
                               T1( 2, 1 ) = T( 2, 1 );
@@ -104,7 +104,7 @@
                                     for (J3 = 1; J3 <= 2; J3++) { // 50
                                        SUM = SUM - Q( J3, J1 )* T2( J3, J2 );
                                     } // 50
-                                    RES = RES + ABS( SUM ) / EPS / TNRM;
+                                    RES = RES + ( SUM ).abs() / EPS / TNRM;
                                  } // 60
                               } // 70
                               if( T( 2, 1 ) != ZERO && ( T( 1, 1 ) != T( 2, 2 ) || SIGN( ONE, T( 1, 2 ) )*SIGN( ONE, T( 2, 1 ) ) > ZERO ) )RES = RES + ONE / EPS;

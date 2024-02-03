@@ -45,7 +45,7 @@
             K = 1;
             for (J = 1; J <= N; J++) { // 20
                for (I = K; I <= K + J - 1; I++) { // 10
-                  SUM = ABS( AP( I ) );
+                  SUM = ( AP( I ) ).abs();
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 10
                K = K + J;
@@ -54,7 +54,7 @@
             K = 1;
             for (J = 1; J <= N; J++) { // 40
                for (I = K; I <= K + N - J; I++) { // 30
-                  SUM = ABS( AP( I ) );
+                  SUM = ( AP( I ) ).abs();
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 30
                K = K + N - J + 1;
@@ -70,12 +70,12 @@
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO;
                for (I = 1; I <= J - 1; I++) { // 50
-                  ABSA = ABS( AP( K ) );
+                  ABSA = ( AP( K ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                   K = K + 1;
                } // 50
-               WORK( J ) = SUM + ABS( AP( K ) );
+               WORK( J ) = SUM + ( AP( K ) ).abs();
                K = K + 1;
             } // 60
             for (I = 1; I <= N; I++) { // 70
@@ -87,10 +87,10 @@
                WORK( I ) = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
-               SUM = WORK( J ) + ABS( AP( K ) );
+               SUM = WORK( J ) + ( AP( K ) ).abs();
                K = K + 1;
                for (I = J + 1; I <= N; I++) { // 90
-                  ABSA = ABS( AP( K ) );
+                  ABSA = ( AP( K ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                   K = K + 1;
@@ -120,7 +120,7 @@
          K = 1;
          for (I = 1; I <= N; I++) { // 130
             if ( AP( K ) != ZERO ) {
-               ABSA = ABS( AP( K ) );
+               ABSA = ( AP( K ) ).abs();
                if ( SCALE < ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2;
                   SCALE = ABSA;

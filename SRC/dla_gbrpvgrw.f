@@ -29,10 +29,10 @@
          AMAX = 0.0;
          UMAX = 0.0;
          DO I = max( J-KU, 1 ), min( J+KL, N );
-            AMAX = max( ABS( AB( KD+I-J, J)), AMAX );
+            AMAX = max( ( AB( KD+I-J, J)).abs(), AMAX );
          }
          DO I = max( J-KU, 1 ), J;
-            UMAX = max( ABS( AFB( KD+I-J, J ) ), UMAX );
+            UMAX = max( ( AFB( KD+I-J, J ) ).abs(), UMAX );
          }
          if ( UMAX /= 0.0 ) {
             RPVGRW = min( AMAX / UMAX, RPVGRW );

@@ -67,16 +67,16 @@
             A = C*( D( 1 )+D( 2 ) ) + Z( 1 ) + Z( 2 );
             B = C*D( 1 )*D( 2 ) + Z( 1 )*D( 2 ) + Z( 2 )*D( 1 );
          }
-         TEMP = max( ABS( A ), ABS( B ), ABS( C ) );
+         TEMP = max( ( A ).abs(), ( B ).abs(), ( C ).abs() );
          A = A / TEMP;
          B = B / TEMP;
          C = C / TEMP;
          if ( C == ZERO ) {
             TAU = B / A;
          } else if ( A <= ZERO ) {
-            TAU = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+            TAU = ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
          } else {
-            TAU = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
+            TAU = TWO*B / ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) );
          }
          if (TAU < LBD || TAU > UBD) TAU = ( LBD+UBD )/TWO;
          if ( D(1) == TAU || D(2) == TAU || D(3) == TAU ) {
@@ -88,7 +88,7 @@
             } else {
                UBD = TAU;
             }
-            if( ABS( FINIT ) <= ABS( TEMP ) ) TAU = ZERO;
+            if( ( FINIT ).abs() <= ( TEMP ).abs() ) TAU = ZERO;
          }
       }
 
@@ -109,9 +109,9 @@
       // when computing 1/TEMP**3
 
       if ( ORGATI ) {
-         TEMP = min( ABS( D( 2 )-TAU ), ABS( D( 3 )-TAU ) );
+         TEMP = min( ABS( D( 2 )-TAU ), ( D( 3 )-TAU ) ).abs();
       } else {
-         TEMP = min( ABS( D( 1 )-TAU ), ABS( D( 2 )-TAU ) );
+         TEMP = min( ABS( D( 1 )-TAU ), ( D( 2 )-TAU ) ).abs();
       }
       SCALE = false;
       if ( TEMP <= SMALL1 ) {
@@ -163,7 +163,7 @@
       } // 30
       F = FINIT + TAU*FC;
 
-      if( ABS( F ) <= ZERO ) GO TO 60;
+      if( ( F ).abs() <= ZERO ) GO TO 60;
       if ( F <= ZERO ) {
          LBD = TAU;
       } else {
@@ -195,16 +195,16 @@
          A = ( TEMP1+TEMP2 )*F - TEMP1*TEMP2*DF;
          B = TEMP1*TEMP2*F;
          C = F - ( TEMP1+TEMP2 )*DF + TEMP1*TEMP2*DDF;
-         TEMP = max( ABS( A ), ABS( B ), ABS( C ) );
+         TEMP = max( ( A ).abs(), ( B ).abs(), ( C ).abs() );
          A = A / TEMP;
          B = B / TEMP;
          C = C / TEMP;
          if ( C == ZERO ) {
             ETA = B / A;
          } else if ( A <= ZERO ) {
-            ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+            ETA = ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
          } else {
-            ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
+            ETA = TWO*B / ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) );
          }
          if ( F*ETA >= ZERO ) {
             ETA = -F / DF;
@@ -225,7 +225,7 @@
                TEMP3 = TEMP2*TEMP;
                TEMP4 = TEMP1 / DSCALE( I );
                FC = FC + TEMP4;
-               ERRETM = ERRETM + ABS( TEMP4 );
+               ERRETM = ERRETM + ( TEMP4 ).abs();
                DF = DF + TEMP2;
                DDF = DDF + TEMP3;
             } else {
@@ -233,7 +233,7 @@
             }
          } // 40
          F = FINIT + TAU*FC;
-         ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ) <= FOUR*EPS*ERRETM ) || ( (UBD-LBD) <= FOUR*EPS*ABS(TAU) )  ) GO TO 60;
+         ERRETM = EIGHT*( ( FINIT ).abs()+( TAU ).abs()*ERRETM ) + ( TAU ).abs()*DF          IF( ( ( F ).abs() <= FOUR*EPS*ERRETM ) || ( (UBD-LBD) <= FOUR*EPS*(TAU).abs() )  ) GO TO 60;
          if ( F <= ZERO ) {
             LBD = TAU;
          } else {

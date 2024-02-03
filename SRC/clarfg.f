@@ -58,7 +58,7 @@
          RSAFMN = ONE / SAFMIN;
 
          KNT = 0;
-         if ( ABS( BETA ) < SAFMIN ) {
+         if ( ( BETA ).abs() < SAFMIN ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -68,7 +68,7 @@
             BETA = BETA*RSAFMN;
             ALPHI = ALPHI*RSAFMN;
             ALPHR = ALPHR*RSAFMN;
-            if( (ABS( BETA ) < SAFMIN) && (KNT < 20) ) GO TO 10;
+            if( (( BETA ).abs() < SAFMIN) && (KNT < 20) ) GO TO 10;
 
             // New BETA is at most 1, at least SAFMIN
 

@@ -55,7 +55,7 @@
       ERRBND = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
          IMAX = IDAMAX( N, X( 1, J ), 1 );
-         XNORM = max( ABS( X( IMAX, J ) ), UNFL );
+         XNORM = max( ( X( IMAX, J ) ).abs(), UNFL );
          DIFF = ZERO;
          for (I = 1; I <= N; I++) { // 10
             DIFF = max( DIFF, ABS( X( I, J )-XACT( I, J ) ) );
@@ -84,14 +84,14 @@
 
       for (K = 1; K <= NRHS; K++) { // 70
          for (I = 1; I <= N; I++) { // 60
-            TMP = ABS( B( I, K ) );
+            TMP = ( B( I, K ) ).abs();
             if ( NOTRAN ) {
                DO 40 J = max( I-KL, 1 ), min( I+KU, N );
-                  TMP = TMP + ABS( AB( KU+1+I-J, J ) )*ABS( X( J, K ) );
+                  TMP = TMP + ( AB( KU+1+I-J, J ) ).abs()*( X( J, K ) ).abs();
                } // 40
             } else {
                DO 50 J = max( I-KU, 1 ), min( I+KL, N );
-                  TMP = TMP + ABS( AB( KU+1+J-I, I ) )*ABS( X( J, K ) );
+                  TMP = TMP + ( AB( KU+1+J-I, I ) ).abs()*( X( J, K ) ).abs();
                } // 50
             }
             if ( I == 1 ) {

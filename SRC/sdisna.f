@@ -102,7 +102,7 @@
 
       EPS = SLAMCH( 'E' );
       SAFMIN = SLAMCH( 'S' );
-      ANORM = max( ABS( D( 1 ) ), ABS( D( K ) ) );
+      ANORM = max( ( D( 1 ) ).abs(), ( D( K ) ) ).abs();
       if ( ANORM == ZERO ) {
          THRESH = EPS;
       } else {

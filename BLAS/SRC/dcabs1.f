@@ -13,6 +13,6 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS,DBLE,DIMAG
 
-      DCABS1 = ABS(DBLE(Z)) + ABS(DIMAG(Z));
+      DCABS1 = (DBLE(Z)).abs() + (DIMAG(Z)).abs();
       return;
       }

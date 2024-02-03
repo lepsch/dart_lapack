@@ -36,7 +36,7 @@
 
       // Scale A
 
-      ANORM = max( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN );
+      ANORM = max( ( A( 1, 1 ) ).abs()+( A( 2, 1 ) ).abs(), ( A( 1, 2 ) ).abs()+( A( 2, 2 ) ).abs(), SAFMIN );
       ASCALE = ONE / ANORM;
       A11 = ASCALE*A( 1, 1 );
       A21 = ASCALE*A( 2, 1 );
@@ -48,14 +48,14 @@
       B11 = B( 1, 1 );
       B12 = B( 1, 2 );
       B22 = B( 2, 2 );
-      BMIN = RTMIN*max( ABS( B11 ), ABS( B12 ), ABS( B22 ), RTMIN );
-      if( ABS( B11 ) < BMIN ) B11 = SIGN( BMIN, B11 );
-      IF( ABS( B22 ) < BMIN ) B22 = SIGN( BMIN, B22 );
+      BMIN = RTMIN*max( ( B11 ).abs(), ( B12 ).abs(), ( B22 ).abs(), RTMIN );
+      if( ( B11 ).abs() < BMIN ) B11 = SIGN( BMIN, B11 );
+      IF( ( B22 ).abs() < BMIN ) B22 = SIGN( BMIN, B22 );
 
       // Scale B
 
-      BNORM = max( ABS( B11 ), ABS( B12 )+ABS( B22 ), SAFMIN );
-      BSIZE = max( ABS( B11 ), ABS( B22 ) );
+      BNORM = max( ( B11 ).abs(), ( B12 ).abs()+( B22 ).abs(), SAFMIN );
+      BSIZE = max( ( B11 ).abs(), ( B22 ).abs() );
       BSCALE = ONE / BSIZE;
       B11 = B11*BSCALE;
       B12 = B12*BSCALE;
@@ -69,7 +69,7 @@
       BINV22 = ONE / B22;
       S1 = A11*BINV11;
       S2 = A22*BINV22;
-      if ( ABS( S1 ) <= ABS( S2 ) ) {
+      if ( ( S1 ).abs() <= ( S2 ).abs() ) {
          AS12 = A12 - S1*B12;
          AS22 = A22 - S1*B22;
          SS = A21*( BINV11*BINV22 );
@@ -85,16 +85,16 @@
          SHIFT = S2;
       }
       QQ = SS*AS12;
-      if ( ABS( PP*RTMIN ) >= ONE ) {
+      if ( ( PP*RTMIN ).abs() >= ONE ) {
          DISCR = ( RTMIN*PP )**2 + QQ*SAFMIN;
-         R = sqrt( ABS( DISCR ) )*RTMAX;
+         R = sqrt( ( DISCR ).abs() )*RTMAX;
       } else {
-         if ( PP**2+ABS( QQ ) <= SAFMIN ) {
+         if ( PP**2+( QQ ).abs() <= SAFMIN ) {
             DISCR = ( RTMAX*PP )**2 + QQ*SAFMAX;
-            R = sqrt( ABS( DISCR ) )*RTMIN;
+            R = sqrt( ( DISCR ).abs() )*RTMIN;
          } else {
             DISCR = PP**2 + QQ;
-            R = sqrt( ABS( DISCR ) );
+            R = sqrt( ( DISCR ).abs() );
          }
       }
 
@@ -112,7 +112,7 @@
          // Compute smaller eigenvalue
 
          WSMALL = SHIFT + DIFF;
-         if ( HALF*ABS( WBIG ) > max( ABS( WSMALL ), SAFMIN ) ) {
+         if ( HALF*( WBIG ).abs() > max( ( WSMALL ).abs(), SAFMIN ) ) {
             WDET = ( A11*A22-A12*A21 )*( BINV11*BINV22 );
             WSMALL = WDET / WBIG;
          }
@@ -165,7 +165,7 @@
 
       // Scale first eigenvalue
 
-      WABS = ABS( WR1 ) + ABS( WI );
+      WABS = ( WR1 ).abs() + ( WI ).abs();
       WSIZE = max( SAFMIN, C1, FUZZY1*( WABS*C2+C3 ), min( C4, HALF*max( WABS, C5 ) ) );
       if ( WSIZE != ONE ) {
          WSCALE = ONE / WSIZE;
@@ -188,7 +188,7 @@
       // Scale second eigenvalue (if real)
 
       if ( WI == ZERO ) {
-         WSIZE = max( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ), min( C4, HALF*max( ABS( WR2 ), C5 ) ) );
+         WSIZE = max( SAFMIN, C1, FUZZY1*( ( WR2 ).abs()*C2+C3 ), min( C4, HALF*max( ( WR2 ).abs(), C5 ) ) );
          if ( WSIZE != ONE ) {
             WSCALE = ONE / WSIZE;
             if ( WSIZE > ONE ) {

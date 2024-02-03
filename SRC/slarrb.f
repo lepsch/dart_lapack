@@ -97,8 +97,8 @@
              BACK = TWO*BACK;
              GO TO 50;
           }
-         WIDTH = HALF*ABS( LEFT - RIGHT );
-         TMP = max( ABS( LEFT ), ABS( RIGHT ) );
+         WIDTH = HALF*( LEFT - RIGHT ).abs();
+         TMP = max( ( LEFT ).abs(), ( RIGHT ).abs() );
          CVRGD = max(RTOL1*GAP,RTOL2*TMP);
          if ( WIDTH <= CVRGD || WIDTH <= MNWDTH ) {
             // This interval has already converged and does not need refinement.
@@ -144,7 +144,7 @@
 
          // semiwidth of interval
          WIDTH = RIGHT - MID;
-         TMP = max( ABS( LEFT ), ABS( RIGHT ) );
+         TMP = max( ( LEFT ).abs(), ( RIGHT ).abs() );
          CVRGD = max(RTOL1*GAP,RTOL2*TMP);
          if ( ( WIDTH <= CVRGD ) || ( WIDTH <= MNWDTH ) || ( ITER == MAXITR ) ) {
             // reduce number of unconverged intervals

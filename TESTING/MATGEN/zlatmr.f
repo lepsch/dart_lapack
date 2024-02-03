@@ -242,7 +242,7 @@
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 30
-         ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 );
+         ISEED( I ) = MOD( ( ISEED( I ) ).abs(), 4096 );
       } // 30
 
       ISEED( 4 ) = 2*( ISEED( 4 ) / 2 ) + 1;
@@ -260,9 +260,9 @@
 
          // Scale by DMAX
 
-         TEMP = ABS( D( 1 ) );
+         TEMP = ( D( 1 ) ).abs();
          for (I = 2; I <= MNMIN; I++) { // 40
-            TEMP = max( TEMP, ABS( D( I ) ) );
+            TEMP = max( TEMP, ( D( I ) ) ).abs();
          } // 40
          if ( TEMP == ZERO && DMAX != CZERO ) {
             INFO = 2;

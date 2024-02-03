@@ -51,7 +51,7 @@
       ERRBND = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
          IMAX = ISAMAX( N, X( 1, J ), 1 );
-         XNORM = max( ABS( X( IMAX, J ) ), UNFL );
+         XNORM = max( ( X( IMAX, J ) ).abs(), UNFL );
          DIFF = ZERO;
          for (I = 1; I <= N; I++) { // 10
             DIFF = max( DIFF, ABS( X( I, J )-XACT( I, J ) ) );
@@ -80,14 +80,14 @@
 
       for (K = 1; K <= NRHS; K++) { // 50
          if ( N == 1 ) {
-            AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) );
+            AXBI = ( B( 1, K ) ).abs() + ABS( D( 1 )*X( 1, K ) );
          } else {
-            AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( E( 1 )*X( 2, K ) );
+            AXBI = ( B( 1, K ) ).abs() + ABS( D( 1 )*X( 1, K ) ) + ABS( E( 1 )*X( 2, K ) );
             for (I = 2; I <= N - 1; I++) { // 40
-               TMP = ABS( B( I, K ) ) + ABS( E( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( E( I )*X( I+1, K ) );
+               TMP = ( B( I, K ) ).abs() + ABS( E( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( E( I )*X( I+1, K ) );
                AXBI = min( AXBI, TMP );
             } // 40
-            TMP = ABS( B( N, K ) ) + ABS( E( N-1 )*X( N-1, K ) ) + ABS( D( N )*X( N, K ) );
+            TMP = ( B( N, K ) ).abs() + ABS( E( N-1 )*X( N-1, K ) ) + ABS( D( N )*X( N, K ) );
             AXBI = min( AXBI, TMP );
          }
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );

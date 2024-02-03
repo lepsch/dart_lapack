@@ -255,7 +255,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -306,7 +306,7 @@
                   zhegv(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -329,7 +329,7 @@
                   zhegvd(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -352,7 +352,7 @@
                   zhegvx(IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -380,7 +380,7 @@
                   zhegvx(IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -401,7 +401,7 @@
                   zhegvx(IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -445,7 +445,7 @@
                   zhpgv(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, RWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -487,7 +487,7 @@
                   zhpgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -529,7 +529,7 @@
                   zhpgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -571,7 +571,7 @@
                   zhpgvx(IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -611,7 +611,7 @@
                   zhpgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -657,7 +657,7 @@
                      zhbgv('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, RWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -699,7 +699,7 @@
                      zhbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -741,7 +741,7 @@
                      zhbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -783,7 +783,7 @@
                      zhbgvx('V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -823,7 +823,7 @@
                      zhbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {

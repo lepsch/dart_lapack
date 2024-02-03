@@ -258,7 +258,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -292,7 +292,7 @@
                dstev('V', N, D1, D2, Z, LDU, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEV(V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -321,7 +321,7 @@
                dstev('N', N, D3, D4, Z, LDU, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEV(N)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -335,7 +335,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 170
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 170
                RESULT( 3 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -354,7 +354,7 @@
                dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -365,7 +365,7 @@
                   }
                }
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
                   TEMP3 = ZERO;
                }
@@ -388,7 +388,7 @@
                dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -402,7 +402,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 240
-                  TEMP1 = max( TEMP1, ABS( WA2( J ) ), ABS( EVEIGS( J ) ) );
+                  TEMP1 = max( TEMP1, ( WA2( J ) ).abs(), ( EVEIGS( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA2( J )-EVEIGS( J ) ) );
                } // 240
                RESULT( 6 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -420,7 +420,7 @@
                dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -430,7 +430,7 @@
                   }
                }
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
                   TEMP3 = ZERO;
                }
@@ -453,7 +453,7 @@
                dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -467,7 +467,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 310
-                  TEMP1 = max( TEMP1, ABS( WA2( J ) ), ABS( EVEIGS( J ) ) );
+                  TEMP1 = max( TEMP1, ( WA2( J ) ).abs(), ( EVEIGS( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA2( J )-EVEIGS( J ) ) );
                } // 310
                RESULT( 9 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -486,7 +486,7 @@
                dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,I)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -516,7 +516,7 @@
                dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,I)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -560,7 +560,7 @@
                dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -596,7 +596,7 @@
                dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -624,7 +624,7 @@
                dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVD(V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -653,7 +653,7 @@
                dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVD(N)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -667,7 +667,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 500
-                  TEMP1 = max( TEMP1, ABS( EVEIGS( J ) ), ABS( D3( J ) ) );
+                  TEMP1 = max( TEMP1, ( EVEIGS( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( EVEIGS( J )-D3( J ) ) );
                } // 500
                RESULT( 18 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -685,7 +685,7 @@
                dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,I)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -715,7 +715,7 @@
                dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,I)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -759,7 +759,7 @@
                dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -795,7 +795,7 @@
                dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -841,7 +841,7 @@
                dsyev('V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -863,7 +863,7 @@
                dsyev('N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -877,7 +877,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 650
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 650
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -888,7 +888,7 @@
                NTEST = NTEST + 1;
 
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( D1( 1 ) ), ABS( D1( N ) ) );
+                  TEMP3 = max( ( D1( 1 ) ).abs(), ( D1( N ) ) ).abs();
                   if ( IL != 1 ) {
                      VL = D1( IL ) - max( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   } else if ( N > 0 ) {
@@ -909,7 +909,7 @@
                dsyevx('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -931,7 +931,7 @@
                dsyevx('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -945,7 +945,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 670
-                  TEMP1 = max( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
+                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 670
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -958,7 +958,7 @@
                dsyevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -981,7 +981,7 @@
                dsyevx('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1003,7 +1003,7 @@
                dsyevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1026,7 +1026,7 @@
                dsyevx('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1045,7 +1045,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
                   TEMP3 = ZERO;
                }
@@ -1083,7 +1083,7 @@
                dspev('V', UPLO, N, WORK, D1, Z, LDU, V, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1121,7 +1121,7 @@
                dspev('N', UPLO, N, WORK, D3, Z, LDU, V, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1135,7 +1135,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 790
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 790
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1165,7 +1165,7 @@
                NTEST = NTEST + 1;
 
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( D1( 1 ) ), ABS( D1( N ) ) );
+                  TEMP3 = max( ( D1( 1 ) ).abs(), ( D1( N ) ) ).abs();
                   if ( IL != 1 ) {
                      VL = D1( IL ) - max( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   } else if ( N > 0 ) {
@@ -1186,7 +1186,7 @@
                dspevx('V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1225,7 +1225,7 @@
                dspevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1239,7 +1239,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 890
-                  TEMP1 = max( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
+                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 890
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1269,7 +1269,7 @@
                dspevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1308,7 +1308,7 @@
                dspevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1327,7 +1327,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
                   TEMP3 = ZERO;
                }
@@ -1358,7 +1358,7 @@
                dspevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1397,7 +1397,7 @@
                dspevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1416,7 +1416,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
                   TEMP3 = ZERO;
                }
@@ -1456,7 +1456,7 @@
                dsbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1490,7 +1490,7 @@
                dsbev('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1504,7 +1504,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1170
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1170
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1532,7 +1532,7 @@
                dsbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1567,7 +1567,7 @@
                dsbevx('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1581,7 +1581,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1270
-                  TEMP1 = max( TEMP1, ABS( WA2( J ) ), ABS( WA3( J ) ) );
+                  TEMP1 = max( TEMP1, ( WA2( J ) ).abs(), ( WA3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA2( J )-WA3( J ) ) );
                } // 1270
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1606,7 +1606,7 @@
                dsbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1641,7 +1641,7 @@
                dsbevx('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1655,7 +1655,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
                   TEMP3 = ZERO;
                }
@@ -1681,7 +1681,7 @@
                dsbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1716,7 +1716,7 @@
                dsbevx('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1735,7 +1735,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
                   TEMP3 = ZERO;
                }
@@ -1752,7 +1752,7 @@
                dsyevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1774,7 +1774,7 @@
                dsyevd('N', UPLO, N, A, LDU, D3, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1788,7 +1788,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1470
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1470
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1825,7 +1825,7 @@
                dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1864,7 +1864,7 @@
                dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1878,7 +1878,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1570
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1570
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1916,7 +1916,7 @@
                dsbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1950,7 +1950,7 @@
                dsbevd('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1964,7 +1964,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1670
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1670
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -1978,7 +1978,7 @@
                dsyevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -2000,7 +2000,7 @@
                dsyevr('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -2014,7 +2014,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1690
-                  TEMP1 = max( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
+                  TEMP1 = max( TEMP1, ( WA1( J ) ).abs(), ( WA2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 1690
                RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -2027,7 +2027,7 @@
                dsyevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -2050,7 +2050,7 @@
                dsyevr('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -2072,7 +2072,7 @@
                dsyevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -2095,7 +2095,7 @@
                dsyevr('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -2114,7 +2114,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ( WA1( 1 ) ).abs(), ( WA1( N ) ) ).abs();
                } else {
                   TEMP3 = ZERO;
                }

@@ -118,10 +118,10 @@
 
          // Compute reorthogonalization criterion and stopping criterion.
 
-         ONENRM = ABS( D( B1 ) ) + ABS( E( B1 ) );
-         ONENRM = max( ONENRM, ABS( D( BN ) )+ABS( E( BN-1 ) ) );
+         ONENRM = ( D( B1 ) ).abs() + ( E( B1 ) ).abs();
+         ONENRM = max( ONENRM, ( D( BN ) ).abs()+( E( BN-1 ) ) ).abs();
          for (I = B1 + 1; I <= BN - 1; I++) { // 50
-            ONENRM = max( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+ ABS( E( I ) ) );
+            ONENRM = max( ONENRM, ( D( I ) ).abs()+( E( I-1 ) ).abs()+ ( E( I ) ) ).abs();
          } // 50
          ORTOL = ODM3*ONENRM;
 
@@ -150,7 +150,7 @@
             // small perturbation.
 
             if ( JBLK > 1 ) {
-               EPS1 = ABS( EPS*XJ );
+               EPS1 = ( EPS*XJ ).abs();
                PERTOL = TEN*EPS1;
                SEP = XJ - XJM;
                if (SEP < PERTOL) XJ = XJM + PERTOL;
@@ -183,7 +183,7 @@
             // Normalize and scale the righthand side vector Pb.
 
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
-            SCL = BLKSIZ*ONENRM*max( EPS, ABS( WORK( INDRV4+BLKSIZ ) ) ) / ABS( WORK( INDRV1+JMAX ) );
+            SCL = BLKSIZ*ONENRM*max( EPS, ( WORK( INDRV4+BLKSIZ ) ) ).abs() / ( WORK( INDRV1+JMAX ) ).abs();
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
 
             // Solve the system LU = Pb.
@@ -194,7 +194,7 @@
             // close enough.
 
             if (JBLK == 1) GO TO 90;
-            IF( ABS( XJ-XJM ) > ORTOL ) GPIND = J;
+            IF( ( XJ-XJM ).abs() > ORTOL ) GPIND = J;
             if ( GPIND != J ) {
                for (I = GPIND; I <= J - 1; I++) { // 80
                   ZTR = -DDOT( BLKSIZ, WORK( INDRV1+1 ), 1, Z( B1, I ), 1 );
@@ -206,7 +206,7 @@
 
             } // 90
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
-            NRM = ABS( WORK( INDRV1+JMAX ) );
+            NRM = ( WORK( INDRV1+JMAX ) ).abs();
 
             // Continue for additional iterations after norm reaches
             // stopping criterion.

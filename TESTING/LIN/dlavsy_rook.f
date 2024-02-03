@@ -134,12 +134,12 @@
 
                   // Swap the first of pair with IMAXth
 
-                  KP = ABS( IPIV( K ) );
+                  KP = ( IPIV( K ) ).abs();
                   if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // NOW swap the first of pair with Pth
 
-                  KP = ABS( IPIV( K+1 ) );
+                  KP = ( IPIV( K+1 ) ).abs();
                   if (KP != K+1) dswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 2;
@@ -218,12 +218,12 @@
 
                   // Swap the second of pair with IMAXth
 
-                  KP = ABS( IPIV( K ) );
+                  KP = ( IPIV( K ) ).abs();
                   if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // NOW swap the first of pair with Pth
 
-                  KP = ABS( IPIV( K-1 ) );
+                  KP = ( IPIV( K-1 ) ).abs();
                   if (KP != K-1) dswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 2;
@@ -274,12 +274,12 @@
 
                   // Swap the second of pair with Pth
 
-                  KP = ABS( IPIV( K ) );
+                  KP = ( IPIV( K ) ).abs();
                   if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Now swap the first of pair with IMAX(r)th
 
-                  KP = ABS( IPIV( K-1 ) );
+                  KP = ( IPIV( K-1 ) ).abs();
                   if (KP != K-1) dswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations
@@ -343,12 +343,12 @@
 
                   // Swap the first of pair with Pth
 
-                  KP = ABS( IPIV( K ) );
+                  KP = ( IPIV( K ) ).abs();
                   if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Now swap the second of pair with IMAX(r)th
 
-                  KP = ABS( IPIV( K+1 ) );
+                  KP = ( IPIV( K+1 ) ).abs();
                   if (KP != K+1) dswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation

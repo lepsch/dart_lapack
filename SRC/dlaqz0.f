@@ -183,24 +183,24 @@
          }
 
          // Check deflations at the end
-         if ( ABS( A( ISTOP-1, ISTOP-2 ) ) <= max( SMLNUM, ULP*( ABS( A( ISTOP-1, ISTOP-1 ) )+ABS( A( ISTOP-2, ISTOP-2 ) ) ) ) ) {
+         if ( ( A( ISTOP-1, ISTOP-2 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP-1, ISTOP-1 ) ).abs()+( A( ISTOP-2, ISTOP-2 ) ) ) ) ).abs() {
             A( ISTOP-1, ISTOP-2 ) = ZERO;
             ISTOP = ISTOP-2;
             LD = 0;
             ESHIFT = ZERO;
-         } else if ( ABS( A( ISTOP, ISTOP-1 ) ) <= max( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) {
+         } else if ( ( A( ISTOP, ISTOP-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP, ISTOP ) ).abs()+( A( ISTOP-1, ISTOP-1 ) ) ) ) ).abs() {
             A( ISTOP, ISTOP-1 ) = ZERO;
             ISTOP = ISTOP-1;
             LD = 0;
             ESHIFT = ZERO;
          }
          // Check deflations at the start
-         if ( ABS( A( ISTART+2, ISTART+1 ) ) <= max( SMLNUM, ULP*( ABS( A( ISTART+1, ISTART+1 ) )+ABS( A( ISTART+2, ISTART+2 ) ) ) ) ) {
+         if ( ( A( ISTART+2, ISTART+1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART+1, ISTART+1 ) ).abs()+( A( ISTART+2, ISTART+2 ) ) ) ) ).abs() {
             A( ISTART+2, ISTART+1 ) = ZERO;
             ISTART = ISTART+2;
             LD = 0;
             ESHIFT = ZERO;
-         } else if ( ABS( A( ISTART+1, ISTART ) ) <= max( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) {
+         } else if ( ( A( ISTART+1, ISTART ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART, ISTART ) ).abs()+( A( ISTART+1, ISTART+1 ) ) ) ) ).abs() {
             A( ISTART+1, ISTART ) = ZERO;
             ISTART = ISTART+1;
             LD = 0;
@@ -214,7 +214,7 @@
          // Check interior deflations
          ISTART2 = ISTART;
          DO K = ISTOP, ISTART+1, -1;
-            if ( ABS( A( K, K-1 ) ) <= max( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) {
+            if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ) ) ) ).abs() {
                A( K, K-1 ) = ZERO;
                ISTART2 = K;
                EXIT;
@@ -235,7 +235,7 @@
          K = ISTOP;
          DO WHILE ( K >= ISTART2 );
 
-            if ( ABS( B( K, K ) ) < BTOL ) {
+            if ( ( B( K, K ) ).abs() < BTOL ) {
                // A diagonal element of B is negligible, move it
                // to the top and deflate it
 
@@ -353,7 +353,7 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            if ( ( DBLE( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ) < ABS( A( ISTOP-1, ISTOP-1 ) ) ) {
+            if ( ( DBLE( MAXIT )*SAFMIN )*( A( ISTOP, ISTOP-1 ) ).abs() < ( A( ISTOP-1, ISTOP-1 ) ) ).abs() {
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 );
             } else {
                ESHIFT = ESHIFT+ONE/( SAFMIN*DBLE( MAXIT ) );

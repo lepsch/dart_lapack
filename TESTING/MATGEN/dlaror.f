@@ -98,7 +98,7 @@
          XNORMS = SIGN( XNORM, X( KBEG ) );
          X( KBEG+NXFRM ) = SIGN( ONE, -X( KBEG ) );
          FACTOR = XNORMS*( XNORMS+X( KBEG ) );
-         if ( ABS( FACTOR ) < TOOSML ) {
+         if ( ( FACTOR ).abs() < TOOSML ) {
             INFO = 1;
             xerbla('DLAROR', INFO );
             return;

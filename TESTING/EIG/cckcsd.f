@@ -83,7 +83,7 @@
                claror('L', 'I', M, M, X, LDX, ISEED, WORK, IINFO );
                if ( M != 0 && IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9999 ) M, IINFO;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 20;
                }
             } else if ( IMAT == 2 ) {

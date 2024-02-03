@@ -49,7 +49,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
+      CABS1( ZDUM ) = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -235,26 +235,26 @@
 
          RWORK( 1 ) = ONE;
          for (I = 2; I <= N; I++) { // 70
-            RWORK( I ) = ONE + RWORK( I-1 )*ABS( EF( I-1 ) );
+            RWORK( I ) = ONE + RWORK( I-1 )*( EF( I-1 ) ).abs();
          } // 70
 
          // Solve D * M(L)**H * x = b.
 
          RWORK( N ) = RWORK( N ) / DF( N );
          DO 80 I = N - 1, 1, -1;
-            RWORK( I ) = RWORK( I ) / DF( I ) + RWORK( I+1 )*ABS( EF( I ) );
+            RWORK( I ) = RWORK( I ) / DF( I ) + RWORK( I+1 )*( EF( I ) ).abs();
          } // 80
 
          // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
          IX = IDAMAX( N, RWORK, 1 );
-         FERR( J ) = FERR( J )*ABS( RWORK( IX ) );
+         FERR( J ) = FERR( J )*( RWORK( IX ) ).abs();
 
          // Normalize error.
 
          LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 90
-            LSTRES = max( LSTRES, ABS( X( I, J ) ) );
+            LSTRES = max( LSTRES, ( X( I, J ) ) ).abs();
          } // 90
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 

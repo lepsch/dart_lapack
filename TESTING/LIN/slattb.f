@@ -227,7 +227,7 @@
 
          slarnv(2, ISEED, N, B );
          IY = ISAMAX( N, B, 1 );
-         BNORM = ABS( B( IY ) );
+         BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          sscal(N, BSCAL, B, 1 );
 
@@ -470,7 +470,7 @@
 
          slarnv(2, ISEED, N, B );
          IY = ISAMAX( N, B, 1 );
-         BNORM = ABS( B( IY ) );
+         BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          sscal(N, BSCAL, B, 1 );
 

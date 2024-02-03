@@ -48,7 +48,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) );
+      CABS1( CDUM ) = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -104,7 +104,7 @@
             if( !SELECT( 1 ) ) return;
          }
          if (WANTS) S( 1 ) = ONE;
-         IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
+         IF( WANTSP ) SEP( 1 ) = ( T( 1, 1 ) ).abs();
          return;
       }
 
@@ -129,7 +129,7 @@
             PROD = CDOTC( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
             RNRM = SCNRM2( N, VR( 1, KS ), 1 );
             LNRM = SCNRM2( N, VL( 1, KS ), 1 );
-            S( KS ) = ABS( PROD ) / ( RNRM*LNRM );
+            S( KS ) = ( PROD ).abs() / ( RNRM*LNRM );
 
          }
 

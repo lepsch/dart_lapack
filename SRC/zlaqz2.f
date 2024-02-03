@@ -66,7 +66,7 @@
          BETA( KWTOP ) = B( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
-         if ( ABS( S ) <= max( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
+         if ( ( S ).abs() <= max( SMLNUM, ULP*( A( KWTOP, KWTOP ) ) ) ).abs() {
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
@@ -103,11 +103,11 @@
          K2 = 1;
          DO WHILE ( K <= JW );
                // Try to deflate eigenvalue
-               TEMPR = ABS( A( KWBOT, KWBOT ) );
+               TEMPR = ( A( KWBOT, KWBOT ) ).abs();
                if ( TEMPR == ZERO ) {
-                  TEMPR = ABS( S );
+                  TEMPR = ( S ).abs();
                }
-               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= max( ULP* TEMPR, SMLNUM ) ) {
+               if ( ( ( S*QC( 1, KWBOT-KWTOP+1 ) ) ).abs() <= max( ULP* TEMPR, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1;
                } else {

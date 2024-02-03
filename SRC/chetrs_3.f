@@ -75,7 +75,7 @@
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          DO K = N, 1, -1;
-            KP = ABS( IPIV( K ) );
+            KP = ( IPIV( K ) ).abs();
             if ( KP != K ) {
                cswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
@@ -122,7 +122,7 @@
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          DO K = 1, N, 1;
-            KP = ABS( IPIV( K ) );
+            KP = ( IPIV( K ) ).abs();
             if ( KP != K ) {
                cswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
@@ -143,7 +143,7 @@
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          DO K = 1, N, 1;
-            KP = ABS( IPIV( K ) );
+            KP = ( IPIV( K ) ).abs();
             if ( KP != K ) {
                cswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
@@ -190,7 +190,7 @@
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          DO K = N, 1, -1;
-            KP = ABS( IPIV( K ) );
+            KP = ( IPIV( K ) ).abs();
             if ( KP != K ) {
                cswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }

@@ -56,7 +56,7 @@
       if ( CHKFERR ) {
          for (J = 1; J <= NRHS; J++) { // 30
             IMAX = ISAMAX( N, X( 1, J ), 1 );
-            XNORM = max( ABS( X( IMAX, J ) ), UNFL );
+            XNORM = max( ( X( IMAX, J ) ).abs(), UNFL );
             DIFF = ZERO;
             for (I = 1; I <= N; I++) { // 10
                DIFF = max( DIFF, ABS( X( I, J )-XACT( I, J ) ) );
@@ -86,14 +86,14 @@
 
       for (K = 1; K <= NRHS; K++) { // 70
          for (I = 1; I <= N; I++) { // 60
-            TMP = ABS( B( I, K ) );
+            TMP = ( B( I, K ) ).abs();
             if ( NOTRAN ) {
                for (J = 1; J <= N; J++) { // 40
-                  TMP = TMP + ABS( A( I, J ) )*ABS( X( J, K ) );
+                  TMP = TMP + ( A( I, J ) ).abs()*( X( J, K ) ).abs();
                } // 40
             } else {
                for (J = 1; J <= N; J++) { // 50
-                  TMP = TMP + ABS( A( J, I ) )*ABS( X( J, K ) );
+                  TMP = TMP + ( A( J, I ) ).abs()*( X( J, K ) ).abs();
                } // 50
             }
             if ( I == 1 ) {

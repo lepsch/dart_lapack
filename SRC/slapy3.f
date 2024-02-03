@@ -26,9 +26,9 @@
       // .. Executable Statements ..
 
       HUGEVAL = SLAMCH( 'Overflow' );
-      XABS = ABS( X );
-      YABS = ABS( Y );
-      ZABS = ABS( Z );
+      XABS = ( X ).abs();
+      YABS = ( Y ).abs();
+      ZABS = ( Z ).abs();
       W = max( XABS, YABS, ZABS );
       if ( W == ZERO || W > HUGEVAL ) {
       // W can be zero for max(0,nan,0)

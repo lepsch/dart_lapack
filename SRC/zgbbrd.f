@@ -299,7 +299,7 @@
 
       T = AB( KU+1, 1 );
       for (I = 1; I <= MINMN; I++) { // 120
-         ABST = ABS( T );
+         ABST = ( T ).abs();
          D( I ) = ABST;
          if ( ABST != ZERO ) {
             T = T / ABST;
@@ -318,7 +318,7 @@
                } else {
                   T = AB( KU, I+1 )*DCONJG( T );
                }
-               ABST = ABS( T );
+               ABST = ( T ).abs();
                E( I ) = ABST;
                if ( ABST != ZERO ) {
                   T = T / ABST;

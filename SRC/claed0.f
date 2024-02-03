@@ -92,8 +92,8 @@
       for (I = 1; I <= SPM1; I++) { // 40
          SUBMAT = IWORK( I ) + 1;
          SMM1 = SUBMAT - 1;
-         D( SMM1 ) = D( SMM1 ) - ABS( E( SMM1 ) );
-         D( SUBMAT ) = D( SUBMAT ) - ABS( E( SMM1 ) );
+         D( SMM1 ) = D( SMM1 ) - ( E( SMM1 ) ).abs();
+         D( SUBMAT ) = D( SUBMAT ) - ( E( SMM1 ) ).abs();
       } // 40
 
       INDXQ = 4*N + 3;

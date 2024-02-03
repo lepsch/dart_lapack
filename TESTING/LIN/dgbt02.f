@@ -70,7 +70,7 @@
          for (J = 1; J <= N; J++) { // 16
             KD = KU + 1 - J;
             DO 14 I1 = max( 1, J-KU ), min( M, J+KL );
-               RWORK( I1 ) = RWORK( I1 ) + ABS( A( KD+I1, J ) );
+               RWORK( I1 ) = RWORK( I1 ) + ( A( KD+I1, J ) ).abs();
             } // 14
          } // 16
          for (I1 = 1; I1 <= M; I1++) { // 18

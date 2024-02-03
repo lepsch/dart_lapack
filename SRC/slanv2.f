@@ -57,9 +57,9 @@
 
          TEMP = A - D;
          P = HALF*TEMP;
-         BCMAX = max( ABS( B ), ABS( C ) );
-         BCMIS = min( ABS( B ), ABS( C ) )*SIGN( ONE, B )*SIGN( ONE, C );
-         SCALE = max( ABS( P ), BCMAX );
+         BCMAX = max( ( B ).abs(), ( C ).abs() );
+         BCMIS = min( ( B ).abs(), ( C ).abs() )*SIGN( ONE, B )*SIGN( ONE, C );
+         SCALE = max( ( P ).abs(), BCMAX );
          Z = ( P / SCALE )*P + ( BCMAX / SCALE )*BCMIS;
 
          // If Z is of the order of the machine accuracy, postpone the
@@ -90,7 +90,7 @@
             SIGMA = B + C;
             } // 10
             COUNT = COUNT + 1;
-            SCALE = max( ABS(TEMP), ABS(SIGMA) );
+            SCALE = max( (TEMP).abs(), (SIGMA).abs() );
             if ( SCALE >= SAFMX2 ) {
                SIGMA = SIGMA * SAFMN2;
                TEMP = TEMP * SAFMN2;
@@ -103,7 +103,7 @@
             }
             P = HALF*TEMP;
             TAU = SLAPY2( SIGMA, TEMP );
-            CS = sqrt( HALF*( ONE+ABS( SIGMA ) / TAU ) );
+            CS = sqrt( HALF*( ONE+( SIGMA ).abs() / TAU ) );
             SN = -( P / ( TAU*CS ) )*SIGN( ONE, SIGMA );
 
             // Compute [ AA  BB ] = [ A  B ] [ CS -SN ]
@@ -132,10 +132,10 @@
 
                      // Real eigenvalues: reduce to upper triangular form
 
-                     SAB = sqrt( ABS( B ) );
-                     SAC = sqrt( ABS( C ) );
+                     SAB = sqrt( ( B ).abs() );
+                     SAC = sqrt( ( C ).abs() );
                      P = SIGN( SAB*SAC, C );
-                     TAU = ONE / sqrt( ABS( B+C ) );
+                     TAU = ONE / sqrt( ( B+C ).abs() );
                      A = TEMP + P;
                      D = TEMP - P;
                      B = B - C;
@@ -166,7 +166,7 @@
          RT1I = ZERO;
          RT2I = ZERO;
       } else {
-         RT1I = sqrt( ABS( B ) )*sqrt( ABS( C ) );
+         RT1I = sqrt( ( B ).abs() )*sqrt( ( C ).abs() );
          RT2I = -RT1I;
       }
       return;

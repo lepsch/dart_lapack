@@ -125,7 +125,7 @@
          GU = max( GU, GERS(2*I) );
       } // 5
       // Compute global Gerschgorin bounds and spectral diameter
-      TNORM = max( ABS( GL ), ABS( GU ) );
+      TNORM = max( ( GL ).abs(), ( GU ).abs() );
       GL = GL - FUDGE*TNORM*EPS*N - FUDGE*TWO*PIVMIN;
       GU = GU + FUDGE*TNORM*EPS*N + FUDGE*TWO*PIVMIN;
       // [JAN/28/2009] remove the line below since SPDIAM variable not use

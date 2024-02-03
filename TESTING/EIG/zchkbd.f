@@ -282,7 +282,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -302,7 +302,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'ZGEBRD', IINFO, M, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   return;
                }
 
@@ -323,7 +323,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'ZUNGBR(Q)', IINFO, M, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   return;
                }
 
@@ -335,7 +335,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'ZUNGBR(P)', IINFO, M, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   return;
                }
 
@@ -367,7 +367,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'ZBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -388,7 +388,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'ZBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -424,7 +424,7 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 120
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ABS( S1( J ) ), ABS( S2( J ) ) ) );
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( J ) ).abs(), ( S2( J ) ) ) ).abs();
                TEMP2 = max( TEMP1, TEMP2 );
             } // 120
 

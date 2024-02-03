@@ -116,7 +116,7 @@
                WORK( K, INVD+1 ) = CZERO;
             } else {
                // 2 x 2 diagonal NNB
-               T = ABS( WORK( K+1, 1 ) );
+               T = ( WORK( K+1, 1 ) ).abs();
                AK = DBLE( A( K, K ) ) / T;
                AKP1 = DBLE( A( K+1, K+1 ) ) / T;
                AKKP1 = WORK( K+1, 1 )  / T;
@@ -261,7 +261,7 @@
          // for 1x1 and 2x2 pivot cases )
 
          for (I = 1; I <= N; I++) {
-             IP = ABS( IPIV( I ) );
+             IP = ( IPIV( I ) ).abs();
              if ( IP != I ) {
                 if (I < IP) zheswapr( UPLO, N, A, LDA, I ,IP );
                 if (I > IP) zheswapr( UPLO, N, A, LDA, IP ,I );
@@ -286,7 +286,7 @@
                WORK( K, INVD+1 ) = CZERO;
             } else {
                // 2 x 2 diagonal NNB
-               T = ABS( WORK( K-1, 1 ) );
+               T = ( WORK( K-1, 1 ) ).abs();
                AK = DBLE( A( K-1, K-1 ) ) / T;
                AKP1 = DBLE( A( K, K ) ) / T;
                AKKP1 = WORK( K-1, 1 ) / T;
@@ -445,7 +445,7 @@
          // for 1x1 and 2x2 pivot cases )
 
          DO I = N, 1, -1;
-             IP = ABS( IPIV( I ) );
+             IP = ( IPIV( I ) ).abs();
              if ( IP != I ) {
                 if (I < IP) zheswapr( UPLO, N, A, LDA, I ,IP );
                 if (I > IP) zheswapr( UPLO, N, A, LDA, IP ,I );

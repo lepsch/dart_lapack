@@ -148,13 +148,13 @@
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
-                  DA11 = ABS( A11 );
+                  DA11 = ( A11 ).abs();
                   if ( DA11 <= SMIN ) {
                      A11 = SMIN;
                      DA11 = SMIN;
                      INFO = 1;
                   }
-                  DB = ABS( VEC( 1, 1 ) );
+                  DB = ( VEC( 1, 1 ) ).abs();
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
@@ -312,13 +312,13 @@
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
-                  DA11 = ABS( A11 );
+                  DA11 = ( A11 ).abs();
                   if ( DA11 <= SMIN ) {
                      A11 = SMIN;
                      DA11 = SMIN;
                      INFO = 1;
                   }
-                  DB = ABS( VEC( 1, 1 ) );
+                  DB = ( VEC( 1, 1 ) ).abs();
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
@@ -475,13 +475,13 @@
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
-                  DA11 = ABS( A11 );
+                  DA11 = ( A11 ).abs();
                   if ( DA11 <= SMIN ) {
                      A11 = SMIN;
                      DA11 = SMIN;
                      INFO = 1;
                   }
-                  DB = ABS( VEC( 1, 1 ) );
+                  DB = ( VEC( 1, 1 ) ).abs();
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
@@ -637,13 +637,13 @@
                   SCALOC = ONE;
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 );
-                  DA11 = ABS( A11 );
+                  DA11 = ( A11 ).abs();
                   if ( DA11 <= SMIN ) {
                      A11 = SMIN;
                      DA11 = SMIN;
                      INFO = 1;
                   }
-                  DB = ABS( VEC( 1, 1 ) );
+                  DB = ( VEC( 1, 1 ) ).abs();
                   if ( DA11 < ONE && DB > ONE ) {
                      if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }

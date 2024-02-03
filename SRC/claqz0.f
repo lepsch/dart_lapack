@@ -186,14 +186,14 @@
          }
 
          // Check deflations at the end
-         if ( ABS( A( ISTOP, ISTOP-1 ) ) <= max( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) {
+         if ( ( A( ISTOP, ISTOP-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTOP, ISTOP ) ).abs()+( A( ISTOP-1, ISTOP-1 ) ) ) ) ).abs() {
             A( ISTOP, ISTOP-1 ) = CZERO;
             ISTOP = ISTOP-1;
             LD = 0;
             ESHIFT = CZERO;
          }
          // Check deflations at the start
-         if ( ABS( A( ISTART+1, ISTART ) ) <= max( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) {
+         if ( ( A( ISTART+1, ISTART ) ).abs() <= max( SMLNUM, ULP*( ( A( ISTART, ISTART ) ).abs()+( A( ISTART+1, ISTART+1 ) ) ) ) ).abs() {
             A( ISTART+1, ISTART ) = CZERO;
             ISTART = ISTART+1;
             LD = 0;
@@ -207,7 +207,7 @@
          // Check interior deflations
          ISTART2 = ISTART;
          DO K = ISTOP, ISTART+1, -1;
-            if ( ABS( A( K, K-1 ) ) <= max( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) {
+            if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ) ) ) ).abs() {
                A( K, K-1 ) = CZERO;
                ISTART2 = K;
                EXIT;
@@ -228,7 +228,7 @@
          K = ISTOP;
          DO WHILE ( K >= ISTART2 );
 
-            if ( ABS( B( K, K ) ) < BTOL ) {
+            if ( ( B( K, K ) ).abs() < BTOL ) {
                // A diagonal element of B is negligible, move it
                // to the top and deflate it
 
@@ -323,7 +323,7 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            if ( ( REAL( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ) < ABS( A( ISTOP-1, ISTOP-1 ) ) ) {
+            if ( ( REAL( MAXIT )*SAFMIN )*( A( ISTOP, ISTOP-1 ) ).abs() < ( A( ISTOP-1, ISTOP-1 ) ) ).abs() {
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 );
             } else {
                ESHIFT = ESHIFT+CONE/( SAFMIN*REAL( MAXIT ) );

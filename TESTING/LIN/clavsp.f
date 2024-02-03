@@ -134,7 +134,7 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = ABS( IPIV( K ) );
+                  KP = ( IPIV( K ) ).abs();
                   if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KCNEXT + K + 1;
@@ -216,7 +216,7 @@
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
 
-                  KP = ABS( IPIV( K ) );
+                  KP = ( IPIV( K ) ).abs();
                   if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KCNEXT;
@@ -272,7 +272,7 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = ABS( IPIV( K ) );
+                  KP = ( IPIV( K ) ).abs();
                   if (KP != K-1) cswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations.
@@ -341,7 +341,7 @@
 
                // Interchange if P(K) != I.
 
-                  KP = ABS( IPIV( K ) );
+                  KP = ( IPIV( K ) ).abs();
                   if (KP != K+1) cswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation

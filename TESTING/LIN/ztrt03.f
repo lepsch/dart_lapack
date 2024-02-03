@@ -53,7 +53,7 @@
       TNORM = ZERO;
       if ( LSAME( DIAG, 'N' ) ) {
          for (J = 1; J <= N; J++) { // 10
-            TNORM = max( TNORM, TSCAL*ABS( A( J, J ) )+CNORM( J ) );
+            TNORM = max( TNORM, TSCAL*( A( J, J ) ).abs()+CNORM( J ) );
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
@@ -68,15 +68,15 @@
       for (J = 1; J <= NRHS; J++) { // 30
          zcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 );
-         XNORM = max( ONE, ABS( X( IX, J ) ) );
+         XNORM = max( ONE, ( X( IX, J ) ) ).abs();
          XSCAL = ( ONE / XNORM ) / DBLE( N );
          zdscal(N, XSCAL, WORK, 1 );
          ztrmv(UPLO, TRANS, DIAG, N, A, LDA, WORK, 1 );
          zaxpy(N, DCMPLX( -SCALE*XSCAL ), B( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 );
-         ERR = TSCAL*ABS( WORK( IX ) );
+         ERR = TSCAL*( WORK( IX ) ).abs();
          IX = IZAMAX( N, X( 1, J ), 1 );
-         XNORM = ABS( X( IX, J ) );
+         XNORM = ( X( IX, J ) ).abs();
          if ( ERR*SMLNUM <= XNORM ) {
             if (XNORM > ZERO) ERR = ERR / XNORM;
          } else {

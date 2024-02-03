@@ -33,7 +33,7 @@
          } else if ( DIMAG( Z ) == ZERO || DIMAG( D ) == ZERO ) {
             ZLCTES = ( SIGN( ONE, DBLE( Z ) ) != SIGN( ONE, DBLE( D ) ) );
          } else {
-            ZMAX = max( ABS( DBLE( Z ) ), ABS( DIMAG( Z ) ) );
+            ZMAX = max( ( DBLE( Z ) ).abs(), ( DIMAG( Z ) ) ).abs();
             ZLCTES = ( ( DBLE( Z ) / ZMAX )*DBLE( D )+ ( DIMAG( Z ) / ZMAX )*DIMAG( D ) < ZERO );
          }
       }

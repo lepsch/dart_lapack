@@ -240,7 +240,7 @@
 
             for (I = 1; I <= N - 1; I++) { // 100
                T = AB( KD, I+1 );
-               ABST = ABS( T );
+               ABST = ( T ).abs();
                AB( KD, I+1 ) = ABST;
                E( I ) = ABST;
                if ( ABST != ZERO ) {
@@ -424,7 +424,7 @@
 
             for (I = 1; I <= N - 1; I++) { // 220
                T = AB( 2, I );
-               ABST = ABS( T );
+               ABST = ( T ).abs();
                AB( 2, I ) = ABST;
                E( I ) = ABST;
                if ( ABST != ZERO ) {

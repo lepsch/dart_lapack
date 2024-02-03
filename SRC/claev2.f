@@ -29,12 +29,12 @@
       // ..
       // .. Executable Statements ..
 
-      if ( ABS( B ) == ZERO ) {
+      if ( ( B ).abs() == ZERO ) {
          W = ONE;
       } else {
-         W = CONJG( B ) / ABS( B );
+         W = CONJG( B ) / ( B ).abs();
       }
-      slaev2(REAL( A ), ABS( B ), REAL( C ), RT1, RT2, CS1, T );
+      slaev2(REAL( A ), ( B ).abs(), REAL( C ), RT1, RT2, CS1, T );
       SN1 = W*T;
       return;
       }

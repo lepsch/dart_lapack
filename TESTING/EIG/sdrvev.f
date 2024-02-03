@@ -265,7 +265,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9993 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -294,7 +294,7 @@
                if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'SGEEV1', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 220;
                }
 
@@ -317,14 +317,14 @@
                   } else if ( WI( J ) > ZERO ) {
                      TNRM = SLAPY2( SNRM2( N, VR( 1, J ), 1 ), SNRM2( N, VR( 1, J+1 ), 1 ) );
                   }
-                  RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+                  RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
                   if ( WI( J ) > ZERO ) {
                      VMX = ZERO;
                      VRMX = ZERO;
                      for (JJ = 1; JJ <= N; JJ++) { // 110
                         VTST = SLAPY2( VR( JJ, J ), VR( JJ, J+1 ) );
                         if (VTST > VMX) VMX = VTST;
-                        IF( VR( JJ, J+1 ) == ZERO && ABS( VR( JJ, J ) ) > VRMX ) VRMX = ABS( VR( JJ, J ) );
+                        IF( VR( JJ, J+1 ) == ZERO && ( VR( JJ, J ) ).abs() > VRMX ) VRMX = ( VR( JJ, J ) ).abs();
                      } // 110
                      if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
                   }
@@ -339,14 +339,14 @@
                   } else if ( WI( J ) > ZERO ) {
                      TNRM = SLAPY2( SNRM2( N, VL( 1, J ), 1 ), SNRM2( N, VL( 1, J+1 ), 1 ) );
                   }
-                  RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+                  RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
                   if ( WI( J ) > ZERO ) {
                      VMX = ZERO;
                      VRMX = ZERO;
                      for (JJ = 1; JJ <= N; JJ++) { // 130
                         VTST = SLAPY2( VL( JJ, J ), VL( JJ, J+1 ) );
                         if (VTST > VMX) VMX = VTST;
-                        IF( VL( JJ, J+1 ) == ZERO && ABS( VL( JJ, J ) ) > VRMX ) VRMX = ABS( VL( JJ, J ) );
+                        IF( VL( JJ, J+1 ) == ZERO && ( VL( JJ, J ) ).abs() > VRMX ) VRMX = ( VL( JJ, J ) ).abs();
                      } // 130
                      if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
                   }
@@ -359,7 +359,7 @@
                if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'SGEEV2', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 220;
                }
 
@@ -376,7 +376,7 @@
                if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'SGEEV3', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 220;
                }
 
@@ -401,7 +401,7 @@
                if ( IINFO != 0 ) {
                   RESULT( 1 ) = ULPINV;
                   WRITE( NOUNIT, FMT = 9993 )'SGEEV4', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 220;
                }
 

@@ -73,7 +73,7 @@
 
       for (J = 1; J <= N; J++) { // 30
          for (I = 1; I <= M; I++) { // 20
-            R( I ) = max( R( I ), ABS( A( I, J ) ) );
+            R( I ) = max( R( I ), ( A( I, J ) ) ).abs();
          } // 20
       } // 30
 
@@ -121,7 +121,7 @@
 
       for (J = 1; J <= N; J++) { // 90
          for (I = 1; I <= M; I++) { // 80
-            C( J ) = max( C( J ), ABS( A( I, J ) )*R( I ) );
+            C( J ) = max( C( J ), ( A( I, J ) ).abs()*R( I ) );
          } // 80
       } // 90
 

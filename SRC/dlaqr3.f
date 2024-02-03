@@ -103,7 +103,7 @@
          SI( KWTOP ) = ZERO;
          NS = 1;
          ND = 0;
-         if ( ABS( S ) <= max( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
+         if ( ( S ).abs() <= max( SMLNUM, ULP*( H( KWTOP, KWTOP ) ) ) ).abs() {
             NS = 0;
             ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
@@ -155,9 +155,9 @@
 
             // ==== Real eigenvalue ====
 
-            FOO = ABS( T( NS, NS ) );
-            if (FOO == ZERO) FOO = ABS( S );
-            if ( ABS( S*V( 1, NS ) ) <= max( SMLNUM, ULP*FOO ) ) {
+            FOO = ( T( NS, NS ) ).abs();
+            if (FOO == ZERO) FOO = ( S ).abs();
+            if ( ( S*V( 1, NS ) ).abs() <= max( SMLNUM, ULP*FOO ) ) {
 
                // ==== Deflatable ====
 
@@ -175,7 +175,7 @@
 
             // ==== Complex conjugate pair ====
 
-            FOO = ABS( T( NS, NS ) ) + sqrt( ABS( T( NS, NS-1 ) ) )* sqrt( ABS( T( NS-1, NS ) ) )             IF( FOO == ZERO ) FOO = ABS( S )             IF( max( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ) <= max( SMLNUM, ULP*FOO ) ) THEN;
+            FOO = ( T( NS, NS ) ).abs() + sqrt( ( T( NS, NS-1 ) ) ).abs()* sqrt( ( T( NS-1, NS ) ) ).abs()             IF( FOO == ZERO ) FOO = ( S ).abs()             IF( max( ( S*V( 1, NS ) ).abs(), ( S*V( 1, NS-1 ) ) ).abs() <= max( SMLNUM, ULP*FOO ) ) THEN;
 
                // ==== Deflatable ====
 
@@ -225,17 +225,17 @@
          } // 40
          if ( K <= KEND ) {
             if ( K == I+1 ) {
-               EVI = ABS( T( I, I ) );
+               EVI = ( T( I, I ) ).abs();
             } else {
-               EVI = ABS( T( I, I ) ) + sqrt( ABS( T( I+1, I ) ) )* sqrt( ABS( T( I, I+1 ) ) );
+               EVI = ( T( I, I ) ).abs() + sqrt( ( T( I+1, I ) ) ).abs()* sqrt( ( T( I, I+1 ) ) ).abs();
             }
 
             if ( K == KEND ) {
-               EVK = ABS( T( K, K ) );
+               EVK = ( T( K, K ) ).abs();
             } else if ( T( K+1, K ) == ZERO ) {
-               EVK = ABS( T( K, K ) );
+               EVK = ( T( K, K ) ).abs();
             } else {
-               EVK = ABS( T( K, K ) ) + sqrt( ABS( T( K+1, K ) ) )* sqrt( ABS( T( K, K+1 ) ) );
+               EVK = ( T( K, K ) ).abs() + sqrt( ( T( K+1, K ) ) ).abs()* sqrt( ( T( K, K+1 ) ) ).abs();
             }
 
             if ( EVI >= EVK ) {

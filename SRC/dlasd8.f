@@ -52,7 +52,7 @@
       // Quick return if possible
 
       if ( K == 1 ) {
-         D( 1 ) = ABS( Z( 1 ) );
+         D( 1 ) = ( Z( 1 ) ).abs();
          DIFL( 1 ) = D( 1 );
          if ( ICOMPQ == 1 ) {
             DIFL( 2 ) = ONE;
@@ -104,7 +104,7 @@
       // Compute updated Z.
 
       for (I = 1; I <= K; I++) { // 50
-         Z( I ) = SIGN( sqrt( ABS( WORK( IWK3I+I ) ) ), Z( I ) );
+         Z( I ) = SIGN( sqrt( ( WORK( IWK3I+I ) ) ).abs(), Z( I ) );
       } // 50
 
       // Update VF and VL.

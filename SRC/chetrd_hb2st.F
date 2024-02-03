@@ -175,7 +175,7 @@
           if ( UPPER ) {
               for (I = 1; I <= N - 1; I++) { // 60
                   TMP = AB( ABOFDPOS, I+1 );
-                  ABSTMP = ABS( TMP );
+                  ABSTMP = ( TMP ).abs();
                   AB( ABOFDPOS, I+1 ) = ABSTMP;
                   E( I ) = ABSTMP;
                   if ( ABSTMP != RZERO ) {
@@ -191,7 +191,7 @@
           } else {
               for (I = 1; I <= N - 1; I++) { // 70
                  TMP = AB( ABOFDPOS, I );
-                 ABSTMP = ABS( TMP );
+                 ABSTMP = ( TMP ).abs();
                  AB( ABOFDPOS, I ) = ABSTMP;
                  E( I ) = ABSTMP;
                  if ( ABSTMP != RZERO ) {

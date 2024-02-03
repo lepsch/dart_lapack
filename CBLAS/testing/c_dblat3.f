@@ -1922,34 +1922,34 @@
             for (K = 1; K <= KK; K++) { // 30
                for (I = 1; I <= M; I++) { // 20
                   CT( I ) = CT( I ) + A( I, K )*B( K, J );
-                  G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( K, J ) );
+                  G( I ) = G( I ) + ( A( I, K ) ).abs()*( B( K, J ) ).abs();
                } // 20
             } // 30
          } else if ( TRANA && !TRANB ) {
             for (K = 1; K <= KK; K++) { // 50
                for (I = 1; I <= M; I++) { // 40
                   CT( I ) = CT( I ) + A( K, I )*B( K, J );
-                  G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( K, J ) );
+                  G( I ) = G( I ) + ( A( K, I ) ).abs()*( B( K, J ) ).abs();
                } // 40
             } // 50
          } else if ( !TRANA && TRANB ) {
             for (K = 1; K <= KK; K++) { // 70
                for (I = 1; I <= M; I++) { // 60
                   CT( I ) = CT( I ) + A( I, K )*B( J, K );
-                  G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( J, K ) );
+                  G( I ) = G( I ) + ( A( I, K ) ).abs()*( B( J, K ) ).abs();
                } // 60
             } // 70
          } else if ( TRANA && TRANB ) {
             for (K = 1; K <= KK; K++) { // 90
                for (I = 1; I <= M; I++) { // 80
                   CT( I ) = CT( I ) + A( K, I )*B( J, K );
-                  G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( J, K ) );
+                  G( I ) = G( I ) + ( A( K, I ) ).abs()*( B( J, K ) ).abs();
                } // 80
             } // 90
          }
          for (I = 1; I <= M; I++) { // 100
             CT( I ) = ALPHA*CT( I ) + BETA*C( I, J );
-            G( I ) = ABS( ALPHA )*G( I ) + ABS( BETA )*ABS( C( I, J ) );
+            G( I ) = ( ALPHA ).abs()*G( I ) + ( BETA ).abs()*( C( I, J ) ).abs();
          } // 100
 
          // Compute the error ratio for this result.

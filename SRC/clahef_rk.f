@@ -45,7 +45,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ABS( REAL( Z ) ) + ABS( AIMAG( Z ) );
+      CABS1( Z ) = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -324,7 +324,7 @@
                   // Handle division by a small number
 
                   T = REAL( A( K, K ) );
-                  if ( ABS( T ) >= SFMIN ) {
+                  if ( ( T ).abs() >= SFMIN ) {
                      R1 = ONE / T;
                      csscal(K-1, R1, A( 1, K ), 1 );
                   } else {
@@ -742,7 +742,7 @@
                   // Handle division by a small number
 
                   T = REAL( A( K, K ) );
-                  if ( ABS( T ) >= SFMIN ) {
+                  if ( ( T ).abs() >= SFMIN ) {
                      R1 = ONE / T;
                      csscal(N-K, R1, A( K+1, K ), 1 );
                   } else {

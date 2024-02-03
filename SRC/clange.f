@@ -44,7 +44,7 @@
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= M; I++) { // 10
-               TEMP = ABS( A( I, J ) );
+               TEMP = ( A( I, J ) ).abs();
                if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
             } // 10
          } // 20
@@ -56,7 +56,7 @@
          for (J = 1; J <= N; J++) { // 40
             SUM = ZERO;
             for (I = 1; I <= M; I++) { // 30
-               SUM = SUM + ABS( A( I, J ) );
+               SUM = SUM + ( A( I, J ) ).abs();
             } // 30
             if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
          } // 40
@@ -69,7 +69,7 @@
          } // 50
          for (J = 1; J <= N; J++) { // 70
             for (I = 1; I <= M; I++) { // 60
-               WORK( I ) = WORK( I ) + ABS( A( I, J ) );
+               WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
             } // 60
          } // 70
          VALUE = ZERO;

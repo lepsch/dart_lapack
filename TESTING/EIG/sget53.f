@@ -42,8 +42,8 @@
 
       SAFMIN = SLAMCH( 'Safe minimum' );
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );
-      ABSW = ABS( WRS ) + ABS( WIS );
-      ANORM = max( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )       BNORM = max( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN );
+      ABSW = ( WRS ).abs() + ( WIS ).abs();
+      ANORM = max( ( A( 1, 1 ) ).abs()+( A( 2, 1 ) ).abs(), ( A( 1, 2 ) ).abs()+( A( 2, 2 ) ).abs(), SAFMIN )       BNORM = max( ( B( 1, 1 ) ).abs(), ( B( 1, 2 ) ).abs()+( B( 2, 2 ) ).abs(), SAFMIN );
 
       // Check for possible overflow.
 
@@ -57,7 +57,7 @@
          SCALES = SCALES*TEMP;
          WRS = WRS*TEMP;
          WIS = WIS*TEMP;
-         ABSW = ABS( WRS ) + ABS( WIS );
+         ABSW = ( WRS ).abs() + ( WIS ).abs();
       }
       S1 = max( ULP*max( SCALES*ANORM, ABSW*BNORM ), SAFMIN*max( SCALES, ABSW ) );
 
@@ -77,7 +77,7 @@
          SCALES = SCALES*TEMP;
          WRS = WRS*TEMP;
          WIS = WIS*TEMP;
-         ABSW = ABS( WRS ) + ABS( WIS );
+         ABSW = ( WRS ).abs() + ( WIS ).abs();
          S1 = max( ULP*max( SCALES*ANORM, ABSW*BNORM ), SAFMIN*max( SCALES, ABSW ) );
          if ( S1 < SAFMIN ) {
             INFO = 3;
@@ -102,10 +102,10 @@
       // sigma_min = ------------------
                   // norm( s A - w B )
 
-      CNORM = max( ABS( CR11 )+ABS( CI11 )+ABS( CR21 ), ABS( CR12 )+ABS( CI12 )+ABS( CR22 )+ABS( CI22 ), SAFMIN );
+      CNORM = max( ( CR11 ).abs()+( CI11 ).abs()+( CR21 ).abs(), ( CR12 ).abs()+( CI12 ).abs()+( CR22 ).abs()+( CI22 ).abs(), SAFMIN );
       CSCALE = ONE / sqrt( CNORM );
       DETR = ( CSCALE*CR11 )*( CSCALE*CR22 ) - ( CSCALE*CI11 )*( CSCALE*CI22 ) - ( CSCALE*CR12 )*( CSCALE*CR21 )       DETI = ( CSCALE*CR11 )*( CSCALE*CI22 ) + ( CSCALE*CI11 )*( CSCALE*CR22 ) - ( CSCALE*CI12 )*( CSCALE*CR21 );
-      SIGMIN = ABS( DETR ) + ABS( DETI );
+      SIGMIN = ( DETR ).abs() + ( DETI ).abs();
       RESULT = SIGMIN / S1;
       return;
       }

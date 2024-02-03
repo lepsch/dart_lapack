@@ -149,9 +149,9 @@
          INFO = -3;
       } else if ( ISYM == -1 ) {
          INFO = -5;
-      } else if ( ABS( MODE ) > 6 ) {
+      } else if ( ( MODE ).abs() > 6 ) {
          INFO = -7;
-      } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
+      } else if ( ( MODE != 0 && ( MODE ).abs() != 6 ) && COND < ONE ) {
          INFO = -8;
       } else if ( KL < 0 ) {
          INFO = -10;
@@ -171,7 +171,7 @@
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 );
+         ISEED( I ) = MOD( ( ISEED( I ) ).abs(), 4096 );
       } // 10
 
       if( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
@@ -189,19 +189,19 @@
       // Choose Top-Down if D is (apparently) increasing,
       // Bottom-Up if D is (apparently) decreasing.
 
-      if ( ABS( D( 1 ) ) <= ABS( D( MNMIN ) ) ) {
+      if ( ( D( 1 ) ).abs() <= ( D( MNMIN ) ) ).abs() {
          TOPDWN = true;
       } else {
          TOPDWN = false;
       }
 
-      if ( MODE != 0 && ABS( MODE ) != 6 ) {
+      if ( MODE != 0 && ( MODE ).abs() != 6 ) {
 
          // Scale by DMAX
 
-         TEMP = ABS( D( 1 ) );
+         TEMP = ( D( 1 ) ).abs();
          for (I = 2; I <= MNMIN; I++) { // 20
-            TEMP = max( TEMP, ABS( D( I ) ) );
+            TEMP = max( TEMP, ( D( I ) ) ).abs();
          } // 20
 
          if ( TEMP > ZERO ) {

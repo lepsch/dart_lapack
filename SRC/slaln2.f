@@ -75,7 +75,7 @@
             // C = ca A - w D
 
             CSR = CA*A( 1, 1 ) - WR*D1;
-            CNORM = ABS( CSR );
+            CNORM = ( CSR ).abs();
 
             // If | C | < SMINI, use C = SMINI
 
@@ -87,7 +87,7 @@
 
             // Check scaling for  X = B / C
 
-            BNORM = ABS( B( 1, 1 ) );
+            BNORM = ( B( 1, 1 ) ).abs();
             if ( CNORM < ONE && BNORM > ONE ) {
                if (BNORM > BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
@@ -95,7 +95,7 @@
             // Compute X
 
             X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / CSR;
-            XNORM = ABS( X( 1, 1 ) );
+            XNORM = ( X( 1, 1 ) ).abs();
          } else {
 
             // Complex 1x1 system (w is complex)
@@ -104,7 +104,7 @@
 
             CSR = CA*A( 1, 1 ) - WR*D1;
             CSI = -WI*D1;
-            CNORM = ABS( CSR ) + ABS( CSI );
+            CNORM = ( CSR ).abs() + ( CSI ).abs();
 
             // If | C | < SMINI, use C = SMINI
 
@@ -117,7 +117,7 @@
 
             // Check scaling for  X = B / C
 
-            BNORM = ABS( B( 1, 1 ) ) + ABS( B( 1, 2 ) );
+            BNORM = ( B( 1, 1 ) ).abs() + ( B( 1, 2 ) ).abs();
             if ( CNORM < ONE && BNORM > ONE ) {
                if (BNORM > BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
@@ -125,7 +125,7 @@
             // Compute X
 
             sladiv(SCALE*B( 1, 1 ), SCALE*B( 1, 2 ), CSR, CSI, X( 1, 1 ), X( 1, 2 ) );
-            XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) );
+            XNORM = ( X( 1, 1 ) ).abs() + ( X( 1, 2 ) ).abs();
          }
 
       } else {
@@ -154,8 +154,8 @@
             ICMAX = 0;
 
             for (J = 1; J <= 4; J++) { // 10
-               if ( ABS( CRV( J ) ) > CMAX ) {
-                  CMAX = ABS( CRV( J ) );
+               if ( ( CRV( J ) ).abs() > CMAX ) {
+                  CMAX = ( CRV( J ) ).abs();
                   ICMAX = J;
                }
             } // 10
@@ -163,7 +163,7 @@
             // If norm(C) < SMINI, use SMINI*identity.
 
             if ( CMAX < SMINI ) {
-               BNORM = max( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) );
+               BNORM = max( ( B( 1, 1 ) ).abs(), ( B( 2, 1 ) ) ).abs();
                if ( SMINI < ONE && BNORM > ONE ) {
                   if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
@@ -187,7 +187,7 @@
 
             // If smaller pivot < SMINI, use SMINI
 
-            if ( ABS( UR22 ) < SMINI ) {
+            if ( ( UR22 ).abs() < SMINI ) {
                UR22 = SMINI;
                INFO = 1;
             }
@@ -199,9 +199,9 @@
                BR2 = B( 2, 1 );
             }
             BR2 = BR2 - LR21*BR1;
-            BBND = max( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) );
-            if ( BBND > ONE && ABS( UR22 ) < ONE ) {
-               if( BBND >= BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND;
+            BBND = max( ( BR1*( UR22*UR11R ) ).abs(), ( BR2 ).abs() );
+            if ( BBND > ONE && ( UR22 ).abs() < ONE ) {
+               if( BBND >= BIGNUM*( UR22 ).abs() ) SCALE = ONE / BBND;
             }
 
             XR2 = ( BR2*SCALE ) / UR22;
@@ -213,7 +213,7 @@
                X( 1, 1 ) = XR1;
                X( 2, 1 ) = XR2;
             }
-            XNORM = max( ABS( XR1 ), ABS( XR2 ) );
+            XNORM = max( ( XR1 ).abs(), ( XR2 ).abs() );
 
             // Further scaling if  norm(A) norm(X) > overflow
 
@@ -240,8 +240,8 @@
             ICMAX = 0;
 
             for (J = 1; J <= 4; J++) { // 20
-               if ( ABS( CRV( J ) )+ABS( CIV( J ) ) > CMAX ) {
-                  CMAX = ABS( CRV( J ) ) + ABS( CIV( J ) );
+               if ( ( CRV( J ) ).abs()+( CIV( J ) ).abs() > CMAX ) {
+                  CMAX = ( CRV( J ) ).abs() + ( CIV( J ) ).abs();
                   ICMAX = J;
                }
             } // 20
@@ -249,7 +249,7 @@
             // If norm(C) < SMINI, use SMINI*identity.
 
             if ( CMAX < SMINI ) {
-               BNORM = max( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) );
+               BNORM = max( ( B( 1, 1 ) ).abs()+( B( 1, 2 ) ).abs(), ( B( 2, 1 ) ).abs()+( B( 2, 2 ) ) ).abs();
                if ( SMINI < ONE && BNORM > ONE ) {
                   if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
@@ -277,7 +277,7 @@
 
                // Code when off-diagonals of pivoted C are real
 
-               if ( ABS( UR11 ) > ABS( UI11 ) ) {
+               if ( ( UR11 ).abs() > ( UI11 ).abs() ) {
                   TEMP = UI11 / UR11;
                   UR11R = ONE / ( UR11*( ONE+TEMP**2 ) );
                   UI11R = -TEMP*UR11R;
@@ -305,7 +305,7 @@
                UR22 = CR22 - UR12*LR21 + UI12*LI21;
                UI22 = -UR12*LI21 - UI12*LR21;
             }
-            U22ABS = ABS( UR22 ) + ABS( UI22 );
+            U22ABS = ( UR22 ).abs() + ( UI22 ).abs();
 
             // If smaller pivot < SMINI, use SMINI
 
@@ -327,7 +327,7 @@
             }
             BR2 = BR2 - LR21*BR1 + LI21*BI1;
             BI2 = BI2 - LI21*BR1 - LR21*BI1;
-            BBND = max( ( ABS( BR1 )+ABS( BI1 ) )* ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ), ABS( BR2 )+ABS( BI2 ) );
+            BBND = max( ( ( BR1 ).abs()+( BI1 ).abs() )* ( U22ABS*( ( UR11R ).abs()+( UI11R ).abs() ) ), ( BR2 ).abs()+( BI2 ).abs() );
             if ( BBND > ONE && U22ABS < ONE ) {
                if ( BBND >= BIGNUM*U22ABS ) {
                   SCALE = ONE / BBND;
@@ -352,7 +352,7 @@
                X( 1, 2 ) = XI1;
                X( 2, 2 ) = XI2;
             }
-            XNORM = max( ABS( XR1 )+ABS( XI1 ), ABS( XR2 )+ABS( XI2 ) );
+            XNORM = max( ( XR1 ).abs()+( XI1 ).abs(), ( XR2 ).abs()+( XI2 ).abs() );
 
             // Further scaling if  norm(A) norm(X) > overflow
 

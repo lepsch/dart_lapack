@@ -220,7 +220,7 @@
                   NW = NH;
                } else {
                   KWTOP = KBOT - NW + 1;
-                  if( ABS( H( KWTOP, KWTOP-1 ) ) > ABS( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1;
+                  if( ( H( KWTOP, KWTOP-1 ) ).abs() > ( H( KWTOP-1, KWTOP-2 ) ) ).abs()NW = NW + 1;
                }
             }
             if ( NDFL < KEXNW ) {
@@ -285,7 +285,7 @@
                if ( MOD( NDFL, KEXSH ) == 0 ) {
                   KS = KBOT - NS + 1;
                   DO 30 I = KBOT, max( KS+1, KTOP+2 ), -2;
-                     SS = ABS( H( I, I-1 ) ) + ABS( H( I-1, I-2 ) );
+                     SS = ( H( I, I-1 ) ).abs() + ( H( I-1, I-2 ) ).abs();
                      AA = WILK1*SS + H( I, I );
                      BB = SS;
                      CC = WILK2*SS;
@@ -342,7 +342,7 @@
                         if (SORTED) GO TO 60;
                         SORTED = true;
                         for (I = KS; I <= K - 1; I++) { // 40
-                           if ( ABS( WR( I ) )+ABS( WI( I ) ) < ABS( WR( I+1 ) )+ABS( WI( I+1 ) ) ) {
+                           if ( ( WR( I ) ).abs()+( WI( I ) ).abs() < ( WR( I+1 ) ).abs()+( WI( I+1 ) ) ).abs() {
                               SORTED = false;
 
                               SWAP = WR( I );

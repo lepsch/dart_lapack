@@ -109,8 +109,8 @@
             YMIN = HUGEVAL;
 
             for (I = 1; I <= N; I++) {
-               YK = ABS( Y( I, J ) );
-               DYK = ABS( DY( I ) );
+               YK = ( Y( I, J ) ).abs();
+               DYK = ( DY( I ) ).abs();
 
                if ( YK != 0.0 ) {
                   DZ_Z = max( DZ_Z, DYK / YK );
@@ -240,7 +240,7 @@
          sgbmv(TRANS, N, N, KL, KU, -1.0, AB, LDAB, Y(1,J), 1, 1.0, RES, 1 );
 
          for (I = 1; I <= N; I++) {
-            AYB( I ) = ABS( B( I, J ) );
+            AYB( I ) = ( B( I, J ) ).abs();
          }
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).

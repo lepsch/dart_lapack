@@ -238,7 +238,7 @@
                   if (N > 1) K = max( 1, K );
                   dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO );
                   for (I = 2; I <= N; I++) { // 90
-                     TEMP1 = ABS( A( K, I ) ) / sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
+                     TEMP1 = ( A( K, I ) ).abs() / sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      if ( TEMP1 > HALF ) {
                         A( K, I ) = HALF*sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      }
@@ -251,7 +251,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   return;
                }
 
@@ -266,7 +266,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(U)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -302,7 +302,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(L)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {

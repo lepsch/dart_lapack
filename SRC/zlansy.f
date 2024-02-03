@@ -45,14 +45,14 @@
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= J; I++) { // 10
-                  SUM = ABS( A( I, J ) );
+                  SUM = ( A( I, J ) ).abs();
                   if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 10
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
                for (I = J; I <= N; I++) { // 30
-                  SUM = ABS( A( I, J ) );
+                  SUM = ( A( I, J ) ).abs();
                   if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 30
             } // 40
@@ -66,11 +66,11 @@
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO;
                for (I = 1; I <= J - 1; I++) { // 50
-                  ABSA = ABS( A( I, J ) );
+                  ABSA = ( A( I, J ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                } // 50
-               WORK( J ) = SUM + ABS( A( J, J ) );
+               WORK( J ) = SUM + ( A( J, J ) ).abs();
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I );
@@ -81,9 +81,9 @@
                WORK( I ) = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
-               SUM = WORK( J ) + ABS( A( J, J ) );
+               SUM = WORK( J ) + ( A( J, J ) ).abs();
                for (I = J + 1; I <= N; I++) { // 90
-                  ABSA = ABS( A( I, J ) );
+                  ABSA = ( A( I, J ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                } // 90

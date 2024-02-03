@@ -39,8 +39,8 @@
       HUGEVAL = DLAMCH( 'Overflow' );
 
       if ( !( X_IS_NAN || Y_IS_NAN ) ) {
-         XABS = ABS( X );
-         YABS = ABS( Y );
+         XABS = ( X ).abs();
+         YABS = ( Y ).abs();
          W = max( XABS, YABS );
          Z = min( XABS, YABS );
          if ( Z == ZERO || W > HUGEVAL ) {

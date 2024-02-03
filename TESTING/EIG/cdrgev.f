@@ -184,7 +184,7 @@
 
                // Generate A (w/o rotation)
 
-               if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
+               if ( ( KATYPE( JTYPE ) ).abs() == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
                   if (IN != N) claset( 'Full', N, N, CZERO, CZERO, A, LDA );
                } else {
@@ -196,7 +196,7 @@
 
                // Generate B (w/o rotation)
 
-               if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
+               if ( ( KBTYPE( JTYPE ) ).abs() == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
                   if (IN != N) claset( 'Full', N, N, CZERO, CZERO, B, LDA );
                } else {
@@ -228,11 +228,11 @@
                   CTEMP = CLARND( 3, ISEED );
                   Q( N, N ) = CONE;
                   WORK( N ) = CZERO;
-                  WORK( 3*N ) = CTEMP / ABS( CTEMP );
+                  WORK( 3*N ) = CTEMP / ( CTEMP ).abs();
                   CTEMP = CLARND( 3, ISEED );
                   Z( N, N ) = CONE;
                   WORK( 2*N ) = CZERO;
-                  WORK( 4*N ) = CTEMP / ABS( CTEMP );
+                  WORK( 4*N ) = CTEMP / ( CTEMP ).abs();
 
                   // Apply the diagonal matrices
 
@@ -261,7 +261,7 @@
 
             if ( IERR != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                return;
             }
 
@@ -279,7 +279,7 @@
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'CGGEV1', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                GO TO 190;
             }
 
@@ -305,7 +305,7 @@
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'CGGEV2', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                GO TO 190;
             }
 
@@ -322,7 +322,7 @@
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'CGGEV3', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                GO TO 190;
             }
 
@@ -345,7 +345,7 @@
             if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'CGGEV4', IERR, N, JTYPE, IOLDSD;
-               INFO = ABS( IERR );
+               INFO = ( IERR ).abs();
                GO TO 190;
             }
 

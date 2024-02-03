@@ -105,7 +105,7 @@
          SCALE = SCALEL*SCALEU;
          if ( SCALE != ONE ) {
             IX = ISAMAX( N, WORK, 1 );
-            if( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
+            if( SCALE < ( WORK( IX ) ).abs()*SMLNUM || SCALE == ZERO ) GO TO 20;
             srscl(N, SCALE, WORK, 1 );
          }
          GO TO 10;

@@ -76,8 +76,8 @@
       RSIGMA = max(W( CLSTRT ),W( CLEND )) + WERR( CLEND );
 
       // Use a small fudge to make sure that we really shift to the outside
-      LSIGMA = LSIGMA - ABS(LSIGMA)* TWO * EPS;
-      RSIGMA = RSIGMA + ABS(RSIGMA)* TWO * EPS;
+      LSIGMA = LSIGMA - (LSIGMA).abs()* TWO * EPS;
+      RSIGMA = RSIGMA + (RSIGMA).abs()* TWO * EPS;
 
       // Compute upper bounds for how much to back off the initial shifts
       LDMAX = QUART * MINGAP + TWO * PIVMIN;
@@ -111,24 +111,24 @@
       // Left end
       S = -LSIGMA;
       DPLUS( 1 ) = D( 1 ) + S;
-      if (ABS(DPLUS(1)) < PIVMIN) {
+      if ((DPLUS(1)).abs() < PIVMIN) {
          DPLUS(1) = -PIVMIN;
          // Need to set SAWNAN1 because refined RRR test should not be used
          // in this case
          SAWNAN1 = true;
       }
-      MAX1 = ABS( DPLUS( 1 ) );
+      MAX1 = ( DPLUS( 1 ) ).abs();
       for (I = 1; I <= N - 1; I++) { // 6
          LPLUS( I ) = LD( I ) / DPLUS( I );
          S = S*LPLUS( I )*L( I ) - LSIGMA;
          DPLUS( I+1 ) = D( I+1 ) + S;
-         if (ABS(DPLUS(I+1)) < PIVMIN) {
+         if ((DPLUS(I+1)).abs() < PIVMIN) {
             DPLUS(I+1) = -PIVMIN;
             // Need to set SAWNAN1 because refined RRR test should not be used
             // in this case
             SAWNAN1 = true;
          }
-         MAX1 = max( MAX1,ABS(DPLUS(I+1)) );
+         MAX1 = max( MAX1,(DPLUS(I+1)) ).abs();
       } // 6
       SAWNAN1 = SAWNAN1 || SISNAN( MAX1 );
        if ( FORCER || (MAX1 <= GROWTHBOUND && !SAWNAN1 ) ) {
@@ -140,24 +140,24 @@
       // Right end
       S = -RSIGMA;
       WORK( 1 ) = D( 1 ) + S;
-      if (ABS(WORK(1)) < PIVMIN) {
+      if ((WORK(1)).abs() < PIVMIN) {
          WORK(1) = -PIVMIN;
          // Need to set SAWNAN2 because refined RRR test should not be used
          // in this case
          SAWNAN2 = true;
       }
-      MAX2 = ABS( WORK( 1 ) );
+      MAX2 = ( WORK( 1 ) ).abs();
       for (I = 1; I <= N - 1; I++) { // 7
          WORK( N+I ) = LD( I ) / WORK( I );
          S = S*WORK( N+I )*L( I ) - RSIGMA;
          WORK( I+1 ) = D( I+1 ) + S;
-         if (ABS(WORK(I+1)) < PIVMIN) {
+         if ((WORK(I+1)).abs() < PIVMIN) {
             WORK(I+1) = -PIVMIN;
             // Need to set SAWNAN2 because refined RRR test should not be used
             // in this case
             SAWNAN2 = true;
          }
-         MAX2 = max( MAX2,ABS(WORK(I+1)) );
+         MAX2 = max( MAX2,(WORK(I+1)) ).abs();
       } // 7
       SAWNAN2 = SAWNAN2 || SISNAN( MAX2 );
        if ( FORCER || (MAX2 <= GROWTHBOUND && !SAWNAN2 ) ) {
@@ -201,7 +201,7 @@
       TRYRRR1 = true;
       if ( TRYRRR1 && DORRR1 ) {
       if (INDX == 1) {
-         TMP = ABS( DPLUS( N ) );
+         TMP = ( DPLUS( N ) ).abs();
          ZNM2 = ONE;
          PROD = ONE;
          OLDP = ONE;
@@ -209,11 +209,11 @@
             if ( PROD <= EPS ) {
                PROD = ((DPLUS(I+1)*WORK(N+I+1))/(DPLUS(I)*WORK(N+I)))*OLDP;
             } else {
-               PROD = PROD*ABS(WORK(N+I));
+               PROD = PROD*(WORK(N+I)).abs();
             }
             OLDP = PROD;
             ZNM2 = ZNM2 + PROD**2;
-            TMP = max( TMP, ABS( DPLUS( I ) * PROD ));
+            TMP = max( TMP, ( DPLUS( I ) * PROD )).abs();
          } // 15
          RRR1 = TMP/( SPDIAM * sqrt( ZNM2 ) );
          if (RRR1 <= MAXGROWTH2) {
@@ -222,7 +222,7 @@
             GOTO 100;
          }
       } else if (INDX == 2) {
-         TMP = ABS( WORK( N ) );
+         TMP = ( WORK( N ) ).abs();
          ZNM2 = ONE;
          PROD = ONE;
          OLDP = ONE;
@@ -230,11 +230,11 @@
             if ( PROD <= EPS ) {
                PROD = ((WORK(I+1)*LPLUS(I+1))/(WORK(I)*LPLUS(I)))*OLDP;
             } else {
-               PROD = PROD*ABS(LPLUS(I));
+               PROD = PROD*(LPLUS(I)).abs();
             }
             OLDP = PROD;
             ZNM2 = ZNM2 + PROD**2;
-            TMP = max( TMP, ABS( WORK( I ) * PROD ));
+            TMP = max( TMP, ( WORK( I ) * PROD )).abs();
          } // 16
          RRR2 = TMP/( SPDIAM * sqrt( ZNM2 ) );
          if (RRR2 <= MAXGROWTH2) {

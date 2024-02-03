@@ -54,7 +54,7 @@
       ERRBND = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
          IMAX = IDAMAX( N, X( 1, J ), 1 );
-         XNORM = max( ABS( X( IMAX, J ) ), UNFL );
+         XNORM = max( ( X( IMAX, J ) ).abs(), UNFL );
          DIFF = ZERO;
          for (I = 1; I <= N; I++) { // 10
             DIFF = max( DIFF, ABS( X( I, J )-XACT( I, J ) ) );
@@ -83,25 +83,25 @@
 
       for (K = 1; K <= NRHS; K++) { // 90
          for (I = 1; I <= N; I++) { // 80
-            TMP = ABS( B( I, K ) );
+            TMP = ( B( I, K ) ).abs();
             if ( UPPER ) {
                JC = ( ( I-1 )*I ) / 2;
                for (J = 1; J <= I; J++) { // 40
-                  TMP = TMP + ABS( AP( JC+J ) )*ABS( X( J, K ) );
+                  TMP = TMP + ( AP( JC+J ) ).abs()*( X( J, K ) ).abs();
                } // 40
                JC = JC + I;
                for (J = I + 1; J <= N; J++) { // 50
-                  TMP = TMP + ABS( AP( JC ) )*ABS( X( J, K ) );
+                  TMP = TMP + ( AP( JC ) ).abs()*( X( J, K ) ).abs();
                   JC = JC + J;
                } // 50
             } else {
                JC = I;
                for (J = 1; J <= I - 1; J++) { // 60
-                  TMP = TMP + ABS( AP( JC ) )*ABS( X( J, K ) );
+                  TMP = TMP + ( AP( JC ) ).abs()*( X( J, K ) ).abs();
                   JC = JC + N - J;
                } // 60
                for (J = I; J <= N; J++) { // 70
-                  TMP = TMP + ABS( AP( JC+J-I ) )*ABS( X( J, K ) );
+                  TMP = TMP + ( AP( JC+J-I ) ).abs()*( X( J, K ) ).abs();
                } // 70
             }
             if ( I == 1 ) {

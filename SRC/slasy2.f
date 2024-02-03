@@ -70,7 +70,7 @@
 
       } // 10
       TAU1 = TL( 1, 1 ) + SGN*TR( 1, 1 );
-      BET = ABS( TAU1 );
+      BET = ( TAU1 ).abs();
       if ( BET <= SMLNUM ) {
          TAU1 = SMLNUM;
          BET = SMLNUM;
@@ -78,11 +78,11 @@
       }
 
       SCALE = ONE;
-      GAM = ABS( B( 1, 1 ) );
+      GAM = ( B( 1, 1 ) ).abs();
       if (SMLNUM*GAM > BET) SCALE = ONE / GAM;
 
       X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / TAU1;
-      XNORM = ABS( X( 1, 1 ) );
+      XNORM = ( X( 1, 1 ) ).abs();
       return;
 
       // 1 by 2:
@@ -91,7 +91,7 @@
 
       } // 20
 
-      SMIN = max( EPS*max( ABS( TL( 1, 1 ) ), ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) ), SMLNUM );
+      SMIN = max( EPS*max( ( TL( 1, 1 ) ).abs(), ( TR( 1, 1 ) ).abs(), ( TR( 1, 2 ) ).abs(), ( TR( 2, 1 ) ).abs(), ( TR( 2, 2 ) ) ).abs(), SMLNUM );
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 );
       TMP( 4 ) = TL( 1, 1 ) + SGN*TR( 2, 2 );
       if ( LTRANR ) {
@@ -110,7 +110,7 @@
              // [TL21 TL22] [X21]         [X21]         [B21]
 
       } // 30
-      SMIN = max( EPS*max( ABS( TR( 1, 1 ) ), ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) ), SMLNUM );
+      SMIN = max( EPS*max( ( TR( 1, 1 ) ).abs(), ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ) ).abs(), SMLNUM );
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 );
       TMP( 4 ) = TL( 2, 2 ) + SGN*TR( 1, 1 );
       if ( LTRANL ) {
@@ -129,7 +129,7 @@
 
       IPIV = ISAMAX( 4, TMP, 1 );
       U11 = TMP( IPIV );
-      if ( ABS( U11 ) <= SMIN ) {
+      if ( ( U11 ).abs() <= SMIN ) {
          INFO = 1;
          U11 = SMIN;
       }
@@ -138,7 +138,7 @@
       U22 = TMP( LOCU22( IPIV ) ) - U12*L21;
       XSWAP = XSWPIV( IPIV );
       BSWAP = BSWPIV( IPIV );
-      if ( ABS( U22 ) <= SMIN ) {
+      if ( ( U22 ).abs() <= SMIN ) {
          INFO = 1;
          U22 = SMIN;
       }
@@ -150,8 +150,8 @@
          BTMP( 2 ) = BTMP( 2 ) - L21*BTMP( 1 );
       }
       SCALE = ONE;
-      if ( ( TWO*SMLNUM )*ABS( BTMP( 2 ) ) > ABS( U22 ) || ( TWO*SMLNUM )*ABS( BTMP( 1 ) ) > ABS( U11 ) ) {
-         SCALE = HALF / max( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ) );
+      if ( ( TWO*SMLNUM )*( BTMP( 2 ) ).abs() > ( U22 ).abs() || ( TWO*SMLNUM )*( BTMP( 1 ) ).abs() > ( U11 ).abs() ) {
+         SCALE = HALF / max( ( BTMP( 1 ) ).abs(), ( BTMP( 2 ) ) ).abs();
          BTMP( 1 ) = BTMP( 1 )*SCALE;
          BTMP( 2 ) = BTMP( 2 )*SCALE;
       }
@@ -165,10 +165,10 @@
       X( 1, 1 ) = X2( 1 );
       if ( N1 == 1 ) {
          X( 1, 2 ) = X2( 2 );
-         XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) );
+         XNORM = ( X( 1, 1 ) ).abs() + ( X( 1, 2 ) ).abs();
       } else {
          X( 2, 1 ) = X2( 2 );
-         XNORM = max( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) );
+         XNORM = max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ) ).abs();
       }
       return;
 
@@ -180,7 +180,7 @@
       // Set pivots less than SMIN to SMIN.
 
       } // 50
-      SMIN = max( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )       SMIN = max( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) );
+      SMIN = max( ( TR( 1, 1 ) ).abs(), ( TR( 1, 2 ) ).abs(), ( TR( 2, 1 ) ).abs(), ( TR( 2, 2 ) ) ).abs()       SMIN = max( SMIN, ( TL( 1, 1 ) ).abs(), ( TL( 1, 2 ) ).abs(), ( TL( 2, 1 ) ).abs(), ( TL( 2, 2 ) ) ).abs();
       SMIN = max( EPS*SMIN, SMLNUM );
       BTMP( 1 ) = ZERO;
       scopy(16, BTMP, 0, T16, 1 );
@@ -221,8 +221,8 @@
          XMAX = ZERO;
          for (IP = I; IP <= 4; IP++) { // 70
             for (JP = I; JP <= 4; JP++) { // 60
-               if ( ABS( T16( IP, JP ) ) >= XMAX ) {
-                  XMAX = ABS( T16( IP, JP ) );
+               if ( ( T16( IP, JP ) ).abs() >= XMAX ) {
+                  XMAX = ( T16( IP, JP ) ).abs();
                   IPSV = IP;
                   JPSV = JP;
                }
@@ -236,7 +236,7 @@
          }
          if (JPSV != I) sswap( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 );
          JPIV( I ) = JPSV;
-         if ( ABS( T16( I, I ) ) < SMIN ) {
+         if ( ( T16( I, I ) ).abs() < SMIN ) {
             INFO = 1;
             T16( I, I ) = SMIN;
          }
@@ -248,13 +248,13 @@
             } // 80
          } // 90
       } // 100
-      if ( ABS( T16( 4, 4 ) ) < SMIN ) {
+      if ( ( T16( 4, 4 ) ).abs() < SMIN ) {
          INFO = 1;
          T16( 4, 4 ) = SMIN;
       }
       SCALE = ONE;
-      if ( ( EIGHT*SMLNUM )*ABS( BTMP( 1 ) ) > ABS( T16( 1, 1 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 2 ) ) > ABS( T16( 2, 2 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 3 ) ) > ABS( T16( 3, 3 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 4 ) ) > ABS( T16( 4, 4 ) ) ) {
-         SCALE = ( ONE / EIGHT ) / max( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ), ABS( BTMP( 3 ) ), ABS( BTMP( 4 ) ) );
+      if ( ( EIGHT*SMLNUM )*( BTMP( 1 ) ).abs() > ( T16( 1, 1 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 2 ) ).abs() > ( T16( 2, 2 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 3 ) ).abs() > ( T16( 3, 3 ) ).abs() || ( EIGHT*SMLNUM )*( BTMP( 4 ) ).abs() > ( T16( 4, 4 ) ) ).abs() {
+         SCALE = ( ONE / EIGHT ) / max( ( BTMP( 1 ) ).abs(), ( BTMP( 2 ) ).abs(), ( BTMP( 3 ) ).abs(), ( BTMP( 4 ) ) ).abs();
          BTMP( 1 ) = BTMP( 1 )*SCALE;
          BTMP( 2 ) = BTMP( 2 )*SCALE;
          BTMP( 3 ) = BTMP( 3 )*SCALE;
@@ -279,6 +279,6 @@
       X( 2, 1 ) = TMP( 2 );
       X( 1, 2 ) = TMP( 3 );
       X( 2, 2 ) = TMP( 4 );
-      XNORM = max( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ), ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) );
+      XNORM = max( ( TMP( 1 ) ).abs()+( TMP( 3 ) ).abs(), ( TMP( 2 ) ).abs()+( TMP( 4 ) ) ).abs();
       return;
       }

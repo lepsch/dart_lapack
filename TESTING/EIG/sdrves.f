@@ -269,7 +269,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -309,7 +309,7 @@
                   if ( IINFO != 0 && IINFO != N+2 ) {
                      RESULT( 1+RSUB ) = ULPINV;
                      WRITE( NOUNIT, FMT = 9992 )'SGEES1', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      GO TO 220;
                   }
 
@@ -349,7 +349,7 @@
                   }
                   for (I = 1; I <= N - 1; I++) { // 160
                      if ( H( I+1, I ) != ZERO ) {
-                        TMP = sqrt( ABS( H( I+1, I ) ) )* sqrt( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / max( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / max( ULP*TMP, UNFL ) );
+                        TMP = sqrt( ( H( I+1, I ) ) ).abs()* sqrt( ( H( I, I+1 ) ) ).abs()                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / max( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / max( ULP*TMP, UNFL ) );
                      } else if ( I > 1 ) {
                         if( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV;
                      }
@@ -362,7 +362,7 @@
                   if ( IINFO != 0 && IINFO != N+2 ) {
                      RESULT( 5+RSUB ) = ULPINV;
                      WRITE( NOUNIT, FMT = 9992 )'SGEES2', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      GO TO 220;
                   }
 

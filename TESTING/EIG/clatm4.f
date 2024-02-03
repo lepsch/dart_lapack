@@ -51,7 +51,7 @@
       // and RCOND
 
       if ( ITYPE != 0 ) {
-         if ( ABS( ITYPE ) >= 4 ) {
+         if ( ( ITYPE ).abs() >= 4 ) {
             KBEG = max( 1, min( N, NZ1+1 ) );
             KEND = max( KBEG, min( N, N-NZ2 ) );
             KLEN = KEND + 1 - KBEG;
@@ -62,7 +62,7 @@
          }
          ISDB = 1;
          ISDE = 0;
-         GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )ABS( ITYPE );
+         GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )( ITYPE ).abs();
 
          // abs(ITYPE) = 1: Identity
 
@@ -181,14 +181,14 @@
             for (JD = KBEG; JD <= KEND; JD++) { // 250
                if ( REAL( A( JD, JD ) ) != ZERO ) {
                   CTEMP = CLARND( 3, ISEED );
-                  CTEMP = CTEMP / ABS( CTEMP );
+                  CTEMP = CTEMP / ( CTEMP ).abs();
                   A( JD, JD ) = CTEMP*REAL( A( JD, JD ) );
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
                if ( REAL( A( JD+1, JD ) ) != ZERO ) {
                   CTEMP = CLARND( 3, ISEED );
-                  CTEMP = CTEMP / ABS( CTEMP );
+                  CTEMP = CTEMP / ( CTEMP ).abs();
                   A( JD+1, JD ) = CTEMP*REAL( A( JD+1, JD ) );
                }
             } // 260

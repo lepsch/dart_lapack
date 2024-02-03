@@ -968,7 +968,7 @@
          SCAL = C( 1, 1 );
          for (K = 1; K <= M; K++) {
             for (L = 1; L <= N; L++) {
-               SCAL = max( SCAL, ABS( C( K, L ) ) );
+               SCAL = max( SCAL, ( C( K, L ) ) ).abs();
             }
          }
 

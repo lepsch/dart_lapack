@@ -46,7 +46,7 @@
       ALPHR = REAL( ALPHA );
       ALPHI = AIMAG( ALPHA );
 
-      if ( XNORM <= EPS*ABS(ALPHA) && ALPHI == ZERO ) {
+      if ( XNORM <= EPS*(ALPHA).abs() && ALPHI == ZERO ) {
 
          // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
 
@@ -73,7 +73,7 @@
          BIGNUM = ONE / SMLNUM;
 
          KNT = 0;
-         if ( ABS( BETA ) < SMLNUM ) {
+         if ( ( BETA ).abs() < SMLNUM ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -83,7 +83,7 @@
             BETA = BETA*BIGNUM;
             ALPHI = ALPHI*BIGNUM;
             ALPHR = ALPHR*BIGNUM;
-            if( (ABS( BETA ) < SMLNUM) && (KNT < 20) ) GO TO 10;
+            if( (( BETA ).abs() < SMLNUM) && (KNT < 20) ) GO TO 10;
 
             // New BETA is at most 1, at least SMLNUM
 
@@ -104,7 +104,7 @@
          }
          ALPHA = CLADIV( CMPLX( ONE ), ALPHA );
 
-         if ( ABS(TAU) <= SMLNUM ) {
+         if ( (TAU).abs() <= SMLNUM ) {
 
             // In the case where the computed TAU ends up being a denormalized number,
             // it loses relative accuracy. This is a BIG problem. Solution: flush TAU

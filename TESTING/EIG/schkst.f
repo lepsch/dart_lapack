@@ -248,7 +248,7 @@
 
                slatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK( N+1 ), IINFO );
                for (I = 2; I <= N; I++) { // 90
-                  TEMP1 = ABS( A( I-1, I ) ) / sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
+                  TEMP1 = ( A( I-1, I ) ).abs() / sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
                   if ( TEMP1 > HALF ) {
                      A( I-1, I ) = HALF*sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
                      A( I, I-1 ) = A( I-1, I );
@@ -262,7 +262,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -278,7 +278,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSYTRD(U)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -293,7 +293,7 @@
             sorgtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORGTR(U)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -317,7 +317,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSYTRD(L)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -332,7 +332,7 @@
             sorgtr('L', N, U, LDU, TAU, WORK, LWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORGTR(L)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -363,7 +363,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSPTRD(U)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -376,7 +376,7 @@
             sopgtr('U', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SOPGTR(U)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -409,7 +409,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSPTRD(L)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -422,7 +422,7 @@
             sopgtr('L', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SOPGTR(L)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -446,7 +446,7 @@
             ssteqr('V', N, D1, WORK, Z, LDU, WORK( N+1 ), IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(V)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -464,7 +464,7 @@
             ssteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -482,7 +482,7 @@
             ssterf(N, D3, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTERF', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -503,9 +503,9 @@
             TEMP4 = ZERO;
 
             for (J = 1; J <= N; J++) { // 150
-               TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+               TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D2( J ) ) ).abs();
                TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
-               TEMP3 = max( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) );
+               TEMP3 = max( TEMP3, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                TEMP4 = max( TEMP4, ABS( D1( J )-D3( J ) ) );
             } // 150
 
@@ -542,7 +542,7 @@
                spteqr('V', N, D4, WORK, Z, LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SPTEQR(V)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -564,7 +564,7 @@
                spteqr('N', N, D5, WORK, Z, LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SPTEQR(N)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -578,7 +578,7 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 180
-                  TEMP1 = max( TEMP1, ABS( D4( J ) ), ABS( D5( J ) ) );
+                  TEMP1 = max( TEMP1, ( D4( J ) ).abs(), ( D5( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D4( J )-D5( J ) ) );
                } // 180
 
@@ -604,7 +604,7 @@
                sstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -619,7 +619,7 @@
 
                TEMP1 = ZERO;
                for (J = 1; J <= N; J++) { // 190
-                  TEMP1 = max( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) );
+                  TEMP1 = max( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+( D4( J ) ) ) ).abs();
                } // 190
 
                RESULT( 17 ) = TEMP1 / TEMP2;
@@ -634,7 +634,7 @@
             sstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -648,7 +648,7 @@
             TEMP1 = ZERO;
             TEMP2 = ZERO;
             for (J = 1; J <= N; J++) { // 200
-               TEMP1 = max( TEMP1, ABS( D3( J ) ), ABS( WA1( J ) ) );
+               TEMP1 = max( TEMP1, ( D3( J ) ).abs(), ( WA1( J ) ) ).abs();
                TEMP2 = max( TEMP2, ABS( D3( J )-WA1( J ) ) );
             } // 200
 
@@ -674,7 +674,7 @@
             sstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(I)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -705,7 +705,7 @@
             sstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(V)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -724,7 +724,7 @@
             TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
             TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
             if ( N > 0 ) {
-               TEMP3 = max( ABS( WA1( N ) ), ABS( WA1( 1 ) ) );
+               TEMP3 = max( ( WA1( N ) ).abs(), ( WA1( 1 ) ) ).abs();
             } else {
                TEMP3 = ZERO;
             }
@@ -739,7 +739,7 @@
             sstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -752,7 +752,7 @@
             sstein(N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, WORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEIN', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -778,7 +778,7 @@
             sstedc('I', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(I)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -803,7 +803,7 @@
             sstedc('V', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(V)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -828,7 +828,7 @@
             sstedc('N', N, D2, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(N)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -843,7 +843,7 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= N; J++) { // 210
-               TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+               TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D2( J ) ) ).abs();
                TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
             } // 210
 
@@ -868,7 +868,7 @@
                   sstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -883,7 +883,7 @@
 
                   TEMP1 = ZERO;
                   for (J = 1; J <= N; J++) { // 220
-                     TEMP1 = max( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) );
+                     TEMP1 = max( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+( D4( J ) ) ) ).abs();
                   } // 220
 
                   RESULT( 27 ) = TEMP1 / TEMP2;
@@ -903,7 +903,7 @@
 
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -919,7 +919,7 @@
 
                      TEMP1 = ZERO;
                      for (J = IL; J <= IU; J++) { // 230
-                        TEMP1 = max( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+ABS( WR( J-IL+1 ) ) ) );
+                        TEMP1 = max( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+( WR( J-IL+1 ) ) ) ).abs();
                      } // 230
 
                      RESULT( 28 ) = TEMP1 / TEMP2;
@@ -951,7 +951,7 @@
                   sstemr('V', 'I', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -975,7 +975,7 @@
                   sstemr('N', 'I', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -990,7 +990,7 @@
                   TEMP2 = ZERO;
 
                   for (J = 1; J <= IU - IL + 1; J++) { // 240
-                     TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+                     TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D2( J ) ) ).abs();
                      TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                   } // 240
 
@@ -1026,7 +1026,7 @@
                   sstemr('V', 'V', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -1050,7 +1050,7 @@
                   sstemr('N', 'V', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -1065,7 +1065,7 @@
                   TEMP2 = ZERO;
 
                   for (J = 1; J <= IU - IL + 1; J++) { // 250
-                     TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+                     TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D2( J ) ) ).abs();
                      TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                   } // 250
 
@@ -1092,7 +1092,7 @@
                sstemr('V', 'A', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1116,7 +1116,7 @@
                sstemr('N', 'A', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -1131,7 +1131,7 @@
                TEMP2 = ZERO;
 
                for (J = 1; J <= N; J++) { // 260
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                } // 260
 

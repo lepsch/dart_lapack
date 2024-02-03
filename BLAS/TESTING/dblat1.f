@@ -325,8 +325,8 @@
       for (KI = 1; KI <= 4; KI++) { // 120
          INCX = INCXS(KI);
          INCY = INCYS(KI);
-         MX = ABS(INCX);
-         MY = ABS(INCY);
+         MX = (INCX).abs();
+         MY = (INCY).abs();
 
          for (KN = 1; KN <= 4; KN++) { // 100
             N = NS(KN);
@@ -457,8 +457,8 @@
       for (KI = 1; KI <= 4; KI++) { // 60
          INCX = INCXS(KI);
          INCY = INCYS(KI);
-         MX = ABS(INCX);
-         MY = ABS(INCY);
+         MX = (INCX).abs();
+         MY = (INCY).abs();
 
          for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN);
@@ -614,7 +614,7 @@
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I);
-         if (ABS(SFAC*SD) <= ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40;
+         if ((SFAC*SD).abs() <= (SSIZE(I)).abs()*EPSILON(ZERO)) GO TO 40;
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
@@ -658,7 +658,7 @@
       // .. Executable Statements ..
 
          SD = SCOMP - STRUE;
-         if (ABS(SFAC*SD) <= ABS(SSIZE) * EPSILON(ZERO)) GO TO 40;
+         if ((SFAC*SD).abs() <= (SSIZE).abs() * EPSILON(ZERO)) GO TO 40;
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
@@ -805,8 +805,8 @@
 
       // Check that the arrays are large enough
 
-      if (N*ABS(INCX) > NMAX) {
-         WRITE (NOUT,99) "DNRM2", NMAX, INCX, N, N*ABS(INCX);
+      if (N*(INCX).abs() > NMAX) {
+         WRITE (NOUT,99) "DNRM2", NMAX, INCX, N, N*(INCX).abs();
          return;
       }
 
@@ -836,13 +836,13 @@
 
       for (IV = 1; IV <= NV; IV++) {
          V0 = VALUES(IV);
-         if (ABS(V0) > ONE) {
+         if ((V0).abs() > ONE) {
             V0 = V0*HALF;
          }
          Z(1) = V0;
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW);
-            if (ABS(V1) > ONE) {
+            if ((V1).abs() > ONE) {
                V1 = (V1*HALF) / sqrt(DBLE(N));
             }
             for (I = 2; I <= N; I++) {
@@ -851,9 +851,9 @@
 
             // Compute the expected value of the 2-norm
 
-            Y1 = ABS(V0);
+            Y1 = (V0).abs();
             if (N > 1) {
-               Y2 = ABS(V1)*sqrt(WORKSSQ);
+               Y2 = (V1).abs()*sqrt(WORKSSQ);
             } else {
                Y2 = ZERO;
             }
@@ -895,7 +895,7 @@
             // in this implementation so we scale the test ratio accordingly.
 
             if (INCX == 0) {
-               ZNRM = sqrt(DBLE(N))*ABS(X(1));
+               ZNRM = sqrt(DBLE(N))*(X(1)).abs();
             } else {
                ZNRM = YNRM;
             }
@@ -913,7 +913,7 @@
             } else if (ZNRM == ZERO) {
                TRAT = SNRM / ULP;
             } else {
-               TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (DBLE(N)*ULP);
+               TRAT = ((SNRM-ZNRM).abs() / ZNRM) / (DBLE(N)*ULP);
             }
             if ((TRAT != TRAT) || (TRAT >= THRESH)) {
                if (FIRST) {

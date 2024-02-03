@@ -38,7 +38,7 @@
 
             // The following TAU is DSIGMA * DSIGMA - D( 1 ) * D( 1 )
 
-            TAU = TWO*C / ( B+sqrt( ABS( B*B-FOUR*C ) ) );
+            TAU = TWO*C / ( B+sqrt( ( B*B-FOUR*C ).abs() ) );
 
             // The following TAU is DSIGMA - D( 1 )
 

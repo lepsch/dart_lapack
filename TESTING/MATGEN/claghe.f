@@ -71,7 +71,7 @@
 
          clarnv(3, ISEED, N-I+1, WORK );
          WN = SCNRM2( N-I+1, WORK, 1 );
-         WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 );
+         WA = ( WN / ( WORK( 1 ) ) ).abs()*WORK( 1 );
          if ( WN == ZERO ) {
             TAU = ZERO;
          } else {
@@ -105,7 +105,7 @@
          // generate reflection to annihilate A(k+i+1:n,i)
 
          WN = SCNRM2( N-K-I+1, A( K+I, I ), 1 );
-         WA = ( WN / ABS( A( K+I, I ) ) )*A( K+I, I );
+         WA = ( WN / ( A( K+I, I ) ) ).abs()*A( K+I, I );
          if ( WN == ZERO ) {
             TAU = ZERO;
          } else {

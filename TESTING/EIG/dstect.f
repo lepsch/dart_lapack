@@ -38,9 +38,9 @@
 
       // Find largest entry
 
-      MX = ABS( A( 1 ) );
+      MX = ( A( 1 ) ).abs();
       for (I = 1; I <= N - 1; I++) { // 10
-         MX = max( MX, ABS( A( I+1 ) ), ABS( B( I ) ) );
+         MX = max( MX, ( A( I+1 ) ).abs(), ( B( I ) ) ).abs();
       } // 10
 
       // Handle easy cases, including zero matrix

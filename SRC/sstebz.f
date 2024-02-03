@@ -172,7 +172,7 @@
 
          GU = max( GU, D( N )+TMP1 );
          GL = min( GL, D( N )-TMP1 );
-         TNORM = max( ABS( GL ), ABS( GU ) );
+         TNORM = max( ( GL ).abs(), ( GU ).abs() );
          GL = GL - FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN;
          GU = GU + FUDGE*TNORM*ULP*N + FUDGE*PIVMIN;
 
@@ -224,10 +224,10 @@
 
          // RANGE='A' or 'V' -- Set ATOLI
 
-         TNORM = max( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) );
+         TNORM = max( ( D( 1 ) ).abs()+( E( 1 ) ).abs(), ( D( N ) ).abs()+( E( N-1 ) ) ).abs();
 
          for (J = 2; J <= N - 1; J++) { // 30
-            TNORM = max( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) );
+            TNORM = max( TNORM, ( D( J ) ).abs()+( E( J-1 ) ).abs()+ ( E( J ) ) ).abs();
          } // 30
 
          if ( ABSTOL <= ZERO ) {
@@ -284,7 +284,7 @@
             TMP1 = ZERO;
 
             for (J = IBEGIN; J <= IEND - 1; J++) { // 40
-               TMP2 = ABS( E( J ) );
+               TMP2 = ( E( J ) ).abs();
                GU = max( GU, D( J )+TMP1+TMP2 );
                GL = min( GL, D( J )-TMP1-TMP2 );
                TMP1 = TMP2;
@@ -292,14 +292,14 @@
 
             GU = max( GU, D( IEND )+TMP1 );
             GL = min( GL, D( IEND )-TMP1 );
-            BNORM = max( ABS( GL ), ABS( GU ) );
+            BNORM = max( ( GL ).abs(), ( GU ).abs() );
             GL = GL - FUDGE*BNORM*ULP*IN - FUDGE*PIVMIN;
             GU = GU + FUDGE*BNORM*ULP*IN + FUDGE*PIVMIN;
 
             // Compute ATOLI for the current submatrix
 
             if ( ABSTOL <= ZERO ) {
-               ATOLI = ULP*max( ABS( GL ), ABS( GU ) );
+               ATOLI = ULP*max( ( GL ).abs(), ( GU ).abs() );
             } else {
                ATOLI = ABSTOL;
             }

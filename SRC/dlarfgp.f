@@ -42,7 +42,7 @@
       EPS = DLAMCH( 'Precision' );
       XNORM = DNRM2( N-1, X, INCX );
 
-      if ( XNORM <= EPS*ABS(ALPHA) ) {
+      if ( XNORM <= EPS*(ALPHA).abs() ) {
 
          // H  =  [+/-1, 0; I], sign chosen so ALPHA >= 0.
 
@@ -67,7 +67,7 @@
          BETA = SIGN( DLAPY2( ALPHA, XNORM ), ALPHA );
          SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'E' );
          KNT = 0;
-         if ( ABS( BETA ) < SMLNUM ) {
+         if ( ( BETA ).abs() < SMLNUM ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
@@ -77,7 +77,7 @@
             dscal(N-1, BIGNUM, X, INCX );
             BETA = BETA*BIGNUM;
             ALPHA = ALPHA*BIGNUM;
-            if( (ABS( BETA ) < SMLNUM) && (KNT < 20) ) GO TO 10;
+            if( (( BETA ).abs() < SMLNUM) && (KNT < 20) ) GO TO 10;
 
             // New BETA is at most 1, at least SMLNUM
 
@@ -95,7 +95,7 @@
             ALPHA = -ALPHA;
          }
 
-         if ( ABS(TAU) <= SMLNUM ) {
+         if ( (TAU).abs() <= SMLNUM ) {
 
             // In the case where the computed TAU ends up being a denormalized number,
             // it loses relative accuracy. This is a BIG problem. Solution: flush TAU

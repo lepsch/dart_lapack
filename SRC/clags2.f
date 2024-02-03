@@ -30,7 +30,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( T ) = ABS( REAL( T ) ) + ABS( AIMAG( T ) );
+      ABS1( T ) = ( REAL( T ) ).abs() + ( AIMAG( T ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -44,7 +44,7 @@
          A = A1*B3;
          D = A3*B1;
          B = A2*B1 - A1*B2;
-         FB = ABS( B );
+         FB = ( B ).abs();
 
          // Transform complex 2-by-2 matrix C to real matrix by unitary
          // diagonal matrix diag(1,D1).
@@ -59,7 +59,7 @@
 
          slasv2(A, FB, D, S1, S2, SNR, CSR, SNL, CSL );
 
-         if ( ABS( CSL ) >= ABS( SNL ) || ABS( CSR ) >= ABS( SNR ) ) {
+         if ( ( CSL ).abs() >= ( SNL ).abs() || ( CSR ).abs() >= ( SNR ).abs() ) {
 
             // Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
             // and (1,2) element of |U|**H *|A| and |V|**H *|B|.
@@ -70,15 +70,15 @@
             VB11R = CSR*B1;
             VB12 = CSR*B2 + D1*SNR*B3;
 
-            AUA12 = ABS( CSL )*ABS1( A2 ) + ABS( SNL )*ABS( A3 );
-            AVB12 = ABS( CSR )*ABS1( B2 ) + ABS( SNR )*ABS( B3 );
+            AUA12 = ( CSL ).abs()*ABS1( A2 ) + ( SNL ).abs()*( A3 ).abs();
+            AVB12 = ( CSR ).abs()*ABS1( B2 ) + ( SNR ).abs()*( B3 ).abs();
 
             // zero (1,2) elements of U**H *A and V**H *B
 
-            if ( ( ABS( UA11R )+ABS1( UA12 ) ) == ZERO ) {
+            if ( ( ( UA11R ).abs()+ABS1( UA12 ) ) == ZERO ) {
                clartg(-CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R );
-            } else if ( ( ABS( VB11R )+ABS1( VB12 ) ) == ZERO ) {
-               clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ) <= AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN;
+            } else if ( ( ( VB11R ).abs()+ABS1( VB12 ) ) == ZERO ) {
+               clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ( UA11R ).abs()+ABS1( UA12 ) ) <= AVB12 / ( ( VB11R ).abs()+ABS1( VB12 ) ) ) THEN;
                clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R );
             } else {
                clartg(-CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R );
@@ -100,14 +100,14 @@
             VB21 = -CONJG( D1 )*SNR*B1;
             VB22 = -CONJG( D1 )*SNR*B2 + CSR*B3;
 
-            AUA22 = ABS( SNL )*ABS1( A2 ) + ABS( CSL )*ABS( A3 );
-            AVB22 = ABS( SNR )*ABS1( B2 ) + ABS( CSR )*ABS( B3 );
+            AUA22 = ( SNL ).abs()*ABS1( A2 ) + ( CSL ).abs()*( A3 ).abs();
+            AVB22 = ( SNR ).abs()*ABS1( B2 ) + ( CSR ).abs()*( B3 ).abs();
 
             // zero (2,2) elements of U**H *A and V**H *B, and then swap.
 
             if ( ( ABS1( UA21 )+ABS1( UA22 ) ) == ZERO ) {
                clartg(-CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R );
-            } else if ( ( ABS1( VB21 )+ABS( VB22 ) ) == ZERO ) {
+            } else if ( ( ABS1( VB21 )+( VB22 ).abs() ) == ZERO ) {
                clartg(-CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R );
             } else if ( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ) <= AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) {
                clartg(-CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R );
@@ -132,7 +132,7 @@
          A = A1*B3;
          D = A3*B1;
          C = A2*B3 - A3*B2;
-         FC = ABS( C );
+         FC = ( C ).abs();
 
          // Transform complex 2-by-2 matrix C to real matrix by unitary
          // diagonal matrix diag(d1,1).
@@ -147,7 +147,7 @@
 
          slasv2(A, FC, D, S1, S2, SNR, CSR, SNL, CSL );
 
-         if ( ABS( CSR ) >= ABS( SNR ) || ABS( CSL ) >= ABS( SNL ) ) {
+         if ( ( CSR ).abs() >= ( SNR ).abs() || ( CSL ).abs() >= ( SNL ).abs() ) {
 
             // Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
             // and (2,1) element of |U|**H *|A| and |V|**H *|B|.
@@ -158,16 +158,16 @@
             VB21 = -D1*SNL*B1 + CSL*B2;
             VB22R = CSL*B3;
 
-            AUA21 = ABS( SNR )*ABS( A1 ) + ABS( CSR )*ABS1( A2 );
-            AVB21 = ABS( SNL )*ABS( B1 ) + ABS( CSL )*ABS1( B2 );
+            AUA21 = ( SNR ).abs()*( A1 ).abs() + ( CSR ).abs()*ABS1( A2 );
+            AVB21 = ( SNL ).abs()*( B1 ).abs() + ( CSL ).abs()*ABS1( B2 );
 
             // zero (2,1) elements of U**H *A and V**H *B.
 
-            if ( ( ABS1( UA21 )+ABS( UA22R ) ) == ZERO ) {
+            if ( ( ABS1( UA21 )+( UA22R ).abs() ) == ZERO ) {
                clartg(CMPLX( VB22R ), VB21, CSQ, SNQ, R );
-            } else if ( ( ABS1( VB21 )+ABS( VB22R ) ) == ZERO ) {
+            } else if ( ( ABS1( VB21 )+( VB22R ).abs() ) == ZERO ) {
                clartg(CMPLX( UA22R ), UA21, CSQ, SNQ, R );
-            } else if ( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ) <= AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) {
+            } else if ( AUA21 / ( ABS1( UA21 )+( UA22R ).abs() ) <= AVB21 / ( ABS1( VB21 )+( VB22R ).abs() ) ) {
                clartg(CMPLX( UA22R ), UA21, CSQ, SNQ, R );
             } else {
                clartg(CMPLX( VB22R ), VB21, CSQ, SNQ, R );
@@ -189,8 +189,8 @@
             VB11 = CSL*B1 + CONJG( D1 )*SNL*B2;
             VB12 = CONJG( D1 )*SNL*B3;
 
-            AUA11 = ABS( CSR )*ABS( A1 ) + ABS( SNR )*ABS1( A2 );
-            AVB11 = ABS( CSL )*ABS( B1 ) + ABS( SNL )*ABS1( B2 );
+            AUA11 = ( CSR ).abs()*( A1 ).abs() + ( SNR ).abs()*ABS1( A2 );
+            AVB11 = ( CSL ).abs()*( B1 ).abs() + ( SNL ).abs()*ABS1( B2 );
 
             // zero (1,1) elements of U**H *A and V**H *B, and then swap.
 

@@ -252,7 +252,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -303,7 +303,7 @@
                   ssygv(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -326,7 +326,7 @@
                   ssygv_2stage(IBTYPE, 'N', UPLO, N, Z, LDZ, BB, LDB, D2, WORK, NWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 ) 'SSYGV_2STAGE(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -348,7 +348,7 @@
                   TEMP1 = ZERO;
                   TEMP2 = ZERO;
                   for (J = 1; J <= N; J++) { // 151
-                     TEMP1 = max( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) );
+                     TEMP1 = max( TEMP1, ( D( J ) ).abs(),  ( D2( J ) ) ).abs();
                      TEMP2 = max( TEMP2, ABS( D( J )-D2( J ) ) );
                   } // 151
 
@@ -364,7 +364,7 @@
                   ssygvd(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -387,7 +387,7 @@
                   ssygvx(IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -415,7 +415,7 @@
                   ssygvx(IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -436,7 +436,7 @@
                   ssygvx(IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -480,7 +480,7 @@
                   sspgv(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -522,7 +522,7 @@
                   sspgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -564,7 +564,7 @@
                   sspgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -606,7 +606,7 @@
                   sspgvx(IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -646,7 +646,7 @@
                   sspgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                     INFO = ABS( IINFO );
+                     INFO = ( IINFO ).abs();
                      if ( IINFO < 0 ) {
                         return;
                      } else {
@@ -692,7 +692,7 @@
                      ssbgv('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -734,7 +734,7 @@
                      ssbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -776,7 +776,7 @@
                      ssbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -819,7 +819,7 @@
                      ssbgvx('V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {
@@ -859,7 +859,7 @@
                      ssbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
-                        INFO = ABS( IINFO );
+                        INFO = ( IINFO ).abs();
                         if ( IINFO < 0 ) {
                            return;
                         } else {

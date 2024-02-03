@@ -30,11 +30,11 @@
 
          // code for increment equal to 1
 
-         SMAX = ABS(CX(1));
+         SMAX = (CX(1)).abs();
          for (I = 2; I <= N; I++) {
-            if (ABS(CX(I)) > SMAX) {
+            if ((CX(I)).abs() > SMAX) {
                ICMAX1 = I;
-               SMAX = ABS(CX(I));
+               SMAX = (CX(I)).abs();
             }
          }
       } else {
@@ -42,12 +42,12 @@
          // code for increment not equal to 1
 
          IX = 1;
-         SMAX = ABS(CX(1));
+         SMAX = (CX(1)).abs();
          IX = IX + INCX;
          for (I = 2; I <= N; I++) {
-            if (ABS(CX(IX)) > SMAX) {
+            if ((CX(IX)).abs() > SMAX) {
                ICMAX1 = I;
-               SMAX = ABS(CX(IX));
+               SMAX = (CX(IX)).abs();
             }
             IX = IX + INCX;
          }

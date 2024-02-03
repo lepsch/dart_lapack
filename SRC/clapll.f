@@ -59,7 +59,7 @@
 
       // Compute the SVD of 2-by-2 Upper triangular matrix.
 
-      slas2(ABS( A11 ), ABS( A12 ), ABS( A22 ), SSMIN, SSMAX );
+      slas2(( A11 ).abs(), ( A12 ).abs(), ( A22 ).abs(), SSMIN, SSMAX );
 
       return;
       }

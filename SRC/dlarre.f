@@ -106,7 +106,7 @@
       for (I = 1; I <= N; I++) { // 5
          WERR(I) = ZERO;
          WGAP(I) = ZERO;
-         EABS = ABS( E(I) );
+         EABS = ( E(I) ).abs();
          if ( EABS >= EMAX ) {
             EMAX = EABS;
          }
@@ -245,13 +245,13 @@
                INFO = -1;
                return;
             }
-            ISLEFT = max(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1));
+            ISLEFT = max(GL, TMP - TMP1 - HNDRD * EPS* (TMP - TMP1).abs());
              dlarrk(IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
             if ( IINFO != 0 ) {
                INFO = -1;
                return;
             }
-            ISRGHT = min(GU, TMP + TMP1 + HNDRD * EPS * ABS(TMP + TMP1));
+            ISRGHT = min(GU, TMP + TMP1 + HNDRD * EPS * (TMP + TMP1).abs());
             // Improve the estimate of the spectral diameter
             SPDIAM = ISRGHT - ISLEFT;
          } else {
@@ -341,11 +341,11 @@
             // The initial SIGMA was to the outer end of the spectrum
             // the matrix is definite and we need not retreat.
             TAU = SPDIAM*EPS*N + TWO*PIVMIN;
-            TAU = max( TAU,TWO*EPS*ABS(SIGMA) );
+            TAU = max( TAU,TWO*EPS*(SIGMA).abs() );
          } else {
             if (MB > 1) {
                CLWDTH = W(WEND) + WERR(WEND) - W(WBEGIN) - WERR(WBEGIN);
-               AVGAP = ABS(CLWDTH / DBLE(WEND-WBEGIN));
+               AVGAP = (CLWDTH / DBLE(WEND-WBEGIN)).abs();
                if ( SGNDEF == ONE ) {
                   TAU = HALF*max(WGAP(WBEGIN),AVGAP);
                   TAU = max(TAU,WERR(WBEGIN));
@@ -364,7 +364,7 @@
             // pivots in WORK(2*IN+1:3*IN)
             DPIVOT = D( IBEGIN ) - SIGMA;
             WORK( 1 ) = DPIVOT;
-            DMAX = ABS( WORK(1) );
+            DMAX = ( WORK(1) ).abs();
             J = IBEGIN;
             for (I = 1; I <= IN - 1; I++) { // 70
                WORK( 2*IN+I ) = ONE / WORK( I );
@@ -372,7 +372,7 @@
                WORK( IN+I ) = TMP;
                DPIVOT = ( D( J+1 )-SIGMA ) - TMP*E( J );
                WORK( I+1 ) = DPIVOT;
-               DMAX = max( DMAX, ABS(DPIVOT) );
+               DMAX = max( DMAX, (DPIVOT).abs() );
                J = J + 1;
             } // 70
             // check for element growth
@@ -457,7 +457,7 @@
             // UNshifted eigenvalue approximation.
             for (J = WBEGIN; J <= WEND; J++) { // 134
                W(J) = W(J) - SIGMA;
-               WERR(J) = WERR(J) + ABS(W(J)) * EPS;
+               WERR(J) = WERR(J) + (W(J)).abs() * EPS;
             } // 134
             // call DLARRB to reduce eigenvalue error of the approximations
             // from DLARRD
@@ -493,11 +493,11 @@
             RTOL = LOG(DBLE(IN)) * FOUR * EPS;
             J = IBEGIN;
             for (I = 1; I <= IN - 1; I++) { // 140
-               WORK( 2*I-1 ) = ABS( D( J ) );
+               WORK( 2*I-1 ) = ( D( J ) ).abs();
                WORK( 2*I ) = E( J )*E( J )*WORK( 2*I-1 );
                J = J + 1;
             } // 140
-            WORK( 2*IN-1 ) = ABS( D( IEND ) );
+            WORK( 2*IN-1 ) = ( D( IEND ) ).abs();
             WORK( 2*IN ) = ZERO;
             dlasq2(IN, WORK, IINFO );
             if ( IINFO != 0 ) {
@@ -533,7 +533,7 @@
 
             for (I = M - MB + 1; I <= M; I++) { // 165
                // the value of RTOL below should be the tolerance in DLASQ2
-               WERR( I ) = RTOL * ABS( W(I) );
+               WERR( I ) = RTOL * ( W(I) ).abs();
             } // 165
             for (I = M - MB + 1; I <= M - 1; I++) { // 166
                // compute the right gap between the intervals

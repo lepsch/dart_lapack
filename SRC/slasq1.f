@@ -41,7 +41,7 @@
       } else if ( N == 0 ) {
          return;
       } else if ( N == 1 ) {
-         D( 1 ) = ABS( D( 1 ) );
+         D( 1 ) = ( D( 1 ) ).abs();
          return;
       } else if ( N == 2 ) {
          slas2(D( 1 ), E( 1 ), D( 2 ), SIGMN, SIGMX );
@@ -54,10 +54,10 @@
 
       SIGMX = ZERO;
       for (I = 1; I <= N - 1; I++) { // 10
-         D( I ) = ABS( D( I ) );
-         SIGMX = max( SIGMX, ABS( E( I ) ) );
+         D( I ) = ( D( I ) ).abs();
+         SIGMX = max( SIGMX, ( E( I ) ) ).abs();
       } // 10
-      D( N ) = ABS( D( N ) );
+      D( N ) = ( D( N ) ).abs();
 
       // Early return if SIGMX is zero (matrix is already diagonal).
 

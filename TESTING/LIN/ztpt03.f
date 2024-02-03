@@ -55,13 +55,13 @@
          if ( LSAME( UPLO, 'U' ) ) {
             JJ = 1;
             for (J = 1; J <= N; J++) { // 10
-               TNORM = max( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
+               TNORM = max( TNORM, TSCAL*( AP( JJ ) ).abs()+CNORM( J ) );
                JJ = JJ + J;
             } // 10
          } else {
             JJ = 1;
             for (J = 1; J <= N; J++) { // 20
-               TNORM = max( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
+               TNORM = max( TNORM, TSCAL*( AP( JJ ) ).abs()+CNORM( J ) );
                JJ = JJ + N - J + 1;
             } // 20
          }
@@ -78,15 +78,15 @@
       for (J = 1; J <= NRHS; J++) { // 40
          zcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 );
-         XNORM = max( ONE, ABS( X( IX, J ) ) );
+         XNORM = max( ONE, ( X( IX, J ) ) ).abs();
          XSCAL = ( ONE / XNORM ) / DBLE( N );
          zdscal(N, XSCAL, WORK, 1 );
          ztpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
          zaxpy(N, DCMPLX( -SCALE*XSCAL ), B( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 );
-         ERR = TSCAL*ABS( WORK( IX ) );
+         ERR = TSCAL*( WORK( IX ) ).abs();
          IX = IZAMAX( N, X( 1, J ), 1 );
-         XNORM = ABS( X( IX, J ) );
+         XNORM = ( X( IX, J ) ).abs();
          if ( ERR*SMLNUM <= XNORM ) {
             if (XNORM > ZERO) ERR = ERR / XNORM;
          } else {

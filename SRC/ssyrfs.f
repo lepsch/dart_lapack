@@ -115,7 +115,7 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 30
-            WORK( I ) = ABS( B( I, J ) );
+            WORK( I ) = ( B( I, J ) ).abs();
          } // 30
 
          // Compute abs(A)*abs(X) + abs(B).
@@ -123,21 +123,21 @@
          if ( UPPER ) {
             for (K = 1; K <= N; K++) { // 50
                S = ZERO;
-               XK = ABS( X( K, J ) );
+               XK = ( X( K, J ) ).abs();
                for (I = 1; I <= K - 1; I++) { // 40
-                  WORK( I ) = WORK( I ) + ABS( A( I, K ) )*XK;
-                  S = S + ABS( A( I, K ) )*ABS( X( I, J ) );
+                  WORK( I ) = WORK( I ) + ( A( I, K ) ).abs()*XK;
+                  S = S + ( A( I, K ) ).abs()*( X( I, J ) ).abs();
                } // 40
-               WORK( K ) = WORK( K ) + ABS( A( K, K ) )*XK + S;
+               WORK( K ) = WORK( K ) + ( A( K, K ) ).abs()*XK + S;
             } // 50
          } else {
             for (K = 1; K <= N; K++) { // 70
                S = ZERO;
-               XK = ABS( X( K, J ) );
-               WORK( K ) = WORK( K ) + ABS( A( K, K ) )*XK;
+               XK = ( X( K, J ) ).abs();
+               WORK( K ) = WORK( K ) + ( A( K, K ) ).abs()*XK;
                for (I = K + 1; I <= N; I++) { // 60
-                  WORK( I ) = WORK( I ) + ABS( A( I, K ) )*XK;
-                  S = S + ABS( A( I, K ) )*ABS( X( I, J ) );
+                  WORK( I ) = WORK( I ) + ( A( I, K ) ).abs()*XK;
+                  S = S + ( A( I, K ) ).abs()*( X( I, J ) ).abs();
                } // 60
                WORK( K ) = WORK( K ) + S;
             } // 70
@@ -145,9 +145,9 @@
          S = ZERO;
          for (I = 1; I <= N; I++) { // 80
             if ( WORK( I ) > SAFE2 ) {
-               S = max( S, ABS( WORK( N+I ) ) / WORK( I ) );
+               S = max( S, ( WORK( N+I ) ).abs() / WORK( I ) );
             } else {
-               S = max( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) );
+               S = max( S, ( ( WORK( N+I ) ).abs()+SAFE1 ) / ( WORK( I )+SAFE1 ) );
             }
          } // 80
          BERR( J ) = S;
@@ -193,9 +193,9 @@
 
          for (I = 1; I <= N; I++) { // 90
             if ( WORK( I ) > SAFE2 ) {
-               WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I );
+               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
             } else {
-               WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1;
+               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 90
 
@@ -227,7 +227,7 @@
 
          LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 130
-            LSTRES = max( LSTRES, ABS( X( I, J ) ) );
+            LSTRES = max( LSTRES, ( X( I, J ) ) ).abs();
          } // 130
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 

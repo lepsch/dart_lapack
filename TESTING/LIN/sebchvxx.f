@@ -160,7 +160,7 @@
          }
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               RINV(I) = RINV(I) + ABS(A(I,J));
+               RINV(I) = RINV(I) + (A(I,J)).abs();
             }
          }
 
@@ -186,10 +186,10 @@
             NORMDIF = 0.0;
             CWISE_ERR = 0.0;
             for (I = 1; I <= N; I++) {
-               NORMT = max(ABS(INVHILB(I, K)), NORMT);
+               NORMT = max((INVHILB(I, K)).abs(), NORMT);
                NORMDIF = max(ABS(X(I,K) - INVHILB(I,K)), NORMDIF);
                if (INVHILB(I,K) != 0.0) {
-                  CWISE_ERR = max(ABS(X(I,K) - INVHILB(I,K)) /ABS(INVHILB(I,K)), CWISE_ERR);
+                  CWISE_ERR = max(ABS(X(I,K) - INVHILB(I,K)) /(INVHILB(I,K)).abs(), CWISE_ERR);
                } else if (X(I, K) != 0.0) {
                   CWISE_ERR = SLAMCH('OVERFLOW');
                }

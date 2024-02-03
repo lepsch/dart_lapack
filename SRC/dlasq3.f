@@ -146,7 +146,7 @@
 
          GO TO 90;
 
-      } else if ( DMIN < ZERO && DMIN1 > ZERO && Z( 4*( N0-1 )-PP ) < TOL*( SIGMA+DN1 ) && ABS( DN ) < TOL*SIGMA ) {
+      } else if ( DMIN < ZERO && DMIN1 > ZERO && Z( 4*( N0-1 )-PP ) < TOL*( SIGMA+DN1 ) && ( DN ).abs() < TOL*SIGMA ) {
 
          // Convergence hidden by negative DN.
 

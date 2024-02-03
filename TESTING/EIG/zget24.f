@@ -117,7 +117,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX1', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             return;
          }
          if ( ISORT == 0 ) {
@@ -182,7 +182,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX2', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 220;
          }
 
@@ -236,7 +236,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX3', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 220;
          }
 
@@ -263,7 +263,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX4', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 220;
          }
 
@@ -294,7 +294,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX5', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 220;
          }
 
@@ -324,7 +324,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX6', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 220;
          }
 
@@ -354,7 +354,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX7', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 220;
          }
 
@@ -384,7 +384,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX8', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 220;
          }
 
@@ -462,7 +462,7 @@
             RESULT( 16 ) = ULPINV;
             RESULT( 17 ) = ULPINV;
             WRITE( NOUNIT, FMT = 9999 )'ZGEESX9', IINFO, N, ISEED( 1 );
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 270;
          }
 

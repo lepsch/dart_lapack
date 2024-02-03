@@ -46,14 +46,14 @@
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
                   DO 10 I = 1, min( M, J-1 );
-                     SUM = ABS( A( I, J ) );
+                     SUM = ( A( I, J ) ).abs();
                      if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                   } // 10
                } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
                   for (I = J + 1; I <= M; I++) { // 30
-                     SUM = ABS( A( I, J ) );
+                     SUM = ( A( I, J ) ).abs();
                      if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                   } // 30
                } // 40
@@ -63,14 +63,14 @@
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
                   DO 50 I = 1, min( M, J );
-                     SUM = ABS( A( I, J ) );
+                     SUM = ( A( I, J ) ).abs();
                      if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                   } // 50
                } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
                   for (I = J; I <= M; I++) { // 70
-                     SUM = ABS( A( I, J ) );
+                     SUM = ( A( I, J ) ).abs();
                      if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                   } // 70
                } // 80
@@ -87,12 +87,12 @@
                if ( ( UDIAG ) && ( J <= M ) ) {
                   SUM = ONE;
                   for (I = 1; I <= J - 1; I++) { // 90
-                     SUM = SUM + ABS( A( I, J ) );
+                     SUM = SUM + ( A( I, J ) ).abs();
                   } // 90
                } else {
                   SUM = ZERO;
                   DO 100 I = 1, min( M, J );
-                     SUM = SUM + ABS( A( I, J ) );
+                     SUM = SUM + ( A( I, J ) ).abs();
                   } // 100
                }
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
@@ -102,12 +102,12 @@
                if ( UDIAG ) {
                   SUM = ONE;
                   for (I = J + 1; I <= M; I++) { // 120
-                     SUM = SUM + ABS( A( I, J ) );
+                     SUM = SUM + ( A( I, J ) ).abs();
                   } // 120
                } else {
                   SUM = ZERO;
                   for (I = J; I <= M; I++) { // 130
-                     SUM = SUM + ABS( A( I, J ) );
+                     SUM = SUM + ( A( I, J ) ).abs();
                   } // 130
                }
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
@@ -124,7 +124,7 @@
                } // 150
                for (J = 1; J <= N; J++) { // 170
                   DO 160 I = 1, min( M, J-1 );
-                     WORK( I ) = WORK( I ) + ABS( A( I, J ) );
+                     WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
                   } // 160
                } // 170
             } else {
@@ -133,7 +133,7 @@
                } // 180
                for (J = 1; J <= N; J++) { // 200
                   DO 190 I = 1, min( M, J );
-                     WORK( I ) = WORK( I ) + ABS( A( I, J ) );
+                     WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
                   } // 190
                } // 200
             }
@@ -147,7 +147,7 @@
                } // 220
                for (J = 1; J <= N; J++) { // 240
                   for (I = J + 1; I <= M; I++) { // 230
-                     WORK( I ) = WORK( I ) + ABS( A( I, J ) );
+                     WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
                   } // 230
                } // 240
             } else {
@@ -156,7 +156,7 @@
                } // 250
                for (J = 1; J <= N; J++) { // 270
                   for (I = J; I <= M; I++) { // 260
-                     WORK( I ) = WORK( I ) + ABS( A( I, J ) );
+                     WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
                   } // 260
                } // 270
             }

@@ -79,7 +79,7 @@
 
             zlarnv(3, ISEED, M-I+1, WORK );
             WN = DZNRM2( M-I+1, WORK, 1 );
-            WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 );
+            WA = ( WN / ( WORK( 1 ) ) ).abs()*WORK( 1 );
             if ( WN == ZERO ) {
                TAU = ZERO;
             } else {
@@ -100,7 +100,7 @@
 
             zlarnv(3, ISEED, N-I+1, WORK );
             WN = DZNRM2( N-I+1, WORK, 1 );
-            WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 );
+            WA = ( WN / ( WORK( 1 ) ) ).abs()*WORK( 1 );
             if ( WN == ZERO ) {
                TAU = ZERO;
             } else {
@@ -130,7 +130,7 @@
                // generate reflection to annihilate A(kl+i+1:m,i)
 
                WN = DZNRM2( M-KL-I+1, A( KL+I, I ), 1 );
-               WA = ( WN / ABS( A( KL+I, I ) ) )*A( KL+I, I );
+               WA = ( WN / ( A( KL+I, I ) ) ).abs()*A( KL+I, I );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -152,7 +152,7 @@
                // generate reflection to annihilate A(i,ku+i+1:n)
 
                WN = DZNRM2( N-KU-I+1, A( I, KU+I ), LDA );
-               WA = ( WN / ABS( A( I, KU+I ) ) )*A( I, KU+I );
+               WA = ( WN / ( A( I, KU+I ) ) ).abs()*A( I, KU+I );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -179,7 +179,7 @@
                // generate reflection to annihilate A(i,ku+i+1:n)
 
                WN = DZNRM2( N-KU-I+1, A( I, KU+I ), LDA );
-               WA = ( WN / ABS( A( I, KU+I ) ) )*A( I, KU+I );
+               WA = ( WN / ( A( I, KU+I ) ) ).abs()*A( I, KU+I );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {
@@ -202,7 +202,7 @@
                // generate reflection to annihilate A(kl+i+1:m,i)
 
                WN = DZNRM2( M-KL-I+1, A( KL+I, I ), 1 );
-               WA = ( WN / ABS( A( KL+I, I ) ) )*A( KL+I, I );
+               WA = ( WN / ( A( KL+I, I ) ) ).abs()*A( KL+I, I );
                if ( WN == ZERO ) {
                   TAU = ZERO;
                } else {

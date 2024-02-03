@@ -56,7 +56,7 @@
       ERRBND = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
          IMAX = IDAMAX( N, X( 1, J ), 1 );
-         XNORM = max( ABS( X( IMAX, J ) ), UNFL );
+         XNORM = max( ( X( IMAX, J ) ).abs(), UNFL );
          DIFF = ZERO;
          for (I = 1; I <= N; I++) { // 10
             DIFF = max( DIFF, ABS( X( I, J )-XACT( I, J ) ) );
@@ -87,29 +87,29 @@
       if (UNIT) IFU = 1;
       for (K = 1; K <= NRHS; K++) { // 90
          for (I = 1; I <= N; I++) { // 80
-            TMP = ABS( B( I, K ) );
+            TMP = ( B( I, K ) ).abs();
             if ( UPPER ) {
                if ( !NOTRAN ) {
                   for (J = 1; J <= I - IFU; J++) { // 40
-                     TMP = TMP + ABS( A( J, I ) )*ABS( X( J, K ) );
+                     TMP = TMP + ( A( J, I ) ).abs()*( X( J, K ) ).abs();
                   } // 40
-                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
+                  if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
                } else {
-                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
+                  if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
                   for (J = I + IFU; J <= N; J++) { // 50
-                     TMP = TMP + ABS( A( I, J ) )*ABS( X( J, K ) );
+                     TMP = TMP + ( A( I, J ) ).abs()*( X( J, K ) ).abs();
                   } // 50
                }
             } else {
                if ( NOTRAN ) {
                   for (J = 1; J <= I - IFU; J++) { // 60
-                     TMP = TMP + ABS( A( I, J ) )*ABS( X( J, K ) );
+                     TMP = TMP + ( A( I, J ) ).abs()*( X( J, K ) ).abs();
                   } // 60
-                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
+                  if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
                } else {
-                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
+                  if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
                   for (J = I + IFU; J <= N; J++) { // 70
-                     TMP = TMP + ABS( A( J, I ) )*ABS( X( J, K ) );
+                     TMP = TMP + ( A( J, I ) ).abs()*( X( J, K ) ).abs();
                   } // 70
                }
             }

@@ -39,7 +39,7 @@
          BERR(J) = 0.0;
          for (I = 1; I <= N; I++) {
             if (AYB(I,J) != 0.0) {
-               TMP = (SAFE1+ABS(RES(I,J)))/AYB(I,J);
+               TMP = (SAFE1+(RES(I,J))).abs()/AYB(I,J);
                BERR(J) = max( BERR(J), TMP );
             }
 

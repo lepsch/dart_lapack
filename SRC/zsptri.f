@@ -136,7 +136,7 @@
             KCNEXT = KCNEXT + K + 1;
          }
 
-         KP = ABS( IPIV( K ) );
+         KP = ( IPIV( K ) ).abs();
          if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the leading
@@ -225,7 +225,7 @@
             KCNEXT = KCNEXT - ( N-K+3 );
          }
 
-         KP = ABS( IPIV( K ) );
+         KP = ( IPIV( K ) ).abs();
          if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the trailing

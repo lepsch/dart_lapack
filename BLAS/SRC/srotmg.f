@@ -49,7 +49,7 @@
          SQ2 = SP2*SY1;
          SQ1 = SP1*SX1;
 
-         if (ABS(SQ1) > ABS(SQ2)) {
+         if ((SQ1).abs() > (SQ2).abs()) {
             SH21 = -SY1/SX1;
             SH12 = SP2/SP1;
 
@@ -126,7 +126,7 @@
          }
 
          if (SD2 != ZERO) {
-            DO WHILE ( (ABS(SD2) <= RGAMSQ) || (ABS(SD2) >= GAMSQ) );
+            DO WHILE ( ((SD2).abs() <= RGAMSQ) || ((SD2).abs() >= GAMSQ) );
                if (SFLAG == ZERO) {
                   SH11 = ONE;
                   SH22 = ONE;
@@ -136,7 +136,7 @@
                   SH12 = ONE;
                   SFLAG = -ONE;
                }
-               if (ABS(SD2) <= RGAMSQ) {
+               if ((SD2).abs() <= RGAMSQ) {
                   SD2 = SD2*GAM**2;
                   SH21 = SH21/GAM;
                   SH22 = SH22/GAM;

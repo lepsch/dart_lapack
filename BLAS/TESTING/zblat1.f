@@ -261,8 +261,8 @@
       for (KI = 1; KI <= 4; KI++) { // 60
          INCX = INCXS(KI);
          INCY = INCYS(KI);
-         MX = ABS(INCX);
-         MY = ABS(INCY);
+         MX = (INCX).abs();
+         MY = (INCY).abs();
 
          for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN);
@@ -356,7 +356,7 @@
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I);
-         if (ABS(SFAC*SD) <= ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40;
+         if ((SFAC*SD).abs() <= (SSIZE(I)).abs()*EPSILON(ZERO)) GO TO 40;
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
@@ -535,8 +535,8 @@
 
       // Check that the arrays are large enough
 
-      if (N*ABS(INCX) > NMAX) {
-         WRITE (NOUT,99) "DZNRM2", NMAX, INCX, N, N*ABS(INCX);
+      if (N*(INCX).abs() > NMAX) {
+         WRITE (NOUT,99) "DZNRM2", NMAX, INCX, N, N*(INCX).abs();
          return;
       }
 
@@ -567,13 +567,13 @@
 
       for (IV = 1; IV <= NV; IV++) {
          V0 = VALUES(IV);
-         if (ABS(V0) > ONE) {
+         if ((V0).abs() > ONE) {
             V0 = V0*HALF*HALF;
          }
          Z(1) = DCMPLX(V0,-THREE*V0);
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW);
-            if (ABS(V1) > ONE) {
+            if ((V1).abs() > ONE) {
                V1 = (V1*HALF) / sqrt(DBLE(KS+1));
             }
             for (I = 1; I <= N-1; I++) {
@@ -582,9 +582,9 @@
 
             // Compute the expected value of the 2-norm
 
-            Y1 = ABS(V0) * sqrt(10.0);
+            Y1 = (V0).abs() * sqrt(10.0);
             if (N > 1) {
-               Y2 = ABS(V1)*sqrt(WORKSSQ);
+               Y2 = (V1).abs()*sqrt(WORKSSQ);
             } else {
                Y2 = ZERO;
             }
@@ -656,7 +656,7 @@
             } else if (ZNRM == ZERO) {
                TRAT = SNRM / ULP;
             } else {
-               TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (TWO*DBLE(N)*ULP);
+               TRAT = ((SNRM-ZNRM).abs() / ZNRM) / (TWO*DBLE(N)*ULP);
             }
             if ((TRAT != TRAT) || (TRAT >= THRESH)) {
                if (FIRST) {

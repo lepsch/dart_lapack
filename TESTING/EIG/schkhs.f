@@ -260,7 +260,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -280,7 +280,7 @@
             if ( IINFO != 0 ) {
                RESULT( 1 ) = ULPINV;
                WRITE( NOUNIT, FMT = 9999 )'SGEHRD', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
@@ -310,7 +310,7 @@
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(E)', IINFO, N, JTYPE, IOLDSD;
                if ( IINFO <= N+2 ) {
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   GO TO 250;
                }
             }
@@ -322,7 +322,7 @@
             shseqr('S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 && IINFO <= N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(S)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
@@ -335,7 +335,7 @@
             shseqr('S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 && IINFO <= N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(V)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
@@ -363,7 +363,7 @@
             TEMP1 = ZERO;
             TEMP2 = ZERO;
             for (J = 1; J <= N; J++) { // 130
-               TEMP1 = max( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ), ABS( WR2( J ) )+ABS( WI2( J ) ) )                TEMP2 = max( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) );
+               TEMP1 = max( TEMP1, ( WR1( J ) ).abs()+( WI1( J ) ).abs(), ( WR2( J ) ).abs()+( WI2( J ) ) ).abs()                TEMP2 = max( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) );
             } // 130
 
             RESULT( 8 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
@@ -405,7 +405,7 @@
             strevc('Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(R,A)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
@@ -423,7 +423,7 @@
             strevc('Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(R,S)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
@@ -458,7 +458,7 @@
             strevc('Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(L,A)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
@@ -476,7 +476,7 @@
             strevc('Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(L,S)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
@@ -515,7 +515,7 @@
             shsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEIN(R)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if (IINFO < 0) GO TO 250;
             } else {
 
@@ -540,7 +540,7 @@
             shsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEIN(L)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if (IINFO < 0) GO TO 250;
             } else {
 
@@ -562,7 +562,7 @@
             sormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORMHR(R)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if (IINFO < 0) GO TO 250;
             } else {
 
@@ -581,7 +581,7 @@
             sormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORMHR(L)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if (IINFO < 0) GO TO 250;
             } else {
 
@@ -604,7 +604,7 @@
             strevc3('Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC3(R,B)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 
@@ -628,7 +628,7 @@
             strevc3('Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC3(L,B)', IINFO, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 250;
             }
 

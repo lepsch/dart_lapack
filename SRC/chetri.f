@@ -113,7 +113,7 @@
 
             // Invert the diagonal block.
 
-            T = ABS( A( K, K+1 ) );
+            T = ( A( K, K+1 ) ).abs();
             AK = REAL( A( K, K ) ) / T;
             AKP1 = REAL( A( K+1, K+1 ) ) / T;
             AKKP1 = A( K, K+1 ) / T;
@@ -133,7 +133,7 @@
             KSTEP = 2;
          }
 
-         KP = ABS( IPIV( K ) );
+         KP = ( IPIV( K ) ).abs();
          if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the leading
@@ -195,7 +195,7 @@
 
             // Invert the diagonal block.
 
-            T = ABS( A( K, K-1 ) );
+            T = ( A( K, K-1 ) ).abs();
             AK = REAL( A( K-1, K-1 ) ) / T;
             AKP1 = REAL( A( K, K ) ) / T;
             AKKP1 = A( K, K-1 ) / T;
@@ -215,7 +215,7 @@
             KSTEP = 2;
          }
 
-         KP = ABS( IPIV( K ) );
+         KP = ( IPIV( K ) ).abs();
          if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the trailing

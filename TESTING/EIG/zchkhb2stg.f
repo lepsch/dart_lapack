@@ -241,7 +241,7 @@
                   if (N > 1) K = max( 1, K );
                   zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK, IINFO );
                   for (I = 2; I <= N; I++) { // 90
-                     TEMP1 = ABS( A( K, I ) ) / sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
+                     TEMP1 = ( A( K, I ) ).abs() / sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      if ( TEMP1 > HALF ) {
                         A( K, I ) = HALF*sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      }
@@ -254,7 +254,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   return;
                }
 
@@ -269,7 +269,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHBTRD(U)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -300,7 +300,7 @@
                zsteqr('N', N, D1, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -329,7 +329,7 @@
                zsteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -361,7 +361,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHBTRD(L)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -395,7 +395,7 @@
                zsteqr('N', N, D3, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   if ( IINFO < 0 ) {
                      return;
                   } else {
@@ -415,9 +415,9 @@
                TEMP4 = ZERO;
 
                for (J = 1; J <= N; J++) { // 151
-                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+                  TEMP1 = max( TEMP1, ( D1( J ) ).abs(), ( D2( J ) ) ).abs();
                   TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
-                  TEMP3 = max( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP3 = max( TEMP3, ( D1( J ) ).abs(), ( D3( J ) ) ).abs();
                   TEMP4 = max( TEMP4, ABS( D1( J )-D3( J ) ) );
                } // 151
 

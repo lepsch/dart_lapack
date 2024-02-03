@@ -67,7 +67,7 @@
       // Compute D according to COND and MODE
 
       if ( MODE != 0 ) {
-         GO TO ( 10, 30, 50, 70, 90, 110 )ABS( MODE );
+         GO TO ( 10, 30, 50, 70, 90, 110 )( MODE ).abs();
 
          // One large D value:
 
@@ -134,7 +134,7 @@
          if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == 1 ) {
             for (I = 1; I <= N; I++) { // 130
                CTEMP = CLARND( 3, ISEED );
-               D( I ) = D( I )*( CTEMP / ABS( CTEMP ) );
+               D( I ) = D( I )*( CTEMP / ( CTEMP ).abs() );
             } // 130
          }
 

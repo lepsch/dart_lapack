@@ -44,14 +44,14 @@
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
                DO 10 I = max( K+2-J, 1 ), K + 1;
-                  SUM = ABS( AB( I, J ) );
+                  SUM = ( AB( I, J ) ).abs();
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 10
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
                DO 30 I = 1, min( N+1-J, K+1 );
-                  SUM = ABS( AB( I, J ) );
+                  SUM = ( AB( I, J ) ).abs();
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 30
             } // 40
@@ -66,11 +66,11 @@
                SUM = ZERO;
                L = K + 1 - J;
                DO 50 I = max( 1, J-K ), J - 1;
-                  ABSA = ABS( AB( L+I, J ) );
+                  ABSA = ( AB( L+I, J ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                } // 50
-               WORK( J ) = SUM + ABS( AB( K+1, J ) );
+               WORK( J ) = SUM + ( AB( K+1, J ) ).abs();
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I );
@@ -81,10 +81,10 @@
                WORK( I ) = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
-               SUM = WORK( J ) + ABS( AB( 1, J ) );
+               SUM = WORK( J ) + ( AB( 1, J ) ).abs();
                L = 1 - J;
                DO 90 I = J + 1, min( N, J+K );
-                  ABSA = ABS( AB( L+I, J ) );
+                  ABSA = ( AB( L+I, J ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
                } // 90

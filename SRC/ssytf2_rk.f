@@ -88,7 +88,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( A( K, K ) );
+         ABSAKK = ( A( K, K ) ).abs();
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -96,7 +96,7 @@
 
          if ( K > 1 ) {
             IMAX = ISAMAX( K-1, A( 1, K ), 1 );
-            COLMAX = ABS( A( IMAX, K ) );
+            COLMAX = ( A( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
          }
@@ -141,14 +141,14 @@
 
                   if ( IMAX != K ) {
                      JMAX = IMAX + ISAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA );
-                     ROWMAX = ABS( A( IMAX, JMAX ) );
+                     ROWMAX = ( A( IMAX, JMAX ) ).abs();
                   } else {
                      ROWMAX = ZERO;
                   }
 
                   if ( IMAX > 1 ) {
                      ITEMP = ISAMAX( IMAX-1, A( 1, IMAX ), 1 );
-                     STEMP = ABS( A( ITEMP, IMAX ) );
+                     STEMP = ( A( ITEMP, IMAX ) ).abs();
                      if ( STEMP > ROWMAX ) {
                         ROWMAX = STEMP;
                         JMAX = ITEMP;
@@ -158,7 +158,7 @@
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
-                  if ( !( ABS( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ) ).abs() {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -255,7 +255,7 @@
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
 
-                  if ( ABS( A( K, K ) ) >= SFMIN ) {
+                  if ( ( A( K, K ) ).abs() >= SFMIN ) {
 
                      // Perform a rank-1 update of A(1:k-1,1:k-1) as
                      // A := A - U(k)*D(k)*U(k)**T
@@ -383,7 +383,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( A( K, K ) );
+         ABSAKK = ( A( K, K ) ).abs();
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -391,7 +391,7 @@
 
          if ( K < N ) {
             IMAX = K + ISAMAX( N-K, A( K+1, K ), 1 );
-            COLMAX = ABS( A( IMAX, K ) );
+            COLMAX = ( A( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
          }
@@ -436,14 +436,14 @@
 
                   if ( IMAX != K ) {
                      JMAX = K - 1 + ISAMAX( IMAX-K, A( IMAX, K ), LDA );
-                     ROWMAX = ABS( A( IMAX, JMAX ) );
+                     ROWMAX = ( A( IMAX, JMAX ) ).abs();
                   } else {
                      ROWMAX = ZERO;
                   }
 
                   if ( IMAX < N ) {
                      ITEMP = IMAX + ISAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 );
-                     STEMP = ABS( A( ITEMP, IMAX ) );
+                     STEMP = ( A( ITEMP, IMAX ) ).abs();
                      if ( STEMP > ROWMAX ) {
                         ROWMAX = STEMP;
                         JMAX = ITEMP;
@@ -453,7 +453,7 @@
                   // Equivalent to testing for (used to handle NaN and Inf)
                   // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
-                  if ( !( ABS( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ) ).abs() {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -550,7 +550,7 @@
                // Perform a rank-1 update of A(k+1:n,k+1:n) and
                // store L(k) in column k
 
-                  if ( ABS( A( K, K ) ) >= SFMIN ) {
+                  if ( ( A( K, K ) ).abs() >= SFMIN ) {
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T

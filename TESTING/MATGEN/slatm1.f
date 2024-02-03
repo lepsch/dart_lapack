@@ -67,7 +67,7 @@
       // Compute D according to COND and MODE
 
       if ( MODE != 0 ) {
-         GO TO ( 10, 30, 50, 70, 90, 110 )ABS( MODE );
+         GO TO ( 10, 30, 50, 70, 90, 110 )( MODE ).abs();
 
          // One large D value:
 

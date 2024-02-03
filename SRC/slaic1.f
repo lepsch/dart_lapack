@@ -35,9 +35,9 @@
       EPS = SLAMCH( 'Epsilon' );
       ALPHA = SDOT( J, X, 1, W, 1 );
 
-      ABSALP = ABS( ALPHA );
-      ABSGAM = ABS( GAMMA );
-      ABSEST = ABS( SEST );
+      ABSALP = ( ALPHA ).abs();
+      ABSGAM = ( GAMMA ).abs();
+      ABSEST = ( SEST ).abs();
 
       if ( JOB == 1 ) {
 
@@ -137,7 +137,7 @@
                SINE = -GAMMA;
                COSINE = ALPHA;
             }
-            S1 = max( ABS( SINE ), ABS( COSINE ) );
+            S1 = max( ( SINE ).abs(), ( COSINE ).abs() );
             S = SINE / S1;
             C = COSINE / S1;
             TMP = sqrt( S*S+C*C );
@@ -186,7 +186,7 @@
             ZETA1 = ALPHA / ABSEST;
             ZETA2 = GAMMA / ABSEST;
 
-            NORMA = max( ONE+ZETA1*ZETA1+ABS( ZETA1*ZETA2 ), ABS( ZETA1*ZETA2 )+ZETA2*ZETA2 );
+            NORMA = max( ONE+ZETA1*ZETA1+( ZETA1*ZETA2 ).abs(), ( ZETA1*ZETA2 ).abs()+ZETA2*ZETA2 );
 
             // See if root is closer to zero or to ONE
 
@@ -197,7 +197,7 @@
 
                B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF;
                C = ZETA2*ZETA2;
-               T = C / ( B+sqrt( ABS( B*B-C ) ) );
+               T = C / ( B+sqrt( ( B*B-C ).abs() ) );
                SINE = ZETA1 / ( ONE-T );
                COSINE = -ZETA2 / T;
                SESTPR = sqrt( T+FOUR*EPS*EPS*NORMA )*ABSEST;

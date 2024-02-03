@@ -57,13 +57,13 @@
       for (J = 1; J <= N - 1; J++) { // 10
          WORK( ( N+1 )*( J-1 )+1 ) = AD( J );
          WORK( ( N+1 )*( J-1 )+2 ) = AE( J );
-         TEMP2 = ABS( AE( J ) );
-         ANORM = max( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 );
+         TEMP2 = ( AE( J ) ).abs();
+         ANORM = max( ANORM, ( AD( J ) ).abs()+TEMP1+TEMP2 );
          TEMP1 = TEMP2;
       } // 10
 
       WORK( N**2 ) = AD( N );
-      ANORM = max( ANORM, ABS( AD( N ) )+TEMP1, UNFL );
+      ANORM = max( ANORM, ( AD( N ) ).abs()+TEMP1, UNFL );
 
       // Norm of A - USU*
 

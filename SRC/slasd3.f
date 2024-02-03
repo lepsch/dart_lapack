@@ -72,7 +72,7 @@
       // Quick return if possible
 
       if ( K == 1 ) {
-         D( 1 ) = ABS( Z( 1 ) );
+         D( 1 ) = ( Z( 1 ) ).abs();
          scopy(M, VT2( 1, 1 ), LDVT2, VT( 1, 1 ), LDVT );
          if ( Z( 1 ) > ZERO ) {
             scopy(N, U2( 1, 1 ), 1, U( 1, 1 ), 1 );
@@ -116,7 +116,7 @@
          for (J = I; J <= K - 1; J++) { // 50
             Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J+1 ) ) / ( DSIGMA( I )+DSIGMA( J+1 ) ) );
          } // 50
-         Z( I ) = SIGN( sqrt( ABS( Z( I ) ) ), Q( I, 1 ) );
+         Z( I ) = SIGN( sqrt( ( Z( I ) ) ).abs(), Q( I, 1 ) );
       } // 60
 
       // Compute left singular vectors of the modified diagonal matrix,

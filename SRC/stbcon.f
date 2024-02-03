@@ -116,7 +116,7 @@
 
             if ( SCALE != ONE ) {
                IX = ISAMAX( N, WORK, 1 );
-               XNORM = ABS( WORK( IX ) );
+               XNORM = ( WORK( IX ) ).abs();
                if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                srscl(N, SCALE, WORK, 1 );
             }

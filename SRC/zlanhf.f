@@ -91,12 +91,12 @@
                   TEMP = ABS( DBLE( A( J+J*LDA ) ) );
                   if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 1; I <= N - 1; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 2; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                      I = J - 1;
@@ -108,7 +108,7 @@
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J + 1; I <= N - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
@@ -116,7 +116,7 @@
                   // uplo = 'U'
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K + J - 2; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                      I = K + J - 1;
@@ -128,12 +128,12 @@
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = K + J + 1; I <= N - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
                   for (I = 0; I <= N - 2; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      // j=k-1
                   }
@@ -147,7 +147,7 @@
                   // uplo ='L'
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= J - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                      I = J;
@@ -159,13 +159,13 @@
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J + 2; I <= K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
                   J = K - 1;
                   for (I = 0; I <= K - 2; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   }
                   I = K - 1;
@@ -174,7 +174,7 @@
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   for (J = K; J <= N - 1; J++) {
                      for (I = 0; I <= K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
@@ -182,7 +182,7 @@
                   // uplo = 'U'
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
@@ -191,12 +191,12 @@
                   TEMP = ABS( DBLE( A( 0+J*LDA ) ) );
                   if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 1; I <= K - 1; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   }
                   for (J = K; J <= N - 1; J++) {
                      for (I = 0; I <= J - K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                      I = J - K;
@@ -208,7 +208,7 @@
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J - K + 2; I <= K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
@@ -227,12 +227,12 @@
                   TEMP = ABS( DBLE( A( J+1+J*LDA ) ) );
                   if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 2; I <= N; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                      I = J;
@@ -244,7 +244,7 @@
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J + 2; I <= N; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
@@ -252,7 +252,7 @@
                   // uplo = 'U'
                   for (J = 0; J <= K - 2; J++) {
                      for (I = 0; I <= K + J - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                      I = K + J;
@@ -264,12 +264,12 @@
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = K + J + 2; I <= N; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
                   for (I = 0; I <= N - 2; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      // j=k-1
                   }
@@ -290,12 +290,12 @@
                   TEMP = ABS( DBLE( A( J+J*LDA ) ) );
                   if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 1; I <= K - 1; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   }
                   for (J = 1; J <= K - 1; J++) {
                      for (I = 0; I <= J - 2; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                      I = J - 1;
@@ -307,13 +307,13 @@
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J + 1; I <= K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
                   J = K;
                   for (I = 0; I <= K - 2; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   }
                   I = K - 1;
@@ -322,7 +322,7 @@
                   if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   for (J = K + 1; J <= N; J++) {
                      for (I = 0; I <= K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
@@ -330,7 +330,7 @@
                   // uplo = 'U'
                   for (J = 0; J <= K - 1; J++) {
                      for (I = 0; I <= K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
@@ -339,12 +339,12 @@
                   TEMP = ABS( DBLE( A( 0+J*LDA ) ) );
                   if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 1; I <= K - 1; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   }
                   for (J = K + 1; J <= N - 1; J++) {
                      for (I = 0; I <= J - K - 2; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                      I = J - K - 1;
@@ -356,13 +356,13 @@
                      TEMP = ABS( DBLE( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J - K + 1; I <= K - 1; I++) {
-                        TEMP = ABS( A( I+J*LDA ) );
+                        TEMP = ( A( I+J*LDA ) ).abs();
                         if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                      }
                   }
                   J = N;
                   for (I = 0; I <= K - 2; I++) {
-                     TEMP = ABS( A( I+J*LDA ) );
+                     TEMP = ( A( I+J*LDA ) ).abs();
                      if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
                   }
                   I = K - 1;
@@ -389,7 +389,7 @@
                   for (J = 0; J <= K; J++) {
                      S = ZERO;
                      for (I = 0; I <= K + J - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // -> A(i,j+k)
                         S = S + AA;
                         WORK( I ) = WORK( I ) + AA;
@@ -405,7 +405,7 @@
                      S = ZERO;
                      for (L = J + 1; L <= K - 1; L++) {
                         I = I + 1;
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // -> A(l,j)
                         S = S + AA;
                         WORK( L ) = WORK( L ) + AA;
@@ -428,7 +428,7 @@
                   DO J = K - 1, 0, -1;
                      S = ZERO;
                      for (I = 0; I <= J - 2; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // -> A(j+k,i+k)
                         S = S + AA;
                         WORK( I+K ) = WORK( I+K ) + AA;
@@ -447,7 +447,7 @@
                      S = ZERO;
                      for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1;
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // -> A(l,j)
                         S = S + AA;
                         WORK( L ) = WORK( L ) + AA;
@@ -470,7 +470,7 @@
                   for (J = 0; J <= K - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= K + J - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // -> A(i,j+k)
                         S = S + AA;
                         WORK( I ) = WORK( I ) + AA;
@@ -485,7 +485,7 @@
                      S = ZERO;
                      for (L = J + 1; L <= K - 1; L++) {
                         I = I + 1;
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // -> A(l,j)
                         S = S + AA;
                         WORK( L ) = WORK( L ) + AA;
@@ -505,7 +505,7 @@
                   DO J = K - 1, 0, -1;
                      S = ZERO;
                      for (I = 0; I <= J - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // -> A(j+k,i+k)
                         S = S + AA;
                         WORK( I+K ) = WORK( I+K ) + AA;
@@ -522,7 +522,7 @@
                      S = ZERO;
                      for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1;
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // -> A(l,j)
                         S = S + AA;
                         WORK( L ) = WORK( L ) + AA;
@@ -553,7 +553,7 @@
                   for (J = 0; J <= N1 - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= K - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(j,n1+i)
                         WORK( I+N1 ) = WORK( I+N1 ) + AA;
                         S = S + AA;
@@ -564,7 +564,7 @@
                   S = ABS( DBLE( A( 0+J*LDA ) ) );
                   // A(k-1,k-1)
                   for (I = 1; I <= K - 1; I++) {
-                     AA = ABS( A( I+J*LDA ) );
+                     AA = ( A( I+J*LDA ) ).abs();
                      // A(k-1,i+n1)
                      WORK( I+N1 ) = WORK( I+N1 ) + AA;
                      S = S + AA;
@@ -573,7 +573,7 @@
                   for (J = K; J <= N - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= J - K - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(i,j-k)
                         WORK( I ) = WORK( I ) + AA;
                         S = S + AA;
@@ -588,7 +588,7 @@
                      // A(j,j)
                      for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1;
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(j,l)
                         WORK( L ) = WORK( L ) + AA;
                         S = S + AA;
@@ -611,7 +611,7 @@
                      // process
                      S = ZERO;
                      for (I = 0; I <= J - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(j,i)
                         WORK( I ) = WORK( I ) + AA;
                         S = S + AA;
@@ -627,7 +627,7 @@
                      S = AA;
                      for (L = K + J + 1; L <= N - 1; L++) {
                         I = I + 1;
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(l,k+j)
                         S = S + AA;
                         WORK( L ) = WORK( L ) + AA;
@@ -637,7 +637,7 @@
                   // j=k-1 is special :process col A(k-1,0:k-1)
                   S = ZERO;
                   for (I = 0; I <= K - 2; I++) {
-                     AA = ABS( A( I+J*LDA ) );
+                     AA = ( A( I+J*LDA ) ).abs();
                      // A(k,i)
                      WORK( I ) = WORK( I ) + AA;
                      S = S + AA;
@@ -652,7 +652,7 @@
                      // process col j of A = A(j,0:k-1)
                      S = ZERO;
                      for (I = 0; I <= K - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(j,i)
                         WORK( I ) = WORK( I ) + AA;
                         S = S + AA;
@@ -675,7 +675,7 @@
                   for (J = 0; J <= K - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= K - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(j,i+k)
                         WORK( I+K ) = WORK( I+K ) + AA;
                         S = S + AA;
@@ -687,7 +687,7 @@
                   // A(k,k)
                   S = AA;
                   for (I = 1; I <= K - 1; I++) {
-                     AA = ABS( A( I+J*LDA ) );
+                     AA = ( A( I+J*LDA ) ).abs();
                      // A(k,k+i)
                      WORK( I+K ) = WORK( I+K ) + AA;
                      S = S + AA;
@@ -696,7 +696,7 @@
                   for (J = K + 1; J <= N - 1; J++) {
                      S = ZERO;
                      for (I = 0; I <= J - 2 - K; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(i,j-k-1)
                         WORK( I ) = WORK( I ) + AA;
                         S = S + AA;
@@ -712,7 +712,7 @@
                      S = AA;
                      for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1;
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(j,l)
                         WORK( L ) = WORK( L ) + AA;
                         S = S + AA;
@@ -722,7 +722,7 @@
                   // j=n
                   S = ZERO;
                   for (I = 0; I <= K - 2; I++) {
-                     AA = ABS( A( I+J*LDA ) );
+                     AA = ( A( I+J*LDA ) ).abs();
                      // A(i,k-1)
                      WORK( I ) = WORK( I ) + AA;
                      S = S + AA;
@@ -746,7 +746,7 @@
                   S = ABS( DBLE( A( 0 ) ) );
                   // A(k,k)
                   for (I = 1; I <= K - 1; I++) {
-                     AA = ABS( A( I ) );
+                     AA = ( A( I ) ).abs();
                      // A(k+i,k)
                      WORK( I+K ) = WORK( I+K ) + AA;
                      S = S + AA;
@@ -756,7 +756,7 @@
                      // process
                      S = ZERO;
                      for (I = 0; I <= J - 2; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(j-1,i)
                         WORK( I ) = WORK( I ) + AA;
                         S = S + AA;
@@ -772,7 +772,7 @@
                      S = AA;
                      for (L = K + J + 1; L <= N - 1; L++) {
                         I = I + 1;
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(l,k+j)
                         S = S + AA;
                         WORK( L ) = WORK( L ) + AA;
@@ -782,7 +782,7 @@
                   // j=k is special :process col A(k,0:k-1)
                   S = ZERO;
                   for (I = 0; I <= K - 2; I++) {
-                     AA = ABS( A( I+J*LDA ) );
+                     AA = ( A( I+J*LDA ) ).abs();
                      // A(k,i)
                      WORK( I ) = WORK( I ) + AA;
                      S = S + AA;
@@ -799,7 +799,7 @@
                      // process col j-1 of A = A(j-1,0:k-1)
                      S = ZERO;
                      for (I = 0; I <= K - 1; I++) {
-                        AA = ABS( A( I+J*LDA ) );
+                        AA = ( A( I+J*LDA ) ).abs();
                         // A(j-1,i)
                         WORK( I ) = WORK( I ) + AA;
                         S = S + AA;

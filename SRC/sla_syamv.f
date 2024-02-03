@@ -95,20 +95,20 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
-                     TEMP = ABS( A( J, I ) );
+                     TEMP = ( A( J, I ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
+                     Y( IY ) = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
                   }
                   for (J = I+1; J <= N; J++) {
-                     TEMP = ABS( A( I, J ) );
+                     TEMP = ( A( I, J ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
+                     Y( IY ) = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
@@ -124,20 +124,20 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
-                     TEMP = ABS( A( I, J ) );
+                     TEMP = ( A( I, J ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
+                     Y( IY ) = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
                   }
                   for (J = I+1; J <= N; J++) {
-                     TEMP = ABS( A( J, I ) );
+                     TEMP = ( A( J, I ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
+                     Y( IY ) = Y( IY ) + ALPHA*( X( J ) ).abs()*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
@@ -155,22 +155,22 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                JX = KX;
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
-                     TEMP = ABS( A( J, I ) );
+                     TEMP = ( A( J, I ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     Y( IY ) = Y( IY ) + ALPHA*( X( JX ) ).abs()*TEMP;
                      JX = JX + INCX;
                   }
                   for (J = I+1; J <= N; J++) {
-                     TEMP = ABS( A( I, J ) );
+                     TEMP = ( A( I, J ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     Y( IY ) = Y( IY ) + ALPHA*( X( JX ) ).abs()*TEMP;
                      JX = JX + INCX;
                   }
                }
@@ -187,22 +187,22 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                JX = KX;
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
-                     TEMP = ABS( A( I, J ) );
+                     TEMP = ( A( I, J ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     Y( IY ) = Y( IY ) + ALPHA*( X( JX ) ).abs()*TEMP;
                      JX = JX + INCX;
                   }
                   for (J = I+1; J <= N; J++) {
-                     TEMP = ABS( A( J, I ) );
+                     TEMP = ( A( J, I ) ).abs();
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     Y( IY ) = Y( IY ) + ALPHA*( X( JX ) ).abs()*TEMP;
                      JX = JX + INCX;
                   }
                }

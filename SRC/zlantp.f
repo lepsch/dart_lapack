@@ -48,7 +48,7 @@
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
                   for (I = K; I <= K + J - 2; I++) { // 10
-                     SUM = ABS( AP( I ) );
+                     SUM = ( AP( I ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 10
                   K = K + J;
@@ -56,7 +56,7 @@
             } else {
                for (J = 1; J <= N; J++) { // 40
                   for (I = K + 1; I <= K + N - J; I++) { // 30
-                     SUM = ABS( AP( I ) );
+                     SUM = ( AP( I ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 30
                   K = K + N - J + 1;
@@ -67,7 +67,7 @@
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
                   for (I = K; I <= K + J - 1; I++) { // 50
-                     SUM = ABS( AP( I ) );
+                     SUM = ( AP( I ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 50
                   K = K + J;
@@ -75,7 +75,7 @@
             } else {
                for (J = 1; J <= N; J++) { // 80
                   for (I = K; I <= K + N - J; I++) { // 70
-                     SUM = ABS( AP( I ) );
+                     SUM = ( AP( I ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 70
                   K = K + N - J + 1;
@@ -94,12 +94,12 @@
                if ( UDIAG ) {
                   SUM = ONE;
                   for (I = K; I <= K + J - 2; I++) { // 90
-                     SUM = SUM + ABS( AP( I ) );
+                     SUM = SUM + ( AP( I ) ).abs();
                   } // 90
                } else {
                   SUM = ZERO;
                   for (I = K; I <= K + J - 1; I++) { // 100
-                     SUM = SUM + ABS( AP( I ) );
+                     SUM = SUM + ( AP( I ) ).abs();
                   } // 100
                }
                K = K + J;
@@ -110,12 +110,12 @@
                if ( UDIAG ) {
                   SUM = ONE;
                   for (I = K + 1; I <= K + N - J; I++) { // 120
-                     SUM = SUM + ABS( AP( I ) );
+                     SUM = SUM + ( AP( I ) ).abs();
                   } // 120
                } else {
                   SUM = ZERO;
                   for (I = K; I <= K + N - J; I++) { // 130
-                     SUM = SUM + ABS( AP( I ) );
+                     SUM = SUM + ( AP( I ) ).abs();
                   } // 130
                }
                K = K + N - J + 1;
@@ -134,7 +134,7 @@
                } // 150
                for (J = 1; J <= N; J++) { // 170
                   for (I = 1; I <= J - 1; I++) { // 160
-                     WORK( I ) = WORK( I ) + ABS( AP( K ) );
+                     WORK( I ) = WORK( I ) + ( AP( K ) ).abs();
                      K = K + 1;
                   } // 160
                   K = K + 1;
@@ -145,7 +145,7 @@
                } // 180
                for (J = 1; J <= N; J++) { // 200
                   for (I = 1; I <= J; I++) { // 190
-                     WORK( I ) = WORK( I ) + ABS( AP( K ) );
+                     WORK( I ) = WORK( I ) + ( AP( K ) ).abs();
                      K = K + 1;
                   } // 190
                } // 200
@@ -158,7 +158,7 @@
                for (J = 1; J <= N; J++) { // 230
                   K = K + 1;
                   for (I = J + 1; I <= N; I++) { // 220
-                     WORK( I ) = WORK( I ) + ABS( AP( K ) );
+                     WORK( I ) = WORK( I ) + ( AP( K ) ).abs();
                      K = K + 1;
                   } // 220
                } // 230
@@ -168,7 +168,7 @@
                } // 240
                for (J = 1; J <= N; J++) { // 260
                   for (I = J; I <= N; I++) { // 250
-                     WORK( I ) = WORK( I ) + ABS( AP( K ) );
+                     WORK( I ) = WORK( I ) + ( AP( K ) ).abs();
                      K = K + 1;
                   } // 250
                } // 260

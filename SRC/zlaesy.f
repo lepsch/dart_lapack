@@ -35,10 +35,10 @@
       // Special case:  The matrix is actually diagonal.
       // To avoid divide by zero later, we treat this case separately.
 
-      if ( ABS( B ) == ZERO ) {
+      if ( ( B ).abs() == ZERO ) {
          RT1 = A;
          RT2 = C;
-         if ( ABS( RT1 ) < ABS( RT2 ) ) {
+         if ( ( RT1 ).abs() < ( RT2 ).abs() ) {
             TMP = RT1;
             RT1 = RT2;
             RT2 = TMP;
@@ -60,8 +60,8 @@
 
          // Take the square root carefully to avoid over/under flow.
 
-         BABS = ABS( B );
-         TABS = ABS( T );
+         BABS = ( B ).abs();
+         TABS = ( T ).abs();
          Z = max( BABS, TABS );
          if (Z > ZERO) T = Z*sqrt( ( T / Z )**2+( B / Z )**2 );
 
@@ -70,7 +70,7 @@
 
          RT1 = S + T;
          RT2 = S - T;
-         if ( ABS( RT1 ) < ABS( RT2 ) ) {
+         if ( ( RT1 ).abs() < ( RT2 ).abs() ) {
             TMP = RT1;
             RT1 = RT2;
             RT2 = TMP;
@@ -82,13 +82,13 @@
          // done if the norm of the eigenvalue matrix is less than THRESH.)
 
          SN1 = ( RT1-A ) / B;
-         TABS = ABS( SN1 );
+         TABS = ( SN1 ).abs();
          if ( TABS > ONE ) {
             T = TABS*sqrt( ( ONE / TABS )**2+( SN1 / TABS )**2 );
          } else {
             T = sqrt( CONE+SN1*SN1 );
          }
-         EVNORM = ABS( T );
+         EVNORM = ( T ).abs();
          if ( EVNORM >= THRESH ) {
             EVSCAL = CONE / T;
             CS1 = EVSCAL;

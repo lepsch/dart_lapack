@@ -48,7 +48,7 @@
       // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL, SQRT
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) );
+      CABS1( CDUM ) = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -82,8 +82,8 @@
             // .    avoids problems with both gradual and
             // .    sudden underflow in ABS(H(I,I-1)) ====
             SC = H( I, I-1 ) / CABS1( H( I, I-1 ) );
-            SC = CONJG( SC ) / ABS( SC );
-            H( I, I-1 ) = ABS( H( I, I-1 ) );
+            SC = CONJG( SC ) / ( SC ).abs();
+            H( I, I-1 ) = ( H( I, I-1 ) ).abs();
             cscal(JHI-I+1, SC, H( I, I ), LDH );
             cscal(min( JHI, I+1 )-JLO+1, CONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL CSCAL( IHIZ-ILOZ+1, CONJG( SC ), Z( ILOZ, I ), 1 );
          }
@@ -220,19 +220,19 @@
             H22 = H( M+1, M+1 );
             H11S = H11 - T;
             H21 = REAL( H( M+1, M ) );
-            S = CABS1( H11S ) + ABS( H21 );
+            S = CABS1( H11S ) + ( H21 ).abs();
             H11S = H11S / S;
             H21 = H21 / S;
             V( 1 ) = H11S;
             V( 2 ) = H21;
             H10 = REAL( H( M, M-1 ) );
-            if( ABS( H10 )*ABS( H21 ) <= ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70;
+            if( ( H10 ).abs()*( H21 ).abs() <= ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70;
          } // 60
          H11 = H( L, L );
          H22 = H( L+1, L+1 );
          H11S = H11 - T;
          H21 = REAL( H( L+1, L ) );
-         S = CABS1( H11S ) + ABS( H21 );
+         S = CABS1( H11S ) + ( H21 ).abs();
          H11S = H11S / S;
          H21 = H21 / S;
          V( 1 ) = H11S;
@@ -301,7 +301,7 @@
                // real.
 
                TEMP = ONE - T1;
-               TEMP = TEMP / ABS( TEMP );
+               TEMP = TEMP / ( TEMP ).abs();
                H( M+1, M ) = H( M+1, M )*CONJG( TEMP );
                if (M+2 <= I) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP;
                for (J = M; J <= I; J++) { // 110
@@ -320,7 +320,7 @@
 
          TEMP = H( I, I-1 );
          if ( AIMAG( TEMP ) != RZERO ) {
-            RTEMP = ABS( TEMP );
+            RTEMP = ( TEMP ).abs();
             H( I, I-1 ) = RTEMP;
             TEMP = TEMP / RTEMP;
             if (I2 > I) cscal( I2-I, CONJG( TEMP ), H( I, I+1 ), LDH );

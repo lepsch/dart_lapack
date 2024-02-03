@@ -94,7 +94,7 @@
          S = WORK( INDS+B1-1 ) - LAMBDA;
          for (I = B1; I <= R1 - 1; I++) { // 70
             DPLUS = D( I ) + S;
-            if(ABS(DPLUS) < PIVMIN) DPLUS = -PIVMIN;
+            if((DPLUS).abs() < PIVMIN) DPLUS = -PIVMIN;
             WORK( INDLPL+I ) = LD( I ) / DPLUS;
             if (DPLUS < ZERO) NEG1 = NEG1 + 1;
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I );
@@ -103,7 +103,7 @@
          } // 70
          for (I = R1; I <= R2 - 1; I++) { // 71
             DPLUS = D( I ) + S;
-            if(ABS(DPLUS) < PIVMIN) DPLUS = -PIVMIN;
+            if((DPLUS).abs() < PIVMIN) DPLUS = -PIVMIN;
             WORK( INDLPL+I ) = LD( I ) / DPLUS;
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I );
             if( WORK( INDLPL+I ) == ZERO ) WORK( INDS+I ) = LLD( I );
@@ -132,7 +132,7 @@
          NEG2 = 0;
          DO 100 I = BN-1, R1, -1;
             DMINUS = LLD( I ) + WORK( INDP+I );
-            if(ABS(DMINUS) < PIVMIN) DMINUS = -PIVMIN;
+            if((DMINUS).abs() < PIVMIN) DMINUS = -PIVMIN;
             TMP = D( I ) / DMINUS;
             if (DMINUS < ZERO) NEG2 = NEG2 + 1;
             WORK( INDUMN+I ) = L( I )*TMP;
@@ -151,12 +151,12 @@
       } else {
          NEGCNT = -1;
       }
-      if( ABS(MINGMA) == ZERO ) MINGMA = EPS*WORK( INDS+R1-1 );
+      if( (MINGMA).abs() == ZERO ) MINGMA = EPS*WORK( INDS+R1-1 );
       R = R1;
       for (I = R1; I <= R2 - 1; I++) { // 110
          TMP = WORK( INDS+I ) + WORK( INDP+I );
          if (TMP == ZERO) TMP = EPS*WORK( INDS+I );
-         if ( ABS( TMP ) <= ABS( MINGMA ) ) {
+         if ( ( TMP ).abs() <= ( MINGMA ).abs() ) {
             MINGMA = TMP;
             R = I + 1;
          }
@@ -174,7 +174,7 @@
       if ( !SAWNAN1 && !SAWNAN2 ) {
          DO 210 I = R-1, B1, -1;
             Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) );
-            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)) < GAPTOL ) {
+            if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
                Z( I ) = ZERO;
                ISUPPZ( 1 ) = I + 1;
                GOTO 220;
@@ -190,7 +190,7 @@
             } else {
                Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) );
             }
-            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)) < GAPTOL ) {
+            if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
                Z( I ) = ZERO;
                ISUPPZ( 1 ) = I + 1;
                GO TO 240;
@@ -204,7 +204,7 @@
       if ( !SAWNAN1 && !SAWNAN2 ) {
          for (I = R; I <= BN-1; I++) { // 250
             Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) );
-            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)) < GAPTOL ) {
+            if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
                Z( I+1 ) = ZERO;
                ISUPPZ( 2 ) = I;
                GO TO 260;
@@ -220,7 +220,7 @@
             } else {
                Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) );
             }
-            if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)) < GAPTOL ) {
+            if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
                Z( I+1 ) = ZERO;
                ISUPPZ( 2 ) = I;
                GO TO 280;
@@ -234,7 +234,7 @@
 
       TMP = ONE / ZTZ;
       NRMINV = sqrt( TMP );
-      RESID = ABS( MINGMA )*NRMINV;
+      RESID = ( MINGMA ).abs()*NRMINV;
       RQCORR = MINGMA*TMP;
 
 

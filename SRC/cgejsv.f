@@ -690,7 +690,7 @@
          // backward error of the order of N*EPSLN*||A||.
          TEMP1 = sqrt(REAL(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
-            if ( ABS(A(p,p)) >= (TEMP1*ABS(A(1,1))) ) {
+            if ( (A(p,p)).abs() >= (TEMP1*(A(1,1))) ).abs() {
                NR = NR + 1;
             } else {
                GO TO 3002;
@@ -703,7 +703,7 @@
          // close-to-rank-deficient.
          TEMP1 = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3401
-            if ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3402;
+            if ( ( (A(p,p)).abs() < (EPSLN*(A(p-1,p-1))) ).abs() || ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)) < TEMP1) ) ).abs() GO TO 3402;
             NR = NR + 1;
          } // 3401
          } // 3402
@@ -718,7 +718,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3301
-            if ( ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3302;
+            if ( ( (A(p,p)).abs() < SMALL ) || ( L2KILL && ((A(p,p)) < TEMP1) ) ).abs() GO TO 3302;
             NR = NR + 1;
          } // 3301
          } // 3302
@@ -729,7 +729,7 @@
       if ( NR == N ) {
          MAXPRJ = ONE;
          for (p = 2; p <= N; p++) { // 3051
-            TEMP1  = ABS(A(p,p)) / SVA(IWORK(p));
+            TEMP1  = (A(p,p)).abs() / SVA(IWORK(p));
             MAXPRJ = min( MAXPRJ, TEMP1 );
          } // 3051
          if ( MAXPRJ**2 >= ONE - REAL(N)*EPSLN ) ALMORT = true;
@@ -825,9 +825,9 @@
                // XSC = sqrt(SMALL)
                XSC = EPSLN / REAL(N);
                for (q = 1; q <= NR; q++) { // 4947
-                  CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO);
+                  CTEMP = CMPLX(XSC*(A(q,q)).abs(),ZERO);
                   for (p = 1; p <= N; p++) { // 4949
-                     if ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) );
+                     if ( ( (p > q) && ((A(p,q)) <= TEMP1) ).abs() || ( p < q ) );
       // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 4949
                } // 4947
@@ -855,9 +855,9 @@
                // XSC = sqrt(SMALL)
                XSC = EPSLN / REAL(N);
                for (q = 1; q <= NR; q++) { // 1947
-                  CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO);
+                  CTEMP = CMPLX(XSC*(A(q,q)).abs(),ZERO);
                   for (p = 1; p <= NR; p++) { // 1949
-                     if ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) );
+                     if ( ( (p > q) && ((A(p,q)) <= TEMP1) ).abs() || ( p < q ) );
       // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 1949
                } // 1947
@@ -1020,9 +1020,9 @@
             if ( L2PERT ) {
                XSC = sqrt(SMALL);
                for (q = 1; q <= NR; q++) { // 2969
-                  CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO);
+                  CTEMP = CMPLX(XSC*( V(q,q) ).abs(),ZERO);
                   for (p = 1; p <= N; p++) { // 2968
-                     if ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) );
+                     if ( ( p > q ) && ( (V(p,q)).abs() <= TEMP1 ) || ( p < q ) );
       // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                      if (p < q) V(p,q) = - V(p,q);
                   } // 2968
@@ -1061,8 +1061,8 @@
                   XSC = sqrt(SMALL)/EPSLN;
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
-                        CTEMP=CMPLX(XSC*min(ABS(V(p,p)),ABS(V(q,q))), ZERO);
-                        if ( ABS(V(q,p)) <= TEMP1 );
+                        CTEMP=CMPLX(XSC*min((V(p,p)).abs(),(V(q,q))).abs(), ZERO);
+                        if ( (V(q,p)).abs() <= TEMP1 );
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3958
                   } // 3959
@@ -1100,8 +1100,8 @@
                   XSC = sqrt(SMALL);
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
-                        CTEMP=CMPLX(XSC*min(ABS(V(p,p)),ABS(V(q,q))), ZERO);
-                        if ( ABS(V(q,p)) <= TEMP1 );
+                        CTEMP=CMPLX(XSC*min((V(p,p)).abs(),(V(q,q))).abs(), ZERO);
+                        if ( (V(q,p)).abs() <= TEMP1 );
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3968
                   } // 3969
@@ -1113,7 +1113,7 @@
                   XSC = sqrt(SMALL);
                   for (p = 2; p <= NR; p++) { // 8970
                      for (q = 1; q <= p - 1; q++) { // 8971
-                        CTEMP=CMPLX(XSC*min(ABS(V(p,p)),ABS(V(q,q))), ZERO);
+                        CTEMP=CMPLX(XSC*min((V(p,p)).abs(),(V(q,q))).abs(), ZERO);
                          // V(p,q) = - TEMP1*( V(q,p) / ABS(V(q,p)) )
                         V(p,q) = - CTEMP;
                      } // 8971
@@ -1383,9 +1383,9 @@
          if ( L2PERT ) {
             XSC = sqrt(SMALL/EPSLN);
             for (q = 1; q <= NR; q++) { // 5969
-               CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO);
+               CTEMP = CMPLX(XSC*( V(q,q) ).abs(),ZERO);
                for (p = 1; p <= N; p++) { // 5968
-                  if ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) );
+                  if ( ( p > q ) && ( (V(p,q)).abs() <= TEMP1 ) || ( p < q ) );
       // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                   if (p < q) V(p,q) = - V(p,q);
                } // 5968
@@ -1405,7 +1405,7 @@
             XSC = sqrt(SMALL/EPSLN);
             for (q = 2; q <= NR; q++) { // 9970
                for (p = 1; p <= q - 1; p++) { // 9971
-                  CTEMP = CMPLX(XSC * min(ABS(U(p,p)),ABS(U(q,q))), ZERO);
+                  CTEMP = CMPLX(XSC * min((U(p,p)).abs(),(U(q,q))).abs(), ZERO);
                    // U(p,q) = - TEMP1 * ( U(q,p) / ABS(U(q,p)) )
                   U(p,q) = - CTEMP;
                } // 9971

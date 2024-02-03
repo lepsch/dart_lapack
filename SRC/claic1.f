@@ -38,9 +38,9 @@
       EPS = SLAMCH( 'Epsilon' );
       ALPHA = CDOTC( J, X, 1, W, 1 );
 
-      ABSALP = ABS( ALPHA );
-      ABSGAM = ABS( GAMMA );
-      ABSEST = ABS( SEST );
+      ABSALP = ( ALPHA ).abs();
+      ABSGAM = ( GAMMA ).abs();
+      ABSEST = ( SEST ).abs();
 
       if ( JOB == 1 ) {
 
@@ -140,7 +140,7 @@
                SINE = -CONJG( GAMMA );
                COSINE = CONJG( ALPHA );
             }
-            S1 = max( ABS( SINE ), ABS( COSINE ) );
+            S1 = max( ( SINE ).abs(), ( COSINE ).abs() );
             S = SINE / S1;
             C = COSINE / S1;
             TMP = REAL( sqrt( S*CONJG( S )+C*CONJG( C ) ) );
@@ -200,7 +200,7 @@
 
                B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF;
                C = ZETA2*ZETA2;
-               T = REAL( C / ( B+sqrt( ABS( B*B-C ) ) ) );
+               T = REAL( C / ( B+sqrt( ( B*B-C ).abs() ) ) );
                SINE = ( ALPHA / ABSEST ) / ( ONE-T );
                COSINE = -( GAMMA / ABSEST ) / T;
                SESTPR = sqrt( T+FOUR*EPS*EPS*NORMA )*ABSEST;

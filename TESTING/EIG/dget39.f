@@ -113,7 +113,7 @@
 
                         NORM = DLANGE( '1', N, N, T, LDT, WORK );
                         K = IDAMAX( N, B, 1 );
-                        NORMTB = NORM + ABS( B( K ) ) + ABS( W );
+                        NORMTB = NORM + ( B( K ) ).abs() + ( W ).abs();
 
                         dcopy(N, D, 1, X, 1 );
                         KNT = KNT + 1;

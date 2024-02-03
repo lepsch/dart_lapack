@@ -140,7 +140,7 @@
                            RCMAX = max( RCMAX, R( I ) );
                         } // 160
                         RATIO = RCMIN / RCMAX;
-                        RESLTS( 2 ) = max( RESLTS( 2 ), ABS( ( RCOND-RATIO ) / RATIO ) );
+                        RESLTS( 2 ) = max( RESLTS( 2 ), ( ( RCOND-RATIO ) / RATIO ) ).abs();
 
                         RCMIN = C( 1 );
                         RCMAX = C( 1 );
@@ -149,7 +149,7 @@
                            RCMAX = max( RCMAX, C( J ) );
                         } // 170
                         RATIO = RCMIN / RCMAX;
-                        RESLTS( 2 ) = max( RESLTS( 2 ), ABS( ( CCOND-RATIO ) / RATIO ) );
+                        RESLTS( 2 ) = max( RESLTS( 2 ), ( ( CCOND-RATIO ) / RATIO ) ).abs();
 
                         RESLTS( 2 ) = max( RESLTS( 2 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+1 ) ) );
                         for (I = 1; I <= M; I++) { // 190
@@ -160,7 +160,7 @@
                                  RCMAX = max( RCMAX, RATIO );
                               }
                            } // 180
-                           RESLTS( 2 ) = max( RESLTS( 2 ), ABS( ONE-RCMAX ) );
+                           RESLTS( 2 ) = max( RESLTS( 2 ), ( ONE-RCMAX ).abs() );
                         } // 190
 
                         for (J = 1; J <= N; J++) { // 210
@@ -171,7 +171,7 @@
                                  RCMAX = max( RCMAX, RATIO );
                               }
                            } // 200
-                           RESLTS( 2 ) = max( RESLTS( 2 ), ABS( ONE-RCMAX ) );
+                           RESLTS( 2 ) = max( RESLTS( 2 ), ( ONE-RCMAX ).abs() );
                         } // 210
                      }
                   }

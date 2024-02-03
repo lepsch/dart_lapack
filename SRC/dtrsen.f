@@ -220,7 +220,7 @@
       } // 50
       for (K = 1; K <= N - 1; K++) { // 60
          if ( T( K+1, K ) != ZERO ) {
-            WI( K ) = sqrt( ABS( T( K, K+1 ) ) )* sqrt( ABS( T( K+1, K ) ) );
+            WI( K ) = sqrt( ( T( K, K+1 ) ) ).abs()* sqrt( ( T( K+1, K ) ) ).abs();
             WI( K+1 ) = -WI( K );
          }
       } // 60

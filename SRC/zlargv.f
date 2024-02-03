@@ -44,7 +44,7 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1( FF ) = max( ABS( DBLE( FF ) ), ABS( DIMAG( FF ) ) );
+      ABS1( FF ) = max( ( DBLE( FF ) ).abs(), ( DIMAG( FF ) ) ).abs();
       ABSSQ( FF ) = DBLE( FF )**2 + DIMAG( FF )**2;
       // ..
       // .. Executable Statements ..

@@ -156,7 +156,7 @@
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = max( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( DBLE( N )*ULP );
+      RESULT( 2 ) = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( DBLE( N )*ULP );
 
       return;
       }

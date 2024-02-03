@@ -131,7 +131,7 @@
             KSTEP = 2;
          }
 
-         KP = ABS( IPIV( K ) );
+         KP = ( IPIV( K ) ).abs();
          if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the leading
@@ -208,7 +208,7 @@
             KSTEP = 2;
          }
 
-         KP = ABS( IPIV( K ) );
+         KP = ( IPIV( K ) ).abs();
          if ( KP != K ) {
 
             // Interchange rows and columns K and KP in the trailing

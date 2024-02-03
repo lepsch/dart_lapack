@@ -89,12 +89,12 @@
             if ( V( I, LMX ) == CMPLX( ZERO ) ) {
                SV = ONE;
             } else {
-               SV = ABS( V( I, LMX ) ) / V( I, LMX );
+               SV = ( V( I, LMX ) ).abs() / V( I, LMX );
             }
             if ( U( I, LMX ) == CMPLX( ZERO ) ) {
                SU = ONE;
             } else {
-               SU = ABS( U( I, LMX ) ) / U( I, LMX );
+               SU = ( U( I, LMX ) ).abs() / U( I, LMX );
             }
             S = SV / SU;
             for (J = 1; J <= N; J++) { // 10
@@ -117,12 +117,12 @@
             if ( V( LMX, I ) == CMPLX( ZERO ) ) {
                SV = ONE;
             } else {
-               SV = ABS( V( LMX, I ) ) / V( LMX, I );
+               SV = ( V( LMX, I ) ).abs() / V( LMX, I );
             }
             if ( U( LMX, I ) == CMPLX( ZERO ) ) {
                SU = ONE;
             } else {
-               SU = ABS( U( LMX, I ) ) / U( LMX, I );
+               SU = ( U( LMX, I ) ).abs() / U( LMX, I );
             }
             S = SV / SU;
             for (J = 1; J <= N; J++) { // 30

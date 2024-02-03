@@ -112,7 +112,7 @@
          } else {
             WRITE( NOUNIT, FMT = 9999 )'SGEEVX1', IINFO, N, ISEED( 1 );
          }
-         INFO = ABS( IINFO );
+         INFO = ( IINFO ).abs();
          return;
       }
 
@@ -135,14 +135,14 @@
          } else if ( WI( J ) > ZERO ) {
             TNRM = SLAPY2( SNRM2( N, VR( 1, J ), 1 ), SNRM2( N, VR( 1, J+1 ), 1 ) );
          }
-         RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+         RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          if ( WI( J ) > ZERO ) {
             VMX = ZERO;
             VRMX = ZERO;
             for (JJ = 1; JJ <= N; JJ++) { // 20
                VTST = SLAPY2( VR( JJ, J ), VR( JJ, J+1 ) );
                if (VTST > VMX) VMX = VTST;
-               IF( VR( JJ, J+1 ) == ZERO && ABS( VR( JJ, J ) ) > VRMX )VRMX = ABS( VR( JJ, J ) );
+               IF( VR( JJ, J+1 ) == ZERO && ( VR( JJ, J ) ).abs() > VRMX )VRMX = ( VR( JJ, J ) ).abs();
             } // 20
             if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
          }
@@ -157,14 +157,14 @@
          } else if ( WI( J ) > ZERO ) {
             TNRM = SLAPY2( SNRM2( N, VL( 1, J ), 1 ), SNRM2( N, VL( 1, J+1 ), 1 ) );
          }
-         RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+         RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          if ( WI( J ) > ZERO ) {
             VMX = ZERO;
             VRMX = ZERO;
             for (JJ = 1; JJ <= N; JJ++) { // 40
                VTST = SLAPY2( VL( JJ, J ), VL( JJ, J+1 ) );
                if (VTST > VMX) VMX = VTST;
-               IF( VL( JJ, J+1 ) == ZERO && ABS( VL( JJ, J ) ) > VRMX )VRMX = ABS( VL( JJ, J ) );
+               IF( VL( JJ, J+1 ) == ZERO && ( VL( JJ, J ) ).abs() > VRMX )VRMX = ( VL( JJ, J ) ).abs();
             } // 40
             if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
          }
@@ -187,7 +187,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX2', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 190;
          }
 
@@ -227,7 +227,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX3', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 190;
          }
 
@@ -275,7 +275,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX4', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 190;
          }
 
@@ -324,7 +324,7 @@
          if ( IINFO != 0 ) {
             RESULT( 1 ) = ULPINV;
             WRITE( NOUNIT, FMT = 9999 )'SGEEVX5', IINFO, N, ISEED( 1 );
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 250;
          }
 

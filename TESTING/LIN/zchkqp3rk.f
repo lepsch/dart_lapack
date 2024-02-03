@@ -471,7 +471,7 @@
 
                      DO J = 1, KFACT-1, 1;
 
-                        DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ABS( A(1) ) );
+                        DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ( A(1) ) ).abs();
 
                         if ( DTEMP < ZERO ) {
                            RESULT( 4 ) = BIGNUM;

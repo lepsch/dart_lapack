@@ -40,7 +40,7 @@
       REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ABS( REAL ( ZDUM ) ) + ABS( AIMAG ( ZDUM ) );
+      CABS1( ZDUM ) = ( REAL ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -103,7 +103,7 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
@@ -132,7 +132,7 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
@@ -163,7 +163,7 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                JX = KX;
                if ( ALPHA != ZERO ) {
@@ -195,7 +195,7 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) );
+                  Y( IY ) = BETA * ( Y( IY ) ).abs();
                }
                JX = KX;
                if ( ALPHA != ZERO ) {

@@ -113,7 +113,7 @@
 
                         NORM = SLANGE( '1', N, N, T, LDT, WORK );
                         K = ISAMAX( N, B, 1 );
-                        NORMTB = NORM + ABS( B( K ) ) + ABS( W );
+                        NORMTB = NORM + ( B( K ) ).abs() + ( W ).abs();
 
                         scopy(N, D, 1, X, 1 );
                         KNT = KNT + 1;

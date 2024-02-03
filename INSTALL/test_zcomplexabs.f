@@ -111,11 +111,11 @@
             do while( Xj != limX(i) );
                 nTests = nTests + 1;
                 Y = DCMPLX( Xj, 0.0 );
-                R = ABS( Y );
+                R = ( Y ).abs();
                 if (R != Xj) {
                     caseAFails = caseAFails + 1;
                     if (caseAFails == 1) {
-                        print *, "!! Some ABS(x+0*I) differ from ABS(x)";
+                        print *, "!! Some (x+0*I).abs() differ from (x).abs()";
                     }
                     WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(1+0*I)', R, Xj;
                 }
@@ -136,11 +136,11 @@
             do while( Xj != limX(i) );
                 nTests = nTests + 1;
                 Y = DCMPLX( 0.0, Xj );
-                R = ABS( Y );
+                R = ( Y ).abs();
                 if (R != Xj) {
                     caseBFails = caseBFails + 1;
                     if (caseBFails == 1) {
-                        print *, "!! Some ABS(0+x*I) differ from ABS(x)";
+                        print *, "!! Some (0+x*I).abs() differ from (x).abs()";
                     }
                     WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+1*I)', R, Xj;
                 }
@@ -167,11 +167,11 @@
                 nTests = nTests + 1;
                 answerC = fiveFourth * Xj;
                 Y = DCMPLX( threeFourth * Xj, Xj );
-                R = ABS( Y );
+                R = ( Y ).abs();
                 if (R != answerC) {
                     caseCFails = caseCFails + 1;
                     if (caseCFails == 1) {
-                        print *,  "!! Some ABS(x*(3/4+I)) differ from (5/4)*ABS(x)";
+                        print *,  "!! Some (x*(3/4+I)).abs() differ from (5/4)*(x).abs()";
                     }
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(3/4+I)', R, answerC;
                 }
@@ -203,12 +203,12 @@
                 } else {
                     nTests = nTests + 1;
                     Y = DCMPLX( oneHalf * Xj, oneHalf * Xj );
-                    R = ABS( Y );
-                    relDiff = ABS(R-answerD)/answerD;
+                    R = ( Y ).abs();
+                    relDiff = (R-answerD).abs()/answerD;
                     if ( relDiff >= (0.5*eps) ) {
                         caseDFails = caseDFails + 1;
                         if (caseDFails == 1) {
-                            print *,  "!! Some ABS(x*(1+I)) differ from sqrt(2)*ABS(x)";
+                            print *,  "!! Some (x*(1+I)).abs() differ from sqrt(2)*(x).abs()";
                         }
                         WRITE( 0, FMT = 9999 ) 'd',i, (oneHalf*Xj), '(1+1*I)', R, answerD;
                     }
@@ -222,7 +222,7 @@
       for (i = 1; i <= nInf; i++) { // 50
         nTests = nTests + 1;
         Y = cInf(i);
-        R = ABS( Y );
+        R = ( Y ).abs();
         if ( !(R > HUGE(0.0)) ) {
             caseEFails = caseEFails + 1;
             WRITE( *, FMT = 9997 ) 'i',i, Y, R;
@@ -233,7 +233,7 @@
       for (i = 1; i <= nNaN; i++) { // 60
         nTests = nTests + 1;
         Y = cNaN(i);
-        R = ABS( Y );
+        R = ( Y ).abs();
         if (R == R) {
             caseFFails = caseFFails + 1;
             WRITE( *, FMT = 9998 ) 'n',i, Y, R;
@@ -243,14 +243,14 @@
       // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails;
       if (nFailingTests > 0) {
-         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for ABS(a+b*I),", nFailingTests, " tests fail.";
+         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for (a+b*I).abs(),", nFailingTests, " tests fail.";
       } else {
-         print *, "# All tests pass for ABS(a+b*I)";
+         print *, "# All tests pass for (a+b*I).abs()";
       }
 
       // If anything was written to stderr, print the message
       if ( (caseAFails > 0) || (caseBFails > 0) || (caseCFails > 0) || (caseDFails > 0) ) {
-         print *, "# Please check the failed ABS(a+b*I) in [stderr]";
+         print *, "# Please check the failed (a+b*I).abs() in [stderr]";
       }
 
       // .. Formats ..
@@ -258,5 +258,5 @@
 
  9998 FORMAT( '[',A1,I1, '] ABS(', (ES8.1,SP,ES8.1,"*I"), ' ) = ', ES8.1, ' differs from NaN' );
 
- 9999 FORMAT( '[',A1,I1, '] ABS(', ES24.16e3, ' * ', A7, ' ) = ', ES24.16e3, ' differs from ', ES24.16e3 );
+ 9999 FORMAT( '[',A1,I1, '] (', ES24.16e3, ' * ', A7, ' ).abs() = ', ES24.16e3, ' differs from ', ES24.16e3 );
       }

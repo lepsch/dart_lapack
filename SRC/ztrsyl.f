@@ -108,13 +108,13 @@
 
                SCALOC = ONE;
                A11 = A( K, K ) + SGN*B( L, L );
-               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) );
+               DA11 = ( DBLE( A11 ) ).abs() + ( DIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) );
+               DB = ( DBLE( VEC ) ).abs() + ( DIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -154,13 +154,13 @@
 
                SCALOC = ONE;
                A11 = DCONJG( A( K, K ) ) + SGN*B( L, L );
-               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) );
+               DA11 = ( DBLE( A11 ) ).abs() + ( DIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) );
+               DB = ( DBLE( VEC ) ).abs() + ( DIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -204,13 +204,13 @@
 
                SCALOC = ONE;
                A11 = DCONJG( A( K, K )+SGN*B( L, L ) );
-               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) );
+               DA11 = ( DBLE( A11 ) ).abs() + ( DIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) );
+               DB = ( DBLE( VEC ) ).abs() + ( DIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -250,13 +250,13 @@
 
                SCALOC = ONE;
                A11 = A( K, K ) + SGN*DCONJG( B( L, L ) );
-               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) );
+               DA11 = ( DBLE( A11 ) ).abs() + ( DIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) );
+               DB = ( DBLE( VEC ) ).abs() + ( DIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }

@@ -133,21 +133,21 @@
 
       SMAX = ZERO;
       for (I = 1; I <= N; I++) { // 20
-         SMAX = max( SMAX, ABS( D( I ) ) );
+         SMAX = max( SMAX, ( D( I ) ) ).abs();
       } // 20
       for (I = 1; I <= N - 1; I++) { // 30
-         SMAX = max( SMAX, ABS( E( I ) ) );
+         SMAX = max( SMAX, ( E( I ) ) ).abs();
       } // 30
       SMIN = ZERO;
       if ( TOL >= ZERO ) {
 
          // Relative accuracy desired
 
-         SMINOA = ABS( D( 1 ) );
+         SMINOA = ( D( 1 ) ).abs();
          if (SMINOA == ZERO) GO TO 50;
          MU = SMINOA;
          for (I = 2; I <= N; I++) { // 40
-            MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) );
+            MU = ( D( I ) ).abs()*( MU / ( MU+( E( I-1 ) ) ) ).abs();
             SMINOA = min( SMINOA, MU );
             if (SMINOA == ZERO) GO TO 50;
          } // 40
@@ -158,7 +158,7 @@
 
          // Absolute accuracy desired
 
-         THRESH = max( ABS( TOL )*SMAX, MAXITR*(N*(N*UNFL)) );
+         THRESH = max( ( TOL ).abs()*SMAX, MAXITR*(N*(N*UNFL)) );
       }
 
       // Prepare for main iteration loop for the singular values
@@ -191,12 +191,12 @@
 
       // Find diagonal block of matrix to work on
 
-      if( TOL < ZERO && ABS( D( M ) ) <= THRESH ) D( M ) = ZERO;
-      SMAX = ABS( D( M ) );
+      if( TOL < ZERO && ( D( M ) ).abs() <= THRESH ) D( M ) = ZERO;
+      SMAX = ( D( M ) ).abs();
       for (LLL = 1; LLL <= M - 1; LLL++) { // 70
          LL = M - LLL;
-         ABSS = ABS( D( LL ) );
-         ABSE = ABS( E( LL ) );
+         ABSS = ( D( LL ) ).abs();
+         ABSE = ( E( LL ) ).abs();
          if (TOL < ZERO && ABSS <= THRESH) D( LL ) = ZERO;
          IF( ABSE <= THRESH ) GO TO 80;
          SMAX = max( SMAX, ABSS, ABSE );
@@ -242,7 +242,7 @@
       // (from larger end diagonal element towards smaller)
 
       if ( LL > OLDM || M < OLDLL ) {
-         if ( ABS( D( LL ) ) >= ABS( D( M ) ) ) {
+         if ( ( D( LL ) ).abs() >= ( D( M ) ) ).abs() {
 
             // Chase bulge from top (big end) to bottom (small end)
 
@@ -262,7 +262,7 @@
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
 
-         if ( ABS( E( M-1 ) ) <= ABS( TOL )*ABS( D( M ) ) || ( TOL < ZERO && ABS( E( M-1 ) ) <= THRESH ) ) {
+         if ( ( E( M-1 ) ).abs() <= ( TOL ).abs()*( D( M ) ).abs() || ( TOL < ZERO && ( E( M-1 ) ) <= THRESH ) ).abs() {
             E( M-1 ) = ZERO;
             GO TO 60;
          }
@@ -272,14 +272,14 @@
             // If relative accuracy desired,
             // apply convergence criterion forward
 
-            MU = ABS( D( LL ) );
+            MU = ( D( LL ) ).abs();
             SMIN = MU;
             for (LLL = LL; LLL <= M - 1; LLL++) { // 100
-               if ( ABS( E( LLL ) ) <= TOL*MU ) {
+               if ( ( E( LLL ) ).abs() <= TOL*MU ) {
                   E( LLL ) = ZERO;
                   GO TO 60;
                }
-               MU = ABS( D( LLL+1 ) )*( MU / ( MU+ABS( E( LLL ) ) ) );
+               MU = ( D( LLL+1 ) ).abs()*( MU / ( MU+( E( LLL ) ) ) ).abs();
                SMIN = min( SMIN, MU );
             } // 100
          }
@@ -289,7 +289,7 @@
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
 
-         if ( ABS( E( LL ) ) <= ABS( TOL )*ABS( D( LL ) ) || ( TOL < ZERO && ABS( E( LL ) ) <= THRESH ) ) {
+         if ( ( E( LL ) ).abs() <= ( TOL ).abs()*( D( LL ) ).abs() || ( TOL < ZERO && ( E( LL ) ) <= THRESH ) ).abs() {
             E( LL ) = ZERO;
             GO TO 60;
          }
@@ -299,14 +299,14 @@
             // If relative accuracy desired,
             // apply convergence criterion backward
 
-            MU = ABS( D( M ) );
+            MU = ( D( M ) ).abs();
             SMIN = MU;
             DO 110 LLL = M - 1, LL, -1;
-               if ( ABS( E( LLL ) ) <= TOL*MU ) {
+               if ( ( E( LLL ) ).abs() <= TOL*MU ) {
                   E( LLL ) = ZERO;
                   GO TO 60;
                }
-               MU = ABS( D( LLL ) )*( MU / ( MU+ABS( E( LLL ) ) ) );
+               MU = ( D( LLL ) ).abs()*( MU / ( MU+( E( LLL ) ) ) ).abs();
                SMIN = min( SMIN, MU );
             } // 110
          }
@@ -327,10 +327,10 @@
          // Compute the shift from 2-by-2 block at end of matrix
 
          if ( IDIR == 1 ) {
-            SLL = ABS( D( LL ) );
+            SLL = ( D( LL ) ).abs();
             slas2(D( M-1 ), E( M-1 ), D( M ), SHIFT, R );
          } else {
-            SLL = ABS( D( M ) );
+            SLL = ( D( M ) ).abs();
             slas2(D( LL ), E( LL ), D( LL+1 ), SHIFT, R );
          }
 
@@ -376,7 +376,7 @@
 
             // Test convergence
 
-            if( ABS( E( M-1 ) ) <= THRESH ) E( M-1 ) = ZERO;
+            if( ( E( M-1 ) ).abs() <= THRESH ) E( M-1 ) = ZERO;
 
          } else {
 
@@ -406,7 +406,7 @@
 
             // Test convergence
 
-            if( ABS( E( LL ) ) <= THRESH ) E( LL ) = ZERO;
+            if( ( E( LL ) ).abs() <= THRESH ) E( LL ) = ZERO;
          }
       } else {
 
@@ -417,7 +417,7 @@
             // Chase bulge from top to bottom
             // Save cosines and sines for later singular vector updates
 
-            F = ( ABS( D( LL ) )-SHIFT )* ( SIGN( ONE, D( LL ) )+SHIFT / D( LL ) );
+            F = ( ( D( LL ) ).abs()-SHIFT )* ( SIGN( ONE, D( LL ) )+SHIFT / D( LL ) );
             G = E( LL );
             for (I = LL; I <= M - 1; I++) { // 140
                slartg(F, G, COSR, SINR, R );
@@ -449,14 +449,14 @@
 
             // Test convergence
 
-            if( ABS( E( M-1 ) ) <= THRESH ) E( M-1 ) = ZERO;
+            if( ( E( M-1 ) ).abs() <= THRESH ) E( M-1 ) = ZERO;
 
          } else {
 
             // Chase bulge from bottom to top
             // Save cosines and sines for later singular vector updates
 
-            F = ( ABS( D( M ) )-SHIFT )*( SIGN( ONE, D( M ) )+SHIFT / D( M ) );
+            F = ( ( D( M ) ).abs()-SHIFT )*( SIGN( ONE, D( M ) )+SHIFT / D( M ) );
             G = E( M-1 );
             DO 150 I = M, LL + 1, -1;
                slartg(F, G, COSR, SINR, R );
@@ -482,7 +482,7 @@
 
             // Test convergence
 
-            if( ABS( E( LL ) ) <= THRESH ) E( LL ) = ZERO;
+            if( ( E( LL ) ).abs() <= THRESH ) E( LL ) = ZERO;
 
             // Update singular vectors if desired
 

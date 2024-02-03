@@ -165,7 +165,7 @@
                ERROR = max( ERROR, SSMIN );
             } // 30
 
-            if( ABS( ERROR ) <= min( TOLA, TOLB ) ) GO TO 50;
+            if( ( ERROR ).abs() <= min( TOLA, TOLB ) ) GO TO 50;
          }
 
          // End of cycle loop
@@ -203,7 +203,7 @@
                if (WANTV) dscal( P, -ONE, V( 1, I ), 1 );
             }
 
-            dlartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );
+            dlartg(( GAMMA ).abs(), ONE, BETA( K+I ), ALPHA( K+I ), RWK );
 
             if ( ALPHA( K+I ) >= BETA( K+I ) ) {
                dscal(L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA );

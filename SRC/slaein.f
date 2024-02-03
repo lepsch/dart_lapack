@@ -82,7 +82,7 @@
 
             for (I = 1; I <= N - 1; I++) { // 60
                EI = H( I+1, I );
-               if ( ABS( B( I, I ) ) < ABS( EI ) ) {
+               if ( ( B( I, I ) ).abs() < ( EI ).abs() ) {
 
                   // Interchange rows and eliminate.
 
@@ -117,7 +117,7 @@
 
             DO 90 J = N, 2, -1;
                EJ = H( J, J-1 );
-               if ( ABS( B( J, J ) ) < ABS( EJ ) ) {
+               if ( ( B( J, J ) ).abs() < ( EJ ).abs() ) {
 
                   // Interchange columns and eliminate.
 
@@ -181,7 +181,7 @@
          // Normalize eigenvector.
 
          I = ISAMAX( N, VR, 1 );
-         sscal(N, ONE / ABS( VR( I ) ), VR, 1 );
+         sscal(N, ONE / ( VR( I ) ).abs(), VR, 1 );
       } else {
 
          // Complex eigenvalue.
@@ -220,7 +220,7 @@
             for (I = 1; I <= N - 1; I++) { // 170
                ABSBII = SLAPY2( B( I, I ), B( I+1, I ) );
                EI = H( I+1, I );
-               if ( ABSBII < ABS( EI ) ) {
+               if ( ABSBII < ( EI ).abs() ) {
 
                   // Interchange rows and eliminate.
 
@@ -283,7 +283,7 @@
             DO 210 J = N, 2, -1;
                EJ = H( J, J-1 );
                ABSBJJ = SLAPY2( B( J, J ), B( J+1, J ) );
-               if ( ABSBJJ < ABS( EJ ) ) {
+               if ( ABSBJJ < ( EJ ).abs() ) {
 
                   // Interchange columns and eliminate
 
@@ -366,10 +366,10 @@
                   } // 230
                }
 
-               W = ABS( B( I, I ) ) + ABS( B( I+1, I ) );
+               W = ( B( I, I ) ).abs() + ( B( I+1, I ) ).abs();
                if ( W > SMLNUM ) {
                   if ( W < ONE ) {
-                     W1 = ABS( XR ) + ABS( XI );
+                     W1 = ( XR ).abs() + ( XI ).abs();
                      if ( W1 > W*BIGNUM ) {
                         REC = ONE / W1;
                         sscal(N, REC, VR, 1 );
@@ -384,7 +384,7 @@
                   // Divide by diagonal element of B.
 
                   sladiv(XR, XI, B( I, I ), B( I+1, I ), VR( I ), VI( I ) );
-                  VMAX = max( ABS( VR( I ) )+ABS( VI( I ) ), VMAX );
+                  VMAX = max( ( VR( I ) ).abs()+( VI( I ) ).abs(), VMAX );
                   VCRIT = BIGNUM / VMAX;
                } else {
                   for (J = 1; J <= N; J++) { // 240
@@ -427,7 +427,7 @@
 
          VNORM = ZERO;
          for (I = 1; I <= N; I++) { // 290
-            VNORM = max( VNORM, ABS( VR( I ) )+ABS( VI( I ) ) );
+            VNORM = max( VNORM, ( VR( I ) ).abs()+( VI( I ) ) ).abs();
          } // 290
          sscal(N, ONE / VNORM, VR, 1 );
          sscal(N, ONE / VNORM, VI, 1 );

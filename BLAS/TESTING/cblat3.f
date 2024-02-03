@@ -2675,7 +2675,7 @@
       // .. Statement Functions ..
       REAL               ABS1;
       // .. Statement Function definitions ..
-      ABS1( CL ) = ABS( REAL( CL ) ) + ABS( AIMAG( CL ) );
+      ABS1( CL ) = ( REAL( CL ) ).abs() + ( AIMAG( CL ) ).abs();
       // .. Executable Statements ..
       TRANA = TRANSA == 'T' || TRANSA == 'C';
       TRANB = TRANSB == 'T' || TRANSB == 'C';

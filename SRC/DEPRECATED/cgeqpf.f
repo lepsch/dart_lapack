@@ -135,7 +135,7 @@
                   // NOTE: The following 4 lines follow from the analysis in
                   // Lapack Working Note 176.
 
-                  TEMP = ABS( A( I, J ) ) / RWORK( J );
+                  TEMP = ( A( I, J ) ).abs() / RWORK( J );
                   TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( RWORK( J ) / RWORK( N+J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {

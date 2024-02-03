@@ -147,11 +147,11 @@
                      CNORM( J ) = ZERO;
                      if ( UPPER ) {
                         for (I = 1; I <= J - 1; I++) {
-                           CNORM( J ) = CNORM( J ) + TSCAL * ABS( A( I, J ) );
+                           CNORM( J ) = CNORM( J ) + TSCAL * ( A( I, J ) ).abs();
                         }
                      } else {
                         for (I = J + 1; I <= N; I++) {
-                           CNORM( J ) = CNORM( J ) + TSCAL * ABS( A( I, J ) );
+                           CNORM( J ) = CNORM( J ) + TSCAL * ( A( I, J ) ).abs();
                         }
                      }
                   }
@@ -169,7 +169,7 @@
       // Level 2 BLAS routine STRSV can be used.
 
       J = ISAMAX( N, X, 1 );
-      XMAX = ABS( X( J ) );
+      XMAX = ( X( J ) ).abs();
       XBND = XMAX;
       if ( NOTRAN ) {
 
@@ -207,7 +207,7 @@
 
                // M(j) = G(j-1) / abs(A(j,j))
 
-               TJJ = ABS( A( J, J ) );
+               TJJ = ( A( J, J ) ).abs();
                XBND = min( XBND, min( ONE, TJJ )*GROW );
                if ( TJJ+CNORM( J ) >= SMLNUM ) {
 
@@ -283,7 +283,7 @@
 
                // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
-               TJJ = ABS( A( J, J ) );
+               TJJ = ( A( J, J ) ).abs();
                if (XJ > TJJ) XBND = XBND*( TJJ / XJ );
             } // 60
             GROW = min( GROW, XBND );
@@ -337,14 +337,14 @@
 
                // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 
-               XJ = ABS( X( J ) );
+               XJ = ( X( J ) ).abs();
                if ( NOUNIT ) {
                   TJJS = A( J, J )*TSCAL;
                } else {
                   TJJS = TSCAL;
                   if (TSCAL == ONE) GO TO 95;
                }
-                  TJJ = ABS( TJJS );
+                  TJJ = ( TJJS ).abs();
                   if ( TJJ > SMLNUM ) {
 
                      // abs(A(j,j)) > SMLNUM:
@@ -361,7 +361,7 @@
                         }
                      }
                      X( J ) = X( J ) / TJJS;
-                     XJ = ABS( X( J ) );
+                     XJ = ( X( J ) ).abs();
                   } else if ( TJJ > ZERO ) {
 
                      // 0 < abs(A(j,j)) <= SMLNUM:
@@ -384,7 +384,7 @@
                         XMAX = XMAX*REC;
                      }
                      X( J ) = X( J ) / TJJS;
-                     XJ = ABS( X( J ) );
+                     XJ = ( X( J ) ).abs();
                   } else {
 
                      // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
@@ -429,7 +429,7 @@
 
                      saxpy(J-1, -X( J )*TSCAL, A( 1, J ), 1, X, 1 );
                      I = ISAMAX( J-1, X, 1 );
-                     XMAX = ABS( X( I ) );
+                     XMAX = ( X( I ) ).abs();
                   }
                } else {
                   if ( J < N ) {
@@ -439,7 +439,7 @@
 
                      saxpy(N-J, -X( J )*TSCAL, A( J+1, J ), 1, X( J+1 ), 1 );
                      I = J + ISAMAX( N-J, X( J+1 ), 1 );
-                     XMAX = ABS( X( I ) );
+                     XMAX = ( X( I ) ).abs();
                   }
                }
             } // 100
@@ -453,7 +453,7 @@
                // Compute x(j) = b(j) - sum A(k,j)*x(k).
                                      // k<>j
 
-               XJ = ABS( X( J ) );
+               XJ = ( X( J ) ).abs();
                USCAL = TSCAL;
                REC = ONE / max( XMAX, ONE );
                if ( CNORM( J ) > ( BIGNUM-XJ )*REC ) {
@@ -466,7 +466,7 @@
                   } else {
                      TJJS = TSCAL;
                   }
-                     TJJ = ABS( TJJS );
+                     TJJ = ( TJJS ).abs();
                      if ( TJJ > ONE ) {
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
@@ -513,7 +513,7 @@
                   // was not used to scale the dotproduct.
 
                   X( J ) = X( J ) - SUMJ;
-                  XJ = ABS( X( J ) );
+                  XJ = ( X( J ) ).abs();
                   if ( NOUNIT ) {
                      TJJS = A( J, J )*TSCAL;
                   } else {
@@ -523,7 +523,7 @@
 
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.
 
-                     TJJ = ABS( TJJS );
+                     TJJ = ( TJJS ).abs();
                      if ( TJJ > SMLNUM ) {
 
                         // abs(A(j,j)) > SMLNUM:
@@ -574,7 +574,7 @@
 
                   X( J ) = X( J ) / TJJS - SUMJ;
                }
-               XMAX = max( XMAX, ABS( X( J ) ) );
+               XMAX = max( XMAX, ( X( J ) ) ).abs();
             } // 140
          }
          SCALE = SCALE / TSCAL;

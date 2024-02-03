@@ -78,7 +78,7 @@
       KD = KU + 1;
       for (J = 1; J <= N; J++) { // 30
          DO 20 I = max( J-KU, 1 ), min( J+KL, M );
-            R( I ) = max( R( I ), ABS( AB( KD+I-J, J ) ) );
+            R( I ) = max( R( I ), ( AB( KD+I-J, J ) ) ).abs();
          } // 20
       } // 30
 
@@ -127,7 +127,7 @@
       KD = KU + 1;
       for (J = 1; J <= N; J++) { // 90
          DO 80 I = max( J-KU, 1 ), min( J+KL, M );
-            C( J ) = max( C( J ), ABS( AB( KD+I-J, J ) )*R( I ) );
+            C( J ) = max( C( J ), ( AB( KD+I-J, J ) ).abs()*R( I ) );
          } // 80
       } // 90
 

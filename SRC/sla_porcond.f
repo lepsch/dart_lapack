@@ -68,10 +68,10 @@
                }
             } else if ( CMODE == 0 ) {
                for (J = 1; J <= I; J++) {
-                  TMP = TMP + ABS( A( J, I ) );
+                  TMP = TMP + ( A( J, I ) ).abs();
                }
                for (J = I+1; J <= N; J++) {
-                  TMP = TMP + ABS( A( I, J ) );
+                  TMP = TMP + ( A( I, J ) ).abs();
                }
             } else {
                for (J = 1; J <= I; J++) {
@@ -95,10 +95,10 @@
                }
             } else if ( CMODE == 0 ) {
                for (J = 1; J <= I; J++) {
-                  TMP = TMP + ABS( A( I, J ) );
+                  TMP = TMP + ( A( I, J ) ).abs();
                }
                for (J = I+1; J <= N; J++) {
-                  TMP = TMP + ABS( A( J, I ) );
+                  TMP = TMP + ( A( J, I ) ).abs();
                }
             } else {
                for (J = 1; J <= I; J++) {

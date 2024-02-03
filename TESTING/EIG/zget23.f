@@ -116,7 +116,7 @@
          } else {
             WRITE( NOUNIT, FMT = 9999 )'ZGEEVX1', IINFO, N, ISEED( 1 );
          }
-         INFO = ABS( IINFO );
+         INFO = ( IINFO ).abs();
          return;
       }
 
@@ -134,11 +134,11 @@
 
       for (J = 1; J <= N; J++) { // 30
          TNRM = DZNRM2( N, VR( 1, J ), 1 );
-         RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+         RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          VMX = ZERO;
          VRMX = ZERO;
          for (JJ = 1; JJ <= N; JJ++) { // 20
-            VTST = ABS( VR( JJ, J ) );
+            VTST = ( VR( JJ, J ) ).abs();
             if (VTST > VMX) VMX = VTST;
             IF( DIMAG( VR( JJ, J ) ) == ZERO && ABS( DBLE( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( DBLE( VR( JJ, J ) ) );
          } // 20
@@ -149,11 +149,11 @@
 
       for (J = 1; J <= N; J++) { // 50
          TNRM = DZNRM2( N, VL( 1, J ), 1 );
-         RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+         RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ( TNRM-ONE ).abs() / ULP ) );
          VMX = ZERO;
          VRMX = ZERO;
          for (JJ = 1; JJ <= N; JJ++) { // 40
-            VTST = ABS( VL( JJ, J ) );
+            VTST = ( VL( JJ, J ) ).abs();
             if (VTST > VMX) VMX = VTST;
             IF( DIMAG( VL( JJ, J ) ) == ZERO && ABS( DBLE( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( DBLE( VL( JJ, J ) ) );
          } // 40
@@ -177,7 +177,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEEVX2', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 190;
          }
 
@@ -217,7 +217,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEEVX3', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 190;
          }
 
@@ -265,7 +265,7 @@
             } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEEVX4', IINFO, N, ISEED( 1 );
             }
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 190;
          }
 
@@ -314,7 +314,7 @@
          if ( IINFO != 0 ) {
             RESULT( 1 ) = ULPINV;
             WRITE( NOUNIT, FMT = 9999 )'ZGEEVX5', IINFO, N, ISEED( 1 );
-            INFO = ABS( IINFO );
+            INFO = ( IINFO ).abs();
             GO TO 250;
          }
 

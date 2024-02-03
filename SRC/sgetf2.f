@@ -73,7 +73,7 @@
             // Compute elements J+1:M of J-th column.
 
             if ( J < M ) {
-               if ( ABS(A( J, J )) >= SFMIN ) {
+               if ( (A( J, J )).abs() >= SFMIN ) {
                   sscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) { // 20

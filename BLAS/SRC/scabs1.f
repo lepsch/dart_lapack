@@ -13,6 +13,6 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS,AIMAG,REAL
       // ..
-      SCABS1 = ABS(REAL(Z)) + ABS(AIMAG(Z));
+      SCABS1 = (REAL(Z)).abs() + (AIMAG(Z)).abs();
       return;
       }

@@ -37,9 +37,9 @@
       // .. Executable Statements ..
 
       FT = F;
-      FA = ABS( FT );
+      FA = ( FT ).abs();
       HT = H;
-      HA = ABS( H );
+      HA = ( H ).abs();
 
       // PMAX points to the maximum absolute element of matrix
         // PMAX = 1 if F largest in absolute values
@@ -61,7 +61,7 @@
 
       }
       GT = G;
-      GA = ABS( GT );
+      GA = ( GT ).abs();
       if ( GA == ZERO ) {
 
          // Diagonal matrix
@@ -124,7 +124,7 @@
             // Note that 1 <= S <= 1 + 1/macheps
 
             if ( L == ZERO ) {
-               R = ABS( M );
+               R = ( M ).abs();
             } else {
                R = sqrt( L*L+MM );
             }

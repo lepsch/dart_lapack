@@ -61,9 +61,9 @@
             K = K + 1;
             WORK( K ) = D( N )*VT( I, N );
          } // 20
-         BNORM = ABS( D( 1 ) );
+         BNORM = ( D( 1 ) ).abs();
          for (I = 2; I <= N; I++) { // 30
-            BNORM = max( BNORM, ABS( D( I ) )+ABS( E( I-1 ) ) );
+            BNORM = max( BNORM, ( D( I ) ).abs()+( E( I-1 ) ) ).abs();
          } // 30
       } else {
 
@@ -78,9 +78,9 @@
                WORK( K ) = E( J )*VT( I, J ) + D( J+1 )*VT( I, J+1 );
             } // 40
          } // 50
-         BNORM = ABS( D( N ) );
+         BNORM = ( D( N ) ).abs();
          for (I = 1; I <= N-1; I++) { // 60
-            BNORM = max( BNORM, ABS( D( I ) )+ABS( E( I ) ) );
+            BNORM = max( BNORM, ( D( I ) ).abs()+( E( I ) ) ).abs();
          } // 60
       }
 

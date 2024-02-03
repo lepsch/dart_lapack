@@ -45,13 +45,13 @@
       // Compute the 1-norm of A.
 
       if ( N > 1 ) {
-         ANORM = ABS( AD( 1 ) ) + ABS( AE( 1 ) );
+         ANORM = ( AD( 1 ) ).abs() + ( AE( 1 ) ).abs();
          for (J = 2; J <= N - 1; J++) { // 10
-            ANORM = max( ANORM, ABS( AD( J ) )+ABS( AE( J ) )+ ABS( AE( J-1 ) ) );
+            ANORM = max( ANORM, ( AD( J ) ).abs()+( AE( J ) ).abs()+ ( AE( J-1 ) ) ).abs();
          } // 10
-         ANORM = max( ANORM, ABS( AD( N ) )+ABS( AE( N-1 ) ) );
+         ANORM = max( ANORM, ( AD( N ) ).abs()+( AE( N-1 ) ) ).abs();
       } else {
-         ANORM = ABS( AD( 1 ) );
+         ANORM = ( AD( 1 ) ).abs();
       }
       ANORM = max( ANORM, UNFL );
 

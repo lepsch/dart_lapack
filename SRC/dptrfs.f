@@ -94,26 +94,26 @@
             BI = B( 1, J );
             DX = D( 1 )*X( 1, J );
             WORK( N+1 ) = BI - DX;
-            WORK( 1 ) = ABS( BI ) + ABS( DX );
+            WORK( 1 ) = ( BI ).abs() + ( DX ).abs();
          } else {
             BI = B( 1, J );
             DX = D( 1 )*X( 1, J );
             EX = E( 1 )*X( 2, J );
             WORK( N+1 ) = BI - DX - EX;
-            WORK( 1 ) = ABS( BI ) + ABS( DX ) + ABS( EX );
+            WORK( 1 ) = ( BI ).abs() + ( DX ).abs() + ( EX ).abs();
             for (I = 2; I <= N - 1; I++) { // 30
                BI = B( I, J );
                CX = E( I-1 )*X( I-1, J );
                DX = D( I )*X( I, J );
                EX = E( I )*X( I+1, J );
                WORK( N+I ) = BI - CX - DX - EX;
-               WORK( I ) = ABS( BI ) + ABS( CX ) + ABS( DX ) + ABS( EX );
+               WORK( I ) = ( BI ).abs() + ( CX ).abs() + ( DX ).abs() + ( EX ).abs();
             } // 30
             BI = B( N, J );
             CX = E( N-1 )*X( N-1, J );
             DX = D( N )*X( N, J );
             WORK( N+N ) = BI - CX - DX;
-            WORK( N ) = ABS( BI ) + ABS( CX ) + ABS( DX );
+            WORK( N ) = ( BI ).abs() + ( CX ).abs() + ( DX ).abs();
          }
 
          // Compute componentwise relative backward error from formula
@@ -128,9 +128,9 @@
          S = ZERO;
          for (I = 1; I <= N; I++) { // 40
             if ( WORK( I ) > SAFE2 ) {
-               S = max( S, ABS( WORK( N+I ) ) / WORK( I ) );
+               S = max( S, ( WORK( N+I ) ).abs() / WORK( I ) );
             } else {
-               S = max( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) );
+               S = max( S, ( ( WORK( N+I ) ).abs()+SAFE1 ) / ( WORK( I )+SAFE1 ) );
             }
          } // 40
          BERR( J ) = S;
@@ -172,9 +172,9 @@
 
          for (I = 1; I <= N; I++) { // 50
             if ( WORK( I ) > SAFE2 ) {
-               WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I );
+               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I );
             } else {
-               WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1;
+               WORK( I ) = ( WORK( N+I ) ).abs() + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 50
          IX = IDAMAX( N, WORK, 1 );
@@ -193,26 +193,26 @@
 
          WORK( 1 ) = ONE;
          for (I = 2; I <= N; I++) { // 60
-            WORK( I ) = ONE + WORK( I-1 )*ABS( EF( I-1 ) );
+            WORK( I ) = ONE + WORK( I-1 )*( EF( I-1 ) ).abs();
          } // 60
 
          // Solve D * M(L)**T * x = b.
 
          WORK( N ) = WORK( N ) / DF( N );
          DO 70 I = N - 1, 1, -1;
-            WORK( I ) = WORK( I ) / DF( I ) + WORK( I+1 )*ABS( EF( I ) );
+            WORK( I ) = WORK( I ) / DF( I ) + WORK( I+1 )*( EF( I ) ).abs();
          } // 70
 
          // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
          IX = IDAMAX( N, WORK, 1 );
-         FERR( J ) = FERR( J )*ABS( WORK( IX ) );
+         FERR( J ) = FERR( J )*( WORK( IX ) ).abs();
 
          // Normalize error.
 
          LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 80
-            LSTRES = max( LSTRES, ABS( X( I, J ) ) );
+            LSTRES = max( LSTRES, ( X( I, J ) ) ).abs();
          } // 80
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 

@@ -48,7 +48,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) );
+      CABS1( CDUM ) = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -104,7 +104,7 @@
             if( !SELECT( 1 ) ) return;
          }
          if (WANTS) S( 1 ) = ONE;
-         IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
+         IF( WANTSP ) SEP( 1 ) = ( T( 1, 1 ) ).abs();
          return;
       }
 
@@ -129,7 +129,7 @@
             PROD = ZDOTC( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
             RNRM = DZNRM2( N, VR( 1, KS ), 1 );
             LNRM = DZNRM2( N, VL( 1, KS ), 1 );
-            S( KS ) = ABS( PROD ) / ( RNRM*LNRM );
+            S( KS ) = ( PROD ).abs() / ( RNRM*LNRM );
 
          }
 

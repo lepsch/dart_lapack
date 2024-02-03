@@ -358,7 +358,7 @@
                            RPVGRW = SLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW;
                         }
                      }
-                     RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / max( WORK( 1 ), RPVGRW ) / SLAMCH( 'E' );
+                     RESULT( 7 ) = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 

@@ -45,7 +45,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) );
+      ABS1( X ) = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -208,14 +208,14 @@
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEFF ) < SMALL;
+               LSA = ( SBETA ).abs() >= SAFMIN && ( ACOEFF ).abs() < SMALL;
                LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL;
 
                SCALE = ONE;
-               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*min( ANORM, BIG );
+               if (LSA) SCALE = ( SMALL / ( SBETA ).abs() )*min( ANORM, BIG );
                IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS1( SALPHA ) )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ( ACOEFF ).abs(), ABS1( BCOEFF ) ) ) );
                   if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA );
                   } else {
@@ -228,7 +228,7 @@
                   }
                }
 
-               ACOEFA = ABS( ACOEFF );
+               ACOEFA = ( ACOEFF ).abs();
                BCOEFA = ABS1( BCOEFF );
                XMAX = ONE;
                for (JR = 1; JR <= N; JR++) { // 60
@@ -363,14 +363,14 @@
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEFF ) < SMALL;
+               LSA = ( SBETA ).abs() >= SAFMIN && ( ACOEFF ).abs() < SMALL;
                LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL;
 
                SCALE = ONE;
-               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*min( ANORM, BIG );
+               if (LSA) SCALE = ( SMALL / ( SBETA ).abs() )*min( ANORM, BIG );
                IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS1( SALPHA ) )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ( ACOEFF ).abs(), ABS1( BCOEFF ) ) ) );
                   if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA );
                   } else {
@@ -383,7 +383,7 @@
                   }
                }
 
-               ACOEFA = ABS( ACOEFF );
+               ACOEFA = ( ACOEFF ).abs();
                BCOEFA = ABS1( BCOEFF );
                XMAX = ONE;
                for (JR = 1; JR <= N; JR++) { // 160

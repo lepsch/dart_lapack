@@ -67,14 +67,14 @@
 
       YESREL = true;
       OFFDIG = ZERO;
-      TMP = sqrt(ABS(D(1)));
+      TMP = sqrt((D(1))).abs();
       if (TMP < RMIN) YESREL = false ;
       if ( !YESREL) GOTO 11;
       for (I = 2; I <= N; I++) { // 10
-         TMP2 = sqrt(ABS(D(I)));
+         TMP2 = sqrt((D(I))).abs();
          if (TMP2 < RMIN) YESREL = false ;
          if ( !YESREL) GOTO 11;
-         OFFDIG2 = ABS(E(I-1))/(TMP*TMP2);
+         OFFDIG2 = (E(I-1)).abs()/(TMP*TMP2);
          if (OFFDIG+OFFDIG2 >= RELCOND) YESREL = false ;
          if ( !YESREL) GOTO 11;
          TMP = TMP2;

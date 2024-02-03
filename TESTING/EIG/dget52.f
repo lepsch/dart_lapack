@@ -78,13 +78,13 @@
 
                // Real eigenvalue and -vector
 
-               ABMAX = max( ABS( SALFR ), ABS( SBETA ) );
-               if ( ABS( SALFR ) > ALFMAX || ABS( SBETA ) > BETMAX || ABMAX < ONE ) {
+               ABMAX = max( ( SALFR ).abs(), ( SBETA ).abs() );
+               if ( ( SALFR ).abs() > ALFMAX || ( SBETA ).abs() > BETMAX || ABMAX < ONE ) {
                   SCALE = ONE / max( ABMAX, SAFMIN );
                   SALFR = SCALE*SALFR;
                   SBETA = SCALE*SBETA;
                }
-               SCALE = ONE / max( ABS( SALFR )*BNORM, ABS( SBETA )*ANORM, SAFMIN );
+               SCALE = ONE / max( ( SALFR ).abs()*BNORM, ( SBETA ).abs()*ANORM, SAFMIN );
                ACOEF = SCALE*SBETA;
                BCOEFR = SCALE*SALFR;
                dgemv(TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 );
@@ -98,14 +98,14 @@
                   RESULT( 1 ) = TEN / ULP;
                   return;
                }
-               ABMAX = max( ABS( SALFR )+ABS( SALFI ), ABS( SBETA ) );
-               if ( ABS( SALFR )+ABS( SALFI ) > ALFMAX || ABS( SBETA ) > BETMAX || ABMAX < ONE ) {
+               ABMAX = max( ( SALFR ).abs()+( SALFI ).abs(), ( SBETA ).abs() );
+               if ( ( SALFR ).abs()+( SALFI ).abs() > ALFMAX || ( SBETA ).abs() > BETMAX || ABMAX < ONE ) {
                   SCALE = ONE / max( ABMAX, SAFMIN );
                   SALFR = SCALE*SALFR;
                   SALFI = SCALE*SALFI;
                   SBETA = SCALE*SBETA;
                }
-               SCALE = ONE / max( ( ABS( SALFR )+ABS( SALFI ) )*BNORM, ABS( SBETA )*ANORM, SAFMIN );
+               SCALE = ONE / max( ( ( SALFR ).abs()+( SALFI ).abs() )*BNORM, ( SBETA ).abs()*ANORM, SAFMIN );
                ACOEF = SCALE*SBETA;
                BCOEFR = SCALE*SALFR;
                BCOEFI = SCALE*SALFI;
@@ -141,15 +141,15 @@
             TEMP1 = ZERO;
             if ( ALPHAI( JVEC ) == ZERO ) {
                for (J = 1; J <= N; J++) { // 20
-                  TEMP1 = max( TEMP1, ABS( E( J, JVEC ) ) );
+                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ) ).abs();
                } // 20
-               ENRMER = max( ENRMER, ABS( TEMP1-ONE ) );
+               ENRMER = max( ENRMER, ( TEMP1-ONE ).abs() );
             } else {
                ILCPLX = true;
                for (J = 1; J <= N; J++) { // 30
-                  TEMP1 = max( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) );
+                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ).abs()+ ( E( J, JVEC+1 ) ) ).abs();
                } // 30
-               ENRMER = max( ENRMER, ABS( TEMP1-ONE ) );
+               ENRMER = max( ENRMER, ( TEMP1-ONE ).abs() );
             }
          }
       } // 40

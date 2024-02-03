@@ -62,9 +62,9 @@
                WORK( J ) = WORK( J ) + D( J );
                if ( J > 1 ) {
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 );
-                  BNORM = max( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) );
+                  BNORM = max( BNORM, ( D( J ) ).abs()+( E( J-1 ) ) ).abs();
                } else {
-                  BNORM = max( BNORM, ABS( D( J ) ) );
+                  BNORM = max( BNORM, ( D( J ) ) ).abs();
                }
                RESID = max( RESID, SCASUM( N, WORK, 1 ) );
             } // 20
@@ -80,9 +80,9 @@
                WORK( J ) = WORK( J ) + D( J );
                if ( J < N ) {
                   WORK( J+1 ) = WORK( J+1 ) + E( J );
-                  BNORM = max( BNORM, ABS( D( J ) )+ABS( E( J ) ) );
+                  BNORM = max( BNORM, ( D( J ) ).abs()+( E( J ) ) ).abs();
                } else {
-                  BNORM = max( BNORM, ABS( D( J ) ) );
+                  BNORM = max( BNORM, ( D( J ) ) ).abs();
                }
                RESID = max( RESID, SCASUM( N, WORK, 1 ) );
             } // 40
@@ -100,7 +100,7 @@
             RESID = max( RESID, SCASUM( N, WORK, 1 ) );
          } // 60
          J = ISAMAX( N, D, 1 );
-         BNORM = ABS( D( J ) );
+         BNORM = ( D( J ) ).abs();
       }
 
       // Compute norm(B - U * S * V') / ( n * norm(B) * EPS )

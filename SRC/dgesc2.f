@@ -61,8 +61,8 @@
       // Check for scaling
 
       I = IDAMAX( N, RHS, 1 );
-      if ( TWO*SMLNUM*ABS( RHS( I ) ) > ABS( A( N, N ) ) ) {
-         TEMP = ( ONE / TWO ) / ABS( RHS( I ) );
+      if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ) ).abs() {
+         TEMP = ( ONE / TWO ) / ( RHS( I ) ).abs();
          dscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*TEMP;
       }

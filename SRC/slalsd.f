@@ -75,7 +75,7 @@
          } else {
             RANK = 1;
             slascl('G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO );
-            D( 1 ) = ABS( D( 1 ) );
+            D( 1 ) = ( D( 1 ) ).abs();
          }
          return;
       }
@@ -181,13 +181,13 @@
       NSUB = 0;
 
       for (I = 1; I <= N; I++) { // 50
-         if ( ABS( D( I ) ) < EPS ) {
+         if ( ( D( I ) ).abs() < EPS ) {
             D( I ) = SIGN( EPS, D( I ) );
          }
       } // 50
 
       for (I = 1; I <= NM1; I++) { // 60
-         if ( ( ABS( E( I ) ) < EPS ) || ( I == NM1 ) ) {
+         if ( ( ( E( I ) ).abs() < EPS ) || ( I == NM1 ) ) {
             NSUB = NSUB + 1;
             IWORK( NSUB ) = ST;
 
@@ -200,7 +200,7 @@
 
                NSIZE = I - ST + 1;
                IWORK( SIZEI+NSUB-1 ) = NSIZE;
-            } else if ( ABS( E( I ) ) >= EPS ) {
+            } else if ( ( E( I ) ).abs() >= EPS ) {
 
                // A subproblem with E(NM1) not too small but I = NM1.
 
@@ -263,13 +263,13 @@
          // Some of the elements in D can be negative because 1-by-1
          // subproblems were not solved explicitly.
 
-         if ( ABS( D( I ) ) <= TOL ) {
+         if ( ( D( I ) ).abs() <= TOL ) {
             slaset('A', 1, NRHS, ZERO, ZERO, WORK( BX+I-1 ), N );
          } else {
             RANK = RANK + 1;
             slascl('G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO );
          }
-         D( I ) = ABS( D( I ) );
+         D( I ) = ( D( I ) ).abs();
       } // 70
 
       // Now apply back the right singular vectors.

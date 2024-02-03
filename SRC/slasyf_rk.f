@@ -85,7 +85,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( W( K, KW ) );
+         ABSAKK = ( W( K, KW ) ).abs();
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -93,7 +93,7 @@
 
          if ( K > 1 ) {
             IMAX = ISAMAX( K-1, W( 1, KW ), 1 );
-            COLMAX = ABS( W( IMAX, KW ) );
+            COLMAX = ( W( IMAX, KW ) ).abs();
          } else {
             COLMAX = ZERO;
          }
@@ -149,14 +149,14 @@
 
                   if ( IMAX != K ) {
                      JMAX = IMAX + ISAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 );
-                     ROWMAX = ABS( W( JMAX, KW-1 ) );
+                     ROWMAX = ( W( JMAX, KW-1 ) ).abs();
                   } else {
                      ROWMAX = ZERO;
                   }
 
                   if ( IMAX > 1 ) {
                      ITEMP = ISAMAX( IMAX-1, W( 1, KW-1 ), 1 );
-                     STEMP = ABS( W( ITEMP, KW-1 ) );
+                     STEMP = ( W( ITEMP, KW-1 ) ).abs();
                      if ( STEMP > ROWMAX ) {
                         ROWMAX = STEMP;
                         JMAX = ITEMP;
@@ -167,7 +167,7 @@
                   // ABS( W( IMAX, KW-1 ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !(ABS( W( IMAX, KW-1 ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !(( W( IMAX, KW-1 ) ) < ALPHA*ROWMAX ) ).abs() {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -262,7 +262,7 @@
 
                scopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                if ( K > 1 ) {
-                  if ( ABS( A( K, K ) ) >= SFMIN ) {
+                  if ( ( A( K, K ) ).abs() >= SFMIN ) {
                      R1 = ONE / A( K, K );
                      sscal(K-1, R1, A( 1, K ), 1 );
                   } else if ( A( K, K ) != ZERO ) {
@@ -386,7 +386,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( W( K, K ) );
+         ABSAKK = ( W( K, K ) ).abs();
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -394,7 +394,7 @@
 
          if ( K < N ) {
             IMAX = K + ISAMAX( N-K, W( K+1, K ), 1 );
-            COLMAX = ABS( W( IMAX, K ) );
+            COLMAX = ( W( IMAX, K ) ).abs();
          } else {
             COLMAX = ZERO;
          }
@@ -448,14 +448,14 @@
 
                   if ( IMAX != K ) {
                      JMAX = K - 1 + ISAMAX( IMAX-K, W( K, K+1 ), 1 );
-                     ROWMAX = ABS( W( JMAX, K+1 ) );
+                     ROWMAX = ( W( JMAX, K+1 ) ).abs();
                   } else {
                      ROWMAX = ZERO;
                   }
 
                   if ( IMAX < N ) {
                      ITEMP = IMAX + ISAMAX( N-IMAX, W( IMAX+1, K+1 ), 1);
-                     STEMP = ABS( W( ITEMP, K+1 ) );
+                     STEMP = ( W( ITEMP, K+1 ) ).abs();
                      if ( STEMP > ROWMAX ) {
                         ROWMAX = STEMP;
                         JMAX = ITEMP;
@@ -466,7 +466,7 @@
                   // ABS( W( IMAX, K+1 ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( W( IMAX, K+1 ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ( W( IMAX, K+1 ) ) < ALPHA*ROWMAX ) ).abs() {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -556,7 +556,7 @@
 
                scopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K < N ) {
-                  if ( ABS( A( K, K ) ) >= SFMIN ) {
+                  if ( ( A( K, K ) ).abs() >= SFMIN ) {
                      R1 = ONE / A( K, K );
                      sscal(N-K, R1, A( K+1, K ), 1 );
                   } else if ( A( K, K ) != ZERO ) {

@@ -145,9 +145,9 @@
 
       WORK( ISMIN ) = CONE;
       WORK( ISMAX ) = CONE;
-      SMAX = ABS( A( 1, 1 ) );
+      SMAX = ( A( 1, 1 ) ).abs();
       SMIN = SMAX;
-      if ( ABS( A( 1, 1 ) ) == ZERO ) {
+      if ( ( A( 1, 1 ) ).abs() == ZERO ) {
          RANK = 0;
          zlaset('F', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
          GO TO 70;

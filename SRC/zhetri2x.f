@@ -115,7 +115,7 @@
             K=K+1;
          } else {
             // 2 x 2 diagonal NNB
-             T = ABS ( WORK(K+1,1) );
+             T = ( WORK(K+1,1) ).abs();
              AK = DBLE ( A( K, K ) ) / T;
              AKP1 = DBLE ( A( K+1, K+1 ) ) / T;
              AKKP1 = WORK(K+1,1)  / T;
@@ -281,7 +281,7 @@
             K=K-1;
          } else {
             // 2 x 2 diagonal NNB
-             T = ABS ( WORK(K-1,1) );
+             T = ( WORK(K-1,1) ).abs();
              AK = DBLE ( A( K-1, K-1 ) ) / T;
              AKP1 = DBLE ( A( K, K ) ) / T;
              AKKP1 = WORK(K-1,1) / T;

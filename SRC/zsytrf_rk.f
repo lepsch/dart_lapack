@@ -123,7 +123,7 @@
 
          if ( K < N ) {
             DO I = K, ( K - KB + 1 ), -1;
-               IP = ABS( IPIV( I ) );
+               IP = ( IPIV( I ) ).abs();
                if ( IP != I ) {
                   zswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
                }
@@ -197,7 +197,7 @@
 
          if ( K > 1 ) {
             DO I = K, ( K + KB - 1 ), 1;
-               IP = ABS( IPIV( I ) );
+               IP = ( IPIV( I ) ).abs();
                if ( IP != I ) {
                   zswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                }

@@ -115,7 +115,7 @@
             clatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9999 )IINFO;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 20;
             }
 
@@ -124,7 +124,7 @@
             clatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9999 )IINFO;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                GO TO 20;
             }
 

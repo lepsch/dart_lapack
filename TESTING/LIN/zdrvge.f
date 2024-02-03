@@ -359,7 +359,7 @@
                            RPVGRW = ZLANGE( 'M', N, N, A, LDA, RDUM ) / RPVGRW;
                         }
                      }
-                     RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / max( RWORK( 2*NRHS+1 ), RPVGRW ) / DLAMCH( 'E' );
+                     RESULT( 7 ) = ( RPVGRW-RWORK( 2*NRHS+1 ) ).abs() / max( RWORK( 2*NRHS+1 ), RPVGRW ) / DLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 

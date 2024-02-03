@@ -26,9 +26,9 @@
       // ..
       // .. Executable Statements ..
 
-      FA = ABS( F );
-      GA = ABS( G );
-      HA = ABS( H );
+      FA = ( F ).abs();
+      GA = ( G ).abs();
+      HA = ( H ).abs();
       FHMN = min( FA, HA );
       FHMX = max( FA, HA );
       if ( FHMN == ZERO ) {

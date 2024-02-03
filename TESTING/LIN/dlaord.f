@@ -27,7 +27,7 @@
       // ..
       // .. Executable Statements ..
 
-      INC = ABS( INCX );
+      INC = ( INCX ).abs();
       if ( LSAME( JOB, 'I' ) ) {
 
          // Sort in increasing order

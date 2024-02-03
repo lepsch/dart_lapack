@@ -37,8 +37,8 @@
       BB = B;
       CC = C;
       DD = D;
-      AB = max( ABS(A), ABS(B) );
-      CD = max( ABS(C), ABS(D) );
+      AB = max( (A).abs(), (B).abs() );
+      CD = max( (C).abs(), (D).abs() );
       S = 1.0;
 
       OV = SLAMCH( 'Overflow threshold' );
@@ -66,7 +66,7 @@
          DD = DD * BE;
          S  = S * BE;
       }
-      if ( ABS( D ) <= ABS( C ) ) {
+      if ( ( D ).abs() <= ( C ).abs() ) {
          sladiv1(AA, BB, CC, DD, P, Q);
       } else {
          sladiv1(BB, AA, DD, CC, P, Q);

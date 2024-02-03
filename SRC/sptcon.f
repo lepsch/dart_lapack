@@ -74,20 +74,20 @@
 
       WORK( 1 ) = ONE;
       for (I = 2; I <= N; I++) { // 20
-         WORK( I ) = ONE + WORK( I-1 )*ABS( E( I-1 ) );
+         WORK( I ) = ONE + WORK( I-1 )*( E( I-1 ) ).abs();
       } // 20
 
       // Solve D * M(L)**T * x = b.
 
       WORK( N ) = WORK( N ) / D( N );
       DO 30 I = N - 1, 1, -1;
-         WORK( I ) = WORK( I ) / D( I ) + WORK( I+1 )*ABS( E( I ) );
+         WORK( I ) = WORK( I ) / D( I ) + WORK( I+1 )*( E( I ) ).abs();
       } // 30
 
       // Compute AINVNM = max(x(i)), 1<=i<=n.
 
       IX = ISAMAX( N, WORK, 1 );
-      AINVNM = ABS( WORK( IX ) );
+      AINVNM = ( WORK( IX ) ).abs();
 
       // Compute the reciprocal condition number.
 

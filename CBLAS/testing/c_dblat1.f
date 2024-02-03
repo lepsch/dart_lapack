@@ -241,8 +241,8 @@
       for (KI = 1; KI <= 4; KI++) { // 120
          INCX = INCXS(KI);
          INCY = INCYS(KI);
-         MX = ABS(INCX);
-         MY = ABS(INCY);
+         MX = (INCX).abs();
+         MY = (INCY).abs();
 
          for (KN = 1; KN <= 4; KN++) { // 100
             N = NS(KN);
@@ -326,8 +326,8 @@
       for (KI = 1; KI <= 4; KI++) { // 60
          INCX = INCXS(KI);
          INCY = INCYS(KI);
-         MX = ABS(INCX);
-         MY = ABS(INCY);
+         MX = (INCX).abs();
+         MY = (INCY).abs();
 
          for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN);
@@ -482,7 +482,7 @@
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I);
-         if (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))) == 0.0) GO TO 40;
+         if (SDIFF((SSIZE(I)).abs()+(SFAC*SD).abs(),(SSIZE(I))).abs() == 0.0) GO TO 40;
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 

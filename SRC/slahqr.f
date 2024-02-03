@@ -107,20 +107,20 @@
          // Look for a single small subdiagonal element.
 
          DO 30 K = I, L + 1, -1;
-            if( ABS( H( K, K-1 ) ) <= SMLNUM ) GO TO 40;
-            TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) );
+            if( ( H( K, K-1 ) ).abs() <= SMLNUM ) GO TO 40;
+            TST = ( H( K-1, K-1 ) ).abs() + ( H( K, K ) ).abs();
             if ( TST == ZERO ) {
-               if (K-2 >= ILO) TST = TST + ABS( H( K-1, K-2 ) );
-               IF( K+1 <= IHI ) TST = TST + ABS( H( K+1, K ) );
+               if (K-2 >= ILO) TST = TST + ( H( K-1, K-2 ) ).abs();
+               IF( K+1 <= IHI ) TST = TST + ( H( K+1, K ) ).abs();
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation  criterion due to Ahues & Tisseur (LAWN 122,
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some cases.  ====
-            if ( ABS( H( K, K-1 ) ) <= ULP*TST ) {
-               AB = max( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
-               BA = min( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
-               AA = max( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = min( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) );
+            if ( ( H( K, K-1 ) ).abs() <= ULP*TST ) {
+               AB = max( ( H( K, K-1 ) ).abs(), ( H( K-1, K ) ) ).abs();
+               BA = min( ( H( K, K-1 ) ).abs(), ( H( K-1, K ) ) ).abs();
+               AA = max( ( H( K, K ) ).abs(), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = min( ( H( K, K ) ).abs(), ABS( H( K-1, K-1 )-H( K, K ) ) );
                S = AA + AB;
                if( BA*( AB / S ) <= max( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40;
             }
@@ -152,7 +152,7 @@
 
             // Exceptional shift.
 
-            S = ABS( H( I, I-1 ) ) + ABS( H( I-1, I-2 ) );
+            S = ( H( I, I-1 ) ).abs() + ( H( I-1, I-2 ) ).abs();
             H11 = DAT1*S + H( I, I );
             H12 = DAT2*S;
             H21 = S;
@@ -161,7 +161,7 @@
 
             // Exceptional shift.
 
-            S = ABS( H( L+1, L ) ) + ABS( H( L+2, L+1 ) );
+            S = ( H( L+1, L ) ).abs() + ( H( L+2, L+1 ) ).abs();
             H11 = DAT1*S + H( L, L );
             H12 = DAT2*S;
             H21 = S;
@@ -176,7 +176,7 @@
             H12 = H( I-1, I );
             H22 = H( I, I );
          }
-         S = ABS( H11 ) + ABS( H12 ) + ABS( H21 ) + ABS( H22 );
+         S = ( H11 ).abs() + ( H12 ).abs() + ( H21 ).abs() + ( H22 ).abs();
          if ( S == ZERO ) {
             RT1R = ZERO;
             RT1I = ZERO;
@@ -189,7 +189,7 @@
             H22 = H22 / S;
             TR = ( H11+H22 ) / TWO;
             DET = ( H11-TR )*( H22-TR ) - H12*H21;
-            RTDISC = sqrt( ABS( DET ) );
+            RTDISC = sqrt( ( DET ).abs() );
             if ( DET >= ZERO ) {
 
                // ==== complex conjugate shifts ====
@@ -204,7 +204,7 @@
 
                RT1R = TR + RTDISC;
                RT2R = TR - RTDISC;
-               if ( ABS( RT1R-H22 ) <= ABS( RT2R-H22 ) ) {
+               if ( ( RT1R-H22 ).abs() <= ( RT2R-H22 ).abs() ) {
                   RT1R = RT1R*S;
                   RT2R = RT1R;
                } else {
@@ -225,17 +225,17 @@
             // overflows and most underflows.)
 
             H21S = H( M+1, M );
-            S = ABS( H( M, M )-RT2R ) + ABS( RT2I ) + ABS( H21S );
+            S = ABS( H( M, M )-RT2R ) + ( RT2I ).abs() + ( H21S ).abs();
             H21S = H( M+1, M ) / S;
             V( 1 ) = H21S*H( M, M+1 ) + ( H( M, M )-RT1R )* ( ( H( M, M )-RT2R ) / S ) - RT1I*( RT2I / S );
             V( 2 ) = H21S*( H( M, M )+H( M+1, M+1 )-RT1R-RT2R );
             V( 3 ) = H21S*H( M+2, M+1 );
-            S = ABS( V( 1 ) ) + ABS( V( 2 ) ) + ABS( V( 3 ) );
+            S = ( V( 1 ) ).abs() + ( V( 2 ) ).abs() + ( V( 3 ) ).abs();
             V( 1 ) = V( 1 ) / S;
             V( 2 ) = V( 2 ) / S;
             V( 3 ) = V( 3 ) / S;
             if (M == L) GO TO 60;
-            IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ) <= ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60;
+            IF( ( H( M, M-1 ) ).abs()*( ( V( 2 ) ).abs()+( V( 3 ) ) ).abs() <= ULP*( V( 1 ) ).abs()*( ( H( M-1, M-1 ) ).abs()+( H( M, M ) ).abs()+( H( M+1, M+1 ) ) ) ).abs()GO TO 60;
          } // 50
          } // 60
 

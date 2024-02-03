@@ -30,7 +30,7 @@
       // Compute the first column of B**T*B - SIGMA^2*I, up to a scale
       // factor.
 
-      if ( (SIGMA == ZERO && ABS(X) < THRESH) || (ABS(X) == SIGMA && Y == ZERO) ) {
+      if ( (SIGMA == ZERO && (X).abs() < THRESH) || ((X).abs() == SIGMA && Y == ZERO) ) {
          Z = ZERO;
          W = ZERO;
       } else if ( SIGMA == ZERO ) {
@@ -41,7 +41,7 @@
             Z = -X;
             W = -Y;
          }
-      } else if ( ABS(X) < THRESH ) {
+      } else if ( (X).abs() < THRESH ) {
          Z = -SIGMA*SIGMA;
          W = ZERO;
       } else {
@@ -50,7 +50,7 @@
          } else {
             S = NEGONE;
          }
-         Z = S * (ABS(X)-SIGMA) * (S+SIGMA/X);
+         Z = S * ((X).abs()-SIGMA) * (S+SIGMA/X);
          W = S * Y;
       }
 

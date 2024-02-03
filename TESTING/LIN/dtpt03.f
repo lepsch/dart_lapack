@@ -55,13 +55,13 @@
          if ( LSAME( UPLO, 'U' ) ) {
             JJ = 1;
             for (J = 1; J <= N; J++) { // 10
-               TNORM = max( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
+               TNORM = max( TNORM, TSCAL*( AP( JJ ) ).abs()+CNORM( J ) );
                JJ = JJ + J + 1;
             } // 10
          } else {
             JJ = 1;
             for (J = 1; J <= N; J++) { // 20
-               TNORM = max( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
+               TNORM = max( TNORM, TSCAL*( AP( JJ ) ).abs()+CNORM( J ) );
                JJ = JJ + N - J + 1;
             } // 20
          }
@@ -78,15 +78,15 @@
       for (J = 1; J <= NRHS; J++) { // 40
          dcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IDAMAX( N, WORK, 1 );
-         XNORM = max( ONE, ABS( X( IX, J ) ) );
+         XNORM = max( ONE, ( X( IX, J ) ) ).abs();
          XSCAL = ( ONE / XNORM ) / DBLE( N );
          dscal(N, XSCAL, WORK, 1 );
          dtpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
          daxpy(N, -SCALE*XSCAL, B( 1, J ), 1, WORK, 1 );
          IX = IDAMAX( N, WORK, 1 );
-         ERR = TSCAL*ABS( WORK( IX ) );
+         ERR = TSCAL*( WORK( IX ) ).abs();
          IX = IDAMAX( N, X( 1, J ), 1 );
-         XNORM = ABS( X( IX, J ) );
+         XNORM = ( X( IX, J ) ).abs();
          if ( ERR*SMLNUM <= XNORM ) {
             if (XNORM > ZERO) ERR = ERR / XNORM;
          } else {

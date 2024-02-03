@@ -203,10 +203,10 @@
             TB = B( I, J );
             TA = A( I, J );
             if (TA == ZERO) GO TO 210;
-            TA = LOG10( ABS( TA ) ) / BASL;
+            TA = LOG10( ( TA ).abs() ) / BASL;
             } // 210
             if (TB == ZERO) GO TO 220;
-            TB = LOG10( ABS( TB ) ) / BASL;
+            TB = LOG10( ( TB ).abs() ) / BASL;
             } // 220
             WORK( I+4*N ) = WORK( I+4*N ) - TA - TB;
             WORK( J+5*N ) = WORK( J+5*N ) - TA - TB;
@@ -290,10 +290,10 @@
       CMAX = ZERO;
       for (I = ILO; I <= IHI; I++) { // 340
          COR = ALPHA*WORK( I+N );
-         if( ABS( COR ) > CMAX ) CMAX = ABS( COR );
+         if( ( COR ).abs() > CMAX ) CMAX = ( COR ).abs();
          LSCALE( I ) = LSCALE( I ) + COR;
          COR = ALPHA*WORK( I );
-         if( ABS( COR ) > CMAX ) CMAX = ABS( COR );
+         if( ( COR ).abs() > CMAX ) CMAX = ( COR ).abs();
          RSCALE( I ) = RSCALE( I ) + COR;
       } // 340
       if (CMAX < HALF) GO TO 350;
@@ -314,17 +314,17 @@
       LSFMAX = INT( LOG10( SFMAX ) / BASL );
       for (I = ILO; I <= IHI; I++) { // 360
          IRAB = ISAMAX( N-ILO+1, A( I, ILO ), LDA );
-         RAB = ABS( A( I, IRAB+ILO-1 ) );
+         RAB = ( A( I, IRAB+ILO-1 ) ).abs();
          IRAB = ISAMAX( N-ILO+1, B( I, ILO ), LDB );
-         RAB = max( RAB, ABS( B( I, IRAB+ILO-1 ) ) );
+         RAB = max( RAB, ( B( I, IRAB+ILO-1 ) ) ).abs();
          LRAB = INT( LOG10( RAB+SFMIN ) / BASL+ONE );
          IR = INT( LSCALE( I ) + SIGN( HALF, LSCALE( I ) ) );
          IR = min( max( IR, LSFMIN ), LSFMAX, LSFMAX-LRAB );
          LSCALE( I ) = SCLFAC**IR;
          ICAB = ISAMAX( IHI, A( 1, I ), 1 );
-         CAB = ABS( A( ICAB, I ) );
+         CAB = ( A( ICAB, I ) ).abs();
          ICAB = ISAMAX( IHI, B( 1, I ), 1 );
-         CAB = max( CAB, ABS( B( ICAB, I ) ) );
+         CAB = max( CAB, ( B( ICAB, I ) ) ).abs();
          LCAB = INT( LOG10( CAB+SFMIN ) / BASL+ONE );
          JC = INT( RSCALE( I ) + SIGN( HALF, RSCALE( I ) ) );
          JC = min( max( JC, LSFMIN ), LSFMAX, LSFMAX-LCAB );

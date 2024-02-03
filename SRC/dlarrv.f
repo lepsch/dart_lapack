@@ -302,7 +302,7 @@
                      // we are at the right end of the cluster, this is also the
                      // boundary of the child cluster
                      NEWLST = J;
-                  } else if ( WGAP( WBEGIN + J -1) >= MINRGP* ABS( WORK(WBEGIN + J -1) ) ) {
+                  } else if ( WGAP( WBEGIN + J -1) >= MINRGP* ( WORK(WBEGIN + J -1) ) ).abs() {
                      // the right relative gap is big enough, the child cluster
                      // (NEWFST,..,NEWLST) is well separated from the following
                      NEWLST = J;
@@ -395,7 +395,7 @@
                         // WORK() are the midpoints and WERR() the semi-width
                         // Note that the entries in W are unchanged.
                         for (K = NEWFST; K <= NEWLST; K++) { // 116
-                           FUDGE = THREE*EPS*ABS(WORK(WBEGIN+K-1))                            WORK( WBEGIN + K - 1 ) = WORK( WBEGIN + K - 1) - TAU                            FUDGE = FUDGE + FOUR*EPS*ABS(WORK(WBEGIN+K-1));
+                           FUDGE = THREE*EPS*(WORK(WBEGIN+K-1)).abs()                            WORK( WBEGIN + K - 1 ) = WORK( WBEGIN + K - 1) - TAU                            FUDGE = FUDGE + FOUR*EPS*(WORK(WBEGIN+K-1)).abs();
                            // Fudge errors
                            WERR( WBEGIN + K - 1 ) = WERR( WBEGIN + K - 1 ) + FUDGE;
                            // Gaps are not fudged. Provided that WERR is small
@@ -453,7 +453,7 @@
                         // can lead to an overestimation of the left gap and
                         // thus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small left gap.
-                        LGAP = EPS*max(ABS(LEFT),ABS(RIGHT));
+                        LGAP = EPS*max((LEFT).abs(),(RIGHT).abs());
                      } else {
                         LGAP = WGAP(WINDMN);
                      }
@@ -463,7 +463,7 @@
                         // can lead to an overestimation of the right gap and
                         // thus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small right gap.
-                        RGAP = EPS*max(ABS(LEFT),ABS(RIGHT));
+                        RGAP = EPS*max((LEFT).abs(),(RIGHT).abs());
                      } else {
                         RGAP = WGAP(WINDEX);
                      }
@@ -534,7 +534,7 @@
                      // Convergence test for Rayleigh-Quotient iteration
                      // (omitted when Bisection has been used)
 
-                     if ( RESID > TOL*GAP && ABS( RQCORR ) > RQTOL*ABS( LAMBDA ) && !USEDBS) {
+                     if ( RESID > TOL*GAP && ( RQCORR ).abs() > RQTOL*( LAMBDA ).abs() && !USEDBS) {
                         // We need to check that the RQCORR update doesn't
                         // move the eigenvalue away from the desired one and
                         // towards a neighbor. -> protection with bisection
@@ -577,7 +577,7 @@
                         } else {
                            NEEDBS = true;
                         }
-                        if (RIGHT-LEFT < RQTOL*ABS(LAMBDA)) {
+                        if (RIGHT-LEFT < RQTOL*(LAMBDA).abs()) {
                               // The eigenvalue is computed to bisection accuracy
                               // compute eigenvector and stop
                            USEDBS = true;

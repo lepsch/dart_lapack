@@ -54,7 +54,7 @@
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 20
          IX = ISAMAX( N, XACT( 1, J ), 1 );
-         XNORM = ABS( XACT( IX, J ) );
+         XNORM = ( XACT( IX, J ) ).abs();
          DIFFNM = ZERO;
          for (I = 1; I <= N; I++) { // 10
             DIFFNM = max( DIFFNM, ABS( X( I, J )-XACT( I, J ) ) );

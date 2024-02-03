@@ -46,13 +46,13 @@
          for (JI = 1; JI <= MINP; JI++) { // 30
             for (JP = 1; JP <= 2; JP++) { // 20
                TMP1 = D( 1 ) - AB( JI, JP );
-               if( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN;
+               if( ( TMP1 ).abs() < PIVMIN ) TMP1 = -PIVMIN;
                NAB( JI, JP ) = 0;
                if (TMP1 <= ZERO) NAB( JI, JP ) = 1;
 
                for (J = 2; J <= N; J++) { // 10
                   TMP1 = D( J ) - E2( J-1 ) / TMP1 - AB( JI, JP );
-                  if( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN;
+                  if( ( TMP1 ).abs() < PIVMIN ) TMP1 = -PIVMIN;
                   IF( TMP1 <= ZERO ) NAB( JI, JP ) = NAB( JI, JP ) + 1;
                } // 10
             } // 20
@@ -263,7 +263,7 @@
          KFNEW = KF;
          for (JI = KF; JI <= KL; JI++) { // 110
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) );
-            TMP2 = max( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) );
+            TMP2 = max( ( AB( JI, 2 ) ).abs(), ( AB( JI, 1 ) ) ).abs();
             if ( TMP1 < max( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ) >= NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,

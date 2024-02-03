@@ -73,7 +73,7 @@
       if (L1 > N) GO TO 170;
       IF( L1 > 1 ) E( L1-1 ) = ZERO;
       for (M = L1; M <= N - 1; M++) { // 20
-         if ( ABS( E( M ) ) <= ( sqrt( ABS( D( M ) ) )* sqrt( ABS( D( M+1 ) ) ) )*EPS ) {
+         if ( ( E( M ) ).abs() <= ( sqrt( ( D( M ) ) ).abs()* sqrt( ( D( M+1 ) ) ) ).abs()*EPS ) {
             E( M ) = ZERO;
             GO TO 30;
          }
@@ -109,7 +109,7 @@
 
       // Choose between QL and QR iteration
 
-      if ( ABS( D( LEND ) ) < ABS( D( L ) ) ) {
+      if ( ( D( LEND ) ).abs() < ( D( L ) ) ).abs() {
          LEND = LSV;
          L = LENDSV;
       }
@@ -123,7 +123,7 @@
          } // 50
          if ( L != LEND ) {
             for (M = L; M <= LEND - 1; M++) { // 60
-               if( ABS( E( M ) ) <= EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70;
+               if( ( E( M ) ).abs() <= EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70;
             } // 60
          }
          M = LEND;
@@ -203,7 +203,7 @@
 
          } // 100
          DO 110 M = L, LEND + 1, -1;
-            if( ABS( E( M-1 ) ) <= EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120;
+            if( ( E( M-1 ) ).abs() <= EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120;
          } // 110
          M = LEND;
 

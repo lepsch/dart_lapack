@@ -423,7 +423,7 @@
                                  RPVGRW = SLANGB( 'M', N, KL, KU, A, LDA, WORK ) / RPVGRW;
                               }
                            }
-                           RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / max( WORK( 1 ), RPVGRW ) / SLAMCH( 'E' );
+                           RESULT( 7 ) = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / SLAMCH( 'E' );
 
                            if ( !PREFAC ) {
 
@@ -561,7 +561,7 @@
                      } else {
                         RPVGRW = SLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB );
                      }
-                      RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) / max( rpvgrw_svxx, RPVGRW ) / SLAMCH( 'E' );
+                      RESULT( 7 ) = ( RPVGRW-rpvgrw_svxx ).abs() / max( rpvgrw_svxx, RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 

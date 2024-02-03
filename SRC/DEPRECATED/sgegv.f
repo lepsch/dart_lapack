@@ -281,11 +281,11 @@
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
-                     TEMP = max( TEMP, ABS( VL( JR, JC ) ) );
+                     TEMP = max( TEMP, ( VL( JR, JC ) ) ).abs();
                   } // 10
                } else {
                   for (JR = 1; JR <= N; JR++) { // 20
-                     TEMP = max( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
+                     TEMP = max( TEMP, ( VL( JR, JC ) ).abs()+ ( VL( JR, JC+1 ) ) ).abs();
                   } // 20
                }
                if (TEMP < SAFMIN) GO TO 50;
@@ -313,11 +313,11 @@
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
-                     TEMP = max( TEMP, ABS( VR( JR, JC ) ) );
+                     TEMP = max( TEMP, ( VR( JR, JC ) ) ).abs();
                   } // 60
                } else {
                   for (JR = 1; JR <= N; JR++) { // 70
-                     TEMP = max( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
+                     TEMP = max( TEMP, ( VR( JR, JC ) ).abs()+ ( VR( JR, JC+1 ) ) ).abs();
                   } // 70
                }
                if (TEMP < SAFMIN) GO TO 100;
@@ -348,9 +348,9 @@
       // if they are significant.
 
       for (JC = 1; JC <= N; JC++) { // 110
-         ABSAR = ABS( ALPHAR( JC ) );
-         ABSAI = ABS( ALPHAI( JC ) );
-         ABSB = ABS( BETA( JC ) );
+         ABSAR = ( ALPHAR( JC ) ).abs();
+         ABSAI = ( ALPHAI( JC ) ).abs();
+         ABSB = ( BETA( JC ) ).abs();
          SALFAR = ANRM*ALPHAR( JC );
          SALFAI = ANRM*ALPHAI( JC );
          SBETA = BNRM*BETA( JC );
@@ -359,7 +359,7 @@
 
          // Check for significant underflow in ALPHAI
 
-         if ( ABS( SALFAI ) < SAFMIN && ABSAI >= max( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
+         if ( ( SALFAI ).abs() < SAFMIN && ABSAI >= max( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / max( ONEPLS*SAFMIN, ANRM2*ABSAI );
 
@@ -377,14 +377,14 @@
 
          // Check for significant underflow in ALPHAR
 
-         if ( ABS( SALFAR ) < SAFMIN && ABSAR >= max( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
+         if ( ( SALFAR ).abs() < SAFMIN && ABSAR >= max( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = max( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / max( ONEPLS*SAFMIN, ANRM2*ABSAR ) );
          }
 
          // Check for significant underflow in BETA
 
-         if ( ABS( SBETA ) < SAFMIN && ABSB >= max( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
+         if ( ( SBETA ).abs() < SAFMIN && ABSB >= max( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
             SCALE = max( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / max( ONEPLS*SAFMIN, BNRM2*ABSB ) );
          }
@@ -392,7 +392,7 @@
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*max( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*max( ( SALFAR ).abs(), ( SALFAI ).abs(), ( SBETA ).abs() )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.

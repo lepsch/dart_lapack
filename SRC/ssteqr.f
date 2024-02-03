@@ -100,9 +100,9 @@
       IF( L1 > 1 ) E( L1-1 ) = ZERO;
       if ( L1 <= NM1 ) {
          for (M = L1; M <= NM1; M++) { // 20
-            TST = ABS( E( M ) );
+            TST = ( E( M ) ).abs();
             if ( TST == ZERO ) GO TO 30;
-            IF( TST <= ( sqrt( ABS( D( M ) ) )*sqrt( ABS( D( M+ 1 ) ) ) )*EPS ) {
+            IF( TST <= ( sqrt( ( D( M ) ) ).abs()*sqrt( ( D( M+ 1 ) ) ) ).abs()*EPS ) {
                E( M ) = ZERO;
                GO TO 30;
             }
@@ -135,7 +135,7 @@
 
       // Choose between QL and QR iteration
 
-      if ( ABS( D( LEND ) ) < ABS( D( L ) ) ) {
+      if ( ( D( LEND ) ).abs() < ( D( L ) ) ).abs() {
          LEND = LSV;
          L = LENDSV;
       }
@@ -150,8 +150,8 @@
          if ( L != LEND ) {
             LENDM1 = LEND - 1;
             for (M = L; M <= LENDM1; M++) { // 50
-               TST = ABS( E( M ) )**2;
-               if( TST <= ( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+ SAFMIN )GO TO 60;
+               TST = ( E( M ) ).abs()**2;
+               if( TST <= ( EPS2*( D( M ) ) ).abs()*( D( M+1 ) ).abs()+ SAFMIN )GO TO 60;
             } // 50
          }
 
@@ -248,8 +248,8 @@
          if ( L != LEND ) {
             LENDP1 = LEND + 1;
             DO 100 M = L, LENDP1, -1;
-               TST = ABS( E( M-1 ) )**2;
-               if( TST <= ( EPS2*ABS( D( M ) ) )*ABS( D( M-1 ) )+ SAFMIN )GO TO 110;
+               TST = ( E( M-1 ) ).abs()**2;
+               if( TST <= ( EPS2*( D( M ) ) ).abs()*( D( M-1 ) ).abs()+ SAFMIN )GO TO 110;
             } // 100
          }
 

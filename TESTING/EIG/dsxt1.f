@@ -38,9 +38,9 @@
          }
          if ( J == 1 ) {
             TEMP2 = ABS( D2( J )-D1( I ) );
-            if (IJOB == 2) TEMP2 = TEMP2 / max( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
+            if (IJOB == 2) TEMP2 = TEMP2 / max( UNFL, ABSTOL+ULP*( D1( I ) ) ).abs();
          } else {
-            TEMP2 = min( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB == 2 ) TEMP2 = TEMP2 / max( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
+            TEMP2 = min( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB == 2 ) TEMP2 = TEMP2 / max( UNFL, ABSTOL+ULP*( D1( I ) ) ).abs();
          }
          TEMP1 = max( TEMP1, TEMP2 );
       } // 20

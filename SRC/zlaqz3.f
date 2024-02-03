@@ -74,7 +74,7 @@
 
       for (I = 1; I <= NS; I++) {
          // Introduce the shift
-         SCALE = sqrt( ABS( ALPHA( I ) ) ) * sqrt( ABS( BETA( I ) ) );
+         SCALE = sqrt( ( ALPHA( I ) ) ).abs() * sqrt( ( BETA( I ) ) ).abs();
          if ( SCALE >= SAFMIN && SCALE <= SAFMAX ) {
             ALPHA( I ) = ALPHA( I )/SCALE;
             BETA( I ) = BETA( I )/SCALE;
@@ -82,7 +82,7 @@
 
          TEMP2 = BETA( I )*A( ILO, ILO )-ALPHA( I )*B( ILO, ILO );
          TEMP3 = BETA( I )*A( ILO+1, ILO );
-          if ( ABS( TEMP2 ) > SAFMAX || ABS( TEMP3 ) > SAFMAX ) {
+          if ( ( TEMP2 ).abs() > SAFMAX || ( TEMP3 ).abs() > SAFMAX ) {
             TEMP2 = CONE;
             TEMP3 = CZERO;
          }

@@ -41,11 +41,11 @@
 
          // Find max(abs(A(i,j))).
 
-         ANORM = ABS( D( N ) );
+         ANORM = ( D( N ) ).abs();
          for (I = 1; I <= N - 1; I++) { // 10
-            SUM = ABS( D( I ) );
+            SUM = ( D( I ) ).abs();
             if( ANORM < SUM || SISNAN( SUM ) ) ANORM = SUM;
-            SUM = ABS( E( I ) );
+            SUM = ( E( I ) ).abs();
             if( ANORM < SUM || SISNAN( SUM ) ) ANORM = SUM;
          } // 10
       } else if ( LSAME( NORM, 'O' ) || NORM == '1' || LSAME( NORM, 'I' ) ) {
@@ -53,13 +53,13 @@
          // Find norm1(A).
 
          if ( N == 1 ) {
-            ANORM = ABS( D( 1 ) );
+            ANORM = ( D( 1 ) ).abs();
          } else {
-            ANORM = ABS( D( 1 ) )+ABS( E( 1 ) );
-            SUM = ABS( E( N-1 ) )+ABS( D( N ) );
+            ANORM = ( D( 1 ) ).abs()+( E( 1 ) ).abs();
+            SUM = ( E( N-1 ) ).abs()+( D( N ) ).abs();
             if( ANORM < SUM || SISNAN( SUM ) ) ANORM = SUM;
             for (I = 2; I <= N - 1; I++) { // 20
-               SUM = ABS( D( I ) )+ABS( E( I ) )+ABS( E( I-1 ) );
+               SUM = ( D( I ) ).abs()+( E( I ) ).abs()+( E( I-1 ) ).abs();
                if( ANORM < SUM || SISNAN( SUM ) ) ANORM = SUM;
             } // 20
          }

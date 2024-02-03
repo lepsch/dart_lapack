@@ -81,7 +81,7 @@
                   TMP = ONE;
                }
                TMP = TMP - DDOT( M, U( 1, I ), 1, U( 1, J ), 1 );
-               RESID = max( RESID, ABS( TMP ) );
+               RESID = max( RESID, ( TMP ).abs() );
             } // 10
          } // 20
          RESID = ( RESID / DBLE( M ) ) / EPS;
@@ -97,7 +97,7 @@
                   TMP = ONE;
                }
                TMP = TMP - DDOT( N, U( J, 1 ), LDU, U( I, 1 ), LDU );
-               RESID = max( RESID, ABS( TMP ) );
+               RESID = max( RESID, ( TMP ).abs() );
             } // 30
          } // 40
          RESID = ( RESID / DBLE( N ) ) / EPS;

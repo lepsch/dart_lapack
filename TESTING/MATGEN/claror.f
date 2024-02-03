@@ -103,7 +103,7 @@
          // Generate a Householder transformation from the random vector X
 
          XNORM = SCNRM2( IXFRM, X( KBEG ), 1 );
-         XABS = ABS( X( KBEG ) );
+         XABS = ( X( KBEG ) ).abs();
          if ( XABS != CZERO ) {
             CSIGN = X( KBEG ) / XABS;
          } else {
@@ -112,7 +112,7 @@
          XNORMS = CSIGN*XNORM;
          X( NXFRM+KBEG ) = -CSIGN;
          FACTOR = XNORM*( XNORM+XABS );
-         if ( ABS( FACTOR ) < TOOSML ) {
+         if ( ( FACTOR ).abs() < TOOSML ) {
             INFO = 1;
             xerbla('CLAROR', -INFO );
             return;
@@ -147,7 +147,7 @@
       } // 60
 
       X( 1 ) = CLARND( 3, ISEED );
-      XABS = ABS( X( 1 ) );
+      XABS = ( X( 1 ) ).abs();
       if ( XABS != ZERO ) {
          CSIGN = X( 1 ) / XABS;
       } else {

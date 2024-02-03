@@ -230,7 +230,7 @@
 
          clarnv(2, ISEED, N, B );
          IY = ICAMAX( N, B, 1 );
-         BNORM = ABS( B( IY ) );
+         BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          csscal(N, BSCAL, B, 1 );
 
@@ -472,7 +472,7 @@
 
          clarnv(2, ISEED, N, B );
          IY = ICAMAX( N, B, 1 );
-         BNORM = ABS( B( IY ) );
+         BNORM = ( B( IY ) ).abs();
          BSCAL = BIGNUM / max( ONE, BNORM );
          csscal(N, BSCAL, B, 1 );
 

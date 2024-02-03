@@ -444,7 +444,7 @@
          X1 = SIN(THETA(IMAX-1))*B11E(IMAX-1) + COS(THETA(IMAX-1))*B21E(IMAX-1)          Y1 = SIN(THETA(IMAX-1))*B12D(IMAX-1) + COS(THETA(IMAX-1))*B22D(IMAX-1);
          Y2 = SIN(THETA(IMAX-1))*B12BULGE + COS(THETA(IMAX-1))*B22BULGE;
 
-         PHI(IMAX-1) = ATAN2( ABS(X1), sqrt(Y1**2+Y2**2) );
+         PHI(IMAX-1) = ATAN2( (X1).abs(), sqrt(Y1**2+Y2**2) );
 
          // Chase bulges from B12(IMAX-1,IMAX) and B22(IMAX-1,IMAX)
 
@@ -517,7 +517,7 @@
 
          X1 = COS(PHI(IMAX-1))*B11D(IMAX) + SIN(PHI(IMAX-1))*B12E(IMAX-1)          Y1 = COS(PHI(IMAX-1))*B21D(IMAX) + SIN(PHI(IMAX-1))*B22E(IMAX-1);
 
-         THETA(IMAX) = ATAN2( ABS(Y1), ABS(X1) );
+         THETA(IMAX) = ATAN2( (Y1).abs(), (X1).abs() );
 
          // Fix signs on B11(IMAX,IMAX), B12(IMAX,IMAX-1), B21(IMAX,IMAX),
          // and B22(IMAX,IMAX-1)

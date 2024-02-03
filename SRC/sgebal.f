@@ -178,9 +178,9 @@
             C = SNRM2( L-K+1, A( K, I ), 1 );
             R = SNRM2( L-K+1, A( I, K ), LDA );
             ICA = ISAMAX( L, A( 1, I ), 1 );
-            CA = ABS( A( ICA, I ) );
+            CA = ( A( ICA, I ) ).abs();
             IRA = ISAMAX( N-K+1, A( I, K ), LDA );
-            RA = ABS( A( I, IRA+K-1 ) );
+            RA = ( A( I, IRA+K-1 ) ).abs();
 
             // Guard against zero C or R due to underflow.
 

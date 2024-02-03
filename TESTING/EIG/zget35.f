@@ -92,15 +92,15 @@
                            for (I = 1; I <= M; I++) { // 60
                               for (J = 1; J <= M; J++) { // 50
                                  A( I, J ) = ATMP( I, J )*VM1( IMLA );
-                                 TNRM = max( TNRM, ABS( A( I, J ) ) );
+                                 TNRM = max( TNRM, ( A( I, J ) ) ).abs();
                               } // 50
                               A( I, I ) = A( I, I )*VM2( IMLAD );
-                              TNRM = max( TNRM, ABS( A( I, I ) ) );
+                              TNRM = max( TNRM, ( A( I, I ) ) ).abs();
                            } // 60
                            for (I = 1; I <= N; I++) { // 80
                               for (J = 1; J <= N; J++) { // 70
                                  B( I, J ) = BTMP( I, J )*VM1( IMLB );
-                                 TNRM = max( TNRM, ABS( B( I, J ) ) );
+                                 TNRM = max( TNRM, ( B( I, J ) ) ).abs();
                               } // 70
                            } // 80
                            if (TNRM == ZERO) TNRM = ONE;
@@ -124,7 +124,7 @@
                            zgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT );
                            zgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = ZLANGE( 'M', M, N, CSAV, LDT, DUM );
-                           RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM );
+                           RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( ( RMUL ).abs()*TNRM )*EPS )*XNRM );
                            if ( RES > RMAX ) {
                               LMAX = KNT;
                               RMAX = RES;

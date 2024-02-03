@@ -38,7 +38,7 @@
             C( IC ) = ZERO;
             Y( IY ) = ONE;
             X( IX ) = G;
-         } else if ( ABS( F ) > ABS( G ) ) {
+         } else if ( ( F ).abs() > ( G ).abs() ) {
             T = G / F;
             TT = sqrt( ONE+T*T );
             C( IC ) = ONE / TT;

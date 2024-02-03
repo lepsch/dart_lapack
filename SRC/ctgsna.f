@@ -139,7 +139,7 @@
             YHAX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 );
             cgemv('N', N, N, CMPLX( ONE, ZERO ), B, LDB, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 );
             YHBX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 );
-            COND = SLAPY2( ABS( YHAX ), ABS( YHBX ) );
+            COND = SLAPY2( ( YHAX ).abs(), ( YHBX ).abs() );
             if ( COND == ZERO ) {
                S( KS ) = -ONE;
             } else {
@@ -149,7 +149,7 @@
 
          if ( WANTDF ) {
             if ( N == 1 ) {
-               DIF( KS ) = SLAPY2( ABS( A( 1, 1 ) ), ABS( B( 1, 1 ) ) );
+               DIF( KS ) = SLAPY2( ( A( 1, 1 ) ).abs(), ( B( 1, 1 ) ) ).abs();
             } else {
 
                // Estimate the reciprocal condition number of the k-th

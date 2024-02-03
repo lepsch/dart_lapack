@@ -114,7 +114,7 @@
 
             if ( SCALE != ONE ) {
                IX = IDAMAX( N, WORK, 1 );
-               XNORM = ABS( WORK( IX ) );
+               XNORM = ( WORK( IX ) ).abs();
                if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                drscl(N, SCALE, WORK, 1 );
             }

@@ -288,7 +288,7 @@
       // eigenvalues of reordered pair (A, B)
 
       for (K = 1; K <= N; K++) { // 60
-         DSCALE = ABS( B( K, K ) );
+         DSCALE = ( B( K, K ) ).abs();
          if ( DSCALE > SAFMIN ) {
             TEMP1 = CONJG( B( K, K ) / DSCALE );
             TEMP2 = B( K, K ) / DSCALE;

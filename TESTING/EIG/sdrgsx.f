@@ -194,7 +194,7 @@
                   for (J = 1; J <= MPLUSN; J++) { // 10
                      ILABAD = false;
                      if ( ALPHAI( J ) == ZERO ) {
-                        TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP;
+                        TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ( ALPHAR( J ) ).abs(), ( AI( J, J ) ) ).abs()+ ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ( BETA( J ) ).abs(), ( BI( J, J ) ) ) ).abs() / ULP;
                         if ( J < MPLUSN ) {
                            if ( AI( J+1, J ) != ZERO ) {
                               ILABAD = true;
@@ -230,7 +230,7 @@
                            sget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
                            if ( IINFO >= 3 ) {
                               WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, PRTYPE;
-                              INFO = ABS( IINFO );
+                              INFO = ( IINFO ).abs();
                            }
                         } else {
                            TEMP2 = ULPINV;
@@ -387,7 +387,7 @@
       for (J = 1; J <= MPLUSN; J++) { // 110
          ILABAD = false;
          if ( ALPHAI( J ) == ZERO ) {
-            TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP;
+            TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ( ALPHAR( J ) ).abs(), ( AI( J, J ) ) ).abs()+ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ( BETA( J ) ).abs(), ( BI( J, J ) ) ) ).abs() / ULP;
             if ( J < MPLUSN ) {
                if ( AI( J+1, J ) != ZERO ) {
                   ILABAD = true;
@@ -423,7 +423,7 @@
                sget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
                if ( IINFO >= 3 ) {
                   WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, NPTKNT;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                }
             } else {
                TEMP2 = ULPINV;

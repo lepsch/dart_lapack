@@ -32,10 +32,10 @@
 
       SM = A + C;
       DF = A - C;
-      ADF = ABS( DF );
+      ADF = ( DF ).abs();
       TB = B + B;
-      AB = ABS( TB );
-      if ( ABS( A ) > ABS( C ) ) {
+      AB = ( TB ).abs();
+      if ( ( A ).abs() > ( C ).abs() ) {
          ACMX = A;
          ACMN = C;
       } else {

@@ -48,8 +48,8 @@
 
       AR = REAL( A );
       AI = AIMAG( A );
-      ABSR = ABS( AR );
-      ABSI = ABS( AI );
+      ABSR = ( AR ).abs();
+      ABSI = ( AI ).abs();
 
       if ( AI == ZERO ) {
          // If alpha is real, then we can use csrscl
@@ -79,17 +79,17 @@
          UR = AR + AI * ( AI / AR );
          UI = AI + AR * ( AR / AI );
 
-         if ( (ABS( UR ) < SAFMIN) || (ABS( UI ) < SAFMIN) ) {
+         if ( (( UR ).abs() < SAFMIN) || (( UI ).abs() < SAFMIN) ) {
             // This means that both alphaR and alphaI are very small.
             cscal(N, CMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX );
             csscal(N, SAFMAX, X, INCX );
-         } else if ( (ABS( UR ) > SAFMAX) || (ABS( UI ) > SAFMAX) ) {
+         } else if ( (( UR ).abs() > SAFMAX) || (( UI ).abs() > SAFMAX) ) {
             if ( (ABSR > OV) || (ABSI > OV) ) {
                // This means that a and b are both Inf. No need for scaling.
                cscal(N, CMPLX( ONE / UR, -ONE / UI ), X, INCX );
             } else {
                csscal(N, SAFMIN, X, INCX );
-               if ( (ABS( UR ) > OV) || (ABS( UI ) > OV) ) {
+               if ( (( UR ).abs() > OV) || (( UI ).abs() > OV) ) {
                   // Infs were generated. We do proper scaling to avoid them.
                   if ( ABSR >= ABSI ) {
                      // ABS( UR ) <= ABS( UI )

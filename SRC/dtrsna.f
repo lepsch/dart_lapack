@@ -111,7 +111,7 @@
             if( !SELECT( 1 ) ) return;
          }
          if (WANTS) S( 1 ) = ONE;
-         IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
+         IF( WANTSP ) SEP( 1 ) = ( T( 1, 1 ) ).abs();
          return;
       }
 
@@ -159,7 +159,7 @@
                PROD = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
                RNRM = DNRM2( N, VR( 1, KS ), 1 );
                LNRM = DNRM2( N, VL( 1, KS ), 1 );
-               S( KS ) = ABS( PROD ) / ( RNRM*LNRM );
+               S( KS ) = ( PROD ).abs() / ( RNRM*LNRM );
             } else {
 
                // Complex eigenvalue.
@@ -216,7 +216,7 @@
                   // position of WORK is the complex eigenvalue lambda
                   // with negative imaginary  part.
 
-                  MU = sqrt( ABS( WORK( 1, 2 ) ) )* sqrt( ABS( WORK( 2, 1 ) ) );
+                  MU = sqrt( ( WORK( 1, 2 ) ) ).abs()* sqrt( ( WORK( 2, 1 ) ) ).abs();
                   DELTA = DLAPY2( MU, WORK( 2, 1 ) );
                   CS = MU / DELTA;
                   SN = -WORK( 2, 1 ) / DELTA;

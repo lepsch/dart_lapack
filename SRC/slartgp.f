@@ -48,22 +48,22 @@
       if ( G == ZERO ) {
          CS = SIGN( ONE, F );
          SN = ZERO;
-         R = ABS( F );
+         R = ( F ).abs();
       } else if ( F == ZERO ) {
          CS = ZERO;
          SN = SIGN( ONE, G );
-         R = ABS( G );
+         R = ( G ).abs();
       } else {
          F1 = F;
          G1 = G;
-         SCALE = max( ABS( F1 ), ABS( G1 ) );
+         SCALE = max( ( F1 ).abs(), ( G1 ).abs() );
          if ( SCALE >= SAFMX2 ) {
             COUNT = 0;
             } // 10
             COUNT = COUNT + 1;
             F1 = F1*SAFMN2;
             G1 = G1*SAFMN2;
-            SCALE = max( ABS( F1 ), ABS( G1 ) );
+            SCALE = max( ( F1 ).abs(), ( G1 ).abs() );
             if (SCALE >= SAFMX2 && COUNT < 20) GO TO 10;
             R = sqrt( F1**2+G1**2 );
             CS = F1 / R;
@@ -77,7 +77,7 @@
             COUNT = COUNT + 1;
             F1 = F1*SAFMX2;
             G1 = G1*SAFMX2;
-            SCALE = max( ABS( F1 ), ABS( G1 ) );
+            SCALE = max( ( F1 ).abs(), ( G1 ).abs() );
             if (SCALE <= SAFMN2) GO TO 30;
             R = sqrt( F1**2+G1**2 );
             CS = F1 / R;

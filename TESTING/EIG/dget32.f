@@ -80,13 +80,13 @@
                         if (INFO != 0) NINFO = NINFO + 1;
                         RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )-SCALE*B( 1, 1 ) );
                         if ( INFO == 0 ) {
-                           DEN = max( EPS*( ( ABS( TR( 1, 1 ) )+ABS( TL( 1, 1 ) ) )*ABS( X( 1, 1 ) ) ), SMLNUM );
+                           DEN = max( EPS*( ( ( TR( 1, 1 ) ).abs()+( TL( 1, 1 ) ) ).abs()*( X( 1, 1 ) ) ).abs(), SMLNUM );
                         } else {
-                           DEN = SMLNUM*max( ABS( X( 1, 1 ) ), ONE );
+                           DEN = SMLNUM*max( ( X( 1, 1 ) ).abs(), ONE );
                         }
                         RES = RES / DEN;
                         if (SCALE > ONE) RES = RES + ONE / EPS;
-                        RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / max( SMLNUM, XNORM ) / EPS                         IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
+                        RES = RES + ABS( XNORM-( X( 1, 1 ) ) ).abs() / max( SMLNUM, XNORM ) / EPS                         IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
                         if ( RES > RMAX ) {
                            LMAX = KNT;
                            RMAX = RES;
@@ -114,11 +114,11 @@
                                  TL( 1, 2 ) = TL( 2, 1 );
                                  TL( 2, 1 ) = TMP;
                               }
-                              RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )+TL( 1, 2 )*X( 2, 1 )- SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( TL( 2, 2 )+SGN*TR( 1, 1 ) )*X( 2, 1 )+TL( 2, 1 )* X( 1, 1 )-SCALE*B( 2, 1 ) )                               TNRM = ABS( TR( 1, 1 ) ) + ABS( TL( 1, 1 ) ) + ABS( TL( 1, 2 ) ) + ABS( TL( 2, 1 ) ) + ABS( TL( 2, 2 ) );
-                              XNRM = max( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) )                               DEN = max( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
+                              RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )+TL( 1, 2 )*X( 2, 1 )- SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( TL( 2, 2 )+SGN*TR( 1, 1 ) )*X( 2, 1 )+TL( 2, 1 )* X( 1, 1 )-SCALE*B( 2, 1 ) )                               TNRM = ( TR( 1, 1 ) ).abs() + ( TL( 1, 1 ) ).abs() + ( TL( 1, 2 ) ).abs() + ( TL( 2, 1 ) ).abs() + ( TL( 2, 2 ) ).abs();
+                              XNRM = max( ( X( 1, 1 ) ).abs(), ( X( 2, 1 ) ) ).abs()                               DEN = max( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
                               RES = RES / DEN;
                               if (SCALE > ONE) RES = RES + ONE / EPS;
-                              RES = RES + ABS( XNORM-XNRM ) / max( SMLNUM, XNORM ) / EPS;
+                              RES = RES + ( XNORM-XNRM ).abs() / max( SMLNUM, XNORM ) / EPS;
                               if ( RES > RMAX ) {
                                  LMAX = KNT;
                                  RMAX = RES;
@@ -148,13 +148,13 @@
                                  TR( 1, 2 ) = TR( 2, 1 );
                                  TR( 2, 1 ) = TMP;
                               }
-                              TNRM = ABS( TL( 1, 1 ) ) + ABS( TR( 1, 1 ) ) + ABS( TR( 1, 2 ) ) + ABS( TR( 2, 2 ) ) + ABS( TR( 2, 1 ) );
-                              XNRM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) );
+                              TNRM = ( TL( 1, 1 ) ).abs() + ( TR( 1, 1 ) ).abs() + ( TR( 1, 2 ) ).abs() + ( TR( 2, 2 ) ).abs() + ( TR( 2, 1 ) ).abs();
+                              XNRM = ( X( 1, 1 ) ).abs() + ( X( 1, 2 ) ).abs();
                               RES = ABS( ( ( TL( 1, 1 )+SGN*TR( 1, 1 ) ) )*( X( 1, 1 ) )+ ( SGN*TR( 2, 1 ) )*( X( 1, 2 ) )- ( SCALE*B( 1, 1 ) ) )                               RES = RES + ABS( ( ( TL( 1, 1 )+SGN*TR( 2, 2 ) ) )*( X( 1, 2 ) )+ ( SGN*TR( 1, 2 ) )*( X( 1, 1 ) )- ( SCALE*B( 1, 2 ) ) );
                               DEN = max( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
                               RES = RES / DEN;
                               if (SCALE > ONE) RES = RES + ONE / EPS;
-                              RES = RES + ABS( XNORM-XNRM ) / max( SMLNUM, XNORM ) / EPS;
+                              RES = RES + ( XNORM-XNRM ).abs() / max( SMLNUM, XNORM ) / EPS;
                               if ( RES > RMAX ) {
                                  LMAX = KNT;
                                  RMAX = RES;
@@ -192,12 +192,12 @@
                                        TL( 1, 2 ) = TL( 2, 1 );
                                        TL( 2, 1 ) = TMP;
                                     }
-                                    TNRM = ABS( TR( 1, 1 ) ) + ABS( TR( 2, 1 ) ) + ABS( TR( 1, 2 ) ) + ABS( TR( 2, 2 ) ) + ABS( TL( 1, 1 ) ) + ABS( TL( 2, 1 ) ) + ABS( TL( 1, 2 ) ) + ABS( TL( 2, 2 ) )                                     XNRM = max( ABS( X( 1, 1 ) )+ ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) )+ ABS( X( 2, 2 ) ) )                                     RES = ABS( ( ( TL( 1, 1 )+SGN*TR( 1, 1 ) ) )*( X( 1, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 1, 1 ) ) )                                     RES = RES + ABS( ( TL( 1, 1 ) )* ( X( 1, 2 ) )+ ( SGN*TR( 1, 2 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 2, 2 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 2 ) )- ( SCALE*B( 1, 2 ) ) )                                     RES = RES + ABS( ( TL( 2, 1 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 1, 1 ) )* ( X( 2, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 2, 2 ) )+( TL( 2, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 2, 1 ) ) );
+                                    TNRM = ( TR( 1, 1 ) ).abs() + ( TR( 2, 1 ) ).abs() + ( TR( 1, 2 ) ).abs() + ( TR( 2, 2 ) ).abs() + ( TL( 1, 1 ) ).abs() + ( TL( 2, 1 ) ).abs() + ( TL( 1, 2 ) ).abs() + ( TL( 2, 2 ) ).abs()                                     XNRM = max( ( X( 1, 1 ) ).abs()+ ( X( 1, 2 ) ).abs(), ( X( 2, 1 ) ).abs()+ ( X( 2, 2 ) ) ).abs()                                     RES = ABS( ( ( TL( 1, 1 )+SGN*TR( 1, 1 ) ) )*( X( 1, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 1, 1 ) ) )                                     RES = RES + ABS( ( TL( 1, 1 ) )* ( X( 1, 2 ) )+ ( SGN*TR( 1, 2 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 2, 2 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 2 ) )- ( SCALE*B( 1, 2 ) ) )                                     RES = RES + ABS( ( TL( 2, 1 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 1, 1 ) )* ( X( 2, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 2, 2 ) )+( TL( 2, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 2, 1 ) ) );
                                     RES = RES + ABS( ( ( TL( 2, 2 )+SGN*TR( 2, 2 ) ) )* ( X( 2, 2 ) )+ ( SGN*TR( 1, 2 ) )* ( X( 2, 1 ) )+( TL( 2, 1 ) )* ( X( 1, 2 ) )- ( SCALE*B( 2, 2 ) ) );
                                     DEN = max( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
                                     RES = RES / DEN;
                                     if (SCALE > ONE) RES = RES + ONE / EPS;
-                                    RES = RES + ABS( XNORM-XNRM ) / max( SMLNUM, XNORM ) / EPS;
+                                    RES = RES + ( XNORM-XNRM ).abs() / max( SMLNUM, XNORM ) / EPS;
                                     if ( RES > RMAX ) {
                                        LMAX = KNT;
                                        RMAX = RES;

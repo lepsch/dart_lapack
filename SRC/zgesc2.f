@@ -62,8 +62,8 @@
       // Check for scaling
 
       I = IZAMAX( N, RHS, 1 );
-      if ( TWO*SMLNUM*ABS( RHS( I ) ) > ABS( A( N, N ) ) ) {
-         TEMP = DCMPLX( ONE / TWO, ZERO ) / ABS( RHS( I ) );
+      if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ) ).abs() {
+         TEMP = DCMPLX( ONE / TWO, ZERO ) / ( RHS( I ) ).abs();
          zscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*DBLE( TEMP );
       }

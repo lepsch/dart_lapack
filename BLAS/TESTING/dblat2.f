@@ -108,7 +108,7 @@
       }
       READ( NIN, FMT = * )( INC( I ), I = 1, NINC );
       for (I = 1; I <= NINC; I++) { // 30
-         if ( INC( I ) == 0 || ABS( INC( I ) ) > INCMAX ) {
+         if ( INC( I ) == 0 || ( INC( I ) ).abs() > INCMAX ) {
             WRITE( NOUT, FMT = 9994 )INCMAX;
             GO TO 230;
          }
@@ -383,20 +383,20 @@
 
                   for (IX = 1; IX <= NINC; IX++) { // 80
                      INCX = INC( IX );
-                     LX = ABS( INCX )*NL;
+                     LX = ( INCX ).abs()*NL;
 
                      // Generate the vector X.
 
                      TRANSL = HALF;
-                     dmake('GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL );
+                     dmake('GE', ' ', ' ', 1, NL, X, 1, XX, ( INCX ).abs(), 0, NL - 1, RESET, TRANSL );
                      if ( NL > 1 ) {
                         X( NL/2 ) = ZERO;
-                        XX( 1 + ABS( INCX )*( NL/2 - 1 ) ) = ZERO;
+                        XX( 1 + ( INCX ).abs()*( NL/2 - 1 ) ) = ZERO;
                      }
 
                      for (IY = 1; IY <= NINC; IY++) { // 70
                         INCY = INC( IY );
-                        LY = ABS( INCY )*ML;
+                        LY = ( INCY ).abs()*ML;
 
                         for (IA = 1; IA <= NALF; IA++) { // 60
                            ALPHA = ALF( IA );
@@ -407,7 +407,7 @@
                               // Generate the vector Y.
 
                               TRANSL = ZERO;
-                              dmake('GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL );
+                              dmake('GE', ' ', ' ', 1, ML, Y, 1, YY, ( INCY ).abs(), 0, ML - 1, RESET, TRANSL );
 
                               NC = NC + 1;
 
@@ -469,7 +469,7 @@
                                  if ( NULL ) {
                                     ISAME( 10 ) = LDE( YS, YY, LY );
                                  } else {
-                                    ISAME( 10 ) = LDERES( 'GE', ' ', 1, ML, YS, YY, ABS( INCY ) );
+                                    ISAME( 10 ) = LDERES( 'GE', ' ', 1, ML, YS, YY, ( INCY ).abs() );
                                  }
                                  ISAME( 11 ) = INCYS == INCY;
                               } else if ( BANDED ) {
@@ -484,7 +484,7 @@
                                  if ( NULL ) {
                                     ISAME( 12 ) = LDE( YS, YY, LY );
                                  } else {
-                                    ISAME( 12 ) = LDERES( 'GE', ' ', 1, ML, YS, YY, ABS( INCY ) );
+                                    ISAME( 12 ) = LDERES( 'GE', ' ', 1, ML, YS, YY, ( INCY ).abs() );
                                  }
                                  ISAME( 13 ) = INCYS == INCY;
                               }
@@ -680,20 +680,20 @@
 
                for (IX = 1; IX <= NINC; IX++) { // 80
                   INCX = INC( IX );
-                  LX = ABS( INCX )*N;
+                  LX = ( INCX ).abs()*N;
 
                   // Generate the vector X.
 
                   TRANSL = HALF;
-                  dmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
+                  dmake('GE', ' ', ' ', 1, N, X, 1, XX, ( INCX ).abs(), 0, N - 1, RESET, TRANSL );
                   if ( N > 1 ) {
                      X( N/2 ) = ZERO;
-                     XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO;
+                     XX( 1 + ( INCX ).abs()*( N/2 - 1 ) ) = ZERO;
                   }
 
                   for (IY = 1; IY <= NINC; IY++) { // 70
                      INCY = INC( IY );
-                     LY = ABS( INCY )*N;
+                     LY = ( INCY ).abs()*N;
 
                      for (IA = 1; IA <= NALF; IA++) { // 60
                         ALPHA = ALF( IA );
@@ -704,7 +704,7 @@
                            // Generate the vector Y.
 
                            TRANSL = ZERO;
-                           dmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
+                           dmake('GE', ' ', ' ', 1, N, Y, 1, YY, ( INCY ).abs(), 0, N - 1, RESET, TRANSL );
 
                            NC = NC + 1;
 
@@ -767,7 +767,7 @@
                               if ( NULL ) {
                                  ISAME( 9 ) = LDE( YS, YY, LY );
                               } else {
-                                 ISAME( 9 ) = LDERES( 'GE', ' ', 1, N, YS, YY, ABS( INCY ) );
+                                 ISAME( 9 ) = LDERES( 'GE', ' ', 1, N, YS, YY, ( INCY ).abs() );
                               }
                               ISAME( 10 ) = INCYS == INCY;
                            } else if ( BANDED ) {
@@ -781,7 +781,7 @@
                               if ( NULL ) {
                                  ISAME( 10 ) = LDE( YS, YY, LY );
                               } else {
-                                 ISAME( 10 ) = LDERES( 'GE', ' ', 1, N, YS, YY, ABS( INCY ) );
+                                 ISAME( 10 ) = LDERES( 'GE', ' ', 1, N, YS, YY, ( INCY ).abs() );
                               }
                               ISAME( 11 ) = INCYS == INCY;
                            } else if ( PACKED ) {
@@ -793,7 +793,7 @@
                               if ( NULL ) {
                                  ISAME( 8 ) = LDE( YS, YY, LY );
                               } else {
-                                 ISAME( 8 ) = LDERES( 'GE', ' ', 1, N, YS, YY, ABS( INCY ) );
+                                 ISAME( 8 ) = LDERES( 'GE', ' ', 1, N, YS, YY, ( INCY ).abs() );
                               }
                               ISAME( 9 ) = INCYS == INCY;
                            }
@@ -981,15 +981,15 @@
 
                      for (IX = 1; IX <= NINC; IX++) { // 60
                         INCX = INC( IX );
-                        LX = ABS( INCX )*N;
+                        LX = ( INCX ).abs()*N;
 
                         // Generate the vector X.
 
                         TRANSL = HALF;
-                        dmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
+                        dmake('GE', ' ', ' ', 1, N, X, 1, XX, ( INCX ).abs(), 0, N - 1, RESET, TRANSL );
                         if ( N > 1 ) {
                            X( N/2 ) = ZERO;
-                           XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO;
+                           XX( 1 + ( INCX ).abs()*( N/2 - 1 ) ) = ZERO;
                         }
 
                         NC = NC + 1;
@@ -1062,7 +1062,7 @@
                            if ( NULL ) {
                               ISAME( 7 ) = LDE( XS, XX, LX );
                            } else {
-                              ISAME( 7 ) = LDERES( 'GE', ' ', 1, N, XS, XX, ABS( INCX ) );
+                              ISAME( 7 ) = LDERES( 'GE', ' ', 1, N, XS, XX, ( INCX ).abs() );
                            }
                            ISAME( 8 ) = INCXS == INCX;
                         } else if ( BANDED ) {
@@ -1072,7 +1072,7 @@
                            if ( NULL ) {
                               ISAME( 8 ) = LDE( XS, XX, LX );
                            } else {
-                              ISAME( 8 ) = LDERES( 'GE', ' ', 1, N, XS, XX, ABS( INCX ) );
+                              ISAME( 8 ) = LDERES( 'GE', ' ', 1, N, XS, XX, ( INCX ).abs() );
                            }
                            ISAME( 9 ) = INCXS == INCX;
                         } else if ( PACKED ) {
@@ -1080,7 +1080,7 @@
                            if ( NULL ) {
                               ISAME( 6 ) = LDE( XS, XX, LX );
                            } else {
-                              ISAME( 6 ) = LDERES( 'GE', ' ', 1, N, XS, XX, ABS( INCX ) );
+                              ISAME( 6 ) = LDERES( 'GE', ' ', 1, N, XS, XX, ( INCX ).abs() );
                            }
                            ISAME( 7 ) = INCXS == INCX;
                         }
@@ -1109,7 +1109,7 @@
                               // Compute approximation to original vector.
 
                               for (I = 1; I <= N; I++) { // 50
-                                 Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I );
+                                 Z( I ) = XX( 1 + ( I - 1 )* ( INCX ).abs() )                                  XX( 1 + ( I - 1 )*( INCX ).abs() ) = X( I );
                               } // 50
                               dmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, false );
                            }
@@ -1230,28 +1230,28 @@
 
             for (IX = 1; IX <= NINC; IX++) { // 100
                INCX = INC( IX );
-               LX = ABS( INCX )*M;
+               LX = ( INCX ).abs()*M;
 
                // Generate the vector X.
 
                TRANSL = HALF;
-               dmake('GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL );
+               dmake('GE', ' ', ' ', 1, M, X, 1, XX, ( INCX ).abs(), 0, M - 1, RESET, TRANSL );
                if ( M > 1 ) {
                   X( M/2 ) = ZERO;
-                  XX( 1 + ABS( INCX )*( M/2 - 1 ) ) = ZERO;
+                  XX( 1 + ( INCX ).abs()*( M/2 - 1 ) ) = ZERO;
                }
 
                for (IY = 1; IY <= NINC; IY++) { // 90
                   INCY = INC( IY );
-                  LY = ABS( INCY )*N;
+                  LY = ( INCY ).abs()*N;
 
                   // Generate the vector Y.
 
                   TRANSL = ZERO;
-                  dmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
+                  dmake('GE', ' ', ' ', 1, N, Y, 1, YY, ( INCY ).abs(), 0, N - 1, RESET, TRANSL );
                   if ( N > 1 ) {
                      Y( N/2 ) = ZERO;
-                     YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO;
+                     YY( 1 + ( INCY ).abs()*( N/2 - 1 ) ) = ZERO;
                   }
 
                   for (IA = 1; IA <= NALF; IA++) { // 80
@@ -1467,15 +1467,15 @@
 
             for (IX = 1; IX <= NINC; IX++) { // 80
                INCX = INC( IX );
-               LX = ABS( INCX )*N;
+               LX = ( INCX ).abs()*N;
 
                // Generate the vector X.
 
                TRANSL = HALF;
-               dmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
+               dmake('GE', ' ', ' ', 1, N, X, 1, XX, ( INCX ).abs(), 0, N - 1, RESET, TRANSL );
                if ( N > 1 ) {
                   X( N/2 ) = ZERO;
-                  XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO;
+                  XX( 1 + ( INCX ).abs()*( N/2 - 1 ) ) = ZERO;
                }
 
                for (IA = 1; IA <= NALF; IA++) { // 70
@@ -1710,28 +1710,28 @@
 
             for (IX = 1; IX <= NINC; IX++) { // 120
                INCX = INC( IX );
-               LX = ABS( INCX )*N;
+               LX = ( INCX ).abs()*N;
 
                // Generate the vector X.
 
                TRANSL = HALF;
-               dmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
+               dmake('GE', ' ', ' ', 1, N, X, 1, XX, ( INCX ).abs(), 0, N - 1, RESET, TRANSL );
                if ( N > 1 ) {
                   X( N/2 ) = ZERO;
-                  XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO;
+                  XX( 1 + ( INCX ).abs()*( N/2 - 1 ) ) = ZERO;
                }
 
                for (IY = 1; IY <= NINC; IY++) { // 110
                   INCY = INC( IY );
-                  LY = ABS( INCY )*N;
+                  LY = ( INCY ).abs()*N;
 
                   // Generate the vector Y.
 
                   TRANSL = ZERO;
-                  dmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
+                  dmake('GE', ' ', ' ', 1, N, Y, 1, YY, ( INCY ).abs(), 0, N - 1, RESET, TRANSL );
                   if ( N > 1 ) {
                      Y( N/2 ) = ZERO;
-                     YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO;
+                     YY( 1 + ( INCY ).abs()*( N/2 - 1 ) ) = ZERO;
                   }
 
                   for (IA = 1; IA <= NALF; IA++) { // 100
@@ -2464,7 +2464,7 @@
             } // 20
          }
          YT( IY ) = ALPHA*YT( IY ) + BETA*Y( IY );
-         G( IY ) = ABS( ALPHA )*G( IY ) + ABS( BETA*Y( IY ) );
+         G( IY ) = ( ALPHA ).abs()*G( IY ) + ( BETA*Y( IY ) ).abs();
          IY = IY + INCYL;
       } // 30
 
@@ -2472,7 +2472,7 @@
 
       ERR = ZERO;
       for (I = 1; I <= ML; I++) { // 40
-         ERRI = ABS( YT( I ) - YY( 1 + ( I - 1 )*ABS( INCY ) ) )/EPS;
+         ERRI = ABS( YT( I ) - YY( 1 + ( I - 1 )*( INCY ).abs() ) )/EPS;
          if( G( I ) != ZERO ) ERRI = ERRI/G( I );
          ERR = max( ERR, ERRI );
          if( ERR*sqrt( EPS ) >= ONE ) GO TO 50;
@@ -2486,9 +2486,9 @@
       WRITE( NOUT, FMT = 9999 );
       for (I = 1; I <= ML; I++) { // 60
          if ( MV ) {
-            WRITE( NOUT, FMT = 9998 )I, YT( I ), YY( 1 + ( I - 1 )*ABS( INCY ) );
+            WRITE( NOUT, FMT = 9998 )I, YT( I ), YY( 1 + ( I - 1 )*( INCY ).abs() );
          } else {
-            WRITE( NOUT, FMT = 9998 )I, YY( 1 + ( I - 1 )*ABS( INCY ) ), YT( I );
+            WRITE( NOUT, FMT = 9998 )I, YY( 1 + ( I - 1 )*( INCY ).abs() ), YT( I );
          }
       } // 60
 
@@ -2682,7 +2682,7 @@
       INCX = 1;
       BETA = -0.7;
       INCY = 1;
-      LY = ABS( INCY )*N;
+      LY = ( INCY ).abs()*N;
       for (I = 1; I <= LY; I++) { // 10
          Y( I ) = 42.0 + DBLE( I );
          YS( I ) = Y( I );

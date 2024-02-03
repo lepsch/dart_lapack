@@ -356,7 +356,7 @@
                            RPVGRW = SLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW;
                         }
                      }
-                     RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / max( WORK( 1 ), RPVGRW ) / SLAMCH( 'E' );
+                     RESULT( 7 ) = ( RPVGRW-WORK( 1 ) ).abs() / max( WORK( 1 ), RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 
@@ -493,7 +493,7 @@
                      } else {
                         RPVGRW = SLA_GERPVGRW (N, N, A, LDA, AFAC, LDA);
                      }
-                      RESULT( 7 ) = ABS( RPVGRW-RPVGRW_SVXX ) / max( RPVGRW_SVXX, RPVGRW ) / SLAMCH( 'E' );
+                      RESULT( 7 ) = ( RPVGRW-RPVGRW_SVXX ).abs() / max( RPVGRW_SVXX, RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 

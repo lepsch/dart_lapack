@@ -84,7 +84,7 @@
             U( 1, 1 ) = SIGN( ONE, D( 1 ) );
             VT( 1, 1 ) = ONE;
          }
-         D( 1 ) = ABS( D( 1 ) );
+         D( 1 ) = ( D( 1 ) ).abs();
          return;
       }
       NM1 = N - 1;
@@ -179,7 +179,7 @@
       }
 
       for (I = 1; I <= N; I++) { // 20
-         if ( ABS( D( I ) ) < EPS ) {
+         if ( ( D( I ) ).abs() < EPS ) {
             D( I ) = SIGN( EPS, D( I ) );
          }
       } // 20
@@ -188,7 +188,7 @@
       SQRE = 0;
 
       for (I = 1; I <= NM1; I++) { // 30
-         if ( ( ABS( E( I ) ) < EPS ) || ( I == NM1 ) ) {
+         if ( ( ( E( I ) ).abs() < EPS ) || ( I == NM1 ) ) {
 
          // Subproblem found. First determine its size and then
          // apply divide and conquer on it.
@@ -198,7 +198,7 @@
          // A subproblem with E(I) small for I < NM1.
 
                NSIZE = I - START + 1;
-            } else if ( ABS( E( I ) ) >= EPS ) {
+            } else if ( ( E( I ) ).abs() >= EPS ) {
 
          // A subproblem with E(NM1) not too small but I = NM1.
 
@@ -217,7 +217,7 @@
                   Q( N+( QSTART-1 )*N ) = SIGN( ONE, D( N ) );
                   Q( N+( SMLSIZ+QSTART-1 )*N ) = ONE;
                }
-               D( N ) = ABS( D( N ) );
+               D( N ) = ( D( N ) ).abs();
             }
             if ( ICOMPQ == 2 ) {
                slasd0(NSIZE, SQRE, D( START ), E( START ), U( START, START ), LDU, VT( START, START ), LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO );

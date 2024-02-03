@@ -108,13 +108,13 @@
 
                SCALOC = ONE;
                A11 = A( K, K ) + SGN*B( L, L );
-               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) );
+               DA11 = ( REAL( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) );
+               DB = ( REAL( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -154,13 +154,13 @@
 
                SCALOC = ONE;
                A11 = CONJG( A( K, K ) ) + SGN*B( L, L );
-               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) );
+               DA11 = ( REAL( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) );
+               DB = ( REAL( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -204,13 +204,13 @@
 
                SCALOC = ONE;
                A11 = CONJG( A( K, K )+SGN*B( L, L ) );
-               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) );
+               DA11 = ( REAL( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) );
+               DB = ( REAL( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -250,13 +250,13 @@
 
                SCALOC = ONE;
                A11 = A( K, K ) + SGN*CONJG( B( L, L ) );
-               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) );
+               DA11 = ( REAL( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) );
+               DB = ( REAL( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }

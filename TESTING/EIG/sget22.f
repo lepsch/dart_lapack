@@ -79,7 +79,7 @@
                // Complex eigenvector
 
                for (J = 1; J <= N; J++) { // 10
-                  TEMP1 = max( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) );
+                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ).abs()+ ( E( J, JVEC+1 ) ) ).abs();
                } // 10
                ENRMIN = min( ENRMIN, TEMP1 );
                ENRMAX = max( ENRMAX, TEMP1 );
@@ -91,7 +91,7 @@
                // Real eigenvector
 
                for (J = 1; J <= N; J++) { // 20
-                  TEMP1 = max( TEMP1, ABS( E( J, JVEC ) ) );
+                  TEMP1 = max( TEMP1, ( E( J, JVEC ) ) ).abs();
                } // 20
                ENRMIN = min( ENRMIN, TEMP1 );
                ENRMAX = max( ENRMAX, TEMP1 );
@@ -112,12 +112,12 @@
             for (JVEC = 1; JVEC <= N; JVEC++) { // 50
                if( IPAIR == 0 && JVEC < N && WI( JVEC ) != ZERO ) IPAIR = 1;
                if ( IPAIR == 1 ) {
-                  WORK( JVEC ) = max( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) );
+                  WORK( JVEC ) = max( WORK( JVEC ), ( E( J, JVEC ) ).abs()+( E( J, JVEC+1 ) ) ).abs();
                   WORK( JVEC+1 ) = WORK( JVEC );
                } else if ( IPAIR == 2 ) {
                   IPAIR = 0;
                } else {
-                  WORK( JVEC ) = max( WORK( JVEC ), ABS( E( J, JVEC ) ) );
+                  WORK( JVEC ) = max( WORK( JVEC ), ( E( J, JVEC ) ) ).abs();
                   IPAIR = 0;
                }
             } // 50
@@ -192,7 +192,7 @@
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = max( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( REAL( N )*ULP );
+      RESULT( 2 ) = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( REAL( N )*ULP );
 
       return;
       }

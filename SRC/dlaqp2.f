@@ -83,7 +83,7 @@
                // NOTE: The following 4 lines follow from the analysis in
                // Lapack Working Note 176.
 
-               TEMP = ONE - ( ABS( A( OFFPI, J ) ) / VN1( J ) )**2;
+               TEMP = ONE - ( ( A( OFFPI, J ) ).abs() / VN1( J ) )**2;
                TEMP = max( TEMP, ZERO );
                TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                if ( TEMP2 <= TOL3Z ) {

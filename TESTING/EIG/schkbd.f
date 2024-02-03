@@ -280,7 +280,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                return;
             }
 
@@ -300,7 +300,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'SGEBRD', IINFO, M, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   return;
                }
 
@@ -321,7 +321,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'SORGBR(Q)', IINFO, M, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   return;
                }
 
@@ -333,7 +333,7 @@
 
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9998 )'SORGBR(P)', IINFO, M, N, JTYPE, IOLDSD;
-                  INFO = ABS( IINFO );
+                  INFO = ( IINFO ).abs();
                   return;
                }
 
@@ -365,7 +365,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -386,7 +386,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -422,7 +422,7 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 120
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ABS( S1( J ) ), ABS( S2( J ) ) ) );
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( J ) ).abs(), ( S2( J ) ) ) ).abs();
                TEMP2 = max( TEMP1, TEMP2 );
             } // 120
 
@@ -476,7 +476,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSDC(vects)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -497,7 +497,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSDC(values)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -531,7 +531,7 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 160
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) );
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ) ).abs();
                TEMP2 = max( TEMP1, TEMP2 );
             } // 160
 
@@ -565,7 +565,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(vects,A)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -602,7 +602,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(values,A)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -637,7 +637,7 @@
 
             TEMP2 = ZERO;
             for (J = 1; J <= MNMIN; J++) { // 190
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) );
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ) ).abs();
                TEMP2 = max( TEMP1, TEMP2 );
             } // 190
             RESULT( 24 ) = TEMP2;
@@ -672,7 +672,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(vects,I)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -701,7 +701,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(values,I)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -732,7 +732,7 @@
 
             TEMP2 = ZERO;
             for (J = 1; J <= NS1; J++) { // 230
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) );
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ) ).abs();
                TEMP2 = max( TEMP1, TEMP2 );
             } // 230
             RESULT( 29 ) = TEMP2;
@@ -771,7 +771,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(vects,V)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -800,7 +800,7 @@
 
             if ( IINFO != 0 ) {
                WRITE( NOUT, FMT = 9998 )'SBDSVDX(values,V)', IINFO, M, N, JTYPE, IOLDSD;
-               INFO = ABS( IINFO );
+               INFO = ( IINFO ).abs();
                if ( IINFO < 0 ) {
                   return;
                } else {
@@ -831,7 +831,7 @@
 
             TEMP2 = ZERO;
             for (J = 1; J <= NS1; J++) { // 260
-               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) );
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ( S1( 1 ) ).abs(), ( S2( 1 ) ) ) ).abs();
                TEMP2 = max( TEMP1, TEMP2 );
             } // 260
             RESULT( 34 ) = TEMP2;

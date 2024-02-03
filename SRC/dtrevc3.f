@@ -148,7 +148,7 @@
       for (J = 2; J <= N; J++) { // 30
          WORK( J ) = ZERO;
          for (I = 1; I <= J - 1; I++) { // 20
-            WORK( J ) = WORK( J ) + ABS( T( I, J ) );
+            WORK( J ) = WORK( J ) + ( T( I, J ) ).abs();
          } // 20
       } // 30
 
@@ -204,8 +204,8 @@
 
             WR = T( KI, KI );
             WI = ZERO;
-            if (IP != 0) WI = sqrt( ABS( T( KI, KI-1 ) ) )* sqrt( ABS( T( KI-1, KI ) ) );
-            SMIN = max( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM );
+            if (IP != 0) WI = sqrt( ( T( KI, KI-1 ) ) ).abs()* sqrt( ( T( KI-1, KI ) ) ).abs();
+            SMIN = max( ULP*( ( WR ).abs()+( WI ).abs() ), SMLNUM );
 
             if ( IP == 0 ) {
 
@@ -300,7 +300,7 @@
                   dcopy(KI, WORK( 1 + IV*N ), 1, VR( 1, IS ), 1 );
 
                   II = IDAMAX( KI, VR( 1, IS ), 1 );
-                  REMAX = ONE / ABS( VR( II, IS ) );
+                  REMAX = ONE / ( VR( II, IS ) ).abs();
                   dscal(KI, REMAX, VR( 1, IS ), 1 );
 
                   for (K = KI + 1; K <= N; K++) { // 70
@@ -313,7 +313,7 @@
                   if (KI > 1) dgemv( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1 + IV*N ), 1, WORK( KI + IV*N ), VR( 1, KI ), 1 );
 
                   II = IDAMAX( N, VR( 1, KI ), 1 );
-                  REMAX = ONE / ABS( VR( II, KI ) );
+                  REMAX = ONE / ( VR( II, KI ) ).abs();
                   dscal(N, REMAX, VR( 1, KI ), 1 );
 
                } else {
@@ -335,7 +335,7 @@
                // [ ( T(KI-1,KI-1) T(KI-1,KI) ) - (WR + I*WI) ]*X = 0.
                // [ ( T(KI,  KI-1) T(KI,  KI) )               ]
 
-               if ( ABS( T( KI-1, KI ) ) >= ABS( T( KI, KI-1 ) ) ) {
+               if ( ( T( KI-1, KI ) ).abs() >= ( T( KI, KI-1 ) ) ).abs() {
                   WORK( KI-1 + (IV-1)*N ) = ONE;
                   WORK( KI   + (IV  )*N ) = WI / T( KI-1, KI );
                } else {
@@ -450,7 +450,7 @@
 
                   EMAX = ZERO;
                   for (K = 1; K <= KI; K++) { // 100
-                     EMAX = max( EMAX, ABS( VR( K, IS-1 ) )+ ABS( VR( K, IS   ) ) );
+                     EMAX = max( EMAX, ( VR( K, IS-1 ) ).abs()+ ( VR( K, IS   ) ) ).abs();
                   } // 100
                   REMAX = ONE / EMAX;
                   dscal(KI, REMAX, VR( 1, IS-1 ), 1 );
@@ -474,7 +474,7 @@
 
                   EMAX = ZERO;
                   for (K = 1; K <= N; K++) { // 120
-                     EMAX = max( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI   ) ) );
+                     EMAX = max( EMAX, ( VR( K, KI-1 ) ).abs()+ ( VR( K, KI   ) ) ).abs();
                   } // 120
                   REMAX = ONE / EMAX;
                   dscal(N, REMAX, VR( 1, KI-1 ), 1 );
@@ -579,8 +579,8 @@
 
             WR = T( KI, KI );
             WI = ZERO;
-            if (IP != 0) WI = sqrt( ABS( T( KI, KI+1 ) ) )* sqrt( ABS( T( KI+1, KI ) ) );
-            SMIN = max( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM );
+            if (IP != 0) WI = sqrt( ( T( KI, KI+1 ) ) ).abs()* sqrt( ( T( KI+1, KI ) ) ).abs();
+            SMIN = max( ULP*( ( WR ).abs()+( WI ).abs() ), SMLNUM );
 
             if ( IP == 0 ) {
 
@@ -638,7 +638,7 @@
 
                      if (SCALE != ONE) dscal( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
                      WORK( J+IV*N ) = X( 1, 1 );
-                     VMAX = max( ABS( WORK( J+IV*N ) ), VMAX );
+                     VMAX = max( ( WORK( J+IV*N ) ).abs(), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
                   } else {
@@ -672,7 +672,7 @@
                      WORK( J  +IV*N ) = X( 1, 1 );
                      WORK( J+1+IV*N ) = X( 2, 1 );
 
-                     VMAX = max( ABS( WORK( J  +IV*N ) ), ABS( WORK( J+1+IV*N ) ), VMAX );
+                     VMAX = max( ( WORK( J  +IV*N ) ).abs(), ( WORK( J+1+IV*N ) ).abs(), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
                   }
@@ -686,7 +686,7 @@
                   dcopy(N-KI+1, WORK( KI + IV*N ), 1, VL( KI, IS ), 1 );
 
                   II = IDAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1;
-                  REMAX = ONE / ABS( VL( II, IS ) );
+                  REMAX = ONE / ( VL( II, IS ) ).abs();
                   dscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                   for (K = 1; K <= KI - 1; K++) { // 180
@@ -699,7 +699,7 @@
                   if (KI < N) dgemv( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 );
 
                   II = IDAMAX( N, VL( 1, KI ), 1 );
-                  REMAX = ONE / ABS( VL( II, KI ) );
+                  REMAX = ONE / ( VL( II, KI ) ).abs();
                   dscal(N, REMAX, VL( 1, KI ), 1 );
 
                } else {
@@ -722,7 +722,7 @@
                // [ ( T(KI,KI)    T(KI,KI+1)  )**T - (WR - I* WI) ]*X = 0.
                // [ ( T(KI+1,KI) T(KI+1,KI+1) )                   ]
 
-               if ( ABS( T( KI, KI+1 ) ) >= ABS( T( KI+1, KI ) ) ) {
+               if ( ( T( KI, KI+1 ) ).abs() >= ( T( KI+1, KI ) ) ).abs() {
                   WORK( KI   + (IV  )*N ) = WI / T( KI, KI+1 );
                   WORK( KI+1 + (IV+1)*N ) = ONE;
                } else {
@@ -830,7 +830,7 @@
                      WORK( J  +(IV+1)*N ) = X( 1, 2 );
                      WORK( J+1+(IV  )*N ) = X( 2, 1 );
                      WORK( J+1+(IV+1)*N ) = X( 2, 2 );
-                     VMAX = max( ABS( X( 1, 1 ) ), ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) ), ABS( X( 2, 2 ) ), VMAX );
+                     VMAX = max( ( X( 1, 1 ) ).abs(), ( X( 1, 2 ) ).abs(), ( X( 2, 1 ) ).abs(), ( X( 2, 2 ) ).abs(), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
                   }
@@ -846,7 +846,7 @@
 
                   EMAX = ZERO;
                   for (K = KI; K <= N; K++) { // 220
-                     EMAX = max( EMAX, ABS( VL( K, IS   ) )+ ABS( VL( K, IS+1 ) ) );
+                     EMAX = max( EMAX, ( VL( K, IS   ) ).abs()+ ( VL( K, IS+1 ) ) ).abs();
                   } // 220
                   REMAX = ONE / EMAX;
                   dscal(N-KI+1, REMAX, VL( KI, IS   ), 1 );
@@ -870,7 +870,7 @@
 
                   EMAX = ZERO;
                   for (K = 1; K <= N; K++) { // 240
-                     EMAX = max( EMAX, ABS( VL( K, KI   ) )+ ABS( VL( K, KI+1 ) ) );
+                     EMAX = max( EMAX, ( VL( K, KI   ) ).abs()+ ( VL( K, KI+1 ) ) ).abs();
                   } // 240
                   REMAX = ONE / EMAX;
                   dscal(N, REMAX, VL( 1, KI   ), 1 );

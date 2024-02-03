@@ -123,8 +123,8 @@
       // Calculate the allowable deflation tolerance
 
       EPS = DLAMCH( 'Epsilon' );
-      TOL = max( ABS( ALPHA ), ABS( BETA ) );
-      TOL = EIGHT*EPS*max( ABS( D( N ) ), TOL );
+      TOL = max( ( ALPHA ).abs(), ( BETA ).abs() );
+      TOL = EIGHT*EPS*max( ( D( N ) ).abs(), TOL );
 
       // There are 2 kinds of deflation -- first a value in the z-vector
       // is small, second two (or more) singular values are very close
@@ -148,7 +148,7 @@
       K = 1;
       K2 = N + 1;
       for (J = 2; J <= N; J++) { // 80
-         if ( ABS( Z( J ) ) <= TOL ) {
+         if ( ( Z( J ) ).abs() <= TOL ) {
 
             // Deflate due to small z component.
 
@@ -166,7 +166,7 @@
       } // 100
       J = J + 1;
       if (J > N) GO TO 110;
-      if ( ABS( Z( J ) ) <= TOL ) {
+      if ( ( Z( J ) ).abs() <= TOL ) {
 
          // Deflate due to small z component.
 
@@ -287,7 +287,7 @@
 
       DSIGMA( 1 ) = ZERO;
       HLFTOL = TOL / TWO;
-      if( ABS( DSIGMA( 2 ) ) <= HLFTOL ) DSIGMA( 2 ) = HLFTOL;
+      if( ( DSIGMA( 2 ) ).abs() <= HLFTOL ) DSIGMA( 2 ) = HLFTOL;
       if ( M > N ) {
          Z( 1 ) = DLAPY2( Z1, Z( M ) );
          if ( Z( 1 ) <= TOL ) {
@@ -299,7 +299,7 @@
             S = Z( M ) / Z( 1 );
          }
       } else {
-         if ( ABS( Z1 ) <= TOL ) {
+         if ( ( Z1 ).abs() <= TOL ) {
             Z( 1 ) = TOL;
          } else {
             Z( 1 ) = Z1;

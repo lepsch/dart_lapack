@@ -72,21 +72,21 @@
       if ( UP ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J-1; I++) {
-               S( I ) = max( S( I ), ABS( A( I, J ) ) );
-               S( J ) = max( S( J ), ABS( A( I, J ) ) );
-               AMAX = max( AMAX, ABS( A( I, J ) ) );
+               S( I ) = max( S( I ), ( A( I, J ) ) ).abs();
+               S( J ) = max( S( J ), ( A( I, J ) ) ).abs();
+               AMAX = max( AMAX, ( A( I, J ) ) ).abs();
             }
-            S( J ) = max( S( J ), ABS( A( J, J ) ) );
-            AMAX = max( AMAX, ABS( A( J, J ) ) );
+            S( J ) = max( S( J ), ( A( J, J ) ) ).abs();
+            AMAX = max( AMAX, ( A( J, J ) ) ).abs();
          }
       } else {
          for (J = 1; J <= N; J++) {
-            S( J ) = max( S( J ), ABS( A( J, J ) ) );
-            AMAX = max( AMAX, ABS( A( J, J ) ) );
+            S( J ) = max( S( J ), ( A( J, J ) ) ).abs();
+            AMAX = max( AMAX, ( A( J, J ) ) ).abs();
             for (I = J+1; I <= N; I++) {
-               S( I ) = max( S( I ), ABS( A( I, J ) ) );
-               S( J ) = max( S( J ), ABS( A( I, J ) ) );
-               AMAX = max( AMAX, ABS( A( I, J ) ) );
+               S( I ) = max( S( I ), ( A( I, J ) ) ).abs();
+               S( J ) = max( S( J ), ( A( I, J ) ) ).abs();
+               AMAX = max( AMAX, ( A( I, J ) ) ).abs();
             }
          }
       }
@@ -106,17 +106,17 @@
          if ( UP ) {
             for (J = 1; J <= N; J++) {
                for (I = 1; I <= J-1; I++) {
-                  WORK( I ) = WORK( I ) + ABS( A( I, J ) ) * S( J );
-                  WORK( J ) = WORK( J ) + ABS( A( I, J ) ) * S( I );
+                  WORK( I ) = WORK( I ) + ( A( I, J ) ).abs() * S( J );
+                  WORK( J ) = WORK( J ) + ( A( I, J ) ).abs() * S( I );
                }
-               WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J );
+               WORK( J ) = WORK( J ) + ( A( J, J ) ).abs() * S( J );
             }
          } else {
             for (J = 1; J <= N; J++) {
-               WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J );
+               WORK( J ) = WORK( J ) + ( A( J, J ) ).abs() * S( J );
                for (I = J+1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) + ABS( A( I, J ) ) * S( J );
-                  WORK( J ) = WORK( J ) + ABS( A( I, J ) ) * S( I );
+                  WORK( I ) = WORK( I ) + ( A( I, J ) ).abs() * S( J );
+                  WORK( J ) = WORK( J ) + ( A( I, J ) ).abs() * S( I );
                }
             }
          }
@@ -138,7 +138,7 @@
          if (STD < TOL * AVG) GOTO 999;
 
          for (I = 1; I <= N; I++) {
-            T = ABS( A( I, I ) );
+            T = ( A( I, I ) ).abs();
             SI = S( I );
             C2 = ( N-1 ) * T;
             C1 = ( N-2 ) * ( WORK( I ) - T*SI );
@@ -155,23 +155,23 @@
             U = ZERO;
             if ( UP ) {
                for (J = 1; J <= I; J++) {
-                  T = ABS( A( J, I ) );
+                  T = ( A( J, I ) ).abs();
                   U = U + S( J )*T;
                   WORK( J ) = WORK( J ) + D*T;
                }
                for (J = I+1; J <= N; J++) {
-                  T = ABS( A( I, J ) );
+                  T = ( A( I, J ) ).abs();
                   U = U + S( J )*T;
                   WORK( J ) = WORK( J ) + D*T;
                }
             } else {
                for (J = 1; J <= I; J++) {
-                  T = ABS( A( I, J ) );
+                  T = ( A( I, J ) ).abs();
                   U = U + S( J )*T;
                   WORK( J ) = WORK( J ) + D*T;
                }
                for (J = I+1; J <= N; J++) {
-                  T = ABS( A( J, I ) );
+                  T = ( A( J, I ) ).abs();
                   U = U + S( J )*T;
                   WORK( J ) = WORK( J ) + D*T;
                }

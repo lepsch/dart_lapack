@@ -41,7 +41,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ABS( DBLE( X ) ) + ABS( DIMAG( X ) );
+      ABS1( X ) = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -106,7 +106,7 @@
          for (J = 1; J <= N; J++) { // 20
             TEMP1 = max( TEMP1, ABS1( E( J, JVEC ) ) );
          } // 20
-         ENRMER = max( ENRMER, ABS( TEMP1-ONE ) );
+         ENRMER = max( ENRMER, ( TEMP1-ONE ).abs() );
       } // 30
 
       // Compute RESULT(2) : the normalization error in E.

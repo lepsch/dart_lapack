@@ -136,12 +136,12 @@
                   // Make the tridiagonal matrix diagonally dominant.
 
                   if ( N == 1 ) {
-                     D( 1 ) = ABS( D( 1 ) );
+                     D( 1 ) = ( D( 1 ) ).abs();
                   } else {
-                     D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) );
-                     D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) );
+                     D( 1 ) = ( D( 1 ) ).abs() + ( E( 1 ) ).abs();
+                     D( N ) = ( D( N ) ).abs() + ( E( N-1 ) ).abs();
                      for (I = 2; I <= N - 1; I++) { // 30
-                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) );
+                        D( I ) = ( D( I ) ).abs() + ( E( I ) ).abs() + ( E( I-1 ) ).abs();
                      } // 30
                   }
 

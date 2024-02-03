@@ -113,7 +113,7 @@
 
             // Invert the diagonal block.
 
-            T = ABS( A( K, K+1 ) );
+            T = ( A( K, K+1 ) ).abs();
             AK = DBLE( A( K, K ) ) / T;
             AKP1 = DBLE( A( K+1, K+1 ) ) / T;
             AKKP1 = A( K, K+1 ) / T;
@@ -246,7 +246,7 @@
 
             // Invert the diagonal block.
 
-            T = ABS( A( K, K-1 ) );
+            T = ( A( K, K-1 ) ).abs();
             AK = DBLE( A( K-1, K-1 ) ) / T;
             AKP1 = DBLE( A( K, K ) ) / T;
             AKKP1 = A( K, K-1 ) / T;

@@ -91,8 +91,8 @@
 
       F = S( 2, 2 )*T( 1, 1 ) - T( 2, 2 )*S( 1, 1 );
       G = S( 2, 2 )*T( 1, 2 ) - T( 2, 2 )*S( 1, 2 );
-      SA = ABS( S( 2, 2 ) ) * ABS( T( 1, 1 ) );
-      SB = ABS( S( 1, 1 ) ) * ABS( T( 2, 2 ) );
+      SA = ( S( 2, 2 ) ).abs() * ( T( 1, 1 ) ).abs();
+      SB = ( S( 1, 1 ) ).abs() * ( T( 2, 2 ) ).abs();
       zlartg(G, F, CZ, SZ, CDUM );
       SZ = -SZ;
       zrot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, CZ, DCONJG( SZ ) );
@@ -108,7 +108,7 @@
       // Weak stability test: |S21| <= O(EPS F-norm((A)))
                            // and  |T21| <= O(EPS F-norm((B)))
 
-      WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB       IF( !WEAK ) GO TO 20;
+      WEAK = ( S( 2, 1 ) ).abs() <= THRESHA && ( T( 2, 1 ) ).abs() <= THRESHB       IF( !WEAK ) GO TO 20;
 
       if ( WANDS ) {
 

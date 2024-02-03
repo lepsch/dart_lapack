@@ -321,7 +321,7 @@
          }
          slarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
          if ( IINFO != 0 ) {
-            INFO = 10 + ABS( IINFO );
+            INFO = 10 + ( IINFO ).abs();
             return;
          }
          // Note that if RANGE != 'V', SLARRE computes bounds on the desired
@@ -336,7 +336,7 @@
 
             slarrv(N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
             if ( IINFO != 0 ) {
-               INFO = 20 + ABS( IINFO );
+               INFO = 20 + ( IINFO ).abs();
                return;
             }
          } else {

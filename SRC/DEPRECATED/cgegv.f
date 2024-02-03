@@ -47,7 +47,7 @@
       REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) );
+      ABS1( X ) = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -335,21 +335,21 @@
 
          // Check for significant underflow in imaginary part of ALPHA
 
-         if ( ABS( SALFAI ) < SAFMIN && ABSAI >= max( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
+         if ( ( SALFAI ).abs() < SAFMIN && ABSAI >= max( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = ( SAFMIN / ANRM1 ) / max( SAFMIN, ANRM2*ABSAI );
          }
 
          // Check for significant underflow in real part of ALPHA
 
-         if ( ABS( SALFAR ) < SAFMIN && ABSAR >= max( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
+         if ( ( SALFAR ).abs() < SAFMIN && ABSAR >= max( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = max( SCALE, ( SAFMIN / ANRM1 ) / max( SAFMIN, ANRM2*ABSAR ) );
          }
 
          // Check for significant underflow in BETA
 
-         if ( ABS( SBETA ) < SAFMIN && ABSB >= max( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
+         if ( ( SBETA ).abs() < SAFMIN && ABSB >= max( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
             SCALE = max( SCALE, ( SAFMIN / BNRM1 ) / max( SAFMIN, BNRM2*ABSB ) );
          }
@@ -357,7 +357,7 @@
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*max( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*max( ( SALFAR ).abs(), ( SALFAI ).abs(), ( SBETA ).abs() )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHA, BETA if necessary.

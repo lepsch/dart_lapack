@@ -58,14 +58,14 @@
       } // 20
       if ( N == 1 ) {
          V( 1 ) = X( 1 );
-         EST = ABS( V( 1 ) );
+         EST = ( V( 1 ) ).abs();
          // ... QUIT
          GO TO 130;
       }
       EST = DZSUM1( N, X, 1 );
 
       for (I = 1; I <= N; I++) { // 30
-         ABSXI = ABS( X( I ) );
+         ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
             X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI );
          } else {
@@ -106,7 +106,7 @@
       if (EST <= ESTOLD) GO TO 100;
 
       for (I = 1; I <= N; I++) { // 80
-         ABSXI = ABS( X( I ) );
+         ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
             X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI );
          } else {
@@ -123,7 +123,7 @@
       } // 90
       JLAST = ISAVE( 2 );
       ISAVE( 2 ) = IZMAX1( N, X, 1 );
-      if ( ( ABS( X( JLAST ) ) != ABS( X( ISAVE( 2 ) ) ) ) && ( ISAVE( 3 ) < ITMAX ) ) {
+      if ( ( ( X( JLAST ) ).abs() != ABS( X( ISAVE( 2 ) ) ) ) && ( ISAVE( 3 ) < ITMAX ) ) {
          ISAVE( 3 ) = ISAVE( 3 ) + 1;
          GO TO 50;
       }

@@ -45,7 +45,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ABS( DBLE( Z ) ) + ABS( DIMAG( Z ) );
+      CABS1( Z ) = ( DBLE( Z ) ).abs() + ( DIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 

@@ -85,7 +85,7 @@
          INDX( J ) = J;
       } // 10
       dscal(N, T, Z, 1 );
-      RHO = ABS( TWO*RHO );
+      RHO = ( TWO*RHO ).abs();
 
       // Sort the eigenvalues into increasing order
 
@@ -109,13 +109,13 @@
       IMAX = IDAMAX( N, Z, 1 );
       JMAX = IDAMAX( N, D, 1 );
       EPS = DLAMCH( 'Epsilon' );
-      TOL = EIGHT*EPS*ABS( D( JMAX ) );
+      TOL = EIGHT*EPS*( D( JMAX ) ).abs();
 
       // If the rank-1 modifier is small enough, no more needs to be done
       // except to reorganize Q so that its columns correspond with the
       // elements in D.
 
-      if ( RHO*ABS( Z( IMAX ) ) <= TOL ) {
+      if ( RHO*( Z( IMAX ) ).abs() <= TOL ) {
          K = 0;
          if ( ICOMPQ == 0 ) {
             for (J = 1; J <= N; J++) { // 50
@@ -140,7 +140,7 @@
       K = 0;
       K2 = N + 1;
       for (J = 1; J <= N; J++) { // 70
-         if ( RHO*ABS( Z( J ) ) <= TOL ) {
+         if ( RHO*( Z( J ) ).abs() <= TOL ) {
 
             // Deflate due to small z component.
 
@@ -155,7 +155,7 @@
       } // 80
       J = J + 1;
       if (J > N) GO TO 100;
-      if ( RHO*ABS( Z( J ) ) <= TOL ) {
+      if ( RHO*( Z( J ) ).abs() <= TOL ) {
 
          // Deflate due to small z component.
 
@@ -175,7 +175,7 @@
          T = D( J ) - D( JLAM );
          C = C / TAU;
          S = -S / TAU;
-         if ( ABS( T*C*S ) <= TOL ) {
+         if ( ( T*C*S ).abs() <= TOL ) {
 
             // Deflation is possible.
 

@@ -29,12 +29,12 @@
       // ..
       // .. Executable Statements ..
 
-      if ( ABS( B ) == ZERO ) {
+      if ( ( B ).abs() == ZERO ) {
          W = ONE;
       } else {
-         W = DCONJG( B ) / ABS( B );
+         W = DCONJG( B ) / ( B ).abs();
       }
-      dlaev2(DBLE( A ), ABS( B ), DBLE( C ), RT1, RT2, CS1, T );
+      dlaev2(DBLE( A ), ( B ).abs(), DBLE( C ), RT1, RT2, CS1, T );
       SN1 = W*T;
       return;
       }

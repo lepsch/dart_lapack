@@ -47,7 +47,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ABS( DBLE( Z ) ) + ABS( DIMAG( Z ) );
+      CABS1( Z ) = ( DBLE( Z ) ).abs() + ( DIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -325,7 +325,7 @@
                   // Handle division by a small number
 
                   T = DBLE( A( K, K ) );
-                  if ( ABS( T ) >= SFMIN ) {
+                  if ( ( T ).abs() >= SFMIN ) {
                      R1 = ONE / T;
                      zdscal(K-1, R1, A( 1, K ), 1 );
                   } else {
@@ -743,7 +743,7 @@
                   // Handle division by a small number
 
                   T = DBLE( A( K, K ) );
-                  if ( ABS( T ) >= SFMIN ) {
+                  if ( ( T ).abs() >= SFMIN ) {
                      R1 = ONE / T;
                      zdscal(N-K, R1, A( K+1, K ), 1 );
                   } else {

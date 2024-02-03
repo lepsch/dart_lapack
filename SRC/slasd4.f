@@ -162,7 +162,7 @@
             DPSI = DPSI + TEMP*TEMP;
             ERRETM = ERRETM + PSI;
          } // 40
-         ERRETM = ABS( ERRETM );
+         ERRETM = ( ERRETM ).abs();
 
          // Evaluate PHI and the derivative DPHI
 
@@ -176,7 +176,7 @@
 
          // Test for convergence
 
-         if ( ABS( W ) <= EPS*ERRETM ) {
+         if ( ( W ).abs() <= EPS*ERRETM ) {
             GO TO 240;
          }
 
@@ -188,13 +188,13 @@
          C = W - DTNSQ1*DPSI - DTNSQ*DPHI;
          A = ( DTNSQ+DTNSQ1 )*W - DTNSQ*DTNSQ1*( DPSI+DPHI );
          B = DTNSQ*DTNSQ1*W;
-         if (C < ZERO) C = ABS( C );
+         if (C < ZERO) C = ( C ).abs();
          if ( C == ZERO ) {
             ETA = RHO - SIGMA*SIGMA;
          } else if ( A >= ZERO ) {
-            ETA = ( A+sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+            ETA = ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
          } else {
-            ETA = TWO*B / ( A-sqrt( ABS( A*A-FOUR*B*C ) ) );
+            ETA = TWO*B / ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) );
          }
 
          // Note, eta should be positive if w is negative, and
@@ -227,7 +227,7 @@
             DPSI = DPSI + TEMP*TEMP;
             ERRETM = ERRETM + PSI;
          } // 60
-         ERRETM = ABS( ERRETM );
+         ERRETM = ( ERRETM ).abs();
 
          // Evaluate PHI and the derivative DPHI
 
@@ -248,7 +248,7 @@
 
             // Test for convergence
 
-            if ( ABS( W ) <= EPS*ERRETM ) {
+            if ( ( W ).abs() <= EPS*ERRETM ) {
                GO TO 240;
             }
 
@@ -260,9 +260,9 @@
             A = ( DTNSQ+DTNSQ1 )*W - DTNSQ1*DTNSQ*( DPSI+DPHI );
             B = DTNSQ1*DTNSQ*W;
             if ( A >= ZERO ) {
-               ETA = ( A+sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               ETA = ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
             } else {
-               ETA = TWO*B / ( A-sqrt( ABS( A*A-FOUR*B*C ) ) );
+               ETA = TWO*B / ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) );
             }
 
             // Note, eta should be positive if w is negative, and
@@ -295,7 +295,7 @@
                DPSI = DPSI + TEMP*TEMP;
                ERRETM = ERRETM + PSI;
             } // 80
-            ERRETM = ABS( ERRETM );
+            ERRETM = ( ERRETM ).abs();
 
             // Evaluate PHI and the derivative DPHI
 
@@ -360,9 +360,9 @@
             A = C*DELSQ + Z( I )*Z( I ) + Z( IP1 )*Z( IP1 );
             B = Z( I )*Z( I )*DELSQ;
             if ( A > ZERO ) {
-               TAU2 = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
+               TAU2 = TWO*B / ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) );
             } else {
-               TAU2 = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               TAU2 = ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
             }
 
             // TAU2 now is an estimation of SIGMA^2 - D( I )^2. The
@@ -371,7 +371,7 @@
 
             TAU = TAU2 / ( D( I )+sqrt( D( I )*D( I )+TAU2 ) );
             TEMP = sqrt(EPS);
-            if ( (D(I) <= TEMP*D(IP1)) && (ABS(Z(I)) <= TEMP) && (D(I) > ZERO) ) {
+            if ( (D(I) <= TEMP*D(IP1)) && ((Z(I)).abs() <= TEMP) && (D(I) > ZERO) ) {
                TAU = min( TEN*D(I), SGUB );
                GEOMAVG = true;
             }
@@ -388,9 +388,9 @@
             A = C*DELSQ - Z( I )*Z( I ) - Z( IP1 )*Z( IP1 );
             B = Z( IP1 )*Z( IP1 )*DELSQ;
             if ( A < ZERO ) {
-               TAU2 = TWO*B / ( A-sqrt( ABS( A*A+FOUR*B*C ) ) );
+               TAU2 = TWO*B / ( A-sqrt( ( A*A+FOUR*B*C ).abs() ) );
             } else {
-               TAU2 = -( A+sqrt( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C );
+               TAU2 = -( A+sqrt( ( A*A+FOUR*B*C ).abs() ) ) / ( TWO*C );
             }
 
             // TAU2 now is an estimation of SIGMA^2 - D( IP1 )^2. The
@@ -419,7 +419,7 @@
             DPSI = DPSI + TEMP*TEMP;
             ERRETM = ERRETM + PSI;
          } // 150
-         ERRETM = ABS( ERRETM );
+         ERRETM = ( ERRETM ).abs();
 
          // Evaluate PHI and the derivative DPHI
 
@@ -449,12 +449,12 @@
          DW = DPSI + DPHI + TEMP*TEMP;
          TEMP = Z( II )*TEMP;
          W = W + TEMP;
-         ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP );
+         ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*( TEMP ).abs();
 // $          + ABS( TAU2 )*DW
 
          // Test for convergence
 
-         if ( ABS( W ) <= EPS*ERRETM ) {
+         if ( ( W ).abs() <= EPS*ERRETM ) {
             GO TO 240;
          }
 
@@ -487,9 +487,9 @@
                }
                ETA = B / A;
             } else if ( A <= ZERO ) {
-               ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               ETA = ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
             } else {
-               ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
+               ETA = TWO*B / ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) );
             }
          } else {
 
@@ -551,9 +551,9 @@
                   }
                   ETA = B / A;
                } else if ( A <= ZERO ) {
-                  ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+                  ETA = ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
                } else {
-                  ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
+                  ETA = TWO*B / ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) );
                }
             }
          }
@@ -608,7 +608,7 @@
             DPSI = DPSI + TEMP*TEMP;
             ERRETM = ERRETM + PSI;
          } // 180
-         ERRETM = ABS( ERRETM );
+         ERRETM = ( ERRETM ).abs();
 
          // Evaluate PHI and the derivative DPHI
 
@@ -626,14 +626,14 @@
          DW = DPSI + DPHI + TEMP*TEMP;
          TEMP = Z( II )*TEMP;
          W = RHOINV + PHI + PSI + TEMP;
-         ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP );
+         ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*( TEMP ).abs();
 // $          + ABS( TAU2 )*DW
 
          SWTCH = false;
          if ( ORGATI ) {
-            if( -W > ABS( PREW ) / TEN ) SWTCH = true;
+            if( -W > ( PREW ).abs() / TEN ) SWTCH = true;
          } else {
-            if( W > ABS( PREW ) / TEN ) SWTCH = true;
+            if( W > ( PREW ).abs() / TEN ) SWTCH = true;
          }
 
          // Main loop to update the values of the array   DELTA and WORK
@@ -644,7 +644,7 @@
 
             // Test for convergence
 
-            if ( ABS( W ) <= EPS*ERRETM ) {
+            if ( ( W ).abs() <= EPS*ERRETM ) {
       // $ || (SGUB-SGLB) <= EIGHT*ABS(SGUB+SGLB) ) THEN
                GO TO 240;
             }
@@ -691,9 +691,9 @@
                   }
                   ETA = B / A;
                } else if ( A <= ZERO ) {
-                  ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+                  ETA = ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
                } else {
-                  ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
+                  ETA = TWO*B / ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) );
                }
             } else {
 
@@ -776,9 +776,9 @@
                      }
                      ETA = B / A;
                   } else if ( A <= ZERO ) {
-                     ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+                     ETA = ( A-sqrt( ( A*A-FOUR*B*C ).abs() ) ) / ( TWO*C );
                   } else {
-                     ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
+                     ETA = TWO*B / ( A+sqrt( ( A*A-FOUR*B*C ).abs() ) );
                   }
                }
             }
@@ -833,7 +833,7 @@
                DPSI = DPSI + TEMP*TEMP;
                ERRETM = ERRETM + PSI;
             } // 210
-            ERRETM = ABS( ERRETM );
+            ERRETM = ( ERRETM ).abs();
 
             // Evaluate PHI and the derivative DPHI
 
@@ -851,10 +851,10 @@
             DW = DPSI + DPHI + TEMP*TEMP;
             TEMP = Z( II )*TEMP;
             W = RHOINV + PHI + PSI + TEMP;
-            ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP );
+            ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*( TEMP ).abs();
 // $             + ABS( TAU2 )*DW
 
-            if( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = !SWTCH;
+            if( W*PREW > ZERO && ( W ).abs() > ( PREW ).abs() / TEN ) SWTCH = !SWTCH;
 
          } // 230
 
