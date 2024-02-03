@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, N;
       REAL               ANORM, RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), RWORK( * )
       COMPLEX            E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IX;
       REAL               AINVNM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       // EXTERNAL ISAMAX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments.
+      // Test the input arguments.
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -48,7 +48,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -58,44 +58,44 @@
          RETURN
       END IF
 *
-*     Check that D(1:N) is positive.
+      // Check that D(1:N) is positive.
 *
       DO 10 I = 1, N
          IF( D( I ).LE.ZERO ) RETURN
    10 CONTINUE
 *
-*     Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
+      // Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
 *
-*        m(i,j) =  abs(A(i,j)), i = j,
-*        m(i,j) = -abs(A(i,j)), i .ne. j,
+         // m(i,j) =  abs(A(i,j)), i = j,
+         // m(i,j) = -abs(A(i,j)), i .ne. j,
 *
-*     and e = [ 1, 1, ..., 1 ]**T.  Note M(A) = M(L)*D*M(L)**H.
+      // and e = [ 1, 1, ..., 1 ]**T.  Note M(A) = M(L)*D*M(L)**H.
 *
-*     Solve M(L) * x = e.
+      // Solve M(L) * x = e.
 *
       RWORK( 1 ) = ONE
       DO 20 I = 2, N
          RWORK( I ) = ONE + RWORK( I-1 )*ABS( E( I-1 ) )
    20 CONTINUE
 *
-*     Solve D * M(L)**H * x = b.
+      // Solve D * M(L)**H * x = b.
 *
       RWORK( N ) = RWORK( N ) / D( N )
       DO 30 I = N - 1, 1, -1
          RWORK( I ) = RWORK( I ) / D( I ) + RWORK( I+1 )*ABS( E( I ) )
    30 CONTINUE
 *
-*     Compute AINVNM = max(x(i)), 1<=i<=n.
+      // Compute AINVNM = max(x(i)), 1<=i<=n.
 *
       IX = ISAMAX( N, RWORK, 1 )
       AINVNM = ABS( RWORK( IX ) )
 *
-*     Compute the reciprocal condition number.
+      // Compute the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
       RETURN
 *
-*     End of CPTCON
+      // End of CPTCON
 *
       END

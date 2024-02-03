@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVSL, JOBVSR, SORT;
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * );
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
-*     ..
-*     .. Function Arguments ..
+      // ..
+      // .. Function Arguments ..
       bool               SELCTG;
       // EXTERNAL SELCTG
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IP, IRIGHT, IROWS, ITAU, IWRK, MAXWRK, MINWRK;;
       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SAFMAX, SAFMIN, SMLNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUM( 1 );
       double             DIF( 2 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEQRF, DGGBAK, DGGBAL, DGGHRD, DHGEQZ, DLACPY, DLASCL, DLASET, DORGQR, DORMQR, DTGSEN, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVSL, 'N' ) ) THEN
          IJOBVL = 1
@@ -71,7 +71,7 @@
 *
       WANTST = LSAME( SORT, 'S' )
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -93,12 +93,12 @@
          INFO = -17
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       NB refers to the optimal block size for the immediately
-*       following subroutine, as returned by ILAENV.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // NB refers to the optimal block size for the immediately
+        // following subroutine, as returned by ILAENV.)
 *
       IF( INFO.EQ.0 ) THEN
          IF( N.GT.0 )THEN
@@ -123,14 +123,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          SDIM = 0
          RETURN
       END IF
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'P' )
       SAFMIN = DLAMCH( 'S' )
@@ -138,7 +138,7 @@
       SMLNUM = SQRT( SAFMIN ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = .FALSE.
@@ -151,7 +151,7 @@
       END IF
       IF( ILASCL ) CALL DLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = .FALSE.
@@ -164,16 +164,16 @@
       END IF
       IF( ILBSCL ) CALL DLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
-*     Permute the matrix to make it more nearly triangular
-*     (Workspace: need 6*N + 2*N space for storing balancing factors)
+      // Permute the matrix to make it more nearly triangular
+      // (Workspace: need 6*N + 2*N space for storing balancing factors)
 *
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
       CALL DGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
 *
-*     Reduce B to triangular form (QR decomposition of B)
-*     (Workspace: need N, prefer N*NB)
+      // Reduce B to triangular form (QR decomposition of B)
+      // (Workspace: need N, prefer N*NB)
 *
       IROWS = IHI + 1 - ILO
       ICOLS = N + 1 - ILO
@@ -181,13 +181,13 @@
       IWRK = ITAU + IROWS
       CALL DGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Apply the orthogonal transformation to matrix A
-*     (Workspace: need N, prefer N*NB)
+      // Apply the orthogonal transformation to matrix A
+      // (Workspace: need N, prefer N*NB)
 *
       CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Initialize VSL
-*     (Workspace: need N, prefer N*NB)
+      // Initialize VSL
+      // (Workspace: need N, prefer N*NB)
 *
       IF( ILVSL ) THEN
          CALL DLASET( 'Full', N, N, ZERO, ONE, VSL, LDVSL )
@@ -197,17 +197,17 @@
          CALL DORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-*     Initialize VSR
+      // Initialize VSR
 *
       IF( ILVSR ) CALL DLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR )
 *
-*     Reduce to generalized Hessenberg form
-*     (Workspace: none needed)
+      // Reduce to generalized Hessenberg form
+      // (Workspace: none needed)
 *
       CALL DGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR )
 *
-*     Perform QZ algorithm, computing Schur vectors if desired
-*     (Workspace: need N)
+      // Perform QZ algorithm, computing Schur vectors if desired
+      // (Workspace: need N)
 *
       IWRK = ITAU
       CALL DHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR )
@@ -222,20 +222,20 @@
          GO TO 50
       END IF
 *
-*     Sort eigenvalues ALPHA/BETA if desired
-*     (Workspace: need 4*N+16 )
+      // Sort eigenvalues ALPHA/BETA if desired
+      // (Workspace: need 4*N+16 )
 *
       SDIM = 0
       IF( WANTST ) THEN
 *
-*        Undo scaling on eigenvalues before SELCTGing
+         // Undo scaling on eigenvalues before SELCTGing
 *
          IF( ILASCL ) THEN
             CALL DLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL DLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
          END IF
          IF( ILBSCL ) CALL DLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
 *
-*        Select eigenvalues
+         // Select eigenvalues
 *
          DO 10 I = 1, N
             BWORK( I ) = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
@@ -246,16 +246,16 @@
 *
       END IF
 *
-*     Apply back-permutation to VSL and VSR
-*     (Workspace: none needed)
+      // Apply back-permutation to VSL and VSR
+      // (Workspace: none needed)
 *
       IF( ILVSL ) CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR )
 *
       IF( ILVSR ) CALL DGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR )
 *
-*     Check if unscaling would cause over/underflow, if so, rescale
-*     (ALPHAR(I),ALPHAI(I),BETA(I)) so BETA(I) is on the order of
-*     B(I,I) and ALPHAR(I) and ALPHAI(I) are on the order of A(I,I)
+      // Check if unscaling would cause over/underflow, if so, rescale
+      // (ALPHAR(I),ALPHAI(I),BETA(I)) so BETA(I) is on the order of
+      // B(I,I) and ALPHAR(I) and ALPHAI(I) are on the order of A(I,I)
 *
       IF( ILASCL ) THEN
          DO 20 I = 1, N
@@ -288,7 +288,7 @@
    30    CONTINUE
       END IF
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( ILASCL ) THEN
          CALL DLASCL( 'H', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR )
@@ -303,7 +303,7 @@
 *
       IF( WANTST ) THEN
 *
-*        Check if reordering is correct
+         // Check if reordering is correct
 *
          LASTSL = .TRUE.
          LST2SL = .TRUE.
@@ -318,7 +318,7 @@
             ELSE
                IF( IP.EQ.1 ) THEN
 *
-*                 Last eigenvalue of conjugate pair
+                  // Last eigenvalue of conjugate pair
 *
                   CURSL = CURSL .OR. LASTSL
                   LASTSL = CURSL
@@ -327,7 +327,7 @@
                   IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
                ELSE
 *
-*                 First eigenvalue of conjugate pair
+                  // First eigenvalue of conjugate pair
 *
                   IP = 1
                END IF
@@ -344,6 +344,6 @@
 *
       RETURN
 *
-*     End of DGGES
+      // End of DGGES
 *
       END

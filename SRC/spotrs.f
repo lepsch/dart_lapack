@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL STRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -53,36 +53,36 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Solve A*X = B where A = U**T *U.
+         // Solve A*X = B where A = U**T *U.
 *
-*        Solve U**T *X = B, overwriting B with X.
+         // Solve U**T *X = B, overwriting B with X.
 *
          CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        Solve U*X = B, overwriting B with X.
+         // Solve U*X = B, overwriting B with X.
 *
          CALL STRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
       ELSE
 *
-*        Solve A*X = B where A = L*L**T.
+         // Solve A*X = B where A = L*L**T.
 *
-*        Solve L*X = B, overwriting B with X.
+         // Solve L*X = B, overwriting B with X.
 *
          CALL STRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        Solve L**T *X = B, overwriting B with X.
+         // Solve L**T *X = B, overwriting B with X.
 *
          CALL STRSM( 'Left', 'Lower', 'Transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
       END IF
 *
       RETURN
 *
-*     End of SPOTRS
+      // End of SPOTRS
 *
       END

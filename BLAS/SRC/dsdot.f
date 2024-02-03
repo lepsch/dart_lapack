@@ -4,12 +4,12 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,INCY,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL SX(*),SY(*)
-*     ..
+      // ..
 *
 *  Authors:
 *  ========
@@ -18,17 +18,17 @@
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int     I,KX,KY,NS;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
+      // ..
       DSDOT = 0.0D0
       IF (N.LE.0) RETURN
       IF (INCX.EQ.INCY .AND. INCX.GT.0) THEN
 *
-*     Code for equal, positive, non-unit increments.
+      // Code for equal, positive, non-unit increments.
 *
          NS = N*INCX
          DO I = 1,NS,INCX
@@ -36,7 +36,7 @@
          END DO
       ELSE
 *
-*     Code for unequal or nonpositive increments.
+      // Code for unequal or nonpositive increments.
 *
          KX = 1
          KY = 1
@@ -50,6 +50,6 @@
       END IF
       RETURN
 *
-*     End of DSDOT
+      // End of DSDOT
 *
       END

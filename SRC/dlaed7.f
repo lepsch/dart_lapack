@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                CURLVL, CURPBM, CUTPNT, ICOMPQ, INFO, LDQ, N, QSIZ, TLVLS;
       double             RHO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                GIVCOL( 2, * ), GIVPTR( * ), INDXQ( * ), IWORK( * ), PERM( * ), PRMPTR( * ), QPTR( * )       double             D( * ), GIVNUM( 2, * ), Q( LDQ, * ), QSTORE( * ), WORK( * );;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                COLTYP, CURR, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS, IW, IZ, K, LDQ2, N1, N2, PTR;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DLAED8, DLAED9, DLAEDA, DLAMRG, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -49,13 +49,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     The following values are for bookkeeping purposes only.  They are
-*     integer pointers which indicate the portion of the workspace
-*     used by a particular array in DLAED8 and DLAED9.
+      // The following values are for bookkeeping purposes only.  They are
+      // integer pointers which indicate the portion of the workspace
+      // used by a particular array in DLAED8 and DLAED9.
 *
       IF( ICOMPQ.EQ.1 ) THEN
          LDQ2 = QSIZ
@@ -74,8 +74,8 @@
       COLTYP = INDXC + N
       INDXP = COLTYP + N
 *
-*     Form the z-vector which consists of the last row of Q_1 and the
-*     first row of Q_2.
+      // Form the z-vector which consists of the last row of Q_1 and the
+      // first row of Q_2.
 *
       PTR = 1 + 2**TLVLS
       DO 10 I = 1, CURLVL - 1
@@ -84,9 +84,9 @@
       CURR = PTR + CURPBM
       CALL DLAEDA( N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE, QPTR, WORK( IZ ), WORK( IZ+N ), INFO )
 *
-*     When solving the final problem, we no longer need the stored data,
-*     so we will overwrite the data from this level onto the previously
-*     used storage space.
+      // When solving the final problem, we no longer need the stored data,
+      // so we will overwrite the data from this level onto the previously
+      // used storage space.
 *
       IF( CURLVL.EQ.TLVLS ) THEN
          QPTR( CURR ) = 1
@@ -94,13 +94,13 @@
          GIVPTR( CURR ) = 1
       END IF
 *
-*     Sort and Deflate eigenvalues.
+      // Sort and Deflate eigenvalues.
 *
       CALL DLAED8( ICOMPQ, K, N, QSIZ, D, Q, LDQ, INDXQ, RHO, CUTPNT, WORK( IZ ), WORK( IDLMDA ), WORK( IQ2 ), LDQ2, WORK( IW ), PERM( PRMPTR( CURR ) ), GIVPTR( CURR+1 ), GIVCOL( 1, GIVPTR( CURR ) ), GIVNUM( 1, GIVPTR( CURR ) ), IWORK( INDXP ), IWORK( INDX ), INFO )
       PRMPTR( CURR+1 ) = PRMPTR( CURR ) + N
       GIVPTR( CURR+1 ) = GIVPTR( CURR+1 ) + GIVPTR( CURR )
 *
-*     Solve Secular Equation.
+      // Solve Secular Equation.
 *
       IF( K.NE.0 ) THEN
          CALL DLAED9( K, 1, K, N, D, WORK( IS ), K, RHO, WORK( IDLMDA ), WORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO )          IF( INFO.NE.0 ) GO TO 30
@@ -109,7 +109,7 @@
          END IF
          QPTR( CURR+1 ) = QPTR( CURR ) + K**2
 *
-*     Prepare the INDXQ sorting permutation.
+      // Prepare the INDXQ sorting permutation.
 *
          N1 = K
          N2 = N - K
@@ -124,6 +124,6 @@
    30 CONTINUE
       RETURN
 *
-*     End of DLAED7
+      // End of DLAED7
 *
       END

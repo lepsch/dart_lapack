@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NIN, NOUT;
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDE;
       PARAMETER          ( LDE = 20 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO;
       double             EPS, RMAX, SAFMIN, VMAX, X;
       COMPLEX*16         CDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                LMAX( 2 );
       double             SCALE( LDE );
       COMPLEX*16         E( LDE, LDE ), EIN( LDE, LDE )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEBAK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       LMAX( 1 ) = 0
       LMAX( 2 ) = 0
@@ -108,6 +108,6 @@
 *
       RETURN
 *
-*     End of ZCHKBK
+      // End of ZCHKBK
 *
       END

@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, P;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                LOPT, LWKOPT, NB, NB1, NB2, NB3;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEQRF, CGERQF, CUNMRQ, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL ILAENV, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       NB1 = ILAENV( 1, 'CGERQF', ' ', M, N, -1, -1 )
@@ -60,23 +60,23 @@
          RETURN
       END IF
 *
-*     RQ factorization of M-by-N matrix A: A = R*Q
+      // RQ factorization of M-by-N matrix A: A = R*Q
 *
       CALL CGERQF( M, N, A, LDA, TAUA, WORK, LWORK, INFO )
       LOPT = INT( WORK( 1 ) )
 *
-*     Update B := B*Q**H
+      // Update B := B*Q**H
 *
       CALL CUNMRQ( 'Right', 'Conjugate Transpose', P, N, MIN( M, N ), A( MAX( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK, LWORK, INFO )
       LOPT = MAX( LOPT, INT( WORK( 1 ) ) )
 *
-*     QR factorization of P-by-N matrix B: B = Z*T
+      // QR factorization of P-by-N matrix B: B = Z*T
 *
       CALL CGEQRF( P, N, B, LDB, TAUB, WORK, LWORK, INFO )
       WORK( 1 ) = SROUNDUP_LWORK( MAX( LOPT, INT( WORK( 1 ) ) ) )
 *
       RETURN
 *
-*     End of CGGRQF
+      // End of CGGRQF
 *
       END

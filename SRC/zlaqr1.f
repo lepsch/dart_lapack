@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16         S1, S2
       int                LDH, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         H( LDH, * ), V( * )
-*     ..
+      // ..
 *
 *  ================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ) )
       double             RZERO;
       PARAMETER          ( RZERO = 0.0d0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16         CDUM, H21S, H31S
       double             S;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.NE.2 .AND. N.NE.3 ) THEN
          RETURN

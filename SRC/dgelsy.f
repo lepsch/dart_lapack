@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                JPVT( * );
       double             A( LDA, * ), B( LDB, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                IMAX, IMIN;
       PARAMETER          ( IMAX = 1, IMIN = 2 )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3, NB4       double             ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE;;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       double             DLAMCH, DLANGE;
       // EXTERNAL ILAENV, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEQP3, DLAIC1, DLASCL, DLASET, DORMQR, DORMRZ, DTRSM, DTZRZF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       MN = MIN( M, N )
       ISMIN = MN + 1
       ISMAX = 2*MN + 1
 *
-*     Test the input arguments.
+      // Test the input arguments.
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -58,7 +58,7 @@
          INFO = -7
       END IF
 *
-*     Figure out optimal block size
+      // Figure out optimal block size
 *
       IF( INFO.EQ.0 ) THEN
          IF( MN.EQ.0 .OR. NRHS.EQ.0 ) THEN
@@ -87,37 +87,37 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MN.EQ.0 .OR. NRHS.EQ.0 ) THEN
          RANK = 0
          RETURN
       END IF
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' )
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A, B if max entries outside range [SMLNUM,BIGNUM]
+      // Scale A, B if max entries outside range [SMLNUM,BIGNUM]
 *
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
       ELSE IF( ANRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM
+         // Scale matrix norm down to BIGNUM
 *
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
       ELSE IF( ANRM.EQ.ZERO ) THEN
 *
-*        Matrix all zero. Return zero solution.
+         // Matrix all zero. Return zero solution.
 *
          CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
          RANK = 0
@@ -128,28 +128,28 @@
       IBSCL = 0
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 1
       ELSE IF( BNRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM
+         // Scale matrix norm down to BIGNUM
 *
          CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 2
       END IF
 *
-*     Compute QR factorization with column pivoting of A:
-*        A * P = Q * R
+      // Compute QR factorization with column pivoting of A:
+         // A * P = Q * R
 *
       CALL DGEQP3( M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
       WSIZE = MN + WORK( MN+1 )
 *
-*     workspace: MN+2*N+NB*(N+1).
-*     Details of Householder rotations stored in WORK(1:MN).
+      // workspace: MN+2*N+NB*(N+1).
+      // Details of Householder rotations stored in WORK(1:MN).
 *
-*     Determine RANK using incremental condition estimation
+      // Determine RANK using incremental condition estimation
 *
       WORK( ISMIN ) = ONE
       WORK( ISMAX ) = ONE
@@ -182,27 +182,27 @@
          END IF
       END IF
 *
-*     workspace: 3*MN.
+      // workspace: 3*MN.
 *
-*     Logically partition R = [ R11 R12 ]
-*                             [  0  R22 ]
-*     where R11 = R(1:RANK,1:RANK)
+      // Logically partition R = [ R11 R12 ]
+                              // [  0  R22 ]
+      // where R11 = R(1:RANK,1:RANK)
 *
-*     [R11,R12] = [ T11, 0 ] * Y
+      // [R11,R12] = [ T11, 0 ] * Y
 *
       IF( RANK.LT.N ) CALL DTZRZF( RANK, N, A, LDA, WORK( MN+1 ), WORK( 2*MN+1 ), LWORK-2*MN, INFO )
 *
-*     workspace: 2*MN.
-*     Details of Householder rotations stored in WORK(MN+1:2*MN)
+      // workspace: 2*MN.
+      // Details of Householder rotations stored in WORK(MN+1:2*MN)
 *
-*     B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
+      // B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
 *
       CALL DORMQR( 'Left', 'Transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
       WSIZE = MAX( WSIZE, 2*MN+WORK( 2*MN+1 ) )
 *
-*     workspace: 2*MN+NB*NRHS.
+      // workspace: 2*MN+NB*NRHS.
 *
-*     B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
+      // B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
 *
       CALL DTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, ONE, A, LDA, B, LDB )
 *
@@ -212,15 +212,15 @@
    30    CONTINUE
    40 CONTINUE
 *
-*     B(1:N,1:NRHS) := Y**T * B(1:N,1:NRHS)
+      // B(1:N,1:NRHS) := Y**T * B(1:N,1:NRHS)
 *
       IF( RANK.LT.N ) THEN
          CALL DORMRZ( 'Left', 'Transpose', N, NRHS, RANK, N-RANK, A, LDA, WORK( MN+1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
       END IF
 *
-*     workspace: 2*MN+NRHS.
+      // workspace: 2*MN+NRHS.
 *
-*     B(1:N,1:NRHS) := P * B(1:N,1:NRHS)
+      // B(1:N,1:NRHS) := P * B(1:N,1:NRHS)
 *
       DO 60 J = 1, NRHS
          DO 50 I = 1, N
@@ -229,9 +229,9 @@
          CALL DCOPY( N, WORK( 1 ), 1, B( 1, J ), 1 )
    60 CONTINUE
 *
-*     workspace: N.
+      // workspace: N.
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( IASCL.EQ.1 ) THEN
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
@@ -251,6 +251,6 @@
 *
       RETURN
 *
-*     End of DGELSY
+      // End of DGELSY
 *
       END

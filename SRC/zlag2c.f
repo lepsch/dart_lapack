@@ -4,28 +4,28 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDSA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            SA( LDSA, * )
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, J;
       double             RMAX;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DIMAG, CMPLX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RMAX = SLAMCH( 'O' )
       DO 20 J = 1, N
@@ -41,6 +41,6 @@
    30 CONTINUE
       RETURN
 *
-*     End of ZLAG2C
+      // End of ZLAG2C
 *
       END

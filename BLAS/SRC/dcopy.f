@@ -4,28 +4,28 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,INCY,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double           DX(*),DY(*);
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int     I,IX,IY,M,MP1;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MOD
-*     ..
+      // ..
       IF (N.LE.0) RETURN
       IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN
 *
-*        code for both increments equal to 1
+         // code for both increments equal to 1
 *
 *
-*        clean-up loop
+         // clean-up loop
 *
          M = MOD(N,7)
          IF (M.NE.0) THEN
@@ -46,8 +46,8 @@
          END DO
       ELSE
 *
-*        code for unequal increments or equal increments
-*          not equal to 1
+         // code for unequal increments or equal increments
+           // not equal to 1
 *
          IX = 1
          IY = 1
@@ -61,6 +61,6 @@
       END IF
       RETURN
 *
-*     End of DCOPY
+      // End of DCOPY
 *
       END

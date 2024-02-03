@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LIWORK, LRWORK, LWORK, NOUNIT, NSIZES, NTYPES;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       double             D1( * ), D2( * ), D3( * ), RESULT( * ), RWORK( * ), WA1( * ), WA2( * ), WA3( * )       COMPLEX*16         A( LDA, * ), TAU( * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO, TEN;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, TEN = 10.0D+0 )
       double             HALF;
@@ -26,33 +26,33 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 18 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN;
       String             UPLO;
       int                I, IDIAG, IHBW, IINFO, IL, IMODE, INDWRK, INDX, IROW, ITEMP, ITYPE, IU, IUPLO, J, J1, J2, JCOL, JSIZE, JTYPE, KD, LGN, LIWEDC, LRWEDC, LWEDC, M, M2, M3, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
       double             ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), ISEED3( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLARND, DSXT1;
       // EXTERNAL DLAMCH, DLARND, DSXT1
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALASVM, DLAFTS, XERBLA, ZHBEV, ZHBEVD, ZHBEVX, ZHEEV, ZHEEVD, ZHEEVR, ZHEEVX, ZHET21, ZHET22, ZHPEV, ZHPEVD, ZHPEVX, ZLACPY, ZLASET, ZLATMR, ZLATMS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, INT, LOG, MAX, MIN, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 3*9 /
       DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 4, 4 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     1)      Check for errors
+      // 1)      Check for errors
 *
       NTESTT = 0
       INFO = 0
@@ -64,7 +64,7 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -85,11 +85,11 @@
          RETURN
       END IF
 *
-*     Quick return if nothing to do
+      // Quick return if nothing to do
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = DLAMCH( 'Overflow' )
@@ -98,7 +98,7 @@
       RTUNFL = SQRT( UNFL )
       RTOVFL = SQRT( OVFL )
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       DO 20 I = 1, 4
          ISEED2( I ) = ISEED( I )
@@ -138,27 +138,27 @@
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
 *
-*           2)      Compute "A"
+            // 2)      Compute "A"
 *
-*                   Control parameters:
+                    // Control parameters:
 *
-*               KMAGN  KMODE        KTYPE
-*           =1  O(1)   clustered 1  zero
-*           =2  large  clustered 2  identity
-*           =3  small  exponential  (none)
-*           =4         arithmetic   diagonal, (w/ eigenvalues)
-*           =5         random log   Hermitian, w/ eigenvalues
-*           =6         random       (none)
-*           =7                      random diagonal
-*           =8                      random Hermitian
-*           =9                      band Hermitian, w/ eigenvalues
+                // KMAGN  KMODE        KTYPE
+            // =1  O(1)   clustered 1  zero
+            // =2  large  clustered 2  identity
+            // =3  small  exponential  (none)
+            // =4         arithmetic   diagonal, (w/ eigenvalues)
+            // =5         random log   Hermitian, w/ eigenvalues
+            // =6         random       (none)
+            // =7                      random diagonal
+            // =8                      random Hermitian
+            // =9                      band Hermitian, w/ eigenvalues
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 110
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
 *
-*           Compute norm
+            // Compute norm
 *
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 *
@@ -180,16 +180,16 @@
             IINFO = 0
             COND = ULPINV
 *
-*           Special Matrices -- Identity & Jordan block
+            // Special Matrices -- Identity & Jordan block
 *
-*                   Zero
+                    // Zero
 *
             IF( ITYPE.EQ.1 ) THEN
                IINFO = 0
 *
             ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*              Identity
+               // Identity
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
@@ -197,36 +197,36 @@
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*              Diagonal Matrix, [Eigen]values Specified
+               // Diagonal Matrix, [Eigen]values Specified
 *
                CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*              Hermitian, eigenvalues specified
+               // Hermitian, eigenvalues specified
 *
                CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
-*              Diagonal, random eigenvalues
+               // Diagonal, random eigenvalues
 *
                CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
-*              Hermitian, random eigenvalues
+               // Hermitian, random eigenvalues
 *
                CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*              Hermitian banded, eigenvalues specified
+               // Hermitian banded, eigenvalues specified
 *
                IHBW = INT( ( N-1 )*DLARND( 1, ISEED3 ) )
                CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK, IINFO )
 *
-*              Store as dense matrix for most routines.
+               // Store as dense matrix for most routines.
 *
                CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
                DO 100 IDIAG = -IHBW, IHBW
@@ -264,8 +264,8 @@
                END IF
             END IF
 *
-*           Perform tests storing upper or lower triangular
-*           part of matrix.
+            // Perform tests storing upper or lower triangular
+            // part of matrix.
 *
             DO 1200 IUPLO = 0, 1
                IF( IUPLO.EQ.0 ) THEN
@@ -274,7 +274,7 @@
                   UPLO = 'U'
                END IF
 *
-*              Call ZHEEVD and CHEEVX.
+               // Call ZHEEVD and CHEEVX.
 *
                CALL ZLACPY( ' ', N, N, A, LDA, V, LDU )
 *
@@ -293,7 +293,7 @@
                   END IF
                END IF
 *
-*              Do tests 1 and 2.
+               // Do tests 1 and 2.
 *
                CALL ZHET21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -312,7 +312,7 @@
                   END IF
                END IF
 *
-*              Do test 3.
+               // Do test 3.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -359,7 +359,7 @@
                   END IF
                END IF
 *
-*              Do tests 4 and 5.
+               // Do tests 4 and 5.
 *
                CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -378,7 +378,7 @@
                   END IF
                END IF
 *
-*              Do test 6.
+               // Do test 6.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -405,7 +405,7 @@
                   END IF
                END IF
 *
-*              Do tests 7 and 8.
+               // Do tests 7 and 8.
 *
                CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -425,7 +425,7 @@
                   END IF
                END IF
 *
-*              Do test 9.
+               // Do test 9.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -453,7 +453,7 @@
                   END IF
                END IF
 *
-*              Do tests 10 and 11.
+               // Do tests 10 and 11.
 *
                CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -478,7 +478,7 @@
                   GO TO 170
                END IF
 *
-*              Do test 12.
+               // Do test 12.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -491,12 +491,12 @@
 *
   170          CONTINUE
 *
-*              Call ZHPEVD and CHPEVX.
+               // Call ZHPEVD and CHPEVX.
 *
                CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
 *
-*              Load array WORK with the upper or lower triangular
-*              part of the matrix in packed form.
+               // Load array WORK with the upper or lower triangular
+               // part of the matrix in packed form.
 *
                IF( IUPLO.EQ.1 ) THEN
                   INDX = 1
@@ -532,7 +532,7 @@
                   END IF
                END IF
 *
-*              Do tests 13 and 14.
+               // Do tests 13 and 14.
 *
                CALL ZHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -568,7 +568,7 @@
                   END IF
                END IF
 *
-*              Do test 15.
+               // Do test 15.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -578,8 +578,8 @@
   260          CONTINUE
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*              Load array WORK with the upper or lower triangular part
-*              of the matrix in packed form.
+               // Load array WORK with the upper or lower triangular part
+               // of the matrix in packed form.
 *
   270          CONTINUE
                IF( IUPLO.EQ.1 ) THEN
@@ -634,7 +634,7 @@
                   END IF
                END IF
 *
-*              Do tests 16 and 17.
+               // Do tests 16 and 17.
 *
                CALL ZHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -670,7 +670,7 @@
                   END IF
                END IF
 *
-*              Do test 18.
+               // Do test 18.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -714,7 +714,7 @@
                   END IF
                END IF
 *
-*              Do tests 19 and 20.
+               // Do tests 19 and 20.
 *
                CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -750,7 +750,7 @@
                   END IF
                END IF
 *
-*              Do test 21.
+               // Do test 21.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -795,7 +795,7 @@
                   END IF
                END IF
 *
-*              Do tests 22 and 23.
+               // Do tests 22 and 23.
 *
                CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -836,7 +836,7 @@
                   GO TO 550
                END IF
 *
-*              Do test 24.
+               // Do test 24.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -849,7 +849,7 @@
 *
   550          CONTINUE
 *
-*              Call ZHBEVD and CHBEVX.
+               // Call ZHBEVD and CHBEVX.
 *
                IF( JTYPE.LE.7 ) THEN
                   KD = 0
@@ -859,8 +859,8 @@
                   KD = IHBW
                END IF
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
                IF( IUPLO.EQ.1 ) THEN
                   DO 570 J = 1, N
@@ -891,7 +891,7 @@
                   END IF
                END IF
 *
-*              Do tests 25 and 26.
+               // Do tests 25 and 26.
 *
                CALL ZHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -922,7 +922,7 @@
                   END IF
                END IF
 *
-*              Do test 27.
+               // Do test 27.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -932,8 +932,8 @@
   640          CONTINUE
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
   650          CONTINUE
                IF( IUPLO.EQ.1 ) THEN
@@ -965,7 +965,7 @@
                   END IF
                END IF
 *
-*              Do tests 28 and 29.
+               // Do tests 28 and 29.
 *
                CALL ZHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -997,7 +997,7 @@
                   END IF
                END IF
 *
-*              Do test 30.
+               // Do test 30.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1007,8 +1007,8 @@
   740          CONTINUE
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
   750          CONTINUE
                NTEST = NTEST + 1
@@ -1040,7 +1040,7 @@
                   END IF
                END IF
 *
-*              Do tests 31 and 32.
+               // Do tests 31 and 32.
 *
                CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -1071,7 +1071,7 @@
                   END IF
                END IF
 *
-*              Do test 33.
+               // Do test 33.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1082,8 +1082,8 @@
                END IF
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
   840          CONTINUE
                NTEST = NTEST + 1
@@ -1114,7 +1114,7 @@
                   END IF
                END IF
 *
-*              Do tests 34 and 35.
+               // Do tests 34 and 35.
 *
                CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -1150,7 +1150,7 @@
                   GO TO 930
                END IF
 *
-*              Do test 36.
+               // Do test 36.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1163,7 +1163,7 @@
 *
   930          CONTINUE
 *
-*              Call ZHEEV
+               // Call ZHEEV
 *
                CALL ZLACPY( ' ', N, N, A, LDA, V, LDU )
 *
@@ -1182,7 +1182,7 @@
                   END IF
                END IF
 *
-*              Do tests 37 and 38
+               // Do tests 37 and 38
 *
                CALL ZHET21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -1201,7 +1201,7 @@
                   END IF
                END IF
 *
-*              Do test 39
+               // Do test 39
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1215,10 +1215,10 @@
 *
                CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
 *
-*              Call ZHPEV
+               // Call ZHPEV
 *
-*              Load array WORK with the upper or lower triangular
-*              part of the matrix in packed form.
+               // Load array WORK with the upper or lower triangular
+               // part of the matrix in packed form.
 *
                IF( IUPLO.EQ.1 ) THEN
                   INDX = 1
@@ -1254,7 +1254,7 @@
                   END IF
                END IF
 *
-*              Do tests 40 and 41.
+               // Do tests 40 and 41.
 *
                CALL ZHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -1290,7 +1290,7 @@
                   END IF
                END IF
 *
-*              Do test 42
+               // Do test 42
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1302,7 +1302,7 @@
 *
  1050          CONTINUE
 *
-*              Call ZHBEV
+               // Call ZHBEV
 *
                IF( JTYPE.LE.7 ) THEN
                   KD = 0
@@ -1312,8 +1312,8 @@
                   KD = IHBW
                END IF
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
                IF( IUPLO.EQ.1 ) THEN
                   DO 1070 J = 1, N
@@ -1344,7 +1344,7 @@
                   END IF
                END IF
 *
-*              Do tests 43 and 44.
+               // Do tests 43 and 44.
 *
                CALL ZHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
 *
@@ -1377,7 +1377,7 @@
 *
  1140          CONTINUE
 *
-*              Do test 45.
+               // Do test 45.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1403,7 +1403,7 @@
                   END IF
                END IF
 *
-*              Do tests 45 and 46 (or ... )
+               // Do tests 45 and 46 (or ... )
 *
                CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -1422,7 +1422,7 @@
                   END IF
                END IF
 *
-*              Do test 47 (or ... )
+               // Do test 47 (or ... )
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1450,7 +1450,7 @@
                   END IF
                END IF
 *
-*              Do tests 48 and 49 (or +??)
+               // Do tests 48 and 49 (or +??)
 *
                CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -1470,7 +1470,7 @@
                   END IF
                END IF
 *
-*              Do test 50 (or +??)
+               // Do test 50 (or +??)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1493,7 +1493,7 @@
                   END IF
                END IF
 *
-*              Do tests 51 and 52 (or +??)
+               // Do tests 51 and 52 (or +??)
 *
                CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -1518,7 +1518,7 @@
                   GO TO 1190
                END IF
 *
-*              Do test 52 (or +??)
+               // Do test 52 (or +??)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1534,14 +1534,14 @@
 *
 *
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
  1190          CONTINUE
 *
  1200       CONTINUE
 *
-*           End of Loop -- Check for RESULT(j) > THRESH
+            // End of Loop -- Check for RESULT(j) > THRESH
 *
             NTESTT = NTESTT + NTEST
             CALL DLAFTS( 'ZST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
@@ -1549,7 +1549,7 @@
  1210    CONTINUE
  1220 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL ALASVM( 'ZST', NOUNIT, NERRS, NTESTT, 0 )
 *
@@ -1561,6 +1561,6 @@
 *
       RETURN
 *
-*     End of ZDRVST
+      // End of ZDRVST
 *
       END

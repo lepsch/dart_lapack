@@ -4,19 +4,19 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
       REAL               RCOND, RPVGRW
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )       REAL               S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
-*     ..
+      // ..
 *
 *  ==================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
@@ -25,24 +25,24 @@
       PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
       PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU;
       int                INFEQU, J;
       REAL               AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       // EXTERNAL LSAME, SLAMCH,  CLA_HERPVGRW
       bool               LSAME;
       REAL               SLAMCH, CLA_HERPVGRW
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHEEQUB, CHETRF, CHETRS, CLACPY, CLAQHE, XERBLA, CLASCL2, CHERFSX
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -56,13 +56,13 @@
          RCEQU = LSAME( EQUED, 'Y' )
       ENDIF
 *
-*     Default is failure.  If an input parameter is wrong or
-*     factorization fails, make everything look horrible.  Only the
-*     pivot growth is set here, the rest is initialized in CHERFSX.
+      // Default is failure.  If an input parameter is wrong or
+      // factorization fails, make everything look horrible.  Only the
+      // pivot growth is set here, the rest is initialized in CHERFSX.
 *
       RPVGRW = ZERO
 *
-*     Test the input parameters.  PARAMS is not tested until CHERFSX.
+      // Test the input parameters.  PARAMS is not tested until CHERFSX.
 *
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
@@ -110,57 +110,57 @@
 *
       IF( EQUIL ) THEN
 *
-*     Compute row and column scalings to equilibrate the matrix A.
+      // Compute row and column scalings to equilibrate the matrix A.
 *
          CALL CHEEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
-*     Equilibrate the matrix.
+      // Equilibrate the matrix.
 *
             CALL CLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
             RCEQU = LSAME( EQUED, 'Y' )
          END IF
       END IF
 *
-*     Scale the right-hand side.
+      // Scale the right-hand side.
 *
       IF( RCEQU ) CALL CLASCL2( N, NRHS, S, B, LDB )
 *
       IF( NOFACT .OR. EQUIL ) THEN
 *
-*        Compute the LDL^H or UDU^H factorization of A.
+         // Compute the LDL^H or UDU^H factorization of A.
 *
          CALL CLACPY( UPLO, N, N, A, LDA, AF, LDAF )
          CALL CHETRF( UPLO, N, AF, LDAF, IPIV, WORK, 5*MAX(1,N), INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 ) THEN
 *
-*           Pivot in column INFO is exactly 0
-*           Compute the reciprocal pivot growth factor of the
-*           leading rank-deficient INFO columns of A.
+            // Pivot in column INFO is exactly 0
+            // Compute the reciprocal pivot growth factor of the
+            // leading rank-deficient INFO columns of A.
 *
             IF( N.GT.0 ) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK )
             RETURN
          END IF
       END IF
 *
-*     Compute the reciprocal pivot growth factor RPVGRW.
+      // Compute the reciprocal pivot growth factor RPVGRW.
 *
       IF( N.GT.0 ) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK )
 *
-*     Compute the solution matrix X.
+      // Compute the solution matrix X.
 *
       CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL CHETRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solution and
-*     compute error bounds and backward error estimates for it.
+      // Use iterative refinement to improve the computed solution and
+      // compute error bounds and backward error estimates for it.
 *
       CALL CHERFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
 *
-*     Scale solutions.
+      // Scale solutions.
 *
       IF ( RCEQU ) THEN
          CALL CLASCL2 ( N, NRHS, S, X, LDX )
@@ -168,6 +168,6 @@
 *
       RETURN
 *
-*     End of CHESVXX
+      // End of CHESVXX
 *
       END

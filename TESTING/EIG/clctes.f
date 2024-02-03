@@ -4,26 +4,26 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX            D, Z
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
 *
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               ZMAX
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL, SIGN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( D.EQ.CZERO ) THEN
          CLCTES = ( REAL( Z ).LT.ZERO )
@@ -40,6 +40,6 @@
 *
       RETURN
 *
-*     End of CLCTES
+      // End of CLCTES
 *
       END

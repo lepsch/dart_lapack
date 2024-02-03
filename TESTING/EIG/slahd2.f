@@ -4,23 +4,23 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                IOUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               CORZ, SORD;
       String             C2;
       int                J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, LSAMEN;
       // EXTERNAL LSAME, LSAMEN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( IOUNIT.LE.0 ) RETURN
       SORD = LSAME( PATH, 'S' ) .OR. LSAME( PATH, 'D' )
@@ -33,35 +33,35 @@
       IF( LSAMEN( 2, C2, 'HS' ) ) THEN
          IF( SORD ) THEN
 *
-*           Real Non-symmetric Eigenvalue Problem:
+            // Real Non-symmetric Eigenvalue Problem:
 *
             WRITE( IOUNIT, FMT = 9998 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9988 )
             WRITE( IOUNIT, FMT = 9987 )
             WRITE( IOUNIT, FMT = 9986 )'pairs ', 'pairs ', 'prs.', 'prs.'
             WRITE( IOUNIT, FMT = 9985 )
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9984 )'orthogonal', '''=transpose', ( '''', J = 1, 6 )
 *
          ELSE
 *
-*           Complex Non-symmetric Eigenvalue Problem:
+            // Complex Non-symmetric Eigenvalue Problem:
 *
             WRITE( IOUNIT, FMT = 9997 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9988 )
             WRITE( IOUNIT, FMT = 9987 )
             WRITE( IOUNIT, FMT = 9986 )'e.vals', 'e.vals', 'e.vs', 'e.vs'
             WRITE( IOUNIT, FMT = 9985 )
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9984 )'unitary', '*=conj.transp.', ( '*', J = 1, 6 )
          END IF
@@ -70,33 +70,33 @@
 *
          IF( SORD ) THEN
 *
-*           Real Symmetric Eigenvalue Problem:
+            // Real Symmetric Eigenvalue Problem:
 *
             WRITE( IOUNIT, FMT = 9996 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9983 )
             WRITE( IOUNIT, FMT = 9982 )
             WRITE( IOUNIT, FMT = 9981 )'Symmetric'
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9968 )
 *
          ELSE
 *
-*           Complex Hermitian Eigenvalue Problem:
+            // Complex Hermitian Eigenvalue Problem:
 *
             WRITE( IOUNIT, FMT = 9995 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9983 )
             WRITE( IOUNIT, FMT = 9982 )
             WRITE( IOUNIT, FMT = 9981 )'Hermitian'
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9967 )
          END IF
@@ -105,34 +105,34 @@
 *
          IF( SORD ) THEN
 *
-*           Real Symmetric Generalized Eigenvalue Problem:
+            // Real Symmetric Generalized Eigenvalue Problem:
 *
             WRITE( IOUNIT, FMT = 9992 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9980 )
             WRITE( IOUNIT, FMT = 9979 )
             WRITE( IOUNIT, FMT = 9978 )'Symmetric'
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9977 )
             WRITE( IOUNIT, FMT = 9976 )
 *
          ELSE
 *
-*           Complex Hermitian Generalized Eigenvalue Problem:
+            // Complex Hermitian Generalized Eigenvalue Problem:
 *
             WRITE( IOUNIT, FMT = 9991 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9980 )
             WRITE( IOUNIT, FMT = 9979 )
             WRITE( IOUNIT, FMT = 9978 )'Hermitian'
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9975 )
             WRITE( IOUNIT, FMT = 9974 )
@@ -143,29 +143,29 @@
 *
          IF( SORD ) THEN
 *
-*           Real Singular Value Decomposition:
+            // Real Singular Value Decomposition:
 *
             WRITE( IOUNIT, FMT = 9994 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9973 )
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9972 )'orthogonal'
             WRITE( IOUNIT, FMT = 9971 )
          ELSE
 *
-*           Complex Singular Value Decomposition:
+            // Complex Singular Value Decomposition:
 *
             WRITE( IOUNIT, FMT = 9993 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9973 )
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9972 )'unitary   '
             WRITE( IOUNIT, FMT = 9971 )
@@ -175,28 +175,28 @@
 *
          IF( SORD ) THEN
 *
-*           Real General Band reduction to bidiagonal form:
+            // Real General Band reduction to bidiagonal form:
 *
             WRITE( IOUNIT, FMT = 9990 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9970 )
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9969 )'orthogonal'
          ELSE
 *
-*           Complex Band reduction to bidiagonal form:
+            // Complex Band reduction to bidiagonal form:
 *
             WRITE( IOUNIT, FMT = 9989 )PATH
 *
-*           Matrix types
+            // Matrix types
 *
             WRITE( IOUNIT, FMT = 9970 )
 *
-*           Tests performed
+            // Tests performed
 *
             WRITE( IOUNIT, FMT = 9969 )'unitary   '
          END IF
@@ -259,7 +259,7 @@
      $      ' |T| |L| ulp )', / ' 11= |HX - XW| / (|H| |X| ulp)  (inv.',
      $      'it)', ' 12= |YH - WY| / (|H| |Y| ulp)  (inv.it)' )
 *
-*     Symmetric/Hermitian eigenproblem
+      // Symmetric/Hermitian eigenproblem
 *
  9983 FORMAT( ' Matrix types (see xDRVST for details): ' )
 *
@@ -277,7 +277,7 @@
      $      / ' 11=Large, evenly spaced eigenvals.     ', ' 15=Matrix ',
      $      'with small random entries.' )
 *
-*     Symmetric/Hermitian Generalized eigenproblem
+      // Symmetric/Hermitian Generalized eigenproblem
 *
  9980 FORMAT( ' Matrix types (see xDRVSG for details): ' )
 *
@@ -367,7 +367,7 @@
      $      / '14 = CHPGV, with ITYPE=3 and UPLO=''L'':',
      $      '  | B A Z - Z D | / ( |A| |Z| n ulp )     ' )
 *
-*     Singular Value Decomposition
+      // Singular Value Decomposition
 *
  9973 FORMAT( ' Matrix types (see xCHKBD for details):',
      $      / ' Diagonal matrices:', / '   1: Zero', 28X,
@@ -443,7 +443,7 @@
      $        ' where S1 is computed', / 44X,
      $        ' without computing U and V''' )
 *
-*     Band reduction to bidiagonal form
+      // Band reduction to bidiagonal form
 *
  9970 FORMAT( ' Matrix types (see xCHKBB for details):',
      $      / ' Diagonal matrices:', / '   1: Zero', 28X,
@@ -469,6 +469,6 @@
  9968 FORMAT( / ' Tests performed:  See sdrvst.f' )
  9967 FORMAT( / ' Tests performed:  See cdrvst.f' )
 *
-*     End of SLAHD2
+      // End of SLAHD2
 *
       END

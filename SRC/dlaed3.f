@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, K, LDQ, N, N1;
       double             RHO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                CTOT( * ), INDX( * );
       double             D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, II, IQ2, J, N12, N2, N23;
       double             TEMP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DNRM2;
       // EXTERNAL DNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DLACPY, DLAED4, DLASET, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SIGN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -51,7 +51,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( K.EQ.0 ) RETURN
 *
@@ -59,7 +59,7 @@
       DO 20 J = 1, K
          CALL DLAED4( K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO )
 *
-*        If the zero finder fails, the computation is terminated.
+         // If the zero finder fails, the computation is terminated.
 *
          IF( INFO.NE.0 ) GO TO 120
    20 CONTINUE
@@ -77,11 +77,11 @@
          GO TO 110
       END IF
 *
-*     Compute updated W.
+      // Compute updated W.
 *
       CALL DCOPY( K, W, 1, S, 1 )
 *
-*     Initialize W(I) = Q(I,I)
+      // Initialize W(I) = Q(I,I)
 *
       CALL DCOPY( K, Q, LDQ+1, W, 1 )
       DO 60 J = 1, K
@@ -96,7 +96,7 @@
          W( I ) = SIGN( SQRT( -W( I ) ), S( I ) )
    70 CONTINUE
 *
-*     Compute eigenvectors of the modified rank-1 modification.
+      // Compute eigenvectors of the modified rank-1 modification.
 *
       DO 100 J = 1, K
          DO 80 I = 1, K
@@ -109,7 +109,7 @@
    90    CONTINUE
   100 CONTINUE
 *
-*     Compute the updated eigenvectors.
+      // Compute the updated eigenvectors.
 *
   110 CONTINUE
 *
@@ -136,6 +136,6 @@
   120 CONTINUE
       RETURN
 *
-*     End of DLAED3
+      // End of DLAED3
 *
       END

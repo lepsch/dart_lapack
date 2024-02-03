@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDX, LDU1, LDU2, LDV1T, LDV2T, LWORK, M, P, Q;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             RESULT( 15 ), RWORK( * ), THETA( * );
       double             U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ), XF( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             REALONE, REALZERO;
       PARAMETER          ( REALONE = 1.0D0, REALZERO = 0.0D0 )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       double             PIOVER2;
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, R;
       double             EPS2, RESID, ULP, ULPINV;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL DLAMCH, DLANGE, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DLASET, DORCSD, DORCSD2BY1, DSYRK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC COS, DBLE, MAX, MIN, SIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       ULP = DLAMCH( 'Precision' )
       ULPINV = REALONE / ULP
 *
-*     The first half of the routine checks the 2-by-2 CSD
+      // The first half of the routine checks the 2-by-2 CSD
 *
       CALL DLASET( 'Full', M, M, ZERO, ONE, WORK, LDX )
       CALL DSYRK( 'Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE, WORK, LDX )
@@ -53,15 +53,15 @@
       END IF
       R = MIN( P, M-P, Q, M-Q )
 *
-*     Copy the matrix X to the array XF.
+      // Copy the matrix X to the array XF.
 *
       CALL DLACPY( 'Full', M, M, X, LDX, XF, LDX )
 *
-*     Compute the CSD
+      // Compute the CSD
 *
       CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'D', M, P, Q, XF(1,1), LDX, XF(1,Q+1), LDX, XF(P+1,1), LDX, XF(P+1,Q+1), LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, WORK, LWORK, IWORK, INFO )
 *
-*     Compute XF := diag(U1,U2)'*X*diag(V1,V2) - [D11 D12; D21 D22]
+      // Compute XF := diag(U1,U2)'*X*diag(V1,V2) - [D11 D12; D21 D22]
 *
       CALL DLACPY( 'Full', M, M, X, LDX, XF, LDX )
 *
@@ -109,67 +109,67 @@
          XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) - COS(THETA(I))
       END DO
 *
-*     Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
+      // Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
 *
       RESID = DLANGE( '1', P, Q, XF, LDX, RWORK )
       RESULT( 1 ) = ( RESID / DBLE(MAX(1,P,Q)) ) / EPS2
 *
-*     Compute norm( U1'*X12*V2 - D12 ) / ( MAX(1,P,M-Q)*EPS2 ) .
+      // Compute norm( U1'*X12*V2 - D12 ) / ( MAX(1,P,M-Q)*EPS2 ) .
 *
       RESID = DLANGE( '1', P, M-Q, XF(1,Q+1), LDX, RWORK )
       RESULT( 2 ) = ( RESID / DBLE(MAX(1,P,M-Q)) ) / EPS2
 *
-*     Compute norm( U2'*X21*V1 - D21 ) / ( MAX(1,M-P,Q)*EPS2 ) .
+      // Compute norm( U2'*X21*V1 - D21 ) / ( MAX(1,M-P,Q)*EPS2 ) .
 *
       RESID = DLANGE( '1', M-P, Q, XF(P+1,1), LDX, RWORK )
       RESULT( 3 ) = ( RESID / DBLE(MAX(1,M-P,Q)) ) / EPS2
 *
-*     Compute norm( U2'*X22*V2 - D22 ) / ( MAX(1,M-P,M-Q)*EPS2 ) .
+      // Compute norm( U2'*X22*V2 - D22 ) / ( MAX(1,M-P,M-Q)*EPS2 ) .
 *
       RESID = DLANGE( '1', M-P, M-Q, XF(P+1,Q+1), LDX, RWORK )
       RESULT( 4 ) = ( RESID / DBLE(MAX(1,M-P,M-Q)) ) / EPS2
 *
-*     Compute I - U1'*U1
+      // Compute I - U1'*U1
 *
       CALL DLASET( 'Full', P, P, ZERO, ONE, WORK, LDU1 )
       CALL DSYRK( 'Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1, ONE, WORK, LDU1 )
 *
-*     Compute norm( I - U'*U ) / ( MAX(1,P) * ULP ) .
+      // Compute norm( I - U'*U ) / ( MAX(1,P) * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', P, WORK, LDU1, RWORK )
       RESULT( 5 ) = ( RESID / DBLE(MAX(1,P)) ) / ULP
 *
-*     Compute I - U2'*U2
+      // Compute I - U2'*U2
 *
       CALL DLASET( 'Full', M-P, M-P, ZERO, ONE, WORK, LDU2 )
       CALL DSYRK( 'Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2, LDU2, ONE, WORK, LDU2 )
 *
-*     Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
+      // Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', M-P, WORK, LDU2, RWORK )
       RESULT( 6 ) = ( RESID / DBLE(MAX(1,M-P)) ) / ULP
 *
-*     Compute I - V1T*V1T'
+      // Compute I - V1T*V1T'
 *
       CALL DLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDV1T )
       CALL DSYRK( 'Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE, WORK, LDV1T )
 *
-*     Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
+      // Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', Q, WORK, LDV1T, RWORK )
       RESULT( 7 ) = ( RESID / DBLE(MAX(1,Q)) ) / ULP
 *
-*     Compute I - V2T*V2T'
+      // Compute I - V2T*V2T'
 *
       CALL DLASET( 'Full', M-Q, M-Q, ZERO, ONE, WORK, LDV2T )
       CALL DSYRK( 'Upper', 'No transpose', M-Q, M-Q, -ONE, V2T, LDV2T, ONE, WORK, LDV2T )
 *
-*     Compute norm( I - V2T*V2T' ) / ( MAX(1,M-Q) * ULP ) .
+      // Compute norm( I - V2T*V2T' ) / ( MAX(1,M-Q) * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', M-Q, WORK, LDV2T, RWORK )
       RESULT( 8 ) = ( RESID / DBLE(MAX(1,M-Q)) ) / ULP
 *
-*     Check sorting
+      // Check sorting
 *
       RESULT( 9 ) = REALZERO
       DO I = 1, R
@@ -183,7 +183,7 @@
          END IF
       END DO
 *
-*     The second half of the routine checks the 2-by-1 CSD
+      // The second half of the routine checks the 2-by-1 CSD
 *
       CALL DLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDX )
       CALL DSYRK( 'Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE, WORK, LDX )
@@ -194,15 +194,15 @@
       END IF
       R = MIN( P, M-P, Q, M-Q )
 *
-*     Copy the matrix [ X11; X21 ] to the array XF.
+      // Copy the matrix [ X11; X21 ] to the array XF.
 *
       CALL DLACPY( 'Full', M, Q, X, LDX, XF, LDX )
 *
-*     Compute the CSD
+      // Compute the CSD
 *
       CALL DORCSD2BY1( 'Y', 'Y', 'Y', M, P, Q, XF(1,1), LDX, XF(P+1,1), LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, WORK, LWORK, IWORK, INFO )
 *
-*     Compute [X11;X21] := diag(U1,U2)'*[X11;X21]*V1 - [D11;D21]
+      // Compute [X11;X21] := diag(U1,U2)'*[X11;X21]*V1 - [D11;D21]
 *
       CALL DGEMM( 'No transpose', 'Conjugate transpose', P, Q, Q, ONE, X, LDX, V1T, LDV1T, ZERO, WORK, LDX )
 *
@@ -226,47 +226,47 @@
          X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - SIN(THETA(R-I+1))
       END DO
 *
-*     Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
+      // Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
 *
       RESID = DLANGE( '1', P, Q, X, LDX, RWORK )
       RESULT( 10 ) = ( RESID / DBLE(MAX(1,P,Q)) ) / EPS2
 *
-*     Compute norm( U2'*X21*V1 - D21 ) / ( MAX(1,M-P,Q)*EPS2 ) .
+      // Compute norm( U2'*X21*V1 - D21 ) / ( MAX(1,M-P,Q)*EPS2 ) .
 *
       RESID = DLANGE( '1', M-P, Q, X(P+1,1), LDX, RWORK )
       RESULT( 11 ) = ( RESID / DBLE(MAX(1,M-P,Q)) ) / EPS2
 *
-*     Compute I - U1'*U1
+      // Compute I - U1'*U1
 *
       CALL DLASET( 'Full', P, P, ZERO, ONE, WORK, LDU1 )
       CALL DSYRK( 'Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1, ONE, WORK, LDU1 )
 *
-*     Compute norm( I - U1'*U1 ) / ( MAX(1,P) * ULP ) .
+      // Compute norm( I - U1'*U1 ) / ( MAX(1,P) * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', P, WORK, LDU1, RWORK )
       RESULT( 12 ) = ( RESID / DBLE(MAX(1,P)) ) / ULP
 *
-*     Compute I - U2'*U2
+      // Compute I - U2'*U2
 *
       CALL DLASET( 'Full', M-P, M-P, ZERO, ONE, WORK, LDU2 )
       CALL DSYRK( 'Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2, LDU2, ONE, WORK, LDU2 )
 *
-*     Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
+      // Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', M-P, WORK, LDU2, RWORK )
       RESULT( 13 ) = ( RESID / DBLE(MAX(1,M-P)) ) / ULP
 *
-*     Compute I - V1T*V1T'
+      // Compute I - V1T*V1T'
 *
       CALL DLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDV1T )
       CALL DSYRK( 'Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE, WORK, LDV1T )
 *
-*     Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
+      // Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', Q, WORK, LDV1T, RWORK )
       RESULT( 14 ) = ( RESID / DBLE(MAX(1,Q)) ) / ULP
 *
-*     Check sorting
+      // Check sorting
 *
       RESULT( 15 ) = REALZERO
       DO I = 1, R
@@ -282,6 +282,6 @@
 *
       RETURN
 *
-*     End of DCSDTS
+      // End of DCSDTS
 *
       END

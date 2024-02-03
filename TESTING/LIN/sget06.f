@@ -4,27 +4,27 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               RCOND, RCONDC
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               EPS, RAT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = SLAMCH( 'Epsilon' )
       IF( RCOND.GT.ZERO ) THEN
@@ -43,6 +43,6 @@
       SGET06 = RAT
       RETURN
 *
-*     End of SGET06
+      // End of SGET06
 *
       END

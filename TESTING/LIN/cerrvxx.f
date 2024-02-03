@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS;
       REAL               RCOND, RPVGRW, BERR
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX );
       REAL               C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
       COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGBSV, CGBSVX, CGESV, CGESVX, CGTSV, CGTSVX, CHESV, CHESV_RK, CHESV_ROOK, CHESVX, CHKXER, CHPSV, CHPSVX, CPBSV, CPBSVX, CPOSV, CPOSVX, CPPSV, CPPSVX, CPTSV, CPTSVX, CSPSV, CSPSVX, CSYSV, CSYSV_RK, CSYSV_ROOK, CSYSVX, CGESVXX, CPOSVXX, CSYSVXX, CHESVXX, CGBSVXX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -75,7 +75,7 @@
 *
       IF( LSAMEN( 2, C2, 'GE' ) ) THEN
 *
-*        CGESV
+         // CGESV
 *
          SRNAMT = 'CGESV '
          INFOT = 1
@@ -91,7 +91,7 @@
          CALL CGESV( 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'CGESV ', INFOT, NOUT, LERR, OK )
 *
-*        CGESVX
+         // CGESVX
 *
          SRNAMT = 'CGESVX'
          INFOT = 1
@@ -131,7 +131,7 @@
          CALL CGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGESVX', INFOT, NOUT, LERR, OK )
 *
-*        CGESVXX
+         // CGESVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -175,7 +175,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        CGBSV
+         // CGBSV
 *
          SRNAMT = 'CGBSV '
          INFOT = 1
@@ -197,7 +197,7 @@
          CALL CGBSV( 2, 0, 0, 0, A, 1, IP, B, 1, INFO )
          CALL CHKXER( 'CGBSV ', INFOT, NOUT, LERR, OK )
 *
-*        CGBSVX
+         // CGBSVX
 *
          SRNAMT = 'CGBSVX'
          INFOT = 1
@@ -243,7 +243,7 @@
          CALL CGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGBSVX', INFOT, NOUT, LERR, OK )
 *
-*        CGBSVXX
+         // CGBSVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -293,7 +293,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
 *
-*        CGTSV
+         // CGTSV
 *
          SRNAMT = 'CGTSV '
          INFOT = 1
@@ -306,7 +306,7 @@
          CALL CGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'CGTSV ', INFOT, NOUT, LERR, OK )
 *
-*        CGTSVX
+         // CGTSVX
 *
          SRNAMT = 'CGTSVX'
          INFOT = 1
@@ -330,7 +330,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
 *
-*        CPOSV
+         // CPOSV
 *
          SRNAMT = 'CPOSV '
          INFOT = 1
@@ -349,7 +349,7 @@
          CALL CPOSV( 'U', 2, 0, A, 2, B, 1, INFO )
          CALL CHKXER( 'CPOSV ', INFOT, NOUT, LERR, OK )
 *
-*        CPOSVX
+         // CPOSVX
 *
          SRNAMT = 'CPOSVX'
          INFOT = 1
@@ -385,7 +385,7 @@
          CALL CPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPOSVX', INFOT, NOUT, LERR, OK )
 *
-*        CPOSVXX
+         // CPOSVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -425,7 +425,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
 *
-*        CPPSV
+         // CPPSV
 *
          SRNAMT = 'CPPSV '
          INFOT = 1
@@ -441,7 +441,7 @@
          CALL CPPSV( 'U', 2, 0, A, B, 1, INFO )
          CALL CHKXER( 'CPPSV ', INFOT, NOUT, LERR, OK )
 *
-*        CPPSVX
+         // CPPSVX
 *
          SRNAMT = 'CPPSVX'
          INFOT = 1
@@ -473,7 +473,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
 *
-*        CPBSV
+         // CPBSV
 *
          SRNAMT = 'CPBSV '
          INFOT = 1
@@ -495,7 +495,7 @@
          CALL CPBSV( 'U', 2, 0, 0, A, 1, B, 1, INFO )
          CALL CHKXER( 'CPBSV ', INFOT, NOUT, LERR, OK )
 *
-*        CPBSVX
+         // CPBSVX
 *
          SRNAMT = 'CPBSVX'
          INFOT = 1
@@ -536,7 +536,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
 *
-*        CPTSV
+         // CPTSV
 *
          SRNAMT = 'CPTSV '
          INFOT = 1
@@ -549,7 +549,7 @@
          CALL CPTSV( 2, 0, R, A( 1, 1 ), B, 1, INFO )
          CALL CHKXER( 'CPTSV ', INFOT, NOUT, LERR, OK )
 *
-*        CPTSVX
+         // CPTSVX
 *
          SRNAMT = 'CPTSVX'
          INFOT = 1
@@ -570,7 +570,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HE' ) ) THEN
 *
-*        CHESV
+         // CHESV
 *
          SRNAMT = 'CHESV '
          INFOT = 1
@@ -595,7 +595,7 @@
          CALL CHESV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'CHESV ', INFOT, NOUT, LERR, OK )
 *
-*        CHESVX
+         // CHESVX
 *
          SRNAMT = 'CHESVX'
          INFOT = 1
@@ -626,7 +626,7 @@
          CALL CHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
          CALL CHKXER( 'CHESVX', INFOT, NOUT, LERR, OK )
 *
-*        CHESVXX
+         // CHESVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -666,7 +666,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
 *
-*        CHESV_ROOK
+         // CHESV_ROOK
 *
          SRNAMT = 'CHESV_ROOK'
          INFOT = 1
@@ -690,15 +690,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HK' ) ) THEN
 *
-*        CHESV_RK
+         // CHESV_RK
 *
-*        Test error exits of the driver that uses factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the driver that uses factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
          SRNAMT = 'CHESV_RK'
          INFOT = 1
@@ -725,7 +725,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
 *
-*        CHPSV
+         // CHPSV
 *
          SRNAMT = 'CHPSV '
          INFOT = 1
@@ -741,7 +741,7 @@
          CALL CHPSV( 'U', 2, 0, A, IP, B, 1, INFO )
          CALL CHKXER( 'CHPSV ', INFOT, NOUT, LERR, OK )
 *
-*        CHPSVX
+         // CHPSVX
 *
          SRNAMT = 'CHPSVX'
          INFOT = 1
@@ -765,7 +765,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        CSYSV
+         // CSYSV
 *
          SRNAMT = 'CSYSV '
          INFOT = 1
@@ -787,7 +787,7 @@
          CALL CSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'CSYSV ', INFOT, NOUT, LERR, OK )
 *
-*        CSYSVX
+         // CSYSVX
 *
          SRNAMT = 'CSYSVX'
          INFOT = 1
@@ -818,7 +818,7 @@
          CALL CSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
          CALL CHKXER( 'CSYSVX', INFOT, NOUT, LERR, OK )
 *
-*        CSYSVXX
+         // CSYSVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -866,7 +866,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
 *
-*        CSYSV_ROOK
+         // CSYSV_ROOK
 *
          SRNAMT = 'CSYSV_ROOK'
          INFOT = 1
@@ -890,15 +890,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
 *
-*        CSYSV_RK
+         // CSYSV_RK
 *
-*        Test error exits of the driver that uses factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the driver that uses factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
          SRNAMT = 'CSYSV_RK'
          INFOT = 1
@@ -925,7 +925,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        CSPSV
+         // CSPSV
 *
          SRNAMT = 'CSPSV '
          INFOT = 1
@@ -941,7 +941,7 @@
          CALL CSPSV( 'U', 2, 0, A, IP, B, 1, INFO )
          CALL CHKXER( 'CSPSV ', INFOT, NOUT, LERR, OK )
 *
-*        CSPSVX
+         // CSPSVX
 *
          SRNAMT = 'CSPSVX'
          INFOT = 1
@@ -964,7 +964,7 @@
          CALL CHKXER( 'CSPSVX', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH
@@ -978,6 +978,6 @@
 *
       RETURN
 *
-*     End of CERRVXX
+      // End of CERRVXX
 *
       END

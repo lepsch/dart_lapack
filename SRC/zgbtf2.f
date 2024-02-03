@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         AB( LDAB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE, ZERO
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, JP, JU, KM, KV;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IZAMAX;
       // EXTERNAL IZAMAX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGERU, ZSCAL, ZSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     KV is the number of superdiagonals in the factor U, allowing for
-*     fill-in.
+      // KV is the number of superdiagonals in the factor U, allowing for
+      // fill-in.
 *
       KV = KU + KL
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -57,13 +57,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Gaussian elimination with partial pivoting
+      // Gaussian elimination with partial pivoting
 *
-*     Set fill-in elements in columns KU+2 to KV to zero.
+      // Set fill-in elements in columns KU+2 to KV to zero.
 *
       DO 20 J = KU + 2, MIN( KV, N )
          DO 10 I = KV - J + 2, KL
@@ -71,14 +71,14 @@
    10    CONTINUE
    20 CONTINUE
 *
-*     JU is the index of the last column affected by the current stage
-*     of the factorization.
+      // JU is the index of the last column affected by the current stage
+      // of the factorization.
 *
       JU = 1
 *
       DO 40 J = 1, MIN( M, N )
 *
-*        Set fill-in elements in column J+KV to zero.
+         // Set fill-in elements in column J+KV to zero.
 *
          IF( J+KV.LE.N ) THEN
             DO 30 I = 1, KL
@@ -86,8 +86,8 @@
    30       CONTINUE
          END IF
 *
-*        Find pivot and test for singularity. KM is the number of
-*        subdiagonal elements in the current column.
+         // Find pivot and test for singularity. KM is the number of
+         // subdiagonal elements in the current column.
 *
          KM = MIN( KL, M-J )
          JP = IZAMAX( KM+1, AB( KV+1, J ), 1 )
@@ -95,29 +95,29 @@
          IF( AB( KV+JP, J ).NE.ZERO ) THEN
             JU = MAX( JU, MIN( J+KU+JP-1, N ) )
 *
-*           Apply interchange to columns J to JU.
+            // Apply interchange to columns J to JU.
 *
             IF( JP.NE.1 ) CALL ZSWAP( JU-J+1, AB( KV+JP, J ), LDAB-1, AB( KV+1, J ), LDAB-1 )
             IF( KM.GT.0 ) THEN
 *
-*              Compute multipliers.
+               // Compute multipliers.
 *
                CALL ZSCAL( KM, ONE / AB( KV+1, J ), AB( KV+2, J ), 1 )
 *
-*              Update trailing submatrix within the band.
+               // Update trailing submatrix within the band.
 *
                IF( JU.GT.J ) CALL ZGERU( KM, JU-J, -ONE, AB( KV+2, J ), 1, AB( KV, J+1 ), LDAB-1, AB( KV+1, J+1 ), LDAB-1 )
             END IF
          ELSE
 *
-*           If pivot is zero, set INFO to the index of the pivot
-*           unless a zero pivot has already been found.
+            // If pivot is zero, set INFO to the index of the pivot
+            // unless a zero pivot has already been found.
 *
             IF( INFO.EQ.0 ) INFO = J
          END IF
    40 CONTINUE
       RETURN
 *
-*     End of ZGBTF2
+      // End of ZGBTF2
 *
       END

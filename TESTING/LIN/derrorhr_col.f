@@ -5,44 +5,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String   (LEN=3)   PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DORHR_COL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String   (LEN=32)  SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO J = 1, NMAX
          DO I = 1, NMAX
@@ -53,9 +53,9 @@
       END DO
       OK = .TRUE.
 *
-*     Error exits for Householder reconstruction
+      // Error exits for Householder reconstruction
 *
-*     DORHR_COL
+      // DORHR_COL
 *
       SRNAMT = 'DORHR_COL'
 *
@@ -96,12 +96,12 @@
       CALL DORHR_COL( 4, 3, 2, A, 4, T, 1, D, INFO )
       CALL CHKXER( 'DORHR_COL', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRORHR_COL
+      // End of DERRORHR_COL
 *
       END

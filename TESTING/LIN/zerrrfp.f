@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO;
       double             ALPHA, BETA;
       COMPLEX*16         CALPHA
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX*16         A( 1, 1), B( 1, 1)
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, ZTFSM, ZTFTRI, ZHFRK, ZTFTTP, ZTFTTR, ZPFTRI, ZPFTRF, ZPFTRS, ZTPTTF, ZTPTTR, ZTRTTF, ZTRTTP
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       OK = .TRUE.
@@ -215,7 +215,7 @@
       CALL ZHFRK( 'N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B )
       CALL CHKXER( 'ZHFRK ', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )
@@ -229,6 +229,6 @@
      $        'exits ***' )
       RETURN
 *
-*     End of ZERRRFP
+      // End of ZERRRFP
 *
       END

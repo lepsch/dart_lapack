@@ -4,57 +4,57 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                K, LDA, LWORK, M;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLASET, ZUNM2R
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             RDUMMY( 1 );
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       ZQRT11 = ZERO
 *
-*     Test for sufficient workspace
+      // Test for sufficient workspace
 *
       IF( LWORK.LT.M*M+M ) THEN
          CALL XERBLA( 'ZQRT11', 7 )
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 ) RETURN
 *
       CALL ZLASET( 'Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, M )
 *
-*     Form Q
+      // Form Q
 *
       CALL ZUNM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
-*     Form Q'*Q
+      // Form Q'*Q
 *
       CALL ZUNM2R( 'Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
@@ -66,6 +66,6 @@
 *
       RETURN
 *
-*     End of ZQRT11
+      // End of ZQRT11
 *
       END

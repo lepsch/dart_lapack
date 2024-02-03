@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, N;
       REAL               AMAX, SCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               S( * )
       COMPLEX            AB( LDAB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I, J;
       REAL               SMIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -55,7 +55,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          SCOND = ONE
@@ -69,13 +69,13 @@
          J = 1
       END IF
 *
-*     Initialize SMIN and AMAX.
+      // Initialize SMIN and AMAX.
 *
       S( 1 ) = REAL( AB( J, 1 ) )
       SMIN = S( 1 )
       AMAX = S( 1 )
 *
-*     Find the minimum and maximum diagonal elements.
+      // Find the minimum and maximum diagonal elements.
 *
       DO 10 I = 2, N
          S( I ) = REAL( AB( J, I ) )
@@ -85,7 +85,7 @@
 *
       IF( SMIN.LE.ZERO ) THEN
 *
-*        Find the first non-positive diagonal element and return.
+         // Find the first non-positive diagonal element and return.
 *
          DO 20 I = 1, N
             IF( S( I ).LE.ZERO ) THEN
@@ -95,19 +95,19 @@
    20    CONTINUE
       ELSE
 *
-*        Set the scale factors to the reciprocals
-*        of the diagonal elements.
+         // Set the scale factors to the reciprocals
+         // of the diagonal elements.
 *
          DO 30 I = 1, N
             S( I ) = ONE / SQRT( S( I ) )
    30    CONTINUE
 *
-*        Compute SCOND = min(S(I)) / max(S(I))
+         // Compute SCOND = min(S(I)) / max(S(I))
 *
          SCOND = SQRT( SMIN ) / SQRT( AMAX )
       END IF
       RETURN
 *
-*     End of CPBEQU
+      // End of CPBEQU
 *
       END

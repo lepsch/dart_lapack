@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       List<String>       SUBNAM;
       List<String>       OPTS;
       int                IMAT, INFO, INFOE, KL, KU, M, N, N5, NERRS, NFAIL, NOUT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       String             UPLO;
       String             P2;
       String             C3;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, LSAMEN;
       // EXTERNAL LSAME, LSAMEN
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAHD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( INFO.EQ.0 ) RETURN
       P2 = PATH( 2: 3 )
       C3 = SUBNAM( 4: 6 )
 *
-*     Print the header if this is the first error message.
+      // Print the header if this is the first error message.
 *
       IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
          IF( LSAMEN( 3, C3, 'SV ' ) .OR. LSAMEN( 3, C3, 'SVX' ) ) THEN
@@ -45,12 +45,12 @@
       END IF
       NERRS = NERRS + 1
 *
-*     Print the message detailing the error and form of recovery,
-*     if any.
+      // Print the message detailing the error and form of recovery,
+      // if any.
 *
       IF( LSAMEN( 2, P2, 'GE' ) ) THEN
 *
-*        xGE:  General matrices
+         // xGE:  General matrices
 *
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
@@ -103,7 +103,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'GB' ) ) THEN
 *
-*        xGB:  General band matrices
+         // xGB:  General band matrices
 *
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
@@ -144,7 +144,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'GT' ) ) THEN
 *
-*        xGT:  General tridiagonal matrices
+         // xGT:  General tridiagonal matrices
 *
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
@@ -181,7 +181,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'PO' ) ) THEN
 *
-*        xPO:  Symmetric or Hermitian positive definite matrices
+         // xPO:  Symmetric or Hermitian positive definite matrices
 *
          UPLO = OPTS( 1: 1 )
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
@@ -223,7 +223,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'PS' ) ) THEN
 *
-*        xPS:  Symmetric or Hermitian positive semi-definite matrices
+         // xPS:  Symmetric or Hermitian positive semi-definite matrices
 *
          UPLO = OPTS( 1: 1 )
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
@@ -265,22 +265,22 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'SY' ) .OR. LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK' ) .OR. LSAMEN( 2, P2, 'HE' ) .OR. LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HK' ) .OR. LSAMEN( 2, P2, 'HA' ) ) THEN
 *
-*        xSY: symmetric indefinite matrices
-*             with partial (Bunch-Kaufman) pivoting;
-*        xSR: symmetric indefinite matrices
-*             with rook (bounded Bunch-Kaufman) pivoting;
-*        xSK: symmetric indefinite matrices
-*             with rook (bounded Bunch-Kaufman) pivoting,
-*             new storage format;
-*        xHE: Hermitian indefinite matrices
-*             with partial (Bunch-Kaufman) pivoting.
-*        xHR: Hermitian indefinite matrices
-*             with rook (bounded Bunch-Kaufman) pivoting;
-*        xHK: Hermitian indefinite matrices
-*             with rook (bounded Bunch-Kaufman) pivoting,
-*             new storage format;
-*        xHA: Hermitian matrices
-*             Aasen Algorithm
+         // xSY: symmetric indefinite matrices
+              // with partial (Bunch-Kaufman) pivoting;
+         // xSR: symmetric indefinite matrices
+              // with rook (bounded Bunch-Kaufman) pivoting;
+         // xSK: symmetric indefinite matrices
+              // with rook (bounded Bunch-Kaufman) pivoting,
+              // new storage format;
+         // xHE: Hermitian indefinite matrices
+              // with partial (Bunch-Kaufman) pivoting.
+         // xHR: Hermitian indefinite matrices
+              // with rook (bounded Bunch-Kaufman) pivoting;
+         // xHK: Hermitian indefinite matrices
+              // with rook (bounded Bunch-Kaufman) pivoting,
+              // new storage format;
+         // xHA: Hermitian matrices
+              // Aasen Algorithm
 *
          UPLO = OPTS( 1: 1 )
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
@@ -318,7 +318,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'PP' ) .OR. LSAMEN( 2, P2, 'SP' ) .OR. LSAMEN( 2, P2, 'HP' ) ) THEN
 *
-*        xPP, xHP, or xSP:  Symmetric or Hermitian packed matrices
+         // xPP, xHP, or xSP:  Symmetric or Hermitian packed matrices
 *
          UPLO = OPTS( 1: 1 )
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
@@ -356,7 +356,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'PB' ) ) THEN
 *
-*        xPB:  Symmetric (Hermitian) positive definite band matrix
+         // xPB:  Symmetric (Hermitian) positive definite band matrix
 *
          UPLO = OPTS( 1: 1 )
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
@@ -394,7 +394,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'PT' ) ) THEN
 *
-*        xPT:  Positive definite tridiagonal matrices
+         // xPT:  Positive definite tridiagonal matrices
 *
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
@@ -434,7 +434,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'TR' ) ) THEN
 *
-*        xTR:  Triangular matrix
+         // xTR:  Triangular matrix
 *
          IF( LSAMEN( 3, C3, 'TRI' ) ) THEN
             WRITE( NOUT, FMT = 9961 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), M, N5, IMAT
@@ -448,7 +448,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'TP' ) ) THEN
 *
-*        xTP:  Triangular packed matrix
+         // xTP:  Triangular packed matrix
 *
          IF( LSAMEN( 3, C3, 'TRI' ) ) THEN
             WRITE( NOUT, FMT = 9962 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), M, IMAT
@@ -462,7 +462,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'TB' ) ) THEN
 *
-*        xTB:  Triangular band matrix
+         // xTB:  Triangular band matrix
 *
          IF( LSAMEN( 3, C3, 'CON' ) ) THEN
             WRITE( NOUT, FMT = 9966 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, KL, IMAT
@@ -474,7 +474,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'QR' ) ) THEN
 *
-*        xQR:  QR factorization
+         // xQR:  QR factorization
 *
          IF( LSAMEN( 3, C3, 'QRS' ) ) THEN
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT
@@ -484,7 +484,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'QK' ) ) THEN
 *
-*        xQK:  truncated QR factorization with pivoting
+         // xQK:  truncated QR factorization with pivoting
 *
          IF( LSAMEN( 7, SUBNAM( 2: 8 ), 'GEQP3RK' )  ) THEN
             WRITE( NOUT, FMT = 9930 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT
@@ -494,7 +494,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'LQ' ) ) THEN
 *
-*        xLQ:  LQ factorization
+         // xLQ:  LQ factorization
 *
          IF( LSAMEN( 3, C3, 'LQS' ) ) THEN
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT
@@ -504,7 +504,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'QL' ) ) THEN
 *
-*        xQL:  QL factorization
+         // xQL:  QL factorization
 *
          IF( LSAMEN( 3, C3, 'QLS' ) ) THEN
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT
@@ -514,7 +514,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'RQ' ) ) THEN
 *
-*        xRQ:  RQ factorization
+         // xRQ:  RQ factorization
 *
          IF( LSAMEN( 3, C3, 'RQS' ) ) THEN
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT
@@ -540,303 +540,303 @@
 *
       ELSE
 *
-*        Print a generic message if the path is unknown.
+         // Print a generic message if the path is unknown.
 *
          WRITE( NOUT, FMT = 9950 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO
       END IF
 *
-*     Description of error message (alphabetical, left to right)
+      // Description of error message (alphabetical, left to right)
 *
-*     SUBNAM, INFO, FACT, N, NRHS, IMAT
+      // SUBNAM, INFO, FACT, N, NRHS, IMAT
 *
  9999 FORMAT( ' *** Error code from ', A, '=', I5, ', FACT=''', A1,
      $      ''', N=', I5, ', NRHS=', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, FACT, TRANS, N, KL, KU, NRHS, IMAT
+      // SUBNAM, INFO, FACT, TRANS, N, KL, KU, NRHS, IMAT
 *
  9998 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''',
      $      A1, ''', TRANS=''', A1, ''', N=', I5, ', KL=', I5, ', KU=',
      $      I5, ', NRHS=', I4, ', type ', I1 )
 *
-*     SUBNAM, INFO, FACT, TRANS, N, NRHS, IMAT
+      // SUBNAM, INFO, FACT, TRANS, N, NRHS, IMAT
 *
  9997 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''',
      $      A1, ''', TRANS=''', A1, ''', N =', I5, ', NRHS =', I4,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, FACT, UPLO, N, KD, NRHS, IMAT
+      // SUBNAM, INFO, FACT, UPLO, N, KD, NRHS, IMAT
 *
  9996 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''',
      $      A1, ''', UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=',
      $      I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, FACT, UPLO, N, NRHS, IMAT
+      // SUBNAM, INFO, FACT, UPLO, N, NRHS, IMAT
 *
  9995 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''',
      $      A1, ''', UPLO=''', A1, ''', N =', I5, ', NRHS =', I4,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, FACT, N, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, FACT, N, NRHS, IMAT
 *
  9994 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> FACT=''', A1, ''', N =', I5, ', NRHS =', I4,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, FACT, TRANS, N, KL, KU, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, FACT, TRANS, N, KL, KU, NRHS, IMAT
 *
  9993 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5,
      $      ', KL=', I5, ', KU=', I5, ', NRHS=', I4, ', type ', I1 )
 *
-*     SUBNAM, INFO, INFOE, FACT, TRANS, N, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, FACT, TRANS, N, NRHS, IMAT
 *
  9992 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> FACT=''', A1, ''', TRANS=''', A1, ''', N =', I5,
      $      ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, FACT, UPLO, N, KD, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, FACT, UPLO, N, KD, NRHS, IMAT
 *
  9991 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5,
      $      ', KD=', I5, ', NRHS=', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, FACT, UPLO, N, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, FACT, UPLO, N, NRHS, IMAT
 *
  9990 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5,
      $      ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, M, N, KL, KU, NB, IMAT
+      // SUBNAM, INFO, INFOE, M, N, KL, KU, NB, IMAT
 *
  9989 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> M = ', I5, ', N =', I5, ', KL =', I5, ', KU =',
      $      I5, ', NB =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, M, N, NB, IMAT
+      // SUBNAM, INFO, INFOE, M, N, NB, IMAT
 *
  9988 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> M =', I5, ', N =', I5, ', NB =', I4, ', type ',
      $      I2 )
 *
-*     SUBNAM, INFO, INFOE, N, IMAT
+      // SUBNAM, INFO, INFOE, N, IMAT
 *
  9987 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, ' for N=', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, N, KL, KU, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, N, KL, KU, NRHS, IMAT
 *
  9986 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> N =', I5, ', KL =', I5, ', KU =', I5,
      $      ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, N, NB, IMAT
+      // SUBNAM, INFO, INFOE, N, NB, IMAT
 *
  9985 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> N =', I5, ', NB =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, N, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, N, NRHS, IMAT
 *
  9984 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> N =', I5, ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, UPLO, N, IMAT
+      // SUBNAM, INFO, INFOE, UPLO, N, IMAT
 *
  9983 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, UPLO, N, KD, NB, IMAT
+      // SUBNAM, INFO, INFOE, UPLO, N, KD, NB, IMAT
 *
  9982 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', KD =', I5,
      $      ', NB =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, UPLO, N, KD, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, UPLO, N, KD, NRHS, IMAT
 *
  9981 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> UPLO=''', A1, ''', N =', I5, ', KD =', I5,
      $      ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, UPLO, N, NB, IMAT
+      // SUBNAM, INFO, INFOE, UPLO, N, NB, IMAT
 *
  9980 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', NB =', I4,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, INFOE, UPLO, N, NRHS, IMAT
+      // SUBNAM, INFO, INFOE, UPLO, N, NRHS, IMAT
 *
  9979 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
      $      I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', NRHS =', I4,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, M, N, IMAT
+      // SUBNAM, INFO, M, N, IMAT
 *
  9978 FORMAT( ' *** Error code from ', A, ' =', I5, ' for M =', I5,
      $      ', N =', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, M, N, KL, KU, IMAT
+      // SUBNAM, INFO, M, N, KL, KU, IMAT
 *
  9977 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> M = ', I5,
      $      ', N =', I5, ', KL =', I5, ', KU =', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, M, N, KL, KU, NB, IMAT
+      // SUBNAM, INFO, M, N, KL, KU, NB, IMAT
 *
  9976 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> M = ', I5,
      $      ', N =', I5, ', KL =', I5, ', KU =', I5, ', NB =', I4,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, M, N, NB, IMAT
+      // SUBNAM, INFO, M, N, NB, IMAT
 *
  9975 FORMAT( ' *** Error code from ', A, '=', I5, ' for M=', I5,
      $      ', N=', I5, ', NB=', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, M, N, NRHS, NB, IMAT
+      // SUBNAM, INFO, M, N, NRHS, NB, IMAT
 *
  9974 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> M =', I5,
      $      ', N =', I5, ', NRHS =', I4, ', NB =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, N, IMAT
+      // SUBNAM, INFO, N, IMAT
 *
  9973 FORMAT( ' *** Error code from ', A, ' =', I5, ' for N =', I5,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, N, KL, KU, NRHS, IMAT
+      // SUBNAM, INFO, N, KL, KU, NRHS, IMAT
 *
  9972 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> N =', I5,
      $      ', KL =', I5, ', KU =', I5, ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, N, NB, IMAT
+      // SUBNAM, INFO, N, NB, IMAT
 *
  9971 FORMAT( ' *** Error code from ', A, '=', I5, ' for N=', I5,
      $      ', NB=', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, N, NRHS, IMAT
+      // SUBNAM, INFO, N, NRHS, IMAT
 *
  9970 FORMAT( ' *** Error code from ', A, ' =', I5, ' for N =', I5,
      $      ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, NORM, N, IMAT
+      // SUBNAM, INFO, NORM, N, IMAT
 *
  9969 FORMAT( ' *** Error code from ', A, ' =', I5, ' for NORM = ''',
      $      A1, ''', N =', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, NORM, N, KL, KU, IMAT
+      // SUBNAM, INFO, NORM, N, KL, KU, IMAT
 *
  9968 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM =''',
      $      A1, ''', N =', I5, ', KL =', I5, ', KU =', I5, ', type ',
      $      I2 )
 *
-*     SUBNAM, INFO, NORM, UPLO, DIAG, N, IMAT
+      // SUBNAM, INFO, NORM, UPLO, DIAG, N, IMAT
 *
  9967 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM=''',
      $      A1, ''', UPLO =''', A1, ''', DIAG=''', A1, ''', N =', I5,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, NORM, UPLO, DIAG, N, KD, IMAT
+      // SUBNAM, INFO, NORM, UPLO, DIAG, N, KD, IMAT
 *
  9966 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM=''',
      $      A1, ''', UPLO =''', A1, ''', DIAG=''', A1, ''', N=', I5,
      $      ', KD=', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, TRANS, M, N, NRHS, NB, IMAT
+      // SUBNAM, INFO, TRANS, M, N, NRHS, NB, IMAT
 *
  9965 FORMAT( ' *** Error code from ', A, ' =', I5,
      $      / ' ==> TRANS = ''', A1, ''', M =', I5, ', N =', I5,
      $      ', NRHS =', I4, ', NB =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, TRANS, N, KL, KU, NRHS, IMAT
+      // SUBNAM, INFO, TRANS, N, KL, KU, NRHS, IMAT
 *
  9964 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> TRANS=''',
      $      A1, ''', N =', I5, ', KL =', I5, ', KU =', I5, ', NRHS =',
      $      I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, TRANS, N, NRHS, IMAT
+      // SUBNAM, INFO, TRANS, N, NRHS, IMAT
 *
  9963 FORMAT( ' *** Error code from ', A, ' =', I5,
      $      / ' ==> TRANS = ''', A1, ''', N =', I5, ', NRHS =', I4,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, DIAG, N, IMAT
+      // SUBNAM, INFO, UPLO, DIAG, N, IMAT
 *
  9962 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
      $      A1, ''', DIAG =''', A1, ''', N =', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, DIAG, N, NB, IMAT
+      // SUBNAM, INFO, UPLO, DIAG, N, NB, IMAT
 *
  9961 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
      $      A1, ''', DIAG =''', A1, ''', N =', I5, ', NB =', I4,
      $      ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, N, IMAT
+      // SUBNAM, INFO, UPLO, N, IMAT
 *
  9960 FORMAT( ' *** Error code from ', A, ' =', I5, ' for UPLO = ''',
      $      A1, ''', N =', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, N, KD, IMAT
+      // SUBNAM, INFO, UPLO, N, KD, IMAT
 *
  9959 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''',
      $      A1, ''', N =', I5, ', KD =', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, N, KD, NB, IMAT
+      // SUBNAM, INFO, UPLO, N, KD, NB, IMAT
 *
  9958 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''',
      $      A1, ''', N =', I5, ', KD =', I5, ', NB =', I4, ', type ',
      $      I2 )
 *
-*     SUBNAM, INFO, UPLO, N, KD, NRHS, IMAT
+      // SUBNAM, INFO, UPLO, N, KD, NRHS, IMAT
 *
  9957 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> UPLO = ''',
      $      A1, ''', N =', I5, ', KD =', I5, ', NRHS =', I4, ', type ',
      $      I2 )
 *
-*     SUBNAM, INFO, UPLO, N, NB, IMAT
+      // SUBNAM, INFO, UPLO, N, NB, IMAT
 *
  9956 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''',
      $      A1, ''', N =', I5, ', NB =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, N, NRHS, IMAT
+      // SUBNAM, INFO, UPLO, N, NRHS, IMAT
 *
  9955 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''',
      $      A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, TRANS, DIAG, N, KD, NRHS, IMAT
+      // SUBNAM, INFO, UPLO, TRANS, DIAG, N, KD, NRHS, IMAT
 *
  9954 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
      $      A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5,
      $      ', KD=', I5, ', NRHS=', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, TRANS, DIAG, N, NRHS, IMAT
+      // SUBNAM, INFO, UPLO, TRANS, DIAG, N, NRHS, IMAT
 *
  9953 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
      $      A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N =', I5,
      $      ', NRHS =', I4, ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, TRANS, DIAG, NORMIN, N, IMAT
+      // SUBNAM, INFO, UPLO, TRANS, DIAG, NORMIN, N, IMAT
 *
  9952 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
      $      A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', NORMIN=''',
      $      A1, ''', N =', I5, ', type ', I2 )
 *
-*     SUBNAM, INFO, UPLO, TRANS, DIAG, NORMIN, N, KD, IMAT
+      // SUBNAM, INFO, UPLO, TRANS, DIAG, NORMIN, N, KD, IMAT
 *
  9951 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
      $      A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', NORMIN=''',
      $      A1, ''', N=', I5, ', KD=', I5, ', type ', I2 )
 *
-*     Unknown type
+      // Unknown type
 *
  9950 FORMAT( ' *** Error code from ', A, ' =', I5 )
 *
-*     What we do next
+      // What we do next
 *
  9949 FORMAT( ' ==> Doing only the condition estimate for this case' )
 *
-*     SUBNAM, INFO, M, N, NB, IMAT
+      // SUBNAM, INFO, M, N, NB, IMAT
 *
  9930 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> M =', I5,
      $      ', N =', I5, ', NX =', I5, ', NB =', I4, ', type ', I2 )
 *
       RETURN
 *
-*     End of ALAERH
+      // End of ALAERH
 *
       END

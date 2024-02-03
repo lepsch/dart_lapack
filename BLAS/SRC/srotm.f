@@ -4,22 +4,22 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,INCY,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL SPARAM(5),SX(*),SY(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL SFLAG,SH11,SH12,SH21,SH22,TWO,W,Z,ZERO
       int     I,KX,KY,NSTEPS;
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA ZERO,TWO/0.E0,2.E0/
-*     ..
+      // ..
 *
       SFLAG = SPARAM(1)
       IF (N.LE.0 .OR. (SFLAG+TWO.EQ.ZERO)) RETURN
@@ -101,6 +101,6 @@
       END IF
       RETURN
 *
-*     End of SROTM
+      // End of SROTM
 *
       END

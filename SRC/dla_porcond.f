@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N, LDA, LDAF, INFO, CMODE;
       double             A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                KASE, I, J;
       double             AINVNM, TMP;
       bool               UP;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLACN2, DPOTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       DLA_PORCOND = 0.0D+0
 *
@@ -53,8 +53,8 @@
       UP = .FALSE.
       IF ( LSAME( UPLO, 'U' ) ) UP = .TRUE.
 *
-*     Compute the equilibration matrix R such that
-*     inv(R)*A*C has unit 1-norm.
+      // Compute the equilibration matrix R such that
+      // inv(R)*A*C has unit 1-norm.
 *
       IF ( UP ) THEN
          DO I = 1, N
@@ -112,7 +112,7 @@
          END DO
       ENDIF
 *
-*     Estimate the norm of inv(op(A)).
+      // Estimate the norm of inv(op(A)).
 *
       AINVNM = 0.0D+0
 
@@ -122,7 +122,7 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
@@ -134,7 +134,7 @@
                CALL DPOTRS( 'Lower', N, 1, AF, LDAF, WORK, N, INFO )
             ENDIF
 *
-*           Multiply by inv(C).
+            // Multiply by inv(C).
 *
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
@@ -147,7 +147,7 @@
             END IF
          ELSE
 *
-*           Multiply by inv(C**T).
+            // Multiply by inv(C**T).
 *
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
@@ -165,7 +165,7 @@
                CALL DPOTRS( 'Lower', N, 1, AF, LDAF, WORK, N, INFO )
             ENDIF
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
@@ -174,12 +174,12 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM .NE. 0.0D+0 ) DLA_PORCOND = ( 1.0D+0 / AINVNM )
 *
       RETURN
 *
-*     End of DLA_PORCOND
+      // End of DLA_PORCOND
 *
       END

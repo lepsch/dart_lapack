@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                ITYPE, LDA, LDB, LDZ, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       double             ANORM, ULP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL DLAMCH, DLANGE, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSYMM
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       IF( N.LE.0 ) RETURN
 *
       ULP = DLAMCH( 'Epsilon' )
 *
-*     Compute product of 1-norms of A and Z.
+      // Compute product of 1-norms of A and Z.
 *
       ANORM = DLANSY( '1', UPLO, N, A, LDA, WORK )* DLANGE( '1', N, M, Z, LDZ, WORK )       IF( ANORM.EQ.ZERO ) ANORM = ONE
 *
       IF( ITYPE.EQ.1 ) THEN
 *
-*        Norm of AZ - BZD
+         // Norm of AZ - BZD
 *
          CALL DSYMM( 'Left', UPLO, N, M, ONE, A, LDA, Z, LDZ, ZERO, WORK, N )
          DO 10 I = 1, M
@@ -54,7 +54,7 @@
 *
       ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*        Norm of ABZ - ZD
+         // Norm of ABZ - ZD
 *
          CALL DSYMM( 'Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, ZERO, WORK, N )
          DO 20 I = 1, M
@@ -66,7 +66,7 @@
 *
       ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*        Norm of BAZ - ZD
+         // Norm of BAZ - ZD
 *
          CALL DSYMM( 'Left', UPLO, N, M, ONE, A, LDA, Z, LDZ, ZERO, WORK, N )
          DO 30 I = 1, M
@@ -79,6 +79,6 @@
 *
       RETURN
 *
-*     End of DSGT01
+      // End of DSGT01
 *
       END

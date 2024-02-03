@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             PHI(*), THETA(*);
       double             TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
-*     ..
+      // ..
 *
 *  ====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARF, DLARFGP, DORBDB5, DROT, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DNRM2;
       // EXTERNAL DNRM2
-*     ..
-*     .. Intrinsic Function ..
+      // ..
+      // .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       LQUERY = LWORK .EQ. -1
@@ -52,7 +52,7 @@
          INFO = -7
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO .EQ. 0 ) THEN
          ILARF = 2
@@ -73,7 +73,7 @@
          RETURN
       END IF
 *
-*     Reduce columns 1, ..., Q of X11 and X21
+      // Reduce columns 1, ..., Q of X11 and X21
 *
       DO I = 1, Q
 *
@@ -100,6 +100,6 @@
 *
       RETURN
 *
-*     End of DORBDB1
+      // End of DORBDB1
 *
       END

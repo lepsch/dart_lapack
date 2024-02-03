@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                N;
       REAL               RCOND, RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            AINVP( * ), AP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UNITD;
       int                J, JC;
       REAL               AINVNM, ANORM, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANTP, SLAMCH
       // EXTERNAL LSAME, CLANTP, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CTPMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RCOND = ONE
@@ -46,7 +46,7 @@
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANTP( '1', UPLO, DIAG, N, AP, RWORK )
@@ -58,7 +58,7 @@
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
 *
-*     Compute A * AINV, overwriting AINV.
+      // Compute A * AINV, overwriting AINV.
 *
       UNITD = LSAME( DIAG, 'U' )
       IF( LSAME( UPLO, 'U' ) ) THEN
@@ -66,11 +66,11 @@
          DO 10 J = 1, N
             IF( UNITD ) AINVP( JC+J-1 ) = ONE
 *
-*           Form the j-th column of A*AINV.
+            // Form the j-th column of A*AINV.
 *
             CALL CTPMV( 'Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 )
 *
-*           Subtract 1 from the diagonal to form A*AINV - I.
+            // Subtract 1 from the diagonal to form A*AINV - I.
 *
             AINVP( JC+J-1 ) = AINVP( JC+J-1 ) - ONE
             JC = JC + J
@@ -80,18 +80,18 @@
          DO 20 J = 1, N
             IF( UNITD ) AINVP( JC ) = ONE
 *
-*           Form the j-th column of A*AINV.
+            // Form the j-th column of A*AINV.
 *
             CALL CTPMV( 'Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 )
 *
-*           Subtract 1 from the diagonal to form A*AINV - I.
+            // Subtract 1 from the diagonal to form A*AINV - I.
 *
             AINVP( JC ) = AINVP( JC ) - ONE
             JC = JC + N - J + 1
    20    CONTINUE
       END IF
 *
-*     Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
+      // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 *
       RESID = CLANTP( '1', UPLO, 'Non-unit', N, AINVP, RWORK )
 *
@@ -99,6 +99,6 @@
 *
       RETURN
 *
-*     End of CTPT01
+      // End of CTPT01
 *
       END

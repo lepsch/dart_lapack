@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             BERR( * ), FERR( * ), RWORK( * ), S( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU;
       int                I, INFEQU, J;
       double             AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANHE;
       // EXTERNAL LSAME, DLAMCH, ZLANHE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLACPY, ZLAQHE, ZPOCON, ZPOEQU, ZPORFS, ZPOTRF, ZPOTRS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -50,7 +50,7 @@
          BIGNUM = ONE / SMLNUM
       END IF
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
@@ -98,19 +98,19 @@
 *
       IF( EQUIL ) THEN
 *
-*        Compute row and column scalings to equilibrate the matrix A.
+         // Compute row and column scalings to equilibrate the matrix A.
 *
          CALL ZPOEQU( N, A, LDA, S, SCOND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
-*           Equilibrate the matrix.
+            // Equilibrate the matrix.
 *
             CALL ZLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
             RCEQU = LSAME( EQUED, 'Y' )
          END IF
       END IF
 *
-*     Scale the right hand side.
+      // Scale the right hand side.
 *
       IF( RCEQU ) THEN
          DO 30 J = 1, NRHS
@@ -122,12 +122,12 @@
 *
       IF( NOFACT .OR. EQUIL ) THEN
 *
-*        Compute the Cholesky factorization A = U**H *U or A = L*L**H.
+         // Compute the Cholesky factorization A = U**H *U or A = L*L**H.
 *
          CALL ZLACPY( UPLO, N, N, A, LDA, AF, LDAF )
          CALL ZPOTRF( UPLO, N, AF, LDAF, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 )THEN
             RCOND = ZERO
@@ -135,26 +135,26 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A.
+      // Compute the norm of the matrix A.
 *
       ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL ZPOCON( UPLO, N, AF, LDAF, ANORM, RCOND, WORK, RWORK, INFO )
 *
-*     Compute the solution matrix X.
+      // Compute the solution matrix X.
 *
       CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL ZPOTRS( UPLO, N, NRHS, AF, LDAF, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solution and
-*     compute error bounds and backward error estimates for it.
+      // Use iterative refinement to improve the computed solution and
+      // compute error bounds and backward error estimates for it.
 *
       CALL ZPORFS( UPLO, N, NRHS, A, LDA, AF, LDAF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
-*     Transform the solution matrix X to a solution of the original
-*     system.
+      // Transform the solution matrix X to a solution of the original
+      // system.
 *
       IF( RCEQU ) THEN
          DO 50 J = 1, NRHS
@@ -167,12 +167,12 @@
    60    CONTINUE
       END IF
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *
-*     End of ZPOSVX
+      // End of ZPOSVX
 *
       END

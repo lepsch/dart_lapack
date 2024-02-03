@@ -4,11 +4,11 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                N, KL, KU, KD, KE, LDAB, LDAFB, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), X( * )
       double             RWORK( * );
@@ -16,32 +16,32 @@
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J;
       double             AINVNM, ANORM, TMP;
       COMPLEX*16         ZDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLACN2, ZGBTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function Definitions ..
+      // ..
+      // .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       ZLA_GBRCOND_X = 0.0D+0
 *
@@ -65,7 +65,7 @@
          RETURN
       END IF
 *
-*     Compute norm of op(A)*op2(C).
+      // Compute norm of op(A)*op2(C).
 *
       KD = KU + 1
       KE = KL + 1
@@ -90,7 +90,7 @@
          END DO
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) THEN
          ZLA_GBRCOND_X = 1.0D+0
@@ -99,7 +99,7 @@
          RETURN
       END IF
 *
-*     Estimate the norm of inv(op(A)).
+      // Estimate the norm of inv(op(A)).
 *
       AINVNM = 0.0D+0
 *
@@ -109,7 +109,7 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
@@ -121,14 +121,14 @@
                CALL ZGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             ENDIF
 *
-*           Multiply by inv(X).
+            // Multiply by inv(X).
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
             END DO
          ELSE
 *
-*           Multiply by inv(X**H).
+            // Multiply by inv(X**H).
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
@@ -140,7 +140,7 @@
                CALL ZGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
@@ -149,12 +149,12 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM .NE. 0.0D+0 ) ZLA_GBRCOND_X = 1.0D+0 / AINVNM
 *
       RETURN
 *
-*     End of ZLA_GBRCOND_X
+      // End of ZLA_GBRCOND_X
 *
       END

@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             HOWMNY, SIDE;
       int                INFO, LDP, LDS, LDVL, LDVR, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       REAL               RWORK( * )
       COMPLEX            P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
-*     ..
+      // ..
 *
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR       REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX;;
       COMPLEX            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH
       COMPLEX            CLADIV
       // EXTERNAL LSAME, SLAMCH, CLADIV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               ABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and Test the input parameters
+      // Decode and Test the input parameters
 *
       IF( LSAME( HOWMNY, 'A' ) ) THEN
          IHWMNY = 1
@@ -98,7 +98,7 @@
          RETURN
       END IF
 *
-*     Count the number of eigenvectors
+      // Count the number of eigenvectors
 *
       IF( .NOT.ILALL ) THEN
          IM = 0
@@ -109,7 +109,7 @@
          IM = N
       END IF
 *
-*     Check diagonal of B
+      // Check diagonal of B
 *
       ILBBAD = .FALSE.
       DO 20 J = 1, N
@@ -130,12 +130,12 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = IM
       IF( N.EQ.0 ) RETURN
 *
-*     Machine Constants
+      // Machine Constants
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       BIG = ONE / SAFMIN
@@ -144,9 +144,9 @@
       BIG = ONE / SMALL
       BIGNUM = ONE / ( SAFMIN*N )
 *
-*     Compute the 1-norm of each column of the strictly upper triangular
-*     part of A and B to check for possible overflow in the triangular
-*     solver.
+      // Compute the 1-norm of each column of the strictly upper triangular
+      // part of A and B to check for possible overflow in the triangular
+      // solver.
 *
       ANORM = ABS1( S( 1, 1 ) )
       BNORM = ABS1( P( 1, 1 ) )
@@ -166,12 +166,12 @@
       ASCALE = ONE / MAX( ANORM, SAFMIN )
       BSCALE = ONE / MAX( BNORM, SAFMIN )
 *
-*     Left eigenvectors
+      // Left eigenvectors
 *
       IF( COMPL ) THEN
          IEIG = 0
 *
-*        Main loop over eigenvalues
+         // Main loop over eigenvalues
 *
          DO 140 JE = 1, N
             IF( ILALL ) THEN
@@ -184,7 +184,7 @@
 *
                IF( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) THEN
 *
-*                 Singular matrix pencil -- return unit eigenvector
+                  // Singular matrix pencil -- return unit eigenvector
 *
                   DO 50 JR = 1, N
                      VL( JR, IEIG ) = CZERO
@@ -193,10 +193,10 @@
                   GO TO 140
                END IF
 *
-*              Non-singular eigenvalue:
-*              Compute coefficients  a  and  b  in
-*                   H
-*                 y  ( a A - b B ) = 0
+               // Non-singular eigenvalue:
+               // Compute coefficients  a  and  b  in
+                    // H
+                  // y  ( a A - b B ) = 0
 *
                TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN )
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE
@@ -204,7 +204,7 @@
                ACOEFF = SBETA*ASCALE
                BCOEFF = SALPHA*BSCALE
 *
-*              Scale to avoid underflow
+               // Scale to avoid underflow
 *
                LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEFF ).LT.SMALL
                LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT. SMALL
@@ -234,19 +234,19 @@
                WORK( JE ) = CONE
                DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
 *
-*                                              H
-*              Triangular solve of  (a A - b B)  y = 0
+                                               // H
+               // Triangular solve of  (a A - b B)  y = 0
 *
-*                                      H
-*              (rowwise in  (a A - b B) , or columnwise in a A - b B)
+                                       // H
+               // (rowwise in  (a A - b B) , or columnwise in a A - b B)
 *
                DO 100 J = JE + 1, N
 *
-*                 Compute
-*                       j-1
-*                 SUM = sum  conjg( a*S(k,j) - b*P(k,j) )*x(k)
-*                       k=je
-*                 (Scale if necessary)
+                  // Compute
+                        // j-1
+                  // SUM = sum  conjg( a*S(k,j) - b*P(k,j) )*x(k)
+                        // k=je
+                  // (Scale if necessary)
 *
                   TEMP = ONE / XMAX
                   IF( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GT.BIGNUM* TEMP ) THEN
@@ -264,9 +264,9 @@
    80             CONTINUE
                   SUM = ACOEFF*SUMA - CONJG( BCOEFF )*SUMB
 *
-*                 Form x(j) = - SUM / conjg( a*S(j,j) - b*P(j,j) )
+                  // Form x(j) = - SUM / conjg( a*S(j,j) - b*P(j,j) )
 *
-*                 with scaling and perturbation of the denominator
+                  // with scaling and perturbation of the denominator
 *
                   D = CONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) )
                   IF( ABS1( D ).LE.DMIN ) D = CMPLX( DMIN )
@@ -285,7 +285,7 @@
                   XMAX = MAX( XMAX, ABS1( WORK( J ) ) )
   100          CONTINUE
 *
-*              Back transform eigenvector if HOWMNY='B'.
+               // Back transform eigenvector if HOWMNY='B'.
 *
                IF( ILBACK ) THEN
                   CALL CGEMV( 'N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 )
@@ -296,7 +296,7 @@
                   IBEG = JE
                END IF
 *
-*              Copy and scale eigenvector into column of VL
+               // Copy and scale eigenvector into column of VL
 *
                XMAX = ZERO
                DO 110 JR = IBEG, N
@@ -320,12 +320,12 @@
   140    CONTINUE
       END IF
 *
-*     Right eigenvectors
+      // Right eigenvectors
 *
       IF( COMPR ) THEN
          IEIG = IM + 1
 *
-*        Main loop over eigenvalues
+         // Main loop over eigenvalues
 *
          DO 250 JE = N, 1, -1
             IF( ILALL ) THEN
@@ -338,7 +338,7 @@
 *
                IF( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) THEN
 *
-*                 Singular matrix pencil -- return unit eigenvector
+                  // Singular matrix pencil -- return unit eigenvector
 *
                   DO 150 JR = 1, N
                      VR( JR, IEIG ) = CZERO
@@ -347,10 +347,10 @@
                   GO TO 250
                END IF
 *
-*              Non-singular eigenvalue:
-*              Compute coefficients  a  and  b  in
+               // Non-singular eigenvalue:
+               // Compute coefficients  a  and  b  in
 *
-*              ( a A - b B ) x  = 0
+               // ( a A - b B ) x  = 0
 *
                TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN )
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE
@@ -358,7 +358,7 @@
                ACOEFF = SBETA*ASCALE
                BCOEFF = SALPHA*BSCALE
 *
-*              Scale to avoid underflow
+               // Scale to avoid underflow
 *
                LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEFF ).LT.SMALL
                LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT. SMALL
@@ -388,10 +388,10 @@
                WORK( JE ) = CONE
                DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
 *
-*              Triangular solve of  (a A - b B) x = 0  (columnwise)
+               // Triangular solve of  (a A - b B) x = 0  (columnwise)
 *
-*              WORK(1:j-1) contains sums w,
-*              WORK(j+1:JE) contains x
+               // WORK(1:j-1) contains sums w,
+               // WORK(j+1:JE) contains x
 *
                DO 170 JR = 1, JE - 1
                   WORK( JR ) = ACOEFF*S( JR, JE ) - BCOEFF*P( JR, JE )
@@ -400,8 +400,8 @@
 *
                DO 210 J = JE - 1, 1, -1
 *
-*                 Form x(j) := - w(j) / d
-*                 with scaling and perturbation of the denominator
+                  // Form x(j) := - w(j) / d
+                  // with scaling and perturbation of the denominator
 *
                   D = ACOEFF*S( J, J ) - BCOEFF*P( J, J )
                   IF( ABS1( D ).LE.DMIN ) D = CMPLX( DMIN )
@@ -419,7 +419,7 @@
 *
                   IF( J.GT.1 ) THEN
 *
-*                    w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
+                     // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
 *
                      IF( ABS1( WORK( J ) ).GT.ONE ) THEN
                         TEMP = ONE / ABS1( WORK( J ) )
@@ -438,7 +438,7 @@
                   END IF
   210          CONTINUE
 *
-*              Back transform eigenvector if HOWMNY='B'.
+               // Back transform eigenvector if HOWMNY='B'.
 *
                IF( ILBACK ) THEN
                   CALL CGEMV( 'N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 )
@@ -449,7 +449,7 @@
                   IEND = JE
                END IF
 *
-*              Copy and scale eigenvector into column of VR
+               // Copy and scale eigenvector into column of VR
 *
                XMAX = ZERO
                DO 220 JR = 1, IEND
@@ -475,6 +475,6 @@
 *
       RETURN
 *
-*     End of CTGEVC
+      // End of CTGEVC
 *
       END

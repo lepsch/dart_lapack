@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                INFO, LDA, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOUNIT;
       int                J, K, KP;
       COMPLEX*16         D11, D12, D21, D22, T1, T2
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMV, ZGERU, ZLACGV, ZSCAL, ZSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -57,45 +57,45 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) RETURN
 *
       NOUNIT = LSAME( DIAG, 'N' )
 *------------------------------------------
 *
-*     Compute  B := A * B  (No transpose)
+      // Compute  B := A * B  (No transpose)
 *
 *------------------------------------------
       IF( LSAME( TRANS, 'N' ) ) THEN
 *
-*        Compute  B := U*B
-*        where U = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
+         // Compute  B := U*B
+         // where U = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Loop forward applying the transformations.
+         // Loop forward applying the transformations.
 *
             K = 1
    10       CONTINUE
             IF( K.GT.N ) GO TO 30
             IF( IPIV( K ).GT.0 ) THEN
 *
-*              1 x 1 pivot block
+               // 1 x 1 pivot block
 *
-*              Multiply by the diagonal element if forming U * D.
+               // Multiply by the diagonal element if forming U * D.
 *
                IF( NOUNIT ) CALL ZSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
 *
-*              Multiply by  P(K) * inv(U(K))  if K > 1.
+               // Multiply by  P(K) * inv(U(K))  if K > 1.
 *
                IF( K.GT.1 ) THEN
 *
-*                 Apply the transformation.
+                  // Apply the transformation.
 *
                   CALL ZGERU( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
 *
-*                 Interchange if P(K) != I.
+                  // Interchange if P(K) != I.
 *
                   KP = IPIV( K )
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -103,9 +103,9 @@
                K = K + 1
             ELSE
 *
-*              2 x 2 pivot block
+               // 2 x 2 pivot block
 *
-*              Multiply by the diagonal block if forming U * D.
+               // Multiply by the diagonal block if forming U * D.
 *
                IF( NOUNIT ) THEN
                   D11 = A( K, K )
@@ -120,15 +120,15 @@
    20             CONTINUE
                END IF
 *
-*              Multiply by  P(K) * inv(U(K))  if K > 1.
+               // Multiply by  P(K) * inv(U(K))  if K > 1.
 *
                IF( K.GT.1 ) THEN
 *
-*                 Apply the transformations.
+                  // Apply the transformations.
 *
                   CALL ZGERU( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL ZGERU( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB )
 *
-*                 Interchange if P(K) != I.
+                  // Interchange if P(K) != I.
 *
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -138,39 +138,39 @@
             GO TO 10
    30       CONTINUE
 *
-*        Compute  B := L*B
-*        where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
+         // Compute  B := L*B
+         // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
 *
          ELSE
 *
-*           Loop backward applying the transformations to B.
+            // Loop backward applying the transformations to B.
 *
             K = N
    40       CONTINUE
             IF( K.LT.1 ) GO TO 60
 *
-*           Test the pivot index.  If greater than zero, a 1 x 1
-*           pivot was used, otherwise a 2 x 2 pivot was used.
+            // Test the pivot index.  If greater than zero, a 1 x 1
+            // pivot was used, otherwise a 2 x 2 pivot was used.
 *
             IF( IPIV( K ).GT.0 ) THEN
 *
-*              1 x 1 pivot block:
+               // 1 x 1 pivot block:
 *
-*              Multiply by the diagonal element if forming L * D.
+               // Multiply by the diagonal element if forming L * D.
 *
                IF( NOUNIT ) CALL ZSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
 *
-*              Multiply by  P(K) * inv(L(K))  if K < N.
+               // Multiply by  P(K) * inv(L(K))  if K < N.
 *
                IF( K.NE.N ) THEN
                   KP = IPIV( K )
 *
-*                 Apply the transformation.
+                  // Apply the transformation.
 *
                   CALL ZGERU( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
 *
-*                 Interchange if a permutation was applied at the
-*                 K-th step of the factorization.
+                  // Interchange if a permutation was applied at the
+                  // K-th step of the factorization.
 *
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
                END IF
@@ -178,9 +178,9 @@
 *
             ELSE
 *
-*              2 x 2 pivot block:
+               // 2 x 2 pivot block:
 *
-*              Multiply by the diagonal block if forming L * D.
+               // Multiply by the diagonal block if forming L * D.
 *
                IF( NOUNIT ) THEN
                   D11 = A( K-1, K-1 )
@@ -195,16 +195,16 @@
    50             CONTINUE
                END IF
 *
-*              Multiply by  P(K) * inv(L(K))  if K < N.
+               // Multiply by  P(K) * inv(L(K))  if K < N.
 *
                IF( K.NE.N ) THEN
 *
-*                 Apply the transformation.
+                  // Apply the transformation.
 *
                   CALL ZGERU( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL ZGERU( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB )
 *
-*                 Interchange if a permutation was applied at the
-*                 K-th step of the factorization.
+                  // Interchange if a permutation was applied at the
+                  // K-th step of the factorization.
 *
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -216,36 +216,36 @@
          END IF
 *--------------------------------------------------
 *
-*     Compute  B := A^H * B  (conjugate transpose)
+      // Compute  B := A^H * B  (conjugate transpose)
 *
 *--------------------------------------------------
       ELSE
 *
-*        Form  B := U^H*B
-*        where U  = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
-*        and   U^H = inv(U^H(1))*P(1)* ... *inv(U^H(m))*P(m)
+         // Form  B := U^H*B
+         // where U  = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
+         // and   U^H = inv(U^H(1))*P(1)* ... *inv(U^H(m))*P(m)
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*           Loop backward applying the transformations.
+            // Loop backward applying the transformations.
 *
             K = N
    70       CONTINUE
             IF( K.LT.1 ) GO TO 90
 *
-*           1 x 1 pivot block.
+            // 1 x 1 pivot block.
 *
             IF( IPIV( K ).GT.0 ) THEN
                IF( K.GT.1 ) THEN
 *
-*                 Interchange if P(K) != I.
+                  // Interchange if P(K) != I.
 *
                   KP = IPIV( K )
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*                 Apply the transformation
-*                    y = y - B' conjg(x),
-*                 where x is a column of A and y is a row of B.
+                  // Apply the transformation
+                     // y = y - B' conjg(x),
+                  // where x is a column of A and y is a row of B.
 *
                   CALL ZLACGV( NRHS, B( K, 1 ), LDB )
                   CALL ZGEMV( 'Conjugate', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
@@ -254,20 +254,20 @@
                IF( NOUNIT ) CALL ZSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K - 1
 *
-*           2 x 2 pivot block.
+            // 2 x 2 pivot block.
 *
             ELSE
                IF( K.GT.2 ) THEN
 *
-*                 Interchange if P(K) != I.
+                  // Interchange if P(K) != I.
 *
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K-1 ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*                 Apply the transformations
-*                    y = y - B' conjg(x),
-*                 where x is a block column of A and y is a block
-*                 row of B.
+                  // Apply the transformations
+                     // y = y - B' conjg(x),
+                  // where x is a block column of A and y is a block
+                  // row of B.
 *
                   CALL ZLACGV( NRHS, B( K, 1 ), LDB )
                   CALL ZGEMV( 'Conjugate', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
@@ -278,7 +278,7 @@
                   CALL ZLACGV( NRHS, B( K-1, 1 ), LDB )
                END IF
 *
-*              Multiply by the diagonal block if non-unit.
+               // Multiply by the diagonal block if non-unit.
 *
                IF( NOUNIT ) THEN
                   D11 = A( K-1, K-1 )
@@ -297,29 +297,29 @@
             GO TO 70
    90       CONTINUE
 *
-*        Form  B := L^H*B
-*        where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
-*        and   L^H = inv(L^H(m))*P(m)* ... *inv(L^H(1))*P(1)
+         // Form  B := L^H*B
+         // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
+         // and   L^H = inv(L^H(m))*P(m)* ... *inv(L^H(1))*P(1)
 *
          ELSE
 *
-*           Loop forward applying the L-transformations.
+            // Loop forward applying the L-transformations.
 *
             K = 1
   100       CONTINUE
             IF( K.GT.N ) GO TO 120
 *
-*           1 x 1 pivot block
+            // 1 x 1 pivot block
 *
             IF( IPIV( K ).GT.0 ) THEN
                IF( K.LT.N ) THEN
 *
-*                 Interchange if P(K) != I.
+                  // Interchange if P(K) != I.
 *
                   KP = IPIV( K )
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*                 Apply the transformation
+                  // Apply the transformation
 *
                   CALL ZLACGV( NRHS, B( K, 1 ), LDB )
                   CALL ZGEMV( 'Conjugate', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
@@ -328,17 +328,17 @@
                IF( NOUNIT ) CALL ZSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K + 1
 *
-*           2 x 2 pivot block.
+            // 2 x 2 pivot block.
 *
             ELSE
                IF( K.LT.N-1 ) THEN
 *
-*              Interchange if P(K) != I.
+               // Interchange if P(K) != I.
 *
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K+1 ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*                 Apply the transformation
+                  // Apply the transformation
 *
                   CALL ZLACGV( NRHS, B( K+1, 1 ), LDB )
                   CALL ZGEMV( 'Conjugate', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB )
@@ -349,7 +349,7 @@
                   CALL ZLACGV( NRHS, B( K, 1 ), LDB )
                END IF
 *
-*              Multiply by the diagonal block if non-unit.
+               // Multiply by the diagonal block if non-unit.
 *
                IF( NOUNIT ) THEN
                   D11 = A( K, K )
@@ -372,6 +372,6 @@
       END IF
       RETURN
 *
-*     End of ZLAVHE
+      // End of ZLAVHE
 *
       END

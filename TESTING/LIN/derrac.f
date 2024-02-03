@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, ITER, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX );
       double             WORK(NMAX*NMAX);
       REAL               SWORK(NMAX*NMAX)
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, DSPOSV
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -79,7 +79,7 @@
       CALL DSPOSV('U',2,1,A,2,B,2,X,1,WORK,SWORK,ITER,INFO)
       CALL CHKXER( 'DSPOSV', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )'DSPOSV'
@@ -93,6 +93,6 @@
 *
       RETURN
 *
-*     End of DERRAC
+      // End of DERRAC
 *
       END

@@ -4,13 +4,13 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NIN, NOUT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDA, LDB, LDVL, LDVR;
       PARAMETER          ( LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 )
       int                LDE, LDF, LDWORK, LRWORK;
@@ -19,34 +19,34 @@
       PARAMETER          ( ZERO = 0.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO;
       REAL               ANORM, BNORM, EPS, RMAX, VMAX
       COMPLEX            CDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                LMAX( 4 );
       REAL               LSCALE( LDA ), RSCALE( LDA ), RWORK( LRWORK )
       COMPLEX            A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, SLAMCH
       // EXTERNAL CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CGGBAK, CGGBAL, CLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       LMAX( 1 ) = 0
       LMAX( 2 ) = 0
@@ -107,10 +107,10 @@
          LMAX( 3 ) = KNT
       END IF
 *
-*     Test of CGGBAK
+      // Test of CGGBAK
 *
-*     Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
-*     where tilde(A) denotes the transformed matrix.
+      // Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
+      // where tilde(A) denotes the transformed matrix.
 *
       CALL CGEMM( 'N', 'N', N, M, N, CONE, AF, LDA, VR, LDVR, CZERO, WORK, LDWORK )       CALL CGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE )
 *
@@ -128,7 +128,7 @@
          RMAX = VMAX
       END IF
 *
-*     Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
+      // Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
 *
       CALL CGEMM( 'N', 'N', N, M, N, CONE, BF, LDB, VR, LDVR, CZERO, WORK, LDWORK )       CALL CGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE )
 *
@@ -170,6 +170,6 @@
 *
       RETURN
 *
-*     End of CCHKGK
+      // End of CCHKGK
 *
       END

@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int       INFO, IW, N;
       REAL                PIVMIN, RELTOL, GL, GU, W, WERR
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), E2( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               FUDGE, HALF, TWO, ZERO
       PARAMETER          ( HALF = 0.5E0, TWO = 2.0E0, FUDGE = TWO, ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int       I, IT, ITMAX, NEGCNT;
       REAL               ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          INFO = 0
          RETURN
       END IF
 *
-*     Get machine constants
+      // Get machine constants
       EPS = SLAMCH( 'P' )
 
       TNORM = MAX( ABS( GL ), ABS( GU ) )
@@ -54,7 +54,7 @@
 
  10   CONTINUE
 *
-*     Check if interval converged or maximum number of iterations reached
+      // Check if interval converged or maximum number of iterations reached
 *
       TMP1 = ABS( RIGHT - LEFT )
       TMP2 = MAX( ABS(RIGHT), ABS(LEFT) )
@@ -65,7 +65,7 @@
       IF(IT.GT.ITMAX) GOTO 30
 
 *
-*     Count number of negative pivots for mid-point
+      // Count number of negative pivots for mid-point
 *
       IT = IT + 1
       MID = HALF * (LEFT + RIGHT)
@@ -87,13 +87,13 @@
 
  30   CONTINUE
 *
-*     Converged or maximum number of iterations reached
+      // Converged or maximum number of iterations reached
 *
       W = HALF * (LEFT + RIGHT)
       WERR = HALF * ABS( RIGHT - LEFT )
 
       RETURN
 *
-*     End of SLARRK
+      // End of SLARRK
 *
       END

@@ -4,30 +4,30 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               A, B, C, CS, D, RT1I, RT1R, RT2I, RT2R, SN
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, HALF = 0.5E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
       REAL               MULTPL
       PARAMETER          ( MULTPL = 4.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB, SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, SAFMN2, SAFMX2
       int                COUNT;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLAPY2
       // EXTERNAL SLAMCH, SLAPY2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SIGN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       SAFMIN = SLAMCH( 'S' )
       EPS = SLAMCH( 'P' )
@@ -39,7 +39,7 @@
 *
       ELSE IF( B.EQ.ZERO ) THEN
 *
-*        Swap rows and columns
+         // Swap rows and columns
 *
          CS = ZERO
          SN = ONE
@@ -62,18 +62,18 @@
          SCALE = MAX( ABS( P ), BCMAX )
          Z = ( P / SCALE )*P + ( BCMAX / SCALE )*BCMIS
 *
-*        If Z is of the order of the machine accuracy, postpone the
-*        decision on the nature of eigenvalues
+         // If Z is of the order of the machine accuracy, postpone the
+         // decision on the nature of eigenvalues
 *
          IF( Z.GE.MULTPL*EPS ) THEN
 *
-*           Real eigenvalues. Compute A and D.
+            // Real eigenvalues. Compute A and D.
 *
             Z = P + SIGN( SQRT( SCALE )*SQRT( Z ), P )
             A = D + Z
             D = D - ( BCMAX / Z )*BCMIS
 *
-*           Compute B and the rotation matrix
+            // Compute B and the rotation matrix
 *
             TAU = SLAPY2( C, Z )
             CS = Z / TAU
@@ -83,8 +83,8 @@
 *
          ELSE
 *
-*           Complex eigenvalues, or real (almost) equal eigenvalues.
-*           Make diagonal elements equal.
+            // Complex eigenvalues, or real (almost) equal eigenvalues.
+            // Make diagonal elements equal.
 *
             COUNT = 0
             SIGMA = B + C
@@ -106,16 +106,16 @@
             CS = SQRT( HALF*( ONE+ABS( SIGMA ) / TAU ) )
             SN = -( P / ( TAU*CS ) )*SIGN( ONE, SIGMA )
 *
-*           Compute [ AA  BB ] = [ A  B ] [ CS -SN ]
-*                   [ CC  DD ]   [ C  D ] [ SN  CS ]
+            // Compute [ AA  BB ] = [ A  B ] [ CS -SN ]
+                    // [ CC  DD ]   [ C  D ] [ SN  CS ]
 *
             AA = A*CS + B*SN
             BB = -A*SN + B*CS
             CC = C*CS + D*SN
             DD = -C*SN + D*CS
 *
-*           Compute [ A  B ] = [ CS  SN ] [ AA  BB ]
-*                   [ C  D ]   [-SN  CS ] [ CC  DD ]
+            // Compute [ A  B ] = [ CS  SN ] [ AA  BB ]
+                    // [ C  D ]   [-SN  CS ] [ CC  DD ]
 *
             A = AA*CS + CC*SN
             B = BB*CS + DD*SN
@@ -130,7 +130,7 @@
                IF( B.NE.ZERO ) THEN
                   IF( SIGN( ONE, B ).EQ.SIGN( ONE, C ) ) THEN
 *
-*                    Real eigenvalues: reduce to upper triangular form
+                     // Real eigenvalues: reduce to upper triangular form
 *
                      SAB = SQRT( ABS( B ) )
                      SAC = SQRT( ABS( C ) )
@@ -158,7 +158,7 @@
 *
       END IF
 *
-*     Store eigenvalues in (RT1R,RT1I) and (RT2R,RT2I).
+      // Store eigenvalues in (RT1R,RT1I) and (RT2R,RT2I).
 *
       RT1R = A
       RT2R = D
@@ -171,6 +171,6 @@
       END IF
       RETURN
 *
-*     End of SLANV2
+      // End of SLANV2
 *
       END

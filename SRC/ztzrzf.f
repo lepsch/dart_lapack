@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                I, IB, IWS, KI, KK, LDWORK, LWKMIN, LWKOPT, M1, MU, NB, NBMIN, NX;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLARZB, ZLARZT, ZLATRZ
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -51,7 +51,7 @@
             LWKMIN = 1
          ELSE
 *
-*           Determine the block size.
+            // Determine the block size.
 *
             NB = ILAENV( 1, 'ZGERQF', ' ', M, N, -1, -1 )
             LWKOPT = M*NB
@@ -71,7 +71,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 ) THEN
          RETURN
@@ -87,19 +87,19 @@
       IWS = M
       IF( NB.GT.1 .AND. NB.LT.M ) THEN
 *
-*        Determine when to cross over from blocked to unblocked code.
+         // Determine when to cross over from blocked to unblocked code.
 *
          NX = MAX( 0, ILAENV( 3, 'ZGERQF', ' ', M, N, -1, -1 ) )
          IF( NX.LT.M ) THEN
 *
-*           Determine if workspace is large enough for blocked code.
+            // Determine if workspace is large enough for blocked code.
 *
             LDWORK = M
             IWS = LDWORK*NB
             IF( LWORK.LT.IWS ) THEN
 *
-*              Not enough workspace to use optimal NB:  reduce NB and
-*              determine the minimum value of NB.
+               // Not enough workspace to use optimal NB:  reduce NB and
+               // determine the minimum value of NB.
 *
                NB = LWORK / LDWORK
                NBMIN = MAX( 2, ILAENV( 2, 'ZGERQF', ' ', M, N, -1, -1 ) )
@@ -109,8 +109,8 @@
 *
       IF( NB.GE.NBMIN .AND. NB.LT.M .AND. NX.LT.M ) THEN
 *
-*        Use blocked code initially.
-*        The last kk rows are handled by the block method.
+         // Use blocked code initially.
+         // The last kk rows are handled by the block method.
 *
          M1 = MIN( M+1, N )
          KI = ( ( M-NX-1 ) / NB )*NB
@@ -119,18 +119,18 @@
          DO 20 I = M - KK + KI + 1, M - KK + 1, -NB
             IB = MIN( M-I+1, NB )
 *
-*           Compute the TZ factorization of the current block
-*           A(i:i+ib-1,i:n)
+            // Compute the TZ factorization of the current block
+            // A(i:i+ib-1,i:n)
 *
             CALL ZLATRZ( IB, N-I+1, N-M, A( I, I ), LDA, TAU( I ), WORK )
             IF( I.GT.1 ) THEN
 *
-*              Form the triangular factor of the block reflector
-*              H = H(i+ib-1) . . . H(i+1) H(i)
+               // Form the triangular factor of the block reflector
+               // H = H(i+ib-1) . . . H(i+1) H(i)
 *
                CALL ZLARZT( 'Backward', 'Rowwise', N-M, IB, A( I, M1 ), LDA, TAU( I ), WORK, LDWORK )
 *
-*              Apply H to A(1:i-1,i:n) from the right
+               // Apply H to A(1:i-1,i:n) from the right
 *
                CALL ZLARZB( 'Right', 'No transpose', 'Backward', 'Rowwise', I-1, N-I+1, IB, N-M, A( I, M1 ), LDA, WORK, LDWORK, A( 1, I ), LDA, WORK( IB+1 ), LDWORK )
             END IF
@@ -140,7 +140,7 @@
          MU = M
       END IF
 *
-*     Use unblocked code to factor the last or only block
+      // Use unblocked code to factor the last or only block
 *
       IF( MU.GT.0 ) CALL ZLATRZ( MU, N, N-M, A, LDA, TAU, WORK )
 *
@@ -148,6 +148,6 @@
 *
       RETURN
 *
-*     End of ZTZRZF
+      // End of ZTZRZF
 *
       END

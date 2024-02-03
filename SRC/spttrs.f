@@ -4,31 +4,31 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               B( LDB, * ), D( * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                J, JB, NB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SPTTS2, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments.
+      // Test the input arguments.
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -43,11 +43,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
-*     Determine the number of right-hand sides to solve at a time.
+      // Determine the number of right-hand sides to solve at a time.
 *
       IF( NRHS.EQ.1 ) THEN
          NB = 1
@@ -66,6 +66,6 @@
 *
       RETURN
 *
-*     End of SPTTRS
+      // End of SPTTRS
 *
       END

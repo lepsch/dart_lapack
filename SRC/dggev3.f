@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, ITAU, IWRK, JC, JR, LWKOPT, LWKMIN;
       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               LDUMMA( 1 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEQRF, DGGBAK, DGGBAL, DGGHD3, DLAQZ0, DLACPY, DLASCL, DLASET, DORGQR, DORMQR, DTGEVC, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, DLAMCH, DLANGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
@@ -65,7 +65,7 @@
       END IF
       ILV = ILVL .OR. ILVR
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -88,7 +88,7 @@
          INFO = -16
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO.EQ.0 ) THEN
          CALL DGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
@@ -124,11 +124,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' )
@@ -136,7 +136,7 @@
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = .FALSE.
@@ -149,7 +149,7 @@
       END IF
       IF( ILASCL ) CALL DLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = .FALSE.
@@ -162,14 +162,14 @@
       END IF
       IF( ILBSCL ) CALL DLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
-*     Permute the matrices A, B to isolate eigenvalues if possible
+      // Permute the matrices A, B to isolate eigenvalues if possible
 *
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
       CALL DGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
 *
-*     Reduce B to triangular form (QR decomposition of B)
+      // Reduce B to triangular form (QR decomposition of B)
 *
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
@@ -181,11 +181,11 @@
       IWRK = ITAU + IROWS
       CALL DGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Apply the orthogonal transformation to matrix A
+      // Apply the orthogonal transformation to matrix A
 *
       CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Initialize VL
+      // Initialize VL
 *
       IF( ILVL ) THEN
          CALL DLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
@@ -195,23 +195,23 @@
          CALL DORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-*     Initialize VR
+      // Initialize VR
 *
       IF( ILVR ) CALL DLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
 *
-*     Reduce to generalized Hessenberg form
+      // Reduce to generalized Hessenberg form
 *
       IF( ILV ) THEN
 *
-*        Eigenvectors requested -- work on whole matrix.
+         // Eigenvectors requested -- work on whole matrix.
 *
          CALL DGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       ELSE
          CALL DGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-*     Perform QZ algorithm (Compute eigenvalues, and optionally, the
-*     Schur forms and Schur vectors)
+      // Perform QZ algorithm (Compute eigenvalues, and optionally, the
+      // Schur forms and Schur vectors)
 *
       IWRK = ITAU
       IF( ILV ) THEN
@@ -231,7 +231,7 @@
          GO TO 110
       END IF
 *
-*     Compute Eigenvectors
+      // Compute Eigenvectors
 *
       IF( ILV ) THEN
          IF( ILVL ) THEN
@@ -249,7 +249,7 @@
             GO TO 110
          END IF
 *
-*        Undo balancing on VL and VR and normalization
+         // Undo balancing on VL and VR and normalization
 *
          IF( ILVL ) THEN
             CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR )
@@ -308,11 +308,11 @@
   100       CONTINUE
          END IF
 *
-*        End of eigenvector calculation
+         // End of eigenvector calculation
 *
       END IF
 *
-*     Undo scaling if necessary
+      // Undo scaling if necessary
 *
   110 CONTINUE
 *
@@ -328,6 +328,6 @@
       WORK( 1 ) = LWKOPT
       RETURN
 *
-*     End of DGGEV3
+      // End of DGGEV3
 *
       END

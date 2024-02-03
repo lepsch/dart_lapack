@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS, EQUED;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )
       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
-*     ..
+      // ..
 *
 *  ==================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               ITREF_DEFAULT, ITHRESH_DEFAULT, COMPONENTWISE_DEFAULT
@@ -33,29 +33,29 @@
       int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String   (1)       NORM;
       bool               ROWEQU, COLEQU, NOTRAN, IGNORE_CWISE;
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE, N_NORMS, ITHRESH;
       REAL               ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, CGBCON, CLA_GBRFSX_EXTENDED
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT, TRANSFER
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       // EXTERNAL LSAME, ILATRANS, ILAPREC
       // EXTERNAL SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C
       REAL               SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C
       bool               LSAME;
       int                ILATRANS, ILAPREC;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check the input parameters.
+      // Check the input parameters.
 *
       INFO = 0
       TRANS_TYPE = ILATRANS( TRANS )
@@ -68,7 +68,7 @@
          END IF
       END IF
 *
-*     Set default parameters.
+      // Set default parameters.
 *
       ILLRCOND_THRESH = REAL( N ) * SLAMCH( 'Epsilon' )
       ITHRESH = INT( ITHRESH_DEFAULT )
@@ -106,7 +106,7 @@
       ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
       COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
 *
-*     Test input parameters.
+      // Test input parameters.
 *
       IF( TRANS_TYPE.EQ.-1 ) THEN
         INFO = -1
@@ -134,7 +134,7 @@
         RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
          RCOND = 1.0
@@ -156,7 +156,7 @@
          RETURN
       END IF
 *
-*     Default to failure.
+      // Default to failure.
 *
       RCOND = 0.0
       DO J = 1, NRHS
@@ -175,8 +175,8 @@
          END IF
       END DO
 *
-*     Compute the norm of A and the reciprocal of the condition
-*     number of A.
+      // Compute the norm of A and the reciprocal of the condition
+      // number of A.
 *
       IF( NOTRAN ) THEN
          NORM = 'I'
@@ -186,7 +186,7 @@
       ANORM = CLANGB( NORM, N, KL, KU, AB, LDAB, RWORK )
       CALL CGBCON( NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, RWORK, INFO )
 *
-*     Perform refinement on each right-hand side
+      // Perform refinement on each right-hand side
 *
       IF ( REF_TYPE .NE. 0 .AND. INFO .EQ. 0 ) THEN
 
@@ -202,7 +202,7 @@
       ERR_LBND = MAX( 10.0, SQRT( REAL( N ) ) ) * SLAMCH( 'Epsilon' )
       IF (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 1) THEN
 *
-*     Compute scaled normwise condition number cond(A*C).
+      // Compute scaled normwise condition number cond(A*C).
 *
          IF ( COLEQU .AND. NOTRAN ) THEN
             RCOND_TMP = CLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .TRUE., INFO, WORK, RWORK )
@@ -213,11 +213,11 @@
          END IF
          DO J = 1, NRHS
 *
-*     Cap the error at 1.0.
+      // Cap the error at 1.0.
 *
             IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .GT. 1.0) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0
 *
-*     Threshold the error (see LAWN).
+      // Threshold the error (see LAWN).
 *
             IF ( RCOND_TMP .LT. ILLRCOND_THRESH ) THEN
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0
@@ -228,7 +228,7 @@
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0
             END IF
 *
-*     Save the condition number.
+      // Save the condition number.
 *
             IF ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) THEN
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP
@@ -239,13 +239,13 @@
 
       IF (N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 2) THEN
 *
-*     Compute componentwise condition number cond(A*diag(Y(:,J))) for
-*     each right-hand side using the current solution as an estimate of
-*     the true solution.  If the componentwise error estimate is too
-*     large, then the solution is a lousy estimate of truth and the
-*     estimated RCOND may be too optimistic.  To avoid misleading users,
-*     the inverse condition number is set to 0.0 when the estimated
-*     cwise error is at least CWISE_WRONG.
+      // Compute componentwise condition number cond(A*diag(Y(:,J))) for
+      // each right-hand side using the current solution as an estimate of
+     t // he true solution.  If the componentwise error estimate is too
+      // large, then the solution is a lousy estimate of truth and the
+      // estimated RCOND may be too optimistic.  To avoid misleading users,
+     t // he inverse condition number is set to 0.0 when the estimated
+      // cwise error is at least CWISE_WRONG.
 *
          CWISE_WRONG = SQRT( SLAMCH( 'Epsilon' ) )
          DO J = 1, NRHS
@@ -255,11 +255,11 @@
                RCOND_TMP = 0.0
             END IF
 *
-*     Cap the error at 1.0.
+      // Cap the error at 1.0.
 *
             IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .GT. 1.0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0
 *
-*     Threshold the error (see LAWN).
+      // Threshold the error (see LAWN).
 *
             IF ( RCOND_TMP .LT. ILLRCOND_THRESH ) THEN
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0
@@ -270,7 +270,7 @@
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0
             END IF
 *
-*     Save the condition number.
+      // Save the condition number.
 *
             IF ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) THEN
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP
@@ -281,6 +281,6 @@
 *
       RETURN
 *
-*     End of CGBRFSX
+      // End of CGBRFSX
 *
       END

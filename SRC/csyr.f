@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INCX, LDA, N;
       COMPLEX            ALPHA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), X( * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, IX, J, JX, KX;
       COMPLEX            TEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -52,11 +52,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( ( N.EQ.0 ) .OR. ( ALPHA.EQ.ZERO ) ) RETURN
 *
-*     Set the start point in X if the increment is not unity.
+      // Set the start point in X if the increment is not unity.
 *
       IF( INCX.LE.0 ) THEN
          KX = 1 - ( N-1 )*INCX
@@ -64,13 +64,13 @@
          KX = 1
       END IF
 *
-*     Start the operations. In this version the elements of A are
-*     accessed sequentially with one pass through the triangular part
-*     of A.
+      // Start the operations. In this version the elements of A are
+      // accessed sequentially with one pass through the triangular part
+      // of A.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Form  A  when A is stored in upper triangle.
+         // Form  A  when A is stored in upper triangle.
 *
          IF( INCX.EQ.1 ) THEN
             DO 20 J = 1, N
@@ -97,7 +97,7 @@
          END IF
       ELSE
 *
-*        Form  A  when A is stored in lower triangle.
+         // Form  A  when A is stored in lower triangle.
 *
          IF( INCX.EQ.1 ) THEN
             DO 60 J = 1, N
@@ -126,6 +126,6 @@
 *
       RETURN
 *
-*     End of CSYR
+      // End of CSYR
 *
       END

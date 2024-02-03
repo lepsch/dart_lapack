@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               RSIGN;
       int                IDIST, ITYPE, LDA, N, NZ1, NZ2;
       double             AMAGN, RCOND, TRIANG;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
       double             ALPHA;
       COMPLEX*16         CTEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLARAN;
       COMPLEX*16         ZLARND
       // EXTERNAL DLARAN, ZLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, EXP, LOG, MAX, MIN, MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) RETURN
       CALL ZLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
 *
-*     Insure a correct ISEED
+      // Insure a correct ISEED
 *
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
-*     Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
-*     and RCOND
+      // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
+      // and RCOND
 *
       IF( ITYPE.NE.0 ) THEN
          IF( ABS( ITYPE ).GE.4 ) THEN
@@ -64,7 +64,7 @@
          ISDE = 0
          GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )ABS( ITYPE )
 *
-*        abs(ITYPE) = 1: Identity
+         // abs(ITYPE) = 1: Identity
 *
    10    CONTINUE
          DO 20 JD = 1, N
@@ -72,7 +72,7 @@
    20    CONTINUE
          GO TO 220
 *
-*        abs(ITYPE) = 2: Transposed Jordan block
+         // abs(ITYPE) = 2: Transposed Jordan block
 *
    30    CONTINUE
          DO 40 JD = 1, N - 1
@@ -82,8 +82,8 @@
          ISDE = N - 1
          GO TO 220
 *
-*        abs(ITYPE) = 3: Transposed Jordan block, followed by the
-*                        identity.
+         // abs(ITYPE) = 3: Transposed Jordan block, followed by the
+                         // identity.
 *
    50    CONTINUE
          K = ( N-1 ) / 2
@@ -97,7 +97,7 @@
    70    CONTINUE
          GO TO 220
 *
-*        abs(ITYPE) = 4: 1,...,k
+         // abs(ITYPE) = 4: 1,...,k
 *
    80    CONTINUE
          DO 90 JD = KBEG, KEND
@@ -105,7 +105,7 @@
    90    CONTINUE
          GO TO 220
 *
-*        abs(ITYPE) = 5: One large D value:
+         // abs(ITYPE) = 5: One large D value:
 *
   100    CONTINUE
          DO 110 JD = KBEG + 1, KEND
@@ -114,7 +114,7 @@
          A( KBEG, KBEG ) = CONE
          GO TO 220
 *
-*        abs(ITYPE) = 6: One small D value:
+         // abs(ITYPE) = 6: One small D value:
 *
   120    CONTINUE
          DO 130 JD = KBEG, KEND - 1
@@ -123,7 +123,7 @@
          A( KEND, KEND ) = DCMPLX( RCOND )
          GO TO 220
 *
-*        abs(ITYPE) = 7: Exponentially distributed D values:
+         // abs(ITYPE) = 7: Exponentially distributed D values:
 *
   140    CONTINUE
          A( KBEG, KBEG ) = CONE
@@ -135,7 +135,7 @@
          END IF
          GO TO 220
 *
-*        abs(ITYPE) = 8: Arithmetically distributed D values:
+         // abs(ITYPE) = 8: Arithmetically distributed D values:
 *
   160    CONTINUE
          A( KBEG, KBEG ) = CONE
@@ -147,7 +147,7 @@
          END IF
          GO TO 220
 *
-*        abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
+         // abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
 *
   180    CONTINUE
          ALPHA = LOG( RCOND )
@@ -156,7 +156,7 @@
   190    CONTINUE
          GO TO 220
 *
-*        abs(ITYPE) = 10: Randomly distributed D values from DIST
+         // abs(ITYPE) = 10: Randomly distributed D values from DIST
 *
   200    CONTINUE
          DO 210 JD = KBEG, KEND
@@ -165,7 +165,7 @@
 *
   220    CONTINUE
 *
-*        Scale by AMAGN
+         // Scale by AMAGN
 *
          DO 230 JD = KBEG, KEND
             A( JD, JD ) = AMAGN*DBLE( A( JD, JD ) )
@@ -174,8 +174,8 @@
             A( JD+1, JD ) = AMAGN*DBLE( A( JD+1, JD ) )
   240    CONTINUE
 *
-*        If RSIGN = .TRUE., assign random signs to diagonal and
-*        subdiagonal
+         // If RSIGN = .TRUE., assign random signs to diagonal and
+         // subdiagonal
 *
          IF( RSIGN ) THEN
             DO 250 JD = KBEG, KEND
@@ -194,7 +194,7 @@
   260       CONTINUE
          END IF
 *
-*        Reverse if ITYPE < 0
+         // Reverse if ITYPE < 0
 *
          IF( ITYPE.LT.0 ) THEN
             DO 270 JD = KBEG, ( KBEG+KEND-1 ) / 2
@@ -211,7 +211,7 @@
 *
       END IF
 *
-*     Fill in upper triangle
+      // Fill in upper triangle
 *
       IF( TRIANG.NE.ZERO ) THEN
          DO 300 JC = 2, N
@@ -223,6 +223,6 @@
 *
       RETURN
 *
-*     End of ZLATM4
+      // End of ZLATM4
 *
       END

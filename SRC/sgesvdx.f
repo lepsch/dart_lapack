@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBU, JOBVT, RANGE;
       int                IL, INFO, IU, LDA, LDU, LDVT, LWORK, M, N, NS;
       REAL               VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             JOBZ, RNGTGK;
       bool               ALLS, INDS, LQUERY, VALS, WANTU, WANTVT;
       int                I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL, ITAU, ITAUP, ITAUQ, ITEMP, ITGKZ, IUTGK, J, MAXWRK, MINMN, MINWRK, MNTHR;
       REAL               ABSTOL, ANRM, BIGNUM, EPS, SMLNUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUM( 1 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SBDSVDX, SGEBRD, SGELQF, SGEQRF, SLACPY, SLASCL, SLASET, SORMBR, SORMLQ, SORMQR, SCOPY, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments.
+      // Test the input arguments.
 *
       NS = 0
       INFO = 0
@@ -104,12 +104,12 @@
          END IF
       END IF
 *
-*     Compute workspace
-*     (Note: Comments in the code beginning "Workspace:" describe the
-*     minimal amount of workspace needed at that point in the code,
-*     as well as the preferred amount for good performance.
-*     NB refers to the optimal block size for the immediately
-*     following subroutine, as returned by ILAENV.)
+      // Compute workspace
+      // (Note: Comments in the code beginning "Workspace:" describe the
+      // minimal amount of workspace needed at that point in the code,
+      // as well as the preferred amount for good performance.
+      // NB refers to the optimal block size for the immediately
+      // following subroutine, as returned by ILAENV.)
 *
       IF( INFO.EQ.0 ) THEN
          MINWRK = 1
@@ -119,7 +119,7 @@
                MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 )
                IF( M.GE.MNTHR ) THEN
 *
-*                 Path 1 (M much larger than N)
+                  // Path 1 (M much larger than N)
 *
                   MAXWRK = N + N*ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, N*(N+5) + 2*N* ILAENV( 1, 'SGEBRD', ' ', N, N, -1, -1 ) )
                   IF (WANTU) THEN
@@ -131,7 +131,7 @@
                   MINWRK = N*(N*3+20)
                ELSE
 *
-*                 Path 2 (M at least N, but not much larger)
+                  // Path 2 (M at least N, but not much larger)
 *
                   MAXWRK = 4*N + ( M+N )* ILAENV( 1, 'SGEBRD', ' ', M, N, -1, -1 )
                   IF (WANTU) THEN
@@ -146,7 +146,7 @@
                MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 )
                IF( N.GE.MNTHR ) THEN
 *
-*                 Path 1t (N much larger than M)
+                  // Path 1t (N much larger than M)
 *
                   MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*(M+5) + 2*M* ILAENV( 1, 'SGEBRD', ' ', M, M, -1, -1 ) )
                   IF (WANTU) THEN
@@ -158,7 +158,7 @@
                   MINWRK = M*(M*3+20)
                ELSE
 *
-*                 Path 2t (N at least M, but not much larger)
+                  // Path 2t (N at least M, but not much larger)
 *
                   MAXWRK = 4*M + ( M+N )* ILAENV( 1, 'SGEBRD', ' ', M, N, -1, -1 )
                   IF (WANTU) THEN
@@ -186,13 +186,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          RETURN
       END IF
 *
-*     Set singular values indices accord to RANGE.
+      // Set singular values indices accord to RANGE.
 *
       IF( ALLS ) THEN
          RNGTGK = 'I'
@@ -208,13 +208,13 @@
          IUTGK = 0
       END IF
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SQRT( SLAMCH( 'S' ) ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = SLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
@@ -228,26 +228,26 @@
 *
       IF( M.GE.N ) THEN
 *
-*        A has at least as many rows as columns. If A has sufficiently
-*        more rows than columns, first reduce A using the QR
-*        decomposition.
+         // A has at least as many rows as columns. If A has sufficiently
+         // more rows than columns, first reduce A using the QR
+         // decomposition.
 *
          IF( M.GE.MNTHR ) THEN
 *
-*           Path 1 (M much larger than N):
-*           A = Q * R = Q * ( QB * B * PB**T )
-*                     = Q * ( QB * ( UB * S * VB**T ) * PB**T )
-*           U = Q * QB * UB; V**T = VB**T * PB**T
+            // Path 1 (M much larger than N):
+            // A = Q * R = Q * ( QB * B * PB**T )
+                      // = Q * ( QB * ( UB * S * VB**T ) * PB**T )
+            // U = Q * QB * UB; V**T = VB**T * PB**T
 *
-*           Compute A=Q*R
-*           (Workspace: need 2*N, prefer N+N*NB)
+            // Compute A=Q*R
+            // (Workspace: need 2*N, prefer N+N*NB)
 *
             ITAU = 1
             ITEMP = ITAU + N
             CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
-*           Copy R into WORK and bidiagonalize it:
-*           (Workspace: need N*N+5*N, prefer N*N+4*N+2*N*NB)
+            // Copy R into WORK and bidiagonalize it:
+            // (Workspace: need N*N+5*N, prefer N*N+4*N+2*N*NB)
 *
             IQRF = ITEMP
             ID = IQRF + N*N
@@ -259,14 +259,14 @@
             CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IQRF+1 ), N )
             CALL SGEBRD( N, N, WORK( IQRF ), N, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
-*           Solve eigenvalue problem TGK*Z=Z*S.
-*           (Workspace: need 14*N + 2*N*(N+1))
+            // Solve eigenvalue problem TGK*Z=Z*S.
+            // (Workspace: need 14*N + 2*N*(N+1))
 *
             ITGKZ = ITEMP
             ITEMP = ITGKZ + N*(N*2+1)
             CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), N*2, WORK( ITEMP ), IWORK, INFO)
 *
-*           If needed, compute left singular vectors.
+            // If needed, compute left singular vectors.
 *
             IF( WANTU ) THEN
                J = ITGKZ
@@ -276,18 +276,18 @@
                END DO
                CALL SLASET( 'A', M-N, NS, ZERO, ZERO, U( N+1,1 ), LDU )
 *
-*              Call SORMBR to compute QB*UB.
-*              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
+               // Call SORMBR to compute QB*UB.
+               // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
                CALL SORMBR( 'Q', 'L', 'N', N, NS, N, WORK( IQRF ), N, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
-*              Call SORMQR to compute Q*(QB*UB).
-*              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
+               // Call SORMQR to compute Q*(QB*UB).
+               // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
                CALL SORMQR( 'L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
 *
-*           If needed, compute right singular vectors.
+            // If needed, compute right singular vectors.
 *
             IF( WANTVT) THEN
                J = ITGKZ + N
@@ -296,20 +296,20 @@
                   J = J + N*2
                END DO
 *
-*              Call SORMBR to compute VB**T * PB**T
-*              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
+               // Call SORMBR to compute VB**T * PB**T
+               // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
                CALL SORMBR( 'P', 'R', 'T', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
          ELSE
 *
-*           Path 2 (M at least N, but not much larger)
-*           Reduce A to bidiagonal form without QR decomposition
-*           A = QB * B * PB**T = QB * ( UB * S * VB**T ) * PB**T
-*           U = QB * UB; V**T = VB**T * PB**T
+            // Path 2 (M at least N, but not much larger)
+            // Reduce A to bidiagonal form without QR decomposition
+            // A = QB * B * PB**T = QB * ( UB * S * VB**T ) * PB**T
+            // U = QB * UB; V**T = VB**T * PB**T
 *
-*           Bidiagonalize A
-*           (Workspace: need 4*N+M, prefer 4*N+(M+N)*NB)
+            // Bidiagonalize A
+            // (Workspace: need 4*N+M, prefer 4*N+(M+N)*NB)
 *
             ID = 1
             IE = ID + N
@@ -318,14 +318,14 @@
             ITEMP = ITAUP + N
             CALL SGEBRD( M, N, A, LDA, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
-*           Solve eigenvalue problem TGK*Z=Z*S.
-*           (Workspace: need 14*N + 2*N*(N+1))
+            // Solve eigenvalue problem TGK*Z=Z*S.
+            // (Workspace: need 14*N + 2*N*(N+1))
 *
             ITGKZ = ITEMP
             ITEMP = ITGKZ + N*(N*2+1)
             CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), N*2, WORK( ITEMP ), IWORK, INFO)
 *
-*           If needed, compute left singular vectors.
+            // If needed, compute left singular vectors.
 *
             IF( WANTU ) THEN
                J = ITGKZ
@@ -335,13 +335,13 @@
                END DO
                CALL SLASET( 'A', M-N, NS, ZERO, ZERO, U( N+1,1 ), LDU )
 *
-*              Call SORMBR to compute QB*UB.
-*              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
+               // Call SORMBR to compute QB*UB.
+               // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
                CALL SORMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
             END IF
 *
-*           If needed, compute right singular vectors.
+            // If needed, compute right singular vectors.
 *
             IF( WANTVT) THEN
                J = ITGKZ + N
@@ -350,33 +350,33 @@
                   J = J + N*2
                END DO
 *
-*              Call SORMBR to compute VB**T * PB**T
-*              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
+               // Call SORMBR to compute VB**T * PB**T
+               // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
                CALL SORMBR( 'P', 'R', 'T', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
             END IF
          END IF
       ELSE
 *
-*        A has more columns than rows. If A has sufficiently more
-*        columns than rows, first reduce A using the LQ decomposition.
+         // A has more columns than rows. If A has sufficiently more
+         // columns than rows, first reduce A using the LQ decomposition.
 *
          IF( N.GE.MNTHR ) THEN
 *
-*           Path 1t (N much larger than M):
-*           A = L * Q = ( QB * B * PB**T ) * Q
-*                     = ( QB * ( UB * S * VB**T ) * PB**T ) * Q
-*           U = QB * UB ; V**T = VB**T * PB**T * Q
+            // Path 1t (N much larger than M):
+            // A = L * Q = ( QB * B * PB**T ) * Q
+                      // = ( QB * ( UB * S * VB**T ) * PB**T ) * Q
+            // U = QB * UB ; V**T = VB**T * PB**T * Q
 *
-*           Compute A=L*Q
-*           (Workspace: need 2*M, prefer M+M*NB)
+            // Compute A=L*Q
+            // (Workspace: need 2*M, prefer M+M*NB)
 *
             ITAU = 1
             ITEMP = ITAU + M
             CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 
-*           Copy L into WORK and bidiagonalize it:
-*           (Workspace in WORK( ITEMP ): need M*M+5*N, prefer M*M+4*M+2*M*NB)
+            // Copy L into WORK and bidiagonalize it:
+            // (Workspace in WORK( ITEMP ): need M*M+5*N, prefer M*M+4*M+2*M*NB)
 *
             ILQF = ITEMP
             ID = ILQF + M*M
@@ -388,14 +388,14 @@
             CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( ILQF+M ), M )
             CALL SGEBRD( M, M, WORK( ILQF ), M, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
-*           Solve eigenvalue problem TGK*Z=Z*S.
-*           (Workspace: need 2*M*M+14*M)
+            // Solve eigenvalue problem TGK*Z=Z*S.
+            // (Workspace: need 2*M*M+14*M)
 *
             ITGKZ = ITEMP
             ITEMP = ITGKZ + M*(M*2+1)
             CALL SBDSVDX( 'U', JOBZ, RNGTGK, M, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), M*2, WORK( ITEMP ), IWORK, INFO)
 *
-*           If needed, compute left singular vectors.
+            // If needed, compute left singular vectors.
 *
             IF( WANTU ) THEN
                J = ITGKZ
@@ -404,13 +404,13 @@
                   J = J + M*2
                END DO
 *
-*              Call SORMBR to compute QB*UB.
-*              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
+               // Call SORMBR to compute QB*UB.
+               // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
                CALL SORMBR( 'Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
 *
-*           If needed, compute right singular vectors.
+            // If needed, compute right singular vectors.
 *
             IF( WANTVT) THEN
                J = ITGKZ + M
@@ -420,25 +420,25 @@
                END DO
                CALL SLASET( 'A', NS, N-M, ZERO, ZERO, VT( 1,M+1 ), LDVT)
 *
-*              Call SORMBR to compute (VB**T)*(PB**T)
-*              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
+               // Call SORMBR to compute (VB**T)*(PB**T)
+               // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
                CALL SORMBR( 'P', 'R', 'T', NS, M, M, WORK( ILQF ), M, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
-*              Call SORMLQ to compute ((VB**T)*(PB**T))*Q.
-*              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
+               // Call SORMLQ to compute ((VB**T)*(PB**T))*Q.
+               // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
                CALL SORMLQ( 'R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
          ELSE
 *
-*           Path 2t (N greater than M, but not much larger)
-*           Reduce to bidiagonal form without LQ decomposition
-*           A = QB * B * PB**T = QB * ( UB * S * VB**T ) * PB**T
-*           U = QB * UB; V**T = VB**T * PB**T
+            // Path 2t (N greater than M, but not much larger)
+            // Reduce to bidiagonal form without LQ decomposition
+            // A = QB * B * PB**T = QB * ( UB * S * VB**T ) * PB**T
+            // U = QB * UB; V**T = VB**T * PB**T
 *
-*           Bidiagonalize A
-*           (Workspace: need 4*M+N, prefer 4*M+(M+N)*NB)
+            // Bidiagonalize A
+            // (Workspace: need 4*M+N, prefer 4*M+(M+N)*NB)
 *
             ID = 1
             IE = ID + M
@@ -447,14 +447,14 @@
             ITEMP = ITAUP + M
             CALL SGEBRD( M, N, A, LDA, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
-*           Solve eigenvalue problem TGK*Z=Z*S.
-*           (Workspace: need 2*M*M+14*M)
+            // Solve eigenvalue problem TGK*Z=Z*S.
+            // (Workspace: need 2*M*M+14*M)
 *
             ITGKZ = ITEMP
             ITEMP = ITGKZ + M*(M*2+1)
             CALL SBDSVDX( 'L', JOBZ, RNGTGK, M, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), M*2, WORK( ITEMP ), IWORK, INFO)
 *
-*           If needed, compute left singular vectors.
+            // If needed, compute left singular vectors.
 *
             IF( WANTU ) THEN
                J = ITGKZ
@@ -463,13 +463,13 @@
                   J = J + M*2
                END DO
 *
-*              Call SORMBR to compute QB*UB.
-*              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
+               // Call SORMBR to compute QB*UB.
+               // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
                CALL SORMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
 *
-*           If needed, compute right singular vectors.
+            // If needed, compute right singular vectors.
 *
             IF( WANTVT) THEN
                J = ITGKZ + M
@@ -479,26 +479,26 @@
                END DO
                CALL SLASET( 'A', NS, N-M, ZERO, ZERO, VT( 1,M+1 ), LDVT)
 *
-*              Call SORMBR to compute VB**T * PB**T
-*              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
+               // Call SORMBR to compute VB**T * PB**T
+               // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
                CALL SORMBR( 'P', 'R', 'T', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
          END IF
       END IF
 *
-*     Undo scaling if necessary
+      // Undo scaling if necessary
 *
       IF( ISCL.EQ.1 ) THEN
          IF( ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
       END IF
 *
-*     Return optimal workspace in WORK(1)
+      // Return optimal workspace in WORK(1)
 *
       WORK( 1 ) = SROUNDUP_LWORK( MAXWRK )
 *
       RETURN
 *
-*     End of SGESVDX
+      // End of SGESVDX
 *
       END

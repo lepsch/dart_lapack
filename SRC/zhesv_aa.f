@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDB, LWORK, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                LWKMIN, LWKOPT, LWKOPT_HETRF, LWKOPT_HETRS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZHETRF_AA, ZHETRS_AA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -67,12 +67,12 @@
          RETURN
       END IF
 *
-*     Compute the factorization A = U**H*T*U or A = L*T*L**H.
+      // Compute the factorization A = U**H*T*U or A = L*T*L**H.
 *
       CALL ZHETRF_AA( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
-*        Solve the system A*X = B, overwriting B with X.
+         // Solve the system A*X = B, overwriting B with X.
 *
          CALL ZHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
 *
@@ -82,6 +82,6 @@
 *
       RETURN
 *
-*     End of ZHESV_AA
+      // End of ZHESV_AA
 *
       END

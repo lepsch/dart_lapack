@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             NORM;
       int                N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            D( * ), DL( * ), DU( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       REAL               ANORM, SCALE, SUM, TEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, SISNAN;
       // EXTERNAL LSAME, SISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLASSQ
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) THEN
          ANORM = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
 *
-*        Find max(abs(A(i,j))).
+         // Find max(abs(A(i,j))).
 *
          ANORM = ABS( D( N ) )
          DO 10 I = 1, N - 1
@@ -46,7 +46,7 @@
    10    CONTINUE
       ELSE IF( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' ) THEN
 *
-*        Find norm1(A).
+         // Find norm1(A).
 *
          IF( N.EQ.1 ) THEN
             ANORM = ABS( D( 1 ) )
@@ -61,7 +61,7 @@
          END IF
       ELSE IF( LSAME( NORM, 'I' ) ) THEN
 *
-*        Find normI(A).
+         // Find normI(A).
 *
          IF( N.EQ.1 ) THEN
             ANORM = ABS( D( 1 ) )
@@ -76,7 +76,7 @@
          END IF
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
 *
-*        Find normF(A).
+         // Find normF(A).
 *
          SCALE = ZERO
          SUM = ONE
@@ -91,6 +91,6 @@
       CLANGT = ANORM
       RETURN
 *
-*     End of CLANGT
+      // End of CLANGT
 *
       END

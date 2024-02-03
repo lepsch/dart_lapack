@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX, NIN;
       REAL               RMAX
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NINFO( 2 );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
       int                LDT, LWORK;
       PARAMETER          ( LDT = 10, LWORK = 100 + 4*LDT + 16 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IFST, IFST1, IFST2, IFSTSV, ILST, ILST1, ILST2, ILSTSV, J, LOC, N;
       REAL               EPS, RES
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               Q( LDT, LDT ), Z( LDT, LDT ), RESULT( 4 ), T( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), S( LDT, LDT ), S1( LDT, LDT ), S2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGET51, SLACPY, SLASET, STGEXC
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = SLAMCH( 'P' )
       RMAX = ZERO
@@ -46,7 +46,7 @@
       NINFO( 1 ) = 0
       NINFO( 2 ) = 0
 *
-*     Read input data until N=0
+      // Read input data until N=0
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, IFST, ILST
@@ -72,7 +72,7 @@
       ILST2 = ILST
       RES = ZERO
 *
-*     Test without accumulating Q and Z
+      // Test without accumulating Q and Z
 *
       CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDT )
       CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDT )
@@ -83,13 +83,13 @@
    30    CONTINUE
    40 CONTINUE
 *
-*     Test with accumulating Q
+      // Test with accumulating Q
 *
       CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDT )
       CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDT )
       CALL STGEXC( .TRUE., .TRUE., N, T2, LDT, S2, LDT, Q, LDT, Z, LDT, IFST2, ILST2, WORK, LWORK, NINFO( 2 ) )
 *
-*     Compare T1 with T2 and S1 with S2
+      // Compare T1 with T2 and S1 with S2
 *
       DO 60 I = 1, N
          DO 50 J = 1, N
@@ -98,15 +98,15 @@
    60 CONTINUE
       IF( IFST1.NE.IFST2 ) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( NINFO( 1 ).NE.NINFO( 2 ) ) RES = RES + ONE / EPS
 *
-*     Test orthogonality of Q and Z and backward error on T2 and S2
+      // Test orthogonality of Q and Z and backward error on T2 and S2
 *
       CALL SGET51( 1, N, T, LDT, T2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 1 ) )       CALL SGET51( 1, N, S, LDT, S2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 2 ) )       CALL SGET51( 3, N, T, LDT, T2, LDT, Q, LDT, Q, LDT, WORK, RESULT( 3 ) )       CALL SGET51( 3, N, T, LDT, T2, LDT, Z, LDT, Z, LDT, WORK, RESULT( 4 ) )
       RES = RES + RESULT( 1 ) + RESULT( 2 ) + RESULT( 3 ) + RESULT( 4 )
 *
-*     Read next matrix pair
+      // Read next matrix pair
 *
       GO TO 10
 *
-*     End of SGET40
+      // End of SGET40
 *
       END

@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                LDA, LDB, LDX, N, NRHS;
       double             RESID, SCALE, TSCAL;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             CNORM( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                IX, J;
       double             EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH;
       // EXTERNAL LSAME, IZAMAX, DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZDSCAL, ZTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0
+      // Quick exit if N = 0
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
@@ -47,8 +47,8 @@
       EPS = DLAMCH( 'Epsilon' )
       SMLNUM = DLAMCH( 'Safe minimum' )
 *
-*     Compute the norm of the triangular matrix A using the column
-*     norms already computed by ZLATRS.
+      // Compute the norm of the triangular matrix A using the column
+      // norms already computed by ZLATRS.
 *
       TNORM = ZERO
       IF( LSAME( DIAG, 'N' ) ) THEN
@@ -61,8 +61,8 @@
    20    CONTINUE
       END IF
 *
-*     Compute the maximum over the number of right hand sides of
-*        norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
+      // Compute the maximum over the number of right hand sides of
+         // norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
 *
       RESID = ZERO
       DO 30 J = 1, NRHS
@@ -92,6 +92,6 @@
 *
       RETURN
 *
-*     End of ZTRT03
+      // End of ZTRT03
 *
       END

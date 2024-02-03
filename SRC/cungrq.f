@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, K, LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                I, IB, II, IINFO, IWS, J, KK, L, LDWORK, LWKOPT, NB, NBMIN, NX;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLARFB, CLARFT, CUNGR2, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL ILAENV, SROUNDUP_LWORK
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -69,7 +69,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 ) THEN
          RETURN
@@ -80,19 +80,19 @@
       IWS = M
       IF( NB.GT.1 .AND. NB.LT.K ) THEN
 *
-*        Determine when to cross over from blocked to unblocked code.
+         // Determine when to cross over from blocked to unblocked code.
 *
          NX = MAX( 0, ILAENV( 3, 'CUNGRQ', ' ', M, N, K, -1 ) )
          IF( NX.LT.K ) THEN
 *
-*           Determine if workspace is large enough for blocked code.
+            // Determine if workspace is large enough for blocked code.
 *
             LDWORK = M
             IWS = LDWORK*NB
             IF( LWORK.LT.IWS ) THEN
 *
-*              Not enough workspace to use optimal NB:  reduce NB and
-*              determine the minimum value of NB.
+               // Not enough workspace to use optimal NB:  reduce NB and
+               // determine the minimum value of NB.
 *
                NB = LWORK / LDWORK
                NBMIN = MAX( 2, ILAENV( 2, 'CUNGRQ', ' ', M, N, K, -1 ) )
@@ -102,12 +102,12 @@
 *
       IF( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) THEN
 *
-*        Use blocked code after the first block.
-*        The last kk rows are handled by the block method.
+         // Use blocked code after the first block.
+         // The last kk rows are handled by the block method.
 *
          KK = MIN( K, ( ( K-NX+NB-1 ) / NB )*NB )
 *
-*        Set A(1:m-kk,n-kk+1:n) to zero.
+         // Set A(1:m-kk,n-kk+1:n) to zero.
 *
          DO 20 J = N - KK + 1, N
             DO 10 I = 1, M - KK
@@ -118,34 +118,34 @@
          KK = 0
       END IF
 *
-*     Use unblocked code for the first or only block.
+      // Use unblocked code for the first or only block.
 *
       CALL CUNGR2( M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO )
 *
       IF( KK.GT.0 ) THEN
 *
-*        Use blocked code
+         // Use blocked code
 *
          DO 50 I = K - KK + 1, K, NB
             IB = MIN( NB, K-I+1 )
             II = M - K + I
             IF( II.GT.1 ) THEN
 *
-*              Form the triangular factor of the block reflector
-*              H = H(i+ib-1) . . . H(i+1) H(i)
+               // Form the triangular factor of the block reflector
+               // H = H(i+ib-1) . . . H(i+1) H(i)
 *
                CALL CLARFT( 'Backward', 'Rowwise', N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, LDWORK )
 *
-*              Apply H**H to A(1:m-k+i-1,1:n-k+i+ib-1) from the right
+               // Apply H**H to A(1:m-k+i-1,1:n-k+i+ib-1) from the right
 *
                CALL CLARFB( 'Right', 'Conjugate transpose', 'Backward', 'Rowwise', II-1, N-K+I+IB-1, IB, A( II, 1 ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
             END IF
 *
-*           Apply H**H to columns 1:n-k+i+ib-1 of current block
+            // Apply H**H to columns 1:n-k+i+ib-1 of current block
 *
             CALL CUNGR2( IB, N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, IINFO )
 *
-*           Set columns n-k+i+ib:n of current block to zero
+            // Set columns n-k+i+ib:n of current block to zero
 *
             DO 40 L = N - K + I + IB, N
                DO 30 J = II, II + IB - 1
@@ -158,6 +158,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(IWS)
       RETURN
 *
-*     End of CUNGRQ
+      // End of CUNGRQ
 *
       END

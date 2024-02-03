@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, NORMIN, TRANS, UPLO;
       int                INFO, KD, LDAB, N;
       REAL               SCALE
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               AB( LDAB, * ), CNORM( * ), X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0E+0, HALF = 0.5E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       int                I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND;
       REAL               BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
       REAL               SASUM, SDOT, SLAMCH
       // EXTERNAL LSAME, ISAMAX, SASUM, SDOT, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SAXPY, SSCAL, STBSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       NOTRAN = LSAME( TRANS, 'N' )
       NOUNIT = LSAME( DIAG, 'N' )
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
@@ -65,23 +65,23 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       SCALE = ONE
       IF( N.EQ.0 ) RETURN
 *
-*     Determine machine dependent parameters to control overflow.
+      // Determine machine dependent parameters to control overflow.
 *
       SMLNUM = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' )
       BIGNUM = ONE / SMLNUM
 *
       IF( LSAME( NORMIN, 'N' ) ) THEN
 *
-*        Compute the 1-norm of each column, not including the diagonal.
+         // Compute the 1-norm of each column, not including the diagonal.
 *
          IF( UPPER ) THEN
 *
-*           A is upper triangular.
+            // A is upper triangular.
 *
             DO 10 J = 1, N
                JLEN = MIN( KD, J-1 )
@@ -89,7 +89,7 @@
    10       CONTINUE
          ELSE
 *
-*           A is lower triangular.
+            // A is lower triangular.
 *
             DO 20 J = 1, N
                JLEN = MIN( KD, N-J )
@@ -102,8 +102,8 @@
          END IF
       END IF
 *
-*     Scale the column norms by TSCAL if the maximum element in CNORM is
-*     greater than BIGNUM.
+      // Scale the column norms by TSCAL if the maximum element in CNORM is
+      // greater than BIGNUM.
 *
       IMAX = ISAMAX( N, CNORM, 1 )
       TMAX = CNORM( IMAX )
@@ -114,15 +114,15 @@
          CALL SSCAL( N, TSCAL, CNORM, 1 )
       END IF
 *
-*     Compute a bound on the computed solution vector to see if the
-*     Level 2 BLAS routine STBSV can be used.
+      // Compute a bound on the computed solution vector to see if the
+      // Level 2 BLAS routine STBSV can be used.
 *
       J = ISAMAX( N, X, 1 )
       XMAX = ABS( X( J ) )
       XBND = XMAX
       IF( NOTRAN ) THEN
 *
-*        Compute the growth in A * x = b.
+         // Compute the growth in A * x = b.
 *
          IF( UPPER ) THEN
             JFIRST = N
@@ -143,31 +143,31 @@
 *
          IF( NOUNIT ) THEN
 *
-*           A is non-unit triangular.
+            // A is non-unit triangular.
 *
-*           Compute GROW = 1/G(j) and XBND = 1/M(j).
-*           Initially, G(0) = max{x(i), i=1,...,n}.
+            // Compute GROW = 1/G(j) and XBND = 1/M(j).
+            // Initially, G(0) = max{x(i), i=1,...,n}.
 *
             GROW = ONE / MAX( XBND, SMLNUM )
             XBND = GROW
             DO 30 J = JFIRST, JLAST, JINC
 *
-*              Exit the loop if the growth factor is too small.
+               // Exit the loop if the growth factor is too small.
 *
                IF( GROW.LE.SMLNUM ) GO TO 50
 *
-*              M(j) = G(j-1) / abs(A(j,j))
+               // M(j) = G(j-1) / abs(A(j,j))
 *
                TJJ = ABS( AB( MAIND, J ) )
                XBND = MIN( XBND, MIN( ONE, TJJ )*GROW )
                IF( TJJ+CNORM( J ).GE.SMLNUM ) THEN
 *
-*                 G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
+                  // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
 *
                   GROW = GROW*( TJJ / ( TJJ+CNORM( J ) ) )
                ELSE
 *
-*                 G(j) could overflow, set GROW to 0.
+                  // G(j) could overflow, set GROW to 0.
 *
                   GROW = ZERO
                END IF
@@ -175,18 +175,18 @@
             GROW = XBND
          ELSE
 *
-*           A is unit triangular.
+            // A is unit triangular.
 *
-*           Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
+            // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 *
             GROW = MIN( ONE, ONE / MAX( XBND, SMLNUM ) )
             DO 40 J = JFIRST, JLAST, JINC
 *
-*              Exit the loop if the growth factor is too small.
+               // Exit the loop if the growth factor is too small.
 *
                IF( GROW.LE.SMLNUM ) GO TO 50
 *
-*              G(j) = G(j-1)*( 1 + CNORM(j) )
+               // G(j) = G(j-1)*( 1 + CNORM(j) )
 *
                GROW = GROW*( ONE / ( ONE+CNORM( J ) ) )
    40       CONTINUE
@@ -195,7 +195,7 @@
 *
       ELSE
 *
-*        Compute the growth in A**T * x = b.
+         // Compute the growth in A**T * x = b.
 *
          IF( UPPER ) THEN
             JFIRST = 1
@@ -216,25 +216,25 @@
 *
          IF( NOUNIT ) THEN
 *
-*           A is non-unit triangular.
+            // A is non-unit triangular.
 *
-*           Compute GROW = 1/G(j) and XBND = 1/M(j).
-*           Initially, M(0) = max{x(i), i=1,...,n}.
+            // Compute GROW = 1/G(j) and XBND = 1/M(j).
+            // Initially, M(0) = max{x(i), i=1,...,n}.
 *
             GROW = ONE / MAX( XBND, SMLNUM )
             XBND = GROW
             DO 60 J = JFIRST, JLAST, JINC
 *
-*              Exit the loop if the growth factor is too small.
+               // Exit the loop if the growth factor is too small.
 *
                IF( GROW.LE.SMLNUM ) GO TO 80
 *
-*              G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
+               // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 *
                XJ = ONE + CNORM( J )
                GROW = MIN( GROW, XBND / XJ )
 *
-*              M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
+               // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 *
                TJJ = ABS( AB( MAIND, J ) )
                IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
@@ -242,18 +242,18 @@
             GROW = MIN( GROW, XBND )
          ELSE
 *
-*           A is unit triangular.
+            // A is unit triangular.
 *
-*           Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
+            // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 *
             GROW = MIN( ONE, ONE / MAX( XBND, SMLNUM ) )
             DO 70 J = JFIRST, JLAST, JINC
 *
-*              Exit the loop if the growth factor is too small.
+               // Exit the loop if the growth factor is too small.
 *
                IF( GROW.LE.SMLNUM ) GO TO 80
 *
-*              G(j) = ( 1 + CNORM(j) )*G(j-1)
+               // G(j) = ( 1 + CNORM(j) )*G(j-1)
 *
                XJ = ONE + CNORM( J )
                GROW = GROW / XJ
@@ -264,18 +264,18 @@
 *
       IF( ( GROW*TSCAL ).GT.SMLNUM ) THEN
 *
-*        Use the Level 2 BLAS solve if the reciprocal of the bound on
-*        elements of X is not too small.
+         // Use the Level 2 BLAS solve if the reciprocal of the bound on
+         // elements of X is not too small.
 *
          CALL STBSV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, X, 1 )
       ELSE
 *
-*        Use a Level 1 BLAS solve, scaling intermediate results.
+         // Use a Level 1 BLAS solve, scaling intermediate results.
 *
          IF( XMAX.GT.BIGNUM ) THEN
 *
-*           Scale X so that its components are less than or equal to
-*           BIGNUM in absolute value.
+            // Scale X so that its components are less than or equal to
+            // BIGNUM in absolute value.
 *
             SCALE = BIGNUM / XMAX
             CALL SSCAL( N, SCALE, X, 1 )
@@ -284,11 +284,11 @@
 *
          IF( NOTRAN ) THEN
 *
-*           Solve A * x = b
+            // Solve A * x = b
 *
             DO 100 J = JFIRST, JLAST, JINC
 *
-*              Compute x(j) = b(j) / A(j,j), scaling x if necessary.
+               // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 *
                XJ = ABS( X( J ) )
                IF( NOUNIT ) THEN
@@ -300,12 +300,12 @@
                   TJJ = ABS( TJJS )
                   IF( TJJ.GT.SMLNUM ) THEN
 *
-*                    abs(A(j,j)) > SMLNUM:
+                     // abs(A(j,j)) > SMLNUM:
 *
                      IF( TJJ.LT.ONE ) THEN
                         IF( XJ.GT.TJJ*BIGNUM ) THEN
 *
-*                          Scale x by 1/b(j).
+                           // Scale x by 1/b(j).
 *
                            REC = ONE / XJ
                            CALL SSCAL( N, REC, X, 1 )
@@ -317,18 +317,18 @@
                      XJ = ABS( X( J ) )
                   ELSE IF( TJJ.GT.ZERO ) THEN
 *
-*                    0 < abs(A(j,j)) <= SMLNUM:
+                     // 0 < abs(A(j,j)) <= SMLNUM:
 *
                      IF( XJ.GT.TJJ*BIGNUM ) THEN
 *
-*                       Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM
-*                       to avoid overflow when dividing by A(j,j).
+                        // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM
+                       t // o avoid overflow when dividing by A(j,j).
 *
                         REC = ( TJJ*BIGNUM ) / XJ
                         IF( CNORM( J ).GT.ONE ) THEN
 *
-*                          Scale by 1/CNORM(j) to avoid overflow when
-*                          multiplying x(j) times column j.
+                           // Scale by 1/CNORM(j) to avoid overflow when
+                           // multiplying x(j) times column j.
 *
                            REC = REC / CNORM( J )
                         END IF
@@ -340,8 +340,8 @@
                      XJ = ABS( X( J ) )
                   ELSE
 *
-*                    A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
-*                    scale = 0, and compute a solution to A*x = 0.
+                     // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
+                     // scale = 0, and compute a solution to A*x = 0.
 *
                      DO 90 I = 1, N
                         X( I ) = ZERO
@@ -353,14 +353,14 @@
                   END IF
    95          CONTINUE
 *
-*              Scale x if necessary to avoid overflow when adding a
-*              multiple of column j of A.
+               // Scale x if necessary to avoid overflow when adding a
+               // multiple of column j of A.
 *
                IF( XJ.GT.ONE ) THEN
                   REC = ONE / XJ
                   IF( CNORM( J ).GT.( BIGNUM-XMAX )*REC ) THEN
 *
-*                    Scale x by 1/(2*abs(x(j))).
+                     // Scale x by 1/(2*abs(x(j))).
 *
                      REC = REC*HALF
                      CALL SSCAL( N, REC, X, 1 )
@@ -368,7 +368,7 @@
                   END IF
                ELSE IF( XJ*CNORM( J ).GT.( BIGNUM-XMAX ) ) THEN
 *
-*                 Scale x by 1/2.
+                  // Scale x by 1/2.
 *
                   CALL SSCAL( N, HALF, X, 1 )
                   SCALE = SCALE*HALF
@@ -377,9 +377,9 @@
                IF( UPPER ) THEN
                   IF( J.GT.1 ) THEN
 *
-*                    Compute the update
-*                       x(max(1,j-kd):j-1) := x(max(1,j-kd):j-1) -
-*                                             x(j)* A(max(1,j-kd):j-1,j)
+                     // Compute the update
+                        // x(max(1,j-kd):j-1) := x(max(1,j-kd):j-1) -
+                                              // x(j)* A(max(1,j-kd):j-1,j)
 *
                      JLEN = MIN( KD, J-1 )
                      CALL SAXPY( JLEN, -X( J )*TSCAL, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 )
@@ -388,9 +388,9 @@
                   END IF
                ELSE IF( J.LT.N ) THEN
 *
-*                 Compute the update
-*                    x(j+1:min(j+kd,n)) := x(j+1:min(j+kd,n)) -
-*                                          x(j) * A(j+1:min(j+kd,n),j)
+                  // Compute the update
+                     // x(j+1:min(j+kd,n)) := x(j+1:min(j+kd,n)) -
+                                           // x(j) * A(j+1:min(j+kd,n),j)
 *
                   JLEN = MIN( KD, N-J )
                   IF( JLEN.GT.0 ) CALL SAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 )
@@ -401,19 +401,19 @@
 *
          ELSE
 *
-*           Solve A**T * x = b
+            // Solve A**T * x = b
 *
             DO 140 J = JFIRST, JLAST, JINC
 *
-*              Compute x(j) = b(j) - sum A(k,j)*x(k).
-*                                    k<>j
+               // Compute x(j) = b(j) - sum A(k,j)*x(k).
+                                     // k<>j
 *
                XJ = ABS( X( J ) )
                USCAL = TSCAL
                REC = ONE / MAX( XMAX, ONE )
                IF( CNORM( J ).GT.( BIGNUM-XJ )*REC ) THEN
 *
-*                 If x(j) could overflow, scale x by 1/(2*XMAX).
+                  // If x(j) could overflow, scale x by 1/(2*XMAX).
 *
                   REC = REC*HALF
                   IF( NOUNIT ) THEN
@@ -424,7 +424,7 @@
                      TJJ = ABS( TJJS )
                      IF( TJJ.GT.ONE ) THEN
 *
-*                       Divide by A(j,j) when scaling x if A(j,j) > 1.
+                        // Divide by A(j,j) when scaling x if A(j,j) > 1.
 *
                         REC = MIN( ONE, REC*TJJ )
                         USCAL = USCAL / TJJS
@@ -439,8 +439,8 @@
                SUMJ = ZERO
                IF( USCAL.EQ.ONE ) THEN
 *
-*                 If the scaling needed for A in the dot product is 1,
-*                 call SDOT to perform the dot product.
+                  // If the scaling needed for A in the dot product is 1,
+                  // call SDOT to perform the dot product.
 *
                   IF( UPPER ) THEN
                      JLEN = MIN( KD, J-1 )
@@ -451,7 +451,7 @@
                   END IF
                ELSE
 *
-*                 Otherwise, use in-line code for the dot product.
+                  // Otherwise, use in-line code for the dot product.
 *
                   IF( UPPER ) THEN
                      JLEN = MIN( KD, J-1 )
@@ -468,14 +468,14 @@
 *
                IF( USCAL.EQ.TSCAL ) THEN
 *
-*                 Compute x(j) := ( x(j) - sumj ) / A(j,j) if 1/A(j,j)
-*                 was not used to scale the dotproduct.
+                  // Compute x(j) := ( x(j) - sumj ) / A(j,j) if 1/A(j,j)
+                  // was not used to scale the dotproduct.
 *
                   X( J ) = X( J ) - SUMJ
                   XJ = ABS( X( J ) )
                   IF( NOUNIT ) THEN
 *
-*                    Compute x(j) = x(j) / A(j,j), scaling if necessary.
+                     // Compute x(j) = x(j) / A(j,j), scaling if necessary.
 *
                      TJJS = AB( MAIND, J )*TSCAL
                   ELSE
@@ -485,12 +485,12 @@
                      TJJ = ABS( TJJS )
                      IF( TJJ.GT.SMLNUM ) THEN
 *
-*                       abs(A(j,j)) > SMLNUM:
+                        // abs(A(j,j)) > SMLNUM:
 *
                         IF( TJJ.LT.ONE ) THEN
                            IF( XJ.GT.TJJ*BIGNUM ) THEN
 *
-*                             Scale X by 1/abs(x(j)).
+                              // Scale X by 1/abs(x(j)).
 *
                               REC = ONE / XJ
                               CALL SSCAL( N, REC, X, 1 )
@@ -501,11 +501,11 @@
                         X( J ) = X( J ) / TJJS
                      ELSE IF( TJJ.GT.ZERO ) THEN
 *
-*                       0 < abs(A(j,j)) <= SMLNUM:
+                        // 0 < abs(A(j,j)) <= SMLNUM:
 *
                         IF( XJ.GT.TJJ*BIGNUM ) THEN
 *
-*                          Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM.
+                           // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM.
 *
                            REC = ( TJJ*BIGNUM ) / XJ
                            CALL SSCAL( N, REC, X, 1 )
@@ -515,8 +515,8 @@
                         X( J ) = X( J ) / TJJS
                      ELSE
 *
-*                       A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
-*                       scale = 0, and compute a solution to A**T*x = 0.
+                        // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
+                        // scale = 0, and compute a solution to A**T*x = 0.
 *
                         DO 130 I = 1, N
                            X( I ) = ZERO
@@ -528,8 +528,8 @@
   135             CONTINUE
                ELSE
 *
-*                 Compute x(j) := x(j) / A(j,j) - sumj if the dot
-*                 product has already been divided by 1/A(j,j).
+                  // Compute x(j) := x(j) / A(j,j) - sumj if the dot
+                  // product has already been divided by 1/A(j,j).
 *
                   X( J ) = X( J ) / TJJS - SUMJ
                END IF
@@ -539,7 +539,7 @@
          SCALE = SCALE / TSCAL
       END IF
 *
-*     Scale the column norms by 1/TSCAL for return.
+      // Scale the column norms by 1/TSCAL for return.
 *
       IF( TSCAL.NE.ONE ) THEN
          CALL SSCAL( N, ONE / TSCAL, CNORM, 1 )
@@ -547,6 +547,6 @@
 *
       RETURN
 *
-*     End of SLATBS
+      // End of SLATBS
 *
       END

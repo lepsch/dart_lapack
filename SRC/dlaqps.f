@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KB, LDA, LDF, M, N, NB, OFFSET;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                JPVT( * );
       double             A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
       double             AKK, TEMP, TEMP2, TOL3Z;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DGEMV, DLARFG, DSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, NINT, SQRT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DNRM2;
       // EXTERNAL IDAMAX, DLAMCH, DNRM2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       LASTRK = MIN( M, N+OFFSET )
       LSTICC = 0
       K = 0
       TOL3Z = SQRT(DLAMCH('Epsilon'))
 *
-*     Beginning of while loop.
+      // Beginning of while loop.
 *
    10 CONTINUE
       IF( ( K.LT.NB ) .AND. ( LSTICC.EQ.0 ) ) THEN
          K = K + 1
          RK = OFFSET + K
 *
-*        Determine ith pivot column and swap if necessary
+         // Determine ith pivot column and swap if necessary
 *
          PVT = ( K-1 ) + IDAMAX( N-K+1, VN1( K ), 1 )
          IF( PVT.NE.K ) THEN
@@ -60,14 +60,14 @@
             VN2( PVT ) = VN2( K )
          END IF
 *
-*        Apply previous Householder reflectors to column K:
-*        A(RK:M,K) := A(RK:M,K) - A(RK:M,1:K-1)*F(K,1:K-1)**T.
+         // Apply previous Householder reflectors to column K:
+         // A(RK:M,K) := A(RK:M,K) - A(RK:M,1:K-1)*F(K,1:K-1)**T.
 *
          IF( K.GT.1 ) THEN
             CALL DGEMV( 'No transpose', M-RK+1, K-1, -ONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, ONE, A( RK, K ), 1 )
          END IF
 *
-*        Generate elementary reflector H(k).
+         // Generate elementary reflector H(k).
 *
          IF( RK.LT.M ) THEN
             CALL DLARFG( M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) )
@@ -78,23 +78,23 @@
          AKK = A( RK, K )
          A( RK, K ) = ONE
 *
-*        Compute Kth column of F:
+         // Compute Kth column of F:
 *
-*        Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**T*A(RK:M,K).
+         // Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**T*A(RK:M,K).
 *
          IF( K.LT.N ) THEN
             CALL DGEMV( 'Transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, ZERO, F( K+1, K ), 1 )
          END IF
 *
-*        Padding F(1:K,K) with zeros.
+         // Padding F(1:K,K) with zeros.
 *
          DO 20 J = 1, K
             F( J, K ) = ZERO
    20    CONTINUE
 *
-*        Incremental updating of F:
-*        F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**T
-*                    *A(RK:M,K).
+         // Incremental updating of F:
+         // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**T
+                     // *A(RK:M,K).
 *
          IF( K.GT.1 ) THEN
             CALL DGEMV( 'Transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, ZERO, AUXV( 1 ), 1 )
@@ -102,21 +102,21 @@
             CALL DGEMV( 'No transpose', N, K-1, ONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE, F( 1, K ), 1 )
          END IF
 *
-*        Update the current row of A:
-*        A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**T.
+         // Update the current row of A:
+         // A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**T.
 *
          IF( K.LT.N ) THEN
             CALL DGEMV( 'No transpose', N-K, K, -ONE, F( K+1, 1 ), LDF, A( RK, 1 ), LDA, ONE, A( RK, K+1 ), LDA )
          END IF
 *
-*        Update partial column norms.
+         // Update partial column norms.
 *
          IF( RK.LT.LASTRK ) THEN
             DO 30 J = K + 1, N
                IF( VN1( J ).NE.ZERO ) THEN
 *
-*                 NOTE: The following 4 lines follow from the analysis in
-*                 Lapack Working Note 176.
+                  // NOTE: The following 4 lines follow from the analysis in
+                  // Lapack Working Note 176.
 *
                   TEMP = ABS( A( RK, J ) ) / VN1( J )
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
@@ -133,31 +133,31 @@
 *
          A( RK, K ) = AKK
 *
-*        End of while loop.
+         // End of while loop.
 *
          GO TO 10
       END IF
       KB = K
       RK = OFFSET + KB
 *
-*     Apply the block reflector to the rest of the matrix:
-*     A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
-*                         A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**T.
+      // Apply the block reflector to the rest of the matrix:
+      // A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
+                          // A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**T.
 *
       IF( KB.LT.MIN( N, M-OFFSET ) ) THEN
          CALL DGEMM( 'No transpose', 'Transpose', M-RK, N-KB, KB, -ONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( RK+1, KB+1 ), LDA )
       END IF
 *
-*     Recomputation of difficult columns.
+      // Recomputation of difficult columns.
 *
    40 CONTINUE
       IF( LSTICC.GT.0 ) THEN
          ITEMP = NINT( VN2( LSTICC ) )
          VN1( LSTICC ) = DNRM2( M-RK, A( RK+1, LSTICC ), 1 )
 *
-*        NOTE: The computation of VN1( LSTICC ) relies on the fact that
-*        SNRM2 does not fail on vectors with norm below the value of
-*        SQRT(DLAMCH('S'))
+         // NOTE: The computation of VN1( LSTICC ) relies on the fact that
+         // SNRM2 does not fail on vectors with norm below the value of
+         // SQRT(DLAMCH('S'))
 *
          VN2( LSTICC ) = VN1( LSTICC )
          LSTICC = ITEMP
@@ -166,6 +166,6 @@
 *
       RETURN
 *
-*     End of DLAQPS
+      // End of DLAQPS
 *
       END

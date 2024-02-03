@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AB( LDAB, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRAN, UNIT, UPPER;
       int                I, IFU, IMAX, J, K, NZ;
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0 or NRHS = 0.
+      // Quick exit if N = 0 or NRHS = 0.
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESLTS( 1 ) = ZERO
@@ -50,9 +50,9 @@
       UNIT = LSAME( DIAG, 'U' )
       NZ = MIN( KD, N-1 ) + 1
 *
-*     Test 1:  Compute the maximum of
-*        norm(X - XACT) / ( norm(X) * FERR )
-*     over all the vectors X and XACT using the infinity-norm.
+      // Test 1:  Compute the maximum of
+         // norm(X - XACT) / ( norm(X) * FERR )
+      // over all the vectors X and XACT using the infinity-norm.
 *
       ERRBND = ZERO
       DO 30 J = 1, NRHS
@@ -81,8 +81,8 @@
    30 CONTINUE
       RESLTS( 1 ) = ERRBND
 *
-*     Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
-*     (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
+      // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
+      // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
 *
       IFU = 0
       IF( UNIT ) IFU = 1
@@ -130,6 +130,6 @@
 *
       RETURN
 *
-*     End of DTBT05
+      // End of DTBT05
 *
       END

@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                LDA, LDB, LDX, M, N, NRHS;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), RWORK( * ), X( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J, N1, N2;
       double             ANORM, BNORM, EPS, XNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DASUM, DLAMCH, DLANGE;
       // EXTERNAL LSAME, DASUM, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if M = 0 or N = 0 or NRHS = 0
+      // Quick exit if M = 0 or N = 0 or NRHS = 0
 *
       IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.EQ.0 ) THEN
          RESID = ZERO
@@ -55,12 +55,12 @@
 *
       EPS = DLAMCH( 'Epsilon' )
 *
-*     Compute  B - A*X  (or  B - A'*X ) and store in B.
+      // Compute  B - A*X  (or  B - A'*X ) and store in B.
 *
       CALL DGEMM( TRANS, 'No transpose', N1, NRHS, N2, -ONE, A, LDA, X, LDX, ONE, B, LDB )
 *
-*     Compute the maximum over the number of right hand sides of
-*        norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .
+      // Compute the maximum over the number of right hand sides of
+         // norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .
 *
       RESID = ZERO
       DO 10 J = 1, NRHS
@@ -77,6 +77,6 @@
 *
       RETURN
 *
-*     End of DQRT16
+      // End of DQRT16
 *
       END

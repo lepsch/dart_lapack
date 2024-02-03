@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LIWORK, LWORK, M, N;
       REAL               ABSTOL, VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
       REAL               A( LDA, * ), W( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ, TRYRAC;
       String             ORDER;
       int                I, IEEEOK, IINFO, IMAX, INDD, INDDD, INDE, INDEE, INDIBL, INDIFL, INDISP, INDIWO, INDTAU, INDWK, INDWKN, ISCALE, J, JJ, LIWMIN, LLWORK, LLWRKN, LWKOPT, LWMIN, NB, NSPLIT;
       REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANSY, SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANSY, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SORMTR, SSCAL, SSTEBZ, SSTEMR, SSTEIN, SSTERF, SSWAP, SSYTRD, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IEEEOK = ILAENV( 10, 'SSYEVR', 'N', 1, 2, 3, 4 )
 *
@@ -109,7 +109,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) THEN
@@ -136,7 +136,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS = SLAMCH( 'Precision' )
@@ -145,7 +145,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       ABSTLL = ABSTOL
@@ -178,49 +178,49 @@
          END IF
       END IF
 
-*     Initialize indices into workspaces.  Note: The IWORK indices are
-*     used only if SSTERF or SSTEMR fail.
+      // Initialize indices into workspaces.  Note: The IWORK indices are
+      // used only if SSTERF or SSTEMR fail.
 
-*     WORK(INDTAU:INDTAU+N-1) stores the scalar factors of the
-*     elementary reflectors used in SSYTRD.
+      // WORK(INDTAU:INDTAU+N-1) stores the scalar factors of the
+      // elementary reflectors used in SSYTRD.
       INDTAU = 1
-*     WORK(INDD:INDD+N-1) stores the tridiagonal's diagonal entries.
+      // WORK(INDD:INDD+N-1) stores the tridiagonal's diagonal entries.
       INDD = INDTAU + N
-*     WORK(INDE:INDE+N-1) stores the off-diagonal entries of the
-*     tridiagonal matrix from SSYTRD.
+      // WORK(INDE:INDE+N-1) stores the off-diagonal entries of the
+     t // ridiagonal matrix from SSYTRD.
       INDE = INDD + N
-*     WORK(INDDD:INDDD+N-1) is a copy of the diagonal entries over
-*     -written by SSTEMR (the SSTERF path copies the diagonal to W).
+      // WORK(INDDD:INDDD+N-1) is a copy of the diagonal entries over
+      // -written by SSTEMR (the SSTERF path copies the diagonal to W).
       INDDD = INDE + N
-*     WORK(INDEE:INDEE+N-1) is a copy of the off-diagonal entries over
-*     -written while computing the eigenvalues in SSTERF and SSTEMR.
+      // WORK(INDEE:INDEE+N-1) is a copy of the off-diagonal entries over
+      // -written while computing the eigenvalues in SSTERF and SSTEMR.
       INDEE = INDDD + N
-*     INDWK is the starting offset of the left-over workspace, and
-*     LLWORK is the remaining workspace size.
+      // INDWK is the starting offset of the left-over workspace, and
+      // LLWORK is the remaining workspace size.
       INDWK = INDEE + N
       LLWORK = LWORK - INDWK + 1
 
-*     IWORK(INDIBL:INDIBL+M-1) corresponds to IBLOCK in SSTEBZ and
-*     stores the block indices of each of the M<=N eigenvalues.
+      // IWORK(INDIBL:INDIBL+M-1) corresponds to IBLOCK in SSTEBZ and
+      // stores the block indices of each of the M<=N eigenvalues.
       INDIBL = 1
-*     IWORK(INDISP:INDISP+NSPLIT-1) corresponds to ISPLIT in SSTEBZ and
-*     stores the starting and finishing indices of each block.
+      // IWORK(INDISP:INDISP+NSPLIT-1) corresponds to ISPLIT in SSTEBZ and
+      // stores the starting and finishing indices of each block.
       INDISP = INDIBL + N
-*     IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
-*     that corresponding to eigenvectors that fail to converge in
-*     SSTEIN.  This information is discarded; if any fail, the driver
-*     returns INFO > 0.
+      // IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
+     t // hat corresponding to eigenvectors that fail to converge in
+      // SSTEIN.  This information is discarded; if any fail, the driver
+      // returns INFO > 0.
       INDIFL = INDISP + N
-*     INDIWO is the offset of the remaining integer workspace.
+      // INDIWO is the offset of the remaining integer workspace.
       INDIWO = INDIFL + N
 
 *
-*     Call SSYTRD to reduce symmetric matrix to tridiagonal form.
+      // Call SSYTRD to reduce symmetric matrix to tridiagonal form.
 *
       CALL SSYTRD( UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
 *
-*     If all eigenvalues are desired
-*     then call SSTERF or SSTEMR and SORMTR.
+      // If all eigenvalues are desired
+     t // hen call SSTERF or SSTEMR and SORMTR.
 *
       TEST = .FALSE.
       IF( INDEIG ) THEN
@@ -246,8 +246,8 @@
 *
 *
 *
-*        Apply orthogonal matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by SSTEMR.
+         // Apply orthogonal matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by SSTEMR.
 *
             IF( WANTZ .AND. INFO.EQ.0 ) THEN
                INDWKN = INDE
@@ -258,16 +258,16 @@
 *
 *
          IF( INFO.EQ.0 ) THEN
-*           Everything worked.  Skip SSTEBZ/SSTEIN.  IWORK(:) are
-*           undefined.
+            // Everything worked.  Skip SSTEBZ/SSTEIN.  IWORK(:) are
+            // undefined.
             M = N
             GO TO 30
          END IF
          INFO = 0
       END IF
 *
-*     Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
-*     Also call SSTEBZ and SSTEIN if SSTEMR fails.
+      // Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
+      // Also call SSTEBZ and SSTEIN if SSTEMR fails.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -279,15 +279,15 @@
       IF( WANTZ ) THEN
          CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
 *
-*        Apply orthogonal matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by SSTEIN.
+         // Apply orthogonal matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by SSTEIN.
 *
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
          CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
 *  Jump here if SSTEMR/SSTEIN succeeded.
    30 CONTINUE
@@ -300,10 +300,10 @@
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.  Note: We do not sort the IFAIL portion of IWORK.
-*     It may not be initialized (if SSTEMR/SSTEIN succeeded), and we do
-*     not return this detailed information to the user.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.  Note: We do not sort the IFAIL portion of IWORK.
+      // It may not be initialized (if SSTEMR/SSTEIN succeeded), and we do
+      // not return this detailed information to the user.
 *
       IF( WANTZ ) THEN
          DO 50 J = 1, M - 1
@@ -324,13 +324,13 @@
    50    CONTINUE
       END IF
 *
-*     Set WORK(1) to optimal workspace size.
+      // Set WORK(1) to optimal workspace size.
 *
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       IWORK( 1 ) = LIWMIN
 *
       RETURN
 *
-*     End of SSYEVR
+      // End of SSYEVR
 *
       END

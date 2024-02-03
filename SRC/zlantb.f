@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
       int                K, LDAB, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             WORK( * );
       COMPLEX*16         AB( LDAB, * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UDIAG;
       int                I, J, L;
       double             SCALE, SUM, VALUE;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, DISNAN;
       // EXTERNAL LSAME, DISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLASSQ
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.EQ.0 ) THEN
          VALUE = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
 *
-*        Find max(abs(A(i,j))).
+         // Find max(abs(A(i,j))).
 *
          IF( LSAME( DIAG, 'U' ) ) THEN
             VALUE = ONE
@@ -79,7 +79,7 @@
          END IF
       ELSE IF( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
 *
-*        Find norm1(A).
+         // Find norm1(A).
 *
          VALUE = ZERO
          UDIAG = LSAME( DIAG, 'U' )
@@ -116,7 +116,7 @@
          END IF
       ELSE IF( LSAME( NORM, 'I' ) ) THEN
 *
-*        Find normI(A).
+         // Find normI(A).
 *
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
@@ -170,7 +170,7 @@
   270    CONTINUE
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
 *
-*        Find normF(A).
+         // Find normF(A).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
             IF( LSAME( DIAG, 'U' ) ) THEN
@@ -211,6 +211,6 @@
       ZLANTB = VALUE
       RETURN
 *
-*     End of ZLANTB
+      // End of ZLANTB
 *
       END

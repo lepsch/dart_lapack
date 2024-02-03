@@ -4,57 +4,57 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                K, LDA, LWORK, M;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), TAU( * ), WORK( LWORK );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASET, DORM2R, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             RDUMMY( 1 );
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       DQRT11 = ZERO
 *
-*     Test for sufficient workspace
+      // Test for sufficient workspace
 *
       IF( LWORK.LT.M*M+M ) THEN
          CALL XERBLA( 'DQRT11', 7 )
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 ) RETURN
 *
       CALL DLASET( 'Full', M, M, ZERO, ONE, WORK, M )
 *
-*     Form Q
+      // Form Q
 *
       CALL DORM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
-*     Form Q'*Q
+      // Form Q'*Q
 *
       CALL DORM2R( 'Left', 'Transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
@@ -66,6 +66,6 @@
 *
       RETURN
 *
-*     End of DQRT11
+      // End of DQRT11
 *
       END

@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     N, NRHS, LDA, LDX, LDB, INFO;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N)
-*     ..
+      // ..
 *
 *  =====================================================================
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int     TM, TI, R;
       int     M;
       int     I, J;
-*     ..
-*     .. Parameters ..
-*     NMAX_EXACT   the largest dimension where the generated data is
-*                  exact.
-*     NMAX_APPROX  the largest dimension where the generated data has
-*                  a small componentwise relative error.
+      // ..
+      // .. Parameters ..
+      // NMAX_EXACT   the largest dimension where the generated data is
+                   // exact.
+      // NMAX_APPROX  the largest dimension where the generated data has
+                   // a small componentwise relative error.
       int     NMAX_EXACT, NMAX_APPROX;
       PARAMETER (NMAX_EXACT = 6, NMAX_APPROX = 11)
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. External Functions
+      // ..
+      // .. External Functions
       // EXTERNAL SLASET
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF (N .LT. 0 .OR. N .GT. NMAX_APPROX) THEN
@@ -55,8 +55,8 @@
          INFO = 1
       END IF
 *
-*     Compute M = the LCM of the integers [1, 2*N-1].  The largest
-*     reasonable N is small enough that integers suffice (up to N = 11).
+      // Compute M = the LCM of the integers [1, 2*N-1].  The largest
+      // reasonable N is small enough that integers suffice (up to N = 11).
       M = 1
       DO I = 2, (2*N-1)
          TM = M
@@ -70,20 +70,20 @@
          M = (M / TI) * I
       END DO
 *
-*     Generate the scaled Hilbert matrix in A
+      // Generate the scaled Hilbert matrix in A
       DO J = 1, N
          DO I = 1, N
             A(I, J) = REAL(M) / (I + J - 1)
          END DO
       END DO
 *
-*     Generate matrix B as simply the first NRHS columns of M * the
-*     identity.
+      // Generate matrix B as simply the first NRHS columns of M * the
+      // identity.
       CALL SLASET('Full', N, NRHS, 0.0, REAL(M), B, LDB)
 *
-*     Generate the true solutions in X.  Because B = the first NRHS
-*     columns of M*I, the true solutions are just the first NRHS columns
-*     of the inverse Hilbert matrix.
+      // Generate the true solutions in X.  Because B = the first NRHS
+      // columns of M*I, the true solutions are just the first NRHS columns
+      // of the inverse Hilbert matrix.
       WORK(1) = N
       DO J = 2, N
          WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)

@@ -4,26 +4,26 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int       INFO, LDA, M, N, LDT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL      A( LDA, * ), T( LDT, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL   ONE
       PARAMETER ( ONE = 1.0E+00 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int       I, I1, J, J1, M1, M2, IINFO;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLARFG, STRMM, SGEMM, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       IF( M .LT. 0 ) THEN
@@ -42,24 +42,24 @@
 *
       IF( M.EQ.1 ) THEN
 *
-*        Compute Householder transform when M=1
+         // Compute Householder transform when M=1
 *
          CALL SLARFG( N, A( 1, 1 ), A( 1, MIN( 2, N ) ), LDA, T( 1, 1 ) )
 *
       ELSE
 *
-*        Otherwise, split A into blocks...
+         // Otherwise, split A into blocks...
 *
          M1 = M/2
          M2 = M-M1
          I1 = MIN( M1+1, M )
          J1 = MIN( M+1, N )
 *
-*        Compute A(1:M1,1:N) <- (Y1,R1,T1), where Q1 = I - Y1 T1 Y1^H
+         // Compute A(1:M1,1:N) <- (Y1,R1,T1), where Q1 = I - Y1 T1 Y1^H
 *
          CALL SGELQT3( M1, N, A, LDA, T, LDT, IINFO )
 *
-*        Compute A(J1:M,1:N) = Q1^H A(J1:M,1:N) [workspace: T(1:N1,J1:N)]
+         // Compute A(J1:M,1:N) = Q1^H A(J1:M,1:N) [workspace: T(1:N1,J1:N)]
 *
          DO I=1,M2
             DO J=1,M1
@@ -83,11 +83,11 @@
             END DO
          END DO
 *
-*        Compute A(J1:M,J1:N) <- (Y2,R2,T2) where Q2 = I - Y2 T2 Y2^H
+         // Compute A(J1:M,J1:N) <- (Y2,R2,T2) where Q2 = I - Y2 T2 Y2^H
 *
          CALL SGELQT3( M2, N-M1, A( I1, I1 ), LDA, T( I1, I1 ), LDT, IINFO )
 *
-*        Compute T3 = T(J1:N1,1:N) = -T1 Y1^H Y2 T2
+         // Compute T3 = T(J1:N1,1:N) = -T1 Y1^H Y2 T2
 *
          DO I=1,M2
             DO J=1,M1
@@ -105,13 +105,13 @@
 *
 *
 *
-*        Y = (Y1,Y2); L = [ L1            0  ];  T = [T1 T3]
-*                         [ A(1:N1,J1:N)  L2 ]       [ 0 T2]
+         // Y = (Y1,Y2); L = [ L1            0  ];  T = [T1 T3]
+                          // [ A(1:N1,J1:N)  L2 ]       [ 0 T2]
 *
       END IF
 *
       RETURN
 *
-*     End of SGELQT3
+      // End of SGELQT3
 *
       END

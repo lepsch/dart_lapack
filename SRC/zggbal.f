@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOB;
       int                IHI, ILO, INFO, LDA, LDB, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             LSCALE( * ), RSCALE( * ), WORK( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0 )
       double             THREE, SCLFAC;
       PARAMETER          ( THREE = 3.0D+0, SCLFAC = 1.0D+1 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2       double             ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC;;
       COMPLEX*16         CDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
       double             DDOT, DLAMCH;
       // EXTERNAL LSAME, IZAMAX, DDOT, DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DSCAL, XERBLA, ZDSCAL, ZSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, INT, LOG10, MAX, MIN, SIGN
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
@@ -64,7 +64,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          ILO = 1
@@ -96,9 +96,9 @@
 *
       GO TO 30
 *
-*     Permute the matrices A and B to isolate the eigenvalues.
+      // Permute the matrices A and B to isolate the eigenvalues.
 *
-*     Find row with one nonzero in columns 1 through L
+      // Find row with one nonzero in columns 1 through L
 *
    20 CONTINUE
       L = LM1
@@ -131,7 +131,7 @@
    80 CONTINUE
       GO TO 100
 *
-*     Find column with one nonzero in rows K through N
+      // Find column with one nonzero in rows K through N
 *
    90 CONTINUE
       K = K + 1
@@ -156,7 +156,7 @@
   150 CONTINUE
       GO TO 190
 *
-*     Permute rows M and I
+      // Permute rows M and I
 *
   160 CONTINUE
       LSCALE( M ) = I
@@ -164,7 +164,7 @@
       CALL ZSWAP( N-K+1, A( I, K ), LDA, A( M, K ), LDA )
       CALL ZSWAP( N-K+1, B( I, K ), LDB, B( M, K ), LDB )
 *
-*     Permute columns M and J
+      // Permute columns M and J
 *
   170 CONTINUE
       RSCALE( M ) = J
@@ -189,7 +189,7 @@
 *
       IF( ILO.EQ.IHI ) RETURN
 *
-*     Balance the submatrix in rows ILO to IHI.
+      // Balance the submatrix in rows ILO to IHI.
 *
       NR = IHI - ILO + 1
       DO 200 I = ILO, IHI
@@ -204,7 +204,7 @@
          WORK( I+5*N ) = ZERO
   200 CONTINUE
 *
-*     Compute right side vector in resulting linear equations
+      // Compute right side vector in resulting linear equations
 *
       BASL = LOG10( SCLFAC )
       DO 240 I = ILO, IHI
@@ -235,7 +235,7 @@
       BETA = ZERO
       IT = 1
 *
-*     Start generalized conjugate gradient iteration
+      // Start generalized conjugate gradient iteration
 *
   250 CONTINUE
 *
@@ -264,7 +264,7 @@
          WORK( I+N ) = WORK( I+N ) + T
   270 CONTINUE
 *
-*     Apply matrix to vector
+      // Apply matrix to vector
 *
       DO 300 I = ILO, IHI
          KOUNT = 0
@@ -299,7 +299,7 @@
       SUM = DDOT( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) + DDOT( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 )
       ALPHA = GAMMA / SUM
 *
-*     Determine correction to current iteration
+      // Determine correction to current iteration
 *
       CMAX = ZERO
       DO 340 I = ILO, IHI
@@ -319,7 +319,7 @@
       IT = IT + 1
       IF( IT.LE.NRP2 ) GO TO 250
 *
-*     End generalized conjugate gradient iteration
+      // End generalized conjugate gradient iteration
 *
   350 CONTINUE
       SFMIN = DLAMCH( 'S' )
@@ -345,14 +345,14 @@
          RSCALE( I ) = SCLFAC**JC
   360 CONTINUE
 *
-*     Row scaling of matrices A and B
+      // Row scaling of matrices A and B
 *
       DO 370 I = ILO, IHI
          CALL ZDSCAL( N-ILO+1, LSCALE( I ), A( I, ILO ), LDA )
          CALL ZDSCAL( N-ILO+1, LSCALE( I ), B( I, ILO ), LDB )
   370 CONTINUE
 *
-*     Column scaling of matrices A and B
+      // Column scaling of matrices A and B
 *
       DO 380 J = ILO, IHI
          CALL ZDSCAL( IHI, RSCALE( J ), A( 1, J ), 1 )
@@ -361,6 +361,6 @@
 *
       RETURN
 *
-*     End of ZGGBAL
+      // End of ZGGBAL
 *
       END

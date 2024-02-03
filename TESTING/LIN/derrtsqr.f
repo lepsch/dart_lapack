@@ -5,44 +5,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J, MB, NB;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX ), TAU(NMAX*2);
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DGEQR, DGEMQR, DGELQ, DGEMLQ
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO J = 1, NMAX
          DO I = 1, NMAX
@@ -54,9 +54,9 @@
       END DO
       OK = .TRUE.
 *
-*     Error exits for TS factorization
+      // Error exits for TS factorization
 *
-*     DGEQR
+      // DGEQR
 *
       SRNAMT = 'DGEQR'
       INFOT = 1
@@ -75,7 +75,7 @@
       CALL DGEQR( 3, 2, A, 3, TAU, 7, W, 0, INFO )
       CALL CHKXER( 'DGEQR', INFOT, NOUT, LERR, OK )
 *
-*     DLATSQR
+      // DLATSQR
 *
       MB = 1
       NB = 1
@@ -104,7 +104,7 @@
       CALL DLATSQR( 2, 1, MB, NB, A, 2, TAU, 2, W, 0, INFO )
       CALL CHKXER( 'DLATSQR', INFOT, NOUT, LERR, OK )
 *
-*     DGEMQR
+      // DGEMQR
 *
       TAU(1)=1
       TAU(2)=1
@@ -146,7 +146,7 @@
       CALL DGEMQR( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
       CALL CHKXER( 'DGEMQR', INFOT, NOUT, LERR, OK )
 *
-*     DGELQ
+      // DGELQ
 *
       SRNAMT = 'DGELQ'
       INFOT = 1
@@ -165,7 +165,7 @@
       CALL DGELQ( 2, 3, A, 3, TAU, 7, W, 0, INFO )
       CALL CHKXER( 'DGELQ', INFOT, NOUT, LERR, OK )
 *
-*     DLASWLQ
+      // DLASWLQ
 *
       MB = 1
       NB = 1
@@ -196,7 +196,7 @@
       CALL DLASWLQ( 1, 2, MB, NB, A, 1, TAU, 1, W, 0, INFO )
       CALL CHKXER( 'DLASWLQ', INFOT, NOUT, LERR, OK )
 *
-*     DGEMLQ
+      // DGEMLQ
 *
       TAU(1)=1
       TAU(2)=1
@@ -236,12 +236,12 @@
       CALL DGEMLQ( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
       CALL CHKXER( 'DGEMLQ', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRTSQR
+      // End of DERRTSQR
 *
       END

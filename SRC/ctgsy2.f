@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N;
       REAL               RDSCAL, RDSUM, SCALE
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       int                LDZ;
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, LDZ = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRAN;
       int                I, IERR, J, K;
       REAL               SCALOC
       COMPLEX            ALPHA
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IPIV( LDZ ), JPIV( LDZ );
       COMPLEX            RHS( LDZ ), Z( LDZ, LDZ )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CGESC2, CGETC2, CSCAL, CLATDF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, CONJG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test input parameters
+      // Decode and test input parameters
 *
       INFO = 0
       IERR = 0
@@ -80,29 +80,29 @@
 *
       IF( NOTRAN ) THEN
 *
-*        Solve (I, J) - system
-*           A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
-*           D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
-*        for I = M, M - 1, ..., 1; J = 1, 2, ..., N
+         // Solve (I, J) - system
+            // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
+            // D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
+         // for I = M, M - 1, ..., 1; J = 1, 2, ..., N
 *
          SCALE = ONE
          SCALOC = ONE
          DO 30 J = 1, N
             DO 20 I = M, 1, -1
 *
-*              Build 2 by 2 system
+               // Build 2 by 2 system
 *
                Z( 1, 1 ) = A( I, I )
                Z( 2, 1 ) = D( I, I )
                Z( 1, 2 ) = -B( J, J )
                Z( 2, 2 ) = -E( J, J )
 *
-*              Set up right hand side(s)
+               // Set up right hand side(s)
 *
                RHS( 1 ) = C( I, J )
                RHS( 2 ) = F( I, J )
 *
-*              Solve Z * x = RHS
+               // Solve Z * x = RHS
 *
                CALL CGETC2( LDZ, Z, LDZ, IPIV, JPIV, IERR )
                IF( IERR.GT.0 ) INFO = IERR
@@ -118,12 +118,12 @@
                   CALL CLATDF( IJOB, LDZ, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                END IF
 *
-*              Unpack solution vector(s)
+               // Unpack solution vector(s)
 *
                C( I, J ) = RHS( 1 )
                F( I, J ) = RHS( 2 )
 *
-*              Substitute R(I, J) and L(I, J) into remaining equation.
+               // Substitute R(I, J) and L(I, J) into remaining equation.
 *
                IF( I.GT.1 ) THEN
                   ALPHA = -RHS( 1 )
@@ -138,17 +138,17 @@
    30    CONTINUE
       ELSE
 *
-*        Solve transposed (I, J) - system:
-*           A(I, I)**H * R(I, J) + D(I, I)**H * L(J, J) = C(I, J)
-*           R(I, I) * B(J, J) + L(I, J) * E(J, J)   = -F(I, J)
-*        for I = 1, 2, ..., M, J = N, N - 1, ..., 1
+         // Solve transposed (I, J) - system:
+            // A(I, I)**H * R(I, J) + D(I, I)**H * L(J, J) = C(I, J)
+            // R(I, I) * B(J, J) + L(I, J) * E(J, J)   = -F(I, J)
+         // for I = 1, 2, ..., M, J = N, N - 1, ..., 1
 *
          SCALE = ONE
          SCALOC = ONE
          DO 80 I = 1, M
             DO 70 J = N, 1, -1
 *
-*              Build 2 by 2 system Z**H
+               // Build 2 by 2 system Z**H
 *
                Z( 1, 1 ) = CONJG( A( I, I ) )
                Z( 2, 1 ) = -CONJG( B( J, J ) )
@@ -156,12 +156,12 @@
                Z( 2, 2 ) = -CONJG( E( J, J ) )
 *
 *
-*              Set up right hand side(s)
+               // Set up right hand side(s)
 *
                RHS( 1 ) = C( I, J )
                RHS( 2 ) = F( I, J )
 *
-*              Solve Z**H * x = RHS
+               // Solve Z**H * x = RHS
 *
                CALL CGETC2( LDZ, Z, LDZ, IPIV, JPIV, IERR )
                IF( IERR.GT.0 ) INFO = IERR
@@ -173,12 +173,12 @@
                   SCALE = SCALE*SCALOC
                END IF
 *
-*              Unpack solution vector(s)
+               // Unpack solution vector(s)
 *
                C( I, J ) = RHS( 1 )
                F( I, J ) = RHS( 2 )
 *
-*              Substitute R(I, J) and L(I, J) into remaining equation.
+               // Substitute R(I, J) and L(I, J) into remaining equation.
 *
                DO 50 K = 1, J - 1
                   F( I, K ) = F( I, K ) + RHS( 1 )*CONJG( B( K, J ) ) + RHS( 2 )*CONJG( E( K, J ) )
@@ -192,6 +192,6 @@
       END IF
       RETURN
 *
-*     End of CTGSY2
+      // End of CTGSY2
 *
       END

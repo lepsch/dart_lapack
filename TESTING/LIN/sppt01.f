@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( * ), AFAC( * ), RWORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, K, KC, NPP;
       REAL               ANORM, EPS, T
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SDOT, SLAMCH, SLANSP
       // EXTERNAL LSAME, SDOT, SLAMCH, SLANSP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SSCAL, SSPR, STPMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0
+      // Quick exit if N = 0
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANSP( '1', UPLO, N, A, RWORK )
@@ -52,18 +52,18 @@
          RETURN
       END IF
 *
-*     Compute the product U'*U, overwriting U.
+      // Compute the product U'*U, overwriting U.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          KC = ( N*( N-1 ) ) / 2 + 1
          DO 10 K = N, 1, -1
 *
-*           Compute the (K,K) element of the result.
+            // Compute the (K,K) element of the result.
 *
             T = SDOT( K, AFAC( KC ), 1, AFAC( KC ), 1 )
             AFAC( KC+K-1 ) = T
 *
-*           Compute the rest of column K.
+            // Compute the rest of column K.
 *
             IF( K.GT.1 ) THEN
                CALL STPMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 )
@@ -71,18 +71,18 @@
             END IF
    10    CONTINUE
 *
-*     Compute the product L*L', overwriting L.
+      // Compute the product L*L', overwriting L.
 *
       ELSE
          KC = ( N*( N+1 ) ) / 2
          DO 20 K = N, 1, -1
 *
-*           Add a multiple of column K of the factor L to each of
-*           columns K+1 through N.
+            // Add a multiple of column K of the factor L to each of
+            // columns K+1 through N.
 *
             IF( K.LT.N ) CALL SSPR( 'Lower', N-K, ONE, AFAC( KC+1 ), 1, AFAC( KC+N-K+1 ) )
 *
-*           Scale column K by the diagonal element.
+            // Scale column K by the diagonal element.
 *
             T = AFAC( KC )
             CALL SSCAL( N-K+1, T, AFAC( KC ), 1 )
@@ -91,14 +91,14 @@
    20    CONTINUE
       END IF
 *
-*     Compute the difference  L*L' - A (or U'*U - A).
+      // Compute the difference  L*L' - A (or U'*U - A).
 *
       NPP = N*( N+1 ) / 2
       DO 30 I = 1, NPP
          AFAC( I ) = AFAC( I ) - A( I )
    30 CONTINUE
 *
-*     Compute norm( L*U - A ) / ( N * norm(A) * EPS )
+      // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 *
       RESID = SLANSP( '1', UPLO, N, AFAC, RWORK )
 *
@@ -106,6 +106,6 @@
 *
       RETURN
 *
-*     End of SPPT01
+      // End of SPPT01
 *
       END

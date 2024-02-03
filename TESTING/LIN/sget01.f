@@ -4,60 +4,60 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDAFAC, M, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       REAL               ANORM, EPS, T
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SDOT, SLAMCH, SLANGE
       // EXTERNAL SDOT, SLAMCH, SLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMV, SLASWP, SSCAL, STRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if M = 0 or N = 0.
+      // Quick exit if M = 0 or N = 0.
 *
       IF( M.LE.0 .OR. N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANGE( '1', M, N, A, LDA, RWORK )
 *
-*     Compute the product L*U and overwrite AFAC with the result.
-*     A column at a time of the product is obtained, starting with
-*     column N.
+      // Compute the product L*U and overwrite AFAC with the result.
+      // A column at a time of the product is obtained, starting with
+      // column N.
 *
       DO 10 K = N, 1, -1
          IF( K.GT.M ) THEN
             CALL STRMV( 'Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          ELSE
 *
-*           Compute elements (K+1:M,K)
+            // Compute elements (K+1:M,K)
 *
             T = AFAC( K, K )
             IF( K+1.LE.M ) THEN
@@ -65,18 +65,18 @@
                CALL SGEMV( 'No transpose', M-K, K-1, ONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, ONE, AFAC( K+1, K ), 1 )
             END IF
 *
-*           Compute the (K,K) element
+            // Compute the (K,K) element
 *
             AFAC( K, K ) = T + SDOT( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 )
 *
-*           Compute elements (1:K-1,K)
+            // Compute elements (1:K-1,K)
 *
             CALL STRMV( 'Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          END IF
    10 CONTINUE
       CALL SLASWP( N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 )
 *
-*     Compute the difference  L*U - A  and store in AFAC.
+      // Compute the difference  L*U - A  and store in AFAC.
 *
       DO 30 J = 1, N
          DO 20 I = 1, M
@@ -84,7 +84,7 @@
    20    CONTINUE
    30 CONTINUE
 *
-*     Compute norm( L*U - A ) / ( N * norm(A) * EPS )
+      // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 *
       RESID = SLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
 *
@@ -96,6 +96,6 @@
 *
       RETURN
 *
-*     End of SGET01
+      // End of SGET01
 *
       END

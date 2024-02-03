@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LDZ, LIWORK, NOUNIT, NSIZES, NTYPES, NWORK;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       REAL               A( LDA, * ), AB( LDA, * ), AP( * ), B( LDB, * ), BB( LDB, * ), BP( * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TEN = 10.0E0 )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 21 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN;
       String             UPLO;
       int                I, IBTYPE, IBUPLO, IINFO, IJ, IL, IMODE, ITEMP, ITYPE, IU, J, JCOL, JSIZE, JTYPE, KA, KA9, KB, KB9, M, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
       REAL               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLARND
       // EXTERNAL LSAME, SLAMCH, SLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLACPY, SLAFTS, SLASET, SLASUM, SLATMR, SLATMS, SSBGV, SSBGVD, SSBGVX, SSGT01, SSPGV, SSPGVD, SSPGVX, SSYGV, SSYGVD, SSYGVX, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 6*9 /
       DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 6*1 /       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 6*4 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     1)      Check for errors
+      // 1)      Check for errors
 *
       NTESTT = 0
       INFO = 0
@@ -60,7 +60,7 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -83,11 +83,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = SLAMCH( 'Overflow' )
@@ -100,7 +100,7 @@
          ISEED2( I ) = ISEED( I )
    20 CONTINUE
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       NERRS = 0
       NMATS = 0
@@ -126,27 +126,27 @@
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
 *
-*           2)      Compute "A"
+            // 2)      Compute "A"
 *
-*                   Control parameters:
+                    // Control parameters:
 *
-*               KMAGN  KMODE        KTYPE
-*           =1  O(1)   clustered 1  zero
-*           =2  large  clustered 2  identity
-*           =3  small  exponential  (none)
-*           =4         arithmetic   diagonal, w/ eigenvalues
-*           =5         random log   hermitian, w/ eigenvalues
-*           =6         random       (none)
-*           =7                      random diagonal
-*           =8                      random hermitian
-*           =9                      banded, w/ eigenvalues
+                // KMAGN  KMODE        KTYPE
+            // =1  O(1)   clustered 1  zero
+            // =2  large  clustered 2  identity
+            // =3  small  exponential  (none)
+            // =4         arithmetic   diagonal, w/ eigenvalues
+            // =5         random log   hermitian, w/ eigenvalues
+            // =6         random       (none)
+            // =7                      random diagonal
+            // =8                      random hermitian
+            // =9                      banded, w/ eigenvalues
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
 *
-*           Compute norm
+            // Compute norm
 *
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 *
@@ -167,11 +167,11 @@
             IINFO = 0
             COND = ULPINV
 *
-*           Special Matrices -- Identity & Jordan block
+            // Special Matrices -- Identity & Jordan block
 *
             IF( ITYPE.EQ.1 ) THEN
 *
-*              Zero
+               // Zero
 *
                KA = 0
                KB = 0
@@ -179,7 +179,7 @@
 *
             ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*              Identity
+               // Identity
 *
                KA = 0
                KB = 0
@@ -190,7 +190,7 @@
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*              Diagonal Matrix, [Eigen]values Specified
+               // Diagonal Matrix, [Eigen]values Specified
 *
                KA = 0
                KB = 0
@@ -198,7 +198,7 @@
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*              symmetric, eigenvalues specified
+               // symmetric, eigenvalues specified
 *
                KA = MAX( 0, N-1 )
                KB = KA
@@ -206,7 +206,7 @@
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
-*              Diagonal, random eigenvalues
+               // Diagonal, random eigenvalues
 *
                KA = 0
                KB = 0
@@ -214,7 +214,7 @@
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
-*              symmetric, random eigenvalues
+               // symmetric, random eigenvalues
 *
                KA = MAX( 0, N-1 )
                KB = KA
@@ -222,16 +222,16 @@
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*              symmetric banded, eigenvalues specified
+               // symmetric banded, eigenvalues specified
 *
-*              The following values are used for the half-bandwidths:
+               // The following values are used for the half-bandwidths:
 *
-*                ka = 1   kb = 1
-*                ka = 2   kb = 1
-*                ka = 2   kb = 2
-*                ka = 3   kb = 1
-*                ka = 3   kb = 2
-*                ka = 3   kb = 3
+                 // ka = 1   kb = 1
+                 // ka = 2   kb = 1
+                 // ka = 2   kb = 2
+                 // ka = 3   kb = 1
+                 // ka = 3   kb = 2
+                 // ka = 3   kb = 3
 *
                KB9 = KB9 + 1
                IF( KB9.GT.KA9 ) THEN
@@ -269,27 +269,27 @@
                END IF
             END IF
 *
-*           3) Call SSYGV, SSPGV, SSBGV, SSYGVD, SSPGVD, SSBGVD,
-*              SSYGVX, SSPGVX, and SSBGVX, do tests.
+            // 3) Call SSYGV, SSPGV, SSBGV, SSYGVD, SSPGVD, SSBGVD,
+               // SSYGVX, SSPGVX, and SSBGVX, do tests.
 *
-*           loop over the three generalized problems
-*                 IBTYPE = 1: A*x = (lambda)*B*x
-*                 IBTYPE = 2: A*B*x = (lambda)*x
-*                 IBTYPE = 3: B*A*x = (lambda)*x
+            // loop over the three generalized problems
+                  // IBTYPE = 1: A*x = (lambda)*B*x
+                  // IBTYPE = 2: A*B*x = (lambda)*x
+                  // IBTYPE = 3: B*A*x = (lambda)*x
 *
             DO 630 IBTYPE = 1, 3
 *
-*              loop over the setting UPLO
+               // loop over the setting UPLO
 *
                DO 620 IBUPLO = 1, 2
                   IF( IBUPLO.EQ.1 ) UPLO = 'U'                   IF( IBUPLO.EQ.2 ) UPLO = 'L'
 *
-*                 Generate random well-conditioned positive definite
-*                 matrix B, of bandwidth not greater than that of A.
+                  // Generate random well-conditioned positive definite
+                  // matrix B, of bandwidth not greater than that of A.
 *
                   CALL SLATMS( N, N, 'U', ISEED, 'P', WORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO )
 *
-*                 Test SSYGV
+                  // Test SSYGV
 *
                   NTEST = NTEST + 1
 *
@@ -308,11 +308,11 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
-*                 Test SSYGVD
+                  // Test SSYGVD
 *
                   NTEST = NTEST + 1
 *
@@ -331,11 +331,11 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
-*                 Test SSYGVX
+                  // Test SSYGVX
 *
                   NTEST = NTEST + 1
 *
@@ -354,7 +354,7 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
@@ -363,10 +363,10 @@
                   CALL SLACPY( ' ', N, N, A, LDA, AB, LDA )
                   CALL SLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-*                 since we do not know the exact eigenvalues of this
-*                 eigenpair, we just set VL and VU as constants.
-*                 It is quite possible that there are no eigenvalues
-*                 in this interval.
+                  // since we do not know the exact eigenvalues of this
+                  // eigenpair, we just set VL and VU as constants.
+                  // It is quite possible that there are no eigenvalues
+                  // in this interval.
 *
                   VL = ZERO
                   VU = ANORM
@@ -382,7 +382,7 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
@@ -403,17 +403,17 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
   100             CONTINUE
 *
-*                 Test SSPGV
+                  // Test SSPGV
 *
                   NTEST = NTEST + 1
 *
-*                 Copy the matrices into packed storage.
+                  // Copy the matrices into packed storage.
 *
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
@@ -447,15 +447,15 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
-*                 Test SSPGVD
+                  // Test SSPGVD
 *
                   NTEST = NTEST + 1
 *
-*                 Copy the matrices into packed storage.
+                  // Copy the matrices into packed storage.
 *
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
@@ -489,15 +489,15 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
-*                 Test SSPGVX
+                  // Test SSPGVX
 *
                   NTEST = NTEST + 1
 *
-*                 Copy the matrices into packed storage.
+                  // Copy the matrices into packed storage.
 *
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
@@ -531,13 +531,13 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
-*                 Copy the matrices into packed storage.
+                  // Copy the matrices into packed storage.
 *
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
@@ -573,13 +573,13 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
-*                 Copy the matrices into packed storage.
+                  // Copy the matrices into packed storage.
 *
                   IF( LSAME( UPLO, 'U' ) ) THEN
                      IJ = 1
@@ -613,7 +613,7 @@
                      END IF
                   END IF
 *
-*                 Do Test
+                  // Do Test
 *
                   CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
@@ -621,11 +621,11 @@
 *
                   IF( IBTYPE.EQ.1 ) THEN
 *
-*                    TEST SSBGV
+                     // TEST SSBGV
 *
                      NTEST = NTEST + 1
 *
-*                    Copy the matrices into band storage.
+                     // Copy the matrices into band storage.
 *
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 340 J = 1, N
@@ -659,15 +659,15 @@
                         END IF
                      END IF
 *
-*                    Do Test
+                     // Do Test
 *
                      CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
-*                    TEST SSBGVD
+                     // TEST SSBGVD
 *
                      NTEST = NTEST + 1
 *
-*                    Copy the matrices into band storage.
+                     // Copy the matrices into band storage.
 *
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 400 J = 1, N
@@ -701,15 +701,15 @@
                         END IF
                      END IF
 *
-*                    Do Test
+                     // Do Test
 *
                      CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
-*                    Test SSBGVX
+                     // Test SSBGVX
 *
                      NTEST = NTEST + 1
 *
-*                    Copy the matrices into band storage.
+                     // Copy the matrices into band storage.
 *
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 460 J = 1, N
@@ -743,14 +743,14 @@
                         END IF
                      END IF
 *
-*                    Do Test
+                     // Do Test
 *
                      CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
 *
                      NTEST = NTEST + 1
 *
-*                    Copy the matrices into band storage.
+                     // Copy the matrices into band storage.
 *
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 520 J = 1, N
@@ -786,13 +786,13 @@
                         END IF
                      END IF
 *
-*                    Do Test
+                     // Do Test
 *
                      CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                      NTEST = NTEST + 1
 *
-*                    Copy the matrices into band storage.
+                     // Copy the matrices into band storage.
 *
                      IF( LSAME( UPLO, 'U' ) ) THEN
                         DO 580 J = 1, N
@@ -826,7 +826,7 @@
                         END IF
                      END IF
 *
-*                    Do Test
+                     // Do Test
 *
                      CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
@@ -835,20 +835,20 @@
   620          CONTINUE
   630       CONTINUE
 *
-*           End of Loop -- Check for RESULT(j) > THRESH
+            // End of Loop -- Check for RESULT(j) > THRESH
 *
             NTESTT = NTESTT + NTEST
             CALL SLAFTS( 'SSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
   640    CONTINUE
   650 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL SLASUM( 'SSG', NOUNIT, NERRS, NTESTT )
 *
       RETURN
 *
-*     End of SDRVSG
+      // End of SDRVSG
 *
  9999 FORMAT( ' SDRVSG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
      $      I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

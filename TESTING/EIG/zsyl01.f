@@ -7,52 +7,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NFAIL( 3 ), NINFO( 2 );
       double             RMAX( 2 );
-*     ..
+      // ..
 *
 *  =====================================================================
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D0, 0.0D+0 ) )
       double             ONE, ZERO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       int                MAXM, MAXN, LDSWORK;
       PARAMETER          ( MAXM = 185, MAXN = 192, LDSWORK = 36 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N       double             ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM;;
       COMPLEX*16         RMUL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX*16         DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) )
       double             DUM( MAXN ), VM( 2 );
       int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 );
-*     ..
-*     .. Allocatable Arrays ..
+      // ..
+      // .. Allocatable Arrays ..
       int                AllocateStatus;
       COMPLEX*16,       DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X
       double          , DIMENSION(:,:), ALLOCATABLE :: SWORK;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               DISNAN;
       double             DLAMCH, ZLANGE;
       // EXTERNAL DISNAN, DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLATMR, ZLACPY, ZGEMM, ZTRSYL, ZTRSYL3
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SQRT
-*     ..
-*     .. Allocate memory dynamically ..
+      // ..
+      // .. Allocate memory dynamically ..
       ALLOCATE ( A( MAXM, MAXM ), STAT = AllocateStatus )
       IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
       ALLOCATE ( B( MAXN, MAXN ), STAT = AllocateStatus )
@@ -65,21 +65,21 @@
       IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
       ALLOCATE ( SWORK( LDSWORK, 103 ), STAT = AllocateStatus )
       IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Expect INFO = 0
+      // Expect INFO = 0
       VM( 1 ) = ONE
-*     Expect INFO = 1
+      // Expect INFO = 1
       VM( 2 ) = 0.05D+0
 *
-*     Begin test loop
+      // Begin test loop
 *
       NINFO( 1 ) = 0
       NINFO( 2 ) = 0
@@ -97,7 +97,7 @@
       SCALE3 = ONE
       DO J = 1, 2
          DO ISGN = -1, 1, 2
-*           Reset seed (overwritten by LATMR)
+            // Reset seed (overwritten by LATMR)
             ISEED( 1 ) = 1
             ISEED( 2 ) = 1
             ISEED( 3 ) = 1
@@ -155,8 +155,8 @@
                         CALL ZGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM )
                         RES1 = ZLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
-*                       Verify that TRSYL3 only flushes if TRSYL flushes (but
-*                       there may be cases where TRSYL3 avoid flushing).
+                        // Verify that TRSYL3 only flushes if TRSYL flushes (but
+                       t // here may be cases where TRSYL3 avoid flushing).
                         IF( SCALE3.EQ.ZERO .AND. SCALE.GT.ZERO .OR. IINFO.NE.INFO ) THEN
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         END IF
@@ -177,6 +177,6 @@
 *
       RETURN
 *
-*     End of ZSYL01
+      // End of ZSYL01
 *
       END

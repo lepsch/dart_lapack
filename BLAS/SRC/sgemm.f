@@ -4,40 +4,40 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL ALPHA,BETA
       int     K,LDA,LDB,LDC,M,N;
       String    TRANSA,TRANSB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL A(LDA,*),B(LDB,*),C(LDC,*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL TEMP
       int     I,INFO,J,L,NROWA,NROWB;
       bool    NOTA,NOTB;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       REAL ONE,ZERO
       PARAMETER (ONE=1.0E+0,ZERO=0.0E+0)
-*     ..
+      // ..
 *
-*     Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
-*     transposed and set  NROWA and NROWB  as the number of rows of  A
-*     and  B  respectively.
+      // Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
+     t // ransposed and set  NROWA and NROWB  as the number of rows of  A
+      // and  B  respectively.
 *
       NOTA = LSAME(TRANSA,'N')
       NOTB = LSAME(TRANSB,'N')
@@ -52,7 +52,7 @@
           NROWB = N
       END IF
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF ((.NOT.NOTA) .AND. (.NOT.LSAME(TRANSA,'C')) .AND. (.NOT.LSAME(TRANSA,'T'))) THEN
@@ -77,11 +77,11 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
 *
-*     And if  alpha.eq.zero.
+      // And if  alpha.eq.zero.
 *
       IF (ALPHA.EQ.ZERO) THEN
           IF (BETA.EQ.ZERO) THEN
@@ -100,12 +100,12 @@
           RETURN
       END IF
 *
-*     Start the operations.
+      // Start the operations.
 *
       IF (NOTB) THEN
           IF (NOTA) THEN
 *
-*           Form  C := alpha*A*B + beta*C.
+            // Form  C := alpha*A*B + beta*C.
 *
               DO 90 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
@@ -126,7 +126,7 @@
    90         CONTINUE
           ELSE
 *
-*           Form  C := alpha*A**T*B + beta*C
+            // Form  C := alpha*A**T*B + beta*C
 *
               DO 120 J = 1,N
                   DO 110 I = 1,M
@@ -145,7 +145,7 @@
       ELSE
           IF (NOTA) THEN
 *
-*           Form  C := alpha*A*B**T + beta*C
+            // Form  C := alpha*A*B**T + beta*C
 *
               DO 170 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
@@ -166,7 +166,7 @@
   170         CONTINUE
           ELSE
 *
-*           Form  C := alpha*A**T*B**T + beta*C
+            // Form  C := alpha*A**T*B**T + beta*C
 *
               DO 200 J = 1,N
                   DO 190 I = 1,M
@@ -186,6 +186,6 @@
 *
       RETURN
 *
-*     End of SGEMM
+      // End of SGEMM
 *
       END

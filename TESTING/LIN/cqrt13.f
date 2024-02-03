@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, M, N, SCALE;
       REAL               NORMA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       COMPLEX            A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, J;
       REAL               BIGNUM, SMLNUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, SCASUM, SLAMCH
       // EXTERNAL CLANGE, SCASUM, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLARNV, CLASCL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL, SIGN
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUMMY( 1 )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
-*     benign matrix
+      // benign matrix
 *
       DO 10 J = 1, N
          CALL CLARNV( 2, ISEED, M, A( 1, J ) )
@@ -49,7 +49,7 @@
          END IF
    10 CONTINUE
 *
-*     scaled versions
+      // scaled versions
 *
       IF( SCALE.NE.1 ) THEN
          NORMA = CLANGE( 'Max', M, N, A, LDA, DUMMY )
@@ -60,12 +60,12 @@
 *
          IF( SCALE.EQ.2 ) THEN
 *
-*           matrix scaled up
+            // matrix scaled up
 *
             CALL CLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )
          ELSE IF( SCALE.EQ.3 ) THEN
 *
-*           matrix scaled down
+            // matrix scaled down
 *
             CALL CLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )
          END IF
@@ -74,6 +74,6 @@
       NORMA = CLANGE( 'One-norm', M, N, A, LDA, DUMMY )
       RETURN
 *
-*     End of CQRT13
+      // End of CQRT13
 *
       END

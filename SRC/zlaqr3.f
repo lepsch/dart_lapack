@@ -4,97 +4,97 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW;
       bool               WANTT, WANTZ;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  ================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) )
       double             RZERO, RONE;
       PARAMETER          ( RZERO = 0.0d0, RONE = 1.0d0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16         BETA, CDUM, S, TAU
       double             FOO, SAFMAX, SAFMIN, SMLNUM, ULP;
       int                I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       int                ILAENV;
       // EXTERNAL DLAMCH, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZCOPY, ZGEHRD, ZGEMM, ZLACPY, ZLAHQR, ZLAQR4, ZLARF, ZLARFG, ZLASET, ZTREXC, ZUNMHR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, INT, MAX, MIN
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     ==== Estimate optimal workspace. ====
+      // ==== Estimate optimal workspace. ====
 *
       JW = MIN( NW, KBOT-KTOP+1 )
       IF( JW.LE.2 ) THEN
          LWKOPT = 1
       ELSE
 *
-*        ==== Workspace query call to ZGEHRD ====
+         // ==== Workspace query call to ZGEHRD ====
 *
          CALL ZGEHRD( JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO )
          LWK1 = INT( WORK( 1 ) )
 *
-*        ==== Workspace query call to ZUNMHR ====
+         // ==== Workspace query call to ZUNMHR ====
 *
          CALL ZUNMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO )
          LWK2 = INT( WORK( 1 ) )
 *
-*        ==== Workspace query call to ZLAQR4 ====
+         // ==== Workspace query call to ZLAQR4 ====
 *
          CALL ZLAQR4( .true., .true., JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR )
          LWK3 = INT( WORK( 1 ) )
 *
-*        ==== Optimal workspace ====
+         // ==== Optimal workspace ====
 *
          LWKOPT = MAX( JW+MAX( LWK1, LWK2 ), LWK3 )
       END IF
 *
-*     ==== Quick return in case of workspace query. ====
+      // ==== Quick return in case of workspace query. ====
 *
       IF( LWORK.EQ.-1 ) THEN
          WORK( 1 ) = DCMPLX( LWKOPT, 0 )
          RETURN
       END IF
 *
-*     ==== Nothing to do ...
-*     ... for an empty active block ... ====
+      // ==== Nothing to do ...
+      // ... for an empty active block ... ====
       NS = 0
       ND = 0
       WORK( 1 ) = ONE
       IF( KTOP.GT.KBOT ) RETURN
-*     ... nor for an empty deflation window. ====
+      // ... nor for an empty deflation window. ====
       IF( NW.LT.1 ) RETURN
 *
-*     ==== Machine constants ====
+      // ==== Machine constants ====
 *
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )
       SAFMAX = RONE / SAFMIN
       ULP = DLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( DBLE( N ) / ULP )
 *
-*     ==== Setup deflation window ====
+      // ==== Setup deflation window ====
 *
       JW = MIN( NW, KBOT-KTOP+1 )
       KWTOP = KBOT - JW + 1
@@ -106,7 +106,7 @@
 *
       IF( KBOT.EQ.KWTOP ) THEN
 *
-*        ==== 1-by-1 deflation window: not much to do ====
+         // ==== 1-by-1 deflation window: not much to do ====
 *
          SH( KWTOP ) = H( KWTOP, KWTOP )
          NS = 1
@@ -120,11 +120,11 @@
          RETURN
       END IF
 *
-*     ==== Convert to spike-triangular form.  (In case of a
-*     .    rare QR failure, this routine continues to do
-*     .    aggressive early deflation using that part of
-*     .    the deflation window that converged using INFQR
-*     .    here and there to keep track.) ====
+      // ==== Convert to spike-triangular form.  (In case of a
+      // .    rare QR failure, this routine continues to do
+      // .    aggressive early deflation using that part of
+      // .    the deflation window that converged using INFQR
+      // .    here and there to keep track.) ====
 *
       CALL ZLACPY( 'U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT )
       CALL ZCOPY( JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 )
@@ -137,24 +137,24 @@
          CALL ZLAHQR( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR )
       END IF
 *
-*     ==== Deflation detection loop ====
+      // ==== Deflation detection loop ====
 *
       NS = JW
       ILST = INFQR + 1
       DO 10 KNT = INFQR + 1, JW
 *
-*        ==== Small spike tip deflation test ====
+         // ==== Small spike tip deflation test ====
 *
          FOO = CABS1( T( NS, NS ) )
          IF( FOO.EQ.RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) THEN
 *
-*           ==== One more converged eigenvalue ====
+            // ==== One more converged eigenvalue ====
 *
             NS = NS - 1
          ELSE
 *
-*           ==== One undeflatable eigenvalue.  Move it up out of the
-*           .    way.   (ZTREXC can not fail in this case.) ====
+            // ==== One undeflatable eigenvalue.  Move it up out of the
+            // .    way.   (ZTREXC can not fail in this case.) ====
 *
             IFST = NS
             CALL ZTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
@@ -162,14 +162,14 @@
          END IF
    10 CONTINUE
 *
-*        ==== Return to Hessenberg form ====
+         // ==== Return to Hessenberg form ====
 *
       IF( NS.EQ.0 ) S = ZERO
 *
       IF( NS.LT.JW ) THEN
 *
-*        ==== sorting the diagonal of T improves accuracy for
-*        .    graded matrices.  ====
+         // ==== sorting the diagonal of T improves accuracy for
+         // .    graded matrices.  ====
 *
          DO 30 I = INFQR + 1, NS
             IFST = I
@@ -181,7 +181,7 @@
    30    CONTINUE
       END IF
 *
-*     ==== Restore shift/eigenvalue array from T ====
+      // ==== Restore shift/eigenvalue array from T ====
 *
       DO 40 I = INFQR + 1, JW
          SH( KWTOP+I-1 ) = T( I, I )
@@ -191,7 +191,7 @@
       IF( NS.LT.JW .OR. S.EQ.ZERO ) THEN
          IF( NS.GT.1 .AND. S.NE.ZERO ) THEN
 *
-*           ==== Reflect spike back into lower triangle ====
+            // ==== Reflect spike back into lower triangle ====
 *
             CALL ZCOPY( NS, V, LDV, WORK, 1 )
             DO 50 I = 1, NS
@@ -208,18 +208,18 @@
             CALL ZGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
          END IF
 *
-*        ==== Copy updated reduced window into place ====
+         // ==== Copy updated reduced window into place ====
 *
          IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*DCONJG( V( 1, 1 ) )
          CALL ZLACPY( 'U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH )
          CALL ZCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 )
 *
-*        ==== Accumulate orthogonal matrix in order update
-*        .    H and Z, if requested.  ====
+         // ==== Accumulate orthogonal matrix in order update
+         // .    H and Z, if requested.  ====
 *
          IF( NS.GT.1 .AND. S.NE.ZERO ) CALL ZUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO )
 *
-*        ==== Update vertical slab in H ====
+         // ==== Update vertical slab in H ====
 *
          IF( WANTT ) THEN
             LTOP = 1
@@ -232,7 +232,7 @@
             CALL ZLACPY( 'A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH )
    60    CONTINUE
 *
-*        ==== Update horizontal slab in H ====
+         // ==== Update horizontal slab in H ====
 *
          IF( WANTT ) THEN
             DO 70 KCOL = KBOT + 1, N, NH
@@ -241,7 +241,7 @@
    70       CONTINUE
          END IF
 *
-*        ==== Update vertical slab in Z ====
+         // ==== Update vertical slab in Z ====
 *
          IF( WANTZ ) THEN
             DO 80 KROW = ILOZ, IHIZ, NV
@@ -251,22 +251,22 @@
          END IF
       END IF
 *
-*     ==== Return the number of deflations ... ====
+      // ==== Return the number of deflations ... ====
 *
       ND = JW - NS
 *
-*     ==== ... and the number of shifts. (Subtracting
-*     .    INFQR from the spike length takes care
-*     .    of the case of a rare QR failure while
-*     .    calculating eigenvalues of the deflation
-*     .    window.)  ====
+      // ==== ... and the number of shifts. (Subtracting
+      // .    INFQR from the spike length takes care
+      // .    of the case of a rare QR failure while
+      // .    calculating eigenvalues of the deflation
+      // .    window.)  ====
 *
       NS = NS - INFQR
 *
-*      ==== Return optimal workspace. ====
+       // ==== Return optimal workspace. ====
 *
       WORK( 1 ) = DCMPLX( LWKOPT, 0 )
 *
-*     ==== End of ZLAQR3 ====
+      // ==== End of ZLAQR3 ====
 *
       END

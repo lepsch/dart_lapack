@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             FACT;
       int                INFO, LDB, LDX, N, NRHS;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOFACT;
       REAL               ANORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANST
       // EXTERNAL LSAME, SLAMCH, SLANST
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLACPY, SPTCON, SPTRFS, SPTTRF, SPTTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -58,13 +58,13 @@
 *
       IF( NOFACT ) THEN
 *
-*        Compute the L*D*L**T (or U**T*D*U) factorization of A.
+         // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 *
          CALL SCOPY( N, D, 1, DF, 1 )
          IF( N.GT.1 ) CALL SCOPY( N-1, E, 1, EF, 1 )
          CALL SPTTRF( N, DF, EF, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 )THEN
             RCOND = ZERO
@@ -72,30 +72,30 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A.
+      // Compute the norm of the matrix A.
 *
       ANORM = SLANST( '1', N, D, E )
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL SPTCON( N, DF, EF, ANORM, RCOND, WORK, INFO )
 *
-*     Compute the solution vectors X.
+      // Compute the solution vectors X.
 *
       CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL SPTTRS( N, NRHS, DF, EF, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solutions and
-*     compute error bounds and backward error estimates for them.
+      // Use iterative refinement to improve the computed solutions and
+      // compute error bounds and backward error estimates for them.
 *
       CALL SPTRFS( N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO )
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *
-*     End of SPTSVX
+      // End of SPTSVX
 *
       END

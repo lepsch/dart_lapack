@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDAINV, LDWORK, N;
       double             RCOND, RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       double             AINVNM, ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RCOND = ONE
@@ -42,7 +42,7 @@
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANGE( '1', N, N, A, LDA, RWORK )
@@ -54,14 +54,14 @@
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
 *
-*     Compute I - A * AINV
+      // Compute I - A * AINV
 *
       CALL DGEMM( 'No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA, ZERO, WORK, LDWORK )
       DO 10 I = 1, N
          WORK( I, I ) = ONE + WORK( I, I )
    10 CONTINUE
 *
-*     Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
+      // Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
 *
       RESID = DLANGE( '1', N, N, WORK, LDWORK, RWORK )
 *
@@ -69,6 +69,6 @@
 *
       RETURN
 *
-*     End of DGET03
+      // End of DGET03
 *
       END

@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = NMAX*( NMAX+2 ) )
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IFST, ILST, INFO, J, M, NT;
       double             SCALE;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SEL( NMAX );
       double             RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX );
       COMPLEX*16         A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, ZTREXC, ZTRSEN, ZTRSNA, ZTRSYL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       OK = .TRUE.
       NT = 0
 *
-*     Initialize A, B and SEL
+      // Initialize A, B and SEL
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -57,7 +57,7 @@
          SEL( I ) = .TRUE.
    30 CONTINUE
 *
-*     Test ZTRSYL
+      // Test ZTRSYL
 *
       SRNAMT = 'ZTRSYL'
       INFOT = 1
@@ -86,7 +86,7 @@
       CALL CHKXER( 'ZTRSYL', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test ZTRSYL3
+      // Test ZTRSYL3
 *
       SRNAMT = 'ZTRSYL3'
       INFOT = 1
@@ -115,7 +115,7 @@
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test ZTREXC
+      // Test ZTREXC
 *
       SRNAMT = 'ZTREXC'
       IFST = 1
@@ -153,7 +153,7 @@
       CALL CHKXER( 'ZTREXC', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test ZTRSNA
+      // Test ZTRSNA
 *
       SRNAMT = 'ZTRSNA'
       INFOT = 1
@@ -185,7 +185,7 @@
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       NT = NT + 9
 *
-*     Test ZTRSEN
+      // Test ZTRSEN
 *
       SEL( 1 ) = .FALSE.
       SRNAMT = 'ZTRSEN'
@@ -215,7 +215,7 @@
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -229,6 +229,6 @@
      $      'exits ***' )
       RETURN
 *
-*     End of ZERREC
+      // End of ZERREC
 *
       END

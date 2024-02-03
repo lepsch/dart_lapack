@@ -4,72 +4,72 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       double             A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES, NTESTS;
       PARAMETER          ( NTYPES = 10, NTESTS = 3 )
       int                NFACT;
       PARAMETER          ( NFACT = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, FACT, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
       int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT;
       double             AINVNM, ANORM, CNDNUM, RCONDC;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             FACTS( NFACT ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLANSY;
       // EXTERNAL DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, DERRVX, DGET04, DLACPY, DLARHS, DLASET, DLATB4, DLATMS, DPOT02, DPOT05, DSYSV_ROOK, DSYT01_ROOK, DSYTRF_ROOK, DSYTRI_ROOK, XLAENV
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS / 'U', 'L' / , FACTS / 'F', 'N' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
-*     Test path
+      // Test path
 *
       PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'SR'
 *
-*     Path to generate matrices
+      // Path to generate matrices
 *
       MATPATH( 1: 1 ) = 'double          ';
       MATPATH( 2: 3 ) = 'SY'
@@ -82,20 +82,20 @@
    10 CONTINUE
       LWORK = MAX( 2*NMAX, NMAX*NRHS )
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL DERRVX( PATH, NOUT )
       INFOT = 0
 *
-*     Set the block size and minimum block size for which the block
-*     routine should be used, which will be later returned by ILAENV.
+      // Set the block size and minimum block size for which the block
+      // routine should be used, which will be later returned by ILAENV.
 *
       NB = 1
       NBMIN = 2
       CALL XLAENV( 1, NB )
       CALL XLAENV( 2, NBMIN )
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 180 IN = 1, NN
          N = NVAL( IN )
@@ -106,44 +106,44 @@
 *
          DO 170 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 170
 *
-*           Skip types 3, 4, 5, or 6 if the matrix size is too small.
+            // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
             IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 160 IUPLO = 1, 2
                UPLO = UPLOS( IUPLO )
 *
-*              Begin generate the test matrix A.
+               // Begin generate the test matrix A.
 *
-*              Set up parameters with DLATB4 for the matrix generator
-*              based on the type of matrix to be generated.
+               // Set up parameters with DLATB4 for the matrix generator
+               // based on the type of matrix to be generated.
 *
                CALL DLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
-*              Generate a matrix with DLATMS.
+               // Generate a matrix with DLATMS.
 *
                SRNAMT = 'DLATMS'
                CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
 *
-*              Check error code from DLATMS and handle error.
+               // Check error code from DLATMS and handle error.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-*                 Skip all tests for this generated matrix
+                  // Skip all tests for this generated matrix
 *
                   GO TO 160
                END IF
 *
-*              For types 3-6, zero one or more rows and columns of the
-*              matrix to test that INFO is returned correctly.
+               // For types 3-6, zero one or more rows and columns of the
+               // matrix to test that INFO is returned correctly.
 *
                IF( ZEROT ) THEN
                   IF( IMAT.EQ.3 ) THEN
@@ -156,7 +156,7 @@
 *
                   IF( IMAT.LT.6 ) THEN
 *
-*                    Set row and column IZERO to zero.
+                     // Set row and column IZERO to zero.
 *
                      IF( IUPLO.EQ.1 ) THEN
                         IOFF = ( IZERO-1 )*LDA
@@ -183,7 +183,7 @@
                      IOFF = 0
                      IF( IUPLO.EQ.1 ) THEN
 *
-*                       Set the first IZERO rows and columns to zero.
+                        // Set the first IZERO rows and columns to zero.
 *
                         DO 70 J = 1, N
                            I2 = MIN( J, IZERO )
@@ -194,7 +194,7 @@
    70                   CONTINUE
                      ELSE
 *
-*                       Set the last IZERO rows and columns to zero.
+                        // Set the last IZERO rows and columns to zero.
 *
                         DO 90 J = 1, N
                            I1 = MAX( J, IZERO )
@@ -209,16 +209,16 @@
                   IZERO = 0
                END IF
 *
-*              End generate the test matrix A.
+               // End generate the test matrix A.
 *
                DO 150 IFACT = 1, NFACT
 *
-*                 Do first for FACT = 'F', then for other values.
+                  // Do first for FACT = 'F', then for other values.
 *
                   FACT = FACTS( IFACT )
 *
-*                 Compute the condition number for comparison with
-*                 the value returned by DSYSVX_ROOK.
+                  // Compute the condition number for comparison with
+                 t // he value returned by DSYSVX_ROOK.
 *
                   IF( ZEROT ) THEN
                      IF( IFACT.EQ.1 ) GO TO 150
@@ -226,23 +226,23 @@
 *
                   ELSE IF( IFACT.EQ.1 ) THEN
 *
-*                    Compute the 1-norm of A.
+                     // Compute the 1-norm of A.
 *
                      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
 *
-*                    Factor the matrix A.
+                     // Factor the matrix A.
 *
                      CALL DLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
                      CALL DSYTRF_ROOK( UPLO, N, AFAC, LDA, IWORK, WORK, LWORK, INFO )
 *
-*                    Compute inv(A) and take its norm.
+                     // Compute inv(A) and take its norm.
 *
                      CALL DLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
                      LWORK = (N+NB+1)*(NB+3)
                      CALL DSYTRI_ROOK( UPLO, N, AINV, LDA, IWORK, WORK, INFO )
                      AINVNM = DLANSY( '1', UPLO, N, AINV, LDA, RWORK )
 *
-*                    Compute the 1-norm condition number of A.
+                     // Compute the 1-norm condition number of A.
 *
                      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                         RCONDC = ONE
@@ -251,26 +251,26 @@
                      END IF
                   END IF
 *
-*                 Form an exact solution and set the right hand side.
+                  // Form an exact solution and set the right hand side.
 *
                   SRNAMT = 'DLARHS'
                   CALL DLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                   XTYPE = 'C'
 *
-*                 --- Test DSYSV_ROOK  ---
+                  // --- Test DSYSV_ROOK  ---
 *
                   IF( IFACT.EQ.2 ) THEN
                      CALL DLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
                      CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
-*                    Factor the matrix and solve the system using
-*                    DSYSV_ROOK.
+                     // Factor the matrix and solve the system using
+                     // DSYSV_ROOK.
 *
                      SRNAMT = 'DSYSV_ROOK'
                      CALL DSYSV_ROOK( UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO )
 *
-*                    Adjust the expected value of INFO to account for
-*                    pivoting.
+                     // Adjust the expected value of INFO to account for
+                     // pivoting.
 *
                      K = IZERO
                      IF( K.GT.0 ) THEN
@@ -286,7 +286,7 @@
                         END IF
                      END IF
 *
-*                    Check error code from DSYSV_ROOK and handle error.
+                     // Check error code from DSYSV_ROOK and handle error.
 *
                      IF( INFO.NE.K ) THEN
                         CALL ALAERH( PATH, 'DSYSV_ROOK', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -296,7 +296,7 @@
                      END IF
 *
 *+    TEST 1      Reconstruct matrix from factors and compute
-*                 residual.
+                  // residual.
 *
                      CALL DSYT01_ROOK( UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
 *
@@ -306,13 +306,13 @@
                      CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
 *+    TEST 3
-*                 Check solution from generated exact solution.
+                  // Check solution from generated exact solution.
 *
                      CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                      NT = 3
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      DO 110 K = 1, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
@@ -330,7 +330,7 @@
   170    CONTINUE
   180 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -338,6 +338,6 @@
      $      ', test ', I2, ', ratio =', G12.5 )
       RETURN
 *
-*     End of DDRVSY_ROOK
+      // End of DDRVSY_ROOK
 *
       END

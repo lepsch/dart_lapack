@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANSR, UPLO;
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               AP( 0: * ), ARF( 0: * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
-*     ..
-*     .. Local Scalars ..
+      // .. Parameters ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, NISODD, NORMALTRANSR;
       int                N1, N2, K, NT;
       int                I, J, IJ;
       int                IJP, JP, LDA, JS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
@@ -48,7 +48,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -61,11 +61,11 @@
          RETURN
       END IF
 *
-*     Size of array ARF(0:NT-1)
+      // Size of array ARF(0:NT-1)
 *
       NT = N*( N+1 ) / 2
 *
-*     Set N1 and N2 depending on LOWER
+      // Set N1 and N2 depending on LOWER
 *
       IF( LOWER ) THEN
          N2 = N / 2
@@ -75,11 +75,11 @@
          N2 = N - N1
       END IF
 *
-*     If N is odd, set NISODD = .TRUE.
-*     If N is even, set K = N/2 and NISODD = .FALSE.
+      // If N is odd, set NISODD = .TRUE.
+      // If N is even, set K = N/2 and NISODD = .FALSE.
 *
-*     set lda of ARF^C; ARF^C is (0:(N+1)/2-1,0:N-noe)
-*     where noe = 0 if n is even, noe = 1 if n is odd
+      // set lda of ARF^C; ARF^C is (0:(N+1)/2-1,0:N-noe)
+      // where noe = 0 if n is even, noe = 1 if n is odd
 *
       IF( MOD( N, 2 ).EQ.0 ) THEN
          K = N / 2
@@ -90,25 +90,25 @@
          LDA = N
       END IF
 *
-*     ARF^C has lda rows and n+1-noe cols
+      // ARF^C has lda rows and n+1-noe cols
 *
       IF( .NOT.NORMALTRANSR ) LDA = ( N+1 ) / 2
 *
-*     start execution: there are eight cases
+      // start execution: there are eight cases
 *
       IF( NISODD ) THEN
 *
-*        N is odd
+         // N is odd
 *
          IF( NORMALTRANSR ) THEN
 *
-*           N is odd and TRANSR = 'N'
+            // N is odd and TRANSR = 'N'
 *
             IF( LOWER ) THEN
 *
-*             SRPA for LOWER, NORMAL and N is odd ( a(0:n-1,0:n1-1) )
-*             T1 -> a(0,0), T2 -> a(0,1), S -> a(n1,0)
-*             T1 -> a(0), T2 -> a(n), S -> a(n1); lda = n
+              // SRPA for LOWER, NORMAL and N is odd ( a(0:n-1,0:n1-1) )
+              // T1 -> a(0,0), T2 -> a(0,1), S -> a(n1,0)
+              // T1 -> a(0), T2 -> a(n), S -> a(n1); lda = n
 *
                IJP = 0
                JP = 0
@@ -130,9 +130,9 @@
 *
             ELSE
 *
-*             SRPA for UPPER, NORMAL and N is odd ( a(0:n-1,0:n2-1)
-*             T1 -> a(n1+1,0), T2 -> a(n1,0), S -> a(0,0)
-*             T1 -> a(n2), T2 -> a(n1), S -> a(0)
+              // SRPA for UPPER, NORMAL and N is odd ( a(0:n-1,0:n2-1)
+              // T1 -> a(n1+1,0), T2 -> a(n1,0), S -> a(0,0)
+              // T1 -> a(n2), T2 -> a(n1), S -> a(0)
 *
                IJP = 0
                DO J = 0, N1 - 1
@@ -157,13 +157,13 @@
 *
          ELSE
 *
-*           N is odd and TRANSR = 'T'
+            // N is odd and TRANSR = 'T'
 *
             IF( LOWER ) THEN
 *
-*              SRPA for LOWER, TRANSPOSE and N is odd
-*              T1 -> A(0,0) , T2 -> A(1,0) , S -> A(0,n1)
-*              T1 -> a(0+0) , T2 -> a(1+0) , S -> a(0+n1*n1); lda=n1
+               // SRPA for LOWER, TRANSPOSE and N is odd
+               // T1 -> A(0,0) , T2 -> A(1,0) , S -> A(0,n1)
+               // T1 -> a(0+0) , T2 -> a(1+0) , S -> a(0+n1*n1); lda=n1
 *
                IJP = 0
                DO I = 0, N2
@@ -183,9 +183,9 @@
 *
             ELSE
 *
-*              SRPA for UPPER, TRANSPOSE and N is odd
-*              T1 -> A(0,n1+1), T2 -> A(0,n1), S -> A(0,0)
-*              T1 -> a(n2*n2), T2 -> a(n1*n2), S -> a(0); lda = n2
+               // SRPA for UPPER, TRANSPOSE and N is odd
+               // T1 -> A(0,n1+1), T2 -> A(0,n1), S -> A(0,0)
+               // T1 -> a(n2*n2), T2 -> a(n1*n2), S -> a(0); lda = n2
 *
                IJP = 0
                JS = N2*LDA
@@ -209,17 +209,17 @@
 *
       ELSE
 *
-*        N is even
+         // N is even
 *
          IF( NORMALTRANSR ) THEN
 *
-*           N is even and TRANSR = 'N'
+            // N is even and TRANSR = 'N'
 *
             IF( LOWER ) THEN
 *
-*              SRPA for LOWER, NORMAL, and N is even ( a(0:n,0:k-1) )
-*              T1 -> a(1,0), T2 -> a(0,0), S -> a(k+1,0)
-*              T1 -> a(1), T2 -> a(0), S -> a(k+1)
+               // SRPA for LOWER, NORMAL, and N is even ( a(0:n,0:k-1) )
+               // T1 -> a(1,0), T2 -> a(0,0), S -> a(k+1,0)
+               // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 *
                IJP = 0
                JP = 0
@@ -241,9 +241,9 @@
 *
             ELSE
 *
-*              SRPA for UPPER, NORMAL, and N is even ( a(0:n,0:k-1) )
-*              T1 -> a(k+1,0) ,  T2 -> a(k,0),   S -> a(0,0)
-*              T1 -> a(k+1), T2 -> a(k), S -> a(0)
+               // SRPA for UPPER, NORMAL, and N is even ( a(0:n,0:k-1) )
+               // T1 -> a(k+1,0) ,  T2 -> a(k,0),   S -> a(0,0)
+               // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 *
                IJP = 0
                DO J = 0, K - 1
@@ -268,13 +268,13 @@
 *
          ELSE
 *
-*           N is even and TRANSR = 'T'
+            // N is even and TRANSR = 'T'
 *
             IF( LOWER ) THEN
 *
-*              SRPA for LOWER, TRANSPOSE and N is even (see paper)
-*              T1 -> B(0,1), T2 -> B(0,0), S -> B(0,k+1)
-*              T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
+               // SRPA for LOWER, TRANSPOSE and N is even (see paper)
+               // T1 -> B(0,1), T2 -> B(0,0), S -> B(0,k+1)
+               // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 *
                IJP = 0
                DO I = 0, K - 1
@@ -294,9 +294,9 @@
 *
             ELSE
 *
-*              SRPA for UPPER, TRANSPOSE and N is even (see paper)
-*              T1 -> B(0,k+1),     T2 -> B(0,k),   S -> B(0,0)
-*              T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
+               // SRPA for UPPER, TRANSPOSE and N is even (see paper)
+               // T1 -> B(0,k+1),     T2 -> B(0,k),   S -> B(0,0)
+               // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 *
                IJP = 0
                JS = ( K+1 )*LDA
@@ -322,6 +322,6 @@
 *
       RETURN
 *
-*     End of STFTTP
+      // End of STFTTP
 *
       END

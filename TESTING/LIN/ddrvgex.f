@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       double             A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), RWORK( * ), S( * ), WORK( * ), X( * ), XACT( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES;
@@ -26,48 +26,48 @@
       PARAMETER          ( NTESTS = 7 )
       int                NTRAN;
       PARAMETER          ( NTRAN = 3 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, TRFCON, ZEROT;
       String             DIST, EQUED, FACT, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, ITRAN, IZERO, K, K1, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT, N_ERR_BNDS;
       double             AINVNM, AMAX, ANORM, ANORMI, ANORMO, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW, RPVGRW_SVXX;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DGET06, DLAMCH, DLANGE, DLANTR, DLA_GERPVGRW;
       // EXTERNAL LSAME, DGET06, DLAMCH, DLANGE, DLANTR, DLA_GERPVGRW
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, DERRVX, DGEEQU, DGESV, DGESVX, DGET01, DGET02, DGET04, DGET07, DGETRF, DGETRI, DLACPY, DLAQGE, DLARHS, DLASET, DLATB4, DLATMS, XLAENV, DGESVXX
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               TRANSS / 'N', 'T', 'C' /
       DATA               FACTS / 'F', 'N', 'E' /
       DATA               EQUEDS / 'N', 'R', 'C', 'B' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'GE'
@@ -78,19 +78,19 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL DERRVX( PATH, NOUT )
       INFOT = 0
 *
-*     Set the block size and minimum block size for testing.
+      // Set the block size and minimum block size for testing.
 *
       NB = 1
       NBMIN = 2
       CALL XLAENV( 1, NB )
       CALL XLAENV( 2, NBMIN )
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 90 IN = 1, NN
          N = NVAL( IN )
@@ -101,17 +101,17 @@
 *
          DO 80 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
 *
-*           Skip types 5, 6, or 7 if the matrix size is too small.
+            // Skip types 5, 6, or 7 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
             IF( ZEROT .AND. N.LT.IMAT-4 ) GO TO 80
 *
-*           Set up parameters with DLATB4 and generate a test matrix
-*           with DLATMS.
+            // Set up parameters with DLATB4 and generate a test matrix
+            // with DLATMS.
 *
             CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
             RCONDC = ONE / CNDNUM
@@ -119,15 +119,15 @@
             SRNAMT = 'DLATMS'
             CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
-*           Check error code from DLATMS.
+            // Check error code from DLATMS.
 *
             IF( INFO.NE.0 ) THEN
                CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 80
             END IF
 *
-*           For types 5-7, zero one or more columns of the matrix to
-*           test that INFO is returned correctly.
+            // For types 5-7, zero one or more columns of the matrix to
+           t // est that INFO is returned correctly.
 *
             IF( ZEROT ) THEN
                IF( IMAT.EQ.5 ) THEN
@@ -149,7 +149,7 @@
                IZERO = 0
             END IF
 *
-*           Save a copy of the matrix A in ASAV.
+            // Save a copy of the matrix A in ASAV.
 *
             CALL DLACPY( 'Full', N, N, A, LDA, ASAV, LDA )
 *
@@ -174,16 +174,16 @@
 *
                   ELSE IF( .NOT.NOFACT ) THEN
 *
-*                    Compute the condition number for comparison with
-*                    the value returned by DGESVX (FACT = 'N' reuses
-*                    the condition number from the previous iteration
-*                    with FACT = 'F').
+                     // Compute the condition number for comparison with
+                    t // he value returned by DGESVX (FACT = 'N' reuses
+                    t // he condition number from the previous iteration
+                     // with FACT = 'F').
 *
                      CALL DLACPY( 'Full', N, N, ASAV, LDA, AFAC, LDA )
                      IF( EQUIL .OR. IEQUED.GT.1 ) THEN
 *
-*                       Compute row and column scale factors to
-*                       equilibrate the matrix A.
+                        // Compute row and column scale factors to
+                        // equilibrate the matrix A.
 *
                         CALL DGEEQU( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
                         IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
@@ -198,36 +198,36 @@
                               COLCND = ZERO
                            END IF
 *
-*                          Equilibrate the matrix.
+                           // Equilibrate the matrix.
 *
                            CALL DLAQGE( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                         END IF
                      END IF
 *
-*                    Save the condition number of the non-equilibrated
-*                    system for use in DGET04.
+                     // Save the condition number of the non-equilibrated
+                     // system for use in DGET04.
 *
                      IF( EQUIL ) THEN
                         ROLDO = RCONDO
                         ROLDI = RCONDI
                      END IF
 *
-*                    Compute the 1-norm and infinity-norm of A.
+                     // Compute the 1-norm and infinity-norm of A.
 *
                      ANORMO = DLANGE( '1', N, N, AFAC, LDA, RWORK )
                      ANORMI = DLANGE( 'I', N, N, AFAC, LDA, RWORK )
 *
-*                    Factor the matrix A.
+                     // Factor the matrix A.
 *
                      CALL DGETRF( N, N, AFAC, LDA, IWORK, INFO )
 *
-*                    Form the inverse of A.
+                     // Form the inverse of A.
 *
                      CALL DLACPY( 'Full', N, N, AFAC, LDA, A, LDA )
                      LWORK = NMAX*MAX( 3, NRHS )
                      CALL DGETRI( N, A, LDA, IWORK, WORK, LWORK, INFO )
 *
-*                    Compute the 1-norm condition number of A.
+                     // Compute the 1-norm condition number of A.
 *
                      AINVNM = DLANGE( '1', N, N, A, LDA, RWORK )
                      IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -236,7 +236,7 @@
                         RCONDO = ( ONE / ANORMO ) / AINVNM
                      END IF
 *
-*                    Compute the infinity-norm condition number of A.
+                     // Compute the infinity-norm condition number of A.
 *
                      AINVNM = DLANGE( 'I', N, N, A, LDA, RWORK )
                      IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -248,7 +248,7 @@
 *
                   DO 50 ITRAN = 1, NTRAN
 *
-*                    Do for each value of TRANS.
+                     // Do for each value of TRANS.
 *
                      TRANS = TRANSS( ITRAN )
                      IF( ITRAN.EQ.1 ) THEN
@@ -257,11 +257,11 @@
                         RCONDC = RCONDI
                      END IF
 *
-*                    Restore the matrix A.
+                     // Restore the matrix A.
 *
                      CALL DLACPY( 'Full', N, N, ASAV, LDA, A, LDA )
 *
-*                    Form an exact solution and set the right hand side.
+                     // Form an exact solution and set the right hand side.
 *
                      SRNAMT = 'DLARHS'
                      CALL DLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
@@ -270,10 +270,10 @@
 *
                      IF( NOFACT .AND. ITRAN.EQ.1 ) THEN
 *
-*                       --- Test DGESV  ---
+                        // --- Test DGESV  ---
 *
-*                       Compute the LU factorization of the matrix and
-*                       solve the system.
+                        // Compute the LU factorization of the matrix and
+                        // solve the system.
 *
                         CALL DLACPY( 'Full', N, N, A, LDA, AFAC, LDA )
                         CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
@@ -281,29 +281,29 @@
                         SRNAMT = 'DGESV '
                         CALL DGESV( N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
 *
-*                       Check error code from DGESV .
+                        // Check error code from DGESV .
 *
                         IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL DGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK, RESULT( 1 ) )
                         NT = 1
                         IF( IZERO.EQ.0 ) THEN
 *
-*                          Compute residual of the computed solution.
+                           // Compute residual of the computed solution.
 *
                            CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                            CALL DGET02( 'No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
-*                          Check solution from generated exact solution.
+                           // Check solution from generated exact solution.
 *
                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                            NT = 3
                         END IF
 *
-*                       Print information about the tests that did not
-*                       pass the threshold.
+                        // Print information about the tests that did not
+                        // pass the threshold.
 *
                         DO 30 K = 1, NT
                            IF( RESULT( K ).GE.THRESH ) THEN
@@ -314,30 +314,30 @@
                         NRUN = NRUN + NT
                      END IF
 *
-*                    --- Test DGESVX ---
+                     // --- Test DGESVX ---
 *
                      IF( .NOT.PREFAC ) CALL DLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA )
                      CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
-*                       Equilibrate the matrix if FACT = 'F' and
-*                       EQUED = 'R', 'C', or 'B'.
+                        // Equilibrate the matrix if FACT = 'F' and
+                        // EQUED = 'R', 'C', or 'B'.
 *
                         CALL DLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                      END IF
 *
-*                    Solve the system and compute the condition number
-*                    and error bounds using DGESVX.
+                     // Solve the system and compute the condition number
+                     // and error bounds using DGESVX.
 *
                      SRNAMT = 'DGESVX'
                      CALL DGESVX( FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
 *
-*                    Check the error code from DGESVX.
+                     // Check the error code from DGESVX.
 *
                      IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-*                    Compare WORK(1) from DGESVX with the computed
-*                    reciprocal pivot growth factor RPVGRW
+                     // Compare WORK(1) from DGESVX with the computed
+                     // reciprocal pivot growth factor RPVGRW
 *
                      IF( INFO.NE.0 ) THEN
                         RPVGRW = DLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, WORK )
@@ -358,8 +358,8 @@
 *
                      IF( .NOT.PREFAC ) THEN
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL DGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
@@ -370,11 +370,11 @@
                      IF( INFO.EQ.0 ) THEN
                         TRFCON = .FALSE.
 *
-*                       Compute residual of the computed solution.
+                        // Compute residual of the computed solution.
 *
                         CALL DLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL DGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         ELSE
@@ -386,21 +386,21 @@
                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                         END IF
 *
-*                       Check the error bounds from iterative
-*                       refinement.
+                        // Check the error bounds from iterative
+                        // refinement.
 *
                         CALL DGET07( TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) )
                      ELSE
                         TRFCON = .TRUE.
                      END IF
 *
-*                    Compare RCOND from DGESVX with the computed value
-*                    in RCONDC.
+                     // Compare RCOND from DGESVX with the computed value
+                     // in RCONDC.
 *
                      RESULT( 6 ) = DGET06( RCOND, RCONDC )
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      IF( .NOT.TRFCON ) THEN
                         DO 40 K = K1, NTESTS
@@ -448,9 +448,9 @@
 *
                      END IF
 *
-*                    --- Test DGESVXX ---
+                     // --- Test DGESVXX ---
 *
-*                    Restore the matrices A and B.
+                     // Restore the matrices A and B.
 *
                      CALL DLACPY( 'Full', N, N, ASAV, LDA, A, LDA )
                      CALL DLACPY( 'Full', N, NRHS, BSAV, LDA, B, LDA )
@@ -458,20 +458,20 @@
                      CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
-*                       Equilibrate the matrix if FACT = 'F' and
-*                       EQUED = 'R', 'C', or 'B'.
+                        // Equilibrate the matrix if FACT = 'F' and
+                        // EQUED = 'R', 'C', or 'B'.
 *
                         CALL DLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                      END IF
 *
-*                    Solve the system and compute the condition number
-*                    and error bounds using DGESVXX.
+                     // Solve the system and compute the condition number
+                     // and error bounds using DGESVXX.
 *
                      SRNAMT = 'DGESVXX'
                      N_ERR_BNDS = 3
                      CALL DGESVXX( FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, IWORK( N+1 ), INFO )
 *
-*                    Check the error code from DGESVXX.
+                     // Check the error code from DGESVXX.
 *
                      IF( INFO.EQ.N+1 ) GOTO 50
                      IF( INFO.NE.IZERO ) THEN
@@ -479,8 +479,8 @@
                         GOTO 50
                      END IF
 *
-*                    Compare rpvgrw_svxx from DGESVXX with the computed
-*                    reciprocal pivot growth factor RPVGRW
+                     // Compare rpvgrw_svxx from DGESVXX with the computed
+                     // reciprocal pivot growth factor RPVGRW
 *
 
                      IF ( INFO .GT. 0 .AND. INFO .LT. N+1 ) THEN
@@ -492,8 +492,8 @@
 *
                      IF( .NOT.PREFAC ) THEN
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL DGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
@@ -504,11 +504,11 @@
                      IF( INFO.EQ.0 ) THEN
                         TRFCON = .FALSE.
 *
-*                       Compute residual of the computed solution.
+                        // Compute residual of the computed solution.
 *
                         CALL DLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL DGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         ELSE
@@ -523,13 +523,13 @@
                         TRFCON = .TRUE.
                      END IF
 *
-*                    Compare RCOND from DGESVXX with the computed value
-*                    in RCONDC.
+                     // Compare RCOND from DGESVXX with the computed value
+                     // in RCONDC.
 *
                      RESULT( 6 ) = DGET06( RCOND, RCONDC )
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      IF( .NOT.TRFCON ) THEN
                         DO 45 K = K1, NTESTS
@@ -583,12 +583,12 @@
    80    CONTINUE
    90 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
 
-*     Test Error Bounds from DGESVXX
+      // Test Error Bounds from DGESVXX
 
       CALL DEBCHVXX( THRESH, PATH )
 
@@ -601,6 +601,6 @@
      $      G12.5 )
       RETURN
 *
-*     End of DDRVGEX
+      // End of DDRVGEX
 *
       END

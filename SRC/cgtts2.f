@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                ITRANS, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, J;
       COMPLEX            TEMP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( ITRANS.EQ.0 ) THEN
 *
-*        Solve A*X = B using the LU factorization of A,
-*        overwriting each right hand side vector with its solution.
+         // Solve A*X = B using the LU factorization of A,
+         // overwriting each right hand side vector with its solution.
 *
          IF( NRHS.LE.1 ) THEN
             J = 1
    10       CONTINUE
 *
-*           Solve L*x = b.
+            // Solve L*x = b.
 *
             DO 20 I = 1, N - 1
                IF( IPIV( I ).EQ.I ) THEN
@@ -48,7 +48,7 @@
                END IF
    20       CONTINUE
 *
-*           Solve U*x = b.
+            // Solve U*x = b.
 *
             B( N, J ) = B( N, J ) / D( N )
             IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
@@ -62,7 +62,7 @@
          ELSE
             DO 60 J = 1, NRHS
 *
-*           Solve L*x = b.
+            // Solve L*x = b.
 *
                DO 40 I = 1, N - 1
                   IF( IPIV( I ).EQ.I ) THEN
@@ -74,7 +74,7 @@
                   END IF
    40          CONTINUE
 *
-*           Solve U*x = b.
+            // Solve U*x = b.
 *
                B( N, J ) = B( N, J ) / D( N )
                IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
@@ -85,13 +85,13 @@
          END IF
       ELSE IF( ITRANS.EQ.1 ) THEN
 *
-*        Solve A**T * X = B.
+         // Solve A**T * X = B.
 *
          IF( NRHS.LE.1 ) THEN
             J = 1
    70       CONTINUE
 *
-*           Solve U**T * x = b.
+            // Solve U**T * x = b.
 *
             B( 1, J ) = B( 1, J ) / D( 1 )
             IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
@@ -99,7 +99,7 @@
                B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )-DU2( I-2 )* B( I-2, J ) ) / D( I )
    80       CONTINUE
 *
-*           Solve L**T * x = b.
+            // Solve L**T * x = b.
 *
             DO 90 I = N - 1, 1, -1
                IF( IPIV( I ).EQ.I ) THEN
@@ -117,7 +117,7 @@
          ELSE
             DO 120 J = 1, NRHS
 *
-*           Solve U**T * x = b.
+            // Solve U**T * x = b.
 *
                B( 1, J ) = B( 1, J ) / D( 1 )
                IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
@@ -125,7 +125,7 @@
                   B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I )
   100          CONTINUE
 *
-*           Solve L**T * x = b.
+            // Solve L**T * x = b.
 *
                DO 110 I = N - 1, 1, -1
                   IF( IPIV( I ).EQ.I ) THEN
@@ -140,13 +140,13 @@
          END IF
       ELSE
 *
-*        Solve A**H * X = B.
+         // Solve A**H * X = B.
 *
          IF( NRHS.LE.1 ) THEN
             J = 1
   130       CONTINUE
 *
-*           Solve U**H * x = b.
+            // Solve U**H * x = b.
 *
             B( 1, J ) = B( 1, J ) / CONJG( D( 1 ) )
             IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-CONJG( DU( 1 ) )*B( 1, J ) ) / CONJG( D( 2 ) )
@@ -154,7 +154,7 @@
                B( I, J ) = ( B( I, J )-CONJG( DU( I-1 ) )*B( I-1, J )- CONJG( DU2( I-2 ) )*B( I-2, J ) ) / CONJG( D( I ) )
   140       CONTINUE
 *
-*           Solve L**H * x = b.
+            // Solve L**H * x = b.
 *
             DO 150 I = N - 1, 1, -1
                IF( IPIV( I ).EQ.I ) THEN
@@ -172,7 +172,7 @@
          ELSE
             DO 180 J = 1, NRHS
 *
-*           Solve U**H * x = b.
+            // Solve U**H * x = b.
 *
                B( 1, J ) = B( 1, J ) / CONJG( D( 1 ) )
                IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-CONJG( DU( 1 ) )*B( 1, J ) ) / CONJG( D( 2 ) )
@@ -180,7 +180,7 @@
                   B( I, J ) = ( B( I, J )-CONJG( DU( I-1 ) )* B( I-1, J )-CONJG( DU2( I-2 ) )* B( I-2, J ) ) / CONJG( D( I ) )
   160          CONTINUE
 *
-*           Solve L**H * x = b.
+            // Solve L**H * x = b.
 *
                DO 170 I = N - 1, 1, -1
                   IF( IPIV( I ).EQ.I ) THEN
@@ -195,6 +195,6 @@
          END IF
       END IF
 *
-*     End of CGTTS2
+      // End of CGTTS2
 *
       END

@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS;
       double             RCOND, RPVGRW, BERR;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX ), IW( NMAX );
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), E( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, DGBSV, DGBSVX, DGESV, DGESVX, DGTSV, DGTSVX, DPBSV, DPBSVX, DPOSV, DPOSVX, DPPSV, DPPSVX, DPTSV, DPTSVX, DSPSV, DSPSVX, DSYSV, DSYSV_RK, DSYSV_ROOK, DSYSVX, DGESVXX, DSYSVXX, DPOSVXX, DGBSVXX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -74,7 +74,7 @@
 *
       IF( LSAMEN( 2, C2, 'GE' ) ) THEN
 *
-*        DGESV
+         // DGESV
 *
          SRNAMT = 'DGESV '
          INFOT = 1
@@ -90,7 +90,7 @@
          CALL DGESV( 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'DGESV ', INFOT, NOUT, LERR, OK )
 *
-*        DGESVX
+         // DGESVX
 *
          SRNAMT = 'DGESVX'
          INFOT = 1
@@ -130,7 +130,7 @@
          CALL DGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
 *
-*        DGESVXX
+         // DGESVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -174,7 +174,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        DGBSV
+         // DGBSV
 *
          SRNAMT = 'DGBSV '
          INFOT = 1
@@ -196,7 +196,7 @@
          CALL DGBSV( 2, 0, 0, 0, A, 1, IP, B, 1, INFO )
          CALL CHKXER( 'DGBSV ', INFOT, NOUT, LERR, OK )
 *
-*        DGBSVX
+         // DGBSVX
 *
          SRNAMT = 'DGBSVX'
          INFOT = 1
@@ -242,7 +242,7 @@
          CALL DGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
 *
-*        DGBSVXX
+         // DGBSVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -292,7 +292,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
 *
-*        DGTSV
+         // DGTSV
 *
          SRNAMT = 'DGTSV '
          INFOT = 1
@@ -305,7 +305,7 @@
          CALL DGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'DGTSV ', INFOT, NOUT, LERR, OK )
 *
-*        DGTSVX
+         // DGTSVX
 *
          SRNAMT = 'DGTSVX'
          INFOT = 1
@@ -329,7 +329,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
 *
-*        DPOSV
+         // DPOSV
 *
          SRNAMT = 'DPOSV '
          INFOT = 1
@@ -348,7 +348,7 @@
          CALL DPOSV( 'U', 2, 0, A, 2, B, 1, INFO )
          CALL CHKXER( 'DPOSV ', INFOT, NOUT, LERR, OK )
 *
-*        DPOSVX
+         // DPOSVX
 *
          SRNAMT = 'DPOSVX'
          INFOT = 1
@@ -384,7 +384,7 @@
          CALL DPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
 *
-*        DPOSVXX
+         // DPOSVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -424,7 +424,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
 *
-*        DPPSV
+         // DPPSV
 *
          SRNAMT = 'DPPSV '
          INFOT = 1
@@ -440,7 +440,7 @@
          CALL DPPSV( 'U', 2, 0, A, B, 1, INFO )
          CALL CHKXER( 'DPPSV ', INFOT, NOUT, LERR, OK )
 *
-*        DPPSVX
+         // DPPSVX
 *
          SRNAMT = 'DPPSVX'
          INFOT = 1
@@ -472,7 +472,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
 *
-*        DPBSV
+         // DPBSV
 *
          SRNAMT = 'DPBSV '
          INFOT = 1
@@ -494,7 +494,7 @@
          CALL DPBSV( 'U', 2, 0, 0, A, 1, B, 1, INFO )
          CALL CHKXER( 'DPBSV ', INFOT, NOUT, LERR, OK )
 *
-*        DPBSVX
+         // DPBSVX
 *
          SRNAMT = 'DPBSVX'
          INFOT = 1
@@ -535,7 +535,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
 *
-*        DPTSV
+         // DPTSV
 *
          SRNAMT = 'DPTSV '
          INFOT = 1
@@ -548,7 +548,7 @@
          CALL DPTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO )
          CALL CHKXER( 'DPTSV ', INFOT, NOUT, LERR, OK )
 *
-*        DPTSVX
+         // DPTSVX
 *
          SRNAMT = 'DPTSVX'
          INFOT = 1
@@ -569,7 +569,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        DSYSV
+         // DSYSV
 *
          SRNAMT = 'DSYSV '
          INFOT = 1
@@ -594,7 +594,7 @@
          CALL DSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'DSYSV ', INFOT, NOUT, LERR, OK )
 *
-*        DSYSVX
+         // DSYSVX
 *
          SRNAMT = 'DSYSVX'
          INFOT = 1
@@ -625,7 +625,7 @@
          CALL DSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, IW, INFO )
          CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
 *
-*        DSYSVXX
+         // DSYSVXX
 *
          N_ERR_BNDS = 3
          NPARAMS = 1
@@ -673,7 +673,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
 *
-*        DSYSV_ROOK
+         // DSYSV_ROOK
 *
          SRNAMT = 'DSYSV_ROOK'
          INFOT = 1
@@ -700,15 +700,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
 *
-*        DSYSV_RK
+         // DSYSV_RK
 *
-*        Test error exits of the driver that uses factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the driver that uses factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
          SRNAMT = 'DSYSV_RK'
          INFOT = 1
@@ -735,7 +735,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        DSPSV
+         // DSPSV
 *
          SRNAMT = 'DSPSV '
          INFOT = 1
@@ -751,7 +751,7 @@
          CALL DSPSV( 'U', 2, 0, A, IP, B, 1, INFO )
          CALL CHKXER( 'DSPSV ', INFOT, NOUT, LERR, OK )
 *
-*        DSPSVX
+         // DSPSVX
 *
          SRNAMT = 'DSPSVX'
          INFOT = 1
@@ -774,7 +774,7 @@
          CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH
@@ -788,6 +788,6 @@
 *
       RETURN
 *
-*     End of DERRVXX
+      // End of DERRVXX
 *
       END

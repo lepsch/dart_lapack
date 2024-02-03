@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             VECT;
       int                INFO, K, LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, WANTQ;
       int                I, IINFO, J, LWKOPT, MN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CUNGLQ, CUNGQR, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       WANTQ = LSAME( VECT, 'Q' )
@@ -86,7 +86,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          WORK( 1 ) = 1
@@ -95,22 +95,22 @@
 *
       IF( WANTQ ) THEN
 *
-*        Form Q, determined by a call to CGEBRD to reduce an m-by-k
-*        matrix
+         // Form Q, determined by a call to CGEBRD to reduce an m-by-k
+         // matrix
 *
          IF( M.GE.K ) THEN
 *
-*           If m >= k, assume m >= n >= k
+            // If m >= k, assume m >= n >= k
 *
             CALL CUNGQR( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
 *
          ELSE
 *
-*           If m < k, assume m = n
+            // If m < k, assume m = n
 *
-*           Shift the vectors which define the elementary reflectors one
-*           column to the right, and set the first row and column of Q
-*           to those of the unit matrix
+            // Shift the vectors which define the elementary reflectors one
+            // column to the right, and set the first row and column of Q
+           t // o those of the unit matrix
 *
             DO 20 J = M, 2, -1
                A( 1, J ) = ZERO
@@ -124,29 +124,29 @@
    30       CONTINUE
             IF( M.GT.1 ) THEN
 *
-*              Form Q(2:m,2:m)
+               // Form Q(2:m,2:m)
 *
                CALL CUNGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
             END IF
          END IF
       ELSE
 *
-*        Form P**H, determined by a call to CGEBRD to reduce a k-by-n
-*        matrix
+         // Form P**H, determined by a call to CGEBRD to reduce a k-by-n
+         // matrix
 *
          IF( K.LT.N ) THEN
 *
-*           If k < n, assume k <= m <= n
+            // If k < n, assume k <= m <= n
 *
             CALL CUNGLQ( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
 *
          ELSE
 *
-*           If k >= n, assume m = n
+            // If k >= n, assume m = n
 *
-*           Shift the vectors which define the elementary reflectors one
-*           row downward, and set the first row and column of P**H to
-*           those of the unit matrix
+            // Shift the vectors which define the elementary reflectors one
+            // row downward, and set the first row and column of P**H to
+           t // hose of the unit matrix
 *
             A( 1, 1 ) = ONE
             DO 40 I = 2, N
@@ -160,7 +160,7 @@
    60       CONTINUE
             IF( N.GT.1 ) THEN
 *
-*              Form P**H(2:n,2:n)
+               // Form P**H(2:n,2:n)
 *
                CALL CUNGLQ( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
             END IF
@@ -169,6 +169,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN
 *
-*     End of CUNGBR
+      // End of CUNGBR
 *
       END

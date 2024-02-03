@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, K, LDA, LDC, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, MI, NI, NQ;
       double             AII;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
 *
-*     NQ is the order of Q
+      // NQ is the order of Q
 *
       IF( LEFT ) THEN
          NQ = M
@@ -68,7 +68,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 *
@@ -91,17 +91,17 @@
       DO 10 I = I1, I2, I3
          IF( LEFT ) THEN
 *
-*           H(i) is applied to C(1:m-k+i,1:n)
+            // H(i) is applied to C(1:m-k+i,1:n)
 *
             MI = M - K + I
          ELSE
 *
-*           H(i) is applied to C(1:m,1:n-k+i)
+            // H(i) is applied to C(1:m,1:n-k+i)
 *
             NI = N - K + I
          END IF
 *
-*        Apply H(i)
+         // Apply H(i)
 *
          AII = A( I, NQ-K+I )
          A( I, NQ-K+I ) = ONE
@@ -110,6 +110,6 @@
    10 CONTINUE
       RETURN
 *
-*     End of DORMR2
+      // End of DORMR2
 *
       END

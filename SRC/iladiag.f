@@ -4,21 +4,21 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int     BLAS_NON_UNIT_DIAG, BLAS_UNIT_DIAG;
       PARAMETER ( BLAS_NON_UNIT_DIAG = 131, BLAS_UNIT_DIAG = 132 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       IF( LSAME( DIAG, 'N' ) ) THEN
          ILADIAG = BLAS_NON_UNIT_DIAG
       ELSE IF( LSAME( DIAG, 'U' ) ) THEN
@@ -28,6 +28,6 @@
       END IF
       RETURN
 *
-*     End of ILADIAG
+      // End of ILADIAG
 *
       END

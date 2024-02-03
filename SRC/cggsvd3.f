@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               ALPHA( * ), BETA( * ), RWORK( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               WANTQ, WANTU, WANTV, LQUERY;
       int                I, IBND, ISUB, J, NCYCLE, LWKOPT;
       REAL               ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SLAMCH
       // EXTERNAL LSAME, CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGGSVP3, CTGSJA, SCOPY, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       WANTU = LSAME( JOBU, 'U' )
       WANTV = LSAME( JOBV, 'V' )
@@ -42,7 +42,7 @@
       LQUERY = ( LWORK.EQ.-1 )
       LWKOPT = 1
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( .NOT.( WANTU .OR. LSAME( JOBU, 'N' ) ) ) THEN
@@ -71,7 +71,7 @@
          INFO = -24
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO.EQ.0 ) THEN
          CALL CGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK, -1, INFO )
@@ -89,13 +89,13 @@
          RETURN
       ENDIF
 *
-*     Compute the Frobenius norm of matrices A and B
+      // Compute the Frobenius norm of matrices A and B
 *
       ANORM = CLANGE( '1', M, N, A, LDA, RWORK )
       BNORM = CLANGE( '1', P, N, B, LDB, RWORK )
 *
-*     Get machine precision and set up threshold for determining
-*     the effective numerical rank of the matrices A and B.
+      // Get machine precision and set up threshold for determining
+     t // he effective numerical rank of the matrices A and B.
 *
       ULP = SLAMCH( 'Precision' )
       UNFL = SLAMCH( 'Safe Minimum' )
@@ -104,18 +104,18 @@
 *
       CALL CGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK( N+1 ), LWORK-N, INFO )
 *
-*     Compute the GSVD of two upper "triangular" matrices
+      // Compute the GSVD of two upper "triangular" matrices
 *
       CALL CTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
 *
-*     Sort the singular values and store the pivot indices in IWORK
-*     Copy ALPHA to RWORK, then sort ALPHA in RWORK
+      // Sort the singular values and store the pivot indices in IWORK
+      // Copy ALPHA to RWORK, then sort ALPHA in RWORK
 *
       CALL SCOPY( N, ALPHA, 1, RWORK, 1 )
       IBND = MIN( L, M-K )
       DO 20 I = 1, IBND
 *
-*        Scan for largest ALPHA(K+I)
+         // Scan for largest ALPHA(K+I)
 *
          ISUB = I
          SMAX = RWORK( K+I )
@@ -138,6 +138,6 @@
       WORK( 1 ) = CMPLX( LWKOPT )
       RETURN
 *
-*     End of CGGSVD3
+      // End of CGGSVD3
 *
       END

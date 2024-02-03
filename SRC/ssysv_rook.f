@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDB, LWORK, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               A( LDA, * ), B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                LWKOPT;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, SSYTRF_ROOK, SSYTRS_ROOK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -67,14 +67,14 @@
          RETURN
       END IF
 *
-*     Compute the factorization A = U*D*U**T or A = L*D*L**T.
+      // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 *
       CALL SSYTRF_ROOK( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
-*        Solve the system A*X = B, overwriting B with X.
+         // Solve the system A*X = B, overwriting B with X.
 *
-*        Solve with TRS_ROOK ( Use Level 2 BLAS)
+         // Solve with TRS_ROOK ( Use Level 2 BLAS)
 *
          CALL SSYTRS_ROOK( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
 *
@@ -84,6 +84,6 @@
 *
       RETURN
 *
-*     End of SSYSV_ROOK
+      // End of SSYSV_ROOK
 *
       END

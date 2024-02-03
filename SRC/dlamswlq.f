@@ -4,30 +4,30 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, LDA, M, N, K, MB, NB, LDT, LWORK, LDC;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), WORK( * ), C( LDC, * ), T( LDT, * );
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
       int                I, II, KK, CTR, LW, MINMNK, LWMIN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL DTPMLQT, DGEMLQT, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       LQUERY  = ( LWORK.EQ.-1 )
       NOTRAN  = LSAME( TRANS, 'N' )
@@ -80,7 +80,7 @@
         RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MINMNK.EQ.0 ) THEN
         RETURN
@@ -93,7 +93,7 @@
 *
       IF(LEFT.AND.TRAN) THEN
 *
-*         Multiply Q to the last block of C
+          // Multiply Q to the last block of C
 *
           KK = MOD((M-K),(NB-K))
           CTR = (M-K)/(NB-K)
@@ -106,20 +106,20 @@
 *
           DO I=II-(NB-K),NB+1,-(NB-K)
 *
-*         Multiply Q to the current block of C (1:M,I:I+NB)
+          // Multiply Q to the current block of C (1:M,I:I+NB)
 *
             CTR = CTR - 1
             CALL DTPMLQT('L','T',NB-K , N, K, 0,MB, A(1,I), LDA, T(1, CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
 
           END DO
 *
-*         Multiply Q to the first block of C (1:M,1:NB)
+          // Multiply Q to the first block of C (1:M,1:NB)
 *
           CALL DGEMLQT('L','T',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
       ELSE IF (LEFT.AND.NOTRAN) THEN
 *
-*         Multiply Q to the first block of C
+          // Multiply Q to the first block of C
 *
          KK = MOD((M-K),(NB-K))
          II=M-KK+1
@@ -128,7 +128,7 @@
 *
          DO I=NB+1,II-NB+K,(NB-K)
 *
-*         Multiply Q to the current block of C (I:I+NB,1:N)
+          // Multiply Q to the current block of C (I:I+NB,1:N)
 *
           CALL DTPMLQT('L','N',NB-K , N, K, 0,MB, A(1,I), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
           CTR = CTR + 1
@@ -136,7 +136,7 @@
          END DO
          IF(II.LE.M) THEN
 *
-*         Multiply Q to the last block of C
+          // Multiply Q to the last block of C
 *
           CALL DTPMLQT('L','N',KK , N, K, 0, MB, A(1,II), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO )
 *
@@ -144,7 +144,7 @@
 *
       ELSE IF(RIGHT.AND.NOTRAN) THEN
 *
-*         Multiply Q to the last block of C
+          // Multiply Q to the last block of C
 *
           KK = MOD((N-K),(NB-K))
           CTR = (N-K)/(NB-K)
@@ -157,20 +157,20 @@
 *
           DO I=II-(NB-K),NB+1,-(NB-K)
 *
-*         Multiply Q to the current block of C (1:M,I:I+MB)
+          // Multiply Q to the current block of C (1:M,I:I+MB)
 *
              CTR = CTR - 1
              CALL DTPMLQT('R','N', M, NB-K, K, 0, MB, A(1, I), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
 *
           END DO
 *
-*         Multiply Q to the first block of C (1:M,1:MB)
+          // Multiply Q to the first block of C (1:M,1:MB)
 *
           CALL DGEMLQT('R','N',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
       ELSE IF (RIGHT.AND.TRAN) THEN
 *
-*       Multiply Q to the first block of C
+        // Multiply Q to the first block of C
 *
          KK = MOD((N-K),(NB-K))
          CTR = 1
@@ -179,7 +179,7 @@
 *
          DO I=NB+1,II-NB+K,(NB-K)
 *
-*         Multiply Q to the current block of C (1:M,I:I+MB)
+          // Multiply Q to the current block of C (1:M,I:I+MB)
 *
           CALL DTPMLQT('R','T',M , NB-K, K, 0,MB, A(1,I), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
           CTR = CTR + 1
@@ -187,7 +187,7 @@
          END DO
          IF(II.LE.N) THEN
 *
-*       Multiply Q to the last block of C
+        // Multiply Q to the last block of C
 *
           CALL DTPMLQT('R','T',M , KK, K, 0,MB, A(1,II), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
 *
@@ -199,6 +199,6 @@
 *
       RETURN
 *
-*     End of DLAMSWLQ
+      // End of DLAMSWLQ
 *
       END

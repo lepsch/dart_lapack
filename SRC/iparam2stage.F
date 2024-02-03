@@ -8,35 +8,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String   *( * )    NAME, OPTS;
       int                ISPEC, NI, NBI, IBI, NXI;
 *
 *  ================================================================
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IC, IZ, KD, IB, LHOUS, LWORK, NTHREADS, FACTOPTNB, QROPTNB, LQOPTNB;
       bool               RPREC, CPREC;
       String             PREC*1, ALGO*3, STAG*5, SUBNAM*12, VECT*1;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CHAR, ICHAR, MAX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       bool               LSAME;
       // EXTERNAL ILAENV, LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Invalid value for ISPEC
+      // Invalid value for ISPEC
 *
       IF( (ISPEC.LT.17).OR.(ISPEC.GT.21) ) THEN
           IPARAM2STAGE = -1
           RETURN
       ENDIF
 *
-*     Get the number of threads
+      // Get the number of threads
 *
       NTHREADS = 1
 #if defined(_OPENMP)
@@ -44,11 +44,11 @@
       NTHREADS = OMP_GET_NUM_THREADS()
 !$OMP END PARALLEL
 #endif
-*      WRITE(*,*) 'IPARAM VOICI NTHREADS ISPEC ',NTHREADS, ISPEC
+       // WRITE(*,*) 'IPARAM VOICI NTHREADS ISPEC ',NTHREADS, ISPEC
 *
       IF( ISPEC .NE. 19 ) THEN
 *
-*        Convert NAME to upper case if the first character is lower case.
+         // Convert NAME to upper case if the first character is lower case.
 *
          IPARAM2STAGE = -1
          SUBNAM = NAME
@@ -56,7 +56,7 @@
          IZ = ICHAR( 'Z' )
          IF( IZ.EQ.90 .OR. IZ.EQ.122 ) THEN
 *
-*           ASCII character set
+            // ASCII character set
 *
             IF( IC.GE.97 .AND. IC.LE.122 ) THEN
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
@@ -68,7 +68,7 @@
 *
          ELSE IF( IZ.EQ.233 .OR. IZ.EQ.169 ) THEN
 *
-*           EBCDIC character set
+            // EBCDIC character set
 *
             IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
@@ -80,7 +80,7 @@
 *
          ELSE IF( IZ.EQ.218 .OR. IZ.EQ.250 ) THEN
 *
-*           Prime machines:  ASCII+128
+            // Prime machines:  ASCII+128
 *
             IF( IC.GE.225 .AND. IC.LE.250 ) THEN
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
@@ -97,22 +97,22 @@
          RPREC = PREC.EQ.'S' .OR. PREC.EQ.'D'
          CPREC = PREC.EQ.'C' .OR. PREC.EQ.'Z'
 *
-*        Invalid value for PRECISION
+         // Invalid value for PRECISION
 *
          IF( .NOT.( RPREC .OR. CPREC ) ) THEN
              IPARAM2STAGE = -1
              RETURN
          ENDIF
       ENDIF
-*      WRITE(*,*),'RPREC,CPREC ',RPREC,CPREC,
-*     $           '   ALGO ',ALGO,'    STAGE ',STAG
+       // WRITE(*,*),'RPREC,CPREC ',RPREC,CPREC,
+      // $           '   ALGO ',ALGO,'    STAGE ',STAG
 *
 *
       IF (( ISPEC .EQ. 17 ) .OR. ( ISPEC .EQ. 18 )) THEN
 *
-*     ISPEC = 17, 18:  block size KD, IB
-*     Could be also dependent from N but for now it
-*     depend only on sequential or parallel
+      // ISPEC = 17, 18:  block size KD, IB
+      // Could be also dependent from N but for now it
+      // depend only on sequential or parallel
 *
          IF( NTHREADS.GT.4 ) THEN
             IF( CPREC ) THEN
@@ -144,16 +144,16 @@
 *
       ELSE IF ( ISPEC .EQ. 19 ) THEN
 *
-*     ISPEC = 19:
-*     LHOUS length of the Houselholder representation
-*     matrix (V,T) of the second stage. should be >= 1.
+      // ISPEC = 19:
+      // LHOUS length of the Houselholder representation
+      // matrix (V,T) of the second stage. should be >= 1.
 *
-*     Will add the VECT OPTION HERE next release
+      // Will add the VECT OPTION HERE next release
          VECT  = OPTS(1:1)
          IF( LSAME( VECT, 'N' ) ) THEN
             LHOUS = MAX( 1, 4*NI )
          ELSE
-*           This is not correct, it need to call the ALGO and the stage2
+            // This is not correct, it need to call the ALGO and the stage2
             LHOUS = MAX( 1, 4*NI ) + IBI
          ENDIF
          IF( LHOUS.GE.0 ) THEN
@@ -164,26 +164,26 @@
 *
       ELSE IF ( ISPEC .EQ. 20 ) THEN
 *
-*     ISPEC = 20: (21 for future use)
-*     LWORK length of the workspace for
-*     either or both stages for TRD and BRD. should be >= 1.
-*     TRD:
-*     TRD_stage 1: = LT + LW + LS1 + LS2
-*                  = LDT*KD + N*KD + N*MAX(KD,FACTOPTNB) + LDS2*KD
-*                    where LDT=LDS2=KD
-*                  = N*KD + N*max(KD,FACTOPTNB) + 2*KD*KD
-*     TRD_stage 2: = (2NB+1)*N + KD*NTHREADS
-*     TRD_both   : = max(stage1,stage2) + AB ( AB=(KD+1)*N )
-*                  = N*KD + N*max(KD+1,FACTOPTNB)
-*                    + max(2*KD*KD, KD*NTHREADS)
-*                    + (KD+1)*N
+      // ISPEC = 20: (21 for future use)
+      // LWORK length of the workspace for
+      // either or both stages for TRD and BRD. should be >= 1.
+      // TRD:
+      // TRD_stage 1: = LT + LW + LS1 + LS2
+                   // = LDT*KD + N*KD + N*MAX(KD,FACTOPTNB) + LDS2*KD
+                     // where LDT=LDS2=KD
+                   // = N*KD + N*max(KD,FACTOPTNB) + 2*KD*KD
+      // TRD_stage 2: = (2NB+1)*N + KD*NTHREADS
+      // TRD_both   : = max(stage1,stage2) + AB ( AB=(KD+1)*N )
+                   // = N*KD + N*max(KD+1,FACTOPTNB)
+                     // + max(2*KD*KD, KD*NTHREADS)
+                     // + (KD+1)*N
          LWORK        = -1
          SUBNAM(1:1)  = PREC
          SUBNAM(2:6)  = 'GEQRF'
          QROPTNB      = ILAENV( 1, SUBNAM, ' ', NI, NBI, -1, -1 )
          SUBNAM(2:6)  = 'GELQF'
          LQOPTNB      = ILAENV( 1, SUBNAM, ' ', NBI, NI, -1, -1 )
-*        Could be QR or LQ for TRD and the max for BRD
+         // Could be QR or LQ for TRD and the max for BRD
          FACTOPTNB    = MAX(QROPTNB, LQOPTNB)
          IF( ALGO.EQ.'TRD' ) THEN
             IF( STAG.EQ.'2STAG' ) THEN
@@ -212,10 +212,10 @@
 *
       ELSE IF ( ISPEC .EQ. 21 ) THEN
 *
-*     ISPEC = 21 for future use
+      // ISPEC = 21 for future use
          IPARAM2STAGE = NXI
       ENDIF
 *
-*     ==== End of IPARAM2STAGE ====
+      // ==== End of IPARAM2STAGE ====
 *
       END

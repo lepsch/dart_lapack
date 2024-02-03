@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                IMAT, INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), B( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, TWO, ZERO;
       PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       String             DIST, TYPE;
       String             PATH;
       int                I, IY, J, JCOUNT, KL, KU, MODE;
       double             ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
       COMPLEX*16         PLUS1, PLUS2, RA, RB, S, STAR1
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH, DLARND;
       COMPLEX*16         ZLARND
       // EXTERNAL LSAME, IZAMAX, DLAMCH, DLARND, ZLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARNV, ZCOPY, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZROT, ZROTG, ZSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'Zomplex precision'
       PATH( 2: 3 ) = 'TR'
@@ -56,11 +56,11 @@
       END IF
       INFO = 0
 *
-*     Quick return if N.LE.0.
+      // Quick return if N.LE.0.
 *
       IF( N.LE.0 ) RETURN
 *
-*     Call ZLATB4 to set parameters for ZLATMS.
+      // Call ZLATB4 to set parameters for ZLATMS.
 *
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
@@ -69,15 +69,15 @@
          CALL ZLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
       END IF
 *
-*     IMAT <= 6:  Non-unit triangular matrix
+      // IMAT <= 6:  Non-unit triangular matrix
 *
       IF( IMAT.LE.6 ) THEN
          CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
-*     IMAT > 6:  Unit triangular matrix
-*     The diagonal is deliberately set to something other than 1.
+      // IMAT > 6:  Unit triangular matrix
+      // The diagonal is deliberately set to something other than 1.
 *
-*     IMAT = 7:  Matrix is the identity
+      // IMAT = 7:  Matrix is the identity
 *
       ELSE IF( IMAT.EQ.7 ) THEN
          IF( UPPER ) THEN
@@ -96,11 +96,11 @@
    40       CONTINUE
          END IF
 *
-*     IMAT > 7:  Non-trivial unit triangular matrix
+      // IMAT > 7:  Non-trivial unit triangular matrix
 *
-*     Generate a unit triangular matrix T with condition CNDNUM by
-*     forming a triangular matrix with known singular values and
-*     filling in the zero entries with Givens rotations.
+      // Generate a unit triangular matrix T with condition CNDNUM by
+      // forming a triangular matrix with known singular values and
+      // filling in the zero entries with Givens rotations.
 *
       ELSE IF( IMAT.LE.10 ) THEN
          IF( UPPER ) THEN
@@ -119,63 +119,63 @@
    80       CONTINUE
          END IF
 *
-*        Since the trace of a unit triangular matrix is 1, the product
-*        of its singular values must be 1.  Let s = sqrt(CNDNUM),
-*        x = sqrt(s) - 1/sqrt(s), y = sqrt(2/(n-2))*x, and z = x**2.
-*        The following triangular matrix has singular values s, 1, 1,
-*        ..., 1, 1/s:
+         // Since the trace of a unit triangular matrix is 1, the product
+         // of its singular values must be 1.  Let s = sqrt(CNDNUM),
+         // x = sqrt(s) - 1/sqrt(s), y = sqrt(2/(n-2))*x, and z = x**2.
+         // The following triangular matrix has singular values s, 1, 1,
+         // ..., 1, 1/s:
 *
-*        1  y  y  y  ...  y  y  z
-*           1  0  0  ...  0  0  y
-*              1  0  ...  0  0  y
-*                 .  ...  .  .  .
-*                     .   .  .  .
-*                         1  0  y
-*                            1  y
-*                               1
+         // 1  y  y  y  ...  y  y  z
+            // 1  0  0  ...  0  0  y
+               // 1  0  ...  0  0  y
+                  // .  ...  .  .  .
+                      // .   .  .  .
+                          // 1  0  y
+                             // 1  y
+                                // 1
 *
-*        To fill in the zeros, we first multiply by a matrix with small
-*        condition number of the form
+         // To fill in the zeros, we first multiply by a matrix with small
+         // condition number of the form
 *
-*        1  0  0  0  0  ...
-*           1  +  *  0  0  ...
-*              1  +  0  0  0
-*                 1  +  *  0  0
-*                    1  +  0  0
-*                       ...
-*                          1  +  0
-*                             1  0
-*                                1
+         // 1  0  0  0  0  ...
+            // 1  +  *  0  0  ...
+               // 1  +  0  0  0
+                  // 1  +  *  0  0
+                     // 1  +  0  0
+                        // ...
+                           // 1  +  0
+                              // 1  0
+                                 // 1
 *
-*        Each element marked with a '*' is formed by taking the product
-*        of the adjacent elements marked with '+'.  The '*'s can be
-*        chosen freely, and the '+'s are chosen so that the inverse of
-*        T will have elements of the same magnitude as T.  If the *'s in
-*        both T and inv(T) have small magnitude, T is well conditioned.
-*        The two offdiagonals of T are stored in WORK.
+         // Each element marked with a '*' is formed by taking the product
+         // of the adjacent elements marked with '+'.  The '*'s can be
+         // chosen freely, and the '+'s are chosen so that the inverse of
+         // T will have elements of the same magnitude as T.  If the *'s in
+         // both T and inv(T) have small magnitude, T is well conditioned.
+         // The two offdiagonals of T are stored in WORK.
 *
-*        The product of these two matrices has the form
+         // The product of these two matrices has the form
 *
-*        1  y  y  y  y  y  .  y  y  z
-*           1  +  *  0  0  .  0  0  y
-*              1  +  0  0  .  0  0  y
-*                 1  +  *  .  .  .  .
-*                    1  +  .  .  .  .
-*                       .  .  .  .  .
-*                          .  .  .  .
-*                             1  +  y
-*                                1  y
-*                                   1
+         // 1  y  y  y  y  y  .  y  y  z
+            // 1  +  *  0  0  .  0  0  y
+               // 1  +  0  0  .  0  0  y
+                  // 1  +  *  .  .  .  .
+                     // 1  +  .  .  .  .
+                        // .  .  .  .  .
+                           // .  .  .  .
+                              // 1  +  y
+                                 // 1  y
+                                    // 1
 *
-*        Now we multiply by Givens rotations, using the fact that
+         // Now we multiply by Givens rotations, using the fact that
 *
-*              [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
-*              [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
-*        and
-*              [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
-*              [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
+               // [  c   s ] [  1   w ] [ -c  -s ] =  [  1  -w ]
+               // [ -s   c ] [  0   1 ] [  s  -c ]    [  0   1 ]
+         // and
+               // [ -c  -s ] [  1   0 ] [  c   s ] =  [  1   0 ]
+               // [  s  -c ] [  w   1 ] [ -s   c ]    [ -w   1 ]
 *
-*        where c = w / sqrt(w**2+4) and s = 2 / sqrt(w**2+4).
+         // where c = w / sqrt(w**2+4) and s = 2 / sqrt(w**2+4).
 *
          STAR1 = 0.25D0*ZLARND( 5, ISEED )
          SFAC = 0.5D0
@@ -227,7 +227,7 @@
             A( N, 1 ) = Z
          END IF
 *
-*        Fill in the zeros using Givens rotations.
+         // Fill in the zeros using Givens rotations.
 *
          IF( UPPER ) THEN
             DO 120 J = 1, N - 1
@@ -235,15 +235,15 @@
                RB = 2.0D0
                CALL ZROTG( RA, RB, C, S )
 *
-*              Multiply by [ c  s; -conjg(s)  c] on the left.
+               // Multiply by [ c  s; -conjg(s)  c] on the left.
 *
                IF( N.GT.J+1 ) CALL ZROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S )
 *
-*              Multiply by [-c -s;  conjg(s) -c] on the right.
+               // Multiply by [-c -s;  conjg(s) -c] on the right.
 *
                IF( J.GT.1 ) CALL ZROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S )
 *
-*              Negate A(J,J+1).
+               // Negate A(J,J+1).
 *
                A( J, J+1 ) = -A( J, J+1 )
   120       CONTINUE
@@ -254,29 +254,29 @@
                CALL ZROTG( RA, RB, C, S )
                S = DCONJG( S )
 *
-*              Multiply by [ c -s;  conjg(s) c] on the right.
+               // Multiply by [ c -s;  conjg(s) c] on the right.
 *
                IF( N.GT.J+1 ) CALL ZROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S )
 *
-*              Multiply by [-c  s; -conjg(s) -c] on the left.
+               // Multiply by [-c  s; -conjg(s) -c] on the left.
 *
                IF( J.GT.1 ) CALL ZROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S )
 *
-*              Negate A(J+1,J).
+               // Negate A(J+1,J).
 *
                A( J+1, J ) = -A( J+1, J )
   130       CONTINUE
          END IF
 *
-*     IMAT > 10:  Pathological test cases.  These triangular matrices
-*     are badly scaled or badly conditioned, so when used in solving a
-*     triangular system they may cause overflow in the solution vector.
+      // IMAT > 10:  Pathological test cases.  These triangular matrices
+      // are badly scaled or badly conditioned, so when used in solving a
+     t // riangular system they may cause overflow in the solution vector.
 *
       ELSE IF( IMAT.EQ.11 ) THEN
 *
-*        Type 11:  Generate a triangular matrix with elements between
-*        -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
-*        Make the right hand side large so that it requires scaling.
+         // Type 11:  Generate a triangular matrix with elements between
+         // -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
+         // Make the right hand side large so that it requires scaling.
 *
          IF( UPPER ) THEN
             DO 140 J = 1, N
@@ -290,7 +290,7 @@
   150       CONTINUE
          END IF
 *
-*        Set the right hand side so that the largest value is BIGNUM.
+         // Set the right hand side so that the largest value is BIGNUM.
 *
          CALL ZLARNV( 2, ISEED, N, B )
          IY = IZAMAX( N, B, 1 )
@@ -300,9 +300,9 @@
 *
       ELSE IF( IMAT.EQ.12 ) THEN
 *
-*        Type 12:  Make the first diagonal element in the solve small to
-*        cause immediate overflow when dividing by T(j,j).
-*        In type 12, the offdiagonal elements are small (CNORM(j) < 1).
+         // Type 12:  Make the first diagonal element in the solve small to
+         // cause immediate overflow when dividing by T(j,j).
+         // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 *
          CALL ZLARNV( 2, ISEED, N, B )
          TSCAL = ONE / MAX( ONE, DBLE( N-1 ) )
@@ -326,9 +326,9 @@
 *
       ELSE IF( IMAT.EQ.13 ) THEN
 *
-*        Type 13:  Make the first diagonal element in the solve small to
-*        cause immediate overflow when dividing by T(j,j).
-*        In type 13, the offdiagonal elements are O(1) (CNORM(j) > 1).
+         // Type 13:  Make the first diagonal element in the solve small to
+         // cause immediate overflow when dividing by T(j,j).
+         // In type 13, the offdiagonal elements are O(1) (CNORM(j) > 1).
 *
          CALL ZLARNV( 2, ISEED, N, B )
          IF( UPPER ) THEN
@@ -347,9 +347,9 @@
 *
       ELSE IF( IMAT.EQ.14 ) THEN
 *
-*        Type 14:  T is diagonal with small numbers on the diagonal to
-*        make the growth factor underflow, but a small right hand side
-*        chosen so that the solution does not overflow.
+         // Type 14:  T is diagonal with small numbers on the diagonal to
+         // make the growth factor underflow, but a small right hand side
+         // chosen so that the solution does not overflow.
 *
          IF( UPPER ) THEN
             JCOUNT = 1
@@ -381,7 +381,7 @@
   230       CONTINUE
          END IF
 *
-*        Set the right hand side alternately zero and small.
+         // Set the right hand side alternately zero and small.
 *
          IF( UPPER ) THEN
             B( 1 ) = ZERO
@@ -399,9 +399,9 @@
 *
       ELSE IF( IMAT.EQ.15 ) THEN
 *
-*        Type 15:  Make the diagonal elements small to cause gradual
-*        overflow when dividing by T(j,j).  To control the amount of
-*        scaling needed, the matrix is bidiagonal.
+         // Type 15:  Make the diagonal elements small to cause gradual
+         // overflow when dividing by T(j,j).  To control the amount of
+         // scaling needed, the matrix is bidiagonal.
 *
          TEXP = ONE / MAX( ONE, DBLE( N-1 ) )
          TSCAL = SMLNUM**TEXP
@@ -428,7 +428,7 @@
 *
       ELSE IF( IMAT.EQ.16 ) THEN
 *
-*        Type 16:  One zero diagonal element.
+         // Type 16:  One zero diagonal element.
 *
          IY = N / 2 + 1
          IF( UPPER ) THEN
@@ -455,10 +455,10 @@
 *
       ELSE IF( IMAT.EQ.17 ) THEN
 *
-*        Type 17:  Make the offdiagonal elements large to cause overflow
-*        when adding a column of T.  In the non-transposed case, the
-*        matrix is constructed to cause overflow when adding a column in
-*        every other step.
+         // Type 17:  Make the offdiagonal elements large to cause overflow
+         // when adding a column of T.  In the non-transposed case, the
+         // matrix is constructed to cause overflow when adding a column in
+         // every other step.
 *
          TSCAL = UNFL / ULP
          TSCAL = ( ONE-ULP ) / TSCAL
@@ -494,9 +494,9 @@
 *
       ELSE IF( IMAT.EQ.18 ) THEN
 *
-*        Type 18:  Generate a unit triangular matrix with elements
-*        between -1 and 1, and make the right hand side large so that it
-*        requires scaling.
+         // Type 18:  Generate a unit triangular matrix with elements
+         // between -1 and 1, and make the right hand side large so that it
+         // requires scaling.
 *
          IF( UPPER ) THEN
             DO 360 J = 1, N
@@ -510,7 +510,7 @@
   370       CONTINUE
          END IF
 *
-*        Set the right hand side so that the largest value is BIGNUM.
+         // Set the right hand side so that the largest value is BIGNUM.
 *
          CALL ZLARNV( 2, ISEED, N, B )
          IY = IZAMAX( N, B, 1 )
@@ -520,10 +520,10 @@
 *
       ELSE IF( IMAT.EQ.19 ) THEN
 *
-*        Type 19:  Generate a triangular matrix with elements between
-*        BIGNUM/(n-1) and BIGNUM so that at least one of the column
-*        norms will exceed BIGNUM.
-*        1/3/91:  ZLATRS no longer can handle this case
+         // Type 19:  Generate a triangular matrix with elements between
+         // BIGNUM/(n-1) and BIGNUM so that at least one of the column
+         // norms will exceed BIGNUM.
+         // 1/3/91:  ZLATRS no longer can handle this case
 *
          TLEFT = BIGNUM / MAX( ONE, DBLE( N-1 ) )
          TSCAL = BIGNUM*( DBLE( N-1 ) / MAX( ONE, DBLE( N ) ) )
@@ -548,7 +548,7 @@
          CALL ZDSCAL( N, TWO, B, 1 )
       END IF
 *
-*     Flip the matrix if the transpose will be used.
+      // Flip the matrix if the transpose will be used.
 *
       IF( .NOT.LSAME( TRANS, 'N' ) ) THEN
          IF( UPPER ) THEN
@@ -564,6 +564,6 @@
 *
       RETURN
 *
-*     End of ZLATTR
+      // End of ZLATTR
 *
       END

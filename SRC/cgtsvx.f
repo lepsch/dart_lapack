@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             FACT, TRANS;
       int                INFO, LDB, LDX, N, NRHS;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               BERR( * ), FERR( * ), RWORK( * )
       COMPLEX            B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOFACT, NOTRAN;
       String             NORM;
       REAL               ANORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGT, SLAMCH
       // EXTERNAL LSAME, CLANGT, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CGTCON, CGTRFS, CGTTRF, CGTTRS, CLACPY, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -62,7 +62,7 @@
 *
       IF( NOFACT ) THEN
 *
-*        Compute the LU factorization of A.
+         // Compute the LU factorization of A.
 *
          CALL CCOPY( N, D, 1, DF, 1 )
          IF( N.GT.1 ) THEN
@@ -71,7 +71,7 @@
          END IF
          CALL CGTTRF( N, DLF, DF, DUF, DU2, IPIV, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 )THEN
             RCOND = ZERO
@@ -79,7 +79,7 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A.
+      // Compute the norm of the matrix A.
 *
       IF( NOTRAN ) THEN
          NORM = '1'
@@ -88,26 +88,26 @@
       END IF
       ANORM = CLANGT( NORM, N, DL, D, DU )
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL CGTCON( NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK, INFO )
 *
-*     Compute the solution vectors X.
+      // Compute the solution vectors X.
 *
       CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL CGTTRS( TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solutions and
-*     compute error bounds and backward error estimates for them.
+      // Use iterative refinement to improve the computed solutions and
+      // compute error bounds and backward error estimates for them.
 *
       CALL CGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *
-*     End of CGTSVX
+      // End of CGTSVX
 *
       END

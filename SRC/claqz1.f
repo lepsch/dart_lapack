@@ -1,27 +1,27 @@
       SUBROUTINE CLAQZ1( ILQ, ILZ, K, ISTARTM, ISTOPM, IHI, A, LDA, B, LDB, NQ, QSTART, Q, LDQ, NZ, ZSTART, Z, LDZ )
       IMPLICIT NONE
 *
-*     Arguments
+      // Arguments
       bool   , INTENT( IN ) :: ILQ, ILZ;
       int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI;
       COMPLEX :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
 *
-*     Parameters
+      // Parameters
       COMPLEX         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) )
       REAL :: ZERO, ONE, HALF
       PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
 *
-*     Local variables
+      // Local variables
       REAL :: C
       COMPLEX :: S, TEMP
 *
-*     External Functions
+      // External Functions
       // EXTERNAL :: CLARTG, CROT
 *
       IF( K+1 .EQ. IHI ) THEN
 *
-*        Shift is located on the edge of the matrix, remove it
+         // Shift is located on the edge of the matrix, remove it
 *
          CALL CLARTG( B( IHI, IHI ), B( IHI, IHI-1 ), C, S, TEMP )
          B( IHI, IHI ) = TEMP
@@ -33,10 +33,10 @@
 *
       ELSE
 *
-*        Normal operation, move bulge down
+         // Normal operation, move bulge down
 *
 *
-*        Apply transformation from the right
+         // Apply transformation from the right
 *
          CALL CLARTG( B( K+1, K+1 ), B( K+1, K ), C, S, TEMP )
          B( K+1, K+1 ) = TEMP
@@ -46,7 +46,7 @@
             CALL CROT( NZ, Z( 1, K+1-ZSTART+1 ), 1, Z( 1, K-ZSTART+1 ), 1, C, S )
          END IF
 *
-*        Apply transformation from the left
+         // Apply transformation from the left
 *
          CALL CLARTG( A( K+1, K ), A( K+2, K ), C, S, TEMP )
          A( K+1, K ) = TEMP
@@ -58,6 +58,6 @@
 *
       END IF
 *
-*     End of CLAQZ1
+      // End of CLAQZ1
 *
       END SUBROUTINE

@@ -4,49 +4,49 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
       REAL               ABSTOL, VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IBLOCK( * ), ISPLIT( * ), IWORK( * );
       REAL               D( * ), E( * ), W( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 1.0E0 / TWO )
       REAL               FUDGE, RELFAC
       PARAMETER          ( FUDGE = 2.1E0, RELFAC = 2.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
       int                IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU;
       REAL               ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH
       // EXTERNAL LSAME, ILAENV, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAEBZ, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
 *
-*     Decode RANGE
+      // Decode RANGE
 *
       IF( LSAME( RANGE, 'A' ) ) THEN
          IRANGE = 1
@@ -58,7 +58,7 @@
          IRANGE = 0
       END IF
 *
-*     Decode ORDER
+      // Decode ORDER
 *
       IF( LSAME( ORDER, 'B' ) ) THEN
          IORDER = 2
@@ -68,7 +68,7 @@
          IORDER = 0
       END IF
 *
-*     Check for Errors
+      // Check for Errors
 *
       IF( IRANGE.LE.0 ) THEN
          INFO = -1
@@ -89,24 +89,24 @@
          RETURN
       END IF
 *
-*     Initialize error flags
+      // Initialize error flags
 *
       INFO = 0
       NCNVRG = .FALSE.
       TOOFEW = .FALSE.
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) RETURN
 *
-*     Simplifications:
+      // Simplifications:
 *
       IF( IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N ) IRANGE = 1
 *
-*     Get machine constants
-*     NB is the minimum vector length for vector bisection, or 0
-*     if only scalar is to be done.
+      // Get machine constants
+      // NB is the minimum vector length for vector bisection, or 0
+      // if only scalar is to be done.
 *
       SAFEMN = SLAMCH( 'S' )
       ULP = SLAMCH( 'P' )
@@ -114,7 +114,7 @@
       NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 )
       IF( NB.LE.1 ) NB = 0
 *
-*     Special Case when N=1
+      // Special Case when N=1
 *
       IF( N.EQ.1 ) THEN
          NSPLIT = 1
@@ -129,7 +129,7 @@
          RETURN
       END IF
 *
-*     Compute Splitting Points
+      // Compute Splitting Points
 *
       NSPLIT = 1
       WORK( N ) = ZERO
@@ -149,15 +149,15 @@
       ISPLIT( NSPLIT ) = N
       PIVMIN = PIVMIN*SAFEMN
 *
-*     Compute Interval and ATOLI
+      // Compute Interval and ATOLI
 *
       IF( IRANGE.EQ.3 ) THEN
 *
-*        RANGE='I': Compute the interval containing eigenvalues
-*                   IL through IU.
+         // RANGE='I': Compute the interval containing eigenvalues
+                    // IL through IU.
 *
-*        Compute Gershgorin interval for entire (split) matrix
-*        and use it as the initial interval
+         // Compute Gershgorin interval for entire (split) matrix
+         // and use it as the initial interval
 *
          GU = D( 1 )
          GL = D( 1 )
@@ -176,7 +176,7 @@
          GL = GL - FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN
          GU = GU + FUDGE*TNORM*ULP*N + FUDGE*PIVMIN
 *
-*        Compute Iteration parameters
+         // Compute Iteration parameters
 *
          ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
          IF( ABSTOL.LE.ZERO ) THEN
@@ -222,7 +222,7 @@
          END IF
       ELSE
 *
-*        RANGE='A' or 'V' -- Set ATOLI
+         // RANGE='A' or 'V' -- Set ATOLI
 *
          TNORM = MAX( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) )
 *
@@ -245,9 +245,9 @@
          END IF
       END IF
 *
-*     Find Eigenvalues -- Loop Over Blocks and recompute NWL and NWU.
-*     NWL accumulates the number of eigenvalues .le. WL,
-*     NWU accumulates the number of eigenvalues .le. WU
+      // Find Eigenvalues -- Loop Over Blocks and recompute NWL and NWU.
+      // NWL accumulates the number of eigenvalues .le. WL,
+      // NWU accumulates the number of eigenvalues .le. WU
 *
       M = 0
       IEND = 0
@@ -263,7 +263,7 @@
 *
          IF( IN.EQ.1 ) THEN
 *
-*           Special Case -- IN=1
+            // Special Case -- IN=1
 *
             IF( IRANGE.EQ.1 .OR. WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE.EQ.1 .OR. WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.1 .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) THEN
                M = M + 1
@@ -272,10 +272,10 @@
             END IF
          ELSE
 *
-*           General Case -- IN > 1
+            // General Case -- IN > 1
 *
-*           Compute Gershgorin Interval
-*           and use it as the initial interval
+            // Compute Gershgorin Interval
+            // and use it as the initial interval
 *
             GU = D( IBEGIN )
             GL = D( IBEGIN )
@@ -294,7 +294,7 @@
             GL = GL - FUDGE*BNORM*ULP*IN - FUDGE*PIVMIN
             GU = GU + FUDGE*BNORM*ULP*IN + FUDGE*PIVMIN
 *
-*           Compute ATOLI for the current submatrix
+            // Compute ATOLI for the current submatrix
 *
             IF( ABSTOL.LE.ZERO ) THEN
                ATOLI = ULP*MAX( ABS( GL ), ABS( GU ) )
@@ -313,7 +313,7 @@
                IF( GL.GE.GU ) GO TO 70
             END IF
 *
-*           Set Up Initial Interval
+            // Set Up Initial Interval
 *
             WORK( N+1 ) = GL
             WORK( N+IN+1 ) = GU
@@ -323,17 +323,17 @@
             NWU = NWU + IWORK( IN+1 )
             IWOFF = M - IWORK( 1 )
 *
-*           Compute Eigenvalues
+            // Compute Eigenvalues
 *
             ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2             CALL SLAEBZ( 2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
 *
-*           Copy Eigenvalues Into W and IBLOCK
-*           Use -JB for block number for unconverged eigenvalues.
+            // Copy Eigenvalues Into W and IBLOCK
+            // Use -JB for block number for unconverged eigenvalues.
 *
             DO 60 J = 1, IOUT
                TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) )
 *
-*              Flag non-convergence.
+               // Flag non-convergence.
 *
                IF( J.GT.IOUT-IINFO ) THEN
                   NCNVRG = .TRUE.
@@ -351,8 +351,8 @@
          END IF
    70 CONTINUE
 *
-*     If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
-*     If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
+      // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
+      // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
 *
       IF( IRANGE.EQ.3 ) THEN
          IM = 0
@@ -375,15 +375,15 @@
          END IF
          IF( IDISCL.GT.0 .OR. IDISCU.GT.0 ) THEN
 *
-*           Code to deal with effects of bad arithmetic:
-*           Some low eigenvalues to be discarded are not in (WL,WLU],
-*           or high eigenvalues to be discarded are not in (WUL,WU]
-*           so just kill off the smallest IDISCL/largest IDISCU
-*           eigenvalues, by simply finding the smallest/largest
-*           eigenvalue(s).
+            // Code to deal with effects of bad arithmetic:
+            // Some low eigenvalues to be discarded are not in (WL,WLU],
+            // or high eigenvalues to be discarded are not in (WUL,WU]
+            // so just kill off the smallest IDISCL/largest IDISCU
+            // eigenvalues, by simply finding the smallest/largest
+            // eigenvalue(s).
 *
-*           (If N(w) is monotone non-decreasing, this should never
-*               happen.)
+            // (If N(w) is monotone non-decreasing, this should never
+                // happen.)
 *
             IF( IDISCL.GT.0 ) THEN
                WKILL = WU
@@ -427,9 +427,9 @@
          END IF
       END IF
 *
-*     If ORDER='B', do nothing -- the eigenvalues are already sorted
-*        by block.
-*     If ORDER='E', sort the eigenvalues from smallest to largest
+      // If ORDER='B', do nothing -- the eigenvalues are already sorted
+         // by block.
+      // If ORDER='E', sort the eigenvalues from smallest to largest
 *
       IF( IORDER.EQ.1 .AND. NSPLIT.GT.1 ) THEN
          DO 150 JE = 1, M - 1
@@ -456,6 +456,6 @@
       IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
       RETURN
 *
-*     End of SSTEBZ
+      // End of SSTEBZ
 *
       END

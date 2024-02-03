@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N, LDA;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), AP( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
-*     ..
-*     .. Local Scalars ..
+      // .. Parameters ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER;
       int                I, J, K;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       LOWER = LSAME( UPLO, 'L' )
@@ -66,6 +66,6 @@
 *
       RETURN
 *
-*     End of DTRTTP
+      // End of DTRTTP
 *
       END

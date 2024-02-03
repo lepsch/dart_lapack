@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N, TSIZE, LWORK;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), T( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, LMINWS, MINT, MINW;
       int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWOPT, LWREQ;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGELQT, CLASWLQ, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, MOD
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
 *
@@ -48,7 +48,7 @@
         IF( LWORK.NE.-1 ) MINW = .TRUE.
       END IF
 *
-*     Determine the block size
+      // Determine the block size
 *
       IF( MIN( M, N ).GT.0 ) THEN
         MB = ILAENV( 1, 'CGELQ ', ' ', M, N, 1, -1 )
@@ -70,7 +70,7 @@
         NBLCKS = 1
       END IF
 *
-*     Determine if the workspace size satisfies minimal size
+      // Determine if the workspace size satisfies minimal size
 *
       IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
          LWMIN = MAX( 1, N )
@@ -130,13 +130,13 @@
         RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MIN( M, N ).EQ.0 ) THEN
         RETURN
       END IF
 *
-*     The LQ Decomposition
+      // The LQ Decomposition
 *
       IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
         CALL CGELQT( M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO )
@@ -148,6 +148,6 @@
 *
       RETURN
 *
-*     End of CGELQ
+      // End of CGELQ
 *
       END

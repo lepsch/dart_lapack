@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KBAND, LDU, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * )
       COMPLEX            U( LDU, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J;
       REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, CLANHE, SLAMCH
       // EXTERNAL CLANGE, CLANHE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CHER, CHER2, CLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     1)      Constants
+      // 1)      Constants
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -45,9 +45,9 @@
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Precision' )
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Copy A & Compute its 1-Norm:
+      // Copy A & Compute its 1-Norm:
 *
       CALL CLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
 *
@@ -65,7 +65,7 @@
       WORK( N**2 ) = AD( N )
       ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL )
 *
-*     Norm of A - U S U**H
+      // Norm of A - U S U**H
 *
       DO 20 J = 1, N
          CALL CHER( 'L', N, -SD( J ), U( 1, J ), 1, WORK, N )
@@ -89,9 +89,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U U**H - I
+      // Compute  U U**H - I
 *
       CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 *
@@ -103,6 +103,6 @@
 *
       RETURN
 *
-*     End of CSTT21
+      // End of CSTT21
 *
       END

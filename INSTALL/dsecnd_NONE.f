@@ -9,6 +9,6 @@
       DSECND = 0.0D+0
       RETURN
 *
-*     End of DSECND
+      // End of DSECND
 *
       END

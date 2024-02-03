@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             CS, F, G, R, SN;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
       double             TWO;
       PARAMETER          ( TWO = 2.0D0 )
-*     ..
-*     .. Local Scalars ..
-*     LOGICAL            FIRST
+      // ..
+      // .. Local Scalars ..
+      // LOGICAL            FIRST
       int                COUNT, I;
       double             EPS, F1, G1, SAFMIN, SAFMN2, SAFMX2, SCALE;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, SIGN, SQRT
-*     ..
-*     .. Save statement ..
-*     SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
-*     ..
-*     .. Data statements ..
-*     DATA               FIRST / .TRUE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Save statement ..
+      // SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
+      // ..
+      // .. Data statements ..
+      // DATA               FIRST / .TRUE. /
+      // ..
+      // .. Executable Statements ..
 *
-*     IF( FIRST ) THEN
+      // IF( FIRST ) THEN
          SAFMIN = DLAMCH( 'S' )
          EPS = DLAMCH( 'E' )
          SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( DLAMCH( 'B' ) ) / TWO )
          SAFMX2 = ONE / SAFMN2
-*        FIRST = .FALSE.
-*     END IF
+         // FIRST = .FALSE.
+      // END IF
       IF( G.EQ.ZERO ) THEN
          CS = SIGN( ONE, F )
          SN = ZERO
@@ -98,6 +98,6 @@
       END IF
       RETURN
 *
-*     End of DLARTGP
+      // End of DLARTGP
 *
       END

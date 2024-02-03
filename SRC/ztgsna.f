@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             HOWMNY, JOB;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
       double             DIF( * ), S( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       int                IDIFJB;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, IDIFJB = 3 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, SOMCON, WANTBH, WANTDF, WANTS;
       int                I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2;
       double             BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM;
       COMPLEX*16         YHAX, YHBX
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX*16         DUMMY( 1 ), DUMMY1( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLAPY2, DZNRM2;
       COMPLEX*16         ZDOTC
       // EXTERNAL LSAME, DLAMCH, DLAPY2, DZNRM2, ZDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMV, ZLACPY, ZTGEXC, ZTGSYL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       WANTBH = LSAME( JOB, 'B' )
       WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
@@ -72,8 +72,8 @@
          INFO = -12
       ELSE
 *
-*        Set M to the number of eigenpairs for which condition numbers
-*        are required, and test MM.
+         // Set M to the number of eigenpairs for which condition numbers
+         // are required, and test MM.
 *
          IF( SOMCON ) THEN
             M = 0
@@ -107,11 +107,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
@@ -119,8 +119,8 @@
       KS = 0
       DO 20 K = 1, N
 *
-*        Determine whether condition numbers are required for the k-th
-*        eigenpair.
+         // Determine whether condition numbers are required for the k-th
+         // eigenpair.
 *
          IF( SOMCON ) THEN
             IF( .NOT.SELECT( K ) ) GO TO 20
@@ -130,8 +130,8 @@
 *
          IF( WANTS ) THEN
 *
-*           Compute the reciprocal condition number of the k-th
-*           eigenvalue.
+            // Compute the reciprocal condition number of the k-th
+            // eigenvalue.
 *
             RNRM = DZNRM2( N, VR( 1, KS ), 1 )
             LNRM = DZNRM2( N, VL( 1, KS ), 1 )
@@ -152,11 +152,11 @@
                DIF( KS ) = DLAPY2( ABS( A( 1, 1 ) ), ABS( B( 1, 1 ) ) )
             ELSE
 *
-*              Estimate the reciprocal condition number of the k-th
-*              eigenvectors.
+               // Estimate the reciprocal condition number of the k-th
+               // eigenvectors.
 *
-*              Copy the matrix (A, B) to the array WORK and move the
-*              (k,k)th pair to the (1,1) position.
+               // Copy the matrix (A, B) to the array WORK and move the
+               // (k,k)th pair to the (1,1) position.
 *
                CALL ZLACPY( 'Full', N, N, A, LDA, WORK, N )
                CALL ZLACPY( 'Full', N, N, B, LDB, WORK( N*N+1 ), N )
@@ -167,16 +167,16 @@
 *
                IF( IERR.GT.0 ) THEN
 *
-*                 Ill-conditioned problem - swap rejected.
+                  // Ill-conditioned problem - swap rejected.
 *
                   DIF( KS ) = ZERO
                ELSE
 *
-*                 Reordering successful, solve generalized Sylvester
-*                 equation for R and L,
-*                            A22 * R - L * A11 = A12
-*                            B22 * R - L * B11 = B12,
-*                 and compute estimate of Difl[(A11,B11), (A22, B22)].
+                  // Reordering successful, solve generalized Sylvester
+                  // equation for R and L,
+                             // A22 * R - L * A11 = A12
+                             // B22 * R - L * B11 = B12,
+                  // and compute estimate of Difl[(A11,B11), (A22, B22)].
 *
                   N1 = 1
                   N2 = N - N1
@@ -190,6 +190,6 @@
       WORK( 1 ) = LWMIN
       RETURN
 *
-*     End of ZTGSNA
+      // End of ZTGSNA
 *
       END

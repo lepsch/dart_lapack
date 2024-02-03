@@ -4,26 +4,26 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>         SRNAME;
       int                INFO;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       LERR = .TRUE.
       IF( INFO.NE.INFOT ) THEN
@@ -47,6 +47,6 @@
  9997 FORMAT( ' *** On entry to ', A, ' parameter number ', I6,
      $      ' had an illegal value ***' )
 *
-*     End of XERBLA
+      // End of XERBLA
 *
       END

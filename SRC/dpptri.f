@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AP( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ, JJN;
       double             AJJ;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT;
       // EXTERNAL LSAME, DDOT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSPR, DTPMV, DTPTRI, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -47,18 +47,18 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Invert the triangular Cholesky factor U or L.
+      // Invert the triangular Cholesky factor U or L.
 *
       CALL DTPTRI( UPLO, 'Non-unit', N, AP, INFO )
       IF( INFO.GT.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Compute the product inv(U) * inv(U)**T.
+         // Compute the product inv(U) * inv(U)**T.
 *
          JJ = 0
          DO 10 J = 1, N
@@ -71,7 +71,7 @@
 *
       ELSE
 *
-*        Compute the product inv(L)**T * inv(L).
+         // Compute the product inv(L)**T * inv(L).
 *
          JJ = 1
          DO 20 J = 1, N
@@ -84,6 +84,6 @@
 *
       RETURN
 *
-*     End of DPPTRI
+      // End of DPPTRI
 *
       END

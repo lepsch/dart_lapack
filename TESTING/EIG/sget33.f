@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
       REAL               RMAX
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       REAL               TWO, FOUR
       PARAMETER          ( TWO = 2.0E0, FOUR = 4.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3;
       REAL               BIGNUM, CS, EPS, RES, SMLNUM, SN, SUM, TNRM, WI1, WI2, WR1, WR2
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               Q( 2, 2 ), T( 2, 2 ), T1( 2, 2 ), T2( 2, 2 ), VAL( 4 ), VM( 3 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLANV2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SIGN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Set up test case parameters
+      // Set up test case parameters
 *
       VAL( 1 ) = ONE
       VAL( 2 ) = ONE + TWO*EPS
@@ -57,7 +57,7 @@
       LMAX = 0
       RMAX = ZERO
 *
-*     Begin test loop
+      // Begin test loop
 *
       DO 150 I1 = 1, 4
          DO 140 I2 = 1, 4
@@ -124,6 +124,6 @@
 *
       RETURN
 *
-*     End of SGET33
+      // End of SGET33
 *
       END

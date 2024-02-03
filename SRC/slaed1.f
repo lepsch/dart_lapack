@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                CUTPNT, INFO, LDQ, N;
       REAL               RHO
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                INDXQ( * ), IWORK( * );
       REAL               D( * ), Q( LDQ, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                COLTYP, CPP1, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS, IW, IZ, K, N1, N2;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLAED2, SLAED3, SLAMRG, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -42,13 +42,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     The following values are integer pointers which indicate
-*     the portion of the workspace
-*     used by a particular array in SLAED2 and SLAED3.
+      // The following values are integer pointers which indicate
+     t // he portion of the workspace
+      // used by a particular array in SLAED2 and SLAED3.
 *
       IZ = 1
       IDLMDA = IZ + N
@@ -61,26 +61,26 @@
       INDXP = COLTYP + N
 *
 *
-*     Form the z-vector which consists of the last row of Q_1 and the
-*     first row of Q_2.
+      // Form the z-vector which consists of the last row of Q_1 and the
+      // first row of Q_2.
 *
       CALL SCOPY( CUTPNT, Q( CUTPNT, 1 ), LDQ, WORK( IZ ), 1 )
       CPP1 = CUTPNT + 1
       CALL SCOPY( N-CUTPNT, Q( CPP1, CPP1 ), LDQ, WORK( IZ+CUTPNT ), 1 )
 *
-*     Deflate eigenvalues.
+      // Deflate eigenvalues.
 *
       CALL SLAED2( K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ), WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ), IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ), IWORK( COLTYP ), INFO )
 *
       IF( INFO.NE.0 ) GO TO 20
 *
-*     Solve Secular Equation.
+      // Solve Secular Equation.
 *
       IF( K.NE.0 ) THEN
          IS = ( IWORK( COLTYP )+IWORK( COLTYP+1 ) )*CUTPNT + ( IWORK( COLTYP+1 )+IWORK( COLTYP+2 ) )*( N-CUTPNT ) + IQ2          CALL SLAED3( K, N, CUTPNT, D, Q, LDQ, RHO, WORK( IDLMDA ), WORK( IQ2 ), IWORK( INDXC ), IWORK( COLTYP ), WORK( IW ), WORK( IS ), INFO )
          IF( INFO.NE.0 ) GO TO 20
 *
-*     Prepare the INDXQ sorting permutation.
+      // Prepare the INDXQ sorting permutation.
 *
          N1 = K
          N2 = N - K
@@ -94,6 +94,6 @@
    20 CONTINUE
       RETURN
 *
-*     End of SLAED1
+      // End of SLAED1
 *
       END

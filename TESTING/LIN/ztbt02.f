@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                KD, LDAB, LDB, LDX, N, NRHS;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J;
       double             ANORM, BNORM, EPS, XNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DZASUM, ZLANTB;
       // EXTERNAL LSAME, DLAMCH, DZASUM, ZLANTB
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZTBMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0 or NRHS = 0
+      // Quick exit if N = 0 or NRHS = 0
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Compute the 1-norm of op(A).
+      // Compute the 1-norm of op(A).
 *
       IF( LSAME( TRANS, 'N' ) ) THEN
          ANORM = ZLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )
@@ -52,7 +52,7 @@
          ANORM = ZLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       IF( ANORM.LE.ZERO ) THEN
@@ -60,8 +60,8 @@
          RETURN
       END IF
 *
-*     Compute the maximum over the number of right hand sides of
-*        norm(op(A)*x - b) / ( norm(op(A)) * norm(x) * EPS ).
+      // Compute the maximum over the number of right hand sides of
+         // norm(op(A)*x - b) / ( norm(op(A)) * norm(x) * EPS ).
 *
       RESID = ZERO
       DO 10 J = 1, NRHS
@@ -79,6 +79,6 @@
 *
       RETURN
 *
-*     End of ZTBT02
+      // End of ZTBT02
 *
       END

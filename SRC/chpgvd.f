@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, ITYPE, LDZ, LIWORK, LRWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               RWORK( * ), W( * )
       COMPLEX            AP( * ), BP( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
       int                J, LIWMIN, LRWMIN, LWMIN, NEIG;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHPEVD, CHPGST, CPPTRF, CTPMV, CTPSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -89,11 +89,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Form a Cholesky factorization of B.
+      // Form a Cholesky factorization of B.
 *
       CALL CPPTRF( UPLO, N, BP, INFO )
       IF( INFO.NE.0 ) THEN
@@ -101,7 +101,7 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem and solve.
+      // Transform problem to standard eigenvalue problem and solve.
 *
       CALL CHPGST( ITYPE, UPLO, N, AP, BP, INFO )
       CALL CHPEVD( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
@@ -111,14 +111,14 @@
 *
       IF( WANTZ ) THEN
 *
-*        Backtransform eigenvectors to the original problem.
+         // Backtransform eigenvectors to the original problem.
 *
          NEIG = N
          IF( INFO.GT.0 ) NEIG = INFO - 1
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
 *
-*           For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
-*           backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
+            // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
+            // backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
 *
             IF( UPPER ) THEN
                TRANS = 'N'
@@ -132,8 +132,8 @@
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*           For B*A*x=(lambda)*x;
-*           backtransform eigenvectors: x = L*y or U**H *y
+            // For B*A*x=(lambda)*x;
+            // backtransform eigenvectors: x = L*y or U**H *y
 *
             IF( UPPER ) THEN
                TRANS = 'C'
@@ -152,6 +152,6 @@
       IWORK( 1 ) = LIWMIN
       RETURN
 *
-*     End of CHPGVD
+      // End of CHPGVD
 *
       END

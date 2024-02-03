@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOB;
       int                INCX, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             X( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, INC, IX, IXNEXT;
       double             TEMP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INC = ABS( INCX )
       IF( LSAME( JOB, 'I' ) ) THEN
 *
-*        Sort in increasing order
+         // Sort in increasing order
 *
          DO 20 I = 2, N
             IX = 1 + ( I-1 )*INC
@@ -50,7 +50,7 @@
 *
       ELSE IF( LSAME( JOB, 'D' ) ) THEN
 *
-*        Sort in decreasing order
+         // Sort in decreasing order
 *
          DO 40 I = 2, N
             IX = 1 + ( I-1 )*INC
@@ -70,6 +70,6 @@
       END IF
       RETURN
 *
-*     End of DLAORD
+      // End of DLAORD
 *
       END

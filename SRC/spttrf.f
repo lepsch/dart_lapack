@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, I4;
       REAL               EI
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -38,11 +38,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Compute the L*D*L**T (or U**T*D*U) factorization of A.
+      // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 *
       I4 = MOD( N-1, 4 )
       DO 10 I = 1, I4
@@ -57,15 +57,15 @@
 *
       DO 20 I = I4 + 1, N - 4, 4
 *
-*        Drop out of the loop if d(i) <= 0: the matrix is not positive
-*        definite.
+         // Drop out of the loop if d(i) <= 0: the matrix is not positive
+         // definite.
 *
          IF( D( I ).LE.ZERO ) THEN
             INFO = I
             GO TO 30
          END IF
 *
-*        Solve for e(i) and d(i+1).
+         // Solve for e(i) and d(i+1).
 *
          EI = E( I )
          E( I ) = EI / D( I )
@@ -76,7 +76,7 @@
             GO TO 30
          END IF
 *
-*        Solve for e(i+1) and d(i+2).
+         // Solve for e(i+1) and d(i+2).
 *
          EI = E( I+1 )
          E( I+1 ) = EI / D( I+1 )
@@ -87,7 +87,7 @@
             GO TO 30
          END IF
 *
-*        Solve for e(i+2) and d(i+3).
+         // Solve for e(i+2) and d(i+3).
 *
          EI = E( I+2 )
          E( I+2 ) = EI / D( I+2 )
@@ -98,20 +98,20 @@
             GO TO 30
          END IF
 *
-*        Solve for e(i+3) and d(i+4).
+         // Solve for e(i+3) and d(i+4).
 *
          EI = E( I+3 )
          E( I+3 ) = EI / D( I+3 )
          D( I+4 ) = D( I+4 ) - E( I+3 )*EI
    20 CONTINUE
 *
-*     Check d(n) for positive definiteness.
+      // Check d(n) for positive definiteness.
 *
       IF( D( N ).LE.ZERO ) INFO = N
 *
    30 CONTINUE
       RETURN
 *
-*     End of SPTTRF
+      // End of SPTTRF
 *
       END

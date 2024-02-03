@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NIN, NOUT;
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDA;
       PARAMETER          ( LDA = 20 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO;
       double             ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX;
       COMPLEX*16         CDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                LMAX( 3 );
       double             DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA );
       COMPLEX*16         A( LDA, LDA ), AIN( LDA, LDA )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEBAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       LMAX( 1 ) = 0
       LMAX( 2 ) = 0
@@ -123,6 +123,6 @@
 *
       RETURN
 *
-*     End of ZCHKBL
+      // End of ZCHKBL
 *
       END

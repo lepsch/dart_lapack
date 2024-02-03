@@ -4,57 +4,57 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                K, LDA, LWORK, M;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, SLAMCH
       // EXTERNAL CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLASET, CUNM2R, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               RDUMMY( 1 )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       CQRT11 = ZERO
 *
-*     Test for sufficient workspace
+      // Test for sufficient workspace
 *
       IF( LWORK.LT.M*M+M ) THEN
          CALL XERBLA( 'CQRT11', 7 )
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 ) RETURN
 *
       CALL CLASET( 'Full', M, M, CMPLX( ZERO ), CMPLX( ONE ), WORK, M )
 *
-*     Form Q
+      // Form Q
 *
       CALL CUNM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
-*     Form Q'*Q
+      // Form Q'*Q
 *
       CALL CUNM2R( 'Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
@@ -66,6 +66,6 @@
 *
       RETURN
 *
-*     End of CQRT11
+      // End of CQRT11
 *
       END

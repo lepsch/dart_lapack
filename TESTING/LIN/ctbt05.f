@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * )
       COMPLEX            AB( LDAB, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRAN, UNIT, UPPER;
       int                I, IFU, IMAX, J, K, NZ;
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
       COMPLEX            ZDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH
       // EXTERNAL LSAME, ICAMAX, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0 or NRHS = 0.
+      // Quick exit if N = 0 or NRHS = 0.
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESLTS( 1 ) = ZERO
@@ -58,9 +58,9 @@
       UNIT = LSAME( DIAG, 'U' )
       NZ = MIN( KD, N-1 ) + 1
 *
-*     Test 1:  Compute the maximum of
-*        norm(X - XACT) / ( norm(X) * FERR )
-*     over all the vectors X and XACT using the infinity-norm.
+      // Test 1:  Compute the maximum of
+         // norm(X - XACT) / ( norm(X) * FERR )
+      // over all the vectors X and XACT using the infinity-norm.
 *
       ERRBND = ZERO
       DO 30 J = 1, NRHS
@@ -89,8 +89,8 @@
    30 CONTINUE
       RESLTS( 1 ) = ERRBND
 *
-*     Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
-*     (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
+      // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
+      // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
 *
       IFU = 0
       IF( UNIT ) IFU = 1
@@ -138,6 +138,6 @@
 *
       RETURN
 *
-*     End of CTBT05
+      // End of CTBT05
 *
       END

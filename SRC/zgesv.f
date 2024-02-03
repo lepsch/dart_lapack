@@ -4,25 +4,25 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGETRF, ZGETRS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -39,17 +39,17 @@
          RETURN
       END IF
 *
-*     Compute the LU factorization of A.
+      // Compute the LU factorization of A.
 *
       CALL ZGETRF( N, N, A, LDA, IPIV, INFO )
       IF( INFO.EQ.0 ) THEN
 *
-*        Solve the system A*X = B, overwriting B with X.
+         // Solve the system A*X = B, overwriting B with X.
 *
          CALL ZGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO )
       END IF
       RETURN
 *
-*     End of ZGESV
+      // End of ZGESV
 *
       END

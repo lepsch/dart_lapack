@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               ORGATI;
       int                INFO, KNITER;
       double             FINIT, RHO, TAU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( 3 ), Z( 3 );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXIT;
       PARAMETER          ( MAXIT = 40 )
       double             ZERO, ONE, TWO, THREE, FOUR, EIGHT;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, EIGHT = 8.0D0 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             DSCALE( 3 ), ZSCALE( 3 );
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               SCALE;
       int                I, ITER, NITER;
       double             A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
 *
@@ -92,11 +92,11 @@
          END IF
       END IF
 *
-*     get machine parameters for possible scaling to avoid overflow
+      // get machine parameters for possible scaling to avoid overflow
 *
-*     modified by Sven: parameters SMALL1, SMINV1, SMALL2,
-*     SMINV2, EPS are not SAVEd anymore between one call to the
-*     others but recomputed at each call
+      // modified by Sven: parameters SMALL1, SMINV1, SMALL2,
+      // SMINV2, EPS are not SAVEd anymore between one call to the
+      // others but recomputed at each call
 *
       EPS = DLAMCH( 'Epsilon' )
       BASE = DLAMCH( 'Base' )
@@ -105,8 +105,8 @@
       SMALL2 = SMALL1*SMALL1
       SMINV2 = SMINV1*SMINV1
 *
-*     Determine if scaling of inputs necessary to avoid overflow
-*     when computing 1/TEMP**3
+      // Determine if scaling of inputs necessary to avoid overflow
+      // when computing 1/TEMP**3
 *
       IF( ORGATI ) THEN
          TEMP = MIN( ABS( D( 2 )-TAU ), ABS( D( 3 )-TAU ) )
@@ -118,19 +118,19 @@
          SCALE = .TRUE.
          IF( TEMP.LE.SMALL2 ) THEN
 *
-*        Scale up by power of radix nearest 1/SAFMIN**(2/3)
+         // Scale up by power of radix nearest 1/SAFMIN**(2/3)
 *
             SCLFAC = SMINV2
             SCLINV = SMALL2
          ELSE
 *
-*        Scale up by power of radix nearest 1/SAFMIN**(1/3)
+         // Scale up by power of radix nearest 1/SAFMIN**(1/3)
 *
             SCLFAC = SMINV1
             SCLINV = SMALL1
          END IF
 *
-*        Scaling up safe because D, Z, TAU scaled elsewhere to be O(1)
+         // Scaling up safe because D, Z, TAU scaled elsewhere to be O(1)
 *
          DO 10 I = 1, 3
             DSCALE( I ) = D( I )*SCLFAC
@@ -141,7 +141,7 @@
          UBD = UBD*SCLFAC
       ELSE
 *
-*        Copy D and Z to DSCALE and ZSCALE
+         // Copy D and Z to DSCALE and ZSCALE
 *
          DO 20 I = 1, 3
             DSCALE( I ) = D( I )
@@ -170,16 +170,16 @@
          UBD = TAU
       END IF
 *
-*        Iteration begins -- Use Gragg-Thornton-Warner cubic convergent
-*                            scheme
+         // Iteration begins -- Use Gragg-Thornton-Warner cubic convergent
+                             // scheme
 *
-*     It is not hard to see that
+      // It is not hard to see that
 *
-*           1) Iterations will go up monotonically
-*              if FINIT < 0;
+            // 1) Iterations will go up monotonically
+               // if FINIT < 0;
 *
-*           2) Iterations will go down monotonically
-*              if FINIT > 0.
+            // 2) Iterations will go down monotonically
+               // if FINIT > 0.
 *
       ITER = NITER + 1
 *
@@ -243,11 +243,11 @@
       INFO = 1
    60 CONTINUE
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( SCALE ) TAU = TAU*SCLINV
       RETURN
 *
-*     End of DLAED6
+      // End of DLAED6
 *
       END

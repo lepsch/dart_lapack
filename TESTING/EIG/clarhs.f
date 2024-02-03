@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS, UPLO, XTYPE;
       String             PATH;
       int                INFO, KL, KU, LDA, LDB, LDX, M, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE, ZERO
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI;
       String             C1, DIAG;
       String             C2;
       int                J, MB, NX;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, LSAMEN;
       // EXTERNAL LSAME, LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGBMV, CGEMM, CHBMV, CHEMM, CHPMV, CLACPY, CLARNV, CSBMV, CSPMV, CSYMM, CTBMV, CTPMV, CTRMM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       C1 = PATH( 1: 1 )
@@ -80,7 +80,7 @@
          RETURN
       END IF
 *
-*     Initialize X to NRHS random vectors unless XTYPE = 'C'.
+      // Initialize X to NRHS random vectors unless XTYPE = 'C'.
 *
       IF( TRAN ) THEN
          NX = M
@@ -95,30 +95,30 @@
    10    CONTINUE
       END IF
 *
-*     Multiply X by op(A) using an appropriate
-*     matrix multiply routine.
+      // Multiply X by op(A) using an appropriate
+      // matrix multiply routine.
 *
       IF( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
 *
-*        General matrix
+         // General matrix
 *
          CALL CGEMM( TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'HE' ) ) THEN
 *
-*        Hermitian matrix, 2-D storage
+         // Hermitian matrix, 2-D storage
 *
          CALL CHEMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 *
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        Symmetric matrix, 2-D storage
+         // Symmetric matrix, 2-D storage
 *
          CALL CSYMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        General matrix, band storage
+         // General matrix, band storage
 *
          DO 20 J = 1, NRHS
             CALL CGBMV( TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
@@ -126,7 +126,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) .OR. LSAMEN( 2, C2, 'HB' ) ) THEN
 *
-*        Hermitian matrix, band storage
+         // Hermitian matrix, band storage
 *
          DO 30 J = 1, NRHS
             CALL CHBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
@@ -134,7 +134,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SB' ) ) THEN
 *
-*        Symmetric matrix, band storage
+         // Symmetric matrix, band storage
 *
          DO 40 J = 1, NRHS
             CALL CSBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
@@ -142,7 +142,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'HP' ) ) THEN
 *
-*        Hermitian matrix, packed storage
+         // Hermitian matrix, packed storage
 *
          DO 50 J = 1, NRHS
             CALL CHPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
@@ -150,7 +150,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        Symmetric matrix, packed storage
+         // Symmetric matrix, packed storage
 *
          DO 60 J = 1, NRHS
             CALL CSPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
@@ -158,9 +158,9 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TR' ) ) THEN
 *
-*        Triangular matrix.  Note that for triangular matrices,
-*           KU = 1 => non-unit triangular
-*           KU = 2 => unit triangular
+         // Triangular matrix.  Note that for triangular matrices,
+            // KU = 1 => non-unit triangular
+            // KU = 2 => unit triangular
 *
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
@@ -172,7 +172,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
 *
-*        Triangular matrix, packed storage
+         // Triangular matrix, packed storage
 *
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
@@ -186,7 +186,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
 *
-*        Triangular matrix, banded storage
+         // Triangular matrix, banded storage
 *
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
@@ -200,7 +200,7 @@
 *
       ELSE
 *
-*        If none of the above, set INFO = -1 and return
+         // If none of the above, set INFO = -1 and return
 *
          INFO = -1
          CALL XERBLA( 'CLARHS', -INFO )
@@ -208,6 +208,6 @@
 *
       RETURN
 *
-*     End of CLARHS
+      // End of CLARHS
 *
       END

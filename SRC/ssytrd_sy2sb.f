@@ -6,41 +6,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDAB, LWORK, N, KD;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               RONE
       REAL               ZERO, ONE, HALF
       PARAMETER          ( RONE = 1.0E+0, ZERO = 0.0E+0, ONE = 1.0E+0, HALF = 0.5E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER;
       int                I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, SSYR2K, SSYMM, SGEMM, SCOPY, SLARFT, SGELQF, SGEQRF, SLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Determine the minimal workspace size required
-*     and test the input parameters
+      // Determine the minimal workspace size required
+      // and test the input parameters
 *
       INFO   = 0
       UPPER  = LSAME( UPLO, 'U' )
@@ -73,8 +73,8 @@
          RETURN
       END IF
 *
-*     Quick return if possible
-*     Copy the upper/lower portion of A into AB
+      // Quick return if possible
+      // Copy the upper/lower portion of A into AB
 *
       IF( N.LE.KD+1 ) THEN
           IF( UPPER ) THEN
@@ -92,7 +92,7 @@
           RETURN
       END IF
 *
-*     Determine the pointer position for the workspace
+      // Determine the pointer position for the workspace
 *
       LDT    = KD
       LDS1   = KD
@@ -100,7 +100,7 @@
       LW     = N*KD
       LS1    = LDS1*KD
       LS2    = LWMIN - LT - LW - LS1
-*      LS2 = N*MAX(KD,FACTOPTNB)
+       // LS2 = N*MAX(KD,FACTOPTNB)
       TPOS   = 1
       WPOS   = TPOS  + LT
       S1POS  = WPOS  + LW
@@ -114,8 +114,8 @@
       ENDIF
 *
 *
-*     Set the workspace of the triangular matrix T to zero once such a
-*     way every time T is generated the upper/lower portion will be always zero
+      // Set the workspace of the triangular matrix T to zero once such a
+      // way every time T is generated the upper/lower portion will be always zero
 *
       CALL SLASET( "A", LDT, KD, ZERO, ZERO, WORK( TPOS ), LDT )
 *
@@ -124,11 +124,11 @@
              PN = N-I-KD+1
              PK = MIN( N-I-KD+1, KD )
 *
-*            Compute the LQ factorization of the current block
+             // Compute the LQ factorization of the current block
 *
              CALL SGELQF( KD, PN, A( I, I+KD ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO )
 *
-*            Copy the upper portion of A into AB
+             // Copy the upper portion of A into AB
 *
              DO 20 J = I, I+PK-1
                 LK = MIN( KD, N-J ) + 1
@@ -137,11 +137,11 @@
 *
              CALL SLASET( 'Lower', PK, PK, ZERO, ONE,  A( I, I+KD ), LDA )
 *
-*            Form the matrix T
+             // Form the matrix T
 *
              CALL SLARFT( 'Forward', 'Rowwise', PN, PK, A( I, I+KD ), LDA, TAU( I ), WORK( TPOS ), LDT )
 *
-*            Compute W:
+             // Compute W:
 *
              CALL SGEMM( 'Conjugate', 'No transpose', PK, PN, PK, ONE,  WORK( TPOS ), LDT, A( I, I+KD ), LDA, ZERO, WORK( S2POS ), LDS2 )
 *
@@ -152,13 +152,13 @@
              CALL SGEMM( 'No transpose', 'No transpose', PK, PN, PK, -HALF, WORK( S1POS ), LDS1, A( I, I+KD ), LDA, ONE,   WORK( WPOS ), LDW )
 *
 *
-*            Update the unreduced submatrix A(i+kd:n,i+kd:n), using
-*            an update of the form:  A := A - V'*W - W'*V
+             // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
+             // an update of the form:  A := A - V'*W - W'*V
 *
              CALL SSYR2K( UPLO, 'Conjugate', PN, PK, -ONE, A( I, I+KD ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA )
    10     CONTINUE
 *
-*        Copy the upper band to AB which is the band storage matrix
+         // Copy the upper band to AB which is the band storage matrix
 *
          DO 30 J = N-KD+1, N
             LK = MIN(KD, N-J) + 1
@@ -167,17 +167,17 @@
 *
       ELSE
 *
-*         Reduce the lower triangle of A to lower band matrix
+          // Reduce the lower triangle of A to lower band matrix
 *
           DO 40 I = 1, N - KD, KD
              PN = N-I-KD+1
              PK = MIN( N-I-KD+1, KD )
 *
-*            Compute the QR factorization of the current block
+             // Compute the QR factorization of the current block
 *
              CALL SGEQRF( PN, KD, A( I+KD, I ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO )
 *
-*            Copy the upper portion of A into AB
+             // Copy the upper portion of A into AB
 *
              DO 50 J = I, I+PK-1
                 LK = MIN( KD, N-J ) + 1
@@ -186,11 +186,11 @@
 *
              CALL SLASET( 'Upper', PK, PK, ZERO, ONE,  A( I+KD, I ), LDA )
 *
-*            Form the matrix T
+             // Form the matrix T
 *
              CALL SLARFT( 'Forward', 'Columnwise', PN, PK, A( I+KD, I ), LDA, TAU( I ), WORK( TPOS ), LDT )
 *
-*            Compute W:
+             // Compute W:
 *
              CALL SGEMM( 'No transpose', 'No transpose', PN, PK, PK, ONE, A( I+KD, I ), LDA, WORK( TPOS ), LDT, ZERO, WORK( S2POS ), LDS2 )
 *
@@ -201,20 +201,20 @@
              CALL SGEMM( 'No transpose', 'No transpose', PN, PK, PK, -HALF, A( I+KD, I ), LDA, WORK( S1POS ), LDS1, ONE, WORK( WPOS ), LDW )
 *
 *
-*            Update the unreduced submatrix A(i+kd:n,i+kd:n), using
-*            an update of the form:  A := A - V*W' - W*V'
+             // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
+             // an update of the form:  A := A - V*W' - W*V'
 *
              CALL SSYR2K( UPLO, 'No transpose', PN, PK, -ONE, A( I+KD, I ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA )
-*            ==================================================================
-*            RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
-*             DO 45 J = I, I+PK-1
-*                LK = MIN( KD, N-J ) + 1
-*                CALL SCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
+             // ==================================================================
+             // RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
+              // DO 45 J = I, I+PK-1
+                 // LK = MIN( KD, N-J ) + 1
+                 // CALL SCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
 *   45        CONTINUE
-*            ==================================================================
+             // ==================================================================
    40     CONTINUE
 *
-*        Copy the lower band to AB which is the band storage matrix
+         // Copy the lower band to AB which is the band storage matrix
 *
          DO 60 J = N-KD+1, N
             LK = MIN(KD, N-J) + 1
@@ -226,6 +226,6 @@
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       RETURN
 *
-*     End of SSYTRD_SY2SB
+      // End of SSYTRD_SY2SB
 *
       END

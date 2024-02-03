@@ -6,31 +6,31 @@
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, N;
       bool             PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double           SFAC;
       int              IC;
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL CHECK0, CHECK1, CHECK2, CHECK3, HEADER
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA             SFAC/9.765625D-4/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       WRITE (NOUT,99999)
       DO 20 IC = 1, 13
          ICASE = IC
          CALL HEADER
 *
-*        .. Initialize  PASS,  INCX,  and INCY for a new case. ..
-*        .. the value 9999 for INCX or INCY will appear in the ..
-*        .. detailed  output, if any, for cases  that do not involve ..
-*        .. these parameters ..
+         // .. Initialize  PASS,  INCX,  and INCY for a new case. ..
+         // .. the value 9999 for INCX or INCY will appear in the ..
+         // .. detailed  output, if any, for cases  that do not involve ..
+         // .. these parameters ..
 *
          PASS = .TRUE.
          INCX = 9999
@@ -44,7 +44,7 @@
          ELSE IF (ICASE.EQ.4) THEN
             CALL CHECK3(SFAC)
          END IF
-*        -- Print
+         // -- Print
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
       STOP
@@ -52,21 +52,21 @@
 99999 FORMAT (' Real BLAS Test Program Results',/1X)
 99998 FORMAT ('                                    ----- PASS -----')
 *
-*     End of DBLAT1
+      // End of DBLAT1
 *
       END
       SUBROUTINE HEADER
-*     .. Parameters ..
+      // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, N;
       bool             PASS;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       String           L(13);
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA             L(1)/' DDOT '/
       DATA             L(2)/'DAXPY '/
       DATA             L(3)/'DROTG '/
@@ -80,40 +80,40 @@
       DATA             L(11)/'DROTMG'/
       DATA             L(12)/'DROTM '/
       DATA             L(13)/'DSDOT '/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE)
       RETURN
 *
 99999 FORMAT (/' Test of subprogram number',I3,12X,A6)
 *
-*     End of HEADER
+      // End of HEADER
 *
       END
       SUBROUTINE CHECK0(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double            SFAC;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double            SA, SB, SC, SS, D12;
       int               I, K;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       double            DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9);
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL DROTG, DROTMG, STEST, STEST1
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              DA1/0.3D0, 0.4D0, -0.3D0, -0.4D0, -0.3D0, 0.0D0, 0.0D0, 1.0D0/       DATA              DB1/0.4D0, 0.3D0, 0.4D0, 0.3D0, -0.4D0, 0.0D0, 1.0D0, 0.0D0/       DATA              DC1/0.6D0, 0.8D0, -0.6D0, 0.8D0, 0.6D0, 1.0D0, 0.0D0, 1.0D0/       DATA              DS1/0.8D0, 0.6D0, 0.8D0, -0.6D0, 0.8D0, 0.0D0, 1.0D0, 0.0D0/       DATA              DATRUE/0.5D0, 0.5D0, 0.5D0, -0.5D0, -0.5D0, 0.0D0, 1.0D0, 1.0D0/       DATA              DBTRUE/0.0D0, 0.6D0, 0.0D0, -0.6D0, 0.0D0, 0.0D0, 1.0D0, 0.0D0/
-*     INPUT FOR MODIFIED GIVENS
+      // INPUT FOR MODIFIED GIVENS
       DATA DAB/ .1D0,.3D0,1.2D0,.2D0, .7D0, .2D0, .6D0, 4.2D0, 0.D0,0.D0,0.D0,0.D0, 4.D0, -1.D0, 2.D0, 4.D0, 6.D-10, 2.D-2, 1.D5, 10.D0, 4.D10, 2.D-2, 1.D-5, 10.D0, 2.D-10, 4.D-2, 1.D5, 10.D0, 2.D10, 4.D-2, 1.D-5, 10.D0, 4.D0, -2.D0, 8.D0, 4.D0    /
 *    TRUE RESULTS FOR MODIFIED GIVENS
       DATA DTRUE/0.D0,0.D0, 1.3D0, .2D0, 0.D0,0.D0,0.D0, .5D0, 0.D0, 0.D0,0.D0, 4.5D0, 4.2D0, 1.D0, .5D0, 0.D0,0.D0,0.D0, 0.D0,0.D0,0.D0,0.D0, -2.D0, 0.D0,0.D0,0.D0,0.D0, 0.D0,0.D0,0.D0, 4.D0, -1.D0, 0.D0,0.D0,0.D0,0.D0, 0.D0, 15.D-3, 0.D0, 10.D0, -1.D0, 0.D0, -1.D-4, 0.D0, 1.D0, 0.D0,0.D0, 6144.D-5, 10.D0, -1.D0, 4096.D0, -1.D6, 0.D0, 1.D0, 0.D0,0.D0,15.D0,10.D0,-1.D0, 5.D-5, 0.D0,1.D0,0.D0, 0.D0,0.D0, 15.D0, 10.D0, -1. D0, 5.D5, -4096.D0, 1.D0, 4096.D-6, 0.D0,0.D0, 7.D0, 4.D0, 0.D0,0.D0, -.5D0, -.25D0, 0.D0/
-*                   4096 = 2 ** 12
+                    // 4096 = 2 ** 12
       DATA D12  /4096.D0/
       DTRUE(1,1) = 12.D0 / 130.D0
       DTRUE(2,1) = 36.D0 / 130.D0
@@ -136,20 +136,20 @@
       DTRUE(2,8) = 2.D10 / (1.5D0 * D12 * D12)
       DTRUE(1,9) = 32.D0 / 7.D0
       DTRUE(2,9) = -16.D0 / 7.D0
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
-*     Compute true values which cannot be prestored
-*     in decimal notation
+      // Compute true values which cannot be prestored
+      // in decimal notation
 *
       DBTRUE(1) = 1.0D0/0.6D0
       DBTRUE(3) = -1.0D0/0.6D0
       DBTRUE(5) = 1.0D0/0.6D0
 *
       DO 20 K = 1, 8
-*        .. Set N=K for identification in output if any ..
+         // .. Set N=K for identification in output if any ..
          N = K
          IF (ICASE.EQ.3) THEN
-*           .. DROTG ..
+            // .. DROTG ..
             IF (K.GT.8) GO TO 40
             SA = DA1(K)
             SB = DB1(K)
@@ -159,7 +159,7 @@
             CALL STEST1(SC,DC1(K),DC1(K),SFAC)
             CALL STEST1(SS,DS1(K),DS1(K),SFAC)
          ELSEIF (ICASE.EQ.11) THEN
-*           .. DROTMG ..
+            // .. DROTMG ..
             DO I=1,4
                DTEMP(I)= DAB(I,K)
                DTEMP(I+4) = 0.0
@@ -174,35 +174,35 @@
    20 CONTINUE
    40 RETURN
 *
-*     End of CHECK0
+      // End of CHECK0
 *
       END
       SUBROUTINE CHECK1(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       double            THRESH;
       int               NOUT;
       PARAMETER         (NOUT=6, THRESH=10.0D0)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double            SFAC;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int               I, IX, LEN, NP1;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       double            DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15);
       int               ITRUE2(5), ITRUEC(5);
-*     .. External Functions ..
+      // .. External Functions ..
       double            DASUM, DNRM2;
       int               IDAMAX;
       // EXTERNAL DASUM, DNRM2, IDAMAX
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL ITEST1, DB1NRM2, DSCAL, STEST, STEST1
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              SA/0.3D0, -1.0D0, 0.0D0, 1.0D0, 0.3D0, 0.3D0, 0.3D0, 0.3D0, 0.3D0, 0.3D0/       DATA              DV/0.1D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 0.3D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 0.3D0, -0.4D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 0.2D0, -0.6D0, 0.3D0, 5.0D0, 5.0D0, 5.0D0, 5.0D0, 5.0D0, 0.1D0, -0.3D0, 0.5D0, -0.1D0, 6.0D0, 6.0D0, 6.0D0, 6.0D0, 0.1D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 0.3D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 0.3D0, 2.0D0, -0.4D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 0.2D0, 3.0D0, -0.6D0, 5.0D0, 0.3D0, 2.0D0, 2.0D0, 2.0D0, 0.1D0, 4.0D0, -0.3D0, 6.0D0, -0.5D0, 7.0D0, -0.1D0, 3.0D0/
       DATA              DVR/8.0D0, -7.0D0, 9.0D0, 5.0D0, 9.0D0, 8.0D0, 7.0D0, 7.0D0/
       DATA              DTRUE1/0.0D0, 0.3D0, 0.5D0, 0.7D0, 0.6D0/
@@ -210,37 +210,37 @@
       DATA              DTRUE5/0.10D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, -0.3D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 0.0D0, 0.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 0.20D0, -0.60D0, 0.30D0, 5.0D0, 5.0D0, 5.0D0, 5.0D0, 5.0D0, 0.03D0, -0.09D0, 0.15D0, -0.03D0, 6.0D0, 6.0D0, 6.0D0, 6.0D0, 0.10D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 0.09D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 0.09D0, 2.0D0, -0.12D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 0.06D0, 3.0D0, -0.18D0, 5.0D0, 0.09D0, 2.0D0, 2.0D0, 2.0D0, 0.03D0, 4.0D0, -0.09D0, 6.0D0, -0.15D0, 7.0D0, -0.03D0, 3.0D0/
       DATA              ITRUE2/0, 1, 2, 2, 3/
       DATA              ITRUEC/0, 1, 1, 1, 1/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       DO 80 INCX = 1, 2
          DO 60 NP1 = 1, 5
             N = NP1 - 1
             LEN = 2*MAX(N,1)
-*           .. Set vector arguments ..
+            // .. Set vector arguments ..
             DO 20 I = 1, LEN
                SX(I) = DV(I,NP1,INCX)
    20       CONTINUE
 *
             IF (ICASE.EQ.7) THEN
-*              .. DNRM2 ..
-*              Test scaling when some entries are tiny or huge
+               // .. DNRM2 ..
+               // Test scaling when some entries are tiny or huge
                CALL DB1NRM2(N,(INCX-2)*2,THRESH)
                CALL DB1NRM2(N,INCX,THRESH)
-*              Test with hardcoded mid range entries
+               // Test with hardcoded mid range entries
                STEMP(1) = DTRUE1(NP1)
                CALL STEST1(DNRM2(N,SX,INCX),STEMP(1),STEMP,SFAC)
             ELSE IF (ICASE.EQ.8) THEN
-*              .. DASUM ..
+               // .. DASUM ..
                STEMP(1) = DTRUE3(NP1)
                CALL STEST1(DASUM(N,SX,INCX),STEMP(1),STEMP,SFAC)
             ELSE IF (ICASE.EQ.9) THEN
-*              .. DSCAL ..
+               // .. DSCAL ..
                CALL DSCAL(N,SA((INCX-1)*5+NP1),SX,INCX)
                DO 40 I = 1, LEN
                   STRUE(I) = DTRUE5(I,NP1,INCX)
    40          CONTINUE
                CALL STEST(LEN,SX,STRUE,STRUE,SFAC)
             ELSE IF (ICASE.EQ.10) THEN
-*              .. IDAMAX ..
+               // .. IDAMAX ..
                CALL ITEST1(IDAMAX(N,SX,INCX),ITRUE2(NP1))
                DO 100 I = 1, LEN
                   SX(I) = 42.0D0
@@ -263,34 +263,34 @@
    80 CONTINUE
       RETURN
 *
-*     End of CHECK1
+      // End of CHECK1
 *
       END
       SUBROUTINE CHECK2(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double            SFAC;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double            SA;
       int               I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       double            DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), STY0(1), SX0(1), SY0(1);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
-*     .. External Functions ..
+      // .. External Functions ..
       double            DDOT, DSDOT;
       // EXTERNAL DDOT, DSDOT
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DROTM, DSWAP, STEST, STEST1, TESTDSDOT
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       EQUIVALENCE (DT19X(1,1,1),DT19XA(1,1,1)),(DT19X(1,1,5), DT19XB(1,1,1)),(DT19X(1,1,9),DT19XC(1,1,1)), (DT19X(1,1,13),DT19XD(1,1,1))       EQUIVALENCE (DT19Y(1,1,1),DT19YA(1,1,1)),(DT19Y(1,1,5), DT19YB(1,1,1)),(DT19Y(1,1,9),DT19YC(1,1,1)), (DT19Y(1,1,13),DT19YD(1,1,1))
 
       DATA              SA/0.3D0/
@@ -303,10 +303,10 @@
       DATA              SSIZE1/0.0D0, 0.3D0, 1.6D0, 3.2D0/
       DATA              SSIZE2/0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0/
 *
-*                         FOR DROTM
+                          // FOR DROTM
 *
       DATA DPAR/-2.D0,  0.D0,0.D0,0.D0,0.D0, -1.D0,  2.D0, -3.D0, -4.D0,  5.D0, 0.D0,  0.D0,  2.D0, -3.D0,  0.D0, 1.D0,  5.D0,  2.D0,  0.D0, -4.D0/
-*                        TRUE X RESULTS F0R ROTATIONS DROTM
+                         // TRUE X RESULTS F0R ROTATIONS DROTM
       DATA DT19XA/.6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -.8D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -.9D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, 3.5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,   .1D0,             0.D0,0.D0,0.D0,0.D0,0.D0, -.8D0,  3.8D0,             0.D0,0.D0,0.D0,0.D0,0.D0, -.9D0,  2.8D0,             0.D0,0.D0,0.D0,0.D0,0.D0, 3.5D0,  -.4D0,             0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,   .1D0,  -.5D0,   .8D0,          0.D0,0.D0,0.D0, -.8D0,  3.8D0, -2.2D0, -1.2D0,          0.D0,0.D0,0.D0, -.9D0,  2.8D0, -1.4D0, -1.3D0,          0.D0,0.D0,0.D0, 3.5D0,  -.4D0, -2.2D0,  4.7D0,          0.D0,0.D0,0.D0/
 *
       DATA DT19XB/.6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -.8D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -.9D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, 3.5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,   .1D0,  -.5D0,             0.D0,0.D0,0.D0,0.D0, 0.D0,    .1D0, -3.0D0,             0.D0,0.D0,0.D0,0.D0, -.3D0,   .1D0, -2.0D0,             0.D0,0.D0,0.D0,0.D0, 3.3D0,   .1D0, -2.0D0,             0.D0,0.D0,0.D0,0.D0, .6D0,   .1D0,  -.5D0,   .8D0,   .9D0,  -.3D0,  -.4D0, -2.0D0,   .1D0,  1.4D0,   .8D0,   .6D0,  -.3D0, -2.8D0, -1.8D0,   .1D0,  1.3D0,   .8D0,  0.D0,   -.3D0, -1.9D0, 3.8D0,   .1D0, -3.1D0,   .8D0,  4.8D0,  -.3D0, -1.5D0 /
@@ -314,7 +314,7 @@
       DATA DT19XC/.6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -.8D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -.9D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, 3.5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,   .1D0,  -.5D0,             0.D0,0.D0,0.D0,0.D0, 4.8D0,   .1D0, -3.0D0,             0.D0,0.D0,0.D0,0.D0, 3.3D0,   .1D0, -2.0D0,             0.D0,0.D0,0.D0,0.D0, 2.1D0,   .1D0, -2.0D0,             0.D0,0.D0,0.D0,0.D0, .6D0,   .1D0,  -.5D0,   .8D0,   .9D0,  -.3D0,  -.4D0, -1.6D0,   .1D0, -2.2D0,   .8D0,  5.4D0,  -.3D0, -2.8D0, -1.5D0,   .1D0, -1.4D0,   .8D0,  3.6D0,  -.3D0, -1.9D0, 3.7D0,   .1D0, -2.2D0,   .8D0,  3.6D0,  -.3D0, -1.5D0 /
 *
       DATA DT19XD/.6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -.8D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -.9D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, 3.5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,   .1D0,             0.D0,0.D0,0.D0,0.D0,0.D0, -.8D0, -1.0D0,             0.D0,0.D0,0.D0,0.D0,0.D0, -.9D0,  -.8D0,             0.D0,0.D0,0.D0,0.D0,0.D0, 3.5D0,   .8D0,             0.D0,0.D0,0.D0,0.D0,0.D0, .6D0,   .1D0,  -.5D0,   .8D0,          0.D0,0.D0,0.D0, -.8D0, -1.0D0,  1.4D0, -1.6D0,          0.D0,0.D0,0.D0, -.9D0,  -.8D0,  1.3D0, -1.6D0,          0.D0,0.D0,0.D0, 3.5D0,   .8D0, -3.1D0,  4.8D0,          0.D0,0.D0,0.D0/
-*                        TRUE Y RESULTS FOR ROTATIONS DROTM
+                         // TRUE Y RESULTS FOR ROTATIONS DROTM
       DATA DT19YA/.5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .7D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, 1.7D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -2.6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,  -.9D0,             0.D0,0.D0,0.D0,0.D0,0.D0, .7D0, -4.8D0,             0.D0,0.D0,0.D0,0.D0,0.D0, 1.7D0,  -.7D0,             0.D0,0.D0,0.D0,0.D0,0.D0, -2.6D0,  3.5D0,             0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,  -.9D0,   .3D0,   .7D0,          0.D0,0.D0,0.D0, .7D0, -4.8D0,  3.0D0,  1.1D0,          0.D0,0.D0,0.D0, 1.7D0,  -.7D0,  -.7D0,  2.3D0,          0.D0,0.D0,0.D0, -2.6D0,  3.5D0,  -.7D0, -3.6D0,          0.D0,0.D0,0.D0/
 *
       DATA DT19YB/.5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .7D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, 1.7D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -2.6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,  -.9D0,   .3D0,             0.D0,0.D0,0.D0,0.D0, 4.0D0,  -.9D0,  -.3D0,             0.D0,0.D0,0.D0,0.D0, -.5D0,  -.9D0,  1.5D0,             0.D0,0.D0,0.D0,0.D0, -1.5D0,  -.9D0, -1.8D0,             0.D0,0.D0,0.D0,0.D0, .5D0,  -.9D0,   .3D0,   .7D0,  -.6D0,   .2D0,   .8D0, 3.7D0,  -.9D0, -1.2D0,   .7D0, -1.5D0,   .2D0,  2.2D0, -.3D0,  -.9D0,  2.1D0,   .7D0, -1.6D0,   .2D0,  2.0D0, -1.6D0,  -.9D0, -2.1D0,   .7D0,  2.9D0,   .2D0, -3.8D0 /
@@ -323,7 +323,7 @@
 *
       DATA DT19YD/.5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .7D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, 1.7D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, -2.6D0,                  0.D0,0.D0,0.D0,0.D0,0.D0,0.D0, .5D0,  -.9D0,   .3D0,             0.D0,0.D0,0.D0,0.D0, .7D0,  -.9D0,  1.2D0,             0.D0,0.D0,0.D0,0.D0, 1.7D0,  -.9D0,   .5D0,             0.D0,0.D0,0.D0,0.D0, -2.6D0,  -.9D0, -1.3D0,             0.D0,0.D0,0.D0,0.D0, .5D0,  -.9D0,   .3D0,   .7D0,  -.6D0,   .2D0,   .8D0, .7D0,  -.9D0,  1.2D0,   .7D0, -1.5D0,   .2D0,  1.6D0, 1.7D0,  -.9D0,   .5D0,   .7D0, -1.6D0,   .2D0,  2.4D0, -2.6D0,  -.9D0, -1.3D0,   .7D0,  2.9D0,   .2D0, -4.0D0 /
 *
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       DO 120 KI = 1, 4
          INCX = INCXS(KI)
@@ -336,24 +336,24 @@
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
-*           .. Initialize all argument arrays ..
+            // .. Initialize all argument arrays ..
             DO 20 I = 1, 7
                SX(I) = DX1(I)
                SY(I) = DY1(I)
    20       CONTINUE
 *
             IF (ICASE.EQ.1) THEN
-*              .. DDOT ..
+               // .. DDOT ..
                CALL STEST1(DDOT(N,SX,INCX,SY,INCY),DT7(KN,KI),SSIZE1(KN) ,SFAC)
             ELSE IF (ICASE.EQ.2) THEN
-*              .. DAXPY ..
+               // .. DAXPY ..
                CALL DAXPY(N,SA,SX,INCX,SY,INCY)
                DO 40 J = 1, LENY
                   STY(J) = DT8(J,KN,KI)
    40          CONTINUE
                CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
             ELSE IF (ICASE.EQ.5) THEN
-*              .. DCOPY ..
+               // .. DCOPY ..
                DO 60 I = 1, 7
                   STY(I) = DT10Y(I,KN,KI)
    60          CONTINUE
@@ -377,7 +377,7 @@
                   INCY = LINCY
                END IF
             ELSE IF (ICASE.EQ.6) THEN
-*              .. DSWAP ..
+               // .. DSWAP ..
                CALL DSWAP(N,SX,INCX,SY,INCY)
                DO 80 I = 1, 7
                   STX(I) = DT10X(I,KN,KI)
@@ -386,7 +386,7 @@
                CALL STEST(LENX,SX,STX,SSIZE2(1,1),1.0D0)
                CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0D0)
             ELSE IF (ICASE.EQ.12) THEN
-*              .. DROTM ..
+               // .. DROTM ..
                KNI=KN+4*(KI-1)
                DO KPAR=1,4
                   DO I=1,7
@@ -403,8 +403,8 @@
                   DO  I=1,LENX
                      SSIZE(I)=STX(I)
                   END DO
-*                   SEE REMARK ABOVE ABOUT DT11X(1,2,7)
-*                       AND DT11X(5,3,8).
+                    // SEE REMARK ABOVE ABOUT DT11X(1,2,7)
+                        // AND DT11X(5,3,8).
                   IF ((KPAR .EQ. 2) .AND. (KNI .EQ. 7)) SSIZE(1) = 2.4D0                   IF ((KPAR .EQ. 3) .AND. (KNI .EQ. 8)) SSIZE(5) = 1.8D0
 *
                   CALL   DROTM(N,SX,INCX,SY,INCY,DTEMP)
@@ -412,7 +412,7 @@
                   CALL   STEST(LENY,SY,STY,STY,SFAC)
                END DO
             ELSE IF (ICASE.EQ.13) THEN
-*              .. DSDOT ..
+               // .. DSDOT ..
             CALL TESTDSDOT(REAL(DSDOT(N,REAL(SX),INCX,REAL(SY),INCY)), REAL(DT7(KN,KI)),REAL(SSIZE1(KN)), .3125E-1)
             ELSE
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
@@ -422,31 +422,31 @@
   120 CONTINUE
       RETURN
 *
-*     End of CHECK2
+      // End of CHECK2
 *
       END
       SUBROUTINE CHECK3(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double            SFAC;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double            SC, SS;
       int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       double            COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4);
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL DROT, STEST
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              INCXS/1, 2, -2, -1/
       DATA              INCYS/1, -2, 1, -2/
       DATA              LENS/1, 1, 2, 4, 1, 1, 3, 7/
@@ -455,7 +455,7 @@
       DATA              SC, SS/0.8D0, 0.6D0/
       DATA              DT9X/0.6D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, -0.46D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, -0.46D0, -0.22D0, 1.06D0, 0.0D0, 0.0D0, 0.0D0, 0.6D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.66D0, 0.1D0, -0.1D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.96D0, 0.1D0, -0.76D0, 0.8D0, 0.90D0, -0.3D0, -0.02D0, 0.6D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, -0.06D0, 0.1D0, -0.1D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.90D0, 0.1D0, -0.22D0, 0.8D0, 0.18D0, -0.3D0, -0.02D0, 0.6D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.26D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.78D0, 0.26D0, -0.76D0, 1.12D0, 0.0D0, 0.0D0, 0.0D0/       DATA              DT9Y/0.5D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, -0.78D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, -0.78D0, 0.54D0, 0.08D0, 0.0D0, 0.0D0, 0.0D0, 0.5D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.7D0, -0.9D0, -0.12D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.64D0, -0.9D0, -0.30D0, 0.7D0, -0.18D0, 0.2D0, 0.28D0, 0.5D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.7D0, -1.08D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.64D0, -1.26D0, 0.54D0, 0.20D0, 0.0D0, 0.0D0, 0.0D0, 0.5D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, -0.9D0, 0.18D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.04D0, -0.9D0, 0.18D0, 0.7D0, -0.18D0, 0.2D0, 0.16D0/
       DATA              SSIZE2/0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       DO 60 KI = 1, 4
          INCX = INCXS(KI)
@@ -470,7 +470,7 @@
             LENY = LENS(KN,MY)
 *
             IF (ICASE.EQ.4) THEN
-*              .. DROT ..
+               // .. DROT ..
                DO 20 I = 1, 7
                   SX(I) = DX1(I)
                   SY(I) = DY1(I)
@@ -582,50 +582,50 @@
   200 CONTINUE
       RETURN
 *
-*     End of CHECK3
+      // End of CHECK3
 *
       END
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
-*     ********************************* STEST **************************
+      // ********************************* STEST **************************
 *
-*     THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
-*     SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
-*     NEGLIGIBLE.
+      // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
+      // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
+      // NEGLIGIBLE.
 *
-*     C. L. LAWSON, JPL, 1974 DEC 10
+      // C. L. LAWSON, JPL, 1974 DEC 10
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int              NOUT;
       double           ZERO;
       PARAMETER        (NOUT=6, ZERO=0.0D0)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double           SFAC;
       int              LEN;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       double           SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, N;
       bool             PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double           SD;
       int              I;
-*     .. External Functions ..
+      // .. External Functions ..
       double           SDIFF;
       // EXTERNAL SDIFF
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       DO 40 I = 1, LEN
          SD = SCOMP(I) - STRUE(I)
          IF (ABS(SFAC*SD) .LE. ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
 *
-*                             HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
+                              // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 *
          IF ( .NOT. PASS) GO TO 20
-*                             PRINT FAIL MESSAGE AND HEADER.
+                              // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
@@ -640,42 +640,42 @@
      +       '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,2I5,I3,2D36.8,2D12.4)
 *
-*     End of STEST
+      // End of STEST
 *
       END
       SUBROUTINE TESTDSDOT(SCOMP,STRUE,SSIZE,SFAC)
-*     ********************************* STEST **************************
+      // ********************************* STEST **************************
 *
-*     THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
-*     SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
-*     NEGLIGIBLE.
+      // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
+      // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
+      // NEGLIGIBLE.
 *
-*     C. L. LAWSON, JPL, 1974 DEC 10
+      // C. L. LAWSON, JPL, 1974 DEC 10
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int              NOUT;
       REAL             ZERO
       PARAMETER        (NOUT=6, ZERO=0.0E0)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL             SFAC, SCOMP, SSIZE, STRUE
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, N;
       bool             PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL             SD
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
          SD = SCOMP - STRUE
          IF (ABS(SFAC*SD) .LE. ABS(SSIZE) * EPSILON(ZERO)) GO TO 40
 *
-*                             HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
+                              // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 *
          IF ( .NOT. PASS) GO TO 20
-*                             PRINT FAIL MESSAGE AND HEADER.
+                              // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
@@ -690,27 +690,27 @@
      +       '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,1I5,I3,2E36.8,2E12.4)
 *
-*     End of TESTDSDOT
+      // End of TESTDSDOT
 *
       END
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
-*     ************************* STEST1 *****************************
+      // ************************* STEST1 *****************************
 *
-*     THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
-*     REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
-*     ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
+      // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
+      // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
+      // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
 *
-*     C.L. LAWSON, JPL, 1978 DEC 6
+      // C.L. LAWSON, JPL, 1978 DEC 6
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double            SCOMP1, SFAC, STRUE1;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       double            SSIZE(*);
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       double            SCOMP(1), STRUE(1);
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL STEST
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
@@ -718,49 +718,49 @@
 *
       RETURN
 *
-*     End of STEST1
+      // End of STEST1
 *
       END
       double           FUNCTION SDIFF(SA,SB);
-*     ********************************* SDIFF **************************
-*     COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
+      // ********************************* SDIFF **************************
+      // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double                          SA, SB;
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       SDIFF = SA - SB
       RETURN
 *
-*     End of SDIFF
+      // End of SDIFF
 *
       END
       SUBROUTINE ITEST1(ICOMP,ITRUE)
-*     ********************************* ITEST1 *************************
+      // ********************************* ITEST1 *************************
 *
-*     THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
-*     EQUALITY.
-*     C. L. LAWSON, JPL, 1974 DEC 10
+      // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
+      // EQUALITY.
+      // C. L. LAWSON, JPL, 1974 DEC 10
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int               ICOMP, ITRUE;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int               ID;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, PASS
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       IF (ICOMP.EQ.ITRUE) GO TO 40
 *
-*                            HERE ICOMP IS NOT EQUAL TO ITRUE.
+                             // HERE ICOMP IS NOT EQUAL TO ITRUE.
 *
       IF ( .NOT. PASS) GO TO 20
-*                             PRINT FAIL MESSAGE AND HEADER.
+                              // PRINT FAIL MESSAGE AND HEADER.
       PASS = .FALSE.
       WRITE (NOUT,99999)
       WRITE (NOUT,99998)
@@ -775,50 +775,50 @@
      +       /1X)
 99997 FORMAT (1X,I4,I3,2I5,2I36,I12)
 *
-*     End of ITEST1
+      // End of ITEST1
 *
       END
       SUBROUTINE DB1NRM2(N,INCX,THRESH)
-*     Compare NRM2 with a reference computation using combinations
-*     of the following values:
+      // Compare NRM2 with a reference computation using combinations
+      // of the following values:
 *
-*     0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
+      // 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
 *
-*     one of these values is used to initialize x(1) and x(2:N) is
-*     filled with random values from [-1,1] scaled by another of
-*     these values.
+      // one of these values is used to initialize x(1) and x(2:N) is
+      // filled with random values from [-1,1] scaled by another of
+     t // hese values.
 *
-*     This routine is adapted from the test suite provided by
-*     Anderson E. (2017)
-*     Algorithm 978: Safe Scaling in the Level 1 BLAS
-*     ACM Trans Math Softw 44:1--28
-*     https://doi.org/10.1145/3061665
+      // This routine is adapted from the test suite provided by
+      // Anderson E. (2017)
+      // Algorithm 978: Safe Scaling in the Level 1 BLAS
+      // ACM Trans Math Softw 44:1--28
+      // https://doi.org/10.1145/3061665
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int               INCX, N;
       double            THRESH;
 *
 *  =====================================================================
-*     .. Parameters ..
+      // .. Parameters ..
       int               NMAX, NOUT, NV;
       PARAMETER         (NMAX=20, NOUT=6, NV=10)
       double            HALF, ONE, TWO, ZERO;
       PARAMETER         (HALF=0.5D+0, ONE=1.0D+0, TWO= 2.0D+0, ZERO=0.0D+0)
-*     .. External Functions ..
+      // .. External Functions ..
       double            DNRM2;
       // EXTERNAL DNRM2
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
-*     .. Model parameters ..
+      // .. Model parameters ..
       double            BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       PARAMETER         (BIGNUM=0.99792015476735990583D+292, SAFMAX=0.44942328371557897693D+308, SAFMIN=0.22250738585072013831D-307, SMLNUM=0.10020841800044863890D-291, ULP=0.22204460492503130808D-015)
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double            ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
       int               I, IV, IW, IX;
       bool              FIRST;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       double            VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX);
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       VALUES(1) = ZERO
       VALUES(2) = TWO*SAFMIN
       VALUES(3) = SMLNUM
@@ -832,36 +832,36 @@
       ROGUE = -1234.5678D+0
       FIRST = .TRUE.
 *
-*     Check that the arrays are large enough
+      // Check that the arrays are large enough
 *
       IF (N*ABS(INCX).GT.NMAX) THEN
          WRITE (NOUT,99) "DNRM2", NMAX, INCX, N, N*ABS(INCX)
          RETURN
       END IF
 *
-*     Zero-sized inputs are tested in STEST1.
+      // Zero-sized inputs are tested in STEST1.
       IF (N.LE.0) THEN
          RETURN
       END IF
 *
-*     Generate (N-1) values in (-1,1).
+      // Generate (N-1) values in (-1,1).
 *
       DO I = 2, N
          CALL RANDOM_NUMBER(WORK(I))
          WORK(I) = ONE - TWO*WORK(I)
       END DO
 *
-*     Compute the sum of squares of the random values
-*     by an unscaled algorithm.
+      // Compute the sum of squares of the random values
+      // by an unscaled algorithm.
 *
       WORKSSQ = ZERO
       DO I = 2, N
          WORKSSQ = WORKSSQ + WORK(I)*WORK(I)
       END DO
 *
-*     Construct the test vector with one known value
-*     and the rest from the random work array multiplied
-*     by a scaling factor.
+      // Construct the test vector with one known value
+      // and the rest from the random work array multiplied
+      // by a scaling factor.
 *
       DO IV = 1, NV
          V0 = VALUES(IV)
@@ -878,7 +878,7 @@
                Z(I) = V1*WORK(I)
             END DO
 *
-*           Compute the expected value of the 2-norm
+            // Compute the expected value of the 2-norm
 *
             Y1 = ABS(V0)
             IF (N.GT.1) THEN
@@ -889,12 +889,12 @@
             YMIN = MIN(Y1, Y2)
             YMAX = MAX(Y1, Y2)
 *
-*           Expected value is NaN if either is NaN. The test
-*           for YMIN == YMAX avoids further computation if both
-*           are infinity.
+            // Expected value is NaN if either is NaN. The test
+            // for YMIN == YMAX avoids further computation if both
+            // are infinity.
 *
             IF ((Y1.NE.Y1).OR.(Y2.NE.Y2)) THEN
-*              Add to propagate NaN
+               // Add to propagate NaN
                YNRM = Y1 + Y2
             ELSE IF (YMAX == ZERO) THEN
                YNRM = ZERO
@@ -904,7 +904,7 @@
                YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2)
             END IF
 *
-*           Fill the input array to DNRM2 with steps of incx
+            // Fill the input array to DNRM2 with steps of incx
 *
             DO I = 1, N
                X(I) = ROGUE
@@ -916,12 +916,12 @@
                IX = IX + INCX
             END DO
 *
-*           Call DNRM2 to compute the 2-norm
+            // Call DNRM2 to compute the 2-norm
 *
             SNRM = DNRM2(N,X,INCX)
 *
-*           Compare SNRM and ZNRM.  Roundoff error grows like O(n)
-*           in this implementation so we scale the test ratio accordingly.
+            // Compare SNRM and ZNRM.  Roundoff error grows like O(n)
+            // in this implementation so we scale the test ratio accordingly.
 *
             IF (INCX.EQ.0) THEN
                ZNRM = SQRT(DBLE(N))*ABS(X(1))
@@ -929,8 +929,8 @@
                ZNRM = YNRM
             END IF
 *
-*           The tests for NaN rely on the compiler not being overly
-*           aggressive and removing the statements altogether.
+            // The tests for NaN rely on the compiler not being overly
+            // aggressive and removing the statements altogether.
             IF ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) THEN
                IF ((SNRM.NE.SNRM).NEQV.(ZNRM.NE.ZNRM)) THEN
                   TRAT = ONE / ULP
@@ -961,14 +961,14 @@
       RETURN
       CONTAINS
       double           FUNCTION DXVALS(XX,K);
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double            XX;
       int               K;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double            X, Y, YY, Z;
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC HUGE
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       Y = HUGE(XX)
       Z = YY
       IF (K.EQ.1) THEN

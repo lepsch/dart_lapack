@@ -4,54 +4,54 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>       NAME, OPTS;
       int                ISPEC, N1, N2, N3, N4;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, MIN, REAL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IEEECK, IPARAM2STAGE;
       // EXTERNAL IEEECK, IPARAM2STAGE
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       int                IPARMS( 100 );
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / CLAENV / IPARMS
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE               / CLAENV /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( ISPEC.GE.1 .AND. ISPEC.LE.5 ) THEN
 *
-*        Return a value from the common block.
+         // Return a value from the common block.
 *
          ILAENV = IPARMS( ISPEC )
 *
       ELSE IF( ISPEC.EQ.6 ) THEN
 *
-*        Compute SVD crossover point.
+         // Compute SVD crossover point.
 *
          ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
 *
       ELSE IF( ISPEC.GE.7 .AND. ISPEC.LE.9 ) THEN
 *
-*        Return a value from the common block.
+         // Return a value from the common block.
 *
          ILAENV = IPARMS( ISPEC )
 *
       ELSE IF( ISPEC.EQ.10 ) THEN
 *
-*        IEEE NaN arithmetic can be trusted not to trap
+         // IEEE NaN arithmetic can be trusted not to trap
 *
-C        ILAENV = 0
+         // ILAENV = 0
          ILAENV = 1
          IF( ILAENV.EQ.1 ) THEN
             ILAENV = IEEECK( 1, 0.0, 1.0 )
@@ -59,9 +59,9 @@ C        ILAENV = 0
 *
       ELSE IF( ISPEC.EQ.11 ) THEN
 *
-*        Infinity arithmetic can be trusted not to trap
+         // Infinity arithmetic can be trusted not to trap
 *
-C        ILAENV = 0
+         // ILAENV = 0
          ILAENV = 1
          IF( ILAENV.EQ.1 ) THEN
             ILAENV = IEEECK( 0, 0.0, 1.0 )
@@ -69,15 +69,15 @@ C        ILAENV = 0
 *
       ELSE IF(( ISPEC.GE.12 ) .AND. (ISPEC.LE.16)) THEN
 *
-*     12 <= ISPEC <= 16: xHSEQR or one of its subroutines.
+      // 12 <= ISPEC <= 16: xHSEQR or one of its subroutines.
 *
          ILAENV = IPARMS( ISPEC )
-*         WRITE(*,*) 'ISPEC = ',ISPEC,' ILAENV =',ILAENV
-*         ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+          // WRITE(*,*) 'ISPEC = ',ISPEC,' ILAENV =',ILAENV
+          // ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 *
       ELSE IF(( ISPEC.GE.17 ) .AND. (ISPEC.LE.21)) THEN
 *
-*     17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
+      // 17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
 *
          IF( ISPEC.EQ.17 ) THEN
              ILAENV = IPARMS( 1 )
@@ -87,44 +87,44 @@ C        ILAENV = 0
 *
       ELSE
 *
-*        Invalid value for ISPEC
+         // Invalid value for ISPEC
 *
          ILAENV = -1
       END IF
 *
       RETURN
 *
-*     End of ILAENV
+      // End of ILAENV
 *
       END
       int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>       NAME, OPTS;
       int                ISPEC, N1, N2, N3, N4;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local variables ..
+      // .. Local variables ..
       int                IISPEC;
-*     .. External Functions ..
+      // .. External Functions ..
       int                IPARAM2STAGE;
       // EXTERNAL IPARAM2STAGE
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       int                IPARMS( 100 );
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / CLAENV / IPARMS
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE               / CLAENV /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF(( ISPEC.GE.1 ) .AND. (ISPEC.LE.5)) THEN
 *
-*     1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
+      // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 *
          IF( ISPEC.EQ.1 ) THEN
              ILAENV2STAGE = IPARMS( 1 )
@@ -135,14 +135,14 @@ C        ILAENV = 0
 *
       ELSE
 *
-*        Invalid value for ISPEC
+         // Invalid value for ISPEC
 *
          ILAENV2STAGE = -1
       END IF
 *
       RETURN
 *
-*     End of ILAENV2STAGE
+      // End of ILAENV2STAGE
 *
       END
       int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK );
@@ -153,21 +153,21 @@ C        ILAENV = 0
       PARAMETER          ( NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500 )
       REAL               TWO
       PARAMETER          ( TWO = 2.0 )
-*     ..
-*     .. Scalar Arguments ..
+      // ..
+      // .. Scalar Arguments ..
       int                IHI, ILO, ISPEC, LWORK, N;
       String             NAME*( * ), OPTS*( * );
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                NH, NS;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LOG, MAX, MOD, NINT, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) THEN
 *
-*        ==== Set the number simultaneous shifts ====
+         // ==== Set the number simultaneous shifts ====
 *
          NH = IHI - ILO + 1
          NS = 2
@@ -178,29 +178,29 @@ C        ILAENV = 0
       IF( ISPEC.EQ.INMIN ) THEN
 *
 *
-*        ===== Matrices of order smaller than NMIN get sent
-*        .     to LAHQR, the classic double shift algorithm.
-*        .     This must be at least 11. ====
+         // ===== Matrices of order smaller than NMIN get sent
+         // .     to LAHQR, the classic double shift algorithm.
+         // .     This must be at least 11. ====
 *
          IPARMQ = NMIN
 *
       ELSE IF( ISPEC.EQ.INIBL ) THEN
 *
-*        ==== INIBL: skip a multi-shift qr iteration and
-*        .    whenever aggressive early deflation finds
-*        .    at least (NIBBLE*(window size)/100) deflations. ====
+         // ==== INIBL: skip a multi-shift qr iteration and
+         // .    whenever aggressive early deflation finds
+         // .    at least (NIBBLE*(window size)/100) deflations. ====
 *
          IPARMQ = NIBBLE
 *
       ELSE IF( ISPEC.EQ.ISHFTS ) THEN
 *
-*        ==== NSHFTS: The number of simultaneous shifts =====
+         // ==== NSHFTS: The number of simultaneous shifts =====
 *
          IPARMQ = NS
 *
       ELSE IF( ISPEC.EQ.INWIN ) THEN
 *
-*        ==== NW: deflation window size.  ====
+         // ==== NW: deflation window size.  ====
 *
          IF( NH.LE.KNWSWP ) THEN
             IPARMQ = NS
@@ -210,22 +210,22 @@ C        ILAENV = 0
 *
       ELSE IF( ISPEC.EQ.IACC22 ) THEN
 *
-*        ==== IACC22: Whether to accumulate reflections
-*        .     before updating the far-from-diagonal elements
-*        .     and whether to use 2-by-2 block structure while
-*        .     doing it.  A small amount of work could be saved
-*        .     by making this choice dependent also upon the
-*        .     NH=IHI-ILO+1.
+         // ==== IACC22: Whether to accumulate reflections
+         // .     before updating the far-from-diagonal elements
+         // .     and whether to use 2-by-2 block structure while
+         // .     doing it.  A small amount of work could be saved
+         // .     by making this choice dependent also upon the
+         // .     NH=IHI-ILO+1.
 *
          IPARMQ = 0
          IF( NS.GE.KACMIN ) IPARMQ = 1          IF( NS.GE.K22MIN ) IPARMQ = 2
 *
       ELSE
-*        ===== invalid value of ispec =====
+         // ===== invalid value of ispec =====
          IPARMQ = -1
 *
       END IF
 *
-*     ==== End of IPARMQ ====
+      // ==== End of IPARMQ ====
 *
       END

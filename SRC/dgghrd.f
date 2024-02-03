@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPQ, COMPZ;
       int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILQ, ILZ;
       int                ICOMPQ, ICOMPZ, JCOL, JROW;
       double             C, S, TEMP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARTG, DLASET, DROT, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode COMPQ
+      // Decode COMPQ
 *
       IF( LSAME( COMPQ, 'N' ) ) THEN
          ILQ = .FALSE.
@@ -50,7 +50,7 @@
          ICOMPQ = 0
       END IF
 *
-*     Decode COMPZ
+      // Decode COMPZ
 *
       IF( LSAME( COMPZ, 'N' ) ) THEN
          ILZ = .FALSE.
@@ -65,7 +65,7 @@
          ICOMPZ = 0
       END IF
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( ICOMPQ.LE.0 ) THEN
@@ -92,15 +92,15 @@
          RETURN
       END IF
 *
-*     Initialize Q and Z if desired.
+      // Initialize Q and Z if desired.
 *
       IF( ICOMPQ.EQ.3 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.1 ) RETURN
 *
-*     Zero out lower triangle of B
+      // Zero out lower triangle of B
 *
       DO 20 JCOL = 1, N - 1
          DO 10 JROW = JCOL + 1, N
@@ -108,20 +108,20 @@
    10    CONTINUE
    20 CONTINUE
 *
-*     Reduce A and B
+      // Reduce A and B
 *
       DO 40 JCOL = ILO, IHI - 2
 *
          DO 30 JROW = IHI, JCOL + 2, -1
 *
-*           Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
+            // Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
 *
             TEMP = A( JROW-1, JCOL )
             CALL DLARTG( TEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) )
             A( JROW, JCOL ) = ZERO
             CALL DROT( N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL DROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL DROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S )
 *
-*           Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
+            // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 *
             TEMP = B( JROW, JROW )
             CALL DLARTG( TEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) )
@@ -133,6 +133,6 @@
 *
       RETURN
 *
-*     End of DGGHRD
+      // End of DGGHRD
 *
       END

@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, NIN;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
       double             RMAX( 3 );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
       double             EPSIN;
       PARAMETER          ( EPSIN = 5.9605D-8 )
       int                LDT, LWORK;
       PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ICMP, INFO, ISCL, ISRT, J, KMIN, M, N;
       double             BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VCMIN, VMAX, VMIN, VMUL;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SELECT( LDT );
       int                LCMP( 3 );
       double             DUM( 1 ), RWORK( 2*LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), VAL( 3 ), WIIN( LDT ), WRIN( LDT ), WSRT( LDT );
       COMPLEX*16         CDUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DSCAL, ZCOPY, ZDSCAL, ZGEHRD, ZHSEQR, ZLACPY, ZTREVC, ZTRSNA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DIMAG, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     EPSIN = 2**(-24) = precision to which input data computed
+      // EPSIN = 2**(-24) = precision to which input data computed
 *
       EPS = MAX( EPS, EPSIN )
       RMAX( 1 ) = ZERO
@@ -65,9 +65,9 @@
       VAL( 2 ) = ONE
       VAL( 3 ) = SQRT( BIGNUM )
 *
-*     Read input data until N=0.  Assume input eigenvalues are sorted
-*     lexicographically (increasing by real part if ISRT = 0,
-*     increasing by imaginary part if ISRT = 1)
+      // Read input data until N=0.  Assume input eigenvalues are sorted
+      // lexicographically (increasing by real part if ISRT = 0,
+      // increasing by imaginary part if ISRT = 1)
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, ISRT
@@ -81,7 +81,7 @@
       TNRM = ZLANGE( 'M', N, N, TMP, LDT, RWORK )
       DO 260 ISCL = 1, 3
 *
-*        Scale input matrix
+         // Scale input matrix
 *
          KNT = KNT + 1
          CALL ZLACPY( 'F', N, N, TMP, LDT, T, LDT )
@@ -91,7 +91,7 @@
    40    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
 *
-*        Compute eigenvalues and eigenvectors
+         // Compute eigenvalues and eigenvectors
 *
          CALL ZGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
          IF( INFO.NE.0 ) THEN
@@ -105,7 +105,7 @@
    50       CONTINUE
    60    CONTINUE
 *
-*        Compute Schur form
+         // Compute Schur form
 *
          CALL ZHSEQR( 'S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
@@ -114,14 +114,14 @@
             GO TO 260
          END IF
 *
-*        Compute eigenvectors
+         // Compute eigenvectors
 *
          DO 70 I = 1, N
             SELECT( I ) = .TRUE.
    70    CONTINUE
          CALL ZTREVC( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO )
 *
-*        Compute condition numbers
+         // Compute condition numbers
 *
          CALL ZTRSNA( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
@@ -130,20 +130,20 @@
             GO TO 260
          END IF
 *
-*        Sort eigenvalues and condition numbers lexicographically
-*        to compare with inputs
+         // Sort eigenvalues and condition numbers lexicographically
+        t // o compare with inputs
 *
          CALL ZCOPY( N, W, 1, WTMP, 1 )
          IF( ISRT.EQ.0 ) THEN
 *
-*           Sort by increasing real part
+            // Sort by increasing real part
 *
             DO 80 I = 1, N
                WSRT( I ) = DBLE( W( I ) )
    80       CONTINUE
          ELSE
 *
-*           Sort by increasing imaginary part
+            // Sort by increasing imaginary part
 *
             DO 90 I = 1, N
                WSRT( I ) = DIMAG( W( I ) )
@@ -174,8 +174,8 @@
             SEPTMP( I ) = VMIN
   110    CONTINUE
 *
-*        Compare condition numbers for eigenvalues
-*        taking their condition numbers into account
+         // Compare condition numbers for eigenvalues
+        t // aking their condition numbers into account
 *
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
@@ -209,8 +209,8 @@
             END IF
   120    CONTINUE
 *
-*        Compare condition numbers for eigenvectors
-*        taking their condition numbers into account
+         // Compare condition numbers for eigenvectors
+        t // aking their condition numbers into account
 *
          DO 130 I = 1, N
             IF( V.GT.SEPTMP( I )*STMP( I ) ) THEN
@@ -242,8 +242,8 @@
             END IF
   130    CONTINUE
 *
-*        Compare condition numbers for eigenvalues
-*        without taking their condition numbers into account
+         // Compare condition numbers for eigenvalues
+         // without taking their condition numbers into account
 *
          DO 140 I = 1, N
             IF( SIN( I ).LE.DBLE( 2*N )*EPS .AND. STMP( I ).LE. DBLE( 2*N )*EPS ) THEN
@@ -265,8 +265,8 @@
             END IF
   140    CONTINUE
 *
-*        Compare condition numbers for eigenvectors
-*        without taking their condition numbers into account
+         // Compare condition numbers for eigenvectors
+         // without taking their condition numbers into account
 *
          DO 150 I = 1, N
             IF( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) THEN
@@ -288,7 +288,7 @@
             END IF
   150    CONTINUE
 *
-*        Compute eigenvalue condition numbers only and compare
+         // Compute eigenvalue condition numbers only and compare
 *
          VMAX = ZERO
          DUM( 1 ) = -ONE
@@ -304,7 +304,7 @@
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   160    CONTINUE
 *
-*        Compute eigenvector condition numbers only and compare
+         // Compute eigenvector condition numbers only and compare
 *
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
@@ -318,7 +318,7 @@
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   170    CONTINUE
 *
-*        Compute all condition numbers using SELECT and compare
+         // Compute all condition numbers using SELECT and compare
 *
          DO 180 I = 1, N
             SELECT( I ) = .TRUE.
@@ -335,7 +335,7 @@
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
   190    CONTINUE
 *
-*        Compute eigenvalue condition numbers using SELECT and compare
+         // Compute eigenvalue condition numbers using SELECT and compare
 *
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
@@ -349,7 +349,7 @@
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   200    CONTINUE
 *
-*        Compute eigenvector condition numbers using SELECT and compare
+         // Compute eigenvector condition numbers using SELECT and compare
 *
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
@@ -367,7 +367,7 @@
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
 *
-*        Select second and next to last eigenvalues
+         // Select second and next to last eigenvalues
 *
          DO 220 I = 1, N
             SELECT( I ) = .FALSE.
@@ -388,7 +388,7 @@
             CALL ZCOPY( N, LE( 1, N-1 ), 1, LE( 1, 2 ), 1 )
          END IF
 *
-*        Compute all selected condition numbers
+         // Compute all selected condition numbers
 *
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
@@ -403,7 +403,7 @@
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
   230    CONTINUE
 *
-*        Compute selected eigenvalue condition numbers
+         // Compute selected eigenvalue condition numbers
 *
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
@@ -418,7 +418,7 @@
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   240    CONTINUE
 *
-*        Compute selected eigenvector condition numbers
+         // Compute selected eigenvector condition numbers
 *
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
@@ -439,6 +439,6 @@
   260 CONTINUE
       GO TO 10
 *
-*     End of ZGET37
+      // End of ZGET37
 *
       END

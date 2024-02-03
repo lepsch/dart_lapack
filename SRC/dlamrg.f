@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                DTRD1, DTRD2, N1, N2;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                INDEX( * );
       double             A( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, IND1, IND2, N1SV, N2SV;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       N1SV = N1
       N2SV = N2
@@ -32,7 +32,7 @@
          IND2 = N1 + N2
       END IF
       I = 1
-*     while ( (N1SV > 0) & (N2SV > 0) )
+      // while ( (N1SV > 0) & (N2SV > 0) )
    10 CONTINUE
       IF( N1SV.GT.0 .AND. N2SV.GT.0 ) THEN
          IF( A( IND1 ).LE.A( IND2 ) ) THEN
@@ -48,7 +48,7 @@
          END IF
          GO TO 10
       END IF
-*     end while
+      // end while
       IF( N1SV.EQ.0 ) THEN
          DO 20 N1SV = 1, N2SV
             INDEX( I ) = IND2
@@ -56,7 +56,7 @@
             IND2 = IND2 + DTRD2
    20    CONTINUE
       ELSE
-*     N2SV .EQ. 0
+      // N2SV .EQ. 0
          DO 30 N2SV = 1, N1SV
             INDEX( I ) = IND1
             I = I + 1
@@ -66,6 +66,6 @@
 *
       RETURN
 *
-*     End of DLAMRG
+      // End of DLAMRG
 *
       END

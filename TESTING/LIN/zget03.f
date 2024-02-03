@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDAINV, LDWORK, N;
       double             RCOND, RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), AINV( LDAINV, * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       double             AINVNM, ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RCOND = ONE
@@ -45,7 +45,7 @@
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANGE( '1', N, N, A, LDA, RWORK )
@@ -57,14 +57,14 @@
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
 *
-*     Compute I - A * AINV
+      // Compute I - A * AINV
 *
       CALL ZGEMM( 'No transpose', 'No transpose', N, N, N, -CONE, AINV, LDAINV, A, LDA, CZERO, WORK, LDWORK )
       DO 10 I = 1, N
          WORK( I, I ) = CONE + WORK( I, I )
    10 CONTINUE
 *
-*     Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
+      // Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
 *
       RESID = ZLANGE( '1', N, N, WORK, LDWORK, RWORK )
 *
@@ -72,6 +72,6 @@
 *
       RETURN
 *
-*     End of ZGET03
+      // End of ZGET03
 *
       END

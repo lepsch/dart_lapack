@@ -5,8 +5,8 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
       int     MAJOR, MINOR, PATCH;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ILAVER
 *
       CALL ILAVER ( MAJOR, MINOR, PATCH )

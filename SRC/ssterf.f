@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO, THREE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0 )
       int                MAXIT;
       PARAMETER          ( MAXIT = 30 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT       REAL               ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLANST, SLAPY2
       // EXTERNAL SLAMCH, SLANST, SLAPY2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAE2, SLASCL, SLASRT, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LT.0 ) THEN
          INFO = -1
@@ -47,7 +47,7 @@
       END IF
       IF( N.LE.1 ) RETURN
 *
-*     Determine the unit roundoff for this environment.
+      // Determine the unit roundoff for this environment.
 *
       EPS = SLAMCH( 'E' )
       EPS2 = EPS**2
@@ -56,15 +56,15 @@
       SSFMAX = SQRT( SAFMAX ) / THREE
       SSFMIN = SQRT( SAFMIN ) / EPS2
 *
-*     Compute the eigenvalues of the tridiagonal matrix.
+      // Compute the eigenvalues of the tridiagonal matrix.
 *
       NMAXIT = N*MAXIT
       SIGMA = ZERO
       JTOT = 0
 *
-*     Determine where the matrix splits and choose QL or QR iteration
-*     for each block, according to whether top or bottom diagonal
-*     element is smaller.
+      // Determine where the matrix splits and choose QL or QR iteration
+      // for each block, according to whether top or bottom diagonal
+      // element is smaller.
 *
       L1 = 1
 *
@@ -86,7 +86,7 @@
       L1 = M + 1
       IF( LEND.EQ.L ) GO TO 10
 *
-*     Scale submatrix in rows and columns L to LEND
+      // Scale submatrix in rows and columns L to LEND
 *
       ANORM = SLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
@@ -103,7 +103,7 @@
          E( I ) = E( I )**2
    40 CONTINUE
 *
-*     Choose between QL and QR iteration
+      // Choose between QL and QR iteration
 *
       IF( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) THEN
          LEND = LSV
@@ -112,9 +112,9 @@
 *
       IF( LEND.GE.L ) THEN
 *
-*        QL Iteration
+         // QL Iteration
 *
-*        Look for small subdiagonal element.
+         // Look for small subdiagonal element.
 *
    50    CONTINUE
          IF( L.NE.LEND ) THEN
@@ -129,8 +129,8 @@
          P = D( L )
          IF( M.EQ.L ) GO TO 90
 *
-*        If remaining matrix is 2 by 2, use SLAE2 to compute its
-*        eigenvalues.
+         // If remaining matrix is 2 by 2, use SLAE2 to compute its
+         // eigenvalues.
 *
          IF( M.EQ.L+1 ) THEN
             RTE = SQRT( E( L ) )
@@ -146,7 +146,7 @@
          IF( JTOT.EQ.NMAXIT ) GO TO 150
          JTOT = JTOT + 1
 *
-*        Form shift.
+         // Form shift.
 *
          RTE = SQRT( E( L ) )
          SIGMA = ( D( L+1 )-P ) / ( TWO*RTE )
@@ -158,7 +158,7 @@
          GAMMA = D( M ) - SIGMA
          P = GAMMA*GAMMA
 *
-*        Inner loop
+         // Inner loop
 *
          DO 80 I = M - 1, L, -1
             BB = E( I )
@@ -182,7 +182,7 @@
          D( L ) = SIGMA + GAMMA
          GO TO 50
 *
-*        Eigenvalue found.
+         // Eigenvalue found.
 *
    90    CONTINUE
          D( L ) = P
@@ -193,9 +193,9 @@
 *
       ELSE
 *
-*        QR Iteration
+         // QR Iteration
 *
-*        Look for small superdiagonal element.
+         // Look for small superdiagonal element.
 *
   100    CONTINUE
          DO 110 M = L, LEND + 1, -1
@@ -208,8 +208,8 @@
          P = D( L )
          IF( M.EQ.L ) GO TO 140
 *
-*        If remaining matrix is 2 by 2, use SLAE2 to compute its
-*        eigenvalues.
+         // If remaining matrix is 2 by 2, use SLAE2 to compute its
+         // eigenvalues.
 *
          IF( M.EQ.L-1 ) THEN
             RTE = SQRT( E( L-1 ) )
@@ -225,7 +225,7 @@
          IF( JTOT.EQ.NMAXIT ) GO TO 150
          JTOT = JTOT + 1
 *
-*        Form shift.
+         // Form shift.
 *
          RTE = SQRT( E( L-1 ) )
          SIGMA = ( D( L-1 )-P ) / ( TWO*RTE )
@@ -237,7 +237,7 @@
          GAMMA = D( M ) - SIGMA
          P = GAMMA*GAMMA
 *
-*        Inner loop
+         // Inner loop
 *
          DO 130 I = M, L - 1
             BB = E( I )
@@ -261,7 +261,7 @@
          D( L ) = SIGMA + GAMMA
          GO TO 100
 *
-*        Eigenvalue found.
+         // Eigenvalue found.
 *
   140    CONTINUE
          D( L ) = P
@@ -272,13 +272,13 @@
 *
       END IF
 *
-*     Undo scaling if necessary
+      // Undo scaling if necessary
 *
   150 CONTINUE
       IF( ISCALE.EQ.1 ) CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )       IF( ISCALE.EQ.2 ) CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )
 *
-*     Check for no convergence to an eigenvalue after a total
-*     of N*MAXIT iterations.
+      // Check for no convergence to an eigenvalue after a total
+      // of N*MAXIT iterations.
 *
       IF( JTOT.LT.NMAXIT ) GO TO 10
       DO 160 I = 1, N - 1
@@ -286,7 +286,7 @@
   160 CONTINUE
       GO TO 180
 *
-*     Sort eigenvalues in increasing order.
+      // Sort eigenvalues in increasing order.
 *
   170 CONTINUE
       CALL SLASRT( 'I', N, D, INFO )
@@ -294,6 +294,6 @@
   180 CONTINUE
       RETURN
 *
-*     End of SSTERF
+      // End of SSTERF
 *
       END

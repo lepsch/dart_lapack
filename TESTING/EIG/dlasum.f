@@ -4,14 +4,14 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TYPE;
       int                IE, IOUNIT, NRUN;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       IF( IE.GT.0 ) THEN
          WRITE( IOUNIT, FMT = 9999 )TYPE, ': ', IE, ' out of ', NRUN, ' tests failed to pass the threshold'
@@ -22,6 +22,6 @@
  9998 FORMAT( / 1X, A14, A3, A24, I5, A11 )
       RETURN
 *
-*     End of DLASUM
+      // End of DLASUM
 *
       END

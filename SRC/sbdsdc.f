@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPQ, UPLO;
       int                INFO, LDU, LDVT, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IQ( * ), IWORK( * );
       REAL               D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *  Changed dimension statement in comment describing E from (N) to
 *  (N-1).  Sven, 17 Feb 05.
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z;
       REAL               CS, EPS, ORGNRM, P, R, SN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANST
       // EXTERNAL SLAMCH, SLANST, ILAENV, LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLARTG, SLASCL, SLASD0, SLASDA, SLASDQ, SLASET, SLASR, SSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL, ABS, INT, LOG, SIGN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -71,7 +71,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
       SMLSIZ = ILAENV( 9, 'SBDSDC', ' ', 0, 0, 0, 0 )
@@ -88,8 +88,8 @@
       END IF
       NM1 = N - 1
 *
-*     If matrix lower bidiagonal, rotate to be upper bidiagonal
-*     by applying Givens rotations on the left
+      // If matrix lower bidiagonal, rotate to be upper bidiagonal
+      // by applying Givens rotations on the left
 *
       WSTART = 1
       QSTART = 3
@@ -115,18 +115,18 @@
    10    CONTINUE
       END IF
 *
-*     If ICOMPQ = 0, use SLASDQ to compute the singular values.
+      // If ICOMPQ = 0, use SLASDQ to compute the singular values.
 *
       IF( ICOMPQ.EQ.0 ) THEN
-*        Ignore WSTART, instead using WORK( 1 ), since the two vectors
-*        for CS and -SN above are added only if ICOMPQ == 2,
-*        and adding them exceeds documented WORK size of 4*n.
+         // Ignore WSTART, instead using WORK( 1 ), since the two vectors
+         // for CS and -SN above are added only if ICOMPQ == 2,
+         // and adding them exceeds documented WORK size of 4*n.
          CALL SLASDQ( 'U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( 1 ), INFO )
          GO TO 40
       END IF
 *
-*     If N is smaller than the minimum divide size SMLSIZ, then solve
-*     the problem with another solver.
+      // If N is smaller than the minimum divide size SMLSIZ, then solve
+     t // he problem with another solver.
 *
       IF( N.LE.SMLSIZ ) THEN
          IF( ICOMPQ.EQ.2 ) THEN
@@ -146,7 +146,7 @@
          CALL SLASET( 'A', N, N, ZERO, ONE, VT, LDVT )
       END IF
 *
-*     Scale.
+      // Scale.
 *
       ORGNRM = SLANST( 'M', N, D, E )
       IF( ORGNRM.EQ.ZERO ) RETURN
@@ -187,24 +187,24 @@
       DO 30 I = 1, NM1
          IF( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) THEN
 *
-*        Subproblem found. First determine its size and then
-*        apply divide and conquer on it.
+         // Subproblem found. First determine its size and then
+         // apply divide and conquer on it.
 *
             IF( I.LT.NM1 ) THEN
 *
-*        A subproblem with E(I) small for I < NM1.
+         // A subproblem with E(I) small for I < NM1.
 *
                NSIZE = I - START + 1
             ELSE IF( ABS( E( I ) ).GE.EPS ) THEN
 *
-*        A subproblem with E(NM1) not too small but I = NM1.
+         // A subproblem with E(NM1) not too small but I = NM1.
 *
                NSIZE = N - START + 1
             ELSE
 *
-*        A subproblem with E(NM1) small. This implies an
-*        1-by-1 subproblem at D(N). Solve this 1-by-1 problem
-*        first.
+         // A subproblem with E(NM1) small. This implies an
+         // 1-by-1 subproblem at D(N). Solve this 1-by-1 problem
+         // first.
 *
                NSIZE = I - START + 1
                IF( ICOMPQ.EQ.2 ) THEN
@@ -228,12 +228,12 @@
          END IF
    30 CONTINUE
 *
-*     Unscale
+      // Unscale
 *
       CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, IERR )
    40 CONTINUE
 *
-*     Use Selection Sort to minimize swaps of singular vectors
+      // Use Selection Sort to minimize swaps of singular vectors
 *
       DO 60 II = 2, N
          I = II - 1
@@ -259,7 +259,7 @@
          END IF
    60 CONTINUE
 *
-*     If ICOMPQ = 1, use IQ(N,1) as the indicator for UPLO
+      // If ICOMPQ = 1, use IQ(N,1) as the indicator for UPLO
 *
       IF( ICOMPQ.EQ.1 ) THEN
          IF( IUPLO.EQ.1 ) THEN
@@ -269,13 +269,13 @@
          END IF
       END IF
 *
-*     If B is lower bidiagonal, update U by those Givens rotations
-*     which rotated B to be upper bidiagonal
+      // If B is lower bidiagonal, update U by those Givens rotations
+      // which rotated B to be upper bidiagonal
 *
       IF( ( IUPLO.EQ.2 ) .AND. ( ICOMPQ.EQ.2 ) ) CALL SLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU )
 *
       RETURN
 *
-*     End of SBDSDC
+      // End of SBDSDC
 *
       END

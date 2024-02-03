@@ -4,30 +4,30 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               CS1, RT1, RT2
       COMPLEX            A, B, C, SN1
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               T
       COMPLEX            W
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAEV2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( ABS( B ).EQ.ZERO ) THEN
          W = ONE
@@ -38,6 +38,6 @@
       SN1 = W*T
       RETURN
 *
-*     End of CLAEV2
+      // End of CLAEV2
 *
       END

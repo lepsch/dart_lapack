@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAINV, LDWORK, N;
       double             RCOND, RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             AINVNM, ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL LSAME, DLAMCH, DLANGE, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSYMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RCOND = ONE
@@ -44,7 +44,7 @@
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
@@ -56,8 +56,8 @@
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
 *
-*     Expand AINV into a full matrix and call DSYMM to multiply
-*     AINV on the left by A.
+      // Expand AINV into a full matrix and call DSYMM to multiply
+      // AINV on the left by A.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 20 J = 1, N
@@ -74,13 +74,13 @@
       END IF
       CALL DSYMM( 'Left', UPLO, N, N, -ONE, A, LDA, AINV, LDAINV, ZERO, WORK, LDWORK )
 *
-*     Add the identity matrix to WORK .
+      // Add the identity matrix to WORK .
 *
       DO 50 I = 1, N
          WORK( I, I ) = WORK( I, I ) + ONE
    50 CONTINUE
 *
-*     Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
+      // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 *
       RESID = DLANGE( '1', N, N, WORK, LDWORK, RWORK )
 *
@@ -88,6 +88,6 @@
 *
       RETURN
 *
-*     End of DPOT03
+      // End of DPOT03
 *
       END

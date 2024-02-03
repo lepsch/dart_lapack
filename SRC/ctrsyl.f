@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N;
       REAL               SCALE
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRNA, NOTRNB;
       int                J, K, L;
       REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM
       COMPLEX            A11, SUML, SUMR, VEC, X11
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUM( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SLAMCH
       COMPLEX            CDOTC, CDOTU, CLADIV
       // EXTERNAL LSAME, CLANGE, SLAMCH, CDOTC, CDOTU, CLADIV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CSSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and Test input parameters
+      // Decode and Test input parameters
 *
       NOTRNA = LSAME( TRANA, 'N' )
       NOTRNB = LSAME( TRANB, 'N' )
@@ -70,12 +70,12 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       SCALE = ONE
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Set constants to control overflow
+      // Set constants to control overflow
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' )
@@ -87,17 +87,17 @@
 *
       IF( NOTRNA .AND. NOTRNB ) THEN
 *
-*        Solve    A*X + ISGN*X*B = scale*C.
+         // Solve    A*X + ISGN*X*B = scale*C.
 *
-*        The (K,L)th block of X is determined starting from
-*        bottom-left corner column by column by
+         // The (K,L)th block of X is determined starting from
+         // bottom-left corner column by column by
 *
-*            A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
+             // A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 *
-*        Where
-*                    M                        L-1
-*          R(K,L) = SUM [A(K,I)*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)].
-*                  I=K+1                      J=1
+         // Where
+                     // M                        L-1
+           // R(K,L) = SUM [A(K,I)*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)].
+                   // I=K+1                      J=1
 *
          DO 30 L = 1, N
             DO 20 K = M, 1, -1
@@ -133,17 +133,17 @@
 *
       ELSE IF( .NOT.NOTRNA .AND. NOTRNB ) THEN
 *
-*        Solve    A**H *X + ISGN*X*B = scale*C.
+         // Solve    A**H *X + ISGN*X*B = scale*C.
 *
-*        The (K,L)th block of X is determined starting from
-*        upper-left corner column by column by
+         // The (K,L)th block of X is determined starting from
+         // upper-left corner column by column by
 *
-*            A**H(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
+             // A**H(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 *
-*        Where
-*                   K-1                           L-1
-*          R(K,L) = SUM [A**H(I,K)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)]
-*                   I=1                           J=1
+         // Where
+                    // K-1                           L-1
+           // R(K,L) = SUM [A**H(I,K)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)]
+                    // I=1                           J=1
 *
          DO 60 L = 1, N
             DO 50 K = 1, M
@@ -180,20 +180,20 @@
 *
       ELSE IF( .NOT.NOTRNA .AND. .NOT.NOTRNB ) THEN
 *
-*        Solve    A**H*X + ISGN*X*B**H = C.
+         // Solve    A**H*X + ISGN*X*B**H = C.
 *
-*        The (K,L)th block of X is determined starting from
-*        upper-right corner column by column by
+         // The (K,L)th block of X is determined starting from
+         // upper-right corner column by column by
 *
-*            A**H(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
+             // A**H(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
 *
-*        Where
-*                    K-1
-*           R(K,L) = SUM [A**H(I,K)*X(I,L)] +
-*                    I=1
-*                           N
-*                     ISGN*SUM [X(K,J)*B**H(L,J)].
-*                          J=L+1
+         // Where
+                     // K-1
+            // R(K,L) = SUM [A**H(I,K)*X(I,L)] +
+                     // I=1
+                            // N
+                      // ISGN*SUM [X(K,J)*B**H(L,J)].
+                           // J=L+1
 *
          DO 90 L = N, 1, -1
             DO 80 K = 1, M
@@ -230,17 +230,17 @@
 *
       ELSE IF( NOTRNA .AND. .NOT.NOTRNB ) THEN
 *
-*        Solve    A*X + ISGN*X*B**H = C.
+         // Solve    A*X + ISGN*X*B**H = C.
 *
-*        The (K,L)th block of X is determined starting from
-*        bottom-left corner column by column by
+         // The (K,L)th block of X is determined starting from
+         // bottom-left corner column by column by
 *
-*           A(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
+            // A(K,K)*X(K,L) + ISGN*X(K,L)*B**H(L,L) = C(K,L) - R(K,L)
 *
-*        Where
-*                    M                          N
-*          R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
-*                  I=K+1                      J=L+1
+         // Where
+                     // M                          N
+           // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
+                   // I=K+1                      J=L+1
 *
          DO 120 L = N, 1, -1
             DO 110 K = M, 1, -1
@@ -278,6 +278,6 @@
 *
       RETURN
 *
-*     End of CTRSYL
+      // End of CTRSYL
 *
       END

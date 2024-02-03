@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = 3*NMAX )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO, J;
       REAL               ANRM, CCOND, RCOND
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX ), IW( NMAX );
       REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( LW ), X( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SGBCON, SGBEQU, SGBRFS, SGBTF2, SGBTRF, SGBTRS, SGECON, SGEEQU, SGERFS, SGETF2, SGETRF, SGETRI, SGETRS
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -68,10 +68,10 @@
 *
       IF( LSAMEN( 2, C2, 'GE' ) ) THEN
 *
-*        Test error exits of the routines that use the LU decomposition
-*        of a general matrix.
+         // Test error exits of the routines that use the LU decomposition
+         // of a general matrix.
 *
-*        SGETRF
+         // SGETRF
 *
          SRNAMT = 'SGETRF'
          INFOT = 1
@@ -84,7 +84,7 @@
          CALL SGETRF( 2, 1, A, 1, IP, INFO )
          CALL CHKXER( 'SGETRF', INFOT, NOUT, LERR, OK )
 *
-*        SGETF2
+         // SGETF2
 *
          SRNAMT = 'SGETF2'
          INFOT = 1
@@ -97,7 +97,7 @@
          CALL SGETF2( 2, 1, A, 1, IP, INFO )
          CALL CHKXER( 'SGETF2', INFOT, NOUT, LERR, OK )
 *
-*        SGETRI
+         // SGETRI
 *
          SRNAMT = 'SGETRI'
          INFOT = 1
@@ -107,7 +107,7 @@
          CALL SGETRI( 2, A, 1, IP, W, LW, INFO )
          CALL CHKXER( 'SGETRI', INFOT, NOUT, LERR, OK )
 *
-*        SGETRS
+         // SGETRS
 *
          SRNAMT = 'SGETRS'
          INFOT = 1
@@ -126,7 +126,7 @@
          CALL SGETRS( 'N', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'SGETRS', INFOT, NOUT, LERR, OK )
 *
-*        SGERFS
+         // SGERFS
 *
          SRNAMT = 'SGERFS'
          INFOT = 1
@@ -151,7 +151,7 @@
          CALL SGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGERFS', INFOT, NOUT, LERR, OK )
 *
-*        SGECON
+         // SGECON
 *
          SRNAMT = 'SGECON'
          INFOT = 1
@@ -164,7 +164,7 @@
          CALL SGECON( '1', 2, A, 1, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'SGECON', INFOT, NOUT, LERR, OK )
 *
-*        SGEEQU
+         // SGEEQU
 *
          SRNAMT = 'SGEEQU'
          INFOT = 1
@@ -179,10 +179,10 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        Test error exits of the routines that use the LU decomposition
-*        of a general band matrix.
+         // Test error exits of the routines that use the LU decomposition
+         // of a general band matrix.
 *
-*        SGBTRF
+         // SGBTRF
 *
          SRNAMT = 'SGBTRF'
          INFOT = 1
@@ -201,7 +201,7 @@
          CALL SGBTRF( 2, 2, 1, 1, A, 3, IP, INFO )
          CALL CHKXER( 'SGBTRF', INFOT, NOUT, LERR, OK )
 *
-*        SGBTF2
+         // SGBTF2
 *
          SRNAMT = 'SGBTF2'
          INFOT = 1
@@ -220,7 +220,7 @@
          CALL SGBTF2( 2, 2, 1, 1, A, 3, IP, INFO )
          CALL CHKXER( 'SGBTF2', INFOT, NOUT, LERR, OK )
 *
-*        SGBTRS
+         // SGBTRS
 *
          SRNAMT = 'SGBTRS'
          INFOT = 1
@@ -245,7 +245,7 @@
          CALL SGBTRS( 'N', 2, 0, 0, 1, A, 1, IP, B, 1, INFO )
          CALL CHKXER( 'SGBTRS', INFOT, NOUT, LERR, OK )
 *
-*        SGBRFS
+         // SGBRFS
 *
          SRNAMT = 'SGBRFS'
          INFOT = 1
@@ -276,7 +276,7 @@
          CALL SGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBRFS', INFOT, NOUT, LERR, OK )
 *
-*        SGBCON
+         // SGBCON
 *
          SRNAMT = 'SGBCON'
          INFOT = 1
@@ -295,7 +295,7 @@
          CALL SGBCON( '1', 2, 1, 1, A, 3, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'SGBCON', INFOT, NOUT, LERR, OK )
 *
-*        SGBEQU
+         // SGBEQU
 *
          SRNAMT = 'SGBEQU'
          INFOT = 1
@@ -315,12 +315,12 @@
          CALL CHKXER( 'SGBEQU', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of SERRGE
+      // End of SERRGE
 *
       END

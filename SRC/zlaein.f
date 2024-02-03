@@ -4,62 +4,62 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N;
       double             EPS3, SMLNUM;
       COMPLEX*16         W
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         B( LDB, * ), H( LDH, * ), V( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, TENTH;
       PARAMETER          ( ONE = 1.0D+0, TENTH = 1.0D-1 )
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, IERR, ITS, J;
       double             GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM;
       COMPLEX*16         CDUM, EI, EJ, TEMP, X
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IZAMAX;
       double             DZASUM, DZNRM2;
       COMPLEX*16         ZLADIV
       // EXTERNAL IZAMAX, DZASUM, DZNRM2, ZLADIV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZDSCAL, ZLATRS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
 *
-*     GROWTO is the threshold used in the acceptance test for an
-*     eigenvector.
+      // GROWTO is the threshold used in the acceptance test for an
+      // eigenvector.
 *
       ROOTN = SQRT( DBLE( N ) )
       GROWTO = TENTH / ROOTN
       NRMSML = MAX( ONE, EPS3*ROOTN )*SMLNUM
 *
-*     Form B = H - W*I (except that the subdiagonal elements are not
-*     stored).
+      // Form B = H - W*I (except that the subdiagonal elements are not
+      // stored).
 *
       DO 20 J = 1, N
          DO 10 I = 1, J - 1
@@ -70,14 +70,14 @@
 *
       IF( NOINIT ) THEN
 *
-*        Initialize V.
+         // Initialize V.
 *
          DO 30 I = 1, N
             V( I ) = EPS3
    30    CONTINUE
       ELSE
 *
-*        Scale supplied initial vector.
+         // Scale supplied initial vector.
 *
          VNORM = DZNRM2( N, V, 1 )
          CALL ZDSCAL( N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), V, 1 )
@@ -85,14 +85,14 @@
 *
       IF( RIGHTV ) THEN
 *
-*        LU decomposition with partial pivoting of B, replacing zero
-*        pivots by EPS3.
+         // LU decomposition with partial pivoting of B, replacing zero
+         // pivots by EPS3.
 *
          DO 60 I = 1, N - 1
             EI = H( I+1, I )
             IF( CABS1( B( I, I ) ).LT.CABS1( EI ) ) THEN
 *
-*              Interchange rows and eliminate.
+               // Interchange rows and eliminate.
 *
                X = ZLADIV( B( I, I ), EI )
                B( I, I ) = EI
@@ -103,7 +103,7 @@
    40          CONTINUE
             ELSE
 *
-*              Eliminate without interchange.
+               // Eliminate without interchange.
 *
                IF( B( I, I ).EQ.ZERO ) B( I, I ) = EPS3
                X = ZLADIV( EI, B( I, I ) )
@@ -120,14 +120,14 @@
 *
       ELSE
 *
-*        UL decomposition with partial pivoting of B, replacing zero
-*        pivots by EPS3.
+         // UL decomposition with partial pivoting of B, replacing zero
+         // pivots by EPS3.
 *
          DO 90 J = N, 2, -1
             EJ = H( J, J-1 )
             IF( CABS1( B( J, J ) ).LT.CABS1( EJ ) ) THEN
 *
-*              Interchange columns and eliminate.
+               // Interchange columns and eliminate.
 *
                X = ZLADIV( B( J, J ), EJ )
                B( J, J ) = EJ
@@ -138,7 +138,7 @@
    70          CONTINUE
             ELSE
 *
-*              Eliminate without interchange.
+               // Eliminate without interchange.
 *
                IF( B( J, J ).EQ.ZERO ) B( J, J ) = EPS3
                X = ZLADIV( EJ, B( J, J ) )
@@ -158,19 +158,19 @@
       NORMIN = 'N'
       DO 110 ITS = 1, N
 *
-*        Solve U*x = scale*v for a right eigenvector
-*          or U**H *x = scale*v for a left eigenvector,
-*        overwriting x on v.
+         // Solve U*x = scale*v for a right eigenvector
+           // or U**H *x = scale*v for a left eigenvector,
+         // overwriting x on v.
 *
          CALL ZLATRS( 'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, V, SCALE, RWORK, IERR )
          NORMIN = 'Y'
 *
-*        Test for sufficient growth in the norm of v.
+         // Test for sufficient growth in the norm of v.
 *
          VNORM = DZASUM( N, V, 1 )
          IF( VNORM.GE.GROWTO*SCALE ) GO TO 120
 *
-*        Choose new orthogonal starting vector and try again.
+         // Choose new orthogonal starting vector and try again.
 *
          RTEMP = EPS3 / ( ROOTN+ONE )
          V( 1 ) = EPS3
@@ -180,19 +180,19 @@
          V( N-ITS+1 ) = V( N-ITS+1 ) - EPS3*ROOTN
   110 CONTINUE
 *
-*     Failure to find eigenvector in N iterations.
+      // Failure to find eigenvector in N iterations.
 *
       INFO = 1
 *
   120 CONTINUE
 *
-*     Normalize eigenvector.
+      // Normalize eigenvector.
 *
       I = IZAMAX( N, V, 1 )
       CALL ZDSCAL( N, ONE / CABS1( V( I ) ), V, 1 )
 *
       RETURN
 *
-*     End of ZLAEIN
+      // End of ZLAEIN
 *
       END

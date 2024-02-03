@@ -4,13 +4,13 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NIN, NOUT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDA, LDB, LDVL, LDVR;
       PARAMETER          ( LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 )
       int                LDE, LDF, LDWORK, LRWORK;
@@ -19,34 +19,34 @@
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO;
       double             ANORM, BNORM, EPS, RMAX, VMAX;
       COMPLEX*16         CDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                LMAX( 4 );
       double             LSCALE( LDA ), RSCALE( LDA ), RWORK( LRWORK );
       COMPLEX*16         A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZGGBAK, ZGGBAL, ZLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       LMAX( 1 ) = 0
       LMAX( 2 ) = 0
@@ -107,10 +107,10 @@
          LMAX( 3 ) = KNT
       END IF
 *
-*     Test of ZGGBAK
+      // Test of ZGGBAK
 *
-*     Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
-*     where tilde(A) denotes the transformed matrix.
+      // Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
+      // where tilde(A) denotes the transformed matrix.
 *
       CALL ZGEMM( 'N', 'N', N, M, N, CONE, AF, LDA, VR, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE )
 *
@@ -128,7 +128,7 @@
          RMAX = VMAX
       END IF
 *
-*     Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
+      // Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
 *
       CALL ZGEMM( 'N', 'N', N, M, N, CONE, BF, LDB, VR, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE )
 *
@@ -170,6 +170,6 @@
 *
       RETURN
 *
-*     End of ZCHKGK
+      // End of ZCHKGK
 *
       END

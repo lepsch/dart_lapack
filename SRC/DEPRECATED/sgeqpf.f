@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                JPVT( * );
       REAL               A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ITEMP, J, MA, MN, PVT;
       REAL               AII, TEMP, TEMP2, TOL3Z
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEQR2, SLARF, SLARFG, SORM2R, SSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH, SNRM2
       // EXTERNAL ISAMAX, SLAMCH, SNRM2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -53,7 +53,7 @@
       MN = MIN( M, N )
       TOL3Z = SQRT(SLAMCH('Epsilon'))
 *
-*     Move initial columns up front
+      // Move initial columns up front
 *
       ITEMP = 1
       DO 10 I = 1, N
@@ -72,7 +72,7 @@
    10 CONTINUE
       ITEMP = ITEMP - 1
 *
-*     Compute the QR factorization and update remaining columns
+      // Compute the QR factorization and update remaining columns
 *
       IF( ITEMP.GT.0 ) THEN
          MA = MIN( ITEMP, M )
@@ -84,19 +84,19 @@
 *
       IF( ITEMP.LT.MN ) THEN
 *
-*        Initialize partial column norms. The first n elements of
-*        work store the exact column norms.
+         // Initialize partial column norms. The first n elements of
+         // work store the exact column norms.
 *
          DO 20 I = ITEMP + 1, N
             WORK( I ) = SNRM2( M-ITEMP, A( ITEMP+1, I ), 1 )
             WORK( N+I ) = WORK( I )
    20    CONTINUE
 *
-*        Compute factorization
+         // Compute factorization
 *
          DO 40 I = ITEMP + 1, MN
 *
-*           Determine ith pivot column and swap if necessary
+            // Determine ith pivot column and swap if necessary
 *
             PVT = ( I-1 ) + ISAMAX( N-I+1, WORK( I ), 1 )
 *
@@ -109,7 +109,7 @@
                WORK( N+PVT ) = WORK( N+I )
             END IF
 *
-*           Generate elementary reflector H(i)
+            // Generate elementary reflector H(i)
 *
             IF( I.LT.M ) THEN
                CALL SLARFG( M-I+1, A( I, I ), A( I+1, I ), 1, TAU( I ) )
@@ -119,7 +119,7 @@
 *
             IF( I.LT.N ) THEN
 *
-*              Apply H(i) to A(i:m,i+1:n) from the left
+               // Apply H(i) to A(i:m,i+1:n) from the left
 *
                AII = A( I, I )
                A( I, I ) = ONE
@@ -127,13 +127,13 @@
                A( I, I ) = AII
             END IF
 *
-*           Update partial column norms
+            // Update partial column norms
 *
             DO 30 J = I + 1, N
                IF( WORK( J ).NE.ZERO ) THEN
 *
-*                 NOTE: The following 4 lines follow from the analysis in
-*                 Lapack Working Note 176.
+                  // NOTE: The following 4 lines follow from the analysis in
+                  // Lapack Working Note 176.
 *
                   TEMP = ABS( A( I, J ) ) / WORK( J )
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
@@ -156,6 +156,6 @@
       END IF
       RETURN
 *
-*     End of SGEQPF
+      // End of SGEQPF
 *
       END

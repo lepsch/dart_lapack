@@ -6,7 +6,7 @@
 *
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
 *
       REAL T
 *
@@ -20,6 +20,6 @@
       SECOND = T
       RETURN
 *
-*     End of SECOND
+      // End of SECOND
 *
       END

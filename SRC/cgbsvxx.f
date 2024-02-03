@@ -4,19 +4,19 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
       REAL               RCOND, RPVGRW
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
-*     ..
+      // ..
 *
 *  ==================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
@@ -25,24 +25,24 @@
       PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
       PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       int                INFEQU, I, J, KL, KU;
       REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       // EXTERNAL LSAME, SLAMCH, CLA_GBRPVGRW
       bool               LSAME;
       REAL               SLAMCH, CLA_GBRPVGRW
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGBEQUB, CGBTRF, CGBTRS, CLACPY, CLAQGB, XERBLA, CLASCL2, CGBRFSX
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -59,13 +59,13 @@
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
       END IF
 *
-*     Default is failure.  If an input parameter is wrong or
-*     factorization fails, make everything look horrible.  Only the
-*     pivot growth is set here, the rest is initialized in CGBRFSX.
+      // Default is failure.  If an input parameter is wrong or
+      // factorization fails, make everything look horrible.  Only the
+      // pivot growth is set here, the rest is initialized in CGBRFSX.
 *
       RPVGRW = ZERO
 *
-*     Test the input parameters.  PARAMS is not tested until CGERFSX.
+      // Test the input parameters.  PARAMS is not tested until CGERFSX.
 *
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
@@ -132,19 +132,19 @@
 *
       IF( EQUIL ) THEN
 *
-*     Compute row and column scalings to equilibrate the matrix A.
+      // Compute row and column scalings to equilibrate the matrix A.
 *
          CALL CGBEQUB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
-*     Equilibrate the matrix.
+      // Equilibrate the matrix.
 *
             CALL CLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
 *
-*     If the scaling factors are not applied, set them to 1.0.
+      // If the scaling factors are not applied, set them to 1.0.
 *
          IF ( .NOT.ROWEQU ) THEN
             DO J = 1, N
@@ -158,7 +158,7 @@
          END IF
       END IF
 *
-*     Scale the right-hand side.
+      // Scale the right-hand side.
 *
       IF( NOTRAN ) THEN
          IF( ROWEQU ) CALL CLASCL2( N, NRHS, R, B, LDB )
@@ -168,7 +168,7 @@
 *
       IF( NOFACT .OR. EQUIL ) THEN
 *
-*        Compute the LU factorization of A.
+         // Compute the LU factorization of A.
 *
          DO 40, J = 1, N
             DO 30, I = KL+1, 2*KL+KU+1
@@ -177,35 +177,35 @@
  40      CONTINUE
          CALL CGBTRF( N, N, KL, KU, AFB, LDAFB, IPIV, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 ) THEN
 *
-*           Pivot in column INFO is exactly 0
-*           Compute the reciprocal pivot growth factor of the
-*           leading rank-deficient INFO columns of A.
+            // Pivot in column INFO is exactly 0
+            // Compute the reciprocal pivot growth factor of the
+            // leading rank-deficient INFO columns of A.
 *
             RPVGRW = CLA_GBRPVGRW( N, KL, KU, INFO, AB, LDAB, AFB, LDAFB )
             RETURN
          END IF
       END IF
 *
-*     Compute the reciprocal pivot growth factor RPVGRW.
+      // Compute the reciprocal pivot growth factor RPVGRW.
 *
       RPVGRW = CLA_GBRPVGRW( N, KL, KU, N, AB, LDAB, AFB, LDAFB )
 *
-*     Compute the solution matrix X.
+      // Compute the solution matrix X.
 *
       CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL CGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solution and
-*     compute error bounds and backward error estimates for it.
+      // Use iterative refinement to improve the computed solution and
+      // compute error bounds and backward error estimates for it.
 *
       CALL CGBRFSX( TRANS, EQUED, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
 
 *
-*     Scale solutions.
+      // Scale solutions.
 *
       IF ( COLEQU .AND. NOTRAN ) THEN
          CALL CLASCL2( N, NRHS, C, X, LDX )
@@ -215,6 +215,6 @@
 *
       RETURN
 *
-*     End of CGBSVXX
+      // End of CGBSVXX
 *
       END

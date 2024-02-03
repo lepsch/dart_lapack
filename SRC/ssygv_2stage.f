@@ -6,40 +6,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, ITYPE, LDA, LDB, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), W( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
       int                NEIG, LWMIN, LHTRD, LWTRD, KD, IB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SPOTRF, SSYGST, STRMM, STRSM, XERBLA, SSYEV_2STAGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -80,11 +80,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Form a Cholesky factorization of B.
+      // Form a Cholesky factorization of B.
 *
       CALL SPOTRF( UPLO, N, B, LDB, INFO )
       IF( INFO.NE.0 ) THEN
@@ -92,21 +92,21 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem and solve.
+      // Transform problem to standard eigenvalue problem and solve.
 *
       CALL SSYGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
       CALL SSYEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO )
 *
       IF( WANTZ ) THEN
 *
-*        Backtransform eigenvectors to the original problem.
+         // Backtransform eigenvectors to the original problem.
 *
          NEIG = N
          IF( INFO.GT.0 ) NEIG = INFO - 1
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
 *
-*           For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
-*           backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
+            // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
+            // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
 *
             IF( UPPER ) THEN
                TRANS = 'N'
@@ -118,8 +118,8 @@
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*           For B*A*x=(lambda)*x;
-*           backtransform eigenvectors: x = L*y or U**T*y
+            // For B*A*x=(lambda)*x;
+            // backtransform eigenvectors: x = L*y or U**T*y
 *
             IF( UPPER ) THEN
                TRANS = 'T'
@@ -134,6 +134,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       RETURN
 *
-*     End of SSYGV_2STAGE
+      // End of SSYGV_2STAGE
 *
       END

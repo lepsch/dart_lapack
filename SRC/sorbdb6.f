@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ALPHA, REALONE, REALZERO
       PARAMETER          ( ALPHA = 0.83E0, REALONE = 1.0E0, REALZERO = 0.0E0 )
       REAL               NEGONE, ONE, ZERO
       PARAMETER          ( NEGONE = -1.0E0, ONE = 1.0E0, ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IX;
       REAL               EPS, NORM, NORM_NEW, SCL, SSQ
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMV, SLASSQ, XERBLA
-*     ..
-*     .. Intrinsic Function ..
+      // ..
+      // .. Intrinsic Function ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       IF( M1 .LT. 0 ) THEN
@@ -62,7 +62,7 @@
 *
       EPS = SLAMCH( 'Precision' )
 *
-*     Compute the Euclidean norm of X
+      // Compute the Euclidean norm of X
 *
       SCL = REALZERO
       SSQ = REALZERO
@@ -70,8 +70,8 @@
       CALL SLASSQ( M2, X2, INCX2, SCL, SSQ )
       NORM = SCL * SQRT( SSQ )
 *
-*     First, project X onto the orthogonal complement of Q's column
-*     space
+      // First, project X onto the orthogonal complement of Q's column
+      // space
 *
       IF( M1 .EQ. 0 ) THEN
          DO I = 1, N
@@ -91,9 +91,9 @@
       CALL SLASSQ( M2, X2, INCX2, SCL, SSQ )
       NORM_NEW = SCL * SQRT(SSQ)
 *
-*     If projection is sufficiently large in norm, then stop.
-*     If projection is zero, then stop.
-*     Otherwise, project again.
+      // If projection is sufficiently large in norm, then stop.
+      // If projection is zero, then stop.
+      // Otherwise, project again.
 *
       IF( NORM_NEW .GE. ALPHA * NORM ) THEN
          RETURN
@@ -133,9 +133,9 @@
       CALL SLASSQ( M2, X2, INCX2, SCL, SSQ )
       NORM_NEW = SCL * SQRT(SSQ)
 *
-*     If second projection is sufficiently large in norm, then do
-*     nothing more. Alternatively, if it shrunk significantly, then
-*     truncate it to zero.
+      // If second projection is sufficiently large in norm, then do
+      // nothing more. Alternatively, if it shrunk significantly, then
+     t // runcate it to zero.
 *
       IF( NORM_NEW .LT. ALPHA * NORM ) THEN
          DO IX = 1, 1 + (M1-1)*INCX1, INCX1
@@ -148,6 +148,6 @@
 *
       RETURN
 *
-*     End of SORBDB6
+      // End of SORBDB6
 *
       END

@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                CUTPNT, GIVPTR, INFO, K, LDQ, LDQ2, N, QSIZ;
       double             RHO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       double             D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ), Z( * );;
       COMPLEX*16         Q( LDQ, * ), Q2( LDQ2, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             MONE, ZERO, ONE, TWO, EIGHT;
       PARAMETER          ( MONE = -1.0D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2;
       double             C, EPS, S, T, TAU, TOL;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DLAPY2;
       // EXTERNAL IDAMAX, DLAMCH, DLAPY2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DLAMRG, DSCAL, XERBLA, ZCOPY, ZDROT, ZLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -56,14 +56,14 @@
          RETURN
       END IF
 *
-*     Need to initialize GIVPTR to O here in case of quick exit
-*     to prevent an unspecified code behavior (usually sigfault)
-*     when IWORK array on entry to *stedc is not zeroed
-*     (or at least some IWORK entries which used in *laed7 for GIVPTR).
+      // Need to initialize GIVPTR to O here in case of quick exit
+     t // o prevent an unspecified code behavior (usually sigfault)
+      // when IWORK array on entry to *stedc is not zeroed
+      // (or at least some IWORK entries which used in *laed7 for GIVPTR).
 *
       GIVPTR = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -75,7 +75,7 @@
          CALL DSCAL( N2, MONE, Z( N1P1 ), 1 )
       END IF
 *
-*     Normalize z so that norm(z) = 1
+      // Normalize z so that norm(z) = 1
 *
       T = ONE / SQRT( TWO )
       DO 10 J = 1, N
@@ -84,7 +84,7 @@
       CALL DSCAL( N, T, Z, 1 )
       RHO = ABS( TWO*RHO )
 *
-*     Sort the eigenvalues into increasing order
+      // Sort the eigenvalues into increasing order
 *
       DO 20 I = CUTPNT + 1, N
          INDXQ( I ) = INDXQ( I ) + CUTPNT
@@ -101,16 +101,16 @@
          Z( I ) = W( INDX( I ) )
    40 CONTINUE
 *
-*     Calculate the allowable deflation tolerance
+      // Calculate the allowable deflation tolerance
 *
       IMAX = IDAMAX( N, Z, 1 )
       JMAX = IDAMAX( N, D, 1 )
       EPS = DLAMCH( 'Epsilon' )
       TOL = EIGHT*EPS*ABS( D( JMAX ) )
 *
-*     If the rank-1 modifier is small enough, no more needs to be done
-*     -- except to reorganize Q so that its columns correspond with the
-*     elements in D.
+      // If the rank-1 modifier is small enough, no more needs to be done
+      // -- except to reorganize Q so that its columns correspond with the
+      // elements in D.
 *
       IF( RHO*ABS( Z( IMAX ) ).LE.TOL ) THEN
          K = 0
@@ -122,18 +122,18 @@
          RETURN
       END IF
 *
-*     If there are multiple eigenvalues then the problem deflates.  Here
-*     the number of equal eigenvalues are found.  As each equal
-*     eigenvalue is found, an elementary reflector is computed to rotate
-*     the corresponding eigensubspace so that the corresponding
-*     components of Z are zero in this new basis.
+      // If there are multiple eigenvalues then the problem deflates.  Here
+     t // he number of equal eigenvalues are found.  As each equal
+      // eigenvalue is found, an elementary reflector is computed to rotate
+     t // he corresponding eigensubspace so that the corresponding
+      // components of Z are zero in this new basis.
 *
       K = 0
       K2 = N + 1
       DO 60 J = 1, N
          IF( RHO*ABS( Z( J ) ).LE.TOL ) THEN
 *
-*           Deflate due to small z component.
+            // Deflate due to small z component.
 *
             K2 = K2 - 1
             INDXP( K2 ) = J
@@ -148,19 +148,19 @@
       IF( J.GT.N ) GO TO 90
       IF( RHO*ABS( Z( J ) ).LE.TOL ) THEN
 *
-*        Deflate due to small z component.
+         // Deflate due to small z component.
 *
          K2 = K2 - 1
          INDXP( K2 ) = J
       ELSE
 *
-*        Check if eigenvalues are close enough to allow deflation.
+         // Check if eigenvalues are close enough to allow deflation.
 *
          S = Z( JLAM )
          C = Z( J )
 *
-*        Find sqrt(a**2+b**2) without overflow or
-*        destructive underflow.
+         // Find sqrt(a**2+b**2) without overflow or
+         // destructive underflow.
 *
          TAU = DLAPY2( C, S )
          T = D( J ) - D( JLAM )
@@ -168,12 +168,12 @@
          S = -S / TAU
          IF( ABS( T*C*S ).LE.TOL ) THEN
 *
-*           Deflation is possible.
+            // Deflation is possible.
 *
             Z( J ) = TAU
             Z( JLAM ) = ZERO
 *
-*           Record the appropriate Givens rotation
+            // Record the appropriate Givens rotation
 *
             GIVPTR = GIVPTR + 1
             GIVCOL( 1, GIVPTR ) = INDXQ( INDX( JLAM ) )
@@ -211,7 +211,7 @@
       GO TO 70
    90 CONTINUE
 *
-*     Record the last eigenvalue.
+      // Record the last eigenvalue.
 *
       K = K + 1
       W( K ) = Z( JLAM )
@@ -220,10 +220,10 @@
 *
   100 CONTINUE
 *
-*     Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
-*     and Q2 respectively.  The eigenvalues/vectors which were not
-*     deflated go into the first K slots of DLAMBDA and Q2 respectively,
-*     while those which were deflated go into the last N - K slots.
+      // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
+      // and Q2 respectively.  The eigenvalues/vectors which were not
+      // deflated go into the first K slots of DLAMBDA and Q2 respectively,
+      // while those which were deflated go into the last N - K slots.
 *
       DO 110 J = 1, N
          JP = INDXP( J )
@@ -232,8 +232,8 @@
          CALL ZCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
   110 CONTINUE
 *
-*     The deflated eigenvalues and their corresponding vectors go back
-*     into the last N - K slots of D and Q respectively.
+      // The deflated eigenvalues and their corresponding vectors go back
+      // into the last N - K slots of D and Q respectively.
 *
       IF( K.LT.N ) THEN
          CALL DCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
@@ -242,6 +242,6 @@
 *
       RETURN
 *
-*     End of ZLAED8
+      // End of ZLAED8
 *
       END

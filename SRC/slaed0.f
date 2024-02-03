@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                ICOMPQ, INFO, LDQ, LDQS, N, QSIZ;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               D( * ), E( * ), Q( LDQ, * ), QSTORE( LDQS, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.E0, ONE = 1.E0, TWO = 2.E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS;
       REAL               TEMP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMM, SLACPY, SLAED1, SLAED7, SSTEQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -54,14 +54,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       SMLSIZ = ILAENV( 9, 'SLAED0', ' ', 0, 0, 0, 0 )
 *
-*     Determine the size and placement of the submatrices, and save in
-*     the leading elements of IWORK.
+      // Determine the size and placement of the submatrices, and save in
+     t // he leading elements of IWORK.
 *
       IWORK( 1 ) = N
       SUBPBS = 1
@@ -80,8 +80,8 @@
          IWORK( J ) = IWORK( J ) + IWORK( J-1 )
    30 CONTINUE
 *
-*     Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
-*     using rank-1 modifications (cuts).
+      // Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
+      // using rank-1 modifications (cuts).
 *
       SPM1 = SUBPBS - 1
       DO 40 I = 1, SPM1
@@ -94,8 +94,8 @@
       INDXQ = 4*N + 3
       IF( ICOMPQ.NE.2 ) THEN
 *
-*        Set up workspaces for eigenvalues only/accumulate new vectors
-*        routine
+         // Set up workspaces for eigenvalues only/accumulate new vectors
+         // routine
 *
          TEMP = LOG( REAL( N ) ) / LOG( TWO )
          LGN = INT( TEMP )
@@ -110,7 +110,7 @@
          IQ = IGIVNM + 2*N*LGN
          IWREM = IQ + N**2 + 1
 *
-*        Initialize pointers
+         // Initialize pointers
 *
          DO 50 I = 0, SUBPBS
             IWORK( IPRMPT+I ) = 1
@@ -119,8 +119,8 @@
          IWORK( IQPTR ) = 1
       END IF
 *
-*     Solve each submatrix eigenproblem at the bottom of the divide and
-*     conquer tree.
+      // Solve each submatrix eigenproblem at the bottom of the divide and
+      // conquer tree.
 *
       CURR = 0
       DO 70 I = 0, SPM1
@@ -149,10 +149,10 @@
    60    CONTINUE
    70 CONTINUE
 *
-*     Successively merge eigensystems of adjacent submatrices
-*     into eigensystem for the corresponding larger matrix.
+      // Successively merge eigensystems of adjacent submatrices
+      // into eigensystem for the corresponding larger matrix.
 *
-*     while ( SUBPBS > 1 )
+      // while ( SUBPBS > 1 )
 *
       CURLVL = 1
    80 CONTINUE
@@ -171,13 +171,13 @@
                CURPRB = CURPRB + 1
             END IF
 *
-*     Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
-*     into an eigensystem of size MATSIZ.
-*     SLAED1 is used only for the full eigensystem of a tridiagonal
-*     matrix.
-*     SLAED7 handles the cases in which eigenvalues only or eigenvalues
-*     and eigenvectors of a full symmetric matrix (which was reduced to
-*     tridiagonal form) are desired.
+      // Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
+      // into an eigensystem of size MATSIZ.
+      // SLAED1 is used only for the full eigensystem of a tridiagonal
+      // matrix.
+      // SLAED7 handles the cases in which eigenvalues only or eigenvalues
+      // and eigenvectors of a full symmetric matrix (which was reduced to
+     t // ridiagonal form) are desired.
 *
             IF( ICOMPQ.EQ.2 ) THEN
                CALL SLAED1( MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK, IWORK( SUBPBS+1 ), INFO )
@@ -192,10 +192,10 @@
          GO TO 80
       END IF
 *
-*     end while
+      // end while
 *
-*     Re-merge the eigenvalues/vectors which were deflated at the final
-*     merge step.
+      // Re-merge the eigenvalues/vectors which were deflated at the final
+      // merge step.
 *
       IF( ICOMPQ.EQ.1 ) THEN
          DO 100 I = 1, N
@@ -227,6 +227,6 @@
   140 CONTINUE
       RETURN
 *
-*     End of SLAED0
+      // End of SLAED0
 *
       END

@@ -4,66 +4,66 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                K, LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RESULT( * ), RWORK( * )
       COMPLEX            A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            ROGUE
       PARAMETER          ( ROGUE = ( -1.0E+10, -1.0E+10 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO;
       REAL               ANORM, EPS, RESID
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, CLANSY, SLAMCH
       // EXTERNAL CLANGE, CLANSY, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CHERK, CLACPY, CLASET, CUNGQR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, REAL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = SLAMCH( 'Epsilon' )
 *
-*     Copy the first k columns of the factorization to the array Q
+      // Copy the first k columns of the factorization to the array Q
 *
       CALL CLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
       CALL CLACPY( 'Lower', M-1, K, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA )
 *
-*     Generate the first n columns of the matrix Q
+      // Generate the first n columns of the matrix Q
 *
       SRNAMT = 'CUNGQR'
       CALL CUNGQR( M, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy R(1:n,1:k)
+      // Copy R(1:n,1:k)
 *
       CALL CLASET( 'Full', N, K, CMPLX( ZERO ), CMPLX( ZERO ), R, LDA )
       CALL CLACPY( 'Upper', N, K, AF, LDA, R, LDA )
 *
-*     Compute R(1:n,1:k) - Q(1:m,1:n)' * A(1:m,1:k)
+      // Compute R(1:n,1:k) - Q(1:m,1:n)' * A(1:m,1:k)
 *
       CALL CGEMM( 'Conjugate transpose', 'No transpose', N, K, M, CMPLX( -ONE ), Q, LDA, A, LDA, CMPLX( ONE ), R, LDA )
 *
-*     Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
+      // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 *
       ANORM = CLANGE( '1', M, K, A, LDA, RWORK )
       RESID = CLANGE( '1', N, K, R, LDA, RWORK )
@@ -73,12 +73,12 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute I - Q'*Q
+      // Compute I - Q'*Q
 *
       CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), R, LDA )
       CALL CHERK( 'Upper', 'Conjugate transpose', N, M, -ONE, Q, LDA, ONE, R, LDA )
 *
-*     Compute norm( I - Q'*Q ) / ( M * EPS ) .
+      // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 *
       RESID = CLANSY( '1', 'Upper', N, R, LDA, RWORK )
 *
@@ -86,6 +86,6 @@
 *
       RETURN
 *
-*     End of CQRT02
+      // End of CQRT02
 *
       END

@@ -6,36 +6,36 @@
 *
       IMPLICIT NONE
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LDB, LWORK, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
       COMPLEX            ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER;
       int                K, KP, LWKMIN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLACPY, CLACGV, CGTSV, CSWAP, CTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -67,19 +67,19 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MIN( N, NRHS ).EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Solve A*X = B, where A = U**H*T*U.
+         // Solve A*X = B, where A = U**H*T*U.
 *
-*        1) Forward substitution with U**H
+         // 1) Forward substitution with U**H
 *
          IF( N.GT.1 ) THEN
 *
-*           Pivot, P**T * B -> B
+            // Pivot, P**T * B -> B
 *
             K = 1
             DO WHILE ( K.LE.N )
@@ -88,14 +88,14 @@
                K = K + 1
             END DO
 *
-*           Compute U**H \ B -> B    [ (U**H \P**T * B) ]
+            // Compute U**H \ B -> B    [ (U**H \P**T * B) ]
 *
             CALL CTRSM( 'L', 'U', 'C', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B( 2, 1 ), LDB)
          END IF
 *
-*        2) Solve with triangular matrix T
+         // 2) Solve with triangular matrix T
 *
-*        Compute T \ B -> B   [ T \ (U**H \P**T * B) ]
+         // Compute T \ B -> B   [ T \ (U**H \P**T * B) ]
 *
          CALL CLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1)
          IF( N.GT.1 ) THEN
@@ -105,15 +105,15 @@
          END IF
          CALL CGTSV(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO)
 *
-*        3) Backward substitution with U
+         // 3) Backward substitution with U
 *
          IF( N.GT.1 ) THEN
 *
-*           Compute U \ B -> B   [ U \ (T \ (U**H \P**T * B) ) ]
+            // Compute U \ B -> B   [ U \ (T \ (U**H \P**T * B) ) ]
 *
             CALL CTRSM( 'L', 'U', 'N', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B(2, 1), LDB)
 *
-*           Pivot, P * B  -> B [ P * (U \ (T \ (U**H \P**T * B) )) ]
+            // Pivot, P * B  -> B [ P * (U \ (T \ (U**H \P**T * B) )) ]
 *
             K = N
             DO WHILE ( K.GE.1 )
@@ -125,13 +125,13 @@
 *
       ELSE
 *
-*        Solve A*X = B, where A = L*T*L**H.
+         // Solve A*X = B, where A = L*T*L**H.
 *
-*        1) Forward substitution with L
+         // 1) Forward substitution with L
 *
          IF( N.GT.1 ) THEN
 *
-*           Pivot, P**T * B -> B
+            // Pivot, P**T * B -> B
 *
             K = 1
             DO WHILE ( K.LE.N )
@@ -140,14 +140,14 @@
                K = K + 1
             END DO
 *
-*           Compute L \ B -> B    [ (L \P**T * B) ]
+            // Compute L \ B -> B    [ (L \P**T * B) ]
 *
             CALL CTRSM( 'L', 'L', 'N', 'U', N-1, NRHS, ONE, A( 2, 1), LDA, B(2, 1), LDB )
          END IF
 *
-*        2) Solve with triangular matrix T
+         // 2) Solve with triangular matrix T
 *
-*        Compute T \ B -> B   [ T \ (L \P**T * B) ]
+         // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 *
          CALL CLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1)
          IF( N.GT.1 ) THEN
@@ -157,15 +157,15 @@
          END IF
          CALL CGTSV(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO)
 *
-*        3) Backward substitution with L**H
+         // 3) Backward substitution with L**H
 *
          IF( N.GT.1 ) THEN
 *
-*           Compute (L**H \ B) -> B   [ L**H \ (T \ (L \P**T * B) ) ]
+            // Compute (L**H \ B) -> B   [ L**H \ (T \ (L \P**T * B) ) ]
 *
             CALL CTRSM( 'L', 'L', 'C', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B( 2, 1 ), LDB )
 *
-*           Pivot, P * B -> B  [ P * (L**H \ (T \ (L \P**T * B) )) ]
+            // Pivot, P * B -> B  [ P * (L**H \ (T \ (L \P**T * B) )) ]
 *
             K = N
             DO WHILE ( K.GE.1 )
@@ -179,6 +179,6 @@
 *
       RETURN
 *
-*     End of CHETRS_AA
+      // End of CHETRS_AA
 *
       END

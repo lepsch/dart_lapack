@@ -6,7 +6,7 @@
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXIN;
       PARAMETER          ( MAXIN = 12 )
       int                NMAX;
@@ -17,14 +17,14 @@
       PARAMETER          ( NTYPES = 9 )
       int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FATAL, TSTERR;
       int                VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       int                I, NN, NNS, NNT;
       REAL               EPS, S1, S2, THRESH
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
       REAL               WORKA( NMAX, NMAX )
       REAL               WORKASAV( NMAX, NMAX )
@@ -44,29 +44,29 @@
       REAL               S_WORK_SLANSY( NMAX )
       REAL               S_WORK_SPOT02( NMAX )
       REAL               S_WORK_SPOT03( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SECOND
       // EXTERNAL SLAMCH, SECOND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ILAVER, SDRVRFP, SDRVRF1, SDRVRF2, SDRVRF3, SDRVRF4
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       S1 = SECOND( )
       FATAL = .FALSE.
 *
-*     Read a dummy line.
+      // Read a dummy line.
 *
       READ( NIN, FMT = * )
 *
-*     Report LAPACK version tag (e.g. LAPACK-3.2.0)
+      // Report LAPACK version tag (e.g. LAPACK-3.2.0)
 *
       CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
 *
-*     Read the values of N
+      // Read the values of N
 *
       READ( NIN, FMT = * )NN
       IF( NN.LT.1 ) THEN
@@ -90,7 +90,7 @@
    10 CONTINUE
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 *
-*     Read the values of NRHS
+      // Read the values of NRHS
 *
       READ( NIN, FMT = * )NNS
       IF( NNS.LT.1 ) THEN
@@ -114,7 +114,7 @@
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
-*     Read the matrix types
+      // Read the matrix types
 *
       READ( NIN, FMT = * )NNT
       IF( NNT.LT.1 ) THEN
@@ -138,12 +138,12 @@
   320 CONTINUE
       IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 *
-*     Read the threshold value for the test ratios.
+      // Read the threshold value for the test ratios.
 *
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9992 )THRESH
 *
-*     Read the flag that indicates whether to test the error exits.
+      // Read the flag that indicates whether to test the error exits.
 *
       READ( NIN, FMT = * )TSTERR
 *
@@ -152,7 +152,7 @@
          STOP
       END IF
 *
-*     Calculate and print the machine dependent constants.
+      // Calculate and print the machine dependent constants.
 *
       EPS = SLAMCH( 'Underflow threshold' )
       WRITE( NOUT, FMT = 9991 )'underflow', EPS
@@ -162,30 +162,30 @@
       WRITE( NOUT, FMT = 9991 )'precision', EPS
       WRITE( NOUT, FMT = * )
 *
-*     Test the error exit of:
+      // Test the error exit of:
 *
       IF( TSTERR ) CALL SERRRFP( NOUT )
 *
-*     Test the routines: spftrf, spftri, spftrs (as in SDRVPO).
-*     This also tests the routines: stfsm, stftri, stfttr, strttf.
+      // Test the routines: spftrf, spftri, spftrs (as in SDRVPO).
+      // This also tests the routines: stfsm, stftri, stfttr, strttf.
 *
       CALL SDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, S_WORK_SLATMS, S_WORK_SPOT01, S_TEMP_SPOT02, S_TEMP_SPOT03, S_WORK_SLANSY, S_WORK_SPOT02, S_WORK_SPOT03 )
 *
-*     Test the routine: slansf
+      // Test the routine: slansf
 *
       CALL SDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, S_WORK_SLANSY )
 *
-*     Test the conversion routines:
-*       stfttp, stpttf, stfttr, strttf, strttp and stpttr.
+      // Test the conversion routines:
+        // stfttp, stpttf, stfttr, strttf, strttp and stpttr.
 *
       CALL SDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV )
 *
-*     Test the routine: stfsm
+      // Test the routine: stfsm
 *
       CALL SDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, S_WORK_SLANSY, S_WORK_SPOT03, S_WORK_SPOT01 )
 *
 *
-*     Test the routine: ssfrk
+      // Test the routine: ssfrk
 *
       CALL SDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX, S_WORK_SLANSY)
 *
@@ -209,6 +209,6 @@
      $      'less than', F8.2, / )
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 )
 *
-*     End of SCHKRFP
+      // End of SCHKRFP
 *
       END

@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I;
       REAL               AII
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SDOT
       // EXTERNAL LSAME, SDOT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMV, SSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -52,13 +52,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Compute the product U * U**T.
+         // Compute the product U * U**T.
 *
          DO 10 I = 1, N
             AII = A( I, I )
@@ -72,7 +72,7 @@
 *
       ELSE
 *
-*        Compute the product L**T * L.
+         // Compute the product L**T * L.
 *
          DO 20 I = 1, N
             AII = A( I, I )
@@ -87,6 +87,6 @@
 *
       RETURN
 *
-*     End of SLAUU2
+      // End of SLAUU2
 *
       END

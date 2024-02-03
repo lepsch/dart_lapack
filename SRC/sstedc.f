@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPZ;
       int                INFO, LDZ, LIWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LWMIN, M, SMLSIZ, START, STOREZ, STRTRW;
       REAL               EPS, ORGNRM, P, TINY
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANST, SROUNDUP_LWORK
       // EXTERNAL ILAENV, LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLAED0, SLASCL, SLASET, SLASRT, SSTEQR, SSTERF, SSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MOD, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
@@ -62,7 +62,7 @@
 *
       IF( INFO.EQ.0 ) THEN
 *
-*        Compute the workspace requirements
+         // Compute the workspace requirements
 *
          SMLSIZ = ILAENV( 9, 'SSTEDC', ' ', 0, 0, 0, 0 )
          IF( N.LE.1 .OR. ICOMPZ.EQ.0 ) THEN
@@ -99,7 +99,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
       IF( N.EQ.1 ) THEN
@@ -107,24 +107,24 @@
          RETURN
       END IF
 *
-*     If the following conditional clause is removed, then the routine
-*     will use the Divide and Conquer routine to compute only the
-*     eigenvalues, which requires (3N + 3N**2) real workspace and
-*     (2 + 5N + 2N lg(N)) integer workspace.
-*     Since on many architectures SSTERF is much faster than any other
-*     algorithm for finding eigenvalues only, it is used here
-*     as the default. If the conditional clause is removed, then
-*     information on the size of workspace needs to be changed.
+      // If the following conditional clause is removed, then the routine
+      // will use the Divide and Conquer routine to compute only the
+      // eigenvalues, which requires (3N + 3N**2) real workspace and
+      // (2 + 5N + 2N lg(N)) integer workspace.
+      // Since on many architectures SSTERF is much faster than any other
+      // algorithm for finding eigenvalues only, it is used here
+      // as the default. If the conditional clause is removed, then
+      // information on the size of workspace needs to be changed.
 *
-*     If COMPZ = 'N', use SSTERF to compute the eigenvalues.
+      // If COMPZ = 'N', use SSTERF to compute the eigenvalues.
 *
       IF( ICOMPZ.EQ.0 ) THEN
          CALL SSTERF( N, D, E, INFO )
          GO TO 50
       END IF
 *
-*     If N is smaller than the minimum divide size (SMLSIZ+1), then
-*     solve the problem with another solver.
+      // If N is smaller than the minimum divide size (SMLSIZ+1), then
+      // solve the problem with another solver.
 *
       IF( N.LE.SMLSIZ ) THEN
 *
@@ -132,8 +132,8 @@
 *
       ELSE
 *
-*        If COMPZ = 'V', the Z matrix must be stored elsewhere for later
-*        use.
+         // If COMPZ = 'V', the Z matrix must be stored elsewhere for later
+         // use.
 *
          IF( ICOMPZ.EQ.1 ) THEN
             STOREZ = 1 + N*N
@@ -145,7 +145,7 @@
             CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
          END IF
 *
-*        Scale.
+         // Scale.
 *
          ORGNRM = SLANST( 'M', N, D, E )
          IF( ORGNRM.EQ.ZERO ) GO TO 50
@@ -154,16 +154,16 @@
 *
          START = 1
 *
-*        while ( START <= N )
+         // while ( START <= N )
 *
    10    CONTINUE
          IF( START.LE.N ) THEN
 *
-*           Let FINISH be the position of the next subdiagonal entry
-*           such that E( FINISH ) <= TINY or FINISH = N if no such
-*           subdiagonal exists.  The matrix identified by the elements
-*           between START and FINISH constitutes an independent
-*           sub-problem.
+            // Let FINISH be the position of the next subdiagonal entry
+            // such that E( FINISH ) <= TINY or FINISH = N if no such
+            // subdiagonal exists.  The matrix identified by the elements
+            // between START and FINISH constitutes an independent
+            // sub-problem.
 *
             FINISH = START
    20       CONTINUE
@@ -175,7 +175,7 @@
                END IF
             END IF
 *
-*           (Sub) Problem determined.  Compute its size and solve it.
+            // (Sub) Problem determined.  Compute its size and solve it.
 *
             M = FINISH - START + 1
             IF( M.EQ.1 ) THEN
@@ -184,7 +184,7 @@
             END IF
             IF( M.GT.SMLSIZ ) THEN
 *
-*              Scale.
+               // Scale.
 *
                ORGNRM = SLANST( 'M', M, D( START ), E( START ) )
                CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO )
@@ -200,16 +200,16 @@
                   GO TO 50
                END IF
 *
-*              Scale back.
+               // Scale back.
 *
                CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO )
 *
             ELSE
                IF( ICOMPZ.EQ.1 ) THEN
 *
-*                 Since QR won't update a Z matrix which is larger than
-*                 the length of D, we must solve the sub-problem in a
-*                 workspace and then multiply back into Z.
+                  // Since QR won't update a Z matrix which is larger than
+                 t // he length of D, we must solve the sub-problem in a
+                  // workspace and then multiply back into Z.
 *
                   CALL SSTEQR( 'I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO )                   CALL SLACPY( 'A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N )                   CALL SGEMM( 'N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ )
                ELSE IF( ICOMPZ.EQ.2 ) THEN
@@ -227,17 +227,17 @@
             GO TO 10
          END IF
 *
-*        endwhile
+         // endwhile
 *
          IF( ICOMPZ.EQ.0 ) THEN
 *
-*          Use Quick Sort
+           // Use Quick Sort
 *
            CALL SLASRT( 'I', N, D, INFO )
 *
          ELSE
 *
-*          Use Selection Sort to minimize swaps of eigenvectors
+           // Use Selection Sort to minimize swaps of eigenvectors
 *
            DO 40 II = 2, N
               I = II - 1
@@ -264,6 +264,6 @@
 *
       RETURN
 *
-*     End of SSTEDC
+      // End of SSTEDC
 *
       END

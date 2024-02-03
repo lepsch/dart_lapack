@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, N;
       double             ALPHA, TAU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             X( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             TWO, ONE, ZERO;
       PARAMETER          ( TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J, KNT;
       double             BETA, BIGNUM, EPS, SAVEALPHA, SMLNUM, XNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLAPY2, DNRM2;
       // EXTERNAL DLAMCH, DLAPY2, DNRM2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) THEN
          TAU = ZERO
@@ -44,16 +44,16 @@
 *
       IF( XNORM.LE.EPS*ABS(ALPHA) ) THEN
 *
-*        H  =  [+/-1, 0; I], sign chosen so ALPHA >= 0.
+         // H  =  [+/-1, 0; I], sign chosen so ALPHA >= 0.
 *
          IF( ALPHA.GE.ZERO ) THEN
-*           When TAU.eq.ZERO, the vector is special-cased to be
-*           all zeros in the application routines.  We do not need
-*           to clear it.
+            // When TAU.eq.ZERO, the vector is special-cased to be
+            // all zeros in the application routines.  We do not need
+           t // o clear it.
             TAU = ZERO
          ELSE
-*           However, the application routines rely on explicit
-*           zero checks when TAU.ne.ZERO, and we must clear X.
+            // However, the application routines rely on explicit
+            // zero checks when TAU.ne.ZERO, and we must clear X.
             TAU = TWO
             DO J = 1, N-1
                X( 1 + (J-1)*INCX ) = 0
@@ -62,14 +62,14 @@
          END IF
       ELSE
 *
-*        general case
+         // general case
 *
          BETA = SIGN( DLAPY2( ALPHA, XNORM ), ALPHA )
          SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'E' )
          KNT = 0
          IF( ABS( BETA ).LT.SMLNUM ) THEN
 *
-*           XNORM, BETA may be inaccurate; scale X and recompute them
+            // XNORM, BETA may be inaccurate; scale X and recompute them
 *
             BIGNUM = ONE / SMLNUM
    10       CONTINUE
@@ -79,7 +79,7 @@
             ALPHA = ALPHA*BIGNUM
             IF( (ABS( BETA ).LT.SMLNUM) .AND. (KNT .LT. 20) ) GO TO 10
 *
-*           New BETA is at most 1, at least SMLNUM
+            // New BETA is at most 1, at least SMLNUM
 *
             XNORM = DNRM2( N-1, X, INCX )
             BETA = SIGN( DLAPY2( ALPHA, XNORM ), ALPHA )
@@ -97,12 +97,12 @@
 *
          IF ( ABS(TAU).LE.SMLNUM ) THEN
 *
-*           In the case where the computed TAU ends up being a denormalized number,
-*           it loses relative accuracy. This is a BIG problem. Solution: flush TAU
-*           to ZERO. This explains the next IF statement.
+            // In the case where the computed TAU ends up being a denormalized number,
+            // it loses relative accuracy. This is a BIG problem. Solution: flush TAU
+           t // o ZERO. This explains the next IF statement.
 *
-*           (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
-*           (Thanks Pat. Thanks MathWorks.)
+            // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
+            // (Thanks Pat. Thanks MathWorks.)
 *
             IF( SAVEALPHA.GE.ZERO ) THEN
                TAU = ZERO
@@ -116,13 +116,13 @@
 *
          ELSE
 *
-*           This is the general case.
+            // This is the general case.
 *
             CALL DSCAL( N-1, ONE / ALPHA, X, INCX )
 *
          END IF
 *
-*        If BETA is subnormal, it may lose relative accuracy
+         // If BETA is subnormal, it may lose relative accuracy
 *
          DO 20 J = 1, KNT
             BETA = BETA*SMLNUM
@@ -132,6 +132,6 @@
 *
       RETURN
 *
-*     End of DLARFGP
+      // End of DLARFGP
 *
       END

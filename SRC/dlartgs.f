@@ -4,31 +4,31 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double                  CS, SIGMA, SN, X, Y;
-*     ..
+      // ..
 *
 *  ===================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double                  NEGONE, ONE, ZERO;
       PARAMETER          ( NEGONE = -1.0D0, ONE = 1.0D0, ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double                  R, S, THRESH, W, Z;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARTGP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double                  DLAMCH;
       // EXTERNAL DLAMCH
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       THRESH = DLAMCH('E')
 *
-*     Compute the first column of B**T*B - SIGMA^2*I, up to a scale
-*     factor.
+      // Compute the first column of B**T*B - SIGMA^2*I, up to a scale
+      // factor.
 *
       IF( (SIGMA .EQ. ZERO .AND. ABS(X) .LT. THRESH) .OR. (ABS(X) .EQ. SIGMA .AND. Y .EQ. ZERO) ) THEN
          Z = ZERO
@@ -54,15 +54,15 @@
          W = S * Y
       END IF
 *
-*     Generate the rotation.
-*     CALL DLARTGP( Z, W, CS, SN, R ) might seem more natural;
-*     reordering the arguments ensures that if Z = 0 then the rotation
-*     is by PI/2.
+      // Generate the rotation.
+      // CALL DLARTGP( Z, W, CS, SN, R ) might seem more natural;
+      // reordering the arguments ensures that if Z = 0 then the rotation
+      // is by PI/2.
 *
       CALL DLARTGP( W, Z, SN, CS, R )
 *
       RETURN
 *
-*     End DLARTGS
+      // End DLARTGS
 *
       END

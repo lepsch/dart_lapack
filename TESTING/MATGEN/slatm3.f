@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
 *
       int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N;
       REAL               SPARSE
-*     ..
+      // ..
 *
-*     .. Array Arguments ..
+      // .. Array Arguments ..
 *
       int                ISEED( 4 ), IWORK( * );
       REAL               D( * ), DL( * ), DR( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
 *
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
-*     ..
+      // ..
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
 *
       REAL               TEMP
-*     ..
+      // ..
 *
-*     .. External Functions ..
+      // .. External Functions ..
 *
       REAL               SLARAN, SLARND
       // EXTERNAL SLARAN, SLARND
-*     ..
+      // ..
 *
 *-----------------------------------------------------------------------
 *
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
 *
-*     Check for I and J in range
+      // Check for I and J in range
 *
       IF( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) THEN
          ISUB = I
@@ -49,7 +49,7 @@
          RETURN
       END IF
 *
-*     Compute subscripts depending on IPVTNG
+      // Compute subscripts depending on IPVTNG
 *
       IF( IPVTNG.EQ.0 ) THEN
          ISUB = I
@@ -65,14 +65,14 @@
          JSUB = IWORK( J )
       END IF
 *
-*     Check for banding
+      // Check for banding
 *
       IF( JSUB.GT.ISUB+KU .OR. JSUB.LT.ISUB-KL ) THEN
          SLATM3 = ZERO
          RETURN
       END IF
 *
-*     Check for sparsity
+      // Check for sparsity
 *
       IF( SPARSE.GT.ZERO ) THEN
          IF( SLARAN( ISEED ).LT.SPARSE ) THEN
@@ -81,7 +81,7 @@
          END IF
       END IF
 *
-*     Compute entry and grade it according to IGRADE
+      // Compute entry and grade it according to IGRADE
 *
       IF( I.EQ.J ) THEN
          TEMP = D( I )
@@ -102,6 +102,6 @@
       SLATM3 = TEMP
       RETURN
 *
-*     End of SLATM3
+      // End of SLATM3
 *
       END

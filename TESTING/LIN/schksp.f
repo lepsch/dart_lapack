@@ -4,66 +4,66 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNS, NOUT;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NSVAL( * ), NVAL( * );
       REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 10 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 8 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               TRFCON, ZEROT;
       String             DIST, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IMAT, IN, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NPP, NRHS, NRUN, NT;
       REAL               ANORM, CNDNUM, RCOND, RCONDC
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SGET06, SLANSP
       // EXTERNAL LSAME, SGET06, SLANSP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, SCOPY, SERRSY, SGET04, SLACPY, SLARHS, SLATB4, SLATMS, SPPT02, SPPT03, SPPT05, SSPCON, SSPRFS, SSPT01, SSPTRF, SSPTRI, SSPTRS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS / 'U', 'L' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'SP'
@@ -74,12 +74,12 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL SERRSY( PATH, NOUT )
       INFOT = 0
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 170 IN = 1, NN
          N = NVAL( IN )
@@ -91,16 +91,16 @@
          IZERO = 0
          DO 160 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 160
 *
-*           Skip types 3, 4, 5, or 6 if the matrix size is too small.
+            // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
             IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 160
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 150 IUPLO = 1, 2
                UPLO = UPLOS( IUPLO )
@@ -110,23 +110,23 @@
                   PACKIT = 'R'
                END IF
 *
-*              Set up parameters with SLATB4 and generate a test matrix
-*              with SLATMS.
+               // Set up parameters with SLATB4 and generate a test matrix
+               // with SLATMS.
 *
                CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'SLATMS'
                CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
 *
-*              Check error code from SLATMS.
+               // Check error code from SLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 150
                END IF
 *
-*              For types 3-6, zero one or more rows and columns of
-*              the matrix to test that INFO is returned correctly.
+               // For types 3-6, zero one or more rows and columns of
+              t // he matrix to test that INFO is returned correctly.
 *
                IF( ZEROT ) THEN
                   IF( IMAT.EQ.3 ) THEN
@@ -139,7 +139,7 @@
 *
                   IF( IMAT.LT.6 ) THEN
 *
-*                    Set row and column IZERO to zero.
+                     // Set row and column IZERO to zero.
 *
                      IF( IUPLO.EQ.1 ) THEN
                         IOFF = ( IZERO-1 )*IZERO / 2
@@ -166,7 +166,7 @@
                      IOFF = 0
                      IF( IUPLO.EQ.1 ) THEN
 *
-*                       Set the first IZERO rows and columns to zero.
+                        // Set the first IZERO rows and columns to zero.
 *
                         DO 70 J = 1, N
                            I2 = MIN( J, IZERO )
@@ -177,7 +177,7 @@
    70                   CONTINUE
                      ELSE
 *
-*                       Set the last IZERO rows and columns to zero.
+                        // Set the last IZERO rows and columns to zero.
 *
                         DO 90 J = 1, N
                            I1 = MAX( J, IZERO )
@@ -192,15 +192,15 @@
                   IZERO = 0
                END IF
 *
-*              Compute the L*D*L' or U*D*U' factorization of the matrix.
+               // Compute the L*D*L' or U*D*U' factorization of the matrix.
 *
                NPP = N*( N+1 ) / 2
                CALL SCOPY( NPP, A, 1, AFAC, 1 )
                SRNAMT = 'SSPTRF'
                CALL SSPTRF( UPLO, N, AFAC, IWORK, INFO )
 *
-*              Adjust the expected value of INFO to account for
-*              pivoting.
+               // Adjust the expected value of INFO to account for
+               // pivoting.
 *
                K = IZERO
                IF( K.GT.0 ) THEN
@@ -216,7 +216,7 @@
                   END IF
                END IF
 *
-*              Check error code from SSPTRF.
+               // Check error code from SSPTRF.
 *
                IF( INFO.NE.K ) CALL ALAERH( PATH, 'SSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                IF( INFO.NE.0 ) THEN
@@ -226,20 +226,20 @@
                END IF
 *
 *+    TEST 1
-*              Reconstruct matrix from factors and compute residual.
+               // Reconstruct matrix from factors and compute residual.
 *
                CALL SSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
                NT = 1
 *
 *+    TEST 2
-*              Form the inverse and compute the residual.
+               // Form the inverse and compute the residual.
 *
                IF( .NOT.TRFCON ) THEN
                   CALL SCOPY( NPP, AFAC, 1, AINV, 1 )
                   SRNAMT = 'SSPTRI'
                   CALL SSPTRI( UPLO, N, AINV, IWORK, WORK, INFO )
 *
-*              Check error code from SSPTRI.
+               // Check error code from SSPTRI.
 *
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
@@ -247,8 +247,8 @@
                   NT = 2
                END IF
 *
-*              Print information about the tests that did not pass
-*              the threshold.
+               // Print information about the tests that did not pass
+              t // he threshold.
 *
                DO 110 K = 1, NT
                   IF( RESULT( K ).GE.THRESH ) THEN
@@ -258,7 +258,7 @@
   110          CONTINUE
                NRUN = NRUN + NT
 *
-*              Do only the condition estimate if INFO is not 0.
+               // Do only the condition estimate if INFO is not 0.
 *
                IF( TRFCON ) THEN
                   RCONDC = ZERO
@@ -269,7 +269,7 @@
                   NRHS = NSVAL( IRHS )
 *
 *+    TEST 3
-*              Solve and compute residual for  A * X = B.
+               // Solve and compute residual for  A * X = B.
 *
                   SRNAMT = 'SLARHS'
                   CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
@@ -278,7 +278,7 @@
                   SRNAMT = 'SSPTRS'
                   CALL SSPTRS( UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO )
 *
-*              Check error code from SSPTRS.
+               // Check error code from SSPTRS.
 *
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
@@ -286,24 +286,24 @@
                   CALL SPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
 *
 *+    TEST 4
-*              Check solution from generated exact solution.
+               // Check solution from generated exact solution.
 *
                   CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
 *
 *+    TESTS 5, 6, and 7
-*              Use iterative refinement to improve the solution.
+               // Use iterative refinement to improve the solution.
 *
                   SRNAMT = 'SSPRFS'
                   CALL SSPRFS( UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
 *
-*              Check error code from SSPRFS.
+               // Check error code from SSPRFS.
 *
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                   CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL SPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) )
 *
-*                 Print information about the tests that did not pass
-*                 the threshold.
+                  // Print information about the tests that did not pass
+                 t // he threshold.
 *
                   DO 120 K = 3, 7
                      IF( RESULT( K ).GE.THRESH ) THEN
@@ -315,20 +315,20 @@
   130          CONTINUE
 *
 *+    TEST 8
-*              Get an estimate of RCOND = 1/CNDNUM.
+               // Get an estimate of RCOND = 1/CNDNUM.
 *
   140          CONTINUE
                ANORM = SLANSP( '1', UPLO, N, A, RWORK )
                SRNAMT = 'SSPCON'
                CALL SSPCON( UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO )
 *
-*              Check error code from SSPCON.
+               // Check error code from SSPCON.
 *
                IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
                RESULT( 8 ) = SGET06( RCOND, RCONDC )
 *
-*              Print the test ratio if it is .GE. THRESH.
+               // Print the test ratio if it is .GE. THRESH.
 *
                IF( RESULT( 8 ).GE.THRESH ) THEN
                   IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 )
@@ -339,7 +339,7 @@
   160    CONTINUE
   170 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -349,6 +349,6 @@
      $      I2, ', test(', I2, ') =', G12.5 )
       RETURN
 *
-*     End of SCHKSP
+      // End of SCHKSP
 *
       END

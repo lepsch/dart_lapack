@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, KL, KU, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       double             D( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             WN;
       COMPLEX*16         TAU, WA, WB
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMV, ZGERC, ZLACGV, ZLARNV, ZSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DZNRM2;
       // EXTERNAL DZNRM2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -55,7 +55,7 @@
          RETURN
       END IF
 *
-*     initialize A to diagonal matrix
+      // initialize A to diagonal matrix
 *
       DO 20 J = 1, N
          DO 10 I = 1, M
@@ -66,16 +66,16 @@
          A( I, I ) = D( I )
    30 CONTINUE
 *
-*     Quick exit if the user wants a diagonal matrix
+      // Quick exit if the user wants a diagonal matrix
 *
       IF(( KL .EQ. 0 ).AND.( KU .EQ. 0)) RETURN
 *
-*     pre- and post-multiply A by random unitary matrices
+      // pre- and post-multiply A by random unitary matrices
 *
       DO 40 I = MIN( M, N ), 1, -1
          IF( I.LT.M ) THEN
 *
-*           generate random reflection
+            // generate random reflection
 *
             CALL ZLARNV( 3, ISEED, M-I+1, WORK )
             WN = DZNRM2( M-I+1, WORK, 1 )
@@ -89,13 +89,13 @@
                TAU = DBLE( WB / WA )
             END IF
 *
-*           multiply A(i:m,i:n) by random reflection from the left
+            // multiply A(i:m,i:n) by random reflection from the left
 *
             CALL ZGEMV( 'Conjugate transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( M+1 ), 1 )             CALL ZGERC( M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1, A( I, I ), LDA )
          END IF
          IF( I.LT.N ) THEN
 *
-*           generate random reflection
+            // generate random reflection
 *
             CALL ZLARNV( 3, ISEED, N-I+1, WORK )
             WN = DZNRM2( N-I+1, WORK, 1 )
@@ -109,23 +109,23 @@
                TAU = DBLE( WB / WA )
             END IF
 *
-*           multiply A(i:m,i:n) by random reflection from the right
+            // multiply A(i:m,i:n) by random reflection from the right
 *
             CALL ZGEMV( 'No transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )             CALL ZGERC( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( I, I ), LDA )
          END IF
    40 CONTINUE
 *
-*     Reduce number of subdiagonals to KL and number of superdiagonals
-*     to KU
+      // Reduce number of subdiagonals to KL and number of superdiagonals
+     t // o KU
 *
       DO 70 I = 1, MAX( M-1-KL, N-1-KU )
          IF( KL.LE.KU ) THEN
 *
-*           annihilate subdiagonal elements first (necessary if KL = 0)
+            // annihilate subdiagonal elements first (necessary if KL = 0)
 *
             IF( I.LE.MIN( M-1-KL, N ) ) THEN
 *
-*              generate reflection to annihilate A(kl+i+1:m,i)
+               // generate reflection to annihilate A(kl+i+1:m,i)
 *
                WN = DZNRM2( M-KL-I+1, A( KL+I, I ), 1 )
                WA = ( WN / ABS( A( KL+I, I ) ) )*A( KL+I, I )
@@ -138,7 +138,7 @@
                   TAU = DBLE( WB / WA )
                END IF
 *
-*              apply reflection to A(kl+i:m,i+1:n) from the left
+               // apply reflection to A(kl+i:m,i+1:n) from the left
 *
                CALL ZGEMV( 'Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
                CALL ZGERC( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
@@ -147,7 +147,7 @@
 *
             IF( I.LE.MIN( N-1-KU, M ) ) THEN
 *
-*              generate reflection to annihilate A(i,ku+i+1:n)
+               // generate reflection to annihilate A(i,ku+i+1:n)
 *
                WN = DZNRM2( N-KU-I+1, A( I, KU+I ), LDA )
                WA = ( WN / ABS( A( I, KU+I ) ) )*A( I, KU+I )
@@ -160,7 +160,7 @@
                   TAU = DBLE( WB / WA )
                END IF
 *
-*              apply reflection to A(i+1:m,ku+i:n) from the right
+               // apply reflection to A(i+1:m,ku+i:n) from the right
 *
                CALL ZLACGV( N-KU-I+1, A( I, KU+I ), LDA )
                CALL ZGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
@@ -169,12 +169,12 @@
             END IF
          ELSE
 *
-*           annihilate superdiagonal elements first (necessary if
-*           KU = 0)
+            // annihilate superdiagonal elements first (necessary if
+            // KU = 0)
 *
             IF( I.LE.MIN( N-1-KU, M ) ) THEN
 *
-*              generate reflection to annihilate A(i,ku+i+1:n)
+               // generate reflection to annihilate A(i,ku+i+1:n)
 *
                WN = DZNRM2( N-KU-I+1, A( I, KU+I ), LDA )
                WA = ( WN / ABS( A( I, KU+I ) ) )*A( I, KU+I )
@@ -187,7 +187,7 @@
                   TAU = DBLE( WB / WA )
                END IF
 *
-*              apply reflection to A(i+1:m,ku+i:n) from the right
+               // apply reflection to A(i+1:m,ku+i:n) from the right
 *
                CALL ZLACGV( N-KU-I+1, A( I, KU+I ), LDA )
                CALL ZGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
@@ -197,7 +197,7 @@
 *
             IF( I.LE.MIN( M-1-KL, N ) ) THEN
 *
-*              generate reflection to annihilate A(kl+i+1:m,i)
+               // generate reflection to annihilate A(kl+i+1:m,i)
 *
                WN = DZNRM2( M-KL-I+1, A( KL+I, I ), 1 )
                WA = ( WN / ABS( A( KL+I, I ) ) )*A( KL+I, I )
@@ -210,7 +210,7 @@
                   TAU = DBLE( WB / WA )
                END IF
 *
-*              apply reflection to A(kl+i:m,i+1:n) from the left
+               // apply reflection to A(kl+i:m,i+1:n) from the left
 *
                CALL ZGEMV( 'Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
                CALL ZGERC( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
@@ -232,6 +232,6 @@
    70 CONTINUE
       RETURN
 *
-*     End of ZLAGGE
+      // End of ZLAGGE
 *
       END

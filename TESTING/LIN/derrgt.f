@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                INFO;
       double             ANORM, RCOND;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX ), IW( NMAX );
       double             B( NMAX ), C( NMAX ), CF( NMAX ), D( NMAX ), DF( NMAX ), E( NMAX ), EF( NMAX ), F( NMAX ), R1( NMAX ), R2( NMAX ), W( NMAX ), X( NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DGTCON, DGTRFS, DGTTRF, DGTTRS, DPTCON, DPTRFS, DPTTRF, DPTTRS
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
@@ -58,16 +58,16 @@
 *
       IF( LSAMEN( 2, C2, 'GT' ) ) THEN
 *
-*        Test error exits for the general tridiagonal routines.
+         // Test error exits for the general tridiagonal routines.
 *
-*        DGTTRF
+         // DGTTRF
 *
          SRNAMT = 'DGTTRF'
          INFOT = 1
          CALL DGTTRF( -1, C, D, E, F, IP, INFO )
          CALL CHKXER( 'DGTTRF', INFOT, NOUT, LERR, OK )
 *
-*        DGTTRS
+         // DGTTRS
 *
          SRNAMT = 'DGTTRS'
          INFOT = 1
@@ -83,7 +83,7 @@
          CALL DGTTRS( 'N', 2, 1, C, D, E, F, IP, X, 1, INFO )
          CALL CHKXER( 'DGTTRS', INFOT, NOUT, LERR, OK )
 *
-*        DGTRFS
+         // DGTRFS
 *
          SRNAMT = 'DGTRFS'
          INFOT = 1
@@ -102,7 +102,7 @@
          CALL DGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTRFS', INFOT, NOUT, LERR, OK )
 *
-*        DGTCON
+         // DGTCON
 *
          SRNAMT = 'DGTCON'
          INFOT = 1
@@ -117,17 +117,17 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
 *
-*        Test error exits for the positive definite tridiagonal
-*        routines.
+         // Test error exits for the positive definite tridiagonal
+         // routines.
 *
-*        DPTTRF
+         // DPTTRF
 *
          SRNAMT = 'DPTTRF'
          INFOT = 1
          CALL DPTTRF( -1, D, E, INFO )
          CALL CHKXER( 'DPTTRF', INFOT, NOUT, LERR, OK )
 *
-*        DPTTRS
+         // DPTTRS
 *
          SRNAMT = 'DPTTRS'
          INFOT = 1
@@ -140,7 +140,7 @@
          CALL DPTTRS( 2, 1, D, E, X, 1, INFO )
          CALL CHKXER( 'DPTTRS', INFOT, NOUT, LERR, OK )
 *
-*        DPTRFS
+         // DPTRFS
 *
          SRNAMT = 'DPTRFS'
          INFOT = 1
@@ -156,7 +156,7 @@
          CALL DPTRFS( 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, INFO )
          CALL CHKXER( 'DPTRFS', INFOT, NOUT, LERR, OK )
 *
-*        DPTCON
+         // DPTCON
 *
          SRNAMT = 'DPTCON'
          INFOT = 1
@@ -167,12 +167,12 @@
          CALL CHKXER( 'DPTCON', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRGT
+      // End of DERRGT
 *
       END

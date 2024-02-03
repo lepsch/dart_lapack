@@ -4,15 +4,15 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               OK;
       String             PATH;
       int                NOUT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH
@@ -26,6 +26,6 @@
      $      'exits ***' )
       RETURN
 *
-*     End of ALAESM
+      // End of ALAESM
 *
       END

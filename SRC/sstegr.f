@@ -4,30 +4,30 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N;
       REAL             ABSTOL, VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
       REAL               D( * ), E( * ), W( * ), WORK( * )
       REAL               Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool    TRYRAC;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SSTEMR
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       INFO = 0
       TRYRAC = .FALSE.
        CALL SSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO )
 *
-*     End of SSTEGR
+      // End of SSTEGR
 *
       END

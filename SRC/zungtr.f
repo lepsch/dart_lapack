@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER;
       int                I, IINFO, J, LWKOPT, NB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZUNGQL, ZUNGQR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -67,7 +67,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          WORK( 1 ) = 1
@@ -76,11 +76,11 @@
 *
       IF( UPPER ) THEN
 *
-*        Q was determined by a call to ZHETRD with UPLO = 'U'
+         // Q was determined by a call to ZHETRD with UPLO = 'U'
 *
-*        Shift the vectors which define the elementary reflectors one
-*        column to the left, and set the last row and column of Q to
-*        those of the unit matrix
+         // Shift the vectors which define the elementary reflectors one
+         // column to the left, and set the last row and column of Q to
+        t // hose of the unit matrix
 *
          DO 20 J = 1, N - 1
             DO 10 I = 1, J - 1
@@ -93,17 +93,17 @@
    30    CONTINUE
          A( N, N ) = ONE
 *
-*        Generate Q(1:n-1,1:n-1)
+         // Generate Q(1:n-1,1:n-1)
 *
          CALL ZUNGQL( N-1, N-1, N-1, A, LDA, TAU, WORK, LWORK, IINFO )
 *
       ELSE
 *
-*        Q was determined by a call to ZHETRD with UPLO = 'L'.
+         // Q was determined by a call to ZHETRD with UPLO = 'L'.
 *
-*        Shift the vectors which define the elementary reflectors one
-*        column to the right, and set the first row and column of Q to
-*        those of the unit matrix
+         // Shift the vectors which define the elementary reflectors one
+         // column to the right, and set the first row and column of Q to
+        t // hose of the unit matrix
 *
          DO 50 J = N, 2, -1
             A( 1, J ) = ZERO
@@ -117,7 +117,7 @@
    60    CONTINUE
          IF( N.GT.1 ) THEN
 *
-*           Generate Q(2:n,2:n)
+            // Generate Q(2:n,2:n)
 *
             CALL ZUNGQR( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
          END IF
@@ -125,6 +125,6 @@
       WORK( 1 ) = LWKOPT
       RETURN
 *
-*     End of ZUNGTR
+      // End of ZUNGTR
 *
       END

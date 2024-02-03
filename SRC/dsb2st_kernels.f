@@ -6,37 +6,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       bool               WANTZ;
       int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), V( * ), TAU( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER;
       double             CTMP;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARFG, DLARFX, DLARFY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MOD
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // ..
+      // .. Executable Statements ..
 *
       AJETER = IB + LDVT
       UPPER = LSAME( UPLO, 'U' )
@@ -50,7 +50,7 @@
       ENDIF
 
 *
-*     Upper case
+      // Upper case
 *
       IF( UPPER ) THEN
 *
@@ -113,7 +113,7 @@
               ENDIF
           ENDIF
 *
-*     Lower case
+      // Lower case
 *
       ELSE
 *
@@ -180,6 +180,6 @@
 *
       RETURN
 *
-*     End of DSB2ST_KERNELS
+      // End of DSB2ST_KERNELS
 *
       END

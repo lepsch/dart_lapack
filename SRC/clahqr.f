@@ -5,17 +5,17 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N;
       bool               WANTT, WANTZ;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            H( LDH, * ), W( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =========================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) )
       REAL               RZERO, RONE, HALF
@@ -24,35 +24,35 @@
       PARAMETER          ( DAT1 = 3.0e0 / 4.0e0 )
       int                KEXSH;
       PARAMETER          ( KEXSH = 10 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX            CDUM, H11, H11S, H22, SC, SUM, T, T1, TEMP, U, V2, X, Y       REAL               AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX, SAFMIN, SMLNUM, SX, T2, TST, ULP       int                I, I1, I2, ITS, ITMAX, J, JHI, JLO, K, L, M, NH, NZ, KDEFL;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX            V( 2 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       COMPLEX            CLADIV
       REAL               SLAMCH
       // EXTERNAL CLADIV, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CLARFG, CSCAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL, SQRT
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
       IF( ILO.EQ.IHI ) THEN
@@ -60,13 +60,13 @@
          RETURN
       END IF
 *
-*     ==== clear out the trash ====
+      // ==== clear out the trash ====
       DO 10 J = ILO, IHI - 3
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
    10 CONTINUE
       IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
-*     ==== ensure that subdiagonal entries are real ====
+      // ==== ensure that subdiagonal entries are real ====
       IF( WANTT ) THEN
          JLO = 1
          JHI = N
@@ -76,9 +76,9 @@
       END IF
       DO 20 I = ILO + 1, IHI
          IF( AIMAG( H( I, I-1 ) ).NE.RZERO ) THEN
-*           ==== The following redundant normalization
-*           .    avoids problems with both gradual and
-*           .    sudden underflow in ABS(H(I,I-1)) ====
+            // ==== The following redundant normalization
+            // .    avoids problems with both gradual and
+            // .    sudden underflow in ABS(H(I,I-1)) ====
             SC = H( I, I-1 ) / CABS1( H( I, I-1 ) )
             SC = CONJG( SC ) / ABS( SC )
             H( I, I-1 ) = ABS( H( I, I-1 ) )
@@ -90,48 +90,48 @@
       NH = IHI - ILO + 1
       NZ = IHIZ - ILOZ + 1
 *
-*     Set machine-dependent constants for the stopping criterion.
+      // Set machine-dependent constants for the stopping criterion.
 *
       SAFMIN = SLAMCH( 'SAFE MINIMUM' )
       SAFMAX = RONE / SAFMIN
       ULP = SLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( REAL( NH ) / ULP )
 *
-*     I1 and I2 are the indices of the first row and last column of H
-*     to which transformations must be applied. If eigenvalues only are
-*     being computed, I1 and I2 are set inside the main loop.
+      // I1 and I2 are the indices of the first row and last column of H
+     t // o which transformations must be applied. If eigenvalues only are
+      // being computed, I1 and I2 are set inside the main loop.
 *
       IF( WANTT ) THEN
          I1 = 1
          I2 = N
       END IF
 *
-*     ITMAX is the total number of QR iterations allowed.
+      // ITMAX is the total number of QR iterations allowed.
 *
       ITMAX = 30 * MAX( 10, NH )
 *
-*     KDEFL counts the number of iterations since a deflation
+      // KDEFL counts the number of iterations since a deflation
 *
       KDEFL = 0
 *
-*     The main loop begins here. I is the loop index and decreases from
-*     IHI to ILO in steps of 1. Each iteration of the loop works
-*     with the active submatrix in rows and columns L to I.
-*     Eigenvalues I+1 to IHI have already converged. Either L = ILO, or
-*     H(L,L-1) is negligible so that the matrix splits.
+      // The main loop begins here. I is the loop index and decreases from
+      // IHI to ILO in steps of 1. Each iteration of the loop works
+      // with the active submatrix in rows and columns L to I.
+      // Eigenvalues I+1 to IHI have already converged. Either L = ILO, or
+      // H(L,L-1) is negligible so that the matrix splits.
 *
       I = IHI
    30 CONTINUE
       IF( I.LT.ILO ) GO TO 150
 *
-*     Perform QR iterations on rows and columns ILO to I until a
-*     submatrix of order 1 splits off at the bottom because a
-*     subdiagonal element has become negligible.
+      // Perform QR iterations on rows and columns ILO to I until a
+      // submatrix of order 1 splits off at the bottom because a
+      // subdiagonal element has become negligible.
 *
       L = ILO
       DO 130 ITS = 0, ITMAX
 *
-*        Look for a single small subdiagonal element.
+         // Look for a single small subdiagonal element.
 *
          DO 40 K = I, L + 1, -1
             IF( CABS1( H( K, K-1 ) ).LE.SMLNUM ) GO TO 50
@@ -139,10 +139,10 @@
             IF( TST.EQ.ZERO ) THEN
                IF( K-2.GE.ILO ) TST = TST + ABS( REAL( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( REAL( H( K+1, K ) ) )
             END IF
-*           ==== The following is a conservative small subdiagonal
-*           .    deflation criterion due to Ahues & Tisseur (LAWN 122,
-*           .    1997). It has better mathematical foundation and
-*           .    improves accuracy in some examples.  ====
+            // ==== The following is a conservative small subdiagonal
+            // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
+            // .    1997). It has better mathematical foundation and
+            // .    improves accuracy in some examples.  ====
             IF( ABS( REAL( H( K, K-1 ) ) ).LE.ULP*TST ) THEN
                AB = MAX( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) )
                BA = MIN( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) )
@@ -155,19 +155,19 @@
          L = K
          IF( L.GT.ILO ) THEN
 *
-*           H(L,L-1) is negligible
+            // H(L,L-1) is negligible
 *
             H( L, L-1 ) = ZERO
          END IF
 *
-*        Exit from loop if a submatrix of order 1 has split off.
+         // Exit from loop if a submatrix of order 1 has split off.
 *
          IF( L.GE.I ) GO TO 140
          KDEFL = KDEFL + 1
 *
-*        Now the active submatrix is in rows and columns L to I. If
-*        eigenvalues only are being computed, only the active submatrix
-*        need be transformed.
+         // Now the active submatrix is in rows and columns L to I. If
+         // eigenvalues only are being computed, only the active submatrix
+         // need be transformed.
 *
          IF( .NOT.WANTT ) THEN
             I1 = L
@@ -176,19 +176,19 @@
 *
          IF( MOD(KDEFL,2*KEXSH).EQ.0 ) THEN
 *
-*           Exceptional shift.
+            // Exceptional shift.
 *
             S = DAT1*ABS( REAL( H( I, I-1 ) ) )
             T = S + H( I, I )
          ELSE IF( MOD(KDEFL,KEXSH).EQ.0 ) THEN
 *
-*           Exceptional shift.
+            // Exceptional shift.
 *
             S = DAT1*ABS( REAL( H( L+1, L ) ) )
             T = S + H( L, L )
          ELSE
 *
-*           Wilkinson's shift.
+            // Wilkinson's shift.
 *
             T = H( I, I )
             U = SQRT( H( I-1, I ) )*SQRT( H( I, I-1 ) )
@@ -205,13 +205,13 @@
             END IF
          END IF
 *
-*        Look for two consecutive small subdiagonal elements.
+         // Look for two consecutive small subdiagonal elements.
 *
          DO 60 M = I - 1, L + 1, -1
 *
-*           Determine the effect of starting the single-shift QR
-*           iteration at row M, and see if this would make H(M,M-1)
-*           negligible.
+            // Determine the effect of starting the single-shift QR
+            // iteration at row M, and see if this would make H(M,M-1)
+            // negligible.
 *
             H11 = H( M, M )
             H22 = H( M+1, M+1 )
@@ -236,21 +236,21 @@
          V( 2 ) = H21
    70    CONTINUE
 *
-*        Single-shift QR step
+         // Single-shift QR step
 *
          DO 120 K = M, I - 1
 *
-*           The first iteration of this loop determines a reflection G
-*           from the vector V and applies it from left and right to H,
-*           thus creating a nonzero bulge below the subdiagonal.
+            // The first iteration of this loop determines a reflection G
+            // from the vector V and applies it from left and right to H,
+           t // hus creating a nonzero bulge below the subdiagonal.
 *
-*           Each subsequent iteration determines a reflection G to
-*           restore the Hessenberg form in the (K-1)th column, and thus
-*           chases the bulge one step toward the bottom of the active
-*           submatrix.
+            // Each subsequent iteration determines a reflection G to
+            // restore the Hessenberg form in the (K-1)th column, and thus
+            // chases the bulge one step toward the bottom of the active
+            // submatrix.
 *
-*           V(2) is always real before the call to CLARFG, and hence
-*           after the call T2 ( = T1*V(2) ) is also real.
+            // V(2) is always real before the call to CLARFG, and hence
+            // after the call T2 ( = T1*V(2) ) is also real.
 *
             IF( K.GT.M ) CALL CCOPY( 2, H( K, K-1 ), 1, V, 1 )
             CALL CLARFG( 2, V( 1 ), V( 2 ), 1, T1 )
@@ -261,8 +261,8 @@
             V2 = V( 2 )
             T2 = REAL( T1*V2 )
 *
-*           Apply G from the left to transform the rows of the matrix
-*           in columns K to I2.
+            // Apply G from the left to transform the rows of the matrix
+            // in columns K to I2.
 *
             DO 80 J = K, I2
                SUM = CONJG( T1 )*H( K, J ) + T2*H( K+1, J )
@@ -270,8 +270,8 @@
                H( K+1, J ) = H( K+1, J ) - SUM*V2
    80       CONTINUE
 *
-*           Apply G from the right to transform the columns of the
-*           matrix in rows I1 to min(K+2,I).
+            // Apply G from the right to transform the columns of the
+            // matrix in rows I1 to min(K+2,I).
 *
             DO 90 J = I1, MIN( K+2, I )
                SUM = T1*H( J, K ) + T2*H( J, K+1 )
@@ -281,7 +281,7 @@
 *
             IF( WANTZ ) THEN
 *
-*              Accumulate transformations in the matrix Z
+               // Accumulate transformations in the matrix Z
 *
                DO 100 J = ILOZ, IHIZ
                   SUM = T1*Z( J, K ) + T2*Z( J, K+1 )
@@ -292,10 +292,10 @@
 *
             IF( K.EQ.M .AND. M.GT.L ) THEN
 *
-*              If the QR step was started at row M > L because two
-*              consecutive small subdiagonals were found, then extra
-*              scaling must be performed to ensure that H(M,M-1) remains
-*              real.
+               // If the QR step was started at row M > L because two
+               // consecutive small subdiagonals were found, then extra
+               // scaling must be performed to ensure that H(M,M-1) remains
+               // real.
 *
                TEMP = ONE - T1
                TEMP = TEMP / ABS( TEMP )
@@ -313,7 +313,7 @@
             END IF
   120    CONTINUE
 *
-*        Ensure that H(I,I-1) is real.
+         // Ensure that H(I,I-1) is real.
 *
          TEMP = H( I, I-1 )
          IF( AIMAG( TEMP ).NE.RZERO ) THEN
@@ -329,20 +329,20 @@
 *
   130 CONTINUE
 *
-*     Failure to converge in remaining number of iterations
+      // Failure to converge in remaining number of iterations
 *
       INFO = I
       RETURN
 *
   140 CONTINUE
 *
-*     H(I,I-1) is negligible: one eigenvalue has converged.
+      // H(I,I-1) is negligible: one eigenvalue has converged.
 *
       W( I ) = H( I, I )
-*     reset deflation counter
+      // reset deflation counter
       KDEFL = 0
 *
-*     return to start of the main loop with new value of I.
+      // return to start of the main loop with new value of I.
 *
       I = L - 1
       GO TO 30
@@ -350,6 +350,6 @@
   150 CONTINUE
       RETURN
 *
-*     End of CLAHQR
+      // End of CLAHQR
 *
       END

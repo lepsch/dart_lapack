@@ -4,66 +4,66 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                K, LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RESULT( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         ROGUE
       PARAMETER          ( ROGUE = ( -1.0D+10, -1.0D+10 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO;
       double             ANORM, EPS, RESID;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE, ZLANSY;
       // EXTERNAL DLAMCH, ZLANGE, ZLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZHERK, ZLACPY, ZLASET, ZUNGQR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = DLAMCH( 'Epsilon' )
 *
-*     Copy the first k columns of the factorization to the array Q
+      // Copy the first k columns of the factorization to the array Q
 *
       CALL ZLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
       CALL ZLACPY( 'Lower', M-1, K, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA )
 *
-*     Generate the first n columns of the matrix Q
+      // Generate the first n columns of the matrix Q
 *
       SRNAMT = 'ZUNGQR'
       CALL ZUNGQR( M, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy R(1:n,1:k)
+      // Copy R(1:n,1:k)
 *
       CALL ZLASET( 'Full', N, K, DCMPLX( ZERO ), DCMPLX( ZERO ), R, LDA )
       CALL ZLACPY( 'Upper', N, K, AF, LDA, R, LDA )
 *
-*     Compute R(1:n,1:k) - Q(1:m,1:n)' * A(1:m,1:k)
+      // Compute R(1:n,1:k) - Q(1:m,1:n)' * A(1:m,1:k)
 *
       CALL ZGEMM( 'Conjugate transpose', 'No transpose', N, K, M, DCMPLX( -ONE ), Q, LDA, A, LDA, DCMPLX( ONE ), R, LDA )
 *
-*     Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
+      // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 *
       ANORM = ZLANGE( '1', M, K, A, LDA, RWORK )
       RESID = ZLANGE( '1', N, K, R, LDA, RWORK )
@@ -73,12 +73,12 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute I - Q'*Q
+      // Compute I - Q'*Q
 *
       CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), R, LDA )
       CALL ZHERK( 'Upper', 'Conjugate transpose', N, M, -ONE, Q, LDA, ONE, R, LDA )
 *
-*     Compute norm( I - Q'*Q ) / ( M * EPS ) .
+      // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 *
       RESID = ZLANSY( '1', 'Upper', N, R, LDA, RWORK )
 *
@@ -86,6 +86,6 @@
 *
       RETURN
 *
-*     End of ZQRT02
+      // End of ZQRT02
 *
       END

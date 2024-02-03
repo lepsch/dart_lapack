@@ -4,63 +4,63 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDW, N, NB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), E( * ), TAU( * ), W( LDW, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, HALF;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, HALF = 0.5D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IW;
       double             ALPHA;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DGEMV, DLARFG, DSCAL, DSYMV
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT;
       // EXTERNAL LSAME, DDOT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) RETURN
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Reduce last NB columns of upper triangle
+         // Reduce last NB columns of upper triangle
 *
          DO 10 I = N, N - NB + 1, -1
             IW = I - N + NB
             IF( I.LT.N ) THEN
 *
-*              Update A(1:i,i)
+               // Update A(1:i,i)
 *
                CALL DGEMV( 'No transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 )                CALL DGEMV( 'No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 )
             END IF
             IF( I.GT.1 ) THEN
 *
-*              Generate elementary reflector H(i) to annihilate
-*              A(1:i-2,i)
+               // Generate elementary reflector H(i) to annihilate
+               // A(1:i-2,i)
 *
                CALL DLARFG( I-1, A( I-1, I ), A( 1, I ), 1, TAU( I-1 ) )
                E( I-1 ) = A( I-1, I )
                A( I-1, I ) = ONE
 *
-*              Compute W(1:i-1,i)
+               // Compute W(1:i-1,i)
 *
                CALL DSYMV( 'Upper', I-1, ONE, A, LDA, A( 1, I ), 1, ZERO, W( 1, IW ), 1 )
                IF( I.LT.N ) THEN
@@ -74,23 +74,23 @@
    10    CONTINUE
       ELSE
 *
-*        Reduce first NB columns of lower triangle
+         // Reduce first NB columns of lower triangle
 *
          DO 20 I = 1, NB
 *
-*           Update A(i:n,i)
+            // Update A(i:n,i)
 *
             CALL DGEMV( 'No transpose', N-I+1, I-1, -ONE, A( I, 1 ), LDA, W( I, 1 ), LDW, ONE, A( I, I ), 1 )             CALL DGEMV( 'No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 )
             IF( I.LT.N ) THEN
 *
-*              Generate elementary reflector H(i) to annihilate
-*              A(i+2:n,i)
+               // Generate elementary reflector H(i) to annihilate
+               // A(i+2:n,i)
 *
                CALL DLARFG( N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAU( I ) )
                E( I ) = A( I+1, I )
                A( I+1, I ) = ONE
 *
-*              Compute W(i+1:n,i)
+               // Compute W(i+1:n,i)
 *
                CALL DSYMV( 'Lower', N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, W( I+1, I ), 1 )                CALL DGEMV( 'Transpose', N-I, I-1, ONE, W( I+1, 1 ), LDW, A( I+1, I ), 1, ZERO, W( 1, I ), 1 )                CALL DGEMV( 'No transpose', N-I, I-1, -ONE, A( I+1, 1 ), LDA, W( 1, I ), 1, ONE, W( I+1, I ), 1 )                CALL DGEMV( 'Transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, W( 1, I ), 1 )                CALL DGEMV( 'No transpose', N-I, I-1, -ONE, W( I+1, 1 ), LDW, W( 1, I ), 1, ONE, W( I+1, I ), 1 )
                CALL DSCAL( N-I, TAU( I ), W( I+1, I ), 1 )
@@ -103,6 +103,6 @@
 *
       RETURN
 *
-*     End of DLATRD
+      // End of DLATRD
 *
       END

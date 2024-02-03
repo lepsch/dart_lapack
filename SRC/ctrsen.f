@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPQ, JOB;
       int                INFO, LDQ, LDT, LWORK, M, N;
       REAL               S, SEP
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       COMPLEX            Q( LDQ, * ), T( LDT, * ), W( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, WANTBH, WANTQ, WANTS, WANTSP;
       int                IERR, K, KASE, KS, LWMIN, N1, N2, NN;
       REAL               EST, RNORM, SCALE
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
       REAL               RWORK( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SROUNDUP_LWORK
       // EXTERNAL LSAME, CLANGE, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLACN2, CLACPY, CTREXC, CTRSYL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters.
+      // Decode and test the input parameters.
 *
       WANTBH = LSAME( JOB, 'B' )
       WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
       WANTSP = LSAME( JOB, 'V' ) .OR. WANTBH
       WANTQ = LSAME( COMPQ, 'V' )
 *
-*     Set M to the number of selected eigenvalues.
+      // Set M to the number of selected eigenvalues.
 *
       M = 0
       DO 10 K = 1, N
@@ -96,21 +96,21 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.N .OR. M.EQ.0 ) THEN
          IF( WANTS ) S = ONE          IF( WANTSP ) SEP = CLANGE( '1', N, N, T, LDT, RWORK )
          GO TO 40
       END IF
 *
-*     Collect the selected eigenvalues at the top left corner of T.
+      // Collect the selected eigenvalues at the top left corner of T.
 *
       KS = 0
       DO 20 K = 1, N
          IF( SELECT( K ) ) THEN
             KS = KS + 1
 *
-*           Swap the K-th eigenvalue to position KS.
+            // Swap the K-th eigenvalue to position KS.
 *
             IF( K.NE.KS ) CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR )
          END IF
@@ -118,15 +118,15 @@
 *
       IF( WANTS ) THEN
 *
-*        Solve the Sylvester equation for R:
+         // Solve the Sylvester equation for R:
 *
-*           T11*R - R*T22 = scale*T12
+            // T11*R - R*T22 = scale*T12
 *
          CALL CLACPY( 'F', N1, N2, T( 1, N1+1 ), LDT, WORK, N1 )
          CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
 *
-*        Estimate the reciprocal of the condition number of the cluster
-*        of eigenvalues.
+         // Estimate the reciprocal of the condition number of the cluster
+         // of eigenvalues.
 *
          RNORM = CLANGE( 'F', N1, N2, WORK, N1, RWORK )
          IF( RNORM.EQ.ZERO ) THEN
@@ -138,7 +138,7 @@
 *
       IF( WANTSP ) THEN
 *
-*        Estimate sep(T11,T22).
+         // Estimate sep(T11,T22).
 *
          EST = ZERO
          KASE = 0
@@ -147,12 +147,12 @@
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.1 ) THEN
 *
-*              Solve T11*R - R*T22 = scale*X.
+               // Solve T11*R - R*T22 = scale*X.
 *
                CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
             ELSE
 *
-*              Solve T11**H*R - R*T22**H = scale*X.
+               // Solve T11**H*R - R*T22**H = scale*X.
 *
                CALL CTRSYL( 'C', 'C', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
             END IF
@@ -164,7 +164,7 @@
 *
    40 CONTINUE
 *
-*     Copy reordered eigenvalues to W.
+      // Copy reordered eigenvalues to W.
 *
       DO 50 K = 1, N
          W( K ) = T( K, K )
@@ -174,6 +174,6 @@
 *
       RETURN
 *
-*     End of CTRSEN
+      // End of CTRSEN
 *
       END

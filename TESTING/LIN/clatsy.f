@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDX, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( * );
       COMPLEX            X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            EYE
       PARAMETER          ( EYE = ( 0.0, 1.0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, N5;
       REAL               ALPHA, ALPHA3, BETA
       COMPLEX            A, B, C, R
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       COMPLEX            CLARND
       // EXTERNAL CLARND
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants
+      // Initialize constants
 *
       ALPHA = ( 1.+SQRT( 17. ) ) / 8.
       BETA = ALPHA - 1. / 1000.
       ALPHA3 = ALPHA*ALPHA*ALPHA
 *
-*     UPLO = 'U':  Upper triangular storage
+      // UPLO = 'U':  Upper triangular storage
 *
       IF( UPLO.EQ.'U' ) THEN
 *
-*        Fill the upper triangle of the matrix with zeros.
+         // Fill the upper triangle of the matrix with zeros.
 *
          DO 20 J = 1, N
             DO 10 I = 1, J
@@ -72,7 +72,7 @@
             END IF
    30    CONTINUE
 *
-*        Clean-up for N not a multiple of 5.
+         // Clean-up for N not a multiple of 5.
 *
          I = N5 - 1
          IF( I.GT.2 ) THEN
@@ -101,11 +101,11 @@
             I = I - 1
          END IF
 *
-*     UPLO = 'L':  Lower triangular storage
+      // UPLO = 'L':  Lower triangular storage
 *
       ELSE
 *
-*        Fill the lower triangle of the matrix with zeros.
+         // Fill the lower triangle of the matrix with zeros.
 *
          DO 50 J = 1, N
             DO 40 I = J, N
@@ -134,7 +134,7 @@
             END IF
    60    CONTINUE
 *
-*        Clean-up for N not a multiple of 5.
+         // Clean-up for N not a multiple of 5.
 *
          I = N5 + 1
          IF( I.LT.N-1 ) THEN
@@ -166,6 +166,6 @@
 *
       RETURN
 *
-*     End of CLATSY
+      // End of CLATSY
 *
       END

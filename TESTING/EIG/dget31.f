@@ -4,17 +4,17 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX;
       double             RMAX;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NINFO( 2 );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
       double             TWO, THREE, FOUR;
@@ -23,37 +23,37 @@
       PARAMETER          ( SEVEN = 7.0D0, TEN = 10.0D0 )
       double             TWNONE;
       PARAMETER          ( TWNONE = 21.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW       double             BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM;;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               LTRANS( 0: 1 );
       double             A( 2, 2 ), B( 2, 2 ), VAB( 3 ), VCA( 5 ), VDD( 4 ), VSMIN( 4 ), VWI( 4 ), VWR( 4 ), X( 2, 2 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLALN2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               LTRANS / .FALSE., .TRUE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = DLAMCH( 'P' )
       UNFL = DLAMCH( 'U' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Set up test case parameters
+      // Set up test case parameters
 *
       VSMIN( 1 ) = SMLNUM
       VSMIN( 2 ) = EPS
@@ -86,7 +86,7 @@
       LMAX = 0
       RMAX = ZERO
 *
-*     Begin test loop
+      // Begin test loop
 *
       DO 190 ID1 = 1, 4
          D1 = VDD( ID1 )
@@ -272,6 +272,6 @@
 *
       RETURN
 *
-*     End of DGET31
+      // End of DGET31
 *
       END

@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDB, LDX, LDXACT, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               B( LDB, * ), BERR( * ), D( * ), E( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IMAX, J, K, NZ;
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH
       // EXTERNAL ISAMAX, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0 or NRHS = 0.
+      // Quick exit if N = 0 or NRHS = 0.
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESLTS( 1 ) = ZERO
@@ -44,9 +44,9 @@
       OVFL = ONE / UNFL
       NZ = 4
 *
-*     Test 1:  Compute the maximum of
-*        norm(X - XACT) / ( norm(X) * FERR )
-*     over all the vectors X and XACT using the infinity-norm.
+      // Test 1:  Compute the maximum of
+         // norm(X - XACT) / ( norm(X) * FERR )
+      // over all the vectors X and XACT using the infinity-norm.
 *
       ERRBND = ZERO
       DO 30 J = 1, NRHS
@@ -75,8 +75,8 @@
    30 CONTINUE
       RESLTS( 1 ) = ERRBND
 *
-*     Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
-*     (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
+      // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
+      // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
 *
       DO 50 K = 1, NRHS
          IF( N.EQ.1 ) THEN
@@ -100,6 +100,6 @@
 *
       RETURN
 *
-*     End of SPTT05
+      // End of SPTT05
 *
       END

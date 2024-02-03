@@ -5,47 +5,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDVL, LDVR, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL   RWORK( * )
       COMPLEX         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL   ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR;
       String             SIDE;
       int                HSWORK, I, IBAL, IERR, IHI, ILO, IRWORK, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
       REAL   ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM
       COMPLEX         TMP
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SELECT( 1 );
       REAL   DUM( 1 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, CSSCAL, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CSCAL, CTREVC3, CUNGHR
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ISAMAX, ILAENV;
       REAL               SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
       // EXTERNAL LSAME, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL, CMPLX, CONJG, AIMAG, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -65,16 +65,16 @@
          INFO = -10
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       CWorkspace refers to complex workspace, and RWorkspace to real
-*       workspace. NB refers to the optimal block size for the
-*       immediately following subroutine, as returned by ILAENV.
-*       HSWORK refers to the workspace preferred by CHSEQR, as
-*       calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-*       the worst case.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // CWorkspace refers to complex workspace, and RWorkspace to real
+        // workspace. NB refers to the optimal block size for the
+        // immediately following subroutine, as returned by ILAENV.
+        // HSWORK refers to the workspace preferred by CHSEQR, as
+        // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
+       t // he worst case.)
 *
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
@@ -113,11 +113,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' )
@@ -125,7 +125,7 @@
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = CLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = .FALSE.
@@ -138,16 +138,16 @@
       END IF
       IF( SCALEA ) CALL CLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 *
-*     Balance the matrix
-*     (CWorkspace: none)
-*     (RWorkspace: need N)
+      // Balance the matrix
+      // (CWorkspace: none)
+      // (RWorkspace: need N)
 *
       IBAL = 1
       CALL CGEBAL( 'B', N, A, LDA, ILO, IHI, RWORK( IBAL ), IERR )
 *
-*     Reduce to upper Hessenberg form
-*     (CWorkspace: need 2*N, prefer N+N*NB)
-*     (RWorkspace: none)
+      // Reduce to upper Hessenberg form
+      // (CWorkspace: need 2*N, prefer N+N*NB)
+      // (RWorkspace: none)
 *
       ITAU = 1
       IWRK = ITAU + N
@@ -155,29 +155,29 @@
 *
       IF( WANTVL ) THEN
 *
-*        Want left eigenvectors
-*        Copy Householder vectors to VL
+         // Want left eigenvectors
+         // Copy Householder vectors to VL
 *
          SIDE = 'L'
          CALL CLACPY( 'L', N, N, A, LDA, VL, LDVL )
 *
-*        Generate unitary matrix in VL
-*        (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
-*        (RWorkspace: none)
+         // Generate unitary matrix in VL
+         // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
+         // (RWorkspace: none)
 *
          CALL CUNGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
-*        Perform QR iteration, accumulating Schur vectors in VL
-*        (CWorkspace: need 1, prefer HSWORK (see comments) )
-*        (RWorkspace: none)
+         // Perform QR iteration, accumulating Schur vectors in VL
+         // (CWorkspace: need 1, prefer HSWORK (see comments) )
+         // (RWorkspace: none)
 *
          IWRK = ITAU
          CALL CHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
          IF( WANTVR ) THEN
 *
-*           Want left and right eigenvectors
-*           Copy Schur vectors to VR
+            // Want left and right eigenvectors
+            // Copy Schur vectors to VR
 *
             SIDE = 'B'
             CALL CLACPY( 'F', N, N, VL, LDVL, VR, LDVR )
@@ -185,44 +185,44 @@
 *
       ELSE IF( WANTVR ) THEN
 *
-*        Want right eigenvectors
-*        Copy Householder vectors to VR
+         // Want right eigenvectors
+         // Copy Householder vectors to VR
 *
          SIDE = 'R'
          CALL CLACPY( 'L', N, N, A, LDA, VR, LDVR )
 *
-*        Generate unitary matrix in VR
-*        (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
-*        (RWorkspace: none)
+         // Generate unitary matrix in VR
+         // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
+         // (RWorkspace: none)
 *
          CALL CUNGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
-*        Perform QR iteration, accumulating Schur vectors in VR
-*        (CWorkspace: need 1, prefer HSWORK (see comments) )
-*        (RWorkspace: none)
+         // Perform QR iteration, accumulating Schur vectors in VR
+         // (CWorkspace: need 1, prefer HSWORK (see comments) )
+         // (RWorkspace: none)
 *
          IWRK = ITAU
          CALL CHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
       ELSE
 *
-*        Compute eigenvalues only
-*        (CWorkspace: need 1, prefer HSWORK (see comments) )
-*        (RWorkspace: none)
+         // Compute eigenvalues only
+         // (CWorkspace: need 1, prefer HSWORK (see comments) )
+         // (RWorkspace: none)
 *
          IWRK = ITAU
          CALL CHSEQR( 'E', 'N', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
       END IF
 *
-*     If INFO .NE. 0 from CHSEQR, then quit
+      // If INFO .NE. 0 from CHSEQR, then quit
 *
       IF( INFO.NE.0 ) GO TO 50
 *
       IF( WANTVL .OR. WANTVR ) THEN
 *
-*        Compute left and/or right eigenvectors
-*        (CWorkspace: need 2*N, prefer N + 2*N*NB)
-*        (RWorkspace: need 2*N)
+         // Compute left and/or right eigenvectors
+         // (CWorkspace: need 2*N, prefer N + 2*N*NB)
+         // (RWorkspace: need 2*N)
 *
          IRWORK = IBAL + N
          CALL CTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, RWORK( IRWORK ), N, IERR )
@@ -230,13 +230,13 @@
 *
       IF( WANTVL ) THEN
 *
-*        Undo balancing of left eigenvectors
-*        (CWorkspace: none)
-*        (RWorkspace: need N)
+         // Undo balancing of left eigenvectors
+         // (CWorkspace: none)
+         // (RWorkspace: need N)
 *
          CALL CGEBAK( 'B', 'L', N, ILO, IHI, RWORK( IBAL ), N, VL, LDVL, IERR )
 *
-*        Normalize left eigenvectors and make largest component real
+         // Normalize left eigenvectors and make largest component real
 *
          DO 20 I = 1, N
             SCL = ONE / SCNRM2( N, VL( 1, I ), 1 )
@@ -253,13 +253,13 @@
 *
       IF( WANTVR ) THEN
 *
-*        Undo balancing of right eigenvectors
-*        (CWorkspace: none)
-*        (RWorkspace: need N)
+         // Undo balancing of right eigenvectors
+         // (CWorkspace: none)
+         // (RWorkspace: need N)
 *
          CALL CGEBAK( 'B', 'R', N, ILO, IHI, RWORK( IBAL ), N, VR, LDVR, IERR )
 *
-*        Normalize right eigenvectors and make largest component real
+         // Normalize right eigenvectors and make largest component real
 *
          DO 40 I = 1, N
             SCL = ONE / SCNRM2( N, VR( 1, I ), 1 )
@@ -274,7 +274,7 @@
    40    CONTINUE
       END IF
 *
-*     Undo scaling if necessary
+      // Undo scaling if necessary
 *
    50 CONTINUE
       IF( SCALEA ) THEN
@@ -287,6 +287,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN
 *
-*     End of CGEEV
+      // End of CGEEV
 *
       END

@@ -6,22 +6,22 @@
 *
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               T1
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               TARRAY( 2 )
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       REAL               ETIME
       // INTRINSIC ETIME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       T1 = ETIME( TARRAY )
       DSECND = TARRAY( 1 )
       RETURN
 *
-*     End of DSECND
+      // End of DSECND
 *
       END

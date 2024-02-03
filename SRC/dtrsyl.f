@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N;
       double             SCALE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), C( LDC, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRNA, NOTRNB;
       int                IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT;
       double             A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             DUM( 1 ), VEC( 2, 2 ), X( 2, 2 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT, DLAMCH, DLANGE;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLALN2, DLASY2, DSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and Test input parameters
+      // Decode and Test input parameters
 *
       NOTRNA = LSAME( TRANA, 'N' )
       NOTRNB = LSAME( TRANB, 'N' )
@@ -68,12 +68,12 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       SCALE = ONE
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Set constants to control overflow
+      // Set constants to control overflow
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' )
@@ -87,20 +87,20 @@
 *
       IF( NOTRNA .AND. NOTRNB ) THEN
 *
-*        Solve    A*X + ISGN*X*B = scale*C.
+         // Solve    A*X + ISGN*X*B = scale*C.
 *
-*        The (K,L)th block of X is determined starting from
-*        bottom-left corner column by column by
+         // The (K,L)th block of X is determined starting from
+         // bottom-left corner column by column by
 *
-*         A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
+          // A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 *
-*        Where
-*                  M                         L-1
-*        R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)].
-*                I=K+1                       J=1
+         // Where
+                   // M                         L-1
+         // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)].
+                 // I=K+1                       J=1
 *
-*        Start column loop (index = L)
-*        L1 (L2) : column index of the first (first) row of X(K,L).
+         // Start column loop (index = L)
+         // L1 (L2) : column index of the first (first) row of X(K,L).
 *
          LNEXT = 1
          DO 60 L = 1, N
@@ -120,8 +120,8 @@
                END IF
             END IF
 *
-*           Start row loop (index = K)
-*           K1 (K2): row index of the first (last) row of X(K,L).
+            // Start row loop (index = K)
+            // K1 (K2): row index of the first (last) row of X(K,L).
 *
             KNEXT = M
             DO 50 K = M, 1, -1
@@ -251,20 +251,20 @@
 *
       ELSE IF( .NOT.NOTRNA .AND. NOTRNB ) THEN
 *
-*        Solve    A**T *X + ISGN*X*B = scale*C.
+         // Solve    A**T *X + ISGN*X*B = scale*C.
 *
-*        The (K,L)th block of X is determined starting from
-*        upper-left corner column by column by
+         // The (K,L)th block of X is determined starting from
+         // upper-left corner column by column by
 *
-*          A(K,K)**T*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
+           // A(K,K)**T*X(K,L) + ISGN*X(K,L)*B(L,L) = C(K,L) - R(K,L)
 *
-*        Where
-*                   K-1        T                    L-1
-*          R(K,L) = SUM [A(I,K)**T*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)]
-*                   I=1                          J=1
+         // Where
+                    // K-1        T                    L-1
+           // R(K,L) = SUM [A(I,K)**T*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)]
+                    // I=1                          J=1
 *
-*        Start column loop (index = L)
-*        L1 (L2): column index of the first (last) row of X(K,L)
+         // Start column loop (index = L)
+         // L1 (L2): column index of the first (last) row of X(K,L)
 *
          LNEXT = 1
          DO 120 L = 1, N
@@ -284,8 +284,8 @@
                END IF
             END IF
 *
-*           Start row loop (index = K)
-*           K1 (K2): row index of the first (last) row of X(K,L)
+            // Start row loop (index = K)
+            // K1 (K2): row index of the first (last) row of X(K,L)
 *
             KNEXT = 1
             DO 110 K = 1, M
@@ -414,20 +414,20 @@
 *
       ELSE IF( .NOT.NOTRNA .AND. .NOT.NOTRNB ) THEN
 *
-*        Solve    A**T*X + ISGN*X*B**T = scale*C.
+         // Solve    A**T*X + ISGN*X*B**T = scale*C.
 *
-*        The (K,L)th block of X is determined starting from
-*        top-right corner column by column by
+         // The (K,L)th block of X is determined starting from
+        t // op-right corner column by column by
 *
-*           A(K,K)**T*X(K,L) + ISGN*X(K,L)*B(L,L)**T = C(K,L) - R(K,L)
+            // A(K,K)**T*X(K,L) + ISGN*X(K,L)*B(L,L)**T = C(K,L) - R(K,L)
 *
-*        Where
-*                     K-1                            N
-*            R(K,L) = SUM [A(I,K)**T*X(I,L)] + ISGN*SUM [X(K,J)*B(L,J)**T].
-*                     I=1                          J=L+1
+         // Where
+                      // K-1                            N
+             // R(K,L) = SUM [A(I,K)**T*X(I,L)] + ISGN*SUM [X(K,J)*B(L,J)**T].
+                      // I=1                          J=L+1
 *
-*        Start column loop (index = L)
-*        L1 (L2): column index of the first (last) row of X(K,L)
+         // Start column loop (index = L)
+         // L1 (L2): column index of the first (last) row of X(K,L)
 *
          LNEXT = N
          DO 180 L = N, 1, -1
@@ -447,8 +447,8 @@
                END IF
             END IF
 *
-*           Start row loop (index = K)
-*           K1 (K2): row index of the first (last) row of X(K,L)
+            // Start row loop (index = K)
+            // K1 (K2): row index of the first (last) row of X(K,L)
 *
             KNEXT = 1
             DO 170 K = 1, M
@@ -577,20 +577,20 @@
 *
       ELSE IF( NOTRNA .AND. .NOT.NOTRNB ) THEN
 *
-*        Solve    A*X + ISGN*X*B**T = scale*C.
+         // Solve    A*X + ISGN*X*B**T = scale*C.
 *
-*        The (K,L)th block of X is determined starting from
-*        bottom-right corner column by column by
+         // The (K,L)th block of X is determined starting from
+         // bottom-right corner column by column by
 *
-*            A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L)**T = C(K,L) - R(K,L)
+             // A(K,K)*X(K,L) + ISGN*X(K,L)*B(L,L)**T = C(K,L) - R(K,L)
 *
-*        Where
-*                      M                          N
-*            R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B(L,J)**T].
-*                    I=K+1                      J=L+1
+         // Where
+                       // M                          N
+             // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B(L,J)**T].
+                     // I=K+1                      J=L+1
 *
-*        Start column loop (index = L)
-*        L1 (L2): column index of the first (last) row of X(K,L)
+         // Start column loop (index = L)
+         // L1 (L2): column index of the first (last) row of X(K,L)
 *
          LNEXT = N
          DO 240 L = N, 1, -1
@@ -610,8 +610,8 @@
                END IF
             END IF
 *
-*           Start row loop (index = K)
-*           K1 (K2): row index of the first (last) row of X(K,L)
+            // Start row loop (index = K)
+            // K1 (K2): row index of the first (last) row of X(K,L)
 *
             KNEXT = M
             DO 230 K = M, 1, -1
@@ -733,6 +733,6 @@
 *
       RETURN
 *
-*     End of DTRSYL
+      // End of DTRSYL
 *
       END

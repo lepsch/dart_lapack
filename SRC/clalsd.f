@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDB, N, NRHS, RANK, SMLSIZ;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               D( * ), E( * ), RWORK( * )
       COMPLEX            B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
       COMPLEX            CZERO
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IRWB, IRWIB, IRWRB, IRWU, IRWVT, IRWWRK, IWK, J, JCOL, JIMAG, JREAL, JROW, K, NLVL, NM1, NRWORK, NSIZE, NSUB, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z;
       REAL               CS, EPS, ORGNRM, R, RCND, SN, TOL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH, SLANST
       // EXTERNAL ISAMAX, SLAMCH, SLANST
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CLACPY, CLALSA, CLASCL, CLASET, CSROT, SGEMM, SLARTG, SLASCL, SLASDA, SLASDQ, SLASET, SLASRT, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, INT, LOG, REAL, SIGN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -58,7 +58,7 @@
 *
       EPS = SLAMCH( 'Epsilon' )
 *
-*     Set up the tolerance.
+      // Set up the tolerance.
 *
       IF( ( RCOND.LE.ZERO ) .OR. ( RCOND.GE.ONE ) ) THEN
          RCND = EPS
@@ -68,7 +68,7 @@
 *
       RANK = 0
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) THEN
          RETURN
@@ -83,7 +83,7 @@
          RETURN
       END IF
 *
-*     Rotate the matrix if it is lower bidiagonal.
+      // Rotate the matrix if it is lower bidiagonal.
 *
       IF( UPLO.EQ.'L' ) THEN
          DO 10 I = 1, N - 1
@@ -109,7 +109,7 @@
          END IF
       END IF
 *
-*     Scale.
+      // Scale.
 *
       NM1 = N - 1
       ORGNRM = SLANST( 'M', N, D, E )
@@ -121,8 +121,8 @@
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO )
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, INFO )
 *
-*     If N is smaller than the minimum divide size SMLSIZ, then solve
-*     the problem with another solver.
+      // If N is smaller than the minimum divide size SMLSIZ, then solve
+     t // he problem with another solver.
 *
       IF( N.LE.SMLSIZ ) THEN
          IRWU = 1
@@ -138,9 +138,9 @@
             RETURN
          END IF
 *
-*        In the real version, B is passed to SLASDQ and multiplied
-*        internally by Q**H. Here B is complex and that product is
-*        computed below in two steps (real and imaginary parts).
+         // In the real version, B is passed to SLASDQ and multiplied
+         // internally by Q**H. Here B is complex and that product is
+         // computed below in two steps (real and imaginary parts).
 *
          J = IRWB - 1
          DO 50 JCOL = 1, NRHS
@@ -178,11 +178,11 @@
             END IF
   100    CONTINUE
 *
-*        Since B is complex, the following call to SGEMM is performed
-*        in two steps (real and imaginary parts). That is for V * B
-*        (in the real version of the code V**H is stored in WORK).
+         // Since B is complex, the following call to SGEMM is performed
+         // in two steps (real and imaginary parts). That is for V * B
+         // (in the real version of the code V**H is stored in WORK).
 *
-*        CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO,
+         // CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO,
 *    $               WORK( NWORK ), N )
 *
          J = IRWB - 1
@@ -211,7 +211,7 @@
   150       CONTINUE
   160    CONTINUE
 *
-*        Unscale.
+         // Unscale.
 *
          CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
          CALL SLASRT( 'D', N, D, INFO )
@@ -220,7 +220,7 @@
          RETURN
       END IF
 *
-*     Book-keeping and setting up some constants.
+      // Book-keeping and setting up some constants.
 *
       NLVL = INT( LOG( REAL( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1
 *
@@ -266,26 +266,26 @@
             NSUB = NSUB + 1
             IWORK( NSUB ) = ST
 *
-*           Subproblem found. First determine its size and then
-*           apply divide and conquer on it.
+            // Subproblem found. First determine its size and then
+            // apply divide and conquer on it.
 *
             IF( I.LT.NM1 ) THEN
 *
-*              A subproblem with E(I) small for I < NM1.
+               // A subproblem with E(I) small for I < NM1.
 *
                NSIZE = I - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
             ELSE IF( ABS( E( I ) ).GE.EPS ) THEN
 *
-*              A subproblem with E(NM1) not too small but I = NM1.
+               // A subproblem with E(NM1) not too small but I = NM1.
 *
                NSIZE = N - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
             ELSE
 *
-*              A subproblem with E(NM1) small. This implies an
-*              1-by-1 subproblem at D(N), which is not solved
-*              explicitly.
+               // A subproblem with E(NM1) small. This implies an
+               // 1-by-1 subproblem at D(N), which is not solved
+               // explicitly.
 *
                NSIZE = I - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
@@ -297,22 +297,22 @@
             ST1 = ST - 1
             IF( NSIZE.EQ.1 ) THEN
 *
-*              This is a 1-by-1 subproblem and is not solved
-*              explicitly.
+               // This is a 1-by-1 subproblem and is not solved
+               // explicitly.
 *
                CALL CCOPY( NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
             ELSE IF( NSIZE.LE.SMLSIZ ) THEN
 *
-*              This is a small subproblem and is solved by SLASDQ.
+               // This is a small subproblem and is solved by SLASDQ.
 *
                CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( VT+ST1 ), N )                CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N )                CALL SLASDQ( 'U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO )
                IF( INFO.NE.0 ) THEN
                   RETURN
                END IF
 *
-*              In the real version, B is passed to SLASDQ and multiplied
-*              internally by Q**H. Here B is complex and that product is
-*              computed below in two steps (real and imaginary parts).
+               // In the real version, B is passed to SLASDQ and multiplied
+               // internally by Q**H. Here B is complex and that product is
+               // computed below in two steps (real and imaginary parts).
 *
                J = IRWB - 1
                DO 190 JCOL = 1, NRHS
@@ -343,7 +343,7 @@
                CALL CLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
             ELSE
 *
-*              A large problem. Solve it using divide and conquer.
+               // A large problem. Solve it using divide and conquer.
 *
                CALL SLASDA( ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO )
                IF( INFO.NE.0 ) THEN
@@ -359,14 +359,14 @@
          END IF
   240 CONTINUE
 *
-*     Apply the singular values and treat the tiny ones as zero.
+      // Apply the singular values and treat the tiny ones as zero.
 *
       TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
 *
       DO 250 I = 1, N
 *
-*        Some of the elements in D can be negative because 1-by-1
-*        subproblems were not solved explicitly.
+         // Some of the elements in D can be negative because 1-by-1
+         // subproblems were not solved explicitly.
 *
          IF( ABS( D( I ) ).LE.TOL ) THEN
             CALL CLASET( 'A', 1, NRHS, CZERO, CZERO, WORK( BX+I-1 ), N )
@@ -377,7 +377,7 @@
          D( I ) = ABS( D( I ) )
   250 CONTINUE
 *
-*     Now apply back the right singular vectors.
+      // Now apply back the right singular vectors.
 *
       ICMPQ2 = 1
       DO 320 I = 1, NSUB
@@ -389,10 +389,10 @@
             CALL CCOPY( NRHS, WORK( BXST ), N, B( ST, 1 ), LDB )
          ELSE IF( NSIZE.LE.SMLSIZ ) THEN
 *
-*           Since B and BX are complex, the following call to SGEMM
-*           is performed in two steps (real and imaginary parts).
+            // Since B and BX are complex, the following call to SGEMM
+            // is performed in two steps (real and imaginary parts).
 *
-*           CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
+            // CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
 *    $                  RWORK( VT+ST1 ), N, RWORK( BXST ), N, ZERO,
 *    $                  B( ST, 1 ), LDB )
 *
@@ -433,7 +433,7 @@
          END IF
   320 CONTINUE
 *
-*     Unscale and sort the singular values.
+      // Unscale and sort the singular values.
 *
       CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
       CALL SLASRT( 'D', N, D, INFO )
@@ -441,6 +441,6 @@
 *
       RETURN
 *
-*     End of CLALSD
+      // End of CLALSD
 *
       END

@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS, VECT;
       int                INFO, K, LDA, LDC, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               APPLYQ, LEFT, LQUERY, NOTRAN;
       String             TRANST;
       int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DORMLQ, DORMQR, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       APPLYQ = LSAME( VECT, 'Q' )
@@ -40,7 +40,7 @@
       NOTRAN = LSAME( TRANS, 'N' )
       LQUERY = ( LWORK.EQ.-1 )
 *
-*     NQ is the order of Q or P and NW is the minimum dimension of WORK
+      // NQ is the order of Q or P and NW is the minimum dimension of WORK
 *
       IF( LEFT ) THEN
          NQ = M
@@ -94,23 +94,23 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       WORK( 1 ) = 1
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
       IF( APPLYQ ) THEN
 *
-*        Apply Q
+         // Apply Q
 *
          IF( NQ.GE.K ) THEN
 *
-*           Q was determined by a call to DGEBRD with nq >= k
+            // Q was determined by a call to DGEBRD with nq >= k
 *
             CALL DORMQR( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO )
          ELSE IF( NQ.GT.1 ) THEN
 *
-*           Q was determined by a call to DGEBRD with nq < k
+            // Q was determined by a call to DGEBRD with nq < k
 *
             IF( LEFT ) THEN
                MI = M - 1
@@ -127,7 +127,7 @@
          END IF
       ELSE
 *
-*        Apply P
+         // Apply P
 *
          IF( NOTRAN ) THEN
             TRANST = 'T'
@@ -136,12 +136,12 @@
          END IF
          IF( NQ.GT.K ) THEN
 *
-*           P was determined by a call to DGEBRD with nq > k
+            // P was determined by a call to DGEBRD with nq > k
 *
             CALL DORMLQ( SIDE, TRANST, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO )
          ELSE IF( NQ.GT.1 ) THEN
 *
-*           P was determined by a call to DGEBRD with nq <= k
+            // P was determined by a call to DGEBRD with nq <= k
 *
             IF( LEFT ) THEN
                MI = M - 1
@@ -160,6 +160,6 @@
       WORK( 1 ) = LWKOPT
       RETURN
 *
-*     End of DORMBR
+      // End of DORMBR
 *
       END

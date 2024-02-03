@@ -4,17 +4,17 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, NIN;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
       double             RMAX( 3 );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
       double             EPSIN;
@@ -23,33 +23,33 @@
       PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
       int                LIWORK;
       PARAMETER          ( LIWORK = LDT*LDT )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, ISCL, ITMP, J, KMIN, M, N, NDIM;
       double             BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SELECT( LDT );
       int                IPNT( LDT ), ISELEC( LDT ), IWORK( LIWORK );
       double             Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), RESULT( 2 ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRTMP( LDT );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEHRD, DHSEQR, DHST01, DLACPY, DORGHR, DSCAL, DTRSEN
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     EPSIN = 2**(-24) = precision to which input data computed
+      // EPSIN = 2**(-24) = precision to which input data computed
 *
       EPS = MAX( EPS, EPSIN )
       RMAX( 1 ) = ZERO
@@ -67,9 +67,9 @@
       VAL( 2 ) = ONE
       VAL( 3 ) = SQRT( SQRT( BIGNUM ) )
 *
-*     Read input data until N=0.  Assume input eigenvalues are sorted
-*     lexicographically (increasing by real part, then decreasing by
-*     imaginary part)
+      // Read input data until N=0.  Assume input eigenvalues are sorted
+      // lexicographically (increasing by real part, then decreasing by
+      // imaginary part)
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, NDIM
@@ -83,7 +83,7 @@
       TNRM = DLANGE( 'M', N, N, TMP, LDT, WORK )
       DO 160 ISCL = 1, 3
 *
-*        Scale input matrix
+         // Scale input matrix
 *
          KNT = KNT + 1
          CALL DLACPY( 'F', N, N, TMP, LDT, T, LDT )
@@ -94,7 +94,7 @@
          IF( TNRM.EQ.ZERO ) VMUL = ONE
          CALL DLACPY( 'F', N, N, T, LDT, TSAV, LDT )
 *
-*        Compute Schur form
+         // Compute Schur form
 *
          CALL DGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
          IF( INFO.NE.0 ) THEN
@@ -103,12 +103,12 @@
             GO TO 160
          END IF
 *
-*        Generate orthogonal matrix
+         // Generate orthogonal matrix
 *
          CALL DLACPY( 'L', N, N, T, LDT, Q, LDT )
          CALL DORGHR( N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
 *
-*        Compute Schur form
+         // Compute Schur form
 *
          CALL DHSEQR( 'S', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
@@ -117,7 +117,7 @@
             GO TO 160
          END IF
 *
-*        Sort, select eigenvalues
+         // Sort, select eigenvalues
 *
          DO 40 I = 1, N
             IPNT( I ) = I
@@ -148,7 +148,7 @@
             SELECT( IPNT( ISELEC( I ) ) ) = .TRUE.
    70    CONTINUE
 *
-*        Compute condition numbers
+         // Compute condition numbers
 *
          CALL DLACPY( 'F', N, N, Q, LDT, QSAV, LDT )
          CALL DLACPY( 'F', N, N, T, LDT, TSAV1, LDT )
@@ -161,7 +161,7 @@
          SEPTMP = SEP / VMUL
          STMP = S
 *
-*        Compute residuals
+         // Compute residuals
 *
          CALL DHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RESULT )
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
@@ -170,8 +170,8 @@
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
 *
-*        Compare condition number for eigenvalue cluster
-*        taking its condition number into account
+         // Compare condition number for eigenvalue cluster
+        t // aking its condition number into account
 *
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
@@ -203,8 +203,8 @@
             IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
          END IF
 *
-*        Compare condition numbers for invariant subspace
-*        taking its condition number into account
+         // Compare condition numbers for invariant subspace
+        t // aking its condition number into account
 *
          IF( V.GT.SEPTMP*STMP ) THEN
             TOL = SEPTMP
@@ -234,8 +234,8 @@
             IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
          END IF
 *
-*        Compare condition number for eigenvalue cluster
-*        without taking its condition number into account
+         // Compare condition number for eigenvalue cluster
+         // without taking its condition number into account
 *
          IF( SIN.LE.DBLE( 2*N )*EPS .AND. STMP.LE.DBLE( 2*N )*EPS ) THEN
             VMAX = ONE
@@ -255,8 +255,8 @@
             IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
          END IF
 *
-*        Compare condition numbers for invariant subspace
-*        without taking its condition number into account
+         // Compare condition numbers for invariant subspace
+         // without taking its condition number into account
 *
          IF( SEPIN.LE.V .AND. SEPTMP.LE.V ) THEN
             VMAX = ONE
@@ -276,8 +276,8 @@
             IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
          END IF
 *
-*        Compute eigenvalue condition number only and compare
-*        Update Q
+         // Compute eigenvalue condition number only and compare
+         // Update Q
 *
          VMAX = ZERO
          CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
@@ -297,8 +297,8 @@
    80       CONTINUE
    90    CONTINUE
 *
-*        Compute invariant subspace condition number only and compare
-*        Update Q
+         // Compute invariant subspace condition number only and compare
+         // Update Q
 *
          CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
@@ -317,8 +317,8 @@
   100       CONTINUE
   110    CONTINUE
 *
-*        Compute eigenvalue condition number only and compare
-*        Do not update Q
+         // Compute eigenvalue condition number only and compare
+         // Do not update Q
 *
          CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
@@ -337,8 +337,8 @@
   120       CONTINUE
   130    CONTINUE
 *
-*        Compute invariant subspace condition number only and compare
-*        Do not update Q
+         // Compute invariant subspace condition number only and compare
+         // Do not update Q
 *
          CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
@@ -363,6 +363,6 @@
   160 CONTINUE
       GO TO 10
 *
-*     End of DGET38
+      // End of DGET38
 *
       END

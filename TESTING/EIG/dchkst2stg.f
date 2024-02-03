@@ -4,19 +4,19 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LIWORK, LWORK, NOUNIT, NSIZES, NTYPES;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       double             A( LDA, * ), AP( * ), D1( * ), D2( * ), D3( * ), D4( * ), D5( * ), RESULT( * ), SD( * ), SE( * ), TAU( * ), U( LDU, * ), V( LDU, * ), VP( * ), WA1( * ), WA2( * ), WA3( * ), WORK( * ), WR( * ), Z( LDU, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO, EIGHT, TEN, HUN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0, TEN = 10.0D0, HUN = 100.0D0 )
       double             HALF;
@@ -27,41 +27,41 @@
       PARAMETER          ( SRANGE = .FALSE. )
       bool               SREL;
       PARAMETER          ( SREL = .FALSE. )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN, TRYRAC;
       int                I, IINFO, IL, IMODE, ITEMP, ITYPE, IU, J, JC, JR, JSIZE, JTYPE, LGN, LIWEDC, LOG2UI, LWEDC, M, M2, M3, MTYPES, N, NAP, NBLOCK, NERRS, NMATS, NMAX, NSPLIT, NTEST, NTESTT, LH, LW;
       double             ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL, VL, VU;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       double             DUMMA( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       double             DLAMCH, DLARND, DSXT1;
       // EXTERNAL ILAENV, DLAMCH, DLARND, DSXT1
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DLACPY, DLASET, DLASUM, DLATMR, DLATMS, DOPGTR, DORGTR, DPTEQR, DSPT21, DSPTRD, DSTEBZ, DSTECH, DSTEDC, DSTEMR, DSTEIN, DSTEQR, DSTERF, DSTT21, DSTT22, DSYT21, DSYTRD, XERBLA, DSYTRD_2STAGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, INT, LOG, MAX, MIN, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10 /       DATA               KMAGN / 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1 /       DATA               KMODE / 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Keep ftnchek happy
+      // Keep ftnchek happy
       IDUMMA( 1 ) = 1
 *
-*     Check for errors
+      // Check for errors
 *
       NTESTT = 0
       INFO = 0
 *
-*     Important constants
+      // Important constants
 *
       BADNN = .FALSE.
       TRYRAC = .TRUE.
@@ -74,7 +74,7 @@
       NBLOCK = ILAENV( 1, 'DSYTRD', 'L', NMAX, -1, -1, -1 )
       NBLOCK = MIN( NMAX, MAX( 1, NBLOCK ) )
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -95,11 +95,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
@@ -109,7 +109,7 @@
       RTUNFL = SQRT( UNFL )
       RTOVFL = SQRT( OVFL )
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       DO 20 I = 1, 4
          ISEED2( I ) = ISEED( I )
@@ -146,28 +146,28 @@
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
 *
-*           Compute "A"
+            // Compute "A"
 *
-*           Control parameters:
+            // Control parameters:
 *
-*               KMAGN  KMODE        KTYPE
-*           =1  O(1)   clustered 1  zero
-*           =2  large  clustered 2  identity
-*           =3  small  exponential  (none)
-*           =4         arithmetic   diagonal, (w/ eigenvalues)
-*           =5         random log   symmetric, w/ eigenvalues
-*           =6         random       (none)
-*           =7                      random diagonal
-*           =8                      random symmetric
-*           =9                      positive definite
-*           =10                     diagonally dominant tridiagonal
+                // KMAGN  KMODE        KTYPE
+            // =1  O(1)   clustered 1  zero
+            // =2  large  clustered 2  identity
+            // =3  small  exponential  (none)
+            // =4         arithmetic   diagonal, (w/ eigenvalues)
+            // =5         random log   symmetric, w/ eigenvalues
+            // =6         random       (none)
+            // =7                      random diagonal
+            // =8                      random symmetric
+            // =9                      positive definite
+            // =10                     diagonally dominant tridiagonal
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 100
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
 *
-*           Compute norm
+            // Compute norm
 *
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 *
@@ -193,16 +193,16 @@
                COND = ULPINV*ANINV / TEN
             END IF
 *
-*           Special Matrices -- Identity & Jordan block
+            // Special Matrices -- Identity & Jordan block
 *
-*              Zero
+               // Zero
 *
             IF( ITYPE.EQ.1 ) THEN
                IINFO = 0
 *
             ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*              Identity
+               // Identity
 *
                DO 80 JC = 1, N
                   A( JC, JC ) = ANORM
@@ -210,38 +210,38 @@
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*              Diagonal Matrix, [Eigen]values Specified
+               // Diagonal Matrix, [Eigen]values Specified
 *
                CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*              Symmetric, eigenvalues specified
+               // Symmetric, eigenvalues specified
 *
                CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
-*              Diagonal, random eigenvalues
+               // Diagonal, random eigenvalues
 *
                CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
-*              Symmetric, random eigenvalues
+               // Symmetric, random eigenvalues
 *
                CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*              Positive definite, eigenvalues specified.
+               // Positive definite, eigenvalues specified.
 *
                CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
-*              Positive definite tridiagonal, eigenvalues specified.
+               // Positive definite tridiagonal, eigenvalues specified.
 *
                CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK( N+1 ), IINFO )
                DO 90 I = 2, N
@@ -265,8 +265,8 @@
 *
   100       CONTINUE
 *
-*           Call DSYTRD and DORGTR to compute S and U from
-*           upper triangle.
+            // Call DSYTRD and DORGTR to compute S and U from
+            // upper triangle.
 *
             CALL DLACPY( 'U', N, N, A, LDA, V, LDU )
 *
@@ -299,16 +299,16 @@
                END IF
             END IF
 *
-*           Do tests 1 and 2
+            // Do tests 1 and 2
 *
             CALL DSYT21( 2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 1 ) )             CALL DSYT21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 2 ) )
 *
-*           Compute D1 the eigenvalues resulting from the tridiagonal
-*           form using the standard 1-stage algorithm and use it as a
-*           reference to compare with the 2-stage technique
+            // Compute D1 the eigenvalues resulting from the tridiagonal
+            // form using the standard 1-stage algorithm and use it as a
+            // reference to compare with the 2-stage technique
 *
-*           Compute D1 from the 1-stage and used as reference for the
-*           2-stage
+            // Compute D1 from the 1-stage and used as reference for the
+            // 2-stage
 *
             CALL DCOPY( N, SD, 1, D1, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -325,10 +325,10 @@
                END IF
             END IF
 *
-*           2-STAGE TRD Upper case is used to compute D2.
-*           Note to set SD and SE to zero to be sure not reusing
-*           the one from above. Compare it with D1 computed
-*           using the 1-stage.
+            // 2-STAGE TRD Upper case is used to compute D2.
+            // Note to set SD and SE to zero to be sure not reusing
+           t // he one from above. Compare it with D1 computed
+            // using the 1-stage.
 *
             CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
             CALL DLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
@@ -337,7 +337,7 @@
             LW = LWORK - LH
             CALL DSYTRD_2STAGE( 'N', "U", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO )
 *
-*           Compute D2 from the 2-stage Upper case
+            // Compute D2 from the 2-stage Upper case
 *
             CALL DCOPY( N, SD, 1, D2, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -354,17 +354,17 @@
                END IF
             END IF
 *
-*           2-STAGE TRD Lower case is used to compute D3.
-*           Note to set SD and SE to zero to be sure not reusing
-*           the one from above. Compare it with D1 computed
-*           using the 1-stage.
+            // 2-STAGE TRD Lower case is used to compute D3.
+            // Note to set SD and SE to zero to be sure not reusing
+           t // he one from above. Compare it with D1 computed
+            // using the 1-stage.
 *
             CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
             CALL DLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
             CALL DLACPY( "L", N, N, A, LDA, V, LDU )
             CALL DSYTRD_2STAGE( 'N', "L", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO )
 *
-*           Compute D3 from the 2-stage Upper case
+            // Compute D3 from the 2-stage Upper case
 *
             CALL DCOPY( N, SD, 1, D3, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -381,8 +381,8 @@
                END IF
             END IF
 *
-*           Do Tests 3 and 4 which are similar to 11 and 12 but with the
-*           D1 computed using the standard 1-stage reduction as reference
+            // Do Tests 3 and 4 which are similar to 11 and 12 but with the
+            // D1 computed using the standard 1-stage reduction as reference
 *
             NTEST = 4
             TEMP1 = ZERO
@@ -400,7 +400,7 @@
             RESULT( 3 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
             RESULT( 4 ) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) )
 *
-*           Store the upper triangle of A in AP
+            // Store the upper triangle of A in AP
 *
             I = 0
             DO 120 JC = 1, N
@@ -410,7 +410,7 @@
   110          CONTINUE
   120       CONTINUE
 *
-*           Call DSPTRD and DOPGTR to compute S and U from AP
+            // Call DSPTRD and DOPGTR to compute S and U from AP
 *
             CALL DCOPY( NAP, AP, 1, VP, 1 )
 *
@@ -441,11 +441,11 @@
                END IF
             END IF
 *
-*           Do tests 5 and 6
+            // Do tests 5 and 6
 *
             CALL DSPT21( 2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 5 ) )             CALL DSPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 6 ) )
 *
-*           Store the lower triangle of A in AP
+            // Store the lower triangle of A in AP
 *
             I = 0
             DO 140 JC = 1, N
@@ -455,7 +455,7 @@
   130          CONTINUE
   140       CONTINUE
 *
-*           Call DSPTRD and DOPGTR to compute S and U from AP
+            // Call DSPTRD and DOPGTR to compute S and U from AP
 *
             CALL DCOPY( NAP, AP, 1, VP, 1 )
 *
@@ -488,9 +488,9 @@
 *
             CALL DSPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 7 ) )             CALL DSPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 8 ) )
 *
-*           Call DSTEQR to compute D1, D2, and Z, do tests.
+            // Call DSTEQR to compute D1, D2, and Z, do tests.
 *
-*           Compute D1 and Z
+            // Compute D1 and Z
 *
             CALL DCOPY( N, SD, 1, D1, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -509,7 +509,7 @@
                END IF
             END IF
 *
-*           Compute D2
+            // Compute D2
 *
             CALL DCOPY( N, SD, 1, D2, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -527,7 +527,7 @@
                END IF
             END IF
 *
-*           Compute D3 (using PWK method)
+            // Compute D3 (using PWK method)
 *
             CALL DCOPY( N, SD, 1, D3, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -545,11 +545,11 @@
                END IF
             END IF
 *
-*           Do Tests 9 and 10
+            // Do Tests 9 and 10
 *
             CALL DSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 9 ) )
 *
-*           Do Tests 11 and 12
+            // Do Tests 11 and 12
 *
             TEMP1 = ZERO
             TEMP2 = ZERO
@@ -566,8 +566,8 @@
             RESULT( 11 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
             RESULT( 12 ) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) )
 *
-*           Do Test 13 -- Sturm Sequence Test of Eigenvalues
-*                         Go up by factors of two until it succeeds
+            // Do Test 13 -- Sturm Sequence Test of Eigenvalues
+                          // Go up by factors of two until it succeeds
 *
             NTEST = 13
             TEMP1 = THRESH*( HALF-ULP )
@@ -581,12 +581,12 @@
   170       CONTINUE
             RESULT( 13 ) = TEMP1
 *
-*           For positive definite matrices ( JTYPE.GT.15 ) call DPTEQR
-*           and do tests 14, 15, and 16 .
+            // For positive definite matrices ( JTYPE.GT.15 ) call DPTEQR
+            // and do tests 14, 15, and 16 .
 *
             IF( JTYPE.GT.15 ) THEN
 *
-*              Compute D4 and Z4
+               // Compute D4 and Z4
 *
                CALL DCOPY( N, SD, 1, D4, 1 )
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -605,11 +605,11 @@
                   END IF
                END IF
 *
-*              Do Tests 14 and 15
+               // Do Tests 14 and 15
 *
                CALL DSTT21( N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT( 14 ) )
 *
-*              Compute D5
+               // Compute D5
 *
                CALL DCOPY( N, SD, 1, D5, 1 )
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -627,7 +627,7 @@
                   END IF
                END IF
 *
-*              Do Test 16
+               // Do Test 16
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -643,10 +643,10 @@
                RESULT( 16 ) = ZERO
             END IF
 *
-*           Call DSTEBZ with different options and do tests 17-18.
+            // Call DSTEBZ with different options and do tests 17-18.
 *
-*              If S is positive definite and diagonally dominant,
-*              ask for all eigenvalues with high relative accuracy.
+               // If S is positive definite and diagonally dominant,
+               // ask for all eigenvalues with high relative accuracy.
 *
             VL = ZERO
             VU = ZERO
@@ -667,7 +667,7 @@
                   END IF
                END IF
 *
-*              Do test 17
+               // Do test 17
 *
                TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 *
@@ -681,7 +681,7 @@
                RESULT( 17 ) = ZERO
             END IF
 *
-*           Now ask for all eigenvalues with high absolute accuracy.
+            // Now ask for all eigenvalues with high absolute accuracy.
 *
             NTEST = 18
             ABSTOL = UNFL + UNFL
@@ -697,7 +697,7 @@
                END IF
             END IF
 *
-*           Do test 18
+            // Do test 18
 *
             TEMP1 = ZERO
             TEMP2 = ZERO
@@ -708,8 +708,8 @@
 *
             RESULT( 18 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*           Choose random values for IL and IU, and ask for the
-*           IL-th through IU-th eigenvalues.
+            // Choose random values for IL and IU, and ask for the
+            // IL-th through IU-th eigenvalues.
 *
             NTEST = 19
             IF( N.LE.1 ) THEN
@@ -737,8 +737,8 @@
                END IF
             END IF
 *
-*           Determine the values VL and VU of the IL-th and IU-th
-*           eigenvalues and ask for all eigenvalues in this range.
+            // Determine the values VL and VU of the IL-th and IU-th
+            // eigenvalues and ask for all eigenvalues in this range.
 *
             IF( N.GT.0 ) THEN
                IF( IL.NE.1 ) THEN
@@ -773,7 +773,7 @@
                GO TO 280
             END IF
 *
-*           Do test 19
+            // Do test 19
 *
             TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
             TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -785,9 +785,9 @@
 *
             RESULT( 19 ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 *
-*           Call DSTEIN to compute eigenvectors corresponding to
-*           eigenvalues in WA1.  (First call DSTEBZ again, to make sure
-*           it returns these eigenvalues in the correct order.)
+            // Call DSTEIN to compute eigenvectors corresponding to
+            // eigenvalues in WA1.  (First call DSTEBZ again, to make sure
+            // it returns these eigenvalues in the correct order.)
 *
             NTEST = 21
             CALL DSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
@@ -816,13 +816,13 @@
                END IF
             END IF
 *
-*           Do tests 20 and 21
+            // Do tests 20 and 21
 *
             CALL DSTT21( N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT( 20 ) )
 *
-*           Call DSTEDC(I) to compute D1 and Z, do tests.
+            // Call DSTEDC(I) to compute D1 and Z, do tests.
 *
-*           Compute D1 and Z
+            // Compute D1 and Z
 *
             CALL DCOPY( N, SD, 1, D1, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -841,13 +841,13 @@
                END IF
             END IF
 *
-*           Do Tests 22 and 23
+            // Do Tests 22 and 23
 *
             CALL DSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 22 ) )
 *
-*           Call DSTEDC(V) to compute D1 and Z, do tests.
+            // Call DSTEDC(V) to compute D1 and Z, do tests.
 *
-*           Compute D1 and Z
+            // Compute D1 and Z
 *
             CALL DCOPY( N, SD, 1, D1, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -866,13 +866,13 @@
                END IF
             END IF
 *
-*           Do Tests 24 and 25
+            // Do Tests 24 and 25
 *
             CALL DSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 24 ) )
 *
-*           Call DSTEDC(N) to compute D2, do tests.
+            // Call DSTEDC(N) to compute D2, do tests.
 *
-*           Compute D2
+            // Compute D2
 *
             CALL DCOPY( N, SD, 1, D2, 1 )
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -891,7 +891,7 @@
                END IF
             END IF
 *
-*           Do Test 26
+            // Do Test 26
 *
             TEMP1 = ZERO
             TEMP2 = ZERO
@@ -903,14 +903,14 @@
 *
             RESULT( 26 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*           Only test DSTEMR if IEEE compliant
+            // Only test DSTEMR if IEEE compliant
 *
             IF( ILAENV( 10, 'DSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 .AND. ILAENV( 11, 'DSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 ) THEN
 *
-*           Call DSTEMR, do test 27 (relative eigenvalue accuracy)
+            // Call DSTEMR, do test 27 (relative eigenvalue accuracy)
 *
-*              If S is positive definite and diagonally dominant,
-*              ask for all eigenvalues with high relative accuracy.
+               // If S is positive definite and diagonally dominant,
+               // ask for all eigenvalues with high relative accuracy.
 *
                VL = ZERO
                VU = ZERO
@@ -931,7 +931,7 @@
                      END IF
                   END IF
 *
-*              Do test 27
+               // Do test 27
 *
                   TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 *
@@ -966,7 +966,7 @@
                         END IF
                      END IF
 *
-*                 Do test 28
+                  // Do test 28
 *
                      TEMP2 = TWO*( TWO*N-ONE )*ULP* ( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 *
@@ -984,9 +984,9 @@
                   RESULT( 28 ) = ZERO
                END IF
 *
-*           Call DSTEMR(V,I) to compute D1 and Z, do tests.
+            // Call DSTEMR(V,I) to compute D1 and Z, do tests.
 *
-*           Compute D1 and Z
+            // Compute D1 and Z
 *
                CALL DCOPY( N, SD, 1, D5, 1 )
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -1013,13 +1013,13 @@
                      END IF
                   END IF
 *
-*           Do Tests 29 and 30
+            // Do Tests 29 and 30
 *
                   CALL DSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 29 ) )
 *
-*           Call DSTEMR to compute D2, do tests.
+            // Call DSTEMR to compute D2, do tests.
 *
-*           Compute D2
+            // Compute D2
 *
                   CALL DCOPY( N, SD, 1, D5, 1 )
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -1037,7 +1037,7 @@
                      END IF
                   END IF
 *
-*           Do Test 31
+            // Do Test 31
 *
                   TEMP1 = ZERO
                   TEMP2 = ZERO
@@ -1049,9 +1049,9 @@
 *
                   RESULT( 31 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*           Call DSTEMR(V,V) to compute D1 and Z, do tests.
+            // Call DSTEMR(V,V) to compute D1 and Z, do tests.
 *
-*           Compute D1 and Z
+            // Compute D1 and Z
 *
                   CALL DCOPY( N, SD, 1, D5, 1 )
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -1087,13 +1087,13 @@
                      END IF
                   END IF
 *
-*           Do Tests 32 and 33
+            // Do Tests 32 and 33
 *
                   CALL DSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 32 ) )
 *
-*           Call DSTEMR to compute D2, do tests.
+            // Call DSTEMR to compute D2, do tests.
 *
-*           Compute D2
+            // Compute D2
 *
                   CALL DCOPY( N, SD, 1, D5, 1 )
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -1111,7 +1111,7 @@
                      END IF
                   END IF
 *
-*           Do Test 34
+            // Do Test 34
 *
                   TEMP1 = ZERO
                   TEMP2 = ZERO
@@ -1131,9 +1131,9 @@
                   RESULT( 34 ) = ZERO
                END IF
 *
-*           Call DSTEMR(V,A) to compute D1 and Z, do tests.
+            // Call DSTEMR(V,A) to compute D1 and Z, do tests.
 *
-*           Compute D1 and Z
+            // Compute D1 and Z
 *
                CALL DCOPY( N, SD, 1, D5, 1 )
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -1152,13 +1152,13 @@
                   END IF
                END IF
 *
-*           Do Tests 35 and 36
+            // Do Tests 35 and 36
 *
                CALL DSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 35 ) )
 *
-*           Call DSTEMR to compute D2, do tests.
+            // Call DSTEMR to compute D2, do tests.
 *
-*           Compute D2
+            // Compute D2
 *
                CALL DCOPY( N, SD, 1, D5, 1 )
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
@@ -1176,7 +1176,7 @@
                   END IF
                END IF
 *
-*           Do Test 37
+            // Do Test 37
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1192,15 +1192,15 @@
   280       CONTINUE
             NTESTT = NTESTT + NTEST
 *
-*           End of Loop -- Check for RESULT(j) > THRESH
+            // End of Loop -- Check for RESULT(j) > THRESH
 *
-*           Print out tests which fail.
+            // Print out tests which fail.
 *
             DO 290 JR = 1, NTEST
                IF( RESULT( JR ).GE.THRESH ) THEN
 *
-*                 If this is the first test to fail,
-*                 print a header to the data file.
+                  // If this is the first test to fail,
+                  // print a header to the data file.
 *
                   IF( NERRS.EQ.0 ) THEN
                      WRITE( NOUNIT, FMT = 9998 )'DST'
@@ -1209,7 +1209,7 @@
                      WRITE( NOUNIT, FMT = 9995 )'Symmetric'
                      WRITE( NOUNIT, FMT = 9994 )
 *
-*                    Tests performed
+                     // Tests performed
 *
                      WRITE( NOUNIT, FMT = 9988 )
                   END IF
@@ -1220,7 +1220,7 @@
   300    CONTINUE
   310 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL DLASUM( 'DST', NOUNIT, NERRS, NTESTT )
       RETURN
@@ -1261,6 +1261,6 @@
 *
  9988 FORMAT( / 'Test performed:  see DCHKST2STG for details.', / )
 *
-*     End of DCHKST2STG
+      // End of DCHKST2STG
 *
       END

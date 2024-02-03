@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), TAU( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, K;
       double             AII;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARF, DLARFG, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -48,12 +48,12 @@
 *
       DO 10 I = 1, K
 *
-*        Generate elementary reflector H(i) to annihilate A(i,i+1:n)
+         // Generate elementary reflector H(i) to annihilate A(i,i+1:n)
 *
          CALL DLARFG( N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAU( I ) )
          IF( I.LT.M ) THEN
 *
-*           Apply H(i) to A(i+1:m,i:n) from the right
+            // Apply H(i) to A(i+1:m,i:n) from the right
 *
             AII = A( I, I )
             A( I, I ) = ONE
@@ -63,6 +63,6 @@
    10 CONTINUE
       RETURN
 *
-*     End of DGELQ2
+      // End of DGELQ2
 *
       END

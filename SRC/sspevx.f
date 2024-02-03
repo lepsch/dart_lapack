@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDZ, M, N;
       REAL               ABSTOL, VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       REAL               AP( * ), W( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, VALEIG, WANTZ;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDISP, INDIWO, INDTAU, INDWRK, ISCALE, ITMP1, J, JJ, NSPLIT;
       REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANSP
       // EXTERNAL LSAME, SLAMCH, SLANSP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SOPGTR, SOPMTR, SSCAL, SSPTRD, SSTEBZ, SSTEIN, SSTEQR, SSTERF, SSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
@@ -75,7 +75,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) RETURN
@@ -94,7 +94,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS = SLAMCH( 'Precision' )
@@ -103,7 +103,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       ABSTLL = ABSTOL
@@ -131,7 +131,7 @@
          END IF
       END IF
 *
-*     Call SSPTRD to reduce symmetric packed matrix to tridiagonal form.
+      // Call SSPTRD to reduce symmetric packed matrix to tridiagonal form.
 *
       INDTAU = 1
       INDE = INDTAU + N
@@ -139,9 +139,9 @@
       INDWRK = INDD + N
       CALL SSPTRD( UPLO, N, AP, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), IINFO )
 *
-*     If all eigenvalues are desired and ABSTOL is less than or equal
-*     to zero, then call SSTERF or SOPGTR and SSTEQR.  If this fails
-*     for some eigenvalue, then try SSTEBZ.
+      // If all eigenvalues are desired and ABSTOL is less than or equal
+     t // o zero, then call SSTERF or SOPGTR and SSTEQR.  If this fails
+      // for some eigenvalue, then try SSTEBZ.
 *
       TEST = .FALSE.
       IF (INDEIG) THEN
@@ -172,7 +172,7 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
+      // Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -186,13 +186,13 @@
       IF( WANTZ ) THEN
          CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
 *
-*        Apply orthogonal matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by SSTEIN.
+         // Apply orthogonal matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by SSTEIN.
 *
          CALL SOPMTR( 'L', UPLO, 'N', N, M, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
    20 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -204,8 +204,8 @@
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 40 J = 1, M - 1
@@ -236,6 +236,6 @@
 *
       RETURN
 *
-*     End of SSPEVX
+      // End of SSPEVX
 *
       END

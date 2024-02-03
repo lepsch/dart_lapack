@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, N, NSPLIT;
       double              SPLTOL, TNRM;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISPLIT( * );
       double             D( * ), E( * ), E2( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       double             EABS, TMP1;
 
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NSPLIT = 1
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          RETURN
       END IF
 *
-*     Compute splitting points
+      // Compute splitting points
       IF(SPLTOL.LT.ZERO) THEN
-*        Criterion based on absolute off-diagonal value
+         // Criterion based on absolute off-diagonal value
          TMP1 = ABS(SPLTOL)* TNRM
          DO 9 I = 1, N-1
             EABS = ABS( E(I) )
@@ -52,7 +52,7 @@
             END IF
  9       CONTINUE
       ELSE
-*        Criterion that guarantees relative accuracy
+         // Criterion that guarantees relative accuracy
          DO 10 I = 1, N-1
             EABS = ABS( E(I) )
             IF( EABS .LE. SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) THEN
@@ -67,6 +67,6 @@
 
       RETURN
 *
-*     End of DLARRA
+      // End of DLARRA
 *
       END

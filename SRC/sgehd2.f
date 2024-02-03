@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IHI, ILO, INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       REAL               AII
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLARF, SLARFG, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -48,17 +48,17 @@
 *
       DO 10 I = ILO, IHI - 1
 *
-*        Compute elementary reflector H(i) to annihilate A(i+2:ihi,i)
+         // Compute elementary reflector H(i) to annihilate A(i+2:ihi,i)
 *
          CALL SLARFG( IHI-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAU( I ) )
          AII = A( I+1, I )
          A( I+1, I ) = ONE
 *
-*        Apply H(i) to A(1:ihi,i+1:ihi) from the right
+         // Apply H(i) to A(1:ihi,i+1:ihi) from the right
 *
          CALL SLARF( 'Right', IHI, IHI-I, A( I+1, I ), 1, TAU( I ), A( 1, I+1 ), LDA, WORK )
 *
-*        Apply H(i) to A(i+1:ihi,i+1:n) from the left
+         // Apply H(i) to A(i+1:ihi,i+1:n) from the left
 *
          CALL SLARF( 'Left', IHI-I, N-I, A( I+1, I ), 1, TAU( I ), A( I+1, I+1 ), LDA, WORK )
 *
@@ -67,6 +67,6 @@
 *
       RETURN
 *
-*     End of SGEHD2
+      // End of SGEHD2
 *
       END

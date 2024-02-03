@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE, ZERO
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             SFMIN;
       int                J, JP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       int                IZAMAX;
       // EXTERNAL DLAMCH, IZAMAX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGERU, ZRSCL, ZSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -50,27 +50,27 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Compute machine safe minimum
+      // Compute machine safe minimum
 *
       SFMIN = DLAMCH('S')
 *
       DO 10 J = 1, MIN( M, N )
 *
-*        Find pivot and test for singularity.
+         // Find pivot and test for singularity.
 *
          JP = J - 1 + IZAMAX( M-J+1, A( J, J ), 1 )
          IPIV( J ) = JP
          IF( A( JP, J ).NE.ZERO ) THEN
 *
-*           Apply the interchange to columns 1:N.
+            // Apply the interchange to columns 1:N.
 *
             IF( JP.NE.J ) CALL ZSWAP( N, A( J, 1 ), LDA, A( JP, 1 ), LDA )
 *
-*           Compute elements J+1:M of J-th column.
+            // Compute elements J+1:M of J-th column.
 *
             IF( J.LT.M ) CALL ZRSCL( M-J, A( J, J ), A( J+1, J ), 1 )
 *
@@ -81,13 +81,13 @@
 *
          IF( J.LT.MIN( M, N ) ) THEN
 *
-*           Update trailing submatrix.
+            // Update trailing submatrix.
 *
             CALL ZGERU( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA )
          END IF
    10 CONTINUE
       RETURN
 *
-*     End of ZGETF2
+      // End of ZGETF2
 *
       END

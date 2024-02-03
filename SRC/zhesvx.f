@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       double             BERR( * ), FERR( * ), RWORK( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, NOFACT;
       int                LWKOPT, LWKMIN, NB;
       double             ANORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, ZLANHE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANHE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZHECON, ZHERFS, ZHETRF, ZHETRS, ZLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -84,12 +84,12 @@
 *
       IF( NOFACT ) THEN
 *
-*        Compute the factorization A = U*D*U**H or A = L*D*L**H.
+         // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 *
          CALL ZLACPY( UPLO, N, N, A, LDA, AF, LDAF )
          CALL ZHETRF( UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 )THEN
             RCOND = ZERO
@@ -97,25 +97,25 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A.
+      // Compute the norm of the matrix A.
 *
       ANORM = ZLANHE( 'I', UPLO, N, A, LDA, RWORK )
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL ZHECON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO )
 *
-*     Compute the solution vectors X.
+      // Compute the solution vectors X.
 *
       CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL ZHETRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solutions and
-*     compute error bounds and backward error estimates for them.
+      // Use iterative refinement to improve the computed solutions and
+      // compute error bounds and backward error estimates for them.
 *
       CALL ZHERFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
@@ -123,6 +123,6 @@
 *
       RETURN
 *
-*     End of ZHESVX
+      // End of ZHESVX
 *
       END

@@ -5,39 +5,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int               INFO, LDA, LDT, LWORK, M, N, MB, NB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL              A( LDA, * ), T( LDT, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                NBLOCAL, MB2, M_PLUS_ONE, ITMP, IB_BOTTOM, LWORKOPT, NUM_ALL_ROW_BLOCKS, JB_T, IB, IMB, KB, KB_LAST, KNB, MB1;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUMMY( 1, 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SROUNDUP_LWORK
       // EXTERNAL SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLARFB_GETT, SLASET, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       LQUERY  = LWORK.EQ.-1
@@ -59,13 +59,13 @@
 *
       NBLOCAL = MIN( NB, N )
 *
-*     Determine the workspace size.
+      // Determine the workspace size.
 *
       IF( INFO.EQ.0 ) THEN
          LWORKOPT = NBLOCAL * MAX( NBLOCAL, ( N - NBLOCAL ) )
       END IF
 *
-*     Handle error in the input parameters and handle the workspace query.
+      // Handle error in the input parameters and handle the workspace query.
 *
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SORGTSQR_ROW', -INFO )
@@ -75,40 +75,40 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MIN( M, N ).EQ.0 ) THEN
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
          RETURN
       END IF
 *
-*     (0) Set the upper-triangular part of the matrix A to zero and
-*     its diagonal elements to one.
+      // (0) Set the upper-triangular part of the matrix A to zero and
+      // its diagonal elements to one.
 *
       CALL SLASET('U', M, N, ZERO, ONE, A, LDA )
 *
-*     KB_LAST is the column index of the last column block reflector
-*     in the matrices T and V.
+      // KB_LAST is the column index of the last column block reflector
+      // in the matrices T and V.
 *
       KB_LAST = ( ( N-1 ) / NBLOCAL ) * NBLOCAL + 1
 *
 *
-*     (1) Bottom-up loop over row blocks of A, except the top row block.
-*     NOTE: If MB>=M, then the loop is never executed.
+      // (1) Bottom-up loop over row blocks of A, except the top row block.
+      // NOTE: If MB>=M, then the loop is never executed.
 *
       IF ( MB.LT.M ) THEN
 *
-*        MB2 is the row blocking size for the row blocks before the
-*        first top row block in the matrix A. IB is the row index for
-*        the row blocks in the matrix A before the first top row block.
-*        IB_BOTTOM is the row index for the last bottom row block
-*        in the matrix A. JB_T is the column index of the corresponding
-*        column block in the matrix T.
+         // MB2 is the row blocking size for the row blocks before the
+         // first top row block in the matrix A. IB is the row index for
+        t // he row blocks in the matrix A before the first top row block.
+         // IB_BOTTOM is the row index for the last bottom row block
+         // in the matrix A. JB_T is the column index of the corresponding
+         // column block in the matrix T.
 *
-*        Initialize variables.
+         // Initialize variables.
 *
-*        NUM_ALL_ROW_BLOCKS is the number of row blocks in the matrix A
-*        including the first row block.
+         // NUM_ALL_ROW_BLOCKS is the number of row blocks in the matrix A
+         // including the first row block.
 *
          MB2 = MB - N
          M_PLUS_ONE = M + 1
@@ -119,25 +119,25 @@
 *
          DO IB = IB_BOTTOM, MB+1, -MB2
 *
-*           Determine the block size IMB for the current row block
-*           in the matrix A.
+            // Determine the block size IMB for the current row block
+            // in the matrix A.
 *
             IMB = MIN( M_PLUS_ONE - IB, MB2 )
 *
-*           Determine the column index JB_T for the current column block
-*           in the matrix T.
+            // Determine the column index JB_T for the current column block
+            // in the matrix T.
 *
             JB_T = JB_T - N
 *
-*           Apply column blocks of H in the row block from right to left.
+            // Apply column blocks of H in the row block from right to left.
 *
-*           KB is the column index of the current column block reflector
-*           in the matrices T and V.
+            // KB is the column index of the current column block reflector
+            // in the matrices T and V.
 *
             DO KB = KB_LAST, 1, -NBLOCAL
 *
-*              Determine the size of the current column block KNB in
-*              the matrices T and V.
+               // Determine the size of the current column block KNB in
+              t // he matrices T and V.
 *
                KNB = MIN( NBLOCAL, N - KB + 1 )
 *
@@ -149,29 +149,29 @@
 *
       END IF
 *
-*     (2) Top row block of A.
-*     NOTE: If MB>=M, then we have only one row block of A of size M
-*     and we work on the entire matrix A.
+      // (2) Top row block of A.
+      // NOTE: If MB>=M, then we have only one row block of A of size M
+      // and we work on the entire matrix A.
 *
       MB1 = MIN( MB, M )
 *
-*     Apply column blocks of H in the top row block from right to left.
+      // Apply column blocks of H in the top row block from right to left.
 *
-*     KB is the column index of the current block reflector in
-*     the matrices T and V.
+      // KB is the column index of the current block reflector in
+     t // he matrices T and V.
 *
       DO KB = KB_LAST, 1, -NBLOCAL
 *
-*        Determine the size of the current column block KNB in
-*        the matrices T and V.
+         // Determine the size of the current column block KNB in
+        t // he matrices T and V.
 *
          KNB = MIN( NBLOCAL, N - KB + 1 )
 *
          IF( MB1-KB-KNB+1.EQ.0 ) THEN
 *
-*           In SLARFB_GETT parameters, when M=0, then the matrix B
-*           does not exist, hence we need to pass a dummy array
-*           reference DUMMY(1,1) to B with LDDUMMY=1.
+            // In SLARFB_GETT parameters, when M=0, then the matrix B
+            // does not exist, hence we need to pass a dummy array
+            // reference DUMMY(1,1) to B with LDDUMMY=1.
 *
             CALL SLARFB_GETT( 'N', 0, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, DUMMY( 1, 1 ), 1, WORK, KNB )
          ELSE
@@ -184,6 +184,6 @@
       WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
       RETURN
 *
-*     End of SORGTSQR_ROW
+      // End of SORGTSQR_ROW
 *
       END

@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, KD, LDAB, LDZ, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AB( LDAB, * ), W( * ), WORK( * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, WANTZ;
       int                IINFO, IMAX, INDE, INDWRK, ISCALE;
       double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANSB;
       // EXTERNAL LSAME, DLAMCH, DLANSB
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASCL, DSBTRD, DSCAL, DSTEQR, DSTERF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
@@ -61,7 +61,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -75,7 +75,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
@@ -84,7 +84,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ANRM = DLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK )
       ISCALE = 0
@@ -103,13 +103,13 @@
          END IF
       END IF
 *
-*     Call DSBTRD to reduce symmetric band matrix to tridiagonal form.
+      // Call DSBTRD to reduce symmetric band matrix to tridiagonal form.
 *
       INDE = 1
       INDWRK = INDE + N
       CALL DSBTRD( JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO )
 *
-*     For eigenvalues only, call DSTERF.  For eigenvectors, call SSTEQR.
+      // For eigenvalues only, call DSTERF.  For eigenvectors, call SSTEQR.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, WORK( INDE ), INFO )
@@ -117,7 +117,7 @@
          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -130,6 +130,6 @@
 *
       RETURN
 *
-*     End of DSBEV
+      // End of DSBEV
 *
       END

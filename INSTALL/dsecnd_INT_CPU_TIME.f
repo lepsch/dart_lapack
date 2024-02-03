@@ -6,7 +6,7 @@
 *
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
 *
       REAL T
 *
@@ -20,6 +20,6 @@
       DSECND = T
       RETURN
 *
-*     End of DSECND
+      // End of DSECND
 *
       END

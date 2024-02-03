@@ -4,18 +4,18 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16 Z
-*     ..
-*     ..
+      // ..
+      // ..
 *  =====================================================================
 *
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS,DBLE,DIMAG
 *
       DCABS1 = ABS(DBLE(Z)) + ABS(DIMAG(Z))
       RETURN
 *
-*     End of DCABS1
+      // End of DCABS1
 *
       END

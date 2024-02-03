@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16       A( LDA, * ), B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = (1.0D+0,0.0D+0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I, IINFO, J, K, KP;
       double             S;
       COMPLEX*16         AK, AKM1, AKM1K, BK, BKM1, DENOM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZDSCAL, ZSYCONV, ZSWAP, ZTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCONJG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -55,30 +55,30 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
-*     Convert A
+      // Convert A
 *
       CALL ZSYCONV( UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO )
 *
       IF( UPPER ) THEN
 *
-*        Solve A*X = B, where A = U*D*U**H.
+         // Solve A*X = B, where A = U*D*U**H.
 *
-*       P**T * B
+        // P**T * B
         K=N
         DO WHILE ( K .GE. 1 )
          IF( IPIV( K ).GT.0 ) THEN
-*           1 x 1 diagonal block
-*           Interchange rows K and IPIV(K).
+            // 1 x 1 diagonal block
+            // Interchange rows K and IPIV(K).
             KP = IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-1
          ELSE
-*           2 x 2 diagonal block
-*           Interchange rows K-1 and -IPIV(K).
+            // 2 x 2 diagonal block
+            // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
             IF( KP.EQ.-IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
@@ -114,23 +114,23 @@
             I = I - 1
          END DO
 *
-*      Compute (U**H \ B) -> B   [ U**H \ (D \ (U \P**T * B) ) ]
+       // Compute (U**H \ B) -> B   [ U**H \ (D \ (U \P**T * B) ) ]
 *
          CALL ZTRSM('L','U','C','U',N,NRHS,ONE,A,LDA,B,LDB)
 *
-*       P * B  [ P * (U**H \ (D \ (U \P**T * B) )) ]
+        // P * B  [ P * (U**H \ (D \ (U \P**T * B) )) ]
 *
         K=1
         DO WHILE ( K .LE. N )
          IF( IPIV( K ).GT.0 ) THEN
-*           1 x 1 diagonal block
-*           Interchange rows K and IPIV(K).
+            // 1 x 1 diagonal block
+            // Interchange rows K and IPIV(K).
             KP = IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+1
          ELSE
-*           2 x 2 diagonal block
-*           Interchange rows K-1 and -IPIV(K).
+            // 2 x 2 diagonal block
+            // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
             IF( K .LT. N .AND. KP.EQ.-IPIV( K+1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
@@ -139,20 +139,20 @@
 *
       ELSE
 *
-*        Solve A*X = B, where A = L*D*L**H.
+         // Solve A*X = B, where A = L*D*L**H.
 *
-*       P**T * B
+        // P**T * B
         K=1
         DO WHILE ( K .LE. N )
          IF( IPIV( K ).GT.0 ) THEN
-*           1 x 1 diagonal block
-*           Interchange rows K and IPIV(K).
+            // 1 x 1 diagonal block
+            // Interchange rows K and IPIV(K).
             KP = IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+1
          ELSE
-*           2 x 2 diagonal block
-*           Interchange rows K and -IPIV(K+1).
+            // 2 x 2 diagonal block
+            // Interchange rows K and -IPIV(K+1).
             KP = -IPIV( K+1 )
             IF( KP.EQ.-IPIV( K ) ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
@@ -190,19 +190,19 @@
 *
         CALL ZTRSM('L','L','C','U',N,NRHS,ONE,A,LDA,B,LDB)
 *
-*       P * B  [ P * (L**H \ (D \ (L \P**T * B) )) ]
+        // P * B  [ P * (L**H \ (D \ (L \P**T * B) )) ]
 *
         K=N
         DO WHILE ( K .GE. 1 )
          IF( IPIV( K ).GT.0 ) THEN
-*           1 x 1 diagonal block
-*           Interchange rows K and IPIV(K).
+            // 1 x 1 diagonal block
+            // Interchange rows K and IPIV(K).
             KP = IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-1
          ELSE
-*           2 x 2 diagonal block
-*           Interchange rows K-1 and -IPIV(K).
+            // 2 x 2 diagonal block
+            // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
             IF( K.GT.1 .AND. KP.EQ.-IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
@@ -211,12 +211,12 @@
 *
       END IF
 *
-*     Revert A
+      // Revert A
 *
       CALL ZSYCONV( UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO )
 *
       RETURN
 *
-*     End of ZHETRS2
+      // End of ZHETRS2
 *
       END

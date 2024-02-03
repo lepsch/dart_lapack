@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                INFO, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         AP( * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOUNIT, UPPER;
       int                J, JC;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZTPSV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -57,11 +57,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Check for singularity.
+      // Check for singularity.
 *
       IF( NOUNIT ) THEN
          IF( UPPER ) THEN
@@ -80,7 +80,7 @@
       END IF
       INFO = 0
 *
-*     Solve  A * x = b,  A**T * x = b,  or  A**H * x = b.
+      // Solve  A * x = b,  A**T * x = b,  or  A**H * x = b.
 *
       DO 30 J = 1, NRHS
          CALL ZTPSV( UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 )
@@ -88,6 +88,6 @@
 *
       RETURN
 *
-*     End of ZTPTRS
+      // End of ZTPTRS
 *
       END

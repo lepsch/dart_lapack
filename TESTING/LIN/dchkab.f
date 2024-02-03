@@ -6,7 +6,7 @@
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 132 )
       int                MAXIN;
@@ -19,8 +19,8 @@
       PARAMETER          ( NIN = 5, NOUT = 6 )
       int                LDAMAX;
       PARAMETER          ( LDAMAX = NMAX )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FATAL, TSTDRV, TSTERR;
       String             C1;
       String             C2;
@@ -30,50 +30,50 @@
       int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       double             EPS, S1, S2, THRESH;
       REAL               SEPS
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               DOTYPE( MATMAX );
       int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN );
       double             A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), RWORK( NMAX ), WORK( NMAX*MAXRHS*2 );
       REAL               SWORK(NMAX*(NMAX+MAXRHS))
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DSECND;
       bool               LSAME, LSAMEN;
       REAL               SLAMCH
       // EXTERNAL LSAME, LSAMEN, DLAMCH, DSECND, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAREQ, DDRVAB, DDRVAC, DERRAB, DERRAC, ILAVER
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               INTSTR / '0123456789' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       S1 = DSECND( )
       LDA = NMAX
       FATAL = .FALSE.
 *
-*     Read a dummy line.
+      // Read a dummy line.
 *
       READ( NIN, FMT = * )
 *
-*     Report values of parameters.
+      // Report values of parameters.
 *
       CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
 *
-*     Read the values of M
+      // Read the values of M
 *
       READ( NIN, FMT = * )NM
       IF( NM.LT.1 ) THEN
@@ -97,7 +97,7 @@
    10 CONTINUE
       IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
 *
-*     Read the values of NRHS
+      // Read the values of NRHS
 *
       READ( NIN, FMT = * )NNS
       IF( NNS.LT.1 ) THEN
@@ -121,16 +121,16 @@
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
-*     Read the threshold value for the test ratios.
+      // Read the threshold value for the test ratios.
 *
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9992 )THRESH
 *
-*     Read the flag that indicates whether to test the driver routine.
+      // Read the flag that indicates whether to test the driver routine.
 *
       READ( NIN, FMT = * )TSTDRV
 *
-*     Read the flag that indicates whether to test the error exits.
+      // Read the flag that indicates whether to test the error exits.
 *
       READ( NIN, FMT = * )TSTERR
 *
@@ -139,7 +139,7 @@
          STOP
       END IF
 *
-*     Calculate and print the machine dependent constants.
+      // Calculate and print the machine dependent constants.
 *
       SEPS = SLAMCH( 'Underflow threshold' )
       WRITE( NOUT, FMT = 9991 )'(single precision) underflow', SEPS
@@ -159,7 +159,7 @@
 *
    80 CONTINUE
 *
-*     Read a test path and the number of matrix types to use.
+      // Read a test path and the number of matrix types to use.
 *
       READ( NIN, FMT = '(A72)', END = 140 )ALINE
       PATH = ALINE( 1: 3 )
@@ -192,7 +192,7 @@
       C2 = PATH( 2: 3 )
       NRHS = NSVAL( 1 )
 *
-*     Check first character for correct precision.
+      // Check first character for correct precision.
 *
       IF( .NOT.LSAME( C1, 'double          ' ) ) THEN;
          WRITE( NOUT, FMT = 9990 )PATH
@@ -200,19 +200,19 @@
 *
       ELSE IF( NMATS.LE.0 ) THEN
 *
-*        Check for a positive number of tests requested.
+         // Check for a positive number of tests requested.
 *
          WRITE( NOUT, FMT = 9989 )PATH
          GO TO 140
 *
       ELSE IF( LSAMEN( 2, C2, 'GE' ) ) THEN
 *
-*        GE:  general matrices
+         // GE:  general matrices
 *
          NTYPES = 11
          CALL ALAREQ( 'DGE', NMATS, DOTYPE, NTYPES, NIN, NOUT )
 *
-*        Test the error exits
+         // Test the error exits
 *
          IF( TSTERR ) CALL DERRAB( NOUT )
 *
@@ -224,7 +224,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
 *
-*        PO:  positive definite matrices
+         // PO:  positive definite matrices
 *
          NTYPES = 9
          CALL ALAREQ( 'DPO', NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -242,11 +242,11 @@
 *
       END IF
 *
-*     Go back to get another input line.
+      // Go back to get another input line.
 *
       GO TO 80
 *
-*     Branch to this line when the last record is read.
+      // Branch to this line when the last record is read.
 *
   140 CONTINUE
       CLOSE ( NIN )
@@ -272,6 +272,6 @@
  9990 FORMAT( / 1X, A6, ' routines were not tested' )
  9989 FORMAT( / 1X, A6, ' driver routines were not tested' )
 *
-*     End of DCHKAB
+      // End of DCHKAB
 *
       END

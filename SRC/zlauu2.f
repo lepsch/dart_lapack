@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I;
       double             AII;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       COMPLEX*16         ZDOTC
       // EXTERNAL LSAME, ZDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDSCAL, ZGEMV, ZLACGV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -52,13 +52,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Compute the product U * U**H.
+         // Compute the product U * U**H.
 *
          DO 10 I = 1, N
             AII = DBLE( A( I, I ) )
@@ -74,7 +74,7 @@
 *
       ELSE
 *
-*        Compute the product L**H * L.
+         // Compute the product L**H * L.
 *
          DO 20 I = 1, N
             AII = DBLE( A( I, I ) )
@@ -91,6 +91,6 @@
 *
       RETURN
 *
-*     End of ZLAUU2
+      // End of ZLAUU2
 *
       END

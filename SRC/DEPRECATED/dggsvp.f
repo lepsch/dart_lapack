@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P;
       double             TOLA, TOLB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FORWRD, WANTQ, WANTU, WANTV;
       int                I, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEQPF, DGEQR2, DGERQ2, DLACPY, DLAPMT, DLASET, DORG2R, DORM2R, DORMR2, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       WANTU = LSAME( JOBU, 'U' )
       WANTV = LSAME( JOBV, 'V' )
@@ -72,19 +72,19 @@
          RETURN
       END IF
 *
-*     QR with column pivoting of B: B*P = V*( S11 S12 )
-*                                           (  0   0  )
+      // QR with column pivoting of B: B*P = V*( S11 S12 )
+                                            // (  0   0  )
 *
       DO 10 I = 1, N
          IWORK( I ) = 0
    10 CONTINUE
       CALL DGEQPF( P, N, B, LDB, IWORK, TAU, WORK, INFO )
 *
-*     Update A := A*P
+      // Update A := A*P
 *
       CALL DLAPMT( FORWRD, M, N, A, LDA, IWORK )
 *
-*     Determine the effective rank of matrix B.
+      // Determine the effective rank of matrix B.
 *
       L = 0
       DO 20 I = 1, MIN( P, N )
@@ -93,14 +93,14 @@
 *
       IF( WANTV ) THEN
 *
-*        Copy the details of V, and form V.
+         // Copy the details of V, and form V.
 *
          CALL DLASET( 'Full', P, P, ZERO, ZERO, V, LDV )
          IF( P.GT.1 ) CALL DLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV )
          CALL DORG2R( P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO )
       END IF
 *
-*     Clean up B
+      // Clean up B
 *
       DO 40 J = 1, L - 1
          DO 30 I = J + 1, L
@@ -111,7 +111,7 @@
 *
       IF( WANTQ ) THEN
 *
-*        Set Q = I and Update Q := Q*P
+         // Set Q = I and Update Q := Q*P
 *
          CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )
          CALL DLAPMT( FORWRD, N, N, Q, LDQ, IWORK )
@@ -119,22 +119,22 @@
 *
       IF( P.GE.L .AND. N.NE.L ) THEN
 *
-*        RQ factorization of (S11 S12): ( S11 S12 ) = ( 0 S12 )*Z
+         // RQ factorization of (S11 S12): ( S11 S12 ) = ( 0 S12 )*Z
 *
          CALL DGERQ2( L, N, B, LDB, TAU, WORK, INFO )
 *
-*        Update A := A*Z**T
+         // Update A := A*Z**T
 *
          CALL DORMR2( 'Right', 'Transpose', M, N, L, B, LDB, TAU, A, LDA, WORK, INFO )
 *
          IF( WANTQ ) THEN
 *
-*           Update Q := Q*Z**T
+            // Update Q := Q*Z**T
 *
             CALL DORMR2( 'Right', 'Transpose', N, N, L, B, LDB, TAU, Q, LDQ, WORK, INFO )
          END IF
 *
-*        Clean up B
+         // Clean up B
 *
          CALL DLASET( 'Full', L, N-L, ZERO, ZERO, B, LDB )
          DO 60 J = N - L + 1, N
@@ -145,33 +145,33 @@
 *
       END IF
 *
-*     Let              N-L     L
-*                A = ( A11    A12 ) M,
+      // Let              N-L     L
+                 // A = ( A11    A12 ) M,
 *
-*     then the following does the complete QR decomposition of A11:
+     t // hen the following does the complete QR decomposition of A11:
 *
-*              A11 = U*(  0  T12 )*P1**T
-*                      (  0   0  )
+               // A11 = U*(  0  T12 )*P1**T
+                       // (  0   0  )
 *
       DO 70 I = 1, N - L
          IWORK( I ) = 0
    70 CONTINUE
       CALL DGEQPF( M, N-L, A, LDA, IWORK, TAU, WORK, INFO )
 *
-*     Determine the effective rank of A11
+      // Determine the effective rank of A11
 *
       K = 0
       DO 80 I = 1, MIN( M, N-L )
          IF( ABS( A( I, I ) ).GT.TOLA ) K = K + 1
    80 CONTINUE
 *
-*     Update A12 := U**T*A12, where A12 = A( 1:M, N-L+1:N )
+      // Update A12 := U**T*A12, where A12 = A( 1:M, N-L+1:N )
 *
       CALL DORM2R( 'Left', 'Transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO )
 *
       IF( WANTU ) THEN
 *
-*        Copy the details of U, and form U
+         // Copy the details of U, and form U
 *
          CALL DLASET( 'Full', M, M, ZERO, ZERO, U, LDU )
          IF( M.GT.1 ) CALL DLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU )
@@ -180,13 +180,13 @@
 *
       IF( WANTQ ) THEN
 *
-*        Update Q( 1:N, 1:N-L )  = Q( 1:N, 1:N-L )*P1
+         // Update Q( 1:N, 1:N-L )  = Q( 1:N, 1:N-L )*P1
 *
          CALL DLAPMT( FORWRD, N, N-L, Q, LDQ, IWORK )
       END IF
 *
-*     Clean up A: set the strictly lower triangular part of
-*     A(1:K, 1:K) = 0, and A( K+1:M, 1:N-L ) = 0.
+      // Clean up A: set the strictly lower triangular part of
+      // A(1:K, 1:K) = 0, and A( K+1:M, 1:N-L ) = 0.
 *
       DO 100 J = 1, K - 1
          DO 90 I = J + 1, K
@@ -197,18 +197,18 @@
 *
       IF( N-L.GT.K ) THEN
 *
-*        RQ factorization of ( T11 T12 ) = ( 0 T12 )*Z1
+         // RQ factorization of ( T11 T12 ) = ( 0 T12 )*Z1
 *
          CALL DGERQ2( K, N-L, A, LDA, TAU, WORK, INFO )
 *
          IF( WANTQ ) THEN
 *
-*           Update Q( 1:N,1:N-L ) = Q( 1:N,1:N-L )*Z1**T
+            // Update Q( 1:N,1:N-L ) = Q( 1:N,1:N-L )*Z1**T
 *
             CALL DORMR2( 'Right', 'Transpose', N, N-L, K, A, LDA, TAU, Q, LDQ, WORK, INFO )
          END IF
 *
-*        Clean up A
+         // Clean up A
 *
          CALL DLASET( 'Full', K, N-L-K, ZERO, ZERO, A, LDA )
          DO 120 J = N - L - K + 1, N - L
@@ -221,18 +221,18 @@
 *
       IF( M.GT.K ) THEN
 *
-*        QR factorization of A( K+1:M,N-L+1:N )
+         // QR factorization of A( K+1:M,N-L+1:N )
 *
          CALL DGEQR2( M-K, L, A( K+1, N-L+1 ), LDA, TAU, WORK, INFO )
 *
          IF( WANTU ) THEN
 *
-*           Update U(:,K+1:M) := U(:,K+1:M)*U1
+            // Update U(:,K+1:M) := U(:,K+1:M)*U1
 *
             CALL DORM2R( 'Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO )
          END IF
 *
-*        Clean up
+         // Clean up
 *
          DO 140 J = N - L + 1, N
             DO 130 I = J - N + K + L + 1, M
@@ -244,6 +244,6 @@
 *
       RETURN
 *
-*     End of DGGSVP
+      // End of DGGSVP
 *
       END

@@ -6,7 +6,7 @@
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXIN;
       PARAMETER          ( MAXIN = 12 )
       int                NMAX;
@@ -17,15 +17,15 @@
       PARAMETER          ( NTYPES = 9 )
       int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FATAL, TSTERR;
       int                VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       int                I, NN, NNS, NNT;
       double             EPS, S1, S2, THRESH;
 
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
       COMPLEX*16         WORKA( NMAX, NMAX )
       COMPLEX*16         WORKASAV( NMAX, NMAX )
@@ -46,29 +46,29 @@
       double             D_WORK_ZPOT01( NMAX );
       double             D_WORK_ZPOT02( NMAX );
       double             D_WORK_ZPOT03( NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DSECND;
       // EXTERNAL DLAMCH, DSECND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ILAVER, ZDRVRFP, ZDRVRF1, ZDRVRF2, ZDRVRF3, ZDRVRF4
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       S1 = DSECND( )
       FATAL = .FALSE.
 *
-*     Read a dummy line.
+      // Read a dummy line.
 *
       READ( NIN, FMT = * )
 *
-*     Report LAPACK version tag (e.g. LAPACK-3.2.0)
+      // Report LAPACK version tag (e.g. LAPACK-3.2.0)
 *
       CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
 *
-*     Read the values of N
+      // Read the values of N
 *
       READ( NIN, FMT = * )NN
       IF( NN.LT.1 ) THEN
@@ -92,7 +92,7 @@
    10 CONTINUE
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 *
-*     Read the values of NRHS
+      // Read the values of NRHS
 *
       READ( NIN, FMT = * )NNS
       IF( NNS.LT.1 ) THEN
@@ -116,7 +116,7 @@
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
-*     Read the matrix types
+      // Read the matrix types
 *
       READ( NIN, FMT = * )NNT
       IF( NNT.LT.1 ) THEN
@@ -140,12 +140,12 @@
   320 CONTINUE
       IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 *
-*     Read the threshold value for the test ratios.
+      // Read the threshold value for the test ratios.
 *
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9992 )THRESH
 *
-*     Read the flag that indicates whether to test the error exits.
+      // Read the flag that indicates whether to test the error exits.
 *
       READ( NIN, FMT = * )TSTERR
 *
@@ -154,7 +154,7 @@
          STOP
       END IF
 *
-*     Calculate and print the machine dependent constants.
+      // Calculate and print the machine dependent constants.
 *
       EPS = DLAMCH( 'Underflow threshold' )
       WRITE( NOUT, FMT = 9991 )'underflow', EPS
@@ -164,7 +164,7 @@
       WRITE( NOUT, FMT = 9991 )'precision', EPS
       WRITE( NOUT, FMT = * )
 *
-*     Test the error exit of:
+      // Test the error exit of:
 *
       IF( TSTERR ) CALL ZERRRFP( NOUT )
 *
@@ -178,7 +178,7 @@
       CALL ZDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_ZLANHE )
 *
 *    Test the conversion routines:
-*       zhfttp, ztpthf, ztfttr, ztrttf, ztrttp and ztpttr.
+        // zhfttp, ztpthf, ztfttr, ztrttf, ztrttp and ztpttr.
 *
       CALL ZDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV )
 *
@@ -211,6 +211,6 @@
      $      'less than', F8.2, / )
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 )
 *
-*     End of ZCHKRFP
+      // End of ZCHKRFP
 *
       END

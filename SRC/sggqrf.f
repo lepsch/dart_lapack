@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, P;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                LOPT, LWKOPT, NB, NB1, NB2, NB3;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEQRF, SGERQF, SORMQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
       REAL               SROUNDUP_LWORK
       // EXTERNAL SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       NB1 = ILAENV( 1, 'SGEQRF', ' ', N, M, -1, -1 )
@@ -62,17 +62,17 @@
          RETURN
       END IF
 *
-*     QR factorization of N-by-M matrix A: A = Q*R
+      // QR factorization of N-by-M matrix A: A = Q*R
 *
       CALL SGEQRF( N, M, A, LDA, TAUA, WORK, LWORK, INFO )
       LOPT = INT( WORK( 1 ) )
 *
-*     Update B := Q**T*B.
+      // Update B := Q**T*B.
 *
       CALL SORMQR( 'Left', 'Transpose', N, P, MIN( N, M ), A, LDA, TAUA, B, LDB, WORK, LWORK, INFO )
       LOPT = MAX( LOPT, INT( WORK( 1 ) ) )
 *
-*     RQ factorization of N-by-P matrix B: B = T*Z.
+      // RQ factorization of N-by-P matrix B: B = T*Z.
 *
       CALL SGERQF( N, P, B, LDB, TAUB, WORK, LWORK, INFO )
       LWKOPT = MAX( LOPT, INT( WORK( 1 ) ) )
@@ -81,6 +81,6 @@
 *
       RETURN
 *
-*     End of SGGQRF
+      // End of SGGQRF
 *
       END

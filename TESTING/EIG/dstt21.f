@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KBAND, LDU, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J;
       double             ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL DLAMCH, DLANGE, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DLASET, DSYR, DSYR2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     1)      Constants
+      // 1)      Constants
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -42,9 +42,9 @@
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Copy A & Compute its 1-Norm:
+      // Copy A & Compute its 1-Norm:
 *
       CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
 *
@@ -62,7 +62,7 @@
       WORK( N**2 ) = AD( N )
       ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL )
 *
-*     Norm of A - USU'
+      // Norm of A - USU'
 *
       DO 20 J = 1, N
          CALL DSYR( 'L', N, -SD( J ), U( 1, J ), 1, WORK, N )
@@ -86,9 +86,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  UU' - I
+      // Compute  UU' - I
 *
       CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
 *
@@ -100,6 +100,6 @@
 *
       RETURN
 *
-*     End of DSTT21
+      // End of DSTT21
 *
       END

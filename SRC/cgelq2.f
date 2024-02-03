@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, K;
       COMPLEX            ALPHA
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLACGV, CLARF, CLARFG, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -48,14 +48,14 @@
 *
       DO 10 I = 1, K
 *
-*        Generate elementary reflector H(i) to annihilate A(i,i+1:n)
+         // Generate elementary reflector H(i) to annihilate A(i,i+1:n)
 *
          CALL CLACGV( N-I+1, A( I, I ), LDA )
          ALPHA = A( I, I )
          CALL CLARFG( N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAU( I ) )
          IF( I.LT.M ) THEN
 *
-*           Apply H(i) to A(i+1:m,i:n) from the right
+            // Apply H(i) to A(i+1:m,i:n) from the right
 *
             A( I, I ) = ONE
             CALL CLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK )
@@ -65,6 +65,6 @@
    10 CONTINUE
       RETURN
 *
-*     End of CGELQ2
+      // End of CGELQ2
 *
       END

@@ -4,34 +4,34 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX CA
       int     INCX,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX CX(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int     I,NINCX;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       COMPLEX ONE
       PARAMETER (ONE= (1.0E+0,0.0E+0))
-*     ..
+      // ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. CA.EQ.ONE) RETURN
       IF (INCX.EQ.1) THEN
 *
-*        code for increment equal to 1
+         // code for increment equal to 1
 *
          DO I = 1,N
             CX(I) = CA*CX(I)
          END DO
       ELSE
 *
-*        code for increment not equal to 1
+         // code for increment not equal to 1
 *
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
@@ -40,6 +40,6 @@
       END IF
       RETURN
 *
-*     End of CSCAL
+      // End of CSCAL
 *
       END

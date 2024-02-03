@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N;
       double             ABSTOL, VL, VU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       double             RWORK( * ), W( * );
       COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ;
       String             ORDER, VECT;
       int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDWRK, ITMP1, J, JJ, NSPLIT;
       double             TMP1;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZHBGST, ZHBTRD, ZLACPY, ZPBSTF, ZSTEIN, ZSTEQR, ZSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -90,12 +90,12 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) RETURN
 *
-*     Form a split Cholesky factorization of B.
+      // Form a split Cholesky factorization of B.
 *
       CALL ZPBSTF( UPLO, N, KB, BB, LDBB, INFO )
       IF( INFO.NE.0 ) THEN
@@ -103,12 +103,12 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem.
+      // Transform problem to standard eigenvalue problem.
 *
       CALL ZHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, RWORK, IINFO )
 *
-*     Solve the standard eigenvalue problem.
-*     Reduce Hermitian band matrix to tridiagonal form.
+      // Solve the standard eigenvalue problem.
+      // Reduce Hermitian band matrix to tridiagonal form.
 *
       INDD = 1
       INDE = INDD + N
@@ -121,9 +121,9 @@
       END IF
       CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, RWORK( INDD ), RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
 *
-*     If all eigenvalues are desired and ABSTOL is less than or equal
-*     to zero, then call DSTERF or ZSTEQR.  If this fails for some
-*     eigenvalue, then try DSTEBZ.
+      // If all eigenvalues are desired and ABSTOL is less than or equal
+     t // o zero, then call DSTERF or ZSTEQR.  If this fails for some
+      // eigenvalue, then try DSTEBZ.
 *
       TEST = .FALSE.
       IF( INDEIG ) THEN
@@ -153,8 +153,8 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call DSTEBZ and, if eigenvectors are desired,
-*     call ZSTEIN.
+      // Otherwise, call DSTEBZ and, if eigenvectors are desired,
+      // call ZSTEIN.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -168,8 +168,8 @@
       IF( WANTZ ) THEN
          CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
 *
-*        Apply unitary matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by ZSTEIN.
+         // Apply unitary matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by ZSTEIN.
 *
          DO 20 J = 1, M
             CALL ZCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
@@ -179,8 +179,8 @@
 *
    30 CONTINUE
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 50 J = 1, M - 1
@@ -211,6 +211,6 @@
 *
       RETURN
 *
-*     End of ZHBGVX
+      // End of ZHBGVX
 *
       END

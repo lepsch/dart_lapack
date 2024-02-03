@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPQ, JOB;
       int                INFO, LDQ, LDT, LIWORK, LWORK, M, N;
       double             S, SEP;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
       double             Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP       int                IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN;;
       double             EST, RNORM, SCALE;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLANGE;
       // EXTERNAL LSAME, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLACN2, DLACPY, DTREXC, DTRSYL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       WANTBH = LSAME( JOB, 'B' )
       WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
@@ -62,8 +62,8 @@
          INFO = -8
       ELSE
 *
-*        Set M to the dimension of the specified invariant subspace,
-*        and test LWORK and LIWORK.
+         // Set M to the dimension of the specified invariant subspace,
+         // and test LWORK and LIWORK.
 *
          M = 0
          PAIR = .FALSE.
@@ -118,14 +118,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( M.EQ.N .OR. M.EQ.0 ) THEN
          IF( WANTS ) S = ONE          IF( WANTSP ) SEP = DLANGE( '1', N, N, T, LDT, WORK )
          GO TO 40
       END IF
 *
-*     Collect the selected blocks at the top-left corner of T.
+      // Collect the selected blocks at the top-left corner of T.
 *
       KS = 0
       PAIR = .FALSE.
@@ -143,14 +143,14 @@
             IF( SWAP ) THEN
                KS = KS + 1
 *
-*              Swap the K-th block to position KS.
+               // Swap the K-th block to position KS.
 *
                IERR = 0
                KK = K
                IF( K.NE.KS ) CALL DTREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR )
                IF( IERR.EQ.1 .OR. IERR.EQ.2 ) THEN
 *
-*                 Blocks too close to swap: exit.
+                  // Blocks too close to swap: exit.
 *
                   INFO = 1
                   IF( WANTS ) S = ZERO                   IF( WANTSP ) SEP = ZERO
@@ -163,15 +163,15 @@
 *
       IF( WANTS ) THEN
 *
-*        Solve Sylvester equation for R:
+         // Solve Sylvester equation for R:
 *
-*           T11*R - R*T22 = scale*T12
+            // T11*R - R*T22 = scale*T12
 *
          CALL DLACPY( 'F', N1, N2, T( 1, N1+1 ), LDT, WORK, N1 )
          CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
 *
-*        Estimate the reciprocal of the condition number of the cluster
-*        of eigenvalues.
+         // Estimate the reciprocal of the condition number of the cluster
+         // of eigenvalues.
 *
          RNORM = DLANGE( 'F', N1, N2, WORK, N1, WORK )
          IF( RNORM.EQ.ZERO ) THEN
@@ -183,7 +183,7 @@
 *
       IF( WANTSP ) THEN
 *
-*        Estimate sep(T11,T22).
+         // Estimate sep(T11,T22).
 *
          EST = ZERO
          KASE = 0
@@ -192,12 +192,12 @@
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.1 ) THEN
 *
-*              Solve  T11*R - R*T22 = scale*X.
+               // Solve  T11*R - R*T22 = scale*X.
 *
                CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
             ELSE
 *
-*              Solve T11**T*R - R*T22**T = scale*X.
+               // Solve T11**T*R - R*T22**T = scale*X.
 *
                CALL DTRSYL( 'T', 'T', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
             END IF
@@ -209,7 +209,7 @@
 *
    40 CONTINUE
 *
-*     Store the output eigenvalues in WR and WI.
+      // Store the output eigenvalues in WR and WI.
 *
       DO 50 K = 1, N
          WR( K ) = T( K, K )
@@ -227,6 +227,6 @@
 *
       RETURN
 *
-*     End of DTRSEN
+      // End of DTRSEN
 *
       END

@@ -4,61 +4,61 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NOUT;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NVAL( * );
       REAL               A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NTYPES;
       PARAMETER          ( NTYPES = 3 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 3 )
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             PATH;
       int                I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN;
       REAL               EPS
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SQRT12, SRZT01, SRZT02
       // EXTERNAL SLAMCH, SQRT12, SRZT01, SRZT02
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAHD, ALASUM, SERRTZ, SGEQR2, SLACPY, SLAORD, SLASET, SLATMS, STZRZF
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, IOUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, IOUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'TZ'
@@ -70,21 +70,21 @@
    10 CONTINUE
       EPS = SLAMCH( 'Epsilon' )
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL SERRTZ( PATH, NOUT )
       INFOT = 0
 *
       DO 70 IM = 1, NM
 *
-*        Do for each value of M in MVAL.
+         // Do for each value of M in MVAL.
 *
          M = MVAL( IM )
          LDA = MAX( 1, M )
 *
          DO 60 IN = 1, NN
 *
-*           Do for each value of N in NVAL for which M .LE. N.
+            // Do for each value of N in NVAL for which M .LE. N.
 *
             N = NVAL( IN )
             MNMIN = MIN( M, N )
@@ -94,17 +94,17 @@
                DO 50 IMODE = 1, NTYPES
                   IF( .NOT.DOTYPE( IMODE ) ) GO TO 50
 *
-*                 Do for each type of singular value distribution.
-*                    0:  zero matrix
-*                    1:  one small singular value
-*                    2:  exponential distribution
+                  // Do for each type of singular value distribution.
+                     // 0:  zero matrix
+                     // 1:  one small singular value
+                     // 2:  exponential distribution
 *
                   MODE = IMODE - 1
 *
-*                 Test STZRQF
+                  // Test STZRQF
 *
-*                 Generate test matrix of size m by n using
-*                 singular value distribution indicated by `mode'.
+                  // Generate test matrix of size m by n using
+                  // singular value distribution indicated by `mode'.
 *
                   IF( MODE.EQ.0 ) THEN
                      CALL SLASET( 'Full', M, N, ZERO, ZERO, A, LDA )
@@ -117,30 +117,30 @@
                      CALL SLAORD( 'Decreasing', MNMIN, S, 1 )
                   END IF
 *
-*                 Save A and its singular values
+                  // Save A and its singular values
 *
                   CALL SLACPY( 'All', M, N, A, LDA, COPYA, LDA )
 *
-*                 Call STZRZF to reduce the upper trapezoidal matrix to
-*                 upper triangular form.
+                  // Call STZRZF to reduce the upper trapezoidal matrix to
+                  // upper triangular form.
 *
                   SRNAMT = 'STZRZF'
                   CALL STZRZF( M, N, A, LDA, TAU, WORK, LWORK, INFO )
 *
-*                 Compute norm(svd(a) - svd(r))
+                  // Compute norm(svd(a) - svd(r))
 *
                   RESULT( 1 ) = SQRT12( M, M, A, LDA, S, WORK, LWORK )
 *
-*                 Compute norm( A - R*Q )
+                  // Compute norm( A - R*Q )
 *
                   RESULT( 2 ) = SRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK )
 *
-*                 Compute norm(Q'*Q - I).
+                  // Compute norm(Q'*Q - I).
 *
                   RESULT( 3 ) = SRZT02( M, N, A, LDA, TAU, WORK, LWORK )
 *
-*                 Print information about the tests that did not pass
-*                 the threshold.
+                  // Print information about the tests that did not pass
+                 t // he threshold.
 *
                   DO 40 K = 1, NTESTS
                      IF( RESULT( K ).GE.THRESH ) THEN
@@ -154,13 +154,13 @@
    60    CONTINUE
    70 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
  9999 FORMAT( ' M =', I5, ', N =', I5, ', type ', I2, ', test ', I2,
      $      ', ratio =', G12.5 )
 *
-*     End if SCHKTZ
+      // End if SCHKTZ
 *
       END

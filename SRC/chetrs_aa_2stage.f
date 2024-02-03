@@ -6,35 +6,35 @@
 *
       IMPLICIT NONE
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LTB, LDB, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
       COMPLEX            A( LDA, * ), TB( * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                LDTB, NB;
       bool               UPPER;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGBTRS, CLASWP, CTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -56,41 +56,41 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
-*     Read NB and compute LDTB
+      // Read NB and compute LDTB
 *
       NB = INT( TB( 1 ) )
       LDTB = LTB/N
 *
       IF( UPPER ) THEN
 *
-*        Solve A*X = B, where A = U**T*T*U.
+         // Solve A*X = B, where A = U**T*T*U.
 *
          IF( N.GT.NB ) THEN
 *
-*           Pivot, P**T * B -> B
+            // Pivot, P**T * B -> B
 *
             CALL CLASWP( NRHS, B, LDB, NB+1, N, IPIV, 1 )
 *
-*           Compute (U**T \ B) -> B    [ (U**T \P**T * B) ]
+            // Compute (U**T \ B) -> B    [ (U**T \P**T * B) ]
 *
             CALL CTRSM( 'L', 'U', 'C', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB)
 *
          END IF
 *
-*        Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
+         // Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
 *
          CALL CGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO)
          IF( N.GT.NB ) THEN
 *
-*           Compute (U \ B) -> B   [ U \ (T \ (U**T \P**T * B) ) ]
+            // Compute (U \ B) -> B   [ U \ (T \ (U**T \P**T * B) ) ]
 *
             CALL CTRSM( 'L', 'U', 'N', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB)
 *
-*           Pivot, P * B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
+            // Pivot, P * B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
 *
             CALL CLASWP( NRHS, B, LDB, NB+1, N, IPIV, -1 )
 *
@@ -98,30 +98,30 @@
 *
       ELSE
 *
-*        Solve A*X = B, where A = L*T*L**T.
+         // Solve A*X = B, where A = L*T*L**T.
 *
          IF( N.GT.NB ) THEN
 *
-*           Pivot, P**T * B
+            // Pivot, P**T * B
 *
             CALL CLASWP( NRHS, B, LDB, NB+1, N, IPIV, 1 )
 *
-*           Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
+            // Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 *
             CALL CTRSM( 'L', 'L', 'N', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB)
 *
          END IF
 *
-*        Compute T \ B -> B   [ T \ (L \P**T * B) ]
+         // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 *
          CALL CGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO)
          IF( N.GT.NB ) THEN
 *
-*           Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
+            // Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
 *
             CALL CTRSM( 'L', 'L', 'C', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB)
 *
-*           Pivot, P * B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
+            // Pivot, P * B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
 *
             CALL CLASWP( NRHS, B, LDB, NB+1, N, IPIV, -1 )
 *
@@ -130,6 +130,6 @@
 *
       RETURN
 *
-*     End of CHETRS_AA_2STAGE
+      // End of CHETRS_AA_2STAGE
 *
       END

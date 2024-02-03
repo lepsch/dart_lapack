@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANSA, TRANSE, TRANSW;
       int                LDA, LDE, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RESULT( 2 ), RWORK( * )
       COMPLEX            A( LDA, * ), E( LDE, * ), W( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             NORMA, NORME;
       int                ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC;
       REAL               ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL
       COMPLEX            WTEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SLAMCH
       // EXTERNAL LSAME, CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize RESULT (in case N=0)
+      // Initialize RESULT (in case N=0)
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -70,7 +70,7 @@
          ITRNSW = 1
       END IF
 *
-*     Normalization of E:
+      // Normalization of E:
 *
       ENRMIN = ONE / ULP
       ENRMAX = ZERO
@@ -100,17 +100,17 @@
    60    CONTINUE
       END IF
 *
-*     Norm of A:
+      // Norm of A:
 *
       ANORM = MAX( CLANGE( NORMA, N, N, A, LDA, RWORK ), UNFL )
 *
-*     Norm of E:
+      // Norm of E:
 *
       ENORM = MAX( CLANGE( NORME, N, N, E, LDE, RWORK ), ULP )
 *
-*     Norm of error:
+      // Norm of error:
 *
-*     Error =  AE - EW
+      // Error =  AE - EW
 *
       CALL CLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
 *
@@ -142,7 +142,7 @@
 *
       ERRNRM = CLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM
 *
-*     Compute RESULT(1) (avoiding under/overflow)
+      // Compute RESULT(1) (avoiding under/overflow)
 *
       IF( ANORM.GT.ERRNRM ) THEN
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
@@ -154,12 +154,12 @@
          END IF
       END IF
 *
-*     Compute RESULT(2) : the normalization error in E.
+      // Compute RESULT(2) : the normalization error in E.
 *
       RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( REAL( N )*ULP )
 *
       RETURN
 *
-*     End of CGET22
+      // End of CGET22
 *
       END

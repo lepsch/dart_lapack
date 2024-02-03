@@ -4,24 +4,24 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                IOUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               CORZ, SORD;
       String             C1, C3;
       String             P2;
       String             SYM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, LSAMEN;
       // EXTERNAL LSAME, LSAMEN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( IOUNIT.LE.0 ) RETURN
       C1 = PATH( 1: 1 )
@@ -33,7 +33,7 @@
 *
       IF( LSAMEN( 2, P2, 'GE' ) ) THEN
 *
-*        GE: General dense
+         // GE: General dense
 *
          WRITE( IOUNIT, FMT = 9999 )PATH
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
@@ -50,7 +50,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'GB' ) ) THEN
 *
-*        GB: General band
+         // GB: General band
 *
          WRITE( IOUNIT, FMT = 9998 )PATH
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
@@ -67,7 +67,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'GT' ) ) THEN
 *
-*        GT: General tridiagonal
+         // GT: General tridiagonal
 *
          WRITE( IOUNIT, FMT = 9997 )PATH
          WRITE( IOUNIT, FMT = 9987 )
@@ -82,9 +82,9 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) .OR. LSAMEN( 2, P2, 'PS' ) ) THEN
 *
-*        PO: Positive definite full
-*        PS: Positive definite full
-*        PP: Positive definite packed
+         // PO: Positive definite full
+         // PS: Positive definite full
+         // PP: Positive definite packed
 *
          IF( SORD ) THEN
             SYM = 'Symmetric'
@@ -109,7 +109,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'PB' ) ) THEN
 *
-*        PB: Positive definite band
+         // PB: Positive definite band
 *
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Symmetric'
@@ -129,7 +129,7 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'PT' ) ) THEN
 *
-*        PT: Positive definite tridiagonal
+         // PT: Positive definite tridiagonal
 *
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Symmetric'
@@ -148,10 +148,10 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'SY' ) .OR. LSAMEN( 2, P2, 'SP' ) ) THEN
 *
-*        SY: Symmetric indefinite full
-*            with partial (Bunch-Kaufman) pivoting algorithm
-*        SP: Symmetric indefinite packed
-*            with partial (Bunch-Kaufman) pivoting algorithm
+         // SY: Symmetric indefinite full
+             // with partial (Bunch-Kaufman) pivoting algorithm
+         // SP: Symmetric indefinite packed
+             // with partial (Bunch-Kaufman) pivoting algorithm
 *
          IF( LSAME( C3, 'Y' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
@@ -175,14 +175,14 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'SR' ) .OR. LSAMEN( 2, P2, 'SK') ) THEN
 *
-*        SR: Symmetric indefinite full,
-*            with rook (bounded Bunch-Kaufman) pivoting algorithm
+         // SR: Symmetric indefinite full,
+             // with rook (bounded Bunch-Kaufman) pivoting algorithm
 *
-*        SK: Symmetric indefinite full,
-*            with rook (bounded Bunch-Kaufman) pivoting algorithm,
-*            ( new storage format for factors:
-*              L and diagonal of D is stored in A,
-*              subdiagonal of D is stored in E )
+         // SK: Symmetric indefinite full,
+             // with rook (bounded Bunch-Kaufman) pivoting algorithm,
+             // ( new storage format for factors:
+               // L and diagonal of D is stored in A,
+               // subdiagonal of D is stored in E )
 *
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
 *
@@ -201,8 +201,8 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'HA' ) ) THEN
 *
-*        HA: Hermitian
-*            Aasen algorithm
+         // HA: Hermitian
+             // Aasen algorithm
          WRITE( IOUNIT, FMT = 9971 )PATH, 'Hermitian'
 *
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
@@ -219,10 +219,10 @@
 
        ELSE IF( LSAMEN( 2, P2, 'HE' ) .OR. LSAMEN( 2, P2, 'HP' ) ) THEN
 *
-*        HE: Hermitian indefinite full
-*            with partial (Bunch-Kaufman) pivoting algorithm
-*        HP: Hermitian indefinite packed
-*            with partial (Bunch-Kaufman) pivoting algorithm
+         // HE: Hermitian indefinite full
+             // with partial (Bunch-Kaufman) pivoting algorithm
+         // HP: Hermitian indefinite packed
+             // with partial (Bunch-Kaufman) pivoting algorithm
 *
          IF( LSAME( C3, 'E' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
@@ -244,14 +244,14 @@
 *
       ELSE IF( LSAMEN( 2, P2, 'HR' ) .OR. LSAMEN( 2, P2, 'HK' ) ) THEN
 *
-*        HR: Hermitian indefinite full,
-*            with rook (bounded Bunch-Kaufman) pivoting algorithm
+         // HR: Hermitian indefinite full,
+             // with rook (bounded Bunch-Kaufman) pivoting algorithm
 *
-*        HK: Hermitian indefinite full,
-*            with rook (bounded Bunch-Kaufman) pivoting algorithm,
-*            ( new storage format for factors:
-*              L and diagonal of D is stored in A,
-*              subdiagonal of D is stored in E )
+         // HK: Hermitian indefinite full,
+             // with rook (bounded Bunch-Kaufman) pivoting algorithm,
+             // ( new storage format for factors:
+               // L and diagonal of D is stored in A,
+               // subdiagonal of D is stored in E )
 *
          WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
 *
@@ -266,12 +266,12 @@
 *
       ELSE
 *
-*        Print error message if no header is available.
+         // Print error message if no header is available.
 *
          WRITE( IOUNIT, FMT = 9990 )PATH
       END IF
 *
-*     First line of header
+      // First line of header
 *
  9999 FORMAT( / 1X, A3, ' drivers:  General dense matrices' )
  9998 FORMAT( / 1X, A3, ' drivers:  General band matrices' )
@@ -296,7 +296,7 @@
      $      ', "rook" (bounded Bunch-Kaufman) pivoting' )
  9990 FORMAT( / 1X, A3, ':  No header available' )
 *
-*     GE matrix types
+      // GE matrix types
 *
  9989 FORMAT( 4X, '1. Diagonal', 24X, '7. Last n/2 columns zero', / 4X,
      $      '2. Upper triangular', 16X,
@@ -307,7 +307,7 @@
      $      14X, '11. Scaled near overflow', / 4X,
      $      '6. Last column zero' )
 *
-*     GB matrix types
+      // GB matrix types
 *
  9988 FORMAT( 4X, '1. Random, CNDNUM = 2', 14X,
      $      '5. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
@@ -316,7 +316,7 @@
      $      '7. Scaled near underflow', / 4X,
      $      '4. Last n/2 columns zero', 11X, '8. Scaled near overflow' )
 *
-*     GT matrix types
+      // GT matrix types
 *
  9987 FORMAT( ' Matrix types (1-6 have specified condition numbers):',
      $      / 4X, '1. Diagonal', 24X, '7. Random, unspecified CNDNUM',
@@ -328,7 +328,7 @@
      $      '11. Scaled near underflow', / 4X,
      $      '6. Scaled near overflow', 11X, '12. Scaled near overflow' )
 *
-*     PT matrix types
+      // PT matrix types
 *
  9986 FORMAT( ' Matrix types (1-6 have specified condition numbers):',
      $      / 4X, '1. Diagonal', 24X, '7. Random, unspecified CNDNUM',
@@ -342,7 +342,7 @@
      $      '11. Scaled near underflow', / 4X,
      $      '6. Scaled near overflow', 11X, '12. Scaled near overflow' )
 *
-*     PO, PP matrix types
+      // PO, PP matrix types
 *
  9985 FORMAT( 4X, '1. Diagonal', 24X,
      $      '6. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
@@ -355,7 +355,7 @@
      $      '(* - tests error exits from ', A3,
      $      'TRF, no test ratios are computed)' )
 *
-*     PB matrix types
+      // PB matrix types
 *
  9984 FORMAT( 4X, '1. Random, CNDNUM = 2', 14X,
      $      '5. Random, CNDNUM = sqrt(0.1/EPS)', / 3X,
@@ -368,7 +368,7 @@
      $      '(* - tests error exits from ', A3,
      $      'TRF, no test ratios are computed)' )
 *
-*     SSY, SSP, CHE, CHP matrix types
+      // SSY, SSP, CHE, CHP matrix types
 *
  9983 FORMAT( 4X, '1. Diagonal', 24X,
      $      '6. Last n/2 rows and columns zero', / 4X,
@@ -381,7 +381,7 @@
      $      '5. Middle row and column zero', 5X,
      $      '10. Scaled near overflow' )
 *
-*     CSY, CSP matrix types
+      // CSY, CSP matrix types
 *
  9982 FORMAT( 4X, '1. Diagonal', 24X,
      $      '7. Random, CNDNUM = sqrt(0.1/EPS)', / 4X,
@@ -394,7 +394,7 @@
      $      '11. Block diagonal matrix', / 4X,
      $      '6. Last n/2 rows and columns zero' )
 *
-*     Test ratios
+      // Test ratios
 *
  9981 FORMAT( 3X, I2, ': norm( L * U - A )  / ( N * norm(A) * EPS )' )
  9980 FORMAT( 3X, I2, ': norm( B - A * X )  / ',
@@ -419,6 +419,6 @@
 *
       RETURN
 *
-*     End of ALADHD
+      // End of ALADHD
 *
       END

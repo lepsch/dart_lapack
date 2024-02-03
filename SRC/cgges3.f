@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVSL, JOBVSR, SORT;
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N, SDIM;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * );
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
-*     ..
-*     .. Function Arguments ..
+      // ..
+      // .. Function Arguments ..
       bool               SELCTG;
       // EXTERNAL SELCTG
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKOPT, LWKMIN;;
       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SMLNUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUM( 1 );
       REAL               DIF( 2 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHD3, CLAQZ0, CLACPY, CLASCL, CLASET, CTGSEN, CUNGQR, CUNMQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       // EXTERNAL LSAME, CLANGE, SLAMCH, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVSL, 'N' ) ) THEN
          IJOBVL = 1
@@ -73,7 +73,7 @@
 *
       WANTST = LSAME( SORT, 'S' )
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -99,7 +99,7 @@
          INFO = -18
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO.EQ.0 ) THEN
          CALL CGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
@@ -133,14 +133,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          SDIM = 0
          RETURN
       END IF
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' )
@@ -148,7 +148,7 @@
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
@@ -162,7 +162,7 @@
 *
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
@@ -176,14 +176,14 @@
 *
       IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
-*     Permute the matrix to make it more nearly triangular
+      // Permute the matrix to make it more nearly triangular
 *
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
       CALL CGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
 *
-*     Reduce B to triangular form (QR decomposition of B)
+      // Reduce B to triangular form (QR decomposition of B)
 *
       IROWS = IHI + 1 - ILO
       ICOLS = N + 1 - ILO
@@ -191,11 +191,11 @@
       IWRK = ITAU + IROWS
       CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Apply the orthogonal transformation to matrix A
+      // Apply the orthogonal transformation to matrix A
 *
       CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Initialize VSL
+      // Initialize VSL
 *
       IF( ILVSL ) THEN
          CALL CLASET( 'Full', N, N, CZERO, CONE, VSL, LDVSL )
@@ -205,17 +205,17 @@
          CALL CUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-*     Initialize VSR
+      // Initialize VSR
 *
       IF( ILVSR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
 *
-*     Reduce to generalized Hessenberg form
+      // Reduce to generalized Hessenberg form
 *
       CALL CGGHD3( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
       SDIM = 0
 *
-*     Perform QZ algorithm, computing Schur vectors if desired
+      // Perform QZ algorithm, computing Schur vectors if desired
 *
       IWRK = ITAU
       CALL CLAQZ0( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR )
@@ -230,15 +230,15 @@
          GO TO 30
       END IF
 *
-*     Sort eigenvalues ALPHA/BETA if desired
+      // Sort eigenvalues ALPHA/BETA if desired
 *
       IF( WANTST ) THEN
 *
-*        Undo scaling on eigenvalues before selecting
+         // Undo scaling on eigenvalues before selecting
 *
          IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR )
 *
-*        Select eigenvalues
+         // Select eigenvalues
 *
          DO 10 I = 1, N
             BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) )
@@ -249,11 +249,11 @@
 *
       END IF
 *
-*     Apply back-permutation to VSL and VSR
+      // Apply back-permutation to VSL and VSR
 *
       IF( ILVSL ) CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR )       IF( ILVSR ) CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR )
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( ILASCL ) THEN
          CALL CLASCL( 'U', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR )
@@ -267,7 +267,7 @@
 *
       IF( WANTST ) THEN
 *
-*        Check if reordering is correct
+         // Check if reordering is correct
 *
          LASTSL = .TRUE.
          SDIM = 0
@@ -285,6 +285,6 @@
 *
       RETURN
 *
-*     End of CGGES3
+      // End of CGGES3
 *
       END

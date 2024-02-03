@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               ALPHA, BETA
       int                INCX, INCY, LDA, N, UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), X( * )
       REAL               Y( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               SYMB_ZERO;
       REAL               TEMP, SAFE1
       int                I, INFO, IY, J, JX, KX, KY;
       COMPLEX            ZDUM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, SLAMCH
       REAL               SLAMCH
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       // EXTERNAL ILAUPLO
       int                ILAUPLO;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, ABS, SIGN, REAL, AIMAG
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function Definitions ..
+      // ..
+      // .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( REAL ( ZDUM ) ) + ABS( AIMAG ( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF     ( UPLO.NE.ILAUPLO( 'U' ) .AND. UPLO.NE.ILAUPLO( 'L' ) )THEN
@@ -63,11 +63,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( ( N.EQ.0 ).OR.( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) ) RETURN
 *
-*     Set up the start points in  X  and  Y.
+      // Set up the start points in  X  and  Y.
 *
       IF( INCX.GT.0 )THEN
          KX = 1
@@ -80,17 +80,17 @@
          KY = 1 - ( N - 1 )*INCY
       END IF
 *
-*     Set SAFE1 essentially to be the underflow threshold times the
-*     number of additions in each row.
+      // Set SAFE1 essentially to be the underflow threshold times the
+      // number of additions in each row.
 *
       SAFE1 = SLAMCH( 'Safe minimum' )
       SAFE1 = (N+1)*SAFE1
 *
-*     Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
+      // Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
 *
-*     The O(N^2) SYMB_ZERO tests could be replaced by O(N) queries to
-*     the inexact flag.  Still doesn't help change the iteration order
-*     to per-column.
+      // The O(N^2) SYMB_ZERO tests could be replaced by O(N) queries to
+     t // he inexact flag.  Still doesn't help change the iteration order
+     t // o per-column.
 *
       IY = KY
       IF ( INCX.EQ.1 ) THEN
@@ -224,6 +224,6 @@
 *
       RETURN
 *
-*     End of CLA_HEAMV
+      // End of CLA_HEAMV
 *
       END

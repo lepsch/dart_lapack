@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String    SIDE, TRANS;
       int       INFO, K, LDV, LDA, LDB, M, N, L, MB, LDT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN;
       int                I, IB, NB, LB, KF, LDAQ;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, DTPRFB
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     .. Test the input arguments ..
+      // .. Test the input arguments ..
 *
       INFO   = 0
       LEFT   = LSAME( SIDE,  'L' )
@@ -73,7 +73,7 @@
          RETURN
       END IF
 *
-*     .. Quick return if possible ..
+      // .. Quick return if possible ..
 *
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 *
@@ -135,6 +135,6 @@
 *
       RETURN
 *
-*     End of DTPMLQT
+      // End of DTPMLQT
 *
       END

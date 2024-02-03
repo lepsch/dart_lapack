@@ -10,41 +10,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             STAGE1, UPLO, VECT;
       int                N, KD, LDAB, LHOUS, LWORK, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * );
       double             AB( LDAB, * ), HOUS( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             RZERO;
       double             ZERO, ONE;
       PARAMETER          ( RZERO = 0.0D+0, ZERO = 0.0D+0, ONE  = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, WANTQ, UPPER, AFTERS1;
       int                I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SIDEV, SIZETAU, LDV, LHMIN, LWMIN;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSB2ST_KERNELS, DLACPY, DLASET, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX, CEILING, REAL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       // EXTERNAL LSAME, ILAENV2STAGE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Determine the minimal workspace size required.
-*     Test the input parameters
+      // Determine the minimal workspace size required.
+      // Test the input parameters
 *
       INFO    = 0
       AFTERS1 = LSAME( STAGE1, 'Y' )
@@ -52,7 +52,7 @@
       UPPER   = LSAME( UPLO, 'U' )
       LQUERY  = ( LWORK.EQ.-1 ) .OR. ( LHOUS.EQ.-1 )
 *
-*     Determine the block size, the workspace size and the hous size.
+      // Determine the block size, the workspace size and the hous size.
 *
       IB       = ILAENV2STAGE( 2, 'DSYTRD_SB2ST', VECT, N, KD, -1, -1 )
       IF( N.EQ.0 .OR. KD.LE.1 ) THEN
@@ -93,7 +93,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
           HOUS( 1 ) = 1
@@ -101,7 +101,7 @@
           RETURN
       END IF
 *
-*     Determine pointer position
+      // Determine pointer position
 *
       LDV      = KD + IB
       SIZETAU  = 2 * N
@@ -132,11 +132,11 @@
 
       ENDIF
 *
-*     Case KD=0:
-*     The matrix is diagonal. We just copy it (convert to "real" for
-*     real because D is double and the imaginary part should be 0)
-*     and store it in D. A sequential code here is better or
-*     in a parallel environment it might need two cores for D and E
+      // Case KD=0:
+      // The matrix is diagonal. We just copy it (convert to "real" for
+      // real because D is double and the imaginary part should be 0)
+      // and store it in D. A sequential code here is better or
+      // in a parallel environment it might need two cores for D and E
 *
       IF( KD.EQ.0 ) THEN
           DO 30 I = 1, N
@@ -151,15 +151,15 @@
           RETURN
       END IF
 *
-*     Case KD=1:
-*     The matrix is already Tridiagonal. We have to make diagonal
-*     and offdiagonal elements real, and store them in D and E.
-*     For that, for real precision just copy the diag and offdiag
-*     to D and E while for the COMPLEX case the bulge chasing is
-*     performed to convert the hermetian tridiagonal to symmetric
-*     tridiagonal. A simpler conversion formula might be used, but then
-*     updating the Q matrix will be required and based if Q is generated
-*     or not this might complicate the story.
+      // Case KD=1:
+      // The matrix is already Tridiagonal. We have to make diagonal
+      // and offdiagonal elements real, and store them in D and E.
+      // For that, for real precision just copy the diag and offdiag
+     t // o D and E while for the COMPLEX case the bulge chasing is
+      // performed to convert the hermetian tridiagonal to symmetric
+     t // ridiagonal. A simpler conversion formula might be used, but then
+      // updating the Q matrix will be required and based if Q is generated
+      // or not this might complicate the story.
 *
       IF( KD.EQ.1 ) THEN
           DO 50 I = 1, N
@@ -181,8 +181,8 @@
           RETURN
       END IF
 *
-*     Main code start here.
-*     Reduce the symmetric band of A to a tridiagonal matrix.
+      // Main code start here.
+      // Reduce the symmetric band of A to a tridiagonal matrix.
 *
       THGRSIZ   = N
       GRSIZ     = 1
@@ -195,7 +195,7 @@
       CALL DLASET( "A", KD,   N, ZERO, ZERO, WORK( AWPOS ), LDA )
 *
 *
-*     openMP parallelisation start here
+      // openMP parallelisation start here
 *
 #if defined(_OPENMP)
 !$OMP PARALLEL PRIVATE( TID, THGRID, BLKLASTIND )
@@ -207,7 +207,7 @@
 !$OMP MASTER
 #endif
 *
-*     main bulge chasing loop
+      // main bulge chasing loop
 *
       DO 100 THGRID = 1, THGRNB
           STT  = (THGRID-1)*THGRSIZ+1
@@ -242,7 +242,7 @@
                               ENDIF
                           ENDIF
 *
-*                         Call the kernel
+                          // Call the kernel
 *
 #if defined(_OPENMP) &&  _OPENMP >= 201307
                           IF( TTYPE.NE.1 ) THEN
@@ -277,15 +277,15 @@
 !$OMP END PARALLEL
 #endif
 *
-*     Copy the diagonal from A to D. Note that D is REAL thus only
-*     the Real part is needed, the imaginary part should be zero.
+      // Copy the diagonal from A to D. Note that D is REAL thus only
+     t // he Real part is needed, the imaginary part should be zero.
 *
       DO 150 I = 1, N
           D( I ) = ( WORK( DPOS+(I-1)*LDA ) )
   150 CONTINUE
 *
-*     Copy the off diagonal from A to E. Note that E is REAL thus only
-*     the Real part is needed, the imaginary part should be zero.
+      // Copy the off diagonal from A to E. Note that E is REAL thus only
+     t // he Real part is needed, the imaginary part should be zero.
 *
       IF( UPPER ) THEN
           DO 160 I = 1, N-1
@@ -300,6 +300,6 @@
       WORK( 1 ) = LWMIN
       RETURN
 *
-*     End of DSYTRD_SB2ST
+      // End of DSYTRD_SB2ST
 *
       END

@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX;
       REAL               RMAX
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NINFO( 2 );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 )
       REAL               TWO, THREE
       PARAMETER          ( TWO = 2.0E0, THREE = 3.0E0 )
       int                LWORK;
       PARAMETER          ( LWORK = 32 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC, IC11, IC12, IC21, IC22, ICM, INFO, J;
       REAL               BIGNUM, EPS, RES, SMLNUM, TNRM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               Q( 4, 4 ), RESULT( 2 ), T( 4, 4 ), T1( 4, 4 ), VAL( 9 ), VM( 2 ), WORK( LWORK )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLAEXC
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, SIGN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Set up test case parameters
+      // Set up test case parameters
 *
       VAL( 1 ) = ZERO
       VAL( 2 ) = SQRT( SMLNUM )
@@ -68,7 +68,7 @@
       LMAX = 0
       RMAX = ZERO
 *
-*     Begin test loop
+      // Begin test loop
 *
       DO 40 IA = 1, 9
          DO 30 IAM = 1, 2
@@ -228,6 +228,6 @@
 *
       RETURN
 *
-*     End of SGET34
+      // End of SGET34
 *
       END

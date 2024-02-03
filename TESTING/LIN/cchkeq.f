@@ -4,14 +4,14 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NOUT;
       REAL               THRESH
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E+0, TEN = 1.0E1 )
       COMPLEX            CZERO
@@ -22,28 +22,28 @@
       PARAMETER          ( NSZ = 5, NSZB = 3*NSZ-2 )
       int                NSZP, NPOW;
       PARAMETER          ( NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               OK;
       String             PATH;
       int                I, INFO, J, KL, KU, M, N;
       REAL               CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW )
       COMPLEX            A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGBEQU, CGEEQU, CPBEQU, CPOEQU, CPPEQU
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1:1 ) = 'Complex precision'
       PATH( 2:3 ) = 'EQ'
@@ -57,7 +57,7 @@
          RPOW( I ) = ONE / POW( I )
    20 CONTINUE
 *
-*     Test CGEEQU
+      // Test CGEEQU
 *
       DO 80 N = 0, NSZ
          DO 70 M = 0, NSZ
@@ -91,7 +91,7 @@
    70    CONTINUE
    80 CONTINUE
 *
-*     Test with zero rows and columns
+      // Test with zero rows and columns
 *
       DO 90 J = 1, NSZ
          A( MAX( NSZ-1, 1 ), J ) = CZERO
@@ -109,7 +109,7 @@
       IF( INFO.NE.NSZ+MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
       RESLTS( 1 ) = RESLTS( 1 ) / EPS
 *
-*     Test CGBEQU
+      // Test CGBEQU
 *
       DO 250 N = 0, NSZ
          DO 240 M = 0, NSZ
@@ -186,7 +186,7 @@
   250 CONTINUE
       RESLTS( 2 ) = RESLTS( 2 ) / EPS
 *
-*     Test CPOEQU
+      // Test CPOEQU
 *
       DO 290 N = 0, NSZ
 *
@@ -218,11 +218,11 @@
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE
       RESLTS( 3 ) = RESLTS( 3 ) / EPS
 *
-*     Test CPPEQU
+      // Test CPPEQU
 *
       DO 360 N = 0, NSZ
 *
-*        Upper triangular packed storage
+         // Upper triangular packed storage
 *
          DO 300 I = 1, ( N*( N+1 ) ) / 2
             AP( I ) = CZERO
@@ -244,7 +244,7 @@
             END IF
          END IF
 *
-*        Lower triangular packed storage
+         // Lower triangular packed storage
 *
          DO 330 I = 1, ( N*( N+1 ) ) / 2
             AP( I ) = CZERO
@@ -275,12 +275,12 @@
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE
       RESLTS( 4 ) = RESLTS( 4 ) / EPS
 *
-*     Test CPBEQU
+      // Test CPBEQU
 *
       DO 460 N = 0, NSZ
          DO 450 KL = 0, MAX( N-1, 0 )
 *
-*           Test upper triangular storage
+            // Test upper triangular storage
 *
             DO 380 J = 1, NSZ
                DO 370 I = 1, NSZB
@@ -309,7 +309,7 @@
                IF( INFO.NE.MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE
             END IF
 *
-*           Test lower triangular storage
+            // Test lower triangular storage
 *
             DO 420 J = 1, NSZ
                DO 410 I = 1, NSZB
@@ -361,6 +361,6 @@
      $      ' threshold ', E10.3 )
       RETURN
 *
-*     End of CCHKEQ
+      // End of CCHKEQ
 *
       END

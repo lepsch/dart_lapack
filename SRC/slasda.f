@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                ICOMPQ, INFO, LDGCOL, LDU, N, SMLSIZ, SQRE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       REAL               C( * ), D( * ), DIFL( LDU, * ), DIFR( LDU, * ), E( * ), GIVNUM( LDU, * ), POLES( LDU, * ), S( * ), U( LDU, * ), VT( LDU, * ), WORK( * ), Z( LDU, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, I1, IC, IDXQ, IDXQI, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, LVL2, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, NRU, NWORK1, NWORK2, SMLSZP, SQREI, VF, VFI, VL, VLI;
       REAL               ALPHA, BETA
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLASD6, SLASDQ, SLASDT, SLASET, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -50,7 +50,7 @@
 *
       M = N + SQRE
 *
-*     If the input matrix is too small, call SLASDQ to find the SVD.
+      // If the input matrix is too small, call SLASDQ to find the SVD.
 *
       IF( N.LE.SMLSIZ ) THEN
          IF( ICOMPQ.EQ.0 ) THEN
@@ -61,7 +61,7 @@
          RETURN
       END IF
 *
-*     Book-keeping and  set up the computation tree.
+      // Book-keeping and  set up the computation tree.
 *
       INODE = 1
       NDIML = INODE + N
@@ -80,17 +80,17 @@
 *
       CALL SLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
 *
-*     for the nodes on bottom level of the tree, solve
-*     their subproblems by SLASDQ.
+      // for the nodes on bottom level of the tree, solve
+     t // heir subproblems by SLASDQ.
 *
       NDB1 = ( ND+1 ) / 2
       DO 30 I = NDB1, ND
 *
-*        IC : center row of each node
-*        NL : number of rows of left  subproblem
-*        NR : number of rows of right subproblem
-*        NLF: starting row of the left   subproblem
-*        NRF: starting row of the right  subproblem
+         // IC : center row of each node
+         // NL : number of rows of left  subproblem
+         // NR : number of rows of right subproblem
+         // NLF: starting row of the left   subproblem
+         // NRF: starting row of the right  subproblem
 *
          I1 = I - 1
          IC = IWORK( INODE+I1 )
@@ -150,14 +150,14 @@
    20    CONTINUE
    30 CONTINUE
 *
-*     Now conquer each subproblem bottom-up.
+      // Now conquer each subproblem bottom-up.
 *
       J = 2**NLVL
       DO 50 LVL = NLVL, 1, -1
          LVL2 = LVL*2 - 1
 *
-*        Find the first node LF and last node LL on
-*        the current level LVL.
+         // Find the first node LF and last node LL on
+        t // he current level LVL.
 *
          IF( LVL.EQ.1 ) THEN
             LF = 1
@@ -197,6 +197,6 @@
 *
       RETURN
 *
-*     End of SLASDA
+      // End of SLASDA
 *
       END

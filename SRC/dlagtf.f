@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, N;
       double             LAMBDA, TOL;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IN( * );
       double             A( * ), B( * ), C( * ), D( * );
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                K;
       double             EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -97,6 +97,6 @@
 *
       RETURN
 *
-*     End of DLAGTF
+      // End of DLAGTF
 *
       END

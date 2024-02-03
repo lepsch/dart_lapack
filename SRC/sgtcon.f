@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             NORM;
       int                INFO, N;
       REAL               ANORM, RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
       REAL               D( * ), DL( * ), DU( * ), DU2( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ONENRM;
       int                I, KASE, KASE1;
       REAL               AINVNM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGTTRS, SLACN2, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments.
+      // Test the input arguments.
 *
       INFO = 0
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
@@ -53,7 +53,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -63,7 +63,7 @@
          RETURN
       END IF
 *
-*     Check that D(1:N) is non-zero.
+      // Check that D(1:N) is non-zero.
 *
       DO 10 I = 1, N
          IF( D( I ).EQ.ZERO ) RETURN
@@ -81,24 +81,24 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.KASE1 ) THEN
 *
-*           Multiply by inv(U)*inv(L).
+            // Multiply by inv(U)*inv(L).
 *
             CALL SGTTRS( 'No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
          ELSE
 *
-*           Multiply by inv(L**T)*inv(U**T).
+            // Multiply by inv(L**T)*inv(U**T).
 *
             CALL SGTTRS( 'Transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
          END IF
          GO TO 20
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
       RETURN
 *
-*     End of SGTCON
+      // End of SGTCON
 *
       END

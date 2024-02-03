@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDVS, NOUNIT, NSIZES, NTYPES, NWORK;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       double             RESULT( 13 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), W( * ), WORK( * ), WT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
       COMPLEX*16         CONE
@@ -26,57 +26,57 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 21 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN;
       String             SORT;
       String             PATH;
       int                I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM;
       double             ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       double             RES( 2 );
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       double             SELWI( 20 ), SELWR( 20 );
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       int                SELDIM, SELOPT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               ZSLECT;
       double             DLAMCH;
       // EXTERNAL ZSLECT, DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASUM, XERBLA, ZGEES, ZHST01, ZLACPY, ZLASET, ZLATME, ZLATMR, ZLATMS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, MAX, MIN, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
       DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'Zomplex precision'
       PATH( 2: 3 ) = 'ES'
 *
-*     Check for errors
+      // Check for errors
 *
       NTESTT = 0
       NTESTF = 0
       INFO = 0
       SELOPT = 0
 *
-*     Important constants
+      // Important constants
 *
       BADNN = .FALSE.
       NMAX = 0
@@ -85,7 +85,7 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -110,11 +110,11 @@
          RETURN
       END IF
 *
-*     Quick return if nothing to do
+      // Quick return if nothing to do
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
@@ -123,7 +123,7 @@
       RTULP = SQRT( ULP )
       RTULPI = ONE / RTULP
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       NERRS = 0
 *
@@ -138,34 +138,34 @@
          DO 230 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
 *
-*           Save ISEED in case of an error.
+            // Save ISEED in case of an error.
 *
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 *
-*           Compute "A"
+            // Compute "A"
 *
-*           Control parameters:
+            // Control parameters:
 *
-*           KMAGN  KCONDS  KMODE        KTYPE
-*       =1  O(1)   1       clustered 1  zero
-*       =2  large  large   clustered 2  identity
-*       =3  small          exponential  Jordan
-*       =4                 arithmetic   diagonal, (w/ eigenvalues)
-*       =5                 random log   symmetric, w/ eigenvalues
-*       =6                 random       general, w/ eigenvalues
-*       =7                              random diagonal
-*       =8                              random symmetric
-*       =9                              random general
-*       =10                             random triangular
+            // KMAGN  KCONDS  KMODE        KTYPE
+        // =1  O(1)   1       clustered 1  zero
+        // =2  large  large   clustered 2  identity
+        // =3  small          exponential  Jordan
+        // =4                 arithmetic   diagonal, (w/ eigenvalues)
+        // =5                 random log   symmetric, w/ eigenvalues
+        // =6                 random       general, w/ eigenvalues
+        // =7                              random diagonal
+        // =8                              random symmetric
+        // =9                              random general
+        // =10                             random triangular
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
 *
-*           Compute norm
+            // Compute norm
 *
             GO TO ( 30, 40, 50 )KMAGN( JTYPE )
 *
@@ -187,17 +187,17 @@
             IINFO = 0
             COND = ULPINV
 *
-*           Special Matrices -- Identity & Jordan block
+            // Special Matrices -- Identity & Jordan block
 *
             IF( ITYPE.EQ.1 ) THEN
 *
-*              Zero
+               // Zero
 *
                IINFO = 0
 *
             ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*              Identity
+               // Identity
 *
                DO 70 JCOL = 1, N
                   A( JCOL, JCOL ) = DCMPLX( ANORM )
@@ -205,7 +205,7 @@
 *
             ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*              Jordan Block
+               // Jordan Block
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = DCMPLX( ANORM )
@@ -214,19 +214,19 @@
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*              Diagonal Matrix, [Eigen]values Specified
+               // Diagonal Matrix, [Eigen]values Specified
 *
                CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*              Symmetric, eigenvalues specified
+               // Symmetric, eigenvalues specified
 *
                CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.6 ) THEN
 *
-*              General, eigenvalues specified
+               // General, eigenvalues specified
 *
                IF( KCONDS( JTYPE ).EQ.1 ) THEN
                   CONDS = ONE
@@ -240,19 +240,19 @@
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
-*              Diagonal, random eigenvalues
+               // Diagonal, random eigenvalues
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
-*              Symmetric, random eigenvalues
+               // Symmetric, random eigenvalues
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*              General, random eigenvalues
+               // General, random eigenvalues
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
                IF( N.GE.4 ) THEN
@@ -262,7 +262,7 @@
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
-*              Triangular, random eigenvalues
+               // Triangular, random eigenvalues
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
@@ -279,7 +279,7 @@
 *
    90       CONTINUE
 *
-*           Test for minimal and generous workspace
+            // Test for minimal and generous workspace
 *
             DO 220 IWK = 1, 2
                IF( IWK.EQ.1 ) THEN
@@ -289,13 +289,13 @@
                END IF
                NNWORK = MAX( NNWORK, 1 )
 *
-*              Initialize RESULT
+               // Initialize RESULT
 *
                DO 100 J = 1, 13
                   RESULT( J ) = -ONE
   100          CONTINUE
 *
-*              Test with and without sorting of eigenvalues
+               // Test with and without sorting of eigenvalues
 *
                DO 180 ISORT = 0, 1
                   IF( ISORT.EQ.0 ) THEN
@@ -306,7 +306,7 @@
                      RSUB = 6
                   END IF
 *
-*                 Compute Schur form and Schur vectors, and test them
+                  // Compute Schur form and Schur vectors, and test them
 *
                   CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
                   CALL ZGEES( 'V', SORT, ZSLECT, N, H, LDA, SDIM, W, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
@@ -317,7 +317,7 @@
                      GO TO 190
                   END IF
 *
-*                 Do Test (1) or Test (7)
+                  // Do Test (1) or Test (7)
 *
                   RESULT( 1+RSUB ) = ZERO
                   DO 120 J = 1, N - 1
@@ -326,21 +326,21 @@
   110                CONTINUE
   120             CONTINUE
 *
-*                 Do Tests (2) and (3) or Tests (8) and (9)
+                  // Do Tests (2) and (3) or Tests (8) and (9)
 *
                   LWORK = MAX( 1, 2*N*N )
                   CALL ZHST01( N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RWORK, RES )
                   RESULT( 2+RSUB ) = RES( 1 )
                   RESULT( 3+RSUB ) = RES( 2 )
 *
-*                 Do Test (4) or Test (10)
+                  // Do Test (4) or Test (10)
 *
                   RESULT( 4+RSUB ) = ZERO
                   DO 130 I = 1, N
                      IF( H( I, I ).NE.W( I ) ) RESULT( 4+RSUB ) = ULPINV
   130             CONTINUE
 *
-*                 Do Test (5) or Test (11)
+                  // Do Test (5) or Test (11)
 *
                   CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
                   CALL ZGEES( 'N', SORT, ZSLECT, N, HT, LDA, SDIM, WT, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
@@ -358,14 +358,14 @@
   140                CONTINUE
   150             CONTINUE
 *
-*                 Do Test (6) or Test (12)
+                  // Do Test (6) or Test (12)
 *
                   RESULT( 6+RSUB ) = ZERO
                   DO 160 I = 1, N
                      IF( W( I ).NE.WT( I ) ) RESULT( 6+RSUB ) = ULPINV
   160             CONTINUE
 *
-*                 Do Test (13)
+                  // Do Test (13)
 *
                   IF( ISORT.EQ.1 ) THEN
                      RESULT( 13 ) = ZERO
@@ -381,7 +381,7 @@
 *
   180          CONTINUE
 *
-*              End of Loop -- Check for RESULT(j) > THRESH
+               // End of Loop -- Check for RESULT(j) > THRESH
 *
   190          CONTINUE
 *
@@ -415,7 +415,7 @@
   230    CONTINUE
   240 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL DLASUM( PATH, NOUNIT, NERRS, NTESTT )
 *
@@ -470,6 +470,6 @@
 *
       RETURN
 *
-*     End of ZDRVES
+      // End of ZDRVES
 *
       END

@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               WANTNC;
       int       B1, BN, N, NEGCNT, R;
       REAL               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISUPPZ( * );
       REAL               D( * ), L( * ), LD( * ), LLD( * ), WORK( * )
       COMPLEX          Z( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E0, 0.0E0 ) )
 
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               SAWNAN1, SAWNAN2;
       int                I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2;
       REAL               DMINUS, DPLUS, EPS, S, TMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool    SISNAN;
       REAL               SLAMCH
       // EXTERNAL SISNAN, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = SLAMCH( 'Precision' )
 
@@ -50,9 +50,9 @@
          R2 = R
       END IF
 
-*     Storage for LPLUS
+      // Storage for LPLUS
       INDLPL = 0
-*     Storage for UMINUS
+      // Storage for UMINUS
       INDUMN = N
       INDS = 2*N + 1
       INDP = 3*N + 1
@@ -64,8 +64,8 @@
       END IF
 
 *
-*     Compute the stationary transform (using the differential form)
-*     until the index R2.
+      // Compute the stationary transform (using the differential form)
+      // until the index R2.
 *
       SAWNAN1 = .FALSE.
       NEG1 = 0
@@ -89,7 +89,7 @@
 *
  60   CONTINUE
       IF( SAWNAN1 ) THEN
-*        Runs a slower version of the above loop if a NaN is detected
+         // Runs a slower version of the above loop if a NaN is detected
          NEG1 = 0
          S = WORK( INDS+B1-1 ) - LAMBDA
          DO 70 I = B1, R1 - 1
@@ -111,8 +111,8 @@
  71      CONTINUE
       END IF
 *
-*     Compute the progressive transform (using the differential form)
-*     until the index R1
+      // Compute the progressive transform (using the differential form)
+      // until the index R1
 *
       SAWNAN2 = .FALSE.
       NEG2 = 0
@@ -128,7 +128,7 @@
       SAWNAN2 = SISNAN( TMP )
 
       IF( SAWNAN2 ) THEN
-*        Runs a slower version of the above loop if a NaN is detected
+         // Runs a slower version of the above loop if a NaN is detected
          NEG2 = 0
          DO 100 I = BN-1, R1, -1
             DMINUS = LLD( I ) + WORK( INDP+I )
@@ -141,8 +141,8 @@
  100     CONTINUE
       END IF
 *
-*     Find the index (from R1 to R2) of the largest (in magnitude)
-*     diagonal element of the inverse
+      // Find the index (from R1 to R2) of the largest (in magnitude)
+      // diagonal element of the inverse
 *
       MINGMA = WORK( INDS+R1-1 ) + WORK( INDP+R1-1 )
       IF( MINGMA.LT.ZERO ) NEG1 = NEG1 + 1
@@ -162,14 +162,14 @@
          END IF
  110  CONTINUE
 *
-*     Compute the FP vector: solve N^T v = e_r
+      // Compute the FP vector: solve N^T v = e_r
 *
       ISUPPZ( 1 ) = B1
       ISUPPZ( 2 ) = BN
       Z( R ) = CONE
       ZTZ = ONE
 *
-*     Compute the FP vector upwards from R
+      // Compute the FP vector upwards from R
 *
       IF( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) THEN
          DO 210 I = R-1, B1, -1
@@ -183,7 +183,7 @@
  210     CONTINUE
  220     CONTINUE
       ELSE
-*        Run slower loop if NaN occurred.
+         // Run slower loop if NaN occurred.
          DO 230 I = R - 1, B1, -1
             IF( Z( I+1 ).EQ.ZERO ) THEN
                Z( I ) = -( LD( I+1 ) / LD( I ) )*Z( I+2 )
@@ -200,7 +200,7 @@
  240     CONTINUE
       ENDIF
 
-*     Compute the FP vector downwards from R in blocks of size BLKSIZ
+      // Compute the FP vector downwards from R in blocks of size BLKSIZ
       IF( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) THEN
          DO 250 I = R, BN-1
             Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
@@ -213,7 +213,7 @@
  250     CONTINUE
  260     CONTINUE
       ELSE
-*        Run slower loop if NaN occurred.
+         // Run slower loop if NaN occurred.
          DO 270 I = R, BN - 1
             IF( Z( I ).EQ.ZERO ) THEN
                Z( I+1 ) = -( LD( I-1 ) / LD( I ) )*Z( I-1 )
@@ -230,7 +230,7 @@
  280     CONTINUE
       END IF
 *
-*     Compute quantities for convergence test
+      // Compute quantities for convergence test
 *
       TMP = ONE / ZTZ
       NRMINV = SQRT( TMP )
@@ -240,6 +240,6 @@
 *
       RETURN
 *
-*     End of CLAR1V
+      // End of CLAR1V
 *
       END

@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16         Z
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       double             RMIN, X;
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       int                SELDIM, SELOPT;
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       double             SELWI( 20 ), SELWR( 20 );
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( SELOPT.EQ.0 ) THEN
          ZSLECT = ( DBLE( Z ).LT.ZERO )
@@ -48,6 +48,6 @@
       END IF
       RETURN
 *
-*     End of ZSLECT
+      // End of ZSLECT
 *
       END

@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             ID;
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                SELECT;
       PARAMETER          ( SELECT = 20 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                DIR, ENDD, I, J, START, STKPNT;
       REAL               D1, D2, D3, DMNMX, TMP
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                STACK( 2, 32 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       DIR = -1
@@ -53,7 +53,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.1 ) RETURN
 *
@@ -66,11 +66,11 @@
       STKPNT = STKPNT - 1
       IF( ENDD-START.LE.SELECT .AND. ENDD-START.GT.0 ) THEN
 *
-*        Do Insertion sort on D( START:ENDD )
+         // Do Insertion sort on D( START:ENDD )
 *
          IF( DIR.EQ.0 ) THEN
 *
-*           Sort into decreasing order
+            // Sort into decreasing order
 *
             DO 30 I = START + 1, ENDD
                DO 20 J = I, START + 1, -1
@@ -86,7 +86,7 @@
 *
          ELSE
 *
-*           Sort into increasing order
+            // Sort into increasing order
 *
             DO 50 I = START + 1, ENDD
                DO 40 J = I, START + 1, -1
@@ -104,9 +104,9 @@
 *
       ELSE IF( ENDD-START.GT.SELECT ) THEN
 *
-*        Partition D( START:ENDD ) and stack parts, largest one first
+         // Partition D( START:ENDD ) and stack parts, largest one first
 *
-*        Choose partition entry as median of 3
+         // Choose partition entry as median of 3
 *
          D1 = D( START )
          D2 = D( ENDD )
@@ -132,7 +132,7 @@
 *
          IF( DIR.EQ.0 ) THEN
 *
-*           Sort into decreasing order
+            // Sort into decreasing order
 *
             I = START - 1
             J = ENDD + 1
@@ -166,7 +166,7 @@
             END IF
          ELSE
 *
-*           Sort into increasing order
+            // Sort into increasing order
 *
             I = START - 1
             J = ENDD + 1
@@ -203,6 +203,6 @@
       IF( STKPNT.GT.0 ) GO TO 10
       RETURN
 *
-*     End of SLASRT
+      // End of SLASRT
 *
       END

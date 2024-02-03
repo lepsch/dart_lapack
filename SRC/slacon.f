@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KASE, N;
       REAL               EST
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISGN( * );
       REAL               V( * ), X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ITER, J, JLAST, JUMP;
       REAL               ALTSGN, ESTOLD, TEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SASUM
       // EXTERNAL ISAMAX, SASUM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, NINT, REAL, SIGN
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( KASE.EQ.0 ) THEN
          DO 10 I = 1, N
@@ -52,14 +52,14 @@
 *
       GO TO ( 20, 40, 70, 110, 140 )JUMP
 *
-*     ................ ENTRY   (JUMP = 1)
-*     FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (JUMP = 1)
+      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 *
    20 CONTINUE
       IF( N.EQ.1 ) THEN
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
-*        ... QUIT
+         // ... QUIT
          GO TO 150
       END IF
       EST = SASUM( N, X, 1 )
@@ -72,14 +72,14 @@
       JUMP = 2
       RETURN
 *
-*     ................ ENTRY   (JUMP = 2)
-*     FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
+      // ................ ENTRY   (JUMP = 2)
+      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 *
    40 CONTINUE
       J = ISAMAX( N, X, 1 )
       ITER = 2
 *
-*     MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
+      // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 *
    50 CONTINUE
       DO 60 I = 1, N
@@ -90,8 +90,8 @@
       JUMP = 3
       RETURN
 *
-*     ................ ENTRY   (JUMP = 3)
-*     X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (JUMP = 3)
+      // X HAS BEEN OVERWRITTEN BY A*X.
 *
    70 CONTINUE
       CALL SCOPY( N, X, 1, V, 1 )
@@ -100,11 +100,11 @@
       DO 80 I = 1, N
          IF( NINT( SIGN( ONE, X( I ) ) ).NE.ISGN( I ) ) GO TO 90
    80 CONTINUE
-*     REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
+      // REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120
 *
    90 CONTINUE
-*     TEST FOR CYCLING.
+      // TEST FOR CYCLING.
       IF( EST.LE.ESTOLD ) GO TO 120
 *
       DO 100 I = 1, N
@@ -115,8 +115,8 @@
       JUMP = 4
       RETURN
 *
-*     ................ ENTRY   (JUMP = 4)
-*     X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
+      // ................ ENTRY   (JUMP = 4)
+      // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 *
   110 CONTINUE
       JLAST = J
@@ -126,7 +126,7 @@
          GO TO 50
       END IF
 *
-*     ITERATION COMPLETE.  FINAL STAGE.
+      // ITERATION COMPLETE.  FINAL STAGE.
 *
   120 CONTINUE
       ALTSGN = ONE
@@ -138,8 +138,8 @@
       JUMP = 5
       RETURN
 *
-*     ................ ENTRY   (JUMP = 5)
-*     X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (JUMP = 5)
+      // X HAS BEEN OVERWRITTEN BY A*X.
 *
   140 CONTINUE
       TEMP = TWO*( SASUM( N, X, 1 ) / REAL( 3*N ) )
@@ -152,6 +152,6 @@
       KASE = 0
       RETURN
 *
-*     End of SLACON
+      // End of SLACON
 *
       END

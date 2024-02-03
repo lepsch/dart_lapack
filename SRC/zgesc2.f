@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, N;
       double             SCALE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
       COMPLEX*16         A( LDA, * ), RHS( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             BIGNUM, EPS, SMLNUM;
       COMPLEX*16         TEMP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLASWP, ZSCAL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IZAMAX;
       double             DLAMCH;
       // EXTERNAL IZAMAX, DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Set constant to control overflow
+      // Set constant to control overflow
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Apply permutations IPIV to RHS
+      // Apply permutations IPIV to RHS
 *
       CALL ZLASWP( 1, RHS, LDA, 1, N-1, IPIV, 1 )
 *
-*     Solve for L part
+      // Solve for L part
 *
       DO 20 I = 1, N - 1
          DO 10 J = I + 1, N
@@ -55,11 +55,11 @@
    10    CONTINUE
    20 CONTINUE
 *
-*     Solve for U part
+      // Solve for U part
 *
       SCALE = ONE
 *
-*     Check for scaling
+      // Check for scaling
 *
       I = IZAMAX( N, RHS, 1 )
       IF( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) THEN
@@ -75,11 +75,11 @@
    30    CONTINUE
    40 CONTINUE
 *
-*     Apply permutations JPIV to the solution (RHS)
+      // Apply permutations JPIV to the solution (RHS)
 *
       CALL ZLASWP( 1, RHS, LDA, 1, N-1, JPIV, -1 )
       RETURN
 *
-*     End of ZGESC2
+      // End of ZGESC2
 *
       END

@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = 3*NMAX )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS;
       double             ANRM, CCOND, RCOND, BERR;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX ), IW( NMAX );
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( LW ), X( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DGBCON, DGBEQU, DGBRFS, DGBTF2, DGBTRF, DGBTRS, DGECON, DGEEQU, DGERFS, DGETF2, DGETRF, DGETRI, DGETRS, DGEEQUB, DGERFSX, DGBEQUB, DGBRFSX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -71,10 +71,10 @@
 *
       IF( LSAMEN( 2, C2, 'GE' ) ) THEN
 *
-*        Test error exits of the routines that use the LU decomposition
-*        of a general matrix.
+         // Test error exits of the routines that use the LU decomposition
+         // of a general matrix.
 *
-*        DGETRF
+         // DGETRF
 *
          SRNAMT = 'DGETRF'
          INFOT = 1
@@ -87,7 +87,7 @@
          CALL DGETRF( 2, 1, A, 1, IP, INFO )
          CALL CHKXER( 'DGETRF', INFOT, NOUT, LERR, OK )
 *
-*        DGETF2
+         // DGETF2
 *
          SRNAMT = 'DGETF2'
          INFOT = 1
@@ -100,7 +100,7 @@
          CALL DGETF2( 2, 1, A, 1, IP, INFO )
          CALL CHKXER( 'DGETF2', INFOT, NOUT, LERR, OK )
 *
-*        DGETRI
+         // DGETRI
 *
          SRNAMT = 'DGETRI'
          INFOT = 1
@@ -110,7 +110,7 @@
          CALL DGETRI( 2, A, 1, IP, W, LW, INFO )
          CALL CHKXER( 'DGETRI', INFOT, NOUT, LERR, OK )
 *
-*        DGETRS
+         // DGETRS
 *
          SRNAMT = 'DGETRS'
          INFOT = 1
@@ -129,7 +129,7 @@
          CALL DGETRS( 'N', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'DGETRS', INFOT, NOUT, LERR, OK )
 *
-*        DGERFS
+         // DGERFS
 *
          SRNAMT = 'DGERFS'
          INFOT = 1
@@ -154,7 +154,7 @@
          CALL DGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGERFS', INFOT, NOUT, LERR, OK )
 *
-*        DGERFSX
+         // DGERFSX
 *
          N_ERR_BNDS = 3
          NPARAMS = 0
@@ -187,7 +187,7 @@
          CALL DGERFSX( 'N', EQ, 2, 1, A, 2, AF, 2, IP, R, C, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
 *
-*        DGECON
+         // DGECON
 *
          SRNAMT = 'DGECON'
          INFOT = 1
@@ -200,7 +200,7 @@
          CALL DGECON( '1', 2, A, 1, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGECON', INFOT, NOUT, LERR, OK )
 *
-*        DGEEQU
+         // DGEEQU
 *
          SRNAMT = 'DGEEQU'
          INFOT = 1
@@ -213,7 +213,7 @@
          CALL DGEEQU( 2, 2, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGEEQU', INFOT, NOUT, LERR, OK )
 *
-*        DGEEQUB
+         // DGEEQUB
 *
          SRNAMT = 'DGEEQUB'
          INFOT = 1
@@ -228,10 +228,10 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        Test error exits of the routines that use the LU decomposition
-*        of a general band matrix.
+         // Test error exits of the routines that use the LU decomposition
+         // of a general band matrix.
 *
-*        DGBTRF
+         // DGBTRF
 *
          SRNAMT = 'DGBTRF'
          INFOT = 1
@@ -250,7 +250,7 @@
          CALL DGBTRF( 2, 2, 1, 1, A, 3, IP, INFO )
          CALL CHKXER( 'DGBTRF', INFOT, NOUT, LERR, OK )
 *
-*        DGBTF2
+         // DGBTF2
 *
          SRNAMT = 'DGBTF2'
          INFOT = 1
@@ -269,7 +269,7 @@
          CALL DGBTF2( 2, 2, 1, 1, A, 3, IP, INFO )
          CALL CHKXER( 'DGBTF2', INFOT, NOUT, LERR, OK )
 *
-*        DGBTRS
+         // DGBTRS
 *
          SRNAMT = 'DGBTRS'
          INFOT = 1
@@ -294,7 +294,7 @@
          CALL DGBTRS( 'N', 2, 0, 0, 1, A, 1, IP, B, 1, INFO )
          CALL CHKXER( 'DGBTRS', INFOT, NOUT, LERR, OK )
 *
-*        DGBRFS
+         // DGBRFS
 *
          SRNAMT = 'DGBRFS'
          INFOT = 1
@@ -325,7 +325,7 @@
          CALL DGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
 *
-*        DGBRFSX
+         // DGBRFSX
 *
          N_ERR_BNDS = 3
          NPARAMS = 0
@@ -366,7 +366,7 @@
          CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 3, AF, 5, IP, R, C, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
 *
-*        DGBCON
+         // DGBCON
 *
          SRNAMT = 'DGBCON'
          INFOT = 1
@@ -385,7 +385,7 @@
          CALL DGBCON( '1', 2, 1, 1, A, 3, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGBCON', INFOT, NOUT, LERR, OK )
 *
-*        DGBEQU
+         // DGBEQU
 *
          SRNAMT = 'DGBEQU'
          INFOT = 1
@@ -404,7 +404,7 @@
          CALL DGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQU', INFOT, NOUT, LERR, OK )
 *
-*        DGBEQUB
+         // DGBEQUB
 *
          SRNAMT = 'DGBEQUB'
          INFOT = 1
@@ -424,12 +424,12 @@
          CALL CHKXER( 'DGBEQUB', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRGEX
+      // End of DERRGEX
 *
       END

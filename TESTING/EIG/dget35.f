@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
       double             RMAX;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       double             TWO, FOUR;
       PARAMETER          ( TWO = 2.0D0, FOUR = 4.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, IMA, IMB, IMLDA1, IMLDA2, IMLDB1, IMLOFF, INFO, ISGN, ITRANA, ITRANB, J, M, N       double             BIGNUM, CNRM, EPS, RES, RES1, RMUL, SCALE, SMLNUM, TNRM, XNRM;;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDIM( 8 ), IVAL( 6, 6, 8 );
       double             A( 6, 6 ), B( 6, 6 ), C( 6, 6 ), CC( 6, 6 ), DUM( 1 ), VM1( 3 ), VM2( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DTRSYL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, SIN, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               IDIM / 1, 2, 3, 4, 3, 3, 6, 4 /
       DATA               IVAL / 1, 35*0, 1, 2, 4*0, -2, 0, 28*0, 1, 5*0, 5, 1, 2, 3*0, -8, -2, 1, 21*0, 3, 4, 4*0, -5, 3, 4*0, 1, 2, 1, 4, 2*0, -3, -9, -1, 1, 14*0, 1, 5*0, 2, 3, 4*0, 5, 6, 7, 21*0, 1, 5*0, 1, 3, -4, 3*0, 2, 5, 2, 21*0, 1, 2, 4*0, -2, 0, 4*0, 5, 6, 3, 4, 2*0, -1, -9, -5, 2, 2*0, 4*8, 5, 6, 4*9, -7, 5, 1, 5*0, 1, 5, 2, 3*0, 2, -21, 5, 3*0, 1, 2, 3, 4, 14*0 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' )*FOUR / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Set up test case parameters
+      // Set up test case parameters
 *
       VM1( 1 ) = SQRT( SMLNUM )
       VM1( 2 ) = ONE
@@ -61,7 +61,7 @@
       LMAX = 0
       RMAX = ZERO
 *
-*     Begin test loop
+      // Begin test loop
 *
       DO 150 ITRANA = 1, 2
          DO 140 ITRANB = 1, 2
@@ -135,6 +135,6 @@
 *
       RETURN
 *
-*     End of DGET35
+      // End of DGET35
 *
       END

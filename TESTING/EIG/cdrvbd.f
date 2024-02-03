@@ -6,69 +6,69 @@
 *
       IMPLICIT NONE
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LDVT, LWORK, NOUNIT, NSIZES, NTYPES;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * );
       REAL               E( * ), RWORK( * ), S( * ), SSAV( * )
       COMPLEX            A( LDA, * ), ASAV( LDA, * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 5 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADMM, BADNN;
       String             JOBQ, JOBU, JOBVT, RANGE;
       int                I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK;
       REAL               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
-*     ..
-*     .. Local Scalars for CGESVDQ ..
+      // ..
+      // .. Local Scalars for CGESVDQ ..
       int                LIWORK, NUMRANK;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
       int                IOLDSD( 4 ), ISEED2( 4 );
       REAL               RESULT( 39 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLARND
       // EXTERNAL SLAMCH, SLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALASVM, XERBLA, CBDT01, CBDT05, CGESDD, CGESVD, CGESVDQ, CGESVJ, CGEJSV, CGESVDX, CLACPY, CLASET, CLATMS, CUNT01, CUNT03
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, MAX, MIN
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               CJOB / 'N', 'O', 'S', 'A' /
       DATA               CJOBR / 'A', 'V', 'I' /
       DATA               CJOBV / 'N', 'V' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       INFO = 0
 *
-*     Important constants
+      // Important constants
 *
       NERRS = 0
       NTESTT = 0
@@ -88,7 +88,7 @@
          MINWRK = MAX( MINWRK, MAX( 3*MIN( MM( J ), NN( J ) )+MAX( MM( J ), NN( J ) )**2, 5*MIN( MM( J ), NN( J ) ), 3*MAX( MM( J ), NN( J ) ) ) )
    10 CONTINUE
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -113,11 +113,11 @@
          RETURN
       END IF
 *
-*     Quick return if nothing to do
+      // Quick return if nothing to do
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = SLAMCH( 'S' )
       OVFL = ONE / UNFL
@@ -125,7 +125,7 @@
       ULPINV = ONE / ULP
       RTUNFL = SQRT( UNFL )
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       NERRS = 0
 *
@@ -148,13 +148,13 @@
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 *
-*           Compute "A"
+            // Compute "A"
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 50
 *
             IF( JTYPE.EQ.1 ) THEN
 *
-*              Zero matrix
+               // Zero matrix
 *
                CALL CLASET( 'Full', M, N, CZERO, CZERO, A, LDA )
                DO 30 I = 1, MIN( M, N )
@@ -163,7 +163,7 @@
 *
             ELSE IF( JTYPE.EQ.2 ) THEN
 *
-*              Identity matrix
+               // Identity matrix
 *
                CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA )
                DO 40 I = 1, MIN( M, N )
@@ -172,7 +172,7 @@
 *
             ELSE
 *
-*              (Scaled) random matrix
+               // (Scaled) random matrix
 *
                IF( JTYPE.EQ.3 ) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL CLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO )
                IF( IINFO.NE.0 ) THEN
@@ -185,11 +185,11 @@
    50       CONTINUE
             CALL CLACPY( 'F', M, N, A, LDA, ASAV, LDA )
 *
-*           Do for minimal and adequate (for blocking) workspace
+            // Do for minimal and adequate (for blocking) workspace
 *
             DO 290 IWSPC = 1, 4
 *
-*              Test for CGESVD
+               // Test for CGESVD
 *
                IWTMP = 2*MIN( M, N )+MAX( M, N )
                LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
@@ -201,7 +201,7 @@
                   RESULT( J ) = -ONE
    60          CONTINUE
 *
-*              Factorize A
+               // Factorize A
 *
                IF( IWSPC.GT.1 ) CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'CGESVD'
@@ -212,7 +212,7 @@
                   RETURN
                END IF
 *
-*              Do tests 1--4
+               // Do tests 1--4
 *
                CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 1 ) )
                IF( M.NE.0 .AND. N.NE.0 ) THEN
@@ -226,7 +226,7 @@
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 4 ) = ULPINV
                END IF
 *
-*              Do partial SVDs, comparing to SSAV, USAV, and VTSAV
+               // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 *
                RESULT( 5 ) = ZERO
                RESULT( 6 ) = ZERO
@@ -240,7 +240,7 @@
                      SRNAMT = 'CGESVD'
                      CALL CGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IINFO )
 *
-*                    Compare U
+                     // Compare U
 *
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
@@ -254,7 +254,7 @@
                      END IF
                      RESULT( 5 ) = MAX( RESULT( 5 ), DIF )
 *
-*                    Compare VT
+                     // Compare VT
 *
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
@@ -268,7 +268,7 @@
                      END IF
                      RESULT( 6 ) = MAX( RESULT( 6 ), DIF )
 *
-*                    Compare S
+                     // Compare S
 *
                      DIF = ZERO
                      DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) )
@@ -280,7 +280,7 @@
    90             CONTINUE
   100          CONTINUE
 *
-*              Test for CGESDD
+               // Test for CGESDD
 *
                IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + MAX( M, N )
                LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
@@ -288,7 +288,7 @@
                LSWORK = MAX( LSWORK, 1 )
                IF( IWSPC.EQ.4 ) LSWORK = LWORK
 *
-*              Factorize A
+               // Factorize A
 *
                CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'CGESDD'
@@ -299,7 +299,7 @@
                   RETURN
                END IF
 *
-*              Do tests 1--4
+               // Do tests 1--4
 *
                CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 8 ) )
                IF( M.NE.0 .AND. N.NE.0 ) THEN
@@ -313,7 +313,7 @@
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 11 ) = ULPINV
                END IF
 *
-*              Do partial SVDs, comparing to SSAV, USAV, and VTSAV
+               // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 *
                RESULT( 12 ) = ZERO
                RESULT( 13 ) = ZERO
@@ -324,7 +324,7 @@
                   SRNAMT = 'CGESDD'
                   CALL CGESDD( JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO )
 *
-*                 Compare U
+                  // Compare U
 *
                   DIF = ZERO
                   IF( M.GT.0 .AND. N.GT.0 ) THEN
@@ -340,7 +340,7 @@
                   END IF
                   RESULT( 12 ) = MAX( RESULT( 12 ), DIF )
 *
-*                 Compare VT
+                  // Compare VT
 *
                   DIF = ZERO
                   IF( M.GT.0 .AND. N.GT.0 ) THEN
@@ -356,7 +356,7 @@
                   END IF
                   RESULT( 13 ) = MAX( RESULT( 13 ), DIF )
 *
-*                 Compare S
+                  // Compare S
 *
                   DIF = ZERO
                   DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) )
@@ -368,8 +368,8 @@
   130          CONTINUE
 
 *
-*              Test CGESVDQ
-*              Note: CGESVDQ only works for M >= N
+               // Test CGESVDQ
+               // Note: CGESVDQ only works for M >= N
 *
                RESULT( 36 ) = ZERO
                RESULT( 37 ) = ZERO
@@ -396,7 +396,7 @@
                      RETURN
                   END IF
 *
-*                 Do tests 36--39
+                  // Do tests 36--39
 *
                   CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 36 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
@@ -411,8 +411,8 @@
                   END IF
                END IF
 *
-*              Test CGESVJ
-*              Note: CGESVJ only works for M >= N
+               // Test CGESVJ
+               // Note: CGESVJ only works for M >= N
 *
                RESULT( 15 ) = ZERO
                RESULT( 16 ) = ZERO
@@ -431,7 +431,7 @@
                   SRNAMT = 'CGESVJ'
                   CALL CGESVJ( 'G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, RWORK, LRWORK, IINFO )
 *
-*                 CGESVJ returns V not VH
+                  // CGESVJ returns V not VH
 *
                   DO J=1,N
                      DO I=1,N
@@ -445,7 +445,7 @@
                      RETURN
                   END IF
 *
-*                 Do tests 15--18
+                  // Do tests 15--18
 *
                   CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 15 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
@@ -460,8 +460,8 @@
                   END IF
                END IF
 *
-*              Test CGEJSV
-*              Note: CGEJSV only works for M >= N
+               // Test CGEJSV
+               // Note: CGEJSV only works for M >= N
 *
                RESULT( 19 ) = ZERO
                RESULT( 20 ) = ZERO
@@ -479,7 +479,7 @@
                   SRNAMT = 'CGEJSV'
                   CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, RWORK, LRWORK, IWORK, IINFO )
 *
-*                 CGEJSV returns V not VH
+                  // CGEJSV returns V not VH
 *
                   DO 133 J=1,N
                      DO 132 I=1,N
@@ -493,7 +493,7 @@
                      RETURN
                   END IF
 *
-*                 Do tests 19--22
+                  // Do tests 19--22
 *
                   CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 19 ) )
                   IF( M.NE.0 .AND. N.NE.0 ) THEN
@@ -508,9 +508,9 @@
                   END IF
                END IF
 *
-*              Test CGESVDX
+               // Test CGESVDX
 *
-*              Factorize A
+               // Factorize A
 *
                CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'CGESVDX'
@@ -521,7 +521,7 @@
                   RETURN
                END IF
 *
-*              Do tests 1--4
+               // Do tests 1--4
 *
                RESULT( 23 ) = ZERO
                RESULT( 24 ) = ZERO
@@ -538,7 +538,7 @@
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 26 ) = ULPINV
                END IF
 *
-*              Do partial SVDs, comparing to SSAV, USAV, and VTSAV
+               // Do partial SVDs, comparing to SSAV, USAV, and VTSAV
 *
                RESULT( 27 ) = ZERO
                RESULT( 28 ) = ZERO
@@ -553,7 +553,7 @@
                      SRNAMT = 'CGESVDX'
                      CALL CGESVDX( JOBU, JOBVT, 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO )
 *
-*                    Compare U
+                     // Compare U
 *
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
@@ -563,7 +563,7 @@
                      END IF
                      RESULT( 27 ) = MAX( RESULT( 27 ), DIF )
 *
-*                    Compare VT
+                     // Compare VT
 *
                      DIF = ZERO
                      IF( M.GT.0 .AND. N.GT.0 ) THEN
@@ -573,7 +573,7 @@
                      END IF
                      RESULT( 28 ) = MAX( RESULT( 28 ), DIF )
 *
-*                    Compare S
+                     // Compare S
 *
                      DIF = ZERO
                      DIV = MAX( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) )
@@ -585,7 +585,7 @@
   160             CONTINUE
   170          CONTINUE
 *
-*              Do tests 8--10
+               // Do tests 8--10
 *
                DO 180 I = 1, 4
                   ISEED2( I ) = ISEED( I )
@@ -619,7 +619,7 @@
                   CALL CUNT01( 'Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) )                   CALL CUNT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) )
                END IF
 *
-*              Do tests 11--13
+               // Do tests 11--13
 *
                IF( MNMIN.GT.0 .AND. NSI.GT.1 ) THEN
                   IF( IL.NE.1 ) THEN
@@ -656,7 +656,7 @@
                   CALL CUNT01( 'Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) )                   CALL CUNT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) )
                END IF
 *
-*              End of Loop -- Check for RESULT(j) > THRESH
+               // End of Loop -- Check for RESULT(j) > THRESH
 *
                NTEST = 0
                NFAIL = 0
@@ -685,7 +685,7 @@
   300    CONTINUE
   310 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL ALASVM( 'CBD', NOUNIT, NERRS, NTESTT, 0 )
 *
@@ -764,6 +764,6 @@
 *
       RETURN
 *
-*     End of CDRVBD
+      // End of CDRVBD
 *
       END

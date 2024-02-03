@@ -4,17 +4,17 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, NIN;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
       REAL               RMAX( 3 )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDT, LWORK;
       PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
       REAL               ZERO, ONE, TWO
@@ -23,33 +23,33 @@
       PARAMETER          ( EPSIN = 5.9605E-8 )
       COMPLEX            CZERO
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, ISCL, ISRT, ITMP, J, KMIN, M, N, NDIM;
       REAL               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VMAX, VMIN, VMUL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SELECT( LDT );
       int                IPNT( LDT ), ISELEC( LDT );
       REAL               RESULT( 2 ), RWORK( LDT ), VAL( 3 ), WSRT( LDT )       COMPLEX            Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, SLAMCH
       // EXTERNAL CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEHRD, CHSEQR, CHST01, CLACPY, CSSCAL, CTRSEN, CUNGHR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, MAX, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     EPSIN = 2**(-24) = precision to which input data computed
+      // EPSIN = 2**(-24) = precision to which input data computed
 *
       EPS = MAX( EPS, EPSIN )
       RMAX( 1 ) = ZERO
@@ -66,9 +66,9 @@
       VAL( 2 ) = ONE
       VAL( 3 ) = SQRT( SQRT( BIGNUM ) )
 *
-*     Read input data until N=0.  Assume input eigenvalues are sorted
-*     lexicographically (increasing by real part, then decreasing by
-*     imaginary part)
+      // Read input data until N=0.  Assume input eigenvalues are sorted
+      // lexicographically (increasing by real part, then decreasing by
+      // imaginary part)
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, NDIM, ISRT
@@ -82,7 +82,7 @@
       TNRM = CLANGE( 'M', N, N, TMP, LDT, RWORK )
       DO 200 ISCL = 1, 3
 *
-*        Scale input matrix
+         // Scale input matrix
 *
          KNT = KNT + 1
          CALL CLACPY( 'F', N, N, TMP, LDT, T, LDT )
@@ -93,7 +93,7 @@
          IF( TNRM.EQ.ZERO ) VMUL = ONE
          CALL CLACPY( 'F', N, N, T, LDT, TSAV, LDT )
 *
-*        Compute Schur form
+         // Compute Schur form
 *
          CALL CGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
          IF( INFO.NE.0 ) THEN
@@ -102,12 +102,12 @@
             GO TO 200
          END IF
 *
-*        Generate unitary matrix
+         // Generate unitary matrix
 *
          CALL CLACPY( 'L', N, N, T, LDT, Q, LDT )
          CALL CUNGHR( N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
 *
-*        Compute Schur form
+         // Compute Schur form
 *
          DO 50 J = 1, N - 2
             DO 40 I = J + 2, N
@@ -121,7 +121,7 @@
             GO TO 200
          END IF
 *
-*        Sort, select eigenvalues
+         // Sort, select eigenvalues
 *
          DO 60 I = 1, N
             IPNT( I ) = I
@@ -155,7 +155,7 @@
             SELECT( IPNT( ISELEC( I ) ) ) = .TRUE.
   110    CONTINUE
 *
-*        Compute condition numbers
+         // Compute condition numbers
 *
          CALL CLACPY( 'F', N, N, Q, LDT, QSAV, LDT )
          CALL CLACPY( 'F', N, N, T, LDT, TSAV1, LDT )
@@ -168,7 +168,7 @@
          SEPTMP = SEP / VMUL
          STMP = S
 *
-*        Compute residuals
+         // Compute residuals
 *
          CALL CHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT )
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
@@ -177,8 +177,8 @@
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
 *
-*        Compare condition number for eigenvalue cluster
-*        taking its condition number into account
+         // Compare condition number for eigenvalue cluster
+        t // aking its condition number into account
 *
          V = MAX( TWO*REAL( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
@@ -210,8 +210,8 @@
             IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
          END IF
 *
-*        Compare condition numbers for invariant subspace
-*        taking its condition number into account
+         // Compare condition numbers for invariant subspace
+        t // aking its condition number into account
 *
          IF( V.GT.SEPTMP*STMP ) THEN
             TOL = SEPTMP
@@ -241,8 +241,8 @@
             IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
          END IF
 *
-*        Compare condition number for eigenvalue cluster
-*        without taking its condition number into account
+         // Compare condition number for eigenvalue cluster
+         // without taking its condition number into account
 *
          IF( SIN.LE.REAL( 2*N )*EPS .AND. STMP.LE.REAL( 2*N )*EPS ) THEN
             VMAX = ONE
@@ -262,8 +262,8 @@
             IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
          END IF
 *
-*        Compare condition numbers for invariant subspace
-*        without taking its condition number into account
+         // Compare condition numbers for invariant subspace
+         // without taking its condition number into account
 *
          IF( SEPIN.LE.V .AND. SEPTMP.LE.V ) THEN
             VMAX = ONE
@@ -283,8 +283,8 @@
             IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
          END IF
 *
-*        Compute eigenvalue condition number only and compare
-*        Update Q
+         // Compute eigenvalue condition number only and compare
+         // Update Q
 *
          VMAX = ZERO
          CALL CLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
@@ -304,8 +304,8 @@
   120       CONTINUE
   130    CONTINUE
 *
-*        Compute invariant subspace condition number only and compare
-*        Update Q
+         // Compute invariant subspace condition number only and compare
+         // Update Q
 *
          CALL CLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
@@ -324,8 +324,8 @@
   140       CONTINUE
   150    CONTINUE
 *
-*        Compute eigenvalue condition number only and compare
-*        Do not update Q
+         // Compute eigenvalue condition number only and compare
+         // Do not update Q
 *
          CALL CLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
@@ -344,8 +344,8 @@
   160       CONTINUE
   170    CONTINUE
 *
-*        Compute invariant subspace condition number only and compare
-*        Do not update Q
+         // Compute invariant subspace condition number only and compare
+         // Do not update Q
 *
          CALL CLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
          CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
@@ -370,6 +370,6 @@
   200 CONTINUE
       GO TO 10
 *
-*     End of CGET38
+      // End of CGET38
 *
       END

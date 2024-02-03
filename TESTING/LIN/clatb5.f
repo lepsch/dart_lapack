@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               ANORM, CNDNUM
       int                IMAT, KL, KU, MODE, N;
       String             DIST, TYPE;
       String             PATH;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               SHRINK, TENTH
       PARAMETER          ( SHRINK = 0.25E0, TENTH = 0.1E+0 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
       REAL               TWO
       PARAMETER          ( TWO = 2.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               BADC1, BADC2, EPS, LARGE, SMALL
       bool               FIRST;
       String             C2;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE               EPS, SMALL, LARGE, BADC1, BADC2, FIRST
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               FIRST / .TRUE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Set some constants for use in the subroutine.
+      // Set some constants for use in the subroutine.
 *
       IF( FIRST ) THEN
          FIRST = .FALSE.
@@ -56,16 +56,16 @@
 *
       C2 = PATH( 2: 3 )
 *
-*     Set some parameters
+      // Set some parameters
 *
       DIST = 'S'
       MODE = 3
 *
-*     Set TYPE, the type of matrix to be generated.
+      // Set TYPE, the type of matrix to be generated.
 *
       TYPE = C2( 1: 1 )
 *
-*     Set the lower and upper bandwidths.
+      // Set the lower and upper bandwidths.
 *
       IF( IMAT.EQ.1 ) THEN
          KL = 0
@@ -74,7 +74,7 @@
       END IF
       KU = KL
 *
-*     Set the condition number and norm.etc
+      // Set the condition number and norm.etc
 *
       IF( IMAT.EQ.3 ) THEN
          CNDNUM = 1.0E4
@@ -105,6 +105,6 @@
 *
       RETURN
 *
-*     End of CLATB5
+      // End of CLATB5
 *
       END

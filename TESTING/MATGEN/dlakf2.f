@@ -4,28 +4,28 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDZ, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDA, * ), D( LDA, * ), E( LDA, * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  ====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IK, J, JK, L, MN, MN2;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASET
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize Z
+      // Initialize Z
 *
       MN = M*N
       MN2 = 2*MN
@@ -34,7 +34,7 @@
       IK = 1
       DO 50 L = 1, N
 *
-*        form kron(In, A)
+         // form kron(In, A)
 *
          DO 20 I = 1, M
             DO 10 J = 1, M
@@ -42,7 +42,7 @@
    10       CONTINUE
    20    CONTINUE
 *
-*        form kron(In, D)
+         // form kron(In, D)
 *
          DO 40 I = 1, M
             DO 30 J = 1, M
@@ -59,13 +59,13 @@
 *
          DO 80 J = 1, N
 *
-*           form -kron(B', Im)
+            // form -kron(B', Im)
 *
             DO 60 I = 1, M
                Z( IK+I-1, JK+I-1 ) = -B( J, L )
    60       CONTINUE
 *
-*           form -kron(E', Im)
+            // form -kron(E', Im)
 *
             DO 70 I = 1, M
                Z( IK+MN+I-1, JK+I-1 ) = -E( J, L )
@@ -79,6 +79,6 @@
 *
       RETURN
 *
-*     End of DLAKF2
+      // End of DLAKF2
 *
       END

@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO, VECT;
       int                INFO, KA, KB, LDAB, LDBB, LDX, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         CZERO, CONE
       double             ONE;
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ), ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPDATE, UPPER, WANTX;
       int                I, I0, I1, I2, INCA, J, J1, J1T, J2, J2T, K, KA1, KB1, KBT, L, M, NR, NRT, NX;
       double             BII;
       COMPLEX*16         RA, RA1, T
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDSCAL, ZGERC, ZGERU, ZLACGV, ZLAR2V, ZLARGV, ZLARTG, ZLARTV, ZLASET, ZROT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCONJG, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       WANTX = LSAME( VECT, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -67,80 +67,80 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       INCA = LDAB*KA1
 *
-*     Initialize X to the unit matrix, if needed
+      // Initialize X to the unit matrix, if needed
 *
       IF( WANTX ) CALL ZLASET( 'Full', N, N, CZERO, CONE, X, LDX )
 *
-*     Set M to the splitting point m. It must be the same value as is
-*     used in ZPBSTF. The chosen value allows the arrays WORK and RWORK
-*     to be of dimension (N).
+      // Set M to the splitting point m. It must be the same value as is
+      // used in ZPBSTF. The chosen value allows the arrays WORK and RWORK
+     t // o be of dimension (N).
 *
       M = ( N+KB ) / 2
 *
-*     The routine works in two phases, corresponding to the two halves
-*     of the split Cholesky factorization of B as S**H*S where
+      // The routine works in two phases, corresponding to the two halves
+      // of the split Cholesky factorization of B as S**H*S where
 *
-*     S = ( U    )
-*         ( M  L )
+      // S = ( U    )
+          // ( M  L )
 *
-*     with U upper triangular of order m, and L lower triangular of
-*     order n-m. S has the same bandwidth as B.
+      // with U upper triangular of order m, and L lower triangular of
+      // order n-m. S has the same bandwidth as B.
 *
-*     S is treated as a product of elementary matrices:
+      // S is treated as a product of elementary matrices:
 *
-*     S = S(m)*S(m-1)*...*S(2)*S(1)*S(m+1)*S(m+2)*...*S(n-1)*S(n)
+      // S = S(m)*S(m-1)*...*S(2)*S(1)*S(m+1)*S(m+2)*...*S(n-1)*S(n)
 *
-*     where S(i) is determined by the i-th row of S.
+      // where S(i) is determined by the i-th row of S.
 *
-*     In phase 1, the index i takes the values n, n-1, ... , m+1;
-*     in phase 2, it takes the values 1, 2, ... , m.
+      // In phase 1, the index i takes the values n, n-1, ... , m+1;
+      // in phase 2, it takes the values 1, 2, ... , m.
 *
-*     For each value of i, the current matrix A is updated by forming
-*     inv(S(i))**H*A*inv(S(i)). This creates a triangular bulge outside
-*     the band of A. The bulge is then pushed down toward the bottom of
-*     A in phase 1, and up toward the top of A in phase 2, by applying
-*     plane rotations.
+      // For each value of i, the current matrix A is updated by forming
+      // inv(S(i))**H*A*inv(S(i)). This creates a triangular bulge outside
+     t // he band of A. The bulge is then pushed down toward the bottom of
+      // A in phase 1, and up toward the top of A in phase 2, by applying
+      // plane rotations.
 *
-*     There are kb*(kb+1)/2 elements in the bulge, but at most 2*kb-1
-*     of them are linearly independent, so annihilating a bulge requires
-*     only 2*kb-1 plane rotations. The rotations are divided into a 1st
-*     set of kb-1 rotations, and a 2nd set of kb rotations.
+      // There are kb*(kb+1)/2 elements in the bulge, but at most 2*kb-1
+      // of them are linearly independent, so annihilating a bulge requires
+      // only 2*kb-1 plane rotations. The rotations are divided into a 1st
+      // set of kb-1 rotations, and a 2nd set of kb rotations.
 *
-*     Wherever possible, rotations are generated and applied in vector
-*     operations of length NR between the indices J1 and J2 (sometimes
-*     replaced by modified values NRT, J1T or J2T).
+      // Wherever possible, rotations are generated and applied in vector
+      // operations of length NR between the indices J1 and J2 (sometimes
+      // replaced by modified values NRT, J1T or J2T).
 *
-*     The real cosines and complex sines of the rotations are stored in
-*     the arrays RWORK and WORK, those of the 1st set in elements
-*     2:m-kb-1, and those of the 2nd set in elements m-kb+1:n.
+      // The real cosines and complex sines of the rotations are stored in
+     t // he arrays RWORK and WORK, those of the 1st set in elements
+      // 2:m-kb-1, and those of the 2nd set in elements m-kb+1:n.
 *
-*     The bulges are not formed explicitly; nonzero elements outside the
-*     band are created only when they are required for generating new
-*     rotations; they are stored in the array WORK, in positions where
-*     they are later overwritten by the sines of the rotations which
-*     annihilate them.
+      // The bulges are not formed explicitly; nonzero elements outside the
+      // band are created only when they are required for generating new
+      // rotations; they are stored in the array WORK, in positions where
+     t // hey are later overwritten by the sines of the rotations which
+      // annihilate them.
 *
-*     **************************** Phase 1 *****************************
+      // **************************** Phase 1 *****************************
 *
-*     The logical structure of this phase is:
+      // The logical structure of this phase is:
 *
-*     UPDATE = .TRUE.
-*     DO I = N, M + 1, -1
-*        use S(i) to update A and create a new bulge
-*        apply rotations to push all bulges KA positions downward
-*     END DO
-*     UPDATE = .FALSE.
-*     DO I = M + KA + 1, N - 1
-*        apply rotations to push all bulges KA positions downward
-*     END DO
+      // UPDATE = .TRUE.
+      // DO I = N, M + 1, -1
+         // use S(i) to update A and create a new bulge
+         // apply rotations to push all bulges KA positions downward
+      // END DO
+      // UPDATE = .FALSE.
+      // DO I = M + KA + 1, N - 1
+         // apply rotations to push all bulges KA positions downward
+      // END DO
 *
-*     To avoid duplicating code, the two loops are merged.
+      // To avoid duplicating code, the two loops are merged.
 *
       UPDATE = .TRUE.
       I = N + 1
@@ -165,11 +165,11 @@
 *
       IF( UPPER ) THEN
 *
-*        Transform A, working with the upper triangle
+         // Transform A, working with the upper triangle
 *
          IF( UPDATE ) THEN
 *
-*           Form  inv(S(i))**H * A * inv(S(i))
+            // Form  inv(S(i))**H * A * inv(S(i))
 *
             BII = DBLE( BB( KB1, I ) )
             AB( KA1, I ) = ( DBLE( AB( KA1, I ) ) / BII ) / BII
@@ -195,35 +195,35 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by inv(S(i))
+               // post-multiply X by inv(S(i))
 *
                CALL ZDSCAL( N-M, ONE / BII, X( M+1, I ), 1 )
                IF( KBT.GT.0 ) CALL ZGERC( N-M, KBT, -CONE, X( M+1, I ), 1, BB( KB1-KBT, I ), 1, X( M+1, I-KBT ), LDX )
             END IF
 *
-*           store a(i,i1) in RA1 for use in next loop over K
+            // store a(i,i1) in RA1 for use in next loop over K
 *
             RA1 = AB( I-I1+KA1, I1 )
          END IF
 *
-*        Generate and apply vectors of rotations to chase all the
-*        existing bulges KA positions down toward the bottom of the
-*        band
+         // Generate and apply vectors of rotations to chase all the
+         // existing bulges KA positions down toward the bottom of the
+         // band
 *
          DO 130 K = 1, KB - 1
             IF( UPDATE ) THEN
 *
-*              Determine the rotations which would annihilate the bulge
-*              which has in theory just been created
+               // Determine the rotations which would annihilate the bulge
+               // which has in theory just been created
 *
                IF( I-K+KA.LT.N .AND. I-K.GT.1 ) THEN
 *
-*                 generate rotation to annihilate a(i,i-k+ka+1)
+                  // generate rotation to annihilate a(i,i-k+ka+1)
 *
                   CALL ZLARTG( AB( K+1, I-K+KA ), RA1, RWORK( I-K+KA-M ), WORK( I-K+KA-M ), RA )
 *
-*                 create nonzero element a(i-k,i-k+ka+1) outside the
-*                 band and store it in WORK(i-k)
+                  // create nonzero element a(i-k,i-k+ka+1) outside the
+                  // band and store it in WORK(i-k)
 *
                   T = -BB( KB1-K, I )*RA1
                   WORK( I-K ) = RWORK( I-K+KA-M )*T - DCONJG( WORK( I-K+KA-M ) )* AB( 1, I-K+KA )
@@ -242,34 +242,34 @@
             NRT = ( N-J2T+KA ) / KA1
             DO 90 J = J2T, J1, KA1
 *
-*              create nonzero element a(j-ka,j+1) outside the band
-*              and store it in WORK(j-m)
+               // create nonzero element a(j-ka,j+1) outside the band
+               // and store it in WORK(j-m)
 *
                WORK( J-M ) = WORK( J-M )*AB( 1, J+1 )
                AB( 1, J+1 ) = RWORK( J-M )*AB( 1, J+1 )
    90       CONTINUE
 *
-*           generate rotations in 1st set to annihilate elements which
-*           have been created outside the band
+            // generate rotations in 1st set to annihilate elements which
+            // have been created outside the band
 *
             IF( NRT.GT.0 ) CALL ZLARGV( NRT, AB( 1, J2T ), INCA, WORK( J2T-M ), KA1, RWORK( J2T-M ), KA1 )
             IF( NR.GT.0 ) THEN
 *
-*              apply rotations in 1st set from the right
+               // apply rotations in 1st set from the right
 *
                DO 100 L = 1, KA - 1
                   CALL ZLARTV( NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 )
   100          CONTINUE
 *
-*              apply rotations in 1st set from both sides to diagonal
-*              blocks
+               // apply rotations in 1st set from both sides to diagonal
+               // blocks
 *
                CALL ZLAR2V( NR, AB( KA1, J2 ), AB( KA1, J2+1 ), AB( KA, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 )
 *
                CALL ZLACGV( NR, WORK( J2-M ), KA1 )
             END IF
 *
-*           start applying rotations in 1st set from the left
+            // start applying rotations in 1st set from the left
 *
             DO 110 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
@@ -278,7 +278,7 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by product of rotations in 1st set
+               // post-multiply X by product of rotations in 1st set
 *
                DO 120 J = J2, J1, KA1
                   CALL ZROT( N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J-M ), DCONJG( WORK( J-M ) ) )
@@ -289,8 +289,8 @@
          IF( UPDATE ) THEN
             IF( I2.LE.N .AND. KBT.GT.0 ) THEN
 *
-*              create nonzero element a(i-kbt,i-kbt+ka+1) outside the
-*              band and store it in WORK(i-kbt)
+               // create nonzero element a(i-kbt,i-kbt+ka+1) outside the
+               // band and store it in WORK(i-kbt)
 *
                WORK( I-KBT ) = -BB( KB1-KBT, I )*RA1
             END IF
@@ -303,7 +303,7 @@
                J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1
             END IF
 *
-*           finish applying rotations in 2nd set from the left
+            // finish applying rotations in 2nd set from the left
 *
             DO 140 L = KB - K, 1, -1
                NRT = ( N-J2+KA+L ) / KA1
@@ -317,8 +317,8 @@
   150       CONTINUE
             DO 160 J = J2, J1, KA1
 *
-*              create nonzero element a(j-ka,j+1) outside the band
-*              and store it in WORK(j)
+               // create nonzero element a(j-ka,j+1) outside the band
+               // and store it in WORK(j)
 *
                WORK( J ) = WORK( J )*AB( 1, J+1 )
                AB( 1, J+1 ) = RWORK( J )*AB( 1, J+1 )
@@ -334,26 +334,26 @@
             J1 = J2 + ( NR-1 )*KA1
             IF( NR.GT.0 ) THEN
 *
-*              generate rotations in 2nd set to annihilate elements
-*              which have been created outside the band
+               // generate rotations in 2nd set to annihilate elements
+               // which have been created outside the band
 *
                CALL ZLARGV( NR, AB( 1, J2 ), INCA, WORK( J2 ), KA1, RWORK( J2 ), KA1 )
 *
-*              apply rotations in 2nd set from the right
+               // apply rotations in 2nd set from the right
 *
                DO 180 L = 1, KA - 1
                   CALL ZLARTV( NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, RWORK( J2 ), WORK( J2 ), KA1 )
   180          CONTINUE
 *
-*              apply rotations in 2nd set from both sides to diagonal
-*              blocks
+               // apply rotations in 2nd set from both sides to diagonal
+               // blocks
 *
                CALL ZLAR2V( NR, AB( KA1, J2 ), AB( KA1, J2+1 ), AB( KA, J2+1 ), INCA, RWORK( J2 ), WORK( J2 ), KA1 )
 *
                CALL ZLACGV( NR, WORK( J2 ), KA1 )
             END IF
 *
-*           start applying rotations in 2nd set from the left
+            // start applying rotations in 2nd set from the left
 *
             DO 190 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
@@ -362,7 +362,7 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by product of rotations in 2nd set
+               // post-multiply X by product of rotations in 2nd set
 *
                DO 200 J = J2, J1, KA1
                   CALL ZROT( N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J ), DCONJG( WORK( J ) ) )
@@ -373,7 +373,7 @@
          DO 230 K = 1, KB - 1
             J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1
 *
-*           finish applying rotations in 1st set from the left
+            // finish applying rotations in 1st set from the left
 *
             DO 220 L = KB - K, 1, -1
                NRT = ( N-J2+L ) / KA1
@@ -390,11 +390,11 @@
 *
       ELSE
 *
-*        Transform A, working with the lower triangle
+         // Transform A, working with the lower triangle
 *
          IF( UPDATE ) THEN
 *
-*           Form  inv(S(i))**H * A * inv(S(i))
+            // Form  inv(S(i))**H * A * inv(S(i))
 *
             BII = DBLE( BB( 1, I ) )
             AB( 1, I ) = ( DBLE( AB( 1, I ) ) / BII ) / BII
@@ -420,35 +420,35 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by inv(S(i))
+               // post-multiply X by inv(S(i))
 *
                CALL ZDSCAL( N-M, ONE / BII, X( M+1, I ), 1 )
                IF( KBT.GT.0 ) CALL ZGERU( N-M, KBT, -CONE, X( M+1, I ), 1, BB( KBT+1, I-KBT ), LDBB-1, X( M+1, I-KBT ), LDX )
             END IF
 *
-*           store a(i1,i) in RA1 for use in next loop over K
+            // store a(i1,i) in RA1 for use in next loop over K
 *
             RA1 = AB( I1-I+1, I )
          END IF
 *
-*        Generate and apply vectors of rotations to chase all the
-*        existing bulges KA positions down toward the bottom of the
-*        band
+         // Generate and apply vectors of rotations to chase all the
+         // existing bulges KA positions down toward the bottom of the
+         // band
 *
          DO 360 K = 1, KB - 1
             IF( UPDATE ) THEN
 *
-*              Determine the rotations which would annihilate the bulge
-*              which has in theory just been created
+               // Determine the rotations which would annihilate the bulge
+               // which has in theory just been created
 *
                IF( I-K+KA.LT.N .AND. I-K.GT.1 ) THEN
 *
-*                 generate rotation to annihilate a(i-k+ka+1,i)
+                  // generate rotation to annihilate a(i-k+ka+1,i)
 *
                   CALL ZLARTG( AB( KA1-K, I ), RA1, RWORK( I-K+KA-M ), WORK( I-K+KA-M ), RA )
 *
-*                 create nonzero element a(i-k+ka+1,i-k) outside the
-*                 band and store it in WORK(i-k)
+                  // create nonzero element a(i-k+ka+1,i-k) outside the
+                  // band and store it in WORK(i-k)
 *
                   T = -BB( K+1, I-K )*RA1
                   WORK( I-K ) = RWORK( I-K+KA-M )*T - DCONJG( WORK( I-K+KA-M ) )* AB( KA1, I-K )
@@ -467,34 +467,34 @@
             NRT = ( N-J2T+KA ) / KA1
             DO 320 J = J2T, J1, KA1
 *
-*              create nonzero element a(j+1,j-ka) outside the band
-*              and store it in WORK(j-m)
+               // create nonzero element a(j+1,j-ka) outside the band
+               // and store it in WORK(j-m)
 *
                WORK( J-M ) = WORK( J-M )*AB( KA1, J-KA+1 )
                AB( KA1, J-KA+1 ) = RWORK( J-M )*AB( KA1, J-KA+1 )
   320       CONTINUE
 *
-*           generate rotations in 1st set to annihilate elements which
-*           have been created outside the band
+            // generate rotations in 1st set to annihilate elements which
+            // have been created outside the band
 *
             IF( NRT.GT.0 ) CALL ZLARGV( NRT, AB( KA1, J2T-KA ), INCA, WORK( J2T-M ), KA1, RWORK( J2T-M ), KA1 )
             IF( NR.GT.0 ) THEN
 *
-*              apply rotations in 1st set from the left
+               // apply rotations in 1st set from the left
 *
                DO 330 L = 1, KA - 1
                   CALL ZLARTV( NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 )
   330          CONTINUE
 *
-*              apply rotations in 1st set from both sides to diagonal
-*              blocks
+               // apply rotations in 1st set from both sides to diagonal
+               // blocks
 *
                CALL ZLAR2V( NR, AB( 1, J2 ), AB( 1, J2+1 ), AB( 2, J2 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 )
 *
                CALL ZLACGV( NR, WORK( J2-M ), KA1 )
             END IF
 *
-*           start applying rotations in 1st set from the right
+            // start applying rotations in 1st set from the right
 *
             DO 340 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
@@ -503,7 +503,7 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by product of rotations in 1st set
+               // post-multiply X by product of rotations in 1st set
 *
                DO 350 J = J2, J1, KA1
                   CALL ZROT( N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J-M ), WORK( J-M ) )
@@ -514,8 +514,8 @@
          IF( UPDATE ) THEN
             IF( I2.LE.N .AND. KBT.GT.0 ) THEN
 *
-*              create nonzero element a(i-kbt+ka+1,i-kbt) outside the
-*              band and store it in WORK(i-kbt)
+               // create nonzero element a(i-kbt+ka+1,i-kbt) outside the
+               // band and store it in WORK(i-kbt)
 *
                WORK( I-KBT ) = -BB( KBT+1, I-KBT )*RA1
             END IF
@@ -528,7 +528,7 @@
                J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1
             END IF
 *
-*           finish applying rotations in 2nd set from the right
+            // finish applying rotations in 2nd set from the right
 *
             DO 370 L = KB - K, 1, -1
                NRT = ( N-J2+KA+L ) / KA1
@@ -542,8 +542,8 @@
   380       CONTINUE
             DO 390 J = J2, J1, KA1
 *
-*              create nonzero element a(j+1,j-ka) outside the band
-*              and store it in WORK(j)
+               // create nonzero element a(j+1,j-ka) outside the band
+               // and store it in WORK(j)
 *
                WORK( J ) = WORK( J )*AB( KA1, J-KA+1 )
                AB( KA1, J-KA+1 ) = RWORK( J )*AB( KA1, J-KA+1 )
@@ -559,26 +559,26 @@
             J1 = J2 + ( NR-1 )*KA1
             IF( NR.GT.0 ) THEN
 *
-*              generate rotations in 2nd set to annihilate elements
-*              which have been created outside the band
+               // generate rotations in 2nd set to annihilate elements
+               // which have been created outside the band
 *
                CALL ZLARGV( NR, AB( KA1, J2-KA ), INCA, WORK( J2 ), KA1, RWORK( J2 ), KA1 )
 *
-*              apply rotations in 2nd set from the left
+               // apply rotations in 2nd set from the left
 *
                DO 410 L = 1, KA - 1
                   CALL ZLARTV( NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, RWORK( J2 ), WORK( J2 ), KA1 )
   410          CONTINUE
 *
-*              apply rotations in 2nd set from both sides to diagonal
-*              blocks
+               // apply rotations in 2nd set from both sides to diagonal
+               // blocks
 *
                CALL ZLAR2V( NR, AB( 1, J2 ), AB( 1, J2+1 ), AB( 2, J2 ), INCA, RWORK( J2 ), WORK( J2 ), KA1 )
 *
                CALL ZLACGV( NR, WORK( J2 ), KA1 )
             END IF
 *
-*           start applying rotations in 2nd set from the right
+            // start applying rotations in 2nd set from the right
 *
             DO 420 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
@@ -587,7 +587,7 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by product of rotations in 2nd set
+               // post-multiply X by product of rotations in 2nd set
 *
                DO 430 J = J2, J1, KA1
                   CALL ZROT( N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J ), WORK( J ) )
@@ -598,7 +598,7 @@
          DO 460 K = 1, KB - 1
             J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1
 *
-*           finish applying rotations in 1st set from the right
+            // finish applying rotations in 1st set from the right
 *
             DO 450 L = KB - K, 1, -1
                NRT = ( N-J2+L ) / KA1
@@ -619,21 +619,21 @@
 *
   480 CONTINUE
 *
-*     **************************** Phase 2 *****************************
+      // **************************** Phase 2 *****************************
 *
-*     The logical structure of this phase is:
+      // The logical structure of this phase is:
 *
-*     UPDATE = .TRUE.
-*     DO I = 1, M
-*        use S(i) to update A and create a new bulge
-*        apply rotations to push all bulges KA positions upward
-*     END DO
-*     UPDATE = .FALSE.
-*     DO I = M - KA - 1, 2, -1
-*        apply rotations to push all bulges KA positions upward
-*     END DO
+      // UPDATE = .TRUE.
+      // DO I = 1, M
+         // use S(i) to update A and create a new bulge
+         // apply rotations to push all bulges KA positions upward
+      // END DO
+      // UPDATE = .FALSE.
+      // DO I = M - KA - 1, 2, -1
+         // apply rotations to push all bulges KA positions upward
+      // END DO
 *
-*     To avoid duplicating code, the two loops are merged.
+      // To avoid duplicating code, the two loops are merged.
 *
       UPDATE = .TRUE.
       I = 0
@@ -664,11 +664,11 @@
 *
       IF( UPPER ) THEN
 *
-*        Transform A, working with the upper triangle
+         // Transform A, working with the upper triangle
 *
          IF( UPDATE ) THEN
 *
-*           Form  inv(S(i))**H * A * inv(S(i))
+            // Form  inv(S(i))**H * A * inv(S(i))
 *
             BII = DBLE( BB( KB1, I ) )
             AB( KA1, I ) = ( DBLE( AB( KA1, I ) ) / BII ) / BII
@@ -694,34 +694,34 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by inv(S(i))
+               // post-multiply X by inv(S(i))
 *
                CALL ZDSCAL( NX, ONE / BII, X( 1, I ), 1 )
                IF( KBT.GT.0 ) CALL ZGERU( NX, KBT, -CONE, X( 1, I ), 1, BB( KB, I+1 ), LDBB-1, X( 1, I+1 ), LDX )
             END IF
 *
-*           store a(i1,i) in RA1 for use in next loop over K
+            // store a(i1,i) in RA1 for use in next loop over K
 *
             RA1 = AB( I1-I+KA1, I )
          END IF
 *
-*        Generate and apply vectors of rotations to chase all the
-*        existing bulges KA positions up toward the top of the band
+         // Generate and apply vectors of rotations to chase all the
+         // existing bulges KA positions up toward the top of the band
 *
          DO 610 K = 1, KB - 1
             IF( UPDATE ) THEN
 *
-*              Determine the rotations which would annihilate the bulge
-*              which has in theory just been created
+               // Determine the rotations which would annihilate the bulge
+               // which has in theory just been created
 *
                IF( I+K-KA1.GT.0 .AND. I+K.LT.M ) THEN
 *
-*                 generate rotation to annihilate a(i+k-ka-1,i)
+                  // generate rotation to annihilate a(i+k-ka-1,i)
 *
                   CALL ZLARTG( AB( K+1, I ), RA1, RWORK( I+K-KA ), WORK( I+K-KA ), RA )
 *
-*                 create nonzero element a(i+k-ka-1,i+k) outside the
-*                 band and store it in WORK(m-kb+i+k)
+                  // create nonzero element a(i+k-ka-1,i+k) outside the
+                  // band and store it in WORK(m-kb+i+k)
 *
                   T = -BB( KB1-K, I+K )*RA1
                   WORK( M-KB+I+K ) = RWORK( I+K-KA )*T - DCONJG( WORK( I+K-KA ) )* AB( 1, I+K )
@@ -740,34 +740,34 @@
             NRT = ( J2T+KA-1 ) / KA1
             DO 570 J = J1, J2T, KA1
 *
-*              create nonzero element a(j-1,j+ka) outside the band
-*              and store it in WORK(j)
+               // create nonzero element a(j-1,j+ka) outside the band
+               // and store it in WORK(j)
 *
                WORK( J ) = WORK( J )*AB( 1, J+KA-1 )
                AB( 1, J+KA-1 ) = RWORK( J )*AB( 1, J+KA-1 )
   570       CONTINUE
 *
-*           generate rotations in 1st set to annihilate elements which
-*           have been created outside the band
+            // generate rotations in 1st set to annihilate elements which
+            // have been created outside the band
 *
             IF( NRT.GT.0 ) CALL ZLARGV( NRT, AB( 1, J1+KA ), INCA, WORK( J1 ), KA1, RWORK( J1 ), KA1 )
             IF( NR.GT.0 ) THEN
 *
-*              apply rotations in 1st set from the left
+               // apply rotations in 1st set from the left
 *
                DO 580 L = 1, KA - 1
                   CALL ZLARTV( NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, RWORK( J1 ), WORK( J1 ), KA1 )
   580          CONTINUE
 *
-*              apply rotations in 1st set from both sides to diagonal
-*              blocks
+               // apply rotations in 1st set from both sides to diagonal
+               // blocks
 *
                CALL ZLAR2V( NR, AB( KA1, J1 ), AB( KA1, J1-1 ), AB( KA, J1 ), INCA, RWORK( J1 ), WORK( J1 ), KA1 )
 *
                CALL ZLACGV( NR, WORK( J1 ), KA1 )
             END IF
 *
-*           start applying rotations in 1st set from the right
+            // start applying rotations in 1st set from the right
 *
             DO 590 L = KA - 1, KB - K + 1, -1
                NRT = ( J2+L-1 ) / KA1
@@ -777,7 +777,7 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by product of rotations in 1st set
+               // post-multiply X by product of rotations in 1st set
 *
                DO 600 J = J1, J2, KA1
                   CALL ZROT( NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( J ), WORK( J ) )
@@ -788,8 +788,8 @@
          IF( UPDATE ) THEN
             IF( I2.GT.0 .AND. KBT.GT.0 ) THEN
 *
-*              create nonzero element a(i+kbt-ka-1,i+kbt) outside the
-*              band and store it in WORK(m-kb+i+kbt)
+               // create nonzero element a(i+kbt-ka-1,i+kbt) outside the
+               // band and store it in WORK(m-kb+i+kbt)
 *
                WORK( M-KB+I+KBT ) = -BB( KB1-KBT, I+KBT )*RA1
             END IF
@@ -802,7 +802,7 @@
                J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1
             END IF
 *
-*           finish applying rotations in 2nd set from the right
+            // finish applying rotations in 2nd set from the right
 *
             DO 620 L = KB - K, 1, -1
                NRT = ( J2+KA+L-1 ) / KA1
@@ -817,8 +817,8 @@
   630       CONTINUE
             DO 640 J = J1, J2, KA1
 *
-*              create nonzero element a(j-1,j+ka) outside the band
-*              and store it in WORK(m-kb+j)
+               // create nonzero element a(j-1,j+ka) outside the band
+               // and store it in WORK(m-kb+j)
 *
                WORK( M-KB+J ) = WORK( M-KB+J )*AB( 1, J+KA-1 )
                AB( 1, J+KA-1 ) = RWORK( M-KB+J )*AB( 1, J+KA-1 )
@@ -834,26 +834,26 @@
             J1 = J2 - ( NR-1 )*KA1
             IF( NR.GT.0 ) THEN
 *
-*              generate rotations in 2nd set to annihilate elements
-*              which have been created outside the band
+               // generate rotations in 2nd set to annihilate elements
+               // which have been created outside the band
 *
                CALL ZLARGV( NR, AB( 1, J1+KA ), INCA, WORK( M-KB+J1 ), KA1, RWORK( M-KB+J1 ), KA1 )
 *
-*              apply rotations in 2nd set from the left
+               // apply rotations in 2nd set from the left
 *
                DO 660 L = 1, KA - 1
                   CALL ZLARTV( NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, RWORK( M-KB+J1 ), WORK( M-KB+J1 ), KA1 )
   660          CONTINUE
 *
-*              apply rotations in 2nd set from both sides to diagonal
-*              blocks
+               // apply rotations in 2nd set from both sides to diagonal
+               // blocks
 *
                CALL ZLAR2V( NR, AB( KA1, J1 ), AB( KA1, J1-1 ), AB( KA, J1 ), INCA, RWORK( M-KB+J1 ), WORK( M-KB+J1 ), KA1 )
 *
                CALL ZLACGV( NR, WORK( M-KB+J1 ), KA1 )
             END IF
 *
-*           start applying rotations in 2nd set from the right
+            // start applying rotations in 2nd set from the right
 *
             DO 670 L = KA - 1, KB - K + 1, -1
                NRT = ( J2+L-1 ) / KA1
@@ -863,7 +863,7 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by product of rotations in 2nd set
+               // post-multiply X by product of rotations in 2nd set
 *
                DO 680 J = J1, J2, KA1
                   CALL ZROT( NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( M-KB+J ), WORK( M-KB+J ) )
@@ -874,7 +874,7 @@
          DO 710 K = 1, KB - 1
             J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1
 *
-*           finish applying rotations in 1st set from the right
+            // finish applying rotations in 1st set from the right
 *
             DO 700 L = KB - K, 1, -1
                NRT = ( J2+L-1 ) / KA1
@@ -892,11 +892,11 @@
 *
       ELSE
 *
-*        Transform A, working with the lower triangle
+         // Transform A, working with the lower triangle
 *
          IF( UPDATE ) THEN
 *
-*           Form  inv(S(i))**H * A * inv(S(i))
+            // Form  inv(S(i))**H * A * inv(S(i))
 *
             BII = DBLE( BB( 1, I ) )
             AB( 1, I ) = ( DBLE( AB( 1, I ) ) / BII ) / BII
@@ -922,34 +922,34 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by inv(S(i))
+               // post-multiply X by inv(S(i))
 *
                CALL ZDSCAL( NX, ONE / BII, X( 1, I ), 1 )
                IF( KBT.GT.0 ) CALL ZGERC( NX, KBT, -CONE, X( 1, I ), 1, BB( 2, I ), 1, X( 1, I+1 ), LDX )
             END IF
 *
-*           store a(i,i1) in RA1 for use in next loop over K
+            // store a(i,i1) in RA1 for use in next loop over K
 *
             RA1 = AB( I-I1+1, I1 )
          END IF
 *
-*        Generate and apply vectors of rotations to chase all the
-*        existing bulges KA positions up toward the top of the band
+         // Generate and apply vectors of rotations to chase all the
+         // existing bulges KA positions up toward the top of the band
 *
          DO 840 K = 1, KB - 1
             IF( UPDATE ) THEN
 *
-*              Determine the rotations which would annihilate the bulge
-*              which has in theory just been created
+               // Determine the rotations which would annihilate the bulge
+               // which has in theory just been created
 *
                IF( I+K-KA1.GT.0 .AND. I+K.LT.M ) THEN
 *
-*                 generate rotation to annihilate a(i,i+k-ka-1)
+                  // generate rotation to annihilate a(i,i+k-ka-1)
 *
                   CALL ZLARTG( AB( KA1-K, I+K-KA ), RA1, RWORK( I+K-KA ), WORK( I+K-KA ), RA )
 *
-*                 create nonzero element a(i+k,i+k-ka-1) outside the
-*                 band and store it in WORK(m-kb+i+k)
+                  // create nonzero element a(i+k,i+k-ka-1) outside the
+                  // band and store it in WORK(m-kb+i+k)
 *
                   T = -BB( K+1, I )*RA1
                   WORK( M-KB+I+K ) = RWORK( I+K-KA )*T - DCONJG( WORK( I+K-KA ) )* AB( KA1, I+K-KA )
@@ -968,34 +968,34 @@
             NRT = ( J2T+KA-1 ) / KA1
             DO 800 J = J1, J2T, KA1
 *
-*              create nonzero element a(j+ka,j-1) outside the band
-*              and store it in WORK(j)
+               // create nonzero element a(j+ka,j-1) outside the band
+               // and store it in WORK(j)
 *
                WORK( J ) = WORK( J )*AB( KA1, J-1 )
                AB( KA1, J-1 ) = RWORK( J )*AB( KA1, J-1 )
   800       CONTINUE
 *
-*           generate rotations in 1st set to annihilate elements which
-*           have been created outside the band
+            // generate rotations in 1st set to annihilate elements which
+            // have been created outside the band
 *
             IF( NRT.GT.0 ) CALL ZLARGV( NRT, AB( KA1, J1 ), INCA, WORK( J1 ), KA1, RWORK( J1 ), KA1 )
             IF( NR.GT.0 ) THEN
 *
-*              apply rotations in 1st set from the right
+               // apply rotations in 1st set from the right
 *
                DO 810 L = 1, KA - 1
                   CALL ZLARTV( NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, RWORK( J1 ), WORK( J1 ), KA1 )
   810          CONTINUE
 *
-*              apply rotations in 1st set from both sides to diagonal
-*              blocks
+               // apply rotations in 1st set from both sides to diagonal
+               // blocks
 *
                CALL ZLAR2V( NR, AB( 1, J1 ), AB( 1, J1-1 ), AB( 2, J1-1 ), INCA, RWORK( J1 ), WORK( J1 ), KA1 )
 *
                CALL ZLACGV( NR, WORK( J1 ), KA1 )
             END IF
 *
-*           start applying rotations in 1st set from the left
+            // start applying rotations in 1st set from the left
 *
             DO 820 L = KA - 1, KB - K + 1, -1
                NRT = ( J2+L-1 ) / KA1
@@ -1005,7 +1005,7 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by product of rotations in 1st set
+               // post-multiply X by product of rotations in 1st set
 *
                DO 830 J = J1, J2, KA1
                   CALL ZROT( NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( J ), DCONJG( WORK( J ) ) )
@@ -1016,8 +1016,8 @@
          IF( UPDATE ) THEN
             IF( I2.GT.0 .AND. KBT.GT.0 ) THEN
 *
-*              create nonzero element a(i+kbt,i+kbt-ka-1) outside the
-*              band and store it in WORK(m-kb+i+kbt)
+               // create nonzero element a(i+kbt,i+kbt-ka-1) outside the
+               // band and store it in WORK(m-kb+i+kbt)
 *
                WORK( M-KB+I+KBT ) = -BB( KBT+1, I )*RA1
             END IF
@@ -1030,7 +1030,7 @@
                J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1
             END IF
 *
-*           finish applying rotations in 2nd set from the left
+            // finish applying rotations in 2nd set from the left
 *
             DO 850 L = KB - K, 1, -1
                NRT = ( J2+KA+L-1 ) / KA1
@@ -1045,8 +1045,8 @@
   860       CONTINUE
             DO 870 J = J1, J2, KA1
 *
-*              create nonzero element a(j+ka,j-1) outside the band
-*              and store it in WORK(m-kb+j)
+               // create nonzero element a(j+ka,j-1) outside the band
+               // and store it in WORK(m-kb+j)
 *
                WORK( M-KB+J ) = WORK( M-KB+J )*AB( KA1, J-1 )
                AB( KA1, J-1 ) = RWORK( M-KB+J )*AB( KA1, J-1 )
@@ -1062,26 +1062,26 @@
             J1 = J2 - ( NR-1 )*KA1
             IF( NR.GT.0 ) THEN
 *
-*              generate rotations in 2nd set to annihilate elements
-*              which have been created outside the band
+               // generate rotations in 2nd set to annihilate elements
+               // which have been created outside the band
 *
                CALL ZLARGV( NR, AB( KA1, J1 ), INCA, WORK( M-KB+J1 ), KA1, RWORK( M-KB+J1 ), KA1 )
 *
-*              apply rotations in 2nd set from the right
+               // apply rotations in 2nd set from the right
 *
                DO 890 L = 1, KA - 1
                   CALL ZLARTV( NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, RWORK( M-KB+J1 ), WORK( M-KB+J1 ), KA1 )
   890          CONTINUE
 *
-*              apply rotations in 2nd set from both sides to diagonal
-*              blocks
+               // apply rotations in 2nd set from both sides to diagonal
+               // blocks
 *
                CALL ZLAR2V( NR, AB( 1, J1 ), AB( 1, J1-1 ), AB( 2, J1-1 ), INCA, RWORK( M-KB+J1 ), WORK( M-KB+J1 ), KA1 )
 *
                CALL ZLACGV( NR, WORK( M-KB+J1 ), KA1 )
             END IF
 *
-*           start applying rotations in 2nd set from the left
+            // start applying rotations in 2nd set from the left
 *
             DO 900 L = KA - 1, KB - K + 1, -1
                NRT = ( J2+L-1 ) / KA1
@@ -1091,7 +1091,7 @@
 *
             IF( WANTX ) THEN
 *
-*              post-multiply X by product of rotations in 2nd set
+               // post-multiply X by product of rotations in 2nd set
 *
                DO 910 J = J1, J2, KA1
                   CALL ZROT( NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( M-KB+J ), DCONJG( WORK( M-KB+J ) ) )
@@ -1102,7 +1102,7 @@
          DO 940 K = 1, KB - 1
             J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1
 *
-*           finish applying rotations in 1st set from the left
+            // finish applying rotations in 1st set from the left
 *
             DO 930 L = KB - K, 1, -1
                NRT = ( J2+L-1 ) / KA1
@@ -1122,6 +1122,6 @@
 *
       GO TO 490
 *
-*     End of ZHBGST
+      // End of ZHBGST
 *
       END

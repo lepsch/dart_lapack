@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVSL, JOBVSR;
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILVSL, ILVSR, LQUERY;
       int                ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWORK, ITAU, IWORK, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3;
       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHRD, ZHGEQZ, ZLACPY, ZLASCL, ZLASET, ZUNGQR, ZUNMQR
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, ZLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVSL, 'N' ) ) THEN
          IJOBVL = 1
@@ -64,7 +64,7 @@
          ILVSR = .FALSE.
       END IF
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       LWKMIN = MAX( 2*N, 1 )
       LWKOPT = LWKMIN
@@ -105,18 +105,18 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'E' )*DLAMCH( 'B' )
       SAFMIN = DLAMCH( 'S' )
       SMLNUM = N*SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
@@ -136,7 +136,7 @@
          END IF
       END IF
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
@@ -156,7 +156,7 @@
          END IF
       END IF
 *
-*     Permute the matrix to make it more nearly triangular
+      // Permute the matrix to make it more nearly triangular
 *
       ILEFT = 1
       IRIGHT = N + 1
@@ -168,7 +168,7 @@
          GO TO 10
       END IF
 *
-*     Reduce B to triangular form, and initialize VSL and/or VSR
+      // Reduce B to triangular form, and initialize VSL and/or VSR
 *
       IROWS = IHI + 1 - ILO
       ICOLS = N + 1 - ILO
@@ -199,7 +199,7 @@
 *
       IF( ILVSR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
 *
-*     Reduce to generalized Hessenberg form
+      // Reduce to generalized Hessenberg form
 *
       CALL ZGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IINFO )
       IF( IINFO.NE.0 ) THEN
@@ -207,7 +207,7 @@
          GO TO 10
       END IF
 *
-*     Perform QZ algorithm, computing Schur vectors if desired
+      // Perform QZ algorithm, computing Schur vectors if desired
 *
       IWORK = ITAU
       CALL ZHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO )
@@ -223,7 +223,7 @@
          GO TO 10
       END IF
 *
-*     Apply permutation to VSL and VSR
+      // Apply permutation to VSL and VSR
 *
       IF( ILVSL ) THEN
          CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IINFO )
@@ -240,7 +240,7 @@
          END IF
       END IF
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( ILASCL ) THEN
          CALL ZLASCL( 'U', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO )
@@ -273,6 +273,6 @@
 *
       RETURN
 *
-*     End of ZGEGS
+      // End of ZGEGS
 *
       END

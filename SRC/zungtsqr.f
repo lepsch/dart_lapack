@@ -5,32 +5,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int               INFO, LDA, LDT, LWORK, M, N, MB, NB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16        A( LDA, * ), T( LDT, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         CONE, CZERO
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                IINFO, LDC, LWORKOPT, LC, LW, NBLOCAL, J;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZCOPY, ZLAMTSQR, ZLASET, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       LQUERY  = LWORK.EQ.-1
       INFO = 0
@@ -48,21 +48,21 @@
          INFO = -8
       ELSE
 *
-*        Test the input LWORK for the dimension of the array WORK.
-*        This workspace is used to store array C(LDC, N) and WORK(LWORK)
-*        in the call to ZLAMTSQR. See the documentation for ZLAMTSQR.
+         // Test the input LWORK for the dimension of the array WORK.
+         // This workspace is used to store array C(LDC, N) and WORK(LWORK)
+         // in the call to ZLAMTSQR. See the documentation for ZLAMTSQR.
 *
          IF( LWORK.LT.2 .AND. (.NOT.LQUERY) ) THEN
             INFO = -10
          ELSE
 *
-*           Set block size for column blocks
+            // Set block size for column blocks
 *
             NBLOCAL = MIN( NB, N )
 *
-*           LWORK = -1, then set the size for the array C(LDC,N)
-*           in ZLAMTSQR call and set the optimal size of the work array
-*           WORK(LWORK) in ZLAMTSQR call.
+            // LWORK = -1, then set the size for the array C(LDC,N)
+            // in ZLAMTSQR call and set the optimal size of the work array
+            // WORK(LWORK) in ZLAMTSQR call.
 *
             LDC = M
             LC = LDC*N
@@ -77,7 +77,7 @@
 *
       END IF
 *
-*     Handle error in the input parameters and return workspace query.
+      // Handle error in the input parameters and return workspace query.
 *
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZUNGTSQR', -INFO )
@@ -87,36 +87,36 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MIN( M, N ).EQ.0 ) THEN
          WORK( 1 ) = DCMPLX( LWORKOPT )
          RETURN
       END IF
 *
-*     (1) Form explicitly the tall-skinny M-by-N left submatrix Q1_in
-*     of M-by-M orthogonal matrix Q_in, which is implicitly stored in
-*     the subdiagonal part of input array A and in the input array T.
-*     Perform by the following operation using the routine ZLAMTSQR.
+      // (1) Form explicitly the tall-skinny M-by-N left submatrix Q1_in
+      // of M-by-M orthogonal matrix Q_in, which is implicitly stored in
+     t // he subdiagonal part of input array A and in the input array T.
+      // Perform by the following operation using the routine ZLAMTSQR.
 *
-*         Q1_in = Q_in * ( I ), where I is a N-by-N identity matrix,
-*                        ( 0 )        0 is a (M-N)-by-N zero matrix.
+          // Q1_in = Q_in * ( I ), where I is a N-by-N identity matrix,
+                         // ( 0 )        0 is a (M-N)-by-N zero matrix.
 *
-*     (1a) Form M-by-N matrix in the array WORK(1:LDC*N) with ones
-*     on the diagonal and zeros elsewhere.
+      // (1a) Form M-by-N matrix in the array WORK(1:LDC*N) with ones
+      // on the diagonal and zeros elsewhere.
 *
       CALL ZLASET( 'F', M, N, CZERO, CONE, WORK, LDC )
 *
-*     (1b)  On input, WORK(1:LDC*N) stores ( I );
-*                                          ( 0 )
+      // (1b)  On input, WORK(1:LDC*N) stores ( I );
+                                           // ( 0 )
 *
-*           On output, WORK(1:LDC*N) stores Q1_in.
+            // On output, WORK(1:LDC*N) stores Q1_in.
 *
       CALL ZLAMTSQR( 'L', 'N', M, N, N, MB, NBLOCAL, A, LDA, T, LDT, WORK, LDC, WORK( LC+1 ), LW, IINFO )
 *
-*     (2) Copy the result from the part of the work array (1:M,1:N)
-*     with the leading dimension LDC that starts at WORK(1) into
-*     the output array A(1:M,1:N) column-by-column.
+      // (2) Copy the result from the part of the work array (1:M,1:N)
+      // with the leading dimension LDC that starts at WORK(1) into
+     t // he output array A(1:M,1:N) column-by-column.
 *
       DO J = 1, N
          CALL ZCOPY( M, WORK( (J-1)*LDC + 1 ), 1, A( 1, J ), 1 )
@@ -125,6 +125,6 @@
       WORK( 1 ) = DCMPLX( LWORKOPT )
       RETURN
 *
-*     End of ZUNGTSQR
+      // End of ZUNGTSQR
 *
       END

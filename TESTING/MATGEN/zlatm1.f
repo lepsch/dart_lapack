@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IDIST, INFO, IRSIGN, MODE, N;
       double             COND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       COMPLEX*16         D( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       double             ALPHA, TEMP;
       COMPLEX*16         CTEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLARAN;
       COMPLEX*16         ZLARND
       // EXTERNAL DLARAN, ZLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLARNV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, EXP, LOG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and Test the input parameters. Initialize flags & seed.
+      // Decode and Test the input parameters. Initialize flags & seed.
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Set INFO if an error
+      // Set INFO if an error
 *
       IF( MODE.LT.-6 .OR. MODE.GT.6 ) THEN
          INFO = -1
@@ -64,12 +64,12 @@
          RETURN
       END IF
 *
-*     Compute D according to COND and MODE
+      // Compute D according to COND and MODE
 *
       IF( MODE.NE.0 ) THEN
          GO TO ( 10, 30, 50, 70, 90, 110 )ABS( MODE )
 *
-*        One large D value:
+         // One large D value:
 *
    10    CONTINUE
          DO 20 I = 1, N
@@ -78,7 +78,7 @@
          D( 1 ) = ONE
          GO TO 120
 *
-*        One small D value:
+         // One small D value:
 *
    30    CONTINUE
          DO 40 I = 1, N
@@ -87,7 +87,7 @@
          D( N ) = ONE / COND
          GO TO 120
 *
-*        Exponentially distributed D values:
+         // Exponentially distributed D values:
 *
    50    CONTINUE
          D( 1 ) = ONE
@@ -99,7 +99,7 @@
          END IF
          GO TO 120
 *
-*        Arithmetically distributed D values:
+         // Arithmetically distributed D values:
 *
    70    CONTINUE
          D( 1 ) = ONE
@@ -112,7 +112,7 @@
          END IF
          GO TO 120
 *
-*        Randomly distributed D values on ( 1/COND , 1):
+         // Randomly distributed D values on ( 1/COND , 1):
 *
    90    CONTINUE
          ALPHA = LOG( ONE / COND )
@@ -121,15 +121,15 @@
   100    CONTINUE
          GO TO 120
 *
-*        Randomly distributed D values from IDIST
+         // Randomly distributed D values from IDIST
 *
   110    CONTINUE
          CALL ZLARNV( IDIST, ISEED, N, D )
 *
   120    CONTINUE
 *
-*        If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
-*        random signs to D
+         // If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
+         // random signs to D
 *
          IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.1 ) THEN
             DO 130 I = 1, N
@@ -138,7 +138,7 @@
   130       CONTINUE
          END IF
 *
-*        Reverse if MODE < 0
+         // Reverse if MODE < 0
 *
          IF( MODE.LT.0 ) THEN
             DO 140 I = 1, N / 2
@@ -152,6 +152,6 @@
 *
       RETURN
 *
-*     End of ZLATM1
+      // End of ZLATM1
 *
       END

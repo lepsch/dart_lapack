@@ -1,10 +1,10 @@
       double             BASE, EMAX, EMIN, EPS, PREC, RMAX, RMIN, RND, SFMIN, T;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS   = DLAMCH( 'Epsilon' )
       SFMIN = DLAMCH( 'Safe minimum' )

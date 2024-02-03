@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J;
       double             RCOND;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX );
       double             C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX )       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, ZGBSV, ZGBSVX, ZGESV, ZGESVX, ZGTSV, ZGTSVX, ZHESV, ZHESV_RK, ZHESV_ROOK, ZHESVX, ZHPSV, ZHPSVX, ZPBSV, ZPBSVX, ZPOSV, ZPOSVX, ZPPSV, ZPPSVX, ZPTSV, ZPTSVX, ZSPSV, ZSPSVX, ZSYSV, ZSYSV_AA, ZSYSV_RK, ZSYSV_ROOK, ZSYSVX, ZHESV_AA_2STAGE
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -71,7 +71,7 @@
 *
       IF( LSAMEN( 2, C2, 'GE' ) ) THEN
 *
-*        ZGESV
+         // ZGESV
 *
          SRNAMT = 'ZGESV '
          INFOT = 1
@@ -87,7 +87,7 @@
          CALL ZGESV( 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'ZGESV ', INFOT, NOUT, LERR, OK )
 *
-*        ZGESVX
+         // ZGESVX
 *
          SRNAMT = 'ZGESVX'
          INFOT = 1
@@ -129,7 +129,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        ZGBSV
+         // ZGBSV
 *
          SRNAMT = 'ZGBSV '
          INFOT = 1
@@ -151,7 +151,7 @@
          CALL ZGBSV( 2, 0, 0, 0, A, 1, IP, B, 1, INFO )
          CALL CHKXER( 'ZGBSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZGBSVX
+         // ZGBSVX
 *
          SRNAMT = 'ZGBSVX'
          INFOT = 1
@@ -199,7 +199,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
 *
-*        ZGTSV
+         // ZGTSV
 *
          SRNAMT = 'ZGTSV '
          INFOT = 1
@@ -212,7 +212,7 @@
          CALL ZGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'ZGTSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZGTSVX
+         // ZGTSVX
 *
          SRNAMT = 'ZGTSVX'
          INFOT = 1
@@ -236,7 +236,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
 *
-*        ZPOSV
+         // ZPOSV
 *
          SRNAMT = 'ZPOSV '
          INFOT = 1
@@ -255,7 +255,7 @@
          CALL ZPOSV( 'U', 2, 0, A, 2, B, 1, INFO )
          CALL CHKXER( 'ZPOSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZPOSVX
+         // ZPOSVX
 *
          SRNAMT = 'ZPOSVX'
          INFOT = 1
@@ -293,7 +293,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
 *
-*        ZPPSV
+         // ZPPSV
 *
          SRNAMT = 'ZPPSV '
          INFOT = 1
@@ -309,7 +309,7 @@
          CALL ZPPSV( 'U', 2, 0, A, B, 1, INFO )
          CALL CHKXER( 'ZPPSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZPPSVX
+         // ZPPSVX
 *
          SRNAMT = 'ZPPSVX'
          INFOT = 1
@@ -341,7 +341,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
 *
-*        ZPBSV
+         // ZPBSV
 *
          SRNAMT = 'ZPBSV '
          INFOT = 1
@@ -363,7 +363,7 @@
          CALL ZPBSV( 'U', 2, 0, 0, A, 1, B, 1, INFO )
          CALL CHKXER( 'ZPBSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZPBSVX
+         // ZPBSVX
 *
          SRNAMT = 'ZPBSVX'
          INFOT = 1
@@ -404,7 +404,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
 *
-*        ZPTSV
+         // ZPTSV
 *
          SRNAMT = 'ZPTSV '
          INFOT = 1
@@ -417,7 +417,7 @@
          CALL ZPTSV( 2, 0, R, A( 1, 1 ), B, 1, INFO )
          CALL CHKXER( 'ZPTSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZPTSVX
+         // ZPTSVX
 *
          SRNAMT = 'ZPTSVX'
          INFOT = 1
@@ -438,7 +438,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HE' ) ) THEN
 *
-*        ZHESV
+         // ZHESV
 *
          SRNAMT = 'ZHESV '
          INFOT = 1
@@ -463,7 +463,7 @@
          CALL ZHESV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'ZHESV ', INFOT, NOUT, LERR, OK )
 *
-*        ZHESVX
+         // ZHESVX
 *
          SRNAMT = 'ZHESVX'
          INFOT = 1
@@ -496,7 +496,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
 *
-*        ZHESV_ROOK
+         // ZHESV_ROOK
 *
          SRNAMT = 'ZHESV_ROOK'
          INFOT = 1
@@ -523,15 +523,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HK' ) ) THEN
 *
-*        ZSYSV_RK
+         // ZSYSV_RK
 *
-*        Test error exits of the driver that uses factorization
-*        of a Hermitian indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the driver that uses factorization
+         // of a Hermitian indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
          SRNAMT = 'ZHESV_RK'
          INFOT = 1
@@ -558,7 +558,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HA' ) ) THEN
 *
-*        ZHESV_AASEN
+         // ZHESV_AASEN
 *
          SRNAMT = 'ZHESV_AA'
          INFOT = 1
@@ -582,7 +582,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'H2' ) ) THEN
 *
-*        ZHESV_AASEN_2STAGE
+         // ZHESV_AASEN_2STAGE
 *
          SRNAMT = 'ZHESV_AA_2STAGE'
          INFOT = 1
@@ -609,7 +609,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
 *
-*        ZSYSV_AASEN
+         // ZSYSV_AASEN
 *
          SRNAMT = 'ZSYSV_AA'
          INFOT = 1
@@ -633,7 +633,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
 *
-*        ZSYSV_AASEN_2STAGE
+         // ZSYSV_AASEN_2STAGE
 *
          SRNAMT = 'ZSYSV_AA_2STAGE'
          INFOT = 1
@@ -660,7 +660,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
 *
-*        ZHPSV
+         // ZHPSV
 *
          SRNAMT = 'ZHPSV '
          INFOT = 1
@@ -676,7 +676,7 @@
          CALL ZHPSV( 'U', 2, 0, A, IP, B, 1, INFO )
          CALL CHKXER( 'ZHPSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZHPSVX
+         // ZHPSVX
 *
          SRNAMT = 'ZHPSVX'
          INFOT = 1
@@ -700,7 +700,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        ZSYSV
+         // ZSYSV
 *
          SRNAMT = 'ZSYSV '
          INFOT = 1
@@ -725,7 +725,7 @@
          CALL ZSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'ZSYSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZSYSVX
+         // ZSYSVX
 *
          SRNAMT = 'ZSYSVX'
          INFOT = 1
@@ -758,7 +758,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
 *
-*        ZSYSV_ROOK
+         // ZSYSV_ROOK
 *
          SRNAMT = 'ZSYSV_ROOK'
          INFOT = 1
@@ -784,15 +784,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
 *
-*        ZSYSV_RK
+         // ZSYSV_RK
 *
-*        Test error exits of the driver that uses factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the driver that uses factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
          SRNAMT = 'ZSYSV_RK'
          INFOT = 1
@@ -819,7 +819,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        ZSPSV
+         // ZSPSV
 *
          SRNAMT = 'ZSPSV '
          INFOT = 1
@@ -835,7 +835,7 @@
          CALL ZSPSV( 'U', 2, 0, A, IP, B, 1, INFO )
          CALL CHKXER( 'ZSPSV ', INFOT, NOUT, LERR, OK )
 *
-*        ZSPSVX
+         // ZSPSVX
 *
          SRNAMT = 'ZSPSVX'
          INFOT = 1
@@ -858,7 +858,7 @@
          CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH
@@ -872,6 +872,6 @@
 *
       RETURN
 *
-*     End of ZERRVX
+      // End of ZERRVX
 *
       END

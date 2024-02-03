@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, TPSD;
       int                BROW, I, IASCL, IBSCL, J, LWOPT, MN, MNNRHS, NB, NBMIN, SCLLEN;
       double             ANRM, BIGNUM, BNRM, SMLNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             RWORK( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGELQT, DGEQRT, DGEMLQT, DGEMQRT, DLASCL, DLASET, DTRTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments.
+      // Test the input arguments.
 *
       INFO = 0
       MN = MIN( M, N )
@@ -61,7 +61,7 @@
          INFO = -10
       END IF
 *
-*     Figure out optimal block size and optimal workspace size
+      // Figure out optimal block size and optimal workspace size
 *
       IF( INFO.EQ.0 .OR. INFO.EQ.-10 ) THEN
 *
@@ -83,7 +83,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MIN( M, N, NRHS ).EQ.0 ) THEN
          CALL DLASET( 'Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
@@ -91,17 +91,17 @@
          RETURN
       END IF
 *
-*     *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
+      // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
 *
       IF( NB.GT.MN ) NB = MN
 *
-*     Determine the block size from the supplied LWORK
-*     ( at this stage we know that LWORK >= (minimum required workspace,
-*     but it may be less than optimal)
+      // Determine the block size from the supplied LWORK
+      // ( at this stage we know that LWORK >= (minimum required workspace,
+      // but it may be less than optimal)
 *
       NB = MIN( NB, LWORK/( MN + MNNRHS ) )
 *
-*     The minimum value of NB, when blocked code is used
+      // The minimum value of NB, when blocked code is used
 *
       NBMIN = MAX( 2, ILAENV( 2, 'DGELST', ' ', M, N, -1, -1 ) )
 *
@@ -109,30 +109,30 @@
          NB = 1
       END IF
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' )
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A, B if max element outside range [SMLNUM,BIGNUM]
+      // Scale A, B if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = DLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
       ELSE IF( ANRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM
+         // Scale matrix norm down to BIGNUM
 *
          CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
       ELSE IF( ANRM.EQ.ZERO ) THEN
 *
-*        Matrix all zero. Return zero solution.
+         // Matrix all zero. Return zero solution.
 *
          CALL DLASET( 'Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
          WORK( 1 ) = DBLE( LWOPT )
@@ -145,13 +145,13 @@
       IBSCL = 0
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 1
       ELSE IF( BNRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM
+         // Scale matrix norm down to BIGNUM
 *
          CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 2
@@ -159,26 +159,26 @@
 *
       IF( M.GE.N ) THEN
 *
-*        M > N:
-*        Compute the blocked QR factorization of A,
-*        using the compact WY representation of Q,
-*        workspace at least N, optimally N*NB.
+         // M > N:
+         // Compute the blocked QR factorization of A,
+         // using the compact WY representation of Q,
+         // workspace at least N, optimally N*NB.
 *
          CALL DGEQRT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
 *
          IF( .NOT.TPSD ) THEN
 *
-*           M > N, A is not transposed:
-*           Overdetermined system of equations,
-*           least-squares problem, min || A * X - B ||.
+            // M > N, A is not transposed:
+            // Overdetermined system of equations,
+            // least-squares problem, min || A * X - B ||.
 *
-*           Compute B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS),
-*           using the compact WY representation of Q,
-*           workspace at least NRHS, optimally NRHS*NB.
+            // Compute B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS),
+            // using the compact WY representation of Q,
+            // workspace at least NRHS, optimally NRHS*NB.
 *
             CALL DGEMQRT( 'Left', 'Transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
-*           Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
+            // Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 *
             CALL DTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 *
@@ -190,13 +190,13 @@
 *
          ELSE
 *
-*           M > N, A is transposed:
-*           Underdetermined system of equations,
-*           minimum norm solution of A**T * X = B.
+            // M > N, A is transposed:
+            // Underdetermined system of equations,
+            // minimum norm solution of A**T * X = B.
 *
-*           Compute B := inv(R**T) * B in two row blocks of B.
+            // Compute B := inv(R**T) * B in two row blocks of B.
 *
-*           Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
+            // Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 *
             CALL DTRTRS( 'Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 *
@@ -204,8 +204,8 @@
                RETURN
             END IF
 *
-*           Block 2: Zero out all rows below the N-th row in B:
-*           B(N+1:M,1:NRHS) = ZERO
+            // Block 2: Zero out all rows below the N-th row in B:
+            // B(N+1:M,1:NRHS) = ZERO
 *
             DO  J = 1, NRHS
                DO I = N + 1, M
@@ -213,9 +213,9 @@
                END DO
             END DO
 *
-*           Compute B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS),
-*           using the compact WY representation of Q,
-*           workspace at least NRHS, optimally NRHS*NB.
+            // Compute B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS),
+            // using the compact WY representation of Q,
+            // workspace at least NRHS, optimally NRHS*NB.
 *
             CALL DGEMQRT( 'Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
@@ -225,22 +225,22 @@
 *
       ELSE
 *
-*        M < N:
-*        Compute the blocked LQ factorization of A,
-*        using the compact WY representation of Q,
-*        workspace at least M, optimally M*NB.
+         // M < N:
+         // Compute the blocked LQ factorization of A,
+         // using the compact WY representation of Q,
+         // workspace at least M, optimally M*NB.
 *
          CALL DGELQT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
 *
          IF( .NOT.TPSD ) THEN
 *
-*           M < N, A is not transposed:
-*           Underdetermined system of equations,
-*           minimum norm solution of A * X = B.
+            // M < N, A is not transposed:
+            // Underdetermined system of equations,
+            // minimum norm solution of A * X = B.
 *
-*           Compute B := inv(L) * B in two row blocks of B.
+            // Compute B := inv(L) * B in two row blocks of B.
 *
-*           Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
+            // Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 *
             CALL DTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 *
@@ -248,8 +248,8 @@
                RETURN
             END IF
 *
-*           Block 2: Zero out all rows below the M-th row in B:
-*           B(M+1:N,1:NRHS) = ZERO
+            // Block 2: Zero out all rows below the M-th row in B:
+            // B(M+1:N,1:NRHS) = ZERO
 *
             DO J = 1, NRHS
                DO I = M + 1, N
@@ -257,9 +257,9 @@
                END DO
             END DO
 *
-*           Compute B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS),
-*           using the compact WY representation of Q,
-*           workspace at least NRHS, optimally NRHS*NB.
+            // Compute B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS),
+            // using the compact WY representation of Q,
+            // workspace at least NRHS, optimally NRHS*NB.
 *
             CALL DGEMLQT( 'Left', 'Transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
@@ -267,17 +267,17 @@
 *
          ELSE
 *
-*           M < N, A is transposed:
-*           Overdetermined system of equations,
-*           least-squares problem, min || A**T * X - B ||.
+            // M < N, A is transposed:
+            // Overdetermined system of equations,
+            // least-squares problem, min || A**T * X - B ||.
 *
-*           Compute B(1:N,1:NRHS) := Q * B(1:N,1:NRHS),
-*           using the compact WY representation of Q,
-*           workspace at least NRHS, optimally NRHS*NB.
+            // Compute B(1:N,1:NRHS) := Q * B(1:N,1:NRHS),
+            // using the compact WY representation of Q,
+            // workspace at least NRHS, optimally NRHS*NB.
 *
             CALL DGEMLQT( 'Left', 'No transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1), INFO )
 *
-*           Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
+            // Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 *
             CALL DTRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 *
@@ -291,7 +291,7 @@
 *
       END IF
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( IASCL.EQ.1 ) THEN
          CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
@@ -308,6 +308,6 @@
 *
       RETURN
 *
-*     End of DGELST
+      // End of DGELST
 *
       END

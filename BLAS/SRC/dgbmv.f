@@ -4,37 +4,37 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double           ALPHA,BETA;
       int     INCX,INCY,KL,KU,LDA,M,N;
       String    TRANS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double           A(LDA,*),X(*),Y(*);
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double           ONE,ZERO;
       PARAMETER (ONE=1.0D+0,ZERO=0.0D+0)
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double           TEMP;
       int     I,INFO,IX,IY,J,JX,JY,K,KUP1,KX,KY,LENX,LENY;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX,MIN
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF (.NOT.LSAME(TRANS,'N') .AND. .NOT.LSAME(TRANS,'T') .AND. .NOT.LSAME(TRANS,'C')) THEN
@@ -59,12 +59,12 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((M.EQ.0) .OR. (N.EQ.0) .OR. ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
 *
-*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
-*     up the start points in  X  and  Y.
+      // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
+      // up the start points in  X  and  Y.
 *
       IF (LSAME(TRANS,'N')) THEN
           LENX = N
@@ -84,10 +84,10 @@
           KY = 1 - (LENY-1)*INCY
       END IF
 *
-*     Start the operations. In this version the elements of A are
-*     accessed sequentially with one pass through the band part of A.
+      // Start the operations. In this version the elements of A are
+      // accessed sequentially with one pass through the band part of A.
 *
-*     First form  y := beta*y.
+      // First form  y := beta*y.
 *
       IF (BETA.NE.ONE) THEN
           IF (INCY.EQ.1) THEN
@@ -119,7 +119,7 @@
       KUP1 = KU + 1
       IF (LSAME(TRANS,'N')) THEN
 *
-*        Form  y := alpha*A*x + y.
+         // Form  y := alpha*A*x + y.
 *
           JX = KX
           IF (INCY.EQ.1) THEN
@@ -146,7 +146,7 @@
           END IF
       ELSE
 *
-*        Form  y := alpha*A**T*x + y.
+         // Form  y := alpha*A**T*x + y.
 *
           JY = KY
           IF (INCX.EQ.1) THEN
@@ -177,6 +177,6 @@
 *
       RETURN
 *
-*     End of DGBMV
+      // End of DGBMV
 *
       END

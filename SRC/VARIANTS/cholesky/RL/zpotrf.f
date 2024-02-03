@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16            A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       COMPLEX*16         CONE
       PARAMETER          ( ONE = 1.0D+0, CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J, JB, NB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMM, ZHERK, ZPOTRF2, ZTRSM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -52,30 +52,30 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Determine the block size for this environment.
+      // Determine the block size for this environment.
 *
       NB = ILAENV( 1, 'ZPOTRF', UPLO, N, -1, -1, -1 )
       IF( NB.LE.1 .OR. NB.GE.N ) THEN
 *
-*        Use unblocked code.
+         // Use unblocked code.
 *
          CALL ZPOTRF2( UPLO, N, A, LDA, INFO )
       ELSE
 *
-*        Use blocked code.
+         // Use blocked code.
 *
          IF( UPPER ) THEN
 *
-*           Compute the Cholesky factorization A = U'*U.
+            // Compute the Cholesky factorization A = U'*U.
 *
             DO 10 J = 1, N, NB
 *
-*              Update and factorize the current diagonal block and test
-*              for non-positive-definiteness.
+               // Update and factorize the current diagonal block and test
+               // for non-positive-definiteness.
 *
                JB = MIN( NB, N-J+1 )
 
@@ -84,7 +84,7 @@
 
                IF( J+JB.LE.N ) THEN
 *
-*                 Updating the trailing submatrix.
+                  // Updating the trailing submatrix.
 *
                   CALL ZTRSM( 'Left', 'Upper', 'Conjugate Transpose', 'Non-unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA )                   CALL ZHERK( 'Upper', 'Conjugate transpose', N-J-JB+1, JB, -ONE, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA )
                END IF
@@ -92,12 +92,12 @@
 *
          ELSE
 *
-*           Compute the Cholesky factorization A = L*L'.
+            // Compute the Cholesky factorization A = L*L'.
 *
             DO 20 J = 1, N, NB
 *
-*              Update and factorize the current diagonal block and test
-*              for non-positive-definiteness.
+               // Update and factorize the current diagonal block and test
+               // for non-positive-definiteness.
 *
                JB = MIN( NB, N-J+1 )
 
@@ -106,7 +106,7 @@
 
                IF( J+JB.LE.N ) THEN
 *
-*                Updating the trailing submatrix.
+                 // Updating the trailing submatrix.
 *
                  CALL ZTRSM( 'Right', 'Lower', 'Conjugate Transpose', 'Non-unit', N-J-JB+1, JB, CONE, A( J, J ), LDA, A( J+JB, J ), LDA )                   CALL ZHERK( 'Lower', 'No Transpose', N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, ONE, A( J+JB, J+JB ), LDA )
                END IF
@@ -121,6 +121,6 @@
    40 CONTINUE
       RETURN
 *
-*     End of ZPOTRF
+      // End of ZPOTRF
 *
       END

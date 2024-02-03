@@ -5,52 +5,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV, LDWH, LDWV, LDZ, N, NH, NSHFTS, NV;
       bool               WANTT, WANTZ;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             H( LDH, * ), SI( * ), SR( * ), U( LDU, * ), V( LDV, * ), WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  ================================================================
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0d0, ONE = 1.0d0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             ALPHA, BETA, H11, H12, H21, H22, REFSUM, SAFMAX, SAFMIN, SCL, SMLNUM, SWAP, T1, T2, T3, TST1, TST2, ULP       int                I, I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU;;
       bool               ACCUM, BMP22;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
 *
       // INTRINSIC ABS, DBLE, MAX, MIN, MOD
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             VT( 3 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY, DLAQR1, DLARFG, DLASET, DTRMM
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     ==== If there are no shifts, then there is nothing to do. ====
+      // ==== If there are no shifts, then there is nothing to do. ====
 *
       IF( NSHFTS.LT.2 ) RETURN
 *
-*     ==== If the active block is empty or 1-by-1, then there
-*     .    is nothing to do. ====
+      // ==== If the active block is empty or 1-by-1, then there
+      // .    is nothing to do. ====
 *
       IF( KTOP.GE.KBOT ) RETURN
 *
-*     ==== Shuffle shifts into pairs of real shifts and pairs
-*     .    of complex conjugate shifts assuming complex
-*     .    conjugate shifts are already adjacent to one
-*     .    another. ====
+      // ==== Shuffle shifts into pairs of real shifts and pairs
+      // .    of complex conjugate shifts assuming complex
+      // .    conjugate shifts are already adjacent to one
+      // .    another. ====
 *
       DO 10 I = 1, NSHFTS - 2, 2
          IF( SI( I ).NE.-SI( I+1 ) ) THEN
@@ -67,42 +67,42 @@
          END IF
    10 CONTINUE
 *
-*     ==== NSHFTS is supposed to be even, but if it is odd,
-*     .    then simply reduce it by one.  The shuffle above
-*     .    ensures that the dropped shift is real and that
-*     .    the remaining shifts are paired. ====
+      // ==== NSHFTS is supposed to be even, but if it is odd,
+      // .    then simply reduce it by one.  The shuffle above
+      // .    ensures that the dropped shift is real and that
+      // .    the remaining shifts are paired. ====
 *
       NS = NSHFTS - MOD( NSHFTS, 2 )
 *
-*     ==== Machine constants for deflation ====
+      // ==== Machine constants for deflation ====
 *
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE / SAFMIN
       ULP = DLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( DBLE( N ) / ULP )
 *
-*     ==== Use accumulated reflections to update far-from-diagonal
-*     .    entries ? ====
+      // ==== Use accumulated reflections to update far-from-diagonal
+      // .    entries ? ====
 *
       ACCUM = ( KACC22.EQ.1 ) .OR. ( KACC22.EQ.2 )
 *
-*     ==== clear trash ====
+      // ==== clear trash ====
 *
       IF( KTOP+2.LE.KBOT ) H( KTOP+2, KTOP ) = ZERO
 *
-*     ==== NBMPS = number of 2-shift bulges in the chain ====
+      // ==== NBMPS = number of 2-shift bulges in the chain ====
 *
       NBMPS = NS / 2
 *
-*     ==== KDU = width of slab ====
+      // ==== KDU = width of slab ====
 *
       KDU = 4*NBMPS
 *
-*     ==== Create and chase chains of NBMPS bulges ====
+      // ==== Create and chase chains of NBMPS bulges ====
 *
       DO 180 INCOL = KTOP - 2*NBMPS + 1, KBOT - 2, 2*NBMPS
 *
-*        JTOP = Index from which updates from the right start.
+         // JTOP = Index from which updates from the right start.
 *
          IF( ACCUM ) THEN
             JTOP = MAX( KTOP, INCOL )
@@ -115,39 +115,39 @@
          NDCOL = INCOL + KDU
          IF( ACCUM ) CALL DLASET( 'ALL', KDU, KDU, ZERO, ONE, U, LDU )
 *
-*        ==== Near-the-diagonal bulge chase.  The following loop
-*        .    performs the near-the-diagonal part of a small bulge
-*        .    multi-shift QR sweep.  Each 4*NBMPS column diagonal
-*        .    chunk extends from column INCOL to column NDCOL
-*        .    (including both column INCOL and column NDCOL). The
-*        .    following loop chases a 2*NBMPS+1 column long chain of
-*        .    NBMPS bulges 2*NBMPS columns to the right.  (INCOL
-*        .    may be less than KTOP and and NDCOL may be greater than
-*        .    KBOT indicating phantom columns from which to chase
-*        .    bulges before they are actually introduced or to which
-*        .    to chase bulges beyond column KBOT.)  ====
+         // ==== Near-the-diagonal bulge chase.  The following loop
+         // .    performs the near-the-diagonal part of a small bulge
+         // .    multi-shift QR sweep.  Each 4*NBMPS column diagonal
+         // .    chunk extends from column INCOL to column NDCOL
+         // .    (including both column INCOL and column NDCOL). The
+         // .    following loop chases a 2*NBMPS+1 column long chain of
+         // .    NBMPS bulges 2*NBMPS columns to the right.  (INCOL
+         // .    may be less than KTOP and and NDCOL may be greater than
+         // .    KBOT indicating phantom columns from which to chase
+         // .    bulges before they are actually introduced or to which
+         // .    to chase bulges beyond column KBOT.)  ====
 *
          DO 145 KRCOL = INCOL, MIN( INCOL+2*NBMPS-1, KBOT-2 )
 *
-*           ==== Bulges number MTOP to MBOT are active double implicit
-*           .    shift bulges.  There may or may not also be small
-*           .    2-by-2 bulge, if there is room.  The inactive bulges
-*           .    (if any) must wait until the active bulges have moved
-*           .    down the diagonal to make room.  The phantom matrix
-*           .    paradigm described above helps keep track.  ====
+            // ==== Bulges number MTOP to MBOT are active double implicit
+            // .    shift bulges.  There may or may not also be small
+            // .    2-by-2 bulge, if there is room.  The inactive bulges
+            // .    (if any) must wait until the active bulges have moved
+            // .    down the diagonal to make room.  The phantom matrix
+            // .    paradigm described above helps keep track.  ====
 *
             MTOP = MAX( 1, ( KTOP-KRCOL ) / 2+1 )
             MBOT = MIN( NBMPS, ( KBOT-KRCOL-1 ) / 2 )
             M22 = MBOT + 1
             BMP22 = ( MBOT.LT.NBMPS ) .AND. ( KRCOL+2*( M22-1 ) ).EQ. ( KBOT-2 )
 *
-*           ==== Generate reflections to chase the chain right
-*           .    one column.  (The minimum value of K is KTOP-1.) ====
+            // ==== Generate reflections to chase the chain right
+            // .    one column.  (The minimum value of K is KTOP-1.) ====
 *
             IF ( BMP22 ) THEN
 *
-*              ==== Special case: 2-by-2 reflection at bottom treated
-*              .    separately ====
+               // ==== Special case: 2-by-2 reflection at bottom treated
+               // .    separately ====
 *
                K = KRCOL + 2*( M22-1 )
                IF( K.EQ.KTOP-1 ) THEN
@@ -163,8 +163,8 @@
                END IF
 
 *
-*              ==== Perform update from right within
-*              .    computational window. ====
+               // ==== Perform update from right within
+               // .    computational window. ====
 *
                T1 = V( 1, M22 )
                T2 = T1*V( 2, M22 )
@@ -174,8 +174,8 @@
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2
    30          CONTINUE
 *
-*              ==== Perform update from left within
-*              .    computational window. ====
+               // ==== Perform update from left within
+               // .    computational window. ====
 *
                IF( ACCUM ) THEN
                   JBOT = MIN( NDCOL, KBOT )
@@ -192,14 +192,14 @@
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2
    40          CONTINUE
 *
-*              ==== The following convergence test requires that
-*              .    the tradition small-compared-to-nearby-diagonals
-*              .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
-*              .    criteria both be satisfied.  The latter improves
-*              .    accuracy in some examples. Falling back on an
-*              .    alternate convergence criterion when TST1 or TST2
-*              .    is zero (as done here) is traditional but probably
-*              .    unnecessary. ====
+               // ==== The following convergence test requires that
+               // .    the tradition small-compared-to-nearby-diagonals
+               // .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
+               // .    criteria both be satisfied.  The latter improves
+               // .    accuracy in some examples. Falling back on an
+               // .    alternate convergence criterion when TST1 or TST2
+               // .    is zero (as done here) is traditional but probably
+               // .    unnecessary. ====
 *
                IF( K.GE.KTOP ) THEN
                   IF( H( K+1, K ).NE.ZERO ) THEN
@@ -218,7 +218,7 @@
                   END IF
                END IF
 *
-*              ==== Accumulate orthogonal transformations. ====
+               // ==== Accumulate orthogonal transformations. ====
 *
                IF( ACCUM ) THEN
                   KMS = K - INCOL
@@ -240,7 +240,7 @@
                END IF
             END IF
 *
-*           ==== Normal case: Chain of 3-by-3 reflections ====
+            // ==== Normal case: Chain of 3-by-3 reflections ====
 *
             DO 80 M = MBOT, MTOP, -1
                K = KRCOL + 2*( M-1 )
@@ -250,9 +250,9 @@
                   CALL DLARFG( 3, ALPHA, V( 2, M ), 1, V( 1, M ) )
                ELSE
 *
-*                 ==== Perform delayed transformation of row below
-*                 .    Mth bulge. Exploit fact that first two elements
-*                 .    of row are actually zero. ====
+                  // ==== Perform delayed transformation of row below
+                  // .    Mth bulge. Exploit fact that first two elements
+                  // .    of row are actually zero. ====
 *
                   T1 = V( 1, M )
                   T2 = T1*V( 2, M )
@@ -262,33 +262,33 @@
                   H( K+3, K+1 ) = -REFSUM*T2
                   H( K+3, K+2 ) = H( K+3, K+2 ) - REFSUM*T3
 *
-*                 ==== Calculate reflection to move
-*                 .    Mth bulge one step. ====
+                  // ==== Calculate reflection to move
+                  // .    Mth bulge one step. ====
 *
                   BETA      = H( K+1, K )
                   V( 2, M ) = H( K+2, K )
                   V( 3, M ) = H( K+3, K )
                   CALL DLARFG( 3, BETA, V( 2, M ), 1, V( 1, M ) )
 *
-*                 ==== A Bulge may collapse because of vigilant
-*                 .    deflation or destructive underflow.  In the
-*                 .    underflow case, try the two-small-subdiagonals
-*                 .    trick to try to reinflate the bulge.  ====
+                  // ==== A Bulge may collapse because of vigilant
+                  // .    deflation or destructive underflow.  In the
+                  // .    underflow case, try the two-small-subdiagonals
+                  // .    trick to try to reinflate the bulge.  ====
 *
                   IF( H( K+3, K ).NE.ZERO .OR. H( K+3, K+1 ).NE. ZERO .OR. H( K+3, K+2 ).EQ.ZERO ) THEN
 *
-*                    ==== Typical case: not collapsed (yet). ====
+                     // ==== Typical case: not collapsed (yet). ====
 *
                      H( K+1, K ) = BETA
                      H( K+2, K ) = ZERO
                      H( K+3, K ) = ZERO
                   ELSE
 *
-*                    ==== Atypical case: collapsed.  Attempt to
-*                    .    reintroduce ignoring H(K+1,K) and H(K+2,K).
-*                    .    If the fill resulting from the new
-*                    .    reflector is too large, then abandon it.
-*                    .    Otherwise, use the new one. ====
+                     // ==== Atypical case: collapsed.  Attempt to
+                     // .    reintroduce ignoring H(K+1,K) and H(K+2,K).
+                     // .    If the fill resulting from the new
+                     // .    reflector is too large, then abandon it.
+                     // .    Otherwise, use the new one. ====
 *
                      CALL DLAQR1( 3, H( K+1, K+1 ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), VT )
                      ALPHA = VT( 1 )
@@ -300,19 +300,19 @@
 *
                      IF( ABS( H( K+2, K )-REFSUM*T2 )+ ABS( REFSUM*T3 ).GT.ULP* ( ABS( H( K, K ) )+ABS( H( K+1, K+1 ) )+ABS( H( K+2, K+2 ) ) ) ) THEN
 *
-*                       ==== Starting a new bulge here would
-*                       .    create non-negligible fill.  Use
-*                       .    the old one with trepidation. ====
+                        // ==== Starting a new bulge here would
+                        // .    create non-negligible fill.  Use
+                        // .    the old one with trepidation. ====
 *
                         H( K+1, K ) = BETA
                         H( K+2, K ) = ZERO
                         H( K+3, K ) = ZERO
                      ELSE
 *
-*                       ==== Starting a new bulge here would
-*                       .    create only negligible fill.
-*                       .    Replace the old reflector with
-*                       .    the new one. ====
+                        // ==== Starting a new bulge here would
+                        // .    create only negligible fill.
+                        // .    Replace the old reflector with
+                        // .    the new one. ====
 *
                         H( K+1, K ) = H( K+1, K ) - REFSUM*T1
                         H( K+2, K ) = ZERO
@@ -324,11 +324,11 @@
                   END IF
                END IF
 *
-*              ====  Apply reflection from the right and
-*              .     the first column of update from the left.
-*              .     These updates are required for the vigilant
-*              .     deflation check. We still delay most of the
-*              .     updates from the left for efficiency. ====
+               // ====  Apply reflection from the right and
+               // .     the first column of update from the left.
+               // .     These updates are required for the vigilant
+               // .     deflation check. We still delay most of the
+               // .     updates from the left for efficiency. ====
 *
                T1 = V( 1, M )
                T2 = T1*V( 2, M )
@@ -340,22 +340,22 @@
                   H( J, K+3 ) = H( J, K+3 ) - REFSUM*T3
    70          CONTINUE
 *
-*              ==== Perform update from left for subsequent
-*              .    column. ====
+               // ==== Perform update from left for subsequent
+               // .    column. ====
 *
                REFSUM = H( K+1, K+1 ) + V( 2, M )*H( K+2, K+1 ) + V( 3, M )*H( K+3, K+1 )
                H( K+1, K+1 ) = H( K+1, K+1 ) - REFSUM*T1
                H( K+2, K+1 ) = H( K+2, K+1 ) - REFSUM*T2
                H( K+3, K+1 ) = H( K+3, K+1 ) - REFSUM*T3
 *
-*              ==== The following convergence test requires that
-*              .    the tradition small-compared-to-nearby-diagonals
-*              .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
-*              .    criteria both be satisfied.  The latter improves
-*              .    accuracy in some examples. Falling back on an
-*              .    alternate convergence criterion when TST1 or TST2
-*              .    is zero (as done here) is traditional but probably
-*              .    unnecessary. ====
+               // ==== The following convergence test requires that
+               // .    the tradition small-compared-to-nearby-diagonals
+               // .    criterion and the Ahues & Tisseur (LAWN 122, 1997)
+               // .    criteria both be satisfied.  The latter improves
+               // .    accuracy in some examples. Falling back on an
+               // .    alternate convergence criterion when TST1 or TST2
+               // .    is zero (as done here) is traditional but probably
+               // .    unnecessary. ====
 *
                IF( K.LT.KTOP) CYCLE
                IF( H( K+1, K ).NE.ZERO ) THEN
@@ -377,7 +377,7 @@
                END IF
    80       CONTINUE
 *
-*           ==== Multiply H by reflections from the left ====
+            // ==== Multiply H by reflections from the left ====
 *
             IF( ACCUM ) THEN
                JBOT = MIN( NDCOL, KBOT )
@@ -400,13 +400,13 @@
    90          CONTINUE
   100       CONTINUE
 *
-*           ==== Accumulate orthogonal transformations. ====
+            // ==== Accumulate orthogonal transformations. ====
 *
             IF( ACCUM ) THEN
 *
-*              ==== Accumulate U. (If needed, update Z later
-*              .    with an efficient matrix-matrix
-*              .    multiply.) ====
+               // ==== Accumulate U. (If needed, update Z later
+               // .    with an efficient matrix-matrix
+               // .    multiply.) ====
 *
                DO 120 M = MBOT, MTOP, -1
                   K = KRCOL + 2*( M-1 )
@@ -426,9 +426,9 @@
   120          CONTINUE
             ELSE IF( WANTZ ) THEN
 *
-*              ==== U is not accumulated, so update Z
-*              .    now by multiplying by reflections
-*              .    from the right. ====
+               // ==== U is not accumulated, so update Z
+               // .    now by multiplying by reflections
+               // .    from the right. ====
 *
                DO 140 M = MBOT, MTOP, -1
                   K = KRCOL + 2*( M-1 )
@@ -444,13 +444,13 @@
   140          CONTINUE
             END IF
 *
-*           ==== End of near-the-diagonal bulge chase. ====
+            // ==== End of near-the-diagonal bulge chase. ====
 *
   145    CONTINUE
 *
-*        ==== Use U (if accumulated) to update far-from-diagonal
-*        .    entries in H.  If required, use U to update Z as
-*        .    well. ====
+         // ==== Use U (if accumulated) to update far-from-diagonal
+         // .    entries in H.  If required, use U to update Z as
+         // .    well. ====
 *
          IF( ACCUM ) THEN
             IF( WANTT ) THEN
@@ -463,7 +463,7 @@
             K1 = MAX( 1, KTOP-INCOL )
             NU = ( KDU-MAX( 0, NDCOL-KBOT ) ) - K1 + 1
 *
-*           ==== Horizontal Multiply ====
+            // ==== Horizontal Multiply ====
 *
             DO 150 JCOL = MIN( NDCOL, KBOT ) + 1, JBOT, NH
                JLEN = MIN( NH, JBOT-JCOL+1 )
@@ -471,7 +471,7 @@
                CALL DLACPY( 'ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH )
   150       CONTINUE
 *
-*           ==== Vertical multiply ====
+            // ==== Vertical multiply ====
 *
             DO 160 JROW = JTOP, MAX( KTOP, INCOL ) - 1, NV
                JLEN = MIN( NV, MAX( KTOP, INCOL )-JROW )
@@ -479,7 +479,7 @@
                CALL DLACPY( 'ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH )
   160       CONTINUE
 *
-*           ==== Z multiply (also vertical) ====
+            // ==== Z multiply (also vertical) ====
 *
             IF( WANTZ ) THEN
                DO 170 JROW = ILOZ, IHIZ, NV
@@ -491,6 +491,6 @@
          END IF
   180 CONTINUE
 *
-*     ==== End of DLAQR5 ====
+      // ==== End of DLAQR5 ====
 *
       END

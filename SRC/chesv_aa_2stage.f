@@ -6,35 +6,35 @@
 *
       IMPLICIT NONE
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LDB, LTB, LWORK, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
       COMPLEX            A( LDA, * ), B( LDB, * ), TB( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                LWKMIN, LWKOPT;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHETRF_AA_2STAGE, CHETRS_AA_2STAGE, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -70,12 +70,12 @@
          RETURN
       END IF
 *
-*     Compute the factorization A = U**H*T*U or A = L*T*L**H.
+      // Compute the factorization A = U**H*T*U or A = L*T*L**H.
 *
       CALL CHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
-*        Solve the system A*X = B, overwriting B with X.
+         // Solve the system A*X = B, overwriting B with X.
 *
          CALL CHETRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 *
@@ -85,6 +85,6 @@
 *
       RETURN
 *
-*     End of CHESV_AA_2STAGE
+      // End of CHESV_AA_2STAGE
 *
       END

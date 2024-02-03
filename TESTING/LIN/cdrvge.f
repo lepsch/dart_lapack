@@ -4,21 +4,21 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       REAL               RWORK( * ), S( * )
       COMPLEX            A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
       int                NTYPES;
@@ -27,47 +27,47 @@
       PARAMETER          ( NTESTS = 7 )
       int                NTRAN;
       PARAMETER          ( NTRAN = 3 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, TRFCON, ZEROT;
       String             DIST, EQUED, FACT, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, ITRAN, IZERO, K, K1, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT       REAL               AINVNM, AMAX, ANORM, ANORMI, ANORMO, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RDUM( 1 ), RESULT( NTESTS )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, CLANTR, SGET06, SLAMCH
       // EXTERNAL LSAME, CLANGE, CLANTR, SGET06, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, CERRVX, CGEEQU, CGESV, CGESVX, CGET01, CGET02, CGET04, CGET07, CGETRF, CGETRI, CLACPY, CLAQGE, CLARHS, CLASET, CLATB4, CLATMS, XLAENV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               TRANSS / 'N', 'T', 'C' /
       DATA               FACTS / 'F', 'N', 'E' /
       DATA               EQUEDS / 'N', 'R', 'C', 'B' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'Complex precision'
       PATH( 2: 3 ) = 'GE'
@@ -78,19 +78,19 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL CERRVX( PATH, NOUT )
       INFOT = 0
 *
-*     Set the block size and minimum block size for testing.
+      // Set the block size and minimum block size for testing.
 *
       NB = 1
       NBMIN = 2
       CALL XLAENV( 1, NB )
       CALL XLAENV( 2, NBMIN )
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 90 IN = 1, NN
          N = NVAL( IN )
@@ -101,17 +101,17 @@
 *
          DO 80 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
 *
-*           Skip types 5, 6, or 7 if the matrix size is too small.
+            // Skip types 5, 6, or 7 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
             IF( ZEROT .AND. N.LT.IMAT-4 ) GO TO 80
 *
-*           Set up parameters with CLATB4 and generate a test matrix
-*           with CLATMS.
+            // Set up parameters with CLATB4 and generate a test matrix
+            // with CLATMS.
 *
             CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
             RCONDC = ONE / CNDNUM
@@ -119,15 +119,15 @@
             SRNAMT = 'CLATMS'
             CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
-*           Check error code from CLATMS.
+            // Check error code from CLATMS.
 *
             IF( INFO.NE.0 ) THEN
                CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 80
             END IF
 *
-*           For types 5-7, zero one or more columns of the matrix to
-*           test that INFO is returned correctly.
+            // For types 5-7, zero one or more columns of the matrix to
+           t // est that INFO is returned correctly.
 *
             IF( ZEROT ) THEN
                IF( IMAT.EQ.5 ) THEN
@@ -149,7 +149,7 @@
                IZERO = 0
             END IF
 *
-*           Save a copy of the matrix A in ASAV.
+            // Save a copy of the matrix A in ASAV.
 *
             CALL CLACPY( 'Full', N, N, A, LDA, ASAV, LDA )
 *
@@ -174,16 +174,16 @@
 *
                   ELSE IF( .NOT.NOFACT ) THEN
 *
-*                    Compute the condition number for comparison with
-*                    the value returned by CGESVX (FACT = 'N' reuses
-*                    the condition number from the previous iteration
-*                    with FACT = 'F').
+                     // Compute the condition number for comparison with
+                    t // he value returned by CGESVX (FACT = 'N' reuses
+                    t // he condition number from the previous iteration
+                     // with FACT = 'F').
 *
                      CALL CLACPY( 'Full', N, N, ASAV, LDA, AFAC, LDA )
                      IF( EQUIL .OR. IEQUED.GT.1 ) THEN
 *
-*                       Compute row and column scale factors to
-*                       equilibrate the matrix A.
+                        // Compute row and column scale factors to
+                        // equilibrate the matrix A.
 *
                         CALL CGEEQU( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
                         IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
@@ -198,38 +198,38 @@
                               COLCND = ZERO
                            END IF
 *
-*                          Equilibrate the matrix.
+                           // Equilibrate the matrix.
 *
                            CALL CLAQGE( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                         END IF
                      END IF
 *
-*                    Save the condition number of the non-equilibrated
-*                    system for use in CGET04.
+                     // Save the condition number of the non-equilibrated
+                     // system for use in CGET04.
 *
                      IF( EQUIL ) THEN
                         ROLDO = RCONDO
                         ROLDI = RCONDI
                      END IF
 *
-*                    Compute the 1-norm and infinity-norm of A.
+                     // Compute the 1-norm and infinity-norm of A.
 *
                      ANORMO = CLANGE( '1', N, N, AFAC, LDA, RWORK )
                      ANORMI = CLANGE( 'I', N, N, AFAC, LDA, RWORK )
 *
-*                    Factor the matrix A.
+                     // Factor the matrix A.
 *
                      SRNAMT = 'CGETRF'
                      CALL CGETRF( N, N, AFAC, LDA, IWORK, INFO )
 *
-*                    Form the inverse of A.
+                     // Form the inverse of A.
 *
                      CALL CLACPY( 'Full', N, N, AFAC, LDA, A, LDA )
                      LWORK = NMAX*MAX( 3, NRHS )
                      SRNAMT = 'CGETRI'
                      CALL CGETRI( N, A, LDA, IWORK, WORK, LWORK, INFO )
 *
-*                    Compute the 1-norm condition number of A.
+                     // Compute the 1-norm condition number of A.
 *
                      AINVNM = CLANGE( '1', N, N, A, LDA, RWORK )
                      IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -238,7 +238,7 @@
                         RCONDO = ( ONE / ANORMO ) / AINVNM
                      END IF
 *
-*                    Compute the infinity-norm condition number of A.
+                     // Compute the infinity-norm condition number of A.
 *
                      AINVNM = CLANGE( 'I', N, N, A, LDA, RWORK )
                      IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -250,7 +250,7 @@
 *
                   DO 50 ITRAN = 1, NTRAN
 *
-*                    Do for each value of TRANS.
+                     // Do for each value of TRANS.
 *
                      TRANS = TRANSS( ITRAN )
                      IF( ITRAN.EQ.1 ) THEN
@@ -259,11 +259,11 @@
                         RCONDC = RCONDI
                      END IF
 *
-*                    Restore the matrix A.
+                     // Restore the matrix A.
 *
                      CALL CLACPY( 'Full', N, N, ASAV, LDA, A, LDA )
 *
-*                    Form an exact solution and set the right hand side.
+                     // Form an exact solution and set the right hand side.
 *
                      SRNAMT = 'CLARHS'
                      CALL CLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
@@ -272,10 +272,10 @@
 *
                      IF( NOFACT .AND. ITRAN.EQ.1 ) THEN
 *
-*                       --- Test CGESV  ---
+                        // --- Test CGESV  ---
 *
-*                       Compute the LU factorization of the matrix and
-*                       solve the system.
+                        // Compute the LU factorization of the matrix and
+                        // solve the system.
 *
                         CALL CLACPY( 'Full', N, N, A, LDA, AFAC, LDA )
                         CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
@@ -283,29 +283,29 @@
                         SRNAMT = 'CGESV '
                         CALL CGESV( N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
 *
-*                       Check error code from CGESV .
+                        // Check error code from CGESV .
 *
                         IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL CGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK, RESULT( 1 ) )
                         NT = 1
                         IF( IZERO.EQ.0 ) THEN
 *
-*                          Compute residual of the computed solution.
+                           // Compute residual of the computed solution.
 *
                            CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                            CALL CGET02( 'No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
-*                          Check solution from generated exact solution.
+                           // Check solution from generated exact solution.
 *
                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                            NT = 3
                         END IF
 *
-*                       Print information about the tests that did not
-*                       pass the threshold.
+                        // Print information about the tests that did not
+                        // pass the threshold.
 *
                         DO 30 K = 1, NT
                            IF( RESULT( K ).GE.THRESH ) THEN
@@ -316,30 +316,30 @@
                         NRUN = NRUN + NT
                      END IF
 *
-*                    --- Test CGESVX ---
+                     // --- Test CGESVX ---
 *
                      IF( .NOT.PREFAC ) CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA )
                      CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
-*                       Equilibrate the matrix if FACT = 'F' and
-*                       EQUED = 'R', 'C', or 'B'.
+                        // Equilibrate the matrix if FACT = 'F' and
+                        // EQUED = 'R', 'C', or 'B'.
 *
                         CALL CLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                      END IF
 *
-*                    Solve the system and compute the condition number
-*                    and error bounds using CGESVX.
+                     // Solve the system and compute the condition number
+                     // and error bounds using CGESVX.
 *
                      SRNAMT = 'CGESVX'
                      CALL CGESVX( FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
-*                    Check the error code from CGESVX.
+                     // Check the error code from CGESVX.
 *
                      IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-*                    Compare RWORK(2*NRHS+1) from CGESVX with the
-*                    computed reciprocal pivot growth factor RPVGRW
+                     // Compare RWORK(2*NRHS+1) from CGESVX with the
+                     // computed reciprocal pivot growth factor RPVGRW
 *
                      IF( INFO.NE.0 .AND. INFO.LE.N) THEN
                         RPVGRW = CLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, RDUM )
@@ -360,8 +360,8 @@
 *
                      IF( .NOT.PREFAC ) THEN
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL CGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
@@ -372,11 +372,11 @@
                      IF( INFO.EQ.0 ) THEN
                         TRFCON = .FALSE.
 *
-*                       Compute residual of the computed solution.
+                        // Compute residual of the computed solution.
 *
                         CALL CLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL CGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         ELSE
@@ -388,21 +388,21 @@
                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                         END IF
 *
-*                       Check the error bounds from iterative
-*                       refinement.
+                        // Check the error bounds from iterative
+                        // refinement.
 *
                         CALL CGET07( TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) )
                      ELSE
                         TRFCON = .TRUE.
                      END IF
 *
-*                    Compare RCOND from CGESVX with the computed value
-*                    in RCONDC.
+                     // Compare RCOND from CGESVX with the computed value
+                     // in RCONDC.
 *
                      RESULT( 6 ) = SGET06( RCOND, RCONDC )
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      IF( .NOT.TRFCON ) THEN
                         DO 40 K = K1, NTESTS
@@ -456,7 +456,7 @@
    80    CONTINUE
    90 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -469,6 +469,6 @@
      $      G12.5 )
       RETURN
 *
-*     End of CDRVGE
+      // End of CDRVGE
 *
       END

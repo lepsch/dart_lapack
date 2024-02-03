@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPQ;
       int                IFST, ILST, INFO, LDQ, LDT, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            Q( LDQ, * ), T( LDT, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               WANTQ;
       int                K, M1, M2, M3;
       REAL               CS
       COMPLEX            SN, T11, T22, TEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLARTG, CROT, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters.
+      // Decode and test the input parameters.
 *
       INFO = 0
       WANTQ = LSAME( COMPQ, 'V' )
@@ -54,20 +54,20 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.1 .OR. IFST.EQ.ILST ) RETURN
 *
       IF( IFST.LT.ILST ) THEN
 *
-*        Move the IFST-th diagonal element forward down the diagonal.
+         // Move the IFST-th diagonal element forward down the diagonal.
 *
          M1 = 0
          M2 = -1
          M3 = 1
       ELSE
 *
-*        Move the IFST-th diagonal element backward up the diagonal.
+         // Move the IFST-th diagonal element backward up the diagonal.
 *
          M1 = -1
          M2 = 0
@@ -76,16 +76,16 @@
 *
       DO 10 K = IFST + M1, ILST + M2, M3
 *
-*        Interchange the k-th and (k+1)-th diagonal elements.
+         // Interchange the k-th and (k+1)-th diagonal elements.
 *
          T11 = T( K, K )
          T22 = T( K+1, K+1 )
 *
-*        Determine the transformation to perform the interchange.
+         // Determine the transformation to perform the interchange.
 *
          CALL CLARTG( T( K, K+1 ), T22-T11, CS, SN, TEMP )
 *
-*        Apply transformation to the matrix T.
+         // Apply transformation to the matrix T.
 *
          IF( K+2.LE.N ) CALL CROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN )
          CALL CROT( K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, CONJG( SN ) )
@@ -95,7 +95,7 @@
 *
          IF( WANTQ ) THEN
 *
-*           Accumulate transformation in the matrix Q.
+            // Accumulate transformation in the matrix Q.
 *
             CALL CROT( N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, CONJG( SN ) )
          END IF
@@ -104,6 +104,6 @@
 *
       RETURN
 *
-*     End of CTREXC
+      // End of CTREXC
 *
       END

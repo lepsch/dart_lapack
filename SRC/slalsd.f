@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDB, N, NRHS, RANK, SMLSIZ;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               B( LDB, * ), D( * ), E( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IWK, J, K, NLVL, NM1, NSIZE, NSUB, NWORK, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z;
       REAL               CS, EPS, ORGNRM, R, RCND, SN, TOL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH, SLANST
       // EXTERNAL ISAMAX, SLAMCH, SLANST
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMM, SLACPY, SLALSA, SLARTG, SLASCL, SLASDA, SLASDQ, SLASET, SLASRT, SROT, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, REAL, SIGN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -55,7 +55,7 @@
 *
       EPS = SLAMCH( 'Epsilon' )
 *
-*     Set up the tolerance.
+      // Set up the tolerance.
 *
       IF( ( RCOND.LE.ZERO ) .OR. ( RCOND.GE.ONE ) ) THEN
          RCND = EPS
@@ -65,7 +65,7 @@
 *
       RANK = 0
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) THEN
          RETURN
@@ -80,7 +80,7 @@
          RETURN
       END IF
 *
-*     Rotate the matrix if it is lower bidiagonal.
+      // Rotate the matrix if it is lower bidiagonal.
 *
       IF( UPLO.EQ.'L' ) THEN
          DO 10 I = 1, N - 1
@@ -106,7 +106,7 @@
          END IF
       END IF
 *
-*     Scale.
+      // Scale.
 *
       NM1 = N - 1
       ORGNRM = SLANST( 'M', N, D, E )
@@ -118,8 +118,8 @@
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO )
       CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, INFO )
 *
-*     If N is smaller than the minimum divide size SMLSIZ, then solve
-*     the problem with another solver.
+      // If N is smaller than the minimum divide size SMLSIZ, then solve
+     t // he problem with another solver.
 *
       IF( N.LE.SMLSIZ ) THEN
          NWORK = 1 + N*N
@@ -140,7 +140,7 @@
          CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO, WORK( NWORK ), N )
          CALL SLACPY( 'A', N, NRHS, WORK( NWORK ), N, B, LDB )
 *
-*        Unscale.
+         // Unscale.
 *
          CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
          CALL SLASRT( 'D', N, D, INFO )
@@ -149,7 +149,7 @@
          RETURN
       END IF
 *
-*     Book-keeping and setting up some constants.
+      // Book-keeping and setting up some constants.
 *
       NLVL = INT( LOG( REAL( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1
 *
@@ -191,26 +191,26 @@
             NSUB = NSUB + 1
             IWORK( NSUB ) = ST
 *
-*           Subproblem found. First determine its size and then
-*           apply divide and conquer on it.
+            // Subproblem found. First determine its size and then
+            // apply divide and conquer on it.
 *
             IF( I.LT.NM1 ) THEN
 *
-*              A subproblem with E(I) small for I < NM1.
+               // A subproblem with E(I) small for I < NM1.
 *
                NSIZE = I - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
             ELSE IF( ABS( E( I ) ).GE.EPS ) THEN
 *
-*              A subproblem with E(NM1) not too small but I = NM1.
+               // A subproblem with E(NM1) not too small but I = NM1.
 *
                NSIZE = N - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
             ELSE
 *
-*              A subproblem with E(NM1) small. This implies an
-*              1-by-1 subproblem at D(N), which is not solved
-*              explicitly.
+               // A subproblem with E(NM1) small. This implies an
+               // 1-by-1 subproblem at D(N), which is not solved
+               // explicitly.
 *
                NSIZE = I - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
@@ -222,13 +222,13 @@
             ST1 = ST - 1
             IF( NSIZE.EQ.1 ) THEN
 *
-*              This is a 1-by-1 subproblem and is not solved
-*              explicitly.
+               // This is a 1-by-1 subproblem and is not solved
+               // explicitly.
 *
                CALL SCOPY( NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
             ELSE IF( NSIZE.LE.SMLSIZ ) THEN
 *
-*              This is a small subproblem and is solved by SLASDQ.
+               // This is a small subproblem and is solved by SLASDQ.
 *
                CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, WORK( VT+ST1 ), N )                CALL SLASDQ( 'U', 0, NSIZE, NSIZE, 0, NRHS, D( ST ), E( ST ), WORK( VT+ST1 ), N, WORK( NWORK ), N, B( ST, 1 ), LDB, WORK( NWORK ), INFO )
                IF( INFO.NE.0 ) THEN
@@ -237,7 +237,7 @@
                CALL SLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
             ELSE
 *
-*              A large problem. Solve it using divide and conquer.
+               // A large problem. Solve it using divide and conquer.
 *
                CALL SLASDA( ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO )
                IF( INFO.NE.0 ) THEN
@@ -253,14 +253,14 @@
          END IF
    60 CONTINUE
 *
-*     Apply the singular values and treat the tiny ones as zero.
+      // Apply the singular values and treat the tiny ones as zero.
 *
       TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
 *
       DO 70 I = 1, N
 *
-*        Some of the elements in D can be negative because 1-by-1
-*        subproblems were not solved explicitly.
+         // Some of the elements in D can be negative because 1-by-1
+         // subproblems were not solved explicitly.
 *
          IF( ABS( D( I ) ).LE.TOL ) THEN
             CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, WORK( BX+I-1 ), N )
@@ -271,7 +271,7 @@
          D( I ) = ABS( D( I ) )
    70 CONTINUE
 *
-*     Now apply back the right singular vectors.
+      // Now apply back the right singular vectors.
 *
       ICMPQ2 = 1
       DO 80 I = 1, NSUB
@@ -291,7 +291,7 @@
          END IF
    80 CONTINUE
 *
-*     Unscale and sort the singular values.
+      // Unscale and sort the singular values.
 *
       CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
       CALL SLASRT( 'D', N, D, INFO )
@@ -299,6 +299,6 @@
 *
       RETURN
 *
-*     End of SLALSD
+      // End of SLALSD
 *
       END

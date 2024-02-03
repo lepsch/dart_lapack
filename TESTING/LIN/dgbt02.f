@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                KL, KU, LDA, LDB, LDX, M, N, NRHS;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), X( LDX, * ), RWORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I1, I2, J, KD, N1;
       double             ANORM, BNORM, EPS, TEMP, XNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               DISNAN, LSAME;
       double             DASUM, DLAMCH;
       // EXTERNAL DASUM, DISNAN, DLAMCH, LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGBMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if N = 0 pr NRHS = 0
+      // Quick return if N = 0 pr NRHS = 0
 *
       IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZERO
       IF( LSAME( TRANS, 'N' ) ) THEN
 *
-*        Find norm1(A).
+         // Find norm1(A).
 *
          KD = KU + 1
          DO 10 J = 1, N
@@ -62,7 +62,7 @@
    10    CONTINUE
       ELSE
 *
-*        Find normI(A).
+         // Find normI(A).
 *
          DO 12 I1 = 1, M
             RWORK( I1 ) = ZERO
@@ -89,14 +89,14 @@
          N1 = M
       END IF
 *
-*     Compute B - op(A)*X
+      // Compute B - op(A)*X
 *
       DO 20 J = 1, NRHS
          CALL DGBMV( TRANS, M, N, KL, KU, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 )
    20 CONTINUE
 *
-*     Compute the maximum over the number of right hand sides of
-*        norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
+      // Compute the maximum over the number of right hand sides of
+         // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
 *
       RESID = ZERO
       DO 30 J = 1, NRHS
@@ -111,6 +111,6 @@
 *
       RETURN
 *
-*     End of DGBT02
+      // End of DGBT02
 *
       END

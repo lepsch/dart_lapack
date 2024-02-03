@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * ), S( * )
       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU, UPPER;
       int                I, INFEQU, J, J1, J2;
       REAL               AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANHB, SLAMCH
       // EXTERNAL LSAME, CLANHB, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CLACPY, CLAQHB, CPBCON, CPBEQU, CPBRFS, CPBTRF, CPBTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -51,7 +51,7 @@
          BIGNUM = ONE / SMLNUM
       END IF
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
@@ -101,19 +101,19 @@
 *
       IF( EQUIL ) THEN
 *
-*        Compute row and column scalings to equilibrate the matrix A.
+         // Compute row and column scalings to equilibrate the matrix A.
 *
          CALL CPBEQU( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
-*           Equilibrate the matrix.
+            // Equilibrate the matrix.
 *
             CALL CLAQHB( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, EQUED )
             RCEQU = LSAME( EQUED, 'Y' )
          END IF
       END IF
 *
-*     Scale the right-hand side.
+      // Scale the right-hand side.
 *
       IF( RCEQU ) THEN
          DO 30 J = 1, NRHS
@@ -125,7 +125,7 @@
 *
       IF( NOFACT .OR. EQUIL ) THEN
 *
-*        Compute the Cholesky factorization A = U**H *U or A = L*L**H.
+         // Compute the Cholesky factorization A = U**H *U or A = L*L**H.
 *
          IF( UPPER ) THEN
             DO 40 J = 1, N
@@ -141,7 +141,7 @@
 *
          CALL CPBTRF( UPLO, N, KD, AFB, LDAFB, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 )THEN
             RCOND = ZERO
@@ -149,26 +149,26 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A.
+      // Compute the norm of the matrix A.
 *
       ANORM = CLANHB( '1', UPLO, N, KD, AB, LDAB, RWORK )
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL CPBCON( UPLO, N, KD, AFB, LDAFB, ANORM, RCOND, WORK, RWORK, INFO )
 *
-*     Compute the solution matrix X.
+      // Compute the solution matrix X.
 *
       CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL CPBTRS( UPLO, N, KD, NRHS, AFB, LDAFB, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solution and
-*     compute error bounds and backward error estimates for it.
+      // Use iterative refinement to improve the computed solution and
+      // compute error bounds and backward error estimates for it.
 *
       CALL CPBRFS( UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
-*     Transform the solution matrix X to a solution of the original
-*     system.
+      // Transform the solution matrix X to a solution of the original
+      // system.
 *
       IF( RCEQU ) THEN
          DO 70 J = 1, NRHS
@@ -181,12 +181,12 @@
    80    CONTINUE
       END IF
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *
-*     End of CPBSVX
+      // End of CPBSVX
 *
       END

@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, ITYPE, LDA, LDB, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, HALF;
       PARAMETER          ( ONE = 1.0D0, HALF = 0.5D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                K;
       double             AKK, BKK, CT;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DSCAL, DSYR2, DTRMV, DTRSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -58,11 +58,11 @@
       IF( ITYPE.EQ.1 ) THEN
          IF( UPPER ) THEN
 *
-*           Compute inv(U**T)*A*inv(U)
+            // Compute inv(U**T)*A*inv(U)
 *
             DO 10 K = 1, N
 *
-*              Update the upper triangle of A(k:n,k:n)
+               // Update the upper triangle of A(k:n,k:n)
 *
                AKK = A( K, K )
                BKK = B( K, K )
@@ -76,11 +76,11 @@
    10       CONTINUE
          ELSE
 *
-*           Compute inv(L)*A*inv(L**T)
+            // Compute inv(L)*A*inv(L**T)
 *
             DO 20 K = 1, N
 *
-*              Update the lower triangle of A(k:n,k:n)
+               // Update the lower triangle of A(k:n,k:n)
 *
                AKK = A( K, K )
                BKK = B( K, K )
@@ -99,11 +99,11 @@
       ELSE
          IF( UPPER ) THEN
 *
-*           Compute U*A*U**T
+            // Compute U*A*U**T
 *
             DO 30 K = 1, N
 *
-*              Update the upper triangle of A(1:k,1:k)
+               // Update the upper triangle of A(1:k,1:k)
 *
                AKK = A( K, K )
                BKK = B( K, K )
@@ -117,11 +117,11 @@
    30       CONTINUE
          ELSE
 *
-*           Compute L**T *A*L
+            // Compute L**T *A*L
 *
             DO 40 K = 1, N
 *
-*              Update the lower triangle of A(1:k,1:k)
+               // Update the lower triangle of A(1:k,1:k)
 *
                AKK = A( K, K )
                BKK = B( K, K )
@@ -137,6 +137,6 @@
       END IF
       RETURN
 *
-*     End of DSYGS2
+      // End of DSYGS2
 *
       END

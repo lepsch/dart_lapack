@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            AB( LDAB, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CTBSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -52,35 +52,35 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Solve A*X = B where A = U**H *U.
+         // Solve A*X = B where A = U**H *U.
 *
          DO 10 J = 1, NRHS
 *
-*           Solve U**H *X = B, overwriting B with X.
+            // Solve U**H *X = B, overwriting B with X.
 *
             CALL CTBSV( 'Upper', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
 *
-*           Solve U*X = B, overwriting B with X.
+            // Solve U*X = B, overwriting B with X.
 *
             CALL CTBSV( 'Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
    10    CONTINUE
       ELSE
 *
-*        Solve A*X = B where A = L*L**H.
+         // Solve A*X = B where A = L*L**H.
 *
          DO 20 J = 1, NRHS
 *
-*           Solve L*X = B, overwriting B with X.
+            // Solve L*X = B, overwriting B with X.
 *
             CALL CTBSV( 'Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
 *
-*           Solve L**H *X = B, overwriting B with X.
+            // Solve L**H *X = B, overwriting B with X.
 *
             CALL CTBSV( 'Lower', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
    20    CONTINUE
@@ -88,6 +88,6 @@
 *
       RETURN
 *
-*     End of CPBTRS
+      // End of CPBTRS
 *
       END

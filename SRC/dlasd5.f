@@ -4,27 +4,27 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                I;
       double             DSIGMA, RHO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( 2 ), DELTA( 2 ), WORK( 2 ), Z( 2 );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO, THREE, FOUR;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0, FOUR = 4.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             B, C, DEL, DELSQ, TAU, W;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       DEL = D( 2 ) - D( 1 )
       DELSQ = DEL*( D( 2 )+D( 1 ) )
@@ -34,13 +34,13 @@
             B = DELSQ + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 1 )*Z( 1 )*DELSQ
 *
-*           B > ZERO, always
+            // B > ZERO, always
 *
-*           The following TAU is DSIGMA * DSIGMA - D( 1 ) * D( 1 )
+            // The following TAU is DSIGMA * DSIGMA - D( 1 ) * D( 1 )
 *
             TAU = TWO*C / ( B+SQRT( ABS( B*B-FOUR*C ) ) )
 *
-*           The following TAU is DSIGMA - D( 1 )
+            // The following TAU is DSIGMA - D( 1 )
 *
             TAU = TAU / ( D( 1 )+SQRT( D( 1 )*D( 1 )+TAU ) )
             DSIGMA = D( 1 ) + TAU
@@ -48,13 +48,13 @@
             DELTA( 2 ) = DEL - TAU
             WORK( 1 ) = TWO*D( 1 ) + TAU
             WORK( 2 ) = ( D( 1 )+TAU ) + D( 2 )
-*           DELTA( 1 ) = -Z( 1 ) / TAU
-*           DELTA( 2 ) = Z( 2 ) / ( DEL-TAU )
+            // DELTA( 1 ) = -Z( 1 ) / TAU
+            // DELTA( 2 ) = Z( 2 ) / ( DEL-TAU )
          ELSE
             B = -DELSQ + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 2 )*Z( 2 )*DELSQ
 *
-*           The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
+            // The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
 *
             IF( B.GT.ZERO ) THEN
                TAU = -TWO*C / ( B+SQRT( B*B+FOUR*C ) )
@@ -62,7 +62,7 @@
                TAU = ( B-SQRT( B*B+FOUR*C ) ) / TWO
             END IF
 *
-*           The following TAU is DSIGMA - D( 2 )
+            // The following TAU is DSIGMA - D( 2 )
 *
             TAU = TAU / ( D( 2 )+SQRT( ABS( D( 2 )*D( 2 )+TAU ) ) )
             DSIGMA = D( 2 ) + TAU
@@ -70,20 +70,20 @@
             DELTA( 2 ) = -TAU
             WORK( 1 ) = D( 1 ) + TAU + D( 2 )
             WORK( 2 ) = TWO*D( 2 ) + TAU
-*           DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
-*           DELTA( 2 ) = -Z( 2 ) / TAU
+            // DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
+            // DELTA( 2 ) = -Z( 2 ) / TAU
          END IF
-*        TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
-*        DELTA( 1 ) = DELTA( 1 ) / TEMP
-*        DELTA( 2 ) = DELTA( 2 ) / TEMP
+         // TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
+         // DELTA( 1 ) = DELTA( 1 ) / TEMP
+         // DELTA( 2 ) = DELTA( 2 ) / TEMP
       ELSE
 *
-*        Now I=2
+         // Now I=2
 *
          B = -DELSQ + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
          C = RHO*Z( 2 )*Z( 2 )*DELSQ
 *
-*        The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
+         // The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
 *
          IF( B.GT.ZERO ) THEN
             TAU = ( B+SQRT( B*B+FOUR*C ) ) / TWO
@@ -91,7 +91,7 @@
             TAU = TWO*C / ( -B+SQRT( B*B+FOUR*C ) )
          END IF
 *
-*        The following TAU is DSIGMA - D( 2 )
+         // The following TAU is DSIGMA - D( 2 )
 *
          TAU = TAU / ( D( 2 )+SQRT( D( 2 )*D( 2 )+TAU ) )
          DSIGMA = D( 2 ) + TAU
@@ -99,14 +99,14 @@
          DELTA( 2 ) = -TAU
          WORK( 1 ) = D( 1 ) + TAU + D( 2 )
          WORK( 2 ) = TWO*D( 2 ) + TAU
-*        DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
-*        DELTA( 2 ) = -Z( 2 ) / TAU
-*        TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
-*        DELTA( 1 ) = DELTA( 1 ) / TEMP
-*        DELTA( 2 ) = DELTA( 2 ) / TEMP
+         // DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
+         // DELTA( 2 ) = -Z( 2 ) / TAU
+         // TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
+         // DELTA( 1 ) = DELTA( 1 ) / TEMP
+         // DELTA( 2 ) = DELTA( 2 ) / TEMP
       END IF
       RETURN
 *
-*     End of DLASD5
+      // End of DLASD5
 *
       END

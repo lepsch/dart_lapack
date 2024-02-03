@@ -5,47 +5,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             BALANC, JOBVL, JOBVR, SENSE;
       int                IHI, ILO, INFO, LDA, LDVL, LDVR, LWORK, N;
       double             ABNRM;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * )       COMPLEX*16         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV;
       String             JOB, SIDE;
       int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
       double             ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
       COMPLEX*16         TMP
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SELECT( 1 );
       double             DUM( 1 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASCL, XERBLA, ZDSCAL, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEQR, ZLACPY, ZLASCL, ZSCAL, ZTREVC3, ZTRSNA, ZUNGHR
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX, ILAENV;
       double             DLAMCH, DZNRM2, ZLANGE;
       // EXTERNAL LSAME, IDAMAX, ILAENV, DLAMCH, DZNRM2, ZLANGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, CONJG, AIMAG, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -73,16 +73,16 @@
          INFO = -12
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       CWorkspace refers to complex workspace, and RWorkspace to real
-*       workspace. NB refers to the optimal block size for the
-*       immediately following subroutine, as returned by ILAENV.
-*       HSWORK refers to the workspace preferred by ZHSEQR, as
-*       calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-*       the worst case.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // CWorkspace refers to complex workspace, and RWorkspace to real
+        // workspace. NB refers to the optimal block size for the
+        // immediately following subroutine, as returned by ILAENV.
+        // HSWORK refers to the workspace preferred by ZHSEQR, as
+        // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
+       t // he worst case.)
 *
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
@@ -138,11 +138,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' )
@@ -150,7 +150,7 @@
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ICOND = 0
       ANRM = ZLANGE( 'M', N, N, A, LDA, DUM )
@@ -164,7 +164,7 @@
       END IF
       IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 *
-*     Balance the matrix and compute ABNRM
+      // Balance the matrix and compute ABNRM
 *
       CALL ZGEBAL( BALANC, N, A, LDA, ILO, IHI, SCALE, IERR )
       ABNRM = ZLANGE( '1', N, N, A, LDA, DUM )
@@ -174,9 +174,9 @@
          ABNRM = DUM( 1 )
       END IF
 *
-*     Reduce to upper Hessenberg form
-*     (CWorkspace: need 2*N, prefer N+N*NB)
-*     (RWorkspace: none)
+      // Reduce to upper Hessenberg form
+      // (CWorkspace: need 2*N, prefer N+N*NB)
+      // (RWorkspace: none)
 *
       ITAU = 1
       IWRK = ITAU + N
@@ -184,29 +184,29 @@
 *
       IF( WANTVL ) THEN
 *
-*        Want left eigenvectors
-*        Copy Householder vectors to VL
+         // Want left eigenvectors
+         // Copy Householder vectors to VL
 *
          SIDE = 'L'
          CALL ZLACPY( 'L', N, N, A, LDA, VL, LDVL )
 *
-*        Generate unitary matrix in VL
-*        (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
-*        (RWorkspace: none)
+         // Generate unitary matrix in VL
+         // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
+         // (RWorkspace: none)
 *
          CALL ZUNGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
-*        Perform QR iteration, accumulating Schur vectors in VL
-*        (CWorkspace: need 1, prefer HSWORK (see comments) )
-*        (RWorkspace: none)
+         // Perform QR iteration, accumulating Schur vectors in VL
+         // (CWorkspace: need 1, prefer HSWORK (see comments) )
+         // (RWorkspace: none)
 *
          IWRK = ITAU
          CALL ZHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
          IF( WANTVR ) THEN
 *
-*           Want left and right eigenvectors
-*           Copy Schur vectors to VR
+            // Want left and right eigenvectors
+            // Copy Schur vectors to VR
 *
             SIDE = 'B'
             CALL ZLACPY( 'F', N, N, VL, LDVL, VR, LDVR )
@@ -214,29 +214,29 @@
 *
       ELSE IF( WANTVR ) THEN
 *
-*        Want right eigenvectors
-*        Copy Householder vectors to VR
+         // Want right eigenvectors
+         // Copy Householder vectors to VR
 *
          SIDE = 'R'
          CALL ZLACPY( 'L', N, N, A, LDA, VR, LDVR )
 *
-*        Generate unitary matrix in VR
-*        (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
-*        (RWorkspace: none)
+         // Generate unitary matrix in VR
+         // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
+         // (RWorkspace: none)
 *
          CALL ZUNGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
-*        Perform QR iteration, accumulating Schur vectors in VR
-*        (CWorkspace: need 1, prefer HSWORK (see comments) )
-*        (RWorkspace: none)
+         // Perform QR iteration, accumulating Schur vectors in VR
+         // (CWorkspace: need 1, prefer HSWORK (see comments) )
+         // (RWorkspace: none)
 *
          IWRK = ITAU
          CALL ZHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
       ELSE
 *
-*        Compute eigenvalues only
-*        If condition numbers desired, compute Schur form
+         // Compute eigenvalues only
+         // If condition numbers desired, compute Schur form
 *
          IF( WNTSNN ) THEN
             JOB = 'E'
@@ -244,29 +244,29 @@
             JOB = 'S'
          END IF
 *
-*        (CWorkspace: need 1, prefer HSWORK (see comments) )
-*        (RWorkspace: none)
+         // (CWorkspace: need 1, prefer HSWORK (see comments) )
+         // (RWorkspace: none)
 *
          IWRK = ITAU
          CALL ZHSEQR( JOB, 'N', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
       END IF
 *
-*     If INFO .NE. 0 from ZHSEQR, then quit
+      // If INFO .NE. 0 from ZHSEQR, then quit
 *
       IF( INFO.NE.0 ) GO TO 50
 *
       IF( WANTVL .OR. WANTVR ) THEN
 *
-*        Compute left and/or right eigenvectors
-*        (CWorkspace: need 2*N, prefer N + 2*N*NB)
-*        (RWorkspace: need N)
+         // Compute left and/or right eigenvectors
+         // (CWorkspace: need 2*N, prefer N + 2*N*NB)
+         // (RWorkspace: need N)
 *
          CALL ZTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, RWORK, N, IERR )
       END IF
 *
-*     Compute condition numbers if desired
-*     (CWorkspace: need N*N+2*N unless SENSE = 'E')
-*     (RWorkspace: need 2*N unless SENSE = 'E')
+      // Compute condition numbers if desired
+      // (CWorkspace: need N*N+2*N unless SENSE = 'E')
+      // (RWorkspace: need 2*N unless SENSE = 'E')
 *
       IF( .NOT.WNTSNN ) THEN
          CALL ZTRSNA( SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, RWORK, ICOND )
@@ -274,11 +274,11 @@
 *
       IF( WANTVL ) THEN
 *
-*        Undo balancing of left eigenvectors
+         // Undo balancing of left eigenvectors
 *
          CALL ZGEBAK( BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL, IERR )
 *
-*        Normalize left eigenvectors and make largest component real
+         // Normalize left eigenvectors and make largest component real
 *
          DO 20 I = 1, N
             SCL = ONE / DZNRM2( N, VL( 1, I ), 1 )
@@ -295,11 +295,11 @@
 *
       IF( WANTVR ) THEN
 *
-*        Undo balancing of right eigenvectors
+         // Undo balancing of right eigenvectors
 *
          CALL ZGEBAK( BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR, IERR )
 *
-*        Normalize right eigenvectors and make largest component real
+         // Normalize right eigenvectors and make largest component real
 *
          DO 40 I = 1, N
             SCL = ONE / DZNRM2( N, VR( 1, I ), 1 )
@@ -314,7 +314,7 @@
    40    CONTINUE
       END IF
 *
-*     Undo scaling if necessary
+      // Undo scaling if necessary
 *
    50 CONTINUE
       IF( SCALEA ) THEN
@@ -329,6 +329,6 @@
       WORK( 1 ) = MAXWRK
       RETURN
 *
-*     End of ZGEEVX
+      // End of ZGEEVX
 *
       END

@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDWORK, N;
       double             RCOND, RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( * ), AINV( * ), RWORK( * ), WORK( LDWORK, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, JJ;
       double             AINVNM, ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE, DLANSP;
       // EXTERNAL LSAME, DLAMCH, DLANGE, DLANSP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DSPMV
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RCOND = ONE
@@ -44,7 +44,7 @@
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANSP( '1', UPLO, N, A, RWORK )
@@ -56,14 +56,14 @@
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
 *
-*     UPLO = 'U':
-*     Copy the leading N-1 x N-1 submatrix of AINV to WORK(1:N,2:N) and
-*     expand it to a full matrix, then multiply by A one column at a
-*     time, moving the result one column to the left.
+      // UPLO = 'U':
+      // Copy the leading N-1 x N-1 submatrix of AINV to WORK(1:N,2:N) and
+      // expand it to a full matrix, then multiply by A one column at a
+     t // ime, moving the result one column to the left.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Copy AINV
+         // Copy AINV
 *
          JJ = 1
          DO 10 J = 1, N - 1
@@ -74,20 +74,20 @@
          JJ = ( ( N-1 )*N ) / 2 + 1
          CALL DCOPY( N-1, AINV( JJ ), 1, WORK( N, 2 ), LDWORK )
 *
-*        Multiply by A
+         // Multiply by A
 *
          DO 20 J = 1, N - 1
             CALL DSPMV( 'Upper', N, -ONE, A, WORK( 1, J+1 ), 1, ZERO, WORK( 1, J ), 1 )
    20    CONTINUE
          CALL DSPMV( 'Upper', N, -ONE, A, AINV( JJ ), 1, ZERO, WORK( 1, N ), 1 )
 *
-*     UPLO = 'L':
-*     Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
-*     and multiply by A, moving each column to the right.
+      // UPLO = 'L':
+      // Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
+      // and multiply by A, moving each column to the right.
 *
       ELSE
 *
-*        Copy AINV
+         // Copy AINV
 *
          CALL DCOPY( N-1, AINV( 2 ), 1, WORK( 1, 1 ), LDWORK )
          JJ = N + 1
@@ -97,7 +97,7 @@
             JJ = JJ + N - J + 1
    30    CONTINUE
 *
-*        Multiply by A
+         // Multiply by A
 *
          DO 40 J = N, 2, -1
             CALL DSPMV( 'Lower', N, -ONE, A, WORK( 1, J-1 ), 1, ZERO, WORK( 1, J ), 1 )
@@ -106,13 +106,13 @@
 *
       END IF
 *
-*     Add the identity matrix to WORK .
+      // Add the identity matrix to WORK .
 *
       DO 50 I = 1, N
          WORK( I, I ) = WORK( I, I ) + ONE
    50 CONTINUE
 *
-*     Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
+      // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 *
       RESID = DLANGE( '1', N, N, WORK, LDWORK, RWORK )
 *
@@ -120,6 +120,6 @@
 *
       RETURN
 *
-*     End of DPPT03
+      // End of DPPT03
 *
       END

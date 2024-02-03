@@ -4,27 +4,27 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String            PATH;
       int               IOUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       String            C2;
       int               ITYPE;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool              LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( IOUNIT.LE.0 ) RETURN
       C2 = PATH( 1: 3 )
 *
-*     First line describing matrices in this path
+      // First line describing matrices in this path
 *
       IF( LSAMEN( 3, C2, 'GQR' ) ) THEN
          ITYPE = 1
@@ -46,7 +46,7 @@
          WRITE( IOUNIT, FMT = 9996 )PATH
       END IF
 *
-*     Matrix types
+      // Matrix types
 *
       WRITE( IOUNIT, FMT = 9999 )'Matrix types: '
 *
@@ -101,13 +101,13 @@
          WRITE( IOUNIT, FMT = 9965 )3
       END IF
 *
-*     Tests performed
+      // Tests performed
 *
       WRITE( IOUNIT, FMT = 9999 )'Test ratios: '
 *
       IF( ITYPE.EQ.1 ) THEN
 *
-*        GQR decomposition of rectangular matrices
+         // GQR decomposition of rectangular matrices
 *
          WRITE( IOUNIT, FMT = 9930 )1
          WRITE( IOUNIT, FMT = 9931 )2
@@ -115,7 +115,7 @@
          WRITE( IOUNIT, FMT = 9933 )4
       ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*        GRQ decomposition of rectangular matrices
+         // GRQ decomposition of rectangular matrices
 *
          WRITE( IOUNIT, FMT = 9934 )1
          WRITE( IOUNIT, FMT = 9935 )2
@@ -123,18 +123,18 @@
          WRITE( IOUNIT, FMT = 9933 )4
       ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*        LSE Problem
+         // LSE Problem
 *
          WRITE( IOUNIT, FMT = 9937 )1
          WRITE( IOUNIT, FMT = 9938 )2
       ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*        GLM Problem
+         // GLM Problem
 *
          WRITE( IOUNIT, FMT = 9939 )1
       ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*        GSVD
+         // GSVD
 *
          WRITE( IOUNIT, FMT = 9940 )1
          WRITE( IOUNIT, FMT = 9941 )2
@@ -143,7 +143,7 @@
          WRITE( IOUNIT, FMT = 9944 )5
       ELSE IF( ITYPE.EQ.6 ) THEN
 *
-*        CSD
+         // CSD
 *
          WRITE( IOUNIT, FMT = 9910 )
          WRITE( IOUNIT, FMT = 9911 )1
@@ -198,7 +198,7 @@
      $      'angles atan2( S, C ) in CS decomposition' )
 *
 *
-*     GQR test ratio
+      // GQR test ratio
 *
  9930 FORMAT( 3X, I2, ': norm( R - Q'' * A ) / ( min( N, M )*norm( A )',
      $       '* EPS )' )
@@ -207,24 +207,24 @@
  9932 FORMAT( 3X, I2, ': norm( I - Q''*Q )   / ( N * EPS )' )
  9933 FORMAT( 3X, I2, ': norm( I - Z''*Z )   / ( P * EPS )' )
 *
-*     GRQ test ratio
+      // GRQ test ratio
 *
  9934 FORMAT( 3X, I2, ': norm( R - A * Q'' ) / ( min( N,M )*norm(A) * ',
      $       'EPS )' )
  9935 FORMAT( 3X, I2, ': norm( T * Q - Z'' * B )  / ( min( P,N ) * nor',
      $       'm(B)*EPS )' )
 *
-*     LSE test ratio
+      // LSE test ratio
 *
  9937 FORMAT( 3X, I2, ': norm( A*x - c )  / ( norm(A)*norm(x) * EPS )' )
  9938 FORMAT( 3X, I2, ': norm( B*x - d )  / ( norm(B)*norm(x) * EPS )' )
 *
-*     GLM test ratio
+      // GLM test ratio
 *
  9939 FORMAT( 3X, I2, ': norm( d - A*x - B*y ) / ( (norm(A)+norm(B) )*',
      $       '(norm(x)+norm(y))*EPS )' )
 *
-*     GSVD test ratio
+      // GSVD test ratio
 *
  9940 FORMAT( 3X, I2, ': norm( U'' * A * Q - D1 * R ) / ( min( M, N )*',
      $       'norm( A ) * EPS )' )
@@ -234,7 +234,7 @@
  9943 FORMAT( 3X, I2, ': norm( I - V''*V )   / ( P * EPS )' )
  9944 FORMAT( 3X, I2, ': norm( I - Q''*Q )   / ( N * EPS )' )
 *
-*     CSD test ratio
+      // CSD test ratio
 *
  9910 FORMAT( 3X, '2-by-2 CSD' )
  9911 FORMAT( 3X, I2, ': norm( U1'' * X11 * V1 - C ) / ( max(  P,  Q)',
@@ -261,6 +261,6 @@
  9926 FORMAT( 3X, I2, ': principal angle ordering ( 0 or ULP )' )
       RETURN
 *
-*     End of ALAHDG
+      // End of ALAHDG
 *
       END

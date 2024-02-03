@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N, MB, NB, LWORK, LDT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), WORK( * ), T( LDT, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                I, II, KK, CTR, MINMN, LWMIN;
-*     ..
-*     .. EXTERNAL FUNCTIONS ..
+      // ..
+      // .. EXTERNAL FUNCTIONS ..
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
-*     ..
-*     .. EXTERNAL SUBROUTINES ..
+      // ..
+      // .. EXTERNAL SUBROUTINES ..
       // EXTERNAL CGELQT, CTPLQT, XERBLA
-*     ..
-*     .. INTRINSIC FUNCTIONS ..
+      // ..
+      // .. INTRINSIC FUNCTIONS ..
       // INTRINSIC MAX, MIN, MOD
-*     ..
-*     .. EXECUTABLE STATEMENTS ..
+      // ..
+      // .. EXECUTABLE STATEMENTS ..
 *
-*     TEST THE INPUT ARGUMENTS
+      // TEST THE INPUT ARGUMENTS
 *
       INFO = 0
 *
@@ -72,13 +72,13 @@
         RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MINMN.EQ.0 ) THEN
         RETURN
       END IF
 *
-*     The LQ Decomposition
+      // The LQ Decomposition
 *
       IF( (M.GE.N) .OR. (NB.LE.M) .OR. (NB.GE.N) ) THEN
         CALL CGELQT( M, N, MB, A, LDA, T, LDT, WORK, INFO)
@@ -88,20 +88,20 @@
       KK = MOD((N-M),(NB-M))
       II = N-KK+1
 *
-*     Compute the LQ factorization of the first block A(1:M,1:NB)
+      // Compute the LQ factorization of the first block A(1:M,1:NB)
 *
       CALL CGELQT( M, NB, MB, A(1,1), LDA, T, LDT, WORK, INFO)
       CTR = 1
 *
       DO I = NB+1, II-NB+M , (NB-M)
 *
-*       Compute the QR factorization of the current block A(1:M,I:I+NB-M)
+        // Compute the QR factorization of the current block A(1:M,I:I+NB-M)
 *
         CALL CTPLQT( M, NB-M, 0, MB, A(1,1), LDA, A( 1, I ), LDA, T(1,CTR*M+1), LDT, WORK, INFO )
         CTR = CTR + 1
       END DO
 *
-*     Compute the QR factorization of the last block A(1:M,II:N)
+      // Compute the QR factorization of the last block A(1:M,II:N)
 *
       IF( II.LE.N ) THEN
         CALL CTPLQT( M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1,CTR*M+1), LDT, WORK, INFO )
@@ -110,6 +110,6 @@
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
       RETURN
 *
-*     End of CLASWLQ
+      // End of CLASWLQ
 *
       END

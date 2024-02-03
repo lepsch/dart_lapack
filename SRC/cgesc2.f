@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, N;
       REAL               SCALE
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
       COMPLEX            A( LDA, * ), RHS( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       REAL               BIGNUM, EPS, SMLNUM
       COMPLEX            TEMP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLASWP, CSCAL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ICAMAX;
       REAL               SLAMCH
       // EXTERNAL ICAMAX, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Set constant to control overflow
+      // Set constant to control overflow
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Apply permutations IPIV to RHS
+      // Apply permutations IPIV to RHS
 *
       CALL CLASWP( 1, RHS, LDA, 1, N-1, IPIV, 1 )
 *
-*     Solve for L part
+      // Solve for L part
 *
       DO 20 I = 1, N - 1
          DO 10 J = I + 1, N
@@ -55,11 +55,11 @@
    10    CONTINUE
    20 CONTINUE
 *
-*     Solve for U part
+      // Solve for U part
 *
       SCALE = ONE
 *
-*     Check for scaling
+      // Check for scaling
 *
       I = ICAMAX( N, RHS, 1 )
       IF( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) THEN
@@ -75,11 +75,11 @@
    30    CONTINUE
    40 CONTINUE
 *
-*     Apply permutations JPIV to the solution (RHS)
+      // Apply permutations JPIV to the solution (RHS)
 *
       CALL CLASWP( 1, RHS, LDA, 1, N-1, JPIV, -1 )
       RETURN
 *
-*     End of CGESC2
+      // End of CGESC2
 *
       END

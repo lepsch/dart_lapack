@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INCX, INCY, K, LDA, N;
       COMPLEX            ALPHA, BETA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), X( * ), Y( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, IX, IY, J, JX, JY, KPLUS1, KX, KY, L;
       COMPLEX            TEMP1, TEMP2
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -58,11 +58,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( ( N.EQ.0 ) .OR. ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ONE ) ) ) RETURN
 *
-*     Set up the start points in  X  and  Y.
+      // Set up the start points in  X  and  Y.
 *
       IF( INCX.GT.0 ) THEN
          KX = 1
@@ -75,10 +75,10 @@
          KY = 1 - ( N-1 )*INCY
       END IF
 *
-*     Start the operations. In this version the elements of the array A
-*     are accessed sequentially with one pass through A.
+      // Start the operations. In this version the elements of the array A
+      // are accessed sequentially with one pass through A.
 *
-*     First form  y := beta*y.
+      // First form  y := beta*y.
 *
       IF( BETA.NE.ONE ) THEN
          IF( INCY.EQ.1 ) THEN
@@ -109,7 +109,7 @@
       IF( ALPHA.EQ.ZERO ) RETURN
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Form  y  when upper triangle of A is stored.
+         // Form  y  when upper triangle of A is stored.
 *
          KPLUS1 = K + 1
          IF( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) THEN
@@ -149,7 +149,7 @@
          END IF
       ELSE
 *
-*        Form  y  when lower triangle of A is stored.
+         // Form  y  when lower triangle of A is stored.
 *
          IF( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) THEN
             DO 100 J = 1, N
@@ -188,6 +188,6 @@
 *
       RETURN
 *
-*     End of CSBMV
+      // End of CSBMV
 *
       END

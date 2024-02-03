@@ -4,49 +4,49 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
       COMPLEX            A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IP, IPV, J, JP, JPV;
       REAL               BIGNUM, EPS, SMIN, SMLNUM, XMAX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGERU, CSWAP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Set constants to control overflow
+      // Set constants to control overflow
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Handle the case N=1 by itself
+      // Handle the case N=1 by itself
 *
       IF( N.EQ.1 ) THEN
          IPIV( 1 ) = 1
@@ -58,12 +58,12 @@
          RETURN
       END IF
 *
-*     Factorize A using complete pivoting.
-*     Set pivots less than SMIN to SMIN
+      // Factorize A using complete pivoting.
+      // Set pivots less than SMIN to SMIN
 *
       DO 40 I = 1, N - 1
 *
-*        Find max element in matrix A
+         // Find max element in matrix A
 *
          XMAX = ZERO
          DO 20 IP = I, N
@@ -77,17 +77,17 @@
    20    CONTINUE
          IF( I.EQ.1 ) SMIN = MAX( EPS*XMAX, SMLNUM )
 *
-*        Swap rows
+         // Swap rows
 *
          IF( IPV.NE.I ) CALL CSWAP( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA )
          IPIV( I ) = IPV
 *
-*        Swap columns
+         // Swap columns
 *
          IF( JPV.NE.I ) CALL CSWAP( N, A( 1, JPV ), 1, A( 1, I ), 1 )
          JPIV( I ) = JPV
 *
-*        Check for singularity
+         // Check for singularity
 *
          IF( ABS( A( I, I ) ).LT.SMIN ) THEN
             INFO = I
@@ -104,13 +104,13 @@
          A( N, N ) = CMPLX( SMIN, ZERO )
       END IF
 *
-*     Set last pivots to N
+      // Set last pivots to N
 *
       IPIV( N ) = N
       JPIV( N ) = N
 *
       RETURN
 *
-*     End of CGETC2
+      // End of CGETC2
 *
       END

@@ -4,32 +4,32 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16 ALPHA
       int     INCX,INCY,LDA,M,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16 A(LDA,*),X(*),Y(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16 ZERO
       PARAMETER (ZERO= (0.0D+0,0.0D+0))
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16 TEMP
       int     I,INFO,IX,J,JY,KX;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF (M.LT.0) THEN
@@ -48,12 +48,12 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (ALPHA.EQ.ZERO)) RETURN
 *
-*     Start the operations. In this version the elements of A are
-*     accessed sequentially with one pass through A.
+      // Start the operations. In this version the elements of A are
+      // accessed sequentially with one pass through A.
 *
       IF (INCY.GT.0) THEN
           JY = 1
@@ -91,6 +91,6 @@
 *
       RETURN
 *
-*     End of ZGERU
+      // End of ZGERU
 *
       END

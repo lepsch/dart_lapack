@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DASUM, DLAMCH, DLANGE;
       // EXTERNAL LSAME, IDAMAX, DASUM, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       RESID = ZERO
       IF( MIN( M, N ).LE.0 .OR. NS.LE.0 ) RETURN
@@ -44,11 +44,11 @@
       EPS = DLAMCH( 'Precision' )
       ANORM = DLANGE( 'M', M, N, A, LDA, WORK )
 *
-*     Compute U' * A * V.
+      // Compute U' * A * V.
 *
       CALL DGEMM( 'N', 'T', M, NS, N, ONE, A, LDA, VT, LDVT, ZERO, WORK( 1+NS*NS ), M )       CALL DGEMM( 'T', 'N', NS, NS, M, -ONE, U, LDU, WORK( 1+NS*NS ), M, ZERO, WORK, NS )
 *
-*     norm(S - U' * B * V)
+      // norm(S - U' * B * V)
 *
       J = 0
       DO 10 I = 1, NS
@@ -73,6 +73,6 @@
 *
       RETURN
 *
-*     End of DBDT05
+      // End of DBDT05
 *
       END

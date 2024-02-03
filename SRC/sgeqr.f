@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N, TSIZE, LWORK;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), T( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, LMINWS, MINT, MINW;
       int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWREQ;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
       REAL               SROUNDUP_LWORK
       // EXTERNAL SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLATSQR, SGEQRT, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, MOD
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. Executable statements ..
+      // ..
+      // .. Executable statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
 *
@@ -49,7 +49,7 @@
         IF( LWORK.NE.-1 ) MINW = .TRUE.
       END IF
 *
-*     Determine the block size
+      // Determine the block size
 *
       IF( MIN( M, N ).GT.0 ) THEN
         MB = ILAENV( 1, 'SGEQR ', ' ', M, N, 1, -1 )
@@ -71,7 +71,7 @@
         NBLCKS = 1
       END IF
 *
-*     Determine if the workspace size satisfies minimal size
+      // Determine if the workspace size satisfies minimal size
 *
       LWMIN = MAX( 1, N )
       LWREQ = MAX( 1, N*NB )
@@ -121,13 +121,13 @@
         RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MIN( M, N ).EQ.0 ) THEN
         RETURN
       END IF
 *
-*     The QR Decomposition
+      // The QR Decomposition
 *
       IF( ( M.LE.N ) .OR. ( MB.LE.N ) .OR. ( MB.GE.M ) ) THEN
         CALL SGEQRT( M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO )
@@ -139,6 +139,6 @@
 *
       RETURN
 *
-*     End of SGEQR
+      // End of SGEQR
 *
       END

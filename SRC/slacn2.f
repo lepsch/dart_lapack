@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KASE, N;
       REAL               EST
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISGN( * ), ISAVE( 3 );
       REAL               V( * ), X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                ITMAX;
       PARAMETER          ( ITMAX = 5 )
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, JLAST;
       REAL               ALTSGN, ESTOLD, TEMP, XS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SASUM
       // EXTERNAL ISAMAX, SASUM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, NINT, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( KASE.EQ.0 ) THEN
          DO 10 I = 1, N
@@ -49,14 +49,14 @@
 *
       GO TO ( 20, 40, 70, 110, 140 )ISAVE( 1 )
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 1)
-*     FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 1)
+      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 *
    20 CONTINUE
       IF( N.EQ.1 ) THEN
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
-*        ... QUIT
+         // ... QUIT
          GO TO 150
       END IF
       EST = SASUM( N, X, 1 )
@@ -73,14 +73,14 @@
       ISAVE( 1 ) = 2
       RETURN
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 2)
-*     FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 2)
+      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 *
    40 CONTINUE
       ISAVE( 2 ) = ISAMAX( N, X, 1 )
       ISAVE( 3 ) = 2
 *
-*     MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
+      // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 *
    50 CONTINUE
       DO 60 I = 1, N
@@ -91,8 +91,8 @@
       ISAVE( 1 ) = 3
       RETURN
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 3)
-*     X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 3)
+      // X HAS BEEN OVERWRITTEN BY A*X.
 *
    70 CONTINUE
       CALL SCOPY( N, X, 1, V, 1 )
@@ -106,11 +106,11 @@
          END IF
          IF( NINT( XS ).NE.ISGN( I ) ) GO TO 90
    80 CONTINUE
-*     REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
+      // REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120
 *
    90 CONTINUE
-*     TEST FOR CYCLING.
+      // TEST FOR CYCLING.
       IF( EST.LE.ESTOLD ) GO TO 120
 *
       DO 100 I = 1, N
@@ -125,8 +125,8 @@
       ISAVE( 1 ) = 4
       RETURN
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 4)
-*     X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 4)
+      // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 *
   110 CONTINUE
       JLAST = ISAVE( 2 )
@@ -136,7 +136,7 @@
          GO TO 50
       END IF
 *
-*     ITERATION COMPLETE.  FINAL STAGE.
+      // ITERATION COMPLETE.  FINAL STAGE.
 *
   120 CONTINUE
       ALTSGN = ONE
@@ -148,8 +148,8 @@
       ISAVE( 1 ) = 5
       RETURN
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 5)
-*     X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 5)
+      // X HAS BEEN OVERWRITTEN BY A*X.
 *
   140 CONTINUE
       TEMP = TWO*( SASUM( N, X, 1 ) / REAL( 3*N ) )
@@ -162,6 +162,6 @@
       KASE = 0
       RETURN
 *
-*     End of SLACN2
+      // End of SLACN2
 *
       END

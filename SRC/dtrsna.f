@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             HOWMNY, JOB;
       int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
       double             S( * ), SEP( * ), T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               PAIR, SOMCON, WANTBH, WANTS, WANTSP;
       int                I, IERR, IFST, ILST, J, K, KASE, KS, N2, NN;
       double             BIGNUM, COND, CS, DELTA, DUMM, EPS, EST, LNRM, MU, PROD, PROD1, PROD2, RNRM, SCALE, SMLNUM, SN;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
       double             DUMMY( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT, DLAMCH, DLAPY2, DNRM2;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLAPY2, DNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLACN2, DLACPY, DLAQTR, DTREXC, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       WANTBH = LSAME( JOB, 'B' )
       WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
@@ -65,8 +65,8 @@
          INFO = -10
       ELSE
 *
-*        Set M to the number of eigenpairs for which condition numbers
-*        are required, and test MM.
+         // Set M to the number of eigenpairs for which condition numbers
+         // are required, and test MM.
 *
          IF( SOMCON ) THEN
             M = 0
@@ -102,7 +102,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -114,7 +114,7 @@
          RETURN
       END IF
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
@@ -124,7 +124,7 @@
       PAIR = .FALSE.
       DO 60 K = 1, N
 *
-*        Determine whether T(k,k) begins a 1-by-1 or 2-by-2 block.
+         // Determine whether T(k,k) begins a 1-by-1 or 2-by-2 block.
 *
          IF( PAIR ) THEN
             PAIR = .FALSE.
@@ -133,8 +133,8 @@
             IF( K.LT.N ) PAIR = T( K+1, K ).NE.ZERO
          END IF
 *
-*        Determine whether condition numbers are required for the k-th
-*        eigenpair.
+         // Determine whether condition numbers are required for the k-th
+         // eigenpair.
 *
          IF( SOMCON ) THEN
             IF( PAIR ) THEN
@@ -148,12 +148,12 @@
 *
          IF( WANTS ) THEN
 *
-*           Compute the reciprocal condition number of the k-th
-*           eigenvalue.
+            // Compute the reciprocal condition number of the k-th
+            // eigenvalue.
 *
             IF( .NOT.PAIR ) THEN
 *
-*              Real eigenvalue.
+               // Real eigenvalue.
 *
                PROD = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 )
                RNRM = DNRM2( N, VR( 1, KS ), 1 )
@@ -161,7 +161,7 @@
                S( KS ) = ABS( PROD ) / ( RNRM*LNRM )
             ELSE
 *
-*              Complex eigenvalue.
+               // Complex eigenvalue.
 *
                PROD1 = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 )
                PROD1 = PROD1 + DDOT( N, VR( 1, KS+1 ), 1, VL( 1, KS+1 ), 1 )
@@ -175,11 +175,11 @@
 *
          IF( WANTSP ) THEN
 *
-*           Estimate the reciprocal condition number of the k-th
-*           eigenvector.
+            // Estimate the reciprocal condition number of the k-th
+            // eigenvector.
 *
-*           Copy the matrix T to the array WORK and swap the diagonal
-*           block beginning at T(k,k) to the (1,1) position.
+            // Copy the matrix T to the array WORK and swap the diagonal
+            // block beginning at T(k,k) to the (1,1) position.
 *
             CALL DLACPY( 'Full', N, N, T, LDT, WORK, LDWORK )
             IFST = K
@@ -188,17 +188,17 @@
 *
             IF( IERR.EQ.1 .OR. IERR.EQ.2 ) THEN
 *
-*              Could not swap because blocks not well separated
+               // Could not swap because blocks not well separated
 *
                SCALE = ONE
                EST = BIGNUM
             ELSE
 *
-*              Reordering successful
+               // Reordering successful
 *
                IF( WORK( 2, 1 ).EQ.ZERO ) THEN
 *
-*                 Form C = T22 - lambda*I in WORK(2:N,2:N).
+                  // Form C = T22 - lambda*I in WORK(2:N,2:N).
 *
                   DO 20 I = 2, N
                      WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 )
@@ -207,29 +207,29 @@
                   NN = N - 1
                ELSE
 *
-*                 Triangularize the 2 by 2 block by unitary
-*                 transformation U = [  cs   i*ss ]
-*                                    [ i*ss   cs  ].
-*                 such that the (1,1) position of WORK is complex
-*                 eigenvalue lambda with positive imaginary part. (2,2)
-*                 position of WORK is the complex eigenvalue lambda
-*                 with negative imaginary  part.
+                  // Triangularize the 2 by 2 block by unitary
+                 t // ransformation U = [  cs   i*ss ]
+                                     // [ i*ss   cs  ].
+                  // such that the (1,1) position of WORK is complex
+                  // eigenvalue lambda with positive imaginary part. (2,2)
+                  // position of WORK is the complex eigenvalue lambda
+                  // with negative imaginary  part.
 *
                   MU = SQRT( ABS( WORK( 1, 2 ) ) )* SQRT( ABS( WORK( 2, 1 ) ) )
                   DELTA = DLAPY2( MU, WORK( 2, 1 ) )
                   CS = MU / DELTA
                   SN = -WORK( 2, 1 ) / DELTA
 *
-*                 Form
+                  // Form
 *
-*                 C**T = WORK(2:N,2:N) + i*[rwork(1) ..... rwork(n-1) ]
-*                                          [   mu                     ]
-*                                          [         ..               ]
-*                                          [             ..           ]
-*                                          [                  mu      ]
-*                 where C**T is transpose of matrix C,
-*                 and RWORK is stored starting in the N+1-st column of
-*                 WORK.
+                  // C**T = WORK(2:N,2:N) + i*[rwork(1) ..... rwork(n-1) ]
+                                           // [   mu                     ]
+                                           // [         ..               ]
+                                           // [             ..           ]
+                                           // [                  mu      ]
+                  // where C**T is transpose of matrix C,
+                  // and RWORK is stored starting in the N+1-st column of
+                  // WORK.
 *
                   DO 30 J = 3, N
                      WORK( 2, J ) = CS*WORK( 2, J )
@@ -245,7 +245,7 @@
                   NN = 2*( N-1 )
                END IF
 *
-*              Estimate norm(inv(C**T))
+               // Estimate norm(inv(C**T))
 *
                EST = ZERO
                KASE = 0
@@ -255,26 +255,26 @@
                   IF( KASE.EQ.1 ) THEN
                      IF( N2.EQ.1 ) THEN
 *
-*                       Real eigenvalue: solve C**T*x = scale*c.
+                        // Real eigenvalue: solve C**T*x = scale*c.
 *
                         CALL DLAQTR( .TRUE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
                      ELSE
 *
-*                       Complex eigenvalue: solve
-*                       C**T*(p+iq) = scale*(c+id) in real arithmetic.
+                        // Complex eigenvalue: solve
+                        // C**T*(p+iq) = scale*(c+id) in real arithmetic.
 *
                         CALL DLAQTR( .TRUE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
                      END IF
                   ELSE
                      IF( N2.EQ.1 ) THEN
 *
-*                       Real eigenvalue: solve C*x = scale*c.
+                        // Real eigenvalue: solve C*x = scale*c.
 *
                         CALL DLAQTR( .FALSE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
                      ELSE
 *
-*                       Complex eigenvalue: solve
-*                       C*(p+iq) = scale*(c+id) in real arithmetic.
+                        // Complex eigenvalue: solve
+                        // C*(p+iq) = scale*(c+id) in real arithmetic.
 *
                         CALL DLAQTR( .FALSE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
 *
@@ -294,6 +294,6 @@
    60 CONTINUE
       RETURN
 *
-*     End of DTRSNA
+      // End of DTRSNA
 *
       END

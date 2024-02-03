@@ -4,26 +4,26 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     M, N, LDA;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int     I, K;
-*     ..
-*     .. Intrinsics ..
+      // ..
+      // .. Intrinsics ..
       // INTRINSIC MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       K = MIN( M, N )
       DO I = 1, K
          IF( A( I, I ).LT.ZERO ) THEN

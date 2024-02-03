@@ -4,31 +4,31 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IJOB, INFO, MINP, MMAX, MOUT, N, NBMIN, NITMAX;
       REAL               ABSTOL, PIVMIN, RELTOL
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * ), NAB( MMAX, * ), NVAL( * );
       REAL               AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, TWO, HALF
       PARAMETER          ( ZERO = 0.0E0, TWO = 2.0E0, HALF = 1.0E0 / TWO )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW;
       REAL               TMP1, TMP2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for Errors
+      // Check for Errors
 *
       INFO = 0
       IF( IJOB.LT.1 .OR. IJOB.GT.3 ) THEN
@@ -36,11 +36,11 @@
          RETURN
       END IF
 *
-*     Initialize NAB
+      // Initialize NAB
 *
       IF( IJOB.EQ.1 ) THEN
 *
-*        Compute the number of eigenvalues in the initial intervals.
+         // Compute the number of eigenvalues in the initial intervals.
 *
          MOUT = 0
          DO 30 JI = 1, MINP
@@ -60,17 +60,17 @@
          RETURN
       END IF
 *
-*     Initialize for loop
+      // Initialize for loop
 *
-*     KF and KL have the following meaning:
-*        Intervals 1,...,KF-1 have converged.
-*        Intervals KF,...,KL  still need to be refined.
+      // KF and KL have the following meaning:
+         // Intervals 1,...,KF-1 have converged.
+         // Intervals KF,...,KL  still need to be refined.
 *
       KF = 1
       KL = MINP
 *
-*     If IJOB=2, initialize C.
-*     If IJOB=3, use the user-supplied starting point.
+      // If IJOB=2, initialize C.
+      // If IJOB=3, use the user-supplied starting point.
 *
       IF( IJOB.EQ.2 ) THEN
          DO 40 JI = 1, MINP
@@ -78,19 +78,19 @@
    40    CONTINUE
       END IF
 *
-*     Iteration loop
+      // Iteration loop
 *
       DO 130 JIT = 1, NITMAX
 *
-*        Loop over intervals
+         // Loop over intervals
 *
          IF( KL-KF+1.GE.NBMIN .AND. NBMIN.GT.0 ) THEN
 *
-*           Begin of Parallel Version of the loop
+            // Begin of Parallel Version of the loop
 *
             DO 60 JI = KF, KL
 *
-*              Compute N(c), the number of eigenvalues less than c
+               // Compute N(c), the number of eigenvalues less than c
 *
                WORK( JI ) = D( 1 ) - C( JI )
                IWORK( JI ) = 0
@@ -110,37 +110,37 @@
 *
             IF( IJOB.LE.2 ) THEN
 *
-*              IJOB=2: Choose all intervals containing eigenvalues.
+               // IJOB=2: Choose all intervals containing eigenvalues.
 *
                KLNEW = KL
                DO 70 JI = KF, KL
 *
-*                 Insure that N(w) is monotone
+                  // Insure that N(w) is monotone
 *
                   IWORK( JI ) = MIN( NAB( JI, 2 ), MAX( NAB( JI, 1 ), IWORK( JI ) ) )
 *
-*                 Update the Queue -- add intervals if both halves
-*                 contain eigenvalues.
+                  // Update the Queue -- add intervals if both halves
+                  // contain eigenvalues.
 *
                   IF( IWORK( JI ).EQ.NAB( JI, 2 ) ) THEN
 *
-*                    No eigenvalue in the upper interval:
-*                    just use the lower interval.
+                     // No eigenvalue in the upper interval:
+                     // just use the lower interval.
 *
                      AB( JI, 2 ) = C( JI )
 *
                   ELSE IF( IWORK( JI ).EQ.NAB( JI, 1 ) ) THEN
 *
-*                    No eigenvalue in the lower interval:
-*                    just use the upper interval.
+                     // No eigenvalue in the lower interval:
+                     // just use the upper interval.
 *
                      AB( JI, 1 ) = C( JI )
                   ELSE
                      KLNEW = KLNEW + 1
                      IF( KLNEW.LE.MMAX ) THEN
 *
-*                       Eigenvalue in both intervals -- add upper to
-*                       queue.
+                        // Eigenvalue in both intervals -- add upper to
+                        // queue.
 *
                         AB( KLNEW, 2 ) = AB( JI, 2 )
                         NAB( KLNEW, 2 ) = NAB( JI, 2 )
@@ -157,8 +157,8 @@
                KL = KLNEW
             ELSE
 *
-*              IJOB=3: Binary search.  Keep only the interval containing
-*                      w   s.t. N(w) = NVAL
+               // IJOB=3: Binary search.  Keep only the interval containing
+                       // w   s.t. N(w) = NVAL
 *
                DO 80 JI = KF, KL
                   IF( IWORK( JI ).LE.NVAL( JI ) ) THEN
@@ -174,14 +174,14 @@
 *
          ELSE
 *
-*           End of Parallel Version of the loop
+            // End of Parallel Version of the loop
 *
-*           Begin of Serial Version of the loop
+            // Begin of Serial Version of the loop
 *
             KLNEW = KL
             DO 100 JI = KF, KL
 *
-*              Compute N(w), the number of eigenvalues less than w
+               // Compute N(w), the number of eigenvalues less than w
 *
                TMP1 = C( JI )
                TMP2 = D( 1 ) - TMP1
@@ -201,31 +201,31 @@
 *
                IF( IJOB.LE.2 ) THEN
 *
-*                 IJOB=2: Choose all intervals containing eigenvalues.
+                  // IJOB=2: Choose all intervals containing eigenvalues.
 *
-*                 Insure that N(w) is monotone
+                  // Insure that N(w) is monotone
 *
                   ITMP1 = MIN( NAB( JI, 2 ), MAX( NAB( JI, 1 ), ITMP1 ) )
 *
-*                 Update the Queue -- add intervals if both halves
-*                 contain eigenvalues.
+                  // Update the Queue -- add intervals if both halves
+                  // contain eigenvalues.
 *
                   IF( ITMP1.EQ.NAB( JI, 2 ) ) THEN
 *
-*                    No eigenvalue in the upper interval:
-*                    just use the lower interval.
+                     // No eigenvalue in the upper interval:
+                     // just use the lower interval.
 *
                      AB( JI, 2 ) = TMP1
 *
                   ELSE IF( ITMP1.EQ.NAB( JI, 1 ) ) THEN
 *
-*                    No eigenvalue in the lower interval:
-*                    just use the upper interval.
+                     // No eigenvalue in the lower interval:
+                     // just use the upper interval.
 *
                      AB( JI, 1 ) = TMP1
                   ELSE IF( KLNEW.LT.MMAX ) THEN
 *
-*                    Eigenvalue in both intervals -- add upper to queue.
+                     // Eigenvalue in both intervals -- add upper to queue.
 *
                      KLNEW = KLNEW + 1
                      AB( KLNEW, 2 ) = AB( JI, 2 )
@@ -240,8 +240,8 @@
                   END IF
                ELSE
 *
-*                 IJOB=3: Binary search.  Keep only the interval
-*                         containing  w  s.t. N(w) = NVAL
+                  // IJOB=3: Binary search.  Keep only the interval
+                          // containing  w  s.t. N(w) = NVAL
 *
                   IF( ITMP1.LE.NVAL( JI ) ) THEN
                      AB( JI, 1 ) = TMP1
@@ -257,7 +257,7 @@
 *
          END IF
 *
-*        Check for convergence
+         // Check for convergence
 *
          KFNEW = KF
          DO 110 JI = KF, KL
@@ -265,8 +265,8 @@
             TMP2 = MAX( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) )
             IF( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) .OR. NAB( JI, 1 ).GE.NAB( JI, 2 ) ) THEN
 *
-*              Converged -- Swap with position KFNEW,
-*                           then increment KFNEW
+               // Converged -- Swap with position KFNEW,
+                           t // hen increment KFNEW
 *
                IF( JI.GT.KFNEW ) THEN
                   TMP1 = AB( JI, 1 )
@@ -292,18 +292,18 @@
   110    CONTINUE
          KF = KFNEW
 *
-*        Choose Midpoints
+         // Choose Midpoints
 *
          DO 120 JI = KF, KL
             C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) )
   120    CONTINUE
 *
-*        If no more intervals to refine, quit.
+         // If no more intervals to refine, quit.
 *
          IF( KF.GT.KL ) GO TO 140
   130 CONTINUE
 *
-*     Converged
+      // Converged
 *
   140 CONTINUE
       INFO = MAX( KL+1-KF, 0 )
@@ -311,6 +311,6 @@
 *
       RETURN
 *
-*     End of SLAEBZ
+      // End of SLAEBZ
 *
       END

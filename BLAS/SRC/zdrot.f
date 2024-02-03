@@ -4,26 +4,26 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, INCY, N;
       double             C, S;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         ZX( * ), ZY( * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, IX, IY;
       COMPLEX*16         CTEMP
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) RETURN
       IF( INCX.EQ.1 .AND. INCY.EQ.1 ) THEN
 *
-*        code for both increments equal to 1
+         // code for both increments equal to 1
 *
          DO I = 1, N
             CTEMP = C*ZX( I ) + S*ZY( I )
@@ -32,8 +32,8 @@
          END DO
       ELSE
 *
-*        code for unequal increments or equal increments not equal
-*          to 1
+         // code for unequal increments or equal increments not equal
+          t // o 1
 *
          IX = 1
          IY = 1
@@ -48,6 +48,6 @@
       END IF
       RETURN
 *
-*     End of ZDROT
+      // End of ZDROT
 *
       END

@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               RWORK( * ), S( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
       COMPLEX            CZERO
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, LDWORK, LIWORK, LRWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR, NLVL, NRWORK, NWORK, SMLSIZ;
       REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEBRD, CGELQF, CGEQRF, CLACPY, CLALSD, CLASCL, CLASET, CUNMBR, CUNMLQ, CUNMQR, SLASCL, SLASET, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       // EXTERNAL CLANGE, SLAMCH, ILAENV, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, LOG, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments.
+      // Test the input arguments.
 *
       INFO = 0
       MINMN = MIN( M, N )
@@ -58,12 +58,12 @@
          INFO = -7
       END IF
 *
-*     Compute workspace.
-*     (Note: Comments in the code beginning "Workspace:" describe the
-*     minimal amount of workspace needed at that point in the code,
-*     as well as the preferred amount for good performance.
-*     NB refers to the optimal block size for the immediately
-*     following subroutine, as returned by ILAENV.)
+      // Compute workspace.
+      // (Note: Comments in the code beginning "Workspace:" describe the
+      // minimal amount of workspace needed at that point in the code,
+      // as well as the preferred amount for good performance.
+      // NB refers to the optimal block size for the immediately
+      // following subroutine, as returned by ILAENV.)
 *
       IF( INFO.EQ.0 ) THEN
          MINWRK = 1
@@ -78,15 +78,15 @@
             MM = M
             IF( M.GE.N .AND. M.GE.MNTHR ) THEN
 *
-*              Path 1a - overdetermined, with many more rows than
-*                        columns.
+               // Path 1a - overdetermined, with many more rows than
+                         // columns.
 *
                MM = N
                MAXWRK = MAX( MAXWRK, N*ILAENV( 1, 'CGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, NRHS*ILAENV( 1, 'CUNMQR', 'LC', M, NRHS, N, -1 ) )
             END IF
             IF( M.GE.N ) THEN
 *
-*              Path 1 - overdetermined or exactly determined.
+               // Path 1 - overdetermined or exactly determined.
 *
                LRWORK = 10*N + 2*N*SMLSIZ + 8*N*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )                MAXWRK = MAX( MAXWRK, 2*N + ( MM + N )*ILAENV( 1, 'CGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, 2*N + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', MM, NRHS, N, -1 ) )                MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'CUNMBR', 'PLN', N, NRHS, N, -1 ) )
                MAXWRK = MAX( MAXWRK, 2*N + N*NRHS )
@@ -96,8 +96,8 @@
                LRWORK = 10*M + 2*M*SMLSIZ + 8*M*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )
                IF( N.GE.MNTHR ) THEN
 *
-*                 Path 2a - underdetermined, with many more columns
-*                           than rows.
+                  // Path 2a - underdetermined, with many more columns
+                           t // han rows.
 *
                   MAXWRK = M + M*ILAENV( 1, 'CGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'CGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'CUNMLQ', 'LC', N, NRHS, M, -1 ) )
                   IF( NRHS.GT.1 ) THEN
@@ -106,12 +106,12 @@
                      MAXWRK = MAX( MAXWRK, M*M + 2*M )
                   END IF
                   MAXWRK = MAX( MAXWRK, M*M + 4*M + M*NRHS )
-!     XXX: Ensure the Path 2a case below is triggered.  The workspace
-!     calculation should use queries for all routines eventually.
+      // XXX: Ensure the Path 2a case below is triggered.  The workspace
+      // calculation should use queries for all routines eventually.
                   MAXWRK = MAX( MAXWRK, 4*M+M*M+MAX( M, 2*M-4, NRHS, N-3*M ) )
                ELSE
 *
-*                 Path 2 - underdetermined.
+                  // Path 2 - underdetermined.
 *
                   MAXWRK = 2*M + ( N + M )*ILAENV( 1, 'CGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, 2*M + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, 2*M + M*ILAENV( 1, 'CUNMBR', 'PLN', N, NRHS, M, -1 ) )
                   MAXWRK = MAX( MAXWRK, 2*M + M*NRHS )
@@ -136,39 +136,39 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          RANK = 0
          RETURN
       END IF
 *
-*     Get machine parameters.
+      // Get machine parameters.
 *
       EPS = SLAMCH( 'P' )
       SFMIN = SLAMCH( 'S' )
       SMLNUM = SFMIN / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max entry outside range [SMLNUM,BIGNUM].
+      // Scale A if max entry outside range [SMLNUM,BIGNUM].
 *
       ANRM = CLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
       ELSE IF( ANRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM.
+         // Scale matrix norm down to BIGNUM.
 *
          CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
       ELSE IF( ANRM.EQ.ZERO ) THEN
 *
-*        Matrix all zero. Return zero solution.
+         // Matrix all zero. Return zero solution.
 *
          CALL CLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
          CALL SLASET( 'F', MINMN, 1, ZERO, ZERO, S, 1 )
@@ -176,56 +176,56 @@
          GO TO 10
       END IF
 *
-*     Scale B if max entry outside range [SMLNUM,BIGNUM].
+      // Scale B if max entry outside range [SMLNUM,BIGNUM].
 *
       BNRM = CLANGE( 'M', M, NRHS, B, LDB, RWORK )
       IBSCL = 0
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM.
+         // Scale matrix norm up to SMLNUM.
 *
          CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 1
       ELSE IF( BNRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM.
+         // Scale matrix norm down to BIGNUM.
 *
          CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 2
       END IF
 *
-*     If M < N make sure B(M+1:N,:) = 0
+      // If M < N make sure B(M+1:N,:) = 0
 *
       IF( M.LT.N ) CALL CLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB )
 *
-*     Overdetermined case.
+      // Overdetermined case.
 *
       IF( M.GE.N ) THEN
 *
-*        Path 1 - overdetermined or exactly determined.
+         // Path 1 - overdetermined or exactly determined.
 *
          MM = M
          IF( M.GE.MNTHR ) THEN
 *
-*           Path 1a - overdetermined, with many more rows than columns
+            // Path 1a - overdetermined, with many more rows than columns
 *
             MM = N
             ITAU = 1
             NWORK = ITAU + N
 *
-*           Compute A=Q*R.
-*           (RWorkspace: need N)
-*           (CWorkspace: need N, prefer N*NB)
+            // Compute A=Q*R.
+            // (RWorkspace: need N)
+            // (CWorkspace: need N, prefer N*NB)
 *
             CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*           Multiply B by transpose(Q).
-*           (RWorkspace: need N)
-*           (CWorkspace: need NRHS, prefer NRHS*NB)
+            // Multiply B by transpose(Q).
+            // (RWorkspace: need N)
+            // (CWorkspace: need NRHS, prefer NRHS*NB)
 *
             CALL CUNMQR( 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*           Zero out below R.
+            // Zero out below R.
 *
             IF( N.GT.1 ) THEN
                CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
@@ -238,45 +238,45 @@
          IE = 1
          NRWORK = IE + N
 *
-*        Bidiagonalize R in A.
-*        (RWorkspace: need N)
-*        (CWorkspace: need 2*N+MM, prefer 2*N+(MM+N)*NB)
+         // Bidiagonalize R in A.
+         // (RWorkspace: need N)
+         // (CWorkspace: need 2*N+MM, prefer 2*N+(MM+N)*NB)
 *
          CALL CGEBRD( MM, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*        Multiply B by transpose of left bidiagonalizing vectors of R.
-*        (CWorkspace: need 2*N+NRHS, prefer 2*N+NRHS*NB)
+         // Multiply B by transpose of left bidiagonalizing vectors of R.
+         // (CWorkspace: need 2*N+NRHS, prefer 2*N+NRHS*NB)
 *
          CALL CUNMBR( 'Q', 'L', 'C', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*        Solve the bidiagonal least squares problem.
+         // Solve the bidiagonal least squares problem.
 *
          CALL CLALSD( 'U', SMLSIZ, N, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO )
          IF( INFO.NE.0 ) THEN
             GO TO 10
          END IF
 *
-*        Multiply B by right bidiagonalizing vectors of R.
+         // Multiply B by right bidiagonalizing vectors of R.
 *
          CALL CUNMBR( 'P', 'L', 'N', N, NRHS, N, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
       ELSE IF( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) THEN
 *
-*        Path 2a - underdetermined, with many more columns than rows
-*        and sufficient workspace for an efficient algorithm.
+         // Path 2a - underdetermined, with many more columns than rows
+         // and sufficient workspace for an efficient algorithm.
 *
          LDWORK = M
          IF( LWORK.GE.MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA
          ITAU = 1
          NWORK = M + 1
 *
-*        Compute A=L*Q.
-*        (CWorkspace: need 2*M, prefer M+M*NB)
+         // Compute A=L*Q.
+         // (CWorkspace: need 2*M, prefer M+M*NB)
 *
          CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO )
          IL = NWORK
 *
-*        Copy L to WORK(IL), zeroing out above its diagonal.
+         // Copy L to WORK(IL), zeroing out above its diagonal.
 *
          CALL CLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWORK )
          CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWORK ), LDWORK )
@@ -286,41 +286,41 @@
          IE = 1
          NRWORK = IE + M
 *
-*        Bidiagonalize L in WORK(IL).
-*        (RWorkspace: need M)
-*        (CWorkspace: need M*M+4*M, prefer M*M+4*M+2*M*NB)
+         // Bidiagonalize L in WORK(IL).
+         // (RWorkspace: need M)
+         // (CWorkspace: need M*M+4*M, prefer M*M+4*M+2*M*NB)
 *
          CALL CGEBRD( M, M, WORK( IL ), LDWORK, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*        Multiply B by transpose of left bidiagonalizing vectors of L.
-*        (CWorkspace: need M*M+4*M+NRHS, prefer M*M+4*M+NRHS*NB)
+         // Multiply B by transpose of left bidiagonalizing vectors of L.
+         // (CWorkspace: need M*M+4*M+NRHS, prefer M*M+4*M+NRHS*NB)
 *
          CALL CUNMBR( 'Q', 'L', 'C', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*        Solve the bidiagonal least squares problem.
+         // Solve the bidiagonal least squares problem.
 *
          CALL CLALSD( 'U', SMLSIZ, M, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO )
          IF( INFO.NE.0 ) THEN
             GO TO 10
          END IF
 *
-*        Multiply B by right bidiagonalizing vectors of L.
+         // Multiply B by right bidiagonalizing vectors of L.
 *
          CALL CUNMBR( 'P', 'L', 'N', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*        Zero out below first M rows of B.
+         // Zero out below first M rows of B.
 *
          CALL CLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB )
          NWORK = ITAU + M
 *
-*        Multiply transpose(Q) by B.
-*        (CWorkspace: need NRHS, prefer NRHS*NB)
+         // Multiply transpose(Q) by B.
+         // (CWorkspace: need NRHS, prefer NRHS*NB)
 *
          CALL CUNMLQ( 'L', 'C', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
       ELSE
 *
-*        Path 2 - remaining underdetermined cases.
+         // Path 2 - remaining underdetermined cases.
 *
          ITAUQ = 1
          ITAUP = ITAUQ + M
@@ -328,31 +328,31 @@
          IE = 1
          NRWORK = IE + M
 *
-*        Bidiagonalize A.
-*        (RWorkspace: need M)
-*        (CWorkspace: need 2*M+N, prefer 2*M+(M+N)*NB)
+         // Bidiagonalize A.
+         // (RWorkspace: need M)
+         // (CWorkspace: need 2*M+N, prefer 2*M+(M+N)*NB)
 *
          CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*        Multiply B by transpose of left bidiagonalizing vectors.
-*        (CWorkspace: need 2*M+NRHS, prefer 2*M+NRHS*NB)
+         // Multiply B by transpose of left bidiagonalizing vectors.
+         // (CWorkspace: need 2*M+NRHS, prefer 2*M+NRHS*NB)
 *
          CALL CUNMBR( 'Q', 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
-*        Solve the bidiagonal least squares problem.
+         // Solve the bidiagonal least squares problem.
 *
          CALL CLALSD( 'L', SMLSIZ, M, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO )
          IF( INFO.NE.0 ) THEN
             GO TO 10
          END IF
 *
-*        Multiply B by right bidiagonalizing vectors of A.
+         // Multiply B by right bidiagonalizing vectors of A.
 *
          CALL CUNMBR( 'P', 'L', 'N', N, NRHS, M, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 *
       END IF
 *
-*     Undo scaling.
+      // Undo scaling.
 *
       IF( IASCL.EQ.1 ) THEN
          CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
@@ -373,6 +373,6 @@
       RWORK( 1 ) = LRWORK
       RETURN
 *
-*     End of CGELSD
+      // End of CGELSD
 *
       END

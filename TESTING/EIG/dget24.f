@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               COMP;
       int                INFO, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT;
       double             RCDEIN, RCDVIN, THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * ), IWORK( * );
       double             A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 17 ), VS( LDVS, * ), VS1( LDVS, * ), WI( * ), WIT( * ), WITMP( * ), WORK( * ), WR( * ), WRT( * ), WRTMP( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       double             EPSIN;
       PARAMETER          ( EPSIN = 5.9605D-8 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             SORT;
       int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, LIWORK, RSUB, SDIM, SDIM1       double             ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TMP, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VRMIN, WNORM;;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IPNT( 20 );
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       double             SELWI( 20 ), SELWR( 20 );
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       int                SELDIM, SELOPT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               DSLECT;
       double             DLAMCH, DLANGE;
       // EXTERNAL DSLECT, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEESX, DGEMM, DLACPY, DORT01, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SIGN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       INFO = 0
       IF( THRESH.LT.ZERO ) THEN
@@ -75,7 +75,7 @@
          RETURN
       END IF
 *
-*     Quick return if nothing to do
+      // Quick return if nothing to do
 *
       DO 10 I = 1, 17
          RESULT( I ) = -ONE
@@ -83,13 +83,13 @@
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Important constants
+      // Important constants
 *
       SMLNUM = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
       ULPINV = ONE / ULP
 *
-*     Perform tests (1)-(13)
+      // Perform tests (1)-(13)
 *
       SELOPT = 0
       LIWORK = N*N
@@ -102,7 +102,7 @@
             RSUB = 6
          END IF
 *
-*        Compute Schur form and Schur vectors, and test them
+         // Compute Schur form and Schur vectors, and test them
 *
          CALL DLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL DGEESX( 'V', SORT, DSLECT, 'N', N, H, LDA, SDIM, WR, WI, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
@@ -121,7 +121,7 @@
             CALL DCOPY( N, WI, 1, WITMP, 1 )
          END IF
 *
-*        Do Test (1) or Test (7)
+         // Do Test (1) or Test (7)
 *
          RESULT( 1+RSUB ) = ZERO
          DO 30 J = 1, N - 2
@@ -138,17 +138,17 @@
             END IF
    50    CONTINUE
 *
-*        Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
+         // Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
 *
-*        Copy A to VS1, used as workspace
+         // Copy A to VS1, used as workspace
 *
          CALL DLACPY( ' ', N, N, A, LDA, VS1, LDVS )
 *
-*        Compute Q*H and store in HT.
+         // Compute Q*H and store in HT.
 *
          CALL DGEMM( 'No transpose', 'No transpose', N, N, N, ONE, VS, LDVS, H, LDA, ZERO, HT, LDA )
 *
-*        Compute A - Q*H*Q'
+         // Compute A - Q*H*Q'
 *
          CALL DGEMM( 'No transpose', 'Transpose', N, N, N, -ONE, HT, LDA, VS, LDVS, ONE, VS1, LDVS )
 *
@@ -165,11 +165,11 @@
             END IF
          END IF
 *
-*        Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
+         // Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
 *
          CALL DORT01( 'Columns', N, N, VS, LDVS, WORK, LWORK, RESULT( 3+RSUB ) )
 *
-*        Do Test (4) or Test (10)
+         // Do Test (4) or Test (10)
 *
          RESULT( 4+RSUB ) = ZERO
          DO 60 I = 1, N
@@ -186,7 +186,7 @@
             END IF
    70    CONTINUE
 *
-*        Do Test (5) or Test (11)
+         // Do Test (5) or Test (11)
 *
          CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL DGEESX( 'N', SORT, DSLECT, 'N', N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
@@ -208,14 +208,14 @@
    80       CONTINUE
    90    CONTINUE
 *
-*        Do Test (6) or Test (12)
+         // Do Test (6) or Test (12)
 *
          RESULT( 6+RSUB ) = ZERO
          DO 100 I = 1, N
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
   100    CONTINUE
 *
-*        Do Test (13)
+         // Do Test (13)
 *
          IF( ISORT.EQ.1 ) THEN
             RESULT( 13 ) = ZERO
@@ -231,12 +231,12 @@
 *
   120 CONTINUE
 *
-*     If there is enough workspace, perform tests (14) and (15)
-*     as well as (10) through (13)
+      // If there is enough workspace, perform tests (14) and (15)
+      // as well as (10) through (13)
 *
       IF( LWORK.GE.N+( N*N ) / 2 ) THEN
 *
-*        Compute both RCONDE and RCONDV with VS
+         // Compute both RCONDE and RCONDV with VS
 *
          SORT = 'S'
          RESULT( 14 ) = ZERO
@@ -255,7 +255,7 @@
             GO TO 250
          END IF
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 140 I = 1, N
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
@@ -265,7 +265,7 @@
   140    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute both RCONDE and RCONDV without VS, and compare
+         // Compute both RCONDE and RCONDV without VS, and compare
 *
          CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL DGEESX( 'N', SORT, DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
@@ -281,11 +281,11 @@
             GO TO 250
          END IF
 *
-*        Perform tests (14) and (15)
+         // Perform tests (14) and (15)
 *
          IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 160 I = 1, N
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
@@ -295,7 +295,7 @@
   160    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute RCONDE with VS, and compare
+         // Compute RCONDE with VS, and compare
 *
          CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL DGEESX( 'V', SORT, DSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
@@ -310,11 +310,11 @@
             GO TO 250
          END IF
 *
-*        Perform test (14)
+         // Perform test (14)
 *
          IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 180 I = 1, N
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
@@ -324,7 +324,7 @@
   180    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute RCONDE without VS, and compare
+         // Compute RCONDE without VS, and compare
 *
          CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL DGEESX( 'N', SORT, DSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
@@ -339,11 +339,11 @@
             GO TO 250
          END IF
 *
-*        Perform test (14)
+         // Perform test (14)
 *
          IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 200 I = 1, N
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
@@ -353,7 +353,7 @@
   200    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute RCONDV with VS, and compare
+         // Compute RCONDV with VS, and compare
 *
          CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL DGEESX( 'V', SORT, DSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
@@ -368,11 +368,11 @@
             GO TO 250
          END IF
 *
-*        Perform test (15)
+         // Perform test (15)
 *
          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 220 I = 1, N
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
@@ -382,7 +382,7 @@
   220    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute RCONDV without VS, and compare
+         // Compute RCONDV without VS, and compare
 *
          CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL DGEESX( 'N', SORT, DSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
@@ -397,11 +397,11 @@
             GO TO 250
          END IF
 *
-*        Perform test (15)
+         // Perform test (15)
 *
          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 240 I = 1, N
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
@@ -415,14 +415,14 @@
 *
   250 CONTINUE
 *
-*     If there are precomputed reciprocal condition numbers, compare
-*     computed values with them.
+      // If there are precomputed reciprocal condition numbers, compare
+      // computed values with them.
 *
       IF( COMP ) THEN
 *
-*        First set up SELOPT, SELDIM, SELVAL, SELWR, and SELWI so that
-*        the logical function DSLECT selects the eigenvalues specified
-*        by NSLCT and ISLCT.
+         // First set up SELOPT, SELDIM, SELVAL, SELWR, and SELWI so that
+        t // he logical function DSLECT selects the eigenvalues specified
+         // by NSLCT and ISLCT.
 *
          SELDIM = N
          SELOPT = 1
@@ -456,7 +456,7 @@
             SELVAL( IPNT( ISLCT( I ) ) ) = .TRUE.
   290    CONTINUE
 *
-*        Compute condition numbers
+         // Compute condition numbers
 *
          CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL DGEESX( 'N', 'S', DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
@@ -468,8 +468,8 @@
             GO TO 300
          END IF
 *
-*        Compare condition number for average of selected eigenvalues
-*        taking its condition number into account
+         // Compare condition number for average of selected eigenvalues
+        t // aking its condition number into account
 *
          ANORM = DLANGE( '1', N, N, A, LDA, WORK )
          V = MAX( DBLE( N )*EPS*ANORM, SMLNUM )
@@ -498,8 +498,8 @@
             RESULT( 16 ) = ONE
          END IF
 *
-*        Compare condition numbers for right invariant subspace
-*        taking its condition number into account
+         // Compare condition numbers for right invariant subspace
+        t // aking its condition number into account
 *
          IF( V.GT.RCONDV*RCONDE ) THEN
             TOL = RCONDV
@@ -536,6 +536,6 @@
 *
       RETURN
 *
-*     End of DGET24
+      // End of DGET24
 *
       END

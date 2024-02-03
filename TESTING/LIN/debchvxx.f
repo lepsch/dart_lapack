@@ -1,13 +1,13 @@
       SUBROUTINE DEBCHVXX( THRESH, PATH )
       IMPLICIT NONE
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double            THRESH;
       String            PATH;
 
       int                NMAX, NPARAMS, NERRBND, NTESTS, KL, KU;
       PARAMETER          (NMAX = 10, NPARAMS = 2, NERRBND = 3, NTESTS = 6)
 
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                N, NRHS, INFO, I ,J, k, NFAIL, LDA, N_AUX_TESTS, LDAB, LDAFB;
       String             FACT, TRANS, UPLO, EQUED;
       String             C2;
@@ -15,21 +15,21 @@
       bool               printed_guide;
       double             NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH;
 
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       double             TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX),R(NMAX),C(NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3), A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX ), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX);
       int                IPIV(NMAX), IWORK(3*NMAX);
 
-*     .. External Functions ..
+      // .. External Functions ..
       double             DLAMCH;
 
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL DLAHILB, DGESVXX, DPOSVXX, DSYSVXX, DGBSVXX, DLACPY, LSAMEN
       bool               LSAMEN;
 
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC SQRT, MAX, ABS, DBLE
 
-*     .. Parameters ..
+      // .. Parameters ..
       int                NWISE_I, CWISE_I;
       PARAMETER          (NWISE_I = 1, CWISE_I = 1)
       int                BND_I, COND_I;
@@ -49,7 +49,7 @@
       LDAFB = 2*(NMAX-1)+(NMAX-1)+1
       C2 = PATH( 2: 3 )
 
-*     Main loop to test the different Hilbert Matrices.
+      // Main loop to test the different Hilbert Matrices.
 
       printed_guide = .false.
 
@@ -62,14 +62,14 @@
          NRHS = n
          M = MAX(SQRT(DBLE(N)), 10.0D+0)
 
-*        Generate the Hilbert matrix, its inverse, and the
-*        right hand side, all scaled by the LCM(1,..,2N-1).
+         // Generate the Hilbert matrix, its inverse, and the
+         // right hand side, all scaled by the LCM(1,..,2N-1).
          CALL DLAHILB(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO)
 
-*        Copy A into ACOPY.
+         // Copy A into ACOPY.
          CALL DLACPY('ALL', N, N, A, NMAX, ACOPY, NMAX)
 
-*        Store A in band format for GB tests
+         // Store A in band format for GB tests
          DO J = 1, N
             DO I = 1, KL+KU+1
                AB( I, J ) = 0.0D+0
@@ -81,7 +81,7 @@
             END DO
          END DO
 
-*        Copy AB into ABCOPY.
+         // Copy AB into ABCOPY.
          DO J = 1, N
             DO I = 1, KL+KU+1
                ABCOPY( I, J ) = 0.0D+0
@@ -89,7 +89,7 @@
          END DO
          CALL DLACPY('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB)
 
-*        Call D**SVXX with default PARAMS and N_ERR_BND = 3.
+         // Call D**SVXX with default PARAMS and N_ERR_BND = 3.
          IF ( LSAMEN( 2, C2, 'SY' ) ) THEN
             CALL DSYSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
          ELSE IF ( LSAMEN( 2, C2, 'PO' ) ) THEN
@@ -102,29 +102,29 @@
 
          N_AUX_TESTS = N_AUX_TESTS + 1
          IF (ORCOND .LT. EPS) THEN
-!        Either factorization failed or the matrix is flagged, and 1 <=
-!        INFO <= N+1. We don't decide based on rcond anymore.
-!            IF (INFO .EQ. 0 .OR. INFO .GT. N+1) THEN
-!               NFAIL = NFAIL + 1
-!               WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
-!            END IF
+         // Either factorization failed or the matrix is flagged, and 1 <=
+         // INFO <= N+1. We don't decide based on rcond anymore.
+             // IF (INFO .EQ. 0 .OR. INFO .GT. N+1) THEN
+                // NFAIL = NFAIL + 1
+                // WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
+             // END IF
          ELSE
-!        Either everything succeeded (INFO == 0) or some solution failed
-!        to converge (INFO > N+1).
+         // Either everything succeeded (INFO == 0) or some solution failed
+        t // o converge (INFO > N+1).
             IF (INFO .GT. 0 .AND. INFO .LE. N+1) THEN
                NFAIL = NFAIL + 1
                WRITE (*, FMT=8000) C2, N, INFO, ORCOND, RCOND
             END IF
          END IF
 
-*        Calculating the difference between D**SVXX's X and the true X.
+         // Calculating the difference between D**SVXX's X and the true X.
          DO I = 1,N
             DO J =1,NRHS
                DIFF(I,J) = X(I,J) - INVHILB(I,J)
             END DO
          END DO
 
-*        Calculating the RCOND
+         // Calculating the RCOND
          RNORM = 0.0D+0
          RINORM = 0.0D+0
          IF ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) ) THEN
@@ -155,7 +155,7 @@
          RNORM = RNORM / ABS(A(1, 1))
          RCOND = 1.0D+0/(RNORM * RINORM)
 
-*        Calculating the R for normwise rcond.
+         // Calculating the R for normwise rcond.
          DO I = 1, N
             RINV(I) = 0.0D+0
          END DO
@@ -165,7 +165,7 @@
             END DO
          END DO
 
-*        Calculating the Normwise rcond.
+         // Calculating the Normwise rcond.
          RINORM = 0.0D+0
          DO I = 1, N
             SUMRI = 0.0D+0
@@ -175,8 +175,8 @@
             RINORM = MAX(RINORM, SUMRI)
          END DO
 
-!        invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
-!        by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
+         // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
+         // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
          NCOND = ABS(A(1,1)) / RINORM
 
          CONDTHRESH = M * EPS
@@ -219,18 +219,18 @@
                END DO
                RINORM = MAX(RINORM, SUMRI)
             END DO
-!        invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
-!        by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
+         // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
+         // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
             CCOND = ABS(A(1,1))/RINORM
 
-!        Forward error bound tests
+         // Forward error bound tests
             NWISE_BND = ERRBND_N(K + (BND_I-1)*NRHS)
             CWISE_BND = ERRBND_C(K + (BND_I-1)*NRHS)
             NWISE_RCOND = ERRBND_N(K + (COND_I-1)*NRHS)
             CWISE_RCOND = ERRBND_C(K + (COND_I-1)*NRHS)
-!            write (*,*) 'nwise : ', n, k, ncond, nwise_rcond,
-!     $           condthresh, ncond.ge.condthresh
-!            write (*,*) 'nwise2: ', k, nwise_bnd, nwise_err, errthresh
+             // write (*,*) 'nwise : ', n, k, ncond, nwise_rcond,
+      // $           condthresh, ncond.ge.condthresh
+             // write (*,*) 'nwise2: ', k, nwise_bnd, nwise_err, errthresh
             IF (NCOND .GE. CONDTHRESH) THEN
                NGUAR = 'YES'
                IF (NWISE_BND .GT. ERRTHRESH) THEN
@@ -255,9 +255,9 @@
                   TSTRAT(1) = 1.0D+0
                END IF
             END IF
-!            write (*,*) 'cwise : ', n, k, ccond, cwise_rcond,
-!     $           condthresh, ccond.ge.condthresh
-!            write (*,*) 'cwise2: ', k, cwise_bnd, cwise_err, errthresh
+             // write (*,*) 'cwise : ', n, k, ccond, cwise_rcond,
+      // $           condthresh, ccond.ge.condthresh
+             // write (*,*) 'cwise2: ', k, cwise_bnd, cwise_err, errthresh
             IF (CCOND .GE. CONDTHRESH) THEN
                CGUAR = 'YES'
                IF (CWISE_BND .GT. ERRTHRESH) THEN
@@ -281,10 +281,10 @@
                END IF
             END IF
 
-!     Backwards error test
+      // Backwards error test
             TSTRAT(3) = BERR(K)/EPS
 
-!     Condition number tests
+      // Condition number tests
             TSTRAT(4) = RCOND / ORCOND
             IF (RCOND .GE. CONDTHRESH .AND. TSTRAT(4) .LT. 1.0D+0) TSTRAT(4) = 1.0D+0 / TSTRAT(4)
 
@@ -327,7 +327,7 @@ c$$$         WRITE(*,*) 'Reciprocal condition number: ',ERRBND(NRHS,cwise_i,cond
 c$$$         WRITE(*,*) 'Raw error estimate: ',ERRBND(NRHS,cwise_i,rawbnd_i)
 c$$$         print *, 'Info: ', info
 c$$$         WRITE(*,*)
-*         WRITE(*,*) 'TSTRAT: ',TSTRAT
+          // WRITE(*,*) 'TSTRAT: ',TSTRAT
 
       END DO
 
@@ -343,7 +343,7 @@ c$$$         WRITE(*,*)
  9998 FORMAT( ' D', A2, 'SVXX: ', I6, ' out of ', I6,
      $     ' tests failed to pass the threshold' )
  9997 FORMAT( ' D', A2, 'SVXX passed the tests of error bounds' )
-*     Test ratios.
+      // Test ratios.
  9996 FORMAT( 3X, I2, ': Normwise guaranteed forward error', / 5X,
      $     'Guaranteed case: if norm ( abs( Xc - Xt )',
      $     ' / norm ( Xt ) .LE. ERRBND( *, nwise_i, bnd_i ), then',
@@ -360,6 +360,6 @@ c$$$         WRITE(*,*)
  8000 FORMAT( ' D', A2, 'SVXX: N =', I2, ', INFO = ', I3,
      $     ', ORCOND = ', G12.5, ', real RCOND = ', G12.5 )
 *
-*     End of DEBCHVXX
+      // End of DEBCHVXX
 *
       END

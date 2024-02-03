@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, P;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                LOPT, LWKOPT, NB, NB1, NB2, NB3;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEQRF, ZGERQF, ZUNMQR
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       NB1 = ILAENV( 1, 'ZGEQRF', ' ', N, M, -1, -1 )
@@ -59,23 +59,23 @@
          RETURN
       END IF
 *
-*     QR factorization of N-by-M matrix A: A = Q*R
+      // QR factorization of N-by-M matrix A: A = Q*R
 *
       CALL ZGEQRF( N, M, A, LDA, TAUA, WORK, LWORK, INFO )
       LOPT = INT( WORK( 1 ) )
 *
-*     Update B := Q**H*B.
+      // Update B := Q**H*B.
 *
       CALL ZUNMQR( 'Left', 'Conjugate Transpose', N, P, MIN( N, M ), A, LDA, TAUA, B, LDB, WORK, LWORK, INFO )
       LOPT = MAX( LOPT, INT( WORK( 1 ) ) )
 *
-*     RQ factorization of N-by-P matrix B: B = T*Z.
+      // RQ factorization of N-by-P matrix B: B = T*Z.
 *
       CALL ZGERQF( N, P, B, LDB, TAUB, WORK, LWORK, INFO )
       WORK( 1 ) = MAX( LOPT, INT( WORK( 1 ) ) )
 *
       RETURN
 *
-*     End of ZGGQRF
+      // End of ZGGQRF
 *
       END

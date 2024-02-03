@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CGELQ2, CGELQF, CHKXER, CUNGL2, CUNGLQ, CUNML2, CUNMLQ
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -54,9 +54,9 @@
    20 CONTINUE
       OK = .TRUE.
 *
-*     Error exits for LQ factorization
+      // Error exits for LQ factorization
 *
-*     CGELQF
+      // CGELQF
 *
       SRNAMT = 'CGELQF'
       INFOT = 1
@@ -72,7 +72,7 @@
       CALL CGELQF( 2, 1, A, 2, B, W, 1, INFO )
       CALL CHKXER( 'CGELQF', INFOT, NOUT, LERR, OK )
 *
-*     CGELQ2
+      // CGELQ2
 *
       SRNAMT = 'CGELQ2'
       INFOT = 1
@@ -85,7 +85,7 @@
       CALL CGELQ2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'CGELQ2', INFOT, NOUT, LERR, OK )
 *
-*     CUNGLQ
+      // CUNGLQ
 *
       SRNAMT = 'CUNGLQ'
       INFOT = 1
@@ -110,7 +110,7 @@
       CALL CUNGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
 *
-*     CUNGL2
+      // CUNGL2
 *
       SRNAMT = 'CUNGL2'
       INFOT = 1
@@ -132,7 +132,7 @@
       CALL CUNGL2( 2, 2, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'CUNGL2', INFOT, NOUT, LERR, OK )
 *
-*     CUNMLQ
+      // CUNMLQ
 *
       SRNAMT = 'CUNMLQ'
       INFOT = 1
@@ -172,7 +172,7 @@
       CALL CUNMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
 *
-*     CUNML2
+      // CUNML2
 *
       SRNAMT = 'CUNML2'
       INFOT = 1
@@ -206,12 +206,12 @@
       CALL CUNML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of CERRLQ
+      // End of CERRLQ
 *
       END

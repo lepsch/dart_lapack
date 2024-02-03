@@ -4,31 +4,31 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                M, N, LDA;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16       ZERO
       PARAMETER ( ZERO = (0.0D+0, 0.0D+0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int     I, J;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick test for the common case where one corner is non-zero.
+      // Quick test for the common case where one corner is non-zero.
       IF( M.EQ.0 ) THEN
          ILAZLR = M
       ELSE IF( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) THEN
          ILAZLR = M
       ELSE
-*     Scan up each column tracking the last zero row seen.
+      // Scan up each column tracking the last zero row seen.
          ILAZLR = 0
          DO J = 1, N
             I=M

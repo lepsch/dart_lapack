@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBU1, JOBU2, JOBV1T;
       int                INFO, LDU1, LDU2, LDV1T, LWORK, LDX11, LDX21, M, P, Q;
       int                LRWORK, LRWORKMIN, LRWORKOPT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK(*)
       REAL               THETA(*)
       COMPLEX            U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*)
       int                IWORK(*);
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE, ZERO
       PARAMETER          ( ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, J, LBBCSD, LORBDB, LORGLQ, LORGLQMIN, LORGLQOPT, LORGQR, LORGQRMIN, LORGQROPT, LWORKMIN, LWORKOPT, R;
       bool               LQUERY, WANTU1, WANTU2, WANTV1T;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUM( 1 )
       COMPLEX            CDUM( 1, 1 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CBBCSD, CCOPY, CLACPY, CLAPMR, CLAPMT, CUNBDB1, CUNBDB2, CUNBDB3, CUNBDB4, CUNGLQ, CUNGQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Function ..
+      // ..
+      // .. Intrinsic Function ..
       // INTRINSIC INT, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       WANTU1 = LSAME( JOBU1, 'Y' )
@@ -71,38 +71,38 @@
 *
       R = MIN( P, M-P, Q, M-Q )
 *
-*     Compute workspace
+      // Compute workspace
 *
-*       WORK layout:
-*     |-----------------------------------------|
-*     | LWORKOPT (1)                            |
-*     |-----------------------------------------|
-*     | TAUP1 (MAX(1,P))                        |
-*     | TAUP2 (MAX(1,M-P))                      |
-*     | TAUQ1 (MAX(1,Q))                        |
-*     |-----------------------------------------|
-*     | CUNBDB WORK | CUNGQR WORK | CUNGLQ WORK |
-*     |             |             |             |
-*     |             |             |             |
-*     |             |             |             |
-*     |             |             |             |
-*     |-----------------------------------------|
-*       RWORK layout:
-*     |------------------|
-*     | LRWORKOPT (1)    |
-*     |------------------|
-*     | PHI (MAX(1,R-1)) |
-*     |------------------|
-*     | B11D (R)         |
-*     | B11E (R-1)       |
-*     | B12D (R)         |
-*     | B12E (R-1)       |
-*     | B21D (R)         |
-*     | B21E (R-1)       |
-*     | B22D (R)         |
-*     | B22E (R-1)       |
-*     | CBBCSD RWORK     |
-*     |------------------|
+        // WORK layout:
+      // |-----------------------------------------|
+      // | LWORKOPT (1)                            |
+      // |-----------------------------------------|
+      // | TAUP1 (MAX(1,P))                        |
+      // | TAUP2 (MAX(1,M-P))                      |
+      // | TAUQ1 (MAX(1,Q))                        |
+      // |-----------------------------------------|
+      // | CUNBDB WORK | CUNGQR WORK | CUNGLQ WORK |
+      // |             |             |             |
+      // |             |             |             |
+      // |             |             |             |
+      // |             |             |             |
+      // |-----------------------------------------|
+        // RWORK layout:
+      // |------------------|
+      // | LRWORKOPT (1)    |
+      // |------------------|
+      // | PHI (MAX(1,R-1)) |
+      // |------------------|
+      // | B11D (R)         |
+      // | B11E (R-1)       |
+      // | B12D (R)         |
+      // | B12E (R-1)       |
+      // | B21D (R)         |
+      // | B21E (R-1)       |
+      // | B22D (R)         |
+      // | B22E (R-1)       |
+      // | CBBCSD RWORK     |
+      // |------------------|
 *
       IF( INFO .EQ. 0 ) THEN
          IPHI = 2
@@ -227,18 +227,18 @@
       LORGQR = LWORK-IORGQR+1
       LORGLQ = LWORK-IORGLQ+1
 *
-*     Handle four cases separately: R = Q, R = P, R = M-P, and R = M-Q,
-*     in which R = MIN(P,M-P,Q,M-Q)
+      // Handle four cases separately: R = Q, R = P, R = M-P, and R = M-Q,
+      // in which R = MIN(P,M-P,Q,M-Q)
 *
       IF( R .EQ. Q ) THEN
 *
-*        Case 1: R = Q
+         // Case 1: R = Q
 *
-*        Simultaneously bidiagonalize X11 and X21
+         // Simultaneously bidiagonalize X11 and X21
 *
          CALL CUNBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
 *
-*        Accumulate Householder reflectors
+         // Accumulate Householder reflectors
 *
          IF( WANTU1 .AND. P .GT. 0 ) THEN
             CALL CLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
@@ -257,12 +257,12 @@
             CALL CLACPY( 'U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T )             CALL CUNGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
          END IF
 *
-*        Simultaneously diagonalize X11 and X21.
+         // Simultaneously diagonalize X11 and X21.
 *
          CALL CBBCSD( JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, RWORK(IPHI), U1, LDU1, U2, LDU2, V1T, LDV1T, CDUM, 1, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LRWORK-IBBCSD+1, CHILDINFO )
 *
-*        Permute rows and columns to place zero submatrices in
-*        preferred positions
+         // Permute rows and columns to place zero submatrices in
+         // preferred positions
 *
          IF( Q .GT. 0 .AND. WANTU2 ) THEN
             DO I = 1, Q
@@ -275,13 +275,13 @@
          END IF
       ELSE IF( R .EQ. P ) THEN
 *
-*        Case 2: R = P
+         // Case 2: R = P
 *
-*        Simultaneously bidiagonalize X11 and X21
+         // Simultaneously bidiagonalize X11 and X21
 *
          CALL CUNBDB2( M, P, Q, X11, LDX11, X21, LDX21, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
 *
-*        Accumulate Householder reflectors
+         // Accumulate Householder reflectors
 *
          IF( WANTU1 .AND. P .GT. 0 ) THEN
             U1(1,1) = ONE
@@ -301,12 +301,12 @@
             CALL CUNGLQ( Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
          END IF
 *
-*        Simultaneously diagonalize X11 and X21.
+         // Simultaneously diagonalize X11 and X21.
 *
          CALL CBBCSD( JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, RWORK(IPHI), V1T, LDV1T, CDUM, 1, U1, LDU1, U2, LDU2, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSD, CHILDINFO )
 *
-*        Permute rows and columns to place identity submatrices in
-*        preferred positions
+         // Permute rows and columns to place identity submatrices in
+         // preferred positions
 *
          IF( Q .GT. 0 .AND. WANTU2 ) THEN
             DO I = 1, Q
@@ -319,13 +319,13 @@
          END IF
       ELSE IF( R .EQ. M-P ) THEN
 *
-*        Case 3: R = M-P
+         // Case 3: R = M-P
 *
-*        Simultaneously bidiagonalize X11 and X21
+         // Simultaneously bidiagonalize X11 and X21
 *
          CALL CUNBDB3( M, P, Q, X11, LDX11, X21, LDX21, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
 *
-*        Accumulate Householder reflectors
+         // Accumulate Householder reflectors
 *
          IF( WANTU1 .AND. P .GT. 0 ) THEN
             CALL CLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
@@ -344,12 +344,12 @@
             CALL CUNGLQ( Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
          END IF
 *
-*        Simultaneously diagonalize X11 and X21.
+         // Simultaneously diagonalize X11 and X21.
 *
          CALL CBBCSD( 'N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, RWORK(IPHI), CDUM, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSD, CHILDINFO )
 *
-*        Permute rows and columns to place identity submatrices in
-*        preferred positions
+         // Permute rows and columns to place identity submatrices in
+         // preferred positions
 *
          IF( Q .GT. R ) THEN
             DO I = 1, R
@@ -367,13 +367,13 @@
          END IF
       ELSE
 *
-*        Case 4: R = M-Q
+         // Case 4: R = M-Q
 *
-*        Simultaneously bidiagonalize X11 and X21
+         // Simultaneously bidiagonalize X11 and X21
 *
          CALL CUNBDB4( M, P, Q, X11, LDX11, X21, LDX21, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), WORK(IORBDB+M), LORBDB-M, CHILDINFO )
 *
-*        Accumulate Householder reflectors
+         // Accumulate Householder reflectors
 *
 
          IF( WANTU2 .AND. M-P .GT. 0 ) THEN
@@ -397,12 +397,12 @@
             CALL CLACPY( 'U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T )             CALL CLACPY( 'U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T )             CALL CUNGLQ( Q, Q, Q, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
          END IF
 *
-*        Simultaneously diagonalize X11 and X21.
+         // Simultaneously diagonalize X11 and X21.
 *
          CALL CBBCSD( JOBU2, JOBU1, 'N', JOBV1T, 'N', M, M-P, M-Q, THETA, RWORK(IPHI), U2, LDU2, U1, LDU1, CDUM, 1, V1T, LDV1T, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSD, CHILDINFO )
 *
-*        Permute rows and columns to place identity submatrices in
-*        preferred positions
+         // Permute rows and columns to place identity submatrices in
+         // preferred positions
 *
          IF( P .GT. R ) THEN
             DO I = 1, R
@@ -422,6 +422,6 @@
 *
       RETURN
 *
-*     End of CUNCSD2BY1
+      // End of CUNCSD2BY1
 *
       END

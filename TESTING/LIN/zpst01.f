@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             RESID;
       int                LDA, LDAFAC, LDPERM, N, RANK;
       String             UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * )
       double             RWORK( * );
       int                PIV( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16         TC
       double             ANORM, EPS, TR;
       int                I, J, K;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       COMPLEX*16         ZDOTC
       double             DLAMCH, ZLANHE;
       bool               LSAME;
       // EXTERNAL ZDOTC, DLAMCH, ZLANHE, LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZHER, ZSCAL, ZTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCONJG, DIMAG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
@@ -58,8 +58,8 @@
          RETURN
       END IF
 *
-*     Check the imaginary parts of the diagonal elements and return with
-*     an error code if any are nonzero.
+      // Check the imaginary parts of the diagonal elements and return with
+      // an error code if any are nonzero.
 *
       DO 100 J = 1, N
          IF( DIMAG( AFAC( J, J ) ).NE.ZERO ) THEN
@@ -68,7 +68,7 @@
          END IF
   100 CONTINUE
 *
-*     Compute the product U'*U, overwriting U.
+      // Compute the product U'*U, overwriting U.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
@@ -82,18 +82,18 @@
 *
          DO 130 K = N, 1, -1
 *
-*           Compute the (K,K) element of the result.
+            // Compute the (K,K) element of the result.
 *
             TR = DBLE( ZDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) )
             AFAC( K, K ) = TR
 *
-*           Compute the rest of column K.
+            // Compute the rest of column K.
 *
             CALL ZTRMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
 *
   130    CONTINUE
 *
-*     Compute the product L*L', overwriting L.
+      // Compute the product L*L', overwriting L.
 *
       ELSE
 *
@@ -106,12 +106,12 @@
          END IF
 *
          DO 160 K = N, 1, -1
-*           Add a multiple of column K of the factor L to each of
-*           columns K+1 through N.
+            // Add a multiple of column K of the factor L to each of
+            // columns K+1 through N.
 *
             IF( K+1.LE.N ) CALL ZHER( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC )
 *
-*           Scale column K by the diagonal element.
+            // Scale column K by the diagonal element.
 *
             TC = AFAC( K, K )
             CALL ZSCAL( N-K+1, TC, AFAC( K, K ), 1 )
@@ -119,7 +119,7 @@
 *
       END IF
 *
-*        Form P*L*L'*P' or P*U'*U*P'
+         // Form P*L*L'*P' or P*U'*U*P'
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
@@ -152,7 +152,7 @@
 *
       END IF
 *
-*     Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
+      // Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 220 J = 1, N
@@ -170,8 +170,8 @@
   240    CONTINUE
       END IF
 *
-*     Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or
-*     ( P*U'*U*P' - A )/ ( N * norm(A) * EPS ).
+      // Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or
+      // ( P*U'*U*P' - A )/ ( N * norm(A) * EPS ).
 *
       RESID = ZLANHE( '1', UPLO, N, PERM, LDAFAC, RWORK )
 *
@@ -179,6 +179,6 @@
 *
       RETURN
 *
-*     End of ZPST01
+      // End of ZPST01
 *
       END

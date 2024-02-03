@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                INFO, IRNK;
       REAL               RCOND
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX );
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), S( NMAX ), W( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SGELS, SGELSD, SGELSS, SGELST, SGELSY, SGETSLS
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
@@ -53,9 +53,9 @@
 *
       IF( LSAMEN( 2, C2, 'LS' ) ) THEN
 *
-*        Test error exits for the least squares driver routines.
+         // Test error exits for the least squares driver routines.
 *
-*        SGELS
+         // SGELS
 *
          SRNAMT = 'SGELS '
          INFOT = 1
@@ -83,7 +83,7 @@
          CALL SGELS( 'N', 1, 1, 0, A, 1, B, 1, W, 1, INFO )
          CALL CHKXER( 'SGELS ', INFOT, NOUT, LERR, OK )
 *
-*        SGELST
+         // SGELST
 *
          SRNAMT = 'SGELST'
          INFOT = 1
@@ -111,7 +111,7 @@
          CALL SGELST( 'N', 1, 1, 0, A, 1, B, 1, W, 1, INFO )
          CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
 *
-*        SGETSLS
+         // SGETSLS
 *
          SRNAMT = 'SGETSLS'
          INFOT = 1
@@ -136,7 +136,7 @@
          CALL SGETSLS( 'N', 0, 2, 0, A, 1, B, 1, W, 2, INFO )
          CALL CHKXER( 'SGETSLS', INFOT, NOUT, LERR, OK )
 *
-*        SGELSS
+         // SGELSS
 *
          SRNAMT = 'SGELSS'
          INFOT = 1
@@ -155,7 +155,7 @@
          CALL SGELSS( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 2, INFO )
          CALL CHKXER( 'SGELSS', INFOT, NOUT, LERR, OK )
 *
-*        SGELSY
+         // SGELSY
 *
          SRNAMT = 'SGELSY'
          INFOT = 1
@@ -177,7 +177,7 @@
          CALL SGELSY( 2, 2, 1, A, 2, B, 2, IP, RCOND, IRNK, W, 1, INFO )
          CALL CHKXER( 'SGELSY', INFOT, NOUT, LERR, OK )
 *
-*        SGELSD
+         // SGELSD
 *
          SRNAMT = 'SGELSD'
          INFOT = 1
@@ -200,12 +200,12 @@
          CALL CHKXER( 'SGELSD', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of SERRLS
+      // End of SERRLS
 *
       END

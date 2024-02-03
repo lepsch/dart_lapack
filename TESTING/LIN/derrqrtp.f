@@ -5,44 +5,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DTPQRT2, DTPQRT, DTPMQRT
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO J = 1, NMAX
          DO I = 1, NMAX
@@ -54,9 +54,9 @@
       END DO
       OK = .TRUE.
 *
-*     Error exits for TPQRT factorization
+      // Error exits for TPQRT factorization
 *
-*     DTPQRT
+      // DTPQRT
 *
       SRNAMT = 'DTPQRT'
       INFOT = 1
@@ -87,7 +87,7 @@
       CALL DTPQRT( 2, 2, 1, 2, A, 2, B, 2, T, 1, W, INFO )
       CALL CHKXER( 'DTPQRT', INFOT, NOUT, LERR, OK )
 *
-*     DTPQRT2
+      // DTPQRT2
 *
       SRNAMT = 'DTPQRT2'
       INFOT = 1
@@ -109,7 +109,7 @@
       CALL DTPQRT2( 2, 2, 0, A, 2, B, 2, T, 1, INFO )
       CALL CHKXER( 'DTPQRT2', INFOT, NOUT, LERR, OK )
 *
-*     DTPMQRT
+      // DTPMQRT
 *
       SRNAMT = 'DTPMQRT'
       INFOT = 1
@@ -148,12 +148,12 @@
       CALL DTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0, W, INFO )
       CALL CHKXER( 'DTPMQRT', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRQRTP
+      // End of DERRQRTP
 *
       END

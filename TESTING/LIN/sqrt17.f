@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, ISCL, NCOLS, NROWS;
       REAL               ERR, NORMA, NORMB, NORMRS, SMLNUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               RWORK( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE
       // EXTERNAL LSAME, SLAMCH, SLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLASCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       SQRT17 = ZERO
 *
@@ -64,7 +64,7 @@
       SMLNUM = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' )
       ISCL = 0
 *
-*     compute residual and scale it
+      // compute residual and scale it
 *
       CALL SLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
       CALL SGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB )
@@ -74,11 +74,11 @@
          CALL SLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
       END IF
 *
-*     compute R**T * op(A)
+      // compute R**T * op(A)
 *
       CALL SGEMM( 'Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB, A, LDA, ZERO, WORK, NRHS )
 *
-*     compute and properly scale error
+      // compute and properly scale error
 *
       ERR = SLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
       IF( NORMA.NE.ZERO ) ERR = ERR / NORMA
@@ -95,6 +95,6 @@
       SQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N, NRHS ) ) )
       RETURN
 *
-*     End of SQRT17
+      // End of SQRT17
 *
       END

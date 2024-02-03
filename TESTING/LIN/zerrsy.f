@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO, J;
       double             ANRM, RCOND;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX );
       double             R( NMAX ), R1( NMAX ), R2( NMAX );
       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, ZSPCON, ZSPRFS, ZSPTRF, ZSPTRI, ZSPTRS, ZSYCON, ZSYCON_3, ZSYCON_ROOK, ZSYRFS, ZSYTF2, ZSYTF2_RK, ZSYTF2_ROOK, ZSYTRF, ZSYTRF_RK, ZSYTRF_ROOK, ZSYTRI, ZSYTRI_3, ZSYTRI_3X, ZSYTRI_ROOK, ZSYTRI2, ZSYTRI2X, ZSYTRS, ZSYTRS_3, ZSYTRS_ROOK
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -69,11 +69,11 @@
 *
       IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with partial
-*        (Bunch-Kaufman) diagonal pivoting method.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with partial
+         // (Bunch-Kaufman) diagonal pivoting method.
 *
-*        ZSYTRF
+         // ZSYTRF
 *
          SRNAMT = 'ZSYTRF'
          INFOT = 1
@@ -92,7 +92,7 @@
          CALL ZSYTRF( 'U', 0, A, 1, IP, W, -2, INFO )
          CALL CHKXER( 'ZSYTRF', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTF2
+         // ZSYTF2
 *
          SRNAMT = 'ZSYTF2'
          INFOT = 1
@@ -105,7 +105,7 @@
          CALL ZSYTF2( 'U', 2, A, 1, IP, INFO )
          CALL CHKXER( 'ZSYTF2', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRI
+         // ZSYTRI
 *
          SRNAMT = 'ZSYTRI'
          INFOT = 1
@@ -118,7 +118,7 @@
          CALL ZSYTRI( 'U', 2, A, 1, IP, W, INFO )
          CALL CHKXER( 'ZSYTRI', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRI2
+         // ZSYTRI2
 *
          SRNAMT = 'ZSYTRI2'
          INFOT = 1
@@ -131,7 +131,7 @@
          CALL ZSYTRI2( 'U', 2, A, 1, IP, W, 1, INFO )
          CALL CHKXER( 'ZSYTRI2', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRI2X
+         // ZSYTRI2X
 *
          SRNAMT = 'ZSYTRI2X'
          INFOT = 1
@@ -144,7 +144,7 @@
          CALL ZSYTRI2X( 'U', 2, A, 1, IP, W, 1, INFO )
          CALL CHKXER( 'ZSYTRI2X', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRS
+         // ZSYTRS
 *
          SRNAMT = 'ZSYTRS'
          INFOT = 1
@@ -163,7 +163,7 @@
          CALL ZSYTRS( 'U', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS', INFOT, NOUT, LERR, OK )
 *
-*        ZSYRFS
+         // ZSYRFS
 *
          SRNAMT = 'ZSYRFS'
          INFOT = 1
@@ -188,7 +188,7 @@
          CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
 *
-*        ZSYCON
+         // ZSYCON
 *
          SRNAMT = 'ZSYCON'
          INFOT = 1
@@ -206,11 +206,11 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) diagonal pivoting method.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) diagonal pivoting method.
 *
-*        ZSYTRF_ROOK
+         // ZSYTRF_ROOK
 *
          SRNAMT = 'ZSYTRF_ROOK'
          INFOT = 1
@@ -229,7 +229,7 @@
          CALL ZSYTRF_ROOK( 'U', 0, A, 1, IP, W, -2, INFO )
          CALL CHKXER( 'ZSYTRF_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTF2_ROOK
+         // ZSYTF2_ROOK
 *
          SRNAMT = 'ZSYTF2_ROOK'
          INFOT = 1
@@ -242,7 +242,7 @@
          CALL ZSYTF2_ROOK( 'U', 2, A, 1, IP, INFO )
          CALL CHKXER( 'ZSYTF2_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRI_ROOK
+         // ZSYTRI_ROOK
 *
          SRNAMT = 'ZSYTRI_ROOK'
          INFOT = 1
@@ -255,7 +255,7 @@
          CALL ZSYTRI_ROOK( 'U', 2, A, 1, IP, W, INFO )
          CALL CHKXER( 'ZSYTRI_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRS_ROOK
+         // ZSYTRS_ROOK
 *
          SRNAMT = 'ZSYTRS_ROOK'
          INFOT = 1
@@ -274,7 +274,7 @@
          CALL ZSYTRS_ROOK( 'U', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        ZSYCON_ROOK
+         // ZSYCON_ROOK
 *
          SRNAMT = 'ZSYCON_ROOK'
          INFOT = 1
@@ -292,15 +292,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
-*        ZSYTRF_RK
+         // ZSYTRF_RK
 *
          SRNAMT = 'ZSYTRF_RK'
          INFOT = 1
@@ -319,7 +319,7 @@
          CALL ZSYTRF_RK( 'U', 0, A, 1, E, IP, W, -2, INFO )
          CALL CHKXER( 'ZSYTRF_RK', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTF2_RK
+         // ZSYTF2_RK
 *
          SRNAMT = 'ZSYTF2_RK'
          INFOT = 1
@@ -332,7 +332,7 @@
          CALL ZSYTF2_RK( 'U', 2, A, 1, E, IP, INFO )
          CALL CHKXER( 'ZSYTF2_RK', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRI_3
+         // ZSYTRI_3
 *
          SRNAMT = 'ZSYTRI_3'
          INFOT = 1
@@ -351,7 +351,7 @@
          CALL ZSYTRI_3( 'U', 0, A, 1, E, IP, W, -2, INFO )
          CALL CHKXER( 'ZSYTRI_3', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRI_3X
+         // ZSYTRI_3X
 *
          SRNAMT = 'ZSYTRI_3X'
          INFOT = 1
@@ -364,7 +364,7 @@
          CALL ZSYTRI_3X( 'U', 2, A, 1, E, IP, W, 1, INFO )
          CALL CHKXER( 'ZSYTRI_3X', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRS_3
+         // ZSYTRS_3
 *
          SRNAMT = 'ZSYTRS_3'
          INFOT = 1
@@ -383,7 +383,7 @@
          CALL ZSYTRS_3( 'U', 2, 1, A, 2, E, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_3', INFOT, NOUT, LERR, OK )
 *
-*        ZSYCON_3
+         // ZSYCON_3
 *
          SRNAMT = 'ZSYCON_3'
          INFOT = 1
@@ -401,11 +401,11 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite packed matrix with partial
-*        (Bunch-Kaufman) pivoting.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite packed matrix with partial
+         // (Bunch-Kaufman) pivoting.
 *
-*        ZSPTRF
+         // ZSPTRF
 *
          SRNAMT = 'ZSPTRF'
          INFOT = 1
@@ -415,7 +415,7 @@
          CALL ZSPTRF( 'U', -1, A, IP, INFO )
          CALL CHKXER( 'ZSPTRF', INFOT, NOUT, LERR, OK )
 *
-*        ZSPTRI
+         // ZSPTRI
 *
          SRNAMT = 'ZSPTRI'
          INFOT = 1
@@ -425,7 +425,7 @@
          CALL ZSPTRI( 'U', -1, A, IP, W, INFO )
          CALL CHKXER( 'ZSPTRI', INFOT, NOUT, LERR, OK )
 *
-*        ZSPTRS
+         // ZSPTRS
 *
          SRNAMT = 'ZSPTRS'
          INFOT = 1
@@ -441,7 +441,7 @@
          CALL ZSPTRS( 'U', 2, 1, A, IP, B, 1, INFO )
          CALL CHKXER( 'ZSPTRS', INFOT, NOUT, LERR, OK )
 *
-*        ZSPRFS
+         // ZSPRFS
 *
          SRNAMT = 'ZSPRFS'
          INFOT = 1
@@ -460,7 +460,7 @@
          CALL ZSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
 *
-*        ZSPCON
+         // ZSPCON
 *
          SRNAMT = 'ZSPCON'
          INFOT = 1
@@ -475,10 +475,10 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with Aasen's algorithm.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with Aasen's algorithm.
 *
-*        ZSYTRF_AA
+         // ZSYTRF_AA
 *
          SRNAMT = 'ZSYTRF_AA'
          INFOT = 1
@@ -497,7 +497,7 @@
          CALL ZSYTRF_AA( 'U', 0, A, 1, IP, W, -2, INFO )
          CALL CHKXER( 'ZSYTRF_AA', INFOT, NOUT, LERR, OK )
 *
-*        ZSYTRS_AA
+         // ZSYTRS_AA
 *
          SRNAMT = 'ZSYTRS_AA'
          INFOT = 1
@@ -518,10 +518,10 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with Aasen's algorithm.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with Aasen's algorithm.
 *
-*        ZSYTRF_AA_2STAGE
+         // ZSYTRF_AA_2STAGE
 *
          SRNAMT = 'ZSYTRF_AA_2STAGE'
          INFOT = 1
@@ -540,7 +540,7 @@
          CALL ZSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0, INFO )
          CALL CHKXER( 'ZSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
 *
-*        CHETRS_AA_2STAGE
+         // CHETRS_AA_2STAGE
 *
          SRNAMT = 'ZSYTRS_AA_2STAGE'
          INFOT = 1
@@ -564,12 +564,12 @@
 *
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of ZERRSY
+      // End of ZERRSY
 *
       END

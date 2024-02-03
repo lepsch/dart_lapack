@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
       REAL               ANORM, RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            AP( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I, IP, KASE;
       REAL               AINVNM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHPTRS, CLACN2, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -53,7 +53,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -63,11 +63,11 @@
          RETURN
       END IF
 *
-*     Check that the diagonal matrix D is nonsingular.
+      // Check that the diagonal matrix D is nonsingular.
 *
       IF( UPPER ) THEN
 *
-*        Upper triangular storage: examine D from bottom to top
+         // Upper triangular storage: examine D from bottom to top
 *
          IP = N*( N+1 ) / 2
          DO 10 I = N, 1, -1
@@ -76,7 +76,7 @@
    10    CONTINUE
       ELSE
 *
-*        Lower triangular storage: examine D from top to bottom.
+         // Lower triangular storage: examine D from top to bottom.
 *
          IP = 1
          DO 20 I = 1, N
@@ -85,25 +85,25 @@
    20    CONTINUE
       END IF
 *
-*     Estimate the 1-norm of the inverse.
+      // Estimate the 1-norm of the inverse.
 *
       KASE = 0
    30 CONTINUE
       CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
       IF( KASE.NE.0 ) THEN
 *
-*        Multiply by inv(L*D*L**H) or inv(U*D*U**H).
+         // Multiply by inv(L*D*L**H) or inv(U*D*U**H).
 *
          CALL CHPTRS( UPLO, N, 1, AP, IPIV, WORK, N, INFO )
          GO TO 30
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
       RETURN
 *
-*     End of CHPCON
+      // End of CHPCON
 *
       END

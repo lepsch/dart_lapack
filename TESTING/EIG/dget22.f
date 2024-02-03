@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANSA, TRANSE, TRANSW;
       int                LDA, LDE, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), E( LDE, * ), RESULT( 2 ), WI( * ), WORK( * ), WR( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             NORMA, NORME;
       int                IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC       double             ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             WMAT( 2, 2 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DGEMM, DLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize RESULT (in case N=0)
+      // Initialize RESULT (in case N=0)
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -61,13 +61,13 @@
          INCE = LDE
       END IF
 *
-*     Check normalization of E
+      // Check normalization of E
 *
       ENRMIN = ONE / ULP
       ENRMAX = ZERO
       IF( ITRNSE.EQ.0 ) THEN
 *
-*        Eigenvectors are column vectors.
+         // Eigenvectors are column vectors.
 *
          IPAIR = 0
          DO 30 JVEC = 1, N
@@ -75,7 +75,7 @@
             IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
             IF( IPAIR.EQ.1 ) THEN
 *
-*              Complex eigenvector
+               // Complex eigenvector
 *
                DO 10 J = 1, N
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
@@ -87,7 +87,7 @@
                IPAIR = 0
             ELSE
 *
-*              Real eigenvector
+               // Real eigenvector
 *
                DO 20 J = 1, N
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
@@ -100,7 +100,7 @@
 *
       ELSE
 *
-*        Eigenvectors are row vectors.
+         // Eigenvectors are row vectors.
 *
          DO 40 JVEC = 1, N
             WORK( JVEC ) = ZERO
@@ -128,17 +128,17 @@
    70    CONTINUE
       END IF
 *
-*     Norm of A:
+      // Norm of A:
 *
       ANORM = MAX( DLANGE( NORMA, N, N, A, LDA, WORK ), UNFL )
 *
-*     Norm of E:
+      // Norm of E:
 *
       ENORM = MAX( DLANGE( NORME, N, N, E, LDE, WORK ), ULP )
 *
-*     Norm of error:
+      // Norm of error:
 *
-*     Error =  AE - EW
+      // Error =  AE - EW
 *
       CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
 *
@@ -177,7 +177,7 @@
 *
       ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N*N+1 ) ) / ENORM
 *
-*     Compute RESULT(1) (avoiding under/overflow)
+      // Compute RESULT(1) (avoiding under/overflow)
 *
       IF( ANORM.GT.ERRNRM ) THEN
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
@@ -189,12 +189,12 @@
          END IF
       END IF
 *
-*     Compute RESULT(2) : the normalization error in E.
+      // Compute RESULT(2) : the normalization error in E.
 *
       RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( DBLE( N )*ULP )
 *
       RETURN
 *
-*     End of DGET22
+      // End of DGET22
 *
       END

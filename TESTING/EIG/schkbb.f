@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDAB, LDC, LDP, LDQ, LWORK, NOUNIT, NRHS, NSIZES, NTYPES, NWDTHS;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), KK( * ), MVAL( * ), NVAL( * );
       REAL               A( LDA, * ), AB( LDAB, * ), BD( * ), BE( * ), C( LDC, * ), CC( LDC, * ), P( LDP, * ), Q( LDQ, * ), RESULT( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 15 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADMM, BADNN, BADNNB;
       int                I, IINFO, IMODE, ITYPE, J, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KL, KMAX, KU, M, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
       REAL               AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP, ULPINV, UNFL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SBDT01, SBDT02, SGBBRD, SLACPY, SLAHD2, SLASET, SLASUM, SLATMR, SLATMS, SORT01, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*6, 3*9 /
       DATA               KMAGN / 2*1, 3*1, 2, 3, 3*1, 2, 3, 1, 2, 3 /
       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       NTESTT = 0
       INFO = 0
 *
-*     Important constants
+      // Important constants
 *
       BADMM = .FALSE.
       BADNN = .FALSE.
@@ -74,7 +74,7 @@
          IF( KK( J ).LT.0 ) BADNNB = .TRUE.
    20 CONTINUE
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -109,11 +109,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
@@ -122,7 +122,7 @@
       RTUNFL = SQRT( UNFL )
       RTOVFL = SQRT( OVFL )
 *
-*     Loop over sizes, widths, types
+      // Loop over sizes, widths, types
 *
       NERRS = 0
       NMATS = 0
@@ -154,27 +154,27 @@
                   IOLDSD( J ) = ISEED( J )
    30          CONTINUE
 *
-*              Compute "A".
+               // Compute "A".
 *
-*              Control parameters:
+               // Control parameters:
 *
-*                  KMAGN  KMODE        KTYPE
-*              =1  O(1)   clustered 1  zero
-*              =2  large  clustered 2  identity
-*              =3  small  exponential  (none)
-*              =4         arithmetic   diagonal, (w/ singular values)
-*              =5         random log   (none)
-*              =6         random       nonhermitian, w/ singular values
-*              =7                      (none)
-*              =8                      (none)
-*              =9                      random nonhermitian
+                   // KMAGN  KMODE        KTYPE
+               // =1  O(1)   clustered 1  zero
+               // =2  large  clustered 2  identity
+               // =3  small  exponential  (none)
+               // =4         arithmetic   diagonal, (w/ singular values)
+               // =5         random log   (none)
+               // =6         random       nonhermitian, w/ singular values
+               // =7                      (none)
+               // =8                      (none)
+               // =9                      random nonhermitian
 *
                IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
                ITYPE = KTYPE( JTYPE )
                IMODE = KMODE( JTYPE )
 *
-*              Compute norm
+               // Compute norm
 *
                GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 *
@@ -197,16 +197,16 @@
                IINFO = 0
                COND = ULPINV
 *
-*              Special Matrices -- Identity & Jordan block
+               // Special Matrices -- Identity & Jordan block
 *
-*                 Zero
+                  // Zero
 *
                IF( ITYPE.EQ.1 ) THEN
                   IINFO = 0
 *
                ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*                 Identity
+                  // Identity
 *
                   DO 80 JCOL = 1, N
                      A( JCOL, JCOL ) = ANORM
@@ -214,19 +214,19 @@
 *
                ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*                 Diagonal Matrix, singular values specified
+                  // Diagonal Matrix, singular values specified
 *
                   CALL SLATMS( M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( M+1 ), IINFO )
 *
                ELSE IF( ITYPE.EQ.6 ) THEN
 *
-*                 Nonhermitian, singular values specified
+                  // Nonhermitian, singular values specified
 *
                   CALL SLATMS( M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, KL, KU, 'N', A, LDA, WORK( M+1 ), IINFO )
 *
                ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*                 Nonhermitian, random entries
+                  // Nonhermitian, random entries
 *
                   CALL SLATMR( M, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, KL, KU, ZERO, ANORM, 'N', A, LDA, IDUMMA, IINFO )
 *
@@ -235,7 +235,7 @@
                   IINFO = 1
                END IF
 *
-*              Generate Right-Hand Side
+               // Generate Right-Hand Side
 *
                CALL SLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IDUMMA, M, NRHS, ZERO, ONE, 'NO', C, LDC, IDUMMA, IINFO )
 *
@@ -247,7 +247,7 @@
 *
    90          CONTINUE
 *
-*              Copy A to band storage.
+               // Copy A to band storage.
 *
                DO 110 J = 1, N
                   DO 100 I = MAX( 1, J-KU ), MIN( M, J+KL )
@@ -255,11 +255,11 @@
   100             CONTINUE
   110          CONTINUE
 *
-*              Copy C
+               // Copy C
 *
                CALL SLACPY( 'Full', M, NRHS, C, LDC, CC, LDC )
 *
-*              Call SGBBRD to compute B, Q and P, and to update C.
+               // Call SGBBRD to compute B, Q and P, and to update C.
 *
                CALL SGBBRD( 'B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE, Q, LDQ, P, LDP, CC, LDC, WORK, IINFO )
 *
@@ -274,20 +274,20 @@
                   END IF
                END IF
 *
-*              Test 1:  Check the decomposition A := Q * B * P'
-*                   2:  Check the orthogonality of Q
-*                   3:  Check the orthogonality of P
-*                   4:  Check the computation of Q' * C
+               // Test 1:  Check the decomposition A := Q * B * P'
+                    // 2:  Check the orthogonality of Q
+                    // 3:  Check the orthogonality of P
+                    // 4:  Check the computation of Q' * C
 *
                CALL SBDT01( M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RESULT( 1 ) )                CALL SORT01( 'Columns', M, M, Q, LDQ, WORK, LWORK, RESULT( 2 ) )                CALL SORT01( 'Rows', N, N, P, LDP, WORK, LWORK, RESULT( 3 ) )                CALL SBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RESULT( 4 ) )
 *
-*              End of Loop -- Check for RESULT(j) > THRESH
+               // End of Loop -- Check for RESULT(j) > THRESH
 *
                NTEST = 4
   120          CONTINUE
                NTESTT = NTESTT + NTEST
 *
-*              Print out tests which fail.
+               // Print out tests which fail.
 *
                DO 130 JR = 1, NTEST
                   IF( RESULT( JR ).GE.THRESH ) THEN
@@ -301,7 +301,7 @@
   150    CONTINUE
   160 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL SLASUM( 'SBB', NOUNIT, NERRS, NTESTT )
       RETURN
@@ -312,6 +312,6 @@
  9998 FORMAT( ' M =', I4, ' N=', I4, ', K=', I3, ', seed=',
      $      4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
 *
-*     End of SCHKBB
+      // End of SCHKBB
 *
       END

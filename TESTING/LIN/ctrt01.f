@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                LDA, LDAINV, N;
       REAL               RCOND, RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), AINV( LDAINV, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J;
       REAL               AINVNM, ANORM, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANTR, SLAMCH
       // EXTERNAL LSAME, CLANTR, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0
+      // Quick exit if N = 0
 *
       IF( N.LE.0 ) THEN
          RCOND = ONE
@@ -45,7 +45,7 @@
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANTR( '1', UPLO, DIAG, N, N, A, LDA, RWORK )
@@ -57,7 +57,7 @@
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
 *
-*     Set the diagonal of AINV to 1 if AINV has unit diagonal.
+      // Set the diagonal of AINV to 1 if AINV has unit diagonal.
 *
       IF( LSAME( DIAG, 'U' ) ) THEN
          DO 10 J = 1, N
@@ -65,7 +65,7 @@
    10    CONTINUE
       END IF
 *
-*     Compute A * AINV, overwriting AINV.
+      // Compute A * AINV, overwriting AINV.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 20 J = 1, N
@@ -77,13 +77,13 @@
    30    CONTINUE
       END IF
 *
-*     Subtract 1 from each diagonal element to form A*AINV - I.
+      // Subtract 1 from each diagonal element to form A*AINV - I.
 *
       DO 40 J = 1, N
          AINV( J, J ) = AINV( J, J ) - ONE
    40 CONTINUE
 *
-*     Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
+      // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 *
       RESID = CLANTR( '1', UPLO, 'Non-unit', N, N, AINV, LDAINV, RWORK )
 *
@@ -91,6 +91,6 @@
 *
       RETURN
 *
-*     End of CTRT01
+      // End of CTRT01
 *
       END

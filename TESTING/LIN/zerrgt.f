@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO;
       double             ANORM, RCOND;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX );
       double             D( NMAX ), DF( NMAX ), R1( NMAX ), R2( NMAX ), RW( NMAX )       COMPLEX*16         B( NMAX ), DL( NMAX ), DLF( NMAX ), DU( NMAX ), DU2( NMAX ), DUF( NMAX ), E( NMAX ), EF( NMAX ), W( NMAX ), X( NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, ZGTCON, ZGTRFS, ZGTTRF, ZGTTRS, ZPTCON, ZPTRFS, ZPTTRF, ZPTTRS
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
@@ -56,16 +56,16 @@
 *
       IF( LSAMEN( 2, C2, 'GT' ) ) THEN
 *
-*        Test error exits for the general tridiagonal routines.
+         // Test error exits for the general tridiagonal routines.
 *
-*        ZGTTRF
+         // ZGTTRF
 *
          SRNAMT = 'ZGTTRF'
          INFOT = 1
          CALL ZGTTRF( -1, DL, E, DU, DU2, IP, INFO )
          CALL CHKXER( 'ZGTTRF', INFOT, NOUT, LERR, OK )
 *
-*        ZGTTRS
+         // ZGTTRS
 *
          SRNAMT = 'ZGTTRS'
          INFOT = 1
@@ -81,7 +81,7 @@
          CALL ZGTTRS( 'N', 2, 1, DL, E, DU, DU2, IP, X, 1, INFO )
          CALL CHKXER( 'ZGTTRS', INFOT, NOUT, LERR, OK )
 *
-*        ZGTRFS
+         // ZGTRFS
 *
          SRNAMT = 'ZGTRFS'
          INFOT = 1
@@ -100,7 +100,7 @@
          CALL ZGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
 *
-*        ZGTCON
+         // ZGTCON
 *
          SRNAMT = 'ZGTCON'
          INFOT = 1
@@ -115,17 +115,17 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
 *
-*        Test error exits for the positive definite tridiagonal
-*        routines.
+         // Test error exits for the positive definite tridiagonal
+         // routines.
 *
-*        ZPTTRF
+         // ZPTTRF
 *
          SRNAMT = 'ZPTTRF'
          INFOT = 1
          CALL ZPTTRF( -1, D, E, INFO )
          CALL CHKXER( 'ZPTTRF', INFOT, NOUT, LERR, OK )
 *
-*        ZPTTRS
+         // ZPTTRS
 *
          SRNAMT = 'ZPTTRS'
          INFOT = 1
@@ -141,7 +141,7 @@
          CALL ZPTTRS( 'U', 2, 1, D, E, X, 1, INFO )
          CALL CHKXER( 'ZPTTRS', INFOT, NOUT, LERR, OK )
 *
-*        ZPTRFS
+         // ZPTRFS
 *
          SRNAMT = 'ZPTRFS'
          INFOT = 1
@@ -160,7 +160,7 @@
          CALL ZPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
 *
-*        ZPTCON
+         // ZPTCON
 *
          SRNAMT = 'ZPTCON'
          INFOT = 1
@@ -171,12 +171,12 @@
          CALL CHKXER( 'ZPTCON', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of ZERRGT
+      // End of ZERRGT
 *
       END

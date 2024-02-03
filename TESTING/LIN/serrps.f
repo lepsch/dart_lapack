@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NUNIT;
       String             PATH;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J, RANK;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               A( NMAX, NMAX ), WORK( 2*NMAX )
       int                PIV( NMAX );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SPSTF2, SPSTRF
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       int                INFOT, NOUT;
       bool               LERR, OK;
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 110 J = 1, NMAX
          DO 100 I = 1, NMAX
@@ -57,10 +57,10 @@
       OK = .TRUE.
 *
 *
-*        Test error exits of the routines that use the Cholesky
-*        decomposition of a symmetric positive semidefinite matrix.
+         // Test error exits of the routines that use the Cholesky
+         // decomposition of a symmetric positive semidefinite matrix.
 *
-*        SPSTRF
+         // SPSTRF
 *
       SRNAMT = 'SPSTRF'
       INFOT = 1
@@ -73,7 +73,7 @@
       CALL SPSTRF( 'U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO )
       CALL CHKXER( 'SPSTRF', INFOT, NOUT, LERR, OK )
 *
-*        SPSTF2
+         // SPSTF2
 *
       SRNAMT = 'SPSTF2'
       INFOT = 1
@@ -87,12 +87,12 @@
       CALL CHKXER( 'SPSTF2', INFOT, NOUT, LERR, OK )
 *
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of SERRPS
+      // End of SERRPS
 *
       END

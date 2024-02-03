@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, M, N, SCALE;
       double             NORMA;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, J;
       double             BIGNUM, SMLNUM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DZASUM, ZLANGE;
       // EXTERNAL DLAMCH, DZASUM, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLARNV, ZLASCL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, SIGN
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             DUMMY( 1 );
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
-*     benign matrix
+      // benign matrix
 *
       DO 10 J = 1, N
          CALL ZLARNV( 2, ISEED, M, A( 1, J ) )
@@ -49,7 +49,7 @@
          END IF
    10 CONTINUE
 *
-*     scaled versions
+      // scaled versions
 *
       IF( SCALE.NE.1 ) THEN
          NORMA = ZLANGE( 'Max', M, N, A, LDA, DUMMY )
@@ -60,12 +60,12 @@
 *
          IF( SCALE.EQ.2 ) THEN
 *
-*           matrix scaled up
+            // matrix scaled up
 *
             CALL ZLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )
          ELSE IF( SCALE.EQ.3 ) THEN
 *
-*           matrix scaled down
+            // matrix scaled down
 *
             CALL ZLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )
          END IF
@@ -74,6 +74,6 @@
       NORMA = ZLANGE( 'One-norm', M, N, A, LDA, DUMMY )
       RETURN
 *
-*     End of ZQRT13
+      // End of ZQRT13
 *
       END

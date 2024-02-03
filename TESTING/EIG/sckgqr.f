@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, NMAX, NN, NOUT, NP;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * );
       REAL               A( * ), AF( * ), AQ( * ), AR( * ), B( * ), BF( * ), BT( * ), BWK( * ), BZ( * ), RWORK( * ), TAUA( * ), TAUB( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NTESTS;
       PARAMETER          ( NTESTS = 7 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 8 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FIRSTT;
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                I, IINFO, IM, IMAT, IN, IP, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P;
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               DOTYPE( NTYPES );
       REAL               RESULT( NTESTS )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAHDG, ALAREQ, ALASUM, SGQRTS, SGRQTS, SLATB9, SLATMS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants.
+      // Initialize constants.
 *
       PATH( 1: 3 ) = 'GQR'
       INFO = 0
@@ -52,35 +52,35 @@
       LDB = NMAX
       LWORK = NMAX*NMAX
 *
-*     Do for each value of M in MVAL.
+      // Do for each value of M in MVAL.
 *
       DO 60 IM = 1, NM
          M = MVAL( IM )
 *
-*        Do for each value of P in PVAL.
+         // Do for each value of P in PVAL.
 *
          DO 50 IP = 1, NP
             P = PVAL( IP )
 *
-*           Do for each value of N in NVAL.
+            // Do for each value of N in NVAL.
 *
             DO 40 IN = 1, NN
                N = NVAL( IN )
 *
                DO 30 IMAT = 1, NTYPES
 *
-*                 Do the tests only if DOTYPE( IMAT ) is true.
+                  // Do the tests only if DOTYPE( IMAT ) is true.
 *
                   IF( .NOT.DOTYPE( IMAT ) ) GO TO 30
 *
-*                 Test SGGRQF
+                  // Test SGGRQF
 *
-*                 Set up parameters with SLATB9 and generate test
-*                 matrices A and B with SLATMS.
+                  // Set up parameters with SLATB9 and generate test
+                  // matrices A and B with SLATMS.
 *
                   CALL SLATB9( 'GRQ', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
-*                 Generate M by N matrix A
+                  // Generate M by N matrix A
 *
                   CALL SLATMS( M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
@@ -89,7 +89,7 @@
                      GO TO 30
                   END IF
 *
-*                 Generate P by N matrix B
+                  // Generate P by N matrix B
 *
                   CALL SLATMS( P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
@@ -102,8 +102,8 @@
 *
                   CALL SGRQTS( M, P, N, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
-*                 Print information about the tests that did not
-*                 pass the threshold.
+                  // Print information about the tests that did not
+                  // pass the threshold.
 *
                   DO 10 I = 1, NT
                      IF( RESULT( I ).GE.THRESH ) THEN
@@ -117,14 +117,14 @@
    10             CONTINUE
                   NRUN = NRUN + NT
 *
-*                 Test SGGQRF
+                  // Test SGGQRF
 *
-*                 Set up parameters with SLATB9 and generate test
-*                 matrices A and B with SLATMS.
+                  // Set up parameters with SLATB9 and generate test
+                  // matrices A and B with SLATMS.
 *
                   CALL SLATB9( 'GQR', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
-*                 Generate N-by-M matrix  A
+                  // Generate N-by-M matrix  A
 *
                   CALL SLATMS( N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
@@ -133,7 +133,7 @@
                      GO TO 30
                   END IF
 *
-*                 Generate N-by-P matrix  B
+                  // Generate N-by-P matrix  B
 *
                   CALL SLATMS( N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
@@ -146,8 +146,8 @@
 *
                   CALL SGQRTS( N, M, P, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
-*                 Print information about the tests that did not
-*                 pass the threshold.
+                  // Print information about the tests that did not
+                  // pass the threshold.
 *
                   DO 20 I = 1, NT
                      IF( RESULT( I ).GE.THRESH ) THEN
@@ -166,7 +166,7 @@
    50    CONTINUE
    60 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
 *
@@ -177,6 +177,6 @@
      $      ', test ', I2, ', ratio=', G13.6 )
       RETURN
 *
-*     End of SCKGQR
+      // End of SCKGQR
 *
       END

@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NVAL( NN );
       COMPLEX*16         A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, OK1, OK2;
       String             UPLO, CFORM;
       int                I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       COMPLEX*16         ZLARND
       // EXTERNAL ZLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZTFTTR, ZTFTTP, ZTRTTF, ZTRTTP, ZTPTTR, ZTPTTF
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS / 'U', 'L' /
       DATA               FORMS / 'N', 'C' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       NRUN = 0
       NERRS = 0
@@ -56,7 +56,7 @@
 *
          N = NVAL( IIN )
 *
-*        Do first for UPLO = 'U', then for UPLO = 'L'
+         // Do first for UPLO = 'U', then for UPLO = 'L'
 *
          DO 110 IUPLO = 1, 2
 *
@@ -64,7 +64,7 @@
             LOWER = .TRUE.
             IF ( IUPLO.EQ.1 ) LOWER = .FALSE.
 *
-*           Do first for CFORM = 'N', then for CFORM = 'C'
+            // Do first for CFORM = 'N', then for CFORM = 'C'
 *
             DO 100 IFORM = 1, 2
 *
@@ -149,7 +149,7 @@
   110    CONTINUE
   120 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       IF ( NERRS.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9997 ) NRUN
@@ -168,6 +168,6 @@
 *
       RETURN
 *
-*     End of ZDRVRF2
+      // End of ZDRVRF2
 *
       END

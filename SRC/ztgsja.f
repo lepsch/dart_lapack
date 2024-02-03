@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P;
       double             TOLA, TOLB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             ALPHA( * ), BETA( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXIT;
       PARAMETER          ( MAXIT = 40 )
       double             ZERO, ONE, HUGENUM;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
 *
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE;
       double             A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN;
       COMPLEX*16         A2, B2, SNQ, SNU, SNV
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARTG, XERBLA, ZCOPY, ZDSCAL, ZLAGS2, ZLAPLL, ZLASET, ZROT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, HUGE
       PARAMETER          ( HUGENUM = HUGE(ZERO) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       INITU = LSAME( JOBU, 'I' )
       WANTU = INITU .OR. LSAME( JOBU, 'U' )
@@ -84,11 +84,11 @@
          RETURN
       END IF
 *
-*     Initialize U, V and Q, if necessary
+      // Initialize U, V and Q, if necessary
 *
       IF( INITU ) CALL ZLASET( 'Full', M, M, CZERO, CONE, U, LDU )       IF( INITV ) CALL ZLASET( 'Full', P, P, CZERO, CONE, V, LDV )       IF( INITQ ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
 *
-*     Loop until convergence
+      // Loop until convergence
 *
       UPPER = .FALSE.
       DO 40 KCYCLE = 1, MAXIT
@@ -116,16 +116,16 @@
 *
                CALL ZLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
 *
-*              Update (K+I)-th and (K+J)-th rows of matrix A: U**H *A
+               // Update (K+I)-th and (K+J)-th rows of matrix A: U**H *A
 *
                IF( K+J.LE.M ) CALL ZROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, DCONJG( SNU ) )
 *
-*              Update I-th and J-th rows of matrix B: V**H *B
+               // Update I-th and J-th rows of matrix B: V**H *B
 *
                CALL ZROT( L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, DCONJG( SNV ) )
 *
-*              Update (N-L+I)-th and (N-L+J)-th columns of matrices
-*              A and B: A*Q and B*Q
+               // Update (N-L+I)-th and (N-L+J)-th columns of matrices
+               // A and B: A*Q and B*Q
 *
                CALL ZROT( MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ )
 *
@@ -139,13 +139,13 @@
                   B( J, N-L+I ) = CZERO
                END IF
 *
-*              Ensure that the diagonal elements of A and B are real.
+               // Ensure that the diagonal elements of A and B are real.
 *
                IF( K+I.LE.M ) A( K+I, N-L+I ) = DBLE( A( K+I, N-L+I ) )                IF( K+J.LE.M ) A( K+J, N-L+J ) = DBLE( A( K+J, N-L+J ) )
                B( I, N-L+I ) = DBLE( B( I, N-L+I ) )
                B( J, N-L+J ) = DBLE( B( J, N-L+J ) )
 *
-*              Update unitary matrices U, V, Q, if desired.
+               // Update unitary matrices U, V, Q, if desired.
 *
                IF( WANTU .AND. K+J.LE.M ) CALL ZROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU )
 *
@@ -158,11 +158,11 @@
 *
          IF( .NOT.UPPER ) THEN
 *
-*           The matrices A13 and B13 were lower triangular at the start
-*           of the cycle, and are now upper triangular.
+            // The matrices A13 and B13 were lower triangular at the start
+            // of the cycle, and are now upper triangular.
 *
-*           Convergence test: test the parallelism of the corresponding
-*           rows of A and B.
+            // Convergence test: test the parallelism of the corresponding
+            // rows of A and B.
 *
             ERROR = ZERO
             DO 30 I = 1, MIN( L, M-K )
@@ -175,20 +175,20 @@
             IF( ABS( ERROR ).LE.MIN( TOLA, TOLB ) ) GO TO 50
          END IF
 *
-*        End of cycle loop
+         // End of cycle loop
 *
    40 CONTINUE
 *
-*     The algorithm has not converged after MAXIT cycles.
+      // The algorithm has not converged after MAXIT cycles.
 *
       INFO = 1
       GO TO 100
 *
    50 CONTINUE
 *
-*     If ERROR <= MIN(TOLA,TOLB), then the algorithm has converged.
-*     Compute the generalized singular value pairs (ALPHA, BETA), and
-*     set the triangular matrix R to array A.
+      // If ERROR <= MIN(TOLA,TOLB), then the algorithm has converged.
+      // Compute the generalized singular value pairs (ALPHA, BETA), and
+      // set the triangular matrix R to array A.
 *
       DO 60 I = 1, K
          ALPHA( I ) = ONE
@@ -224,7 +224,7 @@
          END IF
    70 CONTINUE
 *
-*     Post-assignment
+      // Post-assignment
 *
       DO 80 I = M + 1, K + L
          ALPHA( I ) = ZERO
@@ -243,6 +243,6 @@
 *
       RETURN
 *
-*     End of ZTGSJA
+      // End of ZTGSJA
 *
       END

@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KD, LDA, LDPT, LDQ, M, N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DASUM, DLAMCH, DLANGE;
       // EXTERNAL DASUM, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Compute A - Q * B * P**T one column at a time.
+      // Compute A - Q * B * P**T one column at a time.
 *
       RESID = ZERO
       IF( KD.NE.0 ) THEN
 *
-*        B is bidiagonal.
+         // B is bidiagonal.
 *
          IF( KD.NE.0 .AND. M.GE.N ) THEN
 *
-*           B is upper bidiagonal and M >= N.
+            // B is upper bidiagonal and M >= N.
 *
             DO 20 J = 1, N
                CALL DCOPY( M, A( 1, J ), 1, WORK, 1 )
@@ -63,7 +63,7 @@
    20       CONTINUE
          ELSE IF( KD.LT.0 ) THEN
 *
-*           B is upper bidiagonal and M < N.
+            // B is upper bidiagonal and M < N.
 *
             DO 40 J = 1, N
                CALL DCOPY( M, A( 1, J ), 1, WORK, 1 )
@@ -76,7 +76,7 @@
    40       CONTINUE
          ELSE
 *
-*           B is lower bidiagonal.
+            // B is lower bidiagonal.
 *
             DO 60 J = 1, N
                CALL DCOPY( M, A( 1, J ), 1, WORK, 1 )
@@ -90,7 +90,7 @@
          END IF
       ELSE
 *
-*        B is diagonal.
+         // B is diagonal.
 *
          IF( M.GE.N ) THEN
             DO 80 J = 1, N
@@ -113,7 +113,7 @@
          END IF
       END IF
 *
-*     Compute norm(A - Q * B * P**T) / ( n * norm(A) * EPS )
+      // Compute norm(A - Q * B * P**T) / ( n * norm(A) * EPS )
 *
       ANORM = DLANGE( '1', M, N, A, LDA, WORK )
       EPS = DLAMCH( 'Precision' )
@@ -134,6 +134,6 @@
 *
       RETURN
 *
-*     End of DBDT01
+      // End of DBDT01
 *
       END

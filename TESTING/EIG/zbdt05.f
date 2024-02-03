@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             S( * );
       COMPLEX*16         A( LDA, * ), U( * ), VT( LDVT, * ), WORK( * )
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             ANORM, EPS;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             DUM( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DASUM, DZASUM, DLAMCH, ZLANGE;
       // EXTERNAL LSAME, IDAMAX, DASUM, DZASUM, DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       RESID = ZERO
       IF( MIN( M, N ).LE.0 .OR. NS.LE.0 ) RETURN
@@ -50,11 +50,11 @@
       EPS = DLAMCH( 'Precision' )
       ANORM = ZLANGE( 'M', M, N, A, LDA, DUM )
 *
-*     Compute U' * A * V.
+      // Compute U' * A * V.
 *
       CALL ZGEMM( 'N', 'C', M, NS, N, CONE, A, LDA, VT, LDVT, CZERO, WORK( 1+NS*NS ), M )       CALL ZGEMM( 'C', 'N', NS, NS, M, -CONE, U, LDU, WORK( 1+NS*NS ), M, CZERO, WORK, NS )
 *
-*     norm(S - U' * B * V)
+      // norm(S - U' * B * V)
 *
       J = 0
       DO 10 I = 1, NS
@@ -79,6 +79,6 @@
 *
       RETURN
 *
-*     End of ZBDT05
+      // End of ZBDT05
 *
       END

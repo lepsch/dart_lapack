@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            AP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ;
       REAL               AJJ
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTC
       // EXTERNAL LSAME, CDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHPR, CSSCAL, CTPSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -50,24 +50,24 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Compute the Cholesky factorization A = U**H * U.
+         // Compute the Cholesky factorization A = U**H * U.
 *
          JJ = 0
          DO 10 J = 1, N
             JC = JJ + 1
             JJ = JJ + J
 *
-*           Compute elements 1:J-1 of column J.
+            // Compute elements 1:J-1 of column J.
 *
             IF( J.GT.1 ) CALL CTPSV( 'Upper', 'Conjugate transpose', 'Non-unit', J-1, AP, AP( JC ), 1 )
 *
-*           Compute U(J,J) and test for non-positive-definiteness.
+            // Compute U(J,J) and test for non-positive-definiteness.
 *
             AJJ = REAL( REAL( AP( JJ ) ) - CDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) )
             IF( AJJ.LE.ZERO ) THEN
@@ -78,12 +78,12 @@
    10    CONTINUE
       ELSE
 *
-*        Compute the Cholesky factorization A = L * L**H.
+         // Compute the Cholesky factorization A = L * L**H.
 *
          JJ = 1
          DO 20 J = 1, N
 *
-*           Compute L(J,J) and test for non-positive-definiteness.
+            // Compute L(J,J) and test for non-positive-definiteness.
 *
             AJJ = REAL( AP( JJ ) )
             IF( AJJ.LE.ZERO ) THEN
@@ -93,8 +93,8 @@
             AJJ = SQRT( AJJ )
             AP( JJ ) = AJJ
 *
-*           Compute elements J+1:N of column J and update the trailing
-*           submatrix.
+            // Compute elements J+1:N of column J and update the trailing
+            // submatrix.
 *
             IF( J.LT.N ) THEN
                CALL CSSCAL( N-J, ONE / AJJ, AP( JJ+1 ), 1 )
@@ -111,6 +111,6 @@
    40 CONTINUE
       RETURN
 *
-*     End of CPPTRF
+      // End of CPPTRF
 *
       END

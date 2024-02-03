@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               ZI, ZR
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Arrays in Common ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       REAL               SELWI( 20 ), SELWR( 20 )
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       int                SELDIM, SELOPT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       REAL               RMIN, X
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAPY2
       // EXTERNAL SLAPY2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( SELOPT.EQ.0 ) THEN
          SSLECT = ( ZR.LT.ZERO )
@@ -49,6 +49,6 @@
       END IF
       RETURN
 *
-*     End of SSLECT
+      // End of SSLECT
 *
       END

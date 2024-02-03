@@ -4,17 +4,17 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                ISPEC;
       REAL               ONE, ZERO
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               NAN1, NAN2, NAN3, NAN4, NAN5, NAN6, NEGINF, NEGZRO, NEWZRO, POSINF
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       IEEECK = 1
 *
       POSINF = ONE / ZERO
@@ -68,7 +68,7 @@
 *
 *
 *
-*     Return if we were only asked to check infinity arithmetic
+      // Return if we were only asked to check infinity arithmetic
 *
       IF( ISPEC.EQ.0 ) RETURN
 *

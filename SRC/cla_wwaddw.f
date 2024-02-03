@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            X( * ), Y( * ), W( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       COMPLEX            S
       int                I;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       DO 10 I = 1, N
         S = X(I) + W(I)
@@ -27,6 +27,6 @@
    10 CONTINUE
       RETURN
 *
-*     End of CLA_WWADDW
+      // End of CLA_WWADDW
 *
       END

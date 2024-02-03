@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOB;
       int                INFO, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), SEP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               DECR, EIGEN, INCR, LEFT, RIGHT, SING;
       int                I, K;
       REAL               ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH
       // EXTERNAL LSAME, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       EIGEN = LSAME( JOB, 'E' )
@@ -70,11 +70,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( K.EQ.0 ) RETURN
 *
-*     Compute reciprocal condition numbers
+      // Compute reciprocal condition numbers
 *
       IF( K.EQ.1 ) THEN
          SEP( 1 ) = SLAMCH( 'O' )
@@ -94,8 +94,8 @@
          END IF
       END IF
 *
-*     Ensure that reciprocal condition numbers are not less than
-*     threshold, in order to limit the size of the error bound
+      // Ensure that reciprocal condition numbers are not less than
+     t // hreshold, in order to limit the size of the error bound
 *
       EPS = SLAMCH( 'E' )
       SAFMIN = SLAMCH( 'S' )
@@ -111,6 +111,6 @@
 *
       RETURN
 *
-*     End of SDISNA
+      // End of SDISNA
 *
       END

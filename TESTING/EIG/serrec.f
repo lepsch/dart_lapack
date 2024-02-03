@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       REAL               ONE, ZERO
       PARAMETER          ( NMAX = 4, ONE = 1.0E0, ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IFST, ILST, INFO, J, M, NT;
       REAL               SCALE
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SEL( NMAX );
       int                IWORK( NMAX );
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), S( NMAX ), SEP( NMAX ), WI( NMAX ), WORK( NMAX ), WR( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, STREXC, STRSEN, STRSNA, STRSYL, STRSYL3
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       OK = .TRUE.
       NT = 0
 *
-*     Initialize A, B and SEL
+      // Initialize A, B and SEL
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -56,7 +56,7 @@
          SEL( I ) = .TRUE.
    30 CONTINUE
 *
-*     Test STRSYL
+      // Test STRSYL
 *
       SRNAMT = 'STRSYL'
       INFOT = 1
@@ -85,7 +85,7 @@
       CALL CHKXER( 'STRSYL', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test STRSYL3
+      // Test STRSYL3
 *
       SRNAMT = 'STRSYL3'
       INFOT = 1
@@ -114,7 +114,7 @@
       CALL CHKXER( 'STRSYL3', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test STREXC
+      // Test STREXC
 *
       SRNAMT = 'STREXC'
       IFST = 1
@@ -152,7 +152,7 @@
       CALL CHKXER( 'STREXC', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test STRSNA
+      // Test STRSNA
 *
       SRNAMT = 'STRSNA'
       INFOT = 1
@@ -184,7 +184,7 @@
       CALL CHKXER( 'STRSNA', INFOT, NOUT, LERR, OK )
       NT = NT + 9
 *
-*     Test STRSEN
+      // Test STRSEN
 *
       SEL( 1 ) = .FALSE.
       SRNAMT = 'STRSEN'
@@ -220,7 +220,7 @@
       CALL CHKXER( 'STRSEN', INFOT, NOUT, LERR, OK )
       NT = NT + 10
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -234,6 +234,6 @@
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ex',
      $      'its ***' )
 *
-*     End of SERREC
+      // End of SERREC
 *
       END

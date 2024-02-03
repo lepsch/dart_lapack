@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPZ;
       int                INFO, LDZ, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * ), WORK( * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO, THREE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0 )
       int                MAXIT;
       PARAMETER          ( MAXIT = 30 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT;
       double             ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANST, DLAPY2;
       // EXTERNAL LSAME, DLAMCH, DLANST, DLAPY2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLAE2, DLAEV2, DLARTG, DLASCL, DLASET, DLASR, DLASRT, DSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SIGN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -62,7 +62,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -71,7 +71,7 @@
          RETURN
       END IF
 *
-*     Determine the unit roundoff and over/underflow thresholds.
+      // Determine the unit roundoff and over/underflow thresholds.
 *
       EPS = DLAMCH( 'E' )
       EPS2 = EPS**2
@@ -80,17 +80,17 @@
       SSFMAX = SQRT( SAFMAX ) / THREE
       SSFMIN = SQRT( SAFMIN ) / EPS2
 *
-*     Compute the eigenvalues and eigenvectors of the tridiagonal
-*     matrix.
+      // Compute the eigenvalues and eigenvectors of the tridiagonal
+      // matrix.
 *
       IF( ICOMPZ.EQ.2 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
 *
       NMAXIT = N*MAXIT
       JTOT = 0
 *
-*     Determine where the matrix splits and choose QL or QR iteration
-*     for each block, according to whether top or bottom diagonal
-*     element is smaller.
+      // Determine where the matrix splits and choose QL or QR iteration
+      // for each block, according to whether top or bottom diagonal
+      // element is smaller.
 *
       L1 = 1
       NM1 = N - 1
@@ -116,7 +116,7 @@
       L1 = M + 1
       IF( LEND.EQ.L ) GO TO 10
 *
-*     Scale submatrix in rows and columns L to LEND
+      // Scale submatrix in rows and columns L to LEND
 *
       ANORM = DLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
@@ -129,7 +129,7 @@
          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO )
       END IF
 *
-*     Choose between QL and QR iteration
+      // Choose between QL and QR iteration
 *
       IF( ABS( D( LEND ) ).LT.ABS( D( L ) ) ) THEN
          LEND = LSV
@@ -138,9 +138,9 @@
 *
       IF( LEND.GT.L ) THEN
 *
-*        QL Iteration
+         // QL Iteration
 *
-*        Look for small subdiagonal element.
+         // Look for small subdiagonal element.
 *
    40    CONTINUE
          IF( L.NE.LEND ) THEN
@@ -158,8 +158,8 @@
          P = D( L )
          IF( M.EQ.L ) GO TO 80
 *
-*        If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
-*        to compute its eigensystem.
+         // If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
+        t // o compute its eigensystem.
 *
          IF( M.EQ.L+1 ) THEN
             IF( ICOMPZ.GT.0 ) THEN
@@ -181,7 +181,7 @@
          IF( JTOT.EQ.NMAXIT ) GO TO 140
          JTOT = JTOT + 1
 *
-*        Form shift.
+         // Form shift.
 *
          G = ( D( L+1 )-P ) / ( TWO*E( L ) )
          R = DLAPY2( G, ONE )
@@ -191,7 +191,7 @@
          C = ONE
          P = ZERO
 *
-*        Inner loop
+         // Inner loop
 *
          MM1 = M - 1
          DO 70 I = MM1, L, -1
@@ -205,7 +205,7 @@
             D( I+1 ) = G + P
             G = C*R - B
 *
-*           If eigenvectors are desired, then save rotations.
+            // If eigenvectors are desired, then save rotations.
 *
             IF( ICOMPZ.GT.0 ) THEN
                WORK( I ) = C
@@ -214,7 +214,7 @@
 *
    70    CONTINUE
 *
-*        If eigenvectors are desired, then apply saved rotations.
+         // If eigenvectors are desired, then apply saved rotations.
 *
          IF( ICOMPZ.GT.0 ) THEN
             MM = M - L + 1
@@ -225,7 +225,7 @@
          E( L ) = G
          GO TO 40
 *
-*        Eigenvalue found.
+         // Eigenvalue found.
 *
    80    CONTINUE
          D( L ) = P
@@ -236,9 +236,9 @@
 *
       ELSE
 *
-*        QR Iteration
+         // QR Iteration
 *
-*        Look for small superdiagonal element.
+         // Look for small superdiagonal element.
 *
    90    CONTINUE
          IF( L.NE.LEND ) THEN
@@ -256,8 +256,8 @@
          P = D( L )
          IF( M.EQ.L ) GO TO 130
 *
-*        If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
-*        to compute its eigensystem.
+         // If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
+        t // o compute its eigensystem.
 *
          IF( M.EQ.L-1 ) THEN
             IF( ICOMPZ.GT.0 ) THEN
@@ -279,7 +279,7 @@
          IF( JTOT.EQ.NMAXIT ) GO TO 140
          JTOT = JTOT + 1
 *
-*        Form shift.
+         // Form shift.
 *
          G = ( D( L-1 )-P ) / ( TWO*E( L-1 ) )
          R = DLAPY2( G, ONE )
@@ -289,7 +289,7 @@
          C = ONE
          P = ZERO
 *
-*        Inner loop
+         // Inner loop
 *
          LM1 = L - 1
          DO 120 I = M, LM1
@@ -303,7 +303,7 @@
             D( I ) = G + P
             G = C*R - B
 *
-*           If eigenvectors are desired, then save rotations.
+            // If eigenvectors are desired, then save rotations.
 *
             IF( ICOMPZ.GT.0 ) THEN
                WORK( I ) = C
@@ -312,7 +312,7 @@
 *
   120    CONTINUE
 *
-*        If eigenvectors are desired, then apply saved rotations.
+         // If eigenvectors are desired, then apply saved rotations.
 *
          IF( ICOMPZ.GT.0 ) THEN
             MM = L - M + 1
@@ -323,7 +323,7 @@
          E( LM1 ) = G
          GO TO 90
 *
-*        Eigenvalue found.
+         // Eigenvalue found.
 *
   130    CONTINUE
          D( L ) = P
@@ -334,7 +334,7 @@
 *
       END IF
 *
-*     Undo scaling if necessary
+      // Undo scaling if necessary
 *
   140 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -343,8 +343,8 @@
          CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
       END IF
 *
-*     Check for no convergence to an eigenvalue after a total
-*     of N*MAXIT iterations.
+      // Check for no convergence to an eigenvalue after a total
+      // of N*MAXIT iterations.
 *
       IF( JTOT.LT.NMAXIT ) GO TO 10
       DO 150 I = 1, N - 1
@@ -352,18 +352,18 @@
   150 CONTINUE
       GO TO 190
 *
-*     Order eigenvalues and eigenvectors.
+      // Order eigenvalues and eigenvectors.
 *
   160 CONTINUE
       IF( ICOMPZ.EQ.0 ) THEN
 *
-*        Use Quick Sort
+         // Use Quick Sort
 *
          CALL DLASRT( 'I', N, D, INFO )
 *
       ELSE
 *
-*        Use Selection Sort to minimize swaps of eigenvectors
+         // Use Selection Sort to minimize swaps of eigenvectors
 *
          DO 180 II = 2, N
             I = II - 1
@@ -386,6 +386,6 @@
   190 CONTINUE
       RETURN
 *
-*     End of DSTEQR
+      // End of DSTEQR
 *
       END

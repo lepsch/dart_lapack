@@ -4,76 +4,76 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDVS, LWORK, NIUNIT, NOUNIT, NSIZES, NTYPES;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       REAL               A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 17 ), VS( LDVS, * ), VS1( LDVS, * ), WI( * ), WIT( * ), WITMP( * ), WORK( * ), WR( * ), WRT( * ), WRTMP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 21 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN;
       String             PATH;
       int                I, IINFO, IMODE, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NSLCT, NTEST, NTESTF, NTESTT;
       REAL               ANORM, COND, CONDS, OVFL, RCDEIN, RCDVIN, RTULP, RTULPI, ULP, ULPINV, UNFL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             ADUMMA( 1 );
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISLCT( 20 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       REAL               SELWI( 20 ), SELWR( 20 )
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       int                SELDIM, SELOPT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGET24, SLASUM, SLATME, SLATMR, SLATMS, SLASET, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
       DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'SX'
 *
-*     Check for errors
+      // Check for errors
 *
       NTESTT = 0
       NTESTF = 0
       INFO = 0
 *
-*     Important constants
+      // Important constants
 *
       BADNN = .FALSE.
 *
-*     12 is the largest dimension in the input file of precomputed
-*     problems
+      // 12 is the largest dimension in the input file of precomputed
+      // problems
 *
       NMAX = 12
       DO 10 J = 1, NSIZES
@@ -81,7 +81,7 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -108,11 +108,11 @@
          RETURN
       END IF
 *
-*     If nothing to do check on NIUNIT
+      // If nothing to do check on NIUNIT
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) GO TO 150
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
@@ -121,7 +121,7 @@
       RTULP = SQRT( ULP )
       RTULPI = ONE / RTULP
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       NERRS = 0
 *
@@ -136,34 +136,34 @@
          DO 130 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 130
 *
-*           Save ISEED in case of an error.
+            // Save ISEED in case of an error.
 *
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 *
-*           Compute "A"
+            // Compute "A"
 *
-*           Control parameters:
+            // Control parameters:
 *
-*           KMAGN  KCONDS  KMODE        KTYPE
-*       =1  O(1)   1       clustered 1  zero
-*       =2  large  large   clustered 2  identity
-*       =3  small          exponential  Jordan
-*       =4                 arithmetic   diagonal, (w/ eigenvalues)
-*       =5                 random log   symmetric, w/ eigenvalues
-*       =6                 random       general, w/ eigenvalues
-*       =7                              random diagonal
-*       =8                              random symmetric
-*       =9                              random general
-*       =10                             random triangular
+            // KMAGN  KCONDS  KMODE        KTYPE
+        // =1  O(1)   1       clustered 1  zero
+        // =2  large  large   clustered 2  identity
+        // =3  small          exponential  Jordan
+        // =4                 arithmetic   diagonal, (w/ eigenvalues)
+        // =5                 random log   symmetric, w/ eigenvalues
+        // =6                 random       general, w/ eigenvalues
+        // =7                              random diagonal
+        // =8                              random symmetric
+        // =9                              random general
+        // =10                             random triangular
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
 *
-*           Compute norm
+            // Compute norm
 *
             GO TO ( 30, 40, 50 )KMAGN( JTYPE )
 *
@@ -185,16 +185,16 @@
             IINFO = 0
             COND = ULPINV
 *
-*           Special Matrices -- Identity & Jordan block
+            // Special Matrices -- Identity & Jordan block
 *
-*              Zero
+               // Zero
 *
             IF( ITYPE.EQ.1 ) THEN
                IINFO = 0
 *
             ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*              Identity
+               // Identity
 *
                DO 70 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
@@ -202,7 +202,7 @@
 *
             ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*              Jordan Block
+               // Jordan Block
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
@@ -211,19 +211,19 @@
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*              Diagonal Matrix, [Eigen]values Specified
+               // Diagonal Matrix, [Eigen]values Specified
 *
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*              Symmetric, eigenvalues specified
+               // Symmetric, eigenvalues specified
 *
                CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.6 ) THEN
 *
-*              General, eigenvalues specified
+               // General, eigenvalues specified
 *
                IF( KCONDS( JTYPE ).EQ.1 ) THEN
                   CONDS = ONE
@@ -238,19 +238,19 @@
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
-*              Diagonal, random eigenvalues
+               // Diagonal, random eigenvalues
 *
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
-*              Symmetric, random eigenvalues
+               // Symmetric, random eigenvalues
 *
                CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*              General, random eigenvalues
+               // General, random eigenvalues
 *
                CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
                IF( N.GE.4 ) THEN
@@ -260,7 +260,7 @@
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
-*              Triangular, random eigenvalues
+               // Triangular, random eigenvalues
 *
                CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
@@ -277,7 +277,7 @@
 *
    90       CONTINUE
 *
-*           Test for minimal and generous workspace
+            // Test for minimal and generous workspace
 *
             DO 120 IWK = 1, 2
                IF( IWK.EQ.1 ) THEN
@@ -289,7 +289,7 @@
 *
                CALL SGET24( .FALSE., JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, RESULT, WORK, NNWORK, IWORK, BWORK, INFO )
 *
-*              Check for RESULT(j) > THRESH
+               // Check for RESULT(j) > THRESH
 *
                NTEST = 0
                NFAIL = 0
@@ -323,8 +323,8 @@
 *
   150 CONTINUE
 *
-*     Read in data from file to check accuracy of condition estimation
-*     Read input data until N=0
+      // Read in data from file to check accuracy of condition estimation
+      // Read input data until N=0
 *
       JTYPE = 0
   160 CONTINUE
@@ -340,7 +340,7 @@
 *
       CALL SGET24( .TRUE., 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, RESULT, WORK, LWORK, IWORK, BWORK, INFO )
 *
-*     Check for RESULT(j) > THRESH
+      // Check for RESULT(j) > THRESH
 *
       NTEST = 0
       NFAIL = 0
@@ -369,7 +369,7 @@
       GO TO 160
   200 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL SLASUM( PATH, NOUNIT, NERRS, NTESTT )
 *
@@ -432,6 +432,6 @@
 *
       RETURN
 *
-*     End of SDRVSX
+      // End of SDRVSX
 *
       END

@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, K, LDA, LDC, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, IC, JC, MI, NI, NQ;
       COMPLEX            AII, TAUI
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLACGV, CLARF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
 *
-*     NQ is the order of Q
+      // NQ is the order of Q
 *
       IF( LEFT ) THEN
          NQ = M
@@ -68,7 +68,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 *
@@ -93,19 +93,19 @@
       DO 10 I = I1, I2, I3
          IF( LEFT ) THEN
 *
-*           H(i) or H(i)**H is applied to C(i:m,1:n)
+            // H(i) or H(i)**H is applied to C(i:m,1:n)
 *
             MI = M - I + 1
             IC = I
          ELSE
 *
-*           H(i) or H(i)**H is applied to C(1:m,i:n)
+            // H(i) or H(i)**H is applied to C(1:m,i:n)
 *
             NI = N - I + 1
             JC = I
          END IF
 *
-*        Apply H(i) or H(i)**H
+         // Apply H(i) or H(i)**H
 *
          IF( NOTRAN ) THEN
             TAUI = CONJG( TAU( I ) )
@@ -121,6 +121,6 @@
    10 CONTINUE
       RETURN
 *
-*     End of CUNML2
+      // End of CUNML2
 *
       END

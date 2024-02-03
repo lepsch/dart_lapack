@@ -6,45 +6,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, LDA, LIWORK, LRWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), W( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D0, 0.0D0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWORK, LLWRK2, LRWMIN, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS;
 
        double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       double             DLAMCH, ZLANHE;
       // EXTERNAL LSAME, DLAMCH, ZLANHE, ILAENV2STAGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSTERF, XERBLA, ZLACPY, ZLASCL, ZSTEDC, ZUNMTR, ZHETRD_2STAGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
@@ -98,7 +98,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -108,7 +108,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS    = DLAMCH( 'Precision' )
@@ -117,7 +117,7 @@
       RMIN   = SQRT( SMLNUM )
       RMAX   = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ANRM = ZLANHE( 'M', UPLO, N, A, LDA, RWORK )
       ISCALE = 0
@@ -130,7 +130,7 @@
       END IF
       IF( ISCALE.EQ.1 ) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
-*     Call ZHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
+      // Call ZHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 *
       INDE    = 1
       INDRWK  = INDE + N
@@ -144,11 +144,11 @@
 *
       CALL ZHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
-*     For eigenvalues only, call DSTERF.  For eigenvectors, first call
-*     ZSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
-*     tridiagonal matrix, then call ZUNMTR to multiply it to the
-*     Householder transformations represented as Householder vectors in
-*     A.
+      // For eigenvalues only, call DSTERF.  For eigenvectors, first call
+      // ZSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
+     t // ridiagonal matrix, then call ZUNMTR to multiply it to the
+      // Householder transformations represented as Householder vectors in
+      // A.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
@@ -158,7 +158,7 @@
          CALL ZLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -175,6 +175,6 @@
 *
       RETURN
 *
-*     End of ZHEEVD_2STAGE
+      // End of ZHEEVD_2STAGE
 *
       END

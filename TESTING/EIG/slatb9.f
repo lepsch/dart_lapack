@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                IMAT, KLA, KUA, KLB, KUB, M, P, MODEA, MODEB, N;
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               SHRINK, TENTH
       PARAMETER          ( SHRINK = 0.25E0, TENTH = 0.1E+0 )
       REAL               ONE, TEN
       PARAMETER          ( ONE = 1.0E+0, TEN = 1.0E+1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FIRST;
       REAL               BADC1, BADC2, EPS, LARGE, SMALL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       REAL               SLAMCH
       // EXTERNAL LSAMEN, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE               EPS, SMALL, LARGE, BADC1, BADC2, FIRST
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               FIRST / .TRUE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Set some constants for use in the subroutine.
+      // Set some constants for use in the subroutine.
 *
       IF( FIRST ) THEN
          FIRST = .FALSE.
@@ -52,7 +52,7 @@
          LARGE = ONE / SMALL
       END IF
 *
-*     Set some parameters we don't plan to change.
+      // Set some parameters we don't plan to change.
 *
       TYPE = 'N'
       DISTA = 'S'
@@ -60,15 +60,15 @@
       MODEA = 3
       MODEB = 4
 *
-*     Set the lower and upper bandwidths.
+      // Set the lower and upper bandwidths.
 *
       IF( LSAMEN( 3, PATH, 'GRQ') .OR. LSAMEN( 3, PATH, 'LSE') .OR. LSAMEN( 3, PATH, 'GSV') )THEN
 *
-*        A: M by N, B: P by N
+         // A: M by N, B: P by N
 *
          IF( IMAT.EQ.1 ) THEN
 *
-*           A: diagonal, B: upper triangular
+            // A: diagonal, B: upper triangular
 *
             KLA = 0
             KUA = 0
@@ -77,7 +77,7 @@
 *
          ELSE IF( IMAT.EQ.2 ) THEN
 *
-*           A: upper triangular, B: upper triangular
+            // A: upper triangular, B: upper triangular
 *
             KLA = 0
             KUA = MAX( N-1, 0 )
@@ -86,7 +86,7 @@
 *
          ELSE IF( IMAT.EQ.3 ) THEN
 *
-*           A: lower triangular, B: upper triangular
+            // A: lower triangular, B: upper triangular
 *
             KLA = MAX( M-1, 0 )
             KUA = 0
@@ -95,7 +95,7 @@
 *
          ELSE
 *
-*           A: general dense, B: general dense
+            // A: general dense, B: general dense
 *
             KLA = MAX( M-1, 0 )
             KUA = MAX( N-1, 0 )
@@ -106,11 +106,11 @@
 *
       ELSE IF( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GLM') )THEN
 *
-*        A: N by M, B: N by P
+         // A: N by M, B: N by P
 *
          IF( IMAT.EQ.1 ) THEN
 *
-*           A: diagonal, B: lower triangular
+            // A: diagonal, B: lower triangular
 *
             KLA = 0
             KUA = 0
@@ -118,7 +118,7 @@
             KUB = 0
          ELSE IF( IMAT.EQ.2 ) THEN
 *
-*           A: lower triangular, B: diagonal
+            // A: lower triangular, B: diagonal
 *
             KLA = MAX( N-1, 0 )
             KUA = 0
@@ -127,7 +127,7 @@
 *
          ELSE IF( IMAT.EQ.3 ) THEN
 *
-*           A: lower triangular, B: upper triangular
+            // A: lower triangular, B: upper triangular
 *
             KLA = MAX( N-1, 0 )
             KUA = 0
@@ -136,7 +136,7 @@
 *
          ELSE
 *
-*           A: general dense, B: general dense
+            // A: general dense, B: general dense
 *
             KLA = MAX( N-1, 0 )
             KUA = MAX( M-1, 0 )
@@ -146,7 +146,7 @@
 *
       END IF
 *
-*     Set the condition number and norm.
+      // Set the condition number and norm.
 *
       CNDNMA = TEN*TEN
       CNDNMB = TEN
@@ -185,6 +185,6 @@
 *
       RETURN
 *
-*     End of SLATB9
+      // End of SLATB9
 *
       END

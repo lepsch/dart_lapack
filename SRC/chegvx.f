@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, ITYPE, IU, LDA, LDB, LDZ, LWORK, M, N;
       REAL               ABSTOL, VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       REAL               RWORK( * ), W( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, UPPER, VALEIG, WANTZ;
       String             TRANS;
       int                LWKOPT, NB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHEEVX, CHEGST, CPOTRF, CTRMM, CTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -98,14 +98,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) THEN
          RETURN
       END IF
 *
-*     Form a Cholesky factorization of B.
+      // Form a Cholesky factorization of B.
 *
       CALL CPOTRF( UPLO, N, B, LDB, INFO )
       IF( INFO.NE.0 ) THEN
@@ -113,20 +113,20 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem and solve.
+      // Transform problem to standard eigenvalue problem and solve.
 *
       CALL CHEGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
       CALL CHEEVX( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, INFO )
 *
       IF( WANTZ ) THEN
 *
-*        Backtransform eigenvectors to the original problem.
+         // Backtransform eigenvectors to the original problem.
 *
          IF( INFO.GT.0 ) M = INFO - 1
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
 *
-*           For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
-*           backtransform eigenvectors: x = inv(L)**H*y or inv(U)*y
+            // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
+            // backtransform eigenvectors: x = inv(L)**H*y or inv(U)*y
 *
             IF( UPPER ) THEN
                TRANS = 'N'
@@ -138,8 +138,8 @@
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*           For B*A*x=(lambda)*x;
-*           backtransform eigenvectors: x = L*y or U**H*y
+            // For B*A*x=(lambda)*x;
+            // backtransform eigenvectors: x = L*y or U**H*y
 *
             IF( UPPER ) THEN
                TRANS = 'C'
@@ -151,12 +151,12 @@
          END IF
       END IF
 *
-*     Set WORK(1) to optimal complex workspace size.
+      // Set WORK(1) to optimal complex workspace size.
 *
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 *
       RETURN
 *
-*     End of CHEGVX
+      // End of CHEGVX
 *
       END

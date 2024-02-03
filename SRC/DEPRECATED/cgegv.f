@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILIMIT, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWORK, ITAU, IWORK, JC, JR, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3       REAL               ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM, BNRM1, BNRM2, EPS, SAFMAX, SAFMIN, SALFAI, SALFAR, SBETA, SCALE, TEMP;
       COMPLEX            X
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               LDUMMA( 1 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               CLANGE, SLAMCH
       // EXTERNAL ILAENV, LSAME, CLANGE, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, INT, MAX, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               ABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
@@ -75,7 +75,7 @@
       END IF
       ILV = ILVL .OR. ILVR
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       LWKMIN = MAX( 2*N, 1 )
       LWKOPT = LWKMIN
@@ -116,18 +116,18 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'E' )*SLAMCH( 'B' )
       SAFMIN = SLAMCH( 'S' )
       SAFMIN = SAFMIN + SAFMIN
       SAFMAX = ONE / SAFMIN
 *
-*     Scale A
+      // Scale A
 *
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ANRM1 = ANRM
@@ -147,7 +147,7 @@
          END IF
       END IF
 *
-*     Scale B
+      // Scale B
 *
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       BNRM1 = BNRM
@@ -167,8 +167,8 @@
          END IF
       END IF
 *
-*     Permute the matrix to make it more nearly triangular
-*     Also "balance" the matrix.
+      // Permute the matrix to make it more nearly triangular
+      // Also "balance" the matrix.
 *
       ILEFT = 1
       IRIGHT = N + 1
@@ -179,7 +179,7 @@
          GO TO 80
       END IF
 *
-*     Reduce B to triangular form, and initialize VL and/or VR
+      // Reduce B to triangular form, and initialize VL and/or VR
 *
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
@@ -214,11 +214,11 @@
 *
       IF( ILVR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
 *
-*     Reduce to generalized Hessenberg form
+      // Reduce to generalized Hessenberg form
 *
       IF( ILV ) THEN
 *
-*        Eigenvectors requested -- work on whole matrix.
+         // Eigenvectors requested -- work on whole matrix.
 *
          CALL CGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO )
       ELSE
@@ -229,7 +229,7 @@
          GO TO 80
       END IF
 *
-*     Perform QZ algorithm
+      // Perform QZ algorithm
 *
       IWORK = ITAU
       IF( ILV ) THEN
@@ -252,7 +252,7 @@
 *
       IF( ILV ) THEN
 *
-*        Compute Eigenvectors
+         // Compute Eigenvectors
 *
          IF( ILVL ) THEN
             IF( ILVR ) THEN
@@ -270,7 +270,7 @@
             GO TO 80
          END IF
 *
-*        Undo balancing on VL and VR, rescale
+         // Undo balancing on VL and VR, rescale
 *
          IF( ILVL ) THEN
             CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IINFO )
@@ -309,17 +309,17 @@
    60       CONTINUE
          END IF
 *
-*        End of eigenvector calculation
+         // End of eigenvector calculation
 *
       END IF
 *
-*     Undo scaling in alpha, beta
+      // Undo scaling in alpha, beta
 *
-*     Note: this does not give the alpha and beta for the unscaled
-*     problem.
+      // Note: this does not give the alpha and beta for the unscaled
+      // problem.
 *
-*     Un-scaling is limited to avoid underflow in alpha and beta
-*     if they are significant.
+      // Un-scaling is limited to avoid underflow in alpha and beta
+      // if they are significant.
 *
       DO 70 JC = 1, N
          ABSAR = ABS( REAL( ALPHA( JC ) ) )
@@ -331,34 +331,34 @@
          ILIMIT = .FALSE.
          SCALE = ONE
 *
-*        Check for significant underflow in imaginary part of ALPHA
+         // Check for significant underflow in imaginary part of ALPHA
 *
          IF( ABS( SALFAI ).LT.SAFMIN .AND. ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
             SCALE = ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAI )
          END IF
 *
-*        Check for significant underflow in real part of ALPHA
+         // Check for significant underflow in real part of ALPHA
 *
          IF( ABS( SALFAR ).LT.SAFMIN .AND. ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
             SCALE = MAX( SCALE, ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAR ) )
          END IF
 *
-*        Check for significant underflow in BETA
+         // Check for significant underflow in BETA
 *
          IF( ABS( SBETA ).LT.SAFMIN .AND. ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) THEN
             ILIMIT = .TRUE.
             SCALE = MAX( SCALE, ( SAFMIN / BNRM1 ) / MAX( SAFMIN, BNRM2*ABSB ) )
          END IF
 *
-*        Check for possible overflow when limiting scaling
+         // Check for possible overflow when limiting scaling
 *
          IF( ILIMIT ) THEN
             TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = .FALSE.
          END IF
 *
-*        Recompute un-scaled ALPHA, BETA if necessary.
+         // Recompute un-scaled ALPHA, BETA if necessary.
 *
          IF( ILIMIT ) THEN
             SALFAR = ( SCALE*REAL( ALPHA( JC ) ) )*ANRM
@@ -374,6 +374,6 @@
 *
       RETURN
 *
-*     End of CGEGV
+      // End of CGEGV
 *
       END

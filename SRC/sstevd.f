@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ;
       int                INFO, LDZ, LIWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, WANTZ;
       int                ISCALE, LIWMIN, LWMIN;
       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANST, SROUNDUP_LWORK
       // EXTERNAL LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SSCAL, SSTEDC, SSTERF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
@@ -76,7 +76,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -85,7 +85,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS = SLAMCH( 'Precision' )
@@ -94,7 +94,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       TNRM = SLANST( 'M', N, D, E )
@@ -110,8 +110,8 @@
          CALL SSCAL( N-1, SIGMA, E( 1 ), 1 )
       END IF
 *
-*     For eigenvalues only, call SSTERF.  For eigenvalues and
-*     eigenvectors, call SSTEDC.
+      // For eigenvalues only, call SSTERF.  For eigenvalues and
+      // eigenvectors, call SSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, D, E, INFO )
@@ -119,7 +119,7 @@
          CALL SSTEDC( 'I', N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) CALL SSCAL( N, ONE / SIGMA, D, 1 )
 *
@@ -128,6 +128,6 @@
 *
       RETURN
 *
-*     End of SSTEVD
+      // End of SSTEVD
 *
       END

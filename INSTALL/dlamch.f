@@ -7,30 +7,30 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             CMACH;
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             RND, EPS, SFMIN, SMALL, RMACH;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DIGITS, EPSILON, HUGE, MAXEXPONENT, MINEXPONENT, RADIX, TINY
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
 *
-*     Assume rounding, not chopping. Always.
+      // Assume rounding, not chopping. Always.
 *
       RND = ONE
 *
@@ -47,8 +47,8 @@
          SMALL = ONE / HUGE(ZERO)
          IF( SMALL.GE.SFMIN ) THEN
 *
-*           Use SMALL plus a bit, to avoid the possibility of rounding
-*           causing overflow when computing  1/sfmin.
+            // Use SMALL plus a bit, to avoid the possibility of rounding
+            // causing overflow when computing  1/sfmin.
 *
             SFMIN = SMALL*( ONE+EPS )
          END IF
@@ -76,7 +76,7 @@
       DLAMCH = RMACH
       RETURN
 *
-*     End of DLAMCH
+      // End of DLAMCH
 *
       END
 
@@ -106,20 +106,20 @@
       double           FUNCTION DLAMC3( A, B );
 *
 *  -- LAPACK auxiliary routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             A, B;
-*     ..
+      // ..
 * =====================================================================
 *
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       DLAMC3 = A + B
 *
       RETURN
 *
-*     End of DLAMC3
+      // End of DLAMC3
 *
       END
 *

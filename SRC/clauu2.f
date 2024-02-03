@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I;
       REAL               AII
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTC
       // EXTERNAL LSAME, CDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMV, CLACGV, CSSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -52,13 +52,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Compute the product U * U**H.
+         // Compute the product U * U**H.
 *
          DO 10 I = 1, N
             AII = REAL( A( I, I ) )
@@ -74,7 +74,7 @@
 *
       ELSE
 *
-*        Compute the product L**H * L.
+         // Compute the product L**H * L.
 *
          DO 20 I = 1, N
             AII = REAL( A( I, I ) )
@@ -91,6 +91,6 @@
 *
       RETURN
 *
-*     End of CLAUU2
+      // End of CLAUU2
 *
       END

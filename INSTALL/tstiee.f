@@ -1,16 +1,16 @@
       PROGRAM TSTIEE
 *
 *  -- LAPACK test routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
-*     .. External Functions ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                IEEEOK;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       WRITE( 6, FMT = * ) 'We are about to check whether infinity arithmetic'
       WRITE( 6, FMT = * )'can be trusted.  If this test hangs, set'
@@ -26,8 +26,8 @@
       END IF
 *
       WRITE( 6, FMT = * )
-*     ILAENV( 10, ...) checks both infinity and NaN arithmetic
-*     infinity has already been checked so checking NaN now
+      // ILAENV( 10, ...) checks both infinity and NaN arithmetic
+      // infinity has already been checked so checking NaN now
       WRITE( 6, FMT = * ) 'We are about to check whether NaN arithmetic'
       WRITE( 6, FMT = * )'can be trusted.  If this test hangs, set'
       WRITE( 6, FMT = * ) 'ILAENV = 0 for ISPEC = 10 in LAPACK/SRC/ilaenv.f'

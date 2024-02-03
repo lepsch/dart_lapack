@@ -4,61 +4,61 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NVAL( NN );
       REAL               A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * ), S_WORK_SGEQRF( * ), S_WORK_SLANGE( * ), TAU( * )
-*     ..
+      // ..
 *
 *  =====================================================================
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) , ONE  = ( 1.0E+0, 0.0E+0 ) )
       int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             UPLO, CFORM, DIAG, TRANS, SIDE;
       int                I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS;
       REAL               EPS, ALPHA
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ), DIAGS( 2 ), SIDES( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE, SLARND
       // EXTERNAL SLAMCH, SLANGE, SLARND, LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL STRTTF, SGEQRF, SGEQLF, STFSM, STRSM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS  / 'U', 'L' /
       DATA               FORMS  / 'N', 'T' /
       DATA               SIDES  / 'L', 'R' /
       DATA               TRANSS / 'N', 'T' /
       DATA               DIAGS  / 'N', 'U' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       NRUN = 0
       NFAIL = 0
@@ -106,36 +106,36 @@
                                  ALPHA = SLARND( 2, ISEED )
                               END IF
 *
-*                             All the parameters are set:
-*                                CFORM, SIDE, UPLO, TRANS, DIAG, M, N,
-*                                and ALPHA
-*                             READY TO TEST!
+                              // All the parameters are set:
+                                 // CFORM, SIDE, UPLO, TRANS, DIAG, M, N,
+                                 // and ALPHA
+                              // READY TO TEST!
 *
                               NRUN = NRUN + 1
 *
                               IF ( ISIDE.EQ.1 ) THEN
 *
-*                                The case ISIDE.EQ.1 is when SIDE.EQ.'L'
-*                                -> A is M-by-M ( B is M-by-N )
+                                 // The case ISIDE.EQ.1 is when SIDE.EQ.'L'
+                                 // -> A is M-by-M ( B is M-by-N )
 *
                                  NA = M
 *
                               ELSE
 *
-*                                The case ISIDE.EQ.2 is when SIDE.EQ.'R'
-*                                -> A is N-by-N ( B is M-by-N )
+                                 // The case ISIDE.EQ.2 is when SIDE.EQ.'R'
+                                 // -> A is N-by-N ( B is M-by-N )
 *
                                  NA = N
 *
                               END IF
 *
-*                             Generate A our NA--by--NA triangular
-*                             matrix.
-*                             Our test is based on forward error so we
-*                             do want A to be well conditioned! To get
-*                             a well-conditioned triangular matrix, we
-*                             take the R factor of the QR/LQ factorization
-*                             of a random matrix.
+                              // Generate A our NA--by--NA triangular
+                              // matrix.
+                              // Our test is based on forward error so we
+                              // do want A to be well conditioned! To get
+                              // a well-conditioned triangular matrix, we
+                             t // ake the R factor of the QR/LQ factorization
+                              // of a random matrix.
 *
                               DO J = 1, NA
                                  DO I = 1, NA
@@ -145,15 +145,15 @@
 *
                               IF ( IUPLO.EQ.1 ) THEN
 *
-*                                The case IUPLO.EQ.1 is when SIDE.EQ.'U'
-*                                -> QR factorization.
+                                 // The case IUPLO.EQ.1 is when SIDE.EQ.'U'
+                                 // -> QR factorization.
 *
                                  SRNAMT = 'SGEQRF'
                                  CALL SGEQRF( NA, NA, A, LDA, TAU, S_WORK_SGEQRF, LDA, INFO )
 *
-*                                Forcing main diagonal of test matrix to
-*                                be unit makes it ill-conditioned for
-*                                some test cases
+                                 // Forcing main diagonal of test matrix to
+                                 // be unit makes it ill-conditioned for
+                                 // some test cases
 *
                                  IF ( LSAME( DIAG, 'U' ) ) THEN
                                     DO J = 1, NA
@@ -165,15 +165,15 @@
 *
                               ELSE
 *
-*                                The case IUPLO.EQ.2 is when SIDE.EQ.'L'
-*                                -> QL factorization.
+                                 // The case IUPLO.EQ.2 is when SIDE.EQ.'L'
+                                 // -> QL factorization.
 *
                                  SRNAMT = 'SGELQF'
                                  CALL SGELQF( NA, NA, A, LDA, TAU, S_WORK_SGEQRF, LDA, INFO )
 *
-*                                Forcing main diagonal of test matrix to
-*                                be unit makes it ill-conditioned for
-*                                some test cases
+                                 // Forcing main diagonal of test matrix to
+                                 // be unit makes it ill-conditioned for
+                                 // some test cases
 *
                                  IF ( LSAME( DIAG, 'U' ) ) THEN
                                     DO I = 1, NA
@@ -185,13 +185,13 @@
 *
                               END IF
 *
-*                             Store a copy of A in RFP format (in ARF).
+                              // Store a copy of A in RFP format (in ARF).
 *
                               SRNAMT = 'STRTTF'
                               CALL STRTTF( CFORM, UPLO, NA, A, LDA, ARF, INFO )
 *
-*                             Generate B1 our M--by--N right-hand side
-*                             and store a copy in B2.
+                              // Generate B1 our M--by--N right-hand side
+                              // and store a copy in B2.
 *
                               DO J = 1, N
                                  DO I = 1, M
@@ -200,19 +200,19 @@
                                  END DO
                               END DO
 *
-*                             Solve op( A ) X = B or X op( A ) = B
-*                             with STRSM
+                              // Solve op( A ) X = B or X op( A ) = B
+                              // with STRSM
 *
                               SRNAMT = 'STRSM'
                               CALL STRSM( SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA )
 *
-*                             Solve op( A ) X = B or X op( A ) = B
-*                             with STFSM
+                              // Solve op( A ) X = B or X op( A ) = B
+                              // with STFSM
 *
                               SRNAMT = 'STFSM'
                               CALL STFSM( CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2, LDA )
 *
-*                             Check that the result agrees.
+                              // Check that the result agrees.
 *
                               DO J = 1, N
                                  DO I = 1, M
@@ -242,7 +242,7 @@
   160    CONTINUE
   170 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       IF ( NFAIL.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9996 ) 'STFSM', NRUN
@@ -262,6 +262,6 @@
 *
       RETURN
 *
-*     End of SDRVRF3
+      // End of SDRVRF3
 *
       END

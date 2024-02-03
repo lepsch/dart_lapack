@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS, UPLO;
       int                INFO, LDA, LDC, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LEFT, LQUERY, UPPER;
       int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DORMQL, DORMQR, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
 *
-*     NQ is the order of Q and NW is the minimum dimension of WORK
+      // NQ is the order of Q and NW is the minimum dimension of WORK
 *
       IF( LEFT ) THEN
          NQ = M
@@ -90,7 +90,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 .OR. NQ.EQ.1 ) THEN
          WORK( 1 ) = 1
@@ -107,12 +107,12 @@
 *
       IF( UPPER ) THEN
 *
-*        Q was determined by a call to DSYTRD with UPLO = 'U'
+         // Q was determined by a call to DSYTRD with UPLO = 'U'
 *
          CALL DORMQL( SIDE, TRANS, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C, LDC, WORK, LWORK, IINFO )
       ELSE
 *
-*        Q was determined by a call to DSYTRD with UPLO = 'L'
+         // Q was determined by a call to DSYTRD with UPLO = 'L'
 *
          IF( LEFT ) THEN
             I1 = 2
@@ -126,6 +126,6 @@
       WORK( 1 ) = LWKOPT
       RETURN
 *
-*     End of DORMTR
+      // End of DORMTR
 *
       END

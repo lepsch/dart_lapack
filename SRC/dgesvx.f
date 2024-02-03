@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
       double             A( LDA, * ), AF( LDAF, * ), B( LDB, * ), BERR( * ), C( * ), FERR( * ), R( * ), WORK( * ), X( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       String             NORM;
       int                I, INFEQU, J;
       double             AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE, DLANTR;
       // EXTERNAL LSAME, DLAMCH, DLANGE, DLANTR
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGECON, DGEEQU, DGERFS, DGETRF, DGETRS, DLACPY, DLAQGE, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -54,7 +54,7 @@
          BIGNUM = ONE / SMLNUM
       END IF
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
@@ -117,12 +117,12 @@
 *
       IF( EQUIL ) THEN
 *
-*        Compute row and column scalings to equilibrate the matrix A.
+         // Compute row and column scalings to equilibrate the matrix A.
 *
          CALL DGEEQU( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
-*           Equilibrate the matrix.
+            // Equilibrate the matrix.
 *
             CALL DLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
@@ -130,7 +130,7 @@
          END IF
       END IF
 *
-*     Scale the right hand side.
+      // Scale the right hand side.
 *
       IF( NOTRAN ) THEN
          IF( ROWEQU ) THEN
@@ -150,17 +150,17 @@
 *
       IF( NOFACT .OR. EQUIL ) THEN
 *
-*        Compute the LU factorization of A.
+         // Compute the LU factorization of A.
 *
          CALL DLACPY( 'Full', N, N, A, LDA, AF, LDAF )
          CALL DGETRF( N, N, AF, LDAF, IPIV, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 ) THEN
 *
-*           Compute the reciprocal pivot growth factor of the
-*           leading rank-deficient INFO columns of A.
+            // Compute the reciprocal pivot growth factor of the
+            // leading rank-deficient INFO columns of A.
 *
             RPVGRW = DLANTR( 'M', 'U', 'N', INFO, INFO, AF, LDAF, WORK )
             IF( RPVGRW.EQ.ZERO ) THEN
@@ -174,8 +174,8 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A and the
-*     reciprocal pivot growth factor RPVGRW.
+      // Compute the norm of the matrix A and the
+      // reciprocal pivot growth factor RPVGRW.
 *
       IF( NOTRAN ) THEN
          NORM = '1'
@@ -190,22 +190,22 @@
          RPVGRW = DLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW
       END IF
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL DGECON( NORM, N, AF, LDAF, ANORM, RCOND, WORK, IWORK, INFO )
 *
-*     Compute the solution matrix X.
+      // Compute the solution matrix X.
 *
       CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL DGETRS( TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solution and
-*     compute error bounds and backward error estimates for it.
+      // Use iterative refinement to improve the computed solution and
+      // compute error bounds and backward error estimates for it.
 *
       CALL DGERFS( TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
 *
-*     Transform the solution matrix X to a solution of the original
-*     system.
+      // Transform the solution matrix X to a solution of the original
+      // system.
 *
       IF( NOTRAN ) THEN
          IF( COLEQU ) THEN
@@ -231,11 +231,11 @@
 *
       WORK( 1 ) = RPVGRW
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
       RETURN
 *
-*     End of DGESVX
+      // End of DGESVX
 *
       END

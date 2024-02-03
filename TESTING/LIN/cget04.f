@@ -4,49 +4,49 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS;
       REAL               RCOND, RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            X( LDX, * ), XACT( LDXACT, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IX, J;
       REAL               DIFFNM, EPS, XNORM
       COMPLEX            ZDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ICAMAX;
       REAL               SLAMCH
       // EXTERNAL ICAMAX, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0 or NRHS = 0.
+      // Quick exit if N = 0 or NRHS = 0.
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if RCOND is invalid.
+      // Exit with RESID = 1/EPS if RCOND is invalid.
 *
       EPS = SLAMCH( 'Epsilon' )
       IF( RCOND.LT.ZERO ) THEN
@@ -54,9 +54,9 @@
          RETURN
       END IF
 *
-*     Compute the maximum of
-*        norm(X - XACT) / ( norm(XACT) * EPS )
-*     over all the vectors X and XACT .
+      // Compute the maximum of
+         // norm(X - XACT) / ( norm(XACT) * EPS )
+      // over all the vectors X and XACT .
 *
       RESID = ZERO
       DO 20 J = 1, NRHS
@@ -76,6 +76,6 @@
 *
       RETURN
 *
-*     End of CGET04
+      // End of CGET04
 *
       END

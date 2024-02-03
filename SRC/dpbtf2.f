@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AB( LDAB, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J, KLD, KN;
       double             AJJ;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSYR, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -53,7 +53,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -61,19 +61,19 @@
 *
       IF( UPPER ) THEN
 *
-*        Compute the Cholesky factorization A = U**T*U.
+         // Compute the Cholesky factorization A = U**T*U.
 *
          DO 10 J = 1, N
 *
-*           Compute U(J,J) and test for non-positive-definiteness.
+            // Compute U(J,J) and test for non-positive-definiteness.
 *
             AJJ = AB( KD+1, J )
             IF( AJJ.LE.ZERO ) GO TO 30
             AJJ = SQRT( AJJ )
             AB( KD+1, J ) = AJJ
 *
-*           Compute elements J+1:J+KN of row J and update the
-*           trailing submatrix within the band.
+            // Compute elements J+1:J+KN of row J and update the
+           t // railing submatrix within the band.
 *
             KN = MIN( KD, N-J )
             IF( KN.GT.0 ) THEN
@@ -83,19 +83,19 @@
    10    CONTINUE
       ELSE
 *
-*        Compute the Cholesky factorization A = L*L**T.
+         // Compute the Cholesky factorization A = L*L**T.
 *
          DO 20 J = 1, N
 *
-*           Compute L(J,J) and test for non-positive-definiteness.
+            // Compute L(J,J) and test for non-positive-definiteness.
 *
             AJJ = AB( 1, J )
             IF( AJJ.LE.ZERO ) GO TO 30
             AJJ = SQRT( AJJ )
             AB( 1, J ) = AJJ
 *
-*           Compute elements J+1:J+KN of column J and update the
-*           trailing submatrix within the band.
+            // Compute elements J+1:J+KN of column J and update the
+           t // railing submatrix within the band.
 *
             KN = MIN( KD, N-J )
             IF( KN.GT.0 ) THEN
@@ -110,6 +110,6 @@
       INFO = J
       RETURN
 *
-*     End of DPBTF2
+      // End of DPBTF2
 *
       END

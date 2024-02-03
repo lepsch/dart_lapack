@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             PHI(*), THETA(*);
       double             PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
-*     ..
+      // ..
 *
 *  ====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             NEGONE, ONE, ZERO;
       PARAMETER          ( NEGONE = -1.0D0, ONE = 1.0D0, ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARF, DLARFGP, DORBDB5, DROT, DSCAL, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DNRM2;
       // EXTERNAL DNRM2
-*     ..
-*     .. Intrinsic Function ..
+      // ..
+      // .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       LQUERY = LWORK .EQ. -1
@@ -52,7 +52,7 @@
          INFO = -7
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO .EQ. 0 ) THEN
          ILARF = 2
@@ -74,7 +74,7 @@
          RETURN
       END IF
 *
-*     Reduce columns 1, ..., M-Q of X11 and X21
+      // Reduce columns 1, ..., M-Q of X11 and X21
 *
       DO I = 1, M-Q
 *
@@ -117,7 +117,7 @@
 *
       END DO
 *
-*     Reduce the bottom-right portion of X11 to [ I 0 ]
+      // Reduce the bottom-right portion of X11 to [ I 0 ]
 *
       DO I = M - Q + 1, P
          CALL DLARFGP( Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) )
@@ -125,7 +125,7 @@
          CALL DLARF( 'R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL DLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) )
       END DO
 *
-*     Reduce the bottom-right portion of X21 to [ 0 I ]
+      // Reduce the bottom-right portion of X21 to [ 0 I ]
 *
       DO I = P + 1, Q
          CALL DLARFGP( Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) )
@@ -135,6 +135,6 @@
 *
       RETURN
 *
-*     End of DORBDB4
+      // End of DORBDB4
 *
       END

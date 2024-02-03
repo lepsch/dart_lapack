@@ -4,54 +4,54 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               COMP;
       String             BALANC;
       int                INFO, ISRT, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       double             RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), RWORK( * ), SCALE( * ), SCALE1( * );
       COMPLEX*16         A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
       double             EPSIN;
       PARAMETER          ( EPSIN = 5.9605D-8 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BALOK, NOBAL;
       String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN       double             ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN, VRMX, VTST;;
       COMPLEX*16         CTMP
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             SENS( 2 );
       double             RES( 2 );
       COMPLEX*16         CDUM( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DZNRM2;
       // EXTERNAL LSAME, DLAMCH, DZNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEEVX, ZGET22, ZLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               SENS / 'N', 'V' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       NOBAL = LSAME( BALANC, 'N' )
       BALOK = NOBAL .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' )
@@ -83,7 +83,7 @@
          RETURN
       END IF
 *
-*     Quick return if nothing to do
+      // Quick return if nothing to do
 *
       DO 10 I = 1, 11
          RESULT( I ) = -ONE
@@ -91,13 +91,13 @@
 *
       IF( N.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       ULP = DLAMCH( 'Precision' )
       SMLNUM = DLAMCH( 'S' )
       ULPINV = ONE / ULP
 *
-*     Compute eigenvalues and eigenvectors, and test them
+      // Compute eigenvalues and eigenvectors, and test them
 *
       IF( LWORK.GE.2*N+N*N ) THEN
          SENSE = 'B'
@@ -119,17 +119,17 @@
          RETURN
       END IF
 *
-*     Do Test (1)
+      // Do Test (1)
 *
       CALL ZGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES )
       RESULT( 1 ) = RES( 1 )
 *
-*     Do Test (2)
+      // Do Test (2)
 *
       CALL ZGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES )
       RESULT( 2 ) = RES( 1 )
 *
-*     Do Test (3)
+      // Do Test (3)
 *
       DO 30 J = 1, N
          TNRM = DZNRM2( N, VR( 1, J ), 1 )
@@ -143,7 +143,7 @@
          IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 3 ) = ULPINV
    30 CONTINUE
 *
-*     Do Test (4)
+      // Do Test (4)
 *
       DO 50 J = 1, N
          TNRM = DZNRM2( N, VL( 1, J ), 1 )
@@ -157,13 +157,13 @@
          IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 4 ) = ULPINV
    50 CONTINUE
 *
-*     Test for all options of computing condition numbers
+      // Test for all options of computing condition numbers
 *
       DO 200 ISENS = 1, ISENSM
 *
          SENSE = SENS( ISENS )
 *
-*        Compute eigenvalues only, and test them
+         // Compute eigenvalues only, and test them
 *
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL ZGEEVX( BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
@@ -178,13 +178,13 @@
             GO TO 190
          END IF
 *
-*        Do Test (5)
+         // Do Test (5)
 *
          DO 60 J = 1, N
             IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
    60    CONTINUE
 *
-*        Do Test (8)
+         // Do Test (8)
 *
          IF( .NOT.NOBAL ) THEN
             DO 70 J = 1, N
@@ -193,7 +193,7 @@
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
-*        Do Test (9)
+         // Do Test (9)
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 80 J = 1, N
@@ -201,7 +201,7 @@
    80       CONTINUE
          END IF
 *
-*        Compute eigenvalues and right eigenvectors, and test them
+         // Compute eigenvalues and right eigenvectors, and test them
 *
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL ZGEEVX( BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
@@ -216,13 +216,13 @@
             GO TO 190
          END IF
 *
-*        Do Test (5) again
+         // Do Test (5) again
 *
          DO 90 J = 1, N
             IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
    90    CONTINUE
 *
-*        Do Test (6)
+         // Do Test (6)
 *
          DO 110 J = 1, N
             DO 100 JJ = 1, N
@@ -230,7 +230,7 @@
   100       CONTINUE
   110    CONTINUE
 *
-*        Do Test (8) again
+         // Do Test (8) again
 *
          IF( .NOT.NOBAL ) THEN
             DO 120 J = 1, N
@@ -239,7 +239,7 @@
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
-*        Do Test (9) again
+         // Do Test (9) again
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 130 J = 1, N
@@ -247,7 +247,7 @@
   130       CONTINUE
          END IF
 *
-*        Compute eigenvalues and left eigenvectors, and test them
+         // Compute eigenvalues and left eigenvectors, and test them
 *
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL ZGEEVX( BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE, LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
@@ -262,13 +262,13 @@
             GO TO 190
          END IF
 *
-*        Do Test (5) again
+         // Do Test (5) again
 *
          DO 140 J = 1, N
             IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
   140    CONTINUE
 *
-*        Do Test (7)
+         // Do Test (7)
 *
          DO 160 J = 1, N
             DO 150 JJ = 1, N
@@ -276,7 +276,7 @@
   150       CONTINUE
   160    CONTINUE
 *
-*        Do Test (8) again
+         // Do Test (8) again
 *
          IF( .NOT.NOBAL ) THEN
             DO 170 J = 1, N
@@ -285,7 +285,7 @@
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
-*        Do Test (9) again
+         // Do Test (9) again
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 180 J = 1, N
@@ -297,7 +297,7 @@
 *
   200 CONTINUE
 *
-*     If COMP, compare condition numbers to precomputed ones
+      // If COMP, compare condition numbers to precomputed ones
 *
       IF( COMP ) THEN
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
@@ -309,8 +309,8 @@
             GO TO 250
          END IF
 *
-*        Sort eigenvalues and condition numbers lexicographically
-*        to compare with inputs
+         // Sort eigenvalues and condition numbers lexicographically
+        t // o compare with inputs
 *
          DO 220 I = 1, N - 1
             KMIN = I
@@ -341,8 +341,8 @@
             RCONDV( I ) = VRIMIN
   220    CONTINUE
 *
-*        Compare condition numbers for eigenvectors
-*        taking their condition numbers into account
+         // Compare condition numbers for eigenvectors
+        t // aking their condition numbers into account
 *
          RESULT( 10 ) = ZERO
          EPS = MAX( EPSIN, ULP )
@@ -375,8 +375,8 @@
             RESULT( 10 ) = MAX( RESULT( 10 ), VMAX )
   230    CONTINUE
 *
-*        Compare condition numbers for eigenvalues
-*        taking their condition numbers into account
+         // Compare condition numbers for eigenvalues
+        t // aking their condition numbers into account
 *
          RESULT( 11 ) = ZERO
          DO 240 I = 1, N
@@ -417,6 +417,6 @@
 *
       RETURN
 *
-*     End of ZGET23
+      // End of ZGET23
 *
       END

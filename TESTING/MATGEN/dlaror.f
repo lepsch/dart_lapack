@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             INIT, SIDE;
       int                INFO, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       double             A( LDA, * ), X( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TOOSML;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
       double             FACTOR, XNORM, XNORMS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLARND, DNRM2;
       // EXTERNAL LSAME, DLARND, DNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMV, DGER, DLASET, DSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
@@ -48,7 +48,7 @@
          ITYPE = 3
       END IF
 *
-*     Check for argument errors.
+      // Check for argument errors.
 *
       IF( ITYPE.EQ.0 ) THEN
          INFO = -1
@@ -70,14 +70,14 @@
          NXFRM = N
       END IF
 *
-*     Initialize A to the identity matrix if desired
+      // Initialize A to the identity matrix if desired
 *
       IF( LSAME( INIT, 'I' ) ) CALL DLASET( 'Full', M, N, ZERO, ONE, A, LDA )
 *
-*     If no rotation possible, multiply by random +/-1
+      // If no rotation possible, multiply by random +/-1
 *
-*     Compute rotation by computing Householder transformations
-*     H(2), H(3), ..., H(nhouse)
+      // Compute rotation by computing Householder transformations
+      // H(2), H(3), ..., H(nhouse)
 *
       DO 10 J = 1, NXFRM
          X( J ) = ZERO
@@ -86,13 +86,13 @@
       DO 30 IXFRM = 2, NXFRM
          KBEG = NXFRM - IXFRM + 1
 *
-*        Generate independent normal( 0, 1 ) random numbers
+         // Generate independent normal( 0, 1 ) random numbers
 *
          DO 20 J = KBEG, NXFRM
             X( J ) = DLARND( 3, ISEED )
    20    CONTINUE
 *
-*        Generate a Householder transformation from the random vector X
+         // Generate a Householder transformation from the random vector X
 *
          XNORM = DNRM2( IXFRM, X( KBEG ), 1 )
          XNORMS = SIGN( XNORM, X( KBEG ) )
@@ -107,11 +107,11 @@
          END IF
          X( KBEG ) = X( KBEG ) + XNORMS
 *
-*        Apply Householder transformation to A
+         // Apply Householder transformation to A
 *
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 ) THEN
 *
-*           Apply H(k) from the left.
+            // Apply H(k) from the left.
 *
             CALL DGEMV( 'T', IXFRM, N, ONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( IXFRM, N, -FACTOR, X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
 *
@@ -119,7 +119,7 @@
 *
          IF( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) THEN
 *
-*           Apply H(k) from the right.
+            // Apply H(k) from the right.
 *
             CALL DGEMV( 'N', M, IXFRM, ONE, A( 1, KBEG ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( M, IXFRM, -FACTOR, X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
 *
@@ -128,7 +128,7 @@
 *
       X( 2*NXFRM ) = SIGN( ONE, DLARND( 3, ISEED ) )
 *
-*     Scale the matrix A by D.
+      // Scale the matrix A by D.
 *
       IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 ) THEN
          DO 40 IROW = 1, M
@@ -143,6 +143,6 @@
       END IF
       RETURN
 *
-*     End of DLAROR
+      // End of DLAROR
 *
       END

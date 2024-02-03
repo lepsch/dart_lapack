@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                I, INFO, N;
       REAL   RHO, SIGMA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL   D( * ), DELTA( * ), WORK( * ), Z( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXIT;
       PARAMETER          ( MAXIT = 400 )
       REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, THREE = 3.0E+0, FOUR = 4.0E+0, EIGHT = 8.0E+0, TEN = 10.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ORGATI, SWTCH, SWTCH3, GEOMAVG;
       int                II, IIM1, IIP1, IP1, ITER, J, NITER;
       REAL               A, B, C, DELSQ, DELSQ2, SQ2, DPHI, DPSI, DTIIM, DTIIP, DTIPSQ, DTISQ, DTNSQ, DTNSQ1, DW, EPS, ERRETM, ETA, PHI, PREW, PSI, RHOINV, SGLB, SGUB, TAU, TAU2, TEMP, TEMP1, TEMP2, W
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DD( 3 ), ZZ( 3 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAED6, SLASD5
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Since this routine is called in an inner loop, we do no argument
-*     checking.
+      // Since this routine is called in an inner loop, we do no argument
+      // checking.
 *
-*     Quick return for N=1 and 2.
+      // Quick return for N=1 and 2.
 *
       INFO = 0
       IF( N.EQ.1 ) THEN
 *
-*        Presumably, I=1 upon entry
+         // Presumably, I=1 upon entry
 *
          SIGMA = SQRT( D( 1 )*D( 1 )+RHO*Z( 1 )*Z( 1 ) )
          DELTA( 1 ) = ONE
@@ -60,27 +60,27 @@
          RETURN
       END IF
 *
-*     Compute machine epsilon
+      // Compute machine epsilon
 *
       EPS = SLAMCH( 'Epsilon' )
       RHOINV = ONE / RHO
       TAU2= ZERO
 *
-*     The case I = N
+      // The case I = N
 *
       IF( I.EQ.N ) THEN
 *
-*        Initialize some basic variables
+         // Initialize some basic variables
 *
          II = N - 1
          NITER = 1
 *
-*        Calculate initial guess
+         // Calculate initial guess
 *
          TEMP = RHO / TWO
 *
-*        If ||Z||_2 is not one, then TEMP should be set to
-*        RHO * ||Z||_2^2 / TWO
+         // If ||Z||_2 is not one, then TEMP should be set to
+         // RHO * ||Z||_2^2 / TWO
 *
          TEMP1 = TEMP / ( D( N )+SQRT( D( N )*D( N )+TEMP ) )
          DO 10 J = 1, N
@@ -100,8 +100,8 @@
             TEMP1 = SQRT( D( N )*D( N )+RHO )
             TEMP = Z( N-1 )*Z( N-1 ) / ( ( D( N-1 )+TEMP1 )* ( D( N )-D( N-1 )+RHO / ( D( N )+TEMP1 ) ) ) + Z( N )*Z( N ) / RHO
 *
-*           The following TAU2 is to approximate
-*           SIGMA_n^2 - D( N )*D( N )
+            // The following TAU2 is to approximate
+            // SIGMA_n^2 - D( N )*D( N )
 *
             IF( C.LE.TEMP ) THEN
                TAU = RHO
@@ -117,16 +117,16 @@
                TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) )
             END IF
 *
-*           It can be proved that
-*               D(N)^2+RHO/2 <= SIGMA_n^2 < D(N)^2+TAU2 <= D(N)^2+RHO
+            // It can be proved that
+                // D(N)^2+RHO/2 <= SIGMA_n^2 < D(N)^2+TAU2 <= D(N)^2+RHO
 *
          ELSE
             DELSQ = ( D( N )-D( N-1 ) )*( D( N )+D( N-1 ) )
             A = -C*DELSQ + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N )
             B = Z( N )*Z( N )*DELSQ
 *
-*           The following TAU2 is to approximate
-*           SIGMA_n^2 - D( N )*D( N )
+            // The following TAU2 is to approximate
+            // SIGMA_n^2 - D( N )*D( N )
 *
             IF( A.LT.ZERO ) THEN
                TAU2 = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
@@ -136,14 +136,14 @@
             TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) )
 
 *
-*           It can be proved that
-*           D(N)^2 < D(N)^2+TAU2 < SIGMA(N)^2 < D(N)^2+RHO/2
+            // It can be proved that
+            // D(N)^2 < D(N)^2+TAU2 < SIGMA(N)^2 < D(N)^2+RHO/2
 *
          END IF
 *
-*        The following TAU is to approximate SIGMA_n - D( N )
+         // The following TAU is to approximate SIGMA_n - D( N )
 *
-*         TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) )
+          // TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) )
 *
          SIGMA = D( N ) + TAU
          DO 30 J = 1, N
@@ -151,7 +151,7 @@
             WORK( J ) = D( J ) + D( N ) + TAU
    30    CONTINUE
 *
-*        Evaluate PSI and the derivative DPSI
+         // Evaluate PSI and the derivative DPSI
 *
          DPSI = ZERO
          PSI = ZERO
@@ -164,7 +164,7 @@
    40    CONTINUE
          ERRETM = ABS( ERRETM )
 *
-*        Evaluate PHI and the derivative DPHI
+         // Evaluate PHI and the derivative DPHI
 *
          TEMP = Z( N ) / ( DELTA( N )*WORK( N ) )
          PHI = Z( N )*TEMP
@@ -174,13 +174,13 @@
 *
          W = RHOINV + PHI + PSI
 *
-*        Test for convergence
+         // Test for convergence
 *
          IF( ABS( W ).LE.EPS*ERRETM ) THEN
             GO TO 240
          END IF
 *
-*        Calculate the new step
+         // Calculate the new step
 *
          NITER = NITER + 1
          DTNSQ1 = WORK( N-1 )*DELTA( N-1 )
@@ -197,11 +197,11 @@
             ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
          END IF
 *
-*        Note, eta should be positive if w is negative, and
-*        eta should be negative otherwise. However,
-*        if for some reason caused by roundoff, eta*w > 0,
-*        we simply use one Newton step instead. This way
-*        will guarantee eta*w < 0.
+         // Note, eta should be positive if w is negative, and
+         // eta should be negative otherwise. However,
+         // if for some reason caused by roundoff, eta*w > 0,
+         // we simply use one Newton step instead. This way
+         // will guarantee eta*w < 0.
 *
          IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
          TEMP = ETA - DTNSQ
@@ -216,7 +216,7 @@
             WORK( J ) = WORK( J ) + ETA
    50    CONTINUE
 *
-*        Evaluate PSI and the derivative DPSI
+         // Evaluate PSI and the derivative DPSI
 *
          DPSI = ZERO
          PSI = ZERO
@@ -229,7 +229,7 @@
    60    CONTINUE
          ERRETM = ABS( ERRETM )
 *
-*        Evaluate PHI and the derivative DPHI
+         // Evaluate PHI and the derivative DPHI
 *
          TAU2 = WORK( N )*DELTA( N )
          TEMP = Z( N ) / TAU2
@@ -240,19 +240,19 @@
 *
          W = RHOINV + PHI + PSI
 *
-*        Main loop to update the values of the array   DELTA
+         // Main loop to update the values of the array   DELTA
 *
          ITER = NITER + 1
 *
          DO 90 NITER = ITER, MAXIT
 *
-*           Test for convergence
+            // Test for convergence
 *
             IF( ABS( W ).LE.EPS*ERRETM ) THEN
                GO TO 240
             END IF
 *
-*           Calculate the new step
+            // Calculate the new step
 *
             DTNSQ1 = WORK( N-1 )*DELTA( N-1 )
             DTNSQ = WORK( N )*DELTA( N )
@@ -265,11 +265,11 @@
                ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
             END IF
 *
-*           Note, eta should be positive if w is negative, and
-*           eta should be negative otherwise. However,
-*           if for some reason caused by roundoff, eta*w > 0,
-*           we simply use one Newton step instead. This way
-*           will guarantee eta*w < 0.
+            // Note, eta should be positive if w is negative, and
+            // eta should be negative otherwise. However,
+            // if for some reason caused by roundoff, eta*w > 0,
+            // we simply use one Newton step instead. This way
+            // will guarantee eta*w < 0.
 *
             IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
             TEMP = ETA - DTNSQ
@@ -284,7 +284,7 @@
                WORK( J ) = WORK( J ) + ETA
    70       CONTINUE
 *
-*           Evaluate PSI and the derivative DPSI
+            // Evaluate PSI and the derivative DPSI
 *
             DPSI = ZERO
             PSI = ZERO
@@ -297,7 +297,7 @@
    80       CONTINUE
             ERRETM = ABS( ERRETM )
 *
-*           Evaluate PHI and the derivative DPHI
+            // Evaluate PHI and the derivative DPHI
 *
             TAU2 = WORK( N )*DELTA( N )
             TEMP = Z( N ) / TAU2
@@ -309,21 +309,21 @@
             W = RHOINV + PHI + PSI
    90    CONTINUE
 *
-*        Return with INFO = 1, NITER = MAXIT and not converged
+         // Return with INFO = 1, NITER = MAXIT and not converged
 *
          INFO = 1
          GO TO 240
 *
-*        End for the case I = N
+         // End for the case I = N
 *
       ELSE
 *
-*        The case for I < N
+         // The case for I < N
 *
          NITER = 1
          IP1 = I + 1
 *
-*        Calculate initial guess
+         // Calculate initial guess
 *
          DELSQ = ( D( IP1 )-D( I ) )*( D( IP1 )+D( I ) )
          DELSQ2 = DELSQ / TWO
@@ -349,9 +349,9 @@
          GEOMAVG = .FALSE.
          IF( W.GT.ZERO ) THEN
 *
-*           d(i)^2 < the ith sigma^2 < (d(i)^2+d(i+1)^2)/2
+            // d(i)^2 < the ith sigma^2 < (d(i)^2+d(i+1)^2)/2
 *
-*           We choose d(i) as origin.
+            // We choose d(i) as origin.
 *
             ORGATI = .TRUE.
             II = I
@@ -365,9 +365,9 @@
                TAU2 = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
             END IF
 *
-*           TAU2 now is an estimation of SIGMA^2 - D( I )^2. The
-*           following, however, is the corresponding estimation of
-*           SIGMA - D( I ).
+            // TAU2 now is an estimation of SIGMA^2 - D( I )^2. The
+            // following, however, is the corresponding estimation of
+            // SIGMA - D( I ).
 *
             TAU = TAU2 / ( D( I )+SQRT( D( I )*D( I )+TAU2 ) )
             TEMP = SQRT(EPS)
@@ -377,9 +377,9 @@
             END IF
          ELSE
 *
-*           (d(i)^2+d(i+1)^2)/2 <= the ith sigma^2 < d(i+1)^2/2
+            // (d(i)^2+d(i+1)^2)/2 <= the ith sigma^2 < d(i+1)^2/2
 *
-*           We choose d(i+1) as origin.
+            // We choose d(i+1) as origin.
 *
             ORGATI = .FALSE.
             II = IP1
@@ -393,9 +393,9 @@
                TAU2 = -( A+SQRT( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C )
             END IF
 *
-*           TAU2 now is an estimation of SIGMA^2 - D( IP1 )^2. The
-*           following, however, is the corresponding estimation of
-*           SIGMA - D( IP1 ).
+            // TAU2 now is an estimation of SIGMA^2 - D( IP1 )^2. The
+            // following, however, is the corresponding estimation of
+            // SIGMA - D( IP1 ).
 *
             TAU = TAU2 / ( D( IP1 )+SQRT( ABS( D( IP1 )*D( IP1 )+ TAU2 ) ) )
          END IF
@@ -408,7 +408,7 @@
          IIM1 = II - 1
          IIP1 = II + 1
 *
-*        Evaluate PSI and the derivative DPSI
+         // Evaluate PSI and the derivative DPSI
 *
          DPSI = ZERO
          PSI = ZERO
@@ -421,7 +421,7 @@
   150    CONTINUE
          ERRETM = ABS( ERRETM )
 *
-*        Evaluate PHI and the derivative DPHI
+         // Evaluate PHI and the derivative DPHI
 *
          DPHI = ZERO
          PHI = ZERO
@@ -434,8 +434,8 @@
 *
          W = RHOINV + PHI + PSI
 *
-*        W is the value of the secular function with
-*        its ii-th element removed.
+         // W is the value of the secular function with
+         // its ii-th element removed.
 *
          SWTCH3 = .FALSE.
          IF( ORGATI ) THEN
@@ -452,7 +452,7 @@
          ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP )
 *    $          + ABS( TAU2 )*DW
 *
-*        Test for convergence
+         // Test for convergence
 *
          IF( ABS( W ).LE.EPS*ERRETM ) THEN
             GO TO 240
@@ -464,7 +464,7 @@
             SGUB = MIN( SGUB, TAU )
          END IF
 *
-*        Calculate the new step
+         // Calculate the new step
 *
          NITER = NITER + 1
          IF( .NOT.SWTCH3 ) THEN
@@ -493,7 +493,7 @@
             END IF
          ELSE
 *
-*           Interpolation using THREE most relevant poles
+            // Interpolation using THREE most relevant poles
 *
             DTIIM = WORK( IIM1 )*DELTA( IIM1 )
             DTIIP = WORK( IIP1 )*DELTA( IIP1 )
@@ -527,8 +527,8 @@
 *
             IF( INFO.NE.0 ) THEN
 *
-*              If INFO is not 0, i.e., SLAED6 failed, switch back
-*              to 2 pole interpolation.
+               // If INFO is not 0, i.e., SLAED6 failed, switch back
+              t // o 2 pole interpolation.
 *
                SWTCH3 = .FALSE.
                INFO = 0
@@ -558,11 +558,11 @@
             END IF
          END IF
 *
-*        Note, eta should be positive if w is negative, and
-*        eta should be negative otherwise. However,
-*        if for some reason caused by roundoff, eta*w > 0,
-*        we simply use one Newton step instead. This way
-*        will guarantee eta*w < 0.
+         // Note, eta should be positive if w is negative, and
+         // eta should be negative otherwise. However,
+         // if for some reason caused by roundoff, eta*w > 0,
+         // we simply use one Newton step instead. This way
+         // will guarantee eta*w < 0.
 *
          IF( W*ETA.GE.ZERO ) ETA = -W / DW
 *
@@ -597,7 +597,7 @@
             DELTA( J ) = DELTA( J ) - ETA
   170    CONTINUE
 *
-*        Evaluate PSI and the derivative DPSI
+         // Evaluate PSI and the derivative DPSI
 *
          DPSI = ZERO
          PSI = ZERO
@@ -610,7 +610,7 @@
   180    CONTINUE
          ERRETM = ABS( ERRETM )
 *
-*        Evaluate PHI and the derivative DPHI
+         // Evaluate PHI and the derivative DPHI
 *
          DPHI = ZERO
          PHI = ZERO
@@ -636,16 +636,16 @@
             IF( W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
          END IF
 *
-*        Main loop to update the values of the array   DELTA and WORK
+         // Main loop to update the values of the array   DELTA and WORK
 *
          ITER = NITER + 1
 *
          DO 230 NITER = ITER, MAXIT
 *
-*           Test for convergence
+            // Test for convergence
 *
             IF( ABS( W ).LE.EPS*ERRETM ) THEN
-*     $          .OR. (SGUB-SGLB).LE.EIGHT*ABS(SGUB+SGLB) ) THEN
+      // $          .OR. (SGUB-SGLB).LE.EIGHT*ABS(SGUB+SGLB) ) THEN
                GO TO 240
             END IF
 *
@@ -655,7 +655,7 @@
                SGUB = MIN( SGUB, TAU )
             END IF
 *
-*           Calculate the new step
+            // Calculate the new step
 *
             IF( .NOT.SWTCH3 ) THEN
                DTIPSQ = WORK( IP1 )*DELTA( IP1 )
@@ -697,7 +697,7 @@
                END IF
             ELSE
 *
-*              Interpolation using THREE most relevant poles
+               // Interpolation using THREE most relevant poles
 *
                DTIIM = WORK( IIM1 )*DELTA( IIM1 )
                DTIIP = WORK( IIP1 )*DELTA( IIP1 )
@@ -738,8 +738,8 @@
 *
                IF( INFO.NE.0 ) THEN
 *
-*                 If INFO is not 0, i.e., SLAED6 failed, switch
-*                 back to two pole interpolation
+                  // If INFO is not 0, i.e., SLAED6 failed, switch
+                  // back to two pole interpolation
 *
                   SWTCH3 = .FALSE.
                   INFO = 0
@@ -783,11 +783,11 @@
                END IF
             END IF
 *
-*           Note, eta should be positive if w is negative, and
-*           eta should be negative otherwise. However,
-*           if for some reason caused by roundoff, eta*w > 0,
-*           we simply use one Newton step instead. This way
-*           will guarantee eta*w < 0.
+            // Note, eta should be positive if w is negative, and
+            // eta should be negative otherwise. However,
+            // if for some reason caused by roundoff, eta*w > 0,
+            // we simply use one Newton step instead. This way
+            // will guarantee eta*w < 0.
 *
             IF( W*ETA.GE.ZERO ) ETA = -W / DW
 *
@@ -822,7 +822,7 @@
                DELTA( J ) = DELTA( J ) - ETA
   200       CONTINUE
 *
-*           Evaluate PSI and the derivative DPSI
+            // Evaluate PSI and the derivative DPSI
 *
             DPSI = ZERO
             PSI = ZERO
@@ -835,7 +835,7 @@
   210       CONTINUE
             ERRETM = ABS( ERRETM )
 *
-*           Evaluate PHI and the derivative DPHI
+            // Evaluate PHI and the derivative DPHI
 *
             DPHI = ZERO
             PHI = ZERO
@@ -858,7 +858,7 @@
 *
   230    CONTINUE
 *
-*        Return with INFO = 1, NITER = MAXIT and not converged
+         // Return with INFO = 1, NITER = MAXIT and not converged
 *
          INFO = 1
 *
@@ -867,6 +867,6 @@
   240 CONTINUE
       RETURN
 *
-*     End of SLASD4
+      // End of SLASD4
 *
       END

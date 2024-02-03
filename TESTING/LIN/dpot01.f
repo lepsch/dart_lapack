@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       double             ANORM, EPS, T;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT, DLAMCH, DLANSY;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSYR, DTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
@@ -52,33 +52,33 @@
          RETURN
       END IF
 *
-*     Compute the product U**T * U, overwriting U.
+      // Compute the product U**T * U, overwriting U.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 10 K = N, 1, -1
 *
-*           Compute the (K,K) element of the result.
+            // Compute the (K,K) element of the result.
 *
             T = DDOT( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 )
             AFAC( K, K ) = T
 *
-*           Compute the rest of column K.
+            // Compute the rest of column K.
 *
             CALL DTRMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
 *
    10    CONTINUE
 *
-*     Compute the product L * L**T, overwriting L.
+      // Compute the product L * L**T, overwriting L.
 *
       ELSE
          DO 20 K = N, 1, -1
 *
-*           Add a multiple of column K of the factor L to each of
-*           columns K+1 through N.
+            // Add a multiple of column K of the factor L to each of
+            // columns K+1 through N.
 *
             IF( K+1.LE.N ) CALL DSYR( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC )
 *
-*           Scale column K by the diagonal element.
+            // Scale column K by the diagonal element.
 *
             T = AFAC( K, K )
             CALL DSCAL( N-K+1, T, AFAC( K, K ), 1 )
@@ -86,7 +86,7 @@
    20    CONTINUE
       END IF
 *
-*     Compute the difference L * L**T - A (or U**T * U - A).
+      // Compute the difference L * L**T - A (or U**T * U - A).
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 40 J = 1, N
@@ -102,7 +102,7 @@
    60    CONTINUE
       END IF
 *
-*     Compute norm(L*U - A) / ( N * norm(A) * EPS )
+      // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 *
       RESID = DLANSY( '1', UPLO, N, AFAC, LDAFAC, RWORK )
 *
@@ -110,6 +110,6 @@
 *
       RETURN
 *
-*     End of DPOT01
+      // End of DPOT01
 *
       END

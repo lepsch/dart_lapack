@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIRECT, SIDE, STOREV, TRANS;
       int                K, L, LDC, LDT, LDV, LDWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANST;
       int                I, INFO, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZCOPY, ZGEMM, ZLACGV, ZTRMM
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
-*     Check for currently supported options
+      // Check for currently supported options
 *
       INFO = 0
       IF( .NOT.LSAME( DIRECT, 'B' ) ) THEN
@@ -56,24 +56,24 @@
 *
       IF( LSAME( SIDE, 'L' ) ) THEN
 *
-*        Form  H * C  or  H**H * C
+         // Form  H * C  or  H**H * C
 *
-*        W( 1:n, 1:k ) = C( 1:k, 1:n )**H
+         // W( 1:n, 1:k ) = C( 1:k, 1:n )**H
 *
          DO 10 J = 1, K
             CALL ZCOPY( N, C( J, 1 ), LDC, WORK( 1, J ), 1 )
    10    CONTINUE
 *
-*        W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
-*                        C( m-l+1:m, 1:n )**H * V( 1:k, 1:l )**T
+         // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
+                         // C( m-l+1:m, 1:n )**H * V( 1:k, 1:l )**T
 *
          IF( L.GT.0 ) CALL ZGEMM( 'Transpose', 'Conjugate transpose', N, K, L, ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK, LDWORK )
 *
-*        W( 1:n, 1:k ) = W( 1:n, 1:k ) * T**T  or  W( 1:m, 1:k ) * T
+         // W( 1:n, 1:k ) = W( 1:n, 1:k ) * T**T  or  W( 1:m, 1:k ) * T
 *
          CALL ZTRMM( 'Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
 *
-*        C( 1:k, 1:n ) = C( 1:k, 1:n ) - W( 1:n, 1:k )**H
+         // C( 1:k, 1:n ) = C( 1:k, 1:n ) - W( 1:n, 1:k )**H
 *
          DO 30 J = 1, N
             DO 20 I = 1, K
@@ -81,28 +81,28 @@
    20       CONTINUE
    30    CONTINUE
 *
-*        C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
-*                            V( 1:k, 1:l )**H * W( 1:n, 1:k )**H
+         // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
+                             // V( 1:k, 1:l )**H * W( 1:n, 1:k )**H
 *
          IF( L.GT.0 ) CALL ZGEMM( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC )
 *
       ELSE IF( LSAME( SIDE, 'R' ) ) THEN
 *
-*        Form  C * H  or  C * H**H
+         // Form  C * H  or  C * H**H
 *
-*        W( 1:m, 1:k ) = C( 1:m, 1:k )
+         // W( 1:m, 1:k ) = C( 1:m, 1:k )
 *
          DO 40 J = 1, K
             CALL ZCOPY( M, C( 1, J ), 1, WORK( 1, J ), 1 )
    40    CONTINUE
 *
-*        W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
-*                        C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**H
+         // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
+                         // C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**H
 *
          IF( L.GT.0 ) CALL ZGEMM( 'No transpose', 'Transpose', M, K, L, ONE, C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK )
 *
-*        W( 1:m, 1:k ) = W( 1:m, 1:k ) * conjg( T )  or
-*                        W( 1:m, 1:k ) * T**H
+         // W( 1:m, 1:k ) = W( 1:m, 1:k ) * conjg( T )  or
+                         // W( 1:m, 1:k ) * T**H
 *
          DO 50 J = 1, K
             CALL ZLACGV( K-J+1, T( J, J ), 1 )
@@ -112,7 +112,7 @@
             CALL ZLACGV( K-J+1, T( J, J ), 1 )
    60    CONTINUE
 *
-*        C( 1:m, 1:k ) = C( 1:m, 1:k ) - W( 1:m, 1:k )
+         // C( 1:m, 1:k ) = C( 1:m, 1:k ) - W( 1:m, 1:k )
 *
          DO 80 J = 1, K
             DO 70 I = 1, M
@@ -120,8 +120,8 @@
    70       CONTINUE
    80    CONTINUE
 *
-*        C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
-*                            W( 1:m, 1:k ) * conjg( V( 1:k, 1:l ) )
+         // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
+                             // W( 1:m, 1:k ) * conjg( V( 1:k, 1:l ) )
 *
          DO 90 J = 1, L
             CALL ZLACGV( K, V( 1, J ), 1 )
@@ -135,6 +135,6 @@
 *
       RETURN
 *
-*     End of ZLARZB
+      // End of ZLARZB
 *
       END

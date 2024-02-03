@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               BERR( * ), FERR( * ), RWORK( * )
       COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, NOFACT;
       int                LWKOPT, NB;
       REAL               ANORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               CLANSY, SLAMCH, SROUNDUP_LWORK
       // EXTERNAL ILAENV, LSAME, CLANSY, SLAMCH, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLACPY, CSYCON, CSYRFS, CSYTRF, CSYTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -83,12 +83,12 @@
 *
       IF( NOFACT ) THEN
 *
-*        Compute the factorization A = U*D*U**T or A = L*D*L**T.
+         // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 *
          CALL CLACPY( UPLO, N, N, A, LDA, AF, LDAF )
          CALL CSYTRF( UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 )THEN
             RCOND = ZERO
@@ -96,25 +96,25 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A.
+      // Compute the norm of the matrix A.
 *
       ANORM = CLANSY( 'I', UPLO, N, A, LDA, RWORK )
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL CSYCON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO )
 *
-*     Compute the solution vectors X.
+      // Compute the solution vectors X.
 *
       CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL CSYTRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solutions and
-*     compute error bounds and backward error estimates for them.
+      // Use iterative refinement to improve the computed solutions and
+      // compute error bounds and backward error estimates for them.
 *
       CALL CSYRFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
@@ -122,6 +122,6 @@
 *
       RETURN
 *
-*     End of CSYSVX
+      // End of CSYSVX
 *
       END

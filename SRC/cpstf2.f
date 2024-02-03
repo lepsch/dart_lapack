@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               TOL
       int                INFO, LDA, N, RANK;
       String             UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * )
       REAL               WORK( 2*N )
       int                PIV( N );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX            CTEMP
       REAL               AJJ, SSTOP, STEMP
       int                I, ITEMP, J, PVT;
       bool               UPPER;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       bool               LSAME, SISNAN;
       // EXTERNAL SLAMCH, LSAME, SISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMV, CLACGV, CSSCAL, CSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -58,17 +58,17 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Initialize PIV
+      // Initialize PIV
 *
       DO 100 I = 1, N
          PIV( I ) = I
   100 CONTINUE
 *
-*     Compute stopping value
+      // Compute stopping value
 *
       DO 110 I = 1, N
          WORK( I ) = REAL( A( I, I ) )
@@ -81,7 +81,7 @@
          GO TO 200
       END IF
 *
-*     Compute stopping value if not supplied
+      // Compute stopping value if not supplied
 *
       IF( TOL.LT.ZERO ) THEN
          SSTOP = N * SLAMCH( 'Epsilon' ) * AJJ
@@ -89,7 +89,7 @@
          SSTOP = TOL
       END IF
 *
-*     Set first half of WORK to zero, holds dot products
+      // Set first half of WORK to zero, holds dot products
 *
       DO 120 I = 1, N
          WORK( I ) = 0
@@ -97,13 +97,13 @@
 *
       IF( UPPER ) THEN
 *
-*        Compute the Cholesky factorization P**T * A * P = U**H * U
+         // Compute the Cholesky factorization P**T * A * P = U**H * U
 *
          DO 150 J = 1, N
 *
-*        Find pivot, test for exit, else swap rows and columns
-*        Update dot products, compute possible pivots which are
-*        stored in the second half of WORK
+         // Find pivot, test for exit, else swap rows and columns
+         // Update dot products, compute possible pivots which are
+         // stored in the second half of WORK
 *
             DO 130 I = J, N
 *
@@ -126,7 +126,7 @@
 *
             IF( J.NE.PVT ) THEN
 *
-*              Pivot OK, so can now swap pivot rows and columns
+               // Pivot OK, so can now swap pivot rows and columns
 *
                A( PVT, PVT ) = A( J, J )
                CALL CSWAP( J-1, A( 1, J ), 1, A( 1, PVT ), 1 )
@@ -138,7 +138,7 @@
   140          CONTINUE
                A( J, PVT ) = CONJG( A( J, PVT ) )
 *
-*              Swap dot products and PIV
+               // Swap dot products and PIV
 *
                STEMP = WORK( J )
                WORK( J ) = WORK( PVT )
@@ -151,7 +151,7 @@
             AJJ = SQRT( AJJ )
             A( J, J ) = AJJ
 *
-*           Compute elements J+1:N of row J
+            // Compute elements J+1:N of row J
 *
             IF( J.LT.N ) THEN
                CALL CLACGV( J-1, A( 1, J ), 1 )
@@ -164,13 +164,13 @@
 *
       ELSE
 *
-*        Compute the Cholesky factorization P**T * A * P = L * L**H
+         // Compute the Cholesky factorization P**T * A * P = L * L**H
 *
          DO 180 J = 1, N
 *
-*        Find pivot, test for exit, else swap rows and columns
-*        Update dot products, compute possible pivots which are
-*        stored in the second half of WORK
+         // Find pivot, test for exit, else swap rows and columns
+         // Update dot products, compute possible pivots which are
+         // stored in the second half of WORK
 *
             DO 160 I = J, N
 *
@@ -193,7 +193,7 @@
 *
             IF( J.NE.PVT ) THEN
 *
-*              Pivot OK, so can now swap pivot rows and columns
+               // Pivot OK, so can now swap pivot rows and columns
 *
                A( PVT, PVT ) = A( J, J )
                CALL CSWAP( J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA )
@@ -205,7 +205,7 @@
   170          CONTINUE
                A( PVT, J ) = CONJG( A( PVT, J ) )
 *
-*              Swap dot products and PIV
+               // Swap dot products and PIV
 *
                STEMP = WORK( J )
                WORK( J ) = WORK( PVT )
@@ -218,7 +218,7 @@
             AJJ = SQRT( AJJ )
             A( J, J ) = AJJ
 *
-*           Compute elements J+1:N of column J
+            // Compute elements J+1:N of column J
 *
             IF( J.LT.N ) THEN
                CALL CLACGV( J-1, A( J, 1 ), LDA )
@@ -231,15 +231,15 @@
 *
       END IF
 *
-*     Ran to completion, A has full rank
+      // Ran to completion, A has full rank
 *
       RANK = N
 *
       GO TO 200
   190 CONTINUE
 *
-*     Rank is number of steps completed.  Set INFO = 1 to signal
-*     that the factorization cannot be used to solve a system.
+      // Rank is number of steps completed.  Set INFO = 1 to signal
+     t // hat the factorization cannot be used to solve a system.
 *
       RANK = J - 1
       INFO = 1
@@ -247,6 +247,6 @@
   200 CONTINUE
       RETURN
 *
-*     End of CPSTF2
+      // End of CPSTF2
 *
       END

@@ -4,57 +4,57 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RESULT( * ), RWORK( * )
       COMPLEX            A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            ROGUE
       PARAMETER          ( ROGUE = ( -1.0E+10, -1.0E+10 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, MINMN;
       REAL               ANORM, EPS, RESID
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, CLANSY, SLAMCH
       // EXTERNAL CLANGE, CLANSY, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CGERQF, CHERK, CLACPY, CLASET, CUNGRQ
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       MINMN = MIN( M, N )
       EPS = SLAMCH( 'Epsilon' )
 *
-*     Copy the matrix A to the array AF.
+      // Copy the matrix A to the array AF.
 *
       CALL CLACPY( 'Full', M, N, A, LDA, AF, LDA )
 *
-*     Factorize the matrix A in the array AF.
+      // Factorize the matrix A in the array AF.
 *
       SRNAMT = 'CGERQF'
       CALL CGERQF( M, N, AF, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy details of Q
+      // Copy details of Q
 *
       CALL CLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
       IF( M.LE.N ) THEN
@@ -63,12 +63,12 @@
          IF( N.GT.1 ) CALL CLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA )
       END IF
 *
-*     Generate the n-by-n matrix Q
+      // Generate the n-by-n matrix Q
 *
       SRNAMT = 'CUNGRQ'
       CALL CUNGRQ( N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy R
+      // Copy R
 *
       CALL CLASET( 'Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), R, LDA )
       IF( M.LE.N ) THEN
@@ -77,11 +77,11 @@
          IF( M.GT.N .AND. N.GT.0 ) CALL CLACPY( 'Full', M-N, N, AF, LDA, R, LDA )          IF( N.GT.0 ) CALL CLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA )
       END IF
 *
-*     Compute R - A*Q'
+      // Compute R - A*Q'
 *
       CALL CGEMM( 'No transpose', 'Conjugate transpose', M, N, N, CMPLX( -ONE ), A, LDA, Q, LDA, CMPLX( ONE ), R, LDA )
 *
-*     Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
+      // Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
 *
       ANORM = CLANGE( '1', M, N, A, LDA, RWORK )
       RESID = CLANGE( '1', M, N, R, LDA, RWORK )
@@ -91,12 +91,12 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute I - Q*Q'
+      // Compute I - Q*Q'
 *
       CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), R, LDA )
       CALL CHERK( 'Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
 *
-*     Compute norm( I - Q*Q' ) / ( N * EPS ) .
+      // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 *
       RESID = CLANSY( '1', 'Upper', N, R, LDA, RWORK )
 *
@@ -104,6 +104,6 @@
 *
       RETURN
 *
-*     End of CRQT01
+      // End of CRQT01
 *
       END

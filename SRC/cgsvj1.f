@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               EPS, SFMIN, TOL
       int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP;
       String             JOBV;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK )
       REAL               SVA( N )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Parameters ..
+      // .. Local Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0)
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX            AAPQ, OMPQ
       REAL               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
       int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;
-*     ..
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, CONJG, REAL, MIN, SIGN, SQRT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SCNRM2
       COMPLEX            CDOTC
       int                ISAMAX;
       bool               LSAME;
       // EXTERNAL ISAMAX, LSAME, CDOTC, SCNRM2
-*     ..
-*     .. External Subroutines ..
-*     .. from BLAS
+      // ..
+      // .. External Subroutines ..
+      // .. from BLAS
       // EXTERNAL CCOPY, CROT, CSWAP, CAXPY
-*     .. from LAPACK
+      // .. from LAPACK
       // EXTERNAL CLASCL, CLASSQ, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       APPLV = LSAME( JOBV, 'A' )
       RSVEC = LSAME( JOBV, 'V' )
@@ -73,7 +73,7 @@
          INFO = 0
       END IF
 *
-*     #:(
+      // #:(
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CGSVJ1', -INFO )
          RETURN
@@ -91,24 +91,24 @@
       SMALL = SFMIN / EPS
       BIG = ONE / SFMIN
       ROOTBIG = ONE / ROOTSFMIN
-*     LARGE = BIG / SQRT( REAL( M*N ) )
+      // LARGE = BIG / SQRT( REAL( M*N ) )
       BIGTHETA = ONE / ROOTEPS
       ROOTTOL = SQRT( TOL )
 *
-*     .. Initialize the right singular vector matrix ..
+      // .. Initialize the right singular vector matrix ..
 *
-*     RSVEC = LSAME( JOBV, 'Y' )
+      // RSVEC = LSAME( JOBV, 'Y' )
 *
       EMPTSW = N1*( N-N1 )
       NOTROT = 0
 *
-*     .. Row-cyclic pivot strategy with de Rijk's pivoting ..
+      // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 *
       KBL = MIN( 8, N )
       NBLR = N1 / KBL
       IF( ( NBLR*KBL ).NE.N1 )NBLR = NBLR + 1
 
-*     .. the tiling is nblr-by-nblc [tiles]
+      // .. the tiling is nblr-by-nblc [tiles]
 
       NBLC = ( N-N1 ) / KBL
       IF( ( NBLC*KBL ).NE.( N-N1 ) )NBLC = NBLC + 1
@@ -119,21 +119,21 @@
 *[TP] ROWSKIP is a tuning parameter.
       SWBAND = 0
 *[TP] SWBAND is a tuning parameter. It is meaningful and effective
-*     if CGESVJ is used as a computational routine in the preconditioned
-*     Jacobi SVD algorithm CGEJSV.
+      // if CGESVJ is used as a computational routine in the preconditioned
+      // Jacobi SVD algorithm CGEJSV.
 *
 *
-*     | *   *   * [x] [x] [x]|
-*     | *   *   * [x] [x] [x]|    Row-cycling in the nblr-by-nblc [x] blocks.
-*     | *   *   * [x] [x] [x]|    Row-cyclic pivoting inside each [x] block.
-*     |[x] [x] [x] *   *   * |
-*     |[x] [x] [x] *   *   * |
-*     |[x] [x] [x] *   *   * |
+      // | *   *   * [x] [x] [x]|
+      // | *   *   * [x] [x] [x]|    Row-cycling in the nblr-by-nblc [x] blocks.
+      // | *   *   * [x] [x] [x]|    Row-cyclic pivoting inside each [x] block.
+      // |[x] [x] [x] *   *   * |
+      // |[x] [x] [x] *   *   * |
+      // |[x] [x] [x] *   *   * |
 *
 *
       DO 1993 i = 1, NSWEEP
 *
-*     .. go go go ...
+      // .. go go go ...
 *
          MXAAPQ = ZERO
          MXSINJ = ZERO
@@ -142,10 +142,10 @@
          NOTROT = 0
          PSKIPPED = 0
 *
-*     Each sweep is unrolled using KBL-by-KBL tiles over the pivot pairs
-*     1 <= p < q <= N. This is the first step toward a blocked implementation
-*     of the rotations. New implementation, based on block transformations,
-*     is under development.
+      // Each sweep is unrolled using KBL-by-KBL tiles over the pivot pairs
+      // 1 <= p < q <= N. This is the first step toward a blocked implementation
+      // of the rotations. New implementation, based on block transformations,
+      // is under development.
 *
          DO 2000 ibr = 1, NBLR
 *
@@ -157,12 +157,12 @@
 *
             igl = ( ibr-1 )*KBL + 1
 *
-*            DO 2010 jbc = ibr + 1, NBL
+             // DO 2010 jbc = ibr + 1, NBL
             DO 2010 jbc = 1, NBLC
 *
                jgl = ( jbc-1 )*KBL + N1 + 1
 *
-*        doing the block at ( ibr, jbc )
+         // doing the block at ( ibr, jbc )
 *
                IJBLSK = 0
                DO 2100 p = igl, MIN( igl+KBL-1, N1 )
@@ -178,9 +178,9 @@
                         IF( AAQQ.GT.ZERO ) THEN
                            AAPP0 = AAPP
 *
-*     .. M x 2 Jacobi SVD ..
+      // .. M x 2 Jacobi SVD ..
 *
-*        Safe Gram matrix computation
+         // Safe Gram matrix computation
 *
                            IF( AAQQ.GE.ONE ) THEN
                               IF( AAPP.GE.AAQQ ) THEN
@@ -208,11 +208,11 @@
                               END IF
                            END IF
 *
-*                           AAPQ = AAPQ * CONJG(CWORK(p))*CWORK(q)
+                            // AAPQ = AAPQ * CONJG(CWORK(p))*CWORK(q)
                            AAPQ1  = -ABS(AAPQ)
                            MXAAPQ = MAX( MXAAPQ, -AAPQ1 )
 *
-*        TO rotate or NOT to rotate, THAT is the question ...
+         // TO rotate or NOT to rotate, THAT is the question ...
 *
                            IF( ABS( AAPQ1 ).GT.TOL ) THEN
                               OMPQ = AAPQ / ABS(AAPQ)
@@ -239,7 +239,7 @@
                                     MXSINJ = MAX( MXSINJ, ABS( T ) )
                                  ELSE
 *
-*                 .. choose correct signum for THETA and rotate
+                  // .. choose correct signum for THETA and rotate
 *
                                     THSIGN = -SIGN( ONE, AAPQ1 )
                                     IF( AAQQ.GT.AAPP0 )THSIGN = -THSIGN
@@ -257,7 +257,7 @@
                                  D(p) = -D(q) * OMPQ
 *
                               ELSE
-*              .. have to use modified Gram-Schmidt like transformation
+               // .. have to use modified Gram-Schmidt like transformation
                                IF( AAPP.GT.AAQQ ) THEN
                                     CALL CCOPY( M, A( 1, p ), 1, WORK, 1 )                                     CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK,LDA, IERR )                                     CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                     CALL CAXPY( M, -AAPQ, WORK, 1, A( 1, q ), 1 )                                     CALL CLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
@@ -268,10 +268,10 @@
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                END IF
                               END IF
-*           END IF ROTOK THEN ... ELSE
+            // END IF ROTOK THEN ... ELSE
 *
-*           In the case of cancellation in updating SVA(q), SVA(p)
-*           .. recompute SVA(q), SVA(p)
+            // In the case of cancellation in updating SVA(q), SVA(p)
+            // .. recompute SVA(q), SVA(p)
                               IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1)
                                   ELSE
@@ -292,7 +292,7 @@
                                  END IF
                                  SVA( p ) = AAPP
                               END IF
-*              end of OK rotation
+               // end of OK rotation
                            ELSE
                               NOTROT = NOTROT + 1
 *[RTD]      SKIPPED  = SKIPPED  + 1
@@ -317,7 +317,7 @@
                         END IF
 *
  2200                CONTINUE
-*        end of the q-loop
+         // end of the q-loop
  2203                CONTINUE
 *
                      SVA( p ) = AAPP
@@ -330,9 +330,9 @@
                   END IF
 *
  2100          CONTINUE
-*     end of the p-loop
+      // end of the p-loop
  2010       CONTINUE
-*     end of the jbc-loop
+      // end of the jbc-loop
  2011       CONTINUE
 *2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N )
@@ -342,7 +342,7 @@
  2000    CONTINUE
 *2000 :: end of the ibr-loop
 *
-*     .. update SVA(N)
+      // .. update SVA(N)
          IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) THEN
             SVA( N ) = SCNRM2( M, A( 1, N ), 1 )
          ELSE
@@ -352,7 +352,7 @@
             SVA( N ) = T*SQRT( AAPP )
          END IF
 *
-*     Additional steering devices
+      // Additional steering devices
 *
          IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
 *
@@ -363,7 +363,7 @@
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 *
  1993 CONTINUE
-*     end i=1:NSWEEP loop
+      // end i=1:NSWEEP loop
 *
 * #:( Reaching this point means that the procedure has not converged.
       INFO = NSWEEP - 1
@@ -371,13 +371,13 @@
 *
  1994 CONTINUE
 * #:) Reaching this point means numerical convergence after the i-th
-*     sweep.
+      // sweep.
 *
       INFO = 0
 * #:) INFO = 0 confirms successful iterations.
  1995 CONTINUE
 *
-*     Sort the vector SVA() of column norms.
+      // Sort the vector SVA() of column norms.
       DO 5991 p = 1, N - 1
          q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
          IF( p.NE.q ) THEN
@@ -394,7 +394,7 @@
 *
 *
       RETURN
-*     ..
-*     .. END OF CGSVJ1
-*     ..
+      // ..
+      // .. END OF CGSVJ1
+      // ..
       END

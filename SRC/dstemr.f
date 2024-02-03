@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       bool               TRYRAC;
       int                IL, INFO, IU, LDZ, NZC, LIWORK, LWORK, M, N;
       double           VL, VU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * );
       double             Z( LDZ, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, FOUR, MINRGP;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, FOUR = 4.0D0, MINRGP = 1.0D-3 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP       int                I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW, IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD, INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP, ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT, NZCMIN, OFFSET, WBEGIN, WEND;;
       double             BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN, RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN, THRESH, TMP, TNRM, WL, WU;
-*     ..
-*     ..
-*     .. External Functions ..
+      // ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANST;
       // EXTERNAL LSAME, DLAMCH, DLANST
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DLAE2, DLAEV2, DLARRC, DLARRE, DLARRJ, DLARRR, DLARRV, DLASRT, DSCAL, DSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
 
 
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
@@ -53,14 +53,14 @@
       ZQUERY = ( NZC.EQ.-1 )
       LAESWAP = .FALSE.
 
-*     DSTEMR needs WORK of size 6*N, IWORK of size 3*N.
-*     In addition, DLARRE needs WORK of size 6*N, IWORK of size 5*N.
-*     Furthermore, DLARRV needs WORK of size 12*N, IWORK of size 7*N.
+      // DSTEMR needs WORK of size 6*N, IWORK of size 3*N.
+      // In addition, DLARRE needs WORK of size 6*N, IWORK of size 5*N.
+      // Furthermore, DLARRV needs WORK of size 12*N, IWORK of size 7*N.
       IF( WANTZ ) THEN
          LWMIN = 18*N
          LIWMIN = 10*N
       ELSE
-*        need less workspace if only the eigenvalues are wanted
+         // need less workspace if only the eigenvalues are wanted
          LWMIN = 12*N
          LIWMIN = 8*N
       ENDIF
@@ -72,13 +72,13 @@
       NSPLIT = 0
 
       IF( VALEIG ) THEN
-*        We do not reference VL, VU in the cases RANGE = 'I','A'
-*        The interval (WL, WU] contains all the wanted eigenvalues.
-*        It is either given by the user or computed in DLARRE.
+         // We do not reference VL, VU in the cases RANGE = 'I','A'
+         // The interval (WL, WU] contains all the wanted eigenvalues.
+         // It is either given by the user or computed in DLARRE.
          WL = VL
          WU = VU
       ELSEIF( INDEIG ) THEN
-*        We do not reference IL, IU in the cases RANGE = 'V','A'
+         // We do not reference IL, IU in the cases RANGE = 'V','A'
          IIL = IL
          IIU = IU
       ENDIF
@@ -104,7 +104,7 @@
          INFO = -19
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
@@ -124,7 +124,7 @@
          ELSE IF( WANTZ .AND. INDEIG ) THEN
             NZCMIN = IIU-IIL+1
          ELSE
-*           WANTZ .EQ. FALSE.
+            // WANTZ .EQ. FALSE.
             NZCMIN = 0
          ENDIF
          IF( ZQUERY .AND. INFO.EQ.0 ) THEN
@@ -143,7 +143,7 @@
          RETURN
       END IF
 *
-*     Handle N = 0, 1, and 2 cases immediately
+      // Handle N = 0, 1, and 2 cases immediately
 *
       M = 0
       IF( N.EQ.0 ) RETURN
@@ -172,9 +172,9 @@
          ELSE IF( WANTZ.AND.(.NOT.ZQUERY) ) THEN
             CALL DLAEV2( D(1), E(1), D(2), R1, R2, CS, SN )
          END IF
-*        D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
-*        the following code requires R1 >= R2. Hence, we correct
-*        the order of R1, R2, CS, SN if R1 < R2 before further processing.
+         // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
+        t // he following code requires R1 >= R2. Hence, we correct
+        t // he order of R1, R2, CS, SN if R1 < R2 before further processing.
          IF( R1.LT.R2 ) THEN
             E(2) = R1
             R1 = R2
@@ -192,7 +192,7 @@
                   Z( 1, M ) = -SN
                   Z( 2, M ) = CS
                ENDIF
-*              Note: At most one of SN and CS can be zero.
+               // Note: At most one of SN and CS can be zero.
                IF (SN.NE.ZERO) THEN
                   IF (CS.NE.ZERO) THEN
                      ISUPPZ(2*M-1) = 1
@@ -218,7 +218,7 @@
                   Z( 1, M ) = CS
                   Z( 2, M ) = SN
                ENDIF
-*              Note: At most one of SN and CS can be zero.
+               // Note: At most one of SN and CS can be zero.
                IF (SN.NE.ZERO) THEN
                   IF (CS.NE.ZERO) THEN
                      ISUPPZ(2*M-1) = 1
@@ -236,7 +236,7 @@
 
       ELSE
 
-*     Continue with general N
+      // Continue with general N
 
          INDGRS = 1
          INDERR = 2*N + 1
@@ -250,11 +250,11 @@
          IINDW = 2*N + 1
          IINDWK = 3*N + 1
 *
-*        Scale matrix to allowable range, if necessary.
-*        The allowable range is related to the PIVMIN parameter; see the
-*        comments in DLARRD.  The preference for scaling small values
-*        up is heuristic; we expect users' matrices not to be close to the
-*        RMAX threshold.
+         // Scale matrix to allowable range, if necessary.
+         // The allowable range is related to the PIVMIN parameter; see the
+         // comments in DLARRD.  The preference for scaling small values
+         // up is heuristic; we expect users' matrices not to be close to the
+         // RMAX threshold.
 *
          SCALE = ONE
          TNRM = DLANST( 'M', N, D, E )
@@ -268,56 +268,56 @@
             CALL DSCAL( N-1, SCALE, E, 1 )
             TNRM = TNRM*SCALE
             IF( VALEIG ) THEN
-*              If eigenvalues in interval have to be found,
-*              scale (WL, WU] accordingly
+               // If eigenvalues in interval have to be found,
+               // scale (WL, WU] accordingly
                WL = WL*SCALE
                WU = WU*SCALE
             ENDIF
          END IF
 *
-*        Compute the desired eigenvalues of the tridiagonal after splitting
-*        into smaller subblocks if the corresponding off-diagonal elements
-*        are small
-*        THRESH is the splitting parameter for DLARRE
-*        A negative THRESH forces the old splitting criterion based on the
-*        size of the off-diagonal. A positive THRESH switches to splitting
-*        which preserves relative accuracy.
+         // Compute the desired eigenvalues of the tridiagonal after splitting
+         // into smaller subblocks if the corresponding off-diagonal elements
+         // are small
+         // THRESH is the splitting parameter for DLARRE
+         // A negative THRESH forces the old splitting criterion based on the
+         // size of the off-diagonal. A positive THRESH switches to splitting
+         // which preserves relative accuracy.
 *
          IF( TRYRAC ) THEN
-*           Test whether the matrix warrants the more expensive relative approach.
+            // Test whether the matrix warrants the more expensive relative approach.
             CALL DLARRR( N, D, E, IINFO )
          ELSE
-*           The user does not care about relative accurately eigenvalues
+            // The user does not care about relative accurately eigenvalues
             IINFO = -1
          ENDIF
-*        Set the splitting criterion
+         // Set the splitting criterion
          IF (IINFO.EQ.0) THEN
             THRESH = EPS
          ELSE
             THRESH = -EPS
-*           relative accuracy is desired but T does not guarantee it
+            // relative accuracy is desired but T does not guarantee it
             TRYRAC = .FALSE.
          ENDIF
 *
          IF( TRYRAC ) THEN
-*           Copy original diagonal, needed to guarantee relative accuracy
+            // Copy original diagonal, needed to guarantee relative accuracy
             CALL DCOPY(N,D,1,WORK(INDD),1)
          ENDIF
-*        Store the squares of the offdiagonal values of T
+         // Store the squares of the offdiagonal values of T
          DO 5 J = 1, N-1
             WORK( INDE2+J-1 ) = E(J)**2
  5       CONTINUE
 
-*        Set the tolerance parameters for bisection
+         // Set the tolerance parameters for bisection
          IF( .NOT.WANTZ ) THEN
-*           DLARRE computes the eigenvalues to full precision.
+            // DLARRE computes the eigenvalues to full precision.
             RTOL1 = FOUR * EPS
             RTOL2 = FOUR * EPS
          ELSE
-*           DLARRE computes the eigenvalues to less than full precision.
-*           DLARRV will refine the eigenvalue approximations, and we can
-*           need less accurate initial bisection in DLARRE.
-*           Note: these settings do only affect the subset case and DLARRE
+            // DLARRE computes the eigenvalues to less than full precision.
+            // DLARRV will refine the eigenvalue approximations, and we can
+            // need less accurate initial bisection in DLARRE.
+            // Note: these settings do only affect the subset case and DLARRE
             RTOL1 = SQRT(EPS)
             RTOL2 = MAX( SQRT(EPS)*5.0D-3, FOUR * EPS )
          ENDIF
@@ -326,15 +326,15 @@
             INFO = 10 + ABS( IINFO )
             RETURN
          END IF
-*        Note that if RANGE .NE. 'V', DLARRE computes bounds on the desired
-*        part of the spectrum. All desired eigenvalues are contained in
-*        (WL,WU]
+         // Note that if RANGE .NE. 'V', DLARRE computes bounds on the desired
+         // part of the spectrum. All desired eigenvalues are contained in
+         // (WL,WU]
 
 
          IF( WANTZ ) THEN
 *
-*           Compute the desired eigenvectors corresponding to the computed
-*           eigenvalues
+            // Compute the desired eigenvectors corresponding to the computed
+            // eigenvalues
 *
             CALL DLARRV( N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -342,11 +342,11 @@
                RETURN
             END IF
          ELSE
-*           DLARRE computes eigenvalues of the (shifted) root representation
-*           DLARRV returns the eigenvalues of the unshifted matrix.
-*           However, if the eigenvectors are not desired by the user, we need
-*           to apply the corresponding shifts from DLARRE to obtain the
-*           eigenvalues of the original matrix.
+            // DLARRE computes eigenvalues of the (shifted) root representation
+            // DLARRV returns the eigenvalues of the unshifted matrix.
+            // However, if the eigenvectors are not desired by the user, we need
+           t // o apply the corresponding shifts from DLARRE to obtain the
+            // eigenvalues of the original matrix.
             DO 20 J = 1, M
                ITMP = IWORK( IINDBL+J-1 )
                W( J ) = W( J ) + E( IWORK( IINSPL+ITMP-1 ) )
@@ -355,15 +355,15 @@
 *
 
          IF ( TRYRAC ) THEN
-*           Refine computed eigenvalues so that they are relatively accurate
-*           with respect to the original matrix T.
+            // Refine computed eigenvalues so that they are relatively accurate
+            // with respect to the original matrix T.
             IBEGIN = 1
             WBEGIN = 1
             DO 39  JBLK = 1, IWORK( IINDBL+M-1 )
                IEND = IWORK( IINSPL+JBLK-1 )
                IN = IEND - IBEGIN + 1
                WEND = WBEGIN - 1
-*              check if any eigenvalues have to be refined in this block
+               // check if any eigenvalues have to be refined in this block
  36            CONTINUE
                IF( WEND.LT.M ) THEN
                   IF( IWORK( IINDBL+WEND ).EQ.JBLK ) THEN
@@ -386,7 +386,7 @@
  39         CONTINUE
          ENDIF
 *
-*        If matrix was scaled, then rescale eigenvalues appropriately.
+         // If matrix was scaled, then rescale eigenvalues appropriately.
 *
          IF( SCALE.NE.ONE ) THEN
             CALL DSCAL( M, ONE / SCALE, W, 1 )
@@ -395,8 +395,8 @@
       END IF
 
 *
-*     If eigenvalues are not in increasing order, then sort them,
-*     possibly along with eigenvectors.
+      // If eigenvalues are not in increasing order, then sort them,
+      // possibly along with eigenvectors.
 *
       IF( NSPLIT.GT.1 .OR. N.EQ.2 ) THEN
          IF( .NOT. WANTZ ) THEN
@@ -437,6 +437,6 @@
       IWORK( 1 ) = LIWMIN
       RETURN
 *
-*     End of DSTEMR
+      // End of DSTEMR
 *
       END

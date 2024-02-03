@@ -4,63 +4,63 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
       REAL               RWORK( * ), S( * )
       COMPLEX            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), WORK( * ), Z( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1 )
       COMPLEX            CZERO
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILABAD;
       String             SENSE;
       int                BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB;
       REAL               ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT
       COMPLEX            X
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DIFEST( 2 ), PL( 2 ), RESULT( 10 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               CLCTSX;
       int                ILAENV;
       REAL               CLANGE, SLAMCH
       // EXTERNAL CLCTSX, ILAENV, CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALASVM, CGESVD, CGET51, CGGESX, CLACPY, CLAKF2, CLASET, CLATM5, XERBLA
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               FS;
       int                K, M, MPLUSN, N;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / MN / M, N, MPLUSN, K, FS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               ABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZE.LT.0 ) THEN
          INFO = -1
@@ -78,22 +78,22 @@
          INFO = -21
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       NB refers to the optimal block size for the immediately
-*       following subroutine, as returned by ILAENV.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // NB refers to the optimal block size for the immediately
+        // following subroutine, as returned by ILAENV.)
 *
       MINWRK = 1
       IF( INFO.EQ.0 .AND. LWORK.GE.1 ) THEN
          MINWRK = 3*NSIZE*NSIZE / 2
 *
-*        workspace for cggesx
+         // workspace for cggesx
 *
          MAXWRK = NSIZE*( 1+ILAENV( 1, 'CGEQRF', ' ', NSIZE, 1, NSIZE, 0 ) )          MAXWRK = MAX( MAXWRK, NSIZE*( 1+ILAENV( 1, 'CUNGQR', ' ', NSIZE, 1, NSIZE, -1 ) ) )
 *
-*        workspace for cgesvd
+         // workspace for cgesvd
 *
          BDSPAC = 3*NSIZE*NSIZE / 2
          MAXWRK = MAX( MAXWRK, NSIZE*NSIZE* ( 1+ILAENV( 1, 'CGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) ) )
@@ -111,7 +111,7 @@
          RETURN
       END IF
 *
-*     Important constants
+      // Important constants
 *
       ULP = SLAMCH( 'P' )
       ULPINV = ONE / ULP
@@ -121,14 +121,14 @@
       NTESTT = 0
       NERRS = 0
 *
-*     Go to the tests for read-in matrix pairs
+      // Go to the tests for read-in matrix pairs
 *
       IFUNC = 0
       IF( NSIZE.EQ.0 ) GO TO 70
 *
-*     Test the built-in matrix pairs.
-*     Loop over different functions (IFUNC) of CGGESX, types (PRTYPE)
-*     of test matrices, different size (M+N)
+      // Test the built-in matrix pairs.
+      // Loop over different functions (IFUNC) of CGGESX, types (PRTYPE)
+      // of test matrices, different size (M+N)
 *
       PRTYPE = 0
       QBA = 3
@@ -143,7 +143,7 @@
                   WEIGHT = ONE / WEIGHT
                   MPLUSN = M + N
 *
-*                 Generate test matrices
+                  // Generate test matrices
 *
                   FS = .TRUE.
                   K = 0
@@ -152,10 +152,10 @@
 *
                   CALL CLATM5( PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB )
 *
-*                 Compute the Schur factorization and swapping the
-*                 m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
-*                 Swapping is accomplished via the function CLCTSX
-*                 which is supplied below.
+                  // Compute the Schur factorization and swapping the
+                  // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
+                  // Swapping is accomplished via the function CLCTSX
+                  // which is supplied below.
 *
                   IF( IFUNC.EQ.0 ) THEN
                      SENSE = 'N'
@@ -179,18 +179,18 @@
                      GO TO 30
                   END IF
 *
-*                 Compute the norm(A, B)
+                  // Compute the norm(A, B)
 *
                   CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = CLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK )
 *
-*                 Do tests (1) to (4)
+                  // Do tests (1) to (4)
 *
                   RESULT( 2 ) = ZERO
                   CALL CGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )                   CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )                   CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )                   CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) )
                   NTEST = 4
 *
-*                 Do tests (5) and (6): check Schur form of A and
-*                 compare eigenvalues with diagonals.
+                  // Do tests (5) and (6): check Schur form of A and
+                  // compare eigenvalues with diagonals.
 *
                   TEMP1 = ZERO
                   RESULT( 5 ) = ZERO
@@ -219,7 +219,7 @@
                   RESULT( 6 ) = TEMP1
                   NTEST = NTEST + 2
 *
-*                 Test (7) (if sorting worked)
+                  // Test (7) (if sorting worked)
 *
                   RESULT( 7 ) = ZERO
                   IF( LINFO.EQ.MPLUSN+3 ) THEN
@@ -229,15 +229,15 @@
                   END IF
                   NTEST = NTEST + 1
 *
-*                 Test (8): compare the estimated value DIF and its
-*                 value. first, compute the exact DIF.
+                  // Test (8): compare the estimated value DIF and its
+                  // value. first, compute the exact DIF.
 *
                   RESULT( 8 ) = ZERO
                   MN2 = MM*( MPLUSN-MM )*2
                   IF( IFUNC.GE.2 .AND. MN2.LE.NCMAX*NCMAX ) THEN
 *
-*                    Note: for either following two cases, there are
-*                    almost same number of test cases fail the test.
+                     // Note: for either following two cases, there are
+                     // almost same number of test cases fail the test.
 *
                      CALL CLAKF2( MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC )
 *
@@ -252,7 +252,7 @@
                      NTEST = NTEST + 1
                   END IF
 *
-*                 Test (9)
+                  // Test (9)
 *
                   RESULT( 9 ) = ZERO
                   IF( LINFO.EQ.( MPLUSN+2 ) ) THEN
@@ -262,22 +262,22 @@
 *
                   NTESTT = NTESTT + NTEST
 *
-*                 Print out tests which fail.
+                  // Print out tests which fail.
 *
                   DO 20 J = 1, 9
                      IF( RESULT( J ).GE.THRESH ) THEN
 *
-*                       If this is the first test to fail,
-*                       print a header to the data file.
+                        // If this is the first test to fail,
+                        // print a header to the data file.
 *
                         IF( NERRS.EQ.0 ) THEN
                            WRITE( NOUT, FMT = 9996 )'CGX'
 *
-*                          Matrix types
+                           // Matrix types
 *
                            WRITE( NOUT, FMT = 9994 )
 *
-*                          Tests performed
+                           // Tests performed
 *
                            WRITE( NOUT, FMT = 9993 )'unitary', '''', 'transpose', ( '''', I = 1, 4 )
 *
@@ -300,8 +300,8 @@
 *
    70 CONTINUE
 *
-*     Read in data from file to check accuracy of condition estimation
-*     Read input data until N=0
+      // Read in data from file to check accuracy of condition estimation
+      // Read input data until N=0
 *
       NPTKNT = 0
 *
@@ -325,8 +325,8 @@
       CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
       CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
 *
-*     Compute the Schur factorization while swapping the
-*     m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
+      // Compute the Schur factorization while swapping the
+      // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
 *
       CALL CGGESX( 'V', 'V', 'S', CLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO )
 *
@@ -336,19 +336,19 @@
          GO TO 130
       END IF
 *
-*     Compute the norm(A, B)
-*        (should this be norm of (A,B) or (AI,BI)?)
+      // Compute the norm(A, B)
+         // (should this be norm of (A,B) or (AI,BI)?)
 *
       CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )
       CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )
       ABNRM = CLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK )
 *
-*     Do tests (1) to (4)
+      // Do tests (1) to (4)
 *
       CALL CGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )       CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )       CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )       CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) )
 *
-*     Do tests (5) and (6): check Schur form of A and compare
-*     eigenvalues with diagonals.
+      // Do tests (5) and (6): check Schur form of A and compare
+      // eigenvalues with diagonals.
 *
       NTEST = 6
       TEMP1 = ZERO
@@ -377,13 +377,13 @@
   110 CONTINUE
       RESULT( 6 ) = TEMP1
 *
-*     Test (7) (if sorting worked)  <--------- need to be checked.
+      // Test (7) (if sorting worked)  <--------- need to be checked.
 *
       NTEST = 7
       RESULT( 7 ) = ZERO
       IF( LINFO.EQ.MPLUSN+3 ) RESULT( 7 ) = ULPINV
 *
-*     Test (8): compare the estimated value of DIF and its true value.
+      // Test (8): compare the estimated value of DIF and its true value.
 *
       NTEST = 8
       RESULT( 8 ) = ZERO
@@ -394,7 +394,7 @@
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
       END IF
 *
-*     Test (9)
+      // Test (9)
 *
       NTEST = 9
       RESULT( 9 ) = ZERO
@@ -402,7 +402,7 @@
          IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV
       END IF
 *
-*     Test (10): compare the estimated value of PL and it true value.
+      // Test (10): compare the estimated value of PL and it true value.
 *
       NTEST = 10
       RESULT( 10 ) = ZERO
@@ -415,22 +415,22 @@
 *
       NTESTT = NTESTT + NTEST
 *
-*     Print out tests which fail.
+      // Print out tests which fail.
 *
       DO 120 J = 1, NTEST
          IF( RESULT( J ).GE.THRESH ) THEN
 *
-*           If this is the first test to fail,
-*           print a header to the data file.
+            // If this is the first test to fail,
+            // print a header to the data file.
 *
             IF( NERRS.EQ.0 ) THEN
                WRITE( NOUT, FMT = 9996 )'CGX'
 *
-*              Matrix types
+               // Matrix types
 *
                WRITE( NOUT, FMT = 9995 )
 *
-*              Tests performed
+               // Tests performed
 *
                WRITE( NOUT, FMT = 9993 )'unitary', '''', 'transpose', ( '''', I = 1, 4 )
 *
@@ -451,7 +451,7 @@
 *
   150 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL ALASVM( 'CGX', NOUT, NERRS, NTESTT, 0 )
 *
@@ -512,6 +512,6 @@
  9989 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',',
      $      ' result ', I2, ' is', 1P, E10.3 )
 *
-*     End of CDRGSX
+      // End of CDRGSX
 *
       END

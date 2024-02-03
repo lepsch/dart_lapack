@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, K, LDA, LDC, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NBMAX, LDT, TSIZE;
       PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LEFT, LQUERY, NOTRAN;
       int                I, I1, I2, I3, IB, IINFO, IWT, LDWORK, LWKOPT, MI, NB, NBMIN, NI, NQ, NW;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLARFB, CLARFT, CUNM2L, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
       LQUERY = ( LWORK.EQ.-1 )
 *
-*     NQ is the order of Q and NW is the minimum dimension of WORK
+      // NQ is the order of Q and NW is the minimum dimension of WORK
 *
       IF( LEFT ) THEN
          NQ = M
@@ -72,7 +72,7 @@
 *
       IF( INFO.EQ.0 ) THEN
 *
-*        Compute the workspace requirements
+         // Compute the workspace requirements
 *
          IF( M.EQ.0 .OR. N.EQ.0 ) THEN
             LWKOPT = 1
@@ -90,13 +90,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          RETURN
       END IF
 *
-*     Determine the block size
+      // Determine the block size
 *
       NBMIN = 2
       LDWORK = NW
@@ -109,12 +109,12 @@
 *
       IF( NB.LT.NBMIN .OR. NB.GE.K ) THEN
 *
-*        Use unblocked code
+         // Use unblocked code
 *
          CALL CUNM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO )
       ELSE
 *
-*        Use blocked code
+         // Use blocked code
 *
          IWT = 1 + NW*NB
          IF( ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
@@ -136,23 +136,23 @@
          DO 10 I = I1, I2, I3
             IB = MIN( NB, K-I+1 )
 *
-*           Form the triangular factor of the block reflector
-*           H = H(i+ib-1) . . . H(i+1) H(i)
+            // Form the triangular factor of the block reflector
+            // H = H(i+ib-1) . . . H(i+1) H(i)
 *
             CALL CLARFT( 'Backward', 'Columnwise', NQ-K+I+IB-1, IB, A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT )
             IF( LEFT ) THEN
 *
-*              H or H**H is applied to C(1:m-k+i+ib-1,1:n)
+               // H or H**H is applied to C(1:m-k+i+ib-1,1:n)
 *
                MI = M - K + I + IB - 1
             ELSE
 *
-*              H or H**H is applied to C(1:m,1:n-k+i+ib-1)
+               // H or H**H is applied to C(1:m,1:n-k+i+ib-1)
 *
                NI = N - K + I + IB - 1
             END IF
 *
-*           Apply H or H**H
+            // Apply H or H**H
 *
             CALL CLARFB( SIDE, TRANS, 'Backward', 'Columnwise', MI, NI, IB, A( 1, I ), LDA, WORK( IWT ), LDT, C, LDC, WORK, LDWORK )
    10    CONTINUE
@@ -160,6 +160,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN
 *
-*     End of CUNMQL
+      // End of CUNMQL
 *
       END

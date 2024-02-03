@@ -4,31 +4,31 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, K, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE, ZERO
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, L;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLARF, CSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -45,11 +45,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) RETURN
 *
-*     Initialise columns k+1:n to columns of the unit matrix
+      // Initialise columns k+1:n to columns of the unit matrix
 *
       DO 20 J = K + 1, N
          DO 10 L = 1, M
@@ -60,7 +60,7 @@
 *
       DO 40 I = K, 1, -1
 *
-*        Apply H(i) to A(i:m,i:n) from the left
+         // Apply H(i) to A(i:m,i:n) from the left
 *
          IF( I.LT.N ) THEN
             A( I, I ) = ONE
@@ -69,7 +69,7 @@
          IF( I.LT.M ) CALL CSCAL( M-I, -TAU( I ), A( I+1, I ), 1 )
          A( I, I ) = ONE - TAU( I )
 *
-*        Set A(1:i-1,i) to zero
+         // Set A(1:i-1,i) to zero
 *
          DO 30 L = 1, I - 1
             A( L, I ) = ZERO
@@ -77,6 +77,6 @@
    40 CONTINUE
       RETURN
 *
-*     End of CUNG2R
+      // End of CUNG2R
 *
       END

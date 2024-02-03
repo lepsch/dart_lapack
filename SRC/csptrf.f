@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            AP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               EIGHT, SEVTEN
       PARAMETER          ( EIGHT = 8.0E+0, SEVTEN = 17.0E+0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC, KSTEP, KX, NPP;
       REAL               ABSAKK, ALPHA, COLMAX, ROWMAX
       COMPLEX            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, ZDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
       // EXTERNAL LSAME, ICAMAX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CSCAL, CSPR, CSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -62,34 +62,34 @@
          RETURN
       END IF
 *
-*     Initialize ALPHA for use in choosing pivot block size.
+      // Initialize ALPHA for use in choosing pivot block size.
 *
       ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT
 *
       IF( UPPER ) THEN
 *
-*        Factorize A as U*D*U**T using the upper triangle of A
+         // Factorize A as U*D*U**T using the upper triangle of A
 *
-*        K is the main loop index, decreasing from N to 1 in steps of
-*        1 or 2
+         // K is the main loop index, decreasing from N to 1 in steps of
+         // 1 or 2
 *
          K = N
          KC = ( N-1 )*N / 2 + 1
    10    CONTINUE
          KNC = KC
 *
-*        If K < 1, exit from loop
+         // If K < 1, exit from loop
 *
          IF( K.LT.1 ) GO TO 110
          KSTEP = 1
 *
-*        Determine rows and columns to be interchanged and whether
-*        a 1-by-1 or 2-by-2 pivot block will be used
+         // Determine rows and columns to be interchanged and whether
+         // a 1-by-1 or 2-by-2 pivot block will be used
 *
          ABSAKK = CABS1( AP( KC+K-1 ) )
 *
-*        IMAX is the row-index of the largest off-diagonal element in
-*        column K, and COLMAX is its absolute value
+         // IMAX is the row-index of the largest off-diagonal element in
+         // column K, and COLMAX is its absolute value
 *
          IF( K.GT.1 ) THEN
             IMAX = ICAMAX( K-1, AP( KC ), 1 )
@@ -100,14 +100,14 @@
 *
          IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
 *
-*           Column K is zero: set INFO and continue
+            // Column K is zero: set INFO and continue
 *
             IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
 *
-*              no interchange, use 1-by-1 pivot block
+               // no interchange, use 1-by-1 pivot block
 *
                KP = K
             ELSE
@@ -130,19 +130,19 @@
 *
                IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
 *
-*                 no interchange, use 1-by-1 pivot block
+                  // no interchange, use 1-by-1 pivot block
 *
                   KP = K
                ELSE IF( CABS1( AP( KPC+IMAX-1 ) ).GE.ALPHA*ROWMAX ) THEN
 *
-*                 interchange rows and columns K and IMAX, use 1-by-1
-*                 pivot block
+                  // interchange rows and columns K and IMAX, use 1-by-1
+                  // pivot block
 *
                   KP = IMAX
                ELSE
 *
-*                 interchange rows and columns K-1 and IMAX, use 2-by-2
-*                 pivot block
+                  // interchange rows and columns K-1 and IMAX, use 2-by-2
+                  // pivot block
 *
                   KP = IMAX
                   KSTEP = 2
@@ -153,8 +153,8 @@
             IF( KSTEP.EQ.2 ) KNC = KNC - K + 1
             IF( KP.NE.KK ) THEN
 *
-*              Interchange rows and columns KK and KP in the leading
-*              submatrix A(1:k,1:k)
+               // Interchange rows and columns KK and KP in the leading
+               // submatrix A(1:k,1:k)
 *
                CALL CSWAP( KP-1, AP( KNC ), 1, AP( KPC ), 1 )
                KX = KPC + KP - 1
@@ -174,39 +174,39 @@
                END IF
             END IF
 *
-*           Update the leading submatrix
+            // Update the leading submatrix
 *
             IF( KSTEP.EQ.1 ) THEN
 *
-*              1-by-1 pivot block D(k): column k now holds
+               // 1-by-1 pivot block D(k): column k now holds
 *
-*              W(k) = U(k)*D(k)
+               // W(k) = U(k)*D(k)
 *
-*              where U(k) is the k-th column of U
+               // where U(k) is the k-th column of U
 *
-*              Perform a rank-1 update of A(1:k-1,1:k-1) as
+               // Perform a rank-1 update of A(1:k-1,1:k-1) as
 *
-*              A := A - U(k)*D(k)*U(k)**T = A - W(k)*1/D(k)*W(k)**T
+               // A := A - U(k)*D(k)*U(k)**T = A - W(k)*1/D(k)*W(k)**T
 *
                R1 = CONE / AP( KC+K-1 )
                CALL CSPR( UPLO, K-1, -R1, AP( KC ), 1, AP )
 *
-*              Store U(k) in column k
+               // Store U(k) in column k
 *
                CALL CSCAL( K-1, R1, AP( KC ), 1 )
             ELSE
 *
-*              2-by-2 pivot block D(k): columns k and k-1 now hold
+               // 2-by-2 pivot block D(k): columns k and k-1 now hold
 *
-*              ( W(k-1) W(k) ) = ( U(k-1) U(k) )*D(k)
+               // ( W(k-1) W(k) ) = ( U(k-1) U(k) )*D(k)
 *
-*              where U(k) and U(k-1) are the k-th and (k-1)-th columns
-*              of U
+               // where U(k) and U(k-1) are the k-th and (k-1)-th columns
+               // of U
 *
-*              Perform a rank-2 update of A(1:k-2,1:k-2) as
+               // Perform a rank-2 update of A(1:k-2,1:k-2) as
 *
-*              A := A - ( U(k-1) U(k) )*D(k)*( U(k-1) U(k) )**T
-*                 = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**T
+               // A := A - ( U(k-1) U(k) )*D(k)*( U(k-1) U(k) )**T
+                  // = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**T
 *
                IF( K.GT.2 ) THEN
 *
@@ -229,7 +229,7 @@
             END IF
          END IF
 *
-*        Store details of the interchanges in IPIV
+         // Store details of the interchanges in IPIV
 *
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
@@ -238,7 +238,7 @@
             IPIV( K-1 ) = -KP
          END IF
 *
-*        Decrease K and return to the start of the main loop
+         // Decrease K and return to the start of the main loop
 *
          K = K - KSTEP
          KC = KNC - K
@@ -246,10 +246,10 @@
 *
       ELSE
 *
-*        Factorize A as L*D*L**T using the lower triangle of A
+         // Factorize A as L*D*L**T using the lower triangle of A
 *
-*        K is the main loop index, increasing from 1 to N in steps of
-*        1 or 2
+         // K is the main loop index, increasing from 1 to N in steps of
+         // 1 or 2
 *
          K = 1
          KC = 1
@@ -257,18 +257,18 @@
    60    CONTINUE
          KNC = KC
 *
-*        If K > N, exit from loop
+         // If K > N, exit from loop
 *
          IF( K.GT.N ) GO TO 110
          KSTEP = 1
 *
-*        Determine rows and columns to be interchanged and whether
-*        a 1-by-1 or 2-by-2 pivot block will be used
+         // Determine rows and columns to be interchanged and whether
+         // a 1-by-1 or 2-by-2 pivot block will be used
 *
          ABSAKK = CABS1( AP( KC ) )
 *
-*        IMAX is the row-index of the largest off-diagonal element in
-*        column K, and COLMAX is its absolute value
+         // IMAX is the row-index of the largest off-diagonal element in
+         // column K, and COLMAX is its absolute value
 *
          IF( K.LT.N ) THEN
             IMAX = K + ICAMAX( N-K, AP( KC+1 ), 1 )
@@ -279,20 +279,20 @@
 *
          IF( MAX( ABSAKK, COLMAX ).EQ.ZERO ) THEN
 *
-*           Column K is zero: set INFO and continue
+            // Column K is zero: set INFO and continue
 *
             IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
 *
-*              no interchange, use 1-by-1 pivot block
+               // no interchange, use 1-by-1 pivot block
 *
                KP = K
             ELSE
 *
-*              JMAX is the column-index of the largest off-diagonal
-*              element in row IMAX, and ROWMAX is its absolute value
+               // JMAX is the column-index of the largest off-diagonal
+               // element in row IMAX, and ROWMAX is its absolute value
 *
                ROWMAX = ZERO
                KX = KC + IMAX - K
@@ -311,19 +311,19 @@
 *
                IF( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) THEN
 *
-*                 no interchange, use 1-by-1 pivot block
+                  // no interchange, use 1-by-1 pivot block
 *
                   KP = K
                ELSE IF( CABS1( AP( KPC ) ).GE.ALPHA*ROWMAX ) THEN
 *
-*                 interchange rows and columns K and IMAX, use 1-by-1
-*                 pivot block
+                  // interchange rows and columns K and IMAX, use 1-by-1
+                  // pivot block
 *
                   KP = IMAX
                ELSE
 *
-*                 interchange rows and columns K+1 and IMAX, use 2-by-2
-*                 pivot block
+                  // interchange rows and columns K+1 and IMAX, use 2-by-2
+                  // pivot block
 *
                   KP = IMAX
                   KSTEP = 2
@@ -334,8 +334,8 @@
             IF( KSTEP.EQ.2 ) KNC = KNC + N - K + 1
             IF( KP.NE.KK ) THEN
 *
-*              Interchange rows and columns KK and KP in the trailing
-*              submatrix A(k:n,k:n)
+               // Interchange rows and columns KK and KP in the trailing
+               // submatrix A(k:n,k:n)
 *
                IF( KP.LT.N ) CALL CSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 )
                KX = KNC + KP - KK
@@ -355,47 +355,47 @@
                END IF
             END IF
 *
-*           Update the trailing submatrix
+            // Update the trailing submatrix
 *
             IF( KSTEP.EQ.1 ) THEN
 *
-*              1-by-1 pivot block D(k): column k now holds
+               // 1-by-1 pivot block D(k): column k now holds
 *
-*              W(k) = L(k)*D(k)
+               // W(k) = L(k)*D(k)
 *
-*              where L(k) is the k-th column of L
+               // where L(k) is the k-th column of L
 *
                IF( K.LT.N ) THEN
 *
-*                 Perform a rank-1 update of A(k+1:n,k+1:n) as
+                  // Perform a rank-1 update of A(k+1:n,k+1:n) as
 *
-*                 A := A - L(k)*D(k)*L(k)**T = A - W(k)*(1/D(k))*W(k)**T
+                  // A := A - L(k)*D(k)*L(k)**T = A - W(k)*(1/D(k))*W(k)**T
 *
                   R1 = CONE / AP( KC )
                   CALL CSPR( UPLO, N-K, -R1, AP( KC+1 ), 1, AP( KC+N-K+1 ) )
 *
-*                 Store L(k) in column K
+                  // Store L(k) in column K
 *
                   CALL CSCAL( N-K, R1, AP( KC+1 ), 1 )
                END IF
             ELSE
 *
-*              2-by-2 pivot block D(k): columns K and K+1 now hold
+               // 2-by-2 pivot block D(k): columns K and K+1 now hold
 *
-*              ( W(k) W(k+1) ) = ( L(k) L(k+1) )*D(k)
+               // ( W(k) W(k+1) ) = ( L(k) L(k+1) )*D(k)
 *
-*              where L(k) and L(k+1) are the k-th and (k+1)-th columns
-*              of L
+               // where L(k) and L(k+1) are the k-th and (k+1)-th columns
+               // of L
 *
                IF( K.LT.N-1 ) THEN
 *
-*                 Perform a rank-2 update of A(k+2:n,k+2:n) as
+                  // Perform a rank-2 update of A(k+2:n,k+2:n) as
 *
-*                 A := A - ( L(k) L(k+1) )*D(k)*( L(k) L(k+1) )**T
-*                    = A - ( W(k) W(k+1) )*inv(D(k))*( W(k) W(k+1) )**T
+                  // A := A - ( L(k) L(k+1) )*D(k)*( L(k) L(k+1) )**T
+                     // = A - ( W(k) W(k+1) )*inv(D(k))*( W(k) W(k+1) )**T
 *
-*                 where L(k) and L(k+1) are the k-th and (k+1)-th
-*                 columns of L
+                  // where L(k) and L(k+1) are the k-th and (k+1)-th
+                  // columns of L
 *
                   D21 = AP( K+1+( K-1 )*( 2*N-K ) / 2 )
                   D11 = AP( K+1+K*( 2*N-K-1 ) / 2 ) / D21
@@ -415,7 +415,7 @@
             END IF
          END IF
 *
-*        Store details of the interchanges in IPIV
+         // Store details of the interchanges in IPIV
 *
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
@@ -424,7 +424,7 @@
             IPIV( K+1 ) = -KP
          END IF
 *
-*        Increase K and return to the start of the main loop
+         // Increase K and return to the start of the main loop
 *
          K = K + KSTEP
          KC = KNC + N - K + 2
@@ -435,6 +435,6 @@
   110 CONTINUE
       RETURN
 *
-*     End of CSPTRF
+      // End of CSPTRF
 *
       END

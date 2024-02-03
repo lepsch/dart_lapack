@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILIMIT, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, ITAU, IWORK, JC, JR, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3       double             ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM, BNRM1, BNRM2, EPS, ONEPLS, SAFMAX, SAFMIN, SALFAI, SALFAR, SBETA, SCALE, TEMP;;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               LDUMMA( 1 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEQRF, DGGBAK, DGGBAL, DGGHRD, DHGEQZ, DLACPY, DLASCL, DLASET, DORGQR, DORMQR, DTGEVC, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
@@ -65,7 +65,7 @@
       END IF
       ILV = ILVL .OR. ILVR
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       LWKMIN = MAX( 8*N, 1 )
       LWKOPT = LWKMIN
@@ -106,11 +106,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'E' )*DLAMCH( 'B' )
       SAFMIN = DLAMCH( 'S' )
@@ -118,7 +118,7 @@
       SAFMAX = ONE / SAFMIN
       ONEPLS = ONE + ( 4*EPS )
 *
-*     Scale A
+      // Scale A
 *
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ANRM1 = ANRM
@@ -138,7 +138,7 @@
          END IF
       END IF
 *
-*     Scale B
+      // Scale B
 *
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       BNRM1 = BNRM
@@ -158,9 +158,9 @@
          END IF
       END IF
 *
-*     Permute the matrix to make it more nearly triangular
-*     Workspace layout:  (8*N words -- "work" requires 6*N words)
-*        left_permutation, right_permutation, work...
+      // Permute the matrix to make it more nearly triangular
+      // Workspace layout:  (8*N words -- "work" requires 6*N words)
+         // left_permutation, right_permutation, work...
 *
       ILEFT = 1
       IRIGHT = N + 1
@@ -171,9 +171,9 @@
          GO TO 120
       END IF
 *
-*     Reduce B to triangular form, and initialize VL and/or VR
-*     Workspace layout:  ("work..." must have at least N words)
-*        left_permutation, right_permutation, tau, work...
+      // Reduce B to triangular form, and initialize VL and/or VR
+      // Workspace layout:  ("work..." must have at least N words)
+         // left_permutation, right_permutation, tau, work...
 *
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
@@ -208,11 +208,11 @@
 *
       IF( ILVR ) CALL DLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
 *
-*     Reduce to generalized Hessenberg form
+      // Reduce to generalized Hessenberg form
 *
       IF( ILV ) THEN
 *
-*        Eigenvectors requested -- work on whole matrix.
+         // Eigenvectors requested -- work on whole matrix.
 *
          CALL DGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO )
       ELSE
@@ -223,9 +223,9 @@
          GO TO 120
       END IF
 *
-*     Perform QZ algorithm
-*     Workspace layout:  ("work..." must have at least 1 word)
-*        left_permutation, right_permutation, work...
+      // Perform QZ algorithm
+      // Workspace layout:  ("work..." must have at least 1 word)
+         // left_permutation, right_permutation, work...
 *
       IWORK = ITAU
       IF( ILV ) THEN
@@ -248,7 +248,7 @@
 *
       IF( ILV ) THEN
 *
-*        Compute Eigenvectors  (DTGEVC requires 6*N words of workspace)
+         // Compute Eigenvectors  (DTGEVC requires 6*N words of workspace)
 *
          IF( ILVL ) THEN
             IF( ILVR ) THEN
@@ -266,7 +266,7 @@
             GO TO 120
          END IF
 *
-*        Undo balancing on VL and VR, rescale
+         // Undo balancing on VL and VR, rescale
 *
          IF( ILVL ) THEN
             CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IINFO )
@@ -333,17 +333,17 @@
   100       CONTINUE
          END IF
 *
-*        End of eigenvector calculation
+         // End of eigenvector calculation
 *
       END IF
 *
-*     Undo scaling in alpha, beta
+      // Undo scaling in alpha, beta
 *
-*     Note: this does not give the alpha and beta for the unscaled
-*     problem.
+      // Note: this does not give the alpha and beta for the unscaled
+      // problem.
 *
-*     Un-scaling is limited to avoid underflow in alpha and beta
-*     if they are significant.
+      // Un-scaling is limited to avoid underflow in alpha and beta
+      // if they are significant.
 *
       DO 110 JC = 1, N
          ABSAR = ABS( ALPHAR( JC ) )
@@ -355,7 +355,7 @@
          ILIMIT = .FALSE.
          SCALE = ONE
 *
-*        Check for significant underflow in ALPHAI
+         // Check for significant underflow in ALPHAI
 *
          IF( ABS( SALFAI ).LT.SAFMIN .AND. ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
@@ -363,8 +363,8 @@
 *
          ELSE IF( SALFAI.EQ.ZERO ) THEN
 *
-*           If insignificant underflow in ALPHAI, then make the
-*           conjugate eigenvalue real.
+            // If insignificant underflow in ALPHAI, then make the
+            // conjugate eigenvalue real.
 *
             IF( ALPHAI( JC ).LT.ZERO .AND. JC.GT.1 ) THEN
                ALPHAI( JC-1 ) = ZERO
@@ -373,27 +373,27 @@
             END IF
          END IF
 *
-*        Check for significant underflow in ALPHAR
+         // Check for significant underflow in ALPHAR
 *
          IF( ABS( SALFAR ).LT.SAFMIN .AND. ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
             SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) )
          END IF
 *
-*        Check for significant underflow in BETA
+         // Check for significant underflow in BETA
 *
          IF( ABS( SBETA ).LT.SAFMIN .AND. ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) THEN
             ILIMIT = .TRUE.
             SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) )
          END IF
 *
-*        Check for possible overflow when limiting scaling
+         // Check for possible overflow when limiting scaling
 *
          IF( ILIMIT ) THEN
             TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = .FALSE.
          END IF
 *
-*        Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.
+         // Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.
 *
          IF( ILIMIT ) THEN
             SALFAR = ( SCALE*ALPHAR( JC ) )*ANRM
@@ -410,6 +410,6 @@
 *
       RETURN
 *
-*     End of DGEGV
+      // End of DGEGV
 *
       END

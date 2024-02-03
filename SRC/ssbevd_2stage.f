@@ -6,41 +6,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, KD, LDAB, LDZ, LIWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               AB( LDAB, * ), W( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, LLWRK2;
       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SLAMCH, SLANSB, SROUNDUP_LWORK
       // EXTERNAL LSAME, SLAMCH, SLANSB, ILAENV2STAGE, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLASCL, SSCAL, SSTEDC, SSTERF, XERBLA, SSYTRD_SB2ST
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
@@ -94,7 +94,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -104,7 +104,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS    = SLAMCH( 'Precision' )
@@ -113,7 +113,7 @@
       RMIN   = SQRT( SMLNUM )
       RMAX   = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ANRM = SLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK )
       ISCALE = 0
@@ -132,7 +132,7 @@
          END IF
       END IF
 *
-*     Call SSYTRD_SB2ST to reduce band symmetric matrix to tridiagonal form.
+      // Call SSYTRD_SB2ST to reduce band symmetric matrix to tridiagonal form.
 *
       INDE    = 1
       INDHOUS = INDE + N
@@ -143,7 +143,7 @@
 *
       CALL SSYTRD_SB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
-*     For eigenvalues only, call SSTERF.  For eigenvectors, call SSTEDC.
+      // For eigenvalues only, call SSTERF.  For eigenvectors, call SSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
@@ -152,7 +152,7 @@
          CALL SLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) CALL SSCAL( N, ONE / SIGMA, W, 1 )
 *
@@ -160,6 +160,6 @@
       IWORK( 1 ) = LIWMIN
       RETURN
 *
-*     End of SSBEVD_2STAGE
+      // End of SSBEVD_2STAGE
 *
       END

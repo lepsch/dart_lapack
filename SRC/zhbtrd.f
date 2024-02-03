@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO, VECT;
       int                INFO, KD, LDAB, LDQ, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * );
       COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               INITQ, UPPER, WANTQ;
       int                I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J, J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1, KDM1, KDN, L, LAST, LEND, NQ, NR, NRT;
       double             ABST;
       COMPLEX*16         T, TEMP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLACGV, ZLAR2V, ZLARGV, ZLARTG, ZLARTV, ZLASET, ZROT, ZSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INITQ = LSAME( VECT, 'V' )
       WANTQ = INITQ .OR. LSAME( VECT, 'U' )
@@ -68,19 +68,19 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Initialize Q to the unit matrix, if needed
+      // Initialize Q to the unit matrix, if needed
 *
       IF( INITQ ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
 *
-*     Wherever possible, plane rotations are generated and applied in
-*     vector operations of length NR over the index set J1:J2:KD1.
+      // Wherever possible, plane rotations are generated and applied in
+      // vector operations of length NR over the index set J1:J2:KD1.
 *
-*     The real cosines and complex sines of the plane rotations are
-*     stored in the arrays D and WORK.
+      // The real cosines and complex sines of the plane rotations are
+      // stored in the arrays D and WORK.
 *
       INCA = KD1*LDAB
       KDN = MIN( N-1, KD )
@@ -88,8 +88,8 @@
 *
          IF( KD.GT.1 ) THEN
 *
-*           Reduce to complex Hermitian tridiagonal form, working with
-*           the upper triangle
+            // Reduce to complex Hermitian tridiagonal form, working with
+           t // he upper triangle
 *
             NR = 0
             J1 = KDN + 2
@@ -98,7 +98,7 @@
             AB( KD1, 1 ) = DBLE( AB( KD1, 1 ) )
             DO 90 I = 1, N - 2
 *
-*              Reduce i-th row of matrix to tridiagonal form
+               // Reduce i-th row of matrix to tridiagonal form
 *
                DO 80 K = KDN + 1, 2, -1
                   J1 = J1 + KDN
@@ -106,16 +106,16 @@
 *
                   IF( NR.GT.0 ) THEN
 *
-*                    generate plane rotations to annihilate nonzero
-*                    elements which have been created outside the band
+                     // generate plane rotations to annihilate nonzero
+                     // elements which have been created outside the band
 *
                      CALL ZLARGV( NR, AB( 1, J1-1 ), INCA, WORK( J1 ), KD1, D( J1 ), KD1 )
 *
-*                    apply rotations from the right
+                     // apply rotations from the right
 *
 *
-*                    Dependent on the the number of diagonals either
-*                    ZLARTV or ZROT is used
+                     // Dependent on the the number of diagonals either
+                     // ZLARTV or ZROT is used
 *
                      IF( NR.GE.2*KD-1 ) THEN
                         DO 10 L = 1, KD - 1
@@ -134,13 +134,13 @@
                   IF( K.GT.2 ) THEN
                      IF( K.LE.N-I+1 ) THEN
 *
-*                       generate plane rotation to annihilate a(i,i+k-1)
-*                       within the band
+                        // generate plane rotation to annihilate a(i,i+k-1)
+                        // within the band
 *
                         CALL ZLARTG( AB( KD-K+3, I+K-2 ), AB( KD-K+2, I+K-1 ), D( I+K-1 ), WORK( I+K-1 ), TEMP )
                         AB( KD-K+3, I+K-2 ) = TEMP
 *
-*                       apply rotation from the right
+                        // apply rotation from the right
 *
                         CALL ZROT( K-3, AB( KD-K+4, I+K-2 ), 1, AB( KD-K+3, I+K-1 ), 1, D( I+K-1 ), WORK( I+K-1 ) )
                      END IF
@@ -148,19 +148,19 @@
                      J1 = J1 - KDN - 1
                   END IF
 *
-*                 apply plane rotations from both sides to diagonal
-*                 blocks
+                  // apply plane rotations from both sides to diagonal
+                  // blocks
 *
                   IF( NR.GT.0 ) CALL ZLAR2V( NR, AB( KD1, J1-1 ), AB( KD1, J1 ), AB( KD, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
 *
-*                 apply plane rotations from the left
+                  // apply plane rotations from the left
 *
                   IF( NR.GT.0 ) THEN
                      CALL ZLACGV( NR, WORK( J1 ), KD1 )
                      IF( 2*KD-1.LT.NR ) THEN
 *
-*                    Dependent on the the number of diagonals either
-*                    ZLARTV or ZROT is used
+                     // Dependent on the the number of diagonals either
+                     // ZLARTV or ZROT is used
 *
                         DO 30 L = 1, KD - 1
                            IF( J2+L.GT.N ) THEN
@@ -185,12 +185,12 @@
 *
                   IF( WANTQ ) THEN
 *
-*                    accumulate product of plane rotations in Q
+                     // accumulate product of plane rotations in Q
 *
                      IF( INITQ ) THEN
 *
-*                 take advantage of the fact that Q was
-*                 initially the Identity matrix
+                 t // ake advantage of the fact that Q was
+                  // initially the Identity matrix
 *
                         IQEND = MAX( IQEND, J2 )
                         I2 = MAX( 0, K-3 )
@@ -216,7 +216,7 @@
 *
                   IF( J2+KDN.GT.N ) THEN
 *
-*                    adjust J2 to keep within the bounds of the matrix
+                     // adjust J2 to keep within the bounds of the matrix
 *
                      NR = NR - 1
                      J2 = J2 - KDN - 1
@@ -224,8 +224,8 @@
 *
                   DO 70 J = J1, J2, KD1
 *
-*                    create nonzero element a(j-1,j+kd) outside the band
-*                    and store it in WORK
+                     // create nonzero element a(j-1,j+kd) outside the band
+                     // and store it in WORK
 *
                      WORK( J+KD ) = WORK( J )*AB( 1, J+KD )
                      AB( 1, J+KD ) = D( J )*AB( 1, J+KD )
@@ -236,7 +236,7 @@
 *
          IF( KD.GT.0 ) THEN
 *
-*           make off-diagonal elements real and copy them to E
+            // make off-diagonal elements real and copy them to E
 *
             DO 100 I = 1, N - 1
                T = AB( KD, I+1 )
@@ -255,14 +255,14 @@
   100       CONTINUE
          ELSE
 *
-*           set E to zero if original matrix was diagonal
+            // set E to zero if original matrix was diagonal
 *
             DO 110 I = 1, N - 1
                E( I ) = ZERO
   110       CONTINUE
          END IF
 *
-*        copy diagonal elements to D
+         // copy diagonal elements to D
 *
          DO 120 I = 1, N
             D( I ) = DBLE( AB( KD1, I ) )
@@ -272,8 +272,8 @@
 *
          IF( KD.GT.1 ) THEN
 *
-*           Reduce to complex Hermitian tridiagonal form, working with
-*           the lower triangle
+            // Reduce to complex Hermitian tridiagonal form, working with
+           t // he lower triangle
 *
             NR = 0
             J1 = KDN + 2
@@ -282,7 +282,7 @@
             AB( 1, 1 ) = DBLE( AB( 1, 1 ) )
             DO 210 I = 1, N - 2
 *
-*              Reduce i-th column of matrix to tridiagonal form
+               // Reduce i-th column of matrix to tridiagonal form
 *
                DO 200 K = KDN + 1, 2, -1
                   J1 = J1 + KDN
@@ -290,16 +290,16 @@
 *
                   IF( NR.GT.0 ) THEN
 *
-*                    generate plane rotations to annihilate nonzero
-*                    elements which have been created outside the band
+                     // generate plane rotations to annihilate nonzero
+                     // elements which have been created outside the band
 *
                      CALL ZLARGV( NR, AB( KD1, J1-KD1 ), INCA, WORK( J1 ), KD1, D( J1 ), KD1 )
 *
-*                    apply plane rotations from one side
+                     // apply plane rotations from one side
 *
 *
-*                    Dependent on the the number of diagonals either
-*                    ZLARTV or ZROT is used
+                     // Dependent on the the number of diagonals either
+                     // ZLARTV or ZROT is used
 *
                      IF( NR.GT.2*KD-1 ) THEN
                         DO 130 L = 1, KD - 1
@@ -317,13 +317,13 @@
                   IF( K.GT.2 ) THEN
                      IF( K.LE.N-I+1 ) THEN
 *
-*                       generate plane rotation to annihilate a(i+k-1,i)
-*                       within the band
+                        // generate plane rotation to annihilate a(i+k-1,i)
+                        // within the band
 *
                         CALL ZLARTG( AB( K-1, I ), AB( K, I ), D( I+K-1 ), WORK( I+K-1 ), TEMP )
                         AB( K-1, I ) = TEMP
 *
-*                       apply rotation from the left
+                        // apply rotation from the left
 *
                         CALL ZROT( K-3, AB( K-2, I+1 ), LDAB-1, AB( K-1, I+1 ), LDAB-1, D( I+K-1 ), WORK( I+K-1 ) )
                      END IF
@@ -331,16 +331,16 @@
                      J1 = J1 - KDN - 1
                   END IF
 *
-*                 apply plane rotations from both sides to diagonal
-*                 blocks
+                  // apply plane rotations from both sides to diagonal
+                  // blocks
 *
                   IF( NR.GT.0 ) CALL ZLAR2V( NR, AB( 1, J1-1 ), AB( 1, J1 ), AB( 2, J1-1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
 *
-*                 apply plane rotations from the right
+                  // apply plane rotations from the right
 *
 *
-*                    Dependent on the the number of diagonals either
-*                    ZLARTV or ZROT is used
+                     // Dependent on the the number of diagonals either
+                     // ZLARTV or ZROT is used
 *
                   IF( NR.GT.0 ) THEN
                      CALL ZLACGV( NR, WORK( J1 ), KD1 )
@@ -370,12 +370,12 @@
 *
                   IF( WANTQ ) THEN
 *
-*                    accumulate product of plane rotations in Q
+                     // accumulate product of plane rotations in Q
 *
                      IF( INITQ ) THEN
 *
-*                 take advantage of the fact that Q was
-*                 initially the Identity matrix
+                 t // ake advantage of the fact that Q was
+                  // initially the Identity matrix
 *
                         IQEND = MAX( IQEND, J2 )
                         I2 = MAX( 0, K-3 )
@@ -400,7 +400,7 @@
 *
                   IF( J2+KDN.GT.N ) THEN
 *
-*                    adjust J2 to keep within the bounds of the matrix
+                     // adjust J2 to keep within the bounds of the matrix
 *
                      NR = NR - 1
                      J2 = J2 - KDN - 1
@@ -408,8 +408,8 @@
 *
                   DO 190 J = J1, J2, KD1
 *
-*                    create nonzero element a(j+kd,j-1) outside the
-*                    band and store it in WORK
+                     // create nonzero element a(j+kd,j-1) outside the
+                     // band and store it in WORK
 *
                      WORK( J+KD ) = WORK( J )*AB( KD1, J )
                      AB( KD1, J ) = D( J )*AB( KD1, J )
@@ -420,7 +420,7 @@
 *
          IF( KD.GT.0 ) THEN
 *
-*           make off-diagonal elements real and copy them to E
+            // make off-diagonal elements real and copy them to E
 *
             DO 220 I = 1, N - 1
                T = AB( 2, I )
@@ -439,14 +439,14 @@
   220       CONTINUE
          ELSE
 *
-*           set E to zero if original matrix was diagonal
+            // set E to zero if original matrix was diagonal
 *
             DO 230 I = 1, N - 1
                E( I ) = ZERO
   230       CONTINUE
          END IF
 *
-*        copy diagonal elements to D
+         // copy diagonal elements to D
 *
          DO 240 I = 1, N
             D( I ) = DBLE( AB( 1, I ) )
@@ -455,6 +455,6 @@
 *
       RETURN
 *
-*     End of ZHBTRD
+      // End of ZHBTRD
 *
       END

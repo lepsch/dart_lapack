@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
       int                INFO, LDA, N;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOUNIT, ONENRM, UPPER;
       String             NORMIN;
       int                IX, KASE, KASE1;
       double             AINVNM, ANORM, SCALE, SMLNUM, XNORM;
       COMPLEX*16         ZDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH, ZLANTR;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, ZLANTR
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDRSCL, ZLACN2, ZLATRS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -73,7 +73,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          RCOND = ONE
@@ -83,15 +83,15 @@
       RCOND = ZERO
       SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( MAX( 1, N ) )
 *
-*     Compute the norm of the triangular matrix A.
+      // Compute the norm of the triangular matrix A.
 *
       ANORM = ZLANTR( NORM, UPLO, DIAG, N, N, A, LDA, RWORK )
 *
-*     Continue only if ANORM > 0.
+      // Continue only if ANORM > 0.
 *
       IF( ANORM.GT.ZERO ) THEN
 *
-*        Estimate the norm of the inverse of A.
+         // Estimate the norm of the inverse of A.
 *
          AINVNM = ZERO
          NORMIN = 'N'
@@ -106,18 +106,18 @@
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.KASE1 ) THEN
 *
-*              Multiply by inv(A).
+               // Multiply by inv(A).
 *
                CALL ZLATRS( UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, RWORK, INFO )
             ELSE
 *
-*              Multiply by inv(A**H).
+               // Multiply by inv(A**H).
 *
                CALL ZLATRS( UPLO, 'Conjugate transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, RWORK, INFO )
             END IF
             NORMIN = 'Y'
 *
-*           Multiply by 1/SCALE if doing so will not cause overflow.
+            // Multiply by 1/SCALE if doing so will not cause overflow.
 *
             IF( SCALE.NE.ONE ) THEN
                IX = IZAMAX( N, WORK, 1 )
@@ -128,7 +128,7 @@
             GO TO 10
          END IF
 *
-*        Compute the estimate of the reciprocal condition number.
+         // Compute the estimate of the reciprocal condition number.
 *
          IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
       END IF
@@ -136,6 +136,6 @@
    20 CONTINUE
       RETURN
 *
-*     End of ZTRCON
+      // End of ZTRCON
 *
       END

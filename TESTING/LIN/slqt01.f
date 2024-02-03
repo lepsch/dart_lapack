@@ -4,75 +4,75 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               ROGUE
       PARAMETER          ( ROGUE = -1.0E+10 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, MINMN;
       REAL               ANORM, EPS, RESID
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLANGE, SLANSY
       // EXTERNAL SLAMCH, SLANGE, SLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGELQF, SGEMM, SLACPY, SLASET, SORGLQ, SSYRK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       MINMN = MIN( M, N )
       EPS = SLAMCH( 'Epsilon' )
 *
-*     Copy the matrix A to the array AF.
+      // Copy the matrix A to the array AF.
 *
       CALL SLACPY( 'Full', M, N, A, LDA, AF, LDA )
 *
-*     Factorize the matrix A in the array AF.
+      // Factorize the matrix A in the array AF.
 *
       SRNAMT = 'SGELQF'
       CALL SGELQF( M, N, AF, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy details of Q
+      // Copy details of Q
 *
       CALL SLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
       IF( N.GT.1 ) CALL SLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
 *
-*     Generate the n-by-n matrix Q
+      // Generate the n-by-n matrix Q
 *
       SRNAMT = 'SORGLQ'
       CALL SORGLQ( N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy L
+      // Copy L
 *
       CALL SLASET( 'Full', M, N, ZERO, ZERO, L, LDA )
       CALL SLACPY( 'Lower', M, N, AF, LDA, L, LDA )
 *
-*     Compute L - A*Q'
+      // Compute L - A*Q'
 *
       CALL SGEMM( 'No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, L, LDA )
 *
-*     Compute norm( L - Q'*A ) / ( N * norm(A) * EPS ) .
+      // Compute norm( L - Q'*A ) / ( N * norm(A) * EPS ) .
 *
       ANORM = SLANGE( '1', M, N, A, LDA, RWORK )
       RESID = SLANGE( '1', M, N, L, LDA, RWORK )
@@ -82,12 +82,12 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute I - Q*Q'
+      // Compute I - Q*Q'
 *
       CALL SLASET( 'Full', N, N, ZERO, ONE, L, LDA )
       CALL SSYRK( 'Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, L, LDA )
 *
-*     Compute norm( I - Q*Q' ) / ( N * EPS ) .
+      // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 *
       RESID = SLANSY( '1', 'Upper', N, L, LDA, RWORK )
 *
@@ -95,6 +95,6 @@
 *
       RETURN
 *
-*     End of SLQT01
+      // End of SLQT01
 *
       END

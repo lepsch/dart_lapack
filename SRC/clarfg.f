@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, N;
       COMPLEX            ALPHA, TAU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J, KNT;
       REAL               ALPHI, ALPHR, BETA, RSAFMN, SAFMIN, XNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SCNRM2, SLAMCH, SLAPY3
       COMPLEX            CLADIV
       // EXTERNAL SCNRM2, SLAMCH, SLAPY3, CLADIV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, REAL, SIGN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CSCAL, CSSCAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) THEN
          TAU = ZERO
@@ -46,12 +46,12 @@
 *
       IF( XNORM.EQ.ZERO .AND. ALPHI.EQ.ZERO ) THEN
 *
-*        H  =  I
+         // H  =  I
 *
          TAU = ZERO
       ELSE
 *
-*        general case
+         // general case
 *
          BETA = -SIGN( SLAPY3( ALPHR, ALPHI, XNORM ), ALPHR )
          SAFMIN = SLAMCH( 'S' ) / SLAMCH( 'E' )
@@ -60,7 +60,7 @@
          KNT = 0
          IF( ABS( BETA ).LT.SAFMIN ) THEN
 *
-*           XNORM, BETA may be inaccurate; scale X and recompute them
+            // XNORM, BETA may be inaccurate; scale X and recompute them
 *
    10       CONTINUE
             KNT = KNT + 1
@@ -70,7 +70,7 @@
             ALPHR = ALPHR*RSAFMN
             IF( (ABS( BETA ).LT.SAFMIN) .AND. (KNT .LT. 20) ) GO TO 10
 *
-*           New BETA is at most 1, at least SAFMIN
+            // New BETA is at most 1, at least SAFMIN
 *
             XNORM = SCNRM2( N-1, X, INCX )
             ALPHA = CMPLX( ALPHR, ALPHI )
@@ -80,7 +80,7 @@
          ALPHA = CLADIV( CMPLX( ONE ), ALPHA-BETA )
          CALL CSCAL( N-1, ALPHA, X, INCX )
 *
-*        If ALPHA is subnormal, it may lose relative accuracy
+         // If ALPHA is subnormal, it may lose relative accuracy
 *
          DO 20 J = 1, KNT
             BETA = BETA*SAFMIN
@@ -90,6 +90,6 @@
 *
       RETURN
 *
-*     End of CLARFG
+      // End of CLARFG
 *
       END

@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CGERQ2, CGERQF, CGERQS, CHKXER, CUNGR2, CUNGRQ, CUNMR2, CUNMRQ
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -54,9 +54,9 @@
    20 CONTINUE
       OK = .TRUE.
 *
-*     Error exits for RQ factorization
+      // Error exits for RQ factorization
 *
-*     CGERQF
+      // CGERQF
 *
       SRNAMT = 'CGERQF'
       INFOT = 1
@@ -72,7 +72,7 @@
       CALL CGERQF( 2, 1, A, 2, B, W, 1, INFO )
       CALL CHKXER( 'CGERQF', INFOT, NOUT, LERR, OK )
 *
-*     CGERQ2
+      // CGERQ2
 *
       SRNAMT = 'CGERQ2'
       INFOT = 1
@@ -85,7 +85,7 @@
       CALL CGERQ2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'CGERQ2', INFOT, NOUT, LERR, OK )
 *
-*     CGERQS
+      // CGERQS
 *
       SRNAMT = 'CGERQS'
       INFOT = 1
@@ -110,7 +110,7 @@
       CALL CGERQS( 1, 1, 2, A, 1, X, B, 1, W, 1, INFO )
       CALL CHKXER( 'CGERQS', INFOT, NOUT, LERR, OK )
 *
-*     CUNGRQ
+      // CUNGRQ
 *
       SRNAMT = 'CUNGRQ'
       INFOT = 1
@@ -135,7 +135,7 @@
       CALL CUNGRQ( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'CUNGRQ', INFOT, NOUT, LERR, OK )
 *
-*     CUNGR2
+      // CUNGR2
 *
       SRNAMT = 'CUNGR2'
       INFOT = 1
@@ -157,7 +157,7 @@
       CALL CUNGR2( 2, 2, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'CUNGR2', INFOT, NOUT, LERR, OK )
 *
-*     CUNMRQ
+      // CUNMRQ
 *
       SRNAMT = 'CUNMRQ'
       INFOT = 1
@@ -197,7 +197,7 @@
       CALL CUNMRQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'CUNMRQ', INFOT, NOUT, LERR, OK )
 *
-*     CUNMR2
+      // CUNMR2
 *
       SRNAMT = 'CUNMR2'
       INFOT = 1
@@ -231,12 +231,12 @@
       CALL CUNMR2( 'L', 'N', 2, 1, 0, A, 1, X, AF, 1, W, INFO )
       CALL CHKXER( 'CUNMR2', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of CERRRQ
+      // End of CERRRQ
 *
       END

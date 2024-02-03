@@ -4,31 +4,31 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, K, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE, ZERO
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, L;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLACGV, CLARF, CSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -45,13 +45,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 ) RETURN
 *
       IF( K.LT.M ) THEN
 *
-*        Initialise rows k+1:m to rows of the unit matrix
+         // Initialise rows k+1:m to rows of the unit matrix
 *
          DO 20 J = 1, N
             DO 10 L = K + 1, M
@@ -63,7 +63,7 @@
 *
       DO 40 I = K, 1, -1
 *
-*        Apply H(i)**H to A(i:m,i:n) from the right
+         // Apply H(i)**H to A(i:m,i:n) from the right
 *
          IF( I.LT.N ) THEN
             CALL CLACGV( N-I, A( I, I+1 ), LDA )
@@ -76,7 +76,7 @@
          END IF
          A( I, I ) = ONE - CONJG( TAU( I ) )
 *
-*        Set A(i,1:i-1,i) to zero
+         // Set A(i,1:i-1,i) to zero
 *
          DO 30 L = 1, I - 1
             A( I, L ) = ZERO
@@ -84,6 +84,6 @@
    40 CONTINUE
       RETURN
 *
-*     End of CUNGL2
+      // End of CUNGL2
 *
       END

@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N;
       double             ABSTOL, VL, VU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       double             AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ;
       String             ORDER, VECT;
       int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWO, INDWRK, ITMP1, J, JJ, NSPLIT;
       double             TMP1;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMV, DLACPY, DPBSTF, DSBGST, DSBTRD, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -87,12 +87,12 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) RETURN
 *
-*     Form a split Cholesky factorization of B.
+      // Form a split Cholesky factorization of B.
 *
       CALL DPBSTF( UPLO, N, KB, BB, LDBB, INFO )
       IF( INFO.NE.0 ) THEN
@@ -100,11 +100,11 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem.
+      // Transform problem to standard eigenvalue problem.
 *
       CALL DSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, IINFO )
 *
-*     Reduce symmetric band matrix to tridiagonal form.
+      // Reduce symmetric band matrix to tridiagonal form.
 *
       INDD = 1
       INDE = INDD + N
@@ -116,9 +116,9 @@
       END IF
       CALL DSBTRD( VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
 *
-*     If all eigenvalues are desired and ABSTOL is less than or equal
-*     to zero, then call DSTERF or SSTEQR.  If this fails for some
-*     eigenvalue, then try DSTEBZ.
+      // If all eigenvalues are desired and ABSTOL is less than or equal
+     t // o zero, then call DSTERF or SSTEQR.  If this fails for some
+      // eigenvalue, then try DSTEBZ.
 *
       TEST = .FALSE.
       IF( INDEIG ) THEN
@@ -148,8 +148,8 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call DSTEBZ and, if eigenvectors are desired,
-*     call DSTEIN.
+      // Otherwise, call DSTEBZ and, if eigenvectors are desired,
+      // call DSTEIN.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -163,8 +163,8 @@
       IF( WANTZ ) THEN
          CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
 *
-*        Apply transformation matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by DSTEIN.
+         // Apply transformation matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by DSTEIN.
 *
          DO 20 J = 1, M
             CALL DCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
@@ -174,8 +174,8 @@
 *
    30 CONTINUE
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 50 J = 1, M - 1
@@ -206,6 +206,6 @@
 *
       RETURN
 *
-*     End of DSBGVX
+      // End of DSBGVX
 *
       END

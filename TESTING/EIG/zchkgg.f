@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTDIF;
       int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES;
       double             THRESH, THRSHN;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * ), LLWORK( * );
       int                ISEED( 4 ), NN( * );
       double             RESULT( 15 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA1( * ), ALPHA3( * ), B( LDA, * ), BETA1( * ), BETA3( * ), EVECTL( LDU, * ), EVECTR( LDU, * ), H( LDA, * ), P1( LDA, * ), P2( LDA, * ), Q( LDU, * ), S1( LDA, * ), S2( LDA, * ), T( LDA, * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 26 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN;
       int                I1, IADD, IINFO, IN, J, JC, JR, JSIZE, JTYPE, LWKOPT, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT;
       double             ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
       COMPLEX*16         CTEMP
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
       int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
       double             DUMMA( 4 ), RMAGN( 0: 3 );
       COMPLEX*16         CDUMMA( 4 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       COMPLEX*16         ZLARND
       // EXTERNAL DLAMCH, ZLANGE, ZLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASUM, XERBLA, ZGEQR2, ZGET51, ZGET52, ZGGHRD, ZHGEQZ, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZTGEVC, ZUNM2R
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, SIGN
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KCLASS / 15*1, 10*2, 1*3 /
       DATA               KZ1 / 0, 1, 2, 1, 3, 3 /
       DATA               KZ2 / 0, 0, 1, 2, 1, 1 /
@@ -57,10 +57,10 @@
       DATA               KATYPE / 0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, 4, 2, 4, 5, 8, 7, 9, 4*4, 0 /       DATA               KBTYPE / 0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4, 1, 1, -4, 2, -4, 8*8, 0 /       DATA               KAZERO / 6*1, 2, 1, 2*2, 2*1, 2*2, 3, 1, 3, 4*5, 4*3, 1 /       DATA               KBZERO / 6*1, 1, 2, 2*1, 2*2, 2*1, 4, 1, 4, 4*6, 4*4, 1 /       DATA               KAMAGN / 8*1, 2, 3, 2, 3, 2, 3, 7*1, 2, 3, 3, 2, 1 /       DATA               KBMAGN / 8*1, 3, 2, 3, 2, 2, 3, 7*1, 3, 2, 3, 2, 1 /
       DATA               KTRIAN / 16*0, 10*1 /
       DATA               LASIGN / 6*.FALSE., .TRUE., .FALSE., 2*.TRUE., 2*.FALSE., 3*.TRUE., .FALSE., .TRUE., 3*.FALSE., 5*.TRUE., .FALSE. /       DATA               LBSIGN / 7*.FALSE., .TRUE., 2*.FALSE., 2*.TRUE., 2*.FALSE., .TRUE., .FALSE., .TRUE., 9*.FALSE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       INFO = 0
 *
@@ -73,7 +73,7 @@
 *
       LWKOPT = MAX( 2*NMAX*NMAX, 4*NMAX, 1 )
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -96,7 +96,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
@@ -106,12 +106,12 @@
       SAFMAX = ONE / SAFMIN
       ULPINV = ONE / ULP
 *
-*     The values RMAGN(2:3) depend on N, see below.
+      // The values RMAGN(2:3) depend on N, see below.
 *
       RMAGN( 0 ) = ZERO
       RMAGN( 1 ) = ONE
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       NTESTT = 0
       NERRS = 0
@@ -134,44 +134,44 @@
             NMATS = NMATS + 1
             NTEST = 0
 *
-*           Save ISEED in case of an error.
+            // Save ISEED in case of an error.
 *
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 *
-*           Initialize RESULT
+            // Initialize RESULT
 *
             DO 30 J = 1, 15
                RESULT( J ) = ZERO
    30       CONTINUE
 *
-*           Compute A and B
+            // Compute A and B
 *
-*           Description of control parameters:
+            // Description of control parameters:
 *
-*           KZLASS: =1 means w/o rotation, =2 means w/ rotation,
-*                   =3 means random.
-*           KATYPE: the "type" to be passed to ZLATM4 for computing A.
-*           KAZERO: the pattern of zeros on the diagonal for A:
-*                   =1: ( xxx ), =2: (0, xxx ) =3: ( 0, 0, xxx, 0 ),
-*                   =4: ( 0, xxx, 0, 0 ), =5: ( 0, 0, 1, xxx, 0 ),
-*                   =6: ( 0, 1, 0, xxx, 0 ).  (xxx means a string of
-*                   non-zero entries.)
-*           KAMAGN: the magnitude of the matrix: =0: zero, =1: O(1),
-*                   =2: large, =3: small.
-*           LASIGN: .TRUE. if the diagonal elements of A are to be
-*                   multiplied by a random magnitude 1 number.
-*           KBTYPE, KBZERO, KBMAGN, LBSIGN: the same, but for B.
-*           KTRIAN: =0: don't fill in the upper triangle, =1: do.
-*           KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
-*           RMAGN:  used to implement KAMAGN and KBMAGN.
+            // KZLASS: =1 means w/o rotation, =2 means w/ rotation,
+                    // =3 means random.
+            // KATYPE: the "type" to be passed to ZLATM4 for computing A.
+            // KAZERO: the pattern of zeros on the diagonal for A:
+                    // =1: ( xxx ), =2: (0, xxx ) =3: ( 0, 0, xxx, 0 ),
+                    // =4: ( 0, xxx, 0, 0 ), =5: ( 0, 0, 1, xxx, 0 ),
+                    // =6: ( 0, 1, 0, xxx, 0 ).  (xxx means a string of
+                    // non-zero entries.)
+            // KAMAGN: the magnitude of the matrix: =0: zero, =1: O(1),
+                    // =2: large, =3: small.
+            // LASIGN: .TRUE. if the diagonal elements of A are to be
+                    // multiplied by a random magnitude 1 number.
+            // KBTYPE, KBZERO, KBMAGN, LBSIGN: the same, but for B.
+            // KTRIAN: =0: don't fill in the upper triangle, =1: do.
+            // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
+            // RMAGN:  used to implement KAMAGN and KBMAGN.
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 110
             IINFO = 0
             IF( KCLASS( JTYPE ).LT.3 ) THEN
 *
-*              Generate A (w/o rotation)
+               // Generate A (w/o rotation)
 *
                IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
@@ -183,7 +183,7 @@
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 *
-*              Generate B (w/o rotation)
+               // Generate B (w/o rotation)
 *
                IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
@@ -197,11 +197,11 @@
 *
                IF( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) THEN
 *
-*                 Include rotations
+                  // Include rotations
 *
-*                 Generate U, V as Householder transformations times a
-*                 diagonal matrix.  (Note that ZLARFG makes U(j,j) and
-*                 V(j,j) real.)
+                  // Generate U, V as Householder transformations times a
+                  // diagonal matrix.  (Note that ZLARFG makes U(j,j) and
+                  // V(j,j) real.)
 *
                   DO 50 JC = 1, N - 1
                      DO 40 JR = JC, N
@@ -224,7 +224,7 @@
                   WORK( 2*N ) = CZERO
                   WORK( 4*N ) = CTEMP / ABS( CTEMP )
 *
-*                 Apply the diagonal matrices
+                  // Apply the diagonal matrices
 *
                   DO 70 JC = 1, N
                      DO 60 JR = 1, N
@@ -235,7 +235,7 @@
                END IF
             ELSE
 *
-*              Random matrices
+               // Random matrices
 *
                DO 90 JC = 1, N
                   DO 80 JR = 1, N
@@ -257,7 +257,7 @@
 *
   110       CONTINUE
 *
-*           Call ZGEQR2, ZUNM2R, and ZGGHRD to compute H, T, U, and V
+            // Call ZGEQR2, ZUNM2R, and ZGGHRD to compute H, T, U, and V
 *
             CALL ZLACPY( ' ', N, N, A, LDA, H, LDA )
             CALL ZLACPY( ' ', N, N, B, LDA, T, LDA )
@@ -294,15 +294,15 @@
             END IF
             NTEST = 4
 *
-*           Do tests 1--4
+            // Do tests 1--4
 *
             CALL ZGET51( 1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RWORK, RESULT( 1 ) )             CALL ZGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RWORK, RESULT( 2 ) )             CALL ZGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RWORK, RESULT( 3 ) )             CALL ZGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RWORK, RESULT( 4 ) )
 *
-*           Call ZHGEQZ to compute S1, P1, S2, P2, Q, and Z, do tests.
+            // Call ZHGEQZ to compute S1, P1, S2, P2, Q, and Z, do tests.
 *
-*           Compute T1 and UZ
+            // Compute T1 and UZ
 *
-*           Eigenvalues only
+            // Eigenvalues only
 *
             CALL ZLACPY( ' ', N, N, H, LDA, S2, LDA )
             CALL ZLACPY( ' ', N, N, T, LDA, P2, LDA )
@@ -316,7 +316,7 @@
                GO TO 210
             END IF
 *
-*           Eigenvalues and Full Schur Form
+            // Eigenvalues and Full Schur Form
 *
             CALL ZLACPY( ' ', N, N, H, LDA, S2, LDA )
             CALL ZLACPY( ' ', N, N, T, LDA, P2, LDA )
@@ -328,7 +328,7 @@
                GO TO 210
             END IF
 *
-*           Eigenvalues, Schur Form, and Schur Vectors
+            // Eigenvalues, Schur Form, and Schur Vectors
 *
             CALL ZLACPY( ' ', N, N, H, LDA, S1, LDA )
             CALL ZLACPY( ' ', N, N, T, LDA, P1, LDA )
@@ -342,20 +342,20 @@
 *
             NTEST = 8
 *
-*           Do Tests 5--8
+            // Do Tests 5--8
 *
             CALL ZGET51( 1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 5 ) )             CALL ZGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 6 ) )             CALL ZGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RWORK, RESULT( 7 ) )             CALL ZGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RWORK, RESULT( 8 ) )
 *
-*           Compute the Left and Right Eigenvectors of (S1,P1)
+            // Compute the Left and Right Eigenvectors of (S1,P1)
 *
-*           9: Compute the left eigenvector Matrix without
-*              back transforming:
+            // 9: Compute the left eigenvector Matrix without
+               // back transforming:
 *
             NTEST = 9
             RESULT( 9 ) = ULPINV
 *
-*           To test "SELECT" option, compute half of the eigenvectors
-*           in one call, and half in another
+            // To test "SELECT" option, compute half of the eigenvectors
+            // in one call, and half in another
 *
             I1 = N / 2
             DO 120 J = 1, I1
@@ -393,8 +393,8 @@
                WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
-*           10: Compute the left eigenvector Matrix with
-*               back transforming:
+            // 10: Compute the left eigenvector Matrix with
+                // back transforming:
 *
             NTEST = 10
             RESULT( 10 ) = ULPINV
@@ -412,14 +412,14 @@
                WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
-*           11: Compute the right eigenvector Matrix without
-*               back transforming:
+            // 11: Compute the right eigenvector Matrix without
+                // back transforming:
 *
             NTEST = 11
             RESULT( 11 ) = ULPINV
 *
-*           To test "SELECT" option, compute half of the eigenvectors
-*           in one call, and half in another
+            // To test "SELECT" option, compute half of the eigenvectors
+            // in one call, and half in another
 *
             I1 = N / 2
             DO 160 J = 1, I1
@@ -457,8 +457,8 @@
                WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
-*           12: Compute the right eigenvector Matrix with
-*               back transforming:
+            // 12: Compute the right eigenvector Matrix with
+                // back transforming:
 *
             NTEST = 12
             RESULT( 12 ) = ULPINV
@@ -476,15 +476,15 @@
                WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
-*           Tests 13--15 are done only on request
+            // Tests 13--15 are done only on request
 *
             IF( TSTDIF ) THEN
 *
-*              Do Tests 13--14
+               // Do Tests 13--14
 *
                CALL ZGET51( 2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 13 ) )                CALL ZGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 14 ) )
 *
-*              Do Test 15
+               // Do Test 15
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -504,30 +504,30 @@
                NTEST = 12
             END IF
 *
-*           End of Loop -- Check for RESULT(j) > THRESH
+            // End of Loop -- Check for RESULT(j) > THRESH
 *
   210       CONTINUE
 *
             NTESTT = NTESTT + NTEST
 *
-*           Print out tests which fail.
+            // Print out tests which fail.
 *
             DO 220 JR = 1, NTEST
                IF( RESULT( JR ).GE.THRESH ) THEN
 *
-*                 If this is the first test to fail,
-*                 print a header to the data file.
+                  // If this is the first test to fail,
+                  // print a header to the data file.
 *
                   IF( NERRS.EQ.0 ) THEN
                      WRITE( NOUNIT, FMT = 9997 )'ZGG'
 *
-*                    Matrix types
+                     // Matrix types
 *
                      WRITE( NOUNIT, FMT = 9996 )
                      WRITE( NOUNIT, FMT = 9995 )
                      WRITE( NOUNIT, FMT = 9994 )'Unitary'
 *
-*                    Tests performed
+                     // Tests performed
 *
                      WRITE( NOUNIT, FMT = 9993 )'unitary', '*', 'conjugate transpose', ( '*', J = 1, 10 )
 *
@@ -544,7 +544,7 @@
   230    CONTINUE
   240 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL DLASUM( 'ZGG', NOUNIT, NERRS, NTESTT )
       RETURN
@@ -602,6 +602,6 @@
  9991 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=',
      $      4( I4, ',' ), ' result ', I2, ' is', 1P, D10.3 )
 *
-*     End of ZCHKGG
+      // End of ZCHKGG
 *
       END

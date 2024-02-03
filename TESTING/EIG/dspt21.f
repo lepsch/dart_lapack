@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                ITYPE, KBAND, LDU, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AP( * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), VP( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
       double             HALF;
       PARAMETER          ( HALF = 1.0D+0 / 2.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP;
       double             ANORM, TEMP, ULP, UNFL, VSAVE, WNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT, DLAMCH, DLANGE, DLANSP;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLANGE, DLANSP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DGEMM, DLACPY, DLASET, DOPMTR, DSPMV, DSPR, DSPR2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     1)      Constants
+      // 1)      Constants
 *
       RESULT( 1 ) = ZERO
       IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
@@ -57,16 +57,16 @@
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
 *
-*     Some Error Checks
+      // Some Error Checks
 *
       IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
          RESULT( 1 ) = TEN / ULP
          RETURN
       END IF
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Norm of A:
+      // Norm of A:
 *
       IF( ITYPE.EQ.3 ) THEN
          ANORM = ONE
@@ -74,11 +74,11 @@
          ANORM = MAX( DLANSP( '1', CUPLO, N, AP, WORK ), UNFL )
       END IF
 *
-*     Compute error matrix:
+      // Compute error matrix:
 *
       IF( ITYPE.EQ.1 ) THEN
 *
-*        ITYPE=1: error = A - U S U**T
+         // ITYPE=1: error = A - U S U**T
 *
          CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
          CALL DCOPY( LAP, AP, 1, WORK, 1 )
@@ -96,7 +96,7 @@
 *
       ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*        ITYPE=2: error = V S V**T - A
+         // ITYPE=2: error = V S V**T - A
 *
          CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
 *
@@ -149,7 +149,7 @@
 *
       ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*        ITYPE=3: error = U V**T - I
+         // ITYPE=3: error = U V**T - I
 *
          IF( N.LT.2 ) RETURN
          CALL DLACPY( ' ', N, N, U, LDU, WORK, N )
@@ -176,9 +176,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U U**T - I
+      // Compute  U U**T - I
 *
       IF( ITYPE.EQ.1 ) THEN
          CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
@@ -192,6 +192,6 @@
 *
       RETURN
 *
-*     End of DSPT21
+      // End of DSPT21
 *
       END

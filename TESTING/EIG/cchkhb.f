@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), KK( * ), NN( * );
       REAL               RESULT( * ), RWORK( * ), SD( * ), SE( * )
       COMPLEX            A( LDA, * ), U( LDU, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       REAL               ZERO, ONE, TWO, TEN
@@ -26,37 +26,37 @@
       PARAMETER          ( HALF = ONE / TWO )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 15 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN, BADNNB;
       int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
       REAL               ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, ULP, ULPINV, UNFL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHBT21, CHBTRD, CLACPY, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, REAL, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8 /
       DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       NTESTT = 0
       INFO = 0
 *
-*     Important constants
+      // Important constants
 *
       BADNN = .FALSE.
       NMAX = 1
@@ -73,7 +73,7 @@
    20 CONTINUE
       KMAX = MIN( NMAX-1, KMAX )
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -98,11 +98,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
@@ -111,7 +111,7 @@
       RTUNFL = SQRT( UNFL )
       RTOVFL = SQRT( OVFL )
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       NERRS = 0
       NMATS = 0
@@ -140,29 +140,29 @@
                   IOLDSD( J ) = ISEED( J )
    30          CONTINUE
 *
-*              Compute "A".
-*              Store as "Upper"; later, we will copy to other format.
+               // Compute "A".
+               // Store as "Upper"; later, we will copy to other format.
 *
-*              Control parameters:
+               // Control parameters:
 *
-*                  KMAGN  KMODE        KTYPE
-*              =1  O(1)   clustered 1  zero
-*              =2  large  clustered 2  identity
-*              =3  small  exponential  (none)
-*              =4         arithmetic   diagonal, (w/ eigenvalues)
-*              =5         random log   hermitian, w/ eigenvalues
-*              =6         random       (none)
-*              =7                      random diagonal
-*              =8                      random hermitian
-*              =9                      positive definite
-*              =10                     diagonally dominant tridiagonal
+                   // KMAGN  KMODE        KTYPE
+               // =1  O(1)   clustered 1  zero
+               // =2  large  clustered 2  identity
+               // =3  small  exponential  (none)
+               // =4         arithmetic   diagonal, (w/ eigenvalues)
+               // =5         random log   hermitian, w/ eigenvalues
+               // =6         random       (none)
+               // =7                      random diagonal
+               // =8                      random hermitian
+               // =9                      positive definite
+               // =10                     diagonally dominant tridiagonal
 *
                IF( MTYPES.GT.MAXTYP ) GO TO 100
 *
                ITYPE = KTYPE( JTYPE )
                IMODE = KMODE( JTYPE )
 *
-*              Compute norm
+               // Compute norm
 *
                GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 *
@@ -188,16 +188,16 @@
                   COND = ULPINV*ANINV / TEN
                END IF
 *
-*              Special Matrices -- Identity & Jordan block
+               // Special Matrices -- Identity & Jordan block
 *
-*                 Zero
+                  // Zero
 *
                IF( ITYPE.EQ.1 ) THEN
                   IINFO = 0
 *
                ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*                 Identity
+                  // Identity
 *
                   DO 80 JCOL = 1, N
                      A( K+1, JCOL ) = ANORM
@@ -205,37 +205,37 @@
 *
                ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*                 Diagonal Matrix, [Eigen]values Specified
+                  // Diagonal Matrix, [Eigen]values Specified
 *
                   CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK, IINFO )
 *
                ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*                 Hermitian, eigenvalues specified
+                  // Hermitian, eigenvalues specified
 *
                   CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK, IINFO )
 *
                ELSE IF( ITYPE.EQ.7 ) THEN
 *
-*                 Diagonal, random eigenvalues
+                  // Diagonal, random eigenvalues
 *
                   CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO )
 *
                ELSE IF( ITYPE.EQ.8 ) THEN
 *
-*                 Hermitian, random eigenvalues
+                  // Hermitian, random eigenvalues
 *
                   CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO )
 *
                ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*                 Positive definite, eigenvalues specified.
+                  // Positive definite, eigenvalues specified.
 *
                   CALL CLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
 *
                ELSE IF( ITYPE.EQ.10 ) THEN
 *
-*                 Positive definite tridiagonal, eigenvalues specified.
+                  // Positive definite tridiagonal, eigenvalues specified.
 *
                   IF( N.GT.1 ) K = MAX( 1, K )                   CALL CLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK, IINFO )
                   DO 90 I = 2, N
@@ -258,7 +258,7 @@
 *
   100          CONTINUE
 *
-*              Call CHBTRD to compute S and U from upper triangle.
+               // Call CHBTRD to compute S and U from upper triangle.
 *
                CALL CLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
 *
@@ -276,12 +276,12 @@
                   END IF
                END IF
 *
-*              Do tests 1 and 2
+               // Do tests 1 and 2
 *
                CALL CHBT21( 'Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RWORK, RESULT( 1 ) )
 *
-*              Convert A from Upper-Triangle-Only storage to
-*              Lower-Triangle-Only storage.
+               // Convert A from Upper-Triangle-Only storage to
+               // Lower-Triangle-Only storage.
 *
                DO 120 JC = 1, N
                   DO 110 JR = 0, MIN( K, N-JC )
@@ -294,7 +294,7 @@
   130             CONTINUE
   140          CONTINUE
 *
-*              Call CHBTRD to compute S and U from lower triangle
+               // Call CHBTRD to compute S and U from lower triangle
 *
                CALL CLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
 *
@@ -313,22 +313,22 @@
                END IF
                NTEST = 4
 *
-*              Do tests 3 and 4
+               // Do tests 3 and 4
 *
                CALL CHBT21( 'Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RWORK, RESULT( 3 ) )
 *
-*              End of Loop -- Check for RESULT(j) > THRESH
+               // End of Loop -- Check for RESULT(j) > THRESH
 *
   150          CONTINUE
                NTESTT = NTESTT + NTEST
 *
-*              Print out tests which fail.
+               // Print out tests which fail.
 *
                DO 160 JR = 1, NTEST
                   IF( RESULT( JR ).GE.THRESH ) THEN
 *
-*                    If this is the first test to fail,
-*                    print a header to the data file.
+                     // If this is the first test to fail,
+                     // print a header to the data file.
 *
                      IF( NERRS.EQ.0 ) THEN
                         WRITE( NOUNIT, FMT = 9998 )'CHB'
@@ -346,7 +346,7 @@
   180    CONTINUE
   190 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL SLASUM( 'CHB', NOUNIT, NERRS, NTESTT )
       RETURN
@@ -385,6 +385,6 @@
  9993 FORMAT( ' N=', I5, ', K=', I4, ', seed=', 4( I4, ',' ), ' type ',
      $      I2, ', test(', I2, ')=', G10.3 )
 *
-*     End of CCHKHB
+      // End of CCHKHB
 *
       END

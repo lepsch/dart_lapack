@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             HOWMNY, JOB;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
       double             A( LDA, * ), B( LDB, * ), DIF( * ), S( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                DIFDRI;
       PARAMETER          ( DIFDRI = 3 )
       double             ZERO, ONE, TWO, FOUR;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, FOUR = 4.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, PAIR, SOMCON, WANTBH, WANTDF, WANTS;
       int                I, IERR, IFST, ILST, IZ, K, KS, LWMIN, N1, N2;
       double             ALPHAI, ALPHAR, ALPRQT, BETA, C1, C2, COND, EPS, LNRM, RNRM, ROOT1, ROOT2, SCALE, SMLNUM, TMPII, TMPIR, TMPRI, TMPRR, UHAV, UHAVI, UHBV, UHBVI;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             DUMMY( 1 ), DUMMY1( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT, DLAMCH, DLAPY2, DNRM2;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLAPY2, DNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMV, DLACPY, DLAG2, DTGEXC, DTGSYL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       WANTBH = LSAME( JOB, 'B' )
       WANTS = LSAME( JOB, 'E' ) .OR. WANTBH
@@ -70,8 +70,8 @@
          INFO = -12
       ELSE
 *
-*        Set M to the number of eigenpairs for which condition numbers
-*        are required, and test MM.
+         // Set M to the number of eigenpairs for which condition numbers
+         // are required, and test MM.
 *
          IF( SOMCON ) THEN
             M = 0
@@ -119,11 +119,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
@@ -132,7 +132,7 @@
 *
       DO 20 K = 1, N
 *
-*        Determine whether A(k,k) begins a 1-by-1 or 2-by-2 block.
+         // Determine whether A(k,k) begins a 1-by-1 or 2-by-2 block.
 *
          IF( PAIR ) THEN
             PAIR = .FALSE.
@@ -141,8 +141,8 @@
             IF( K.LT.N ) PAIR = A( K+1, K ).NE.ZERO
          END IF
 *
-*        Determine whether condition numbers are required for the k-th
-*        eigenpair.
+         // Determine whether condition numbers are required for the k-th
+         // eigenpair.
 *
          IF( SOMCON ) THEN
             IF( PAIR ) THEN
@@ -156,12 +156,12 @@
 *
          IF( WANTS ) THEN
 *
-*           Compute the reciprocal condition number of the k-th
-*           eigenvalue.
+            // Compute the reciprocal condition number of the k-th
+            // eigenvalue.
 *
             IF( PAIR ) THEN
 *
-*              Complex eigenvalue pair.
+               // Complex eigenvalue pair.
 *
                RNRM = DLAPY2( DNRM2( N, VR( 1, KS ), 1 ), DNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = DLAPY2( DNRM2( N, VL( 1, KS ), 1 ), DNRM2( N, VL( 1, KS+1 ), 1 ) )                CALL DGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO, WORK, 1 )
                TMPRR = DDOT( N, WORK, 1, VL( 1, KS ), 1 )
@@ -187,7 +187,7 @@
 *
             ELSE
 *
-*              Real eigenvalue.
+               // Real eigenvalue.
 *
                RNRM = DNRM2( N, VR( 1, KS ), 1 )
                LNRM = DNRM2( N, VL( 1, KS ), 1 )
@@ -210,12 +210,12 @@
                GO TO 20
             END IF
 *
-*           Estimate the reciprocal condition number of the k-th
-*           eigenvectors.
+            // Estimate the reciprocal condition number of the k-th
+            // eigenvectors.
             IF( PAIR ) THEN
 *
-*              Copy the  2-by 2 pencil beginning at (A(k,k), B(k, k)).
-*              Compute the eigenvalue(s) at position K.
+               // Copy the  2-by 2 pencil beginning at (A(k,k), B(k, k)).
+               // Compute the eigenvalue(s) at position K.
 *
                WORK( 1 ) = A( K, K )
                WORK( 2 ) = A( K+1, K )
@@ -235,8 +235,8 @@
                COND = MIN( SQRT( ROOT1 ), SQRT( ROOT2 ) )
             END IF
 *
-*           Copy the matrix (A, B) to the array WORK and swap the
-*           diagonal block beginning at A(k,k) to the (1,1) position.
+            // Copy the matrix (A, B) to the array WORK and swap the
+            // diagonal block beginning at A(k,k) to the (1,1) position.
 *
             CALL DLACPY( 'Full', N, N, A, LDA, WORK, N )
             CALL DLACPY( 'Full', N, N, B, LDB, WORK( N*N+1 ), N )
@@ -247,16 +247,16 @@
 *
             IF( IERR.GT.0 ) THEN
 *
-*              Ill-conditioned problem - swap rejected.
+               // Ill-conditioned problem - swap rejected.
 *
                DIF( KS ) = ZERO
             ELSE
 *
-*              Reordering successful, solve generalized Sylvester
-*              equation for R and L,
-*                         A22 * R - L * A11 = A12
-*                         B22 * R - L * B11 = B12,
-*              and compute estimate of Difl((A11,B11), (A22, B22)).
+               // Reordering successful, solve generalized Sylvester
+               // equation for R and L,
+                          // A22 * R - L * A11 = A12
+                          // B22 * R - L * B11 = B12,
+               // and compute estimate of Difl((A11,B11), (A22, B22)).
 *
                N1 = 1
                IF( WORK( 2 ).NE.ZERO ) N1 = 2
@@ -279,6 +279,6 @@
       WORK( 1 ) = LWMIN
       RETURN
 *
-*     End of DTGSNA
+      // End of DTGSNA
 *
       END

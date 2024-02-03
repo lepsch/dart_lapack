@@ -4,61 +4,61 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = 5*NMAX )
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, IHI, ILO, INFO, J, NS, NT, SDIM;
       double             ABNRM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               B( NMAX );
       int                IW( 4*NMAX );
       double             R1( NMAX ), R2( NMAX ), RW( LW ), S( NMAX );
       COMPLEX*16         A( NMAX, NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), X( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, ZGEES, ZGEESX, ZGEEV, ZGEEVX, ZGESVJ, ZGESDD, ZGESVD, ZGESVDX, ZGESVDQ
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN, ZSLECT;
       // EXTERNAL LSAMEN, ZSLECT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       double             SELWI( 20 ), SELWR( 20 );
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT, SELDIM, SELOPT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Initialize A
+      // Initialize A
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -73,7 +73,7 @@
 *
       IF( LSAMEN( 2, C2, 'EV' ) ) THEN
 *
-*        Test ZGEEV
+         // Test ZGEEV
 *
          SRNAMT = 'ZGEEV '
          INFOT = 1
@@ -101,7 +101,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'ES' ) ) THEN
 *
-*        Test ZGEES
+         // Test ZGEES
 *
          SRNAMT = 'ZGEES '
          INFOT = 1
@@ -126,7 +126,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'VX' ) ) THEN
 *
-*        Test ZGEEVX
+         // Test ZGEEVX
 *
          SRNAMT = 'ZGEEVX'
          INFOT = 1
@@ -163,7 +163,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SX' ) ) THEN
 *
-*        Test ZGEESX
+         // Test ZGEESX
 *
          SRNAMT = 'ZGEESX'
          INFOT = 1
@@ -191,7 +191,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'BD' ) ) THEN
 *
-*        Test ZGESVD
+         // Test ZGESVD
 *
          SRNAMT = 'ZGESVD'
          INFOT = 1
@@ -225,7 +225,7 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
 *
-*        Test ZGESDD
+         // Test ZGESDD
 *
          SRNAMT = 'ZGESDD'
          INFOT = 1
@@ -253,7 +253,7 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
 *
-*        Test ZGEJSV
+         // Test ZGEJSV
 *
          SRNAMT = 'ZGEJSV'
          INFOT = 1
@@ -296,7 +296,7 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
 *
-*        Test ZGESVDX
+         // Test ZGESVDX
 *
          SRNAMT = 'ZGESVDX'
          INFOT = 1
@@ -342,7 +342,7 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
 *
-*        Test ZGESVDQ
+         // Test ZGESVDQ
 *
          SRNAMT = 'ZGESVDQ'
          INFOT = 1
@@ -386,7 +386,7 @@
          END IF
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( .NOT.LSAMEN( 2, C2, 'BD' ) ) THEN
          IF( OK ) THEN
@@ -401,6 +401,6 @@
  9998 FORMAT( ' *** ', A, ' failed the tests of the error exits ***' )
       RETURN
 *
-*     End of ZERRED
+      // End of ZERRED
 *
       END

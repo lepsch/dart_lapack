@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             FACT;
       int                INFO, LDB, LDX, N, NRHS;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOFACT;
       double             ANORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANST;
       // EXTERNAL LSAME, DLAMCH, DLANST
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DLACPY, DPTCON, DPTRFS, DPTTRF, DPTTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -58,13 +58,13 @@
 *
       IF( NOFACT ) THEN
 *
-*        Compute the L*D*L**T (or U**T*D*U) factorization of A.
+         // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 *
          CALL DCOPY( N, D, 1, DF, 1 )
          IF( N.GT.1 ) CALL DCOPY( N-1, E, 1, EF, 1 )
          CALL DPTTRF( N, DF, EF, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 )THEN
             RCOND = ZERO
@@ -72,30 +72,30 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A.
+      // Compute the norm of the matrix A.
 *
       ANORM = DLANST( '1', N, D, E )
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL DPTCON( N, DF, EF, ANORM, RCOND, WORK, INFO )
 *
-*     Compute the solution vectors X.
+      // Compute the solution vectors X.
 *
       CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL DPTTRS( N, NRHS, DF, EF, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solutions and
-*     compute error bounds and backward error estimates for them.
+      // Use iterative refinement to improve the computed solutions and
+      // compute error bounds and backward error estimates for them.
 *
       CALL DPTRFS( N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO )
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *
-*     End of DPTSVX
+      // End of DPTSVX
 *
       END

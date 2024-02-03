@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPZ;
       int                INFO, LDZ, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SBDSQR, SLASET, SPTTRF, XERBLA
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               C( 1, 1 ), VT( 1, 1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ICOMPZ, NRU;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -61,7 +61,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -71,7 +71,7 @@
       END IF
       IF( ICOMPZ.EQ.2 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
 *
-*     Call SPTTRF to factor the matrix.
+      // Call SPTTRF to factor the matrix.
 *
       CALL SPTTRF( N, D, E, INFO )
       IF( INFO.NE.0 ) RETURN
@@ -82,8 +82,8 @@
          E( I ) = E( I )*D( I )
    20 CONTINUE
 *
-*     Call SBDSQR to compute the singular values/vectors of the
-*     bidiagonal factor.
+      // Call SBDSQR to compute the singular values/vectors of the
+      // bidiagonal factor.
 *
       IF( ICOMPZ.GT.0 ) THEN
          NRU = N
@@ -92,7 +92,7 @@
       END IF
       CALL SBDSQR( 'Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO )
 *
-*     Square the singular values.
+      // Square the singular values.
 *
       IF( INFO.EQ.0 ) THEN
          DO 30 I = 1, N
@@ -104,6 +104,6 @@
 *
       RETURN
 *
-*     End of SPTEQR
+      // End of SPTEQR
 *
       END

@@ -7,47 +7,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NFAIL( 3 ), NINFO( 2 );
       double             RMAX( 2 );
-*     ..
+      // ..
 *
 *  =====================================================================
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       int                MAXM, MAXN, LDSWORK;
       PARAMETER          ( MAXM = 245, MAXN = 192, LDSWORK = 36 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N       double             ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE, SCALE3, SMLNUM, TNRM, XNRM;;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) ), DUM( MAXN ), VM( 2 );
       int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 );
-*     ..
-*     .. Allocatable Arrays ..
+      // ..
+      // .. Allocatable Arrays ..
       int                AllocateStatus;
       double          , DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X, SWORK;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               DISNAN;
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLATMR, DLACPY, DGEMM, DTRSYL, DTRSYL3
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX
-*     ..
-*     .. Allocate memory dynamically ..
+      // ..
+      // .. Allocate memory dynamically ..
       ALLOCATE ( A( MAXM, MAXM ), STAT = AllocateStatus )
       IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
       ALLOCATE ( B( MAXN, MAXN ), STAT = AllocateStatus )
@@ -60,10 +60,10 @@
       IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
       ALLOCATE ( SWORK( LDSWORK, 126 ), STAT = AllocateStatus )
       IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
@@ -72,7 +72,7 @@
       VM( 1 ) = ONE
       VM( 2 ) = 0.000001D+0
 *
-*     Begin test loop
+      // Begin test loop
 *
       NINFO( 1 ) = 0
       NINFO( 2 ) = 0
@@ -90,7 +90,7 @@
       LIWORK = MAXM + MAXN + 2
       DO J = 1, 2
          DO ISGN = -1, 1, 2
-*           Reset seed (overwritten by LATMR)
+            // Reset seed (overwritten by LATMR)
             DO I = 1, 4
                ISEED( I ) = 1
             END DO
@@ -154,8 +154,8 @@
                         CALL DGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL DGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM )
                         RES1 = DLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
-*                       Verify that TRSYL3 only flushes if TRSYL flushes (but
-*                       there may be cases where TRSYL3 avoid flushing).
+                        // Verify that TRSYL3 only flushes if TRSYL flushes (but
+                       t // here may be cases where TRSYL3 avoid flushing).
                         IF( SCALE3.EQ.ZERO .AND. SCALE.GT.ZERO .OR.  IINFO.NE.INFO ) THEN
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         END IF
@@ -176,6 +176,6 @@
 *
       RETURN
 *
-*     End of DSYL01
+      // End of DSYL01
 *
       END

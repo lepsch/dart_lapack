@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            A( LDA, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               UPPER, LQUERY;
       int                MINSIZE, NBMAX;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHETRI2X, CHETRI, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 )
 *
-*     Get blocksize
+      // Get blocksize
 *
       NBMAX = ILAENV( 1, 'CHETRF', UPLO, N, -1, -1, -1 )
       IF( N.EQ.0 ) THEN
@@ -65,7 +65,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 
@@ -77,6 +77,6 @@
 *
       RETURN
 *
-*     End of CHETRI2
+      // End of CHETRI2
 *
       END

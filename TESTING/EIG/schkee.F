@@ -10,7 +10,7 @@
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 132 )
       int                NCMAX;
@@ -27,8 +27,8 @@
       PARAMETER          ( MAXT = 30 )
       int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               CSD, FATAL, GLM, GQR, GSV, LSE, NEP, SBB, SBK, SBL, SEP, SES, SEV, SGG, SGK, SGL, SGS, SGV, SGX, SSB, SSX, SVD, SVX, SXV, TSTCHK, TSTDIF, TSTDRV, TSTERR;
       String             C1;
       String             C3, PATH;
@@ -38,50 +38,50 @@
       int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       int    *4          N_THREADS, ONE_THREAD;
       REAL               EPS, S1, S2, THRESH, THRSHN
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               DOTYPE( MAXT ), LOGWRK( NMAX );
       int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN );
       int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN )       REAL               D( NMAX, 12 ), RESULT( 500 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
-*     ..
-*     .. Allocatable Arrays ..
+      // ..
+      // .. Allocatable Arrays ..
       int     AllocateStatus;
       REAL, DIMENSION(:), ALLOCATABLE :: WORK
       REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, C
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       REAL               SECOND, SLAMCH
       // EXTERNAL LSAMEN, SECOND, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAREQ, SCHKBB, SCHKBD, SCHKBK, SCHKBL, SCHKEC, SCHKGG, SCHKGK, SCHKGL, SCHKHS, SCHKSB, SCHKST, SCKCSD, SCKGLM, SCKGQR, SCKGSV, SCKLSE, SDRGES, SDRGEV, SDRGSX, SDRGVX, SDRVBD, SDRVES, SDRVEV, SDRVSG, SDRVST, SDRVSX, SDRVVX, SERRBD, SERRED, SERRGG, SERRHS, SERRST, ILAVER, XLAENV, SDRGES3, SDRGEV3, SCHKST2STG, SDRVST2STG, SCHKSB2STG, SDRVSG2STG
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN, MIN
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT;
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       int                IPARMS( 100 );
       REAL               SELWI( 20 ), SELWR( 20 )
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / CENVIR / NPROC, NSHIFT, MAXB
       COMMON             / CLAENV / IPARMS
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               INTSTR / '0123456789' /
       DATA               IOLDSD / 0, 0, 0, 1 /
-*     ..
-*     .. Allocate memory dynamically ..
+      // ..
+      // .. Allocate memory dynamically ..
 *
       ALLOCATE ( A(NMAX*NMAX,NEED), STAT = AllocateStatus )
       IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
@@ -91,8 +91,8 @@
       IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
       ALLOCATE ( WORK(LWORK), STAT = AllocateStatus )
       IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       A = 0.0
       B = 0.0
@@ -102,11 +102,11 @@
       FATAL = .FALSE.
       NUNIT = NOUT
 *
-*     Return to here to read multiple sets of data
+      // Return to here to read multiple sets of data
 *
    10 CONTINUE
 *
-*     Read the first line and set the 3-character test path
+      // Read the first line and set the 3-character test path
 *
       READ( NIN, FMT = '(A80)', END = 380 )LINE
       PATH = LINE( 1: 3 )
@@ -135,7 +135,7 @@
       SGL = LSAMEN( 3, PATH, 'SGL' )
       SGK = LSAMEN( 3, PATH, 'SGK' )
 *
-*     Report values of parameters.
+      // Report values of parameters.
 *
       IF( PATH.EQ.'   ' ) THEN
          GO TO 10
@@ -179,31 +179,31 @@
          WRITE( NOUT, FMT = 9968 )
       ELSE IF( SBL ) THEN
 *
-*        SGEBAL:  Balancing
+         // SGEBAL:  Balancing
 *
          CALL SCHKBL( NIN, NOUT )
          GO TO 10
       ELSE IF( SBK ) THEN
 *
-*        SGEBAK:  Back transformation
+         // SGEBAK:  Back transformation
 *
          CALL SCHKBK( NIN, NOUT )
          GO TO 10
       ELSE IF( SGL ) THEN
 *
-*        SGGBAL:  Balancing
+         // SGGBAL:  Balancing
 *
          CALL SCHKGL( NIN, NOUT )
          GO TO 10
       ELSE IF( SGK ) THEN
 *
-*        SGGBAK:  Back transformation
+         // SGGBAK:  Back transformation
 *
          CALL SCHKGK( NIN, NOUT )
          GO TO 10
       ELSE IF( LSAMEN( 3, PATH, 'SEC' ) ) THEN
 *
-*        SEC:  Eigencondition estimation
+         // SEC:  Eigencondition estimation
 *
          READ( NIN, FMT = * )THRESH
          CALL XLAENV( 1, 1 )
@@ -223,7 +223,7 @@
       WRITE( NOUT, FMT = 9972 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
       WRITE( NOUT, FMT = 9984 )
 *
-*     Read the number of values of M, P, and N.
+      // Read the number of values of M, P, and N.
 *
       READ( NIN, FMT = * )NN
       IF( NN.LT.0 ) THEN
@@ -236,7 +236,7 @@
          FATAL = .TRUE.
       END IF
 *
-*     Read the values of M
+      // Read the values of M
 *
       IF( .NOT.( SGX .OR. SXV ) ) THEN
          READ( NIN, FMT = * )( MVAL( I ), I = 1, NN )
@@ -257,7 +257,7 @@
          WRITE( NOUT, FMT = 9983 )'M:    ', ( MVAL( I ), I = 1, NN )
       END IF
 *
-*     Read the values of P
+      // Read the values of P
 *
       IF( GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) THEN
          READ( NIN, FMT = * )( PVAL( I ), I = 1, NN )
@@ -273,7 +273,7 @@
          WRITE( NOUT, FMT = 9983 )'P:    ', ( PVAL( I ), I = 1, NN )
       END IF
 *
-*     Read the values of N
+      // Read the values of N
 *
       IF( SVD .OR. SBB .OR. GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) THEN
          READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
@@ -297,7 +297,7 @@
          WRITE( NOUT, FMT = 9983 )'N:    ', NN
       END IF
 *
-*     Read the number of values of K, followed by the values of K
+      // Read the number of values of K, followed by the values of K
 *
       IF( SSB .OR. SBB ) THEN
          READ( NIN, FMT = * )NK
@@ -316,8 +316,8 @@
 *
       IF( SEV .OR. SES .OR. SVX .OR. SSX ) THEN
 *
-*        For the nonsymmetric QR driver routines, only one set of
-*        parameters is allowed.
+         // For the nonsymmetric QR driver routines, only one set of
+         // parameters is allowed.
 *
          READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), INMIN( 1 ), INWIN( 1 ), INIBL(1), ISHFTS(1), IACC22(1)
          IF( NBVAL( 1 ).LT.1 ) THEN
@@ -364,8 +364,8 @@
 *
       ELSE IF( SGS .OR. SGX .OR. SGV .OR. SXV ) THEN
 *
-*        For the nonsymmetric generalized driver routines, only one set
-*        of parameters is allowed.
+         // For the nonsymmetric generalized driver routines, only one set
+         // of parameters is allowed.
 *
          READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), NSVAL( 1 ), MXBVAL( 1 )
          IF( NBVAL( 1 ).LT.1 ) THEN
@@ -397,8 +397,8 @@
 *
       ELSE IF( .NOT.SSB .AND. .NOT.GLM .AND. .NOT.GQR .AND. .NOT. GSV .AND. .NOT.CSD .AND. .NOT.LSE ) THEN
 *
-*        For the other paths, the number of parameters can be varied
-*        from the input file.  Read the number of parameter values.
+         // For the other paths, the number of parameters can be varied
+         // from the input file.  Read the number of parameter values.
 *
          READ( NIN, FMT = * )NPARMS
          IF( NPARMS.LT.1 ) THEN
@@ -411,7 +411,7 @@
             FATAL = .TRUE.
          END IF
 *
-*        Read the values of NB
+         // Read the values of NB
 *
          IF( .NOT.SBB ) THEN
             READ( NIN, FMT = * )( NBVAL( I ), I = 1, NPARMS )
@@ -427,7 +427,7 @@
             WRITE( NOUT, FMT = 9983 )'NB:   ', ( NBVAL( I ), I = 1, NPARMS )
          END IF
 *
-*        Read the values of NBMIN
+         // Read the values of NBMIN
 *
          IF( NEP .OR. SEP .OR. SVD .OR. SGG ) THEN
             READ( NIN, FMT = * )( NBMIN( I ), I = 1, NPARMS )
@@ -447,7 +447,7 @@
    90       CONTINUE
          END IF
 *
-*        Read the values of NX
+         // Read the values of NX
 *
          IF( NEP .OR. SEP .OR. SVD ) THEN
             READ( NIN, FMT = * )( NXVAL( I ), I = 1, NPARMS )
@@ -467,8 +467,8 @@
   110       CONTINUE
          END IF
 *
-*        Read the values of NSHIFT (if SGG) or NRHS (if SVD
-*        or SBB).
+         // Read the values of NSHIFT (if SGG) or NRHS (if SVD
+         // or SBB).
 *
          IF( SVD .OR. SBB .OR. SGG ) THEN
             READ( NIN, FMT = * )( NSVAL( I ), I = 1, NPARMS )
@@ -488,7 +488,7 @@
   130       CONTINUE
          END IF
 *
-*        Read the values for MAXB.
+         // Read the values for MAXB.
 *
          IF( SGG ) THEN
             READ( NIN, FMT = * )( MXBVAL( I ), I = 1, NPARMS )
@@ -508,7 +508,7 @@
   150       CONTINUE
          END IF
 *
-*        Read the values for INMIN.
+         // Read the values for INMIN.
 *
          IF( NEP ) THEN
             READ( NIN, FMT = * )( INMIN( I ), I = 1, NPARMS )
@@ -525,7 +525,7 @@
   550       CONTINUE
          END IF
 *
-*        Read the values for INWIN.
+         // Read the values for INWIN.
 *
          IF( NEP ) THEN
             READ( NIN, FMT = * )( INWIN( I ), I = 1, NPARMS )
@@ -542,7 +542,7 @@
   570       CONTINUE
          END IF
 *
-*        Read the values for INIBL.
+         // Read the values for INIBL.
 *
          IF( NEP ) THEN
             READ( NIN, FMT = * )( INIBL( I ), I = 1, NPARMS )
@@ -559,7 +559,7 @@
   590       CONTINUE
          END IF
 *
-*        Read the values for ISHFTS.
+         // Read the values for ISHFTS.
 *
          IF( NEP ) THEN
             READ( NIN, FMT = * )( ISHFTS( I ), I = 1, NPARMS )
@@ -576,7 +576,7 @@
   610       CONTINUE
          END IF
 *
-*        Read the values for IACC22.
+         // Read the values for IACC22.
 *
          IF( NEP .OR. SGG ) THEN
             READ( NIN, FMT = * )( IACC22( I ), I = 1, NPARMS )
@@ -593,7 +593,7 @@
   630       CONTINUE
          END IF
 *
-*        Read the values for NBCOL.
+         // Read the values for NBCOL.
 *
          IF( SGG ) THEN
             READ( NIN, FMT = * )( NBCOL( I ), I = 1, NPARMS )
@@ -614,7 +614,7 @@
          END IF
       END IF
 *
-*     Calculate and print the machine dependent constants.
+      // Calculate and print the machine dependent constants.
 *
       WRITE( NOUT, FMT = * )
       EPS = SLAMCH( 'Underflow threshold' )
@@ -624,30 +624,30 @@
       EPS = SLAMCH( 'Epsilon' )
       WRITE( NOUT, FMT = 9981 )'precision', EPS
 *
-*     Read the threshold value for the test ratios.
+      // Read the threshold value for the test ratios.
 *
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9982 )THRESH
       IF( SEP .OR. SVD .OR. SGG ) THEN
 *
-*        Read the flag that indicates whether to test LAPACK routines.
+         // Read the flag that indicates whether to test LAPACK routines.
 *
          READ( NIN, FMT = * )TSTCHK
 *
-*        Read the flag that indicates whether to test driver routines.
+         // Read the flag that indicates whether to test driver routines.
 *
          READ( NIN, FMT = * )TSTDRV
       END IF
 *
-*     Read the flag that indicates whether to test the error exits.
+      // Read the flag that indicates whether to test the error exits.
 *
       READ( NIN, FMT = * )TSTERR
 *
-*     Read the code describing how to set the random number seed.
+      // Read the code describing how to set the random number seed.
 *
       READ( NIN, FMT = * )NEWSD
 *
-*     If NEWSD = 2, read another line with 4 integers for the seed.
+      // If NEWSD = 2, read another line with 4 integers for the seed.
 *
       IF( NEWSD.EQ.2 ) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 )
 *
@@ -660,10 +660,10 @@
          STOP
       END IF
 *
-*     Read the input lines indicating the test path and its parameters.
-*     The first three characters indicate the test path, and the number
-*     of test matrix types must be the first nonblank item in columns
-*     4-80.
+      // Read the input lines indicating the test path and its parameters.
+      // The first three characters indicate the test path, and the number
+      // of test matrix types must be the first nonblank item in columns
+      // 4-80.
 *
   190 CONTINUE
 *
@@ -690,7 +690,7 @@
             I1 = I
             C1 = LINE( I1: I1 )
 *
-*        Check that a valid integer was read
+         // Check that a valid integer was read
 *
             DO 220 K = 1, 10
                IF( C1.EQ.INTSTR( K: K ) ) THEN
@@ -711,7 +711,7 @@
   240    CONTINUE
          NTYPES = ITMP
 *
-*     Skip the tests if NTYPES is <= 0.
+      // Skip the tests if NTYPES is <= 0.
 *
          IF( .NOT.( SEV .OR. SES .OR. SVX .OR. SSX .OR. SGV .OR. SGS ) .AND. NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
@@ -722,7 +722,7 @@
          IF( SXV ) C3 = 'SXV'          IF( SGX ) C3 = 'SGX'
       END IF
 *
-*     Reset the random number seed.
+      // Reset the random number seed.
 *
       IF( NEWSD.EQ.0 ) THEN
          DO 250 K = 1, 4
@@ -732,15 +732,15 @@
 *
       IF( LSAMEN( 3, C3, 'SHS' ) .OR. LSAMEN( 3, C3, 'NEP' ) ) THEN
 *
-*        -------------------------------------
-*        NEP:  Nonsymmetric Eigenvalue Problem
-*        -------------------------------------
-*        Vary the parameters
-*           NB    = block size
-*           NBMIN = minimum block size
-*           NX    = crossover point
-*           NS    = number of shifts
-*           MAXB  = minimum submatrix size
+         // -------------------------------------
+         // NEP:  Nonsymmetric Eigenvalue Problem
+         // -------------------------------------
+         // Vary the parameters
+            // NB    = block size
+            // NBMIN = minimum block size
+            // NX    = crossover point
+            // NS    = number of shifts
+            // MAXB  = minimum submatrix size
 *
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -768,13 +768,13 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SST' ) .OR. LSAMEN( 3, C3, 'SEP' ) .OR. LSAMEN( 3, C3, 'SE2' ) ) THEN
 *
-*        ----------------------------------
-*        SEP:  Symmetric Eigenvalue Problem
-*        ----------------------------------
-*        Vary the parameters
-*           NB    = block size
-*           NBMIN = minimum block size
-*           NX    = crossover point
+         // ----------------------------------
+         // SEP:  Symmetric Eigenvalue Problem
+         // ----------------------------------
+         // Vary the parameters
+            // NB    = block size
+            // NBMIN = minimum block size
+            // NX    = crossover point
 *
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -823,13 +823,13 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SSG' ) ) THEN
 *
-*        ----------------------------------------------
-*        SSG:  Symmetric Generalized Eigenvalue Problem
-*        ----------------------------------------------
-*        Vary the parameters
-*           NB    = block size
-*           NBMIN = minimum block size
-*           NX    = crossover point
+         // ----------------------------------------------
+         // SSG:  Symmetric Generalized Eigenvalue Problem
+         // ----------------------------------------------
+         // Vary the parameters
+            // NB    = block size
+            // NBMIN = minimum block size
+            // NX    = crossover point
 *
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -847,11 +847,11 @@
             END IF
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
             IF( TSTCHK ) THEN
-*               CALL SDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-*     $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
-*     $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
-*     $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
-*     $                      LWORK, IWORK, LIWORK, RESULT, INFO )
+                // CALL SDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
+      // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
+      // $                      D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ),
+      // $                      A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK,
+      // $                      LWORK, IWORK, LIWORK, RESULT, INFO )
                CALL SDRVSG2STG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, D( 1, 3 ), D( 1, 3 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'SDRVSG', INFO
             END IF
@@ -859,14 +859,14 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SBD' ) .OR. LSAMEN( 3, C3, 'SVD' ) ) THEN
 *
-*        ----------------------------------
-*        SVD:  Singular Value Decomposition
-*        ----------------------------------
-*        Vary the parameters
-*           NB    = block size
-*           NBMIN = minimum block size
-*           NX    = crossover point
-*           NRHS  = number of right hand sides
+         // ----------------------------------
+         // SVD:  Singular Value Decomposition
+         // ----------------------------------
+         // Vary the parameters
+            // NB    = block size
+            // NBMIN = minimum block size
+            // NX    = crossover point
+            // NRHS  = number of right hand sides
 *
          MAXTYP = 16
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -874,7 +874,7 @@
          CALL XLAENV( 1, 1 )
          CALL XLAENV( 9, 25 )
 *
-*        Test the error exits
+         // Test the error exits
 *
          IF( TSTERR .AND. TSTCHK ) CALL SERRBD( 'SBD', NOUT )          IF( TSTERR .AND. TSTDRV ) CALL SERRED( 'SBD', NOUT )
 *
@@ -898,10 +898,10 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SEV' ) ) THEN
 *
-*        --------------------------------------------
-*        SEV:  Nonsymmetric Eigenvalue Problem Driver
-*              SGEEV (eigenvalues and eigenvectors)
-*        --------------------------------------------
+         // --------------------------------------------
+         // SEV:  Nonsymmetric Eigenvalue Problem Driver
+               // SGEEV (eigenvalues and eigenvectors)
+         // --------------------------------------------
 *
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -918,10 +918,10 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SES' ) ) THEN
 *
-*        --------------------------------------------
-*        SES:  Nonsymmetric Eigenvalue Problem Driver
-*              SGEES (Schur form)
-*        --------------------------------------------
+         // --------------------------------------------
+         // SES:  Nonsymmetric Eigenvalue Problem Driver
+               // SGEES (Schur form)
+         // --------------------------------------------
 *
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -938,10 +938,10 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SVX' ) ) THEN
 *
-*        --------------------------------------------------------------
-*        SVX:  Nonsymmetric Eigenvalue Problem Expert Driver
-*              SGEEVX (eigenvalues, eigenvectors and condition numbers)
-*        --------------------------------------------------------------
+         // --------------------------------------------------------------
+         // SVX:  Nonsymmetric Eigenvalue Problem Expert Driver
+               // SGEEVX (eigenvalues, eigenvectors and condition numbers)
+         // --------------------------------------------------------------
 *
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -958,10 +958,10 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SSX' ) ) THEN
 *
-*        ---------------------------------------------------
-*        SSX:  Nonsymmetric Eigenvalue Problem Expert Driver
-*              SGEESX (Schur form and condition numbers)
-*        ---------------------------------------------------
+         // ---------------------------------------------------
+         // SSX:  Nonsymmetric Eigenvalue Problem Expert Driver
+               // SGEESX (Schur form and condition numbers)
+         // ---------------------------------------------------
 *
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -978,16 +978,16 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SGG' ) ) THEN
 *
-*        -------------------------------------------------
-*        SGG:  Generalized Nonsymmetric Eigenvalue Problem
-*        -------------------------------------------------
-*        Vary the parameters
-*           NB    = block size
-*           NBMIN = minimum block size
-*           NS    = number of shifts
-*           MAXB  = minimum submatrix size
-*           IACC22: structured matrix multiply
-*           NBCOL = minimum column dimension for blocks
+         // -------------------------------------------------
+         // SGG:  Generalized Nonsymmetric Eigenvalue Problem
+         // -------------------------------------------------
+         // Vary the parameters
+            // NB    = block size
+            // NBMIN = minimum block size
+            // NS    = number of shifts
+            // MAXB  = minimum submatrix size
+            // IACC22: structured matrix multiply
+            // NBCOL = minimum column dimension for blocks
 *
          MAXTYP = 26
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -1018,10 +1018,10 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SGS' ) ) THEN
 *
-*        -------------------------------------------------
-*        SGS:  Generalized Nonsymmetric Eigenvalue Problem
-*              SGGES (Schur form)
-*        -------------------------------------------------
+         // -------------------------------------------------
+         // SGS:  Generalized Nonsymmetric Eigenvalue Problem
+               // SGGES (Schur form)
+         // -------------------------------------------------
 *
          MAXTYP = 26
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -1034,7 +1034,7 @@
 *
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'SDRGES', INFO
 *
-*     Blocked version
+      // Blocked version
 *
             CALL XLAENV(16,1)
             CALL SDRGES3( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), WORK, LWORK, RESULT, LOGWRK, INFO )
@@ -1046,10 +1046,10 @@
 *
       ELSE IF( SGX ) THEN
 *
-*        -------------------------------------------------
-*        SGX:  Generalized Nonsymmetric Eigenvalue Problem
-*              SGGESX (Schur form and condition numbers)
-*        -------------------------------------------------
+         // -------------------------------------------------
+         // SGX:  Generalized Nonsymmetric Eigenvalue Problem
+               // SGGESX (Schur form and condition numbers)
+         // -------------------------------------------------
 *
          MAXTYP = 5
          NTYPES = MAXTYP
@@ -1067,10 +1067,10 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SGV' ) ) THEN
 *
-*        -------------------------------------------------
-*        SGV:  Generalized Nonsymmetric Eigenvalue Problem
-*              SGGEV (Eigenvalue/vector form)
-*        -------------------------------------------------
+         // -------------------------------------------------
+         // SGV:  Generalized Nonsymmetric Eigenvalue Problem
+               // SGGEV (Eigenvalue/vector form)
+         // -------------------------------------------------
 *
          MAXTYP = 26
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -1092,10 +1092,10 @@
 *
       ELSE IF( SXV ) THEN
 *
-*        -------------------------------------------------
-*        SXV:  Generalized Nonsymmetric Eigenvalue Problem
-*              SGGEVX (eigenvalue/vector with condition numbers)
-*        -------------------------------------------------
+         // -------------------------------------------------
+         // SXV:  Generalized Nonsymmetric Eigenvalue Problem
+               // SGGEVX (eigenvalue/vector with condition numbers)
+         // -------------------------------------------------
 *
          MAXTYP = 2
          NTYPES = MAXTYP
@@ -1113,25 +1113,25 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'SSB' ) ) THEN
 *
-*        ------------------------------
-*        SSB:  Symmetric Band Reduction
-*        ------------------------------
+         // ------------------------------
+         // SSB:  Symmetric Band Reduction
+         // ------------------------------
 *
          MAXTYP = 15
          NTYPES = MIN( MAXTYP, NTYPES )
          CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
          IF( TSTERR ) CALL SERRST( 'SSB', NOUT )
-*         CALL SCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
-*     $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
-*     $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO )
+          // CALL SCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
+      // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
+      // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO )
          CALL SCHKSB2STG( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO )
          IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'SCHKSB', INFO
 *
       ELSE IF( LSAMEN( 3, C3, 'SBB' ) ) THEN
 *
-*        ------------------------------
-*        SBB:  General Band Reduction
-*        ------------------------------
+         // ------------------------------
+         // SBB:  General Band Reduction
+         // ------------------------------
 *
          MAXTYP = 15
          NTYPES = MIN( MAXTYP, NTYPES )
@@ -1151,9 +1151,9 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'GLM' ) ) THEN
 *
-*        -----------------------------------------
-*        GLM:  Generalized Linear Regression Model
-*        -----------------------------------------
+         // -----------------------------------------
+         // GLM:  Generalized Linear Regression Model
+         // -----------------------------------------
 *
          CALL XLAENV( 1, 1 )
          IF( TSTERR ) CALL SERRGG( 'GLM', NOUT )          CALL SCKGLM( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO )
@@ -1161,9 +1161,9 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'GQR' ) ) THEN
 *
-*        ------------------------------------------
-*        GQR:  Generalized QR and RQ factorizations
-*        ------------------------------------------
+         // ------------------------------------------
+         // GQR:  Generalized QR and RQ factorizations
+         // ------------------------------------------
 *
          CALL XLAENV( 1, 1 )
          IF( TSTERR ) CALL SERRGG( 'GQR', NOUT )          CALL SCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, D( 1, 1 ), NIN, NOUT, INFO )
@@ -1171,9 +1171,9 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'GSV' ) ) THEN
 *
-*        ----------------------------------------------
-*        GSV:  Generalized Singular Value Decomposition
-*        ----------------------------------------------
+         // ----------------------------------------------
+         // GSV:  Generalized Singular Value Decomposition
+         // ----------------------------------------------
 *
          CALL XLAENV( 1, 1 )
          IF( TSTERR ) CALL SERRGG( 'GSV', NOUT )          CALL SCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), TAUA, TAUB, B( 1, 4 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO )
@@ -1181,9 +1181,9 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'CSD' ) ) THEN
 *
-*        ----------------------------------------------
-*        CSD:  CS Decomposition
-*        ----------------------------------------------
+         // ----------------------------------------------
+         // CSD:  CS Decomposition
+         // ----------------------------------------------
 *
          CALL XLAENV(1,1)
          IF( TSTERR ) CALL SERRGG( 'CSD', NOUT )          CALL SCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO )
@@ -1191,9 +1191,9 @@
 *
       ELSE IF( LSAMEN( 3, C3, 'LSE' ) ) THEN
 *
-*        --------------------------------------
-*        LSE:  Constrained Linear Least Squares
-*        --------------------------------------
+         // --------------------------------------
+         // LSE:  Constrained Linear Least Squares
+         // --------------------------------------
 *
          CALL XLAENV( 1, 1 )
          IF( TSTERR ) CALL SERRGG( 'LSE', NOUT )          CALL SCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO )
@@ -1279,6 +1279,6 @@
      $      ', IACC22 =', I4)
  9960 FORMAT( / ' Tests of the CS Decomposition routines' )
 *
-*     End of SCHKEE
+      // End of SCHKEE
 *
       END

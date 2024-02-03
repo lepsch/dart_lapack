@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, M, N;
       double             AMAX, COLCND, ROWCND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             C( * ), R( * );
       COMPLEX*16         AB( LDAB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, KD;
       double             BIGNUM, RCMAX, RCMIN, SMLNUM;
       COMPLEX*16         ZDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -61,7 +61,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          ROWCND = ONE
@@ -70,18 +70,18 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SMLNUM = DLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
 *
-*     Compute row scale factors.
+      // Compute row scale factors.
 *
       DO 10 I = 1, M
          R( I ) = ZERO
    10 CONTINUE
 *
-*     Find the maximum element in each row.
+      // Find the maximum element in each row.
 *
       KD = KU + 1
       DO 30 J = 1, N
@@ -90,7 +90,7 @@
    20    CONTINUE
    30 CONTINUE
 *
-*     Find the maximum and minimum scale factors.
+      // Find the maximum and minimum scale factors.
 *
       RCMIN = BIGNUM
       RCMAX = ZERO
@@ -102,7 +102,7 @@
 *
       IF( RCMIN.EQ.ZERO ) THEN
 *
-*        Find the first zero scale factor and return an error code.
+         // Find the first zero scale factor and return an error code.
 *
          DO 50 I = 1, M
             IF( R( I ).EQ.ZERO ) THEN
@@ -112,25 +112,25 @@
    50    CONTINUE
       ELSE
 *
-*        Invert the scale factors.
+         // Invert the scale factors.
 *
          DO 60 I = 1, M
             R( I ) = ONE / MIN( MAX( R( I ), SMLNUM ), BIGNUM )
    60    CONTINUE
 *
-*        Compute ROWCND = min(R(I)) / max(R(I))
+         // Compute ROWCND = min(R(I)) / max(R(I))
 *
          ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
       END IF
 *
-*     Compute column scale factors
+      // Compute column scale factors
 *
       DO 70 J = 1, N
          C( J ) = ZERO
    70 CONTINUE
 *
-*     Find the maximum element in each column,
-*     assuming the row scaling computed above.
+      // Find the maximum element in each column,
+      // assuming the row scaling computed above.
 *
       KD = KU + 1
       DO 90 J = 1, N
@@ -139,7 +139,7 @@
    80    CONTINUE
    90 CONTINUE
 *
-*     Find the maximum and minimum scale factors.
+      // Find the maximum and minimum scale factors.
 *
       RCMIN = BIGNUM
       RCMAX = ZERO
@@ -150,7 +150,7 @@
 *
       IF( RCMIN.EQ.ZERO ) THEN
 *
-*        Find the first zero scale factor and return an error code.
+         // Find the first zero scale factor and return an error code.
 *
          DO 110 J = 1, N
             IF( C( J ).EQ.ZERO ) THEN
@@ -160,19 +160,19 @@
   110    CONTINUE
       ELSE
 *
-*        Invert the scale factors.
+         // Invert the scale factors.
 *
          DO 120 J = 1, N
             C( J ) = ONE / MIN( MAX( C( J ), SMLNUM ), BIGNUM )
   120    CONTINUE
 *
-*        Compute COLCND = min(C(J)) / max(C(J))
+         // Compute COLCND = min(C(J)) / max(C(J))
 *
          COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
       END IF
 *
       RETURN
 *
-*     End of ZGBEQU
+      // End of ZGBEQU
 *
       END

@@ -4,25 +4,25 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCC, INCX, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               C( * )
       COMPLEX            S( * ), X( * ), Y( * ), Z( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, IC, IX;
       REAL               CI, SII, SIR, T1I, T1R, T5, T6, XI, YI, ZII, ZIR
       COMPLEX            SI, T2, T3, T4, ZI
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, CMPLX, CONJG, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IX = 1
       IC = 1
@@ -51,6 +51,6 @@
    10 CONTINUE
       RETURN
 *
-*     End of CLAR2V
+      // End of CLAR2V
 *
       END

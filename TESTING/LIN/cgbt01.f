@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KL, KU, LDA, LDAFAC, M, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, I1, I2, IL, IP, IW, J, JL, JU, JUA, KD, LENJ;
       REAL               ANORM, EPS
       COMPLEX            T
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SCASUM, SLAMCH
       // EXTERNAL SCASUM, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if M = 0 or N = 0.
+      // Quick exit if M = 0 or N = 0.
 *
       RESID = ZERO
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = SLAMCH( 'Epsilon' )
       KD = KU + 1
@@ -52,12 +52,12 @@
          IF( I2.GE.I1 ) ANORM = MAX( ANORM, SCASUM( I2-I1+1, A( I1, J ), 1 ) )
    10 CONTINUE
 *
-*     Compute one column at a time of L*U - A.
+      // Compute one column at a time of L*U - A.
 *
       KD = KL + KU + 1
       DO 40 J = 1, N
 *
-*        Copy the J-th column of U to WORK.
+         // Copy the J-th column of U to WORK.
 *
          JU = MIN( KL+KU, J-1 )
          JL = MIN( KL, M-J )
@@ -68,8 +68,8 @@
                WORK( I ) = ZERO
    20       CONTINUE
 *
-*           Multiply by the unit lower triangular matrix L.  Note that L
-*           is stored as a product of transformations and permutations.
+            // Multiply by the unit lower triangular matrix L.  Note that L
+            // is stored as a product of transformations and permutations.
 *
             DO 30 I = MIN( M-1, J ), J - JU, -1
                IL = MIN( KL, M-I )
@@ -86,18 +86,18 @@
                END IF
    30       CONTINUE
 *
-*           Subtract the corresponding column of A.
+            // Subtract the corresponding column of A.
 *
             JUA = MIN( JU, KU )
             IF( JUA+JL+1.GT.0 ) CALL CAXPY( JUA+JL+1, -CMPLX( ONE ), A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 )
 *
-*           Compute the 1-norm of the column.
+            // Compute the 1-norm of the column.
 *
             RESID = MAX( RESID, SCASUM( JU+JL+1, WORK, 1 ) )
          END IF
    40 CONTINUE
 *
-*     Compute norm(L*U - A) / ( N * norm(A) * EPS )
+      // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 *
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
@@ -107,6 +107,6 @@
 *
       RETURN
 *
-*     End of CGBT01
+      // End of CGBT01
 *
       END

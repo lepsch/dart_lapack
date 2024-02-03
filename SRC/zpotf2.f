@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J;
       double             AJJ;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, DISNAN;
       COMPLEX*16         ZDOTC
       // EXTERNAL LSAME, ZDOTC, DISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDSCAL, ZGEMV, ZLACGV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -54,17 +54,17 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Compute the Cholesky factorization A = U**H *U.
+         // Compute the Cholesky factorization A = U**H *U.
 *
          DO 10 J = 1, N
 *
-*           Compute U(J,J) and test for non-positive-definiteness.
+            // Compute U(J,J) and test for non-positive-definiteness.
 *
             AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) )
             IF( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) THEN
@@ -74,7 +74,7 @@
             AJJ = SQRT( AJJ )
             A( J, J ) = AJJ
 *
-*           Compute elements J+1:N of row J.
+            // Compute elements J+1:N of row J.
 *
             IF( J.LT.N ) THEN
                CALL ZLACGV( J-1, A( 1, J ), 1 )
@@ -85,11 +85,11 @@
    10    CONTINUE
       ELSE
 *
-*        Compute the Cholesky factorization A = L*L**H.
+         // Compute the Cholesky factorization A = L*L**H.
 *
          DO 20 J = 1, N
 *
-*           Compute L(J,J) and test for non-positive-definiteness.
+            // Compute L(J,J) and test for non-positive-definiteness.
 *
             AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) )
             IF( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) THEN
@@ -99,7 +99,7 @@
             AJJ = SQRT( AJJ )
             A( J, J ) = AJJ
 *
-*           Compute elements J+1:N of column J.
+            // Compute elements J+1:N of column J.
 *
             IF( J.LT.N ) THEN
                CALL ZLACGV( J-1, A( J, 1 ), LDA )
@@ -117,6 +117,6 @@
    40 CONTINUE
       RETURN
 *
-*     End of ZPOTF2
+      // End of ZPOTF2
 *
       END

@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDX, LDY, N, TYPE;
       REAL               ALPHA, BETA, WX, WY
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), B( LDA, * ), DIF( * ), S( * ), X( LDX, * ), Y( LDY, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO, THREE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, THREE = 3.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               WORK( 100 ), Z( 12, 12 )
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL, SQRT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGESVD, SLACPY, SLAKF2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Generate test problem ...
-*     (Da, Db) ...
+      // Generate test problem ...
+      // (Da, Db) ...
 *
       DO 20 I = 1, N
          DO 10 J = 1, N
@@ -49,7 +49,7 @@
    10    CONTINUE
    20 CONTINUE
 *
-*     Form X and Y
+      // Form X and Y
 *
       CALL SLACPY( 'F', N, N, B, LDA, Y, LDY )
       Y( 3, 1 ) = -WY
@@ -67,7 +67,7 @@
       X( 2, 4 ) = -WX
       X( 2, 5 ) = -WX
 *
-*     Form (A, B)
+      // Form (A, B)
 *
       B( 1, 3 ) = WX + WY
       B( 2, 3 ) = -WX + WY
@@ -100,7 +100,7 @@
          A( 5, 5 ) = A( 4, 4 )
       END IF
 *
-*     Compute condition numbers
+      // Compute condition numbers
 *
       IF( TYPE.EQ.1 ) THEN
 *
@@ -134,6 +134,6 @@
 *
       RETURN
 *
-*     End of SLATM6
+      // End of SLATM6
 *
       END

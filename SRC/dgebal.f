@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOB;
       int                IHI, ILO, INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), SCALE( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       double             SCLFAC;
       PARAMETER          ( SCLFAC = 2.0D+0 )
       double             FACTOR;
       PARAMETER          ( FACTOR = 0.95D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOCONV, CANSWAP;
       int                I, ICA, IRA, J, K, L;
       double             C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               DISNAN, LSAME;
       int                IDAMAX;
       double             DLAMCH, DNRM2;
       // EXTERNAL DISNAN, LSAME, IDAMAX, DLAMCH, DNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     Test the input parameters
+      // ..
+      // Test the input parameters
 *
       INFO = 0
       IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
@@ -54,7 +54,7 @@
          RETURN
       END IF
 *
-*     Quick returns.
+      // Quick returns.
 *
       IF( N.EQ.0 ) THEN
          ILO = 1
@@ -71,19 +71,19 @@
          RETURN
       END IF
 *
-*     Permutation to isolate eigenvalues if possible.
+      // Permutation to isolate eigenvalues if possible.
 *
       K = 1
       L = N
 *
       IF( .NOT.LSAME( JOB, 'S' ) ) THEN
 *
-*        Row and column exchange.
+         // Row and column exchange.
 *
          NOCONV = .TRUE.
          DO WHILE( NOCONV )
 *
-*           Search for rows isolating an eigenvalue and push them down.
+            // Search for rows isolating an eigenvalue and push them down.
 *
             NOCONV = .FALSE.
             DO I = L, 1, -1
@@ -118,7 +118,7 @@
          NOCONV = .TRUE.
          DO WHILE( NOCONV )
 *
-*           Search for columns isolating an eigenvalue and push them left.
+            // Search for columns isolating an eigenvalue and push them left.
 *
             NOCONV = .FALSE.
             DO J = K, L
@@ -146,13 +146,13 @@
 *
       END IF
 *
-*     Initialize SCALE for non-permuted submatrix.
+      // Initialize SCALE for non-permuted submatrix.
 *
       DO I = K, L
          SCALE( I ) = ONE
       END DO
 *
-*     If we only had to permute, we are done.
+      // If we only had to permute, we are done.
 *
       IF( LSAME( JOB, 'P' ) ) THEN
          ILO = K
@@ -160,9 +160,9 @@
          RETURN
       END IF
 *
-*     Balance the submatrix in rows K to L.
+      // Balance the submatrix in rows K to L.
 *
-*     Iterative loop for norm reduction.
+      // Iterative loop for norm reduction.
 *
       SFMIN1 = DLAMCH( 'S' ) / DLAMCH( 'P' )
       SFMAX1 = ONE / SFMIN1
@@ -182,11 +182,11 @@
             IRA = IDAMAX( N-K+1, A( I, K ), LDA )
             RA = ABS( A( I, IRA+K-1 ) )
 *
-*           Guard against zero C or R due to underflow.
+            // Guard against zero C or R due to underflow.
 *
             IF( C.EQ.ZERO .OR. R.EQ.ZERO ) CYCLE
 *
-*           Exit if NaN to avoid infinite loop
+            // Exit if NaN to avoid infinite loop
 *
             IF( DISNAN( C+CA+R+RA ) ) THEN
                INFO = -3
@@ -218,7 +218,7 @@
                RA = RA*SCLFAC
             END DO
 *
-*           Now balance.
+            // Now balance.
 *
             IF( ( C+R ).GE.FACTOR*S ) CYCLE
             IF( F.LT.ONE .AND. SCALE( I ).LT.ONE ) THEN
@@ -243,6 +243,6 @@
 *
       RETURN
 *
-*     End of DGEBAL
+      // End of DGEBAL
 *
       END

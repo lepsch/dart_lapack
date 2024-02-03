@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWRK, ITAU, IWRK, JC, JR, LWKMIN, LWKOPT;
       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
       COMPLEX*16         X
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               LDUMMA( 1 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHD3, ZLAQZ0, ZLACPY, ZLASCL, ZLASET, ZTGEVC, ZUNGQR, ZUNMQR
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE;
       // EXTERNAL LSAME, DLAMCH, ZLANGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX, SQRT
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             ABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       ABS1( X ) = ABS( DBLE( X ) ) + ABS( DIMAG( X ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
@@ -75,7 +75,7 @@
       END IF
       ILV = ILVL .OR. ILVR
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -98,7 +98,7 @@
          INFO = -15
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO.EQ.0 ) THEN
          CALL ZGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
@@ -134,11 +134,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'E' )*DLAMCH( 'B' )
       SMLNUM = DLAMCH( 'S' )
@@ -146,7 +146,7 @@
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
@@ -159,7 +159,7 @@
       END IF
       IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
@@ -172,14 +172,14 @@
       END IF
       IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
-*     Permute the matrices A, B to isolate eigenvalues if possible
+      // Permute the matrices A, B to isolate eigenvalues if possible
 *
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
       CALL ZGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
 *
-*     Reduce B to triangular form (QR decomposition of B)
+      // Reduce B to triangular form (QR decomposition of B)
 *
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
@@ -191,11 +191,11 @@
       IWRK = ITAU + IROWS
       CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Apply the orthogonal transformation to matrix A
+      // Apply the orthogonal transformation to matrix A
 *
       CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Initialize VL
+      // Initialize VL
 *
       IF( ILVL ) THEN
          CALL ZLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
@@ -205,23 +205,23 @@
          CALL ZUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-*     Initialize VR
+      // Initialize VR
 *
       IF( ILVR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
 *
-*     Reduce to generalized Hessenberg form
+      // Reduce to generalized Hessenberg form
 *
       IF( ILV ) THEN
 *
-*        Eigenvectors requested -- work on whole matrix.
+         // Eigenvectors requested -- work on whole matrix.
 *
          CALL ZGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       ELSE
          CALL ZGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-*     Perform QZ algorithm (Compute eigenvalues, and optionally, the
-*     Schur form and Schur vectors)
+      // Perform QZ algorithm (Compute eigenvalues, and optionally, the
+      // Schur form and Schur vectors)
 *
       IWRK = ITAU
       IF( ILV ) THEN
@@ -241,7 +241,7 @@
          GO TO 70
       END IF
 *
-*     Compute Eigenvectors
+      // Compute Eigenvectors
 *
       IF( ILV ) THEN
          IF( ILVL ) THEN
@@ -260,7 +260,7 @@
             GO TO 70
          END IF
 *
-*        Undo balancing on VL and VR and normalization
+         // Undo balancing on VL and VR and normalization
 *
          IF( ILVL ) THEN
             CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IERR )
@@ -292,7 +292,7 @@
          END IF
       END IF
 *
-*     Undo scaling if necessary
+      // Undo scaling if necessary
 *
    70 CONTINUE
 *
@@ -303,6 +303,6 @@
       WORK( 1 ) = DCMPLX( LWKOPT )
       RETURN
 *
-*     End of ZGGEV3
+      // End of ZGGEV3
 *
       END

@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, N;
       double             AMAX, SCOND;
       String             UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), S( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
       int                MAX_ITER;
       PARAMETER          ( MAX_ITER = 100 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, ITER;
       double             AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
       bool               UP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       bool               LSAME;
       // EXTERNAL DLAMCH, LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASSQ, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF ( .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) THEN
@@ -57,7 +57,7 @@
       UP = LSAME( UPLO, 'U' )
       AMAX = ZERO
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ( N .EQ. 0 ) THEN
          SCOND = ONE
@@ -99,7 +99,7 @@
       DO ITER = 1, MAX_ITER
          SCALE = 0.0D0
          SUMSQ = 0.0D0
-*        beta = |A|s
+         // beta = |A|s
          DO I = 1, N
             WORK( I ) = ZERO
          END DO
@@ -121,7 +121,7 @@
             END DO
          END IF
 
-*        avg = s^T beta / n
+         // avg = s^T beta / n
          AVG = 0.0D0
          DO I = 1, N
             AVG = AVG + S( I )*WORK( I )

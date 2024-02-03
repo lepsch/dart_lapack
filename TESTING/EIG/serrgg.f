@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = 6*NMAX )
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                DUMMYK, DUMMYL, I, IFST, ILO, IHI, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK;
       REAL               ANRM, BNRM, DIF, SCALE, TOLA, TOLB
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               BW( NMAX ), SEL( NMAX );
       int                IW( NMAX ), IDUM(NMAX);
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), LS( NMAX ), Q( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), R3( NMAX ), RCE( 2 ), RCV( 2 ), RS( NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN, SLCTES, SLCTSX;
       // EXTERNAL LSAMEN, SLCTES, SLCTSX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, SGGES, SGGESX, SGGEV, SGGEVX, SGGGLM, SGGHRD, SGGLSE, SGGQRF, SGGRQF, SHGEQZ, SORCSD, STGEVC, STGEXC, STGSEN, STGSJA, STGSNA, STGSYL, SGGES3, SGGEV3, SGGHD3, SGGSVD3, SGGSVP3, XLAENV
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          SEL( J ) = .TRUE.
@@ -70,7 +70,7 @@
       NT = 0
       LWORK = 1
 *
-*     Call XLAENV to set the parameters used in CLAQZ0
+      // Call XLAENV to set the parameters used in CLAQZ0
 *
       CALL XLAENV( 12, 10 )
       CALL XLAENV( 13, 12 )
@@ -78,11 +78,11 @@
       CALL XLAENV( 15, 2 )
       CALL XLAENV( 17, 10 )
 *
-*     Test error exits for the GG path.
+      // Test error exits for the GG path.
 *
       IF( LSAMEN( 2, C2, 'GG' ) ) THEN
 *
-*        SGGHRD
+         // SGGHRD
 *
          SRNAMT = 'SGGHRD'
          INFOT = 1
@@ -114,7 +114,7 @@
          CALL CHKXER( 'SGGHRD', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        SGGHD3
+         // SGGHD3
 *
          SRNAMT = 'SGGHD3'
          INFOT = 1
@@ -146,7 +146,7 @@
          CALL CHKXER( 'SGGHD3', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        SHGEQZ
+         // SHGEQZ
 *
          SRNAMT = 'SHGEQZ'
          INFOT = 1
@@ -181,7 +181,7 @@
          CALL CHKXER( 'SHGEQZ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        STGEVC
+         // STGEVC
 *
          SRNAMT = 'STGEVC'
          INFOT = 1
@@ -210,11 +210,11 @@
          CALL CHKXER( 'STGEVC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the GSV path.
+      // Test error exits for the GSV path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GSV' ) ) THEN
 *
-*        SGGSVD3
+         // SGGSVD3
 *
          SRNAMT = 'SGGSVD3'
          INFOT = 1
@@ -252,7 +252,7 @@
          CALL CHKXER( 'SGGSVD3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        SGGSVP3
+         // SGGSVP3
 *
          SRNAMT = 'SGGSVP3'
          INFOT = 1
@@ -290,7 +290,7 @@
          CALL CHKXER( 'SGGSVP3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        STGSJA
+         // STGSJA
 *
          SRNAMT = 'STGSJA'
          INFOT = 1
@@ -328,11 +328,11 @@
          CALL CHKXER( 'STGSJA', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*     Test error exits for the GLM path.
+      // Test error exits for the GLM path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GLM' ) ) THEN
 *
-*        SGGGLM
+         // SGGGLM
 *
          SRNAMT = 'SGGGLM'
          INFOT = 1
@@ -361,11 +361,11 @@
          CALL CHKXER( 'SGGGLM', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the LSE path.
+      // Test error exits for the LSE path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'LSE' ) ) THEN
 *
-*        SGGLSE
+         // SGGLSE
 *
          SRNAMT = 'SGGLSE'
          INFOT = 1
@@ -394,11 +394,11 @@
          CALL CHKXER( 'SGGLSE', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the CSD path.
+      // Test error exits for the CSD path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'CSD' ) ) THEN
 *
-*        SORCSD
+         // SORCSD
 *
          SRNAMT = 'SORCSD'
          INFOT = 7
@@ -427,11 +427,11 @@
          CALL CHKXER( 'SORCSD', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the GQR path.
+      // Test error exits for the GQR path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GQR' ) ) THEN
 *
-*        SGGQRF
+         // SGGQRF
 *
          SRNAMT = 'SGGQRF'
          INFOT = 1
@@ -454,7 +454,7 @@
          CALL CHKXER( 'SGGQRF', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        SGGRQF
+         // SGGRQF
 *
          SRNAMT = 'SGGRQF'
          INFOT = 1
@@ -477,11 +477,11 @@
          CALL CHKXER( 'SGGRQF', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*     Test error exits for the SGS, SGV, SGX, and SXV paths.
+      // Test error exits for the SGS, SGV, SGX, and SXV paths.
 *
       ELSE IF( LSAMEN( 3, PATH, 'SGS' ) .OR. LSAMEN( 3, PATH, 'SGV' ) .OR. LSAMEN( 3, PATH, 'SGX' ) .OR. LSAMEN( 3, PATH, 'SXV' ) ) THEN
 *
-*        SGGES
+         // SGGES
 *
          SRNAMT = 'SGGES '
          INFOT = 1
@@ -519,7 +519,7 @@
          CALL CHKXER( 'SGGES ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        SGGES3
+         // SGGES3
 *
          SRNAMT = 'SGGES3'
          INFOT = 1
@@ -557,7 +557,7 @@
          CALL CHKXER( 'SGGES3 ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        SGGESX
+         // SGGESX
 *
          SRNAMT = 'SGGESX'
          INFOT = 1
@@ -601,7 +601,7 @@
          CALL CHKXER( 'SGGESX', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        SGGEV
+         // SGGEV
 *
          SRNAMT = 'SGGEV '
          INFOT = 1
@@ -636,7 +636,7 @@
          CALL CHKXER( 'SGGEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        SGGEV3
+         // SGGEV3
 *
          SRNAMT = 'SGGEV3 '
          INFOT = 1
@@ -671,7 +671,7 @@
          CALL CHKXER( 'SGGEV3 ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        SGGEVX
+         // SGGEVX
 *
          SRNAMT = 'SGGEVX'
          INFOT = 1
@@ -712,7 +712,7 @@
          CALL CHKXER( 'SGGEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        STGEXC
+         // STGEXC
 *
          SRNAMT = 'STGEXC'
          INFOT = 3
@@ -741,7 +741,7 @@
          CALL CHKXER( 'STGEXC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*        STGSEN
+         // STGSEN
 *
          SRNAMT = 'STGSEN'
          INFOT = 1
@@ -782,7 +782,7 @@
          CALL CHKXER( 'STGSEN', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        STGSNA
+         // STGSNA
 *
          SRNAMT = 'STGSNA'
          INFOT = 1
@@ -814,7 +814,7 @@
          CALL CHKXER( 'STGSNA', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        STGSYL
+         // STGSYL
 *
          SRNAMT = 'STGSYL'
          INFOT = 1
@@ -856,7 +856,7 @@
          NT = NT + 12
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -871,6 +871,6 @@
 *
       RETURN
 *
-*     End of SERRGG
+      // End of SERRGG
 *
       END

@@ -4,49 +4,49 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVS, SENSE, SORT;
       int                INFO, LDA, LDVS, LWORK, N, SDIM;
       REAL               RCONDE, RCONDV
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * );
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), VS( LDVS, * ), W( * ), WORK( * )
-*     ..
-*     .. Function Arguments ..
+      // ..
+      // .. Function Arguments ..
       bool               SELECT;
       // EXTERNAL SELECT
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS       int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, LWRK, MAXWRK, MINWRK;;
       REAL               ANRM, BIGNUM, CSCALE, EPS, SMLNUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUM( 1 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CTRSEN, CUNGHR, SLASCL, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       WANTVS = LSAME( JOBVS, 'V' )
@@ -71,19 +71,19 @@
          INFO = -11
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of real workspace needed at that point in the
-*       code, as well as the preferred amount for good performance.
-*       CWorkspace refers to complex workspace, and RWorkspace to real
-*       workspace. NB refers to the optimal block size for the
-*       immediately following subroutine, as returned by ILAENV.
-*       HSWORK refers to the workspace preferred by CHSEQR, as
-*       calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-*       the worst case.
-*       If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
-*       depends on SDIM, which is computed by the routine CTRSEN later
-*       in the code.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of real workspace needed at that point in the
+        // code, as well as the preferred amount for good performance.
+        // CWorkspace refers to complex workspace, and RWorkspace to real
+        // workspace. NB refers to the optimal block size for the
+        // immediately following subroutine, as returned by ILAENV.
+        // HSWORK refers to the workspace preferred by CHSEQR, as
+        // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
+       t // he worst case.
+        // If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
+        // depends on SDIM, which is computed by the routine CTRSEN later
+        // in the code.)
 *
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
@@ -119,14 +119,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          SDIM = 0
          RETURN
       END IF
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' )
@@ -134,7 +134,7 @@
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = CLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = .FALSE.
@@ -148,16 +148,16 @@
       IF( SCALEA ) CALL CLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 *
 *
-*     Permute the matrix to make it more nearly triangular
-*     (CWorkspace: none)
-*     (RWorkspace: need N)
+      // Permute the matrix to make it more nearly triangular
+      // (CWorkspace: none)
+      // (RWorkspace: need N)
 *
       IBAL = 1
       CALL CGEBAL( 'P', N, A, LDA, ILO, IHI, RWORK( IBAL ), IERR )
 *
-*     Reduce to upper Hessenberg form
-*     (CWorkspace: need 2*N, prefer N+N*NB)
-*     (RWorkspace: none)
+      // Reduce to upper Hessenberg form
+      // (CWorkspace: need 2*N, prefer N+N*NB)
+      // (RWorkspace: none)
 *
       ITAU = 1
       IWRK = N + ITAU
@@ -165,27 +165,27 @@
 *
       IF( WANTVS ) THEN
 *
-*        Copy Householder vectors to VS
+         // Copy Householder vectors to VS
 *
          CALL CLACPY( 'L', N, N, A, LDA, VS, LDVS )
 *
-*        Generate unitary matrix in VS
-*        (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
-*        (RWorkspace: none)
+         // Generate unitary matrix in VS
+         // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
+         // (RWorkspace: none)
 *
          CALL CUNGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
       END IF
 *
       SDIM = 0
 *
-*     Perform QR iteration, accumulating Schur vectors in VS if desired
-*     (CWorkspace: need 1, prefer HSWORK (see comments) )
-*     (RWorkspace: none)
+      // Perform QR iteration, accumulating Schur vectors in VS if desired
+      // (CWorkspace: need 1, prefer HSWORK (see comments) )
+      // (RWorkspace: none)
 *
       IWRK = ITAU
       CALL CHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, W, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL.GT.0 ) INFO = IEVAL
 *
-*     Sort eigenvalues if desired
+      // Sort eigenvalues if desired
 *
       IF( WANTST .AND. INFO.EQ.0 ) THEN
          IF( SCALEA ) CALL CLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
@@ -193,17 +193,17 @@
             BWORK( I ) = SELECT( W( I ) )
    10    CONTINUE
 *
-*        Reorder eigenvalues, transform Schur vectors, and compute
-*        reciprocal condition numbers
-*        (CWorkspace: if SENSE is not 'N', need 2*SDIM*(N-SDIM)
-*                     otherwise, need none )
-*        (RWorkspace: none)
+         // Reorder eigenvalues, transform Schur vectors, and compute
+         // reciprocal condition numbers
+         // (CWorkspace: if SENSE is not 'N', need 2*SDIM*(N-SDIM)
+                      // otherwise, need none )
+         // (RWorkspace: none)
 *
          CALL CTRSEN( SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND )
          IF( .NOT.WANTSN ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
          IF( ICOND.EQ.-14 ) THEN
 *
-*           Not enough complex workspace
+            // Not enough complex workspace
 *
             INFO = -15
          END IF
@@ -211,16 +211,16 @@
 *
       IF( WANTVS ) THEN
 *
-*        Undo balancing
-*        (CWorkspace: none)
-*        (RWorkspace: need N)
+         // Undo balancing
+         // (CWorkspace: none)
+         // (RWorkspace: need N)
 *
          CALL CGEBAK( 'P', 'R', N, ILO, IHI, RWORK( IBAL ), N, VS, LDVS, IERR )
       END IF
 *
       IF( SCALEA ) THEN
 *
-*        Undo scaling for the Schur form of A
+         // Undo scaling for the Schur form of A
 *
          CALL CLASCL( 'U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR )
          CALL CCOPY( N, A, LDA+1, W, 1 )
@@ -234,6 +234,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN
 *
-*     End of CGEESX
+      // End of CGEESX
 *
       END

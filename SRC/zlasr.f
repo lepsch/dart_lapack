@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIRECT, PIVOT, SIDE;
       int                LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             C( * ), S( * );
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
       double             CTEMP, STEMP;
       COMPLEX*16         TEMP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       IF( .NOT.( LSAME( SIDE, 'L' ) .OR. LSAME( SIDE, 'R' ) ) ) THEN
@@ -57,12 +57,12 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) RETURN
       IF( LSAME( SIDE, 'L' ) ) THEN
 *
-*        Form  P * A
+         // Form  P * A
 *
          IF( LSAME( PIVOT, 'V' ) ) THEN
             IF( LSAME( DIRECT, 'F' ) ) THEN
@@ -145,7 +145,7 @@
          END IF
       ELSE IF( LSAME( SIDE, 'R' ) ) THEN
 *
-*        Form A * P**T
+         // Form A * P**T
 *
          IF( LSAME( PIVOT, 'V' ) ) THEN
             IF( LSAME( DIRECT, 'F' ) ) THEN
@@ -230,6 +230,6 @@
 *
       RETURN
 *
-*     End of ZLASR
+      // End of ZLASR
 *
       END

@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE  = ( 1.0D+0, 0.0D+0 ) )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANHE;
       // EXTERNAL LSAME, DLAMCH, ZLANHE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLASET, ZLAVHE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
 *
-*     Initialize C to the tridiagonal matrix T.
+      // Initialize C to the tridiagonal matrix T.
 *
       CALL ZLASET( 'Full', N, N, CZERO, CZERO, C, LDC )
       CALL ZLACPY( 'F', 1, N, AFAC( 1, 1 ), LDAFAC+1, C( 1, 1 ), LDC+1 )
@@ -65,7 +65,7 @@
             CALL ZLACGV( N-1, C( 1, 2 ), LDC+1 )
          ENDIF
 *
-*        Call ZTRMM to form the product U' * D (or L * D ).
+         // Call ZTRMM to form the product U' * D (or L * D ).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
             CALL ZTRMM( 'Left', UPLO, 'Conjugate transpose', 'Unit', N-1, N, CONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
@@ -73,7 +73,7 @@
             CALL ZTRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N, CONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
          END IF
 *
-*        Call ZTRMM again to multiply by U (or L ).
+         // Call ZTRMM again to multiply by U (or L ).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
             CALL ZTRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1, CONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
@@ -81,7 +81,7 @@
             CALL ZTRMM( 'Right', UPLO, 'Conjugate transpose', 'Unit', N, N-1, CONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
          END IF
 *
-*        Apply hermitian pivots
+         // Apply hermitian pivots
 *
          DO J = N, 1, -1
             I = IPIV( J )
@@ -94,7 +94,7 @@
       ENDIF
 *
 *
-*     Compute the difference  C - A .
+      // Compute the difference  C - A .
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO J = 1, N
@@ -110,7 +110,7 @@
          END DO
       END IF
 *
-*     Compute norm( C - A ) / ( N * norm(A) * EPS )
+      // Compute norm( C - A ) / ( N * norm(A) * EPS )
 *
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 *
@@ -122,6 +122,6 @@
 *
       RETURN
 *
-*     End of ZHET01_AA
+      // End of ZHET01_AA
 *
       END

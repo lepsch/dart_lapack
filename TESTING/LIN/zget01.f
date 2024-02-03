@@ -4,64 +4,64 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDAFAC, M, N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       double             ANORM, EPS;
       COMPLEX*16         T
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       COMPLEX*16         ZDOTU
       // EXTERNAL DLAMCH, ZLANGE, ZDOTU
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMV, ZLASWP, ZSCAL, ZTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if M = 0 or N = 0.
+      // Quick exit if M = 0 or N = 0.
 *
       IF( M.LE.0 .OR. N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANGE( '1', M, N, A, LDA, RWORK )
 *
-*     Compute the product L*U and overwrite AFAC with the result.
-*     A column at a time of the product is obtained, starting with
-*     column N.
+      // Compute the product L*U and overwrite AFAC with the result.
+      // A column at a time of the product is obtained, starting with
+      // column N.
 *
       DO 10 K = N, 1, -1
          IF( K.GT.M ) THEN
             CALL ZTRMV( 'Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          ELSE
 *
-*           Compute elements (K+1:M,K)
+            // Compute elements (K+1:M,K)
 *
             T = AFAC( K, K )
             IF( K+1.LE.M ) THEN
@@ -69,18 +69,18 @@
                CALL ZGEMV( 'No transpose', M-K, K-1, CONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, CONE, AFAC( K+1, K ), 1 )
             END IF
 *
-*           Compute the (K,K) element
+            // Compute the (K,K) element
 *
             AFAC( K, K ) = T + ZDOTU( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 )
 *
-*           Compute elements (1:K-1,K)
+            // Compute elements (1:K-1,K)
 *
             CALL ZTRMV( 'Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          END IF
    10 CONTINUE
       CALL ZLASWP( N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 )
 *
-*     Compute the difference  L*U - A  and store in AFAC.
+      // Compute the difference  L*U - A  and store in AFAC.
 *
       DO 30 J = 1, N
          DO 20 I = 1, M
@@ -88,7 +88,7 @@
    20    CONTINUE
    30 CONTINUE
 *
-*     Compute norm( L*U - A ) / ( N * norm(A) * EPS )
+      // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 *
       RESID = ZLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
 *
@@ -100,6 +100,6 @@
 *
       RETURN
 *
-*     End of ZGET01
+      // End of ZGET01
 *
       END

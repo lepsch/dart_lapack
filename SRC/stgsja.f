@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P;
       REAL               TOLA, TOLB
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXIT;
       PARAMETER          ( MAXIT = 40 )
       REAL               ZERO, ONE, HUGENUM
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
 *
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE;
       REAL               A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SNQ, SNU, SNV, SSMIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLAGS2, SLAPLL, SLARTG, SLASET, SROT, SSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, HUGE
       PARAMETER          ( HUGENUM = HUGE(ZERO) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       INITU = LSAME( JOBU, 'I' )
       WANTU = INITU .OR. LSAME( JOBU, 'U' )
@@ -80,11 +80,11 @@
          RETURN
       END IF
 *
-*     Initialize U, V and Q, if necessary
+      // Initialize U, V and Q, if necessary
 *
       IF( INITU ) CALL SLASET( 'Full', M, M, ZERO, ONE, U, LDU )       IF( INITV ) CALL SLASET( 'Full', P, P, ZERO, ONE, V, LDV )       IF( INITQ ) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )
 *
-*     Loop until convergence
+      // Loop until convergence
 *
       UPPER = .FALSE.
       DO 40 KCYCLE = 1, MAXIT
@@ -112,16 +112,16 @@
 *
                CALL SLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
 *
-*              Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
+               // Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
 *
                IF( K+J.LE.M ) CALL SROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, SNU )
 *
-*              Update I-th and J-th rows of matrix B: V**T *B
+               // Update I-th and J-th rows of matrix B: V**T *B
 *
                CALL SROT( L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, SNV )
 *
-*              Update (N-L+I)-th and (N-L+J)-th columns of matrices
-*              A and B: A*Q and B*Q
+               // Update (N-L+I)-th and (N-L+J)-th columns of matrices
+               // A and B: A*Q and B*Q
 *
                CALL SROT( MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ )
 *
@@ -135,7 +135,7 @@
                   B( J, N-L+I ) = ZERO
                END IF
 *
-*              Update orthogonal matrices U, V, Q, if desired.
+               // Update orthogonal matrices U, V, Q, if desired.
 *
                IF( WANTU .AND. K+J.LE.M ) CALL SROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU )
 *
@@ -148,11 +148,11 @@
 *
          IF( .NOT.UPPER ) THEN
 *
-*           The matrices A13 and B13 were lower triangular at the start
-*           of the cycle, and are now upper triangular.
+            // The matrices A13 and B13 were lower triangular at the start
+            // of the cycle, and are now upper triangular.
 *
-*           Convergence test: test the parallelism of the corresponding
-*           rows of A and B.
+            // Convergence test: test the parallelism of the corresponding
+            // rows of A and B.
 *
             ERROR = ZERO
             DO 30 I = 1, MIN( L, M-K )
@@ -165,20 +165,20 @@
             IF( ABS( ERROR ).LE.MIN( TOLA, TOLB ) ) GO TO 50
          END IF
 *
-*        End of cycle loop
+         // End of cycle loop
 *
    40 CONTINUE
 *
-*     The algorithm has not converged after MAXIT cycles.
+      // The algorithm has not converged after MAXIT cycles.
 *
       INFO = 1
       GO TO 100
 *
    50 CONTINUE
 *
-*     If ERROR <= MIN(TOLA,TOLB), then the algorithm has converged.
-*     Compute the generalized singular value pairs (ALPHA, BETA), and
-*     set the triangular matrix R to array A.
+      // If ERROR <= MIN(TOLA,TOLB), then the algorithm has converged.
+      // Compute the generalized singular value pairs (ALPHA, BETA), and
+      // set the triangular matrix R to array A.
 *
       DO 60 I = 1, K
          ALPHA( I ) = ONE
@@ -193,7 +193,7 @@
 *
          IF( (GAMMA.LE.HUGENUM).AND.(GAMMA.GE.-HUGENUM) ) THEN
 *
-*           change sign if necessary
+            // change sign if necessary
 *
             IF( GAMMA.LT.ZERO ) THEN
                CALL SSCAL( L-I+1, -ONE, B( I, N-L+I ), LDB )
@@ -218,7 +218,7 @@
 *
    70 CONTINUE
 *
-*     Post-assignment
+      // Post-assignment
 *
       DO 80 I = M + 1, K + L
          ALPHA( I ) = ZERO
@@ -236,6 +236,6 @@
       NCYCLE = KCYCLE
       RETURN
 *
-*     End of STGSJA
+      // End of STGSJA
 *
       END

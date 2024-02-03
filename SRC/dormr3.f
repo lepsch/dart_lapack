@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, K, L, LDA, LDC, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, IC, JA, JC, MI, NI, NQ;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARZ, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
 *
-*     NQ is the order of Q
+      // NQ is the order of Q
 *
       IF( LEFT ) THEN
          NQ = M
@@ -65,7 +65,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 *
@@ -92,19 +92,19 @@
       DO 10 I = I1, I2, I3
          IF( LEFT ) THEN
 *
-*           H(i) or H(i)**T is applied to C(i:m,1:n)
+            // H(i) or H(i)**T is applied to C(i:m,1:n)
 *
             MI = M - I + 1
             IC = I
          ELSE
 *
-*           H(i) or H(i)**T is applied to C(1:m,i:n)
+            // H(i) or H(i)**T is applied to C(1:m,i:n)
 *
             NI = N - I + 1
             JC = I
          END IF
 *
-*        Apply H(i) or H(i)**T
+         // Apply H(i) or H(i)**T
 *
          CALL DLARZ( SIDE, MI, NI, L, A( I, JA ), LDA, TAU( I ), C( IC, JC ), LDC, WORK )
 *
@@ -112,6 +112,6 @@
 *
       RETURN
 *
-*     End of DORMR3
+      // End of DORMR3
 *
       END

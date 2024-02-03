@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NVAL( NN );
       REAL               A( LDA, * ), ARF( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             UPLO, CFORM, NORM;
       int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN;
       REAL               EPS, LARGE, NORMA, NORMARF, SMALL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLANSY, SLANSF, SLARND
       // EXTERNAL SLAMCH, SLANSY, SLANSF, SLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL STRTTF
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS / 'U', 'L' /
       DATA               FORMS / 'N', 'T' /
       DATA               NORMS / 'M', '1', 'I', 'F' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       NRUN = 0
       NFAIL = 0
@@ -73,15 +73,15 @@
          N = NVAL( IIN )
 *
          DO 120 IIT = 1, 3
-*           Nothing to do for N=0
+            // Nothing to do for N=0
             IF ( N .EQ. 0 ) EXIT
 
-*           Quick Return if possible
+            // Quick Return if possible
             IF ( N .EQ. 0 ) EXIT
 *
-*           IIT = 1 : random matrix
-*           IIT = 2 : random matrix scaled near underflow
-*           IIT = 3 : random matrix scaled near overflow
+            // IIT = 1 : random matrix
+            // IIT = 2 : random matrix scaled near underflow
+            // IIT = 3 : random matrix scaled near overflow
 *
             DO J = 1, N
                DO I = 1, N
@@ -105,13 +105,13 @@
                END DO
             END IF
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 110 IUPLO = 1, 2
 *
                UPLO = UPLOS( IUPLO )
 *
-*              Do first for CFORM = 'N', then for CFORM = 'C'
+               // Do first for CFORM = 'N', then for CFORM = 'C'
 *
                DO 100 IFORM = 1, 2
 *
@@ -120,7 +120,7 @@
                   SRNAMT = 'STRTTF'
                   CALL STRTTF( CFORM, UPLO, N, A, LDA, ARF, INFO )
 *
-*                 Check error code from STRTTF
+                  // Check error code from STRTTF
 *
                   IF( INFO.NE.0 ) THEN
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
@@ -134,7 +134,7 @@
 *
                   DO 90 INORM = 1, 4
 *
-*                    Check all four norms: 'M', '1', 'I', 'F'
+                     // Check all four norms: 'M', '1', 'I', 'F'
 *
                      NORM = NORMS( INORM )
                      NORMARF = SLANSF( NORM, CFORM, UPLO, N, ARF, WORK )
@@ -157,7 +157,7 @@
   120    CONTINUE
   130 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       IF ( NFAIL.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9996 ) 'SLANSF', NRUN
@@ -182,6 +182,6 @@
 *
       RETURN
 *
-*     End of SDRVRF1
+      // End of SDRVRF1
 *
       END

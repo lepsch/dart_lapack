@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               LLEFT, LRIGHT, LROWS;
       int                LDA, NL;
       COMPLEX            C, S, XLEFT, XRIGHT
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                IINC, INEXT, IX, IY, IYT, J, NT;
       COMPLEX            TEMPX
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX            XT( 2 ), YT( 2 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Set up indices, arrays for ends
+      // Set up indices, arrays for ends
 *
       IF( LROWS ) THEN
          IINC = LDA
@@ -59,7 +59,7 @@
          YT( NT ) = A( IYT )
       END IF
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NL.LT.NT ) THEN
          CALL XERBLA( 'CLAROT', 4 )
@@ -70,9 +70,9 @@
          RETURN
       END IF
 *
-*     Rotate
+      // Rotate
 *
-*     CROT( NL-NT, A(IX),IINC, A(IY),IINC, C, S ) with complex C, S
+      // CROT( NL-NT, A(IX),IINC, A(IY),IINC, C, S ) with complex C, S
 *
       DO 10 J = 0, NL - NT - 1
          TEMPX = C*A( IX+J*IINC ) + S*A( IY+J*IINC )
@@ -80,7 +80,7 @@
          A( IX+J*IINC ) = TEMPX
    10 CONTINUE
 *
-*     CROT( NT, XT,1, YT,1, C, S ) with complex C, S
+      // CROT( NT, XT,1, YT,1, C, S ) with complex C, S
 *
       DO 20 J = 1, NT
          TEMPX = C*XT( J ) + S*YT( J )
@@ -88,7 +88,7 @@
          XT( J ) = TEMPX
    20 CONTINUE
 *
-*     Stuff values back into XLEFT, XRIGHT, etc.
+      // Stuff values back into XLEFT, XRIGHT, etc.
 *
       IF( LLEFT ) THEN
          A( 1 ) = XT( 1 )
@@ -102,6 +102,6 @@
 *
       RETURN
 *
-*     End of CLAROT
+      // End of CLAROT
 *
       END

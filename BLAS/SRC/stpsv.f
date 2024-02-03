@@ -4,34 +4,34 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,N;
       String    DIAG,TRANS,UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL AP(*),X(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL ZERO
       PARAMETER (ZERO=0.0E+0)
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL TEMP
       int     I,INFO,IX,J,JX,K,KK,KX;
       bool    NOUNIT;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
@@ -50,14 +50,14 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF (N.EQ.0) RETURN
 *
       NOUNIT = LSAME(DIAG,'N')
 *
-*     Set up the start point in X if the increment is not unity. This
-*     will be  ( N - 1 )*INCX  too small for descending loops.
+      // Set up the start point in X if the increment is not unity. This
+      // will be  ( N - 1 )*INCX  too small for descending loops.
 *
       IF (INCX.LE.0) THEN
           KX = 1 - (N-1)*INCX
@@ -65,12 +65,12 @@
           KX = 1
       END IF
 *
-*     Start the operations. In this version the elements of AP are
-*     accessed sequentially with one pass through AP.
+      // Start the operations. In this version the elements of AP are
+      // accessed sequentially with one pass through AP.
 *
       IF (LSAME(TRANS,'N')) THEN
 *
-*        Form  x := inv( A )*x.
+         // Form  x := inv( A )*x.
 *
           IF (LSAME(UPLO,'U')) THEN
               KK = (N* (N+1))/2
@@ -137,7 +137,7 @@
           END IF
       ELSE
 *
-*        Form  x := inv( A**T )*x.
+         // Form  x := inv( A**T )*x.
 *
           IF (LSAME(UPLO,'U')) THEN
               KK = 1
@@ -203,6 +203,6 @@
 *
       RETURN
 *
-*     End of STPSV
+      // End of STPSV
 *
       END

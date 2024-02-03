@@ -5,44 +5,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, CGELQT3, CGELQT, CGEMLQT
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL, CMPLX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO J = 1, NMAX
          DO I = 1, NMAX
@@ -54,9 +54,9 @@
       END DO
       OK = .TRUE.
 *
-*     Error exits for LQT factorization
+      // Error exits for LQT factorization
 *
-*     CGELQT
+      // CGELQT
 *
       SRNAMT = 'CGELQT'
       INFOT = 1
@@ -75,7 +75,7 @@
       CALL CGELQT( 2, 2, 2, A, 2, T, 1, W, INFO )
       CALL CHKXER( 'CGELQT', INFOT, NOUT, LERR, OK )
 *
-*     CGELQT3
+      // CGELQT3
 *
       SRNAMT = 'CGELQT3'
       INFOT = 1
@@ -91,7 +91,7 @@
       CALL CGELQT3( 2, 2, A, 2, T, 1, INFO )
       CALL CHKXER( 'CGELQT3', INFOT, NOUT, LERR, OK )
 *
-*     CGEMLQT
+      // CGEMLQT
 *
       SRNAMT = 'CGEMLQT'
       INFOT = 1
@@ -128,12 +128,12 @@
       CALL CGEMLQT( 'L', 'N', 1, 1, 1, 1, A, 1, T, 1, C, 0, W, INFO )
       CALL CHKXER( 'CGEMLQT', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of CERRLQT
+      // End of CERRLQT
 *
       END

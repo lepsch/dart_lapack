@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                LA, LAFB, NN, NOUT, NRHS;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       REAL               A( * ), AFB( * ), ASAV( * ), B( * ), BSAV( * ), RWORK( * ), S( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
       int                NTYPES;
@@ -26,47 +26,47 @@
       PARAMETER          ( NTESTS = 7 )
       int                NTRAN;
       PARAMETER          ( NTRAN = 3 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, TRFCON, ZEROT;
       String             DIST, EQUED, FACT, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, I1, I2, IEQUED, IFACT, IKL, IKU, IMAT, IN, INFO, IOFF, ITRAN, IZERO, J, K, K1, KL, KU, LDA, LDAFB, LDB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKL, NKU, NRUN, NT, N_ERR_BNDS;
       REAL               AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW, RPVGRW_SVXX
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW       EXTERNAL           LSAME, SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, SERRVX, SGBEQU, SGBSV, SGBSVX, SGBT01, SGBT02, SGBT05, SGBTRF, SGBTRS, SGET04, SLACPY, SLAQGB, SLARHS, SLASET, SLATB4, SLATMS, XLAENV, SGBSVXX
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               TRANSS / 'N', 'T', 'C' /
       DATA               FACTS / 'F', 'N', 'E' /
       DATA               EQUEDS / 'N', 'R', 'C', 'B' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'GB'
@@ -77,26 +77,26 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL SERRVX( PATH, NOUT )
       INFOT = 0
 *
-*     Set the block size and minimum block size for testing.
+      // Set the block size and minimum block size for testing.
 *
       NB = 1
       NBMIN = 2
       CALL XLAENV( 1, NB )
       CALL XLAENV( 2, NBMIN )
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 150 IN = 1, NN
          N = NVAL( IN )
          LDB = MAX( N, 1 )
          XTYPE = 'N'
 *
-*        Set limits on the number of loop iterations.
+         // Set limits on the number of loop iterations.
 *
          NKL = MAX( 1, MIN( N, 4 ) )
          IF( N.EQ.0 ) NKL = 1
@@ -106,8 +106,8 @@
 *
          DO 140 IKL = 1, NKL
 *
-*           Do for KL = 0, N-1, (3N-1)/4, and (N+1)/4. This order makes
-*           it easier to skip redundant values for small values of N.
+            // Do for KL = 0, N-1, (3N-1)/4, and (N+1)/4. This order makes
+            // it easier to skip redundant values for small values of N.
 *
             IF( IKL.EQ.1 ) THEN
                KL = 0
@@ -120,9 +120,9 @@
             END IF
             DO 130 IKU = 1, NKU
 *
-*              Do for KU = 0, N-1, (3N-1)/4, and (N+1)/4. This order
-*              makes it easier to skip redundant values for small
-*              values of N.
+               // Do for KU = 0, N-1, (3N-1)/4, and (N+1)/4. This order
+               // makes it easier to skip redundant values for small
+               // values of N.
 *
                IF( IKU.EQ.1 ) THEN
                   KU = 0
@@ -134,8 +134,8 @@
                   KU = ( N+1 ) / 4
                END IF
 *
-*              Check that A and AFB are big enough to generate this
-*              matrix.
+               // Check that A and AFB are big enough to generate this
+               // matrix.
 *
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
@@ -154,17 +154,17 @@
 *
                DO 120 IMAT = 1, NIMAT
 *
-*                 Do the tests only if DOTYPE( IMAT ) is true.
+                  // Do the tests only if DOTYPE( IMAT ) is true.
 *
                   IF( .NOT.DOTYPE( IMAT ) ) GO TO 120
 *
-*                 Skip types 2, 3, or 4 if the matrix is too small.
+                  // Skip types 2, 3, or 4 if the matrix is too small.
 *
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
                   IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 120
 *
-*                 Set up parameters with SLATB4 and generate a
-*                 test matrix with SLATMS.
+                  // Set up parameters with SLATB4 and generate a
+                 t // est matrix with SLATMS.
 *
                   CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
                   RCONDC = ONE / CNDNUM
@@ -172,15 +172,15 @@
                   SRNAMT = 'SLATMS'
                   CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK, INFO )
 *
-*                 Check the error code from SLATMS.
+                  // Check the error code from SLATMS.
 *
                   IF( INFO.NE.0 ) THEN
                      CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 120
                   END IF
 *
-*                 For types 2, 3, and 4, zero one or more columns of
-*                 the matrix to test that INFO is returned correctly.
+                  // For types 2, 3, and 4, zero one or more columns of
+                 t // he matrix to test that INFO is returned correctly.
 *
                   IZERO = 0
                   IF( ZEROT ) THEN
@@ -208,7 +208,7 @@
                      END IF
                   END IF
 *
-*                 Save a copy of the matrix A in ASAV.
+                  // Save a copy of the matrix A in ASAV.
 *
                   CALL SLACPY( 'Full', KL+KU+1, N, A, LDA, ASAV, LDA )
 *
@@ -233,16 +233,16 @@
 *
                         ELSE IF( .NOT.NOFACT ) THEN
 *
-*                          Compute the condition number for comparison
-*                          with the value returned by SGESVX (FACT =
-*                          'N' reuses the condition number from the
-*                          previous iteration with FACT = 'F').
+                           // Compute the condition number for comparison
+                           // with the value returned by SGESVX (FACT =
+                           // 'N' reuses the condition number from the
+                           // previous iteration with FACT = 'F').
 *
                            CALL SLACPY( 'Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB )
                            IF( EQUIL .OR. IEQUED.GT.1 ) THEN
 *
-*                             Compute row and column scale factors to
-*                             equilibrate the matrix A.
+                              // Compute row and column scale factors to
+                              // equilibrate the matrix A.
 *
                               CALL SGBEQU( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
                               IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
@@ -257,35 +257,35 @@
                                     COLCND = ZERO
                                  END IF
 *
-*                                Equilibrate the matrix.
+                                 // Equilibrate the matrix.
 *
                                  CALL SLAQGB( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                               END IF
                            END IF
 *
-*                          Save the condition number of the
-*                          non-equilibrated system for use in SGET04.
+                           // Save the condition number of the
+                           // non-equilibrated system for use in SGET04.
 *
                            IF( EQUIL ) THEN
                               ROLDO = RCONDO
                               ROLDI = RCONDI
                            END IF
 *
-*                          Compute the 1-norm and infinity-norm of A.
+                           // Compute the 1-norm and infinity-norm of A.
 *
                            ANORMO = SLANGB( '1', N, KL, KU, AFB( KL+1 ), LDAFB, RWORK )                            ANORMI = SLANGB( 'I', N, KL, KU, AFB( KL+1 ), LDAFB, RWORK )
 *
-*                          Factor the matrix A.
+                           // Factor the matrix A.
 *
                            CALL SGBTRF( N, N, KL, KU, AFB, LDAFB, IWORK, INFO )
 *
-*                          Form the inverse of A.
+                           // Form the inverse of A.
 *
                            CALL SLASET( 'Full', N, N, ZERO, ONE, WORK, LDB )
                            SRNAMT = 'SGBTRS'
                            CALL SGBTRS( 'No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO )
 *
-*                          Compute the 1-norm condition number of A.
+                           // Compute the 1-norm condition number of A.
 *
                            AINVNM = SLANGE( '1', N, N, WORK, LDB, RWORK )
                            IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -294,8 +294,8 @@
                               RCONDO = ( ONE / ANORMO ) / AINVNM
                            END IF
 *
-*                          Compute the infinity-norm condition number
-*                          of A.
+                           // Compute the infinity-norm condition number
+                           // of A.
 *
                            AINVNM = SLANGE( 'I', N, N, WORK, LDB, RWORK )
                            IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -307,7 +307,7 @@
 *
                         DO 90 ITRAN = 1, NTRAN
 *
-*                          Do for each value of TRANS.
+                           // Do for each value of TRANS.
 *
                            TRANS = TRANSS( ITRAN )
                            IF( ITRAN.EQ.1 ) THEN
@@ -316,12 +316,12 @@
                               RCONDC = RCONDI
                            END IF
 *
-*                          Restore the matrix A.
+                           // Restore the matrix A.
 *
                            CALL SLACPY( 'Full', KL+KU+1, N, ASAV, LDA, A, LDA )
 *
-*                          Form an exact solution and set the right hand
-*                          side.
+                           // Form an exact solution and set the right hand
+                           // side.
 *
                            SRNAMT = 'SLARHS'
                            CALL SLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO )
@@ -330,41 +330,41 @@
 *
                            IF( NOFACT .AND. ITRAN.EQ.1 ) THEN
 *
-*                             --- Test SGBSV  ---
+                              // --- Test SGBSV  ---
 *
-*                             Compute the LU factorization of the matrix
-*                             and solve the system.
+                              // Compute the LU factorization of the matrix
+                              // and solve the system.
 *
                               CALL SLACPY( 'Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
 *
                               SRNAMT = 'SGBSV '
                               CALL SGBSV( N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO )
 *
-*                             Check error code from SGBSV .
+                              // Check error code from SGBSV .
 *
                               IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-*                             Reconstruct matrix from factors and
-*                             compute residual.
+                              // Reconstruct matrix from factors and
+                              // compute residual.
 *
                               CALL SGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
                               NT = 1
                               IF( IZERO.EQ.0 ) THEN
 *
-*                                Compute residual of the computed
-*                                solution.
+                                 // Compute residual of the computed
+                                 // solution.
 *
                                  CALL SLACPY( 'Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL SGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) )
 *
-*                                Check solution from generated exact
-*                                solution.
+                                 // Check solution from generated exact
+                                 // solution.
 *
                                  CALL SGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                                  NT = 3
                               END IF
 *
-*                             Print information about the tests that did
-*                             not pass the threshold.
+                              // Print information about the tests that did
+                              // not pass the threshold.
 *
                               DO 50 K = 1, NT
                                  IF( RESULT( K ).GE.THRESH ) THEN
@@ -375,30 +375,30 @@
                               NRUN = NRUN + NT
                            END IF
 *
-*                          --- Test SGBSVX ---
+                           // --- Test SGBSVX ---
 *
                            IF( .NOT.PREFAC ) CALL SLASET( 'Full', 2*KL+KU+1, N, ZERO, ZERO, AFB, LDAFB )
                            CALL SLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDB )
                            IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
-*                             Equilibrate the matrix if FACT = 'F' and
-*                             EQUED = 'R', 'C', or 'B'.
+                              // Equilibrate the matrix if FACT = 'F' and
+                              // EQUED = 'R', 'C', or 'B'.
 *
                               CALL SLAQGB( N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                            END IF
 *
-*                          Solve the system and compute the condition
-*                          number and error bounds using SGBSVX.
+                           // Solve the system and compute the condition
+                           // number and error bounds using SGBSVX.
 *
                            SRNAMT = 'SGBSVX'
                            CALL SGBSVX( FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( N+1 ), B, LDB, X, LDB, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
 *
-*                          Check the error code from SGBSVX.
+                           // Check the error code from SGBSVX.
 *
                            IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-*                          Compare WORK(1) from SGBSVX with the computed
-*                          reciprocal pivot growth factor RPVGRW
+                           // Compare WORK(1) from SGBSVX with the computed
+                           // reciprocal pivot growth factor RPVGRW
 *
                            IF( INFO.NE.0 ) THEN
                               ANRMPV = ZERO
@@ -424,8 +424,8 @@
 *
                            IF( .NOT.PREFAC ) THEN
 *
-*                             Reconstruct matrix from factors and
-*                             compute residual.
+                              // Reconstruct matrix from factors and
+                              // compute residual.
 *
                               CALL SGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
                               K1 = 1
@@ -436,12 +436,12 @@
                            IF( INFO.EQ.0 ) THEN
                               TRFCON = .FALSE.
 *
-*                             Compute residual of the computed solution.
+                              // Compute residual of the computed solution.
 *
                               CALL SLACPY( 'Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL SGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
-*                             Check solution from generated exact
-*                             solution.
+                              // Check solution from generated exact
+                              // solution.
 *
                               IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                                  CALL SGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                               ELSE
@@ -453,21 +453,21 @@
                                  CALL SGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
                               END IF
 *
-*                             Check the error bounds from iterative
-*                             refinement.
+                              // Check the error bounds from iterative
+                              // refinement.
 *
                               CALL SGBT05( TRANS, N, KL, KU, NRHS, ASAV, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                            ELSE
                               TRFCON = .TRUE.
                            END IF
 *
-*                          Compare RCOND from SGBSVX with the computed
-*                          value in RCONDC.
+                           // Compare RCOND from SGBSVX with the computed
+                           // value in RCONDC.
 *
                            RESULT( 6 ) = SGET06( RCOND, RCONDC )
 *
-*                          Print information about the tests that did
-*                          not pass the threshold.
+                           // Print information about the tests that did
+                           // not pass the threshold.
 *
                            IF( .NOT.TRFCON ) THEN
                               DO 80 K = K1, NTESTS
@@ -515,9 +515,9 @@
 *
                            END IF
 *
-*                    --- Test SGBSVXX ---
+                     // --- Test SGBSVXX ---
 *
-*                    Restore the matrices A and B.
+                     // Restore the matrices A and B.
 *
                      CALL SLACPY( 'Full', KL+KU+1, N, ASAV, LDA, A, LDA )
                      CALL SLACPY( 'Full', N, NRHS, BSAV, LDB, B, LDB )
@@ -525,20 +525,20 @@
                      CALL SLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDB )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
-*                       Equilibrate the matrix if FACT = 'F' and
-*                       EQUED = 'R', 'C', or 'B'.
+                        // Equilibrate the matrix if FACT = 'F' and
+                        // EQUED = 'R', 'C', or 'B'.
 *
                         CALL SLAQGB( N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                      END IF
 *
-*                    Solve the system and compute the condition number
-*                    and error bounds using SGBSVXX.
+                     // Solve the system and compute the condition number
+                     // and error bounds using SGBSVXX.
 *
                      SRNAMT = 'SGBSVXX'
                      N_ERR_BNDS = 3
                      CALL SGBSVXX( FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( N+1 ), B, LDB, X, LDB, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, IWORK( N+1 ), INFO )
 
-*                    Check the error code from SGBSVXX.
+                     // Check the error code from SGBSVXX.
 *
                      IF( INFO.EQ.N+1 ) GOTO 90
                      IF( INFO.NE.IZERO ) THEN
@@ -546,8 +546,8 @@
                         GOTO 90
                      END IF
 *
-*                    Compare rpvgrw_svxx from SGBSVXX with the computed
-*                    reciprocal pivot growth factor RPVGRW
+                     // Compare rpvgrw_svxx from SGBSVXX with the computed
+                     // reciprocal pivot growth factor RPVGRW
 *
 
                      IF ( INFO .GT. 0 .AND. INFO .LT. N+1 ) THEN
@@ -559,8 +559,8 @@
 *
                      IF( .NOT.PREFAC ) THEN
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL SGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
                         K1 = 1
@@ -571,11 +571,11 @@
                      IF( INFO.EQ.0 ) THEN
                         TRFCON = .FALSE.
 *
-*                       Compute residual of the computed solution.
+                        // Compute residual of the computed solution.
 *
                         CALL SLACPY( 'Full', N, NRHS, BSAV, LDB, WORK, LDB )                         CALL SGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL SGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                         ELSE
@@ -590,13 +590,13 @@
                         TRFCON = .TRUE.
                      END IF
 *
-*                    Compare RCOND from SGBSVXX with the computed value
-*                    in RCONDC.
+                     // Compare RCOND from SGBSVXX with the computed value
+                     // in RCONDC.
 *
                      RESULT( 6 ) = SGET06( RCOND, RCONDC )
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      IF( .NOT.TRFCON ) THEN
                         DO 45 K = K1, NTESTS
@@ -652,12 +652,12 @@
   140    CONTINUE
   150 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
 
-*     Test Error Bounds from SGBSVXX
+      // Test Error Bounds from SGBSVXX
 
       CALL SEBCHVXX(THRESH, PATH)
 
@@ -677,6 +677,6 @@
 *
       RETURN
 *
-*     End of SDRVGBX
+      // End of SDRVGBX
 *
       END

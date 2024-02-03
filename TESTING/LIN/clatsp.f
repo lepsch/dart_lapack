@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( * );
       COMPLEX            X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            EYE
       PARAMETER          ( EYE = ( 0.0, 1.0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J, JJ, N5;
       REAL               ALPHA, ALPHA3, BETA
       COMPLEX            A, B, C, R
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       COMPLEX            CLARND
       // EXTERNAL CLARND
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants
+      // Initialize constants
 *
       ALPHA = ( 1.+SQRT( 17. ) ) / 8.
       BETA = ALPHA - 1. / 1000.
       ALPHA3 = ALPHA*ALPHA*ALPHA
 *
-*     Fill the matrix with zeros.
+      // Fill the matrix with zeros.
 *
       DO 10 J = 1, N*( N+1 ) / 2
          X( J ) = 0.0
    10 CONTINUE
 *
-*     UPLO = 'U':  Upper triangular storage
+      // UPLO = 'U':  Upper triangular storage
 *
       IF( UPLO.EQ.'U' ) THEN
          N5 = N / 5
@@ -76,7 +76,7 @@
             JJ = JJ - ( J-4 )
    20    CONTINUE
 *
-*        Clean-up for N not a multiple of 5.
+         // Clean-up for N not a multiple of 5.
 *
          J = N5 - 1
          IF( J.GT.2 ) THEN
@@ -109,7 +109,7 @@
             J = J - 1
          END IF
 *
-*     UPLO = 'L':  Lower triangular storage
+      // UPLO = 'L':  Lower triangular storage
 *
       ELSE
          N5 = N / 5
@@ -140,7 +140,7 @@
             JJ = JJ + ( N-J-3 )
    30    CONTINUE
 *
-*        Clean-up for N not a multiple of 5.
+         // Clean-up for N not a multiple of 5.
 *
          J = N5 + 1
          IF( J.LT.N-1 ) THEN
@@ -177,6 +177,6 @@
 *
       RETURN
 *
-*     End of CLATSP
+      // End of CLATSP
 *
       END

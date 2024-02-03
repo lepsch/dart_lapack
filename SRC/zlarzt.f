@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIRECT, STOREV;
       int                K, LDT, LDV, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         T( LDT, * ), TAU( * ), V( LDV, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMV, ZLACGV, ZTRMV
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for currently supported options
+      // Check for currently supported options
 *
       INFO = 0
       IF( .NOT.LSAME( DIRECT, 'B' ) ) THEN
@@ -46,24 +46,24 @@
       DO 20 I = K, 1, -1
          IF( TAU( I ).EQ.ZERO ) THEN
 *
-*           H(i)  =  I
+            // H(i)  =  I
 *
             DO 10 J = I, K
                T( J, I ) = ZERO
    10       CONTINUE
          ELSE
 *
-*           general case
+            // general case
 *
             IF( I.LT.K ) THEN
 *
-*              T(i+1:k,i) = - tau(i) * V(i+1:k,1:n) * V(i,1:n)**H
+               // T(i+1:k,i) = - tau(i) * V(i+1:k,1:n) * V(i,1:n)**H
 *
                CALL ZLACGV( N, V( I, 1 ), LDV )
                CALL ZGEMV( 'No transpose', K-I, N, -TAU( I ), V( I+1, 1 ), LDV, V( I, 1 ), LDV, ZERO, T( I+1, I ), 1 )
                CALL ZLACGV( N, V( I, 1 ), LDV )
 *
-*              T(i+1:k,i) = T(i+1:k,i+1:k) * T(i+1:k,i)
+               // T(i+1:k,i) = T(i+1:k,i+1:k) * T(i+1:k,i)
 *
                CALL ZTRMV( 'Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 )
             END IF
@@ -72,6 +72,6 @@
    20 CONTINUE
       RETURN
 *
-*     End of ZLARZT
+      // End of ZLARZT
 *
       END

@@ -4,60 +4,60 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, UPLO;
       int                KD, LDAB, N;
       double             AMAX, SCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             S( * );
       COMPLEX*16         AB( LDAB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, THRESH;
       PARAMETER          ( ONE = 1.0D+0, THRESH = 0.1D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             CJ, LARGE, SMALL;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          EQUED = 'N'
          RETURN
       END IF
 *
-*     Initialize LARGE and SMALL.
+      // Initialize LARGE and SMALL.
 *
       SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 *
       IF( SCOND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) THEN
 *
-*        No equilibration
+         // No equilibration
 *
          EQUED = 'N'
       ELSE
 *
-*        Replace A by diag(S) * A * diag(S).
+         // Replace A by diag(S) * A * diag(S).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*           Upper triangle of A is stored in band format.
+            // Upper triangle of A is stored in band format.
 *
             DO 20 J = 1, N
                CJ = S( J )
@@ -67,7 +67,7 @@
    20       CONTINUE
          ELSE
 *
-*           Lower triangle of A is stored.
+            // Lower triangle of A is stored.
 *
             DO 40 J = 1, N
                CJ = S( J )
@@ -81,6 +81,6 @@
 *
       RETURN
 *
-*     End of ZLAQSB
+      // End of ZLAQSB
 *
       END

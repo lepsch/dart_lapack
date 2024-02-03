@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                N, LDA, LDAF, INFO, CMODE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
       double             A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J;
       double             AINVNM, TMP;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLACN2, DGETRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       DLA_GERCOND = 0.0D+0
 *
@@ -57,8 +57,8 @@
          RETURN
       END IF
 *
-*     Compute the equilibration matrix R such that
-*     inv(R)*A*C has unit 1-norm.
+      // Compute the equilibration matrix R such that
+      // inv(R)*A*C has unit 1-norm.
 *
       IF (NOTRANS) THEN
          DO I = 1, N
@@ -98,7 +98,7 @@
          END DO
       END IF
 *
-*     Estimate the norm of inv(op(A)).
+      // Estimate the norm of inv(op(A)).
 *
       AINVNM = 0.0D+0
 
@@ -108,7 +108,7 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK(I) = WORK(I) * WORK(2*N+I)
@@ -120,7 +120,7 @@
                CALL DGETRS( 'Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
-*           Multiply by inv(C).
+            // Multiply by inv(C).
 *
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
@@ -133,7 +133,7 @@
             END IF
          ELSE
 *
-*           Multiply by inv(C**T).
+            // Multiply by inv(C**T).
 *
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
@@ -151,7 +151,7 @@
                CALL DGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
@@ -160,12 +160,12 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM .NE. 0.0D+0 ) DLA_GERCOND = ( 1.0D+0 / AINVNM )
 *
       RETURN
 *
-*     End of DLA_GERCOND
+      // End of DLA_GERCOND
 *
       END

@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                ITYPE, LDA, LDB, LDU, LDV, N;
       double             RESULT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                JCOL, JDIAG, JROW;
       double             ANORM, ULP, UNFL, WNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT = ZERO
       IF( N.LE.0 ) RETURN
 *
-*     Constants
+      // Constants
 *
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
 *
-*     Some Error Checks
+      // Some Error Checks
 *
       IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
          RESULT = TEN / ULP
@@ -51,13 +51,13 @@
 *
       IF( ITYPE.LE.2 ) THEN
 *
-*        Tests scaled by the norm(A)
+         // Tests scaled by the norm(A)
 *
          ANORM = MAX( DLANGE( '1', N, N, A, LDA, WORK ), UNFL )
 *
          IF( ITYPE.EQ.1 ) THEN
 *
-*           ITYPE=1: Compute W = A - UBV'
+            // ITYPE=1: Compute W = A - UBV'
 *
             CALL DLACPY( ' ', N, N, A, LDA, WORK, N )
             CALL DGEMM( 'N', 'N', N, N, N, ONE, U, LDU, B, LDB, ZERO, WORK( N**2+1 ), N )
@@ -66,7 +66,7 @@
 *
          ELSE
 *
-*           ITYPE=2: Compute W = A - B
+            // ITYPE=2: Compute W = A - B
 *
             CALL DLACPY( ' ', N, N, B, LDB, WORK, N )
 *
@@ -77,7 +77,7 @@
    20       CONTINUE
          END IF
 *
-*        Compute norm(W)/ ( ulp*norm(A) )
+         // Compute norm(W)/ ( ulp*norm(A) )
 *
          WNORM = DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) )
 *
@@ -93,9 +93,9 @@
 *
       ELSE
 *
-*        Tests not scaled by norm(A)
+         // Tests not scaled by norm(A)
 *
-*        ITYPE=3: Compute  UU' - I
+         // ITYPE=3: Compute  UU' - I
 *
          CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
 *
@@ -108,6 +108,6 @@
 *
       RETURN
 *
-*     End of DGET51
+      // End of DGET51
 *
       END

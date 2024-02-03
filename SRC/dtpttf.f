@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANSR, UPLO;
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AP( 0: * ), ARF( 0: * );
 *
 *  =====================================================================
 *
-*     .. Parameters ..
-*     ..
-*     .. Local Scalars ..
+      // .. Parameters ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, NISODD, NORMALTRANSR;
       int                N1, N2, K, NT;
       int                I, J, IJ;
       int                IJP, JP, LDA, JS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
@@ -50,7 +50,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -63,11 +63,11 @@
          RETURN
       END IF
 *
-*     Size of array ARF(0:NT-1)
+      // Size of array ARF(0:NT-1)
 *
       NT = N*( N+1 ) / 2
 *
-*     Set N1 and N2 depending on LOWER
+      // Set N1 and N2 depending on LOWER
 *
       IF( LOWER ) THEN
          N2 = N / 2
@@ -77,11 +77,11 @@
          N2 = N - N1
       END IF
 *
-*     If N is odd, set NISODD = .TRUE.
-*     If N is even, set K = N/2 and NISODD = .FALSE.
+      // If N is odd, set NISODD = .TRUE.
+      // If N is even, set K = N/2 and NISODD = .FALSE.
 *
-*     set lda of ARF^C; ARF^C is (0:(N+1)/2-1,0:N-noe)
-*     where noe = 0 if n is even, noe = 1 if n is odd
+      // set lda of ARF^C; ARF^C is (0:(N+1)/2-1,0:N-noe)
+      // where noe = 0 if n is even, noe = 1 if n is odd
 *
       IF( MOD( N, 2 ).EQ.0 ) THEN
          K = N / 2
@@ -92,23 +92,23 @@
          LDA = N
       END IF
 *
-*     ARF^C has lda rows and n+1-noe cols
+      // ARF^C has lda rows and n+1-noe cols
 *
       IF( .NOT.NORMALTRANSR ) LDA = ( N+1 ) / 2
 *
-*     start execution: there are eight cases
+      // start execution: there are eight cases
 *
       IF( NISODD ) THEN
 *
-*        N is odd
+         // N is odd
 *
          IF( NORMALTRANSR ) THEN
 *
-*           N is odd and TRANSR = 'N'
+            // N is odd and TRANSR = 'N'
 *
             IF( LOWER ) THEN
 *
-*              N is odd, TRANSR = 'N', and UPLO = 'L'
+               // N is odd, TRANSR = 'N', and UPLO = 'L'
 *
                IJP = 0
                JP = 0
@@ -130,7 +130,7 @@
 *
             ELSE
 *
-*              N is odd, TRANSR = 'N', and UPLO = 'U'
+               // N is odd, TRANSR = 'N', and UPLO = 'U'
 *
                IJP = 0
                DO J = 0, N1 - 1
@@ -155,11 +155,11 @@
 *
          ELSE
 *
-*           N is odd and TRANSR = 'T'
+            // N is odd and TRANSR = 'T'
 *
             IF( LOWER ) THEN
 *
-*              N is odd, TRANSR = 'T', and UPLO = 'L'
+               // N is odd, TRANSR = 'T', and UPLO = 'L'
 *
                IJP = 0
                DO I = 0, N2
@@ -179,7 +179,7 @@
 *
             ELSE
 *
-*              N is odd, TRANSR = 'T', and UPLO = 'U'
+               // N is odd, TRANSR = 'T', and UPLO = 'U'
 *
                IJP = 0
                JS = N2*LDA
@@ -203,15 +203,15 @@
 *
       ELSE
 *
-*        N is even
+         // N is even
 *
          IF( NORMALTRANSR ) THEN
 *
-*           N is even and TRANSR = 'N'
+            // N is even and TRANSR = 'N'
 *
             IF( LOWER ) THEN
 *
-*              N is even, TRANSR = 'N', and UPLO = 'L'
+               // N is even, TRANSR = 'N', and UPLO = 'L'
 *
                IJP = 0
                JP = 0
@@ -233,7 +233,7 @@
 *
             ELSE
 *
-*              N is even, TRANSR = 'N', and UPLO = 'U'
+               // N is even, TRANSR = 'N', and UPLO = 'U'
 *
                IJP = 0
                DO J = 0, K - 1
@@ -258,11 +258,11 @@
 *
          ELSE
 *
-*           N is even and TRANSR = 'T'
+            // N is even and TRANSR = 'T'
 *
             IF( LOWER ) THEN
 *
-*              N is even, TRANSR = 'T', and UPLO = 'L'
+               // N is even, TRANSR = 'T', and UPLO = 'L'
 *
                IJP = 0
                DO I = 0, K - 1
@@ -282,7 +282,7 @@
 *
             ELSE
 *
-*              N is even, TRANSR = 'T', and UPLO = 'U'
+               // N is even, TRANSR = 'T', and UPLO = 'U'
 *
                IJP = 0
                JS = ( K+1 )*LDA
@@ -308,6 +308,6 @@
 *
       RETURN
 *
-*     End of DTPTTF
+      // End of DTPTTF
 *
       END

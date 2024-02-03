@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, N;
       REAL               TOL
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( * ), B( * ), EIG( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                BPNT, COUNT, I, ISUB, J, NUML, NUMU, TPNT;
       REAL               EMIN, EPS, LOWER, MX, TUPPR, UNFLEP, UPPER
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SSTECT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check input parameters
+      // Check input parameters
 *
       INFO = 0
       IF( N.EQ.0 ) RETURN
@@ -47,13 +47,13 @@
          RETURN
       END IF
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       UNFLEP = SLAMCH( 'Safe minimum' ) / EPS
       EPS = TOL*EPS
 *
-*     Compute maximum absolute eigenvalue, error tolerance
+      // Compute maximum absolute eigenvalue, error tolerance
 *
       MX = ABS( EIG( 1 ) )
       DO 10 I = 2, N
@@ -61,7 +61,7 @@
    10 CONTINUE
       EPS = MAX( EPS*MX, UNFLEP )
 *
-*     Sort eigenvalues from EIG into WORK
+      // Sort eigenvalues from EIG into WORK
 *
       DO 20 I = 1, N
          WORK( I ) = EIG( I )
@@ -81,40 +81,40 @@
          END IF
    40 CONTINUE
 *
-*     TPNT points to singular value at right endpoint of interval
-*     BPNT points to singular value at left  endpoint of interval
+      // TPNT points to singular value at right endpoint of interval
+      // BPNT points to singular value at left  endpoint of interval
 *
       TPNT = 1
       BPNT = 1
 *
-*     Begin loop over all intervals
+      // Begin loop over all intervals
 *
    50 CONTINUE
       UPPER = WORK( TPNT ) + EPS
       LOWER = WORK( BPNT ) - EPS
 *
-*     Begin loop merging overlapping intervals
+      // Begin loop merging overlapping intervals
 *
    60 CONTINUE
       IF( BPNT.EQ.N ) GO TO 70
       TUPPR = WORK( BPNT+1 ) + EPS
       IF( TUPPR.LT.LOWER ) GO TO 70
 *
-*     Merge
+      // Merge
 *
       BPNT = BPNT + 1
       LOWER = WORK( BPNT ) - EPS
       GO TO 60
    70 CONTINUE
 *
-*     Count singular values in interval [ LOWER, UPPER ]
+      // Count singular values in interval [ LOWER, UPPER ]
 *
       CALL SSTECT( N, A, B, LOWER, NUML )
       CALL SSTECT( N, A, B, UPPER, NUMU )
       COUNT = NUMU - NUML
       IF( COUNT.NE.BPNT-TPNT+1 ) THEN
 *
-*        Wrong number of singular values in interval
+         // Wrong number of singular values in interval
 *
          INFO = TPNT
          GO TO 80
@@ -125,6 +125,6 @@
    80 CONTINUE
       RETURN
 *
-*     End of SSTECH
+      // End of SSTECH
 *
       END

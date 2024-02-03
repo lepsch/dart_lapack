@@ -1,48 +1,48 @@
       SUBROUTINE CGESVDQ( JOBA, JOBP, JOBR, JOBU, JOBV, M, N, A, LDA, S, U, LDU, V, LDV, NUMRANK, IWORK, LIWORK, CWORK, LCWORK, RWORK, LRWORK, INFO )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       IMPLICIT    NONE
       String      JOBA, JOBP, JOBR, JOBU, JOBV;
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LCWORK, LRWORK, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX     A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( * )
       REAL        S( * ), RWORK( * )
       int         IWORK( * );
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL        ZERO,         ONE
       PARAMETER ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX     CZERO,                    CONE
       PARAMETER ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int         IERR, NR, N1, OPTRATIO, p, q;
       int         LWCON, LWQP3, LWRK_CGELQF, LWRK_CGESVD, LWRK_CGESVD2, LWRK_CGEQP3, LWRK_CGEQRF, LWRK_CUNMLQ, LWRK_CUNMQR, LWRK_CUNMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWUNQ, LWUNQ2, LWUNLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK;
       bool        ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR;
       REAL        BIG, EPSLN, RTMP, SCONDA, SFMIN
       COMPLEX     CTMP
-*     ..
-*     .. Local Arrays
+      // ..
+      // .. Local Arrays
       COMPLEX     CDUMMY(1)
       REAL        RDUMMY(1)
-*     ..
-*     .. External Subroutines (BLAS, LAPACK)
+      // ..
+      // .. External Subroutines (BLAS, LAPACK)
       // EXTERNAL CGELQF, CGEQP3, CGEQRF, CGESVD, CLACPY, CLAPMT, CLASCL, CLASET, CLASWP, CSSCAL, SLASET, SLASCL, CPOCON, CUNMLQ, CUNMQR, XERBLA
-*     ..
-*     .. External Functions (BLAS, LAPACK)
+      // ..
+      // .. External Functions (BLAS, LAPACK)
       bool       LSAME;
       int        ISAMAX;
       REAL       CLANGE, SCNRM2, SLAMCH
       // EXTERNAL CLANGE, LSAME, ISAMAX, SCNRM2, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MIN, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       WNTUS  = LSAME( JOBU, 'S' ) .OR. LSAME( JOBU, 'U' )
       WNTUR  = LSAME( JOBU, 'R' )
@@ -103,24 +103,24 @@
 *
       IF ( INFO .EQ. 0 ) THEN
 *
-*     Compute workspace
-*        .. compute the minimal and the optimal workspace lengths
-*        [[The expressions for computing the minimal and the optimal
-*        values of LCWORK are written with a lot of redundancy and
-*        can be simplified. However, this detailed form is easier for
-*        maintenance and modifications of the code.]]
+      // Compute workspace
+         // .. compute the minimal and the optimal workspace lengths
+         // [[The expressions for computing the minimal and the optimal
+         // values of LCWORK are written with a lot of redundancy and
+         // can be simplified. However, this detailed form is easier for
+         // maintenance and modifications of the code.]]
 *
-*        .. minimal workspace length for CGEQP3 of an M x N matrix
+         // .. minimal workspace length for CGEQP3 of an M x N matrix
          LWQP3 = N+1
-*        .. minimal workspace length for CUNMQR to build left singular vectors
+         // .. minimal workspace length for CUNMQR to build left singular vectors
          IF ( WNTUS .OR. WNTUR ) THEN
              LWUNQ  = MAX( N  , 1 )
          ELSE IF ( WNTUA ) THEN
              LWUNQ = MAX( M , 1 )
          END IF
-*        .. minimal workspace length for CPOCON of an N x N matrix
+         // .. minimal workspace length for CPOCON of an N x N matrix
          LWCON = 2 * N
-*        .. CGESVD of an N x N matrix
+         // .. CGESVD of an N x N matrix
          LWSVD = MAX( 3 * N, 1 )
          IF ( LQUERY ) THEN
              CALL CGEQP3( M, N, A, LDA, IWORK, CDUMMY, CDUMMY, -1, RDUMMY, IERR )
@@ -138,8 +138,8 @@
          MINWRK = 2
          OPTWRK = 2
          IF ( .NOT. (LSVEC .OR. RSVEC )) THEN
-*            .. minimal and optimal sizes of the complex workspace if
-*            only the singular values are requested
+             // .. minimal and optimal sizes of the complex workspace if
+             // only the singular values are requested
              IF ( CONDA ) THEN
                 MINWRK = MAX( N+LWQP3, LWCON, LWSVD )
              ELSE
@@ -155,8 +155,8 @@
                  END IF
              END IF
          ELSE IF ( LSVEC .AND. (.NOT.RSVEC) ) THEN
-*            .. minimal and optimal sizes of the complex workspace if the
-*            singular values and the left singular vectors are requested
+             // .. minimal and optimal sizes of the complex workspace if the
+             // singular values and the left singular vectors are requested
              IF ( CONDA ) THEN
                  MINWRK = N + MAX( LWQP3, LWCON, LWSVD, LWUNQ )
              ELSE
@@ -176,8 +176,8 @@
                 END IF
              END IF
          ELSE IF ( RSVEC .AND. (.NOT.LSVEC) ) THEN
-*            .. minimal and optimal sizes of the complex workspace if the
-*            singular values and the right singular vectors are requested
+             // .. minimal and optimal sizes of the complex workspace if the
+             // singular values and the right singular vectors are requested
              IF ( CONDA ) THEN
                  MINWRK = N + MAX( LWQP3, LWCON, LWSVD )
              ELSE
@@ -197,16 +197,16 @@
                  END IF
              END IF
          ELSE
-*            .. minimal and optimal sizes of the complex workspace if the
-*            full SVD is requested
+             // .. minimal and optimal sizes of the complex workspace if the
+             // full SVD is requested
              IF ( RTRANS ) THEN
                  MINWRK = MAX( LWQP3, LWSVD, LWUNQ )
                  IF ( CONDA ) MINWRK = MAX( MINWRK, LWCON )
                  MINWRK = MINWRK + N
                  IF ( WNTVA ) THEN
-*                   .. minimal workspace length for N x N/2 CGEQRF
+                    // .. minimal workspace length for N x N/2 CGEQRF
                     LWQRF  = MAX( N/2, 1 )
-*                   .. minimal workspace length for N/2 x N/2 CGESVD
+                    // .. minimal workspace length for N/2 x N/2 CGESVD
                     LWSVD2 = MAX( 3 * (N/2), 1 )
                     LWUNQ2 = MAX( N, 1 )
                     MINWRK2 = MAX( LWQP3, N/2+LWQRF, N/2+LWSVD2, N/2+LWUNQ2, LWUNQ )
@@ -219,7 +219,7 @@
                  IF ( CONDA ) MINWRK = MAX( MINWRK, LWCON )
                  MINWRK = MINWRK + N
                  IF ( WNTVA ) THEN
-*                   .. minimal workspace length for N/2 x N CGELQF
+                    // .. minimal workspace length for N/2 x N CGELQF
                     LWLQF  = MAX( N/2, 1 )
                     LWSVD2 = MAX( 3 * (N/2), 1 )
                     LWUNLQ = MAX( N , 1 )
@@ -284,7 +284,7 @@
          RETURN
       ELSE IF ( LQUERY ) THEN
 *
-*     Return optimal workspace
+      // Return optimal workspace
 *
           IWORK(1) = IMINWRK
           CWORK(1) = OPTWRK
@@ -293,24 +293,24 @@
           RETURN
       END IF
 *
-*     Quick return if the matrix is void.
+      // Quick return if the matrix is void.
 *
       IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) THEN
-*     .. all output is void.
+      // .. all output is void.
          RETURN
       END IF
 *
       BIG = SLAMCH('O')
       ASCALED = .FALSE.
       IF ( ROWPRM ) THEN
-*           .. reordering the rows in decreasing sequence in the
-*           ell-infinity norm - this enhances numerical robustness in
-*           the case of differently scaled rows.
+            // .. reordering the rows in decreasing sequence in the
+            // ell-infinity norm - this enhances numerical robustness in
+           t // he case of differently scaled rows.
             DO 1904 p = 1, M
-*               RWORK(p) = ABS( A(p,ICAMAX(N,A(p,1),LDA)) )
-*               [[CLANGE will return NaN if an entry of the p-th row is Nan]]
+                // RWORK(p) = ABS( A(p,ICAMAX(N,A(p,1),LDA)) )
+                // [[CLANGE will return NaN if an entry of the p-th row is Nan]]
                 RWORK(p) = CLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY )
-*               .. check for NaN's and Inf's
+                // .. check for NaN's and Inf's
                 IF ( ( RWORK(p) .NE. RWORK(p) ) .OR. ( (RWORK(p)*ZERO) .NE. ZERO ) ) THEN
                     INFO = - 8
                     CALL XERBLA( 'CGESVDQ', -INFO )
@@ -328,7 +328,7 @@
  1952       CONTINUE
 *
             IF ( RWORK(1) .EQ. ZERO ) THEN
-*              Quick return: A is the M x N zero matrix.
+               // Quick return: A is the M x N zero matrix.
                NUMRANK = 0
                CALL SLASET( 'G', N, 1, ZERO, ZERO, S, N )
                IF ( WNTUS ) CALL CLASET('G', M, N, CZERO, CONE, U, LDU)
@@ -352,8 +352,8 @@
             END IF
 *
             IF ( RWORK(1) .GT. BIG / SQRT(REAL(M)) ) THEN
-*               .. to prevent overflow in the QR factorization, scale the
-*               matrix by 1/sqrt(M) if too large entry detected
+                // .. to prevent overflow in the QR factorization, scale the
+                // matrix by 1/sqrt(M) if too large entry detected
                 CALL CLASCL('G',0,0,SQRT(REAL(M)),ONE, M,N, A,LDA, IERR)
                 ASCALED = .TRUE.
             END IF
@@ -373,20 +373,20 @@
                RETURN
           END IF
           IF ( RTMP .GT. BIG / SQRT(REAL(M)) ) THEN
-*             .. to prevent overflow in the QR factorization, scale the
-*             matrix by 1/sqrt(M) if too large entry detected
+              // .. to prevent overflow in the QR factorization, scale the
+              // matrix by 1/sqrt(M) if too large entry detected
               CALL CLASCL('G',0,0, SQRT(REAL(M)),ONE, M,N, A,LDA, IERR)
               ASCALED = .TRUE.
           END IF
       END IF
 *
-*     .. QR factorization with column pivoting
+      // .. QR factorization with column pivoting
 *
-*     A * P = Q * [ R ]
-*                 [ 0 ]
+      // A * P = Q * [ R ]
+                  // [ 0 ]
 *
       DO 1963 p = 1, N
-*        .. all columns are free columns
+         // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
       CALL CGEQP3( M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LCWORK-N, RWORK, IERR )
@@ -397,15 +397,15 @@
 *
       EPSLN = SLAMCH('E')
       SFMIN = SLAMCH('S')
-*     SMALL = SFMIN / EPSLN
+      // SMALL = SFMIN / EPSLN
       NR = N
 *
       IF ( ACCLA ) THEN
 *
-*        Standard absolute error bound suffices. All sigma_i with
-*        sigma_i < N*EPS*||A||_F are flushed to zero. This is an
-*        aggressive enforcement of lower numerical rank by introducing a
-*        backward error of the order of N*EPS*||A||_F.
+         // Standard absolute error bound suffices. All sigma_i with
+         // sigma_i < N*EPS*||A||_F are flushed to zero. This is an
+         // aggressive enforcement of lower numerical rank by introducing a
+         // backward error of the order of N*EPS*||A||_F.
          NR = 1
          RTMP = SQRT(REAL(N))*EPSLN
          DO 3001 p = 2, N
@@ -415,12 +415,12 @@
  3002    CONTINUE
 *
       ELSEIF ( ACCLM ) THEN
-*        .. similarly as above, only slightly more gentle (less aggressive).
-*        Sudden drop on the diagonal of R is used as the criterion for being
-*        close-to-rank-deficient. The threshold is set to EPSLN=SLAMCH('E').
-*        [[This can be made more flexible by replacing this hard-coded value
-*        with a user specified threshold.]] Also, the values that underflow
-*        will be truncated.
+         // .. similarly as above, only slightly more gentle (less aggressive).
+         // Sudden drop on the diagonal of R is used as the criterion for being
+         // close-to-rank-deficient. The threshold is set to EPSLN=SLAMCH('E').
+         // [[This can be made more flexible by replacing this hard-coded value
+         // with a user specified threshold.]] Also, the values that underflow
+         // will be truncated.
          NR = 1
          DO 3401 p = 2, N
             IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SFMIN ) ) GO TO 3402
@@ -429,10 +429,10 @@
  3402    CONTINUE
 *
       ELSE
-*        .. RRQR not authorized to determine numerical rank except in the
-*        obvious case of zero pivots.
-*        .. inspect R for exact zeros on the diagonal;
-*        R(i,i)=0 => R(i:N,i:N)=0.
+         // .. RRQR not authorized to determine numerical rank except in the
+         // obvious case of zero pivots.
+         // .. inspect R for exact zeros on the diagonal;
+         // R(i,i)=0 => R(i:N,i:N)=0.
          NR = 1
          DO 3501 p = 2, N
             IF ( ABS(A(p,p)) .EQ. ZERO ) GO TO 3502
@@ -441,15 +441,15 @@
  3502    CONTINUE
 *
          IF ( CONDA ) THEN
-*           Estimate the scaled condition number of A. Use the fact that it is
-*           the same as the scaled condition number of R.
-*              .. V is used as workspace
+            // Estimate the scaled condition number of A. Use the fact that it is
+           t // he same as the scaled condition number of R.
+               // .. V is used as workspace
                CALL CLACPY( 'U', N, N, A, LDA, V, LDV )
-*              Only the leading NR x NR submatrix of the triangular factor
-*              is considered. Only if NR=N will this give a reliable error
-*              bound. However, even for NR < N, this can be used on an
-*              expert level and obtain useful information in the sense of
-*              perturbation theory.
+               // Only the leading NR x NR submatrix of the triangular factor
+               // is considered. Only if NR=N will this give a reliable error
+               // bound. However, even for NR < N, this can be used on an
+               // expert level and obtain useful information in the sense of
+               // perturbation theory.
                DO 3053 p = 1, NR
                   RTMP = SCNRM2( p, V(1,p), 1 )
                   CALL CSSCAL( p, ONE/RTMP, V(1,p), 1 )
@@ -460,9 +460,9 @@
                    CALL CPOCON( 'U', NR, V, LDV, ONE, RTMP, CWORK(N+1), RWORK, IERR )
                END IF
                SCONDA = ONE / SQRT(RTMP)
-*           For NR=N, SCONDA is an estimate of SQRT(||(R^* * R)^(-1)||_1),
-*           N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
-*           See the reference [1] for more details.
+            // For NR=N, SCONDA is an estimate of SQRT(||(R^* * R)^(-1)||_1),
+            // N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
+            // See the reference [1] for more details.
          END IF
 *
       ENDIF
@@ -477,13 +477,13 @@
 *
       IF ( .NOT. ( RSVEC .OR. LSVEC ) ) THEN
 *.......................................................................
-*        .. only the singular values are requested
+         // .. only the singular values are requested
 *.......................................................................
          IF ( RTRANS ) THEN
 *
-*         .. compute the singular values of R**H = [A](1:NR,1:N)**H
-*           .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
-*           the upper triangle of [A] to zero.
+          // .. compute the singular values of R**H = [A](1:NR,1:N)**H
+            // .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
+           t // he upper triangle of [A] to zero.
             DO 1146 p = 1, MIN( N, NR )
                A(p,p) = CONJG(A(p,p))
                DO 1147 q = p + 1, N
@@ -496,7 +496,7 @@
 *
          ELSE
 *
-*           .. compute the singular values of R = [A](1:NR,1:N)
+            // .. compute the singular values of R = [A](1:NR,1:N)
 *
             IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, A(2,1), LDA )             CALL CGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO )
 *
@@ -504,21 +504,21 @@
 *
       ELSE IF ( LSVEC .AND. ( .NOT. RSVEC) ) THEN
 *.......................................................................
-*       .. the singular values and the left singular vectors requested
+        // .. the singular values and the left singular vectors requested
 *.......................................................................""""""""
          IF ( RTRANS ) THEN
-*            .. apply CGESVD to R**H
-*            .. copy R**H into [U] and overwrite [U] with the right singular
-*            vectors of R
+             // .. apply CGESVD to R**H
+             // .. copy R**H into [U] and overwrite [U] with the right singular
+             // vectors of R
             DO 1192 p = 1, NR
                DO 1193 q = p, N
                   U(q,p) = CONJG(A(p,q))
  1193          CONTINUE
  1192       CONTINUE
             IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, U(1,2), LDU )
-*           .. the left singular vectors not computed, the NR right singular
-*           vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
-*           will be pre-multiplied by Q to build the left singular vectors of A.
+            // .. the left singular vectors not computed, the NR right singular
+            // vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
+            // will be pre-multiplied by Q to build the left singular vectors of A.
                CALL CGESVD( 'N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
 *
                DO 1119 p = 1, NR
@@ -531,20 +531,20 @@
  1119          CONTINUE
 *
          ELSE
-*            .. apply CGESVD to R
-*            .. copy R into [U] and overwrite [U] with the left singular vectors
+             // .. apply CGESVD to R
+             // .. copy R into [U] and overwrite [U] with the left singular vectors
              CALL CLACPY( 'U', NR, N, A, LDA, U, LDU )
              IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1, NR-1, CZERO, CZERO, U(2,1), LDU )
-*            .. the right singular vectors not computed, the NR left singular
-*            vectors overwrite [U](1:NR,1:NR)
+             // .. the right singular vectors not computed, the NR left singular
+             // vectors overwrite [U](1:NR,1:NR)
                 CALL CGESVD( 'O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
-*               .. now [U](1:NR,1:NR) contains the NR left singular vectors of
-*               R. These will be pre-multiplied by Q to build the left singular
-*               vectors of A.
+                // .. now [U](1:NR,1:NR) contains the NR left singular vectors of
+                // R. These will be pre-multiplied by Q to build the left singular
+                // vectors of A.
          END IF
 *
-*           .. assemble the left singular vector matrix U of dimensions
-*              (M x NR) or (M x N) or (M x M).
+            // .. assemble the left singular vector matrix U of dimensions
+               // (M x NR) or (M x N) or (M x M).
          IF ( ( NR .LT. M ) .AND. ( .NOT.WNTUF ) ) THEN
              CALL CLASET('A', M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU)
              IF ( NR .LT. N1 ) THEN
@@ -553,27 +553,27 @@
              END IF
          END IF
 *
-*           The Q matrix from the first QRF is built into the left singular
-*           vectors matrix U.
+            // The Q matrix from the first QRF is built into the left singular
+            // vectors matrix U.
 *
          IF ( .NOT.WNTUF ) CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR )
          IF ( ROWPRM .AND. .NOT.WNTUF ) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
 *
       ELSE IF ( RSVEC .AND. ( .NOT. LSVEC ) ) THEN
 *.......................................................................
-*       .. the singular values and the right singular vectors requested
+        // .. the singular values and the right singular vectors requested
 *.......................................................................
           IF ( RTRANS ) THEN
-*            .. apply CGESVD to R**H
-*            .. copy R**H into V and overwrite V with the left singular vectors
+             // .. apply CGESVD to R**H
+             // .. copy R**H into V and overwrite V with the left singular vectors
             DO 1165 p = 1, NR
                DO 1166 q = p, N
                   V(q,p) = CONJG(A(p,q))
  1166          CONTINUE
  1165       CONTINUE
             IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
-*           .. the left singular vectors of R**H overwrite V, the right singular
-*           vectors not computed
+            // .. the left singular vectors of R**H overwrite V, the right singular
+            // vectors not computed
             IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
                CALL CGESVD( 'O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
 *
@@ -595,11 +595,11 @@
                END IF
                CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
             ELSE
-*               .. need all N right singular vectors and NR < N
-*               [!] This is simple implementation that augments [V](1:N,1:NR)
-*               by padding a zero block. In the case NR << N, a more efficient
-*               way is to first use the QR factorization. For more details
-*               how to implement this, see the " FULL SVD " branch.
+                // .. need all N right singular vectors and NR < N
+                // [!] This is simple implementation that augments [V](1:N,1:NR)
+                // by padding a zero block. In the case NR << N, a more efficient
+                // way is to first use the QR factorization. For more details
+                // how to implement this, see the " FULL SVD " branch.
                 CALL CLASET('G', N, N-NR, CZERO, CZERO, V(1,NR+1), LDV)
                 CALL CGESVD( 'O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
 *
@@ -615,41 +615,41 @@
             END IF
 *
           ELSE
-*            .. aply CGESVD to R
-*            .. copy R into V and overwrite V with the right singular vectors
+             // .. aply CGESVD to R
+             // .. copy R into V and overwrite V with the right singular vectors
              CALL CLACPY( 'U', NR, N, A, LDA, V, LDV )
              IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1, NR-1, CZERO, CZERO, V(2,1), LDV )
-*            .. the right singular vectors overwrite V, the NR left singular
-*            vectors stored in U(1:NR,1:NR)
+             // .. the right singular vectors overwrite V, the NR left singular
+             // vectors stored in U(1:NR,1:NR)
              IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
                 CALL CGESVD( 'N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
                 CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
-*               .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
+                // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
              ELSE
-*               .. need all N right singular vectors and NR < N
-*               [!] This is simple implementation that augments [V](1:NR,1:N)
-*               by padding a zero block. In the case NR << N, a more efficient
-*               way is to first use the LQ factorization. For more details
-*               how to implement this, see the " FULL SVD " branch.
+                // .. need all N right singular vectors and NR < N
+                // [!] This is simple implementation that augments [V](1:NR,1:N)
+                // by padding a zero block. In the case NR << N, a more efficient
+                // way is to first use the LQ factorization. For more details
+                // how to implement this, see the " FULL SVD " branch.
                  CALL CLASET('G', N-NR, N, CZERO,CZERO, V(NR+1,1), LDV)
                  CALL CGESVD( 'N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
                  CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
              END IF
-*            .. now [V] contains the adjoint of the matrix of the right singular
-*            vectors of A.
+             // .. now [V] contains the adjoint of the matrix of the right singular
+             // vectors of A.
           END IF
 *
       ELSE
 *.......................................................................
-*       .. FULL SVD requested
+        // .. FULL SVD requested
 *.......................................................................
          IF ( RTRANS ) THEN
 *
-*            .. apply CGESVD to R**H [[this option is left for R&D&T]]
+             // .. apply CGESVD to R**H [[this option is left for R&D&T]]
 *
             IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
-*            .. copy R**H into [V] and overwrite [V] with the left singular
-*            vectors of R**H
+             // .. copy R**H into [V] and overwrite [V] with the left singular
+             // vectors of R**H
             DO 1168 p = 1, NR
                DO 1169 q = p, N
                   V(q,p) = CONJG(A(p,q))
@@ -657,11 +657,11 @@
  1168       CONTINUE
             IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
 *
-*           .. the left singular vectors of R**H overwrite [V], the NR right
-*           singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
-*           transposed
+            // .. the left singular vectors of R**H overwrite [V], the NR right
+            // singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
+           t // ransposed
                CALL CGESVD( 'O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
-*              .. assemble V
+               // .. assemble V
                DO 1115 p = 1, NR
                   V(p,p) = CONJG(V(p,p))
                   DO 1116 q = p + 1, NR
@@ -697,14 +697,14 @@
                END IF
 *
             ELSE
-*               .. need all N right singular vectors and NR < N
-*            .. copy R**H into [V] and overwrite [V] with the left singular
-*            vectors of R**H
-*               [[The optimal ratio N/NR for using QRF instead of padding
-*                 with zeros. Here hard coded to 2; it must be at least
-*                 two due to work space constraints.]]
-*               OPTRATIO = ILAENV(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
-*               OPTRATIO = MAX( OPTRATIO, 2 )
+                // .. need all N right singular vectors and NR < N
+             // .. copy R**H into [V] and overwrite [V] with the left singular
+             // vectors of R**H
+                // [[The optimal ratio N/NR for using QRF instead of padding
+                  // with zeros. Here hard coded to 2; it must be at least
+                 t // wo due to work space constraints.]]
+                // OPTRATIO = ILAENV(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
+                // OPTRATIO = MAX( OPTRATIO, 2 )
                 OPTRATIO = 2
                 IF ( OPTRATIO*NR .GT. N ) THEN
                    DO 1198 p = 1, NR
@@ -726,8 +726,8 @@
  1114                 CONTINUE
  1113              CONTINUE
                    CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
-*              .. assemble the left singular vector matrix U of dimensions
-*              (M x N1), i.e. (M x N) or (M x M).
+               // .. assemble the left singular vector matrix U of dimensions
+               // (M x N1), i.e. (M x N) or (M x M).
 *
                    DO 1111 p = 1, N
                       U(p,p) = CONJG(U(p,p))
@@ -746,8 +746,8 @@
                       END IF
                    END IF
                 ELSE
-*                  .. copy R**H into [U] and overwrite [U] with the right
-*                  singular vectors of R
+                   // .. copy R**H into [U] and overwrite [U] with the right
+                   // singular vectors of R
                    DO 1196 p = 1, NR
                       DO 1197 q = p, N
                          U(q,NR+p) = CONJG(A(p,q))
@@ -766,8 +766,8 @@
                   CALL CLASET('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV)
                   CALL CUNMQR('R','C', N, N, NR, U(1,NR+1), LDU, CWORK(N+1),V,LDV,CWORK(N+NR+1),LCWORK-N-NR,IERR)
                   CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
-*                 .. assemble the left singular vector matrix U of dimensions
-*                 (M x NR) or (M x N) or (M x M).
+                  // .. assemble the left singular vector matrix U of dimensions
+                  // (M x NR) or (M x N) or (M x M).
                   IF ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) THEN
                      CALL CLASET('A',M-NR,NR,CZERO,CZERO,U(NR+1,1),LDU)
                      IF ( NR .LT. N1 ) THEN
@@ -780,19 +780,19 @@
 *
          ELSE
 *
-*            .. apply CGESVD to R [[this is the recommended option]]
+             // .. apply CGESVD to R [[this is the recommended option]]
 *
              IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
-*                .. copy R into [V] and overwrite V with the right singular vectors
+                 // .. copy R into [V] and overwrite V with the right singular vectors
                  CALL CLACPY( 'U', NR, N, A, LDA, V, LDV )
                 IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, V(2,1), LDV )
-*               .. the right singular vectors of R overwrite [V], the NR left
-*               singular vectors of R stored in [U](1:NR,1:NR)
+                // .. the right singular vectors of R overwrite [V], the NR left
+                // singular vectors of R stored in [U](1:NR,1:NR)
                 CALL CGESVD( 'S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
                 CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
-*               .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
-*               .. assemble the left singular vector matrix U of dimensions
-*              (M x NR) or (M x N) or (M x M).
+                // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
+                // .. assemble the left singular vector matrix U of dimensions
+               // (M x NR) or (M x N) or (M x M).
                IF ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) THEN
                   CALL CLASET('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU)
                   IF ( NR .LT. N1 ) THEN
@@ -802,28 +802,28 @@
                END IF
 *
              ELSE
-*              .. need all N right singular vectors and NR < N
-*              .. the requested number of the left singular vectors
-*               is then N1 (N or M)
-*               [[The optimal ratio N/NR for using LQ instead of padding
-*                 with zeros. Here hard coded to 2; it must be at least
-*                 two due to work space constraints.]]
-*               OPTRATIO = ILAENV(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
-*               OPTRATIO = MAX( OPTRATIO, 2 )
+               // .. need all N right singular vectors and NR < N
+               // .. the requested number of the left singular vectors
+                // is then N1 (N or M)
+                // [[The optimal ratio N/NR for using LQ instead of padding
+                  // with zeros. Here hard coded to 2; it must be at least
+                 t // wo due to work space constraints.]]
+                // OPTRATIO = ILAENV(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
+                // OPTRATIO = MAX( OPTRATIO, 2 )
                OPTRATIO = 2
                IF ( OPTRATIO * NR .GT. N ) THEN
                   CALL CLACPY( 'U', NR, N, A, LDA, V, LDV )
                   IF ( NR .GT. 1 ) CALL CLASET('L', NR-1,NR-1, CZERO,CZERO, V(2,1),LDV)
-*              .. the right singular vectors of R overwrite [V], the NR left
-*                 singular vectors of R stored in [U](1:NR,1:NR)
+               // .. the right singular vectors of R overwrite [V], the NR left
+                  // singular vectors of R stored in [U](1:NR,1:NR)
                   CALL CLASET('A', N-NR,N, CZERO,CZERO, V(NR+1,1),LDV)
                   CALL CGESVD( 'S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
                   CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
-*                 .. now [V] contains the adjoint of the matrix of the right
-*                 singular vectors of A. The leading N left singular vectors
-*                 are in [U](1:N,1:N)
-*                 .. assemble the left singular vector matrix U of dimensions
-*                 (M x N1), i.e. (M x N) or (M x M).
+                  // .. now [V] contains the adjoint of the matrix of the right
+                  // singular vectors of A. The leading N left singular vectors
+                  // are in [U](1:N,1:N)
+                  // .. assemble the left singular vector matrix U of dimensions
+                  // (M x N1), i.e. (M x N) or (M x M).
                   IF ( ( N .LT. M ) .AND. .NOT.(WNTUF)) THEN
                       CALL CLASET('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU)
                       IF ( N .LT. N1 ) THEN
@@ -841,8 +841,8 @@
                   CALL CLASET('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV)
                   CALL CUNMLQ('R','N',N,N,NR,U(NR+1,1),LDU,CWORK(N+1), V, LDV, CWORK(N+NR+1),LCWORK-N-NR,IERR)
                   CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
-*               .. assemble the left singular vector matrix U of dimensions
-*              (M x NR) or (M x N) or (M x M).
+                // .. assemble the left singular vector matrix U of dimensions
+               // (M x NR) or (M x N) or (M x M).
                   IF ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) THEN
                      CALL CLASET('A',M-NR,NR,CZERO,CZERO,U(NR+1,1),LDU)
                      IF ( NR .LT. N1 ) THEN
@@ -852,20 +852,20 @@
                   END IF
                END IF
              END IF
-*        .. end of the "R**H or R" branch
+         // .. end of the "R**H or R" branch
          END IF
 *
-*           The Q matrix from the first QRF is built into the left singular
-*           vectors matrix U.
+            // The Q matrix from the first QRF is built into the left singular
+            // vectors matrix U.
 *
          IF ( .NOT. WNTUF ) CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR )
          IF ( ROWPRM .AND. .NOT.WNTUF ) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
 *
-*     ... end of the "full SVD" branch
+      // ... end of the "full SVD" branch
       END IF
 *
-*     Check whether some singular values are returned as zeros, e.g.
-*     due to underflow, and update the numerical rank.
+      // Check whether some singular values are returned as zeros, e.g.
+      // due to underflow, and update the numerical rank.
       p = NR
       DO 4001 q = p, 1, -1
           IF ( S(q) .GT. ZERO ) GO TO 4002
@@ -873,21 +873,21 @@
  4001 CONTINUE
  4002 CONTINUE
 *
-*     .. if numerical rank deficiency is detected, the truncated
-*     singular values are set to zero.
+      // .. if numerical rank deficiency is detected, the truncated
+      // singular values are set to zero.
       IF ( NR .LT. N ) CALL SLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N )
-*     .. undo scaling; this may cause overflow in the largest singular
-*     values.
+      // .. undo scaling; this may cause overflow in the largest singular
+      // values.
       IF ( ASCALED ) CALL SLASCL( 'G',0,0, ONE,SQRT(REAL(M)), NR,1, S, N, IERR )
       IF ( CONDA ) RWORK(1) = SCONDA
       RWORK(2) = p - NR
-*     .. p-NR is the number of singular values that are computed as
-*     exact zeros in CGESVD() applied to the (possibly truncated)
-*     full row rank triangular (trapezoidal) factor of A.
+      // .. p-NR is the number of singular values that are computed as
+      // exact zeros in CGESVD() applied to the (possibly truncated)
+      // full row rank triangular (trapezoidal) factor of A.
       NUMRANK = NR
 *
       RETURN
 *
-*     End of CGESVDQ
+      // End of CGESVDQ
 *
       END

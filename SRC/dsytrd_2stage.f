@@ -6,39 +6,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             VECT, UPLO;
       int                N, LDA, LWORK, LHOUS2, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * );
       double             A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTQ;
       int                KD, IB, LWMIN, LHMIN, LWRK, LDAB, WPOS, ABPOS;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, DSYTRD_SY2SB, DSYTRD_SB2ST
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       // EXTERNAL LSAME, ILAENV2STAGE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO   = 0
       WANTQ  = LSAME( VECT, 'V' )
       UPPER  = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK.EQ.-1 ) .OR. ( LHOUS2.EQ.-1 )
 *
-*     Determine the block size, the workspace size and the hous size.
+      // Determine the block size, the workspace size and the hous size.
 *
       KD     = ILAENV2STAGE( 1, 'DSYTRD_2STAGE', VECT, N, -1, -1, -1 )
       IB     = ILAENV2STAGE( 2, 'DSYTRD_2STAGE', VECT, N, KD, -1, -1 )
@@ -76,14 +76,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          WORK( 1 ) = 1
          RETURN
       END IF
 *
-*     Determine pointer position
+      // Determine pointer position
 *
       LDAB  = KD+1
       LWRK  = LWORK-LDAB*N
@@ -104,6 +104,6 @@
       WORK( 1 ) = LWMIN
       RETURN
 *
-*     End of DSYTRD_2STAGE
+      // End of DSYTRD_2STAGE
 *
       END

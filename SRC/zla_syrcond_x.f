@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N, LDA, LDAF, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * )
       double             RWORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                KASE;
       double             AINVNM, ANORM, TMP;
       int                I, J;
       bool               UP, UPPER;
       COMPLEX*16         ZDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLACN2, ZSYTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function Definitions ..
+      // ..
+      // .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       ZLA_SYRCOND_X = 0.0D+0
 *
@@ -64,7 +64,7 @@
       UP = .FALSE.
       IF ( LSAME( UPLO, 'U' ) ) UP = .TRUE.
 *
-*     Compute norm of op(A)*op2(C).
+      // Compute norm of op(A)*op2(C).
 *
       ANORM = 0.0D+0
       IF ( UP ) THEN
@@ -93,7 +93,7 @@
          END DO
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) THEN
          ZLA_SYRCOND_X = 1.0D+0
@@ -102,7 +102,7 @@
          RETURN
       END IF
 *
-*     Estimate the norm of inv(op(A)).
+      // Estimate the norm of inv(op(A)).
 *
       AINVNM = 0.0D+0
 *
@@ -112,7 +112,7 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
@@ -124,14 +124,14 @@
                CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 *
-*           Multiply by inv(X).
+            // Multiply by inv(X).
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
             END DO
          ELSE
 *
-*           Multiply by inv(X**T).
+            // Multiply by inv(X**T).
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
@@ -143,7 +143,7 @@
                CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
@@ -152,12 +152,12 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM .NE. 0.0D+0 ) ZLA_SYRCOND_X = 1.0D+0 / AINVNM
 *
       RETURN
 *
-*     End of ZLA_SYRCOND_X
+      // End of ZLA_SYRCOND_X
 *
       END

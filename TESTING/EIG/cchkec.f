@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NIN, NOUT;
       REAL               THRESH
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               OK;
       String             PATH;
       int                KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LTREXC, LTRSYL, NTESTS, NTREXC, NTRSYL;
       REAL               EPS, RTREXC, SFMIN
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NTRSEN( 3 ), NTRSNA( 3 );
       REAL               RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CERREC, CGET35, CGET36, CGET37, CGET38, CSYL01
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'Complex precision'
       PATH( 2: 3 ) = 'EC'
@@ -39,7 +39,7 @@
       WRITE( NOUT, FMT = 9993 )EPS, SFMIN
       WRITE( NOUT, FMT = 9992 )THRESH
 *
-*     Test error exits if TSTERR is .TRUE.
+      // Test error exits if TSTERR is .TRUE.
 *
       IF( TSTERR ) CALL CERREC( PATH, NOUT )
 *
@@ -110,6 +110,6 @@
      $      'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
       RETURN
 *
-*     End of CCHKEC
+      // End of CCHKEC
 *
       END

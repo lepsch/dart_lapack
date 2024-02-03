@@ -1,32 +1,32 @@
       PROGRAM CCBLAT1
-*     Test program for the COMPLEX    Level 1 CBLAS.
-*     Based upon the original CBLAS test routine together with:
-*     F06GAF Example Program Text
-*     .. Parameters ..
+      // Test program for the COMPLEX    Level 1 CBLAS.
+      // Based upon the original CBLAS test routine together with:
+      // F06GAF Example Program Text
+      // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL             SFAC
       int              IC;
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL CHECK1, CHECK2, HEADER
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA             SFAC/9.765625E-4/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       WRITE (NOUT,99999)
       DO 20 IC = 1, 10
          ICASE = IC
          CALL HEADER
 *
-*        Initialize PASS, INCX, INCY, and MODE for a new case.
-*        The value 9999 for INCX, INCY or MODE will appear in the
-*        detailed  output, if any, for cases that do not involve
-*        these parameters.
+         // Initialize PASS, INCX, INCY, and MODE for a new case.
+         // The value 9999 for INCX, INCY or MODE will appear in the
+         // detailed  output, if any, for cases that do not involve
+        t // hese parameters.
 *
          PASS = .TRUE.
          INCX = 9999
@@ -37,7 +37,7 @@
          ELSE IF (ICASE.GE.6) THEN
             CALL CHECK1(SFAC)
          END IF
-*        -- Print
+         // -- Print
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
       STOP
@@ -46,17 +46,17 @@
 99998 FORMAT ('                                    ----- PASS -----')
       END
       SUBROUTINE HEADER
-*     .. Parameters ..
+      // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       String            L(10);
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA             L(1)/'CBLAS_CDOTC'/
       DATA             L(2)/'CBLAS_CDOTU'/
       DATA             L(3)/'CBLAS_CAXPY'/
@@ -67,40 +67,40 @@
       DATA             L(8)/'CBLAS_CSCAL'/
       DATA             L(9)/'CBLAS_CSSCAL'/
       DATA             L(10)/'CBLAS_ICAMAX'/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE)
       RETURN
 *
 99999 FORMAT (/' Test of subprogram number',I3,9X,A15)
       END
       SUBROUTINE CHECK1(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL              SFAC
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       COMPLEX           CA
       REAL              SA
       int               I, J, LEN, NP1;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       COMPLEX           CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CX(8), MWPCS(5), MWPCT(5)
       REAL              STRUE2(5), STRUE4(5)
       int               ITRUE3(5);
-*     .. External Functions ..
+      // .. External Functions ..
       REAL              SCASUMTEST, SCNRM2TEST
       int               ICAMAXTEST;
       // EXTERNAL SCASUMTEST, SCNRM2TEST, ICAMAXTEST
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL CSCAL, CSSCALTEST, CTEST, ITEST1, STEST1
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              SA, CA/0.3E0, (0.4E0,-0.7E0)/
       DATA              ((CV(I,J,1),I=1,8),J=1,5)/(0.1E0,0.1E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (0.3E0,-0.4E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (0.1E0,-0.3E0), (0.5E0,-0.1E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (0.1E0,0.1E0), (-0.6E0,0.1E0), (0.1E0,-0.3E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (0.3E0,0.1E0), (0.1E0,0.4E0), (0.4E0,0.1E0), (0.1E0,0.2E0), (2.0E0,3.0E0), (2.0E0,3.0E0), (2.0E0,3.0E0), (2.0E0,3.0E0)/       DATA              ((CV(I,J,2),I=1,8),J=1,5)/(0.1E0,0.1E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (0.3E0,-0.4E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (0.1E0,-0.3E0), (8.0E0,9.0E0), (0.5E0,-0.1E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (0.1E0,0.1E0), (3.0E0,6.0E0), (-0.6E0,0.1E0), (4.0E0,7.0E0), (0.1E0,-0.3E0), (7.0E0,2.0E0), (7.0E0,2.0E0), (7.0E0,2.0E0), (0.3E0,0.1E0), (5.0E0,8.0E0), (0.1E0,0.4E0), (6.0E0,9.0E0), (0.4E0,0.1E0), (8.0E0,3.0E0), (0.1E0,0.2E0), (9.0E0,4.0E0)/
       DATA              STRUE2/0.0E0, 0.5E0, 0.6E0, 0.7E0, 0.7E0/
@@ -108,31 +108,31 @@
       DATA              ((CTRUE5(I,J,1),I=1,8),J=1,5)/(0.1E0,0.1E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (-0.16E0,-0.37E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (-0.17E0,-0.19E0), (0.13E0,-0.39E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (0.11E0,-0.03E0), (-0.17E0,0.46E0), (-0.17E0,-0.19E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (0.19E0,-0.17E0), (0.32E0,0.09E0), (0.23E0,-0.24E0), (0.18E0,0.01E0), (2.0E0,3.0E0), (2.0E0,3.0E0), (2.0E0,3.0E0), (2.0E0,3.0E0)/       DATA              ((CTRUE5(I,J,2),I=1,8),J=1,5)/(0.1E0,0.1E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (-0.16E0,-0.37E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (-0.17E0,-0.19E0), (8.0E0,9.0E0), (0.13E0,-0.39E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (0.11E0,-0.03E0), (3.0E0,6.0E0), (-0.17E0,0.46E0), (4.0E0,7.0E0), (-0.17E0,-0.19E0), (7.0E0,2.0E0), (7.0E0,2.0E0), (7.0E0,2.0E0), (0.19E0,-0.17E0), (5.0E0,8.0E0), (0.32E0,0.09E0), (6.0E0,9.0E0), (0.23E0,-0.24E0), (8.0E0,3.0E0), (0.18E0,0.01E0), (9.0E0,4.0E0)/
       DATA              ((CTRUE6(I,J,1),I=1,8),J=1,5)/(0.1E0,0.1E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (1.0E0,2.0E0), (0.09E0,-0.12E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (3.0E0,4.0E0), (0.03E0,-0.09E0), (0.15E0,-0.03E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (5.0E0,6.0E0), (0.03E0,0.03E0), (-0.18E0,0.03E0), (0.03E0,-0.09E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (7.0E0,8.0E0), (0.09E0,0.03E0), (0.03E0,0.12E0), (0.12E0,0.03E0), (0.03E0,0.06E0), (2.0E0,3.0E0), (2.0E0,3.0E0), (2.0E0,3.0E0), (2.0E0,3.0E0)/       DATA              ((CTRUE6(I,J,2),I=1,8),J=1,5)/(0.1E0,0.1E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (4.0E0,5.0E0), (0.09E0,-0.12E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (6.0E0,7.0E0), (0.03E0,-0.09E0), (8.0E0,9.0E0), (0.15E0,-0.03E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (2.0E0,5.0E0), (0.03E0,0.03E0), (3.0E0,6.0E0), (-0.18E0,0.03E0), (4.0E0,7.0E0), (0.03E0,-0.09E0), (7.0E0,2.0E0), (7.0E0,2.0E0), (7.0E0,2.0E0), (0.09E0,0.03E0), (5.0E0,8.0E0), (0.03E0,0.12E0), (6.0E0,9.0E0), (0.12E0,0.03E0), (8.0E0,3.0E0), (0.03E0,0.06E0), (9.0E0,4.0E0)/
       DATA              ITRUE3/0, 1, 2, 2, 2/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       DO 60 INCX = 1, 2
          DO 40 NP1 = 1, 5
             N = NP1 - 1
             LEN = 2*MAX(N,1)
-*           .. Set vector arguments ..
+            // .. Set vector arguments ..
             DO 20 I = 1, LEN
                CX(I) = CV(I,NP1,INCX)
    20       CONTINUE
             IF (ICASE.EQ.6) THEN
-*              .. SCNRM2TEST ..
+               // .. SCNRM2TEST ..
                CALL STEST1(SCNRM2TEST(N,CX,INCX),STRUE2(NP1), STRUE2(NP1), SFAC)
             ELSE IF (ICASE.EQ.7) THEN
-*              .. SCASUMTEST ..
+               // .. SCASUMTEST ..
                CALL STEST1(SCASUMTEST(N,CX,INCX),STRUE4(NP1), STRUE4(NP1),SFAC)
             ELSE IF (ICASE.EQ.8) THEN
-*              .. CSCAL ..
+               // .. CSCAL ..
                CALL CSCAL(N,CA,CX,INCX)
                CALL CTEST(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX), SFAC)
             ELSE IF (ICASE.EQ.9) THEN
-*              .. CSSCALTEST ..
+               // .. CSSCALTEST ..
                CALL CSSCALTEST(N,SA,CX,INCX)
                CALL CTEST(LEN,CX,CTRUE6(1,NP1,INCX),CTRUE6(1,NP1,INCX), SFAC)
             ELSE IF (ICASE.EQ.10) THEN
-*              .. ICAMAXTEST ..
+               // .. ICAMAXTEST ..
                CALL ITEST1(ICAMAXTEST(N,CX,INCX),ITRUE3(NP1))
             ELSE
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
@@ -144,8 +144,8 @@
 *
       INCX = 1
       IF (ICASE.EQ.8) THEN
-*        CSCAL
-*        Add a test for alpha equal to zero.
+         // CSCAL
+         // Add a test for alpha equal to zero.
          CA = (0.0E0,0.0E0)
          DO 80 I = 1, 5
             MWPCT(I) = (0.0E0,0.0E0)
@@ -154,8 +154,8 @@
          CALL CSCAL(5,CA,CX,INCX)
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
       ELSE IF (ICASE.EQ.9) THEN
-*        CSSCALTEST
-*        Add a test for alpha equal to zero.
+         // CSSCALTEST
+         // Add a test for alpha equal to zero.
          SA = 0.0E0
          DO 100 I = 1, 5
             MWPCT(I) = (0.0E0,0.0E0)
@@ -163,7 +163,7 @@
   100    CONTINUE
          CALL CSSCALTEST(5,SA,CX,INCX)
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
-*        Add a test for alpha equal to one.
+         // Add a test for alpha equal to one.
          SA = 1.0E0
          DO 120 I = 1, 5
             MWPCT(I) = CX(I)
@@ -171,7 +171,7 @@
   120    CONTINUE
          CALL CSSCALTEST(5,SA,CX,INCX)
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
-*        Add a test for alpha equal to minus one.
+         // Add a test for alpha equal to minus one.
          SA = -1.0E0
          DO 140 I = 1, 5
             MWPCT(I) = -CX(I)
@@ -183,29 +183,29 @@
       RETURN
       END
       SUBROUTINE CHECK2(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL              SFAC
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       COMPLEX           CA,CTEMP
       int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       COMPLEX           CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CX(7), CX1(7), CY(7), CY1(7)
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
-*     .. External Functions ..
+      // .. External Functions ..
       // EXTERNAL CDOTCTEST, CDOTUTEST
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPYTEST, CCOPYTEST, CSWAPTEST, CTEST
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              CA/(0.4E0,-0.7E0)/
       DATA              INCXS/1, 2, -2, -1/
       DATA              INCYS/1, -2, 1, -2/
@@ -214,7 +214,7 @@
       DATA              CX1/(0.7E0,-0.8E0), (-0.4E0,-0.7E0), (-0.1E0,-0.9E0), (0.2E0,-0.8E0), (-0.9E0,-0.4E0), (0.1E0,0.4E0), (-0.6E0,0.6E0)/       DATA              CY1/(0.6E0,-0.6E0), (-0.9E0,0.5E0), (0.7E0,-0.6E0), (0.1E0,-0.5E0), (-0.1E0,-0.2E0), (-0.5E0,-0.3E0), (0.8E0,-0.7E0)/       DATA              ((CT8(I,J,1),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.32E0,-1.41E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.32E0,-1.41E0), (-1.55E0,0.5E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.32E0,-1.41E0), (-1.55E0,0.5E0), (0.03E0,-0.89E0), (-0.38E0,-0.96E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0)/       DATA              ((CT8(I,J,2),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.32E0,-1.41E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (-0.07E0,-0.89E0), (-0.9E0,0.5E0), (0.42E0,-1.41E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.78E0,0.06E0), (-0.9E0,0.5E0), (0.06E0,-0.13E0), (0.1E0,-0.5E0), (-0.77E0,-0.49E0), (-0.5E0,-0.3E0), (0.52E0,-1.51E0)/
       DATA              ((CT8(I,J,3),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.32E0,-1.41E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (-0.07E0,-0.89E0), (-1.18E0,-0.31E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.78E0,0.06E0), (-1.54E0,0.97E0), (0.03E0,-0.89E0), (-0.18E0,-1.31E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0)/       DATA              ((CT8(I,J,4),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.32E0,-1.41E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.32E0,-1.41E0), (-0.9E0,0.5E0), (0.05E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.32E0,-1.41E0), (-0.9E0,0.5E0), (0.05E0,-0.6E0), (0.1E0,-0.5E0), (-0.77E0,-0.49E0), (-0.5E0,-0.3E0), (0.32E0,-1.16E0)/       DATA              CT7/(0.0E0,0.0E0), (-0.06E0,-0.90E0), (0.65E0,-0.47E0), (-0.34E0,-1.22E0), (0.0E0,0.0E0), (-0.06E0,-0.90E0), (-0.59E0,-1.46E0), (-1.04E0,-0.04E0), (0.0E0,0.0E0), (-0.06E0,-0.90E0), (-0.83E0,0.59E0), (0.07E0,-0.37E0), (0.0E0,0.0E0), (-0.06E0,-0.90E0), (-0.76E0,-1.15E0), (-1.33E0,-1.82E0)/       DATA              CT6/(0.0E0,0.0E0), (0.90E0,0.06E0), (0.91E0,-0.77E0), (1.80E0,-0.10E0), (0.0E0,0.0E0), (0.90E0,0.06E0), (1.45E0,0.74E0), (0.20E0,0.90E0), (0.0E0,0.0E0), (0.90E0,0.06E0), (-0.55E0,0.23E0), (0.83E0,-0.39E0), (0.0E0,0.0E0), (0.90E0,0.06E0), (1.04E0,0.79E0), (1.95E0,1.22E0)/       DATA              ((CT10X(I,J,1),I=1,7),J=1,4)/(0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.6E0,-0.6E0), (-0.9E0,0.5E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.6E0,-0.6E0), (-0.9E0,0.5E0), (0.7E0,-0.6E0), (0.1E0,-0.5E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0)/       DATA              ((CT10X(I,J,2),I=1,7),J=1,4)/(0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.6E0), (-0.4E0,-0.7E0), (0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.8E0,-0.7E0), (-0.4E0,-0.7E0), (-0.1E0,-0.2E0), (0.2E0,-0.8E0), (0.7E0,-0.6E0), (0.1E0,0.4E0), (0.6E0,-0.6E0)/       DATA              ((CT10X(I,J,3),I=1,7),J=1,4)/(0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (-0.9E0,0.5E0), (-0.4E0,-0.7E0), (0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.1E0,-0.5E0), (-0.4E0,-0.7E0), (0.7E0,-0.6E0), (0.2E0,-0.8E0), (-0.9E0,0.5E0), (0.1E0,0.4E0), (0.6E0,-0.6E0)/       DATA              ((CT10X(I,J,4),I=1,7),J=1,4)/(0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.6E0,-0.6E0), (0.7E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.6E0,-0.6E0), (0.7E0,-0.6E0), (-0.1E0,-0.2E0), (0.8E0,-0.7E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0)/       DATA              ((CT10Y(I,J,1),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (-0.4E0,-0.7E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (-0.4E0,-0.7E0), (-0.1E0,-0.9E0), (0.2E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0)/       DATA              ((CT10Y(I,J,2),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (-0.1E0,-0.9E0), (-0.9E0,0.5E0), (0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (-0.6E0,0.6E0), (-0.9E0,0.5E0), (-0.9E0,-0.4E0), (0.1E0,-0.5E0), (-0.1E0,-0.9E0), (-0.5E0,-0.3E0), (0.7E0,-0.8E0)/       DATA              ((CT10Y(I,J,3),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (-0.1E0,-0.9E0), (0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (-0.6E0,0.6E0), (-0.9E0,-0.4E0), (-0.1E0,-0.9E0), (0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0)/       DATA              ((CT10Y(I,J,4),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (-0.9E0,0.5E0), (-0.4E0,-0.7E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (-0.9E0,0.5E0), (-0.4E0,-0.7E0), (0.1E0,-0.5E0), (-0.1E0,-0.9E0), (-0.5E0,-0.3E0), (0.2E0,-0.8E0)/
       DATA              CSIZE1/(0.0E0,0.0E0), (0.9E0,0.9E0), (1.63E0,1.73E0), (2.90E0,2.78E0)/       DATA              CSIZE3/(0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0)/       DATA              CSIZE2/(0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0)/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       DO 60 KI = 1, 4
          INCX = INCXS(KI)
          INCY = INCYS(KI)
@@ -226,31 +226,31 @@
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
-*           .. initialize all argument arrays ..
+            // .. initialize all argument arrays ..
             DO 20 I = 1, 7
                CX(I) = CX1(I)
                CY(I) = CY1(I)
    20       CONTINUE
             IF (ICASE.EQ.1) THEN
-*              .. CDOTCTEST ..
+               // .. CDOTCTEST ..
                CALL CDOTCTEST(N,CX,INCX,CY,INCY,CTEMP)
                CDOT(1) = CTEMP
                CALL CTEST(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC)
             ELSE IF (ICASE.EQ.2) THEN
-*              .. CDOTUTEST ..
+               // .. CDOTUTEST ..
                CALL CDOTUTEST(N,CX,INCX,CY,INCY,CTEMP)
                CDOT(1) = CTEMP
                CALL CTEST(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC)
             ELSE IF (ICASE.EQ.3) THEN
-*              .. CAXPYTEST ..
+               // .. CAXPYTEST ..
                CALL CAXPYTEST(N,CA,CX,INCX,CY,INCY)
                CALL CTEST(LENY,CY,CT8(1,KN,KI),CSIZE2(1,KSIZE),SFAC)
             ELSE IF (ICASE.EQ.4) THEN
-*              .. CCOPYTEST ..
+               // .. CCOPYTEST ..
                CALL CCOPYTEST(N,CX,INCX,CY,INCY)
                CALL CTEST(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0E0)
             ELSE IF (ICASE.EQ.5) THEN
-*              .. CSWAPTEST ..
+               // .. CSWAPTEST ..
                CALL CSWAPTEST(N,CX,INCX,CY,INCY)
                CALL CTEST(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0E0)
                CALL CTEST(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0E0)
@@ -264,45 +264,45 @@
       RETURN
       END
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
-*     ********************************* STEST **************************
+      // ********************************* STEST **************************
 *
-*     THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
-*     SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
-*     NEGLIGIBLE.
+      // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
+      // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
+      // NEGLIGIBLE.
 *
-*     C. L. LAWSON, JPL, 1974 DEC 10
+      // C. L. LAWSON, JPL, 1974 DEC 10
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL             SFAC
       int              LEN;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL             SD
       int              I;
-*     .. External Functions ..
+      // .. External Functions ..
       REAL             SDIFF
       // EXTERNAL SDIFF
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       DO 40 I = 1, LEN
          SD = SCOMP(I) - STRUE(I)
          IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))).EQ.0.0E0) GO TO 40
 *
-*                             HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
+                              // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 *
          IF ( .NOT. PASS) GO TO 20
-*                             PRINT FAIL MESSAGE AND HEADER.
+                              // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
@@ -318,23 +318,23 @@
 99997 FORMAT (1X,I4,I3,3I5,I3,2E36.8,2E12.4)
       END
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
-*     ************************* STEST1 *****************************
+      // ************************* STEST1 *****************************
 *
-*     THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
-*     REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
-*     ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
+      // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
+      // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
+      // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
 *
-*     C.L. LAWSON, JPL, 1978 DEC 6
+      // C.L. LAWSON, JPL, 1978 DEC 6
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL              SCOMP1, SFAC, STRUE1
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL              SSIZE(*)
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL              SCOMP(1), STRUE(1)
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL STEST
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
@@ -343,34 +343,34 @@
       RETURN
       END
       REAL             FUNCTION SDIFF(SA,SB)
-*     ********************************* SDIFF **************************
-*     COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
+      // ********************************* SDIFF **************************
+      // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL                            SA, SB
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       SDIFF = SA - SB
       RETURN
       END
       SUBROUTINE CTEST(LEN,CCOMP,CTRUE,CSIZE,SFAC)
-*     **************************** CTEST *****************************
+      // **************************** CTEST *****************************
 *
-*     C.L. LAWSON, JPL, 1978 DEC 6
+      // C.L. LAWSON, JPL, 1978 DEC 6
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL             SFAC
       int              LEN;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       COMPLEX          CCOMP(LEN), CSIZE(LEN), CTRUE(LEN)
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int              I;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL             SCOMP(20), SSIZE(20), STRUE(20)
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL STEST
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       DO 20 I = 1, LEN
          SCOMP(2*I-1) = REAL(CCOMP(I))
          SCOMP(2*I) = AIMAG(CCOMP(I))
@@ -384,31 +384,31 @@
       RETURN
       END
       SUBROUTINE ITEST1(ICOMP,ITRUE)
-*     ********************************* ITEST1 *************************
+      // ********************************* ITEST1 *************************
 *
-*     THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
-*     EQUALITY.
-*     C. L. LAWSON, JPL, 1974 DEC 10
+      // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
+      // EQUALITY.
+      // C. L. LAWSON, JPL, 1974 DEC 10
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int               ICOMP, ITRUE;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int               ID;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       IF (ICOMP.EQ.ITRUE) GO TO 40
 *
-*                            HERE ICOMP IS NOT EQUAL TO ITRUE.
+                             // HERE ICOMP IS NOT EQUAL TO ITRUE.
 *
       IF ( .NOT. PASS) GO TO 20
-*                             PRINT FAIL MESSAGE AND HEADER.
+                              // PRINT FAIL MESSAGE AND HEADER.
       PASS = .FALSE.
       WRITE (NOUT,99999)
       WRITE (NOUT,99998)

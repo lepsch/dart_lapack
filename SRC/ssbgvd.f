@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, KA, KB, LDAB, LDBB, LDZ, LIWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               AB( LDAB, * ), BB( LDBB, * ), W( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             VECT;
       int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLWRK2, LWMIN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SPBSTF, SSBGST, SSBTRD, SSTEDC, SSTERF, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -88,11 +88,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Form a split Cholesky factorization of B.
+      // Form a split Cholesky factorization of B.
 *
       CALL SPBSTF( UPLO, N, KB, BB, LDBB, INFO )
       IF( INFO.NE.0 ) THEN
@@ -100,7 +100,7 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem.
+      // Transform problem to standard eigenvalue problem.
 *
       INDE = 1
       INDWRK = INDE + N
@@ -108,7 +108,7 @@
       LLWRK2 = LWORK - INDWK2 + 1
       CALL SSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, IINFO )
 *
-*     Reduce to tridiagonal form.
+      // Reduce to tridiagonal form.
 *
       IF( WANTZ ) THEN
          VECT = 'U'
@@ -117,7 +117,7 @@
       END IF
       CALL SSBTRD( VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO )
 *
-*     For eigenvalues only, call SSTERF. For eigenvectors, call SSTEDC.
+      // For eigenvalues only, call SSTERF. For eigenvectors, call SSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
@@ -131,6 +131,6 @@
 *
       RETURN
 *
-*     End of SSBGVD
+      // End of SSBGVD
 *
       END

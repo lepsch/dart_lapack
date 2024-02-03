@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             B( LDB, * ), D( * ), E( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, J;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.1 ) THEN
          IF( N.EQ.1 ) CALL DSCAL( NRHS, 1.D0 / D( 1 ), B, LDB )
          RETURN
       END IF
 *
-*     Solve A * X = B using the factorization A = L*D*L**T,
-*     overwriting each right hand side vector with its solution.
+      // Solve A * X = B using the factorization A = L*D*L**T,
+      // overwriting each right hand side vector with its solution.
 *
       DO 30 J = 1, NRHS
 *
-*           Solve L * x = b.
+            // Solve L * x = b.
 *
          DO 10 I = 2, N
             B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 )
    10    CONTINUE
 *
-*           Solve D * L**T * x = b.
+            // Solve D * L**T * x = b.
 *
          B( N, J ) = B( N, J ) / D( N )
          DO 20 I = N - 1, 1, -1
@@ -49,6 +49,6 @@
 *
       RETURN
 *
-*     End of DPTTS2
+      // End of DPTTS2
 *
       END

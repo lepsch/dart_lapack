@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             HOWMNY, SIDE;
       int                INFO, LDT, LDVL, LDVR, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       double             T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, OVER, PAIR, RIGHTV, SOMEV;
       int                I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, N2;
       double             BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DDOT, DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DDOT, DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DGEMV, DLALN2, DSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             X( 2, 2 );
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       BOTHV = LSAME( SIDE, 'B' )
       RIGHTV = LSAME( SIDE, 'R' ) .OR. BOTHV
@@ -66,9 +66,9 @@
          INFO = -10
       ELSE
 *
-*        Set M to the number of columns required to store the selected
-*        eigenvectors, standardize the array SELECT if necessary, and
-*        test MM.
+         // Set M to the number of columns required to store the selected
+         // eigenvectors, standardize the array SELECT if necessary, and
+        t // est MM.
 *
          IF( SOMEV ) THEN
             M = 0
@@ -106,11 +106,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Set the constants to control overflow.
+      // Set the constants to control overflow.
 *
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
@@ -118,8 +118,8 @@
       SMLNUM = UNFL*( N / ULP )
       BIGNUM = ( ONE-ULP ) / SMLNUM
 *
-*     Compute 1-norm of each column of strictly upper triangular
-*     part of T to control overflow in triangular solver.
+      // Compute 1-norm of each column of strictly upper triangular
+      // part of T to control overflow in triangular solver.
 *
       WORK( 1 ) = ZERO
       DO 30 J = 2, N
@@ -129,16 +129,16 @@
    20    CONTINUE
    30 CONTINUE
 *
-*     Index IP is used to specify the real or complex eigenvalue:
-*       IP = 0, real eigenvalue,
-*            1, first of conjugate complex pair: (wr,wi)
-*           -1, second of conjugate complex pair: (wr,wi)
+      // Index IP is used to specify the real or complex eigenvalue:
+        // IP = 0, real eigenvalue,
+             // 1, first of conjugate complex pair: (wr,wi)
+            // -1, second of conjugate complex pair: (wr,wi)
 *
       N2 = 2*N
 *
       IF( RIGHTV ) THEN
 *
-*        Compute right eigenvectors.
+         // Compute right eigenvectors.
 *
          IP = 0
          IS = M
@@ -156,7 +156,7 @@
                END IF
             END IF
 *
-*           Compute the KI-th eigenvalue (WR,WI).
+            // Compute the KI-th eigenvalue (WR,WI).
 *
             WR = T( KI, KI )
             WI = ZERO
@@ -165,18 +165,18 @@
 *
             IF( IP.EQ.0 ) THEN
 *
-*              Real right eigenvector
+               // Real right eigenvector
 *
                WORK( KI+N ) = ONE
 *
-*              Form right-hand side
+               // Form right-hand side
 *
                DO 50 K = 1, KI - 1
                   WORK( K+N ) = -T( K, KI )
    50          CONTINUE
 *
-*              Solve the upper quasi-triangular system:
-*                 (T(1:KI-1,1:KI-1) - WR)*X = SCALE*WORK.
+               // Solve the upper quasi-triangular system:
+                  // (T(1:KI-1,1:KI-1) - WR)*X = SCALE*WORK.
 *
                JNXT = KI - 1
                DO 60 J = KI - 1, 1, -1
@@ -193,12 +193,12 @@
 *
                   IF( J1.EQ.J2 ) THEN
 *
-*                    1-by-1 diagonal block
+                     // 1-by-1 diagonal block
 *
                      CALL DLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 *
-*                    Scale X(1,1) to avoid overflow when updating
-*                    the right-hand side.
+                     // Scale X(1,1) to avoid overflow when updating
+                    t // he right-hand side.
 *
                      IF( XNORM.GT.ONE ) THEN
                         IF( WORK( J ).GT.BIGNUM / XNORM ) THEN
@@ -207,23 +207,23 @@
                         END IF
                      END IF
 *
-*                    Scale if necessary
+                     // Scale if necessary
 *
                      IF( SCALE.NE.ONE ) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 )
                      WORK( J+N ) = X( 1, 1 )
 *
-*                    Update right-hand side
+                     // Update right-hand side
 *
                      CALL DAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )
 *
                   ELSE
 *
-*                    2-by-2 diagonal block
+                     // 2-by-2 diagonal block
 *
                      CALL DLALN2( .FALSE., 2, 1, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 *
-*                    Scale X(1,1) and X(2,1) to avoid overflow when
-*                    updating the right-hand side.
+                     // Scale X(1,1) and X(2,1) to avoid overflow when
+                     // updating the right-hand side.
 *
                      IF( XNORM.GT.ONE ) THEN
                         BETA = MAX( WORK( J-1 ), WORK( J ) )
@@ -234,19 +234,19 @@
                         END IF
                      END IF
 *
-*                    Scale if necessary
+                     // Scale if necessary
 *
                      IF( SCALE.NE.ONE ) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 )
                      WORK( J-1+N ) = X( 1, 1 )
                      WORK( J+N ) = X( 2, 1 )
 *
-*                    Update right-hand side
+                     // Update right-hand side
 *
                      CALL DAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )
                   END IF
    60          CONTINUE
 *
-*              Copy the vector x or Q*x to VR and normalize.
+               // Copy the vector x or Q*x to VR and normalize.
 *
                IF( .NOT.OVER ) THEN
                   CALL DCOPY( KI, WORK( 1+N ), 1, VR( 1, IS ), 1 )
@@ -268,11 +268,11 @@
 *
             ELSE
 *
-*              Complex right eigenvector.
+               // Complex right eigenvector.
 *
-*              Initial solve
-*                [ (T(KI-1,KI-1) T(KI-1,KI) ) - (WR + I* WI)]*X = 0.
-*                [ (T(KI,KI-1)   T(KI,KI)   )               ]
+               // Initial solve
+                 // [ (T(KI-1,KI-1) T(KI-1,KI) ) - (WR + I* WI)]*X = 0.
+                 // [ (T(KI,KI-1)   T(KI,KI)   )               ]
 *
                IF( ABS( T( KI-1, KI ) ).GE.ABS( T( KI, KI-1 ) ) ) THEN
                   WORK( KI-1+N ) = ONE
@@ -284,15 +284,15 @@
                WORK( KI+N ) = ZERO
                WORK( KI-1+N2 ) = ZERO
 *
-*              Form right-hand side
+               // Form right-hand side
 *
                DO 80 K = 1, KI - 2
                   WORK( K+N ) = -WORK( KI-1+N )*T( K, KI-1 )
                   WORK( K+N2 ) = -WORK( KI+N2 )*T( K, KI )
    80          CONTINUE
 *
-*              Solve upper quasi-triangular system:
-*              (T(1:KI-2,1:KI-2) - (WR+i*WI))*X = SCALE*(WORK+i*WORK2)
+               // Solve upper quasi-triangular system:
+               // (T(1:KI-2,1:KI-2) - (WR+i*WI))*X = SCALE*(WORK+i*WORK2)
 *
                JNXT = KI - 2
                DO 90 J = KI - 2, 1, -1
@@ -309,12 +309,12 @@
 *
                   IF( J1.EQ.J2 ) THEN
 *
-*                    1-by-1 diagonal block
+                     // 1-by-1 diagonal block
 *
                      CALL DLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
 *
-*                    Scale X(1,1) and X(1,2) to avoid overflow when
-*                    updating the right-hand side.
+                     // Scale X(1,1) and X(1,2) to avoid overflow when
+                     // updating the right-hand side.
 *
                      IF( XNORM.GT.ONE ) THEN
                         IF( WORK( J ).GT.BIGNUM / XNORM ) THEN
@@ -324,7 +324,7 @@
                         END IF
                      END IF
 *
-*                    Scale if necessary
+                     // Scale if necessary
 *
                      IF( SCALE.NE.ONE ) THEN
                         CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 )
@@ -333,18 +333,18 @@
                      WORK( J+N ) = X( 1, 1 )
                      WORK( J+N2 ) = X( 1, 2 )
 *
-*                    Update the right-hand side
+                     // Update the right-hand side
 *
                      CALL DAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 )
 *
                   ELSE
 *
-*                    2-by-2 diagonal block
+                     // 2-by-2 diagonal block
 *
                      CALL DLALN2( .FALSE., 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
 *
-*                    Scale X to avoid overflow when updating
-*                    the right-hand side.
+                     // Scale X to avoid overflow when updating
+                    t // he right-hand side.
 *
                      IF( XNORM.GT.ONE ) THEN
                         BETA = MAX( WORK( J-1 ), WORK( J ) )
@@ -358,7 +358,7 @@
                         END IF
                      END IF
 *
-*                    Scale if necessary
+                     // Scale if necessary
 *
                      IF( SCALE.NE.ONE ) THEN
                         CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 )
@@ -369,13 +369,13 @@
                      WORK( J-1+N2 ) = X( 1, 2 )
                      WORK( J+N2 ) = X( 2, 2 )
 *
-*                    Update the right-hand side
+                     // Update the right-hand side
 *
                      CALL DAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+N2 ), 1 )                      CALL DAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 )
                   END IF
    90          CONTINUE
 *
-*              Copy the vector x or Q*x to VR and normalize.
+               // Copy the vector x or Q*x to VR and normalize.
 *
                IF( .NOT.OVER ) THEN
                   CALL DCOPY( KI, WORK( 1+N ), 1, VR( 1, IS-1 ), 1 )
@@ -423,7 +423,7 @@
 *
       IF( LEFTV ) THEN
 *
-*        Compute left eigenvectors.
+         // Compute left eigenvectors.
 *
          IP = 0
          IS = 1
@@ -437,7 +437,7 @@
                IF( .NOT.SELECT( KI ) ) GO TO 250
             END IF
 *
-*           Compute the KI-th eigenvalue (WR,WI).
+            // Compute the KI-th eigenvalue (WR,WI).
 *
             WR = T( KI, KI )
             WI = ZERO
@@ -446,18 +446,18 @@
 *
             IF( IP.EQ.0 ) THEN
 *
-*              Real left eigenvector.
+               // Real left eigenvector.
 *
                WORK( KI+N ) = ONE
 *
-*              Form right-hand side
+               // Form right-hand side
 *
                DO 160 K = KI + 1, N
                   WORK( K+N ) = -T( KI, K )
   160          CONTINUE
 *
-*              Solve the quasi-triangular system:
-*                 (T(KI+1:N,KI+1:N) - WR)**T*X = SCALE*WORK
+               // Solve the quasi-triangular system:
+                  // (T(KI+1:N,KI+1:N) - WR)**T*X = SCALE*WORK
 *
                VMAX = ONE
                VCRIT = BIGNUM
@@ -477,10 +477,10 @@
 *
                   IF( J1.EQ.J2 ) THEN
 *
-*                    1-by-1 diagonal block
+                     // 1-by-1 diagonal block
 *
-*                    Scale if necessary to avoid overflow when forming
-*                    the right-hand side.
+                     // Scale if necessary to avoid overflow when forming
+                    t // he right-hand side.
 *
                      IF( WORK( J ).GT.VCRIT ) THEN
                         REC = ONE / VMAX
@@ -491,11 +491,11 @@
 *
                      WORK( J+N ) = WORK( J+N ) - DDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+N ), 1 )
 *
-*                    Solve (T(J,J)-WR)**T*X = WORK
+                     // Solve (T(J,J)-WR)**T*X = WORK
 *
                      CALL DLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 *
-*                    Scale if necessary
+                     // Scale if necessary
 *
                      IF( SCALE.NE.ONE ) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 )
                      WORK( J+N ) = X( 1, 1 )
@@ -504,10 +504,10 @@
 *
                   ELSE
 *
-*                    2-by-2 diagonal block
+                     // 2-by-2 diagonal block
 *
-*                    Scale if necessary to avoid overflow when forming
-*                    the right-hand side.
+                     // Scale if necessary to avoid overflow when forming
+                    t // he right-hand side.
 *
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
                      IF( BETA.GT.VCRIT ) THEN
@@ -521,13 +521,13 @@
 *
                      WORK( J+1+N ) = WORK( J+1+N ) - DDOT( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+N ), 1 )
 *
-*                    Solve
-*                      [T(J,J)-WR   T(J,J+1)     ]**T * X = SCALE*( WORK1 )
-*                      [T(J+1,J)    T(J+1,J+1)-WR]                ( WORK2 )
+                     // Solve
+                       // [T(J,J)-WR   T(J,J+1)     ]**T * X = SCALE*( WORK1 )
+                       // [T(J+1,J)    T(J+1,J+1)-WR]                ( WORK2 )
 *
                      CALL DLALN2( .TRUE., 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 *
-*                    Scale if necessary
+                     // Scale if necessary
 *
                      IF( SCALE.NE.ONE ) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 )
                      WORK( J+N ) = X( 1, 1 )
@@ -539,7 +539,7 @@
                   END IF
   170          CONTINUE
 *
-*              Copy the vector x or Q*x to VL and normalize.
+               // Copy the vector x or Q*x to VL and normalize.
 *
                IF( .NOT.OVER ) THEN
                   CALL DCOPY( N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 )
@@ -564,11 +564,11 @@
 *
             ELSE
 *
-*              Complex left eigenvector.
+               // Complex left eigenvector.
 *
-*               Initial solve:
-*                 ((T(KI,KI)    T(KI,KI+1) )**T - (WR - I* WI))*X = 0.
-*                 ((T(KI+1,KI) T(KI+1,KI+1))                )
+                // Initial solve:
+                  // ((T(KI,KI)    T(KI,KI+1) )**T - (WR - I* WI))*X = 0.
+                  // ((T(KI+1,KI) T(KI+1,KI+1))                )
 *
                IF( ABS( T( KI, KI+1 ) ).GE.ABS( T( KI+1, KI ) ) ) THEN
                   WORK( KI+N ) = WI / T( KI, KI+1 )
@@ -580,15 +580,15 @@
                WORK( KI+1+N ) = ZERO
                WORK( KI+N2 ) = ZERO
 *
-*              Form right-hand side
+               // Form right-hand side
 *
                DO 190 K = KI + 2, N
                   WORK( K+N ) = -WORK( KI+N )*T( KI, K )
                   WORK( K+N2 ) = -WORK( KI+1+N2 )*T( KI+1, K )
   190          CONTINUE
 *
-*              Solve complex quasi-triangular system:
-*              ( T(KI+2,N:KI+2,N) - (WR-i*WI) )*X = WORK1+i*WORK2
+               // Solve complex quasi-triangular system:
+               // ( T(KI+2,N:KI+2,N) - (WR-i*WI) )*X = WORK1+i*WORK2
 *
                VMAX = ONE
                VCRIT = BIGNUM
@@ -608,10 +608,10 @@
 *
                   IF( J1.EQ.J2 ) THEN
 *
-*                    1-by-1 diagonal block
+                     // 1-by-1 diagonal block
 *
-*                    Scale if necessary to avoid overflow when
-*                    forming the right-hand side elements.
+                     // Scale if necessary to avoid overflow when
+                     // forming the right-hand side elements.
 *
                      IF( WORK( J ).GT.VCRIT ) THEN
                         REC = ONE / VMAX
@@ -623,11 +623,11 @@
 *
                      WORK( J+N ) = WORK( J+N ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N ), 1 )                      WORK( J+N2 ) = WORK( J+N2 ) - DDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+N2 ), 1 )
 *
-*                    Solve (T(J,J)-(WR-i*WI))*(X11+i*X12)= WK+I*WK2
+                     // Solve (T(J,J)-(WR-i*WI))*(X11+i*X12)= WK+I*WK2
 *
                      CALL DLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR )
 *
-*                    Scale if necessary
+                     // Scale if necessary
 *
                      IF( SCALE.NE.ONE ) THEN
                         CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 )
@@ -640,10 +640,10 @@
 *
                   ELSE
 *
-*                    2-by-2 diagonal block
+                     // 2-by-2 diagonal block
 *
-*                    Scale if necessary to avoid overflow when forming
-*                    the right-hand side elements.
+                     // Scale if necessary to avoid overflow when forming
+                    t // he right-hand side elements.
 *
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
                      IF( BETA.GT.VCRIT ) THEN
@@ -662,13 +662,13 @@
 *
                      WORK( J+1+N2 ) = WORK( J+1+N2 ) - DDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+N2 ), 1 )
 *
-*                    Solve 2-by-2 complex linear equation
-*                      ([T(j,j)   T(j,j+1)  ]**T-(wr-i*wi)*I)*X = SCALE*B
-*                      ([T(j+1,j) T(j+1,j+1)]               )
+                     // Solve 2-by-2 complex linear equation
+                       // ([T(j,j)   T(j,j+1)  ]**T-(wr-i*wi)*I)*X = SCALE*B
+                       // ([T(j+1,j) T(j+1,j+1)]               )
 *
                      CALL DLALN2( .TRUE., 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR )
 *
-*                    Scale if necessary
+                     // Scale if necessary
 *
                      IF( SCALE.NE.ONE ) THEN
                         CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 )
@@ -684,7 +684,7 @@
                   END IF
   200          CONTINUE
 *
-*              Copy the vector x or Q*x to VL and normalize.
+               // Copy the vector x or Q*x to VL and normalize.
 *
                IF( .NOT.OVER ) THEN
                   CALL DCOPY( N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 )
@@ -733,6 +733,6 @@
 *
       RETURN
 *
-*     End of DTREVC
+      // End of DTREVC
 *
       END

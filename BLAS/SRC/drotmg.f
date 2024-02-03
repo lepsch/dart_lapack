@@ -4,29 +4,29 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double           DD1,DD2,DX1,DY1;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double           DPARAM(5);
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double           DFLAG,DH11,DH12,DH21,DH22,DP1,DP2,DQ1,DQ2,DTEMP, DU,GAM,GAMSQ,ONE,RGAMSQ,TWO,ZERO;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DABS
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
 *
       DATA ZERO,ONE,TWO/0.D0,1.D0,2.D0/
       DATA GAM,GAMSQ,RGAMSQ/4096.D0,16777216.D0,5.9604645D-8/
-*     ..
+      // ..
 
       IF (DD1.LT.ZERO) THEN
-*        GO ZERO-H-D-AND-DX1..
+         // GO ZERO-H-D-AND-DX1..
          DFLAG = -ONE
          DH11 = ZERO
          DH12 = ZERO
@@ -37,14 +37,14 @@
          DD2 = ZERO
          DX1 = ZERO
       ELSE
-*        CASE-DD1-NONNEGATIVE
+         // CASE-DD1-NONNEGATIVE
          DP2 = DD2*DY1
          IF (DP2.EQ.ZERO) THEN
             DFLAG = -TWO
             DPARAM(1) = DFLAG
             RETURN
          END IF
-*        REGULAR-CASE..
+         // REGULAR-CASE..
          DP1 = DD1*DX1
          DQ2 = DP2*DY1
          DQ1 = DP1*DX1
@@ -61,9 +61,9 @@
              DD2 = DD2/DU
              DX1 = DX1*DU
            ELSE
-*            This code path if here for safety. We do not expect this
-*            condition to ever hold except in edge cases with rounding
-*            errors. See DOI: 10.1145/355841.355847
+             // This code path if here for safety. We do not expect this
+             // condition to ever hold except in edge cases with rounding
+             // errors. See DOI: 10.1145/355841.355847
              DFLAG = -ONE
              DH11 = ZERO
              DH12 = ZERO
@@ -77,7 +77,7 @@
          ELSE
 
             IF (DQ2.LT.ZERO) THEN
-*              GO ZERO-H-D-AND-DX1..
+               // GO ZERO-H-D-AND-DX1..
                DFLAG = -ONE
                DH11 = ZERO
                DH12 = ZERO
@@ -99,7 +99,7 @@
             END IF
          END IF
 
-*     PROCEDURE..SCALE-CHECK
+      // PROCEDURE..SCALE-CHECK
          IF (DD1.NE.ZERO) THEN
             DO WHILE ((DD1.LE.RGAMSQ) .OR. (DD1.GE.GAMSQ))
                IF (DFLAG.EQ.ZERO) THEN
@@ -166,6 +166,6 @@
       DPARAM(1) = DFLAG
       RETURN
 *
-*     End of DROTMG
+      // End of DROTMG
 *
       END

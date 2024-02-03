@@ -4,62 +4,62 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NOUT, NRHS;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NVAL( * );
       REAL               A( * ), B( * ), D( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 12 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 6 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, FACT, TYPE;
       String             PATH;
       int                I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT;
       REAL               AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS ), Z( 3 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SASUM, SGET06, SLANST
       // EXTERNAL ISAMAX, SASUM, SGET06, SLANST
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, SCOPY, SERRVX, SGET04, SLACPY, SLAPTM, SLARNV, SLASET, SLATB4, SLATMS, SPTSV, SPTSVX, SPTT01, SPTT02, SPTT05, SPTTRF, SPTTRS, SSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 0, 0, 0, 1 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'PT'
@@ -70,14 +70,14 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL SERRVX( PATH, NOUT )
       INFOT = 0
 *
       DO 120 IN = 1, NN
 *
-*        Do for each value of N in NVAL.
+         // Do for each value of N in NVAL.
 *
          N = NVAL( IN )
          LDA = MAX( 1, N )
@@ -86,24 +86,24 @@
 *
          DO 110 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) ) GO TO 110
 *
-*           Set up parameters with SLATB4.
+            // Set up parameters with SLATB4.
 *
             CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 *
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
 *
-*              Type 1-6:  generate a symmetric tridiagonal matrix of
-*              known condition number in lower triangular band storage.
+               // Type 1-6:  generate a symmetric tridiagonal matrix of
+               // known condition number in lower triangular band storage.
 *
                SRNAMT = 'SLATMS'
                CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
 *
-*              Check the error code from SLATMS.
+               // Check the error code from SLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
@@ -111,7 +111,7 @@
                END IF
                IZERO = 0
 *
-*              Copy the matrix to D and E.
+               // Copy the matrix to D and E.
 *
                IA = 1
                DO 20 I = 1, N - 1
@@ -122,17 +122,17 @@
                IF( N.GT.0 ) D( N ) = A( IA )
             ELSE
 *
-*              Type 7-12:  generate a diagonally dominant matrix with
-*              unknown condition number in the vectors D and E.
+               // Type 7-12:  generate a diagonally dominant matrix with
+               // unknown condition number in the vectors D and E.
 *
                IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
 *
-*                 Let D and E have values from [-1,1].
+                  // Let D and E have values from [-1,1].
 *
                   CALL SLARNV( 2, ISEED, N, D )
                   CALL SLARNV( 2, ISEED, N-1, E )
 *
-*                 Make the tridiagonal matrix diagonally dominant.
+                  // Make the tridiagonal matrix diagonally dominant.
 *
                   IF( N.EQ.1 ) THEN
                      D( 1 ) = ABS( D( 1 ) )
@@ -144,7 +144,7 @@
    30                CONTINUE
                   END IF
 *
-*                 Scale D and E so the maximum element is ANORM.
+                  // Scale D and E so the maximum element is ANORM.
 *
                   IX = ISAMAX( N, D, 1 )
                   DMAX = D( IX )
@@ -153,8 +153,8 @@
 *
                ELSE IF( IZERO.GT.0 ) THEN
 *
-*                 Reuse the last matrix by copying back the zeroed out
-*                 elements.
+                  // Reuse the last matrix by copying back the zeroed out
+                  // elements.
 *
                   IF( IZERO.EQ.1 ) THEN
                      D( 1 ) = Z( 2 )
@@ -169,8 +169,8 @@
                   END IF
                END IF
 *
-*              For types 8-10, set one row and column of the matrix to
-*              zero.
+               // For types 8-10, set one row and column of the matrix to
+               // zero.
 *
                IZERO = 0
                IF( IMAT.EQ.8 ) THEN
@@ -202,7 +202,7 @@
                END IF
             END IF
 *
-*           Generate NRHS random solution vectors.
+            // Generate NRHS random solution vectors.
 *
             IX = 1
             DO 40 J = 1, NRHS
@@ -210,7 +210,7 @@
                IX = IX + LDA
    40       CONTINUE
 *
-*           Set the right hand side.
+            // Set the right hand side.
 *
             CALL SLAPTM( N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
 *
@@ -221,8 +221,8 @@
                   FACT = 'N'
                END IF
 *
-*              Compute the condition number for comparison with
-*              the value returned by SPTSVX.
+               // Compute the condition number for comparison with
+              t // he value returned by SPTSVX.
 *
                IF( ZEROT ) THEN
                   IF( IFACT.EQ.1 ) GO TO 100
@@ -230,19 +230,19 @@
 *
                ELSE IF( IFACT.EQ.1 ) THEN
 *
-*                 Compute the 1-norm of A.
+                  // Compute the 1-norm of A.
 *
                   ANORM = SLANST( '1', N, D, E )
 *
                   CALL SCOPY( N, D, 1, D( N+1 ), 1 )
                   IF( N.GT.1 ) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 )
 *
-*                 Factor the matrix A.
+                  // Factor the matrix A.
 *
                   CALL SPTTRF( N, D( N+1 ), E( N+1 ), INFO )
 *
-*                 Use SPTTRS to solve for one column at a time of
-*                 inv(A), computing the maximum column sum as we go.
+                  // Use SPTTRS to solve for one column at a time of
+                  // inv(A), computing the maximum column sum as we go.
 *
                   AINVNM = ZERO
                   DO 60 I = 1, N
@@ -254,7 +254,7 @@
                      AINVNM = MAX( AINVNM, SASUM( N, X, 1 ) )
    60             CONTINUE
 *
-*                 Compute the 1-norm condition number of A.
+                  // Compute the 1-norm condition number of A.
 *
                   IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDC = ONE
@@ -265,41 +265,41 @@
 *
                IF( IFACT.EQ.2 ) THEN
 *
-*                 --- Test SPTSV --
+                  // --- Test SPTSV --
 *
                   CALL SCOPY( N, D, 1, D( N+1 ), 1 )
                   IF( N.GT.1 ) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 )
                   CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
-*                 Factor A as L*D*L' and solve the system A*X = B.
+                  // Factor A as L*D*L' and solve the system A*X = B.
 *
                   SRNAMT = 'SPTSV '
                   CALL SPTSV( N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
 *
-*                 Check error code from SPTSV .
+                  // Check error code from SPTSV .
 *
                   IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                   NT = 0
                   IF( IZERO.EQ.0 ) THEN
 *
-*                    Check the factorization by computing the ratio
-*                       norm(L*D*L' - A) / (n * norm(A) * EPS )
+                     // Check the factorization by computing the ratio
+                        // norm(L*D*L' - A) / (n * norm(A) * EPS )
 *
                      CALL SPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
 *
-*                    Compute the residual in the solution.
+                     // Compute the residual in the solution.
 *
                      CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
                      CALL SPTT02( N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
 *
-*                    Check solution from generated exact solution.
+                     // Check solution from generated exact solution.
 *
                      CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                      NT = 3
                   END IF
 *
-*                 Print information about the tests that did not pass
-*                 the threshold.
+                  // Print information about the tests that did not pass
+                 t // he threshold.
 *
                   DO 70 K = 1, NT
                      IF( RESULT( K ).GE.THRESH ) THEN
@@ -310,11 +310,11 @@
                   NRUN = NRUN + NT
                END IF
 *
-*              --- Test SPTSVX ---
+               // --- Test SPTSVX ---
 *
                IF( IFACT.GT.1 ) THEN
 *
-*                 Initialize D( N+1:2*N ) and E( N+1:2*N ) to zero.
+                  // Initialize D( N+1:2*N ) and E( N+1:2*N ) to zero.
 *
                   DO 80 I = 1, N - 1
                      D( N+I ) = ZERO
@@ -325,20 +325,20 @@
 *
                CALL SLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
 *
-*              Solve the system and compute the condition number and
-*              error bounds using SPTSVX.
+               // Solve the system and compute the condition number and
+               // error bounds using SPTSVX.
 *
                SRNAMT = 'SPTSVX'
                CALL SPTSVX( FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, INFO )
 *
-*              Check the error code from SPTSVX.
+               // Check the error code from SPTSVX.
 *
                IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                IF( IZERO.EQ.0 ) THEN
                   IF( IFACT.EQ.2 ) THEN
 *
-*                    Check the factorization by computing the ratio
-*                       norm(L*D*L' - A) / (n * norm(A) * EPS )
+                     // Check the factorization by computing the ratio
+                        // norm(L*D*L' - A) / (n * norm(A) * EPS )
 *
                      K1 = 1
                      CALL SPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
@@ -346,28 +346,28 @@
                      K1 = 2
                   END IF
 *
-*                 Compute the residual in the solution.
+                  // Compute the residual in the solution.
 *
                   CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
                   CALL SPTT02( N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
 *
-*                 Check solution from generated exact solution.
+                  // Check solution from generated exact solution.
 *
                   CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
-*                 Check error bounds from iterative refinement.
+                  // Check error bounds from iterative refinement.
 *
                   CALL SPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                ELSE
                   K1 = 6
                END IF
 *
-*              Check the reciprocal of the condition number.
+               // Check the reciprocal of the condition number.
 *
                RESULT( 6 ) = SGET06( RCOND, RCONDC )
 *
-*              Print information about the tests that did not pass
-*              the threshold.
+               // Print information about the tests that did not pass
+              t // he threshold.
 *
                DO 90 K = K1, 6
                   IF( RESULT( K ).GE.THRESH ) THEN
@@ -380,7 +380,7 @@
   110    CONTINUE
   120 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -390,6 +390,6 @@
      $      ', test ', I2, ', ratio = ', G12.5 )
       RETURN
 *
-*     End of SDRVPT
+      // End of SDRVPT
 *
       END

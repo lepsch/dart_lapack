@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                INFO, LDA, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            A( LDA, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRAN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLASWP, CTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
@@ -54,44 +54,44 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( NOTRAN ) THEN
 *
-*        Solve A * X = B.
+         // Solve A * X = B.
 *
-*        Apply row interchanges to the right hand sides.
+         // Apply row interchanges to the right hand sides.
 *
          CALL CLASWP( NRHS, B, LDB, 1, N, IPIV, 1 )
 *
-*        Solve L*X = B, overwriting B with X.
+         // Solve L*X = B, overwriting B with X.
 *
          CALL CTRSM( 'Left', 'Lower', 'No transpose', 'Unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        Solve U*X = B, overwriting B with X.
+         // Solve U*X = B, overwriting B with X.
 *
          CALL CTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
       ELSE
 *
-*        Solve A**T * X = B  or A**H * X = B.
+         // Solve A**T * X = B  or A**H * X = B.
 *
-*        Solve U**T *X = B or U**H *X = B, overwriting B with X.
+         // Solve U**T *X = B or U**H *X = B, overwriting B with X.
 *
          CALL CTRSM( 'Left', 'Upper', TRANS, 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        Solve L**T *X = B, or L**H *X = B overwriting B with X.
+         // Solve L**T *X = B, or L**H *X = B overwriting B with X.
 *
          CALL CTRSM( 'Left', 'Lower', TRANS, 'Unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        Apply row interchanges to the solution vectors.
+         // Apply row interchanges to the solution vectors.
 *
          CALL CLASWP( NRHS, B, LDB, 1, N, IPIV, -1 )
       END IF
 *
       RETURN
 *
-*     End of CGETRS
+      // End of CGETRS
 *
       END

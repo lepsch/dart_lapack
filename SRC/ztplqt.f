@@ -4,25 +4,25 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int         INFO, LDA, LDB, LDT, N, M, L, MB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16  A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int        I, IB, LB, NB, IINFO;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZTPLQT2, ZTPRFB, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -45,13 +45,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
       DO I = 1, M, MB
 *
-*     Compute the QR factorization of the current block
+      // Compute the QR factorization of the current block
 *
          IB = MIN( M-I+1, MB )
          NB = MIN( N-L+I+IB-1, N )
@@ -63,7 +63,7 @@
 *
          CALL ZTPLQT2( IB, NB, LB, A(I,I), LDA, B( I, 1 ), LDB, T(1, I ), LDT, IINFO )
 *
-*     Update by applying H**T to B(I+IB:M,:) from the right
+      // Update by applying H**T to B(I+IB:M,:) from the right
 *
          IF( I+IB.LE.M ) THEN
             CALL ZTPRFB( 'R', 'N', 'F', 'R', M-I-IB+1, NB, IB, LB, B( I, 1 ), LDB, T( 1, I ), LDT, A( I+IB, I ), LDA, B( I+IB, 1 ), LDB, WORK, M-I-IB+1)
@@ -71,6 +71,6 @@
       END DO
       RETURN
 *
-*     End of ZTPLQT
+      // End of ZTPLQT
 *
       END

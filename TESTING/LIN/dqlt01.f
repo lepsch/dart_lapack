@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       double             ROGUE;
       PARAMETER          ( ROGUE = -1.0D+10 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, MINMN;
       double             ANORM, EPS, RESID;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL DLAMCH, DLANGE, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DGEQLF, DLACPY, DLASET, DORGQL, DSYRK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       MINMN = MIN( M, N )
       EPS = DLAMCH( 'Epsilon' )
 *
-*     Copy the matrix A to the array AF.
+      // Copy the matrix A to the array AF.
 *
       CALL DLACPY( 'Full', M, N, A, LDA, AF, LDA )
 *
-*     Factorize the matrix A in the array AF.
+      // Factorize the matrix A in the array AF.
 *
       SRNAMT = 'DGEQLF'
       CALL DGEQLF( M, N, AF, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy details of Q
+      // Copy details of Q
 *
       CALL DLASET( 'Full', M, M, ROGUE, ROGUE, Q, LDA )
       IF( M.GE.N ) THEN
@@ -62,12 +62,12 @@
          IF( M.GT.1 ) CALL DLACPY( 'Upper', M-1, M-1, AF( 1, N-M+2 ), LDA, Q( 1, 2 ), LDA )
       END IF
 *
-*     Generate the m-by-m matrix Q
+      // Generate the m-by-m matrix Q
 *
       SRNAMT = 'DORGQL'
       CALL DORGQL( M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy L
+      // Copy L
 *
       CALL DLASET( 'Full', M, N, ZERO, ZERO, L, LDA )
       IF( M.GE.N ) THEN
@@ -76,11 +76,11 @@
          IF( N.GT.M .AND. M.GT.0 ) CALL DLACPY( 'Full', M, N-M, AF, LDA, L, LDA )          IF( M.GT.0 ) CALL DLACPY( 'Lower', M, M, AF( 1, N-M+1 ), LDA, L( 1, N-M+1 ), LDA )
       END IF
 *
-*     Compute L - Q'*A
+      // Compute L - Q'*A
 *
       CALL DGEMM( 'Transpose', 'No transpose', M, N, M, -ONE, Q, LDA, A, LDA, ONE, L, LDA )
 *
-*     Compute norm( L - Q'*A ) / ( M * norm(A) * EPS ) .
+      // Compute norm( L - Q'*A ) / ( M * norm(A) * EPS ) .
 *
       ANORM = DLANGE( '1', M, N, A, LDA, RWORK )
       RESID = DLANGE( '1', M, N, L, LDA, RWORK )
@@ -90,12 +90,12 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute I - Q'*Q
+      // Compute I - Q'*Q
 *
       CALL DLASET( 'Full', M, M, ZERO, ONE, L, LDA )
       CALL DSYRK( 'Upper', 'Transpose', M, M, -ONE, Q, LDA, ONE, L, LDA )
 *
-*     Compute norm( I - Q'*Q ) / ( M * EPS ) .
+      // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 *
       RESID = DLANSY( '1', 'Upper', M, L, LDA, RWORK )
 *
@@ -103,6 +103,6 @@
 *
       RETURN
 *
-*     End of DQLT01
+      // End of DQLT01
 *
       END

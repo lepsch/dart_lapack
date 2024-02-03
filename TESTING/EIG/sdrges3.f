@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDQ, LWORK, NOUNIT, NSIZES, NTYPES;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), NN( * );
       REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), RESULT( 13 ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 26 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN, ILABAD;
       String             SORT;
       int                I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM;
       REAL               SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
       REAL               RMAGN( 0: 3 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               SLCTES;
       int                ILAENV;
       REAL               SLAMCH, SLARND
       // EXTERNAL SLCTES, ILAENV, SLAMCH, SLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALASVM, SGET51, SGET53, SGET54, SGGES3, SLACPY, SLARFG, SLASET, SLATM4, SORM2R, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SIGN
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KCLASS / 15*1, 10*2, 1*3 /
       DATA               KZ1 / 0, 1, 2, 1, 3, 3 /
       DATA               KZ2 / 0, 0, 1, 2, 1, 1 /
@@ -53,10 +53,10 @@
       DATA               KTRIAN / 16*0, 10*1 /
       DATA               IASIGN / 6*0, 2, 0, 2*2, 2*0, 3*2, 0, 2, 3*0, 5*2, 0 /
       DATA               IBSIGN / 7*0, 2, 2*0, 2*2, 2*0, 2, 0, 2, 9*0 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       INFO = 0
 *
@@ -81,12 +81,12 @@
          INFO = -14
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       NB refers to the optimal block size for the immediately
-*       following subroutine, as returned by ILAENV.
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // NB refers to the optimal block size for the immediately
+        // following subroutine, as returned by ILAENV.
 *
       MINWRK = 1
       IF( INFO.EQ.0 .AND. LWORK.GE.1 ) THEN
@@ -103,7 +103,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
@@ -113,12 +113,12 @@
       SAFMAX = ONE / SAFMIN
       ULPINV = ONE / ULP
 *
-*     The values RMAGN(2:3) depend on N, see below.
+      // The values RMAGN(2:3) depend on N, see below.
 *
       RMAGN( 0 ) = ZERO
       RMAGN( 1 ) = ONE
 *
-*     Loop over matrix sizes
+      // Loop over matrix sizes
 *
       NTESTT = 0
       NERRS = 0
@@ -136,53 +136,53 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 *
-*        Loop over matrix types
+         // Loop over matrix types
 *
          DO 180 JTYPE = 1, MTYPES
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 180
             NMATS = NMATS + 1
             NTEST = 0
 *
-*           Save ISEED in case of an error.
+            // Save ISEED in case of an error.
 *
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 *
-*           Initialize RESULT
+            // Initialize RESULT
 *
             DO 30 J = 1, 13
                RESULT( J ) = ZERO
    30       CONTINUE
 *
-*           Generate test matrices A and B
+            // Generate test matrices A and B
 *
-*           Description of control parameters:
+            // Description of control parameters:
 *
-*           KCLASS: =1 means w/o rotation, =2 means w/ rotation,
-*                   =3 means random.
-*           KATYPE: the "type" to be passed to SLATM4 for computing A.
-*           KAZERO: the pattern of zeros on the diagonal for A:
-*                   =1: ( xxx ), =2: (0, xxx ) =3: ( 0, 0, xxx, 0 ),
-*                   =4: ( 0, xxx, 0, 0 ), =5: ( 0, 0, 1, xxx, 0 ),
-*                   =6: ( 0, 1, 0, xxx, 0 ).  (xxx means a string of
-*                   non-zero entries.)
-*           KAMAGN: the magnitude of the matrix: =0: zero, =1: O(1),
-*                   =2: large, =3: small.
-*           IASIGN: 1 if the diagonal elements of A are to be
-*                   multiplied by a random magnitude 1 number, =2 if
-*                   randomly chosen diagonal blocks are to be rotated
-*                   to form 2x2 blocks.
-*           KBTYPE, KBZERO, KBMAGN, IBSIGN: the same, but for B.
-*           KTRIAN: =0: don't fill in the upper triangle, =1: do.
-*           KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
-*           RMAGN: used to implement KAMAGN and KBMAGN.
+            // KCLASS: =1 means w/o rotation, =2 means w/ rotation,
+                    // =3 means random.
+            // KATYPE: the "type" to be passed to SLATM4 for computing A.
+            // KAZERO: the pattern of zeros on the diagonal for A:
+                    // =1: ( xxx ), =2: (0, xxx ) =3: ( 0, 0, xxx, 0 ),
+                    // =4: ( 0, xxx, 0, 0 ), =5: ( 0, 0, 1, xxx, 0 ),
+                    // =6: ( 0, 1, 0, xxx, 0 ).  (xxx means a string of
+                    // non-zero entries.)
+            // KAMAGN: the magnitude of the matrix: =0: zero, =1: O(1),
+                    // =2: large, =3: small.
+            // IASIGN: 1 if the diagonal elements of A are to be
+                    // multiplied by a random magnitude 1 number, =2 if
+                    // randomly chosen diagonal blocks are to be rotated
+                   t // o form 2x2 blocks.
+            // KBTYPE, KBZERO, KBMAGN, IBSIGN: the same, but for B.
+            // KTRIAN: =0: don't fill in the upper triangle, =1: do.
+            // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
+            // RMAGN: used to implement KAMAGN and KBMAGN.
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 110
             IINFO = 0
             IF( KCLASS( JTYPE ).LT.3 ) THEN
 *
-*              Generate A (w/o rotation)
+               // Generate A (w/o rotation)
 *
                IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
@@ -194,7 +194,7 @@
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = ONE
 *
-*              Generate B (w/o rotation)
+               // Generate B (w/o rotation)
 *
                IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
@@ -208,10 +208,10 @@
 *
                IF( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) THEN
 *
-*                 Include rotations
+                  // Include rotations
 *
-*                 Generate Q, Z as Householder transformations times
-*                 a diagonal matrix.
+                  // Generate Q, Z as Householder transformations times
+                  // a diagonal matrix.
 *
                   DO 50 JC = 1, N - 1
                      DO 40 JR = JC, N
@@ -232,7 +232,7 @@
                   WORK( 2*N ) = ZERO
                   WORK( 4*N ) = SIGN( ONE, SLARND( 2, ISEED ) )
 *
-*                 Apply the diagonal matrices
+                  // Apply the diagonal matrices
 *
                   DO 70 JC = 1, N
                      DO 60 JR = 1, N
@@ -243,7 +243,7 @@
                END IF
             ELSE
 *
-*              Random matrices
+               // Random matrices
 *
                DO 90 JC = 1, N
                   DO 80 JR = 1, N
@@ -266,7 +266,7 @@
                RESULT( I ) = -ONE
   120       CONTINUE
 *
-*           Test with and without sorting of eigenvalues
+            // Test with and without sorting of eigenvalues
 *
             DO 150 ISORT = 0, 1
                IF( ISORT.EQ.0 ) THEN
@@ -277,7 +277,7 @@
                   RSUB = 5
                END IF
 *
-*              Call XLAENV to set the parameters used in SLAQZ0
+               // Call XLAENV to set the parameters used in SLAQZ0
 *
                CALL XLAENV( 12, 10 )
                CALL XLAENV( 13, 12 )
@@ -285,7 +285,7 @@
                CALL XLAENV( 15, 2 )
                CALL XLAENV( 17, 10 )
 *
-*              Call SGGES3 to compute H, T, Q, Z, alpha, and beta.
+               // Call SGGES3 to compute H, T, Q, Z, alpha, and beta.
 *
                CALL SLACPY( 'Full', N, N, A, LDA, S, LDA )
                CALL SLACPY( 'Full', N, N, B, LDA, T, LDA )
@@ -301,7 +301,7 @@
 *
                NTEST = 4 + RSUB
 *
-*              Do tests 1--4 (or tests 7--9 when reordering )
+               // Do tests 1--4 (or tests 7--9 when reordering )
 *
                IF( ISORT.EQ.0 ) THEN
                   CALL SGET51( 1, N, A, LDA, S, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 1 ) )                   CALL SGET51( 1, N, B, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 2 ) )
@@ -310,9 +310,9 @@
                END IF
                CALL SGET51( 3, N, A, LDA, T, LDA, Q, LDQ, Q, LDQ, WORK, RESULT( 3+RSUB ) )                CALL SGET51( 3, N, B, LDA, T, LDA, Z, LDQ, Z, LDQ, WORK, RESULT( 4+RSUB ) )
 *
-*              Do test 5 and 6 (or Tests 10 and 11 when reordering):
-*              check Schur form of A and compare eigenvalues with
-*              diagonals.
+               // Do test 5 and 6 (or Tests 10 and 11 when reordering):
+               // check Schur form of A and compare eigenvalues with
+               // diagonals.
 *
                NTEST = 6 + RSUB
                TEMP1 = ZERO
@@ -374,7 +374,7 @@
 *
                IF( ISORT.GE.1 ) THEN
 *
-*                 Do test 12
+                  // Do test 12
 *
                   NTEST = 12
                   RESULT( 12 ) = ZERO
@@ -396,30 +396,30 @@
 *
   150       CONTINUE
 *
-*           End of Loop -- Check for RESULT(j) > THRESH
+            // End of Loop -- Check for RESULT(j) > THRESH
 *
   160       CONTINUE
 *
             NTESTT = NTESTT + NTEST
 *
-*           Print out tests which fail.
+            // Print out tests which fail.
 *
             DO 170 JR = 1, NTEST
                IF( RESULT( JR ).GE.THRESH ) THEN
 *
-*                 If this is the first test to fail,
-*                 print a header to the data file.
+                  // If this is the first test to fail,
+                  // print a header to the data file.
 *
                   IF( NERRS.EQ.0 ) THEN
                      WRITE( NOUNIT, FMT = 9996 )'SGS'
 *
-*                    Matrix types
+                     // Matrix types
 *
                      WRITE( NOUNIT, FMT = 9995 )
                      WRITE( NOUNIT, FMT = 9994 )
                      WRITE( NOUNIT, FMT = 9993 )'Orthogonal'
 *
-*                    Tests performed
+                     // Tests performed
 *
                      WRITE( NOUNIT, FMT = 9992 )'orthogonal', '''', 'transpose', ( '''', J = 1, 8 )
 *
@@ -436,7 +436,7 @@
   180    CONTINUE
   190 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL ALASVM( 'SGS', NOUNIT, NERRS, NTESTT, 0 )
 *
@@ -500,6 +500,6 @@
  9990 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=',
      $      4( I4, ',' ), ' result ', I2, ' is', 1P, E10.3 )
 *
-*     End of SDRGES3
+      // End of SDRGES3
 *
       END

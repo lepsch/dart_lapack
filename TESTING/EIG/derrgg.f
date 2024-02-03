@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = 6*NMAX )
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                DUMMYK, DUMMYL, I, IFST, ILO, IHI, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK;
       double             ANRM, BNRM, DIF, SCALE, TOLA, TOLB;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               BW( NMAX ), SEL( NMAX );
       int                IW( NMAX ), IDUM(NMAX);
       double             A( NMAX, NMAX ), B( NMAX, NMAX ), LS( NMAX ), Q( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), R3( NMAX ), RCE( 2 ), RCV( 2 ), RS( NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               DLCTES, DLCTSX, LSAMEN;
       // EXTERNAL DLCTES, DLCTSX, LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, DGGES, DGGESX, DGGEV, DGGEVX, DGGGLM, DGGHRD, DGGLSE, DGGQRF, DGGRQF, DHGEQZ, DORCSD, DTGEVC, DTGEXC, DTGSEN, DTGSJA, DTGSNA, DTGSYL, DGGHD3, DGGES3, DGGEV3, DGGSVD3, DGGSVP3, XLAENV
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          SEL( J ) = .TRUE.
@@ -70,7 +70,7 @@
       NT = 0
       LWORK = 1
 *
-*     Call XLAENV to set the parameters used in CLAQZ0
+      // Call XLAENV to set the parameters used in CLAQZ0
 *
       CALL XLAENV( 12, 10 )
       CALL XLAENV( 13, 12 )
@@ -78,11 +78,11 @@
       CALL XLAENV( 15, 2 )
       CALL XLAENV( 17, 10 )
 *
-*     Test error exits for the GG path.
+      // Test error exits for the GG path.
 *
       IF( LSAMEN( 2, C2, 'GG' ) ) THEN
 *
-*        DGGHRD
+         // DGGHRD
 *
          SRNAMT = 'DGGHRD'
          INFOT = 1
@@ -114,7 +114,7 @@
          CALL CHKXER( 'DGGHRD', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        DGGHD3
+         // DGGHD3
 *
          SRNAMT = 'DGGHD3'
          INFOT = 1
@@ -146,7 +146,7 @@
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        DHGEQZ
+         // DHGEQZ
 *
          SRNAMT = 'DHGEQZ'
          INFOT = 1
@@ -181,7 +181,7 @@
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        DTGEVC
+         // DTGEVC
 *
          SRNAMT = 'DTGEVC'
          INFOT = 1
@@ -210,11 +210,11 @@
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the GSV path.
+      // Test error exits for the GSV path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GSV' ) ) THEN
 *
-*        DGGSVD3
+         // DGGSVD3
 *
          SRNAMT = 'DGGSVD3'
          INFOT = 1
@@ -252,7 +252,7 @@
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        DGGSVP3
+         // DGGSVP3
 *
          SRNAMT = 'DGGSVP3'
          INFOT = 1
@@ -290,7 +290,7 @@
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        DTGSJA
+         // DTGSJA
 *
          SRNAMT = 'DTGSJA'
          INFOT = 1
@@ -328,11 +328,11 @@
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*     Test error exits for the GLM path.
+      // Test error exits for the GLM path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GLM' ) ) THEN
 *
-*        DGGGLM
+         // DGGGLM
 *
          SRNAMT = 'DGGGLM'
          INFOT = 1
@@ -361,11 +361,11 @@
          CALL CHKXER( 'DGGGLM', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the LSE path.
+      // Test error exits for the LSE path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'LSE' ) ) THEN
 *
-*        DGGLSE
+         // DGGLSE
 *
          SRNAMT = 'DGGLSE'
          INFOT = 1
@@ -394,11 +394,11 @@
          CALL CHKXER( 'DGGLSE', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the CSD path.
+      // Test error exits for the CSD path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'CSD' ) ) THEN
 *
-*        DORCSD
+         // DORCSD
 *
          SRNAMT = 'DORCSD'
          INFOT = 7
@@ -427,11 +427,11 @@
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the GQR path.
+      // Test error exits for the GQR path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GQR' ) ) THEN
 *
-*        DGGQRF
+         // DGGQRF
 *
          SRNAMT = 'DGGQRF'
          INFOT = 1
@@ -454,7 +454,7 @@
          CALL CHKXER( 'DGGQRF', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        DGGRQF
+         // DGGRQF
 *
          SRNAMT = 'DGGRQF'
          INFOT = 1
@@ -477,11 +477,11 @@
          CALL CHKXER( 'DGGRQF', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*     Test error exits for the DGS, DGV, DGX, and DXV paths.
+      // Test error exits for the DGS, DGV, DGX, and DXV paths.
 *
       ELSE IF( LSAMEN( 3, PATH, 'DGS' ) .OR. LSAMEN( 3, PATH, 'DGV' ) .OR. LSAMEN( 3, PATH, 'DGX' ) .OR. LSAMEN( 3, PATH, 'DXV' ) ) THEN
 *
-*        DGGES
+         // DGGES
 *
          SRNAMT = 'DGGES '
          INFOT = 1
@@ -519,7 +519,7 @@
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        DGGES3
+         // DGGES3
 *
          SRNAMT = 'DGGES3 '
          INFOT = 1
@@ -557,7 +557,7 @@
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        DGGESX
+         // DGGESX
 *
          SRNAMT = 'DGGESX'
          INFOT = 1
@@ -601,7 +601,7 @@
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        DGGEV
+         // DGGEV
 *
          SRNAMT = 'DGGEV '
          INFOT = 1
@@ -636,7 +636,7 @@
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        DGGEV3
+         // DGGEV3
 *
          CALL XLAENV( 12, 20 )
          CALL XLAENV( 13, 4 )
@@ -676,7 +676,7 @@
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        DGGEVX
+         // DGGEVX
 *
          SRNAMT = 'DGGEVX'
          INFOT = 1
@@ -717,7 +717,7 @@
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        DTGEXC
+         // DTGEXC
 *
          SRNAMT = 'DTGEXC'
          INFOT = 3
@@ -746,7 +746,7 @@
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*        DTGSEN
+         // DTGSEN
 *
          SRNAMT = 'DTGSEN'
          INFOT = 1
@@ -787,7 +787,7 @@
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        DTGSNA
+         // DTGSNA
 *
          SRNAMT = 'DTGSNA'
          INFOT = 1
@@ -819,7 +819,7 @@
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        DTGSYL
+         // DTGSYL
 *
          SRNAMT = 'DTGSYL'
          INFOT = 1
@@ -861,7 +861,7 @@
          NT = NT + 12
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -876,6 +876,6 @@
 *
       RETURN
 *
-*     End of DERRGG
+      // End of DERRGG
 *
       END

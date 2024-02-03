@@ -4,36 +4,36 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,INCY,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX CX(*),CY(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       COMPLEX CTEMP
       int     I,IX,IY;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG
-*     ..
+      // ..
       CTEMP = (0.0,0.0)
       CDOTC = (0.0,0.0)
       IF (N.LE.0) RETURN
       IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN
 *
-*        code for both increments equal to 1
+         // code for both increments equal to 1
 *
          DO I = 1,N
             CTEMP = CTEMP + CONJG(CX(I))*CY(I)
          END DO
       ELSE
 *
-*        code for unequal increments or equal increments
-*          not equal to 1
+         // code for unequal increments or equal increments
+           // not equal to 1
 *
          IX = 1
          IY = 1
@@ -48,6 +48,6 @@
       CDOTC = CTEMP
       RETURN
 *
-*     End of CDOTC
+      // End of CDOTC
 *
       END

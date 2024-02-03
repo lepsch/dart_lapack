@@ -4,17 +4,17 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>         SRNAME;
       int                INFO;
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       WRITE( *, FMT = 9999 )SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
 *
@@ -23,6 +23,6 @@
  9999 FORMAT( ' ** On entry to ', A, ' parameter number ', I2, ' had ',
      $      'an illegal value' )
 *
-*     End of XERBLA
+      // End of XERBLA
 *
       END

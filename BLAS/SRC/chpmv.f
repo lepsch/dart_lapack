@@ -4,39 +4,39 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX ALPHA,BETA
       int     INCX,INCY,N;
       String    UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX AP(*),X(*),Y(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX ONE
       PARAMETER (ONE= (1.0E+0,0.0E+0))
       COMPLEX ZERO
       PARAMETER (ZERO= (0.0E+0,0.0E+0))
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX TEMP1,TEMP2
       int     I,INFO,IX,IY,J,JX,JY,K,KK,KX,KY;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG,REAL
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
@@ -53,11 +53,11 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((N.EQ.0) .OR. ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
 *
-*     Set up the start points in  X  and  Y.
+      // Set up the start points in  X  and  Y.
 *
       IF (INCX.GT.0) THEN
           KX = 1
@@ -70,10 +70,10 @@
           KY = 1 - (N-1)*INCY
       END IF
 *
-*     Start the operations. In this version the elements of the array AP
-*     are accessed sequentially with one pass through AP.
+      // Start the operations. In this version the elements of the array AP
+      // are accessed sequentially with one pass through AP.
 *
-*     First form  y := beta*y.
+      // First form  y := beta*y.
 *
       IF (BETA.NE.ONE) THEN
           IF (INCY.EQ.1) THEN
@@ -105,7 +105,7 @@
       KK = 1
       IF (LSAME(UPLO,'U')) THEN
 *
-*        Form  y  when AP contains the upper triangle.
+         // Form  y  when AP contains the upper triangle.
 *
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 60 J = 1,N
@@ -142,7 +142,7 @@
           END IF
       ELSE
 *
-*        Form  y  when AP contains the lower triangle.
+         // Form  y  when AP contains the lower triangle.
 *
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 100 J = 1,N
@@ -183,6 +183,6 @@
 *
       RETURN
 *
-*     End of CHPMV
+      // End of CHPMV
 *
       END

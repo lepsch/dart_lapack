@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = NMAX*( NMAX+2 ) )
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IFST, ILST, INFO, J, M, NT;
       REAL               SCALE
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SEL( NMAX );
       REAL               RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX )
       COMPLEX            A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, CTREXC, CTRSEN, CTRSNA, CTRSYL, CTRSYL3
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       OK = .TRUE.
       NT = 0
 *
-*     Initialize A, B and SEL
+      // Initialize A, B and SEL
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -57,7 +57,7 @@
          SEL( I ) = .TRUE.
    30 CONTINUE
 *
-*     Test CTRSYL
+      // Test CTRSYL
 *
       SRNAMT = 'CTRSYL'
       INFOT = 1
@@ -86,7 +86,7 @@
       CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test CTRSYL3
+      // Test CTRSYL3
 *
       SRNAMT = 'CTRSYL3'
       INFOT = 1
@@ -115,7 +115,7 @@
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test CTREXC
+      // Test CTREXC
 *
       SRNAMT = 'CTREXC'
       IFST = 1
@@ -153,7 +153,7 @@
       CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Test CTRSNA
+      // Test CTRSNA
 *
       SRNAMT = 'CTRSNA'
       INFOT = 1
@@ -185,7 +185,7 @@
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       NT = NT + 9
 *
-*     Test CTRSEN
+      // Test CTRSEN
 *
       SEL( 1 ) = .FALSE.
       SRNAMT = 'CTRSEN'
@@ -215,7 +215,7 @@
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -229,6 +229,6 @@
      $      'exits ***' )
       RETURN
 *
-*     End of CERREC
+      // End of CERREC
 *
       END

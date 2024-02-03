@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KBAND, LDU, LDWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
       COMPLEX*16         U( LDU, * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       double             ANORM, ULP, UNFL, WNORM;
       COMPLEX*16         AUKJ
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE, ZLANSY;
       // EXTERNAL DLAMCH, ZLANGE, ZLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -44,9 +44,9 @@
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Compute the 1-norm of A.
+      // Compute the 1-norm of A.
 *
       IF( N.GT.1 ) THEN
          ANORM = ABS( AD( 1 ) ) + ABS( AE( 1 ) )
@@ -59,7 +59,7 @@
       END IF
       ANORM = MAX( ANORM, UNFL )
 *
-*     Norm of U*AU - S
+      // Norm of U*AU - S
 *
       DO 40 I = 1, M
          DO 30 J = 1, M
@@ -88,9 +88,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U*U - I
+      // Compute  U*U - I
 *
       CALL ZGEMM( 'T', 'N', M, M, N, CONE, U, LDU, U, LDU, CZERO, WORK, M )
 *
@@ -102,6 +102,6 @@
 *
       RETURN
 *
-*     End of ZSTT22
+      // End of ZSTT22
 *
       END

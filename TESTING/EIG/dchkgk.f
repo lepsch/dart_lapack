@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NIN, NOUT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDA, LDB, LDVL, LDVR;
       PARAMETER          ( LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 )
       int                LDE, LDF, LDWORK;
       PARAMETER          ( LDE = 50, LDF = 50, LDWORK = 50 )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO;
       double             ANORM, BNORM, EPS, RMAX, VMAX;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                LMAX( 4 );
       double             A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), LSCALE( LDA ), RSCALE( LDA ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DGGBAK, DGGBAL, DLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialization
+      // Initialization
 *
       LMAX( 1 ) = 0
       LMAX( 2 ) = 0
@@ -99,10 +99,10 @@
          LMAX( 3 ) = KNT
       END IF
 *
-*     Test of DGGBAK
+      // Test of DGGBAK
 *
-*     Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
-*     where tilde(A) denotes the transformed matrix.
+      // Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
+      // where tilde(A) denotes the transformed matrix.
 *
       CALL DGEMM( 'N', 'N', N, M, N, ONE, AF, LDA, VR, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE )
 *
@@ -120,7 +120,7 @@
          RMAX = VMAX
       END IF
 *
-*     Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
+      // Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
 *
       CALL DGEMM( 'N', 'N', N, M, N, ONE, BF, LDB, VR, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE )
 *
@@ -162,6 +162,6 @@
 *
       RETURN
 *
-*     End of DCHKGK
+      // End of DCHKGK
 *
       END

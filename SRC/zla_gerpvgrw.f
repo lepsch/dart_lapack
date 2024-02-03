@@ -4,30 +4,30 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                N, NCOLS, LDA, LDAF;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AF( LDAF, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, J;
       double             AMAX, UMAX, RPVGRW;
       COMPLEX*16         ZDUM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, ABS, REAL, DIMAG
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function Definitions ..
+      // ..
+      // .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RPVGRW = 1.0D+0
 
@@ -46,6 +46,6 @@
       END DO
       ZLA_GERPVGRW = RPVGRW
 *
-*     End of ZLA_GERPVGRW
+      // End of ZLA_GERPVGRW
 *
       END

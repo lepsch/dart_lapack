@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDX, LDY, N, TYPE;
       COMPLEX*16         ALPHA, BETA, WX, WY
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             DIF( * ), S( * );
       COMPLEX*16         A( LDA, * ), B( LDA, * ), X( LDX, * ), Y( LDY, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             RONE, TWO, THREE;
       PARAMETER          ( RONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0 )
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             RWORK( 50 );
       COMPLEX*16         WORK( 26 ), Z( 8, 8 )
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CDABS, DBLE, DCMPLX, DCONJG, SQRT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGESVD, ZLACPY, ZLAKF2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Generate test problem ...
-*     (Da, Db) ...
+      // Generate test problem ...
+      // (Da, Db) ...
 *
       DO 20 I = 1, N
          DO 10 J = 1, N
@@ -60,7 +60,7 @@
          A( 5, 5 ) = DCONJG( A( 4, 4 ) )
       END IF
 *
-*     Form X and Y
+      // Form X and Y
 *
       CALL ZLACPY( 'F', N, N, B, LDA, Y, LDY )
       Y( 3, 1 ) = -DCONJG( WY )
@@ -78,7 +78,7 @@
       X( 2, 4 ) = -WX
       X( 2, 5 ) = -WX
 *
-*     Form (A, B)
+      // Form (A, B)
 *
       B( 1, 3 ) = WX + WY
       B( 2, 3 ) = -WX + WY
@@ -93,7 +93,7 @@
       A( 1, 5 ) = -WX*A( 1, 1 ) + WY*A( 5, 5 )
       A( 2, 5 ) = WX*A( 2, 2 ) + WY*A( 5, 5 )
 *
-*     Compute condition numbers
+      // Compute condition numbers
 *
       S( 1 ) = RONE / SQRT( ( RONE+THREE*CDABS( WY )*CDABS( WY ) ) / ( RONE+CDABS( A( 1, 1 ) )*CDABS( A( 1, 1 ) ) ) )       S( 2 ) = RONE / SQRT( ( RONE+THREE*CDABS( WY )*CDABS( WY ) ) / ( RONE+CDABS( A( 2, 2 ) )*CDABS( A( 2, 2 ) ) ) )       S( 3 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 3, 3 ) )*CDABS( A( 3, 3 ) ) ) )       S( 4 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 4, 4 ) )*CDABS( A( 4, 4 ) ) ) )       S( 5 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 5, 5 ) )*CDABS( A( 5, 5 ) ) ) )
 *
@@ -107,6 +107,6 @@
 *
       RETURN
 *
-*     End of ZLATM6
+      // End of ZLATM6
 *
       END

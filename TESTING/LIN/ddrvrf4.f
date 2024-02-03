@@ -4,58 +4,58 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDC, NN, NOUT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NVAL( NN );
       double             A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * ), D_WORK_DLANGE( * );
-*     ..
+      // ..
 *
 *  =====================================================================
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE  = 1.0D+0 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             UPLO, CFORM, TRANS;
       int                I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS;
       double             ALPHA, BETA, EPS, NORMA, NORMC;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLARND, DLANGE;
       // EXTERNAL DLAMCH, DLARND, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSYRK, DSFRK, DTFTTR, DTRTTF
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS  / 'U', 'L' /
       DATA               FORMS  / 'N', 'T' /
       DATA               TRANSS / 'N', 'T' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       NRUN = 0
       NFAIL = 0
@@ -101,16 +101,16 @@
                            BETA = DLARND( 2, ISEED )
                         END IF
 *
-*                       All the parameters are set:
-*                          CFORM, UPLO, TRANS, M, N,
-*                          ALPHA, and BETA
-*                       READY TO TEST!
+                        // All the parameters are set:
+                           // CFORM, UPLO, TRANS, M, N,
+                           // ALPHA, and BETA
+                        // READY TO TEST!
 *
                         NRUN = NRUN + 1
 *
                         IF ( ITRANS.EQ.1 ) THEN
 *
-*                          In this case we are NOTRANS, so A is N-by-K
+                           // In this case we are NOTRANS, so A is N-by-K
 *
                            DO J = 1, K
                               DO I = 1, N
@@ -123,7 +123,7 @@
 
                         ELSE
 *
-*                          In this case we are TRANS, so A is K-by-N
+                           // In this case we are TRANS, so A is K-by-N
 *
                            DO J = 1,N
                               DO I = 1, K
@@ -135,10 +135,10 @@
 *
                         END IF
 *
-*                       Generate C1 our N--by--N symmetric matrix.
-*                       Make sure C2 has the same upper/lower part,
-*                       (the one that we do not touch), so
-*                       copy the initial C1 in C2 in it.
+                        // Generate C1 our N--by--N symmetric matrix.
+                        // Make sure C2 has the same upper/lower part,
+                        // (the one that we do not touch), so
+                        // copy the initial C1 in C2 in it.
 *
                         DO J = 1, N
                            DO I = 1, N
@@ -147,30 +147,30 @@
                            END DO
                         END DO
 *
-*                       (See comment later on for why we use DLANGE and
-*                       not DLANSY for C1.)
+                        // (See comment later on for why we use DLANGE and
+                        // not DLANSY for C1.)
 *
                         NORMC = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE )
 *
                         SRNAMT = 'DTRTTF'
                         CALL DTRTTF( CFORM, UPLO, N, C1, LDC, CRF, INFO )
 *
-*                       call dsyrk the BLAS routine -> gives C1
+                        // call dsyrk the BLAS routine -> gives C1
 *
                         SRNAMT = 'DSYRK '
                         CALL DSYRK( UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC )
 *
-*                       call dsfrk the RFP routine -> gives CRF
+                        // call dsfrk the RFP routine -> gives CRF
 *
                         SRNAMT = 'DSFRK '
                         CALL DSFRK( CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF )
 *
-*                       convert CRF in full format -> gives C2
+                        // convert CRF in full format -> gives C2
 *
                         SRNAMT = 'DTFTTR'
                         CALL DTFTTR( CFORM, UPLO, N, CRF, C2, LDC, INFO )
 *
-*                       compare C1 and C2
+                        // compare C1 and C2
 *
                         DO J = 1, N
                            DO I = 1, N
@@ -178,10 +178,10 @@
                            END DO
                         END DO
 *
-*                       Yes, C1 is symmetric so we could call DLANSY,
-*                       but we want to check the upper part that is
-*                       supposed to be unchanged and the diagonal that
-*                       is supposed to be real -> DLANGE
+                        // Yes, C1 is symmetric so we could call DLANSY,
+                        // but we want to check the upper part that is
+                        // supposed to be unchanged and the diagonal that
+                        // is supposed to be real -> DLANGE
 *
                         RESULT(1) = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE )                         RESULT(1) = RESULT(1) / MAX( ABS( ALPHA ) * NORMA + ABS( BETA ) , ONE ) / MAX( N , 1 ) / EPS
 *
@@ -201,7 +201,7 @@
   140    CONTINUE
   150 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       IF ( NFAIL.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9996 ) 'DSFRK', NRUN
@@ -221,6 +221,6 @@
 *
       RETURN
 *
-*     End of DDRVRF4
+      // End of DDRVRF4
 *
       END

@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO;
       double             ALPHA, BETA;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             A( 1, 1), B( 1, 1);
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, DTFSM, DTFTRI, DSFRK, DTFTTP, DTFTTR, DPFTRI, DPFTRF, DPFTRS, DTPTTF, DTPTTR, DTRTTF, DTRTTP
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       OK = .TRUE.
@@ -210,7 +210,7 @@
       CALL DSFRK( 'N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B )
       CALL CHKXER( 'DSFRK ', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )
@@ -224,6 +224,6 @@
      $        'exits ***' )
       RETURN
 *
-*     End of DERRRFP
+      // End of DERRRFP
 *
       END

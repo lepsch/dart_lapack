@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                INFO, KL, KU, LDAB, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         AB( LDAB, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LNOTI, NOTRAN;
       int                I, J, KD, L, LM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMV, ZGERU, ZLACGV, ZSWAP, ZTBSV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
@@ -59,7 +59,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
@@ -68,14 +68,14 @@
 *
       IF( NOTRAN ) THEN
 *
-*        Solve  A*X = B.
+         // Solve  A*X = B.
 *
-*        Solve L*X = B, overwriting B with X.
+         // Solve L*X = B, overwriting B with X.
 *
-*        L is represented as a product of permutations and unit lower
-*        triangular matrices L = P(1) * L(1) * ... * P(n-1) * L(n-1),
-*        where each transformation L(i) is a rank-one modification of
-*        the identity matrix.
+         // L is represented as a product of permutations and unit lower
+        t // riangular matrices L = P(1) * L(1) * ... * P(n-1) * L(n-1),
+         // where each transformation L(i) is a rank-one modification of
+        t // he identity matrix.
 *
          IF( LNOTI ) THEN
             DO 10 J = 1, N - 1
@@ -87,23 +87,23 @@
 *
          DO 20 I = 1, NRHS
 *
-*           Solve U*X = B, overwriting B with X.
+            // Solve U*X = B, overwriting B with X.
 *
             CALL ZTBSV( 'Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
    20    CONTINUE
 *
       ELSE IF( LSAME( TRANS, 'T' ) ) THEN
 *
-*        Solve A**T * X = B.
+         // Solve A**T * X = B.
 *
          DO 30 I = 1, NRHS
 *
-*           Solve U**T * X = B, overwriting B with X.
+            // Solve U**T * X = B, overwriting B with X.
 *
             CALL ZTBSV( 'Upper', 'Transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
    30    CONTINUE
 *
-*        Solve L**T * X = B, overwriting B with X.
+         // Solve L**T * X = B, overwriting B with X.
 *
          IF( LNOTI ) THEN
             DO 40 J = N - 1, 1, -1
@@ -116,16 +116,16 @@
 *
       ELSE
 *
-*        Solve A**H * X = B.
+         // Solve A**H * X = B.
 *
          DO 50 I = 1, NRHS
 *
-*           Solve U**H * X = B, overwriting B with X.
+            // Solve U**H * X = B, overwriting B with X.
 *
             CALL ZTBSV( 'Upper', 'Conjugate transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
    50    CONTINUE
 *
-*        Solve L**H * X = B, overwriting B with X.
+         // Solve L**H * X = B, overwriting B with X.
 *
          IF( LNOTI ) THEN
             DO 60 J = N - 1, 1, -1
@@ -140,6 +140,6 @@
       END IF
       RETURN
 *
-*     End of ZGBTRS
+      // End of ZGBTRS
 *
       END

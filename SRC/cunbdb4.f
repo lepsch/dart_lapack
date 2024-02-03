@@ -23,38 +23,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               PHI(*), THETA(*)
       COMPLEX            PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*)
-*     ..
+      // ..
 *
 *  ====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            NEGONE, ONE, ZERO
       PARAMETER          ( NEGONE = (-1.0E0,0.0E0), ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               C, S
       int                CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLARF, CLARFGP, CUNBDB5, CSROT, CSCAL, CLACGV, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SCNRM2, SROUNDUP_LWORK
       // EXTERNAL SCNRM2, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Function ..
+      // ..
+      // .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       LQUERY = LWORK .EQ. -1
@@ -71,7 +71,7 @@
          INFO = -7
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO .EQ. 0 ) THEN
          ILARF = 2
@@ -93,7 +93,7 @@
          RETURN
       END IF
 *
-*     Reduce columns 1, ..., M-Q of X11 and X21
+      // Reduce columns 1, ..., M-Q of X11 and X21
 *
       DO I = 1, M-Q
 *
@@ -138,7 +138,7 @@
 *
       END DO
 *
-*     Reduce the bottom-right portion of X11 to [ I 0 ]
+      // Reduce the bottom-right portion of X11 to [ I 0 ]
 *
       DO I = M - Q + 1, P
          CALL CLACGV( Q-I+1, X11(I,I), LDX11 )
@@ -148,7 +148,7 @@
          CALL CLACGV( Q-I+1, X11(I,I), LDX11 )
       END DO
 *
-*     Reduce the bottom-right portion of X21 to [ 0 I ]
+      // Reduce the bottom-right portion of X21 to [ 0 I ]
 *
       DO I = P + 1, Q
          CALL CLACGV( Q-I+1, X21(M-Q+I-P,I), LDX21 )
@@ -160,6 +160,6 @@
 *
       RETURN
 *
-*     End of CUNBDB4
+      // End of CUNBDB4
 *
       END

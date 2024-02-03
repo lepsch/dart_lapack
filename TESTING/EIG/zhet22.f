@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                ITYPE, KBAND, LDA, LDU, LDV, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * ), RESULT( 2 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J, JJ, JJ1, JJ2, NN, NNP1;
       double             ANORM, ULP, UNFL, WNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANHE;
       // EXTERNAL DLAMCH, ZLANHE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZHEMM, ZUNT01
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -44,15 +44,15 @@
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Norm of A:
+      // Norm of A:
 *
       ANORM = MAX( ZLANHE( '1', UPLO, N, A, LDA, RWORK ), UNFL )
 *
-*     Compute error matrix:
+      // Compute error matrix:
 *
-*     ITYPE=1: error = U**H A U - S
+      // ITYPE=1: error = U**H A U - S
 *
       CALL ZHEMM( 'L', UPLO, N, M, CONE, A, LDA, U, LDU, CZERO, WORK, N )
       NN = N*N
@@ -82,14 +82,14 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U**H U - I
+      // Compute  U**H U - I
 *
       IF( ITYPE.EQ.1 ) CALL ZUNT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RWORK, RESULT( 2 ) )
 *
       RETURN
 *
-*     End of ZHET22
+      // End of ZHET22
 *
       END

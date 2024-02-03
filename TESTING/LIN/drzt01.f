@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
       double             NORMA;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             RWORK( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DLASET, DORMRZ, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       DRZT01 = ZERO
 *
@@ -43,13 +43,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
 *
-*     Copy upper triangle R
+      // Copy upper triangle R
 *
       CALL DLASET( 'Full', M, N, ZERO, ZERO, WORK, M )
       DO 20 J = 1, M
@@ -58,11 +58,11 @@
    10    CONTINUE
    20 CONTINUE
 *
-*     R = R * P(1) * ... *P(m)
+      // R = R * P(1) * ... *P(m)
 *
       CALL DORMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
 *
-*     R = R - A
+      // R = R - A
 *
       DO 30 I = 1, N
          CALL DAXPY( M, -ONE, A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 )
@@ -75,6 +75,6 @@
 *
       RETURN
 *
-*     End of DRZT01
+      // End of DRZT01
 *
       END

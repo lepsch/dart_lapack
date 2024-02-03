@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       double             AB( LDAB, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NBMAX, LDWORK;
       PARAMETER          ( NBMAX = 64, LDWORK = NBMAX+1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW;
       double             TEMP;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX, ILAENV;
       // EXTERNAL IDAMAX, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGBTF2, DGEMM, DGER, DLASWP, DSCAL, DSWAP, DTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     KV is the number of superdiagonals in the factor U, allowing for
-*     fill-in
+      // KV is the number of superdiagonals in the factor U, allowing for
+      // fill-in
 *
       KV = KU + KL
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -63,29 +63,29 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Determine the block size for this environment
+      // Determine the block size for this environment
 *
       NB = ILAENV( 1, 'DGBTRF', ' ', M, N, KL, KU )
 *
-*     The block size must not exceed the limit set by the size of the
-*     local arrays WORK13 and WORK31.
+      // The block size must not exceed the limit set by the size of the
+      // local arrays WORK13 and WORK31.
 *
       NB = MIN( NB, NBMAX )
 *
       IF( NB.LE.1 .OR. NB.GT.KL ) THEN
 *
-*        Use unblocked code
+         // Use unblocked code
 *
          CALL DGBTF2( M, N, KL, KU, AB, LDAB, IPIV, INFO )
       ELSE
 *
-*        Use blocked code
+         // Use blocked code
 *
-*        Zero the superdiagonal elements of the work array WORK13
+         // Zero the superdiagonal elements of the work array WORK13
 *
          DO 20 J = 1, NB
             DO 10 I = 1, J - 1
@@ -93,7 +93,7 @@
    10       CONTINUE
    20    CONTINUE
 *
-*        Zero the subdiagonal elements of the work array WORK31
+         // Zero the subdiagonal elements of the work array WORK31
 *
          DO 40 J = 1, NB
             DO 30 I = J + 1, NB
@@ -101,9 +101,9 @@
    30       CONTINUE
    40    CONTINUE
 *
-*        Gaussian elimination with partial pivoting
+         // Gaussian elimination with partial pivoting
 *
-*        Set fill-in elements in columns KU+2 to KV to zero
+         // Set fill-in elements in columns KU+2 to KV to zero
 *
          DO 60 J = KU + 2, MIN( KV, N )
             DO 50 I = KV - J + 2, KL
@@ -111,36 +111,36 @@
    50       CONTINUE
    60    CONTINUE
 *
-*        JU is the index of the last column affected by the current
-*        stage of the factorization
+         // JU is the index of the last column affected by the current
+         // stage of the factorization
 *
          JU = 1
 *
          DO 180 J = 1, MIN( M, N ), NB
             JB = MIN( NB, MIN( M, N )-J+1 )
 *
-*           The active part of the matrix is partitioned
+            // The active part of the matrix is partitioned
 *
-*              A11   A12   A13
-*              A21   A22   A23
-*              A31   A32   A33
+               // A11   A12   A13
+               // A21   A22   A23
+               // A31   A32   A33
 *
-*           Here A11, A21 and A31 denote the current block of JB columns
-*           which is about to be factorized. The number of rows in the
-*           partitioning are JB, I2, I3 respectively, and the numbers
-*           of columns are JB, J2, J3. The superdiagonal elements of A13
-*           and the subdiagonal elements of A31 lie outside the band.
+            // Here A11, A21 and A31 denote the current block of JB columns
+            // which is about to be factorized. The number of rows in the
+            // partitioning are JB, I2, I3 respectively, and the numbers
+            // of columns are JB, J2, J3. The superdiagonal elements of A13
+            // and the subdiagonal elements of A31 lie outside the band.
 *
             I2 = MIN( KL-JB, M-J-JB+1 )
             I3 = MIN( JB, M-J-KL+1 )
 *
-*           J2 and J3 are computed after JU has been updated.
+            // J2 and J3 are computed after JU has been updated.
 *
-*           Factorize the current block of JB columns
+            // Factorize the current block of JB columns
 *
             DO 80 JJ = J, J + JB - 1
 *
-*              Set fill-in elements in column JJ+KV to zero
+               // Set fill-in elements in column JJ+KV to zero
 *
                IF( JJ+KV.LE.N ) THEN
                   DO 70 I = 1, KL
@@ -148,8 +148,8 @@
    70             CONTINUE
                END IF
 *
-*              Find pivot and test for singularity. KM is the number of
-*              subdiagonal elements in the current column.
+               // Find pivot and test for singularity. KM is the number of
+               // subdiagonal elements in the current column.
 *
                KM = MIN( KL, M-JJ )
                JP = IDAMAX( KM+1, AB( KV+1, JJ ), 1 )
@@ -158,63 +158,63 @@
                   JU = MAX( JU, MIN( JJ+KU+JP-1, N ) )
                   IF( JP.NE.1 ) THEN
 *
-*                    Apply interchange to columns J to J+JB-1
+                     // Apply interchange to columns J to J+JB-1
 *
                      IF( JP+JJ-1.LT.J+KL ) THEN
 *
                         CALL DSWAP( JB, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 )
                      ELSE
 *
-*                       The interchange affects columns J to JJ-1 of A31
-*                       which are stored in the work array WORK31
+                        // The interchange affects columns J to JJ-1 of A31
+                        // which are stored in the work array WORK31
 *
                         CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK )                         CALL DSWAP( J+JB-JJ, AB( KV+1, JJ ), LDAB-1, AB( KV+JP, JJ ), LDAB-1 )
                      END IF
                   END IF
 *
-*                 Compute multipliers
+                  // Compute multipliers
 *
                   CALL DSCAL( KM, ONE / AB( KV+1, JJ ), AB( KV+2, JJ ), 1 )
 *
-*                 Update trailing submatrix within the band and within
-*                 the current block. JM is the index of the last column
-*                 which needs to be updated.
+                  // Update trailing submatrix within the band and within
+                 t // he current block. JM is the index of the last column
+                  // which needs to be updated.
 *
                   JM = MIN( JU, J+JB-1 )
                   IF( JM.GT.JJ ) CALL DGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 )
                ELSE
 *
-*                 If pivot is zero, set INFO to the index of the pivot
-*                 unless a zero pivot has already been found.
+                  // If pivot is zero, set INFO to the index of the pivot
+                  // unless a zero pivot has already been found.
 *
                   IF( INFO.EQ.0 ) INFO = JJ
                END IF
 *
-*              Copy current column of A31 into the work array WORK31
+               // Copy current column of A31 into the work array WORK31
 *
                NW = MIN( JJ-J+1, I3 )
                IF( NW.GT.0 ) CALL DCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 )
    80       CONTINUE
             IF( J+JB.LE.N ) THEN
 *
-*              Apply the row interchanges to the other blocks.
+               // Apply the row interchanges to the other blocks.
 *
                J2 = MIN( JU-J+1, KV ) - JB
                J3 = MAX( 0, JU-J-KV+1 )
 *
-*              Use DLASWP to apply the row interchanges to A12, A22, and
-*              A32.
+               // Use DLASWP to apply the row interchanges to A12, A22, and
+               // A32.
 *
                CALL DLASWP( J2, AB( KV+1-JB, J+JB ), LDAB-1, 1, JB, IPIV( J ), 1 )
 *
-*              Adjust the pivot indices.
+               // Adjust the pivot indices.
 *
                DO 90 I = J, J + JB - 1
                   IPIV( I ) = IPIV( I ) + J - 1
    90          CONTINUE
 *
-*              Apply the row interchanges to A13, A23, and A33
-*              columnwise.
+               // Apply the row interchanges to A13, A23, and A33
+               // columnwise.
 *
                K2 = J - 1 + JB + J2
                DO 110 I = 1, J3
@@ -229,24 +229,24 @@
   100             CONTINUE
   110          CONTINUE
 *
-*              Update the relevant part of the trailing submatrix
+               // Update the relevant part of the trailing submatrix
 *
                IF( J2.GT.0 ) THEN
 *
-*                 Update A12
+                  // Update A12
 *
                   CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, J2, ONE, AB( KV+1, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1 )
 *
                   IF( I2.GT.0 ) THEN
 *
-*                    Update A22
+                     // Update A22
 *
                      CALL DGEMM( 'No transpose', 'No transpose', I2, J2, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+1, J+JB ), LDAB-1 )
                   END IF
 *
                   IF( I3.GT.0 ) THEN
 *
-*                    Update A32
+                     // Update A32
 *
                      CALL DGEMM( 'No transpose', 'No transpose', I3, J2, JB, -ONE, WORK31, LDWORK, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+KL+1-JB, J+JB ), LDAB-1 )
                   END IF
@@ -254,8 +254,8 @@
 *
                IF( J3.GT.0 ) THEN
 *
-*                 Copy the lower triangle of A13 into the work array
-*                 WORK13
+                  // Copy the lower triangle of A13 into the work array
+                  // WORK13
 *
                   DO 130 JJ = 1, J3
                      DO 120 II = JJ, JB
@@ -263,25 +263,25 @@
   120                CONTINUE
   130             CONTINUE
 *
-*                 Update A13 in the work array
+                  // Update A13 in the work array
 *
                   CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, J3, ONE, AB( KV+1, J ), LDAB-1, WORK13, LDWORK )
 *
                   IF( I2.GT.0 ) THEN
 *
-*                    Update A23
+                     // Update A23
 *
                      CALL DGEMM( 'No transpose', 'No transpose', I2, J3, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, WORK13, LDWORK, ONE, AB( 1+JB, J+KV ), LDAB-1 )
                   END IF
 *
                   IF( I3.GT.0 ) THEN
 *
-*                    Update A33
+                     // Update A33
 *
                      CALL DGEMM( 'No transpose', 'No transpose', I3, J3, JB, -ONE, WORK31, LDWORK, WORK13, LDWORK, ONE, AB( 1+KL, J+KV ), LDAB-1 )
                   END IF
 *
-*                 Copy the lower triangle of A13 back into place
+                  // Copy the lower triangle of A13 back into place
 *
                   DO 150 JJ = 1, J3
                      DO 140 II = JJ, JB
@@ -291,37 +291,37 @@
                END IF
             ELSE
 *
-*              Adjust the pivot indices.
+               // Adjust the pivot indices.
 *
                DO 160 I = J, J + JB - 1
                   IPIV( I ) = IPIV( I ) + J - 1
   160          CONTINUE
             END IF
 *
-*           Partially undo the interchanges in the current block to
-*           restore the upper triangular form of A31 and copy the upper
-*           triangle of A31 back into place
+            // Partially undo the interchanges in the current block to
+            // restore the upper triangular form of A31 and copy the upper
+           t // riangle of A31 back into place
 *
             DO 170 JJ = J + JB - 1, J, -1
                JP = IPIV( JJ ) - JJ + 1
                IF( JP.NE.1 ) THEN
 *
-*                 Apply interchange to columns J to JJ-1
+                  // Apply interchange to columns J to JJ-1
 *
                   IF( JP+JJ-1.LT.J+KL ) THEN
 *
-*                    The interchange does not affect A31
+                     // The interchange does not affect A31
 *
                      CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 )
                   ELSE
 *
-*                    The interchange does affect A31
+                     // The interchange does affect A31
 *
                      CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK )
                   END IF
                END IF
 *
-*              Copy the current column of A31 back into place
+               // Copy the current column of A31 back into place
 *
                NW = MIN( I3, JJ-J+1 )
                IF( NW.GT.0 ) CALL DCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 )
@@ -331,6 +331,6 @@
 *
       RETURN
 *
-*     End of DGBTRF
+      // End of DGBTRF
 *
       END

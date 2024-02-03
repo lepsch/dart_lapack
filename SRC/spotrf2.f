@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO=0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                N1, N2, IINFO;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, SISNAN;
       // EXTERNAL LSAME, SISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SSYRK, STRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -50,32 +50,32 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     N=1 case
+      // N=1 case
 *
       IF( N.EQ.1 ) THEN
 *
-*        Test for non-positive-definiteness
+         // Test for non-positive-definiteness
 *
          IF( A( 1, 1 ).LE.ZERO.OR.SISNAN( A( 1, 1 ) ) ) THEN
             INFO = 1
             RETURN
          END IF
 *
-*        Factor
+         // Factor
 *
          A( 1, 1 ) = SQRT( A( 1, 1 ) )
 *
-*     Use recursive code
+      // Use recursive code
 *
       ELSE
          N1 = N/2
          N2 = N-N1
 *
-*        Factor A11
+         // Factor A11
 *
          CALL SPOTRF2( UPLO, N1, A( 1, 1 ), LDA, IINFO )
          IF ( IINFO.NE.0 ) THEN
@@ -83,15 +83,15 @@
             RETURN
          END IF
 *
-*        Compute the Cholesky factorization A = U**T*U
+         // Compute the Cholesky factorization A = U**T*U
 *
          IF( UPPER ) THEN
 *
-*           Update and scale A12
+            // Update and scale A12
 *
             CALL STRSM( 'L', 'U', 'T', 'N', N1, N2, ONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
 *
-*           Update and factor A22
+            // Update and factor A22
 *
             CALL SSYRK( UPLO, 'T', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
             CALL SPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
@@ -100,15 +100,15 @@
                RETURN
             END IF
 *
-*        Compute the Cholesky factorization A = L*L**T
+         // Compute the Cholesky factorization A = L*L**T
 *
          ELSE
 *
-*           Update and scale A21
+            // Update and scale A21
 *
             CALL STRSM( 'R', 'L', 'T', 'N', N2, N1, ONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
 *
-*           Update and factor A22
+            // Update and factor A22
 *
             CALL SSYRK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
             CALL SPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
@@ -120,6 +120,6 @@
       END IF
       RETURN
 *
-*     End of SPOTRF2
+      // End of SPOTRF2
 *
       END

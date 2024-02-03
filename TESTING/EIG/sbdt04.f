@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDU, LDVT, N, NS;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       REAL               BNORM, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
       REAL               SASUM, SLAMCH
       // EXTERNAL LSAME, ISAMAX, SASUM, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       RESID = ZERO
       IF( N.LE.0 .OR. NS.LE.0 ) RETURN
 *
       EPS = SLAMCH( 'Precision' )
 *
-*     Compute S - U' * B * V.
+      // Compute S - U' * B * V.
 *
       BNORM = ZERO
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        B is upper bidiagonal.
+         // B is upper bidiagonal.
 *
          K = 0
          DO 20 I = 1, NS
@@ -67,7 +67,7 @@
    30    CONTINUE
       ELSE
 *
-*        B is lower bidiagonal.
+         // B is lower bidiagonal.
 *
          K = 0
          DO 50 I = 1, NS
@@ -86,7 +86,7 @@
 *
       CALL SGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS )
 *
-*     norm(S - U' * B * V)
+      // norm(S - U' * B * V)
 *
       K = N*NS
       DO 70 I = 1, NS
@@ -111,6 +111,6 @@
 *
       RETURN
 *
-*     End of SBDT04
+      // End of SBDT04
 *
       END

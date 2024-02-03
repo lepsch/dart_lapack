@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                ITYPE, LDA, LDB, LDU, LDV, N;
       double             RESULT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 10.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                JCOL, JDIAG, JROW;
       double             ANORM, ULP, UNFL, WNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT = ZERO
       IF( N.LE.0 ) RETURN
 *
-*     Constants
+      // Constants
 *
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
 *
-*     Some Error Checks
+      // Some Error Checks
 *
       IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
          RESULT = TEN / ULP
@@ -54,13 +54,13 @@
 *
       IF( ITYPE.LE.2 ) THEN
 *
-*        Tests scaled by the norm(A)
+         // Tests scaled by the norm(A)
 *
          ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL )
 *
          IF( ITYPE.EQ.1 ) THEN
 *
-*           ITYPE=1: Compute W = A - U B V**H
+            // ITYPE=1: Compute W = A - U B V**H
 *
             CALL ZLACPY( ' ', N, N, A, LDA, WORK, N )
             CALL ZGEMM( 'N', 'N', N, N, N, CONE, U, LDU, B, LDB, CZERO, WORK( N**2+1 ), N )
@@ -69,7 +69,7 @@
 *
          ELSE
 *
-*           ITYPE=2: Compute W = A - B
+            // ITYPE=2: Compute W = A - B
 *
             CALL ZLACPY( ' ', N, N, B, LDB, WORK, N )
 *
@@ -80,7 +80,7 @@
    20       CONTINUE
          END IF
 *
-*        Compute norm(W)/ ( ulp*norm(A) )
+         // Compute norm(W)/ ( ulp*norm(A) )
 *
          WNORM = ZLANGE( '1', N, N, WORK, N, RWORK )
 *
@@ -96,9 +96,9 @@
 *
       ELSE
 *
-*        Tests not scaled by norm(A)
+         // Tests not scaled by norm(A)
 *
-*        ITYPE=3: Compute  U U**H - I
+         // ITYPE=3: Compute  U U**H - I
 *
          CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 *
@@ -111,6 +111,6 @@
 *
       RETURN
 *
-*     End of ZGET51
+      // End of ZGET51
 *
       END

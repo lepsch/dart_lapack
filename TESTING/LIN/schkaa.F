@@ -6,7 +6,7 @@
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 132 )
       int                MAXIN;
@@ -19,8 +19,8 @@
       PARAMETER          ( NIN = 5, NOUT = 6 )
       int                KDMAX;
       PARAMETER          ( KDMAX = NMAX+( NMAX+1 ) / 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FATAL, TSTCHK, TSTDRV, TSTERR;
       String             C1;
       String             C2;
@@ -29,42 +29,42 @@
       String             ALINE;
       int                I, IC, J, K, LA, LAFAC, LDA, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       REAL               EPS, S1, S2, THREQ, THRESH
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               DOTYPE( MATMAX );
       int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX );
-*     ..
-*     .. Allocatable Arrays ..
+      // ..
+      // .. Allocatable Arrays ..
       int     AllocateStatus;
       REAL, DIMENSION(:), ALLOCATABLE :: RWORK, S
       REAL, DIMENSION(:), ALLOCATABLE :: E
       REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, LSAMEN;
       REAL               SECOND, SLAMCH
       // EXTERNAL LSAME, LSAMEN, SECOND, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAREQ, SCHKEQ, SCHKGB, SCHKGE, SCHKGT, SCHKLQ, SCHKORHR_COL, SCHKPB, SCHKPO, SCHKPS, SCHKPP, SCHKPT, SCHKQ3, SCHKQP3RK, SCHKQL, SCHKQR, SCHKRQ, SCHKSP, SCHKSY, SCHKSY_ROOK, SCHKSY_RK, SCHKSY_AA, SCHKTB, SCHKTP, SCHKTR, SCHKTZ, SDRVGB, SDRVGE, SDRVGT, SDRVLS, SDRVPB, SDRVPO, SDRVPP, SDRVPT, SDRVSP, SDRVSY, SDRVSY_ROOK, SDRVSY_RK, SDRVSY_AA, ILAVER, SCHKLQTP, SCHKQRT, SCHKQRTP, SCHKLQT, SCHKTSQR
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       int                IPARMS( 100 );
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / CLAENV / IPARMS
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               THREQ / 2.0E0 / , INTSTR / '0123456789' /
-*     ..
-*     .. Allocate memory dynamically ..
+      // ..
+      // .. Allocate memory dynamically ..
 *
       ALLOCATE ( A( ( KDMAX+1 )*NMAX, 7 ), STAT = AllocateStatus )
       IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
@@ -78,23 +78,23 @@
       IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
       ALLOCATE ( RWORK( 5*NMAX+2*MAXRHS ), STAT = AllocateStatus )
       IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       S1 = SECOND( )
       LDA = NMAX
       FATAL = .FALSE.
 *
-*     Read a dummy line.
+      // Read a dummy line.
 *
       READ( NIN, FMT = * )
 *
-*     Report values of parameters.
+      // Report values of parameters.
 *
       CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
 *
-*     Read the values of M
+      // Read the values of M
 *
       READ( NIN, FMT = * )NM
       IF( NM.LT.1 ) THEN
@@ -118,7 +118,7 @@
    10 CONTINUE
       IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
 *
-*     Read the values of N
+      // Read the values of N
 *
       READ( NIN, FMT = * )NN
       IF( NN.LT.1 ) THEN
@@ -142,7 +142,7 @@
    20 CONTINUE
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 *
-*     Read the values of NRHS
+      // Read the values of NRHS
 *
       READ( NIN, FMT = * )NNS
       IF( NNS.LT.1 ) THEN
@@ -166,7 +166,7 @@
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
-*     Read the values of NB
+      // Read the values of NB
 *
       READ( NIN, FMT = * )NNB
       IF( NNB.LT.1 ) THEN
@@ -187,7 +187,7 @@
    40 CONTINUE
       IF( NNB.GT.0 ) WRITE( NOUT, FMT = 9993 )'NB  ', ( NBVAL( I ), I = 1, NNB )
 *
-*     Set NBVAL2 to be the set of unique values of NB
+      // Set NBVAL2 to be the set of unique values of NB
 *
       NNB2 = 0
       DO 60 I = 1, NNB
@@ -199,7 +199,7 @@
          NBVAL2( NNB2 ) = NB
    60 CONTINUE
 *
-*     Read the values of NX
+      // Read the values of NX
 *
       READ( NIN, FMT = * )( NXVAL( I ), I = 1, NNB )
       DO 70 I = 1, NNB
@@ -210,7 +210,7 @@
    70 CONTINUE
       IF( NNB.GT.0 ) WRITE( NOUT, FMT = 9993 )'NX  ', ( NXVAL( I ), I = 1, NNB )
 *
-*     Read the values of RANKVAL
+      // Read the values of RANKVAL
 *
       READ( NIN, FMT = * )NRANK
       IF( NN.LT.1 ) THEN
@@ -234,20 +234,20 @@
       END DO
       IF( NRANK.GT.0 ) WRITE( NOUT, FMT = 9993 )'RANK % OF N', ( RANKVAL( I ), I = 1, NRANK )
 *
-*     Read the threshold value for the test ratios.
+      // Read the threshold value for the test ratios.
 *
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9992 )THRESH
 *
-*     Read the flag that indicates whether to test the LAPACK routines.
+      // Read the flag that indicates whether to test the LAPACK routines.
 *
       READ( NIN, FMT = * )TSTCHK
 *
-*     Read the flag that indicates whether to test the driver routines.
+      // Read the flag that indicates whether to test the driver routines.
 *
       READ( NIN, FMT = * )TSTDRV
 *
-*     Read the flag that indicates whether to test the error exits.
+      // Read the flag that indicates whether to test the error exits.
 *
       READ( NIN, FMT = * )TSTERR
 *
@@ -256,7 +256,7 @@
          STOP
       END IF
 *
-*     Calculate and print the machine dependent constants.
+      // Calculate and print the machine dependent constants.
 *
       EPS = SLAMCH( 'Underflow threshold' )
       WRITE( NOUT, FMT = 9991 )'underflow', EPS
@@ -268,7 +268,7 @@
 *
    80 CONTINUE
 *
-*     Read a test path and the number of matrix types to use.
+      // Read a test path and the number of matrix types to use.
 *
       READ( NIN, FMT = '(A72)', END = 140 )ALINE
       PATH = ALINE( 1: 3 )
@@ -301,20 +301,20 @@
       C2 = PATH( 2: 3 )
       NRHS = NSVAL( 1 )
 *
-*     Check first character for correct precision.
+      // Check first character for correct precision.
 *
       IF( .NOT.LSAME( C1, 'Single precision' ) ) THEN
          WRITE( NOUT, FMT = 9990 )PATH
 *
       ELSE IF( NMATS.LE.0 ) THEN
 *
-*        Check for a positive number of tests requested.
+         // Check for a positive number of tests requested.
 *
          WRITE( NOUT, FMT = 9989 )PATH
 *
       ELSE IF( LSAMEN( 2, C2, 'GE' ) ) THEN
 *
-*        GE:  general matrices
+         // GE:  general matrices
 *
          NTYPES = 11
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -333,7 +333,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        GB:  general banded matrices
+         // GB:  general banded matrices
 *
          LA = ( 2*KDMAX+1 )*NMAX
          LAFAC = ( 3*KDMAX+1 )*NMAX
@@ -354,7 +354,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
 *
-*        GT:  general tridiagonal matrices
+         // GT:  general tridiagonal matrices
 *
          NTYPES = 12
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -373,7 +373,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
 *
-*        PO:  positive definite matrices
+         // PO:  positive definite matrices
 *
          NTYPES = 9
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -392,7 +392,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PS' ) ) THEN
 *
-*        PS:  positive semi-definite matrices
+         // PS:  positive semi-definite matrices
 *
          NTYPES = 9
 *
@@ -406,7 +406,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
 *
-*        PP:  positive definite packed matrices
+         // PP:  positive definite packed matrices
 *
          NTYPES = 9
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -425,7 +425,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
 *
-*        PB:  positive definite banded matrices
+         // PB:  positive definite banded matrices
 *
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -444,7 +444,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
 *
-*        PT:  positive definite tridiagonal matrices
+         // PT:  positive definite tridiagonal matrices
 *
          NTYPES = 12
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -463,8 +463,8 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        SY:  symmetric indefinite matrices,
-*             with partial (Bunch-Kaufman) pivoting algorithm
+         // SY:  symmetric indefinite matrices,
+              // with partial (Bunch-Kaufman) pivoting algorithm
 *
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -483,8 +483,8 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
 *
-*        SR:  symmetric indefinite matrices,
-*             with bounded Bunch-Kaufman (rook) pivoting algorithm
+         // SR:  symmetric indefinite matrices,
+              // with bounded Bunch-Kaufman (rook) pivoting algorithm
 *
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -503,9 +503,9 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
 *
-*        SK:  symmetric indefinite matrices,
-*             with bounded Bunch-Kaufman (rook) pivoting algorithm,
-*             different matrix storage format than SR path version.
+         // SK:  symmetric indefinite matrices,
+              // with bounded Bunch-Kaufman (rook) pivoting algorithm,
+              // different matrix storage format than SR path version.
 *
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -524,8 +524,8 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
 *
-*        SA:  symmetric indefinite matrices,
-*             with partial (Aasen's) pivoting algorithm
+         // SA:  symmetric indefinite matrices,
+              // with partial (Aasen's) pivoting algorithm
 *
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -544,8 +544,8 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
 *
-*        SA:  symmetric indefinite matrices,
-*             with partial (Aasen's) pivoting algorithm
+         // SA:  symmetric indefinite matrices,
+              // with partial (Aasen's) pivoting algorithm
 *
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -564,8 +564,8 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        SP:  symmetric indefinite packed matrices,
-*             with partial (Bunch-Kaufman) pivoting algorithm
+         // SP:  symmetric indefinite packed matrices,
+              // with partial (Bunch-Kaufman) pivoting algorithm
 *
          NTYPES = 10
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -584,7 +584,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TR' ) ) THEN
 *
-*        TR:  triangular matrices
+         // TR:  triangular matrices
 *
          NTYPES = 18
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -597,7 +597,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
 *
-*        TP:  triangular packed matrices
+         // TP:  triangular packed matrices
 *
          NTYPES = 18
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -610,7 +610,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
 *
-*        TB:  triangular banded matrices
+         // TB:  triangular banded matrices
 *
          NTYPES = 17
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -623,7 +623,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'QR' ) ) THEN
 *
-*        QR:  QR factorization
+         // QR:  QR factorization
 *
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -636,7 +636,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'LQ' ) ) THEN
 *
-*        LQ:  LQ factorization
+         // LQ:  LQ factorization
 *
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -649,7 +649,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'QL' ) ) THEN
 *
-*        QL:  QL factorization
+         // QL:  QL factorization
 *
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -662,7 +662,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'RQ' ) ) THEN
 *
-*        RQ:  RQ factorization
+         // RQ:  RQ factorization
 *
          NTYPES = 8
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -675,7 +675,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'QP' ) ) THEN
 *
-*        QP:  QR factorization with pivoting
+         // QP:  QR factorization with pivoting
 *
          NTYPES = 6
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -688,7 +688,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'QK' ) ) THEN
 *
-*        QK: truncated QR factorization with pivoting
+         // QK: truncated QR factorization with pivoting
 *
          NTYPES = 19
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -701,7 +701,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TZ' ) ) THEN
 *
-*        TZ:  Trapezoidal matrix
+         // TZ:  Trapezoidal matrix
 *
          NTYPES = 3
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -714,7 +714,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'LS' ) ) THEN
 *
-*        LS:  Least squares drivers
+         // LS:  Least squares drivers
 *
          NTYPES = 6
          CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
@@ -727,8 +727,8 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'EQ' ) ) THEN
 *
-*        EQ:  Equilibration routines for general and positive definite
-*             matrices (THREQ should be between 2 and 10)
+         // EQ:  Equilibration routines for general and positive definite
+              // matrices (THREQ should be between 2 and 10)
 *
          IF( TSTCHK ) THEN
             CALL SCHKEQ( THREQ, NOUT )
@@ -738,7 +738,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'QT' ) ) THEN
 *
-*        QT:  QRT routines for general matrices
+         // QT:  QRT routines for general matrices
 *
          IF( TSTCHK ) THEN
             CALL SCHKQRT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
@@ -748,7 +748,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'QX' ) ) THEN
 *
-*        QX:  QRT routines for triangular-pentagonal matrices
+         // QX:  QRT routines for triangular-pentagonal matrices
 *
          IF( TSTCHK ) THEN
             CALL SCHKQRTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
@@ -758,7 +758,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TQ' ) ) THEN
 *
-*        TQ:  LQT routines for general matrices
+         // TQ:  LQT routines for general matrices
 *
          IF( TSTCHK ) THEN
             CALL SCHKLQT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
@@ -768,7 +768,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'XQ' ) ) THEN
 *
-*        XQ:  LQT routines for triangular-pentagonal matrices
+         // XQ:  LQT routines for triangular-pentagonal matrices
 *
          IF( TSTCHK ) THEN
             CALL SCHKLQTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
@@ -778,7 +778,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TS' ) ) THEN
 *
-*        TS:  QR routines for tall-skinny matrices
+         // TS:  QR routines for tall-skinny matrices
 *
          IF( TSTCHK ) THEN
             CALL SCHKTSQR( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
@@ -788,7 +788,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'HH' ) ) THEN
 *
-*        HH:  Householder reconstruction for tall-skinny matrices
+         // HH:  Householder reconstruction for tall-skinny matrices
 *
          IF( TSTCHK ) THEN
             CALL SCHKORHR_COL( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
@@ -801,11 +801,11 @@
          WRITE( NOUT, FMT = 9990 )PATH
       END IF
 *
-*     Go back to get another input line.
+      // Go back to get another input line.
 *
       GO TO 80
 *
-*     Branch to this line when the last record is read.
+      // Branch to this line when the last record is read.
 *
   140 CONTINUE
       CLOSE ( NIN )
@@ -838,6 +838,6 @@
  9989 FORMAT( / 1X, A3, ' routines were not tested' )
  9988 FORMAT( / 1X, A3, ' driver routines were not tested' )
 *
-*     End of SCHKAA
+      // End of SCHKAA
 *
       END

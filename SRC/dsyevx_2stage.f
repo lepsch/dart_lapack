@@ -6,43 +6,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LWORK, M, N;
       double             ABSTOL, VL, VU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       double             A( LDA, * ), W( * ), WORK( * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWO, INDTAU, INDWKN, INDWRK, ISCALE, ITMP1, J, JJ, LLWORK, LLWRKN, NSPLIT, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS;
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       double             DLAMCH, DLANSY;
       // EXTERNAL LSAME, DLAMCH, DLANSY, ILAENV2STAGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DLACPY, DORGTR, DORMTR, DSCAL, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA, DSYTRD_2STAGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       LOWER = LSAME( UPLO, 'L' )
       WANTZ = LSAME( JOBZ, 'V' )
@@ -99,7 +99,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) THEN
@@ -120,7 +120,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS    = DLAMCH( 'Precision' )
@@ -129,7 +129,7 @@
       RMIN   = SQRT( SMLNUM )
       RMAX   = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       ABSTLL = ABSTOL
@@ -162,7 +162,7 @@
          END IF
       END IF
 *
-*     Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
+      // Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 *
       INDTAU  = 1
       INDE    = INDTAU + N
@@ -173,9 +173,9 @@
 *
       CALL DSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
-*     If all eigenvalues are desired and ABSTOL is less than or equal to
-*     zero, then call DSTERF or DORGTR and SSTEQR.  If this fails for
-*     some eigenvalue, then try DSTEBZ.
+      // If all eigenvalues are desired and ABSTOL is less than or equal to
+      // zero, then call DSTERF or DORGTR and SSTEQR.  If this fails for
+      // some eigenvalue, then try DSTEBZ.
 *
       TEST = .FALSE.
       IF( INDEIG ) THEN
@@ -207,7 +207,7 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call DSTEBZ and, if eigenvectors are desired, SSTEIN.
+      // Otherwise, call DSTEBZ and, if eigenvectors are desired, SSTEIN.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -222,15 +222,15 @@
       IF( WANTZ ) THEN
          CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
 *
-*        Apply orthogonal matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by DSTEIN.
+         // Apply orthogonal matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by DSTEIN.
 *
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
          CALL DORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
    40 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -242,8 +242,8 @@
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 60 J = 1, M - 1
@@ -272,12 +272,12 @@
    60    CONTINUE
       END IF
 *
-*     Set WORK(1) to optimal workspace size.
+      // Set WORK(1) to optimal workspace size.
 *
       WORK( 1 ) = LWMIN
 *
       RETURN
 *
-*     End of DSYEVX_2STAGE
+      // End of DSYEVX_2STAGE
 *
       END

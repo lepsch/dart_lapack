@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                ITYPE, KBAND, LDA, LDU, LDV, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * )
       COMPLEX            A( LDA, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J, JJ, JJ1, JJ2, NN, NNP1;
       REAL               ANORM, ULP, UNFL, WNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANHE, SLAMCH
       // EXTERNAL CLANHE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CHEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -44,15 +44,15 @@
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Precision' )
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Norm of A:
+      // Norm of A:
 *
       ANORM = MAX( CLANHE( '1', UPLO, N, A, LDA, RWORK ), UNFL )
 *
-*     Compute error matrix:
+      // Compute error matrix:
 *
-*     ITYPE=1: error = U**H A U - S
+      // ITYPE=1: error = U**H A U - S
 *
       CALL CHEMM( 'L', UPLO, N, M, CONE, A, LDA, U, LDU, CZERO, WORK, N )
       NN = N*N
@@ -82,14 +82,14 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U**H U - I
+      // Compute  U**H U - I
 *
       IF( ITYPE.EQ.1 ) CALL CUNT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RWORK, RESULT( 2 ) )
 *
       RETURN
 *
-*     End of CHET22
+      // End of CHET22
 *
       END

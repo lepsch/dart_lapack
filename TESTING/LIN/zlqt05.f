@@ -5,37 +5,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     LWORK, M, N, L, NB, LDT;
-*     .. Return values ..
+      // .. Return values ..
       double           RESULT(6);
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local allocatable arrays
+      // ..
+      // .. Local allocatable arrays
       COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
       double          , ALLOCATABLE :: RWORK(:);
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double           ZERO;
       COMPLEX*16       ONE, CZERO
       PARAMETER( ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int     INFO, J, K, N2, NP1,i;
       double             ANORM, EPS, RESID, CNORM, DNORM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double           DLAMCH;
       double           ZLANGE, ZLANSY;
       bool     LSAME;
       // EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /
 *
       EPS = DLAMCH( 'Epsilon' )
@@ -48,11 +48,11 @@
       END IF
       LWORK = N2*N2*NB
 *
-*     Dynamically allocate all arrays
+      // Dynamically allocate all arrays
 *
       ALLOCATE(A(M,N2),AF(M,N2),Q(N2,N2),R(N2,N2),RWORK(N2), WORK(LWORK),T(NB,M),C(N2,M),CF(N2,M), D(M,N2),DF(M,N2) )
 *
-*     Put random stuff into A
+      // Put random stuff into A
 *
       LDT=NB
       CALL ZLASET( 'Full', M, N2, CZERO, CZERO, A, M )
@@ -71,25 +71,25 @@
          END DO
       END IF
 *
-*     Copy the matrix A to the array AF.
+      // Copy the matrix A to the array AF.
 *
       CALL ZLACPY( 'Full', M, N2, A, M, AF, M )
 *
-*     Factor the matrix A in the array AF.
+      // Factor the matrix A in the array AF.
 *
       CALL ZTPLQT( M,N,L,NB,AF,M,AF(1,NP1),M,T,LDT,WORK,INFO)
 *
-*     Generate the (M+N)-by-(M+N) matrix Q by applying H to I
+      // Generate the (M+N)-by-(M+N) matrix Q by applying H to I
 *
       CALL ZLASET( 'Full', N2, N2, CZERO, ONE, Q, N2 )
       CALL ZGEMLQT( 'L', 'N', N2, N2, K, NB, AF, M, T, LDT, Q, N2, WORK, INFO )
 *
-*     Copy L
+      // Copy L
 *
       CALL ZLASET( 'Full', N2, N2, CZERO, CZERO, R, N2 )
       CALL ZLACPY( 'Lower', M, N2, AF, M, R, N2 )
 *
-*     Compute |L - A*Q*C| / |A| and store in RESULT(1)
+      // Compute |L - A*Q*C| / |A| and store in RESULT(1)
 *
       CALL ZGEMM( 'N', 'C', M, N2, N2, -ONE,  A, M, Q, N2, ONE, R, N2)
       ANORM = ZLANGE( '1', M, N2, A, M, RWORK )
@@ -100,14 +100,14 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute |I - Q*Q'| and store in RESULT(2)
+      // Compute |I - Q*Q'| and store in RESULT(2)
 *
       CALL ZLASET( 'Full', N2, N2, CZERO, ONE, R, N2 )
       CALL ZHERK( 'U', 'N', N2, N2, DREAL(-ONE), Q, N2, DREAL(ONE), R, N2 )
       RESID = ZLANSY( '1', 'Upper', N2, R, N2, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,N2))
 *
-*     Generate random m-by-n matrix C and a copy CF
+      // Generate random m-by-n matrix C and a copy CF
 *
       CALL ZLASET( 'Full', N2, M, CZERO, ONE, C, N2 )
       DO J=1,M
@@ -116,11 +116,11 @@
       CNORM = ZLANGE( '1', N2, M, C, N2, RWORK)
       CALL ZLACPY( 'Full', N2, M, C, N2, CF, N2 )
 *
-*     Apply Q to C as Q*C
+      // Apply Q to C as Q*C
 *
       CALL ZTPMLQT( 'L','N', N,M,K,L,NB,AF(1, NP1),M,T,LDT,CF,N2, CF(NP1,1),N2,WORK,INFO)
 *
-*     Compute |Q*C - Q*C| / |C|
+      // Compute |Q*C - Q*C| / |C|
 *
       CALL ZGEMM( 'N', 'N', N2, M, N2, -ONE, Q, N2, C, N2, ONE, CF, N2 )
       RESID = ZLANGE( '1', N2, M, CF, N2, RWORK )
@@ -131,15 +131,15 @@
       END IF
 
 *
-*     Copy C into CF again
+      // Copy C into CF again
 *
       CALL ZLACPY( 'Full', N2, M, C, N2, CF, N2 )
 *
-*     Apply Q to C as QT*C
+      // Apply Q to C as QT*C
 *
       CALL ZTPMLQT( 'L','C',N,M,K,L,NB,AF(1,NP1),M,T,LDT,CF,N2, CF(NP1,1),N2,WORK,INFO)
 *
-*     Compute |QT*C - QT*C| / |C|
+      // Compute |QT*C - QT*C| / |C|
 *
       CALL ZGEMM('C','N',N2,M,N2,-ONE,Q,N2,C,N2,ONE,CF,N2)
       RESID = ZLANGE( '1', N2, M, CF, N2, RWORK )
@@ -150,7 +150,7 @@
          RESULT( 4 ) = ZERO
       END IF
 *
-*     Generate random m-by-n matrix D and a copy DF
+      // Generate random m-by-n matrix D and a copy DF
 *
       DO J=1,N2
          CALL ZLARNV( 2, ISEED, M, D( 1, J ) )
@@ -158,11 +158,11 @@
       DNORM = ZLANGE( '1', M, N2, D, M, RWORK)
       CALL ZLACPY( 'Full', M, N2, D, M, DF, M )
 *
-*     Apply Q to D as D*Q
+      // Apply Q to D as D*Q
 *
       CALL ZTPMLQT('R','N',M,N,K,L,NB,AF(1,NP1),M,T,LDT,DF,M, DF(1,NP1),M,WORK,INFO)
 *
-*     Compute |D*Q - D*Q| / |D|
+      // Compute |D*Q - D*Q| / |D|
 *
       CALL ZGEMM('N','N',M,N2,N2,-ONE,D,M,Q,N2,ONE,DF,M)
       RESID = ZLANGE('1',M, N2,DF,M,RWORK )
@@ -172,16 +172,16 @@
          RESULT( 5 ) = ZERO
       END IF
 *
-*     Copy D into DF again
+      // Copy D into DF again
 *
       CALL ZLACPY('Full',M,N2,D,M,DF,M )
 *
-*     Apply Q to D as D*QT
+      // Apply Q to D as D*QT
 *
       CALL ZTPMLQT('R','C',M,N,K,L,NB,AF(1,NP1),M,T,LDT,DF,M, DF(1,NP1),M,WORK,INFO)
 
 *
-*     Compute |D*QT - D*QT| / |D|
+      // Compute |D*QT - D*QT| / |D|
 *
       CALL ZGEMM( 'N', 'C', M, N2, N2, -ONE, D, M, Q, N2, ONE, DF, M )
       RESID = ZLANGE( '1', M, N2, DF, M, RWORK )
@@ -191,7 +191,7 @@
          RESULT( 6 ) = ZERO
       END IF
 *
-*     Deallocate all arrays
+      // Deallocate all arrays
 *
       DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF)
       RETURN

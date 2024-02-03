@@ -4,31 +4,31 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, K, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE, ZERO
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, II, J, L;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLACGV, ZLARF, ZSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -45,13 +45,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 ) RETURN
 *
       IF( K.LT.M ) THEN
 *
-*        Initialise rows 1:m-k to rows of the unit matrix
+         // Initialise rows 1:m-k to rows of the unit matrix
 *
          DO 20 J = 1, N
             DO 10 L = 1, M - K
@@ -64,7 +64,7 @@
       DO 40 I = 1, K
          II = M - K + I
 *
-*        Apply H(i)**H to A(1:m-k+i,1:n-k+i) from the right
+         // Apply H(i)**H to A(1:m-k+i,1:n-k+i) from the right
 *
          CALL ZLACGV( N-M+II-1, A( II, 1 ), LDA )
          A( II, N-M+II ) = ONE
@@ -73,7 +73,7 @@
          CALL ZLACGV( N-M+II-1, A( II, 1 ), LDA )
          A( II, N-M+II ) = ONE - DCONJG( TAU( I ) )
 *
-*        Set A(m-k+i,n-k+i+1:n) to zero
+         // Set A(m-k+i,n-k+i+1:n) to zero
 *
          DO 30 L = N - M + II + 1, N
             A( II, L ) = ZERO
@@ -81,6 +81,6 @@
    40 CONTINUE
       RETURN
 *
-*     End of ZUNGR2
+      // End of ZUNGR2
 *
       END

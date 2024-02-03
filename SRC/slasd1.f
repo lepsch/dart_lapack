@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDU, LDVT, NL, NR, SQRE;
       REAL               ALPHA, BETA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IDXQ( * ), IWORK( * );
       REAL               D( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
 *
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                COLTYP, I, IDX, IDXC, IDXP, IQ, ISIGMA, IU2, IVT2, IZ, K, LDQ, LDU2, LDVT2, M, N, N1, N2;
       REAL               ORGNRM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAMRG, SLASCL, SLASD2, SLASD3, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -51,9 +51,9 @@
       N = NL + NR + 1
       M = N + SQRE
 *
-*     The following values are for bookkeeping purposes only.  They are
-*     integer pointers which indicate the portion of the workspace
-*     used by a particular array in SLASD2 and SLASD3.
+      // The following values are for bookkeeping purposes only.  They are
+      // integer pointers which indicate the portion of the workspace
+      // used by a particular array in SLASD2 and SLASD3.
 *
       LDU2 = N
       LDVT2 = M
@@ -69,7 +69,7 @@
       COLTYP = IDXC + N
       IDXP = COLTYP + N
 *
-*     Scale.
+      // Scale.
 *
       ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) )
       D( NL+1 ) = ZERO
@@ -82,26 +82,26 @@
       ALPHA = ALPHA / ORGNRM
       BETA = BETA / ORGNRM
 *
-*     Deflate singular values.
+      // Deflate singular values.
 *
       CALL SLASD2( NL, NR, SQRE, K, D, WORK( IZ ), ALPHA, BETA, U, LDU, VT, LDVT, WORK( ISIGMA ), WORK( IU2 ), LDU2, WORK( IVT2 ), LDVT2, IWORK( IDXP ), IWORK( IDX ), IWORK( IDXC ), IDXQ, IWORK( COLTYP ), INFO )
 *
-*     Solve Secular Equation and update singular vectors.
+      // Solve Secular Equation and update singular vectors.
 *
       LDQ = K
       CALL SLASD3( NL, NR, SQRE, K, D, WORK( IQ ), LDQ, WORK( ISIGMA ), U, LDU, WORK( IU2 ), LDU2, VT, LDVT, WORK( IVT2 ), LDVT2, IWORK( IDXC ), IWORK( COLTYP ), WORK( IZ ), INFO )
 *
-*     Report the possible convergence failure.
+      // Report the possible convergence failure.
 *
       IF( INFO.NE.0 ) THEN
          RETURN
       END IF
 *
-*     Unscale.
+      // Unscale.
 *
       CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
 *
-*     Prepare the IDXQ sorting permutation.
+      // Prepare the IDXQ sorting permutation.
 *
       N1 = K
       N2 = N - K
@@ -109,6 +109,6 @@
 *
       RETURN
 *
-*     End of SLASD1
+      // End of SLASD1
 *
       END

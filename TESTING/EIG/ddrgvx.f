@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT, NSIZE;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
       double             A( LDA, * ), AI( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), DIF( * ), DIFTRU( * ), DTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), S( * ), VL( LDA, * ), VR( LDA, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TEN, TNTH, HALF;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, TNTH = 1.0D-1, HALF = 0.5D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT       double             ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             WEIGHT( 5 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       double             DLAMCH, DLANGE;
       // EXTERNAL ILAENV, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALASVM, DGET52, DGGEVX, DLACPY, DLATM6, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       INFO = 0
 *
@@ -59,12 +59,12 @@
          INFO = -26
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       NB refers to the optimal block size for the immediately
-*       following subroutine, as returned by ILAENV.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // NB refers to the optimal block size for the immediately
+        // following subroutine, as returned by ILAENV.)
 *
       MINWRK = 1
       IF( INFO.EQ.0 .AND. LWORK.GE.1 ) THEN
@@ -91,7 +91,7 @@
 *
       IF( NSIZE.EQ.0 ) GO TO 90
 *
-*     Parameters used for generating test matrices.
+      // Parameters used for generating test matrices.
 *
       WEIGHT( 1 ) = TNTH
       WEIGHT( 2 ) = HALF
@@ -105,13 +105,13 @@
                DO 50 IWX = 1, 5
                   DO 40 IWY = 1, 5
 *
-*                    generated a test matrix pair
+                     // generated a test matrix pair
 *
                      CALL DLATM6( IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), DTRU, DIFTRU )
 *
-*                    Compute eigenvalues/eigenvectors of (A, B).
-*                    Compute eigenvalue/eigenvector condition numbers
-*                    using computed eigenvectors.
+                     // Compute eigenvalues/eigenvectors of (A, B).
+                     // Compute eigenvalue/eigenvector condition numbers
+                     // using computed eigenvectors.
 *
                      CALL DLACPY( 'F', N, N, A, LDA, AI, LDA )
                      CALL DLACPY( 'F', N, N, B, LDA, BI, LDA )
@@ -123,13 +123,13 @@
                         GO TO 30
                      END IF
 *
-*                    Compute the norm(A, B)
+                     // Compute the norm(A, B)
 *
                      CALL DLACPY( 'Full', N, N, AI, LDA, WORK, N )
                      CALL DLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
                      ABNORM = DLANGE( 'Fro', N, 2*N, WORK, N, WORK )
 *
-*                    Tests (1) and (2)
+                     // Tests (1) and (2)
 *
                      RESULT( 1 ) = ZERO
                      CALL DGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) )
@@ -143,7 +143,7 @@
                         WRITE( NOUT, FMT = 9998 )'Right', 'DGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      END IF
 *
-*                    Test (3)
+                     // Test (3)
 *
                      RESULT( 3 ) = ZERO
                      DO 10 I = 1, N
@@ -157,7 +157,7 @@
                         END IF
    10                CONTINUE
 *
-*                    Test (4)
+                     // Test (4)
 *
                      RESULT( 4 ) = ZERO
                      IF( DIF( 1 ).EQ.ZERO ) THEN
@@ -175,26 +175,26 @@
 *
                      NTESTT = NTESTT + 4
 *
-*                    Print out tests which fail.
+                     // Print out tests which fail.
 *
                      DO 20 J = 1, 4
                         IF( ( RESULT( J ).GE.THRSH2 .AND. J.GE.4 ) .OR. ( RESULT( J ).GE.THRESH .AND. J.LE.3 ) ) THEN
 *
-*                       If this is the first test to fail,
-*                       print a header to the data file.
+                        // If this is the first test to fail,
+                        // print a header to the data file.
 *
                            IF( NERRS.EQ.0 ) THEN
                               WRITE( NOUT, FMT = 9997 )'DXV'
 *
-*                          Print out messages for built-in examples
+                           // Print out messages for built-in examples
 *
-*                          Matrix types
+                           // Matrix types
 *
                               WRITE( NOUT, FMT = 9995 )
                               WRITE( NOUT, FMT = 9994 )
                               WRITE( NOUT, FMT = 9993 )
 *
-*                          Tests performed
+                           // Tests performed
 *
                               WRITE( NOUT, FMT = 9992 )'''', 'transpose', ''''
 *
@@ -220,8 +220,8 @@
 *
    90 CONTINUE
 *
-*     Read in data from file to check accuracy of condition estimation
-*     Read input data until N=0
+      // Read in data from file to check accuracy of condition estimation
+      // Read input data until N=0
 *
       READ( NIN, FMT = *, END = 150 )N
       IF( N.EQ.0 ) GO TO 150
@@ -236,9 +236,9 @@
 *
       NPTKNT = NPTKNT + 1
 *
-*     Compute eigenvalues/eigenvectors of (A, B).
-*     Compute eigenvalue/eigenvector condition numbers
-*     using computed eigenvectors.
+      // Compute eigenvalues/eigenvectors of (A, B).
+      // Compute eigenvalue/eigenvector condition numbers
+      // using computed eigenvectors.
 *
       CALL DLACPY( 'F', N, N, A, LDA, AI, LDA )
       CALL DLACPY( 'F', N, N, B, LDA, BI, LDA )
@@ -251,13 +251,13 @@
          GO TO 140
       END IF
 *
-*     Compute the norm(A, B)
+      // Compute the norm(A, B)
 *
       CALL DLACPY( 'Full', N, N, AI, LDA, WORK, N )
       CALL DLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
       ABNORM = DLANGE( 'Fro', N, 2*N, WORK, N, WORK )
 *
-*     Tests (1) and (2)
+      // Tests (1) and (2)
 *
       RESULT( 1 ) = ZERO
       CALL DGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) )
@@ -271,7 +271,7 @@
          WRITE( NOUT, FMT = 9986 )'Right', 'DGGEVX', RESULT( 3 ), N, NPTKNT
       END IF
 *
-*     Test (3)
+      // Test (3)
 *
       RESULT( 3 ) = ZERO
       DO 120 I = 1, N
@@ -285,7 +285,7 @@
          END IF
   120 CONTINUE
 *
-*     Test (4)
+      // Test (4)
 *
       RESULT( 4 ) = ZERO
       IF( DIF( 1 ).EQ.ZERO ) THEN
@@ -303,24 +303,24 @@
 *
       NTESTT = NTESTT + 4
 *
-*     Print out tests which fail.
+      // Print out tests which fail.
 *
       DO 130 J = 1, 4
          IF( RESULT( J ).GE.THRSH2 ) THEN
 *
-*           If this is the first test to fail,
-*           print a header to the data file.
+            // If this is the first test to fail,
+            // print a header to the data file.
 *
             IF( NERRS.EQ.0 ) THEN
                WRITE( NOUT, FMT = 9997 )'DXV'
 *
-*              Print out messages for built-in examples
+               // Print out messages for built-in examples
 *
-*              Matrix types
+               // Matrix types
 *
                WRITE( NOUT, FMT = 9996 )
 *
-*              Tests performed
+               // Tests performed
 *
                WRITE( NOUT, FMT = 9992 )'''', 'transpose', ''''
 *
@@ -339,7 +339,7 @@
       GO TO 90
   150 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL ALASVM( 'DXV', NOUT, NERRS, NTESTT, 0 )
 *
@@ -396,6 +396,6 @@
      $      'N=', I6, ', Input Example #', I2, ')' )
 *
 *
-*     End of DDRGVX
+      // End of DDRGVX
 *
       END

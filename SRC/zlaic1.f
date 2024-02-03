@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                J, JOB;
       double             SEST, SESTPR;
       COMPLEX*16         C, GAMMA, S
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         W( J ), X( J )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
       double             HALF, FOUR;
       PARAMETER          ( HALF = 0.5D0, FOUR = 4.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2;
       COMPLEX*16         ALPHA, COSINE, SINE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX, SQRT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       COMPLEX*16         ZDOTC
       // EXTERNAL DLAMCH, ZDOTC
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = DLAMCH( 'Epsilon' )
       ALPHA = ZDOTC( J, X, 1, W, 1 )
@@ -44,9 +44,9 @@
 *
       IF( JOB.EQ.1 ) THEN
 *
-*        Estimating largest singular value
+         // Estimating largest singular value
 *
-*        special cases
+         // special cases
 *
          IF( SEST.EQ.ZERO ) THEN
             S1 = MAX( ABSGAM, ABSALP )
@@ -103,7 +103,7 @@
             RETURN
          ELSE
 *
-*           normal case
+            // normal case
 *
             ZETA1 = ABSALP / ABSEST
             ZETA2 = ABSGAM / ABSEST
@@ -128,9 +128,9 @@
 *
       ELSE IF( JOB.EQ.2 ) THEN
 *
-*        Estimating smallest singular value
+         // Estimating smallest singular value
 *
-*        special cases
+         // special cases
 *
          IF( SEST.EQ.ZERO ) THEN
             SESTPR = ZERO
@@ -185,19 +185,19 @@
             RETURN
          ELSE
 *
-*           normal case
+            // normal case
 *
             ZETA1 = ABSALP / ABSEST
             ZETA2 = ABSGAM / ABSEST
 *
             NORMA = MAX( ONE+ZETA1*ZETA1+ZETA1*ZETA2, ZETA1*ZETA2+ZETA2*ZETA2 )
 *
-*           See if root is closer to zero or to ONE
+            // See if root is closer to zero or to ONE
 *
             TEST = ONE + TWO*( ZETA1-ZETA2 )*( ZETA1+ZETA2 )
             IF( TEST.GE.ZERO ) THEN
 *
-*              root is close to zero, compute directly
+               // root is close to zero, compute directly
 *
                B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF
                C = ZETA2*ZETA2
@@ -207,7 +207,7 @@
                SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST
             ELSE
 *
-*              root is closer to ONE, shift by that amount
+               // root is closer to ONE, shift by that amount
 *
                B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF
                C = ZETA1*ZETA1
@@ -229,6 +229,6 @@
       END IF
       RETURN
 *
-*     End of ZLAIC1
+      // End of ZLAIC1
 *
       END

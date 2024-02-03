@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO;
       REAL               ANORM, RCOND
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX );
       REAL               D( NMAX ), DF( NMAX ), R1( NMAX ), R2( NMAX ), RW( NMAX )       COMPLEX            B( NMAX ), DL( NMAX ), DLF( NMAX ), DU( NMAX ), DU2( NMAX ), DUF( NMAX ), E( NMAX ), EF( NMAX ), W( NMAX ), X( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CGTCON, CGTRFS, CGTTRF, CGTTRS, CHKXER, CPTCON, CPTRFS, CPTTRF, CPTTRS
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
@@ -56,16 +56,16 @@
 *
       IF( LSAMEN( 2, C2, 'GT' ) ) THEN
 *
-*        Test error exits for the general tridiagonal routines.
+         // Test error exits for the general tridiagonal routines.
 *
-*        CGTTRF
+         // CGTTRF
 *
          SRNAMT = 'CGTTRF'
          INFOT = 1
          CALL CGTTRF( -1, DL, E, DU, DU2, IP, INFO )
          CALL CHKXER( 'CGTTRF', INFOT, NOUT, LERR, OK )
 *
-*        CGTTRS
+         // CGTTRS
 *
          SRNAMT = 'CGTTRS'
          INFOT = 1
@@ -81,7 +81,7 @@
          CALL CGTTRS( 'N', 2, 1, DL, E, DU, DU2, IP, X, 1, INFO )
          CALL CHKXER( 'CGTTRS', INFOT, NOUT, LERR, OK )
 *
-*        CGTRFS
+         // CGTRFS
 *
          SRNAMT = 'CGTRFS'
          INFOT = 1
@@ -100,7 +100,7 @@
          CALL CGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGTRFS', INFOT, NOUT, LERR, OK )
 *
-*        CGTCON
+         // CGTCON
 *
          SRNAMT = 'CGTCON'
          INFOT = 1
@@ -115,17 +115,17 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
 *
-*        Test error exits for the positive definite tridiagonal
-*        routines.
+         // Test error exits for the positive definite tridiagonal
+         // routines.
 *
-*        CPTTRF
+         // CPTTRF
 *
          SRNAMT = 'CPTTRF'
          INFOT = 1
          CALL CPTTRF( -1, D, E, INFO )
          CALL CHKXER( 'CPTTRF', INFOT, NOUT, LERR, OK )
 *
-*        CPTTRS
+         // CPTTRS
 *
          SRNAMT = 'CPTTRS'
          INFOT = 1
@@ -141,7 +141,7 @@
          CALL CPTTRS( 'U', 2, 1, D, E, X, 1, INFO )
          CALL CHKXER( 'CPTTRS', INFOT, NOUT, LERR, OK )
 *
-*        CPTRFS
+         // CPTRFS
 *
          SRNAMT = 'CPTRFS'
          INFOT = 1
@@ -160,7 +160,7 @@
          CALL CPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPTRFS', INFOT, NOUT, LERR, OK )
 *
-*        CPTCON
+         // CPTCON
 *
          SRNAMT = 'CPTCON'
          INFOT = 1
@@ -171,12 +171,12 @@
          CALL CHKXER( 'CPTCON', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of CERRGT
+      // End of CERRGT
 *
       END

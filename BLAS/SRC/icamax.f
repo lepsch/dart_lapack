@@ -4,30 +4,30 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX CX(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL SMAX
       int     I,IX;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL SCABS1
       // EXTERNAL SCABS1
-*     ..
+      // ..
       ICAMAX = 0
       IF (N.LT.1 .OR. INCX.LE.0) RETURN
       ICAMAX = 1
       IF (N.EQ.1) RETURN
       IF (INCX.EQ.1) THEN
 *
-*        code for increment equal to 1
+         // code for increment equal to 1
 *
          SMAX = SCABS1(CX(1))
          DO I = 2,N
@@ -38,7 +38,7 @@
          END DO
       ELSE
 *
-*        code for increment not equal to 1
+         // code for increment not equal to 1
 *
          IX = 1
          SMAX = SCABS1(CX(1))
@@ -53,6 +53,6 @@
       END IF
       RETURN
 *
-*     End of ICAMAX
+      // End of ICAMAX
 *
       END

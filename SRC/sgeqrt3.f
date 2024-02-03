@@ -4,26 +4,26 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int       INFO, LDA, M, N, LDT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL   A( LDA, * ), T( LDT, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL   ONE
       PARAMETER ( ONE = 1.0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int       I, I1, J, J1, N1, N2, IINFO;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLARFG, STRMM, SGEMM, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       IF( N .LT. 0 ) THEN
@@ -42,24 +42,24 @@
 *
       IF( N.EQ.1 ) THEN
 *
-*        Compute Householder transform when N=1
+         // Compute Householder transform when N=1
 *
          CALL SLARFG( M, A(1,1), A( MIN( 2, M ), 1 ), 1, T(1,1) )
 *
       ELSE
 *
-*        Otherwise, split A into blocks...
+         // Otherwise, split A into blocks...
 *
          N1 = N/2
          N2 = N-N1
          J1 = MIN( N1+1, N )
          I1 = MIN( N+1, M )
 *
-*        Compute A(1:M,1:N1) <- (Y1,R1,T1), where Q1 = I - Y1 T1 Y1^H
+         // Compute A(1:M,1:N1) <- (Y1,R1,T1), where Q1 = I - Y1 T1 Y1^H
 *
          CALL SGEQRT3( M, N1, A, LDA, T, LDT, IINFO )
 *
-*        Compute A(1:M,J1:N) = Q1^H A(1:M,J1:N) [workspace: T(1:N1,J1:N)]
+         // Compute A(1:M,J1:N) = Q1^H A(1:M,J1:N) [workspace: T(1:N1,J1:N)]
 *
          DO J=1,N2
             DO I=1,N1
@@ -82,11 +82,11 @@
             END DO
          END DO
 *
-*        Compute A(J1:M,J1:N) <- (Y2,R2,T2) where Q2 = I - Y2 T2 Y2^H
+         // Compute A(J1:M,J1:N) <- (Y2,R2,T2) where Q2 = I - Y2 T2 Y2^H
 *
          CALL SGEQRT3( M-N1, N2, A( J1, J1 ), LDA, T( J1, J1 ), LDT, IINFO )
 *
-*        Compute T3 = T(1:N1,J1:N) = -T1 Y1^H Y2 T2
+         // Compute T3 = T(1:N1,J1:N) = -T1 Y1^H Y2 T2
 *
          DO I=1,N1
             DO J=1,N2
@@ -102,13 +102,13 @@
 *
          CALL STRMM( 'R', 'U', 'N', 'N', N1, N2, ONE, T( J1, J1 ), LDT, T( 1, J1 ), LDT )
 *
-*        Y = (Y1,Y2); R = [ R1  A(1:N1,J1:N) ];  T = [T1 T3]
-*                         [  0        R2     ]       [ 0 T2]
+         // Y = (Y1,Y2); R = [ R1  A(1:N1,J1:N) ];  T = [T1 T3]
+                          // [  0        R2     ]       [ 0 T2]
 *
       END IF
 *
       RETURN
 *
-*     End of SGEQRT3
+      // End of SGEQRT3
 *
       END

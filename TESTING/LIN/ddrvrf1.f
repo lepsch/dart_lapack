@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                NVAL( NN );
       double             A( LDA, * ), ARF( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             UPLO, CFORM, NORM;
       int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN;
       double             EPS, LARGE, NORMA, NORMARF, SMALL;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANSY, DLANSF, DLARND;
       // EXTERNAL DLAMCH, DLANSY, DLANSF, DLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DTRTTF
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS / 'U', 'L' /
       DATA               FORMS / 'N', 'T' /
       DATA               NORMS / 'M', '1', 'I', 'F' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       NRUN = 0
       NFAIL = 0
@@ -73,12 +73,12 @@
          N = NVAL( IIN )
 *
             DO 120 IIT = 1, 3
-*           Nothing to do for N=0
+            // Nothing to do for N=0
             IF ( N .EQ. 0 ) EXIT
 *
-*           IIT = 1 : random matrix
-*           IIT = 2 : random matrix scaled near underflow
-*           IIT = 3 : random matrix scaled near overflow
+            // IIT = 1 : random matrix
+            // IIT = 2 : random matrix scaled near underflow
+            // IIT = 3 : random matrix scaled near overflow
 *
             DO J = 1, N
                DO I = 1, N
@@ -102,13 +102,13 @@
                END DO
             END IF
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 110 IUPLO = 1, 2
 *
                UPLO = UPLOS( IUPLO )
 *
-*              Do first for CFORM = 'N', then for CFORM = 'C'
+               // Do first for CFORM = 'N', then for CFORM = 'C'
 *
                DO 100 IFORM = 1, 2
 *
@@ -117,7 +117,7 @@
                   SRNAMT = 'DTRTTF'
                   CALL DTRTTF( CFORM, UPLO, N, A, LDA, ARF, INFO )
 *
-*                 Check error code from DTRTTF
+                  // Check error code from DTRTTF
 *
                   IF( INFO.NE.0 ) THEN
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
@@ -131,7 +131,7 @@
 *
                   DO 90 INORM = 1, 4
 *
-*                    Check all four norms: 'M', '1', 'I', 'F'
+                     // Check all four norms: 'M', '1', 'I', 'F'
 *
                      NORM = NORMS( INORM )
                      NORMARF = DLANSF( NORM, CFORM, UPLO, N, ARF, WORK )
@@ -154,7 +154,7 @@
   120    CONTINUE
   130 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       IF ( NFAIL.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9996 ) 'DLANSF', NRUN
@@ -179,6 +179,6 @@
 *
       RETURN
 *
-*     End of DDRVRF1
+      // End of DDRVRF1
 *
       END

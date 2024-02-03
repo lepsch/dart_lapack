@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                KA, KS, LDA, LDU, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), D( * ), E( * ), RESULT( 2 ), U( LDU, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IKA, J, JC, JR, LW;
       REAL               ANORM, ULP, UNFL, WNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE, SLANSB, SLANSP
       // EXTERNAL LSAME, SLAMCH, SLANGE, SLANSB, SLANSP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM, SSPR, SSPR2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Constants
+      // Constants
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -57,17 +57,17 @@
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
 *
-*     Some Error Checks
+      // Some Error Checks
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Norm of A:
+      // Norm of A:
 *
       ANORM = MAX( SLANSB( '1', CUPLO, N, IKA, A, LDA, WORK ), UNFL )
 *
-*     Compute error matrix:    Error = A - U S U**T
+      // Compute error matrix:    Error = A - U S U**T
 *
-*     Copy A from SB to SP storage format.
+      // Copy A from SB to SP storage format.
 *
       J = 0
       DO 50 JC = 1, N
@@ -113,9 +113,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U U**T - I
+      // Compute  U U**T - I
 *
       CALL SGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
 *
@@ -127,6 +127,6 @@
 *
       RETURN
 *
-*     End of SSBT21
+      // End of SSBT21
 *
       END

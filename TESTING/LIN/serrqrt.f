@@ -5,44 +5,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SGEQRT2, SGEQRT3, SGEQRT, SGEMQRT
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC FLOAT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO J = 1, NMAX
          DO I = 1, NMAX
@@ -54,9 +54,9 @@
       END DO
       OK = .TRUE.
 *
-*     Error exits for QRT factorization
+      // Error exits for QRT factorization
 *
-*     SGEQRT
+      // SGEQRT
 *
       SRNAMT = 'SGEQRT'
       INFOT = 1
@@ -75,7 +75,7 @@
       CALL SGEQRT( 2, 2, 2, A, 2, T, 1, W, INFO )
       CALL CHKXER( 'SGEQRT', INFOT, NOUT, LERR, OK )
 *
-*     SGEQRT2
+      // SGEQRT2
 *
       SRNAMT = 'SGEQRT2'
       INFOT = 1
@@ -91,7 +91,7 @@
       CALL SGEQRT2( 2, 2, A, 2, T, 1, INFO )
       CALL CHKXER( 'SGEQRT2', INFOT, NOUT, LERR, OK )
 *
-*     SGEQRT3
+      // SGEQRT3
 *
       SRNAMT = 'SGEQRT3'
       INFOT = 1
@@ -107,7 +107,7 @@
       CALL SGEQRT3( 2, 2, A, 2, T, 1, INFO )
       CALL CHKXER( 'SGEQRT3', INFOT, NOUT, LERR, OK )
 *
-*     SGEMQRT
+      // SGEMQRT
 *
       SRNAMT = 'SGEMQRT'
       INFOT = 1
@@ -144,12 +144,12 @@
       CALL SGEMQRT( 'L', 'N', 1, 1, 1, 1, A, 1, T, 1, C, 0, W, INFO )
       CALL CHKXER( 'SGEMQRT', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of SERRQRT
+      // End of SERRQRT
 *
       END

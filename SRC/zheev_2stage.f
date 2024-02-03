@@ -6,42 +6,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, LDA, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * ), W( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D0, 0.0D0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS       double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       double             DLAMCH, ZLANHE;
       // EXTERNAL LSAME, DLAMCH, ZLANHE, ILAENV2STAGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSTERF, XERBLA, ZLASCL, ZSTEQR, ZUNGTR, ZHETRD_2STAGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
@@ -76,7 +76,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          RETURN
@@ -89,7 +89,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS    = DLAMCH( 'Precision' )
@@ -98,7 +98,7 @@
       RMIN   = SQRT( SMLNUM )
       RMAX   = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ANRM = ZLANHE( 'M', UPLO, N, A, LDA, RWORK )
       ISCALE = 0
@@ -111,7 +111,7 @@
       END IF
       IF( ISCALE.EQ.1 ) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
-*     Call ZHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
+      // Call ZHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 *
       INDE    = 1
       INDTAU  = 1
@@ -121,8 +121,8 @@
 *
       CALL ZHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
-*     For eigenvalues only, call DSTERF.  For eigenvectors, first call
-*     ZUNGTR to generate the unitary matrix, then call ZSTEQR.
+      // For eigenvalues only, call DSTERF.  For eigenvectors, first call
+      // ZUNGTR to generate the unitary matrix, then call ZSTEQR.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
@@ -132,7 +132,7 @@
          CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), A, LDA, RWORK( INDWRK ), INFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -143,12 +143,12 @@
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     Set WORK(1) to optimal complex workspace size.
+      // Set WORK(1) to optimal complex workspace size.
 *
       WORK( 1 ) = LWMIN
 *
       RETURN
 *
-*     End of ZHEEV_2STAGE
+      // End of ZHEEV_2STAGE
 *
       END

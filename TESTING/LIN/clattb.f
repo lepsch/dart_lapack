@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                IMAT, INFO, KD, LDAB, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       REAL               RWORK( * )
       COMPLEX            AB( LDAB, * ), B( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, TWO, ZERO
       PARAMETER          ( ONE = 1.0E+0, TWO = 2.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       String             DIST, PACKIT, TYPE;
       String             PATH;
       int                I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE;
       REAL               ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL
       COMPLEX            PLUS1, PLUS2, STAR1
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH, SLARND
       COMPLEX            CLARND
       // EXTERNAL LSAME, ICAMAX, SLAMCH, SLARND, CLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CLARNV, CLATB4, CLATMS, CSSCAL, CSWAP, SLARNV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX, MIN, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'Complex precision'
       PATH( 2: 3 ) = 'TB'
@@ -56,11 +56,11 @@
       END IF
       INFO = 0
 *
-*     Quick return if N.LE.0.
+      // Quick return if N.LE.0.
 *
       IF( N.LE.0 ) RETURN
 *
-*     Call CLATB4 to set parameters for CLATMS.
+      // Call CLATB4 to set parameters for CLATMS.
 *
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
@@ -77,15 +77,15 @@
          PACKIT = 'B'
       END IF
 *
-*     IMAT <= 5:  Non-unit triangular matrix
+      // IMAT <= 5:  Non-unit triangular matrix
 *
       IF( IMAT.LE.5 ) THEN
          CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AB( IOFF, 1 ), LDAB, WORK, INFO )
 *
-*     IMAT > 5:  Unit triangular matrix
-*     The diagonal is deliberately set to something other than 1.
+      // IMAT > 5:  Unit triangular matrix
+      // The diagonal is deliberately set to something other than 1.
 *
-*     IMAT = 6:  Matrix is the identity
+      // IMAT = 6:  Matrix is the identity
 *
       ELSE IF( IMAT.EQ.6 ) THEN
          IF( UPPER ) THEN
@@ -104,15 +104,15 @@
    40       CONTINUE
          END IF
 *
-*     IMAT > 6:  Non-trivial unit triangular matrix
+      // IMAT > 6:  Non-trivial unit triangular matrix
 *
-*     A unit triangular matrix T with condition CNDNUM is formed.
-*     In this version, T only has bandwidth 2, the rest of it is zero.
+      // A unit triangular matrix T with condition CNDNUM is formed.
+      // In this version, T only has bandwidth 2, the rest of it is zero.
 *
       ELSE IF( IMAT.LE.9 ) THEN
          TNORM = SQRT( CNDNUM )
 *
-*        Initialize AB to zero.
+         // Initialize AB to zero.
 *
          IF( UPPER ) THEN
             DO 60 J = 1, N
@@ -130,8 +130,8 @@
    80       CONTINUE
          END IF
 *
-*        Special case:  T is tridiagonal.  Set every other offdiagonal
-*        so that the matrix has norm TNORM+1.
+         // Special case:  T is tridiagonal.  Set every other offdiagonal
+         // so that the matrix has norm TNORM+1.
 *
          IF( KD.EQ.1 ) THEN
             IF( UPPER ) THEN
@@ -151,21 +151,21 @@
             END IF
          ELSE IF( KD.GT.1 ) THEN
 *
-*           Form a unit triangular matrix T with condition CNDNUM.  T is
-*           given by
-*                   | 1   +   *                      |
-*                   |     1   +                      |
-*               T = |         1   +   *              |
-*                   |             1   +              |
-*                   |                 1   +   *      |
-*                   |                     1   +      |
-*                   |                          . . . |
-*        Each element marked with a '*' is formed by taking the product
-*        of the adjacent elements marked with '+'.  The '*'s can be
-*        chosen freely, and the '+'s are chosen so that the inverse of
-*        T will have elements of the same magnitude as T.
+            // Form a unit triangular matrix T with condition CNDNUM.  T is
+            // given by
+                    // | 1   +   *                      |
+                    // |     1   +                      |
+                // T = |         1   +   *              |
+                    // |             1   +              |
+                    // |                 1   +   *      |
+                    // |                     1   +      |
+                    // |                          . . . |
+         // Each element marked with a '*' is formed by taking the product
+         // of the adjacent elements marked with '+'.  The '*'s can be
+         // chosen freely, and the '+'s are chosen so that the inverse of
+         // T will have elements of the same magnitude as T.
 *
-*        The two offdiagonals of T are stored in WORK.
+         // The two offdiagonals of T are stored in WORK.
 *
             STAR1 = TNORM*CLARND( 5, ISEED )
             SFAC = SQRT( TNORM )
@@ -179,8 +179,8 @@
                   WORK( N+J+1 ) = ZERO
                   PLUS1 = STAR1 / PLUS2
 *
-*                 Generate a new *-value with norm between sqrt(TNORM)
-*                 and TNORM.
+                  // Generate a new *-value with norm between sqrt(TNORM)
+                  // and TNORM.
 *
                   REXP = SLARND( 2, ISEED )
                   IF( REXP.LT.ZERO ) THEN
@@ -191,7 +191,7 @@
                END IF
   110       CONTINUE
 *
-*           Copy the tridiagonal T to AB.
+            // Copy the tridiagonal T to AB.
 *
             IF( UPPER ) THEN
                CALL CCOPY( N-1, WORK, 1, AB( KD, 2 ), LDAB )
@@ -202,15 +202,15 @@
             END IF
          END IF
 *
-*     IMAT > 9:  Pathological test cases.  These triangular matrices
-*     are badly scaled or badly conditioned, so when used in solving a
-*     triangular system they may cause overflow in the solution vector.
+      // IMAT > 9:  Pathological test cases.  These triangular matrices
+      // are badly scaled or badly conditioned, so when used in solving a
+     t // riangular system they may cause overflow in the solution vector.
 *
       ELSE IF( IMAT.EQ.10 ) THEN
 *
-*        Type 10:  Generate a triangular matrix with elements between
-*        -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
-*        Make the right hand side large so that it requires scaling.
+         // Type 10:  Generate a triangular matrix with elements between
+         // -1 and 1. Give the diagonal norm 2 to make it well-conditioned.
+         // Make the right hand side large so that it requires scaling.
 *
          IF( UPPER ) THEN
             DO 120 J = 1, N
@@ -226,7 +226,7 @@
   130       CONTINUE
          END IF
 *
-*        Set the right hand side so that the largest value is BIGNUM.
+         // Set the right hand side so that the largest value is BIGNUM.
 *
          CALL CLARNV( 2, ISEED, N, B )
          IY = ICAMAX( N, B, 1 )
@@ -236,9 +236,9 @@
 *
       ELSE IF( IMAT.EQ.11 ) THEN
 *
-*        Type 11:  Make the first diagonal element in the solve small to
-*        cause immediate overflow when dividing by T(j,j).
-*        In type 11, the offdiagonal elements are small (CNORM(j) < 1).
+         // Type 11:  Make the first diagonal element in the solve small to
+         // cause immediate overflow when dividing by T(j,j).
+         // In type 11, the offdiagonal elements are small (CNORM(j) < 1).
 *
          CALL CLARNV( 2, ISEED, N, B )
          TSCAL = ONE / REAL( KD+1 )
@@ -266,9 +266,9 @@
 *
       ELSE IF( IMAT.EQ.12 ) THEN
 *
-*        Type 12:  Make the first diagonal element in the solve small to
-*        cause immediate overflow when dividing by T(j,j).
-*        In type 12, the offdiagonal elements are O(1) (CNORM(j) > 1).
+         // Type 12:  Make the first diagonal element in the solve small to
+         // cause immediate overflow when dividing by T(j,j).
+         // In type 12, the offdiagonal elements are O(1) (CNORM(j) > 1).
 *
          CALL CLARNV( 2, ISEED, N, B )
          IF( UPPER ) THEN
@@ -289,9 +289,9 @@
 *
       ELSE IF( IMAT.EQ.13 ) THEN
 *
-*        Type 13:  T is diagonal with small numbers on the diagonal to
-*        make the growth factor underflow, but a small right hand side
-*        chosen so that the solution does not overflow.
+         // Type 13:  T is diagonal with small numbers on the diagonal to
+         // make the growth factor underflow, but a small right hand side
+         // chosen so that the solution does not overflow.
 *
          IF( UPPER ) THEN
             JCOUNT = 1
@@ -323,7 +323,7 @@
   210       CONTINUE
          END IF
 *
-*        Set the right hand side alternately zero and small.
+         // Set the right hand side alternately zero and small.
 *
          IF( UPPER ) THEN
             B( 1 ) = ZERO
@@ -341,9 +341,9 @@
 *
       ELSE IF( IMAT.EQ.14 ) THEN
 *
-*        Type 14:  Make the diagonal elements small to cause gradual
-*        overflow when dividing by T(j,j).  To control the amount of
-*        scaling needed, the matrix is bidiagonal.
+         // Type 14:  Make the diagonal elements small to cause gradual
+         // overflow when dividing by T(j,j).  To control the amount of
+         // scaling needed, the matrix is bidiagonal.
 *
          TEXP = ONE / REAL( KD+1 )
          TSCAL = SMLNUM**TEXP
@@ -370,7 +370,7 @@
 *
       ELSE IF( IMAT.EQ.15 ) THEN
 *
-*        Type 15:  One zero diagonal element.
+         // Type 15:  One zero diagonal element.
 *
          IY = N / 2 + 1
          IF( UPPER ) THEN
@@ -399,10 +399,10 @@
 *
       ELSE IF( IMAT.EQ.16 ) THEN
 *
-*        Type 16:  Make the offdiagonal elements large to cause overflow
-*        when adding a column of T.  In the non-transposed case, the
-*        matrix is constructed to cause overflow when adding a column in
-*        every other step.
+         // Type 16:  Make the offdiagonal elements large to cause overflow
+         // when adding a column of T.  In the non-transposed case, the
+         // matrix is constructed to cause overflow when adding a column in
+         // every other step.
 *
          TSCAL = UNFL / ULP
          TSCAL = ( ONE-ULP ) / TSCAL
@@ -450,9 +450,9 @@
 *
       ELSE IF( IMAT.EQ.17 ) THEN
 *
-*        Type 17:  Generate a unit triangular matrix with elements
-*        between -1 and 1, and make the right hand side large so that it
-*        requires scaling.
+         // Type 17:  Generate a unit triangular matrix with elements
+         // between -1 and 1, and make the right hand side large so that it
+         // requires scaling.
 *
          IF( UPPER ) THEN
             DO 360 J = 1, N
@@ -468,7 +468,7 @@
   370       CONTINUE
          END IF
 *
-*        Set the right hand side so that the largest value is BIGNUM.
+         // Set the right hand side so that the largest value is BIGNUM.
 *
          CALL CLARNV( 2, ISEED, N, B )
          IY = ICAMAX( N, B, 1 )
@@ -478,10 +478,10 @@
 *
       ELSE IF( IMAT.EQ.18 ) THEN
 *
-*        Type 18:  Generate a triangular matrix with elements between
-*        BIGNUM/(KD+1) and BIGNUM so that at least one of the column
-*        norms will exceed BIGNUM.
-*        1/3/91:  CLATBS no longer can handle this case
+         // Type 18:  Generate a triangular matrix with elements between
+         // BIGNUM/(KD+1) and BIGNUM so that at least one of the column
+         // norms will exceed BIGNUM.
+         // 1/3/91:  CLATBS no longer can handle this case
 *
          TLEFT = BIGNUM / REAL( KD+1 )
          TSCAL = BIGNUM*( REAL( KD+1 ) / REAL( KD+2 ) )
@@ -508,7 +508,7 @@
          CALL CSSCAL( N, TWO, B, 1 )
       END IF
 *
-*     Flip the matrix if the transpose will be used.
+      // Flip the matrix if the transpose will be used.
 *
       IF( .NOT.LSAME( TRANS, 'N' ) ) THEN
          IF( UPPER ) THEN
@@ -526,6 +526,6 @@
 *
       RETURN
 *
-*     End of CLATTB
+      // End of CLATTB
 *
       END

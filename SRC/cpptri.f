@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            AP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ, JJN;
       REAL               AJJ
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       COMPLEX            CDOTC
       // EXTERNAL LSAME, CDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHPR, CSSCAL, CTPMV, CTPTRI, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -50,17 +50,17 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Invert the triangular Cholesky factor U or L.
+      // Invert the triangular Cholesky factor U or L.
 *
       CALL CTPTRI( UPLO, 'Non-unit', N, AP, INFO )
       IF( INFO.GT.0 ) RETURN
       IF( UPPER ) THEN
 *
-*        Compute the product inv(U) * inv(U)**H.
+         // Compute the product inv(U) * inv(U)**H.
 *
          JJ = 0
          DO 10 J = 1, N
@@ -73,7 +73,7 @@
 *
       ELSE
 *
-*        Compute the product inv(L)**H * inv(L).
+         // Compute the product inv(L)**H * inv(L).
 *
          JJ = 1
          DO 20 J = 1, N
@@ -86,6 +86,6 @@
 *
       RETURN
 *
-*     End of CPPTRI
+      // End of CPPTRI
 *
       END

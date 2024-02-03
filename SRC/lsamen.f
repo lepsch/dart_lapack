@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>       CA, CB;
       int                N;
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       LSAMEN = .FALSE.
       IF( LEN( CA ).LT.N .OR. LEN( CB ).LT.N ) GO TO 20
 *
-*     Do for each character in the two strings.
+      // Do for each character in the two strings.
 *
       DO 10 I = 1, N
 *
-*        Test if the characters are equal using LSAME.
+         // Test if the characters are equal using LSAME.
 *
          IF( .NOT.LSAME( CA( I: I ), CB( I: I ) ) ) GO TO 20
 *
@@ -40,6 +40,6 @@
    20 CONTINUE
       RETURN
 *
-*     End of LSAMEN
+      // End of LSAMEN
 *
       END

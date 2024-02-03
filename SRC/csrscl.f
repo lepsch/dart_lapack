@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, N;
       REAL               SA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            SX( * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               DONE;
       REAL               BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CSSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) RETURN
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       SMLNUM = SLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
 *
-*     Initialize the denominator to SA and the numerator to 1.
+      // Initialize the denominator to SA and the numerator to 1.
 *
       CDEN = SA
       CNUM = ONE
@@ -53,27 +53,27 @@
       CNUM1 = CNUM / BIGNUM
       IF( ABS( CDEN1 ).GT.ABS( CNUM ) .AND. CNUM.NE.ZERO ) THEN
 *
-*        Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
+         // Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
 *
          MUL = SMLNUM
          DONE = .FALSE.
          CDEN = CDEN1
       ELSE IF( ABS( CNUM1 ).GT.ABS( CDEN ) ) THEN
 *
-*        Pre-multiply X by BIGNUM if CDEN is small compared to CNUM.
+         // Pre-multiply X by BIGNUM if CDEN is small compared to CNUM.
 *
          MUL = BIGNUM
          DONE = .FALSE.
          CNUM = CNUM1
       ELSE
 *
-*        Multiply X by CNUM / CDEN and return.
+         // Multiply X by CNUM / CDEN and return.
 *
          MUL = CNUM / CDEN
          DONE = .TRUE.
       END IF
 *
-*     Scale the vector X by MUL
+      // Scale the vector X by MUL
 *
       CALL CSSCAL( N, MUL, SX, INCX )
 *
@@ -81,6 +81,6 @@
 *
       RETURN
 *
-*     End of CSRSCL
+      // End of CSRSCL
 *
       END

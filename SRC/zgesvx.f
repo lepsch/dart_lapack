@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       double             BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * )       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       String             NORM;
       int                I, INFEQU, J;
       double             AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE, ZLANTR;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANTR
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGECON, ZGEEQU, ZGERFS, ZGETRF, ZGETRS, ZLACPY, ZLAQGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -54,7 +54,7 @@
          BIGNUM = ONE / SMLNUM
       END IF
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
@@ -117,12 +117,12 @@
 *
       IF( EQUIL ) THEN
 *
-*        Compute row and column scalings to equilibrate the matrix A.
+         // Compute row and column scalings to equilibrate the matrix A.
 *
          CALL ZGEEQU( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
-*           Equilibrate the matrix.
+            // Equilibrate the matrix.
 *
             CALL ZLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
@@ -130,7 +130,7 @@
          END IF
       END IF
 *
-*     Scale the right hand side.
+      // Scale the right hand side.
 *
       IF( NOTRAN ) THEN
          IF( ROWEQU ) THEN
@@ -150,17 +150,17 @@
 *
       IF( NOFACT .OR. EQUIL ) THEN
 *
-*        Compute the LU factorization of A.
+         // Compute the LU factorization of A.
 *
          CALL ZLACPY( 'Full', N, N, A, LDA, AF, LDAF )
          CALL ZGETRF( N, N, AF, LDAF, IPIV, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 ) THEN
 *
-*           Compute the reciprocal pivot growth factor of the
-*           leading rank-deficient INFO columns of A.
+            // Compute the reciprocal pivot growth factor of the
+            // leading rank-deficient INFO columns of A.
 *
             RPVGRW = ZLANTR( 'M', 'U', 'N', INFO, INFO, AF, LDAF, RWORK )
             IF( RPVGRW.EQ.ZERO ) THEN
@@ -174,8 +174,8 @@
          END IF
       END IF
 *
-*     Compute the norm of the matrix A and the
-*     reciprocal pivot growth factor RPVGRW.
+      // Compute the norm of the matrix A and the
+      // reciprocal pivot growth factor RPVGRW.
 *
       IF( NOTRAN ) THEN
          NORM = '1'
@@ -190,22 +190,22 @@
          RPVGRW = ZLANGE( 'M', N, N, A, LDA, RWORK ) / RPVGRW
       END IF
 *
-*     Compute the reciprocal of the condition number of A.
+      // Compute the reciprocal of the condition number of A.
 *
       CALL ZGECON( NORM, N, AF, LDAF, ANORM, RCOND, WORK, RWORK, INFO )
 *
-*     Compute the solution matrix X.
+      // Compute the solution matrix X.
 *
       CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL ZGETRS( TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solution and
-*     compute error bounds and backward error estimates for it.
+      // Use iterative refinement to improve the computed solution and
+      // compute error bounds and backward error estimates for it.
 *
       CALL ZGERFS( TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
-*     Transform the solution matrix X to a solution of the original
-*     system.
+      // Transform the solution matrix X to a solution of the original
+      // system.
 *
       IF( NOTRAN ) THEN
          IF( COLEQU ) THEN
@@ -229,13 +229,13 @@
   120    CONTINUE
       END IF
 *
-*     Set INFO = N+1 if the matrix is singular to working precision.
+      // Set INFO = N+1 if the matrix is singular to working precision.
 *
       IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RWORK( 1 ) = RPVGRW
       RETURN
 *
-*     End of ZGESVX
+      // End of ZGESVX
 *
       END

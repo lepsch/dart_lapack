@@ -4,20 +4,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PREC;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int     BLAS_PREC_SINGLE, BLAS_PREC_DOUBLE, BLAS_PREC_INDIGENOUS, BLAS_PREC_EXTRA       PARAMETER ( BLAS_PREC_SINGLE = 211, BLAS_PREC_DOUBLE = 212, BLAS_PREC_INDIGENOUS = 213, BLAS_PREC_EXTRA = 214 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       IF( LSAME( PREC, 'S' ) ) THEN
          ILAPREC = BLAS_PREC_SINGLE
       ELSE IF( LSAME( PREC, 'D' ) ) THEN
@@ -31,6 +31,6 @@
       END IF
       RETURN
 *
-*     End of ILAPREC
+      // End of ILAPREC
 *
       END

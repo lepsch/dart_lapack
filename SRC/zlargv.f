@@ -4,58 +4,58 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCC, INCX, INCY, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             C( * );
       COMPLEX*16         X( * ), Y( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             TWO, ONE, ZERO;
       PARAMETER          ( TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 )
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
-*     LOGICAL            FIRST
+      // ..
+      // .. Local Scalars ..
+      // LOGICAL            FIRST
 
       int                COUNT, I, IC, IX, IY, J;
       double             CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE;
       COMPLEX*16         F, FF, FS, G, GS, R, SN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLAPY2;
       // EXTERNAL DLAMCH, DLAPY2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, INT, LOG, MAX, SQRT
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             ABS1, ABSSQ;
-*     ..
-*     .. Save statement ..
-*     SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
-*     ..
-*     .. Data statements ..
-*     DATA               FIRST / .TRUE. /
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Save statement ..
+      // SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
+      // ..
+      // .. Data statements ..
+      // DATA               FIRST / .TRUE. /
+      // ..
+      // .. Statement Function definitions ..
       ABS1( FF ) = MAX( ABS( DBLE( FF ) ), ABS( DIMAG( FF ) ) )
       ABSSQ( FF ) = DBLE( FF )**2 + DIMAG( FF )**2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     IF( FIRST ) THEN
-*        FIRST = .FALSE.
+      // IF( FIRST ) THEN
+         // FIRST = .FALSE.
          SAFMIN = DLAMCH( 'S' )
          EPS = DLAMCH( 'E' )
          SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( DLAMCH( 'B' ) ) / TWO )
          SAFMX2 = ONE / SAFMN2
-*     END IF
+      // END IF
       IX = 1
       IY = 1
       IC = 1
@@ -63,7 +63,7 @@
          F = X( IX )
          G = Y( IY )
 *
-*        Use identical algorithm as in ZLARTG
+         // Use identical algorithm as in ZLARTG
 *
          SCALE = MAX( ABS1( F ), ABS1( G ) )
          FS = F
@@ -94,31 +94,31 @@
          G2 = ABSSQ( GS )
          IF( F2.LE.MAX( G2, ONE )*SAFMIN ) THEN
 *
-*           This is a rare case: F is very small.
+            // This is a rare case: F is very small.
 *
             IF( F.EQ.CZERO ) THEN
                CS = ZERO
                R = DLAPY2( DBLE( G ), DIMAG( G ) )
-*              Do complex/real division explicitly with two real
-*              divisions
+               // Do complex/real division explicitly with two real
+               // divisions
                D = DLAPY2( DBLE( GS ), DIMAG( GS ) )
                SN = DCMPLX( DBLE( GS ) / D, -DIMAG( GS ) / D )
                GO TO 50
             END IF
             F2S = DLAPY2( DBLE( FS ), DIMAG( FS ) )
-*           G2 and G2S are accurate
-*           G2 is at least SAFMIN, and G2S is at least SAFMN2
+            // G2 and G2S are accurate
+            // G2 is at least SAFMIN, and G2S is at least SAFMN2
             G2S = SQRT( G2 )
-*           Error in CS from underflow in F2S is at most
-*           UNFL / SAFMN2 .lt. sqrt(UNFL*EPS) .lt. EPS
-*           If MAX(G2,ONE)=G2, then F2 .lt. G2*SAFMIN,
-*           and so CS .lt. sqrt(SAFMIN)
-*           If MAX(G2,ONE)=ONE, then F2 .lt. SAFMIN
-*           and so CS .lt. sqrt(SAFMIN)/SAFMN2 = sqrt(EPS)
-*           Therefore, CS = F2S/G2S / sqrt( 1 + (F2S/G2S)**2 ) = F2S/G2S
+            // Error in CS from underflow in F2S is at most
+            // UNFL / SAFMN2 .lt. sqrt(UNFL*EPS) .lt. EPS
+            // If MAX(G2,ONE)=G2, then F2 .lt. G2*SAFMIN,
+            // and so CS .lt. sqrt(SAFMIN)
+            // If MAX(G2,ONE)=ONE, then F2 .lt. SAFMIN
+            // and so CS .lt. sqrt(SAFMIN)/SAFMN2 = sqrt(EPS)
+            // Therefore, CS = F2S/G2S / sqrt( 1 + (F2S/G2S)**2 ) = F2S/G2S
             CS = F2S / G2S
-*           Make sure abs(FF) = 1
-*           Do complex/real division explicitly with 2 real divisions
+            // Make sure abs(FF) = 1
+            // Do complex/real division explicitly with 2 real divisions
             IF( ABS1( F ).GT.ONE ) THEN
                D = DLAPY2( DBLE( F ), DIMAG( F ) )
                FF = DCMPLX( DBLE( F ) / D, DIMAG( F ) / D )
@@ -132,17 +132,17 @@
             R = CS*F + SN*G
          ELSE
 *
-*           This is the most common case.
-*           Neither F2 nor F2/G2 are less than SAFMIN
-*           F2S cannot overflow, and it is accurate
+            // This is the most common case.
+            // Neither F2 nor F2/G2 are less than SAFMIN
+            // F2S cannot overflow, and it is accurate
 *
             F2S = SQRT( ONE+G2 / F2 )
-*           Do the F2S(real)*FS(complex) multiply with two real
-*           multiplies
+            // Do the F2S(real)*FS(complex) multiply with two real
+            // multiplies
             R = DCMPLX( F2S*DBLE( FS ), F2S*DIMAG( FS ) )
             CS = ONE / F2S
             D = F2 + G2
-*           Do complex/real division explicitly with two real divisions
+            // Do complex/real division explicitly with two real divisions
             SN = DCMPLX( DBLE( R ) / D, DIMAG( R ) / D )
             SN = SN*DCONJG( GS )
             IF( COUNT.NE.0 ) THEN
@@ -167,6 +167,6 @@
    60 CONTINUE
       RETURN
 *
-*     End of ZLARGV
+      // End of ZLARGV
 *
       END

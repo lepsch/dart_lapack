@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, ITYPE, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               AP( * ), BP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, HALF
       PARAMETER          ( ONE = 1.0, HALF = 0.5 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK;
       REAL               AJJ, AKK, BJJ, BKK, CT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SAXPY, SSCAL, SSPMV, SSPR2, STPMV, STPSV, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SDOT
       // EXTERNAL LSAME, SDOT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -52,16 +52,16 @@
       IF( ITYPE.EQ.1 ) THEN
          IF( UPPER ) THEN
 *
-*           Compute inv(U**T)*A*inv(U)
+            // Compute inv(U**T)*A*inv(U)
 *
-*           J1 and JJ are the indices of A(1,j) and A(j,j)
+            // J1 and JJ are the indices of A(1,j) and A(j,j)
 *
             JJ = 0
             DO 10 J = 1, N
                J1 = JJ + 1
                JJ = JJ + J
 *
-*              Compute the j-th column of the upper triangle of A
+               // Compute the j-th column of the upper triangle of A
 *
                BJJ = BP( JJ )
                CALL STPSV( UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 )                CALL SSPMV( UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 )
@@ -70,15 +70,15 @@
    10       CONTINUE
          ELSE
 *
-*           Compute inv(L)*A*inv(L**T)
+            // Compute inv(L)*A*inv(L**T)
 *
-*           KK and K1K1 are the indices of A(k,k) and A(k+1,k+1)
+            // KK and K1K1 are the indices of A(k,k) and A(k+1,k+1)
 *
             KK = 1
             DO 20 K = 1, N
                K1K1 = KK + N - K + 1
 *
-*              Update the lower triangle of A(k:n,k:n)
+               // Update the lower triangle of A(k:n,k:n)
 *
                AKK = AP( KK )
                BKK = BP( KK )
@@ -98,16 +98,16 @@
       ELSE
          IF( UPPER ) THEN
 *
-*           Compute U*A*U**T
+            // Compute U*A*U**T
 *
-*           K1 and KK are the indices of A(1,k) and A(k,k)
+            // K1 and KK are the indices of A(1,k) and A(k,k)
 *
             KK = 0
             DO 30 K = 1, N
                K1 = KK + 1
                KK = KK + K
 *
-*              Update the upper triangle of A(1:k,1:k)
+               // Update the upper triangle of A(1:k,1:k)
 *
                AKK = AP( KK )
                BKK = BP( KK )
@@ -121,15 +121,15 @@
    30       CONTINUE
          ELSE
 *
-*           Compute L**T *A*L
+            // Compute L**T *A*L
 *
-*           JJ and J1J1 are the indices of A(j,j) and A(j+1,j+1)
+            // JJ and J1J1 are the indices of A(j,j) and A(j+1,j+1)
 *
             JJ = 1
             DO 40 J = 1, N
                J1J1 = JJ + N - J + 1
 *
-*              Compute the j-th column of the lower triangle of A
+               // Compute the j-th column of the lower triangle of A
 *
                AJJ = AP( JJ )
                BJJ = BP( JJ )
@@ -142,6 +142,6 @@
       END IF
       RETURN
 *
-*     End of SSPGST
+      // End of SSPGST
 *
       END

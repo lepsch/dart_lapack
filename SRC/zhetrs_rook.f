@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J, K, KP;
       double             S;
       COMPLEX*16         AK, AKM1, AKM1K, BK, BKM1, DENOM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMV, ZGERU, ZLACGV, ZDSCAL, ZSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MAX, DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -55,50 +55,50 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Solve A*X = B, where A = U*D*U**H.
+         // Solve A*X = B, where A = U*D*U**H.
 *
-*        First solve U*D*X = B, overwriting B with X.
+         // First solve U*D*X = B, overwriting B with X.
 *
-*        K is the main loop index, decreasing from N to 1 in steps of
-*        1 or 2, depending on the size of the diagonal blocks.
+         // K is the main loop index, decreasing from N to 1 in steps of
+         // 1 or 2, depending on the size of the diagonal blocks.
 *
          K = N
    10    CONTINUE
 *
-*        If K < 1, exit from loop.
+         // If K < 1, exit from loop.
 *
          IF( K.LT.1 ) GO TO 30
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
-*           1 x 1 diagonal block
+            // 1 x 1 diagonal block
 *
-*           Interchange rows K and IPIV(K).
+            // Interchange rows K and IPIV(K).
 *
             KP = IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*           Multiply by inv(U(K)), where U(K) is the transformation
-*           stored in column K of A.
+            // Multiply by inv(U(K)), where U(K) is the transformation
+            // stored in column K of A.
 *
             CALL ZGERU( K-1, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
 *
-*           Multiply by the inverse of the diagonal block.
+            // Multiply by the inverse of the diagonal block.
 *
             S = DBLE( ONE ) / DBLE( A( K, K ) )
             CALL ZDSCAL( NRHS, S, B( K, 1 ), LDB )
             K = K - 1
          ELSE
 *
-*           2 x 2 diagonal block
+            // 2 x 2 diagonal block
 *
-*           Interchange rows K and -IPIV(K), then K-1 and -IPIV(K-1)
+            // Interchange rows K and -IPIV(K), then K-1 and -IPIV(K-1)
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -106,12 +106,12 @@
             KP = -IPIV( K-1)
             IF( KP.NE.K-1 ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*           Multiply by inv(U(K)), where U(K) is the transformation
-*           stored in columns K-1 and K of A.
+            // Multiply by inv(U(K)), where U(K) is the transformation
+            // stored in columns K-1 and K of A.
 *
             CALL ZGERU( K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )             CALL ZGERU( K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB )
 *
-*           Multiply by the inverse of the diagonal block.
+            // Multiply by the inverse of the diagonal block.
 *
             AKM1K = A( K-1, K )
             AKM1 = A( K-1, K-1 ) / AKM1K
@@ -129,24 +129,24 @@
          GO TO 10
    30    CONTINUE
 *
-*        Next solve U**H *X = B, overwriting B with X.
+         // Next solve U**H *X = B, overwriting B with X.
 *
-*        K is the main loop index, increasing from 1 to N in steps of
-*        1 or 2, depending on the size of the diagonal blocks.
+         // K is the main loop index, increasing from 1 to N in steps of
+         // 1 or 2, depending on the size of the diagonal blocks.
 *
          K = 1
    40    CONTINUE
 *
-*        If K > N, exit from loop.
+         // If K > N, exit from loop.
 *
          IF( K.GT.N ) GO TO 50
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
-*           1 x 1 diagonal block
+            // 1 x 1 diagonal block
 *
-*           Multiply by inv(U**H(K)), where U(K) is the transformation
-*           stored in column K of A.
+            // Multiply by inv(U**H(K)), where U(K) is the transformation
+            // stored in column K of A.
 *
             IF( K.GT.1 ) THEN
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
@@ -154,17 +154,17 @@
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
             END IF
 *
-*           Interchange rows K and IPIV(K).
+            // Interchange rows K and IPIV(K).
 *
             KP = IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K = K + 1
          ELSE
 *
-*           2 x 2 diagonal block
+            // 2 x 2 diagonal block
 *
-*           Multiply by inv(U**H(K+1)), where U(K+1) is the transformation
-*           stored in columns K and K+1 of A.
+            // Multiply by inv(U**H(K+1)), where U(K+1) is the transformation
+            // stored in columns K and K+1 of A.
 *
             IF( K.GT.1 ) THEN
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
@@ -176,7 +176,7 @@
                CALL ZLACGV( NRHS, B( K+1, 1 ), LDB )
             END IF
 *
-*           Interchange rows K and -IPIV(K), then K+1 and -IPIV(K+1)
+            // Interchange rows K and -IPIV(K), then K+1 and -IPIV(K+1)
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -192,44 +192,44 @@
 *
       ELSE
 *
-*        Solve A*X = B, where A = L*D*L**H.
+         // Solve A*X = B, where A = L*D*L**H.
 *
-*        First solve L*D*X = B, overwriting B with X.
+         // First solve L*D*X = B, overwriting B with X.
 *
-*        K is the main loop index, increasing from 1 to N in steps of
-*        1 or 2, depending on the size of the diagonal blocks.
+         // K is the main loop index, increasing from 1 to N in steps of
+         // 1 or 2, depending on the size of the diagonal blocks.
 *
          K = 1
    60    CONTINUE
 *
-*        If K > N, exit from loop.
+         // If K > N, exit from loop.
 *
          IF( K.GT.N ) GO TO 80
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
-*           1 x 1 diagonal block
+            // 1 x 1 diagonal block
 *
-*           Interchange rows K and IPIV(K).
+            // Interchange rows K and IPIV(K).
 *
             KP = IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*           Multiply by inv(L(K)), where L(K) is the transformation
-*           stored in column K of A.
+            // Multiply by inv(L(K)), where L(K) is the transformation
+            // stored in column K of A.
 *
             IF( K.LT.N ) CALL ZGERU( N-K, NRHS, -ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
 *
-*           Multiply by the inverse of the diagonal block.
+            // Multiply by the inverse of the diagonal block.
 *
             S = DBLE( ONE ) / DBLE( A( K, K ) )
             CALL ZDSCAL( NRHS, S, B( K, 1 ), LDB )
             K = K + 1
          ELSE
 *
-*           2 x 2 diagonal block
+            // 2 x 2 diagonal block
 *
-*           Interchange rows K and -IPIV(K), then K+1 and -IPIV(K+1)
+            // Interchange rows K and -IPIV(K), then K+1 and -IPIV(K+1)
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -237,14 +237,14 @@
             KP = -IPIV( K+1 )
             IF( KP.NE.K+1 ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*           Multiply by inv(L(K)), where L(K) is the transformation
-*           stored in columns K and K+1 of A.
+            // Multiply by inv(L(K)), where L(K) is the transformation
+            // stored in columns K and K+1 of A.
 *
             IF( K.LT.N-1 ) THEN
                CALL ZGERU( N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL ZGERU( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB )
             END IF
 *
-*           Multiply by the inverse of the diagonal block.
+            // Multiply by the inverse of the diagonal block.
 *
             AKM1K = A( K+1, K )
             AKM1 = A( K, K ) / DCONJG( AKM1K )
@@ -262,24 +262,24 @@
          GO TO 60
    80    CONTINUE
 *
-*        Next solve L**H *X = B, overwriting B with X.
+         // Next solve L**H *X = B, overwriting B with X.
 *
-*        K is the main loop index, decreasing from N to 1 in steps of
-*        1 or 2, depending on the size of the diagonal blocks.
+         // K is the main loop index, decreasing from N to 1 in steps of
+         // 1 or 2, depending on the size of the diagonal blocks.
 *
          K = N
    90    CONTINUE
 *
-*        If K < 1, exit from loop.
+         // If K < 1, exit from loop.
 *
          IF( K.LT.1 ) GO TO 100
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
-*           1 x 1 diagonal block
+            // 1 x 1 diagonal block
 *
-*           Multiply by inv(L**H(K)), where L(K) is the transformation
-*           stored in column K of A.
+            // Multiply by inv(L**H(K)), where L(K) is the transformation
+            // stored in column K of A.
 *
             IF( K.LT.N ) THEN
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
@@ -287,17 +287,17 @@
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
             END IF
 *
-*           Interchange rows K and IPIV(K).
+            // Interchange rows K and IPIV(K).
 *
             KP = IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K = K - 1
          ELSE
 *
-*           2 x 2 diagonal block
+            // 2 x 2 diagonal block
 *
-*           Multiply by inv(L**H(K-1)), where L(K-1) is the transformation
-*           stored in columns K-1 and K of A.
+            // Multiply by inv(L**H(K-1)), where L(K-1) is the transformation
+            // stored in columns K-1 and K of A.
 *
             IF( K.LT.N ) THEN
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
@@ -309,7 +309,7 @@
                CALL ZLACGV( NRHS, B( K-1, 1 ), LDB )
             END IF
 *
-*           Interchange rows K and -IPIV(K), then K-1 and -IPIV(K-1)
+            // Interchange rows K and -IPIV(K), then K-1 and -IPIV(K-1)
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -326,6 +326,6 @@
 *
       RETURN
 *
-*     End of ZHETRS_ROOK
+      // End of ZHETRS_ROOK
 *
       END

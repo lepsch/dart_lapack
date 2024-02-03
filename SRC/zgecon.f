@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             NORM;
       int                INFO, LDA, N;
       double             ANORM, RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ONENRM;
       String             NORMIN;
       int                IX, KASE, KASE1;
       double             AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL;
       COMPLEX*16         ZDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, DISNAN;
       int                IZAMAX;
       double             DLAMCH;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, DISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDRSCL, ZLACN2, ZLATRS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DIMAG, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       HUGEVAL = DLAMCH( 'Overflow' )
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
@@ -70,7 +70,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -89,7 +89,7 @@
 *
       SMLNUM = DLAMCH( 'Safe minimum' )
 *
-*     Estimate the norm of inv(A).
+      // Estimate the norm of inv(A).
 *
       AINVNM = ZERO
       NORMIN = 'N'
@@ -104,25 +104,25 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.KASE1 ) THEN
 *
-*           Multiply by inv(L).
+            // Multiply by inv(L).
 *
             CALL ZLATRS( 'Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO )
 *
-*           Multiply by inv(U).
+            // Multiply by inv(U).
 *
             CALL ZLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO )
          ELSE
 *
-*           Multiply by inv(U**H).
+            // Multiply by inv(U**H).
 *
             CALL ZLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO )
 *
-*           Multiply by inv(L**H).
+            // Multiply by inv(L**H).
 *
             CALL ZLATRS( 'Lower', 'Conjugate transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO )
          END IF
 *
-*        Divide X by 1/(SL*SU) if doing so will not cause overflow.
+         // Divide X by 1/(SL*SU) if doing so will not cause overflow.
 *
          SCALE = SL*SU
          NORMIN = 'Y'
@@ -134,7 +134,7 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) THEN
          RCOND = ( ONE / AINVNM ) / ANORM
@@ -143,13 +143,13 @@
          RETURN
       END IF
 *
-*     Check for NaNs and Infs
+      // Check for NaNs and Infs
 *
       IF( DISNAN( RCOND ) .OR. RCOND.GT.HUGEVAL ) INFO = 1
 *
    20 CONTINUE
       RETURN
 *
-*     End of ZGECON
+      // End of ZGECON
 *
       END

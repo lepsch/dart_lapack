@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                LDA, LDX, LWORK, M, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), WORK( LWORK ), X( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               TPSD;
       int                I, INFO, J, LDWORK;
       double             ANRM, ERR, XNRM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             RWORK( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGELQ2, DGEQR2, DLACPY, DLASCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       DQRT14 = ZERO
       IF( LSAME( TRANS, 'N' ) ) THEN
@@ -63,26 +63,26 @@
          RETURN
       END IF
 *
-*     Copy and scale A
+      // Copy and scale A
 *
       CALL DLACPY( 'All', M, N, A, LDA, WORK, LDWORK )
       ANRM = DLANGE( 'M', M, N, WORK, LDWORK, RWORK )
       IF( ANRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO )
 *
-*     Copy X or X' into the right place and scale it
+      // Copy X or X' into the right place and scale it
 *
       IF( TPSD ) THEN
 *
-*        Copy X into columns n+1:n+nrhs of work
+         // Copy X into columns n+1:n+nrhs of work
 *
          CALL DLACPY( 'All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ), LDWORK )          XNRM = DLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK, RWORK )          IF( XNRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS, WORK( N*LDWORK+1 ), LDWORK, INFO )
 *
-*        Compute QR factorization of X
+         // Compute QR factorization of X
 *
          CALL DGEQR2( M, N+NRHS, WORK, LDWORK, WORK( LDWORK*( N+NRHS )+1 ), WORK( LDWORK*( N+NRHS )+MIN( M, N+NRHS )+1 ), INFO )
 *
-*        Compute largest entry in upper triangle of
-*        work(n+1:m,n+1:n+nrhs)
+         // Compute largest entry in upper triangle of
+         // work(n+1:m,n+1:n+nrhs)
 *
          ERR = ZERO
          DO 20 J = N + 1, N + NRHS
@@ -93,7 +93,7 @@
 *
       ELSE
 *
-*        Copy X' into rows m+1:m+nrhs of work
+         // Copy X' into rows m+1:m+nrhs of work
 *
          DO 40 I = 1, N
             DO 30 J = 1, NRHS
@@ -104,12 +104,12 @@
          XNRM = DLANGE( 'M', NRHS, N, WORK( M+1 ), LDWORK, RWORK )
          IF( XNRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO )
 *
-*        Compute LQ factorization of work
+         // Compute LQ factorization of work
 *
          CALL DGELQ2( LDWORK, N, WORK, LDWORK, WORK( LDWORK*N+1 ), WORK( LDWORK*( N+1 )+1 ), INFO )
 *
-*        Compute largest entry in lower triangle in
-*        work(m+1:m+nrhs,m+1:n)
+         // Compute largest entry in lower triangle in
+         // work(m+1:m+nrhs,m+1:n)
 *
          ERR = ZERO
          DO 60 J = M + 1, N
@@ -124,6 +124,6 @@
 *
       RETURN
 *
-*     End of DQRT14
+      // End of DQRT14
 *
       END

@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               WANTQ, WANTU, WANTV;
       int                I, IBND, ISUB, J, NCYCLE;
       REAL               ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANGE
       // EXTERNAL LSAME, SLAMCH, SLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SGGSVP, STGSJA, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       WANTU = LSAME( JOBU, 'U' )
       WANTV = LSAME( JOBV, 'V' )
@@ -68,35 +68,35 @@
          RETURN
       END IF
 *
-*     Compute the Frobenius norm of matrices A and B
+      // Compute the Frobenius norm of matrices A and B
 *
       ANORM = SLANGE( '1', M, N, A, LDA, WORK )
       BNORM = SLANGE( '1', P, N, B, LDB, WORK )
 *
-*     Get machine precision and set up threshold for determining
-*     the effective numerical rank of the matrices A and B.
+      // Get machine precision and set up threshold for determining
+     t // he effective numerical rank of the matrices A and B.
 *
       ULP = SLAMCH( 'Precision' )
       UNFL = SLAMCH( 'Safe Minimum' )
       TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP
       TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP
 *
-*     Preprocessing
+      // Preprocessing
 *
       CALL SGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK( N+1 ), INFO )
 *
-*     Compute the GSVD of two upper "triangular" matrices
+      // Compute the GSVD of two upper "triangular" matrices
 *
       CALL STGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
 *
-*     Sort the singular values and store the pivot indices in IWORK
-*     Copy ALPHA to WORK, then sort ALPHA in WORK
+      // Sort the singular values and store the pivot indices in IWORK
+      // Copy ALPHA to WORK, then sort ALPHA in WORK
 *
       CALL SCOPY( N, ALPHA, 1, WORK, 1 )
       IBND = MIN( L, M-K )
       DO 20 I = 1, IBND
 *
-*        Scan for largest ALPHA(K+I)
+         // Scan for largest ALPHA(K+I)
 *
          ISUB = I
          SMAX = WORK( K+I )
@@ -118,6 +118,6 @@
 *
       RETURN
 *
-*     End of SGGSVD
+      // End of SGGSVD
 *
       END

@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               LEFT;
       int                LDA, LDB, LDE, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RESULT( 2 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             NORMAB, TRANS;
       int                J, JVEC;
       double             ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP;
       COMPLEX*16         ACOEFF, ALPHAI, BCOEFF, BETAI, X
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             ABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       ABS1( X ) = ABS( DBLE( X ) ) + ABS( DIMAG( X ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -61,7 +61,7 @@
          NORMAB = 'O'
       END IF
 *
-*     Norm of A, B, and E:
+      // Norm of A, B, and E:
 *
       ANORM = MAX( ZLANGE( NORMAB, N, N, A, LDA, RWORK ), SAFMIN )
       BNORM = MAX( ZLANGE( NORMAB, N, N, B, LDB, RWORK ), SAFMIN )
@@ -69,8 +69,8 @@
       ALFMAX = SAFMAX / MAX( ONE, BNORM )
       BETMAX = SAFMAX / MAX( ONE, ANORM )
 *
-*     Compute error matrix.
-*     Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
+      // Compute error matrix.
+      // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
 *
       DO 10 JVEC = 1, N
          ALPHAI = ALPHA( JVEC )
@@ -93,11 +93,11 @@
 *
       ERRNRM = ZLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM
 *
-*     Compute RESULT(1)
+      // Compute RESULT(1)
 *
       RESULT( 1 ) = ERRNRM / ULP
 *
-*     Normalization of E:
+      // Normalization of E:
 *
       ENRMER = ZERO
       DO 30 JVEC = 1, N
@@ -108,12 +108,12 @@
          ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
    30 CONTINUE
 *
-*     Compute RESULT(2) : the normalization error in E.
+      // Compute RESULT(2) : the normalization error in E.
 *
       RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP )
 *
       RETURN
 *
-*     End of ZGET52
+      // End of ZGET52
 *
       END

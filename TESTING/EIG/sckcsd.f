@@ -4,19 +4,19 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, MMAX, NOUT;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * );
       REAL               RWORK( * ), THETA( * )
       REAL               U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NTESTS;
       PARAMETER          ( NTESTS = 15 )
       int                NTYPES;
@@ -25,29 +25,29 @@
       PARAMETER          ( GAPDIGIT = 10.0E0, ONE = 1.0E0, ORTH = 1.0E-4, TEN = 10.0E0, ZERO = 0.0E0 )
       REAL               PIOVER2
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FIRSTT;
       String             PATH;
       int                I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               DOTYPE( NTYPES );
       REAL               RESULT( NTESTS )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAHDG, ALAREQ, ALASUM, SCSDTS, SLACSG, SLAROR, SLASET, SROT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLARAN, SLARND
       // EXTERNAL SLARAN, SLARND
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 3 ) = 'CSD'
       INFO = 0
@@ -62,7 +62,7 @@
       LDV2T = MMAX
       LWORK = MMAX*MMAX
 *
-*     Do for each value of M in MVAL.
+      // Do for each value of M in MVAL.
 *
       DO 30 IM = 1, NM
          M = MVAL( IM )
@@ -71,11 +71,11 @@
 *
          DO 20 IMAT = 1, NTYPES
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 20
 *
-*           Generate X
+            // Generate X
 *
             IF( IMAT.EQ.1 ) THEN
                CALL SLAROR( 'L', 'I', M, M, X, LDX, ISEED, WORK, IINFO )
@@ -121,8 +121,8 @@
 *
             CALL SCSDTS( M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, IWORK, WORK, LWORK, RWORK, RESULT )
 *
-*           Print information about the tests that did not
-*           pass the threshold.
+            // Print information about the tests that did not
+            // pass the threshold.
 *
             DO 10 I = 1, NT
                IF( RESULT( I ).GE.THRESH ) THEN
@@ -138,7 +138,7 @@
    20    CONTINUE
    30 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
 *
@@ -147,7 +147,7 @@
      $      ', test ', I2, ', ratio=', G13.6 )
       RETURN
 *
-*     End of SCKCSD
+      // End of SCKCSD
 *
       END
 *

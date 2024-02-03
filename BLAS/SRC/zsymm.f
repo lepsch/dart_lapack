@@ -4,40 +4,40 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16 ALPHA,BETA
       int     LDA,LDB,LDC,M,N;
       String    SIDE,UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16 A(LDA,*),B(LDB,*),C(LDC,*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16 TEMP1,TEMP2
       int     I,INFO,J,K,NROWA;
       bool    UPPER;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       COMPLEX*16 ONE
       PARAMETER (ONE= (1.0D+0,0.0D+0))
       COMPLEX*16 ZERO
       PARAMETER (ZERO= (0.0D+0,0.0D+0))
-*     ..
+      // ..
 *
-*     Set NROWA as the number of rows of A.
+      // Set NROWA as the number of rows of A.
 *
       IF (LSAME(SIDE,'L')) THEN
           NROWA = M
@@ -46,7 +46,7 @@
       END IF
       UPPER = LSAME(UPLO,'U')
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF ((.NOT.LSAME(SIDE,'L')) .AND. (.NOT.LSAME(SIDE,'R'))) THEN
@@ -69,11 +69,11 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((M.EQ.0) .OR. (N.EQ.0) .OR. ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
 *
-*     And when  alpha.eq.zero.
+      // And when  alpha.eq.zero.
 *
       IF (ALPHA.EQ.ZERO) THEN
           IF (BETA.EQ.ZERO) THEN
@@ -92,11 +92,11 @@
           RETURN
       END IF
 *
-*     Start the operations.
+      // Start the operations.
 *
       IF (LSAME(SIDE,'L')) THEN
 *
-*        Form  C := alpha*A*B + beta*C.
+         // Form  C := alpha*A*B + beta*C.
 *
           IF (UPPER) THEN
               DO 70 J = 1,N
@@ -133,7 +133,7 @@
           END IF
       ELSE
 *
-*        Form  C := alpha*B*A + beta*C.
+         // Form  C := alpha*B*A + beta*C.
 *
           DO 170 J = 1,N
               TEMP1 = ALPHA*A(J,J)
@@ -171,6 +171,6 @@
 *
       RETURN
 *
-*     End of ZSYMM
+      // End of ZSYMM
 *
       END

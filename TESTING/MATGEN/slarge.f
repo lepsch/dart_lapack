@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       REAL               A( LDA, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       REAL               TAU, WA, WB, WN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMV, SGER, SLARNV, SSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SIGN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SNRM2
       // EXTERNAL SNRM2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -47,11 +47,11 @@
          RETURN
       END IF
 *
-*     pre- and post-multiply A by random orthogonal matrix
+      // pre- and post-multiply A by random orthogonal matrix
 *
       DO 10 I = N, 1, -1
 *
-*        generate random reflection
+         // generate random reflection
 *
          CALL SLARNV( 3, ISEED, N-I+1, WORK )
          WN = SNRM2( N-I+1, WORK, 1 )
@@ -65,16 +65,16 @@
             TAU = WB / WA
          END IF
 *
-*        multiply A(i:n,1:n) by random reflection from the left
+         // multiply A(i:n,1:n) by random reflection from the left
 *
          CALL SGEMV( 'Transpose', N-I+1, N, ONE, A( I, 1 ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )          CALL SGER( N-I+1, N, -TAU, WORK, 1, WORK( N+1 ), 1, A( I, 1 ), LDA )
 *
-*        multiply A(1:n,i:n) by random reflection from the right
+         // multiply A(1:n,i:n) by random reflection from the right
 *
          CALL SGEMV( 'No transpose', N, N-I+1, ONE, A( 1, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )          CALL SGER( N, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( 1, I ), LDA )
    10 CONTINUE
       RETURN
 *
-*     End of SLARGE
+      // End of SLARGE
 *
       END

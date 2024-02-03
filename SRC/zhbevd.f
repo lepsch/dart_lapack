@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, KD, LDAB, LDZ, LIWORK, LRWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), W( * );
       COMPLEX*16         AB( LDAB, * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN       double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANHB;
       // EXTERNAL LSAME, DLAMCH, ZLANHB
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSTERF, XERBLA, ZGEMM, ZHBTRD, ZLACPY, ZLASCL, ZSTEDC
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
@@ -96,7 +96,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -106,7 +106,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
@@ -115,7 +115,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ANRM = ZLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
       ISCALE = 0
@@ -134,7 +134,7 @@
          END IF
       END IF
 *
-*     Call ZHBTRD to reduce Hermitian band matrix to tridiagonal form.
+      // Call ZHBTRD to reduce Hermitian band matrix to tridiagonal form.
 *
       INDE = 1
       INDWRK = INDE + N
@@ -143,7 +143,7 @@
       LLRWK = LRWORK - INDWRK + 1
       CALL ZHBTRD( JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
 *
-*     For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEDC.
+      // For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
@@ -153,7 +153,7 @@
          CALL ZLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -169,6 +169,6 @@
       IWORK( 1 ) = LIWMIN
       RETURN
 *
-*     End of ZHBEVD
+      // End of ZHBEVD
 *
       END

@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, ZGELQ2, ZGELQF, ZUNGL2, ZUNGLQ, ZUNML2, ZUNMLQ
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -53,9 +53,9 @@
    20 CONTINUE
       OK = .TRUE.
 *
-*     Error exits for LQ factorization
+      // Error exits for LQ factorization
 *
-*     ZGELQF
+      // ZGELQF
 *
       SRNAMT = 'ZGELQF'
       INFOT = 1
@@ -71,7 +71,7 @@
       CALL ZGELQF( 2, 1, A, 2, B, W, 1, INFO )
       CALL CHKXER( 'ZGELQF', INFOT, NOUT, LERR, OK )
 *
-*     ZGELQ2
+      // ZGELQ2
 *
       SRNAMT = 'ZGELQ2'
       INFOT = 1
@@ -84,7 +84,7 @@
       CALL ZGELQ2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'ZGELQ2', INFOT, NOUT, LERR, OK )
 *
-*     ZUNGLQ
+      // ZUNGLQ
 *
       SRNAMT = 'ZUNGLQ'
       INFOT = 1
@@ -109,7 +109,7 @@
       CALL ZUNGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'ZUNGLQ', INFOT, NOUT, LERR, OK )
 *
-*     ZUNGL2
+      // ZUNGL2
 *
       SRNAMT = 'ZUNGL2'
       INFOT = 1
@@ -131,7 +131,7 @@
       CALL ZUNGL2( 2, 2, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'ZUNGL2', INFOT, NOUT, LERR, OK )
 *
-*     ZUNMLQ
+      // ZUNMLQ
 *
       SRNAMT = 'ZUNMLQ'
       INFOT = 1
@@ -171,7 +171,7 @@
       CALL ZUNMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
 *
-*     ZUNML2
+      // ZUNML2
 *
       SRNAMT = 'ZUNML2'
       INFOT = 1
@@ -205,12 +205,12 @@
       CALL ZUNML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of ZERRLQ
+      // End of ZERRLQ
 *
       END

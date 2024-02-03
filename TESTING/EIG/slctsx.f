@@ -4,23 +4,23 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               AI, AR, BETA
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       bool               FS;
       int                I, M, MPLUSN, N;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / MN / M, N, MPLUSN, I, FS
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( FS ) THEN
          I = I + 1
@@ -46,14 +46,14 @@
          END IF
       END IF
 *
-*       IF( AR/BETA.GT.0.0 )THEN
-*          SLCTSX = .TRUE.
-*       ELSE
-*          SLCTSX = .FALSE.
-*       END IF
+        // IF( AR/BETA.GT.0.0 )THEN
+           // SLCTSX = .TRUE.
+        // ELSE
+           // SLCTSX = .FALSE.
+        // END IF
 *
       RETURN
 *
-*     End of SLCTSX
+      // End of SLCTSX
 *
       END

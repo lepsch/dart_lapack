@@ -2,6 +2,12 @@
 
 ## Regex Helpers
 
+### Line continuations
+```
+^\s     (.+)(\n\s    [^\s]\s*(.*))$
+      $1 $3
+```
+
 ### DOUBLE PRECISION -> double
 ```
 ^\s(.*)DOUBLE PRECISION(.*)$
@@ -56,22 +62,15 @@
       const    $1$2;
 ```
 
-### Line continuations
-```
-^[^*cC]     (.+)(\n[^*cC]    [^\s]\s*(.*))$
-      $1 $3
-```
-
 ### SUBROUTINE -> void
 ```
-^[^*cC]     SUBROUTINE\s+(\w+)\s*\((.*)$
+^\s     SUBROUTINE\s+(\w+)\s*\((.*)$
       void $1($2 {
 ```
 
 ### Comments -> aligned //
-```
-^\*(     \s*)(.*)$
-$1 // $2
+```sh
+find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t](     [ \t]*)([^ \t].*)$/\1 \/\/ \2/g' %
 ```
 
 # LAPACK

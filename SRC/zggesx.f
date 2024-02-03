@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVSL, JOBVSR, SENSE, SORT;
       int                INFO, LDA, LDB, LDVSL, LDVSR, LIWORK, LWORK, N, SDIM;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
       double             RCONDE( 2 ), RCONDV( 2 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
-*     ..
-*     .. Function Arguments ..
+      // ..
+      // .. Function Arguments ..
       bool               SELCTG;
       // EXTERNAL SELCTG
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTSB, WANTSE, WANTSN, WANTST, WANTSV       int                I, ICOLS, IERR, IHI, IJOB, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LIWMIN, LWRK, MAXWRK, MINWRK;;
       double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PL, PR, SMLNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             DIF( 2 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHRD, ZHGEQZ, ZLACPY, ZLASCL, ZLASET, ZTGSEN, ZUNGQR, ZUNMQR
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, ZLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVSL, 'N' ) ) THEN
          IJOBVL = 1
@@ -88,7 +88,7 @@
          IJOB = 4
       END IF
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( IJOBVL.LE.0 ) THEN
@@ -111,12 +111,12 @@
          INFO = -17
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       NB refers to the optimal block size for the immediately
-*       following subroutine, as returned by ILAENV.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // NB refers to the optimal block size for the immediately
+        // following subroutine, as returned by ILAENV.)
 *
       IF( INFO.EQ.0 ) THEN
          IF( N.GT.0) THEN
@@ -155,14 +155,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          SDIM = 0
          RETURN
       END IF
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' )
@@ -170,7 +170,7 @@
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
@@ -183,7 +183,7 @@
       END IF
       IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
@@ -196,16 +196,16 @@
       END IF
       IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
-*     Permute the matrix to make it more nearly triangular
-*     (Real Workspace: need 6*N)
+      // Permute the matrix to make it more nearly triangular
+      // (Real Workspace: need 6*N)
 *
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
       CALL ZGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
 *
-*     Reduce B to triangular form (QR decomposition of B)
-*     (Complex Workspace: need N, prefer N*NB)
+      // Reduce B to triangular form (QR decomposition of B)
+      // (Complex Workspace: need N, prefer N*NB)
 *
       IROWS = IHI + 1 - ILO
       ICOLS = N + 1 - ILO
@@ -213,13 +213,13 @@
       IWRK = ITAU + IROWS
       CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Apply the unitary transformation to matrix A
-*     (Complex Workspace: need N, prefer N*NB)
+      // Apply the unitary transformation to matrix A
+      // (Complex Workspace: need N, prefer N*NB)
 *
       CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Initialize VSL
-*     (Complex Workspace: need N, prefer N*NB)
+      // Initialize VSL
+      // (Complex Workspace: need N, prefer N*NB)
 *
       IF( ILVSL ) THEN
          CALL ZLASET( 'Full', N, N, CZERO, CONE, VSL, LDVSL )
@@ -229,20 +229,20 @@
          CALL ZUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-*     Initialize VSR
+      // Initialize VSR
 *
       IF( ILVSR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
 *
-*     Reduce to generalized Hessenberg form
-*     (Workspace: none needed)
+      // Reduce to generalized Hessenberg form
+      // (Workspace: none needed)
 *
       CALL ZGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR )
 *
       SDIM = 0
 *
-*     Perform QZ algorithm, computing Schur vectors if desired
-*     (Complex Workspace: need N)
-*     (Real Workspace:    need N)
+      // Perform QZ algorithm, computing Schur vectors if desired
+      // (Complex Workspace: need N)
+      // (Real Workspace:    need N)
 *
       IWRK = ITAU
       CALL ZHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR )
@@ -257,32 +257,32 @@
          GO TO 40
       END IF
 *
-*     Sort eigenvalues ALPHA/BETA and compute the reciprocal of
-*     condition number(s)
+      // Sort eigenvalues ALPHA/BETA and compute the reciprocal of
+      // condition number(s)
 *
       IF( WANTST ) THEN
 *
-*        Undo scaling on eigenvalues before SELCTGing
+         // Undo scaling on eigenvalues before SELCTGing
 *
          IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
 *
-*        Select eigenvalues
+         // Select eigenvalues
 *
          DO 10 I = 1, N
             BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) )
    10    CONTINUE
 *
-*        Reorder eigenvalues, transform Generalized Schur vectors, and
-*        compute reciprocal condition numbers
-*        (Complex Workspace: If IJOB >= 1, need MAX(1, 2*SDIM*(N-SDIM))
-*                            otherwise, need 1 )
+         // Reorder eigenvalues, transform Generalized Schur vectors, and
+         // compute reciprocal condition numbers
+         // (Complex Workspace: If IJOB >= 1, need MAX(1, 2*SDIM*(N-SDIM))
+                             // otherwise, need 1 )
 *
          CALL ZTGSEN( IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR )
 *
          IF( IJOB.GE.1 ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
          IF( IERR.EQ.-21 ) THEN
 *
-*            not enough complex workspace
+             // not enough complex workspace
 *
             INFO = -21
          ELSE
@@ -299,14 +299,14 @@
 *
       END IF
 *
-*     Apply permutation to VSL and VSR
-*     (Workspace: none needed)
+      // Apply permutation to VSL and VSR
+      // (Workspace: none needed)
 *
       IF( ILVSL ) CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR )
 *
       IF( ILVSR ) CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR )
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( ILASCL ) THEN
          CALL ZLASCL( 'U', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR )
@@ -320,7 +320,7 @@
 *
       IF( WANTST ) THEN
 *
-*        Check if reordering is correct
+         // Check if reordering is correct
 *
          LASTSL = .TRUE.
          SDIM = 0
@@ -339,6 +339,6 @@
 *
       RETURN
 *
-*     End of ZGGESX
+      // End of ZGGESX
 *
       END

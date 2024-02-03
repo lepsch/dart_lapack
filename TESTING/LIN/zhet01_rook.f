@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
       double             ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             ZLANHE, DLAMCH;
       // EXTERNAL LSAME, ZLANHE, DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZLASET, ZLAVHE_ROOK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DIMAG, DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
 *
-*     Check the imaginary parts of the diagonal elements and return with
-*     an error code if any are nonzero.
+      // Check the imaginary parts of the diagonal elements and return with
+      // an error code if any are nonzero.
 *
       DO 10 J = 1, N
          IF( DIMAG( AFAC( J, J ) ).NE.ZERO ) THEN
@@ -62,19 +62,19 @@
          END IF
    10 CONTINUE
 *
-*     Initialize C to the identity matrix.
+      // Initialize C to the identity matrix.
 *
       CALL ZLASET( 'Full', N, N, CZERO, CONE, C, LDC )
 *
-*     Call ZLAVHE_ROOK to form the product D * U' (or D * L' ).
+      // Call ZLAVHE_ROOK to form the product D * U' (or D * L' ).
 *
       CALL ZLAVHE_ROOK( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
-*     Call ZLAVHE_ROOK again to multiply by U (or L ).
+      // Call ZLAVHE_ROOK again to multiply by U (or L ).
 *
       CALL ZLAVHE_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
-*     Compute the difference  C - A .
+      // Compute the difference  C - A .
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 30 J = 1, N
@@ -92,7 +92,7 @@
    50    CONTINUE
       END IF
 *
-*     Compute norm( C - A ) / ( N * norm(A) * EPS )
+      // Compute norm( C - A ) / ( N * norm(A) * EPS )
 *
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 *
@@ -104,6 +104,6 @@
 *
       RETURN
 *
-*     End of ZHET01_ROOK
+      // End of ZHET01_ROOK
 *
       END

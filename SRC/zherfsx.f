@@ -4,18 +4,18 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO, EQUED;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       double             S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
 *
 *  ==================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       double             ITREF_DEFAULT, ITHRESH_DEFAULT;
@@ -31,8 +31,8 @@
       int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String   (1)       NORM;
       bool               RCEQU;
       int                J, PREC_TYPE, REF_TYPE;
@@ -42,23 +42,23 @@
       bool               IGNORE_CWISE;
       int                ITHRESH;
       double             RTHRESH, UNSTABLE_THRESH;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZHECON, ZLA_HERFSX_EXTENDED
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT, TRANSFER
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       // EXTERNAL LSAME, ILAPREC
       // EXTERNAL DLAMCH, ZLANHE, ZLA_HERCOND_X, ZLA_HERCOND_C
       double             DLAMCH, ZLANHE, ZLA_HERCOND_X, ZLA_HERCOND_C;
       bool               LSAME;
       int                ILAPREC;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check the input parameters.
+      // Check the input parameters.
 *
       INFO = 0
       REF_TYPE = INT( ITREF_DEFAULT )
@@ -70,7 +70,7 @@
          END IF
       END IF
 *
-*     Set default parameters.
+      // Set default parameters.
 *
       ILLRCOND_THRESH = DBLE( N ) * DLAMCH( 'Epsilon' )
       ITHRESH = INT( ITHRESH_DEFAULT )
@@ -106,7 +106,7 @@
 *
       RCEQU = LSAME( EQUED, 'Y' )
 *
-*     Test input parameters.
+      // Test input parameters.
 *
       IF (.NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
         INFO = -1
@@ -130,7 +130,7 @@
         RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
          RCOND = 1.0D+0
@@ -152,7 +152,7 @@
          RETURN
       END IF
 *
-*     Default to failure.
+      // Default to failure.
 *
       RCOND = 0.0D+0
       DO J = 1, NRHS
@@ -171,14 +171,14 @@
          END IF
       END DO
 *
-*     Compute the norm of A and the reciprocal of the condition
-*     number of A.
+      // Compute the norm of A and the reciprocal of the condition
+      // number of A.
 *
       NORM = 'I'
       ANORM = ZLANHE( NORM, UPLO, N, A, LDA, RWORK )
       CALL ZHECON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO )
 *
-*     Perform refinement on each right-hand side
+      // Perform refinement on each right-hand side
 *
       IF ( REF_TYPE .NE. 0 ) THEN
 
@@ -189,7 +189,7 @@
       ERR_LBND = MAX( 10.0D+0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' )
       IF ( N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 1 ) THEN
 *
-*     Compute scaled normwise condition number cond(A*C).
+      // Compute scaled normwise condition number cond(A*C).
 *
          IF ( RCEQU ) THEN
             RCOND_TMP = ZLA_HERCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, .TRUE., INFO, WORK, RWORK )
@@ -198,11 +198,11 @@
          END IF
          DO J = 1, NRHS
 *
-*     Cap the error at 1.0.
+      // Cap the error at 1.0.
 *
             IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
 *
-*     Threshold the error (see LAWN).
+      // Threshold the error (see LAWN).
 *
             IF (RCOND_TMP .LT. ILLRCOND_THRESH) THEN
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
@@ -213,7 +213,7 @@
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0
             END IF
 *
-*     Save the condition number.
+      // Save the condition number.
 *
             IF ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) THEN
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP
@@ -223,13 +223,13 @@
 
       IF ( N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 2 ) THEN
 *
-*     Compute componentwise condition number cond(A*diag(Y(:,J))) for
-*     each right-hand side using the current solution as an estimate of
-*     the true solution.  If the componentwise error estimate is too
-*     large, then the solution is a lousy estimate of truth and the
-*     estimated RCOND may be too optimistic.  To avoid misleading users,
-*     the inverse condition number is set to 0.0 when the estimated
-*     cwise error is at least CWISE_WRONG.
+      // Compute componentwise condition number cond(A*diag(Y(:,J))) for
+      // each right-hand side using the current solution as an estimate of
+     t // he true solution.  If the componentwise error estimate is too
+      // large, then the solution is a lousy estimate of truth and the
+      // estimated RCOND may be too optimistic.  To avoid misleading users,
+     t // he inverse condition number is set to 0.0 when the estimated
+      // cwise error is at least CWISE_WRONG.
 *
          CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) )
          DO J = 1, NRHS
@@ -238,11 +238,11 @@
                RCOND_TMP = 0.0D+0
             END IF
 *
-*     Cap the error at 1.0.
+      // Cap the error at 1.0.
 *
             IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
 *
-*     Threshold the error (see LAWN).
+      // Threshold the error (see LAWN).
 *
             IF ( RCOND_TMP .LT. ILLRCOND_THRESH ) THEN
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
@@ -252,7 +252,7 @@
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0D+0
             END IF
 *
-*     Save the condition number.
+      // Save the condition number.
 *
             IF ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) THEN
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP
@@ -263,6 +263,6 @@
 *
       RETURN
 *
-*     End of ZHERFSX
+      // End of ZHERFSX
 *
       END

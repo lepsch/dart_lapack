@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               LEFT;
       int                LDA, LDB, LDE, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RESULT( 2 ), RWORK( * )
       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             NORMAB, TRANS;
       int                J, JVEC;
       REAL               ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP
       COMPLEX            ACOEFF, ALPHAI, BCOEFF, BETAI, X
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, SLAMCH
       // EXTERNAL CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CONJG, MAX, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               ABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -61,7 +61,7 @@
          NORMAB = 'O'
       END IF
 *
-*     Norm of A, B, and E:
+      // Norm of A, B, and E:
 *
       ANORM = MAX( CLANGE( NORMAB, N, N, A, LDA, RWORK ), SAFMIN )
       BNORM = MAX( CLANGE( NORMAB, N, N, B, LDB, RWORK ), SAFMIN )
@@ -69,8 +69,8 @@
       ALFMAX = SAFMAX / MAX( ONE, BNORM )
       BETMAX = SAFMAX / MAX( ONE, ANORM )
 *
-*     Compute error matrix.
-*     Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
+      // Compute error matrix.
+      // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
 *
       DO 10 JVEC = 1, N
          ALPHAI = ALPHA( JVEC )
@@ -93,11 +93,11 @@
 *
       ERRNRM = CLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM
 *
-*     Compute RESULT(1)
+      // Compute RESULT(1)
 *
       RESULT( 1 ) = ERRNRM / ULP
 *
-*     Normalization of E:
+      // Normalization of E:
 *
       ENRMER = ZERO
       DO 30 JVEC = 1, N
@@ -108,12 +108,12 @@
          ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
    30 CONTINUE
 *
-*     Compute RESULT(2) : the normalization error in E.
+      // Compute RESULT(2) : the normalization error in E.
 *
       RESULT( 2 ) = ENRMER / ( REAL( N )*ULP )
 *
       RETURN
 *
-*     End of CGET52
+      // End of CGET52
 *
       END

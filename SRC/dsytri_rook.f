@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       double             A( LDA, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                K, KP, KSTEP;
       double             AK, AKKP1, AKP1, D, T, TEMP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT;
       // EXTERNAL LSAME, DDOT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DSWAP, DSYMV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -53,22 +53,22 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Check that the diagonal matrix D is nonsingular.
+      // Check that the diagonal matrix D is nonsingular.
 *
       IF( UPPER ) THEN
 *
-*        Upper triangular storage: examine D from bottom to top
+         // Upper triangular storage: examine D from bottom to top
 *
          DO 10 INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
    10    CONTINUE
       ELSE
 *
-*        Lower triangular storage: examine D from top to bottom.
+         // Lower triangular storage: examine D from top to bottom.
 *
          DO 20 INFO = 1, N
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
@@ -78,27 +78,27 @@
 *
       IF( UPPER ) THEN
 *
-*        Compute inv(A) from the factorization A = U*D*U**T.
+         // Compute inv(A) from the factorization A = U*D*U**T.
 *
-*        K is the main loop index, increasing from 1 to N in steps of
-*        1 or 2, depending on the size of the diagonal blocks.
+         // K is the main loop index, increasing from 1 to N in steps of
+         // 1 or 2, depending on the size of the diagonal blocks.
 *
          K = 1
    30    CONTINUE
 *
-*        If K > N, exit from loop.
+         // If K > N, exit from loop.
 *
          IF( K.GT.N ) GO TO 40
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
-*           1 x 1 diagonal block
+            // 1 x 1 diagonal block
 *
-*           Invert the diagonal block.
+            // Invert the diagonal block.
 *
             A( K, K ) = ONE / A( K, K )
 *
-*           Compute column K of the inverse.
+            // Compute column K of the inverse.
 *
             IF( K.GT.1 ) THEN
                CALL DCOPY( K-1, A( 1, K ), 1, WORK, 1 )
@@ -107,9 +107,9 @@
             KSTEP = 1
          ELSE
 *
-*           2 x 2 diagonal block
+            // 2 x 2 diagonal block
 *
-*           Invert the diagonal block.
+            // Invert the diagonal block.
 *
             T = ABS( A( K, K+1 ) )
             AK = A( K, K ) / T
@@ -120,7 +120,7 @@
             A( K+1, K+1 ) = AK / D
             A( K, K+1 ) = -AKKP1 / D
 *
-*           Compute columns K and K+1 of the inverse.
+            // Compute columns K and K+1 of the inverse.
 *
             IF( K.GT.1 ) THEN
                CALL DCOPY( K-1, A( 1, K ), 1, WORK, 1 )
@@ -133,8 +133,8 @@
 *
          IF( KSTEP.EQ.1 ) THEN
 *
-*           Interchange rows and columns K and IPIV(K) in the leading
-*           submatrix A(1:k+1,1:k+1)
+            // Interchange rows and columns K and IPIV(K) in the leading
+            // submatrix A(1:k+1,1:k+1)
 *
             KP = IPIV( K )
             IF( KP.NE.K ) THEN
@@ -146,8 +146,8 @@
             END IF
          ELSE
 *
-*           Interchange rows and columns K and K+1 with -IPIV(K) and
-*           -IPIV(K+1)in the leading submatrix A(1:k+1,1:k+1)
+            // Interchange rows and columns K and K+1 with -IPIV(K) and
+            // -IPIV(K+1)in the leading submatrix A(1:k+1,1:k+1)
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
@@ -179,27 +179,27 @@
 *
       ELSE
 *
-*        Compute inv(A) from the factorization A = L*D*L**T.
+         // Compute inv(A) from the factorization A = L*D*L**T.
 *
-*        K is the main loop index, increasing from 1 to N in steps of
-*        1 or 2, depending on the size of the diagonal blocks.
+         // K is the main loop index, increasing from 1 to N in steps of
+         // 1 or 2, depending on the size of the diagonal blocks.
 *
          K = N
    50    CONTINUE
 *
-*        If K < 1, exit from loop.
+         // If K < 1, exit from loop.
 *
          IF( K.LT.1 ) GO TO 60
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
-*           1 x 1 diagonal block
+            // 1 x 1 diagonal block
 *
-*           Invert the diagonal block.
+            // Invert the diagonal block.
 *
             A( K, K ) = ONE / A( K, K )
 *
-*           Compute column K of the inverse.
+            // Compute column K of the inverse.
 *
             IF( K.LT.N ) THEN
                CALL DCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
@@ -208,9 +208,9 @@
             KSTEP = 1
          ELSE
 *
-*           2 x 2 diagonal block
+            // 2 x 2 diagonal block
 *
-*           Invert the diagonal block.
+            // Invert the diagonal block.
 *
             T = ABS( A( K, K-1 ) )
             AK = A( K-1, K-1 ) / T
@@ -221,7 +221,7 @@
             A( K, K ) = AK / D
             A( K, K-1 ) = -AKKP1 / D
 *
-*           Compute columns K-1 and K of the inverse.
+            // Compute columns K-1 and K of the inverse.
 *
             IF( K.LT.N ) THEN
                CALL DCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
@@ -234,8 +234,8 @@
 *
          IF( KSTEP.EQ.1 ) THEN
 *
-*           Interchange rows and columns K and IPIV(K) in the trailing
-*           submatrix A(k-1:n,k-1:n)
+            // Interchange rows and columns K and IPIV(K) in the trailing
+            // submatrix A(k-1:n,k-1:n)
 *
             KP = IPIV( K )
             IF( KP.NE.K ) THEN
@@ -247,8 +247,8 @@
             END IF
          ELSE
 *
-*           Interchange rows and columns K and K-1 with -IPIV(K) and
-*           -IPIV(K-1) in the trailing submatrix A(k-1:n,k-1:n)
+            // Interchange rows and columns K and K-1 with -IPIV(K) and
+            // -IPIV(K-1) in the trailing submatrix A(k-1:n,k-1:n)
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
@@ -281,6 +281,6 @@
 *
       RETURN
 *
-*     End of DSYTRI_ROOK
+      // End of DSYTRI_ROOK
 *
       END

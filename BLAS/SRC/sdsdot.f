@@ -4,19 +4,19 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL SB
       int     INCX,INCY,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL SX(*),SY(*)
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double           DSDOT;
       int     I,KX,KY,NS;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
+      // ..
       DSDOT = SB
       IF (N.LE.0) THEN
          SDSDOT = REAL(DSDOT)
@@ -24,7 +24,7 @@
       END IF
       IF (INCX.EQ.INCY .AND. INCX.GT.0) THEN
 *
-*     Code for equal and positive increments.
+      // Code for equal and positive increments.
 *
          NS = N*INCX
          DO I = 1,NS,INCX
@@ -32,7 +32,7 @@
          END DO
       ELSE
 *
-*     Code for unequal or nonpositive increments.
+      // Code for unequal or nonpositive increments.
 *
          KX = 1
          KY = 1
@@ -47,6 +47,6 @@
       SDSDOT = REAL(DSDOT)
       RETURN
 *
-*     End of SDSDOT
+      // End of SDSDOT
 *
       END

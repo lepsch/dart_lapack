@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             NORM;
       int                INFO, KL, KU, LDAB, N;
       double             ANORM, RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
       double             AB( LDAB, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LNOTI, ONENRM;
       String             NORMIN;
       int                IX, J, JP, KASE, KASE1, KD, LM;
       double             AINVNM, SCALE, SMLNUM, T;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DDOT, DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DDOT, DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DLACN2, DLATBS, DRSCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
@@ -65,7 +65,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -77,7 +77,7 @@
 *
       SMLNUM = DLAMCH( 'Safe minimum' )
 *
-*     Estimate the norm of inv(A).
+      // Estimate the norm of inv(A).
 *
       AINVNM = ZERO
       NORMIN = 'N'
@@ -94,7 +94,7 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.KASE1 ) THEN
 *
-*           Multiply by inv(L).
+            // Multiply by inv(L).
 *
             IF( LNOTI ) THEN
                DO 20 J = 1, N - 1
@@ -109,16 +109,16 @@
    20          CONTINUE
             END IF
 *
-*           Multiply by inv(U).
+            // Multiply by inv(U).
 *
             CALL DLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
          ELSE
 *
-*           Multiply by inv(U**T).
+            // Multiply by inv(U**T).
 *
             CALL DLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
 *
-*           Multiply by inv(L**T).
+            // Multiply by inv(L**T).
 *
             IF( LNOTI ) THEN
                DO 30 J = N - 1, 1, -1
@@ -134,7 +134,7 @@
             END IF
          END IF
 *
-*        Divide X by 1/SCALE if doing so will not cause overflow.
+         // Divide X by 1/SCALE if doing so will not cause overflow.
 *
          NORMIN = 'Y'
          IF( SCALE.NE.ONE ) THEN
@@ -145,13 +145,13 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    40 CONTINUE
       RETURN
 *
-*     End of DGBCON
+      // End of DGBCON
 *
       END

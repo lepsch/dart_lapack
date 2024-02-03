@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                N, R;
       REAL               PIVMIN, SIGMA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), LLD( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER        ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     Some architectures propagate Infinities and NaNs very slowly, so
-*     the code computes counts in BLKLEN chunks.  Then a NaN can
-*     propagate at most BLKLEN columns before being detected.  This is
-*     not a general tuning parameter; it needs only to be just large
-*     enough that the overhead is tiny in common cases.
+      // Some architectures propagate Infinities and NaNs very slowly, so
+     t // he code computes counts in BLKLEN chunks.  Then a NaN can
+      // propagate at most BLKLEN columns before being detected.  This is
+      // not a general tuning parameter; it needs only to be just large
+      // enough that the overhead is tiny in common cases.
       int     BLKLEN;
       PARAMETER ( BLKLEN = 128 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                BJ, J, NEG1, NEG2, NEGCNT;
       REAL               BSAV, DMINUS, DPLUS, GAMMA, P, T, TMP
       bool    SAWNAN;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN, MAX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool    SISNAN;
       // EXTERNAL SISNAN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 
       NEGCNT = 0
 
-*     I) upper part: L D L^T - SIGMA I = L+ D+ L+^T
+      // I) upper part: L D L^T - SIGMA I = L+ D+ L+^T
       T = -SIGMA
       DO 210 BJ = 1, R-1, BLKLEN
          NEG1 = 0
@@ -53,10 +53,10 @@
             T = TMP * LLD( J ) - SIGMA
  21      CONTINUE
          SAWNAN = SISNAN( T )
-*     Run a slower version of the above loop if a NaN is detected.
-*     A NaN should occur only with a zero pivot after an infinite
-*     pivot.  In that case, substituting 1 for T/DPLUS is the
-*     correct limit.
+      // Run a slower version of the above loop if a NaN is detected.
+      // A NaN should occur only with a zero pivot after an infinite
+      // pivot.  In that case, substituting 1 for T/DPLUS is the
+      // correct limit.
          IF( SAWNAN ) THEN
             NEG1 = 0
             T = BSAV
@@ -71,7 +71,7 @@
          NEGCNT = NEGCNT + NEG1
  210  CONTINUE
 *
-*     II) lower part: L D L^T - SIGMA I = U- D- U-^T
+      // II) lower part: L D L^T - SIGMA I = U- D- U-^T
       P = D( N ) - SIGMA
       DO 230 BJ = N-1, R, -BLKLEN
          NEG2 = 0
@@ -83,7 +83,7 @@
             P = TMP * D( J ) - SIGMA
  23      CONTINUE
          SAWNAN = SISNAN( P )
-*     As above, run a slower version that substitutes 1 for Inf/Inf.
+      // As above, run a slower version that substitutes 1 for Inf/Inf.
 *
          IF( SAWNAN ) THEN
             NEG2 = 0
@@ -99,8 +99,8 @@
          NEGCNT = NEGCNT + NEG2
  230  CONTINUE
 *
-*     III) Twist index
-*       T was shifted by SIGMA initially.
+      // III) Twist index
+        // T was shifted by SIGMA initially.
       GAMMA = (T + SIGMA) + P
       IF( GAMMA.LT.ZERO ) NEGCNT = NEGCNT+1
 

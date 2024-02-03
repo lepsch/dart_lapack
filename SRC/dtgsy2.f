@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N, PQ;
       double             RDSCAL, RDSUM, SCALE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *  Replaced various illegal calls to DCOPY by calls to DLASET.
 *  Sven Hammarling, 27/5/02.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDZ;
       PARAMETER          ( LDZ = 8 )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRAN;
       int                I, IE, IERR, II, IS, ISP1, J, JE, JJ, JS, JSP1, K, MB, NB, P, Q, ZDIM;
       double             ALPHA, SCALOC;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IPIV( LDZ ), JPIV( LDZ );
       double             RHS( LDZ ), Z( LDZ, LDZ );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DGEMM, DGEMV, DGER, DGESC2, DGETC2, DLASET, DLATDF, DSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test input parameters
+      // Decode and test input parameters
 *
       INFO = 0
       IERR = 0
@@ -81,7 +81,7 @@
          RETURN
       END IF
 *
-*     Determine block structure of A
+      // Determine block structure of A
 *
       PQ = 0
       P = 0
@@ -100,7 +100,7 @@
    20 CONTINUE
       IWORK( P+1 ) = M + 1
 *
-*     Determine block structure of B
+      // Determine block structure of B
 *
       Q = P + 1
       J = 1
@@ -121,10 +121,10 @@
 *
       IF( NOTRAN ) THEN
 *
-*        Solve (I, J) - subsystem
-*           A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
-*           D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
-*        for I = P, P - 1, ..., 1; J = 1, 2, ..., Q
+         // Solve (I, J) - subsystem
+            // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
+            // D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
+         // for I = P, P - 1, ..., 1; J = 1, 2, ..., Q
 *
          SCALE = ONE
          SCALOC = ONE
@@ -143,19 +143,19 @@
 *
                IF( ( MB.EQ.1 ) .AND. ( NB.EQ.1 ) ) THEN
 *
-*                 Build a 2-by-2 system Z * x = RHS
+                  // Build a 2-by-2 system Z * x = RHS
 *
                   Z( 1, 1 ) = A( IS, IS )
                   Z( 2, 1 ) = D( IS, IS )
                   Z( 1, 2 ) = -B( JS, JS )
                   Z( 2, 2 ) = -E( JS, JS )
 *
-*                 Set up right hand side(s)
+                  // Set up right hand side(s)
 *
                   RHS( 1 ) = C( IS, JS )
                   RHS( 2 ) = F( IS, JS )
 *
-*                 Solve Z * x = RHS
+                  // Solve Z * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
@@ -173,13 +173,13 @@
                      CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 *
-*                 Unpack solution vector(s)
+                  // Unpack solution vector(s)
 *
                   C( IS, JS ) = RHS( 1 )
                   F( IS, JS ) = RHS( 2 )
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( I.GT.1 ) THEN
                      ALPHA = -RHS( 1 )
@@ -191,7 +191,7 @@
 *
                ELSE IF( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) THEN
 *
-*                 Build a 4-by-4 system Z * x = RHS
+                  // Build a 4-by-4 system Z * x = RHS
 *
                   Z( 1, 1 ) = A( IS, IS )
                   Z( 2, 1 ) = ZERO
@@ -213,14 +213,14 @@
                   Z( 3, 4 ) = ZERO
                   Z( 4, 4 ) = -E( JSP1, JSP1 )
 *
-*                 Set up right hand side(s)
+                  // Set up right hand side(s)
 *
                   RHS( 1 ) = C( IS, JS )
                   RHS( 2 ) = C( IS, JSP1 )
                   RHS( 3 ) = F( IS, JS )
                   RHS( 4 ) = F( IS, JSP1 )
 *
-*                 Solve Z * x = RHS
+                  // Solve Z * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
@@ -238,15 +238,15 @@
                      CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 *
-*                 Unpack solution vector(s)
+                  // Unpack solution vector(s)
 *
                   C( IS, JS ) = RHS( 1 )
                   C( IS, JSP1 ) = RHS( 2 )
                   F( IS, JS ) = RHS( 3 )
                   F( IS, JSP1 ) = RHS( 4 )
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( I.GT.1 ) THEN
                      CALL DGER( IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC )                      CALL DGER( IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF )
@@ -257,7 +257,7 @@
 *
                ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) THEN
 *
-*                 Build a 4-by-4 system Z * x = RHS
+                  // Build a 4-by-4 system Z * x = RHS
 *
                   Z( 1, 1 ) = A( IS, IS )
                   Z( 2, 1 ) = A( ISP1, IS )
@@ -279,14 +279,14 @@
                   Z( 3, 4 ) = ZERO
                   Z( 4, 4 ) = -E( JS, JS )
 *
-*                 Set up right hand side(s)
+                  // Set up right hand side(s)
 *
                   RHS( 1 ) = C( IS, JS )
                   RHS( 2 ) = C( ISP1, JS )
                   RHS( 3 ) = F( IS, JS )
                   RHS( 4 ) = F( ISP1, JS )
 *
-*                 Solve Z * x = RHS
+                  // Solve Z * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
@@ -303,15 +303,15 @@
                      CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 *
-*                 Unpack solution vector(s)
+                  // Unpack solution vector(s)
 *
                   C( IS, JS ) = RHS( 1 )
                   C( ISP1, JS ) = RHS( 2 )
                   F( IS, JS ) = RHS( 3 )
                   F( ISP1, JS ) = RHS( 4 )
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( I.GT.1 ) THEN
                      CALL DGEMV( 'N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 )                      CALL DGEMV( 'N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 )
@@ -322,7 +322,7 @@
 *
                ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) THEN
 *
-*                 Build an 8-by-8 system Z * x = RHS
+                  // Build an 8-by-8 system Z * x = RHS
 *
                   CALL DLASET( 'F', LDZ, LDZ, ZERO, ZERO, Z, LDZ )
 *
@@ -362,7 +362,7 @@
                   Z( 4, 8 ) = -B( JSP1, JSP1 )
                   Z( 8, 8 ) = -E( JSP1, JSP1 )
 *
-*                 Set up right hand side(s)
+                  // Set up right hand side(s)
 *
                   K = 1
                   II = MB*NB + 1
@@ -373,7 +373,7 @@
                      II = II + MB
    80             CONTINUE
 *
-*                 Solve Z * x = RHS
+                  // Solve Z * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
@@ -390,7 +390,7 @@
                      CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 *
-*                 Unpack solution vector(s)
+                  // Unpack solution vector(s)
 *
                   K = 1
                   II = MB*NB + 1
@@ -401,8 +401,8 @@
                      II = II + MB
   100             CONTINUE
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( I.GT.1 ) THEN
                      CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC )                      CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF )
@@ -418,10 +418,10 @@
   120    CONTINUE
       ELSE
 *
-*        Solve (I, J) - subsystem
-*             A(I, I)**T * R(I, J) + D(I, I)**T * L(J, J)  =  C(I, J)
-*             R(I, I)  * B(J, J) + L(I, J)  * E(J, J)  = -F(I, J)
-*        for I = 1, 2, ..., P, J = Q, Q - 1, ..., 1
+         // Solve (I, J) - subsystem
+              // A(I, I)**T * R(I, J) + D(I, I)**T * L(J, J)  =  C(I, J)
+              // R(I, I)  * B(J, J) + L(I, J)  * E(J, J)  = -F(I, J)
+         // for I = 1, 2, ..., P, J = Q, Q - 1, ..., 1
 *
          SCALE = ONE
          SCALOC = ONE
@@ -440,19 +440,19 @@
                ZDIM = MB*NB*2
                IF( ( MB.EQ.1 ) .AND. ( NB.EQ.1 ) ) THEN
 *
-*                 Build a 2-by-2 system Z**T * x = RHS
+                  // Build a 2-by-2 system Z**T * x = RHS
 *
                   Z( 1, 1 ) = A( IS, IS )
                   Z( 2, 1 ) = -B( JS, JS )
                   Z( 1, 2 ) = D( IS, IS )
                   Z( 2, 2 ) = -E( JS, JS )
 *
-*                 Set up right hand side(s)
+                  // Set up right hand side(s)
 *
                   RHS( 1 ) = C( IS, JS )
                   RHS( 2 ) = F( IS, JS )
 *
-*                 Solve Z**T * x = RHS
+                  // Solve Z**T * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
@@ -466,13 +466,13 @@
                      SCALE = SCALE*SCALOC
                   END IF
 *
-*                 Unpack solution vector(s)
+                  // Unpack solution vector(s)
 *
                   C( IS, JS ) = RHS( 1 )
                   F( IS, JS ) = RHS( 2 )
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( J.GT.P+2 ) THEN
                      ALPHA = RHS( 1 )
@@ -489,7 +489,7 @@
 *
                ELSE IF( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) THEN
 *
-*                 Build a 4-by-4 system Z**T * x = RHS
+                  // Build a 4-by-4 system Z**T * x = RHS
 *
                   Z( 1, 1 ) = A( IS, IS )
                   Z( 2, 1 ) = ZERO
@@ -511,14 +511,14 @@
                   Z( 3, 4 ) = -E( JS, JSP1 )
                   Z( 4, 4 ) = -E( JSP1, JSP1 )
 *
-*                 Set up right hand side(s)
+                  // Set up right hand side(s)
 *
                   RHS( 1 ) = C( IS, JS )
                   RHS( 2 ) = C( IS, JSP1 )
                   RHS( 3 ) = F( IS, JS )
                   RHS( 4 ) = F( IS, JSP1 )
 *
-*                 Solve Z**T * x = RHS
+                  // Solve Z**T * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
@@ -531,15 +531,15 @@
                      SCALE = SCALE*SCALOC
                   END IF
 *
-*                 Unpack solution vector(s)
+                  // Unpack solution vector(s)
 *
                   C( IS, JS ) = RHS( 1 )
                   C( IS, JSP1 ) = RHS( 2 )
                   F( IS, JS ) = RHS( 3 )
                   F( IS, JSP1 ) = RHS( 4 )
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( J.GT.P+2 ) THEN
                      CALL DAXPY( JS-1, RHS( 1 ), B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 2 ), B( 1, JSP1 ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 4 ), E( 1, JSP1 ), 1, F( IS, 1 ), LDF )
@@ -550,7 +550,7 @@
 *
                ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) THEN
 *
-*                 Build a 4-by-4 system Z**T * x = RHS
+                  // Build a 4-by-4 system Z**T * x = RHS
 *
                   Z( 1, 1 ) = A( IS, IS )
                   Z( 2, 1 ) = A( IS, ISP1 )
@@ -572,14 +572,14 @@
                   Z( 3, 4 ) = ZERO
                   Z( 4, 4 ) = -E( JS, JS )
 *
-*                 Set up right hand side(s)
+                  // Set up right hand side(s)
 *
                   RHS( 1 ) = C( IS, JS )
                   RHS( 2 ) = C( ISP1, JS )
                   RHS( 3 ) = F( IS, JS )
                   RHS( 4 ) = F( ISP1, JS )
 *
-*                 Solve Z**T * x = RHS
+                  // Solve Z**T * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
@@ -593,15 +593,15 @@
                      SCALE = SCALE*SCALOC
                   END IF
 *
-*                 Unpack solution vector(s)
+                  // Unpack solution vector(s)
 *
                   C( IS, JS ) = RHS( 1 )
                   C( ISP1, JS ) = RHS( 2 )
                   F( IS, JS ) = RHS( 3 )
                   F( ISP1, JS ) = RHS( 4 )
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( J.GT.P+2 ) THEN
                      CALL DGER( MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DGER( MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF )
@@ -612,7 +612,7 @@
 *
                ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) THEN
 *
-*                 Build an 8-by-8 system Z**T * x = RHS
+                  // Build an 8-by-8 system Z**T * x = RHS
 *
                   CALL DLASET( 'F', LDZ, LDZ, ZERO, ZERO, Z, LDZ )
 *
@@ -652,7 +652,7 @@
                   Z( 6, 8 ) = -E( JS, JSP1 )
                   Z( 8, 8 ) = -E( JSP1, JSP1 )
 *
-*                 Set up right hand side(s)
+                  // Set up right hand side(s)
 *
                   K = 1
                   II = MB*NB + 1
@@ -664,7 +664,7 @@
   160             CONTINUE
 *
 *
-*                 Solve Z**T * x = RHS
+                  // Solve Z**T * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
                   IF( IERR.GT.0 ) INFO = IERR
@@ -678,7 +678,7 @@
                      SCALE = SCALE*SCALOC
                   END IF
 *
-*                 Unpack solution vector(s)
+                  // Unpack solution vector(s)
 *
                   K = 1
                   II = MB*NB + 1
@@ -689,8 +689,8 @@
                      II = II + MB
   180             CONTINUE
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( J.GT.P+2 ) THEN
                      CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                      CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF )
@@ -707,6 +707,6 @@
       END IF
       RETURN
 *
-*     End of DTGSY2
+      // End of DTGSY2
 *
       END

@@ -4,13 +4,13 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             A, B, C, D, P, Q;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             BS;
       PARAMETER          ( BS = 2.0D0 )
       double             HALF;
@@ -18,20 +18,20 @@
       double             TWO;
       PARAMETER          ( TWO = 2.0D0 )
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double             AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLADIV1
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       AA = A
       BB = B
@@ -77,7 +77,7 @@
 *
       RETURN
 *
-*     End of DLADIV
+      // End of DLADIV
 *
       END
 
@@ -90,24 +90,24 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             A, B, C, D, P, Q;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double             R, T;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLADIV2;
       // EXTERNAL DLADIV2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       R = D / C
       T = ONE / (C + D * R)
@@ -117,7 +117,7 @@
 *
       RETURN
 *
-*     End of DLADIV1
+      // End of DLADIV1
 *
       END
 
@@ -129,20 +129,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             A, B, C, D, R, T;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double             BR;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( R.NE.ZERO ) THEN
          BR = B * R
@@ -157,6 +157,6 @@
 *
       RETURN
 *
-*     End of DLADIV2
+      // End of DLADIV2
 *
       END

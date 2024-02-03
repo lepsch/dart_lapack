@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                INFO, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               NOTRAN;
       int                ITRANS, J, JB, NB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGTTS2, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOTRAN = ( TRANS.EQ.'N' .OR. TRANS.EQ.'n' )
@@ -47,11 +47,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
-*     Decode TRANS
+      // Decode TRANS
 *
       IF( NOTRAN ) THEN
          ITRANS = 0
@@ -59,7 +59,7 @@
          ITRANS = 1
       END IF
 *
-*     Determine the number of right-hand sides to solve at a time.
+      // Determine the number of right-hand sides to solve at a time.
 *
       IF( NRHS.EQ.1 ) THEN
          NB = 1
@@ -76,6 +76,6 @@
    10    CONTINUE
       END IF
 *
-*     End of SGTTRS
+      // End of SGTTRS
 *
       END

@@ -1,26 +1,26 @@
       program zabs
 *
 *  -- LAPACK test routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
-*     ..
-*     .. Local parameters ..
+      // ..
+      // .. Local parameters ..
       bool              debug;
       parameter       ( debug = .false. )
       int               N, nNaN, nInf;
       parameter       ( N = 4, nNaN = 3, nInf = 5 )
       double            threeFourth, fiveFourth, oneHalf;
       parameter       ( threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4, oneHalf = 1.0d0 / 2 )
-*     ..
-*     .. Local Variables ..
+      // ..
+      // .. Local Variables ..
       int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, nFailingTests, nTests       double            X( N ), R, answerC, answerD, aInf, aNaN, relDiff, b, eps, blueMin, blueMax, Xj, stepX(N), limX(N);;
       double complex    Y, cInf( nInf ), cNaN( nNaN )
 *
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // intrinsic ABS, DBLE, RADIX, CEILING, TINY, DIGITS, SQRT, MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX, EPSILON
 
 *
-*     .. Initialize error counts ..
+      // .. Initialize error counts ..
       subnormalTreatedAs0 = 0
       caseAFails = 0
       caseBFails = 0
@@ -31,7 +31,7 @@
       nFailingTests = 0
       nTests = 0
 *
-*     .. Initialize machine constants ..
+      // .. Initialize machine constants ..
       min = MINEXPONENT(0.0d0)
       Max = MAXEXPONENT(0.0d0)
       m = DIGITS(0.0d0)
@@ -40,25 +40,25 @@
       blueMin = b**CEILING( (min - 1) * 0.5d0 )
       blueMax = b**FLOOR( (Max - m + 1) * 0.5d0 )
 *
-*     .. Vector X ..
+      // .. Vector X ..
       X(1) = TINY(0.0d0) * b**( DBLE(1-m) )
       X(2) = TINY(0.0d0)
       X(3) = HUGE(0.0d0)
       X(4) = b**( DBLE(Max-1) )
 *
-*     .. Then modify X using the step ..
+      // .. Then modify X using the step ..
       stepX(1) = 2.0
       stepX(2) = 2.0
       stepX(3) = 0.0
       stepX(4) = 0.5
 *
-*     .. Up to the value ..
+      // .. Up to the value ..
       limX(1) = X(2)
       limX(2) = 1.0
       limX(3) = 0.0
       limX(4) = 2.0
 *
-*     .. Inf entries ..
+      // .. Inf entries ..
       aInf = X(3) * 2
       cInf(1) = DCMPLX( aInf, 0.0d0 )
       cInf(2) = DCMPLX(-aInf, 0.0d0 )
@@ -66,14 +66,14 @@
       cInf(4) = DCMPLX( 0.0d0,-aInf )
       cInf(5) = DCMPLX( aInf,  aInf )
 *
-*     .. NaN entries ..
+      // .. NaN entries ..
       aNaN = aInf / aInf
       cNaN(1) = DCMPLX( aNaN, 0.0d0 )
       cNaN(2) = DCMPLX( 0.0d0, aNaN )
       cNaN(3) = DCMPLX( aNaN,  aNaN )
 
 *
-*     .. Tests ..
+      // .. Tests ..
 *
       if( debug ) then
         print *, '# X :=', X
@@ -99,7 +99,7 @@
  100    continue
       endif
 *
-*     Test (a) y = x + 0 * I, |y| = x
+      // Test (a) y = x + 0 * I, |y| = x
       do 10 i = 1, N
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
@@ -124,7 +124,7 @@
         endif
   10  continue
 *
-*     Test (b) y = 0 + x * I, |y| = x
+      // Test (b) y = 0 + x * I, |y| = x
       do 20 i = 1, N
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
@@ -149,7 +149,7 @@
         endif
   20  continue
 *
-*     Test (c) y = (3/4)*x + x * I, |y| = (5/4)*x
+      // Test (c) y = (3/4)*x + x * I, |y| = (5/4)*x
       do 30 i = 1, N
         if( i .eq. 3 ) go to 30
         if( i .eq. 1 ) then
@@ -180,7 +180,7 @@
         endif
   30  continue
 *
-*     Test (d) y = (1/2)*x + (1/2)*x * I, |y| = (1/2)*x*sqrt(2)
+      // Test (d) y = (1/2)*x + (1/2)*x * I, |y| = (1/2)*x*sqrt(2)
       do 40 i = 1, N
         if( i .eq. 1 ) then
             Xj = 2*X(i)
@@ -218,7 +218,7 @@
         endif
   40  continue
 *
-*     Test (e) Infs
+      // Test (e) Infs
       do 50 i = 1, nInf
         nTests = nTests + 1
         Y = cInf(i)
@@ -229,7 +229,7 @@
         endif
   50  continue
 *
-*     Test (f) NaNs
+      // Test (f) NaNs
       do 60 i = 1, nNaN
         nTests = nTests + 1
         Y = cNaN(i)
@@ -240,7 +240,7 @@
         endif
   60  continue
 *
-*     If any test fails, displays a message
+      // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails
       if( nFailingTests .gt. 0 ) then
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for ABS(a+b*I),", nFailingTests, " tests fail."
@@ -248,12 +248,12 @@
          print *, "# All tests pass for ABS(a+b*I)"
       endif
 *
-*     If anything was written to stderr, print the message
+      // If anything was written to stderr, print the message
       if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) ) then
          print *, "# Please check the failed ABS(a+b*I) in [stderr]"
       endif
 *
-*     .. Formats ..
+      // .. Formats ..
  9997 FORMAT( '[',A1,I1, '] ABS(', (ES8.1,SP,ES8.1,"*I"), ' ) = ',
      $        ES8.1, ' differs from Inf' )
 *
@@ -263,6 +263,6 @@
  9999 FORMAT( '[',A1,I1, '] ABS(', ES24.16E3, ' * ', A7, ' ) = ',
      $         ES24.16E3, ' differs from ', ES24.16E3 )
 *
-*     End of zabs
+      // End of zabs
 *
       END

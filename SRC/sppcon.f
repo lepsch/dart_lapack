@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
       REAL               ANORM, RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               AP( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       String             NORMIN;
       int                IX, KASE;
       REAL               AINVNM, SCALE, SCALEL, SCALEU, SMLNUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
       REAL               SLAMCH
       // EXTERNAL LSAME, ISAMAX, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLACN2, SLATPS, SRSCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -59,7 +59,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -71,7 +71,7 @@
 *
       SMLNUM = SLAMCH( 'Safe minimum' )
 *
-*     Estimate the 1-norm of the inverse.
+      // Estimate the 1-norm of the inverse.
 *
       KASE = 0
       NORMIN = 'N'
@@ -80,27 +80,27 @@
       IF( KASE.NE.0 ) THEN
          IF( UPPER ) THEN
 *
-*           Multiply by inv(U**T).
+            // Multiply by inv(U**T).
 *
             CALL SLATPS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
-*           Multiply by inv(U).
+            // Multiply by inv(U).
 *
             CALL SLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          ELSE
 *
-*           Multiply by inv(L).
+            // Multiply by inv(L).
 *
             CALL SLATPS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
-*           Multiply by inv(L**T).
+            // Multiply by inv(L**T).
 *
             CALL SLATPS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          END IF
 *
-*        Multiply by 1/SCALE if doing so will not cause overflow.
+         // Multiply by 1/SCALE if doing so will not cause overflow.
 *
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
@@ -111,13 +111,13 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    20 CONTINUE
       RETURN
 *
-*     End of SPPCON
+      // End of SPPCON
 *
       END

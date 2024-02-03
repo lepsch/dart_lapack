@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, ITYPE, LDA, LDB, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * ), W( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             TRANS;
       int                LWKOPT, NB, NEIG;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZHEEV, ZHEGST, ZPOTRF, ZTRMM, ZTRSM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -75,11 +75,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Form a Cholesky factorization of B.
+      // Form a Cholesky factorization of B.
 *
       CALL ZPOTRF( UPLO, N, B, LDB, INFO )
       IF( INFO.NE.0 ) THEN
@@ -87,21 +87,21 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem and solve.
+      // Transform problem to standard eigenvalue problem and solve.
 *
       CALL ZHEGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
       CALL ZHEEV( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO )
 *
       IF( WANTZ ) THEN
 *
-*        Backtransform eigenvectors to the original problem.
+         // Backtransform eigenvectors to the original problem.
 *
          NEIG = N
          IF( INFO.GT.0 ) NEIG = INFO - 1
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
 *
-*           For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
-*           backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
+            // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
+            // backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
 *
             IF( UPPER ) THEN
                TRANS = 'N'
@@ -113,8 +113,8 @@
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*           For B*A*x=(lambda)*x;
-*           backtransform eigenvectors: x = L*y or U**H *y
+            // For B*A*x=(lambda)*x;
+            // backtransform eigenvectors: x = L*y or U**H *y
 *
             IF( UPPER ) THEN
                TRANS = 'C'
@@ -130,6 +130,6 @@
 *
       RETURN
 *
-*     End of ZHEGV
+      // End of ZHEGV
 *
       END

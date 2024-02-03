@@ -6,42 +6,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, LDA, LIWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               A( LDA, * ), W( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
 *
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LLWRK2, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS;
       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
       REAL               SLAMCH, SLANSY
       // EXTERNAL LSAME, SLAMCH, SLANSY, ILAENV2STAGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLACPY, SLASCL, SORMTR, SSCAL, SSTEDC, SSTERF, SSYTRD_2STAGE, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LOWER = LSAME( UPLO, 'L' )
@@ -89,7 +89,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -99,7 +99,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS    = SLAMCH( 'Precision' )
@@ -108,7 +108,7 @@
       RMIN   = SQRT( SMLNUM )
       RMAX   = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ANRM = SLANSY( 'M', UPLO, N, A, LDA, WORK )
       ISCALE = 0
@@ -121,7 +121,7 @@
       END IF
       IF( ISCALE.EQ.1 ) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
-*     Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
+      // Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 *
       INDE    = 1
       INDTAU  = INDE + N
@@ -133,22 +133,22 @@
 *
       CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
-*     For eigenvalues only, call SSTERF.  For eigenvectors, first call
-*     SSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
-*     tridiagonal matrix, then call SORMTR to multiply it by the
-*     Householder transformations stored in A.
+      // For eigenvalues only, call SSTERF.  For eigenvectors, first call
+      // SSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
+     t // ridiagonal matrix, then call SORMTR to multiply it by the
+      // Householder transformations stored in A.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
       ELSE
-*        Not available in this release, and argument checking should not
-*        let it getting here
+         // Not available in this release, and argument checking should not
+         // let it getting here
          RETURN
          CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL SORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL SLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) CALL SSCAL( N, ONE / SIGMA, W, 1 )
 *
@@ -157,6 +157,6 @@
 *
       RETURN
 *
-*     End of SSYEVD_2STAGE
+      // End of SSYEVD_2STAGE
 *
       END

@@ -4,14 +4,14 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO;
       REAL               RMAX
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDT;
       PARAMETER          ( LDT = 10 )
       REAL               ZERO, ONE, TWO
@@ -20,35 +20,35 @@
       PARAMETER          ( LARGE = 1.0E6 )
       COMPLEX            CONE
       PARAMETER          ( CONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N       REAL               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM;
       COMPLEX            RMUL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUM( 1 ), VM1( 3 ), VM2( 3 )
       COMPLEX            A( LDT, LDT ), ATMP( LDT, LDT ), B( LDT, LDT ), BTMP( LDT, LDT ), C( LDT, LDT ), CSAV( LDT, LDT ), CTMP( LDT, LDT )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, SLAMCH
       // EXTERNAL CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CTRSYL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Set up test case parameters
+      // Set up test case parameters
 *
       VM1( 1 ) = SQRT( SMLNUM )
       VM1( 2 ) = ONE
@@ -62,7 +62,7 @@
       LMAX = 0
       RMAX = ZERO
 *
-*     Begin test loop
+      // Begin test loop
 *
    10 CONTINUE
       READ( NIN, FMT = * )M, N
@@ -133,6 +133,6 @@
   170 CONTINUE
       GO TO 10
 *
-*     End of CGET35
+      // End of CGET35
 *
       END

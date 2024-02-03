@@ -4,24 +4,24 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, K1, K2, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               A( LDA, * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, I1, I2, INC, IP, IX, IX0, J, K, N32;
       REAL               TEMP
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Interchange row I with row IPIV(K1+(I-K1)*abs(INCX)) for each of rows
-*     K1 through K2.
+      // Interchange row I with row IPIV(K1+(I-K1)*abs(INCX)) for each of rows
+      // K1 through K2.
 *
       IF( INCX.GT.0 ) THEN
          IX0 = K1
@@ -72,6 +72,6 @@
 *
       RETURN
 *
-*     End of SLASWP
+      // End of SLASWP
 *
       END

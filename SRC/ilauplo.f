@@ -4,21 +4,21 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int     BLAS_UPPER, BLAS_LOWER;
       PARAMETER ( BLAS_UPPER = 121, BLAS_LOWER = 122 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       IF( LSAME( UPLO, 'U' ) ) THEN
          ILAUPLO = BLAS_UPPER
       ELSE IF( LSAME( UPLO, 'L' ) ) THEN
@@ -28,6 +28,6 @@
       END IF
       RETURN
 *
-*     End of ILAUPLO
+      // End of ILAUPLO
 *
       END

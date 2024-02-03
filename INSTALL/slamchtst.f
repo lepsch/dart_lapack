@@ -1,10 +1,10 @@
       REAL               BASE, EMAX, EMIN, EPS, RMAX, RMIN, RND, SFMIN, T, PREC
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS   = SLAMCH( 'Epsilon' )
       SFMIN = SLAMCH( 'Safe minimum' )

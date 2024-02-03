@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             CMACH;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FIRST, LRND;
       int                BETA, IMAX, IMIN, IT;
       REAL               BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAMC2
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE               FIRST, EPS, SFMIN, BASE, T, RND, EMIN, RMIN, EMAX, RMAX, PREC
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               FIRST / .TRUE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( FIRST ) THEN
          CALL SLAMC2( BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX )
@@ -49,8 +49,8 @@
          SMALL = ONE / RMAX
          IF( SMALL.GE.SFMIN ) THEN
 *
-*           Use SMALL plus a bit, to avoid the possibility of rounding
-*           causing overflow when computing  1/sfmin.
+            // Use SMALL plus a bit, to avoid the possibility of rounding
+            // causing overflow when computing  1/sfmin.
 *
             SFMIN = SMALL*( ONE+EPS )
          END IF
@@ -82,7 +82,7 @@
       FIRST  = .FALSE.
       RETURN
 *
-*     End of SLAMCH
+      // End of SLAMCH
 *
       END
 *
@@ -139,45 +139,45 @@
       SUBROUTINE SLAMC1( BETA, T, RND, IEEE1 )
 *
 *  -- LAPACK auxiliary routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               IEEE1, RND;
       int                BETA, T;
-*     ..
+      // ..
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               FIRST, LIEEE1, LRND;
       int                LBETA, LT;
       REAL               A, B, C, F, ONE, QTR, SAVEC, T1, T2
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMC3
       // EXTERNAL SLAMC3
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE               FIRST, LIEEE1, LBETA, LRND, LT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               FIRST / .TRUE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( FIRST ) THEN
          ONE = 1
 *
-*        LBETA,  LIEEE1,  LT and  LRND  are the  local values  of  BETA,
-*        IEEE1, T and RND.
+         // LBETA,  LIEEE1,  LT and  LRND  are the  local values  of  BETA,
+         // IEEE1, T and RND.
 *
-*        Throughout this routine  we use the function  SLAMC3  to ensure
-*        that relevant values are  stored and not held in registers,  or
-*        are not affected by optimizers.
+         // Throughout this routine  we use the function  SLAMC3  to ensure
+        t // hat relevant values are  stored and not held in registers,  or
+         // are not affected by optimizers.
 *
-*        Compute  a = 2.0**m  with the  smallest positive integer m such
-*        that
+         // Compute  a = 2.0**m  with the  smallest positive integer m such
+        t // hat
 *
-*           fl( a + 1.0 ) = a.
+            // fl( a + 1.0 ) = a.
 *
          A = 1
          C = 1
@@ -192,10 +192,10 @@
          END IF
 *+       END WHILE
 *
-*        Now compute  b = 2.0**m  with the smallest positive integer m
-*        such that
+         // Now compute  b = 2.0**m  with the smallest positive integer m
+         // such that
 *
-*           fl( a + b ) .gt. a.
+            // fl( a + b ) .gt. a.
 *
          B = 1
          C = SLAMC3( A, B )
@@ -209,18 +209,18 @@
          END IF
 *+       END WHILE
 *
-*        Now compute the base.  a and c  are neighbouring floating point
-*        numbers  in the  interval  ( beta**t, beta**( t + 1 ) )  and so
-*        their difference is beta. Adding 0.25 to c is to ensure that it
-*        is truncated to beta and not ( beta - 1 ).
+         // Now compute the base.  a and c  are neighbouring floating point
+         // numbers  in the  interval  ( beta**t, beta**( t + 1 ) )  and so
+        t // heir difference is beta. Adding 0.25 to c is to ensure that it
+         // is truncated to beta and not ( beta - 1 ).
 *
          QTR = ONE / 4
          SAVEC = C
          C = SLAMC3( C, -A )
          LBETA = C + QTR
 *
-*        Now determine whether rounding or chopping occurs,  by adding a
-*        bit  less  than  beta/2  and a  bit  more  than  beta/2  to  a.
+         // Now determine whether rounding or chopping occurs,  by adding a
+         // bit  less  than  beta/2  and a  bit  more  than  beta/2  to  a.
 *
          B = LBETA
          F = SLAMC3( B / 2, -B / 100 )
@@ -234,22 +234,22 @@
          C = SLAMC3( F, A )
          IF( ( LRND ) .AND. ( C.EQ.A ) ) LRND = .FALSE.
 *
-*        Try and decide whether rounding is done in the  IEEE  'round to
-*        nearest' style. B/2 is half a unit in the last place of the two
-*        numbers A and SAVEC. Furthermore, A is even, i.e. has last  bit
-*        zero, and SAVEC is odd. Thus adding B/2 to A should not  change
-*        A, but adding B/2 to SAVEC should change SAVEC.
+         // Try and decide whether rounding is done in the  IEEE  'round to
+         // nearest' style. B/2 is half a unit in the last place of the two
+         // numbers A and SAVEC. Furthermore, A is even, i.e. has last  bit
+         // zero, and SAVEC is odd. Thus adding B/2 to A should not  change
+         // A, but adding B/2 to SAVEC should change SAVEC.
 *
          T1 = SLAMC3( B / 2, A )
          T2 = SLAMC3( B / 2, SAVEC )
          LIEEE1 = ( T1.EQ.A ) .AND. ( T2.GT.SAVEC ) .AND. LRND
 *
-*        Now find  the  mantissa, t.  It should  be the  integer part of
-*        log to the base beta of a,  however it is safer to determine  t
-*        by powering.  So we find t as the smallest positive integer for
-*        which
+         // Now find  the  mantissa, t.  It should  be the  integer part of
+         // log to the base beta of a,  however it is safer to determine  t
+         // by powering.  So we find t as the smallest positive integer for
+         // which
 *
-*           fl( beta**t + 1.0 ) = 1.0.
+            // fl( beta**t + 1.0 ) = 1.0.
 *
          LT = 0
          A = 1
@@ -275,7 +275,7 @@
       FIRST = .FALSE.
       RETURN
 *
-*     End of SLAMC1
+      // End of SLAMC1
 *
       END
 *
@@ -350,60 +350,60 @@
       SUBROUTINE SLAMC2( BETA, T, RND, EPS, EMIN, RMIN, EMAX, RMAX )
 *
 *  -- LAPACK auxiliary routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               RND;
       int                BETA, EMAX, EMIN, T;
       REAL               EPS, RMAX, RMIN
-*     ..
+      // ..
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
       int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       REAL               A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMC3
       // EXTERNAL SLAMC3
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAMC1, SLAMC4, SLAMC5
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE               FIRST, IWARN, LBETA, LEMAX, LEMIN, LEPS, LRMAX, LRMIN, LT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               FIRST / .TRUE. / , IWARN / .FALSE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( FIRST ) THEN
          ZERO = 0
          ONE = 1
          TWO = 2
 *
-*        LBETA, LT, LRND, LEPS, LEMIN and LRMIN  are the local values of
-*        BETA, T, RND, EPS, EMIN and RMIN.
+         // LBETA, LT, LRND, LEPS, LEMIN and LRMIN  are the local values of
+         // BETA, T, RND, EPS, EMIN and RMIN.
 *
-*        Throughout this routine  we use the function  SLAMC3  to ensure
-*        that relevant values are stored  and not held in registers,  or
-*        are not affected by optimizers.
+         // Throughout this routine  we use the function  SLAMC3  to ensure
+        t // hat relevant values are stored  and not held in registers,  or
+         // are not affected by optimizers.
 *
-*        SLAMC1 returns the parameters  LBETA, LT, LRND and LIEEE1.
+         // SLAMC1 returns the parameters  LBETA, LT, LRND and LIEEE1.
 *
          CALL SLAMC1( LBETA, LT, LRND, LIEEE1 )
 *
-*        Start to find EPS.
+         // Start to find EPS.
 *
          B = LBETA
          A = B**( -LT )
          LEPS = A
 *
-*        Try some tricks to see whether or not this is the correct  EPS.
+         // Try some tricks to see whether or not this is the correct  EPS.
 *
          B = TWO / 3
          HALF = ONE / 2
@@ -431,11 +431,11 @@
 *
          IF( A.LT.LEPS ) LEPS = A
 *
-*        Computation of EPS complete.
+         // Computation of EPS complete.
 *
-*        Now find  EMIN.  Let A = + or - 1, and + or - (1 + BASE**(-3)).
-*        Keep dividing  A by BETA until (gradual) underflow occurs. This
-*        is detected when we cannot recover the previous A.
+         // Now find  EMIN.  Let A = + or - 1, and + or - (1 + BASE**(-3)).
+         // Keep dividing  A by BETA until (gradual) underflow occurs. This
+         // is detected when we cannot recover the previous A.
 *
          RBASE = ONE / LBETA
          SMALL = ONE
@@ -452,44 +452,44 @@
          IF( ( NGPMIN.EQ.NGNMIN ) .AND. ( GPMIN.EQ.GNMIN ) ) THEN
             IF( NGPMIN.EQ.GPMIN ) THEN
                LEMIN = NGPMIN
-*            ( Non twos-complement machines, no gradual underflow;
-*              e.g.,  VAX )
+             // ( Non twos-complement machines, no gradual underflow;
+               // e.g.,  VAX )
             ELSE IF( ( GPMIN-NGPMIN ).EQ.3 ) THEN
                LEMIN = NGPMIN - 1 + LT
                IEEE = .TRUE.
-*            ( Non twos-complement machines, with gradual underflow;
-*              e.g., IEEE standard followers )
+             // ( Non twos-complement machines, with gradual underflow;
+               // e.g., IEEE standard followers )
             ELSE
                LEMIN = MIN( NGPMIN, GPMIN )
-*            ( A guess; no known machine )
+             // ( A guess; no known machine )
                IWARN = .TRUE.
             END IF
 *
          ELSE IF( ( NGPMIN.EQ.GPMIN ) .AND. ( NGNMIN.EQ.GNMIN ) ) THEN
             IF( ABS( NGPMIN-NGNMIN ).EQ.1 ) THEN
                LEMIN = MAX( NGPMIN, NGNMIN )
-*            ( Twos-complement machines, no gradual underflow;
-*              e.g., CYBER 205 )
+             // ( Twos-complement machines, no gradual underflow;
+               // e.g., CYBER 205 )
             ELSE
                LEMIN = MIN( NGPMIN, NGNMIN )
-*            ( A guess; no known machine )
+             // ( A guess; no known machine )
                IWARN = .TRUE.
             END IF
 *
          ELSE IF( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND. ( GPMIN.EQ.GNMIN ) ) THEN
             IF( ( GPMIN-MIN( NGPMIN, NGNMIN ) ).EQ.3 ) THEN
                LEMIN = MAX( NGPMIN, NGNMIN ) - 1 + LT
-*            ( Twos-complement machines with gradual underflow;
-*              no known machine )
+             // ( Twos-complement machines with gradual underflow;
+               // no known machine )
             ELSE
                LEMIN = MIN( NGPMIN, NGNMIN )
-*            ( A guess; no known machine )
+             // ( A guess; no known machine )
                IWARN = .TRUE.
             END IF
 *
          ELSE
             LEMIN = MIN( NGPMIN, NGNMIN, GPMIN, GNMIN )
-*         ( A guess; no known machine )
+          // ( A guess; no known machine )
             IWARN = .TRUE.
          END IF
          FIRST = .FALSE.
@@ -501,23 +501,23 @@
          END IF
 ***
 *
-*        Assume IEEE arithmetic if we found denormalised  numbers above,
-*        or if arithmetic seems to round in the  IEEE style,  determined
-*        in routine SLAMC1. A true IEEE machine should have both  things
-*        true; however, faulty machines may have one or the other.
+         // Assume IEEE arithmetic if we found denormalised  numbers above,
+         // or if arithmetic seems to round in the  IEEE style,  determined
+         // in routine SLAMC1. A true IEEE machine should have both  things
+        t // rue; however, faulty machines may have one or the other.
 *
          IEEE = IEEE .OR. LIEEE1
 *
-*        Compute  RMIN by successive division by  BETA. We could compute
-*        RMIN as BASE**( EMIN - 1 ),  but some machines underflow during
-*        this computation.
+         // Compute  RMIN by successive division by  BETA. We could compute
+         // RMIN as BASE**( EMIN - 1 ),  but some machines underflow during
+        t // his computation.
 *
          LRMIN = 1
          DO 30 I = 1, 1 - LEMIN
             LRMIN = SLAMC3( LRMIN*RBASE, ZERO )
    30    CONTINUE
 *
-*        Finally, call SLAMC5 to compute EMAX and RMAX.
+         // Finally, call SLAMC5 to compute EMAX and RMAX.
 *
          CALL SLAMC5( LBETA, LT, LEMIN, IEEE, LEMAX, LRMAX )
       END IF
@@ -540,7 +540,7 @@
      $      / ' the IF block as marked within the code of routine',
      $      ' SLAMC2,', / ' otherwise supply EMIN explicitly.', / )
 *
-*     End of SLAMC2
+      // End of SLAMC2
 *
       END
 *
@@ -566,20 +566,20 @@
       REAL FUNCTION SLAMC3( A, B )
 *
 *  -- LAPACK auxiliary routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               A, B
-*     ..
+      // ..
 * =====================================================================
 *
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       SLAMC3 = A + B
 *
       RETURN
 *
-*     End of SLAMC3
+      // End of SLAMC3
 *
       END
 *
@@ -613,24 +613,24 @@
       SUBROUTINE SLAMC4( EMIN, START, BASE )
 *
 *  -- LAPACK auxiliary routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                BASE;
       int                EMIN;
       REAL               START
-*     ..
+      // ..
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I;
       REAL               A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMC3
       // EXTERNAL SLAMC3
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       A = START
       ONE = 1
@@ -666,7 +666,7 @@
 *
       RETURN
 *
-*     End of SLAMC4
+      // End of SLAMC4
 *
       END
 *
@@ -720,36 +720,36 @@
       SUBROUTINE SLAMC5( BETA, P, EMIN, IEEE, EMAX, RMAX )
 *
 *  -- LAPACK auxiliary routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               IEEE;
       int                BETA, EMAX, EMIN, P;
       REAL               RMAX
-*     ..
+      // ..
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP;
       REAL               OLDY, RECBAS, Y, Z
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMC3
       // EXTERNAL SLAMC3
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     First compute LEXP and UEXP, two powers of 2 that bound
-*     abs(EMIN). We then assume that EMAX + abs(EMIN) will sum
-*     approximately to the bound that is closest to abs(EMIN).
-*     (EMAX is the exponent of the required number RMAX).
+      // First compute LEXP and UEXP, two powers of 2 that bound
+      // abs(EMIN). We then assume that EMAX + abs(EMIN) will sum
+      // approximately to the bound that is closest to abs(EMIN).
+      // (EMAX is the exponent of the required number RMAX).
 *
       LEXP = 1
       EXBITS = 1
@@ -767,9 +767,9 @@
          EXBITS = EXBITS + 1
       END IF
 *
-*     Now -LEXP is less than or equal to EMIN, and -UEXP is greater
-*     than or equal to EMIN. EXBITS is the number of bits needed to
-*     store the exponent.
+      // Now -LEXP is less than or equal to EMIN, and -UEXP is greater
+     t // han or equal to EMIN. EXBITS is the number of bits needed to
+      // store the exponent.
 *
       IF( ( UEXP+EMIN ).GT.( -LEXP-EMIN ) ) THEN
          EXPSUM = 2*LEXP
@@ -777,44 +777,44 @@
          EXPSUM = 2*UEXP
       END IF
 *
-*     EXPSUM is the exponent range, approximately equal to
-*     EMAX - EMIN + 1 .
+      // EXPSUM is the exponent range, approximately equal to
+      // EMAX - EMIN + 1 .
 *
       EMAX = EXPSUM + EMIN - 1
       NBITS = 1 + EXBITS + P
 *
-*     NBITS is the total number of bits needed to store a
-*     floating-point number.
+      // NBITS is the total number of bits needed to store a
+      // floating-point number.
 *
       IF( ( MOD( NBITS, 2 ).EQ.1 ) .AND. ( BETA.EQ.2 ) ) THEN
 *
-*        Either there are an odd number of bits used to store a
-*        floating-point number, which is unlikely, or some bits are
-*        not used in the representation of numbers, which is possible,
-*        (e.g. Cray machines) or the mantissa has an implicit bit,
-*        (e.g. IEEE machines, Dec Vax machines), which is perhaps the
-*        most likely. We have to assume the last alternative.
-*        If this is true, then we need to reduce EMAX by one because
-*        there must be some way of representing zero in an implicit-bit
-*        system. On machines like Cray, we are reducing EMAX by one
-*        unnecessarily.
+         // Either there are an odd number of bits used to store a
+         // floating-point number, which is unlikely, or some bits are
+         // not used in the representation of numbers, which is possible,
+         // (e.g. Cray machines) or the mantissa has an implicit bit,
+         // (e.g. IEEE machines, Dec Vax machines), which is perhaps the
+         // most likely. We have to assume the last alternative.
+         // If this is true, then we need to reduce EMAX by one because
+        t // here must be some way of representing zero in an implicit-bit
+         // system. On machines like Cray, we are reducing EMAX by one
+         // unnecessarily.
 *
          EMAX = EMAX - 1
       END IF
 *
       IF( IEEE ) THEN
 *
-*        Assume we are on an IEEE machine which reserves one exponent
-*        for infinity and NaN.
+         // Assume we are on an IEEE machine which reserves one exponent
+         // for infinity and NaN.
 *
          EMAX = EMAX - 1
       END IF
 *
-*     Now create RMAX, the largest machine number, which should
-*     be equal to (1.0 - BETA**(-P)) * BETA**EMAX .
+      // Now create RMAX, the largest machine number, which should
+      // be equal to (1.0 - BETA**(-P)) * BETA**EMAX .
 *
-*     First compute 1.0 - BETA**(-P), being careful that the
-*     result is less than 1.0 .
+      // First compute 1.0 - BETA**(-P), being careful that the
+      // result is less than 1.0 .
 *
       RECBAS = ONE / BETA
       Z = BETA - ONE
@@ -826,7 +826,7 @@
    20 CONTINUE
       IF( Y.GE.ONE ) Y = OLDY
 *
-*     Now multiply by BETA**EMAX to get RMAX.
+      // Now multiply by BETA**EMAX to get RMAX.
 *
       DO 30 I = 1, EMAX
          Y = SLAMC3( Y*BETA, ZERO )
@@ -835,6 +835,6 @@
       RMAX = Y
       RETURN
 *
-*     End of SLAMC5
+      // End of SLAMC5
 *
       END

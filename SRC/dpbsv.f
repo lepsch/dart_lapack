@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AB( LDAB, * ), B( LDB, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DPBTRF, DPBTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -47,18 +47,18 @@
          RETURN
       END IF
 *
-*     Compute the Cholesky factorization A = U**T*U or A = L*L**T.
+      // Compute the Cholesky factorization A = U**T*U or A = L*L**T.
 *
       CALL DPBTRF( UPLO, N, KD, AB, LDAB, INFO )
       IF( INFO.EQ.0 ) THEN
 *
-*        Solve the system A*X = B, overwriting B with X.
+         // Solve the system A*X = B, overwriting B with X.
 *
          CALL DPBTRS( UPLO, N, KD, NRHS, AB, LDAB, B, LDB, INFO )
 *
       END IF
       RETURN
 *
-*     End of DPBSV
+      // End of DPBSV
 *
       END

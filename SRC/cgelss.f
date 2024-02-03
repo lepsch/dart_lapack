@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
       REAL               RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * ), S( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                BL, CHUNK, I, IASCL, IBSCL, IE, IL, IRWORK, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR       int                LWORK_CGEQRF, LWORK_CUNMQR, LWORK_CGEBRD, LWORK_CUNMBR, LWORK_CUNGBR, LWORK_CUNMLQ, LWORK_CGELQF;
       REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX            DUM( 1 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CBDSQR, CCOPY, CGEBRD, CGELQF, CGEMM, CGEMV, CGEQRF, CLACPY, CLASCL, CLASET, CSRSCL, CUNGBR, CUNMBR, CUNMLQ, CUNMQR, SLASCL, SLASET, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       // EXTERNAL ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       MINMN = MIN( M, N )
@@ -60,13 +60,13 @@
          INFO = -7
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       CWorkspace refers to complex workspace, and RWorkspace refers
-*       to real workspace. NB refers to the optimal block size for the
-*       immediately following subroutine, as returned by ILAENV.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // CWorkspace refers to complex workspace, and RWorkspace refers
+       t // o real workspace. NB refers to the optimal block size for the
+        // immediately following subroutine, as returned by ILAENV.)
 *
       IF( INFO.EQ.0 ) THEN
          MINWRK = 1
@@ -76,13 +76,13 @@
             MNTHR = ILAENV( 6, 'CGELSS', ' ', M, N, NRHS, -1 )
             IF( M.GE.N .AND. M.GE.MNTHR ) THEN
 *
-*              Path 1a - overdetermined, with many more rows than
-*                        columns
+               // Path 1a - overdetermined, with many more rows than
+                         // columns
 *
-*              Compute space needed for CGEQRF
+               // Compute space needed for CGEQRF
                CALL CGEQRF( M, N, A, LDA, DUM(1), DUM(1), -1, INFO )
                LWORK_CGEQRF = INT( DUM(1) )
-*              Compute space needed for CUNMQR
+               // Compute space needed for CUNMQR
                CALL CUNMQR( 'L', 'C', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                LWORK_CUNMQR = INT( DUM(1) )
                MM = N
@@ -90,18 +90,18 @@
             END IF
             IF( M.GE.N ) THEN
 *
-*              Path 1 - overdetermined or exactly determined
+               // Path 1 - overdetermined or exactly determined
 *
-*              Compute space needed for CGEBRD
+               // Compute space needed for CGEBRD
                CALL CGEBRD( MM, N, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO )
                LWORK_CGEBRD = INT( DUM(1) )
-*              Compute space needed for CUNMBR
+               // Compute space needed for CUNMBR
                CALL CUNMBR( 'Q', 'L', 'C', MM, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                LWORK_CUNMBR = INT( DUM(1) )
-*              Compute space needed for CUNGBR
+               // Compute space needed for CUNGBR
                CALL CUNGBR( 'P', N, N, N, A, LDA, DUM(1), DUM(1), -1, INFO )
                LWORK_CUNGBR = INT( DUM(1) )
-*              Compute total workspace needed
+               // Compute total workspace needed
                MAXWRK = MAX( MAXWRK, 2*N + LWORK_CGEBRD )
                MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR )
                MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR )
@@ -112,25 +112,25 @@
                MINWRK = 2*M + MAX( NRHS, N )
                IF( N.GE.MNTHR ) THEN
 *
-*                 Path 2a - underdetermined, with many more columns
-*                 than rows
+                  // Path 2a - underdetermined, with many more columns
+                 t // han rows
 *
-*                 Compute space needed for CGELQF
+                  // Compute space needed for CGELQF
                   CALL CGELQF( M, N, A, LDA, DUM(1), DUM(1), -1, INFO )
                   LWORK_CGELQF = INT( DUM(1) )
-*                 Compute space needed for CGEBRD
+                  // Compute space needed for CGEBRD
                   CALL CGEBRD( M, M, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO )
                   LWORK_CGEBRD = INT( DUM(1) )
-*                 Compute space needed for CUNMBR
+                  // Compute space needed for CUNMBR
                   CALL CUNMBR( 'Q', 'L', 'C', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                   LWORK_CUNMBR = INT( DUM(1) )
-*                 Compute space needed for CUNGBR
+                  // Compute space needed for CUNGBR
                   CALL CUNGBR( 'P', M, M, M, A, LDA, DUM(1), DUM(1), -1, INFO )
                   LWORK_CUNGBR = INT( DUM(1) )
-*                 Compute space needed for CUNMLQ
+                  // Compute space needed for CUNMLQ
                   CALL CUNMLQ( 'L', 'C', N, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                   LWORK_CUNMLQ = INT( DUM(1) )
-*                 Compute total workspace needed
+                  // Compute total workspace needed
                   MAXWRK = M + LWORK_CGELQF
                   MAXWRK = MAX( MAXWRK, 3*M + M*M + LWORK_CGEBRD )
                   MAXWRK = MAX( MAXWRK, 3*M + M*M + LWORK_CUNMBR )
@@ -143,15 +143,15 @@
                   MAXWRK = MAX( MAXWRK, M + LWORK_CUNMLQ )
                ELSE
 *
-*                 Path 2 - underdetermined
+                  // Path 2 - underdetermined
 *
-*                 Compute space needed for CGEBRD
+                  // Compute space needed for CGEBRD
                   CALL CGEBRD( M, N, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO )
                   LWORK_CGEBRD = INT( DUM(1) )
-*                 Compute space needed for CUNMBR
+                  // Compute space needed for CUNMBR
                   CALL CUNMBR( 'Q', 'L', 'C', M, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                   LWORK_CUNMBR = INT( DUM(1) )
-*                 Compute space needed for CUNGBR
+                  // Compute space needed for CUNGBR
                   CALL CUNGBR( 'P', M, N, M, A, LDA, DUM(1), DUM(1), -1, INFO )
                   LWORK_CUNGBR = INT( DUM(1) )
                   MAXWRK = 2*M + LWORK_CGEBRD
@@ -174,39 +174,39 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          RANK = 0
          RETURN
       END IF
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = SLAMCH( 'P' )
       SFMIN = SLAMCH( 'S' )
       SMLNUM = SFMIN / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = CLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
          IASCL = 1
       ELSE IF( ANRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM
+         // Scale matrix norm down to BIGNUM
 *
          CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
          IASCL = 2
       ELSE IF( ANRM.EQ.ZERO ) THEN
 *
-*        Matrix all zero. Return zero solution.
+         // Matrix all zero. Return zero solution.
 *
          CALL CLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
          CALL SLASET( 'F', MINMN, 1, ZERO, ZERO, S, MINMN )
@@ -214,52 +214,52 @@
          GO TO 70
       END IF
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = CLANGE( 'M', M, NRHS, B, LDB, RWORK )
       IBSCL = 0
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 1
       ELSE IF( BNRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM
+         // Scale matrix norm down to BIGNUM
 *
          CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
          IBSCL = 2
       END IF
 *
-*     Overdetermined case
+      // Overdetermined case
 *
       IF( M.GE.N ) THEN
 *
-*        Path 1 - overdetermined or exactly determined
+         // Path 1 - overdetermined or exactly determined
 *
          MM = M
          IF( M.GE.MNTHR ) THEN
 *
-*           Path 1a - overdetermined, with many more rows than columns
+            // Path 1a - overdetermined, with many more rows than columns
 *
             MM = N
             ITAU = 1
             IWORK = ITAU + N
 *
-*           Compute A=Q*R
-*           (CWorkspace: need 2*N, prefer N+N*NB)
-*           (RWorkspace: none)
+            // Compute A=Q*R
+            // (CWorkspace: need 2*N, prefer N+N*NB)
+            // (RWorkspace: none)
 *
             CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
-*           Multiply B by transpose(Q)
-*           (CWorkspace: need N+NRHS, prefer N+NRHS*NB)
-*           (RWorkspace: none)
+            // Multiply B by transpose(Q)
+            // (CWorkspace: need N+NRHS, prefer N+NRHS*NB)
+            // (RWorkspace: none)
 *
             CALL CUNMQR( 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
-*           Zero out below R
+            // Zero out below R
 *
             IF( N.GT.1 ) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
          END IF
@@ -269,34 +269,34 @@
          ITAUP = ITAUQ + N
          IWORK = ITAUP + N
 *
-*        Bidiagonalize R in A
-*        (CWorkspace: need 2*N+MM, prefer 2*N+(MM+N)*NB)
-*        (RWorkspace: need N)
+         // Bidiagonalize R in A
+         // (CWorkspace: need 2*N+MM, prefer 2*N+(MM+N)*NB)
+         // (RWorkspace: need N)
 *
          CALL CGEBRD( MM, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
-*        Multiply B by transpose of left bidiagonalizing vectors of R
-*        (CWorkspace: need 2*N+NRHS, prefer 2*N+NRHS*NB)
-*        (RWorkspace: none)
+         // Multiply B by transpose of left bidiagonalizing vectors of R
+         // (CWorkspace: need 2*N+NRHS, prefer 2*N+NRHS*NB)
+         // (RWorkspace: none)
 *
          CALL CUNMBR( 'Q', 'L', 'C', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
-*        Generate right bidiagonalizing vectors of R in A
-*        (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
-*        (RWorkspace: none)
+         // Generate right bidiagonalizing vectors of R in A
+         // (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
+         // (RWorkspace: none)
 *
          CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
          IRWORK = IE + N
 *
-*        Perform bidiagonal QR iteration
-*          multiply B by transpose of left singular vectors
-*          compute right singular vectors in A
-*        (CWorkspace: none)
-*        (RWorkspace: need BDSPAC)
+         // Perform bidiagonal QR iteration
+           // multiply B by transpose of left singular vectors
+           // compute right singular vectors in A
+         // (CWorkspace: none)
+         // (RWorkspace: need BDSPAC)
 *
          CALL CBDSQR( 'U', N, N, 0, NRHS, S, RWORK( IE ), A, LDA, DUM, 1, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
 *
-*        Multiply B by reciprocals of singular values
+         // Multiply B by reciprocals of singular values
 *
          THR = MAX( RCOND*S( 1 ), SFMIN )
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
@@ -310,9 +310,9 @@
             END IF
    10    CONTINUE
 *
-*        Multiply B by right singular vectors
-*        (CWorkspace: need N, prefer N*NRHS)
-*        (RWorkspace: none)
+         // Multiply B by right singular vectors
+         // (CWorkspace: need N, prefer N*NRHS)
+         // (RWorkspace: none)
 *
          IF( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) THEN
             CALL CGEMM( 'C', 'N', N, NRHS, N, CONE, A, LDA, B, LDB, CZERO, WORK, LDB )
@@ -331,24 +331,24 @@
 *
       ELSE IF( N.GE.MNTHR .AND. LWORK.GE.3*M+M*M+MAX( M, NRHS, N-2*M ) ) THEN
 *
-*        Underdetermined case, M much less than N
+         // Underdetermined case, M much less than N
 *
-*        Path 2a - underdetermined, with many more columns than rows
-*        and sufficient workspace for an efficient algorithm
+         // Path 2a - underdetermined, with many more columns than rows
+         // and sufficient workspace for an efficient algorithm
 *
          LDWORK = M
          IF( LWORK.GE.3*M+M*LDA+MAX( M, NRHS, N-2*M ) ) LDWORK = LDA
          ITAU = 1
          IWORK = M + 1
 *
-*        Compute A=L*Q
-*        (CWorkspace: need 2*M, prefer M+M*NB)
-*        (RWorkspace: none)
+         // Compute A=L*Q
+         // (CWorkspace: need 2*M, prefer M+M*NB)
+         // (RWorkspace: none)
 *
          CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO )
          IL = IWORK
 *
-*        Copy L to WORK(IL), zeroing out above it
+         // Copy L to WORK(IL), zeroing out above it
 *
          CALL CLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWORK )
          CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWORK ), LDWORK )
@@ -357,34 +357,34 @@
          ITAUP = ITAUQ + M
          IWORK = ITAUP + M
 *
-*        Bidiagonalize L in WORK(IL)
-*        (CWorkspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
-*        (RWorkspace: need M)
+         // Bidiagonalize L in WORK(IL)
+         // (CWorkspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
+         // (RWorkspace: need M)
 *
          CALL CGEBRD( M, M, WORK( IL ), LDWORK, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
-*        Multiply B by transpose of left bidiagonalizing vectors of L
-*        (CWorkspace: need M*M+3*M+NRHS, prefer M*M+3*M+NRHS*NB)
-*        (RWorkspace: none)
+         // Multiply B by transpose of left bidiagonalizing vectors of L
+         // (CWorkspace: need M*M+3*M+NRHS, prefer M*M+3*M+NRHS*NB)
+         // (RWorkspace: none)
 *
          CALL CUNMBR( 'Q', 'L', 'C', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
-*        Generate right bidiagonalizing vectors of R in WORK(IL)
-*        (CWorkspace: need M*M+4*M-1, prefer M*M+3*M+(M-1)*NB)
-*        (RWorkspace: none)
+         // Generate right bidiagonalizing vectors of R in WORK(IL)
+         // (CWorkspace: need M*M+4*M-1, prefer M*M+3*M+(M-1)*NB)
+         // (RWorkspace: none)
 *
          CALL CUNGBR( 'P', M, M, M, WORK( IL ), LDWORK, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
          IRWORK = IE + M
 *
-*        Perform bidiagonal QR iteration, computing right singular
-*        vectors of L in WORK(IL) and multiplying B by transpose of
-*        left singular vectors
-*        (CWorkspace: need M*M)
-*        (RWorkspace: need BDSPAC)
+         // Perform bidiagonal QR iteration, computing right singular
+         // vectors of L in WORK(IL) and multiplying B by transpose of
+         // left singular vectors
+         // (CWorkspace: need M*M)
+         // (RWorkspace: need BDSPAC)
 *
          CALL CBDSQR( 'U', M, M, 0, NRHS, S, RWORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
 *
-*        Multiply B by reciprocals of singular values
+         // Multiply B by reciprocals of singular values
 *
          THR = MAX( RCOND*S( 1 ), SFMIN )
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
@@ -399,9 +399,9 @@
    30    CONTINUE
          IWORK = IL + M*LDWORK
 *
-*        Multiply B by right singular vectors of L in WORK(IL)
-*        (CWorkspace: need M*M+2*M, prefer M*M+M+M*NRHS)
-*        (RWorkspace: none)
+         // Multiply B by right singular vectors of L in WORK(IL)
+         // (CWorkspace: need M*M+2*M, prefer M*M+M+M*NRHS)
+         // (RWorkspace: none)
 *
          IF( LWORK.GE.LDB*NRHS+IWORK-1 .AND. NRHS.GT.1 ) THEN
             CALL CGEMM( 'C', 'N', M, NRHS, M, CONE, WORK( IL ), LDWORK, B, LDB, CZERO, WORK( IWORK ), LDB )
@@ -417,54 +417,54 @@
             CALL CCOPY( M, WORK( IWORK ), 1, B( 1, 1 ), 1 )
          END IF
 *
-*        Zero out below first M rows of B
+         // Zero out below first M rows of B
 *
          CALL CLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB )
          IWORK = ITAU + M
 *
-*        Multiply transpose(Q) by B
-*        (CWorkspace: need M+NRHS, prefer M+NHRS*NB)
-*        (RWorkspace: none)
+         // Multiply transpose(Q) by B
+         // (CWorkspace: need M+NRHS, prefer M+NHRS*NB)
+         // (RWorkspace: none)
 *
          CALL CUNMLQ( 'L', 'C', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
       ELSE
 *
-*        Path 2 - remaining underdetermined cases
+         // Path 2 - remaining underdetermined cases
 *
          IE = 1
          ITAUQ = 1
          ITAUP = ITAUQ + M
          IWORK = ITAUP + M
 *
-*        Bidiagonalize A
-*        (CWorkspace: need 3*M, prefer 2*M+(M+N)*NB)
-*        (RWorkspace: need N)
+         // Bidiagonalize A
+         // (CWorkspace: need 3*M, prefer 2*M+(M+N)*NB)
+         // (RWorkspace: need N)
 *
          CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
-*        Multiply B by transpose of left bidiagonalizing vectors
-*        (CWorkspace: need 2*M+NRHS, prefer 2*M+NRHS*NB)
-*        (RWorkspace: none)
+         // Multiply B by transpose of left bidiagonalizing vectors
+         // (CWorkspace: need 2*M+NRHS, prefer 2*M+NRHS*NB)
+         // (RWorkspace: none)
 *
          CALL CUNMBR( 'Q', 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
-*        Generate right bidiagonalizing vectors in A
-*        (CWorkspace: need 3*M, prefer 2*M+M*NB)
-*        (RWorkspace: none)
+         // Generate right bidiagonalizing vectors in A
+         // (CWorkspace: need 3*M, prefer 2*M+M*NB)
+         // (RWorkspace: none)
 *
          CALL CUNGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
          IRWORK = IE + M
 *
-*        Perform bidiagonal QR iteration,
-*           computing right singular vectors of A in A and
-*           multiplying B by transpose of left singular vectors
-*        (CWorkspace: none)
-*        (RWorkspace: need BDSPAC)
+         // Perform bidiagonal QR iteration,
+            // computing right singular vectors of A in A and
+            // multiplying B by transpose of left singular vectors
+         // (CWorkspace: none)
+         // (RWorkspace: need BDSPAC)
 *
          CALL CBDSQR( 'L', M, N, 0, NRHS, S, RWORK( IE ), A, LDA, DUM, 1, B, LDB, RWORK( IRWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
 *
-*        Multiply B by reciprocals of singular values
+         // Multiply B by reciprocals of singular values
 *
          THR = MAX( RCOND*S( 1 ), SFMIN )
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
@@ -478,9 +478,9 @@
             END IF
    50    CONTINUE
 *
-*        Multiply B by right singular vectors of A
-*        (CWorkspace: need N, prefer N*NRHS)
-*        (RWorkspace: none)
+         // Multiply B by right singular vectors of A
+         // (CWorkspace: need N, prefer N*NRHS)
+         // (RWorkspace: none)
 *
          IF( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) THEN
             CALL CGEMM( 'C', 'N', N, NRHS, M, CONE, A, LDA, B, LDB, CZERO, WORK, LDB )
@@ -498,7 +498,7 @@
          END IF
       END IF
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( IASCL.EQ.1 ) THEN
          CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
@@ -516,6 +516,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN
 *
-*     End of CGELSS
+      // End of CGELSS
 *
       END

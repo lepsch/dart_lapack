@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS;
       REAL               ANRM, RCOND, BERR
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               S( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
       COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, CPBCON, CPBEQU, CPBRFS, CPBTF2, CPBTRF, CPBTRS, CPOCON, CPOEQU, CPORFS, CPOTF2, CPOTRF, CPOTRI, CPOTRS, CPPCON, CPPEQU, CPPRFS, CPPTRF, CPPTRI, CPPTRS, CPOEQUB, CPORFSX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -67,12 +67,12 @@
       ANRM = 1.
       OK = .TRUE.
 *
-*     Test error exits of the routines that use the Cholesky
-*     decomposition of a Hermitian positive definite matrix.
+      // Test error exits of the routines that use the Cholesky
+      // decomposition of a Hermitian positive definite matrix.
 *
       IF( LSAMEN( 2, C2, 'PO' ) ) THEN
 *
-*        CPOTRF
+         // CPOTRF
 *
          SRNAMT = 'CPOTRF'
          INFOT = 1
@@ -85,7 +85,7 @@
          CALL CPOTRF( 'U', 2, A, 1, INFO )
          CALL CHKXER( 'CPOTRF', INFOT, NOUT, LERR, OK )
 *
-*        CPOTF2
+         // CPOTF2
 *
          SRNAMT = 'CPOTF2'
          INFOT = 1
@@ -98,7 +98,7 @@
          CALL CPOTF2( 'U', 2, A, 1, INFO )
          CALL CHKXER( 'CPOTF2', INFOT, NOUT, LERR, OK )
 *
-*        CPOTRI
+         // CPOTRI
 *
          SRNAMT = 'CPOTRI'
          INFOT = 1
@@ -111,7 +111,7 @@
          CALL CPOTRI( 'U', 2, A, 1, INFO )
          CALL CHKXER( 'CPOTRI', INFOT, NOUT, LERR, OK )
 *
-*        CPOTRS
+         // CPOTRS
 *
          SRNAMT = 'CPOTRS'
          INFOT = 1
@@ -130,7 +130,7 @@
          CALL CPOTRS( 'U', 2, 1, A, 2, B, 1, INFO )
          CALL CHKXER( 'CPOTRS', INFOT, NOUT, LERR, OK )
 *
-*        CPORFS
+         // CPORFS
 *
          SRNAMT = 'CPORFS'
          INFOT = 1
@@ -155,7 +155,7 @@
          CALL CPORFS( 'U', 2, 1, A, 2, AF, 2, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPORFS', INFOT, NOUT, LERR, OK )
 *
-*        CPORFSX
+         // CPORFSX
 *
          N_ERR_BNDS = 3
          NPARAMS = 0
@@ -186,7 +186,7 @@
          CALL CPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
 *
-*        CPOCON
+         // CPOCON
 *
          SRNAMT = 'CPOCON'
          INFOT = 1
@@ -202,7 +202,7 @@
          CALL CPOCON( 'U', 1, A, 1, -ANRM, RCOND, W, R, INFO )
          CALL CHKXER( 'CPOCON', INFOT, NOUT, LERR, OK )
 *
-*        CPOEQU
+         // CPOEQU
 *
          SRNAMT = 'CPOEQU'
          INFOT = 1
@@ -212,7 +212,7 @@
          CALL CPOEQU( 2, A, 1, R1, RCOND, ANRM, INFO )
          CALL CHKXER( 'CPOEQU', INFOT, NOUT, LERR, OK )
 *
-*        CPOEQUB
+         // CPOEQUB
 *
          SRNAMT = 'CPOEQUB'
          INFOT = 1
@@ -222,12 +222,12 @@
          CALL CPOEQUB( 2, A, 1, R1, RCOND, ANRM, INFO )
          CALL CHKXER( 'CPOEQUB', INFOT, NOUT, LERR, OK )
 *
-*     Test error exits of the routines that use the Cholesky
-*     decomposition of a Hermitian positive definite packed matrix.
+      // Test error exits of the routines that use the Cholesky
+      // decomposition of a Hermitian positive definite packed matrix.
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
 *
-*        CPPTRF
+         // CPPTRF
 *
          SRNAMT = 'CPPTRF'
          INFOT = 1
@@ -237,7 +237,7 @@
          CALL CPPTRF( 'U', -1, A, INFO )
          CALL CHKXER( 'CPPTRF', INFOT, NOUT, LERR, OK )
 *
-*        CPPTRI
+         // CPPTRI
 *
          SRNAMT = 'CPPTRI'
          INFOT = 1
@@ -247,7 +247,7 @@
          CALL CPPTRI( 'U', -1, A, INFO )
          CALL CHKXER( 'CPPTRI', INFOT, NOUT, LERR, OK )
 *
-*        CPPTRS
+         // CPPTRS
 *
          SRNAMT = 'CPPTRS'
          INFOT = 1
@@ -263,7 +263,7 @@
          CALL CPPTRS( 'U', 2, 1, A, B, 1, INFO )
          CALL CHKXER( 'CPPTRS', INFOT, NOUT, LERR, OK )
 *
-*        CPPRFS
+         // CPPRFS
 *
          SRNAMT = 'CPPRFS'
          INFOT = 1
@@ -282,7 +282,7 @@
          CALL CPPRFS( 'U', 2, 1, A, AF, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPPRFS', INFOT, NOUT, LERR, OK )
 *
-*        CPPCON
+         // CPPCON
 *
          SRNAMT = 'CPPCON'
          INFOT = 1
@@ -295,7 +295,7 @@
          CALL CPPCON( 'U', 1, A, -ANRM, RCOND, W, R, INFO )
          CALL CHKXER( 'CPPCON', INFOT, NOUT, LERR, OK )
 *
-*        CPPEQU
+         // CPPEQU
 *
          SRNAMT = 'CPPEQU'
          INFOT = 1
@@ -305,12 +305,12 @@
          CALL CPPEQU( 'U', -1, A, R1, RCOND, ANRM, INFO )
          CALL CHKXER( 'CPPEQU', INFOT, NOUT, LERR, OK )
 *
-*     Test error exits of the routines that use the Cholesky
-*     decomposition of a Hermitian positive definite band matrix.
+      // Test error exits of the routines that use the Cholesky
+      // decomposition of a Hermitian positive definite band matrix.
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
 *
-*        CPBTRF
+         // CPBTRF
 *
          SRNAMT = 'CPBTRF'
          INFOT = 1
@@ -326,7 +326,7 @@
          CALL CPBTRF( 'U', 2, 1, A, 1, INFO )
          CALL CHKXER( 'CPBTRF', INFOT, NOUT, LERR, OK )
 *
-*        CPBTF2
+         // CPBTF2
 *
          SRNAMT = 'CPBTF2'
          INFOT = 1
@@ -342,7 +342,7 @@
          CALL CPBTF2( 'U', 2, 1, A, 1, INFO )
          CALL CHKXER( 'CPBTF2', INFOT, NOUT, LERR, OK )
 *
-*        CPBTRS
+         // CPBTRS
 *
          SRNAMT = 'CPBTRS'
          INFOT = 1
@@ -364,7 +364,7 @@
          CALL CPBTRS( 'U', 2, 0, 1, A, 1, B, 1, INFO )
          CALL CHKXER( 'CPBTRS', INFOT, NOUT, LERR, OK )
 *
-*        CPBRFS
+         // CPBRFS
 *
          SRNAMT = 'CPBRFS'
          INFOT = 1
@@ -392,7 +392,7 @@
          CALL CPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
 *
-*        CPBCON
+         // CPBCON
 *
          SRNAMT = 'CPBCON'
          INFOT = 1
@@ -411,7 +411,7 @@
          CALL CPBCON( 'U', 1, 0, A, 1, -ANRM, RCOND, W, R, INFO )
          CALL CHKXER( 'CPBCON', INFOT, NOUT, LERR, OK )
 *
-*        CPBEQU
+         // CPBEQU
 *
          SRNAMT = 'CPBEQU'
          INFOT = 1
@@ -428,12 +428,12 @@
          CALL CHKXER( 'CPBEQU', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of CERRPOX
+      // End of CERRPOX
 *
       END

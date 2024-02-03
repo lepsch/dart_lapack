@@ -4,25 +4,25 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, INCY, N;
       COMPLEX*16         C, S
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         CX( * ), CY( * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, IX, IY;
       COMPLEX*16         CTEMP
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) RETURN       IF( INCX.EQ.1 .AND. INCY.EQ.1 ) GO TO 20
 *
-*     Code for unequal increments or equal increments not equal to 1
+      // Code for unequal increments or equal increments not equal to 1
 *
       IX = 1
       IY = 1
@@ -36,7 +36,7 @@
    10 CONTINUE
       RETURN
 *
-*     Code for both increments equal to 1
+      // Code for both increments equal to 1
 *
    20 CONTINUE
       DO 30 I = 1, N

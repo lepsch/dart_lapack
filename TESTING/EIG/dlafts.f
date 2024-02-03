@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TYPE;
       int                IE, IMAT, IOUNIT, M, N, NTESTS;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       double             RESULT( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                K;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLAHD2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( M.EQ.N ) THEN
 *
-*     Output for square matrices:
+      // Output for square matrices:
 *
          DO 10 K = 1, NTESTS
             IF( RESULT( K ).GE.THRESH ) THEN
 *
-*           If this is the first test to fail, call DLAHD2
-*           to print a header to the data file.
+            // If this is the first test to fail, call DLAHD2
+           t // o print a header to the data file.
 *
                IF( IE.EQ.0 ) CALL DLAHD2( IOUNIT, TYPE )
                IE = IE + 1
@@ -51,13 +51,13 @@
    10    CONTINUE
       ELSE
 *
-*     Output for rectangular matrices
+      // Output for rectangular matrices
 *
          DO 20 K = 1, NTESTS
             IF( RESULT( K ).GE.THRESH ) THEN
 *
-*              If this is the first test to fail, call DLAHD2
-*              to print a header to the data file.
+               // If this is the first test to fail, call DLAHD2
+              t // o print a header to the data file.
 *
                IF( IE.EQ.0 ) CALL DLAHD2( IOUNIT, TYPE )
                IE = IE + 1
@@ -78,6 +78,6 @@
       END IF
       RETURN
 *
-*     End of DLAFTS
+      // End of DLAFTS
 *
       END

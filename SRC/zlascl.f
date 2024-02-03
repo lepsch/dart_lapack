@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TYPE;
       int                INFO, KL, KU, LDA, M, N;
       double             CFROM, CTO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               DONE;
       int                I, ITYPE, J, K1, K2, K3, K4;
       double             BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, DISNAN;
       double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH, DISNAN
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
 *
@@ -86,11 +86,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       SMLNUM = DLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
@@ -101,16 +101,16 @@
    10 CONTINUE
       CFROM1 = CFROMC*SMLNUM
       IF( CFROM1.EQ.CFROMC ) THEN
-!        CFROMC is an inf.  Multiply by a correctly signed zero for
-!        finite CTOC, or a NaN if CTOC is infinite.
+         // CFROMC is an inf.  Multiply by a correctly signed zero for
+         // finite CTOC, or a NaN if CTOC is infinite.
          MUL = CTOC / CFROMC
          DONE = .TRUE.
          CTO1 = CTOC
       ELSE
          CTO1 = CTOC / BIGNUM
          IF( CTO1.EQ.CTOC ) THEN
-!           CTOC is either 0 or an inf.  In both cases, CTOC itself
-!           serves as the correct multiplication factor.
+            // CTOC is either 0 or an inf.  In both cases, CTOC itself
+            // serves as the correct multiplication factor.
             MUL = CTOC
             DONE = .TRUE.
             CFROMC = ONE
@@ -131,7 +131,7 @@
 *
       IF( ITYPE.EQ.0 ) THEN
 *
-*        Full matrix
+         // Full matrix
 *
          DO 30 J = 1, N
             DO 20 I = 1, M
@@ -141,7 +141,7 @@
 *
       ELSE IF( ITYPE.EQ.1 ) THEN
 *
-*        Lower triangular matrix
+         // Lower triangular matrix
 *
          DO 50 J = 1, N
             DO 40 I = J, M
@@ -151,7 +151,7 @@
 *
       ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*        Upper triangular matrix
+         // Upper triangular matrix
 *
          DO 70 J = 1, N
             DO 60 I = 1, MIN( J, M )
@@ -161,7 +161,7 @@
 *
       ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*        Upper Hessenberg matrix
+         // Upper Hessenberg matrix
 *
          DO 90 J = 1, N
             DO 80 I = 1, MIN( J+1, M )
@@ -171,7 +171,7 @@
 *
       ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*        Lower half of a symmetric band matrix
+         // Lower half of a symmetric band matrix
 *
          K3 = KL + 1
          K4 = N + 1
@@ -183,7 +183,7 @@
 *
       ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*        Upper half of a symmetric band matrix
+         // Upper half of a symmetric band matrix
 *
          K1 = KU + 2
          K3 = KU + 1
@@ -195,7 +195,7 @@
 *
       ELSE IF( ITYPE.EQ.6 ) THEN
 *
-*        Band matrix
+         // Band matrix
 *
          K1 = KL + KU + 2
          K2 = KL + 1
@@ -213,6 +213,6 @@
 *
       RETURN
 *
-*     End of ZLASCL
+      // End of ZLASCL
 *
       END

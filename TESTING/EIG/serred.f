@@ -4,59 +4,59 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       REAL               ONE, ZERO
       PARAMETER          ( NMAX = 4, ONE = 1.0E0, ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, IHI, ILO, INFO, J, NS, NT, SDIM;
       REAL               ABNRM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               B( NMAX );
       int                IW( 2*NMAX );
       REAL               A( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), S( NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), WI( NMAX ), WR( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, SGEES, SGEESX, SGEEV, SGEEVX, SGEJSV, SGESDD, SGESVD, SGESVDX, SGESVDQ
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               SSLECT, LSAMEN;
       // EXTERNAL SSLECT, LSAMEN
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       REAL               SELWI( 20 ), SELWR( 20 )
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT, SELDIM, SELOPT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Initialize A
+      // Initialize A
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -71,7 +71,7 @@
 *
       IF( LSAMEN( 2, C2, 'EV' ) ) THEN
 *
-*        Test SGEEV
+         // Test SGEEV
 *
          SRNAMT = 'SGEEV '
          INFOT = 1
@@ -99,7 +99,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'ES' ) ) THEN
 *
-*        Test SGEES
+         // Test SGEES
 *
          SRNAMT = 'SGEES '
          INFOT = 1
@@ -124,7 +124,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'VX' ) ) THEN
 *
-*        Test SGEEVX
+         // Test SGEEVX
 *
          SRNAMT = 'SGEEVX'
          INFOT = 1
@@ -164,7 +164,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SX' ) ) THEN
 *
-*        Test SGEESX
+         // Test SGEESX
 *
          SRNAMT = 'SGEESX'
          INFOT = 1
@@ -192,7 +192,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'BD' ) ) THEN
 *
-*        Test SGESVD
+         // Test SGESVD
 *
          SRNAMT = 'SGESVD'
          INFOT = 1
@@ -226,7 +226,7 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
 *
-*        Test SGESDD
+         // Test SGESDD
 *
          SRNAMT = 'SGESDD'
          INFOT = 1
@@ -254,7 +254,7 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
 *
-*        Test SGEJSV
+         // Test SGEJSV
 *
          SRNAMT = 'SGEJSV'
          INFOT = 1
@@ -297,7 +297,7 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
 *
-*        Test SGESVDX
+         // Test SGESVDX
 *
          SRNAMT = 'SGESVDX'
          INFOT = 1
@@ -343,7 +343,7 @@
             WRITE( NOUT, FMT = 9998 )
          END IF
 *
-*        Test SGESVDQ
+         // Test SGESVDQ
 *
          SRNAMT = 'SGESVDQ'
          INFOT = 1
@@ -387,7 +387,7 @@
          END IF
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( .NOT.LSAMEN( 2, C2, 'BD' ) ) THEN
          IF( OK ) THEN
@@ -402,6 +402,6 @@
  9998 FORMAT( ' *** ', A, ' failed the tests of the error exits ***' )
       RETURN
 *
-*     End of SERRED
+      // End of SERRED
 *
       END

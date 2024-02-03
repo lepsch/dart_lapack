@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIGNS, TRANS;
       int                INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             PHI( * ), THETA( * );
       COMPLEX*16         TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * )
-*     ..
+      // ..
 *
 *  ====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             REALONE;
       PARAMETER          ( REALONE = 1.0D0 )
       COMPLEX*16         ONE
       PARAMETER          ( ONE = (1.0D0,0.0D0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               COLMAJOR, LQUERY;
       int                I, LWORKMIN, LWORKOPT;
       double             Z1, Z2, Z3, Z4;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZLARF, ZLARFGP, ZSCAL, XERBLA
       // EXTERNAL ZLACGV
 *
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DZNRM2;
       bool               LSAME;
       // EXTERNAL DZNRM2, LSAME
-*     ..
-*     .. Intrinsic Functions
+      // ..
+      // .. Intrinsic Functions
       // INTRINSIC ATAN2, COS, MAX, MIN, SIN
       // INTRINSIC DCMPLX, DCONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       COLMAJOR = .NOT. LSAME( TRANS, 'T' )
@@ -83,7 +83,7 @@
          INFO = -13
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO .EQ. 0 ) THEN
          LWORKOPT = M - Q
@@ -100,11 +100,11 @@
          RETURN
       END IF
 *
-*     Handle column-major and row-major separately
+      // Handle column-major and row-major separately
 *
       IF( COLMAJOR ) THEN
 *
-*        Reduce columns 1, ..., Q of X11, X12, X21, and X22
+         // Reduce columns 1, ..., Q of X11, X12, X21, and X22
 *
          DO I = 1, Q
 *
@@ -182,7 +182,7 @@
 *
          END DO
 *
-*        Reduce columns Q + 1, ..., P of X12, X22
+         // Reduce columns Q + 1, ..., P of X12, X22
 *
          DO I = Q + 1, P
 *
@@ -204,7 +204,7 @@
 *
          END DO
 *
-*        Reduce columns P + 1, ..., M - Q of X12, X22
+         // Reduce columns P + 1, ..., M - Q of X12, X22
 *
          DO I = 1, M - P - Q
 *
@@ -220,7 +220,7 @@
 *
       ELSE
 *
-*        Reduce columns 1, ..., Q of X11, X12, X21, X22
+         // Reduce columns 1, ..., Q of X11, X12, X21, X22
 *
          DO I = 1, Q
 *
@@ -278,7 +278,7 @@
 *
          END DO
 *
-*        Reduce columns Q + 1, ..., P of X12, X22
+         // Reduce columns Q + 1, ..., P of X12, X22
 *
          DO I = Q + 1, P
 *
@@ -293,7 +293,7 @@
 *
          END DO
 *
-*        Reduce columns P + 1, ..., M - Q of X12, X22
+         // Reduce columns P + 1, ..., M - Q of X12, X22
 *
          DO I = 1, M - P - Q
 *
@@ -310,6 +310,6 @@
 *
       RETURN
 *
-*     End of ZUNBDB
+      // End of ZUNBDB
 *
       END

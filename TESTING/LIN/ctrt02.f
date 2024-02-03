@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                LDA, LDB, LDX, N, NRHS;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J;
       REAL               ANORM, BNORM, EPS, XNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANTR, SCASUM, SLAMCH
       // EXTERNAL LSAME, CLANTR, SCASUM, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0 or NRHS = 0
+      // Quick exit if N = 0 or NRHS = 0
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Compute the 1-norm of op(A).
+      // Compute the 1-norm of op(A).
 *
       IF( LSAME( TRANS, 'N' ) ) THEN
          ANORM = CLANTR( '1', UPLO, DIAG, N, N, A, LDA, RWORK )
@@ -52,7 +52,7 @@
          ANORM = CLANTR( 'I', UPLO, DIAG, N, N, A, LDA, RWORK )
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = SLAMCH( 'Epsilon' )
       IF( ANORM.LE.ZERO ) THEN
@@ -60,8 +60,8 @@
          RETURN
       END IF
 *
-*     Compute the maximum over the number of right hand sides of
-*        norm(op(A)*X - B) / ( norm(op(A)) * norm(X) * EPS )
+      // Compute the maximum over the number of right hand sides of
+         // norm(op(A)*X - B) / ( norm(op(A)) * norm(X) * EPS )
 *
       RESID = ZERO
       DO 10 J = 1, NRHS
@@ -79,6 +79,6 @@
 *
       RETURN
 *
-*     End of CTRT02
+      // End of CTRT02
 *
       END

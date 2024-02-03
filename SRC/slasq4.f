@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                I0, N0, N0IN, PP, TTYPE;
       REAL               DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, TAU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               Z( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               CNST1, CNST2, CNST3
       PARAMETER          ( CNST1 = 0.5630E0, CNST2 = 1.010E0, CNST3 = 1.050E0 )
       REAL               QURTR, THIRD, HALF, ZERO, ONE, TWO, HUNDRD
       PARAMETER          ( QURTR = 0.250E0, THIRD = 0.3330E0, HALF = 0.50E0, ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HUNDRD = 100.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I4, NN, NP;
       REAL               A2, B1, B2, GAM, GAP1, GAP2, S
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     A negative DMIN forces the shift to take that absolute value
-*     TTYPE records the type of shift.
+      // A negative DMIN forces the shift to take that absolute value
+      // TTYPE records the type of shift.
 *
       IF( DMIN.LE.ZERO ) THEN
          TAU = -DMIN
@@ -41,7 +41,7 @@
       NN = 4*N0 + PP
       IF( N0IN.EQ.N0 ) THEN
 *
-*        No eigenvalues deflated.
+         // No eigenvalues deflated.
 *
          IF( DMIN.EQ.DN .OR. DMIN.EQ.DN1 ) THEN
 *
@@ -49,7 +49,7 @@
             B2 = SQRT( Z( NN-7 ) )*SQRT( Z( NN-9 ) )
             A2 = Z( NN-7 ) + Z( NN-5 )
 *
-*           Cases 2 and 3.
+            // Cases 2 and 3.
 *
             IF( DMIN.EQ.DN .AND. DMIN1.EQ.DN1 ) THEN
                GAP2 = DMIN2 - A2 - DMIN2*QURTR
@@ -69,7 +69,7 @@
                END IF
             ELSE
 *
-*              Case 4.
+               // Case 4.
 *
                TTYPE = -4
                S = QURTR*DMIN
@@ -89,7 +89,7 @@
                   NP = NN - 13
                END IF
 *
-*              Approximate contribution to norm squared from I < NN-1.
+               // Approximate contribution to norm squared from I < NN-1.
 *
                A2 = A2 + B2
                DO 10 I4 = NP, 4*I0 - 1 + PP, -4
@@ -103,18 +103,18 @@
    20          CONTINUE
                A2 = CNST3*A2
 *
-*              Rayleigh quotient residual bound.
+               // Rayleigh quotient residual bound.
 *
                IF( A2.LT.CNST1 ) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 )
             END IF
          ELSE IF( DMIN.EQ.DN2 ) THEN
 *
-*           Case 5.
+            // Case 5.
 *
             TTYPE = -5
             S = QURTR*DMIN
 *
-*           Compute contribution to norm squared from I > NN-2.
+            // Compute contribution to norm squared from I > NN-2.
 *
             NP = NN - 2*PP
             B1 = Z( NP-2 )
@@ -123,7 +123,7 @@
             IF( Z( NP-8 ).GT.B2 .OR. Z( NP-4 ).GT.B1 ) RETURN
             A2 = ( Z( NP-8 ) / B2 )*( ONE+Z( NP-4 ) / B1 )
 *
-*           Approximate contribution to norm squared from I < NN-2.
+            // Approximate contribution to norm squared from I < NN-2.
 *
             IF( N0-I0.GT.2 ) THEN
                B2 = Z( NN-13 ) / Z( NN-15 )
@@ -143,7 +143,7 @@
             IF( A2.LT.CNST1 ) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 )
          ELSE
 *
-*           Case 6, no information to guide us.
+            // Case 6, no information to guide us.
 *
             IF( TTYPE.EQ.-6 ) THEN
                G = G + THIRD*( ONE-G )
@@ -158,11 +158,11 @@
 *
       ELSE IF( N0IN.EQ.( N0+1 ) ) THEN
 *
-*        One eigenvalue just deflated. Use DMIN1, DN1 for DMIN and DN.
+         // One eigenvalue just deflated. Use DMIN1, DN1 for DMIN and DN.
 *
          IF( DMIN1.EQ.DN1 .AND. DMIN2.EQ.DN2 ) THEN
 *
-*           Cases 7 and 8.
+            // Cases 7 and 8.
 *
             TTYPE = -7
             S = THIRD*DMIN1
@@ -189,7 +189,7 @@
             END IF
          ELSE
 *
-*           Case 9.
+            // Case 9.
 *
             S = QURTR*DMIN1
             IF( DMIN1.EQ.DN1 ) S = HALF*DMIN1
@@ -198,9 +198,9 @@
 *
       ELSE IF( N0IN.EQ.( N0+2 ) ) THEN
 *
-*        Two eigenvalues deflated. Use DMIN2, DN2 for DMIN and DN.
+         // Two eigenvalues deflated. Use DMIN2, DN2 for DMIN and DN.
 *
-*        Cases 10 and 11.
+         // Cases 10 and 11.
 *
          IF( DMIN2.EQ.DN2 .AND. TWO*Z( NN-5 ).LT.Z( NN-7 ) ) THEN
             TTYPE = -10
@@ -230,7 +230,7 @@
          END IF
       ELSE IF( N0IN.GT.( N0+2 ) ) THEN
 *
-*        Case 12, more than two eigenvalues deflated. No information.
+         // Case 12, more than two eigenvalues deflated. No information.
 *
          S = ZERO
          TTYPE = -12
@@ -239,6 +239,6 @@
       TAU = S
       RETURN
 *
-*     End of SLASQ4
+      // End of SLASQ4
 *
       END

@@ -4,59 +4,59 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED;
       int                KL, KU, LDAB, M, N;
       double             AMAX, COLCND, ROWCND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             C( * ), R( * );
       COMPLEX*16         AB( LDAB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, THRESH;
       PARAMETER          ( ONE = 1.0D+0, THRESH = 0.1D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             CJ, LARGE, SMALL;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) THEN
          EQUED = 'N'
          RETURN
       END IF
 *
-*     Initialize LARGE and SMALL.
+      // Initialize LARGE and SMALL.
 *
       SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 *
       IF( ROWCND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) THEN
 *
-*        No row scaling
+         // No row scaling
 *
          IF( COLCND.GE.THRESH ) THEN
 *
-*           No column scaling
+            // No column scaling
 *
             EQUED = 'N'
          ELSE
 *
-*           Column scaling
+            // Column scaling
 *
             DO 20 J = 1, N
                CJ = C( J )
@@ -68,7 +68,7 @@
          END IF
       ELSE IF( COLCND.GE.THRESH ) THEN
 *
-*        Row scaling, no column scaling
+         // Row scaling, no column scaling
 *
          DO 40 J = 1, N
             DO 30 I = MAX( 1, J-KU ), MIN( M, J+KL )
@@ -78,7 +78,7 @@
          EQUED = 'R'
       ELSE
 *
-*        Row and column scaling
+         // Row and column scaling
 *
          DO 60 J = 1, N
             CJ = C( J )
@@ -91,6 +91,6 @@
 *
       RETURN
 *
-*     End of ZLAQGB
+      // End of ZLAQGB
 *
       END

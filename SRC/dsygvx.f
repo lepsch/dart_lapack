@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, ITYPE, IU, LDA, LDB, LDZ, LWORK, M, N;
       double             ABSTOL, VL, VU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       double             A( LDA, * ), B( LDB, * ), W( * ), WORK( * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, UPPER, VALEIG, WANTZ;
       String             TRANS;
       int                LWKMIN, LWKOPT, NB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DPOTRF, DSYEVX, DSYGST, DTRMM, DTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       UPPER = LSAME( UPLO, 'U' )
       WANTZ = LSAME( JOBZ, 'V' )
@@ -97,14 +97,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) THEN
          RETURN
       END IF
 *
-*     Form a Cholesky factorization of B.
+      // Form a Cholesky factorization of B.
 *
       CALL DPOTRF( UPLO, N, B, LDB, INFO )
       IF( INFO.NE.0 ) THEN
@@ -112,20 +112,20 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem and solve.
+      // Transform problem to standard eigenvalue problem and solve.
 *
       CALL DSYGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
       CALL DSYEVX( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO )
 *
       IF( WANTZ ) THEN
 *
-*        Backtransform eigenvectors to the original problem.
+         // Backtransform eigenvectors to the original problem.
 *
          IF( INFO.GT.0 ) M = INFO - 1
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
 *
-*           For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
-*           backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
+            // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
+            // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
 *
             IF( UPPER ) THEN
                TRANS = 'N'
@@ -137,8 +137,8 @@
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*           For B*A*x=(lambda)*x;
-*           backtransform eigenvectors: x = L*y or U**T*y
+            // For B*A*x=(lambda)*x;
+            // backtransform eigenvectors: x = L*y or U**T*y
 *
             IF( UPPER ) THEN
                TRANS = 'T'
@@ -150,12 +150,12 @@
          END IF
       END IF
 *
-*     Set WORK(1) to optimal workspace size.
+      // Set WORK(1) to optimal workspace size.
 *
       WORK( 1 ) = LWKOPT
 *
       RETURN
 *
-*     End of DSYGVX
+      // End of DSYGVX
 *
       END

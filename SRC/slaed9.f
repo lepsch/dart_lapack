@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, K, KSTART, KSTOP, LDQ, LDS, N;
       REAL               RHO
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), S( LDS, * ), W( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, J;
       REAL               TEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SNRM2
       // EXTERNAL SNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLAED4, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, SIGN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -52,14 +52,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( K.EQ.0 ) RETURN
 *
       DO 20 J = KSTART, KSTOP
          CALL SLAED4( K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO )
 *
-*        If the zero finder fails, the computation is terminated.
+         // If the zero finder fails, the computation is terminated.
 *
          IF( INFO.NE.0 ) GO TO 120
    20 CONTINUE
@@ -73,11 +73,11 @@
          GO TO 120
       END IF
 *
-*     Compute updated W.
+      // Compute updated W.
 *
       CALL SCOPY( K, W, 1, S, 1 )
 *
-*     Initialize W(I) = Q(I,I)
+      // Initialize W(I) = Q(I,I)
 *
       CALL SCOPY( K, Q, LDQ+1, W, 1 )
       DO 70 J = 1, K
@@ -92,7 +92,7 @@
          W( I ) = SIGN( SQRT( -W( I ) ), S( I, 1 ) )
    80 CONTINUE
 *
-*     Compute eigenvectors of the modified rank-1 modification.
+      // Compute eigenvectors of the modified rank-1 modification.
 *
       DO 110 J = 1, K
          DO 90 I = 1, K
@@ -107,6 +107,6 @@
   120 CONTINUE
       RETURN
 *
-*     End of SLAED9
+      // End of SLAED9
 *
       END

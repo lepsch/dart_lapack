@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               IEEE;
       int                I0, ITER, N0, NDIV, NFAIL, PP;
       REAL               DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               Z( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               CBIAS
       PARAMETER          ( CBIAS = 1.50E0 )
       REAL               ZERO, QURTR, HALF, ONE, TWO, HUNDRD
       PARAMETER          ( ZERO = 0.0E0, QURTR = 0.250E0, HALF = 0.5E0, ONE = 1.0E0, TWO = 2.0E0, HUNDRD = 100.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                IPN4, J4, N0IN, NN, TTYPE;
       REAL               EPS, S, T, TEMP, TOL, TOL2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLASQ4, SLASQ5, SLASQ6
-*     ..
-*     .. External Function ..
+      // ..
+      // .. External Function ..
       REAL               SLAMCH
       bool               SISNAN;
       // EXTERNAL SISNAN, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       N0IN = N0
       EPS = SLAMCH( 'Precision' )
       TOL = EPS*HUNDRD
       TOL2 = TOL**2
 *
-*     Check for deflation.
+      // Check for deflation.
 *
    10 CONTINUE
 *
@@ -51,7 +51,7 @@
       NN = 4*N0 + PP
       IF( N0.EQ.( I0+1 ) ) GO TO 40
 *
-*     Check whether E(N0-1) is negligible, 1 eigenvalue.
+      // Check whether E(N0-1) is negligible, 1 eigenvalue.
 *
       IF( Z( NN-5 ).GT.TOL2*( SIGMA+Z( NN-3 ) ) .AND. Z( NN-2*PP-4 ).GT.TOL2*Z( NN-7 ) ) GO TO 30
 *
@@ -61,7 +61,7 @@
       N0 = N0 - 1
       GO TO 10
 *
-*     Check  whether E(N0-2) is negligible, 2 eigenvalues.
+      // Check  whether E(N0-2) is negligible, 2 eigenvalues.
 *
    30 CONTINUE
 *
@@ -94,7 +94,7 @@
    50 CONTINUE
       IF( PP.EQ.2 ) PP = 0
 *
-*     Reverse the qd-array, if warranted.
+      // Reverse the qd-array, if warranted.
 *
       IF( DMIN.LE.ZERO .OR. N0.LT.N0IN ) THEN
          IF( CBIAS*Z( 4*I0+PP-3 ).LT.Z( 4*N0+PP-3 ) ) THEN
@@ -124,11 +124,11 @@
          END IF
       END IF
 *
-*     Choose a shift.
+      // Choose a shift.
 *
       CALL SLASQ4( I0, N0, Z, PP, N0IN, DMIN, DMIN1, DMIN2, DN, DN1, DN2, TAU, TTYPE, G )
 *
-*     Call dqds until DMIN > 0.
+      // Call dqds until DMIN > 0.
 *
    70 CONTINUE
 *
@@ -137,40 +137,40 @@
       NDIV = NDIV + ( N0-I0+2 )
       ITER = ITER + 1
 *
-*     Check status.
+      // Check status.
 *
       IF( DMIN.GE.ZERO .AND. DMIN1.GE.ZERO ) THEN
 *
-*        Success.
+         // Success.
 *
          GO TO 90
 *
       ELSE IF( DMIN.LT.ZERO .AND. DMIN1.GT.ZERO .AND. Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) .AND. ABS( DN ).LT.TOL*SIGMA ) THEN
 *
-*        Convergence hidden by negative DN.
+         // Convergence hidden by negative DN.
 *
          Z( 4*( N0-1 )-PP+2 ) = ZERO
          DMIN = ZERO
          GO TO 90
       ELSE IF( DMIN.LT.ZERO ) THEN
 *
-*        TAU too big. Select new TAU and try again.
+         // TAU too big. Select new TAU and try again.
 *
          NFAIL = NFAIL + 1
          IF( TTYPE.LT.-22 ) THEN
 *
-*           Failed twice. Play it safe.
+            // Failed twice. Play it safe.
 *
             TAU = ZERO
          ELSE IF( DMIN1.GT.ZERO ) THEN
 *
-*           Late failure. Gives excellent shift.
+            // Late failure. Gives excellent shift.
 *
             TAU = ( TAU+DMIN )*( ONE-TWO*EPS )
             TTYPE = TTYPE - 11
          ELSE
 *
-*           Early failure. Divide by 4.
+            // Early failure. Divide by 4.
 *
             TAU = QURTR*TAU
             TTYPE = TTYPE - 12
@@ -178,7 +178,7 @@
          GO TO 70
       ELSE IF( SISNAN( DMIN ) ) THEN
 *
-*        NaN.
+         // NaN.
 *
          IF( TAU.EQ.ZERO ) THEN
             GO TO 80
@@ -188,12 +188,12 @@
          END IF
       ELSE
 *
-*        Possible underflow. Play it safe.
+         // Possible underflow. Play it safe.
 *
          GO TO 80
       END IF
 *
-*     Risk of underflow.
+      // Risk of underflow.
 *
    80 CONTINUE
       CALL SLASQ6( I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DN1, DN2 )
@@ -214,6 +214,6 @@
 *
       RETURN
 *
-*     End of SLASQ3
+      // End of SLASQ3
 *
       END

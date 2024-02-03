@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DGEQL2, DGEQLF, DGEQLS, DORG2L, DORGQL, DORM2L, DORMQL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -54,9 +54,9 @@
    20 CONTINUE
       OK = .TRUE.
 *
-*     Error exits for QL factorization
+      // Error exits for QL factorization
 *
-*     DGEQLF
+      // DGEQLF
 *
       SRNAMT = 'DGEQLF'
       INFOT = 1
@@ -72,7 +72,7 @@
       CALL DGEQLF( 1, 2, A, 1, B, W, 1, INFO )
       CALL CHKXER( 'DGEQLF', INFOT, NOUT, LERR, OK )
 *
-*     DGEQL2
+      // DGEQL2
 *
       SRNAMT = 'DGEQL2'
       INFOT = 1
@@ -85,7 +85,7 @@
       CALL DGEQL2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'DGEQL2', INFOT, NOUT, LERR, OK )
 *
-*     DGEQLS
+      // DGEQLS
 *
       SRNAMT = 'DGEQLS'
       INFOT = 1
@@ -110,7 +110,7 @@
       CALL DGEQLS( 1, 1, 2, A, 1, X, B, 1, W, 1, INFO )
       CALL CHKXER( 'DGEQLS', INFOT, NOUT, LERR, OK )
 *
-*     DORGQL
+      // DORGQL
 *
       SRNAMT = 'DORGQL'
       INFOT = 1
@@ -135,7 +135,7 @@
       CALL DORGQL( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'DORGQL', INFOT, NOUT, LERR, OK )
 *
-*     DORG2L
+      // DORG2L
 *
       SRNAMT = 'DORG2L'
       INFOT = 1
@@ -157,7 +157,7 @@
       CALL DORG2L( 2, 1, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'DORG2L', INFOT, NOUT, LERR, OK )
 *
-*     DORMQL
+      // DORMQL
 *
       SRNAMT = 'DORMQL'
       INFOT = 1
@@ -197,7 +197,7 @@
       CALL DORMQL( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'DORMQL', INFOT, NOUT, LERR, OK )
 *
-*     DORM2L
+      // DORM2L
 *
       SRNAMT = 'DORM2L'
       INFOT = 1
@@ -231,12 +231,12 @@
       CALL DORM2L( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'DORM2L', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRQL
+      // End of DERRQL
 *
       END

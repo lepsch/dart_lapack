@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I, IB, NB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CHERK, CLAUU2, CTRMM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -53,26 +53,26 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Determine the block size for this environment.
+      // Determine the block size for this environment.
 *
       NB = ILAENV( 1, 'CLAUUM', UPLO, N, -1, -1, -1 )
 *
       IF( NB.LE.1 .OR. NB.GE.N ) THEN
 *
-*        Use unblocked code
+         // Use unblocked code
 *
          CALL CLAUU2( UPLO, N, A, LDA, INFO )
       ELSE
 *
-*        Use blocked code
+         // Use blocked code
 *
          IF( UPPER ) THEN
 *
-*           Compute the product U * U**H.
+            // Compute the product U * U**H.
 *
             DO 10 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
@@ -85,7 +85,7 @@
    10       CONTINUE
          ELSE
 *
-*           Compute the product L**H * L.
+            // Compute the product L**H * L.
 *
             DO 20 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
@@ -100,6 +100,6 @@
 *
       RETURN
 *
-*     End of CLAUUM
+      // End of CLAUUM
 *
       END

@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
       int                INFO, LDA, N;
       double             RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             A( LDA, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOUNIT, ONENRM, UPPER;
       String             NORMIN;
       int                IX, KASE, KASE1;
       double             AINVNM, ANORM, SCALE, SMLNUM, XNORM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DLAMCH, DLANTR;
       // EXTERNAL LSAME, IDAMAX, DLAMCH, DLANTR
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLACN2, DLATRS, DRSCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -66,7 +66,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          RCOND = ONE
@@ -76,15 +76,15 @@
       RCOND = ZERO
       SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( MAX( 1, N ) )
 *
-*     Compute the norm of the triangular matrix A.
+      // Compute the norm of the triangular matrix A.
 *
       ANORM = DLANTR( NORM, UPLO, DIAG, N, N, A, LDA, WORK )
 *
-*     Continue only if ANORM > 0.
+      // Continue only if ANORM > 0.
 *
       IF( ANORM.GT.ZERO ) THEN
 *
-*        Estimate the norm of the inverse of A.
+         // Estimate the norm of the inverse of A.
 *
          AINVNM = ZERO
          NORMIN = 'N'
@@ -99,18 +99,18 @@
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.KASE1 ) THEN
 *
-*              Multiply by inv(A).
+               // Multiply by inv(A).
 *
                CALL DLATRS( UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO )
             ELSE
 *
-*              Multiply by inv(A**T).
+               // Multiply by inv(A**T).
 *
                CALL DLATRS( UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO )
             END IF
             NORMIN = 'Y'
 *
-*           Multiply by 1/SCALE if doing so will not cause overflow.
+            // Multiply by 1/SCALE if doing so will not cause overflow.
 *
             IF( SCALE.NE.ONE ) THEN
                IX = IDAMAX( N, WORK, 1 )
@@ -121,7 +121,7 @@
             GO TO 10
          END IF
 *
-*        Compute the estimate of the reciprocal condition number.
+         // Compute the estimate of the reciprocal condition number.
 *
          IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
       END IF
@@ -129,6 +129,6 @@
    20 CONTINUE
       RETURN
 *
-*     End of DTRCON
+      // End of DTRCON
 *
       END

@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                N, NUM;
       double             SHIFT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             E( * ), S( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       double             M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine constants
+      // Get machine constants
 *
       UNFL = 2*DLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
 *
-*     Find largest entry
+      // Find largest entry
 *
       MX = ABS( S( 1 ) )
       DO 10 I = 1, N - 1
@@ -54,7 +54,7 @@
          RETURN
       END IF
 *
-*     Compute scale factors as in Kahan's report
+      // Compute scale factors as in Kahan's report
 *
       SUN = SQRT( UNFL )
       SSUN = SQRT( SUN )
@@ -68,7 +68,7 @@
          M2 = TOM / MX
       END IF
 *
-*     Begin counting
+      // Begin counting
 *
       U = ONE
       NUM = 0
@@ -116,6 +116,6 @@
    20 CONTINUE
       RETURN
 *
-*     End of DSVDCT
+      // End of DSVDCT
 *
       END

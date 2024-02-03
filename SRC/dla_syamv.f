@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             ALPHA, BETA;
       int                INCX, INCY, LDA, N, UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), X( * ), Y( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               SYMB_ZERO;
       double             TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, DLAMCH
       double             DLAMCH;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       // EXTERNAL ILAUPLO
       int                ILAUPLO;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, ABS, SIGN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF     ( UPLO.NE.ILAUPLO( 'U' ) .AND. UPLO.NE.ILAUPLO( 'L' ) ) THEN
@@ -55,11 +55,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( ( N.EQ.0 ).OR.( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) ) RETURN
 *
-*     Set up the start points in  X  and  Y.
+      // Set up the start points in  X  and  Y.
 *
       IF( INCX.GT.0 )THEN
          KX = 1
@@ -72,17 +72,17 @@
          KY = 1 - ( N - 1 )*INCY
       END IF
 *
-*     Set SAFE1 essentially to be the underflow threshold times the
-*     number of additions in each row.
+      // Set SAFE1 essentially to be the underflow threshold times the
+      // number of additions in each row.
 *
       SAFE1 = DLAMCH( 'Safe minimum' )
       SAFE1 = (N+1)*SAFE1
 *
-*     Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
+      // Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
 *
-*     The O(N^2) SYMB_ZERO tests could be replaced by O(N) queries to
-*     the inexact flag.  Still doesn't help change the iteration order
-*     to per-column.
+      // The O(N^2) SYMB_ZERO tests could be replaced by O(N) queries to
+     t // he inexact flag.  Still doesn't help change the iteration order
+     t // o per-column.
 *
       IY = KY
       IF ( INCX.EQ.1 ) THEN
@@ -216,6 +216,6 @@
 *
       RETURN
 *
-*     End of DLA_SYAMV
+      // End of DLA_SYAMV
 *
       END

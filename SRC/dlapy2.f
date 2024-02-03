@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             X, Y;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             W, XABS, YABS, Z, HUGEVAL;
       bool               X_IS_NAN, Y_IS_NAN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               DISNAN;
       // EXTERNAL DISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       double             DLAMCH;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       X_IS_NAN = DISNAN( X )
       Y_IS_NAN = DISNAN( Y )
@@ -51,6 +51,6 @@
       END IF
       RETURN
 *
-*     End of DLAPY2
+      // End of DLAPY2
 *
       END

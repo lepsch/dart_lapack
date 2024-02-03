@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, UPLO;
       int                N;
       REAL               AMAX, SCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               AP( * ), S( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, THRESH
       PARAMETER          ( ONE = 1.0E+0, THRESH = 0.1E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, JC;
       REAL               CJ, LARGE, SMALL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH
       // EXTERNAL LSAME, SLAMCH
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          EQUED = 'N'
          RETURN
       END IF
 *
-*     Initialize LARGE and SMALL.
+      // Initialize LARGE and SMALL.
 *
       SMALL = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 *
       IF( SCOND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) THEN
 *
-*        No equilibration
+         // No equilibration
 *
          EQUED = 'N'
       ELSE
 *
-*        Replace A by diag(S) * A * diag(S).
+         // Replace A by diag(S) * A * diag(S).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*           Upper triangle of A is stored.
+            // Upper triangle of A is stored.
 *
             JC = 1
             DO 20 J = 1, N
@@ -65,7 +65,7 @@
    20       CONTINUE
          ELSE
 *
-*           Lower triangle of A is stored.
+            // Lower triangle of A is stored.
 *
             JC = 1
             DO 40 J = 1, N
@@ -81,6 +81,6 @@
 *
       RETURN
 *
-*     End of SLAQSP
+      // End of SLAQSP
 *
       END

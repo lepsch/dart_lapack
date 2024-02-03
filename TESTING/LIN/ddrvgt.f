@@ -4,62 +4,62 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NOUT, NRHS;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       double             A( * ), AF( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 12 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 6 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               TRFCON, ZEROT;
       String             DIST, FACT, TRANS, TYPE;
       String             PATH;
       int                I, IFACT, IMAT, IN, INFO, ITRAN, IX, IZERO, J, K, K1, KL, KOFF, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT;
       double             AINVNM, ANORM, ANORMI, ANORMO, COND, RCOND, RCONDC, RCONDI, RCONDO;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             TRANSS( 3 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS ), Z( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DASUM, DGET06, DLANGT;
       // EXTERNAL DASUM, DGET06, DLANGT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, DCOPY, DERRVX, DGET04, DGTSV, DGTSVX, DGTT01, DGTT02, DGTT05, DGTTRF, DGTTRS, DLACPY, DLAGTM, DLARNV, DLASET, DLATB4, DLATMS, DSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 0, 0, 0, 1 / , TRANSS / 'N', 'T', 'C' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'GT'
@@ -70,14 +70,14 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL DERRVX( PATH, NOUT )
       INFOT = 0
 *
       DO 140 IN = 1, NN
 *
-*        Do for each value of N in NVAL.
+         // Do for each value of N in NVAL.
 *
          N = NVAL( IN )
          M = MAX( N-1, 0 )
@@ -87,24 +87,24 @@
 *
          DO 130 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 130
 *
-*           Set up parameters with DLATB4.
+            // Set up parameters with DLATB4.
 *
             CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 *
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
 *
-*              Types 1-6:  generate matrices of known condition number.
+               // Types 1-6:  generate matrices of known condition number.
 *
                KOFF = MAX( 2-KU, 3-MAX( 1, N ) )
                SRNAMT = 'DLATMS'
                CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO )
 *
-*              Check the error code from DLATMS.
+               // Check the error code from DLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
@@ -119,19 +119,19 @@
                CALL DCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
             ELSE
 *
-*              Types 7-12:  generate tridiagonal matrices with
-*              unknown condition numbers.
+               // Types 7-12:  generate tridiagonal matrices with
+               // unknown condition numbers.
 *
                IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
 *
-*                 Generate a matrix with elements from [-1,1].
+                  // Generate a matrix with elements from [-1,1].
 *
                   CALL DLARNV( 2, ISEED, N+2*M, A )
                   IF( ANORM.NE.ONE ) CALL DSCAL( N+2*M, ANORM, A, 1 )
                ELSE IF( IZERO.GT.0 ) THEN
 *
-*                 Reuse the last matrix by copying back the zeroed out
-*                 elements.
+                  // Reuse the last matrix by copying back the zeroed out
+                  // elements.
 *
                   IF( IZERO.EQ.1 ) THEN
                      A( N ) = Z( 2 )
@@ -146,7 +146,7 @@
                   END IF
                END IF
 *
-*              If IMAT > 7, set one column of the matrix to 0.
+               // If IMAT > 7, set one column of the matrix to 0.
 *
                IF( .NOT.ZEROT ) THEN
                   IZERO = 0
@@ -183,8 +183,8 @@
                   FACT = 'N'
                END IF
 *
-*              Compute the condition number for comparison with
-*              the value returned by DGTSVX.
+               // Compute the condition number for comparison with
+              t // he value returned by DGTSVX.
 *
                IF( ZEROT ) THEN
                   IF( IFACT.EQ.1 ) GO TO 120
@@ -194,17 +194,17 @@
                ELSE IF( IFACT.EQ.1 ) THEN
                   CALL DCOPY( N+2*M, A, 1, AF, 1 )
 *
-*                 Compute the 1-norm and infinity-norm of A.
+                  // Compute the 1-norm and infinity-norm of A.
 *
                   ANORMO = DLANGT( '1', N, A, A( M+1 ), A( N+M+1 ) )
                   ANORMI = DLANGT( 'I', N, A, A( M+1 ), A( N+M+1 ) )
 *
-*                 Factor the matrix A.
+                  // Factor the matrix A.
 *
                   CALL DGTTRF( N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO )
 *
-*                 Use DGTTRS to solve for one column at a time of
-*                 inv(A), computing the maximum column sum as we go.
+                  // Use DGTTRS to solve for one column at a time of
+                  // inv(A), computing the maximum column sum as we go.
 *
                   AINVNM = ZERO
                   DO 40 I = 1, N
@@ -216,7 +216,7 @@
                      AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
    40             CONTINUE
 *
-*                 Compute the 1-norm condition number of A.
+                  // Compute the 1-norm condition number of A.
 *
                   IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDO = ONE
@@ -224,8 +224,8 @@
                      RCONDO = ( ONE / ANORMO ) / AINVNM
                   END IF
 *
-*                 Use DGTTRS to solve for one column at a time of
-*                 inv(A'), computing the maximum column sum as we go.
+                  // Use DGTTRS to solve for one column at a time of
+                  // inv(A'), computing the maximum column sum as we go.
 *
                   AINVNM = ZERO
                   DO 60 I = 1, N
@@ -237,7 +237,7 @@
                      AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
    60             CONTINUE
 *
-*                 Compute the infinity-norm condition number of A.
+                  // Compute the infinity-norm condition number of A.
 *
                   IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDI = ONE
@@ -254,7 +254,7 @@
                      RCONDC = RCONDI
                   END IF
 *
-*                 Generate NRHS random solution vectors.
+                  // Generate NRHS random solution vectors.
 *
                   IX = 1
                   DO 70 J = 1, NRHS
@@ -262,16 +262,16 @@
                      IX = IX + LDA
    70             CONTINUE
 *
-*                 Set the right hand side.
+                  // Set the right hand side.
 *
                   CALL DLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
 *
                   IF( IFACT.EQ.2 .AND. ITRAN.EQ.1 ) THEN
 *
-*                    --- Test DGTSV  ---
+                     // --- Test DGTSV  ---
 *
-*                    Solve the system using Gaussian elimination with
-*                    partial pivoting.
+                     // Solve the system using Gaussian elimination with
+                     // partial pivoting.
 *
                      CALL DCOPY( N+2*M, A, 1, AF, 1 )
                      CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
@@ -279,24 +279,24 @@
                      SRNAMT = 'DGTSV '
                      CALL DGTSV( N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO )
 *
-*                    Check error code from DGTSV .
+                     // Check error code from DGTSV .
 *
                      IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                      NT = 1
                      IF( IZERO.EQ.0 ) THEN
 *
-*                       Check residual of computed solution.
+                        // Check residual of computed solution.
 *
                         CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         NT = 3
                      END IF
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      DO 80 K = 2, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
@@ -307,11 +307,11 @@
                      NRUN = NRUN + NT - 1
                   END IF
 *
-*                 --- Test DGTSVX ---
+                  // --- Test DGTSVX ---
 *
                   IF( IFACT.GT.1 ) THEN
 *
-*                    Initialize AF to zero.
+                     // Initialize AF to zero.
 *
                      DO 90 I = 1, 3*N - 2
                         AF( I ) = ZERO
@@ -319,20 +319,20 @@
                   END IF
                   CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
 *
-*                 Solve the system and compute the condition number and
-*                 error bounds using DGTSVX.
+                  // Solve the system and compute the condition number and
+                  // error bounds using DGTSVX.
 *
                   SRNAMT = 'DGTSVX'
                   CALL DGTSVX( FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
 *
-*                 Check the error code from DGTSVX.
+                  // Check the error code from DGTSVX.
 *
                   IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                   IF( IFACT.GE.2 ) THEN
 *
-*                    Reconstruct matrix from factors and compute
-*                    residual.
+                     // Reconstruct matrix from factors and compute
+                     // residual.
 *
                      CALL DGTT01( N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
                      K1 = 1
@@ -343,23 +343,23 @@
                   IF( INFO.EQ.0 ) THEN
                      TRFCON = .FALSE.
 *
-*                    Check residual of computed solution.
+                     // Check residual of computed solution.
 *
                      CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
                      CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
 *
-*                    Check solution from generated exact solution.
+                     // Check solution from generated exact solution.
 *
                      CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
-*                    Check the error bounds from iterative refinement.
+                     // Check the error bounds from iterative refinement.
 *
                      CALL DGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                      NT = 5
                   END IF
 *
-*                 Print information about the tests that did not pass
-*                 the threshold.
+                  // Print information about the tests that did not pass
+                 t // he threshold.
 *
                   DO 100 K = K1, NT
                      IF( RESULT( K ).GE.THRESH ) THEN
@@ -368,7 +368,7 @@
                      END IF
   100             CONTINUE
 *
-*                 Check the reciprocal of the condition number.
+                  // Check the reciprocal of the condition number.
 *
                   RESULT( 6 ) = DGET06( RCOND, RCONDC )
                   IF( RESULT( 6 ).GE.THRESH ) THEN
@@ -382,7 +382,7 @@
   130    CONTINUE
   140 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -392,6 +392,6 @@
      $      I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
       RETURN
 *
-*     End of DDRVGT
+      // End of DDRVGT
 *
       END

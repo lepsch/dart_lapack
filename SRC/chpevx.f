@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDZ, M, N;
       REAL               ABSTOL, VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       REAL               RWORK( * ), W( * )
       COMPLEX            AP( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E0, 0.0E0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, VALEIG, WANTZ;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDTAU, INDWRK, ISCALE, ITMP1, J, JJ, NSPLIT;
       REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANHP, SLAMCH
       // EXTERNAL LSAME, CLANHP, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHPTRD, CSSCAL, CSTEIN, CSTEQR, CSWAP, CUPGTR, CUPMTR, SCOPY, SSCAL, SSTEBZ, SSTERF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       ALLEIG = LSAME( RANGE, 'A' )
@@ -78,7 +78,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) RETURN
@@ -97,7 +97,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS = SLAMCH( 'Precision' )
@@ -106,7 +106,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       ABSTLL = ABSTOL
@@ -134,7 +134,7 @@
          END IF
       END IF
 *
-*     Call CHPTRD to reduce Hermitian packed matrix to tridiagonal form.
+      // Call CHPTRD to reduce Hermitian packed matrix to tridiagonal form.
 *
       INDD = 1
       INDE = INDD + N
@@ -143,9 +143,9 @@
       INDWRK = INDTAU + N
       CALL CHPTRD( UPLO, N, AP, RWORK( INDD ), RWORK( INDE ), WORK( INDTAU ), IINFO )
 *
-*     If all eigenvalues are desired and ABSTOL is less than or equal
-*     to zero, then call SSTERF or CUPGTR and CSTEQR.  If this fails
-*     for some eigenvalue, then try SSTEBZ.
+      // If all eigenvalues are desired and ABSTOL is less than or equal
+     t // o zero, then call SSTERF or CUPGTR and CSTEQR.  If this fails
+      // for some eigenvalue, then try SSTEBZ.
 *
       TEST = .FALSE.
       IF (INDEIG) THEN
@@ -176,7 +176,7 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call SSTEBZ and, if eigenvectors are desired, CSTEIN.
+      // Otherwise, call SSTEBZ and, if eigenvectors are desired, CSTEIN.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -190,14 +190,14 @@
       IF( WANTZ ) THEN
          CALL CSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
 *
-*        Apply unitary matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by CSTEIN.
+         // Apply unitary matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by CSTEIN.
 *
          INDWRK = INDTAU + N
          CALL CUPMTR( 'L', UPLO, 'N', N, M, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
    20 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -209,8 +209,8 @@
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 40 J = 1, M - 1
@@ -241,6 +241,6 @@
 *
       RETURN
 *
-*     End of CHPEVX
+      // End of CHPEVX
 *
       END

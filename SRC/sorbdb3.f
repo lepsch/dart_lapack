@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               PHI(*), THETA(*)
       REAL               TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*)
-*     ..
+      // ..
 *
 *  ====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               C, S
       int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLARF, SLARFGP, SORBDB5, SROT, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SNRM2
       // EXTERNAL SNRM2
-*     ..
-*     .. Intrinsic Function ..
+      // ..
+      // .. Intrinsic Function ..
       // INTRINSIC ATAN2, COS, MAX, SIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       LQUERY = LWORK .EQ. -1
@@ -52,7 +52,7 @@
          INFO = -7
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO .EQ. 0 ) THEN
          ILARF = 2
@@ -73,7 +73,7 @@
          RETURN
       END IF
 *
-*     Reduce rows 1, ..., M-P of X11 and X21
+      // Reduce rows 1, ..., M-P of X11 and X21
 *
       DO I = 1, M-P
 *
@@ -102,7 +102,7 @@
 *
       END DO
 *
-*     Reduce the bottom-right portion of X11 to the identity matrix
+      // Reduce the bottom-right portion of X11 to the identity matrix
 *
       DO I = M-P + 1, Q
          CALL SLARFGP( P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) )
@@ -112,6 +112,6 @@
 *
       RETURN
 *
-*     End of SORBDB3
+      // End of SORBDB3
 *
       END

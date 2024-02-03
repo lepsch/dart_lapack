@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS;
       double             ANRM, RCOND, BERR;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX ), IW( NMAX );
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DSPCON, DSPRFS, DSPTRF, DSPTRI, DSPTRS, DSYCON, DSYCON_3, DSYCON_ROOK, DSYRFS, DSYTF2, DSYTF2_RK, DSYTF2_ROOK, DSYTRF, DSYTRF_RK, DSYTRF_ROOK, DSYTRI, DSYTRI_3, DSYTRI_3X, DSYTRI_ROOK, DSYTRI2, DSYTRI2X, DSYTRS, DSYTRS_3, DSYTRS_ROOK, DSYRFSX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -73,11 +73,11 @@
 *
       IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with partial
-*        (Bunch-Kaufman) pivoting.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with partial
+         // (Bunch-Kaufman) pivoting.
 *
-*        DSYTRF
+         // DSYTRF
 *
          SRNAMT = 'DSYTRF'
          INFOT = 1
@@ -96,7 +96,7 @@
          CALL DSYTRF( 'U', 0, A, 1, IP, W, -2, INFO )
          CALL CHKXER( 'DSYTRF', INFOT, NOUT, LERR, OK )
 *
-*        DSYTF2
+         // DSYTF2
 *
          SRNAMT = 'DSYTF2'
          INFOT = 1
@@ -109,7 +109,7 @@
          CALL DSYTF2( 'U', 2, A, 1, IP, INFO )
          CALL CHKXER( 'DSYTF2', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRI
+         // DSYTRI
 *
          SRNAMT = 'DSYTRI'
          INFOT = 1
@@ -122,7 +122,7 @@
          CALL DSYTRI( 'U', 2, A, 1, IP, W, INFO )
          CALL CHKXER( 'DSYTRI', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRI2
+         // DSYTRI2
 *
          SRNAMT = 'DSYTRI2'
          INFOT = 1
@@ -135,7 +135,7 @@
          CALL DSYTRI2( 'U', 2, A, 1, IP, W, IW, INFO )
          CALL CHKXER( 'DSYTRI2', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRI2X
+         // DSYTRI2X
 *
          SRNAMT = 'DSYTRI2X'
          INFOT = 1
@@ -148,7 +148,7 @@
          CALL DSYTRI2X( 'U', 2, A, 1, IP, W, 1, INFO )
          CALL CHKXER( 'DSYTRI2X', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRS
+         // DSYTRS
 *
          SRNAMT = 'DSYTRS'
          INFOT = 1
@@ -167,7 +167,7 @@
          CALL DSYTRS( 'U', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS', INFOT, NOUT, LERR, OK )
 *
-*        DSYRFS
+         // DSYRFS
 *
          SRNAMT = 'DSYRFS'
          INFOT = 1
@@ -192,7 +192,7 @@
          CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
 *
-*        DSYRFSX
+         // DSYRFSX
 *
          N_ERR_BNDS = 3
          NPARAMS = 0
@@ -223,7 +223,7 @@
          CALL DSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
 *
-*        DSYCON
+         // DSYCON
 *
          SRNAMT = 'DSYCON'
          INFOT = 1
@@ -241,11 +241,11 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting.
 *
-*        DSYTRF_ROOK
+         // DSYTRF_ROOK
 *
          SRNAMT = 'DSYTRF_ROOK'
          INFOT = 1
@@ -264,7 +264,7 @@
          CALL DSYTRF_ROOK( 'U', 0, A, 1, IP, W, -2, INFO )
          CALL CHKXER( 'DSYTRF_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        DSYTF2_ROOK
+         // DSYTF2_ROOK
 *
          SRNAMT = 'DSYTF2_ROOK'
          INFOT = 1
@@ -277,7 +277,7 @@
          CALL DSYTF2_ROOK( 'U', 2, A, 1, IP, INFO )
          CALL CHKXER( 'DSYTF2_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRI_ROOK
+         // DSYTRI_ROOK
 *
          SRNAMT = 'DSYTRI_ROOK'
          INFOT = 1
@@ -290,7 +290,7 @@
          CALL DSYTRI_ROOK( 'U', 2, A, 1, IP, W, INFO )
          CALL CHKXER( 'DSYTRI_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRS_ROOK
+         // DSYTRS_ROOK
 *
          SRNAMT = 'DSYTRS_ROOK'
          INFOT = 1
@@ -309,7 +309,7 @@
          CALL DSYTRS_ROOK( 'U', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        DSYCON_ROOK
+         // DSYCON_ROOK
 *
          SRNAMT = 'DSYCON_ROOK'
          INFOT = 1
@@ -327,15 +327,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
-*        DSYTRF_RK
+         // DSYTRF_RK
 *
          SRNAMT = 'DSYTRF_RK'
          INFOT = 1
@@ -354,7 +354,7 @@
          CALL DSYTRF_RK( 'U', 0, A, 1, E, IP, W, -2, INFO )
          CALL CHKXER( 'DSYTRF_RK', INFOT, NOUT, LERR, OK )
 *
-*        DSYTF2_RK
+         // DSYTF2_RK
 *
          SRNAMT = 'DSYTF2_RK'
          INFOT = 1
@@ -367,7 +367,7 @@
          CALL DSYTF2_RK( 'U', 2, A, 1, E, IP, INFO )
          CALL CHKXER( 'DSYTF2_RK', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRI_3
+         // DSYTRI_3
 *
          SRNAMT = 'DSYTRI_3'
          INFOT = 1
@@ -386,7 +386,7 @@
          CALL DSYTRI_3( 'U', 0, A, 1, E, IP, W, -2, INFO )
          CALL CHKXER( 'DSYTRI_3', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRI_3X
+         // DSYTRI_3X
 *
          SRNAMT = 'DSYTRI_3X'
          INFOT = 1
@@ -399,7 +399,7 @@
          CALL DSYTRI_3X( 'U', 2, A, 1, E, IP, W, 1, INFO )
          CALL CHKXER( 'DSYTRI_3X', INFOT, NOUT, LERR, OK )
 *
-*        DSYTRS_3
+         // DSYTRS_3
 *
          SRNAMT = 'DSYTRS_3'
          INFOT = 1
@@ -418,7 +418,7 @@
          CALL DSYTRS_3( 'U', 2, 1, A, 2, E, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS_3', INFOT, NOUT, LERR, OK )
 *
-*        DSYCON_3
+         // DSYCON_3
 *
          SRNAMT = 'DSYCON_3'
          INFOT = 1
@@ -436,11 +436,11 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite packed matrix with partial
-*        (Bunch-Kaufman) pivoting.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite packed matrix with partial
+         // (Bunch-Kaufman) pivoting.
 *
-*        DSPTRF
+         // DSPTRF
 *
          SRNAMT = 'DSPTRF'
          INFOT = 1
@@ -450,7 +450,7 @@
          CALL DSPTRF( 'U', -1, A, IP, INFO )
          CALL CHKXER( 'DSPTRF', INFOT, NOUT, LERR, OK )
 *
-*        DSPTRI
+         // DSPTRI
 *
          SRNAMT = 'DSPTRI'
          INFOT = 1
@@ -460,7 +460,7 @@
          CALL DSPTRI( 'U', -1, A, IP, W, INFO )
          CALL CHKXER( 'DSPTRI', INFOT, NOUT, LERR, OK )
 *
-*        DSPTRS
+         // DSPTRS
 *
          SRNAMT = 'DSPTRS'
          INFOT = 1
@@ -476,7 +476,7 @@
          CALL DSPTRS( 'U', 2, 1, A, IP, B, 1, INFO )
          CALL CHKXER( 'DSPTRS', INFOT, NOUT, LERR, OK )
 *
-*        DSPRFS
+         // DSPRFS
 *
          SRNAMT = 'DSPRFS'
          INFOT = 1
@@ -495,7 +495,7 @@
          CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
 *
-*        DSPCON
+         // DSPCON
 *
          SRNAMT = 'DSPCON'
          INFOT = 1
@@ -509,12 +509,12 @@
          CALL CHKXER( 'DSPCON', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRSYX
+      // End of DERRSYX
 *
       END

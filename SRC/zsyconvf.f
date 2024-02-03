@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO, WAY;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
 *
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL ZSWAP, XERBLA
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               UPPER, CONVERT;
       int                I, IP;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -49,23 +49,23 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Begin A is UPPER
+         // Begin A is UPPER
 *
          IF ( CONVERT ) THEN
 *
-*           Convert A (A is upper)
+            // Convert A (A is upper)
 *
 *
-*           Convert VALUE
+            // Convert VALUE
 *
-*           Assign superdiagonal entries of D to array E and zero out
-*           corresponding entries in input storage A
+            // Assign superdiagonal entries of D to array E and zero out
+            // corresponding entries in input storage A
 *
             I = N
             E( 1 ) = ZERO
@@ -81,18 +81,18 @@
                I = I - 1
             END DO
 *
-*           Convert PERMUTATIONS and IPIV
+            // Convert PERMUTATIONS and IPIV
 *
-*           Apply permutations to submatrices of upper part of A
-*           in factorization order where i decreases from N to 1
+            // Apply permutations to submatrices of upper part of A
+            // in factorization order where i decreases from N to 1
 *
             I = N
             DO WHILE ( I.GE.1 )
                IF( IPIV( I ).GT.0 ) THEN
 *
-*                 1-by-1 pivot interchange
+                  // 1-by-1 pivot interchange
 *
-*                 Swap rows i and IPIV(i) in A(1:i,N-i:N)
+                  // Swap rows i and IPIV(i) in A(1:i,N-i:N)
 *
                   IP = IPIV( I )
                   IF( I.LT.N ) THEN
@@ -103,9 +103,9 @@
 *
                ELSE
 *
-*                 2-by-2 pivot interchange
+                  // 2-by-2 pivot interchange
 *
-*                 Swap rows i-1 and IPIV(i) in A(1:i,N-i:N)
+                  // Swap rows i-1 and IPIV(i) in A(1:i,N-i:N)
 *
                   IP = -IPIV( I )
                   IF( I.LT.N ) THEN
@@ -114,10 +114,10 @@
                      END IF
                   END IF
 *
-*                 Convert IPIV
-*                 There is no interchange of rows i and and IPIV(i),
-*                 so this should be reflected in IPIV format for
-*                 *SYTRF_RK ( or *SYTRF_BK)
+                  // Convert IPIV
+                  // There is no interchange of rows i and and IPIV(i),
+                  // so this should be reflected in IPIV format for
+                  // *SYTRF_RK ( or *SYTRF_BK)
 *
                   IPIV( I ) = I
 *
@@ -129,21 +129,21 @@
 *
          ELSE
 *
-*           Revert A (A is upper)
+            // Revert A (A is upper)
 *
 *
-*           Revert PERMUTATIONS and IPIV
+            // Revert PERMUTATIONS and IPIV
 *
-*           Apply permutations to submatrices of upper part of A
-*           in reverse factorization order where i increases from 1 to N
+            // Apply permutations to submatrices of upper part of A
+            // in reverse factorization order where i increases from 1 to N
 *
             I = 1
             DO WHILE ( I.LE.N )
                IF( IPIV( I ).GT.0 ) THEN
 *
-*                 1-by-1 pivot interchange
+                  // 1-by-1 pivot interchange
 *
-*                 Swap rows i and IPIV(i) in A(1:i,N-i:N)
+                  // Swap rows i and IPIV(i) in A(1:i,N-i:N)
 *
                   IP = IPIV( I )
                   IF( I.LT.N ) THEN
@@ -154,9 +154,9 @@
 *
                ELSE
 *
-*                 2-by-2 pivot interchange
+                  // 2-by-2 pivot interchange
 *
-*                 Swap rows i-1 and IPIV(i) in A(1:i,N-i:N)
+                  // Swap rows i-1 and IPIV(i) in A(1:i,N-i:N)
 *
                   I = I + 1
                   IP = -IPIV( I )
@@ -166,10 +166,10 @@
                      END IF
                   END IF
 *
-*                 Convert IPIV
-*                 There is one interchange of rows i-1 and IPIV(i-1),
-*                 so this should be recorded in two consecutive entries
-*                 in IPIV format for *SYTRF
+                  // Convert IPIV
+                  // There is one interchange of rows i-1 and IPIV(i-1),
+                  // so this should be recorded in two consecutive entries
+                  // in IPIV format for *SYTRF
 *
                   IPIV( I ) = IPIV( I-1 )
 *
@@ -177,9 +177,9 @@
                I = I + 1
             END DO
 *
-*           Revert VALUE
-*           Assign superdiagonal entries of D from array E to
-*           superdiagonal entries of A.
+            // Revert VALUE
+            // Assign superdiagonal entries of D from array E to
+            // superdiagonal entries of A.
 *
             I = N
             DO WHILE ( I.GT.1 )
@@ -190,22 +190,22 @@
                I = I - 1
             END DO
 *
-*        End A is UPPER
+         // End A is UPPER
 *
          END IF
 *
       ELSE
 *
-*        Begin A is LOWER
+         // Begin A is LOWER
 *
          IF ( CONVERT ) THEN
 *
-*           Convert A (A is lower)
+            // Convert A (A is lower)
 *
 *
-*           Convert VALUE
-*           Assign subdiagonal entries of D to array E and zero out
-*           corresponding entries in input storage A
+            // Convert VALUE
+            // Assign subdiagonal entries of D to array E and zero out
+            // corresponding entries in input storage A
 *
             I = 1
             E( N ) = ZERO
@@ -221,18 +221,18 @@
                I = I + 1
             END DO
 *
-*           Convert PERMUTATIONS and IPIV
+            // Convert PERMUTATIONS and IPIV
 *
-*           Apply permutations to submatrices of lower part of A
-*           in factorization order where k increases from 1 to N
+            // Apply permutations to submatrices of lower part of A
+            // in factorization order where k increases from 1 to N
 *
             I = 1
             DO WHILE ( I.LE.N )
                IF( IPIV( I ).GT.0 ) THEN
 *
-*                 1-by-1 pivot interchange
+                  // 1-by-1 pivot interchange
 *
-*                 Swap rows i and IPIV(i) in A(i:N,1:i-1)
+                  // Swap rows i and IPIV(i) in A(i:N,1:i-1)
 *
                   IP = IPIV( I )
                   IF ( I.GT.1 ) THEN
@@ -243,9 +243,9 @@
 *
                ELSE
 *
-*                 2-by-2 pivot interchange
+                  // 2-by-2 pivot interchange
 *
-*                 Swap rows i+1 and IPIV(i) in A(i:N,1:i-1)
+                  // Swap rows i+1 and IPIV(i) in A(i:N,1:i-1)
 *
                   IP = -IPIV( I )
                   IF ( I.GT.1 ) THEN
@@ -254,10 +254,10 @@
                      END IF
                   END IF
 *
-*                 Convert IPIV
-*                 There is no interchange of rows i and and IPIV(i),
-*                 so this should be reflected in IPIV format for
-*                 *SYTRF_RK ( or *SYTRF_BK)
+                  // Convert IPIV
+                  // There is no interchange of rows i and and IPIV(i),
+                  // so this should be reflected in IPIV format for
+                  // *SYTRF_RK ( or *SYTRF_BK)
 *
                   IPIV( I ) = I
 *
@@ -269,21 +269,21 @@
 *
          ELSE
 *
-*           Revert A (A is lower)
+            // Revert A (A is lower)
 *
 *
-*           Revert PERMUTATIONS and IPIV
+            // Revert PERMUTATIONS and IPIV
 *
-*           Apply permutations to submatrices of lower part of A
-*           in reverse factorization order where i decreases from N to 1
+            // Apply permutations to submatrices of lower part of A
+            // in reverse factorization order where i decreases from N to 1
 *
             I = N
             DO WHILE ( I.GE.1 )
                IF( IPIV( I ).GT.0 ) THEN
 *
-*                 1-by-1 pivot interchange
+                  // 1-by-1 pivot interchange
 *
-*                 Swap rows i and IPIV(i) in A(i:N,1:i-1)
+                  // Swap rows i and IPIV(i) in A(i:N,1:i-1)
 *
                   IP = IPIV( I )
                   IF ( I.GT.1 ) THEN
@@ -294,9 +294,9 @@
 *
                ELSE
 *
-*                 2-by-2 pivot interchange
+                  // 2-by-2 pivot interchange
 *
-*                 Swap rows i+1 and IPIV(i) in A(i:N,1:i-1)
+                  // Swap rows i+1 and IPIV(i) in A(i:N,1:i-1)
 *
                   I = I - 1
                   IP = -IPIV( I )
@@ -306,10 +306,10 @@
                      END IF
                   END IF
 *
-*                 Convert IPIV
-*                 There is one interchange of rows i+1 and IPIV(i+1),
-*                 so this should be recorded in consecutive entries
-*                 in IPIV format for *SYTRF
+                  // Convert IPIV
+                  // There is one interchange of rows i+1 and IPIV(i+1),
+                  // so this should be recorded in consecutive entries
+                  // in IPIV format for *SYTRF
 *
                   IPIV( I ) = IPIV( I+1 )
 *
@@ -317,9 +317,9 @@
                I = I - 1
             END DO
 *
-*           Revert VALUE
-*           Assign subdiagonal entries of D from array E to
-*           subdiagonal entries of A.
+            // Revert VALUE
+            // Assign subdiagonal entries of D from array E to
+            // subdiagonal entries of A.
 *
             I = 1
             DO WHILE ( I.LE.N-1 )
@@ -332,12 +332,12 @@
 *
          END IF
 *
-*        End A is LOWER
+         // End A is LOWER
 *
       END IF
 
       RETURN
 *
-*     End of ZSYCONVF
+      // End of ZSYCONVF
 *
       END

@@ -4,69 +4,69 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NVAL( * );
       double             RWORK( * ), S( * );
       COMPLEX*16         A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 9 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 6 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, ZEROT;
       String             DIST, EQUED, FACT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT;
       double             AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             EQUEDS( 2 ), FACTS( 3 ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DGET06, ZLANHE;
       // EXTERNAL LSAME, DGET06, ZLANHE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGET04, ZLACPY, ZLAIPD, ZLAQHE, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZPOEQU, ZPOSV, ZPOSVX, ZPOT01, ZPOT02, ZPOT05, ZPOTRF, ZPOTRI
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, MAX
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS / 'U', 'L' /
       DATA               FACTS / 'F', 'N', 'E' /
       DATA               EQUEDS / 'N', 'Y' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'Zomplex precision'
       PATH( 2: 3 ) = 'PO'
@@ -77,19 +77,19 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL ZERRVX( PATH, NOUT )
       INFOT = 0
 *
-*     Set the block size and minimum block size for testing.
+      // Set the block size and minimum block size for testing.
 *
       NB = 1
       NBMIN = 2
       CALL XLAENV( 1, NB )
       CALL XLAENV( 2, NBMIN )
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 130 IN = 1, NN
          N = NVAL( IN )
@@ -100,37 +100,37 @@
 *
          DO 120 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 120
 *
-*           Skip types 3, 4, or 5 if the matrix size is too small.
+            // Skip types 3, 4, or 5 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
             IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 120
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 110 IUPLO = 1, 2
                UPLO = UPLOS( IUPLO )
 *
-*              Set up parameters with ZLATB4 and generate a test matrix
-*              with ZLATMS.
+               // Set up parameters with ZLATB4 and generate a test matrix
+               // with ZLATMS.
 *
                CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'ZLATMS'
                CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
 *
-*              Check error code from ZLATMS.
+               // Check error code from ZLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 110
                END IF
 *
-*              For types 3-5, zero one row and column of the matrix to
-*              test that INFO is returned correctly.
+               // For types 3-5, zero one row and column of the matrix to
+              t // est that INFO is returned correctly.
 *
                IF( ZEROT ) THEN
                   IF( IMAT.EQ.3 ) THEN
@@ -142,7 +142,7 @@
                   END IF
                   IOFF = ( IZERO-1 )*LDA
 *
-*                 Set row and column IZERO of A to 0.
+                  // Set row and column IZERO of A to 0.
 *
                   IF( IUPLO.EQ.1 ) THEN
                      DO 20 I = 1, IZERO - 1
@@ -168,11 +168,11 @@
                   IZERO = 0
                END IF
 *
-*              Set the imaginary part of the diagonals.
+               // Set the imaginary part of the diagonals.
 *
                CALL ZLAIPD( N, A, LDA+1, 0 )
 *
-*              Save a copy of the matrix A in ASAV.
+               // Save a copy of the matrix A in ASAV.
 *
                CALL ZLACPY( UPLO, N, N, A, LDA, ASAV, LDA )
 *
@@ -196,46 +196,46 @@
 *
                      ELSE IF( .NOT.LSAME( FACT, 'N' ) ) THEN
 *
-*                       Compute the condition number for comparison with
-*                       the value returned by ZPOSVX (FACT = 'N' reuses
-*                       the condition number from the previous iteration
-*                       with FACT = 'F').
+                        // Compute the condition number for comparison with
+                       t // he value returned by ZPOSVX (FACT = 'N' reuses
+                       t // he condition number from the previous iteration
+                        // with FACT = 'F').
 *
                         CALL ZLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
                         IF( EQUIL .OR. IEQUED.GT.1 ) THEN
 *
-*                          Compute row and column scale factors to
-*                          equilibrate the matrix A.
+                           // Compute row and column scale factors to
+                           // equilibrate the matrix A.
 *
                            CALL ZPOEQU( N, AFAC, LDA, S, SCOND, AMAX, INFO )
                            IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
                               IF( IEQUED.GT.1 ) SCOND = ZERO
 *
-*                             Equilibrate the matrix.
+                              // Equilibrate the matrix.
 *
                               CALL ZLAQHE( UPLO, N, AFAC, LDA, S, SCOND, AMAX, EQUED )
                            END IF
                         END IF
 *
-*                       Save the condition number of the
-*                       non-equilibrated system for use in ZGET04.
+                        // Save the condition number of the
+                        // non-equilibrated system for use in ZGET04.
 *
                         IF( EQUIL ) ROLDC = RCONDC
 *
-*                       Compute the 1-norm of A.
+                        // Compute the 1-norm of A.
 *
                         ANORM = ZLANHE( '1', UPLO, N, AFAC, LDA, RWORK )
 *
-*                       Factor the matrix A.
+                        // Factor the matrix A.
 *
                         CALL ZPOTRF( UPLO, N, AFAC, LDA, INFO )
 *
-*                       Form the inverse of A.
+                        // Form the inverse of A.
 *
                         CALL ZLACPY( UPLO, N, N, AFAC, LDA, A, LDA )
                         CALL ZPOTRI( UPLO, N, A, LDA, INFO )
 *
-*                       Compute the 1-norm condition number of A.
+                        // Compute the 1-norm condition number of A.
 *
                         AINVNM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
                         IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -245,11 +245,11 @@
                         END IF
                      END IF
 *
-*                    Restore the matrix A.
+                     // Restore the matrix A.
 *
                      CALL ZLACPY( UPLO, N, N, ASAV, LDA, A, LDA )
 *
-*                    Form an exact solution and set the right hand side.
+                     // Form an exact solution and set the right hand side.
 *
                      SRNAMT = 'ZLARHS'
                      CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
@@ -258,10 +258,10 @@
 *
                      IF( NOFACT ) THEN
 *
-*                       --- Test ZPOSV  ---
+                        // --- Test ZPOSV  ---
 *
-*                       Compute the L*L' or U'*U factorization of the
-*                       matrix and solve the system.
+                        // Compute the L*L' or U'*U factorization of the
+                        // matrix and solve the system.
 *
                         CALL ZLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
                         CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
@@ -269,7 +269,7 @@
                         SRNAMT = 'ZPOSV '
                         CALL ZPOSV( UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO )
 *
-*                       Check error code from ZPOSV .
+                        // Check error code from ZPOSV .
 *
                         IF( INFO.NE.IZERO ) THEN
                            CALL ALAERH( PATH, 'ZPOSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -278,22 +278,22 @@
                            GO TO 70
                         END IF
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL ZPOT01( UPLO, N, A, LDA, AFAC, LDA, RWORK, RESULT( 1 ) )
 *
-*                       Compute residual of the computed solution.
+                        // Compute residual of the computed solution.
 *
                         CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         NT = 3
 *
-*                       Print information about the tests that did not
-*                       pass the threshold.
+                        // Print information about the tests that did not
+                        // pass the threshold.
 *
                         DO 60 K = 1, NT
                            IF( RESULT( K ).GE.THRESH ) THEN
@@ -305,25 +305,25 @@
    70                   CONTINUE
                      END IF
 *
-*                    --- Test ZPOSVX ---
+                     // --- Test ZPOSVX ---
 *
                      IF( .NOT.PREFAC ) CALL ZLASET( UPLO, N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA )
                      CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
-*                       Equilibrate the matrix if FACT='F' and
-*                       EQUED='Y'.
+                        // Equilibrate the matrix if FACT='F' and
+                        // EQUED='Y'.
 *
                         CALL ZLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
                      END IF
 *
-*                    Solve the system and compute the condition number
-*                    and error bounds using ZPOSVX.
+                     // Solve the system and compute the condition number
+                     // and error bounds using ZPOSVX.
 *
                      SRNAMT = 'ZPOSVX'
                      CALL ZPOSVX( FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
-*                    Check the error code from ZPOSVX.
+                     // Check the error code from ZPOSVX.
 *
                      IF( INFO.NE.IZERO ) THEN
                         CALL ALAERH( PATH, 'ZPOSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -333,8 +333,8 @@
                      IF( INFO.EQ.0 ) THEN
                         IF( .NOT.PREFAC ) THEN
 *
-*                          Reconstruct matrix from factors and compute
-*                          residual.
+                           // Reconstruct matrix from factors and compute
+                           // residual.
 *
                            CALL ZPOT01( UPLO, N, A, LDA, AFAC, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                            K1 = 1
@@ -342,32 +342,32 @@
                            K1 = 2
                         END IF
 *
-*                       Compute residual of the computed solution.
+                        // Compute residual of the computed solution.
 *
                         CALL ZLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL ZPOT02( UPLO, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         ELSE
                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                         END IF
 *
-*                       Check the error bounds from iterative
-*                       refinement.
+                        // Check the error bounds from iterative
+                        // refinement.
 *
                         CALL ZPOT05( UPLO, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                      ELSE
                         K1 = 6
                      END IF
 *
-*                    Compare RCOND from ZPOSVX with the computed value
-*                    in RCONDC.
+                     // Compare RCOND from ZPOSVX with the computed value
+                     // in RCONDC.
 *
                      RESULT( 6 ) = DGET06( RCOND, RCONDC )
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      DO 80 K = K1, 6
                         IF( RESULT( K ).GE.THRESH ) THEN
@@ -387,7 +387,7 @@
   120    CONTINUE
   130 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -400,6 +400,6 @@
      $      G12.5 )
       RETURN
 *
-*     End of ZDRVPO
+      // End of ZDRVPO
 *
       END

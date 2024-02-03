@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = NMAX )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO, J, NT;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             D( NMAX ), E( NMAX ), RW( 4*NMAX );
       COMPLEX*16         A( NMAX, NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, ZBDSQR, ZGEBD2, ZGEBRD, ZUNGBR, ZUNMBR
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -58,11 +58,11 @@
       OK = .TRUE.
       NT = 0
 *
-*     Test error exits of the SVD routines.
+      // Test error exits of the SVD routines.
 *
       IF( LSAMEN( 2, C2, 'BD' ) ) THEN
 *
-*        ZGEBRD
+         // ZGEBRD
 *
          SRNAMT = 'ZGEBRD'
          INFOT = 1
@@ -79,7 +79,7 @@
          CALL CHKXER( 'ZGEBRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        ZGEBD2
+         // ZGEBD2
 *
          SRNAMT = 'ZGEBD2'
          INFOT = 1
@@ -93,7 +93,7 @@
          CALL CHKXER( 'ZGEBD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        ZUNGBR
+         // ZUNGBR
 *
          SRNAMT = 'ZUNGBR'
          INFOT = 1
@@ -128,7 +128,7 @@
          CALL CHKXER( 'ZUNGBR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        ZUNMBR
+         // ZUNMBR
 *
          SRNAMT = 'ZUNMBR'
          INFOT = 1
@@ -172,7 +172,7 @@
          CALL CHKXER( 'ZUNMBR', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        ZBDSQR
+         // ZBDSQR
 *
          SRNAMT = 'ZBDSQR'
          INFOT = 1
@@ -202,7 +202,7 @@
          NT = NT + 8
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -217,6 +217,6 @@
 *
       RETURN
 *
-*     End of ZERRBD
+      // End of ZERRBD
 *
       END

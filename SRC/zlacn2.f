@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KASE, N;
       double             EST;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISAVE( 3 );
       COMPLEX*16         V( * ), X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                  ITMAX;
       PARAMETER          ( ITMAX = 5 )
       double               ONE,         TWO;
       PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0 )
       COMPLEX*16           CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, JLAST;
       double             ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IZMAX1;
       double             DLAMCH, DZSUM1;
       // EXTERNAL IZMAX1, DLAMCH, DZSUM1
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZCOPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DIMAG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       IF( KASE.EQ.0 ) THEN
@@ -52,14 +52,14 @@
 *
       GO TO ( 20, 40, 70, 90, 120 )ISAVE( 1 )
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 1)
-*     FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 1)
+      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 *
    20 CONTINUE
       IF( N.EQ.1 ) THEN
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
-*        ... QUIT
+         // ... QUIT
          GO TO 130
       END IF
       EST = DZSUM1( N, X, 1 )
@@ -76,14 +76,14 @@
       ISAVE( 1 ) = 2
       RETURN
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 2)
-*     FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 2)
+      // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 *
    40 CONTINUE
       ISAVE( 2 ) = IZMAX1( N, X, 1 )
       ISAVE( 3 ) = 2
 *
-*     MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
+      // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 *
    50 CONTINUE
       DO 60 I = 1, N
@@ -94,15 +94,15 @@
       ISAVE( 1 ) = 3
       RETURN
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 3)
-*     X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 3)
+      // X HAS BEEN OVERWRITTEN BY A*X.
 *
    70 CONTINUE
       CALL ZCOPY( N, X, 1, V, 1 )
       ESTOLD = EST
       EST = DZSUM1( N, V, 1 )
 *
-*     TEST FOR CYCLING.
+      // TEST FOR CYCLING.
       IF( EST.LE.ESTOLD ) GO TO 100
 *
       DO 80 I = 1, N
@@ -117,8 +117,8 @@
       ISAVE( 1 ) = 4
       RETURN
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 4)
-*     X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 4)
+      // X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 *
    90 CONTINUE
       JLAST = ISAVE( 2 )
@@ -128,7 +128,7 @@
          GO TO 50
       END IF
 *
-*     ITERATION COMPLETE.  FINAL STAGE.
+      // ITERATION COMPLETE.  FINAL STAGE.
 *
   100 CONTINUE
       ALTSGN = ONE
@@ -140,8 +140,8 @@
       ISAVE( 1 ) = 5
       RETURN
 *
-*     ................ ENTRY   (ISAVE( 1 ) = 5)
-*     X HAS BEEN OVERWRITTEN BY A*X.
+      // ................ ENTRY   (ISAVE( 1 ) = 5)
+      // X HAS BEEN OVERWRITTEN BY A*X.
 *
   120 CONTINUE
       TEMP = TWO*( DZSUM1( N, X, 1 ) / DBLE( 3*N ) )
@@ -154,6 +154,6 @@
       KASE = 0
       RETURN
 *
-*     End of ZLACN2
+      // End of ZLACN2
 *
       END

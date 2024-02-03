@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                IHI, ILO, INFO, LDA, LDC, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LEFT, LQUERY;
       int                I1, I2, IINFO, LWKOPT, MI, NB, NH, NI, NQ, NW;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SORMQR, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       NH = IHI - ILO
       LEFT = LSAME( SIDE, 'L' )
       LQUERY = ( LWORK.EQ.-1 )
 *
-*     NQ is the order of Q and NW is the minimum dimension of WORK
+      // NQ is the order of Q and NW is the minimum dimension of WORK
 *
       IF( LEFT ) THEN
          NQ = M
@@ -85,7 +85,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 .OR. NH.EQ.0 ) THEN
          WORK( 1 ) = 1
@@ -109,6 +109,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN
 *
-*     End of SORMHR
+      // End of SORMHR
 *
       END

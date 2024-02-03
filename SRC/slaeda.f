@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                CURLVL, CURPBM, INFO, N, TLVLS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                GIVCOL( 2, * ), GIVPTR( * ), PERM( * ), PRMPTR( * ), QPTR( * );
       REAL               GIVNUM( 2, * ), Q( * ), Z( * ), ZTEMP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2, PTR, ZPTR1;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMV, SROT, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -41,26 +41,26 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Determine location of first number in second half.
+      // Determine location of first number in second half.
 *
       MID = N / 2 + 1
 *
-*     Gather last/first rows of appropriate eigenblocks into center of Z
+      // Gather last/first rows of appropriate eigenblocks into center of Z
 *
       PTR = 1
 *
-*     Determine location of lowest level subproblem in the full storage
-*     scheme
+      // Determine location of lowest level subproblem in the full storage
+      // scheme
 *
       CURR = PTR + CURPBM*2**CURLVL + 2**( CURLVL-1 ) - 1
 *
-*     Determine size of these matrices.  We add HALF to the value of
-*     the SQRT in case the machine underestimates one of these square
-*     roots.
+      // Determine size of these matrices.  We add HALF to the value of
+     t // he SQRT in case the machine underestimates one of these square
+      // roots.
 *
       BSIZ1 = INT( HALF+SQRT( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) )
       BSIZ2 = INT( HALF+SQRT( REAL( QPTR( CURR+2 )-QPTR( CURR+1 ) ) ) )
@@ -73,9 +73,9 @@
          Z( K ) = ZERO
    20 CONTINUE
 *
-*     Loop through remaining levels 1 -> CURLVL applying the Givens
-*     rotations and permutation and then multiplying the center matrices
-*     against the current Z.
+      // Loop through remaining levels 1 -> CURLVL applying the Givens
+      // rotations and permutation and then multiplying the center matrices
+      // against the current Z.
 *
       PTR = 2**TLVLS + 1
       DO 70 K = 1, CURLVL - 1
@@ -84,7 +84,7 @@
          PSIZ2 = PRMPTR( CURR+2 ) - PRMPTR( CURR+1 )
          ZPTR1 = MID - PSIZ1
 *
-*       Apply Givens at CURR and CURR+1
+        // Apply Givens at CURR and CURR+1
 *
          DO 30 I = GIVPTR( CURR ), GIVPTR( CURR+1 ) - 1
             CALL SROT( 1, Z( ZPTR1+GIVCOL( 1, I )-1 ), 1, Z( ZPTR1+GIVCOL( 2, I )-1 ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) )
@@ -101,11 +101,11 @@
             ZTEMP( PSIZ1+I+1 ) = Z( MID+PERM( PRMPTR( CURR+1 )+I )-1 )
    60    CONTINUE
 *
-*        Multiply Blocks at CURR and CURR+1
+         // Multiply Blocks at CURR and CURR+1
 *
-*        Determine size of these matrices.  We add HALF to the value of
-*        the SQRT in case the machine underestimates one of these
-*        square roots.
+         // Determine size of these matrices.  We add HALF to the value of
+        t // he SQRT in case the machine underestimates one of these
+         // square roots.
 *
          BSIZ1 = INT( HALF+SQRT( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) )
          BSIZ2 = INT( HALF+SQRT( REAL( QPTR( CURR+2 )-QPTR( CURR+ 1 ) ) ) )
@@ -123,6 +123,6 @@
 *
       RETURN
 *
-*     End of SLAEDA
+      // End of SLAEDA
 *
       END

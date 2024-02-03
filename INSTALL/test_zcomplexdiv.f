@@ -1,10 +1,10 @@
       program zdiv
 *
 *  -- LAPACK test routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
-*     ..
-*     .. Local parameters ..
+      // ..
+      // .. Local parameters ..
       bool              debug;
       parameter       ( debug = .false. )
       int               N, nNaN, nInf;
@@ -13,17 +13,17 @@
       parameter       ( threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4 )
       double complex    czero, cone
       parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) )
-*     ..
-*     .. Local Variables ..
+      // ..
+      // .. Local Variables ..
       int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, caseInfFails, caseNaNFails, nFailingTests, nTests;
       double            X( N ), aInf, aNaN, b, eps, blueMin, blueMax, OV, Xj, stepX(N), limX(N);
       double complex    Y, Y2, R, cInf( nInf ), cNaN( nNaN )
 *
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // intrinsic DCONJG, DBLE, RADIX, CEILING, TINY, DIGITS, MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX, EPSILON
 
 *
-*     .. Initialize error counts ..
+      // .. Initialize error counts ..
       subnormalTreatedAs0 = 0
       caseAFails = 0
       caseBFails = 0
@@ -36,7 +36,7 @@
       nFailingTests = 0
       nTests = 0
 *
-*     .. Initialize machine constants ..
+      // .. Initialize machine constants ..
       min = MINEXPONENT(0.0d0)
       Max = MAXEXPONENT(0.0d0)
       m = DIGITS(0.0d0)
@@ -46,25 +46,25 @@
       blueMax = b**FLOOR( (Max - m + 1) * 0.5d0 )
       OV = HUGE(0.0d0)
 *
-*     .. Vector X ..
+      // .. Vector X ..
       X(1) = TINY(0.0d0) * b**( DBLE(1-m) )
       X(2) = TINY(0.0d0)
       X(3) = OV
       X(4) = b**( DBLE(Max-1) )
 *
-*     .. Then modify X using the step ..
+      // .. Then modify X using the step ..
       stepX(1) = 2.0
       stepX(2) = 2.0
       stepX(3) = 0.0
       stepX(4) = 0.5
 *
-*     .. Up to the value ..
+      // .. Up to the value ..
       limX(1) = X(2)
       limX(2) = 1.0
       limX(3) = 0.0
       limX(4) = 2.0
 *
-*     .. Inf entries ..
+      // .. Inf entries ..
       aInf = OV * 2
       cInf(1) = DCMPLX( aInf, 0.0d0 )
       cInf(2) = DCMPLX(-aInf, 0.0d0 )
@@ -72,14 +72,14 @@
       cInf(4) = DCMPLX( 0.0d0,-aInf )
       cInf(5) = DCMPLX( aInf,  aInf )
 *
-*     .. NaN entries ..
+      // .. NaN entries ..
       aNaN = aInf / aInf
       cNaN(1) = DCMPLX( aNaN, 0.0d0 )
       cNaN(2) = DCMPLX( 0.0d0, aNaN )
       cNaN(3) = DCMPLX( aNaN,  aNaN )
 
 *
-*     .. Tests ..
+      // .. Tests ..
 *
       if( debug ) then
         print *, '# X :=', X
@@ -105,7 +105,7 @@
  100    continue
       endif
 *
-*     Test (a) y = x + 0 * I, y/y = 1
+      // Test (a) y = x + 0 * I, y/y = 1
       do 10 i = 1, N
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
@@ -130,7 +130,7 @@
         endif
   10  continue
 *
-*     Test (b) y = 0 + x * I, y/y = 1
+      // Test (b) y = 0 + x * I, y/y = 1
       do 20 i = 1, N
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
@@ -155,7 +155,7 @@
         endif
   20  continue
 *
-*     Test (c) y = x + x * I, y/y = 1
+      // Test (c) y = x + x * I, y/y = 1
       do 30 i = 1, N
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
@@ -180,7 +180,7 @@
         endif
   30  continue
 *
-*     Test (d) y1 = 0 + x * I, y2 = x + 0 * I, y1/y2 = I
+      // Test (d) y1 = 0 + x * I, y2 = x + 0 * I, y1/y2 = I
       do 40 i = 1, N
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
@@ -206,7 +206,7 @@
         endif
   40  continue
 *
-*     Test (e) y1 = 0 + x * I, y2 = x + 0 * I, y2/y1 = -I
+      // Test (e) y1 = 0 + x * I, y2 = x + 0 * I, y2/y1 = -I
       do 50 i = 1, N
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
@@ -232,7 +232,7 @@
         endif
   50  continue
 *
-*     Test (f) y = x + x * I, y/conj(y) = I
+      // Test (f) y = x + x * I, y/conj(y) = I
       do 60 i = 1, N
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
@@ -257,7 +257,7 @@
         endif
   60  continue
 *
-*     Test (g) Infs
+      // Test (g) Infs
       do 70 i = 1, nInf
           nTests = nTests + 3
           Y = cInf(i)
@@ -278,7 +278,7 @@
           endif
   70  continue
 *
-*     Test (h) NaNs
+      // Test (h) NaNs
       do 80 i = 1, nNaN
           nTests = nTests + 3
           Y = cNaN(i)
@@ -299,7 +299,7 @@
           endif
   80  continue
 *
-*     If any test fails, displays a message
+      // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails + caseInfFails + caseNaNFails
       if( nFailingTests .gt. 0 ) then
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex division,", nFailingTests," fail."
@@ -307,10 +307,10 @@
          print *, "# All tests pass for complex division."
       endif
 *
-*     If anything was written to stderr, print the message
+      // If anything was written to stderr, print the message
       if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) .or. (caseEFails .gt. 0) .or. (caseFFails .gt. 0) ) print *, "# Please check the failed divisions in [stderr]"
 *
-*     .. Formats ..
+      // .. Formats ..
  9998 FORMAT( '[',A2,I1, '] ', (ES24.16E3,SP,ES24.16E3,"*I"), ' * ',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ' = ',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', A10 )
@@ -319,6 +319,6 @@
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ',
      $         (ES24.16E3,SP,ES24.16E3,"*I") )
 *
-*     End of zdiv
+      // End of zdiv
 *
       END

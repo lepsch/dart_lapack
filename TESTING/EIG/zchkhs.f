@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDU, NOUNIT, NSIZES, NTYPES, NWORK;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * ), SELECT( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       double             RESULT( 16 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), EVECTL( LDU, * ), EVECTR( LDU, * ), EVECTX( LDU, * ), EVECTY( LDU, * ), H( LDA, * ), T1( LDA, * ), T2( LDA, * ), TAU( * ), U( LDU, * ), UU( LDU, * ), UZ( LDU, * ), W1( * ), W3( * ), WORK( * ), Z( LDU, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 21 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN, MATCH;
       int                I, IHI, IINFO, ILO, IMODE, IN, ITYPE, J, JCOL, JJ, JSIZE, JTYPE, K, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT;
       double             ANINV, ANORM, COND, CONDS, OVFL, RTOVFL, RTULP, RTULPI, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       double             DUMMA( 4 );
       COMPLEX*16         CDUMMA( 4 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLAFTS, DLASUM, XERBLA, ZCOPY, ZGEHRD, ZGEMM, ZGET10, ZGET22, ZHSEIN, ZHSEQR, ZHST01, ZLACPY, ZLASET, ZLATME, ZLATMR, ZLATMS, ZTREVC, ZTREVC3, ZUNGHR, ZUNMHR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
       DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       NTESTT = 0
       INFO = 0
@@ -64,7 +64,7 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -87,11 +87,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
-*     More important constants
+      // More important constants
 *
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = DLAMCH( 'Overflow' )
@@ -102,7 +102,7 @@
       RTULP = SQRT( ULP )
       RTULPI = ONE / RTULP
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       NERRS = 0
       NMATS = 0
@@ -124,40 +124,40 @@
             NMATS = NMATS + 1
             NTEST = 0
 *
-*           Save ISEED in case of an error.
+            // Save ISEED in case of an error.
 *
             DO 20 J = 1, 4
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 *
-*           Initialize RESULT
+            // Initialize RESULT
 *
             DO 30 J = 1, 14
                RESULT( J ) = ZERO
    30       CONTINUE
 *
-*           Compute "A"
+            // Compute "A"
 *
-*           Control parameters:
+            // Control parameters:
 *
-*           KMAGN  KCONDS  KMODE        KTYPE
-*       =1  O(1)   1       clustered 1  zero
-*       =2  large  large   clustered 2  identity
-*       =3  small          exponential  Jordan
-*       =4                 arithmetic   diagonal, (w/ eigenvalues)
-*       =5                 random log   hermitian, w/ eigenvalues
-*       =6                 random       general, w/ eigenvalues
-*       =7                              random diagonal
-*       =8                              random hermitian
-*       =9                              random general
-*       =10                             random triangular
+            // KMAGN  KCONDS  KMODE        KTYPE
+        // =1  O(1)   1       clustered 1  zero
+        // =2  large  large   clustered 2  identity
+        // =3  small          exponential  Jordan
+        // =4                 arithmetic   diagonal, (w/ eigenvalues)
+        // =5                 random log   hermitian, w/ eigenvalues
+        // =6                 random       general, w/ eigenvalues
+        // =7                              random diagonal
+        // =8                              random hermitian
+        // =9                              random general
+        // =10                             random triangular
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 100
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
 *
-*           Compute norm
+            // Compute norm
 *
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 *
@@ -179,16 +179,16 @@
             IINFO = 0
             COND = ULPINV
 *
-*           Special Matrices
+            // Special Matrices
 *
             IF( ITYPE.EQ.1 ) THEN
 *
-*              Zero
+               // Zero
 *
                IINFO = 0
             ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*              Identity
+               // Identity
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
@@ -196,7 +196,7 @@
 *
             ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*              Jordan Block
+               // Jordan Block
 *
                DO 90 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
@@ -205,19 +205,19 @@
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*              Diagonal Matrix, [Eigen]values Specified
+               // Diagonal Matrix, [Eigen]values Specified
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, IMODE, COND, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*              Hermitian, eigenvalues specified
+               // Hermitian, eigenvalues specified
 *
                CALL ZLATMS( N, N, 'D', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.6 ) THEN
 *
-*              General, eigenvalues specified
+               // General, eigenvalues specified
 *
                IF( KCONDS( JTYPE ).EQ.1 ) THEN
                   CONDS = ONE
@@ -231,25 +231,25 @@
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
-*              Diagonal, random eigenvalues
+               // Diagonal, random eigenvalues
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
-*              Hermitian, random eigenvalues
+               // Hermitian, random eigenvalues
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*              General, random eigenvalues
+               // General, random eigenvalues
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
-*              Triangular, random eigenvalues
+               // Triangular, random eigenvalues
 *
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
@@ -266,7 +266,7 @@
 *
   100       CONTINUE
 *
-*           Call ZGEHRD to compute H and U, do tests.
+            // Call ZGEHRD to compute H and U, do tests.
 *
             CALL ZLACPY( ' ', N, N, A, LDA, H, LDA )
             NTEST = 1
@@ -297,9 +297,9 @@
 *
             CALL ZHST01( N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RWORK, RESULT( 1 ) )
 *
-*           Call ZHSEQR to compute T1, T2 and Z, do tests.
+            // Call ZHSEQR to compute T1, T2 and Z, do tests.
 *
-*           Eigenvalues only (W3)
+            // Eigenvalues only (W3)
 *
             CALL ZLACPY( ' ', N, N, H, LDA, T2, LDA )
             NTEST = 3
@@ -314,7 +314,7 @@
                END IF
             END IF
 *
-*           Eigenvalues (W1) and Full Schur Form (T2)
+            // Eigenvalues (W1) and Full Schur Form (T2)
 *
             CALL ZLACPY( ' ', N, N, H, LDA, T2, LDA )
 *
@@ -325,7 +325,7 @@
                GO TO 240
             END IF
 *
-*           Eigenvalues (W1), Schur Form (T1), and Schur Vectors (UZ)
+            // Eigenvalues (W1), Schur Form (T1), and Schur Vectors (UZ)
 *
             CALL ZLACPY( ' ', N, N, H, LDA, T1, LDA )
             CALL ZLACPY( ' ', N, N, U, LDU, UZ, LDU )
@@ -337,26 +337,26 @@
                GO TO 240
             END IF
 *
-*           Compute Z = U' UZ
+            // Compute Z = U' UZ
 *
             CALL ZGEMM( 'C', 'N', N, N, N, CONE, U, LDU, UZ, LDU, CZERO, Z, LDU )
             NTEST = 8
 *
-*           Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
-*                and 4: | I - Z Z' | / ( n ulp )
+            // Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
+                 // and 4: | I - Z Z' | / ( n ulp )
 *
             CALL ZHST01( N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RWORK, RESULT( 3 ) )
 *
-*           Do Tests 5: | A - UZ T (UZ)' | / ( |A| n ulp )
-*                and 6: | I - UZ (UZ)' | / ( n ulp )
+            // Do Tests 5: | A - UZ T (UZ)' | / ( |A| n ulp )
+                 // and 6: | I - UZ (UZ)' | / ( n ulp )
 *
             CALL ZHST01( N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RWORK, RESULT( 5 ) )
 *
-*           Do Test 7: | T2 - T1 | / ( |T| n ulp )
+            // Do Test 7: | T2 - T1 | / ( |T| n ulp )
 *
             CALL ZGET10( N, N, T2, LDA, T1, LDA, WORK, RWORK, RESULT( 7 ) )
 *
-*           Do Test 8: | W3 - W1 | / ( max(|W1|,|W3|) ulp )
+            // Do Test 8: | W3 - W1 | / ( max(|W1|,|W3|) ulp )
 *
             TEMP1 = ZERO
             TEMP2 = ZERO
@@ -367,14 +367,14 @@
 *
             RESULT( 8 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*           Compute the Left and Right Eigenvectors of T
+            // Compute the Left and Right Eigenvectors of T
 *
-*           Compute the Right eigenvector Matrix:
+            // Compute the Right eigenvector Matrix:
 *
             NTEST = 9
             RESULT( 9 ) = ULPINV
 *
-*           Select every other eigenvector
+            // Select every other eigenvector
 *
             DO 140 J = 1, N
                SELECT( J ) = .FALSE.
@@ -389,7 +389,7 @@
                GO TO 240
             END IF
 *
-*           Test 9:  | TR - RW | / ( |T| |R| ulp )
+            // Test 9:  | TR - RW | / ( |T| |R| ulp )
 *
             CALL ZGET22( 'N', 'N', 'N', N, T1, LDA, EVECTR, LDU, W1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 9 ) = DUMMA( 1 )
@@ -397,8 +397,8 @@
                WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTREVC', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
-*           Compute selected right eigenvectors and confirm that
-*           they agree with previous right eigenvectors
+            // Compute selected right eigenvectors and confirm that
+           t // hey agree with previous right eigenvectors
 *
             CALL ZTREVC( 'Right', 'Some', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTL, LDU, N, IN, WORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -423,7 +423,7 @@
   180       CONTINUE
             IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Right', 'ZTREVC', N, JTYPE, IOLDSD
 *
-*           Compute the Left eigenvector Matrix:
+            // Compute the Left eigenvector Matrix:
 *
             NTEST = 10
             RESULT( 10 ) = ULPINV
@@ -434,7 +434,7 @@
                GO TO 240
             END IF
 *
-*           Test 10:  | LT - WL | / ( |T| |L| ulp )
+            // Test 10:  | LT - WL | / ( |T| |L| ulp )
 *
             CALL ZGET22( 'C', 'N', 'C', N, T1, LDA, EVECTL, LDU, W1, WORK, RWORK, DUMMA( 3 ) )
             RESULT( 10 ) = DUMMA( 3 )
@@ -442,8 +442,8 @@
                WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTREVC', DUMMA( 4 ), N, JTYPE, IOLDSD
             END IF
 *
-*           Compute selected left eigenvectors and confirm that
-*           they agree with previous left eigenvectors
+            // Compute selected left eigenvectors and confirm that
+           t // hey agree with previous left eigenvectors
 *
             CALL ZTREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
@@ -468,7 +468,7 @@
   210       CONTINUE
             IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Left', 'ZTREVC', N, JTYPE, IOLDSD
 *
-*           Call ZHSEIN for Right eigenvectors of H, do test 11
+            // Call ZHSEIN for Right eigenvectors of H, do test 11
 *
             NTEST = 11
             RESULT( 11 ) = ULPINV
@@ -483,9 +483,9 @@
                IF( IINFO.LT.0 ) GO TO 240
             ELSE
 *
-*              Test 11:  | HX - XW | / ( |H| |X| ulp )
+               // Test 11:  | HX - XW | / ( |H| |X| ulp )
 *
-*                        (from inverse iteration)
+                         // (from inverse iteration)
 *
                CALL ZGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, W3, WORK, RWORK, DUMMA( 1 ) )                IF( DUMMA( 1 ).LT.ULPINV ) RESULT( 11 ) = DUMMA( 1 )*ANINV
                IF( DUMMA( 2 ).GT.THRESH ) THEN
@@ -493,7 +493,7 @@
                END IF
             END IF
 *
-*           Call ZHSEIN for Left eigenvectors of H, do test 12
+            // Call ZHSEIN for Left eigenvectors of H, do test 12
 *
             NTEST = 12
             RESULT( 12 ) = ULPINV
@@ -508,9 +508,9 @@
                IF( IINFO.LT.0 ) GO TO 240
             ELSE
 *
-*              Test 12:  | YH - WY | / ( |H| |Y| ulp )
+               // Test 12:  | YH - WY | / ( |H| |Y| ulp )
 *
-*                        (from inverse iteration)
+                         // (from inverse iteration)
 *
                CALL ZGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, W3, WORK, RWORK, DUMMA( 3 ) )                IF( DUMMA( 3 ).LT.ULPINV ) RESULT( 12 ) = DUMMA( 3 )*ANINV
                IF( DUMMA( 4 ).GT.THRESH ) THEN
@@ -518,7 +518,7 @@
                END IF
             END IF
 *
-*           Call ZUNMHR for Right eigenvectors of A, do test 13
+            // Call ZUNMHR for Right eigenvectors of A, do test 13
 *
             NTEST = 13
             RESULT( 13 ) = ULPINV
@@ -530,14 +530,14 @@
                IF( IINFO.LT.0 ) GO TO 240
             ELSE
 *
-*              Test 13:  | AX - XW | / ( |A| |X| ulp )
+               // Test 13:  | AX - XW | / ( |A| |X| ulp )
 *
-*                        (from inverse iteration)
+                         // (from inverse iteration)
 *
                CALL ZGET22( 'N', 'N', 'N', N, A, LDA, EVECTX, LDU, W3, WORK, RWORK, DUMMA( 1 ) )                IF( DUMMA( 1 ).LT.ULPINV ) RESULT( 13 ) = DUMMA( 1 )*ANINV
             END IF
 *
-*           Call ZUNMHR for Left eigenvectors of A, do test 14
+            // Call ZUNMHR for Left eigenvectors of A, do test 14
 *
             NTEST = 14
             RESULT( 14 ) = ULPINV
@@ -549,16 +549,16 @@
                IF( IINFO.LT.0 ) GO TO 240
             ELSE
 *
-*              Test 14:  | YA - WY | / ( |A| |Y| ulp )
+               // Test 14:  | YA - WY | / ( |A| |Y| ulp )
 *
-*                        (from inverse iteration)
+                         // (from inverse iteration)
 *
                CALL ZGET22( 'C', 'N', 'C', N, A, LDA, EVECTY, LDU, W3, WORK, RWORK, DUMMA( 3 ) )                IF( DUMMA( 3 ).LT.ULPINV ) RESULT( 14 ) = DUMMA( 3 )*ANINV
             END IF
 *
-*           Compute Left and Right Eigenvectors of A
+            // Compute Left and Right Eigenvectors of A
 *
-*           Compute a Right eigenvector matrix:
+            // Compute a Right eigenvector matrix:
 *
             NTEST = 15
             RESULT( 15 ) = ULPINV
@@ -572,9 +572,9 @@
                GO TO 250
             END IF
 *
-*           Test 15:  | AR - RW | / ( |A| |R| ulp )
+            // Test 15:  | AR - RW | / ( |A| |R| ulp )
 *
-*                     (from Schur decomposition)
+                      // (from Schur decomposition)
 *
             CALL ZGET22( 'N', 'N', 'N', N, A, LDA, EVECTR, LDU, W1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 15 ) = DUMMA( 1 )
@@ -582,7 +582,7 @@
                WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
-*           Compute a Left eigenvector matrix:
+            // Compute a Left eigenvector matrix:
 *
             NTEST = 16
             RESULT( 16 ) = ULPINV
@@ -596,9 +596,9 @@
                GO TO 250
             END IF
 *
-*           Test 16:  | LA - WL | / ( |A| |L| ulp )
+            // Test 16:  | LA - WL | / ( |A| |L| ulp )
 *
-*                     (from Schur decomposition)
+                      // (from Schur decomposition)
 *
             CALL ZGET22( 'Conj', 'N', 'Conj', N, A, LDA, EVECTL, LDU, W1, WORK, RWORK, DUMMA( 3 ) )
             RESULT( 16 ) = DUMMA( 3 )
@@ -606,7 +606,7 @@
                WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD
             END IF
 *
-*           End of Loop -- Check for RESULT(j) > THRESH
+            // End of Loop -- Check for RESULT(j) > THRESH
 *
   240       CONTINUE
 *
@@ -616,7 +616,7 @@
   250    CONTINUE
   260 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL DLASUM( 'ZHS', NOUNIT, NERRS, NTESTT )
 *
@@ -632,6 +632,6 @@
      $      ' do not match other eigenvectors ', 9X, 'N=', I6,
      $      ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
 *
-*     End of ZCHKHS
+      // End of ZCHKHS
 *
       END

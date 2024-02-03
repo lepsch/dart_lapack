@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANSR, DIAG, SIDE, TRANS, UPLO;
       int                LDB, M, N;
       REAL               ALPHA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( 0: * ), B( 0: LDB-1, 0: * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, LSIDE, MISODD, NISODD, NORMALTRANSR, NOTRANS;
       int                M1, M2, N1, N2, K, INFO, I, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM, STRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
@@ -65,11 +65,11 @@
          RETURN
       END IF
 *
-*     Quick return when ( (N.EQ.0).OR.(M.EQ.0) )
+      // Quick return when ( (N.EQ.0).OR.(M.EQ.0) )
 *
       IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) RETURN
 *
-*     Quick return when ALPHA.EQ.(0D+0)
+      // Quick return when ALPHA.EQ.(0D+0)
 *
       IF( ALPHA.EQ.ZERO ) THEN
          DO 20 J = 0, N - 1
@@ -82,11 +82,11 @@
 *
       IF( LSIDE ) THEN
 *
-*        SIDE = 'L'
+         // SIDE = 'L'
 *
-*        A is M-by-M.
-*        If M is odd, set NISODD = .TRUE., and M1 and M2.
-*        If M is even, NISODD = .FALSE., and M.
+         // A is M-by-M.
+         // If M is odd, set NISODD = .TRUE., and M1 and M2.
+         // If M is even, NISODD = .FALSE., and M.
 *
          IF( MOD( M, 2 ).EQ.0 ) THEN
             MISODD = .FALSE.
@@ -104,20 +104,20 @@
 *
          IF( MISODD ) THEN
 *
-*           SIDE = 'L' and N is odd
+            // SIDE = 'L' and N is odd
 *
             IF( NORMALTRANSR ) THEN
 *
-*              SIDE = 'L', N is odd, and TRANSR = 'N'
+               // SIDE = 'L', N is odd, and TRANSR = 'N'
 *
                IF( LOWER ) THEN
 *
-*                 SIDE  ='L', N is odd, TRANSR = 'N', and UPLO = 'L'
+                  // SIDE  ='L', N is odd, TRANSR = 'N', and UPLO = 'L'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'L', and
-*                    TRANS = 'N'
+                     // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'L', and
+                     // TRANS = 'N'
 *
                      IF( M.EQ.1 ) THEN
                         CALL STRSM( 'L', 'L', 'N', DIAG, M1, N, ALPHA, A, M, B, LDB )
@@ -127,8 +127,8 @@
 *
                   ELSE
 *
-*                    SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'L', and
-*                    TRANS = 'T'
+                     // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'L', and
+                     // TRANS = 'T'
 *
                      IF( M.EQ.1 ) THEN
                         CALL STRSM( 'L', 'L', 'T', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB )
@@ -140,19 +140,19 @@
 *
                ELSE
 *
-*                 SIDE  ='L', N is odd, TRANSR = 'N', and UPLO = 'U'
+                  // SIDE  ='L', N is odd, TRANSR = 'N', and UPLO = 'U'
 *
                   IF( .NOT.NOTRANS ) THEN
 *
-*                    SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
-*                    TRANS = 'N'
+                     // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
+                     // TRANS = 'N'
 *
                      CALL STRSM( 'L', 'L', 'N', DIAG, M1, N, ALPHA, A( M2 ), M, B, LDB )                      CALL SGEMM( 'T', 'N', M2, N, M1, -ONE, A( 0 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB )                      CALL STRSM( 'L', 'U', 'T', DIAG, M2, N, ONE, A( M1 ), M, B( M1, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
-*                    TRANS = 'T'
+                     // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
+                     // TRANS = 'T'
 *
                      CALL STRSM( 'L', 'U', 'N', DIAG, M2, N, ALPHA, A( M1 ), M, B( M1, 0 ), LDB )                      CALL SGEMM( 'N', 'N', M1, N, M2, -ONE, A( 0 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL STRSM( 'L', 'L', 'T', DIAG, M1, N, ONE, A( M2 ), M, B, LDB )
 *
@@ -162,16 +162,16 @@
 *
             ELSE
 *
-*              SIDE = 'L', N is odd, and TRANSR = 'T'
+               // SIDE = 'L', N is odd, and TRANSR = 'T'
 *
                IF( LOWER ) THEN
 *
-*                 SIDE  ='L', N is odd, TRANSR = 'T', and UPLO = 'L'
+                  // SIDE  ='L', N is odd, TRANSR = 'T', and UPLO = 'L'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'L', and
-*                    TRANS = 'N'
+                     // SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'L', and
+                     // TRANS = 'N'
 *
                      IF( M.EQ.1 ) THEN
                         CALL STRSM( 'L', 'U', 'T', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )
@@ -182,8 +182,8 @@
 *
                   ELSE
 *
-*                    SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'L', and
-*                    TRANS = 'T'
+                     // SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'L', and
+                     // TRANS = 'T'
 *
                      IF( M.EQ.1 ) THEN
                         CALL STRSM( 'L', 'U', 'N', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )
@@ -196,19 +196,19 @@
 *
                ELSE
 *
-*                 SIDE  ='L', N is odd, TRANSR = 'T', and UPLO = 'U'
+                  // SIDE  ='L', N is odd, TRANSR = 'T', and UPLO = 'U'
 *
                   IF( .NOT.NOTRANS ) THEN
 *
-*                    SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'U', and
-*                    TRANS = 'N'
+                     // SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'U', and
+                     // TRANS = 'N'
 *
                      CALL STRSM( 'L', 'U', 'T', DIAG, M1, N, ALPHA, A( M2*M2 ), M2, B, LDB )                      CALL SGEMM( 'N', 'N', M2, N, M1, -ONE, A( 0 ), M2, B, LDB, ALPHA, B( M1, 0 ), LDB )                      CALL STRSM( 'L', 'L', 'N', DIAG, M2, N, ONE, A( M1*M2 ), M2, B( M1, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'U', and
-*                    TRANS = 'T'
+                     // SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'U', and
+                     // TRANS = 'T'
 *
                      CALL STRSM( 'L', 'L', 'T', DIAG, M2, N, ALPHA, A( M1*M2 ), M2, B( M1, 0 ), LDB )                      CALL SGEMM( 'T', 'N', M1, N, M2, -ONE, A( 0 ), M2, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL STRSM( 'L', 'U', 'N', DIAG, M1, N, ONE, A( M2*M2 ), M2, B, LDB )
 *
@@ -220,27 +220,27 @@
 *
          ELSE
 *
-*           SIDE = 'L' and N is even
+            // SIDE = 'L' and N is even
 *
             IF( NORMALTRANSR ) THEN
 *
-*              SIDE = 'L', N is even, and TRANSR = 'N'
+               // SIDE = 'L', N is even, and TRANSR = 'N'
 *
                IF( LOWER ) THEN
 *
-*                 SIDE  ='L', N is even, TRANSR = 'N', and UPLO = 'L'
+                  // SIDE  ='L', N is even, TRANSR = 'N', and UPLO = 'L'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
-*                    and TRANS = 'N'
+                     // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
+                     // and TRANS = 'N'
 *
                      CALL STRSM( 'L', 'L', 'N', DIAG, K, N, ALPHA, A( 1 ), M+1, B, LDB )                      CALL SGEMM( 'N', 'N', K, N, K, -ONE, A( K+1 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL STRSM( 'L', 'U', 'T', DIAG, K, N, ONE, A( 0 ), M+1, B( K, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
-*                    and TRANS = 'T'
+                     // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
+                     // and TRANS = 'T'
 *
                      CALL STRSM( 'L', 'U', 'N', DIAG, K, N, ALPHA, A( 0 ), M+1, B( K, 0 ), LDB )                      CALL SGEMM( 'T', 'N', K, N, K, -ONE, A( K+1 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL STRSM( 'L', 'L', 'T', DIAG, K, N, ONE, A( 1 ), M+1, B, LDB )
 *
@@ -248,19 +248,19 @@
 *
                ELSE
 *
-*                 SIDE  ='L', N is even, TRANSR = 'N', and UPLO = 'U'
+                  // SIDE  ='L', N is even, TRANSR = 'N', and UPLO = 'U'
 *
                   IF( .NOT.NOTRANS ) THEN
 *
-*                    SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
-*                    and TRANS = 'N'
+                     // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
+                     // and TRANS = 'N'
 *
                      CALL STRSM( 'L', 'L', 'N', DIAG, K, N, ALPHA, A( K+1 ), M+1, B, LDB )                      CALL SGEMM( 'T', 'N', K, N, K, -ONE, A( 0 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL STRSM( 'L', 'U', 'T', DIAG, K, N, ONE, A( K ), M+1, B( K, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
-*                    and TRANS = 'T'
+                     // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
+                     // and TRANS = 'T'
                      CALL STRSM( 'L', 'U', 'N', DIAG, K, N, ALPHA, A( K ), M+1, B( K, 0 ), LDB )                      CALL SGEMM( 'N', 'N', K, N, K, -ONE, A( 0 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL STRSM( 'L', 'L', 'T', DIAG, K, N, ONE, A( K+1 ), M+1, B, LDB )
 *
                   END IF
@@ -269,24 +269,24 @@
 *
             ELSE
 *
-*              SIDE = 'L', N is even, and TRANSR = 'T'
+               // SIDE = 'L', N is even, and TRANSR = 'T'
 *
                IF( LOWER ) THEN
 *
-*                 SIDE  ='L', N is even, TRANSR = 'T', and UPLO = 'L'
+                  // SIDE  ='L', N is even, TRANSR = 'T', and UPLO = 'L'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'L',
-*                    and TRANS = 'N'
+                     // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'L',
+                     // and TRANS = 'N'
 *
                      CALL STRSM( 'L', 'U', 'T', DIAG, K, N, ALPHA, A( K ), K, B, LDB )                      CALL SGEMM( 'T', 'N', K, N, K, -ONE, A( K*( K+1 ) ), K, B, LDB, ALPHA, B( K, 0 ), LDB )
                      CALL STRSM( 'L', 'L', 'N', DIAG, K, N, ONE, A( 0 ), K, B( K, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'L',
-*                    and TRANS = 'T'
+                     // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'L',
+                     // and TRANS = 'T'
 *
                      CALL STRSM( 'L', 'L', 'T', DIAG, K, N, ALPHA, A( 0 ), K, B( K, 0 ), LDB )                      CALL SGEMM( 'N', 'N', K, N, K, -ONE, A( K*( K+1 ) ), K, B( K, 0 ), LDB, ALPHA, B, LDB )
                      CALL STRSM( 'L', 'U', 'N', DIAG, K, N, ONE, A( K ), K, B, LDB )
@@ -295,19 +295,19 @@
 *
                ELSE
 *
-*                 SIDE  ='L', N is even, TRANSR = 'T', and UPLO = 'U'
+                  // SIDE  ='L', N is even, TRANSR = 'T', and UPLO = 'U'
 *
                   IF( .NOT.NOTRANS ) THEN
 *
-*                    SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'U',
-*                    and TRANS = 'N'
+                     // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'U',
+                     // and TRANS = 'N'
 *
                      CALL STRSM( 'L', 'U', 'T', DIAG, K, N, ALPHA, A( K*( K+1 ) ), K, B, LDB )                      CALL SGEMM( 'N', 'N', K, N, K, -ONE, A( 0 ), K, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL STRSM( 'L', 'L', 'N', DIAG, K, N, ONE, A( K*K ), K, B( K, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'U',
-*                    and TRANS = 'T'
+                     // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'U',
+                     // and TRANS = 'T'
 *
                      CALL STRSM( 'L', 'L', 'T', DIAG, K, N, ALPHA, A( K*K ), K, B( K, 0 ), LDB )                      CALL SGEMM( 'T', 'N', K, N, K, -ONE, A( 0 ), K, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL STRSM( 'L', 'U', 'N', DIAG, K, N, ONE, A( K*( K+1 ) ), K, B, LDB )
 *
@@ -321,11 +321,11 @@
 *
       ELSE
 *
-*        SIDE = 'R'
+         // SIDE = 'R'
 *
-*        A is N-by-N.
-*        If N is odd, set NISODD = .TRUE., and N1 and N2.
-*        If N is even, NISODD = .FALSE., and K.
+         // A is N-by-N.
+         // If N is odd, set NISODD = .TRUE., and N1 and N2.
+         // If N is even, NISODD = .FALSE., and K.
 *
          IF( MOD( N, 2 ).EQ.0 ) THEN
             NISODD = .FALSE.
@@ -343,28 +343,28 @@
 *
          IF( NISODD ) THEN
 *
-*           SIDE = 'R' and N is odd
+            // SIDE = 'R' and N is odd
 *
             IF( NORMALTRANSR ) THEN
 *
-*              SIDE = 'R', N is odd, and TRANSR = 'N'
+               // SIDE = 'R', N is odd, and TRANSR = 'N'
 *
                IF( LOWER ) THEN
 *
-*                 SIDE  ='R', N is odd, TRANSR = 'N', and UPLO = 'L'
+                  // SIDE  ='R', N is odd, TRANSR = 'N', and UPLO = 'L'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
-*                    TRANS = 'N'
+                     // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
+                     // TRANS = 'N'
 *
                      CALL STRSM( 'R', 'U', 'T', DIAG, M, N2, ALPHA, A( N ), N, B( 0, N1 ), LDB )                      CALL SGEMM( 'N', 'N', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( N1 ), N, ALPHA, B( 0, 0 ), LDB )
                      CALL STRSM( 'R', 'L', 'N', DIAG, M, N1, ONE, A( 0 ), N, B( 0, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
-*                    TRANS = 'T'
+                     // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
+                     // TRANS = 'T'
 *
                      CALL STRSM( 'R', 'L', 'T', DIAG, M, N1, ALPHA, A( 0 ), N, B( 0, 0 ), LDB )                      CALL SGEMM( 'N', 'T', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( N1 ), N, ALPHA, B( 0, N1 ), LDB )
                      CALL STRSM( 'R', 'U', 'N', DIAG, M, N2, ONE, A( N ), N, B( 0, N1 ), LDB )
@@ -373,20 +373,20 @@
 *
                ELSE
 *
-*                 SIDE  ='R', N is odd, TRANSR = 'N', and UPLO = 'U'
+                  // SIDE  ='R', N is odd, TRANSR = 'N', and UPLO = 'U'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
-*                    TRANS = 'N'
+                     // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
+                     // TRANS = 'N'
 *
                      CALL STRSM( 'R', 'L', 'T', DIAG, M, N1, ALPHA, A( N2 ), N, B( 0, 0 ), LDB )                      CALL SGEMM( 'N', 'N', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( 0 ), N, ALPHA, B( 0, N1 ), LDB )
                      CALL STRSM( 'R', 'U', 'N', DIAG, M, N2, ONE, A( N1 ), N, B( 0, N1 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
-*                    TRANS = 'T'
+                     // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
+                     // TRANS = 'T'
 *
                      CALL STRSM( 'R', 'U', 'T', DIAG, M, N2, ALPHA, A( N1 ), N, B( 0, N1 ), LDB )                      CALL SGEMM( 'N', 'T', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( 0 ), N, ALPHA, B( 0, 0 ), LDB )                      CALL STRSM( 'R', 'L', 'N', DIAG, M, N1, ONE, A( N2 ), N, B( 0, 0 ), LDB )
 *
@@ -396,24 +396,24 @@
 *
             ELSE
 *
-*              SIDE = 'R', N is odd, and TRANSR = 'T'
+               // SIDE = 'R', N is odd, and TRANSR = 'T'
 *
                IF( LOWER ) THEN
 *
-*                 SIDE  ='R', N is odd, TRANSR = 'T', and UPLO = 'L'
+                  // SIDE  ='R', N is odd, TRANSR = 'T', and UPLO = 'L'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'L', and
-*                    TRANS = 'N'
+                     // SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'L', and
+                     // TRANS = 'N'
 *
                      CALL STRSM( 'R', 'L', 'N', DIAG, M, N2, ALPHA, A( 1 ), N1, B( 0, N1 ), LDB )                      CALL SGEMM( 'N', 'T', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, 0 ), LDB )
                      CALL STRSM( 'R', 'U', 'T', DIAG, M, N1, ONE, A( 0 ), N1, B( 0, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'L', and
-*                    TRANS = 'T'
+                     // SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'L', and
+                     // TRANS = 'T'
 *
                      CALL STRSM( 'R', 'U', 'N', DIAG, M, N1, ALPHA, A( 0 ), N1, B( 0, 0 ), LDB )                      CALL SGEMM( 'N', 'N', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, N1 ), LDB )
                      CALL STRSM( 'R', 'L', 'T', DIAG, M, N2, ONE, A( 1 ), N1, B( 0, N1 ), LDB )
@@ -422,20 +422,20 @@
 *
                ELSE
 *
-*                 SIDE  ='R', N is odd, TRANSR = 'T', and UPLO = 'U'
+                  // SIDE  ='R', N is odd, TRANSR = 'T', and UPLO = 'U'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'U', and
-*                    TRANS = 'N'
+                     // SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'U', and
+                     // TRANS = 'N'
 *
                      CALL STRSM( 'R', 'U', 'N', DIAG, M, N1, ALPHA, A( N2*N2 ), N2, B( 0, 0 ), LDB )                      CALL SGEMM( 'N', 'T', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( 0 ), N2, ALPHA, B( 0, N1 ), LDB )
                      CALL STRSM( 'R', 'L', 'T', DIAG, M, N2, ONE, A( N1*N2 ), N2, B( 0, N1 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'U', and
-*                    TRANS = 'T'
+                     // SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'U', and
+                     // TRANS = 'T'
 *
                      CALL STRSM( 'R', 'L', 'N', DIAG, M, N2, ALPHA, A( N1*N2 ), N2, B( 0, N1 ), LDB )                      CALL SGEMM( 'N', 'N', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( 0 ), N2, ALPHA, B( 0, 0 ), LDB )
                      CALL STRSM( 'R', 'U', 'T', DIAG, M, N1, ONE, A( N2*N2 ), N2, B( 0, 0 ), LDB )
@@ -448,28 +448,28 @@
 *
          ELSE
 *
-*           SIDE = 'R' and N is even
+            // SIDE = 'R' and N is even
 *
             IF( NORMALTRANSR ) THEN
 *
-*              SIDE = 'R', N is even, and TRANSR = 'N'
+               // SIDE = 'R', N is even, and TRANSR = 'N'
 *
                IF( LOWER ) THEN
 *
-*                 SIDE  ='R', N is even, TRANSR = 'N', and UPLO = 'L'
+                  // SIDE  ='R', N is even, TRANSR = 'N', and UPLO = 'L'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
-*                    and TRANS = 'N'
+                     // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
+                     // and TRANS = 'N'
 *
                      CALL STRSM( 'R', 'U', 'T', DIAG, M, K, ALPHA, A( 0 ), N+1, B( 0, K ), LDB )                      CALL SGEMM( 'N', 'N', M, K, K, -ONE, B( 0, K ), LDB, A( K+1 ), N+1, ALPHA, B( 0, 0 ), LDB )
                      CALL STRSM( 'R', 'L', 'N', DIAG, M, K, ONE, A( 1 ), N+1, B( 0, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
-*                    and TRANS = 'T'
+                     // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
+                     // and TRANS = 'T'
 *
                      CALL STRSM( 'R', 'L', 'T', DIAG, M, K, ALPHA, A( 1 ), N+1, B( 0, 0 ), LDB )                      CALL SGEMM( 'N', 'T', M, K, K, -ONE, B( 0, 0 ), LDB, A( K+1 ), N+1, ALPHA, B( 0, K ), LDB )
                      CALL STRSM( 'R', 'U', 'N', DIAG, M, K, ONE, A( 0 ), N+1, B( 0, K ), LDB )
@@ -478,20 +478,20 @@
 *
                ELSE
 *
-*                 SIDE  ='R', N is even, TRANSR = 'N', and UPLO = 'U'
+                  // SIDE  ='R', N is even, TRANSR = 'N', and UPLO = 'U'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
-*                    and TRANS = 'N'
+                     // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
+                     // and TRANS = 'N'
 *
                      CALL STRSM( 'R', 'L', 'T', DIAG, M, K, ALPHA, A( K+1 ), N+1, B( 0, 0 ), LDB )                      CALL SGEMM( 'N', 'N', M, K, K, -ONE, B( 0, 0 ), LDB, A( 0 ), N+1, ALPHA, B( 0, K ), LDB )
                      CALL STRSM( 'R', 'U', 'N', DIAG, M, K, ONE, A( K ), N+1, B( 0, K ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
-*                    and TRANS = 'T'
+                     // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
+                     // and TRANS = 'T'
 *
                      CALL STRSM( 'R', 'U', 'T', DIAG, M, K, ALPHA, A( K ), N+1, B( 0, K ), LDB )                      CALL SGEMM( 'N', 'T', M, K, K, -ONE, B( 0, K ), LDB, A( 0 ), N+1, ALPHA, B( 0, 0 ), LDB )
                      CALL STRSM( 'R', 'L', 'N', DIAG, M, K, ONE, A( K+1 ), N+1, B( 0, 0 ), LDB )
@@ -502,24 +502,24 @@
 *
             ELSE
 *
-*              SIDE = 'R', N is even, and TRANSR = 'T'
+               // SIDE = 'R', N is even, and TRANSR = 'T'
 *
                IF( LOWER ) THEN
 *
-*                 SIDE  ='R', N is even, TRANSR = 'T', and UPLO = 'L'
+                  // SIDE  ='R', N is even, TRANSR = 'T', and UPLO = 'L'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'L',
-*                    and TRANS = 'N'
+                     // SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'L',
+                     // and TRANS = 'N'
 *
                      CALL STRSM( 'R', 'L', 'N', DIAG, M, K, ALPHA, A( 0 ), K, B( 0, K ), LDB )                      CALL SGEMM( 'N', 'T', M, K, K, -ONE, B( 0, K ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, 0 ), LDB )
                      CALL STRSM( 'R', 'U', 'T', DIAG, M, K, ONE, A( K ), K, B( 0, 0 ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'L',
-*                    and TRANS = 'T'
+                     // SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'L',
+                     // and TRANS = 'T'
 *
                      CALL STRSM( 'R', 'U', 'N', DIAG, M, K, ALPHA, A( K ), K, B( 0, 0 ), LDB )                      CALL SGEMM( 'N', 'N', M, K, K, -ONE, B( 0, 0 ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, K ), LDB )
                      CALL STRSM( 'R', 'L', 'T', DIAG, M, K, ONE, A( 0 ), K, B( 0, K ), LDB )
@@ -528,19 +528,19 @@
 *
                ELSE
 *
-*                 SIDE  ='R', N is even, TRANSR = 'T', and UPLO = 'U'
+                  // SIDE  ='R', N is even, TRANSR = 'T', and UPLO = 'U'
 *
                   IF( NOTRANS ) THEN
 *
-*                    SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'U',
-*                    and TRANS = 'N'
+                     // SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'U',
+                     // and TRANS = 'N'
 *
                      CALL STRSM( 'R', 'U', 'N', DIAG, M, K, ALPHA, A( ( K+1 )*K ), K, B( 0, 0 ), LDB )                      CALL SGEMM( 'N', 'T', M, K, K, -ONE, B( 0, 0 ), LDB, A( 0 ), K, ALPHA, B( 0, K ), LDB )                      CALL STRSM( 'R', 'L', 'T', DIAG, M, K, ONE, A( K*K ), K, B( 0, K ), LDB )
 *
                   ELSE
 *
-*                    SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'U',
-*                    and TRANS = 'T'
+                     // SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'U',
+                     // and TRANS = 'T'
 *
                      CALL STRSM( 'R', 'L', 'N', DIAG, M, K, ALPHA, A( K*K ), K, B( 0, K ), LDB )                      CALL SGEMM( 'N', 'N', M, K, K, -ONE, B( 0, K ), LDB, A( 0 ), K, ALPHA, B( 0, 0 ), LDB )                      CALL STRSM( 'R', 'U', 'T', DIAG, M, K, ONE, A( ( K+1 )*K ), K, B( 0, 0 ), LDB )
 *
@@ -555,6 +555,6 @@
 *
       RETURN
 *
-*     End of STFSM
+      // End of STFSM
 *
       END

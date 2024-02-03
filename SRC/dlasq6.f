@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                I0, N0, PP;
       double             DMIN, DMIN1, DMIN2, DN, DNM1, DNM2;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             Z( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameter ..
+      // .. Parameter ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J4, J4P2;
       double             D, EMIN, SAFMIN, TEMP;
-*     ..
-*     .. External Function ..
+      // ..
+      // .. External Function ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( ( N0-I0-1 ).LE.0 ) RETURN
 *
@@ -79,7 +79,7 @@
    20    CONTINUE
       END IF
 *
-*     Unroll last two steps.
+      // Unroll last two steps.
 *
       DNM2 = D
       DMIN2 = DMIN
@@ -124,6 +124,6 @@
       Z( 4*N0-PP ) = EMIN
       RETURN
 *
-*     End of DLASQ6
+      // End of DLASQ6
 *
       END

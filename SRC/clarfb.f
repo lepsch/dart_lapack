@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIRECT, SIDE, STOREV, TRANS;
       int                K, LDC, LDT, LDV, LDWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANST;
       int                I, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEMM, CLACGV, CTRMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
@@ -48,52 +48,52 @@
 *
          IF( LSAME( DIRECT, 'F' ) ) THEN
 *
-*           Let  V =  ( V1 )    (first K rows)
-*                     ( V2 )
-*           where  V1  is unit lower triangular.
+            // Let  V =  ( V1 )    (first K rows)
+                      // ( V2 )
+            // where  V1  is unit lower triangular.
 *
             IF( LSAME( SIDE, 'L' ) ) THEN
 *
-*              Form  H * C  or  H**H * C  where  C = ( C1 )
-*                                                    ( C2 )
+               // Form  H * C  or  H**H * C  where  C = ( C1 )
+                                                     // ( C2 )
 *
-*              W := C**H * V  =  (C1**H * V1 + C2**H * V2)  (stored in WORK)
+               // W := C**H * V  =  (C1**H * V1 + C2**H * V2)  (stored in WORK)
 *
-*              W := C1**H
+               // W := C1**H
 *
                DO 10 J = 1, K
                   CALL CCOPY( N, C( J, 1 ), LDC, WORK( 1, J ), 1 )
                   CALL CLACGV( N, WORK( 1, J ), 1 )
    10          CONTINUE
 *
-*              W := W * V1
+               // W := W * V1
 *
                CALL CTRMM( 'Right', 'Lower', 'No transpose', 'Unit', N, K, ONE, V, LDV, WORK, LDWORK )
                IF( M.GT.K ) THEN
 *
-*                 W := W + C2**H *V2
+                  // W := W + C2**H *V2
 *
                   CALL CGEMM( 'Conjugate transpose', 'No transpose', N, K, M-K, ONE, C( K+1, 1 ), LDC, V( K+1, 1 ), LDV, ONE, WORK, LDWORK )
                END IF
 *
-*              W := W * T**H  or  W * T
+               // W := W * T**H  or  W * T
 *
                CALL CTRMM( 'Right', 'Upper', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
 *
-*              C := C - V * W**H
+               // C := C - V * W**H
 *
                IF( M.GT.K ) THEN
 *
-*                 C2 := C2 - V2 * W**H
+                  // C2 := C2 - V2 * W**H
 *
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M-K, N, K, -ONE, V( K+1, 1 ), LDV, WORK, LDWORK, ONE, C( K+1, 1 ), LDC )
                END IF
 *
-*              W := W * V1**H
+               // W := W * V1**H
 *
                CALL CTRMM( 'Right', 'Lower', 'Conjugate transpose', 'Unit', N, K, ONE, V, LDV, WORK, LDWORK )
 *
-*              C1 := C1 - W**H
+               // C1 := C1 - W**H
 *
                DO 30 J = 1, K
                   DO 20 I = 1, N
@@ -103,44 +103,44 @@
 *
             ELSE IF( LSAME( SIDE, 'R' ) ) THEN
 *
-*              Form  C * H  or  C * H**H  where  C = ( C1  C2 )
+               // Form  C * H  or  C * H**H  where  C = ( C1  C2 )
 *
-*              W := C * V  =  (C1*V1 + C2*V2)  (stored in WORK)
+               // W := C * V  =  (C1*V1 + C2*V2)  (stored in WORK)
 *
-*              W := C1
+               // W := C1
 *
                DO 40 J = 1, K
                   CALL CCOPY( M, C( 1, J ), 1, WORK( 1, J ), 1 )
    40          CONTINUE
 *
-*              W := W * V1
+               // W := W * V1
 *
                CALL CTRMM( 'Right', 'Lower', 'No transpose', 'Unit', M, K, ONE, V, LDV, WORK, LDWORK )
                IF( N.GT.K ) THEN
 *
-*                 W := W + C2 * V2
+                  // W := W + C2 * V2
 *
                   CALL CGEMM( 'No transpose', 'No transpose', M, K, N-K, ONE, C( 1, K+1 ), LDC, V( K+1, 1 ), LDV, ONE, WORK, LDWORK )
                END IF
 *
-*              W := W * T  or  W * T**H
+               // W := W * T  or  W * T**H
 *
                CALL CTRMM( 'Right', 'Upper', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK )
 *
-*              C := C - W * V**H
+               // C := C - W * V**H
 *
                IF( N.GT.K ) THEN
 *
-*                 C2 := C2 - W * V2**H
+                  // C2 := C2 - W * V2**H
 *
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M, N-K, K, -ONE, WORK, LDWORK, V( K+1, 1 ), LDV, ONE, C( 1, K+1 ), LDC )
                END IF
 *
-*              W := W * V1**H
+               // W := W * V1**H
 *
                CALL CTRMM( 'Right', 'Lower', 'Conjugate transpose', 'Unit', M, K, ONE, V, LDV, WORK, LDWORK )
 *
-*              C1 := C1 - W
+               // C1 := C1 - W
 *
                DO 60 J = 1, K
                   DO 50 I = 1, M
@@ -151,52 +151,52 @@
 *
          ELSE
 *
-*           Let  V =  ( V1 )
-*                     ( V2 )    (last K rows)
-*           where  V2  is unit upper triangular.
+            // Let  V =  ( V1 )
+                      // ( V2 )    (last K rows)
+            // where  V2  is unit upper triangular.
 *
             IF( LSAME( SIDE, 'L' ) ) THEN
 *
-*              Form  H * C  or  H**H * C  where  C = ( C1 )
-*                                                  ( C2 )
+               // Form  H * C  or  H**H * C  where  C = ( C1 )
+                                                   // ( C2 )
 *
-*              W := C**H * V  =  (C1**H * V1 + C2**H * V2)  (stored in WORK)
+               // W := C**H * V  =  (C1**H * V1 + C2**H * V2)  (stored in WORK)
 *
-*              W := C2**H
+               // W := C2**H
 *
                DO 70 J = 1, K
                   CALL CCOPY( N, C( M-K+J, 1 ), LDC, WORK( 1, J ), 1 )
                   CALL CLACGV( N, WORK( 1, J ), 1 )
    70          CONTINUE
 *
-*              W := W * V2
+               // W := W * V2
 *
                CALL CTRMM( 'Right', 'Upper', 'No transpose', 'Unit', N, K, ONE, V( M-K+1, 1 ), LDV, WORK, LDWORK )
                IF( M.GT.K ) THEN
 *
-*                 W := W + C1**H * V1
+                  // W := W + C1**H * V1
 *
                   CALL CGEMM( 'Conjugate transpose', 'No transpose', N, K, M-K, ONE, C, LDC, V, LDV, ONE, WORK, LDWORK )
                END IF
 *
-*              W := W * T**H  or  W * T
+               // W := W * T**H  or  W * T
 *
                CALL CTRMM( 'Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
 *
-*              C := C - V * W**H
+               // C := C - V * W**H
 *
                IF( M.GT.K ) THEN
 *
-*                 C1 := C1 - V1 * W**H
+                  // C1 := C1 - V1 * W**H
 *
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M-K, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C, LDC )
                END IF
 *
-*              W := W * V2**H
+               // W := W * V2**H
 *
                CALL CTRMM( 'Right', 'Upper', 'Conjugate transpose', 'Unit', N, K, ONE, V( M-K+1, 1 ), LDV, WORK, LDWORK )
 *
-*              C2 := C2 - W**H
+               // C2 := C2 - W**H
 *
                DO 90 J = 1, K
                   DO 80 I = 1, N
@@ -206,44 +206,44 @@
 *
             ELSE IF( LSAME( SIDE, 'R' ) ) THEN
 *
-*              Form  C * H  or  C * H**H  where  C = ( C1  C2 )
+               // Form  C * H  or  C * H**H  where  C = ( C1  C2 )
 *
-*              W := C * V  =  (C1*V1 + C2*V2)  (stored in WORK)
+               // W := C * V  =  (C1*V1 + C2*V2)  (stored in WORK)
 *
-*              W := C2
+               // W := C2
 *
                DO 100 J = 1, K
                   CALL CCOPY( M, C( 1, N-K+J ), 1, WORK( 1, J ), 1 )
   100          CONTINUE
 *
-*              W := W * V2
+               // W := W * V2
 *
                CALL CTRMM( 'Right', 'Upper', 'No transpose', 'Unit', M, K, ONE, V( N-K+1, 1 ), LDV, WORK, LDWORK )
                IF( N.GT.K ) THEN
 *
-*                 W := W + C1 * V1
+                  // W := W + C1 * V1
 *
                   CALL CGEMM( 'No transpose', 'No transpose', M, K, N-K, ONE, C, LDC, V, LDV, ONE, WORK, LDWORK )
                END IF
 *
-*              W := W * T  or  W * T**H
+               // W := W * T  or  W * T**H
 *
                CALL CTRMM( 'Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK )
 *
-*              C := C - W * V**H
+               // C := C - W * V**H
 *
                IF( N.GT.K ) THEN
 *
-*                 C1 := C1 - W * V1**H
+                  // C1 := C1 - W * V1**H
 *
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M, N-K, K, -ONE, WORK, LDWORK, V, LDV, ONE, C, LDC )
                END IF
 *
-*              W := W * V2**H
+               // W := W * V2**H
 *
                CALL CTRMM( 'Right', 'Upper', 'Conjugate transpose', 'Unit', M, K, ONE, V( N-K+1, 1 ), LDV, WORK, LDWORK )
 *
-*              C2 := C2 - W
+               // C2 := C2 - W
 *
                DO 120 J = 1, K
                   DO 110 I = 1, M
@@ -257,51 +257,51 @@
 *
          IF( LSAME( DIRECT, 'F' ) ) THEN
 *
-*           Let  V =  ( V1  V2 )    (V1: first K columns)
-*           where  V1  is unit upper triangular.
+            // Let  V =  ( V1  V2 )    (V1: first K columns)
+            // where  V1  is unit upper triangular.
 *
             IF( LSAME( SIDE, 'L' ) ) THEN
 *
-*              Form  H * C  or  H**H * C  where  C = ( C1 )
-*                                                    ( C2 )
+               // Form  H * C  or  H**H * C  where  C = ( C1 )
+                                                     // ( C2 )
 *
-*              W := C**H * V**H  =  (C1**H * V1**H + C2**H * V2**H) (stored in WORK)
+               // W := C**H * V**H  =  (C1**H * V1**H + C2**H * V2**H) (stored in WORK)
 *
-*              W := C1**H
+               // W := C1**H
 *
                DO 130 J = 1, K
                   CALL CCOPY( N, C( J, 1 ), LDC, WORK( 1, J ), 1 )
                   CALL CLACGV( N, WORK( 1, J ), 1 )
   130          CONTINUE
 *
-*              W := W * V1**H
+               // W := W * V1**H
 *
                CALL CTRMM( 'Right', 'Upper', 'Conjugate transpose', 'Unit', N, K, ONE, V, LDV, WORK, LDWORK )
                IF( M.GT.K ) THEN
 *
-*                 W := W + C2**H * V2**H
+                  // W := W + C2**H * V2**H
 *
                   CALL CGEMM( 'Conjugate transpose', 'Conjugate transpose', N, K, M-K, ONE, C( K+1, 1 ), LDC, V( 1, K+1 ), LDV, ONE, WORK, LDWORK )
                END IF
 *
-*              W := W * T**H  or  W * T
+               // W := W * T**H  or  W * T
 *
                CALL CTRMM( 'Right', 'Upper', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
 *
-*              C := C - V**H * W**H
+               // C := C - V**H * W**H
 *
                IF( M.GT.K ) THEN
 *
-*                 C2 := C2 - V2**H * W**H
+                  // C2 := C2 - V2**H * W**H
 *
                   CALL CGEMM( 'Conjugate transpose', 'Conjugate transpose', M-K, N, K, -ONE, V( 1, K+1 ), LDV, WORK, LDWORK, ONE, C( K+1, 1 ), LDC )
                END IF
 *
-*              W := W * V1
+               // W := W * V1
 *
                CALL CTRMM( 'Right', 'Upper', 'No transpose', 'Unit', N, K, ONE, V, LDV, WORK, LDWORK )
 *
-*              C1 := C1 - W**H
+               // C1 := C1 - W**H
 *
                DO 150 J = 1, K
                   DO 140 I = 1, N
@@ -311,44 +311,44 @@
 *
             ELSE IF( LSAME( SIDE, 'R' ) ) THEN
 *
-*              Form  C * H  or  C * H**H  where  C = ( C1  C2 )
+               // Form  C * H  or  C * H**H  where  C = ( C1  C2 )
 *
-*              W := C * V**H  =  (C1*V1**H + C2*V2**H)  (stored in WORK)
+               // W := C * V**H  =  (C1*V1**H + C2*V2**H)  (stored in WORK)
 *
-*              W := C1
+               // W := C1
 *
                DO 160 J = 1, K
                   CALL CCOPY( M, C( 1, J ), 1, WORK( 1, J ), 1 )
   160          CONTINUE
 *
-*              W := W * V1**H
+               // W := W * V1**H
 *
                CALL CTRMM( 'Right', 'Upper', 'Conjugate transpose', 'Unit', M, K, ONE, V, LDV, WORK, LDWORK )
                IF( N.GT.K ) THEN
 *
-*                 W := W + C2 * V2**H
+                  // W := W + C2 * V2**H
 *
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M, K, N-K, ONE, C( 1, K+1 ), LDC, V( 1, K+1 ), LDV, ONE, WORK, LDWORK )
                END IF
 *
-*              W := W * T  or  W * T**H
+               // W := W * T  or  W * T**H
 *
                CALL CTRMM( 'Right', 'Upper', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK )
 *
-*              C := C - W * V
+               // C := C - W * V
 *
                IF( N.GT.K ) THEN
 *
-*                 C2 := C2 - W * V2
+                  // C2 := C2 - W * V2
 *
                   CALL CGEMM( 'No transpose', 'No transpose', M, N-K, K, -ONE, WORK, LDWORK, V( 1, K+1 ), LDV, ONE, C( 1, K+1 ), LDC )
                END IF
 *
-*              W := W * V1
+               // W := W * V1
 *
                CALL CTRMM( 'Right', 'Upper', 'No transpose', 'Unit', M, K, ONE, V, LDV, WORK, LDWORK )
 *
-*              C1 := C1 - W
+               // C1 := C1 - W
 *
                DO 180 J = 1, K
                   DO 170 I = 1, M
@@ -360,51 +360,51 @@
 *
          ELSE
 *
-*           Let  V =  ( V1  V2 )    (V2: last K columns)
-*           where  V2  is unit lower triangular.
+            // Let  V =  ( V1  V2 )    (V2: last K columns)
+            // where  V2  is unit lower triangular.
 *
             IF( LSAME( SIDE, 'L' ) ) THEN
 *
-*              Form  H * C  or  H**H * C  where  C = ( C1 )
-*                                                    ( C2 )
+               // Form  H * C  or  H**H * C  where  C = ( C1 )
+                                                     // ( C2 )
 *
-*              W := C**H * V**H  =  (C1**H * V1**H + C2**H * V2**H) (stored in WORK)
+               // W := C**H * V**H  =  (C1**H * V1**H + C2**H * V2**H) (stored in WORK)
 *
-*              W := C2**H
+               // W := C2**H
 *
                DO 190 J = 1, K
                   CALL CCOPY( N, C( M-K+J, 1 ), LDC, WORK( 1, J ), 1 )
                   CALL CLACGV( N, WORK( 1, J ), 1 )
   190          CONTINUE
 *
-*              W := W * V2**H
+               // W := W * V2**H
 *
                CALL CTRMM( 'Right', 'Lower', 'Conjugate transpose', 'Unit', N, K, ONE, V( 1, M-K+1 ), LDV, WORK, LDWORK )
                IF( M.GT.K ) THEN
 *
-*                 W := W + C1**H * V1**H
+                  // W := W + C1**H * V1**H
 *
                   CALL CGEMM( 'Conjugate transpose', 'Conjugate transpose', N, K, M-K, ONE, C, LDC, V, LDV, ONE, WORK, LDWORK )
                END IF
 *
-*              W := W * T**H  or  W * T
+               // W := W * T**H  or  W * T
 *
                CALL CTRMM( 'Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
 *
-*              C := C - V**H * W**H
+               // C := C - V**H * W**H
 *
                IF( M.GT.K ) THEN
 *
-*                 C1 := C1 - V1**H * W**H
+                  // C1 := C1 - V1**H * W**H
 *
                   CALL CGEMM( 'Conjugate transpose', 'Conjugate transpose', M-K, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C, LDC )
                END IF
 *
-*              W := W * V2
+               // W := W * V2
 *
                CALL CTRMM( 'Right', 'Lower', 'No transpose', 'Unit', N, K, ONE, V( 1, M-K+1 ), LDV, WORK, LDWORK )
 *
-*              C2 := C2 - W**H
+               // C2 := C2 - W**H
 *
                DO 210 J = 1, K
                   DO 200 I = 1, N
@@ -414,44 +414,44 @@
 *
             ELSE IF( LSAME( SIDE, 'R' ) ) THEN
 *
-*              Form  C * H  or  C * H**H  where  C = ( C1  C2 )
+               // Form  C * H  or  C * H**H  where  C = ( C1  C2 )
 *
-*              W := C * V**H  =  (C1*V1**H + C2*V2**H)  (stored in WORK)
+               // W := C * V**H  =  (C1*V1**H + C2*V2**H)  (stored in WORK)
 *
-*              W := C2
+               // W := C2
 *
                DO 220 J = 1, K
                   CALL CCOPY( M, C( 1, N-K+J ), 1, WORK( 1, J ), 1 )
   220          CONTINUE
 *
-*              W := W * V2**H
+               // W := W * V2**H
 *
                CALL CTRMM( 'Right', 'Lower', 'Conjugate transpose', 'Unit', M, K, ONE, V( 1, N-K+1 ), LDV, WORK, LDWORK )
                IF( N.GT.K ) THEN
 *
-*                 W := W + C1 * V1**H
+                  // W := W + C1 * V1**H
 *
                   CALL CGEMM( 'No transpose', 'Conjugate transpose', M, K, N-K, ONE, C, LDC, V, LDV, ONE, WORK, LDWORK )
                END IF
 *
-*              W := W * T  or  W * T**H
+               // W := W * T  or  W * T**H
 *
                CALL CTRMM( 'Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK )
 *
-*              C := C - W * V
+               // C := C - W * V
 *
                IF( N.GT.K ) THEN
 *
-*                 C1 := C1 - W * V1
+                  // C1 := C1 - W * V1
 *
                   CALL CGEMM( 'No transpose', 'No transpose', M, N-K, K, -ONE, WORK, LDWORK, V, LDV, ONE, C, LDC )
                END IF
 *
-*              W := W * V2
+               // W := W * V2
 *
                CALL CTRMM( 'Right', 'Lower', 'No transpose', 'Unit', M, K, ONE, V( 1, N-K+1 ), LDV, WORK, LDWORK )
 *
-*              C1 := C1 - W
+               // C1 := C1 - W
 *
                DO 240 J = 1, K
                   DO 230 I = 1, M
@@ -466,6 +466,6 @@
 *
       RETURN
 *
-*     End of CLARFB
+      // End of CLARFB
 *
       END

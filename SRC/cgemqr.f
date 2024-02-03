@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                INFO, LDA, M, N, K, TSIZE, LWORK, LDC;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), T( * ), C( LDC, * ), WORK( * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LEFT, RIGHT, TRAN, NOTRAN, LQUERY;
       int                MB, NB, LW, NBLCKS, MN, MINMNK, LWMIN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMQRT, CLAMTSQR, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN, MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       LQUERY  = ( LWORK.EQ.-1 )
       NOTRAN  = LSAME( TRANS, 'N' )
@@ -99,7 +99,7 @@
         RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MINMNK.EQ.0 ) THEN
         RETURN
@@ -114,6 +114,6 @@
 *
       RETURN
 *
-*     End of CGEMQR
+      // End of CGEMQR
 *
       END

@@ -4,49 +4,49 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
       REAL               RMAX
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       REAL               TWO, FOUR, EIGHT
       PARAMETER          ( TWO = 2.0E0, FOUR = 4.0E0, EIGHT = 8.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LTRANL, LTRANR;
       int                IB, IB1, IB2, IB3, INFO, ISGN, ITL, ITLSCL, ITR, ITRANL, ITRANR, ITRSCL, N1, N2       REAL               BIGNUM, DEN, EPS, RES, SCALE, SGN, SMLNUM, TMP, TNRM, XNORM, XNRM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ITVAL( 2, 2, 8 );
       REAL               B( 2, 2 ), TL( 2, 2 ), TR( 2, 2 ), VAL( 3 ), X( 2, 2 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLASY2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ITVAL / 8, 4, 2, 1, 4, 8, 1, 2, 2, 1, 8, 4, 1, 2, 4, 8, 9, 4, 2, 1, 4, 9, 1, 2, 2, 1, 9, 4, 1, 2, 4, 9 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Set up test case parameters
+      // Set up test case parameters
 *
       VAL( 1 ) = SQRT( SMLNUM )
       VAL( 2 ) = ONE
@@ -57,7 +57,7 @@
       LMAX = 0
       RMAX = ZERO
 *
-*     Begin test loop
+      // Begin test loop
 *
       DO 230 ITRANL = 0, 1
          DO 220 ITRANR = 0, 1
@@ -209,6 +209,6 @@
 *
       RETURN
 *
-*     End of SGET32
+      // End of SGET32
 *
       END

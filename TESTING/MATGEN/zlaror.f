@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             INIT, SIDE;
       int                INFO, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       COMPLEX*16         A( LDA, * ), X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TOOSML;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
       double             FACTOR, XABS, XNORM;
       COMPLEX*16         CSIGN, XNORMS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DZNRM2;
       COMPLEX*16         ZLARND
       // EXTERNAL LSAME, DZNRM2, ZLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMV, ZGERC, ZLACGV, ZLASET, ZSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, DCONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
@@ -54,7 +54,7 @@
          ITYPE = 4
       END IF
 *
-*     Check for argument errors.
+      // Check for argument errors.
 *
       IF( ITYPE.EQ.0 ) THEN
          INFO = -1
@@ -76,16 +76,16 @@
          NXFRM = N
       END IF
 *
-*     Initialize A to the identity matrix if desired
+      // Initialize A to the identity matrix if desired
 *
       IF( LSAME( INIT, 'I' ) ) CALL ZLASET( 'Full', M, N, CZERO, CONE, A, LDA )
 *
-*     If no rotation possible, still multiply by
-*     a random complex number from the circle |x| = 1
+      // If no rotation possible, still multiply by
+      // a random complex number from the circle |x| = 1
 *
-*      2)      Compute Rotation by computing Householder
-*              Transformations H(2), H(3), ..., H(n).  Note that the
-*              order in which they are computed is irrelevant.
+       // 2)      Compute Rotation by computing Householder
+               // Transformations H(2), H(3), ..., H(n).  Note that the
+               // order in which they are computed is irrelevant.
 *
       DO 10 J = 1, NXFRM
          X( J ) = CZERO
@@ -94,13 +94,13 @@
       DO 30 IXFRM = 2, NXFRM
          KBEG = NXFRM - IXFRM + 1
 *
-*        Generate independent normal( 0, 1 ) random numbers
+         // Generate independent normal( 0, 1 ) random numbers
 *
          DO 20 J = KBEG, NXFRM
             X( J ) = ZLARND( 3, ISEED )
    20    CONTINUE
 *
-*        Generate a Householder transformation from the random vector X
+         // Generate a Householder transformation from the random vector X
 *
          XNORM = DZNRM2( IXFRM, X( KBEG ), 1 )
          XABS = ABS( X( KBEG ) )
@@ -121,11 +121,11 @@
          END IF
          X( KBEG ) = X( KBEG ) + XNORMS
 *
-*        Apply Householder transformation to A
+         // Apply Householder transformation to A
 *
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) THEN
 *
-*           Apply H(k) on the left of A
+            // Apply H(k) on the left of A
 *
             CALL ZGEMV( 'C', IXFRM, N, CONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( IXFRM, N, -DCMPLX( FACTOR ), X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
 *
@@ -133,7 +133,7 @@
 *
          IF( ITYPE.GE.2 .AND. ITYPE.LE.4 ) THEN
 *
-*           Apply H(k)* (or H(k)') on the right of A
+            // Apply H(k)* (or H(k)') on the right of A
 *
             IF( ITYPE.EQ.4 ) THEN
                CALL ZLACGV( IXFRM, X( KBEG ), 1 )
@@ -153,7 +153,7 @@
       END IF
       X( 2*NXFRM ) = CSIGN
 *
-*     Scale the matrix A by D.
+      // Scale the matrix A by D.
 *
       IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) THEN
          DO 40 IROW = 1, M
@@ -174,6 +174,6 @@
       END IF
       RETURN
 *
-*     End of ZLAROR
+      // End of ZLAROR
 *
       END

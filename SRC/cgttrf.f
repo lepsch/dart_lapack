@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            D( * ), DL( * ), DU( * ), DU2( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       COMPLEX            FACT, TEMP, ZDUM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -43,11 +43,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Initialize IPIV(i) = i and DU2(i) = 0
+      // Initialize IPIV(i) = i and DU2(i) = 0
 *
       DO 10 I = 1, N
          IPIV( I ) = I
@@ -59,7 +59,7 @@
       DO 30 I = 1, N - 2
          IF( CABS1( D( I ) ).GE.CABS1( DL( I ) ) ) THEN
 *
-*           No row interchange required, eliminate DL(I)
+            // No row interchange required, eliminate DL(I)
 *
             IF( CABS1( D( I ) ).NE.ZERO ) THEN
                FACT = DL( I ) / D( I )
@@ -68,7 +68,7 @@
             END IF
          ELSE
 *
-*           Interchange rows I and I+1, eliminate DL(I)
+            // Interchange rows I and I+1, eliminate DL(I)
 *
             FACT = D( I ) / DL( I )
             D( I ) = DL( I )
@@ -100,7 +100,7 @@
          END IF
       END IF
 *
-*     Check for a zero on the diagonal of U.
+      // Check for a zero on the diagonal of U.
 *
       DO 40 I = 1, N
          IF( CABS1( D( I ) ).EQ.ZERO ) THEN
@@ -112,6 +112,6 @@
 *
       RETURN
 *
-*     End of CGTTRF
+      // End of CGTTRF
 *
       END

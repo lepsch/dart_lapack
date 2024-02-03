@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               COMP;
       String             BALANC;
       int                INFO, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * );
       REAL               A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
       REAL               EPSIN
       PARAMETER          ( EPSIN = 5.9605E-8 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BALOK, NOBAL;
       String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN       REAL               ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VMAX, VMX, VRMIN, VRMX, VTST;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             SENS( 2 );
       REAL               DUM( 1 ), RES( 2 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLAPY2, SNRM2
       // EXTERNAL LSAME, SLAMCH, SLAPY2, SNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEEVX, SGET22, SLACPY, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               SENS / 'N', 'V' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       NOBAL = LSAME( BALANC, 'N' )
       BALOK = NOBAL .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' )
@@ -79,7 +79,7 @@
          RETURN
       END IF
 *
-*     Quick return if nothing to do
+      // Quick return if nothing to do
 *
       DO 10 I = 1, 11
          RESULT( I ) = -ONE
@@ -87,13 +87,13 @@
 *
       IF( N.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       ULP = SLAMCH( 'Precision' )
       SMLNUM = SLAMCH( 'S' )
       ULPINV = ONE / ULP
 *
-*     Compute eigenvalues and eigenvectors, and test them
+      // Compute eigenvalues and eigenvectors, and test them
 *
       IF( LWORK.GE.6*N+N*N ) THEN
          SENSE = 'B'
@@ -115,17 +115,17 @@
          RETURN
       END IF
 *
-*     Do Test (1)
+      // Do Test (1)
 *
       CALL SGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, WR, WI, WORK, RES )
       RESULT( 1 ) = RES( 1 )
 *
-*     Do Test (2)
+      // Do Test (2)
 *
       CALL SGET22( 'T', 'N', 'T', N, A, LDA, VL, LDVL, WR, WI, WORK, RES )
       RESULT( 2 ) = RES( 1 )
 *
-*     Do Test (3)
+      // Do Test (3)
 *
       DO 30 J = 1, N
          TNRM = ONE
@@ -146,7 +146,7 @@
          END IF
    30 CONTINUE
 *
-*     Do Test (4)
+      // Do Test (4)
 *
       DO 50 J = 1, N
          TNRM = ONE
@@ -167,13 +167,13 @@
          END IF
    50 CONTINUE
 *
-*     Test for all options of computing condition numbers
+      // Test for all options of computing condition numbers
 *
       DO 200 ISENS = 1, ISENSM
 *
          SENSE = SENS( ISENS )
 *
-*        Compute eigenvalues only, and test them
+         // Compute eigenvalues only, and test them
 *
          CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL SGEEVX( BALANC, 'N', 'N', SENSE, N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO )
@@ -188,13 +188,13 @@
             GO TO 190
          END IF
 *
-*        Do Test (5)
+         // Do Test (5)
 *
          DO 60 J = 1, N
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
    60    CONTINUE
 *
-*        Do Test (8)
+         // Do Test (8)
 *
          IF( .NOT.NOBAL ) THEN
             DO 70 J = 1, N
@@ -203,7 +203,7 @@
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
-*        Do Test (9)
+         // Do Test (9)
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 80 J = 1, N
@@ -211,7 +211,7 @@
    80       CONTINUE
          END IF
 *
-*        Compute eigenvalues and right eigenvectors, and test them
+         // Compute eigenvalues and right eigenvectors, and test them
 *
          CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL SGEEVX( BALANC, 'N', 'V', SENSE, N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO )
@@ -226,13 +226,13 @@
             GO TO 190
          END IF
 *
-*        Do Test (5) again
+         // Do Test (5) again
 *
          DO 90 J = 1, N
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
    90    CONTINUE
 *
-*        Do Test (6)
+         // Do Test (6)
 *
          DO 110 J = 1, N
             DO 100 JJ = 1, N
@@ -240,7 +240,7 @@
   100       CONTINUE
   110    CONTINUE
 *
-*        Do Test (8) again
+         // Do Test (8) again
 *
          IF( .NOT.NOBAL ) THEN
             DO 120 J = 1, N
@@ -249,7 +249,7 @@
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
-*        Do Test (9) again
+         // Do Test (9) again
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 130 J = 1, N
@@ -257,7 +257,7 @@
   130       CONTINUE
          END IF
 *
-*        Compute eigenvalues and left eigenvectors, and test them
+         // Compute eigenvalues and left eigenvectors, and test them
 *
          CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL SGEEVX( BALANC, 'V', 'N', SENSE, N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, IWORK, IINFO )
@@ -272,13 +272,13 @@
             GO TO 190
          END IF
 *
-*        Do Test (5) again
+         // Do Test (5) again
 *
          DO 140 J = 1, N
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
   140    CONTINUE
 *
-*        Do Test (7)
+         // Do Test (7)
 *
          DO 160 J = 1, N
             DO 150 JJ = 1, N
@@ -286,7 +286,7 @@
   150       CONTINUE
   160    CONTINUE
 *
-*        Do Test (8) again
+         // Do Test (8) again
 *
          IF( .NOT.NOBAL ) THEN
             DO 170 J = 1, N
@@ -295,7 +295,7 @@
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
-*        Do Test (9) again
+         // Do Test (9) again
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 180 J = 1, N
@@ -307,7 +307,7 @@
 *
   200 CONTINUE
 *
-*     If COMP, compare condition numbers to precomputed ones
+      // If COMP, compare condition numbers to precomputed ones
 *
       IF( COMP ) THEN
          CALL SLACPY( 'F', N, N, A, LDA, H, LDA )
@@ -319,8 +319,8 @@
             GO TO 250
          END IF
 *
-*        Sort eigenvalues and condition numbers lexicographically
-*        to compare with inputs
+         // Sort eigenvalues and condition numbers lexicographically
+        t // o compare with inputs
 *
          DO 220 I = 1, N - 1
             KMIN = I
@@ -345,8 +345,8 @@
             RCONDV( I ) = VRMIN
   220    CONTINUE
 *
-*        Compare condition numbers for eigenvectors
-*        taking their condition numbers into account
+         // Compare condition numbers for eigenvectors
+        t // aking their condition numbers into account
 *
          RESULT( 10 ) = ZERO
          EPS = MAX( EPSIN, ULP )
@@ -379,8 +379,8 @@
             RESULT( 10 ) = MAX( RESULT( 10 ), VMAX )
   230    CONTINUE
 *
-*        Compare condition numbers for eigenvalues
-*        taking their condition numbers into account
+         // Compare condition numbers for eigenvalues
+        t // aking their condition numbers into account
 *
          RESULT( 11 ) = ZERO
          DO 240 I = 1, N
@@ -421,6 +421,6 @@
 *
       RETURN
 *
-*     End of SGET23
+      // End of SGET23
 *
       END

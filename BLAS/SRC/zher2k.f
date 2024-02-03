@@ -4,41 +4,41 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16 ALPHA
       double           BETA;
       int     K,LDA,LDB,LDC,N;
       String    TRANS,UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16 A(LDA,*),B(LDB,*),C(LDC,*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE,DCONJG,MAX
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16 TEMP1,TEMP2
       int     I,INFO,J,L,NROWA;
       bool    UPPER;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       double           ONE;
       PARAMETER (ONE=1.0D+0)
       COMPLEX*16 ZERO
       PARAMETER (ZERO= (0.0D+0,0.0D+0))
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IF (LSAME(TRANS,'N')) THEN
           NROWA = N
@@ -68,11 +68,11 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
 *
-*     And when  alpha.eq.zero.
+      // And when  alpha.eq.zero.
 *
       IF (ALPHA.EQ.ZERO) THEN
           IF (UPPER) THEN
@@ -109,12 +109,12 @@
           RETURN
       END IF
 *
-*     Start the operations.
+      // Start the operations.
 *
       IF (LSAME(TRANS,'N')) THEN
 *
-*        Form  C := alpha*A*B**H + conjg( alpha )*B*A**H +
-*                   C.
+         // Form  C := alpha*A*B**H + conjg( alpha )*B*A**H +
+                    // C.
 *
           IF (UPPER) THEN
               DO 130 J = 1,N
@@ -169,8 +169,8 @@
           END IF
       ELSE
 *
-*        Form  C := alpha*A**H*B + conjg( alpha )*B**H*A +
-*                   C.
+         // Form  C := alpha*A**H*B + conjg( alpha )*B**H*A +
+                    // C.
 *
           IF (UPPER) THEN
               DO 210 J = 1,N
@@ -225,6 +225,6 @@
 *
       RETURN
 *
-*     End of ZHER2K
+      // End of ZHER2K
 *
       END

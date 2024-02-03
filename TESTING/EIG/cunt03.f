@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
       REAL               RESULT
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IRC, J, LMX;
       REAL               RES1, RES2, ULP
       COMPLEX            S, SU, SV
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH
       // EXTERNAL LSAME, ICAMAX, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX, MIN, REAL
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CUNT01, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check inputs
+      // Check inputs
 *
       INFO = 0
       IF( LSAME( RC, 'R' ) ) THEN
@@ -70,18 +70,18 @@
          RETURN
       END IF
 *
-*     Initialize result
+      // Initialize result
 *
       RESULT = ZERO
       IF( MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Machine constants
+      // Machine constants
 *
       ULP = SLAMCH( 'Precision' )
 *
       IF( IRC.EQ.0 ) THEN
 *
-*        Compare rows
+         // Compare rows
 *
          RES1 = ZERO
          DO 20 I = 1, K
@@ -103,13 +103,13 @@
    20    CONTINUE
          RES1 = RES1 / ( REAL( N )*ULP )
 *
-*        Compute orthogonality of rows of V.
+         // Compute orthogonality of rows of V.
 *
          CALL CUNT01( 'Rows', MV, N, V, LDV, WORK, LWORK, RWORK, RES2 )
 *
       ELSE
 *
-*        Compare columns
+         // Compare columns
 *
          RES1 = ZERO
          DO 40 I = 1, K
@@ -131,7 +131,7 @@
    40    CONTINUE
          RES1 = RES1 / ( REAL( N )*ULP )
 *
-*        Compute orthogonality of columns of V.
+         // Compute orthogonality of columns of V.
 *
          CALL CUNT01( 'Columns', N, MV, V, LDV, WORK, LWORK, RWORK, RES2 )
       END IF
@@ -139,6 +139,6 @@
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )
       RETURN
 *
-*     End of CUNT03
+      // End of CUNT03
 *
       END

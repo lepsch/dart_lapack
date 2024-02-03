@@ -4,26 +4,26 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDAB, LDAFB, LDB, LDY, N, KL, KU, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS, ITHRESH;
       bool               COLEQU, IGNORE_CWISE;
       REAL               RTHRESH, DZ_UB
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB(*), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       String             TRANS;
       int                CNT, I, J, M, X_STATE, Z_STATE, Y_PREC_STATE;
       REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
       bool               INCR_PREC;
       COMPLEX            ZDUM
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y;
       PARAMETER          ( UNSTABLE_STATE = 0, WORKING_STATE = 1, CONV_STATE = 2, NOPROG_STATE = 3 )       PARAMETER          ( BASE_RESIDUAL = 0, EXTRA_RESIDUAL = 1, EXTRA_Y = 2 )
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
@@ -36,30 +36,30 @@
       int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CGBTRS, CGBMV, BLAS_CGBMV_X, BLAS_CGBMV2_X, CLA_GBAMV, CLA_WWADDW, SLAMCH, CHLA_TRANSTYPE, CLA_LIN_BERR
       REAL               SLAMCH
       String             CHLA_TRANSTYPE;
-*     ..
-*     .. Intrinsic Functions..
+      // ..
+      // .. Intrinsic Functions..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function Definitions ..
+      // ..
+      // .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF (INFO.NE.0) RETURN
       TRANS = CHLA_TRANSTYPE(TRANS_TYPE)
       EPS = SLAMCH( 'Epsilon' )
       HUGEVAL = SLAMCH( 'Overflow' )
-*     Force HUGEVAL to Inf
+      // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL
-*     Using HUGEVAL may lead to spurious underflows.
+      // Using HUGEVAL may lead to spurious underflows.
       INCR_THRESH = REAL( N ) * EPS
       M = KL+KU+1
 
@@ -88,8 +88,8 @@
 
          DO CNT = 1, ITHRESH
 *
-*        Compute residual RES = B_s - op(A_s) * Y,
-*            op(A) = A, A**T, or A**H depending on TRANS (and type).
+         // Compute residual RES = B_s - op(A_s) * Y,
+             // op(A) = A, A**T, or A**H depending on TRANS (and type).
 *
             CALL CCOPY( N, B( 1, J ), 1, RES, 1 )
             IF ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) THEN
@@ -100,11 +100,11 @@
                CALL BLAS_CGBMV2_X( TRANS_TYPE, N, N, KL, KU, (-1.0E+0,0.0E+0), AB, LDAB, Y( 1, J ), Y_TAIL, 1, (1.0E+0,0.0E+0), RES, 1, PREC_TYPE )
             END IF
 
-!        XXX: RES is no longer needed.
+         // XXX: RES is no longer needed.
             CALL CCOPY( N, RES, 1, DY, 1 )
             CALL CGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, DY, N, INFO )
 *
-*         Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
+          // Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
 *
             NORMX = 0.0E+0
             NORMY = 0.0E+0
@@ -146,7 +146,7 @@
             DXRAT = NORMDX / PREVNORMDX
             DZRAT = DZ_Z / PREV_DZ_Z
 *
-*         Check termination criteria.
+          // Check termination criteria.
 *
             IF (.NOT.IGNORE_CWISE .AND. YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y ) INCR_PREC = .TRUE.
              IF ( X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH ) X_STATE = WORKING_STATE
@@ -184,9 +184,9 @@
                IF ( Z_STATE .GT. WORKING_STATE ) FINAL_DZ_Z = DZ_Z
             END IF
 *
-*           Exit if both normwise and componentwise stopped working,
-*           but if componentwise is unstable, let it go at least two
-*           iterations.
+            // Exit if both normwise and componentwise stopped working,
+            // but if componentwise is unstable, let it go at least two
+            // iterations.
 *
             IF ( X_STATE.NE.WORKING_STATE ) THEN
                IF ( IGNORE_CWISE ) GOTO 666
@@ -205,7 +205,7 @@
             PREVNORMDX = NORMDX
             PREV_DZ_Z = DZ_Z
 *
-*           Update solution.
+            // Update solution.
 *
             IF ( Y_PREC_STATE .LT. EXTRA_Y ) THEN
                CALL CAXPY( N, (1.0E+0,0.0E+0), DY, 1, Y(1,J), 1 )
@@ -214,15 +214,15 @@
             END IF
 
          END DO
-*        Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
+         // Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
  666     CONTINUE
 *
-*     Set final_* when cnt hits ithresh.
+      // Set final_* when cnt hits ithresh.
 *
          IF ( X_STATE .EQ. WORKING_STATE ) FINAL_DX_X = DX_X
          IF ( Z_STATE .EQ. WORKING_STATE ) FINAL_DZ_Z = DZ_Z
 *
-*     Compute error bounds.
+      // Compute error bounds.
 *
          IF ( N_NORMS .GE. 1 ) THEN
             ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX)
@@ -231,13 +231,13 @@
             ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX)
          END IF
 *
-*     Compute componentwise relative backward error from formula
-*         max(i) ( abs(R(i)) / ( abs(op(A_s))*abs(Y) + abs(B_s) )(i) )
-*     where abs(Z) is the componentwise absolute value of the matrix
-*     or vector Z.
+      // Compute componentwise relative backward error from formula
+          // max(i) ( abs(R(i)) / ( abs(op(A_s))*abs(Y) + abs(B_s) )(i) )
+      // where abs(Z) is the componentwise absolute value of the matrix
+      // or vector Z.
 *
-*        Compute residual RES = B_s - op(A_s) * Y,
-*            op(A) = A, A**T, or A**H depending on TRANS (and type).
+         // Compute residual RES = B_s - op(A_s) * Y,
+             // op(A) = A, A**T, or A**H depending on TRANS (and type).
 *
          CALL CCOPY( N, B( 1, J ), 1, RES, 1 )
          CALL CGBMV( TRANS, N, N, KL, KU, (-1.0E+0,0.0E+0), AB, LDAB, Y(1,J), 1, (1.0E+0,0.0E+0), RES, 1 )
@@ -246,18 +246,18 @@
             AYB( I ) = CABS1( B( I, J ) )
          END DO
 *
-*     Compute abs(op(A_s))*abs(Y) + abs(B_s).
+      // Compute abs(op(A_s))*abs(Y) + abs(B_s).
 *
         CALL CLA_GBAMV( TRANS_TYPE, N, N, KL, KU, 1.0E+0, AB, LDAB, Y(1, J), 1, 1.0E+0, AYB, 1 )
 
          CALL CLA_LIN_BERR( N, N, 1, RES, AYB, BERR_OUT( J ) )
 *
-*     End of loop for each RHS.
+      // End of loop for each RHS.
 *
       END DO
 *
       RETURN
 *
-*     End of CLA_GBRFSX_EXTENDED
+      // End of CLA_GBRFSX_EXTENDED
 *
       END

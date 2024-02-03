@@ -4,21 +4,21 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N;
       REAL               ANORM, COND, CONDS
       COMPLEX            DMAX
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       REAL               DS( * )
       COMPLEX            A( LDA, * ), D( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
       REAL               ONE
@@ -27,40 +27,40 @@
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADS;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR;
       REAL               RALPHA, TEMP
       COMPLEX            ALPHA, TAU, XNORMS
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               TEMPA( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGE
       COMPLEX            CLARND
       // EXTERNAL LSAME, CLANGE, CLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEMV, CGERC, CLACGV, CLARFG, CLARGE, CLARNV, CLATM1, CLASET, CSCAL, CSSCAL, SLATM1, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     1)      Decode and Test the input parameters.
-*             Initialize flags & seed.
+      // 1)      Decode and Test the input parameters.
+              // Initialize flags & seed.
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Decode DIST
+      // Decode DIST
 *
       IF( LSAME( DIST, 'U' ) ) THEN
          IDIST = 1
@@ -74,7 +74,7 @@
          IDIST = -1
       END IF
 *
-*     Decode RSIGN
+      // Decode RSIGN
 *
       IF( LSAME( RSIGN, 'T' ) ) THEN
          IRSIGN = 1
@@ -84,7 +84,7 @@
          IRSIGN = -1
       END IF
 *
-*     Decode UPPER
+      // Decode UPPER
 *
       IF( LSAME( UPPER, 'T' ) ) THEN
          IUPPER = 1
@@ -94,7 +94,7 @@
          IUPPER = -1
       END IF
 *
-*     Decode SIM
+      // Decode SIM
 *
       IF( LSAME( SIM, 'T' ) ) THEN
          ISIM = 1
@@ -104,7 +104,7 @@
          ISIM = -1
       END IF
 *
-*     Check DS, if MODES=0 and ISIM=1
+      // Check DS, if MODES=0 and ISIM=1
 *
       BADS = .FALSE.
       IF( MODES.EQ.0 .AND. ISIM.EQ.1 ) THEN
@@ -113,7 +113,7 @@
    10    CONTINUE
       END IF
 *
-*     Set INFO if an error
+      // Set INFO if an error
 *
       IF( N.LT.0 ) THEN
          INFO = -1
@@ -148,7 +148,7 @@
          RETURN
       END IF
 *
-*     Initialize random number generator
+      // Initialize random number generator
 *
       DO 20 I = 1, 4
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
@@ -156,9 +156,9 @@
 *
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
-*     2)      Set up diagonal of A
+      // 2)      Set up diagonal of A
 *
-*             Compute D according to COND and MODE
+              // Compute D according to COND and MODE
 *
       CALL CLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO )
       IF( IINFO.NE.0 ) THEN
@@ -167,7 +167,7 @@
       END IF
       IF( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) THEN
 *
-*        Scale by DMAX
+         // Scale by DMAX
 *
          TEMP = ABS( D( 1 ) )
          DO 30 I = 2, N
@@ -188,7 +188,7 @@
       CALL CLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
       CALL CCOPY( N, D, 1, A, LDA+1 )
 *
-*     3)      If UPPER='T', set upper triangle of A to random numbers.
+      // 3)      If UPPER='T', set upper triangle of A to random numbers.
 *
       IF( IUPPER.NE.0 ) THEN
          DO 40 JC = 2, N
@@ -196,17 +196,17 @@
    40    CONTINUE
       END IF
 *
-*     4)      If SIM='T', apply similarity transformation.
+      // 4)      If SIM='T', apply similarity transformation.
 *
-*                                -1
-*             Transform is  X A X  , where X = U S V, thus
+                                 // -1
+              // Transform is  X A X  , where X = U S V, thus
 *
-*             it is  U S V A V' (1/S) U'
+              // it is  U S V A V' (1/S) U'
 *
       IF( ISIM.NE.0 ) THEN
 *
-*        Compute S (singular values of the eigenvector matrix)
-*        according to CONDS and MODES
+         // Compute S (singular values of the eigenvector matrix)
+         // according to CONDS and MODES
 *
          CALL SLATM1( MODES, CONDS, 0, 0, ISEED, DS, N, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -214,7 +214,7 @@
             RETURN
          END IF
 *
-*        Multiply by V and V'
+         // Multiply by V and V'
 *
          CALL CLARGE( N, A, LDA, ISEED, WORK, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -222,7 +222,7 @@
             RETURN
          END IF
 *
-*        Multiply by S and (1/S)
+         // Multiply by S and (1/S)
 *
          DO 50 J = 1, N
             CALL CSSCAL( N, DS( J ), A( J, 1 ), LDA )
@@ -234,7 +234,7 @@
             END IF
    50    CONTINUE
 *
-*        Multiply by U and U'
+         // Multiply by U and U'
 *
          CALL CLARGE( N, A, LDA, ISEED, WORK, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -243,11 +243,11 @@
          END IF
       END IF
 *
-*     5)      Reduce the bandwidth.
+      // 5)      Reduce the bandwidth.
 *
       IF( KL.LT.N-1 ) THEN
 *
-*        Reduce bandwidth -- kill column
+         // Reduce bandwidth -- kill column
 *
          DO 60 JCR = KL + 1, N - 1
             IC = JCR - KL
@@ -273,7 +273,7 @@
    60    CONTINUE
       ELSE IF( KU.LT.N-1 ) THEN
 *
-*        Reduce upper bandwidth -- kill a row at a time.
+         // Reduce upper bandwidth -- kill a row at a time.
 *
          DO 70 JCR = KU + 1, N - 1
             IR = JCR - KU
@@ -300,7 +300,7 @@
    70    CONTINUE
       END IF
 *
-*     Scale the matrix to have norm ANORM
+      // Scale the matrix to have norm ANORM
 *
       IF( ANORM.GE.ZERO ) THEN
          TEMP = CLANGE( 'M', N, N, A, LDA, TEMPA )
@@ -314,6 +314,6 @@
 *
       RETURN
 *
-*     End of CLATME
+      // End of CLATME
 *
       END

@@ -4,65 +4,65 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NNS, NOUT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
       double             D( * ), RWORK( * );
       COMPLEX*16         A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 12 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 7 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, TYPE, UPLO;
       String             PATH;
       int                I, IA, IMAT, IN, INFO, IRHS, IUPLO, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
       COMPLEX*16         Z( 3 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX;
       double             DGET06, DZASUM, ZLANHT;
       // EXTERNAL IDAMAX, DGET06, DZASUM, ZLANHT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DLARNV, DSCAL, ZCOPY, ZDSCAL, ZERRGT, ZGET04, ZLACPY, ZLAPTM, ZLARNV, ZLATB4, ZLATMS, ZPTCON, ZPTRFS, ZPTT01, ZPTT02, ZPTT05, ZPTTRF, ZPTTRS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 0, 0, 0, 1 / , UPLOS / 'U', 'L' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'Zomplex precision'
       PATH( 2: 3 ) = 'PT'
@@ -73,14 +73,14 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL ZERRGT( PATH, NOUT )
       INFOT = 0
 *
       DO 120 IN = 1, NN
 *
-*        Do for each value of N in NVAL.
+         // Do for each value of N in NVAL.
 *
          N = NVAL( IN )
          LDA = MAX( 1, N )
@@ -89,24 +89,24 @@
 *
          DO 110 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) ) GO TO 110
 *
-*           Set up parameters with ZLATB4.
+            // Set up parameters with ZLATB4.
 *
             CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 *
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
 *
-*              Type 1-6:  generate a Hermitian tridiagonal matrix of
-*              known condition number in lower triangular band storage.
+               // Type 1-6:  generate a Hermitian tridiagonal matrix of
+               // known condition number in lower triangular band storage.
 *
                SRNAMT = 'ZLATMS'
                CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
 *
-*              Check the error code from ZLATMS.
+               // Check the error code from ZLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
@@ -114,7 +114,7 @@
                END IF
                IZERO = 0
 *
-*              Copy the matrix to D and E.
+               // Copy the matrix to D and E.
 *
                IA = 1
                DO 20 I = 1, N - 1
@@ -125,17 +125,17 @@
                IF( N.GT.0 ) D( N ) = DBLE( A( IA ) )
             ELSE
 *
-*              Type 7-12:  generate a diagonally dominant matrix with
-*              unknown condition number in the vectors D and E.
+               // Type 7-12:  generate a diagonally dominant matrix with
+               // unknown condition number in the vectors D and E.
 *
                IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
 *
-*                 Let E be complex, D real, with values from [-1,1].
+                  // Let E be complex, D real, with values from [-1,1].
 *
                   CALL DLARNV( 2, ISEED, N, D )
                   CALL ZLARNV( 2, ISEED, N-1, E )
 *
-*                 Make the tridiagonal matrix diagonally dominant.
+                  // Make the tridiagonal matrix diagonally dominant.
 *
                   IF( N.EQ.1 ) THEN
                      D( 1 ) = ABS( D( 1 ) )
@@ -147,7 +147,7 @@
    30                CONTINUE
                   END IF
 *
-*                 Scale D and E so the maximum element is ANORM.
+                  // Scale D and E so the maximum element is ANORM.
 *
                   IX = IDAMAX( N, D, 1 )
                   DMAX = D( IX )
@@ -156,8 +156,8 @@
 *
                ELSE IF( IZERO.GT.0 ) THEN
 *
-*                 Reuse the last matrix by copying back the zeroed out
-*                 elements.
+                  // Reuse the last matrix by copying back the zeroed out
+                  // elements.
 *
                   IF( IZERO.EQ.1 ) THEN
                      D( 1 ) = DBLE( Z( 2 ) )
@@ -172,8 +172,8 @@
                   END IF
                END IF
 *
-*              For types 8-10, set one row and column of the matrix to
-*              zero.
+               // For types 8-10, set one row and column of the matrix to
+               // zero.
 *
                IZERO = 0
                IF( IMAT.EQ.8 ) THEN
@@ -209,12 +209,12 @@
             IF( N.GT.1 ) CALL ZCOPY( N-1, E, 1, E( N+1 ), 1 )
 *
 *+    TEST 1
-*           Factor A as L*D*L' and compute the ratio
-*              norm(L*D*L' - A) / (n * norm(A) * EPS )
+            // Factor A as L*D*L' and compute the ratio
+               // norm(L*D*L' - A) / (n * norm(A) * EPS )
 *
             CALL ZPTTRF( N, D( N+1 ), E( N+1 ), INFO )
 *
-*           Check error code from ZPTTRF.
+            // Check error code from ZPTTRF.
 *
             IF( INFO.NE.IZERO ) THEN
                CALL ALAERH( PATH, 'ZPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
@@ -228,7 +228,7 @@
 *
             CALL ZPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
 *
-*           Print the test ratio if greater than or equal to THRESH.
+            // Print the test ratio if greater than or equal to THRESH.
 *
             IF( RESULT( 1 ).GE.THRESH ) THEN
                IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
@@ -237,14 +237,14 @@
             END IF
             NRUN = NRUN + 1
 *
-*           Compute RCONDC = 1 / (norm(A) * norm(inv(A))
+            // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
 *
-*           Compute norm(A).
+            // Compute norm(A).
 *
             ANORM = ZLANHT( '1', N, D, E )
 *
-*           Use ZPTTRS to solve for one column at a time of inv(A),
-*           computing the maximum column sum as we go.
+            // Use ZPTTRS to solve for one column at a time of inv(A),
+            // computing the maximum column sum as we go.
 *
             AINVNM = ZERO
             DO 50 I = 1, N
@@ -260,7 +260,7 @@
             DO 90 IRHS = 1, NNS
                NRHS = NSVAL( IRHS )
 *
-*           Generate NRHS random solution vectors.
+            // Generate NRHS random solution vectors.
 *
                IX = 1
                DO 60 J = 1, NRHS
@@ -270,21 +270,21 @@
 *
                DO 80 IUPLO = 1, 2
 *
-*              Do first for UPLO = 'U', then for UPLO = 'L'.
+               // Do first for UPLO = 'U', then for UPLO = 'L'.
 *
                   UPLO = UPLOS( IUPLO )
 *
-*              Set the right hand side.
+               // Set the right hand side.
 *
                   CALL ZLAPTM( UPLO, N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
 *
 *+    TEST 2
-*              Solve A*x = b and compute the residual.
+               // Solve A*x = b and compute the residual.
 *
                   CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
                   CALL ZPTTRS( UPLO, N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
 *
-*              Check error code from ZPTTRS.
+               // Check error code from ZPTTRS.
 *
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
@@ -292,24 +292,24 @@
                   CALL ZPTT02( UPLO, N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
 *
 *+    TEST 3
-*              Check solution from generated exact solution.
+               // Check solution from generated exact solution.
 *
                   CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *+    TESTS 4, 5, and 6
-*              Use iterative refinement to improve the solution.
+               // Use iterative refinement to improve the solution.
 *
                   SRNAMT = 'ZPTRFS'
                   CALL ZPTRFS( UPLO, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
-*              Check error code from ZPTRFS.
+               // Check error code from ZPTRFS.
 *
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                   CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL ZPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 *
-*              Print information about the tests that did not pass the
-*              threshold.
+               // Print information about the tests that did not pass the
+              t // hreshold.
 *
                   DO 70 K = 2, 6
                      IF( RESULT( K ).GE.THRESH ) THEN
@@ -323,20 +323,20 @@
    90       CONTINUE
 *
 *+    TEST 7
-*           Estimate the reciprocal of the condition number of the
-*           matrix.
+            // Estimate the reciprocal of the condition number of the
+            // matrix.
 *
   100       CONTINUE
             SRNAMT = 'ZPTCON'
             CALL ZPTCON( N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO )
 *
-*           Check error code from ZPTCON.
+            // Check error code from ZPTCON.
 *
             IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
             RESULT( 7 ) = DGET06( RCOND, RCONDC )
 *
-*           Print the test ratio if greater than or equal to THRESH.
+            // Print the test ratio if greater than or equal to THRESH.
 *
             IF( RESULT( 7 ).GE.THRESH ) THEN
                IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
@@ -347,7 +347,7 @@
   110    CONTINUE
   120 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -357,6 +357,6 @@
      $        ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
       RETURN
 *
-*     End of ZCHKPT
+      // End of ZCHKPT
 *
       END

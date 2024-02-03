@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOUNIT, UPPER;
       int                J;
       COMPLEX            AJJ
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CSCAL, CTRMV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -56,7 +56,7 @@
 *
       IF( UPPER ) THEN
 *
-*        Compute inverse of upper triangular matrix.
+         // Compute inverse of upper triangular matrix.
 *
          DO 10 J = 1, N
             IF( NOUNIT ) THEN
@@ -66,14 +66,14 @@
                AJJ = -ONE
             END IF
 *
-*           Compute elements 1:j-1 of j-th column.
+            // Compute elements 1:j-1 of j-th column.
 *
             CALL CTRMV( 'Upper', 'No transpose', DIAG, J-1, A, LDA, A( 1, J ), 1 )
             CALL CSCAL( J-1, AJJ, A( 1, J ), 1 )
    10    CONTINUE
       ELSE
 *
-*        Compute inverse of lower triangular matrix.
+         // Compute inverse of lower triangular matrix.
 *
          DO 20 J = N, 1, -1
             IF( NOUNIT ) THEN
@@ -84,7 +84,7 @@
             END IF
             IF( J.LT.N ) THEN
 *
-*              Compute elements j+1:n of j-th column.
+               // Compute elements j+1:n of j-th column.
 *
                CALL CTRMV( 'Lower', 'No transpose', DIAG, N-J, A( J+1, J+1 ), LDA, A( J+1, J ), 1 )
                CALL CSCAL( N-J, AJJ, A( J+1, J ), 1 )
@@ -94,6 +94,6 @@
 *
       RETURN
 *
-*     End of CTRTI2
+      // End of CTRTI2
 *
       END

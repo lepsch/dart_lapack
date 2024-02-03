@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                INFO, KD, LDAB, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AB( LDAB, * ), B( LDB, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOUNIT, UPPER;
       int                J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DTBSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NOUNIT = LSAME( DIAG, 'N' )
@@ -61,11 +61,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Check for singularity.
+      // Check for singularity.
 *
       IF( NOUNIT ) THEN
          IF( UPPER ) THEN
@@ -80,7 +80,7 @@
       END IF
       INFO = 0
 *
-*     Solve A * X = B  or  A**T * X = B.
+      // Solve A * X = B  or  A**T * X = B.
 *
       DO 30 J = 1, NRHS
          CALL DTBSV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 )
@@ -88,6 +88,6 @@
 *
       RETURN
 *
-*     End of DTBTRS
+      // End of DTBTRS
 *
       END

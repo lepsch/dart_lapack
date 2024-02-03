@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IHI, ILO, INFO, LDA, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), TAU( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                I, IINFO, J, LWKOPT, NB, NH;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DORGQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       NH = IHI - ILO
@@ -63,16 +63,16 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) THEN
          WORK( 1 ) = 1
          RETURN
       END IF
 *
-*     Shift the vectors which define the elementary reflectors one
-*     column to the right, and set the first ilo and the last n-ihi
-*     rows and columns to those of the unit matrix
+      // Shift the vectors which define the elementary reflectors one
+      // column to the right, and set the first ilo and the last n-ihi
+      // rows and columns to those of the unit matrix
 *
       DO 40 J = IHI, ILO + 1, -1
          DO 10 I = 1, J - 1
@@ -100,13 +100,13 @@
 *
       IF( NH.GT.0 ) THEN
 *
-*        Generate Q(ilo+1:ihi,ilo+1:ihi)
+         // Generate Q(ilo+1:ihi,ilo+1:ihi)
 *
          CALL DORGQR( NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO )
       END IF
       WORK( 1 ) = LWKOPT
       RETURN
 *
-*     End of DORGHR
+      // End of DORGHR
 *
       END

@@ -4,28 +4,28 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLASET, ZTRSM, ZUNMRQ
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -46,24 +46,24 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
 *
-*     Solve R*X = B(n-m+1:n,:)
+      // Solve R*X = B(n-m+1:n,:)
 *
       CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, CONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB )
 *
-*     Set B(1:n-m,:) to zero
+      // Set B(1:n-m,:) to zero
 *
       CALL ZLASET( 'Full', N-M, NRHS, CZERO, CZERO, B, LDB )
 *
-*     B := Q' * B
+      // B := Q' * B
 *
       CALL ZUNMRQ( 'Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
       RETURN
 *
-*     End of ZGERQS
+      // End of ZGERQS
 *
       END

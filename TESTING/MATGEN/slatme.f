@@ -4,58 +4,58 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N;
       REAL               ANORM, COND, CONDS, DMAX
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       String             EI( * );
       int                ISEED( 4 );
       REAL               A( LDA, * ), D( * ), DS( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
       REAL               HALF
       PARAMETER          ( HALF = 1.0E0 / 2.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADEI, BADS, USEEI;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR, JR;
       REAL               ALPHA, TAU, TEMP, XNORMS
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               TEMPA( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLANGE, SLARAN
       // EXTERNAL LSAME, SLANGE, SLARAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMV, SGER, SLARFG, SLARGE, SLARNV, SLATM1, SLASET, SSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     1)      Decode and Test the input parameters.
-*             Initialize flags & seed.
+      // 1)      Decode and Test the input parameters.
+              // Initialize flags & seed.
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Decode DIST
+      // Decode DIST
 *
       IF( LSAME( DIST, 'U' ) ) THEN
          IDIST = 1
@@ -67,7 +67,7 @@
          IDIST = -1
       END IF
 *
-*     Check EI
+      // Check EI
 *
       USEEI = .TRUE.
       BADEI = .FALSE.
@@ -87,7 +87,7 @@
          END IF
       END IF
 *
-*     Decode RSIGN
+      // Decode RSIGN
 *
       IF( LSAME( RSIGN, 'T' ) ) THEN
          IRSIGN = 1
@@ -97,7 +97,7 @@
          IRSIGN = -1
       END IF
 *
-*     Decode UPPER
+      // Decode UPPER
 *
       IF( LSAME( UPPER, 'T' ) ) THEN
          IUPPER = 1
@@ -107,7 +107,7 @@
          IUPPER = -1
       END IF
 *
-*     Decode SIM
+      // Decode SIM
 *
       IF( LSAME( SIM, 'T' ) ) THEN
          ISIM = 1
@@ -117,7 +117,7 @@
          ISIM = -1
       END IF
 *
-*     Check DS, if MODES=0 and ISIM=1
+      // Check DS, if MODES=0 and ISIM=1
 *
       BADS = .FALSE.
       IF( MODES.EQ.0 .AND. ISIM.EQ.1 ) THEN
@@ -126,7 +126,7 @@
    20    CONTINUE
       END IF
 *
-*     Set INFO if an error
+      // Set INFO if an error
 *
       IF( N.LT.0 ) THEN
          INFO = -1
@@ -163,7 +163,7 @@
          RETURN
       END IF
 *
-*     Initialize random number generator
+      // Initialize random number generator
 *
       DO 30 I = 1, 4
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
@@ -171,9 +171,9 @@
 *
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
-*     2)      Set up diagonal of A
+      // 2)      Set up diagonal of A
 *
-*             Compute D according to COND and MODE
+              // Compute D according to COND and MODE
 *
       CALL SLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO )
       IF( IINFO.NE.0 ) THEN
@@ -182,7 +182,7 @@
       END IF
       IF( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) THEN
 *
-*        Scale by DMAX
+         // Scale by DMAX
 *
          TEMP = ABS( D( 1 ) )
          DO 40 I = 2, N
@@ -205,7 +205,7 @@
       CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
       CALL SCOPY( N, D, 1, A, LDA+1 )
 *
-*     Set up complex conjugate pairs
+      // Set up complex conjugate pairs
 *
       IF( MODE.EQ.0 ) THEN
          IF( USEEI ) THEN
@@ -229,8 +229,8 @@
    60    CONTINUE
       END IF
 *
-*     3)      If UPPER='T', set upper triangle of A to random numbers.
-*             (but don't modify the corners of 2x2 blocks.)
+      // 3)      If UPPER='T', set upper triangle of A to random numbers.
+              // (but don't modify the corners of 2x2 blocks.)
 *
       IF( IUPPER.NE.0 ) THEN
          DO 70 JC = 2, N
@@ -243,17 +243,17 @@
    70    CONTINUE
       END IF
 *
-*     4)      If SIM='T', apply similarity transformation.
+      // 4)      If SIM='T', apply similarity transformation.
 *
-*                                -1
-*             Transform is  X A X  , where X = U S V, thus
+                                 // -1
+              // Transform is  X A X  , where X = U S V, thus
 *
-*             it is  U S V A V' (1/S) U'
+              // it is  U S V A V' (1/S) U'
 *
       IF( ISIM.NE.0 ) THEN
 *
-*        Compute S (singular values of the eigenvector matrix)
-*        according to CONDS and MODES
+         // Compute S (singular values of the eigenvector matrix)
+         // according to CONDS and MODES
 *
          CALL SLATM1( MODES, CONDS, 0, 0, ISEED, DS, N, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -261,7 +261,7 @@
             RETURN
          END IF
 *
-*        Multiply by V and V'
+         // Multiply by V and V'
 *
          CALL SLARGE( N, A, LDA, ISEED, WORK, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -269,7 +269,7 @@
             RETURN
          END IF
 *
-*        Multiply by S and (1/S)
+         // Multiply by S and (1/S)
 *
          DO 80 J = 1, N
             CALL SSCAL( N, DS( J ), A( J, 1 ), LDA )
@@ -281,7 +281,7 @@
             END IF
    80    CONTINUE
 *
-*        Multiply by U and U'
+         // Multiply by U and U'
 *
          CALL SLARGE( N, A, LDA, ISEED, WORK, IINFO )
          IF( IINFO.NE.0 ) THEN
@@ -290,11 +290,11 @@
          END IF
       END IF
 *
-*     5)      Reduce the bandwidth.
+      // 5)      Reduce the bandwidth.
 *
       IF( KL.LT.N-1 ) THEN
 *
-*        Reduce bandwidth -- kill column
+         // Reduce bandwidth -- kill column
 *
          DO 90 JCR = KL + 1, N - 1
             IC = JCR - KL
@@ -315,7 +315,7 @@
    90    CONTINUE
       ELSE IF( KU.LT.N-1 ) THEN
 *
-*        Reduce upper bandwidth -- kill a row at a time.
+         // Reduce upper bandwidth -- kill a row at a time.
 *
          DO 100 JCR = KU + 1, N - 1
             IR = JCR - KU
@@ -336,7 +336,7 @@
   100    CONTINUE
       END IF
 *
-*     Scale the matrix to have norm ANORM
+      // Scale the matrix to have norm ANORM
 *
       IF( ANORM.GE.ZERO ) THEN
          TEMP = SLANGE( 'M', N, N, A, LDA, TEMPA )
@@ -350,6 +350,6 @@
 *
       RETURN
 *
-*     End of SLATME
+      // End of SLATME
 *
       END

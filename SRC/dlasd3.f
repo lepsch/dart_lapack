@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, K, LDQ, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                CTOT( * ), IDXC( * );
       double             D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO, NEGONE;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, NEGONE = -1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1;
       double             RHO, TEMP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DNRM2;
       // EXTERNAL DNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DLACPY, DLASCL, DLASD4, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -69,7 +69,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( K.EQ.1 ) THEN
          D( 1 ) = ABS( Z( 1 ) )
@@ -84,29 +84,29 @@
          RETURN
       END IF
 *
-*     Keep a copy of Z.
+      // Keep a copy of Z.
 *
       CALL DCOPY( K, Z, 1, Q, 1 )
 *
-*     Normalize Z.
+      // Normalize Z.
 *
       RHO = DNRM2( K, Z, 1 )
       CALL DLASCL( 'G', 0, 0, RHO, ONE, K, 1, Z, K, INFO )
       RHO = RHO*RHO
 *
-*     Find the new singular values.
+      // Find the new singular values.
 *
       DO 30 J = 1, K
          CALL DLASD4( K, J, DSIGMA, Z, U( 1, J ), RHO, D( J ), VT( 1, J ), INFO )
 *
-*        If the zero finder fails, report the convergence failure.
+         // If the zero finder fails, report the convergence failure.
 *
          IF( INFO.NE.0 ) THEN
             RETURN
          END IF
    30 CONTINUE
 *
-*     Compute updated Z.
+      // Compute updated Z.
 *
       DO 60 I = 1, K
          Z( I ) = U( I, K )*VT( I, K )
@@ -119,8 +119,8 @@
          Z( I ) = SIGN( SQRT( ABS( Z( I ) ) ), Q( I, 1 ) )
    60 CONTINUE
 *
-*     Compute left singular vectors of the modified diagonal matrix,
-*     and store related information for the right singular vectors.
+      // Compute left singular vectors of the modified diagonal matrix,
+      // and store related information for the right singular vectors.
 *
       DO 90 I = 1, K
          VT( 1, I ) = Z( 1 ) / U( 1, I ) / VT( 1, I )
@@ -137,7 +137,7 @@
    80    CONTINUE
    90 CONTINUE
 *
-*     Update the left singular vector matrix.
+      // Update the left singular vector matrix.
 *
       IF( K.EQ.2 ) THEN
          CALL DGEMM( 'N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U, LDU )
@@ -160,7 +160,7 @@
       CTEMP = CTOT( 2 ) + CTOT( 3 )
       CALL DGEMM( 'N', 'N', NR, K, CTEMP, ONE, U2( NLP2, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( NLP2, 1 ), LDU )
 *
-*     Generate the right singular vectors.
+      // Generate the right singular vectors.
 *
   100 CONTINUE
       DO 120 I = 1, K
@@ -172,7 +172,7 @@
   110    CONTINUE
   120 CONTINUE
 *
-*     Update the right singular vector matrix.
+      // Update the right singular vector matrix.
 *
       IF( K.EQ.2 ) THEN
          CALL DGEMM( 'N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO, VT, LDVT )
@@ -198,6 +198,6 @@
 *
       RETURN
 *
-*     End of DLASD3
+      // End of DLASD3
 *
       END

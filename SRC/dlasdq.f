@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU, SQRE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ROTATE;
       int                I, ISUB, IUPLO, J, NP1, SQRE1;
       double             CS, R, SMIN, SN;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DBDSQR, DLARTG, DLASR, DSWAP, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IUPLO = 0
@@ -65,14 +65,14 @@
       END IF
       IF( N.EQ.0 ) RETURN
 *
-*     ROTATE is true if any singular vectors desired, false otherwise
+      // ROTATE is true if any singular vectors desired, false otherwise
 *
       ROTATE = ( NCVT.GT.0 ) .OR. ( NRU.GT.0 ) .OR. ( NCC.GT.0 )
       NP1 = N + 1
       SQRE1 = SQRE
 *
-*     If matrix non-square upper bidiagonal, rotate to be lower
-*     bidiagonal.  The rotations are on the right.
+      // If matrix non-square upper bidiagonal, rotate to be lower
+      // bidiagonal.  The rotations are on the right.
 *
       IF( ( IUPLO.EQ.1 ) .AND. ( SQRE1.EQ.1 ) ) THEN
          DO 10 I = 1, N - 1
@@ -95,13 +95,13 @@
          IUPLO = 2
          SQRE1 = 0
 *
-*        Update singular vectors if desired.
+         // Update singular vectors if desired.
 *
          IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT )
       END IF
 *
-*     If matrix lower bidiagonal, rotate to be upper bidiagonal
-*     by applying Givens rotations on the left.
+      // If matrix lower bidiagonal, rotate to be upper bidiagonal
+      // by applying Givens rotations on the left.
 *
       IF( IUPLO.EQ.2 ) THEN
          DO 20 I = 1, N - 1
@@ -115,8 +115,8 @@
             END IF
    20    CONTINUE
 *
-*        If matrix (N+1)-by-N lower bidiagonal, one additional
-*        rotation is needed.
+         // If matrix (N+1)-by-N lower bidiagonal, one additional
+         // rotation is needed.
 *
          IF( SQRE1.EQ.1 ) THEN
             CALL DLARTG( D( N ), E( N ), CS, SN, R )
@@ -127,7 +127,7 @@
             END IF
          END IF
 *
-*        Update singular vectors if desired.
+         // Update singular vectors if desired.
 *
          IF( NRU.GT.0 ) THEN
             IF( SQRE1.EQ.0 ) THEN
@@ -145,17 +145,17 @@
          END IF
       END IF
 *
-*     Call DBDSQR to compute the SVD of the reduced real
-*     N-by-N upper bidiagonal matrix.
+      // Call DBDSQR to compute the SVD of the reduced real
+      // N-by-N upper bidiagonal matrix.
 *
       CALL DBDSQR( 'U', N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C, LDC, WORK, INFO )
 *
-*     Sort the singular values into ascending order (insertion sort on
-*     singular values, but only one transposition per singular vector)
+      // Sort the singular values into ascending order (insertion sort on
+      // singular values, but only one transposition per singular vector)
 *
       DO 40 I = 1, N
 *
-*        Scan for smallest D(I).
+         // Scan for smallest D(I).
 *
          ISUB = I
          SMIN = D( I )
@@ -167,7 +167,7 @@
    30    CONTINUE
          IF( ISUB.NE.I ) THEN
 *
-*           Swap singular values and vectors.
+            // Swap singular values and vectors.
 *
             D( ISUB ) = D( I )
             D( I ) = SMIN
@@ -177,6 +177,6 @@
 *
       RETURN
 *
-*     End of DLASDQ
+      // End of DLASDQ
 *
       END

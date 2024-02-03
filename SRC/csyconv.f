@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO, WAY;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX            A( LDA, * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = (0.0E+0,0.0E+0) )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
 *
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               UPPER, CONVERT;
       int                I, IP, J;
       COMPLEX            TEMP
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -50,17 +50,17 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*      A is UPPER
+       // A is UPPER
 *
-*      Convert A (A is upper)
+       // Convert A (A is upper)
 *
-*        Convert VALUE
+         // Convert VALUE
 *
          IF ( CONVERT ) THEN
             I=N
@@ -77,7 +77,7 @@
                I=I-1
             END DO
 *
-*        Convert PERMUTATIONS
+         // Convert PERMUTATIONS
 *
          I=N
          DO WHILE ( I .GE. 1 )
@@ -106,10 +106,10 @@
 
          ELSE
 *
-*      Revert A (A is upper)
+       // Revert A (A is upper)
 *
 *
-*        Revert PERMUTATIONS
+         // Revert PERMUTATIONS
 *
             I=1
             DO WHILE ( I .LE. N )
@@ -136,7 +136,7 @@
                I=I+1
             END DO
 *
-*        Revert VALUE
+         // Revert VALUE
 *
             I=N
             DO WHILE ( I .GT. 1 )
@@ -149,14 +149,14 @@
          END IF
       ELSE
 *
-*      A is LOWER
+       // A is LOWER
 *
          IF ( CONVERT ) THEN
 *
-*      Convert A (A is lower)
+       // Convert A (A is lower)
 *
 *
-*        Convert VALUE
+         // Convert VALUE
 *
             I=1
             E(N)=ZERO
@@ -172,7 +172,7 @@
                I=I+1
             END DO
 *
-*        Convert PERMUTATIONS
+         // Convert PERMUTATIONS
 *
          I=1
          DO WHILE ( I .LE. N )
@@ -200,10 +200,10 @@
         END DO
          ELSE
 *
-*      Revert A (A is lower)
+       // Revert A (A is lower)
 *
 *
-*        Revert PERMUTATIONS
+         // Revert PERMUTATIONS
 *
             I=N
             DO WHILE ( I .GE. 1 )
@@ -230,7 +230,7 @@
                I=I-1
             END DO
 *
-*        Revert VALUE
+         // Revert VALUE
 *
             I=1
             DO WHILE ( I .LE. N-1 )
@@ -245,6 +245,6 @@
 
       RETURN
 *
-*     End of CSYCONV
+      // End of CSYCONV
 *
       END

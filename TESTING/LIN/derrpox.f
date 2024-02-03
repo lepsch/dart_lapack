@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS;
       double             ANRM, RCOND, BERR;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IW( NMAX );
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3), PARAMS( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DPBCON, DPBEQU, DPBRFS, DPBTF2, DPBTRF, DPBTRS, DPOCON, DPOEQU, DPORFS, DPOTF2, DPOTRF, DPOTRI, DPOTRS, DPPCON, DPPEQU, DPPRFS, DPPTRF, DPPTRI, DPPTRS, DPOEQUB, DPORFSX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -69,10 +69,10 @@
 *
       IF( LSAMEN( 2, C2, 'PO' ) ) THEN
 *
-*        Test error exits of the routines that use the Cholesky
-*        decomposition of a symmetric positive definite matrix.
+         // Test error exits of the routines that use the Cholesky
+         // decomposition of a symmetric positive definite matrix.
 *
-*        DPOTRF
+         // DPOTRF
 *
          SRNAMT = 'DPOTRF'
          INFOT = 1
@@ -85,7 +85,7 @@
          CALL DPOTRF( 'U', 2, A, 1, INFO )
          CALL CHKXER( 'DPOTRF', INFOT, NOUT, LERR, OK )
 *
-*        DPOTF2
+         // DPOTF2
 *
          SRNAMT = 'DPOTF2'
          INFOT = 1
@@ -98,7 +98,7 @@
          CALL DPOTF2( 'U', 2, A, 1, INFO )
          CALL CHKXER( 'DPOTF2', INFOT, NOUT, LERR, OK )
 *
-*        DPOTRI
+         // DPOTRI
 *
          SRNAMT = 'DPOTRI'
          INFOT = 1
@@ -111,7 +111,7 @@
          CALL DPOTRI( 'U', 2, A, 1, INFO )
          CALL CHKXER( 'DPOTRI', INFOT, NOUT, LERR, OK )
 *
-*        DPOTRS
+         // DPOTRS
 *
          SRNAMT = 'DPOTRS'
          INFOT = 1
@@ -130,7 +130,7 @@
          CALL DPOTRS( 'U', 2, 1, A, 2, B, 1, INFO )
          CALL CHKXER( 'DPOTRS', INFOT, NOUT, LERR, OK )
 *
-*        DPORFS
+         // DPORFS
 *
          SRNAMT = 'DPORFS'
          INFOT = 1
@@ -155,7 +155,7 @@
          CALL DPORFS( 'U', 2, 1, A, 2, AF, 2, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPORFS', INFOT, NOUT, LERR, OK )
 *
-*        DPORFSX
+         // DPORFSX
 *
          N_ERR_BNDS = 3
          NPARAMS = 0
@@ -186,7 +186,7 @@
          CALL DPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DPORFSX', INFOT, NOUT, LERR, OK )
 *
-*        DPOCON
+         // DPOCON
 *
          SRNAMT = 'DPOCON'
          INFOT = 1
@@ -199,7 +199,7 @@
          CALL DPOCON( 'U', 2, A, 1, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DPOCON', INFOT, NOUT, LERR, OK )
 *
-*        DPOEQU
+         // DPOEQU
 *
          SRNAMT = 'DPOEQU'
          INFOT = 1
@@ -209,7 +209,7 @@
          CALL DPOEQU( 2, A, 1, R1, RCOND, ANRM, INFO )
          CALL CHKXER( 'DPOEQU', INFOT, NOUT, LERR, OK )
 *
-*        DPOEQUB
+         // DPOEQUB
 *
          SRNAMT = 'DPOEQUB'
          INFOT = 1
@@ -221,10 +221,10 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
 *
-*        Test error exits of the routines that use the Cholesky
-*        decomposition of a symmetric positive definite packed matrix.
+         // Test error exits of the routines that use the Cholesky
+         // decomposition of a symmetric positive definite packed matrix.
 *
-*        DPPTRF
+         // DPPTRF
 *
          SRNAMT = 'DPPTRF'
          INFOT = 1
@@ -234,7 +234,7 @@
          CALL DPPTRF( 'U', -1, A, INFO )
          CALL CHKXER( 'DPPTRF', INFOT, NOUT, LERR, OK )
 *
-*        DPPTRI
+         // DPPTRI
 *
          SRNAMT = 'DPPTRI'
          INFOT = 1
@@ -244,7 +244,7 @@
          CALL DPPTRI( 'U', -1, A, INFO )
          CALL CHKXER( 'DPPTRI', INFOT, NOUT, LERR, OK )
 *
-*        DPPTRS
+         // DPPTRS
 *
          SRNAMT = 'DPPTRS'
          INFOT = 1
@@ -260,7 +260,7 @@
          CALL DPPTRS( 'U', 2, 1, A, B, 1, INFO )
          CALL CHKXER( 'DPPTRS', INFOT, NOUT, LERR, OK )
 *
-*        DPPRFS
+         // DPPRFS
 *
          SRNAMT = 'DPPRFS'
          INFOT = 1
@@ -279,7 +279,7 @@
          CALL DPPRFS( 'U', 2, 1, A, AF, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPPRFS', INFOT, NOUT, LERR, OK )
 *
-*        DPPCON
+         // DPPCON
 *
          SRNAMT = 'DPPCON'
          INFOT = 1
@@ -289,7 +289,7 @@
          CALL DPPCON( 'U', -1, A, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DPPCON', INFOT, NOUT, LERR, OK )
 *
-*        DPPEQU
+         // DPPEQU
 *
          SRNAMT = 'DPPEQU'
          INFOT = 1
@@ -301,10 +301,10 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
 *
-*        Test error exits of the routines that use the Cholesky
-*        decomposition of a symmetric positive definite band matrix.
+         // Test error exits of the routines that use the Cholesky
+         // decomposition of a symmetric positive definite band matrix.
 *
-*        DPBTRF
+         // DPBTRF
 *
          SRNAMT = 'DPBTRF'
          INFOT = 1
@@ -320,7 +320,7 @@
          CALL DPBTRF( 'U', 2, 1, A, 1, INFO )
          CALL CHKXER( 'DPBTRF', INFOT, NOUT, LERR, OK )
 *
-*        DPBTF2
+         // DPBTF2
 *
          SRNAMT = 'DPBTF2'
          INFOT = 1
@@ -336,7 +336,7 @@
          CALL DPBTF2( 'U', 2, 1, A, 1, INFO )
          CALL CHKXER( 'DPBTF2', INFOT, NOUT, LERR, OK )
 *
-*        DPBTRS
+         // DPBTRS
 *
          SRNAMT = 'DPBTRS'
          INFOT = 1
@@ -358,7 +358,7 @@
          CALL DPBTRS( 'U', 2, 0, 1, A, 1, B, 1, INFO )
          CALL CHKXER( 'DPBTRS', INFOT, NOUT, LERR, OK )
 *
-*        DPBRFS
+         // DPBRFS
 *
          SRNAMT = 'DPBRFS'
          INFOT = 1
@@ -386,7 +386,7 @@
          CALL DPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DPBRFS', INFOT, NOUT, LERR, OK )
 *
-*        DPBCON
+         // DPBCON
 *
          SRNAMT = 'DPBCON'
          INFOT = 1
@@ -402,7 +402,7 @@
          CALL DPBCON( 'U', 2, 1, A, 1, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DPBCON', INFOT, NOUT, LERR, OK )
 *
-*        DPBEQU
+         // DPBEQU
 *
          SRNAMT = 'DPBEQU'
          INFOT = 1
@@ -419,12 +419,12 @@
          CALL CHKXER( 'DPBEQU', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRPOX
+      // End of DERRPOX
 *
       END

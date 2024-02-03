@@ -4,28 +4,28 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IUPLO, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * )
       COMPLEX            B( LDB, * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, J;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CSSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.1 ) THEN
          IF( N.EQ.1 ) CALL CSSCAL( NRHS, 1. / D( 1 ), B, LDB )
@@ -34,20 +34,20 @@
 *
       IF( IUPLO.EQ.1 ) THEN
 *
-*        Solve A * X = B using the factorization A = U**H *D*U,
-*        overwriting each right hand side vector with its solution.
+         // Solve A * X = B using the factorization A = U**H *D*U,
+         // overwriting each right hand side vector with its solution.
 *
          IF( NRHS.LE.2 ) THEN
             J = 1
     5       CONTINUE
 *
-*           Solve U**H * x = b.
+            // Solve U**H * x = b.
 *
             DO 10 I = 2, N
                B( I, J ) = B( I, J ) - B( I-1, J )*CONJG( E( I-1 ) )
    10       CONTINUE
 *
-*           Solve D * U * x = b.
+            // Solve D * U * x = b.
 *
             DO 20 I = 1, N
                B( I, J ) = B( I, J ) / D( I )
@@ -62,13 +62,13 @@
          ELSE
             DO 60 J = 1, NRHS
 *
-*              Solve U**H * x = b.
+               // Solve U**H * x = b.
 *
                DO 40 I = 2, N
                   B( I, J ) = B( I, J ) - B( I-1, J )*CONJG( E( I-1 ) )
    40          CONTINUE
 *
-*              Solve D * U * x = b.
+               // Solve D * U * x = b.
 *
                B( N, J ) = B( N, J ) / D( N )
                DO 50 I = N - 1, 1, -1
@@ -78,20 +78,20 @@
          END IF
       ELSE
 *
-*        Solve A * X = B using the factorization A = L*D*L**H,
-*        overwriting each right hand side vector with its solution.
+         // Solve A * X = B using the factorization A = L*D*L**H,
+         // overwriting each right hand side vector with its solution.
 *
          IF( NRHS.LE.2 ) THEN
             J = 1
    65       CONTINUE
 *
-*           Solve L * x = b.
+            // Solve L * x = b.
 *
             DO 70 I = 2, N
                B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 )
    70       CONTINUE
 *
-*           Solve D * L**H * x = b.
+            // Solve D * L**H * x = b.
 *
             DO 80 I = 1, N
                B( I, J ) = B( I, J ) / D( I )
@@ -106,13 +106,13 @@
          ELSE
             DO 120 J = 1, NRHS
 *
-*              Solve L * x = b.
+               // Solve L * x = b.
 *
                DO 100 I = 2, N
                   B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 )
   100          CONTINUE
 *
-*              Solve D * L**H * x = b.
+               // Solve D * L**H * x = b.
 *
                B( N, J ) = B( N, J ) / D( N )
                DO 110 I = N - 1, 1, -1
@@ -124,6 +124,6 @@
 *
       RETURN
 *
-*     End of CPTTS2
+      // End of CPTTS2
 *
       END

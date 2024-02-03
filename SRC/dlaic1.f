@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                J, JOB;
       double             C, GAMMA, S, SEST, SESTPR;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             W( J ), X( J );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
       double             HALF, FOUR;
       PARAMETER          ( HALF = 0.5D0, FOUR = 4.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SIGN, SQRT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DDOT, DLAMCH;
       // EXTERNAL DDOT, DLAMCH
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = DLAMCH( 'Epsilon' )
       ALPHA = DDOT( J, X, 1, W, 1 )
@@ -41,9 +41,9 @@
 *
       IF( JOB.EQ.1 ) THEN
 *
-*        Estimating largest singular value
+         // Estimating largest singular value
 *
-*        special cases
+         // special cases
 *
          IF( SEST.EQ.ZERO ) THEN
             S1 = MAX( ABSGAM, ABSALP )
@@ -100,7 +100,7 @@
             RETURN
          ELSE
 *
-*           normal case
+            // normal case
 *
             ZETA1 = ALPHA / ABSEST
             ZETA2 = GAMMA / ABSEST
@@ -124,9 +124,9 @@
 *
       ELSE IF( JOB.EQ.2 ) THEN
 *
-*        Estimating smallest singular value
+         // Estimating smallest singular value
 *
-*        special cases
+         // special cases
 *
          IF( SEST.EQ.ZERO ) THEN
             SESTPR = ZERO
@@ -181,19 +181,19 @@
             RETURN
          ELSE
 *
-*           normal case
+            // normal case
 *
             ZETA1 = ALPHA / ABSEST
             ZETA2 = GAMMA / ABSEST
 *
             NORMA = MAX( ONE+ZETA1*ZETA1+ABS( ZETA1*ZETA2 ), ABS( ZETA1*ZETA2 )+ZETA2*ZETA2 )
 *
-*           See if root is closer to zero or to ONE
+            // See if root is closer to zero or to ONE
 *
             TEST = ONE + TWO*( ZETA1-ZETA2 )*( ZETA1+ZETA2 )
             IF( TEST.GE.ZERO ) THEN
 *
-*              root is close to zero, compute directly
+               // root is close to zero, compute directly
 *
                B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF
                C = ZETA2*ZETA2
@@ -203,7 +203,7 @@
                SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST
             ELSE
 *
-*              root is closer to ONE, shift by that amount
+               // root is closer to ONE, shift by that amount
 *
                B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF
                C = ZETA1*ZETA1
@@ -225,6 +225,6 @@
       END IF
       RETURN
 *
-*     End of DLAIC1
+      // End of DLAIC1
 *
       END

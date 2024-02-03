@@ -4,58 +4,58 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, N, P;
       double             RESULT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
 *
 *  ====================================================================
 *
       double             A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), RWORK( * ), U( * ), WORK( LWORK ), X( * );
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO;
       double             ANORM, BNORM, DNORM, EPS, UNFL, XNORM, YNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DASUM, DLAMCH, DLANGE;
       // EXTERNAL DASUM, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
 *
       // EXTERNAL DCOPY, DGEMV, DGGGLM, DLACPY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = DLAMCH( 'Epsilon' )
       UNFL = DLAMCH( 'Safe minimum' )
       ANORM = MAX( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
       BNORM = MAX( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
 *
-*     Copy the matrices A and B to the arrays AF and BF,
-*     and the vector D the array DF.
+      // Copy the matrices A and B to the arrays AF and BF,
+      // and the vector D the array DF.
 *
       CALL DLACPY( 'Full', N, M, A, LDA, AF, LDA )
       CALL DLACPY( 'Full', N, P, B, LDB, BF, LDB )
       CALL DCOPY( N, D, 1, DF, 1 )
 *
-*     Solve GLM problem
+      // Solve GLM problem
 *
       CALL DGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
 *
-*     Test the residual for the solution of LSE
+      // Test the residual for the solution of LSE
 *
-*                       norm( d - A*x - B*u )
-*       RESULT = -----------------------------------------
-*                (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
+                        // norm( d - A*x - B*u )
+        // RESULT = -----------------------------------------
+                 // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 *
       CALL DCOPY( N, D, 1, DF, 1 )
       CALL DGEMV( 'No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1 )
@@ -74,6 +74,6 @@
 *
       RETURN
 *
-*     End of DGLMTS
+      // End of DGLMTS
 *
       END

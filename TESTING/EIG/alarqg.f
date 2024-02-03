@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NIN, NMATS, NOUT, NTYPES;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               FIRSTT;
       String             C1;
       String             INTSTR;
       String             LINE;
       int                I, I1, IC, J, K, LENP, NT;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                NREQ( 100 );
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               INTSTR / '0123456789' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( NMATS.GE.NTYPES ) THEN
 *
-*        Test everything if NMATS >= NTYPES.
+         // Test everything if NMATS >= NTYPES.
 *
          DO 10 I = 1, NTYPES
             DOTYPE( I ) = .TRUE.
@@ -45,7 +45,7 @@
    20    CONTINUE
          FIRSTT = .TRUE.
 *
-*        Read a line of matrix types if 0 < NMATS < NTYPES.
+         // Read a line of matrix types if 0 < NMATS < NTYPES.
 *
          IF( NMATS.GT.0 ) THEN
             READ( NIN, FMT = '(A80)', END = 90 )LINE
@@ -69,7 +69,7 @@
                   I1 = I
                   C1 = LINE( I1: I1 )
 *
-*              Check that a valid integer was read
+               // Check that a valid integer was read
 *
                   DO 40 K = 1, 10
                      IF( C1.EQ.INTSTR( K: K ) ) THEN
@@ -124,6 +124,6 @@
       WRITE( NOUT, FMT = * )
       STOP
 *
-*     End of ALARQG
+      // End of ALARQG
 *
       END

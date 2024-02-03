@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                ITYPE, KBAND, LDU, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * ), RESULT( 2 ), RWORK( * );
       COMPLEX*16         AP( * ), TAU( * ), U( LDU, * ), VP( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 10.0D+0 )
       double             HALF;
       PARAMETER          ( HALF = 1.0D+0 / 2.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP;
       double             ANORM, ULP, UNFL, WNORM;
       COMPLEX*16         TEMP, VSAVE
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE, ZLANHP;
       COMPLEX*16         ZDOTC
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHP, ZDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZGEMM, ZHPMV, ZHPR, ZHPR2, ZLACPY, ZLASET, ZUPMTR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Constants
+      // Constants
 *
       RESULT( 1 ) = ZERO
       IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
@@ -62,16 +62,16 @@
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
 *
-*     Some Error Checks
+      // Some Error Checks
 *
       IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
          RESULT( 1 ) = TEN / ULP
          RETURN
       END IF
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Norm of A:
+      // Norm of A:
 *
       IF( ITYPE.EQ.3 ) THEN
          ANORM = ONE
@@ -79,11 +79,11 @@
          ANORM = MAX( ZLANHP( '1', CUPLO, N, AP, RWORK ), UNFL )
       END IF
 *
-*     Compute error matrix:
+      // Compute error matrix:
 *
       IF( ITYPE.EQ.1 ) THEN
 *
-*        ITYPE=1: error = A - U S U**H
+         // ITYPE=1: error = A - U S U**H
 *
          CALL ZLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
          CALL ZCOPY( LAP, AP, 1, WORK, 1 )
@@ -101,7 +101,7 @@
 *
       ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*        ITYPE=2: error = V S V**H - A
+         // ITYPE=2: error = V S V**H - A
 *
          CALL ZLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
 *
@@ -155,7 +155,7 @@
 *
       ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*        ITYPE=3: error = U V**H - I
+         // ITYPE=3: error = U V**H - I
 *
          IF( N.LT.2 ) RETURN
          CALL ZLACPY( ' ', N, N, U, LDU, WORK, N )
@@ -182,9 +182,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U U**H - I
+      // Compute  U U**H - I
 *
       IF( ITYPE.EQ.1 ) THEN
          CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
@@ -198,6 +198,6 @@
 *
       RETURN
 *
-*     End of ZHPT21
+      // End of ZHPT21
 *
       END

@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N;
       REAL               BIGNUM, EPS3, SMLNUM, WI, WR
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               B( LDB, * ), H( LDH, * ), VI( * ), VR( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TENTH
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TENTH = 1.0E-1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, I1, I2, I3, IERR, ITS, J;
       REAL               ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SASUM, SLAPY2, SNRM2
       // EXTERNAL ISAMAX, SASUM, SLAPY2, SNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLADIV, SLATRS, SSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
 *
-*     GROWTO is the threshold used in the acceptance test for an
-*     eigenvector.
+      // GROWTO is the threshold used in the acceptance test for an
+      // eigenvector.
 *
       ROOTN = SQRT( REAL( N ) )
       GROWTO = TENTH / ROOTN
       NRMSML = MAX( ONE, EPS3*ROOTN )*SMLNUM
 *
-*     Form B = H - (WR,WI)*I (except that the subdiagonal elements and
-*     the imaginary parts of the diagonal elements are not stored).
+      // Form B = H - (WR,WI)*I (except that the subdiagonal elements and
+     t // he imaginary parts of the diagonal elements are not stored).
 *
       DO 20 J = 1, N
          DO 10 I = 1, J - 1
@@ -58,18 +58,18 @@
 *
       IF( WI.EQ.ZERO ) THEN
 *
-*        Real eigenvalue.
+         // Real eigenvalue.
 *
          IF( NOINIT ) THEN
 *
-*           Set initial vector.
+            // Set initial vector.
 *
             DO 30 I = 1, N
                VR( I ) = EPS3
    30       CONTINUE
          ELSE
 *
-*           Scale supplied initial vector.
+            // Scale supplied initial vector.
 *
             VNORM = SNRM2( N, VR, 1 )
             CALL SSCAL( N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), VR, 1 )
@@ -77,14 +77,14 @@
 *
          IF( RIGHTV ) THEN
 *
-*           LU decomposition with partial pivoting of B, replacing zero
-*           pivots by EPS3.
+            // LU decomposition with partial pivoting of B, replacing zero
+            // pivots by EPS3.
 *
             DO 60 I = 1, N - 1
                EI = H( I+1, I )
                IF( ABS( B( I, I ) ).LT.ABS( EI ) ) THEN
 *
-*                 Interchange rows and eliminate.
+                  // Interchange rows and eliminate.
 *
                   X = B( I, I ) / EI
                   B( I, I ) = EI
@@ -95,7 +95,7 @@
    40             CONTINUE
                ELSE
 *
-*                 Eliminate without interchange.
+                  // Eliminate without interchange.
 *
                   IF( B( I, I ).EQ.ZERO ) B( I, I ) = EPS3
                   X = EI / B( I, I )
@@ -112,14 +112,14 @@
 *
          ELSE
 *
-*           UL decomposition with partial pivoting of B, replacing zero
-*           pivots by EPS3.
+            // UL decomposition with partial pivoting of B, replacing zero
+            // pivots by EPS3.
 *
             DO 90 J = N, 2, -1
                EJ = H( J, J-1 )
                IF( ABS( B( J, J ) ).LT.ABS( EJ ) ) THEN
 *
-*                 Interchange columns and eliminate.
+                  // Interchange columns and eliminate.
 *
                   X = B( J, J ) / EJ
                   B( J, J ) = EJ
@@ -130,7 +130,7 @@
    70             CONTINUE
                ELSE
 *
-*                 Eliminate without interchange.
+                  // Eliminate without interchange.
 *
                   IF( B( J, J ).EQ.ZERO ) B( J, J ) = EPS3
                   X = EJ / B( J, J )
@@ -150,19 +150,19 @@
          NORMIN = 'N'
          DO 110 ITS = 1, N
 *
-*           Solve U*x = scale*v for a right eigenvector
-*             or U**T*x = scale*v for a left eigenvector,
-*           overwriting x on v.
+            // Solve U*x = scale*v for a right eigenvector
+              // or U**T*x = scale*v for a left eigenvector,
+            // overwriting x on v.
 *
             CALL SLATRS( 'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, VR, SCALE, WORK, IERR )
             NORMIN = 'Y'
 *
-*           Test for sufficient growth in the norm of v.
+            // Test for sufficient growth in the norm of v.
 *
             VNORM = SASUM( N, VR, 1 )
             IF( VNORM.GE.GROWTO*SCALE ) GO TO 120
 *
-*           Choose new orthogonal starting vector and try again.
+            // Choose new orthogonal starting vector and try again.
 *
             TEMP = EPS3 / ( ROOTN+ONE )
             VR( 1 ) = EPS3
@@ -172,23 +172,23 @@
             VR( N-ITS+1 ) = VR( N-ITS+1 ) - EPS3*ROOTN
   110    CONTINUE
 *
-*        Failure to find eigenvector in N iterations.
+         // Failure to find eigenvector in N iterations.
 *
          INFO = 1
 *
   120    CONTINUE
 *
-*        Normalize eigenvector.
+         // Normalize eigenvector.
 *
          I = ISAMAX( N, VR, 1 )
          CALL SSCAL( N, ONE / ABS( VR( I ) ), VR, 1 )
       ELSE
 *
-*        Complex eigenvalue.
+         // Complex eigenvalue.
 *
          IF( NOINIT ) THEN
 *
-*           Set initial vector.
+            // Set initial vector.
 *
             DO 130 I = 1, N
                VR( I ) = EPS3
@@ -196,7 +196,7 @@
   130       CONTINUE
          ELSE
 *
-*           Scale supplied initial vector.
+            // Scale supplied initial vector.
 *
             NORM = SLAPY2( SNRM2( N, VR, 1 ), SNRM2( N, VI, 1 ) )
             REC = ( EPS3*ROOTN ) / MAX( NORM, NRMSML )
@@ -206,11 +206,11 @@
 *
          IF( RIGHTV ) THEN
 *
-*           LU decomposition with partial pivoting of B, replacing zero
-*           pivots by EPS3.
+            // LU decomposition with partial pivoting of B, replacing zero
+            // pivots by EPS3.
 *
-*           The imaginary part of the (i,j)-th element of U is stored in
-*           B(j+1,i).
+            // The imaginary part of the (i,j)-th element of U is stored in
+            // B(j+1,i).
 *
             B( 2, 1 ) = -WI
             DO 140 I = 2, N
@@ -222,7 +222,7 @@
                EI = H( I+1, I )
                IF( ABSBII.LT.ABS( EI ) ) THEN
 *
-*                 Interchange rows and eliminate.
+                  // Interchange rows and eliminate.
 *
                   XR = B( I, I ) / EI
                   XI = B( I+1, I ) / EI
@@ -240,7 +240,7 @@
                   B( I+2, I+1 ) = B( I+2, I+1 ) + XR*WI
                ELSE
 *
-*                 Eliminate without interchanging rows.
+                  // Eliminate without interchanging rows.
 *
                   IF( ABSBII.EQ.ZERO ) THEN
                      B( I, I ) = EPS3
@@ -257,7 +257,7 @@
                   B( I+2, I+1 ) = B( I+2, I+1 ) - WI
                END IF
 *
-*              Compute 1-norm of offdiagonal elements of i-th row.
+               // Compute 1-norm of offdiagonal elements of i-th row.
 *
                WORK( I ) = SASUM( N-I, B( I, I+1 ), LDB ) + SASUM( N-I, B( I+2, I ), 1 )
   170       CONTINUE
@@ -269,11 +269,11 @@
             I3 = -1
          ELSE
 *
-*           UL decomposition with partial pivoting of conjg(B),
-*           replacing zero pivots by EPS3.
+            // UL decomposition with partial pivoting of conjg(B),
+            // replacing zero pivots by EPS3.
 *
-*           The imaginary part of the (i,j)-th element of U is stored in
-*           B(j+1,i).
+            // The imaginary part of the (i,j)-th element of U is stored in
+            // B(j+1,i).
 *
             B( N+1, N ) = WI
             DO 180 J = 1, N - 1
@@ -285,7 +285,7 @@
                ABSBJJ = SLAPY2( B( J, J ), B( J+1, J ) )
                IF( ABSBJJ.LT.ABS( EJ ) ) THEN
 *
-*                 Interchange columns and eliminate
+                  // Interchange columns and eliminate
 *
                   XR = B( J, J ) / EJ
                   XI = B( J+1, J ) / EJ
@@ -303,7 +303,7 @@
                   B( J, J-1 ) = B( J, J-1 ) - XR*WI
                ELSE
 *
-*                 Eliminate without interchange.
+                  // Eliminate without interchange.
 *
                   IF( ABSBJJ.EQ.ZERO ) THEN
                      B( J, J ) = EPS3
@@ -320,7 +320,7 @@
                   B( J, J-1 ) = B( J, J-1 ) + WI
                END IF
 *
-*              Compute 1-norm of offdiagonal elements of j-th column.
+               // Compute 1-norm of offdiagonal elements of j-th column.
 *
                WORK( J ) = SASUM( J-1, B( 1, J ), 1 ) + SASUM( J-1, B( J+1, 1 ), LDB )
   210       CONTINUE
@@ -337,9 +337,9 @@
             VMAX = ONE
             VCRIT = BIGNUM
 *
-*           Solve U*(xr,xi) = scale*(vr,vi) for a right eigenvector,
-*             or U**T*(xr,xi) = scale*(vr,vi) for a left eigenvector,
-*           overwriting (xr,xi) on (vr,vi).
+            // Solve U*(xr,xi) = scale*(vr,vi) for a right eigenvector,
+              // or U**T*(xr,xi) = scale*(vr,vi) for a left eigenvector,
+            // overwriting (xr,xi) on (vr,vi).
 *
             DO 250 I = I1, I2, I3
 *
@@ -381,7 +381,7 @@
                      END IF
                   END IF
 *
-*                 Divide by diagonal element of B.
+                  // Divide by diagonal element of B.
 *
                   CALL SLADIV( XR, XI, B( I, I ), B( I+1, I ), VR( I ), VI( I ) )
                   VMAX = MAX( ABS( VR( I ) )+ABS( VI( I ) ), VMAX )
@@ -399,12 +399,12 @@
                END IF
   250       CONTINUE
 *
-*           Test for sufficient growth in the norm of (VR,VI).
+            // Test for sufficient growth in the norm of (VR,VI).
 *
             VNORM = SASUM( N, VR, 1 ) + SASUM( N, VI, 1 )
             IF( VNORM.GE.GROWTO*SCALE ) GO TO 280
 *
-*           Choose a new orthogonal starting vector and try again.
+            // Choose a new orthogonal starting vector and try again.
 *
             Y = EPS3 / ( ROOTN+ONE )
             VR( 1 ) = EPS3
@@ -417,13 +417,13 @@
             VR( N-ITS+1 ) = VR( N-ITS+1 ) - EPS3*ROOTN
   270    CONTINUE
 *
-*        Failure to find eigenvector in N iterations
+         // Failure to find eigenvector in N iterations
 *
          INFO = 1
 *
   280    CONTINUE
 *
-*        Normalize eigenvector.
+         // Normalize eigenvector.
 *
          VNORM = ZERO
          DO 290 I = 1, N
@@ -436,6 +436,6 @@
 *
       RETURN
 *
-*     End of SLAEIN
+      // End of SLAEIN
 *
       END

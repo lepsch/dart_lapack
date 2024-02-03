@@ -4,18 +4,18 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS;
       int                INFO, LDU1, LDU2, LDV1T, LDV2T, LWORK, M, P, Q;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               B11D( * ), B11E( * ), B12D( * ), B12E( * ), B21D( * ), B21E( * ), B22D( * ), B22E( * ), PHI( * ), THETA( * ), WORK( * )
       REAL               U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * )
-*     ..
+      // ..
 *
 *  ===================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXITR;
       PARAMETER          ( MAXITR = 6 )
       REAL               HUNDRED, MEIGHTH, ONE, TEN, ZERO
@@ -24,24 +24,24 @@
       PARAMETER          ( NEGONE = -1.0E0 )
       REAL               PIOVER2
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               COLMAJOR, LQUERY, RESTART11, RESTART12, RESTART21, RESTART22, WANTU1, WANTU2, WANTV1T, WANTV2T       int                I, IMIN, IMAX, ITER, IU1CS, IU1SN, IU2CS, IU2SN, IV1TCS, IV1TSN, IV2TCS, IV2TSN, J, LWORKMIN, LWORKOPT, MAXIT, MINI       REAL               B11BULGE, B12BULGE, B21BULGE, B22BULGE, DUMMY, EPS, MU, NU, R, SIGMA11, SIGMA21, TEMP, THETAMAX, THETAMIN, THRESH, TOL, TOLMUL, UNFL, X1, X2, Y1, Y2;;
 *
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SLASR, SSCAL, SSWAP, SLARTGP, SLARTGS, SLAS2, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       bool               LSAME;
       // EXTERNAL LSAME, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, ATAN2, COS, MAX, MIN, SIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       LQUERY = LWORK .EQ. -1
@@ -69,7 +69,7 @@
          INFO = -18
       END IF
 *
-*     Quick return if Q = 0
+      // Quick return if Q = 0
 *
       IF( INFO .EQ. 0 .AND. Q .EQ. 0 ) THEN
          LWORKMIN = 1
@@ -77,7 +77,7 @@
          RETURN
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO .EQ. 0 ) THEN
          IU1CS = 1
@@ -103,7 +103,7 @@
          RETURN
       END IF
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'Epsilon' )
       UNFL = SLAMCH( 'Safe minimum' )
@@ -111,7 +111,7 @@
       TOL = TOLMUL*EPS
       THRESH = MAX( TOL, MAXITR*Q*Q*UNFL )
 *
-*     Test for negligible sines or cosines
+      // Test for negligible sines or cosines
 *
       DO I = 1, Q
          IF( THETA(I) .LT. THRESH ) THEN
@@ -128,7 +128,7 @@
          END IF
       END DO
 *
-*     Initial deflation
+      // Initial deflation
 *
       IMAX = Q
       DO WHILE( IMAX .GT. 1 )
@@ -145,16 +145,16 @@
          END DO
       END IF
 *
-*     Initialize iteration counter
+      // Initialize iteration counter
 *
       MAXIT = MAXITR*Q*Q
       ITER = 0
 *
-*     Begin main iteration loop
+      // Begin main iteration loop
 *
       DO WHILE( IMAX .GT. 1 )
 *
-*        Compute the matrix entries
+         // Compute the matrix entries
 *
          B11D(IMIN) = COS( THETA(IMIN) )
          B21D(IMIN) = -SIN( THETA(IMIN) )
@@ -171,7 +171,7 @@
          B12D(IMAX) = SIN( THETA(IMAX) )
          B22D(IMAX) = COS( THETA(IMAX) )
 *
-*        Abort if not converging; otherwise, increment ITER
+         // Abort if not converging; otherwise, increment ITER
 *
          IF( ITER .GT. MAXIT ) THEN
             INFO = 0
@@ -183,7 +183,7 @@
 *
          ITER = ITER + IMAX - IMIN
 *
-*        Compute shifts
+         // Compute shifts
 *
          THETAMAX = THETA(IMIN)
          THETAMIN = THETA(IMIN)
@@ -193,23 +193,23 @@
 *
          IF( THETAMAX .GT. PIOVER2 - THRESH ) THEN
 *
-*           Zero on diagonals of B11 and B22; induce deflation with a
-*           zero shift
+            // Zero on diagonals of B11 and B22; induce deflation with a
+            // zero shift
 *
             MU = ZERO
             NU = ONE
 *
          ELSE IF( THETAMIN .LT. THRESH ) THEN
 *
-*           Zero on diagonals of B12 and B22; induce deflation with a
-*           zero shift
+            // Zero on diagonals of B12 and B22; induce deflation with a
+            // zero shift
 *
             MU = ONE
             NU = ZERO
 *
          ELSE
 *
-*           Compute shifts for B11 and B21 and use the lesser
+            // Compute shifts for B11 and B21 and use the lesser
 *
             CALL SLAS2( B11D(IMAX-1), B11E(IMAX-1), B11D(IMAX), SIGMA11, DUMMY )             CALL SLAS2( B21D(IMAX-1), B21E(IMAX-1), B21D(IMAX), SIGMA21, DUMMY )
 *
@@ -230,7 +230,7 @@
             END IF
          END IF
 *
-*        Rotate to produce bulges in B11 and B21
+         // Rotate to produce bulges in B11 and B21
 *
          IF( MU .LE. NU ) THEN
             CALL SLARTGS( B11D(IMIN), B11E(IMIN), MU, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1) )
@@ -247,11 +247,11 @@
          B21BULGE = WORK(IV1TSN+IMIN-1)*B21D(IMIN+1)
          B21D(IMIN+1) = WORK(IV1TCS+IMIN-1)*B21D(IMIN+1)
 *
-*        Compute THETA(IMIN)
+         // Compute THETA(IMIN)
 *
          THETA( IMIN ) = ATAN2( SQRT( B21D(IMIN)**2+B21BULGE**2 ), SQRT( B11D(IMIN)**2+B11BULGE**2 ) )
 *
-*        Chase the bulges in B11(IMIN+1,IMIN) and B21(IMIN+1,IMIN)
+         // Chase the bulges in B11(IMIN+1,IMIN) and B21(IMIN+1,IMIN)
 *
          IF( B11D(IMIN)**2+B11BULGE**2 .GT. THRESH**2 ) THEN
             CALL SLARTGP( B11BULGE, B11D(IMIN), WORK(IU1SN+IMIN-1), WORK(IU1CS+IMIN-1), R )
@@ -291,13 +291,13 @@
          B22BULGE = WORK(IU2SN+IMIN-1)*B22D(IMIN+1)
          B22D(IMIN+1) = WORK(IU2CS+IMIN-1)*B22D(IMIN+1)
 *
-*        Inner loop: chase bulges from B11(IMIN,IMIN+2),
-*        B12(IMIN,IMIN+1), B21(IMIN,IMIN+2), and B22(IMIN,IMIN+1) to
-*        bottom-right
+         // Inner loop: chase bulges from B11(IMIN,IMIN+2),
+         // B12(IMIN,IMIN+1), B21(IMIN,IMIN+2), and B22(IMIN,IMIN+1) to
+         // bottom-right
 *
          DO I = IMIN+1, IMAX-1
 *
-*           Compute PHI(I-1)
+            // Compute PHI(I-1)
 *
             X1 = SIN(THETA(I-1))*B11E(I-1) + COS(THETA(I-1))*B21E(I-1)
             X2 = SIN(THETA(I-1))*B11BULGE + COS(THETA(I-1))*B21BULGE
@@ -306,17 +306,17 @@
 *
             PHI(I-1) = ATAN2( SQRT(X1**2+X2**2), SQRT(Y1**2+Y2**2) )
 *
-*           Determine if there are bulges to chase or if a new direct
-*           summand has been reached
+            // Determine if there are bulges to chase or if a new direct
+            // summand has been reached
 *
             RESTART11 = B11E(I-1)**2 + B11BULGE**2 .LE. THRESH**2
             RESTART21 = B21E(I-1)**2 + B21BULGE**2 .LE. THRESH**2
             RESTART12 = B12D(I-1)**2 + B12BULGE**2 .LE. THRESH**2
             RESTART22 = B22D(I-1)**2 + B22BULGE**2 .LE. THRESH**2
 *
-*           If possible, chase bulges from B11(I-1,I+1), B12(I-1,I),
-*           B21(I-1,I+1), and B22(I-1,I). If necessary, restart bulge-
-*           chasing by applying the original shift again.
+            // If possible, chase bulges from B11(I-1,I+1), B12(I-1,I),
+            // B21(I-1,I+1), and B22(I-1,I). If necessary, restart bulge-
+            // chasing by applying the original shift again.
 *
             IF( .NOT. RESTART11 .AND. .NOT. RESTART21 ) THEN
                CALL SLARTGP( X2, X1, WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R )
@@ -362,7 +362,7 @@
             B22BULGE = WORK(IV2TSN+I-1-1)*B22E(I)
             B22E(I) = WORK(IV2TCS+I-1-1)*B22E(I)
 *
-*           Compute THETA(I)
+            // Compute THETA(I)
 *
             X1 = COS(PHI(I-1))*B11D(I) + SIN(PHI(I-1))*B12E(I-1)
             X2 = COS(PHI(I-1))*B11BULGE + SIN(PHI(I-1))*B12BULGE
@@ -371,17 +371,17 @@
 *
             THETA(I) = ATAN2( SQRT(Y1**2+Y2**2), SQRT(X1**2+X2**2) )
 *
-*           Determine if there are bulges to chase or if a new direct
-*           summand has been reached
+            // Determine if there are bulges to chase or if a new direct
+            // summand has been reached
 *
             RESTART11 =   B11D(I)**2 + B11BULGE**2 .LE. THRESH**2
             RESTART12 = B12E(I-1)**2 + B12BULGE**2 .LE. THRESH**2
             RESTART21 =   B21D(I)**2 + B21BULGE**2 .LE. THRESH**2
             RESTART22 = B22E(I-1)**2 + B22BULGE**2 .LE. THRESH**2
 *
-*           If possible, chase bulges from B11(I+1,I), B12(I+1,I-1),
-*           B21(I+1,I), and B22(I+1,I-1). If necessary, restart bulge-
-*           chasing by applying the original shift again.
+            // If possible, chase bulges from B11(I+1,I), B12(I+1,I-1),
+            // B21(I+1,I), and B22(I+1,I-1). If necessary, restart bulge-
+            // chasing by applying the original shift again.
 *
             IF( .NOT. RESTART11 .AND. .NOT. RESTART12 ) THEN
                CALL SLARTGP( X2, X1, WORK(IU1SN+I-1), WORK(IU1CS+I-1), R )
@@ -435,14 +435,14 @@
 *
          END DO
 *
-*        Compute PHI(IMAX-1)
+         // Compute PHI(IMAX-1)
 *
          X1 = SIN(THETA(IMAX-1))*B11E(IMAX-1) + COS(THETA(IMAX-1))*B21E(IMAX-1)          Y1 = SIN(THETA(IMAX-1))*B12D(IMAX-1) + COS(THETA(IMAX-1))*B22D(IMAX-1)
          Y2 = SIN(THETA(IMAX-1))*B12BULGE + COS(THETA(IMAX-1))*B22BULGE
 *
          PHI(IMAX-1) = ATAN2( ABS(X1), SQRT(Y1**2+Y2**2) )
 *
-*        Chase bulges from B12(IMAX-1,IMAX) and B22(IMAX-1,IMAX)
+         // Chase bulges from B12(IMAX-1,IMAX) and B22(IMAX-1,IMAX)
 *
          RESTART12 = B12D(IMAX-1)**2 + B12BULGE**2 .LE. THRESH**2
          RESTART22 = B22D(IMAX-1)**2 + B22BULGE**2 .LE. THRESH**2
@@ -464,7 +464,7 @@
          TEMP = WORK(IV2TCS+IMAX-1-1)*B22E(IMAX-1) + WORK(IV2TSN+IMAX-1-1)*B22D(IMAX)          B22D(IMAX) = WORK(IV2TCS+IMAX-1-1)*B22D(IMAX) - WORK(IV2TSN+IMAX-1-1)*B22E(IMAX-1)
          B22E(IMAX-1) = TEMP
 *
-*        Update singular vectors
+         // Update singular vectors
 *
          IF( WANTU1 ) THEN
             IF( COLMAJOR ) THEN
@@ -495,7 +495,7 @@
             END IF
          END IF
 *
-*        Fix signs on B11(IMAX-1,IMAX) and B21(IMAX-1,IMAX)
+         // Fix signs on B11(IMAX-1,IMAX) and B21(IMAX-1,IMAX)
 *
          IF( B11E(IMAX-1)+B21E(IMAX-1) .GT. 0 ) THEN
             B11D(IMAX) = -B11D(IMAX)
@@ -509,14 +509,14 @@
             END IF
          END IF
 *
-*        Compute THETA(IMAX)
+         // Compute THETA(IMAX)
 *
          X1 = COS(PHI(IMAX-1))*B11D(IMAX) + SIN(PHI(IMAX-1))*B12E(IMAX-1)          Y1 = COS(PHI(IMAX-1))*B21D(IMAX) + SIN(PHI(IMAX-1))*B22E(IMAX-1)
 *
          THETA(IMAX) = ATAN2( ABS(Y1), ABS(X1) )
 *
-*        Fix signs on B11(IMAX,IMAX), B12(IMAX,IMAX-1), B21(IMAX,IMAX),
-*        and B22(IMAX,IMAX-1)
+         // Fix signs on B11(IMAX,IMAX), B12(IMAX,IMAX-1), B21(IMAX,IMAX),
+         // and B22(IMAX,IMAX-1)
 *
          IF( B11D(IMAX)+B12E(IMAX-1) .LT. 0 ) THEN
             B12D(IMAX) = -B12D(IMAX)
@@ -539,7 +539,7 @@
             END IF
          END IF
 *
-*        Fix signs on B12(IMAX,IMAX) and B22(IMAX,IMAX)
+         // Fix signs on B12(IMAX,IMAX) and B22(IMAX,IMAX)
 *
          IF( B12D(IMAX)+B22D(IMAX) .LT. 0 ) THEN
             IF( WANTV2T ) THEN
@@ -551,7 +551,7 @@
             END IF
          END IF
 *
-*        Test for negligible sines or cosines
+         // Test for negligible sines or cosines
 *
          DO I = IMIN, IMAX
             IF( THETA(I) .LT. THRESH ) THEN
@@ -568,7 +568,7 @@
             END IF
          END DO
 *
-*        Deflate
+         // Deflate
 *
          IF (IMAX .GT. 1) THEN
             DO WHILE( PHI(IMAX-1) .EQ. ZERO )
@@ -584,11 +584,11 @@
             END DO
          END IF
 *
-*        Repeat main iteration loop
+         // Repeat main iteration loop
 *
       END DO
 *
-*     Postprocessing: order THETA from least to greatest
+      // Postprocessing: order THETA from least to greatest
 *
       DO I = 1, Q
 *
@@ -615,6 +615,6 @@
 *
       RETURN
 *
-*     End of SBBCSD
+      // End of SBBCSD
 *
       END

@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, LWORK, M, N;
       REAL               DIF, SCALE
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *  Replaced various illegal calls to SCOPY by calls to SLASET.
 *  Sven Hammarling, 1/5/02.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, NOTRAN;
       int                I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LINFO, LWMIN, MB, NB, P, PPQQ, PQ, Q;
       REAL               DSCALE, DSUM, SCALE2, SCALOC
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLASET, SSCAL, STGSY2, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test input parameters
+      // Decode and test input parameters
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
@@ -98,7 +98,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          SCALE = 1
@@ -110,7 +110,7 @@
          RETURN
       END IF
 *
-*     Determine optimal block sizes MB and NB
+      // Determine optimal block sizes MB and NB
 *
       MB = ILAENV( 2, 'STGSYL', TRANS, M, N, -1, -1 )
       NB = ILAENV( 5, 'STGSYL', TRANS, M, N, -1, -1 )
@@ -131,7 +131,7 @@
 *
          DO 30 IROUND = 1, ISOLVE
 *
-*           Use unblocked Level 2 solver
+            // Use unblocked Level 2 solver
 *
             DSCALE = ZERO
             DSUM = ONE
@@ -164,7 +164,7 @@
          RETURN
       END IF
 *
-*     Determine block structure of A
+      // Determine block structure of A
 *
       P = 0
       I = 1
@@ -180,7 +180,7 @@
       IWORK( P+1 ) = M + 1
       IF( IWORK( P ).EQ.IWORK( P+1 ) ) P = P - 1
 *
-*     Determine block structure of B
+      // Determine block structure of B
 *
       Q = P + 1
       J = 1
@@ -200,10 +200,10 @@
 *
          DO 150 IROUND = 1, ISOLVE
 *
-*           Solve (I, J)-subsystem
-*               A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
-*               D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
-*           for I = P, P - 1,..., 1; J = 1, 2,..., Q
+            // Solve (I, J)-subsystem
+                // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
+                // D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
+            // for I = P, P - 1,..., 1; J = 1, 2,..., Q
 *
             DSCALE = ZERO
             DSUM = ONE
@@ -242,8 +242,8 @@
                      SCALE = SCALE*SCALOC
                   END IF
 *
-*                 Substitute R(I, J) and L(I, J) into remaining
-*                 equation.
+                  // Substitute R(I, J) and L(I, J) into remaining
+                  // equation.
 *
                   IF( I.GT.1 ) THEN
                      CALL SGEMM( 'N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, C( IS, JS ), LDC, ONE, C( 1, JS ), LDC )                      CALL SGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, C( IS, JS ), LDC, ONE, F( 1, JS ), LDF )
@@ -278,10 +278,10 @@
 *
       ELSE
 *
-*        Solve transposed (I, J)-subsystem
-*             A(I, I)**T * R(I, J)  + D(I, I)**T * L(I, J)  =  C(I, J)
-*             R(I, J)  * B(J, J)**T + L(I, J)  * E(J, J)**T = -F(I, J)
-*        for I = 1,2,..., P; J = Q, Q-1,..., 1
+         // Solve transposed (I, J)-subsystem
+              // A(I, I)**T * R(I, J)  + D(I, I)**T * L(I, J)  =  C(I, J)
+              // R(I, J)  * B(J, J)**T + L(I, J)  * E(J, J)**T = -F(I, J)
+         // for I = 1,2,..., P; J = Q, Q-1,..., 1
 *
          SCALE = ONE
          DO 210 I = 1, P
@@ -314,7 +314,7 @@
                   SCALE = SCALE*SCALOC
                END IF
 *
-*              Substitute R(I, J) and L(I, J) into remaining equation.
+               // Substitute R(I, J) and L(I, J) into remaining equation.
 *
                IF( J.GT.P+2 ) THEN
                   CALL SGEMM( 'N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                   CALL SGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF )
@@ -331,6 +331,6 @@
 *
       RETURN
 *
-*     End of STGSYL
+      // End of STGSYL
 *
       END

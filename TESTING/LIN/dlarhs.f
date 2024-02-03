@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS, UPLO, XTYPE;
       String             PATH;
       int                INFO, KL, KU, LDA, LDB, LDX, M, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       double             A( LDA, * ), B( LDB, * ), X( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI;
       String             C1, DIAG;
       String             C2;
       int                J, MB, NX;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, LSAMEN;
       // EXTERNAL LSAME, LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGBMV, DGEMM, DLACPY, DLARNV, DSBMV, DSPMV, DSYMM, DTBMV, DTPMV, DTRMM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       C1 = PATH( 1: 1 )
@@ -80,7 +80,7 @@
          RETURN
       END IF
 *
-*     Initialize X to NRHS random vectors unless XTYPE = 'C'.
+      // Initialize X to NRHS random vectors unless XTYPE = 'C'.
 *
       IF( TRAN ) THEN
          NX = M
@@ -95,24 +95,24 @@
    10    CONTINUE
       END IF
 *
-*     Multiply X by op(A) using an appropriate
-*     matrix multiply routine.
+      // Multiply X by op(A) using an appropriate
+      // matrix multiply routine.
 *
       IF( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
 *
-*        General matrix
+         // General matrix
 *
          CALL DGEMM( TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        Symmetric matrix, 2-D storage
+         // Symmetric matrix, 2-D storage
 *
          CALL DSYMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        General matrix, band storage
+         // General matrix, band storage
 *
          DO 20 J = 1, NRHS
             CALL DGBMV( TRANS, MB, NX, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
@@ -120,7 +120,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
 *
-*        Symmetric matrix, band storage
+         // Symmetric matrix, band storage
 *
          DO 30 J = 1, NRHS
             CALL DSBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
@@ -128,7 +128,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        Symmetric matrix, packed storage
+         // Symmetric matrix, packed storage
 *
          DO 40 J = 1, NRHS
             CALL DSPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
@@ -136,9 +136,9 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TR' ) ) THEN
 *
-*        Triangular matrix.  Note that for triangular matrices,
-*           KU = 1 => non-unit triangular
-*           KU = 2 => unit triangular
+         // Triangular matrix.  Note that for triangular matrices,
+            // KU = 1 => non-unit triangular
+            // KU = 2 => unit triangular
 *
          CALL DLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
@@ -150,7 +150,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
 *
-*        Triangular matrix, packed storage
+         // Triangular matrix, packed storage
 *
          CALL DLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
@@ -164,7 +164,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
 *
-*        Triangular matrix, banded storage
+         // Triangular matrix, banded storage
 *
          CALL DLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
@@ -178,7 +178,7 @@
 *
       ELSE
 *
-*        If PATH is none of the above, return with an error code.
+         // If PATH is none of the above, return with an error code.
 *
          INFO = -1
          CALL XERBLA( 'DLARHS', -INFO )
@@ -186,6 +186,6 @@
 *
       RETURN
 *
-*     End of DLARHS
+      // End of DLARHS
 *
       END

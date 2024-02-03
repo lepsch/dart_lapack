@@ -1,25 +1,25 @@
       REAL FUNCTION SECOND( )
 *
 *  -- LAPACK auxiliary routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 *=====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               T1
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               TARRAY( 2 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               ETIME_
       // EXTERNAL ETIME_
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       T1 = ETIME_( TARRAY )
       SECOND = TARRAY( 1 )
       RETURN
 *
-*     End of SECOND
+      // End of SECOND
 *
       END

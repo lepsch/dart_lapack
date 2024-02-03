@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, ITYPE, LDA, LDB, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), B( LDB, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, HALF;
       PARAMETER          ( ONE = 1.0D0, HALF = 0.5D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                K, KB, NB;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSYGS2, DSYMM, DSYR2K, DTRMM, DTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -55,32 +55,32 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Determine the block size for this environment.
+      // Determine the block size for this environment.
 *
       NB = ILAENV( 1, 'DSYGST', UPLO, N, -1, -1, -1 )
 *
       IF( NB.LE.1 .OR. NB.GE.N ) THEN
 *
-*        Use unblocked code
+         // Use unblocked code
 *
          CALL DSYGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
       ELSE
 *
-*        Use blocked code
+         // Use blocked code
 *
          IF( ITYPE.EQ.1 ) THEN
             IF( UPPER ) THEN
 *
-*              Compute inv(U**T)*A*inv(U)
+               // Compute inv(U**T)*A*inv(U)
 *
                DO 10 K = 1, N, NB
                   KB = MIN( N-K+1, NB )
 *
-*                 Update the upper triangle of A(k:n,k:n)
+                  // Update the upper triangle of A(k:n,k:n)
 *
                   CALL DSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
                   IF( K+KB.LE.N ) THEN
@@ -89,12 +89,12 @@
    10          CONTINUE
             ELSE
 *
-*              Compute inv(L)*A*inv(L**T)
+               // Compute inv(L)*A*inv(L**T)
 *
                DO 20 K = 1, N, NB
                   KB = MIN( N-K+1, NB )
 *
-*                 Update the lower triangle of A(k:n,k:n)
+                  // Update the lower triangle of A(k:n,k:n)
 *
                   CALL DSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
                   IF( K+KB.LE.N ) THEN
@@ -105,24 +105,24 @@
          ELSE
             IF( UPPER ) THEN
 *
-*              Compute U*A*U**T
+               // Compute U*A*U**T
 *
                DO 30 K = 1, N, NB
                   KB = MIN( N-K+1, NB )
 *
-*                 Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
+                  // Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
 *
                   CALL DTRMM( 'Left', UPLO, 'No transpose', 'Non-unit', K-1, KB, ONE, B, LDB, A( 1, K ), LDA )                   CALL DSYMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ), LDA, B( 1, K ), LDB, ONE, A( 1, K ), LDA )                   CALL DSYR2K( UPLO, 'No transpose', K-1, KB, ONE, A( 1, K ), LDA, B( 1, K ), LDB, ONE, A, LDA )                   CALL DSYMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ), LDA, B( 1, K ), LDB, ONE, A( 1, K ), LDA )                   CALL DTRMM( 'Right', UPLO, 'Transpose', 'Non-unit', K-1, KB, ONE, B( K, K ), LDB, A( 1, K ), LDA )
                   CALL DSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
    30          CONTINUE
             ELSE
 *
-*              Compute L**T*A*L
+               // Compute L**T*A*L
 *
                DO 40 K = 1, N, NB
                   KB = MIN( N-K+1, NB )
 *
-*                 Update the lower triangle of A(1:k+kb-1,1:k+kb-1)
+                  // Update the lower triangle of A(1:k+kb-1,1:k+kb-1)
 *
                   CALL DTRMM( 'Right', UPLO, 'No transpose', 'Non-unit', KB, K-1, ONE, B, LDB, A( K, 1 ), LDA )                   CALL DSYMM( 'Left', UPLO, KB, K-1, HALF, A( K, K ), LDA, B( K, 1 ), LDB, ONE, A( K, 1 ), LDA )                   CALL DSYR2K( UPLO, 'Transpose', K-1, KB, ONE, A( K, 1 ), LDA, B( K, 1 ), LDB, ONE, A, LDA )
                   CALL DSYMM( 'Left', UPLO, KB, K-1, HALF, A( K, K ), LDA, B( K, 1 ), LDB, ONE, A( K, 1 ), LDA )                   CALL DTRMM( 'Left', UPLO, 'Transpose', 'Non-unit', KB, K-1, ONE, B( K, K ), LDB, A( K, 1 ), LDA )                   CALL DSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
@@ -132,6 +132,6 @@
       END IF
       RETURN
 *
-*     End of DSYGST
+      // End of DSYGST
 *
       END

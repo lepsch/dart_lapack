@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDB, LDX, N, NRHS;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * )
       COMPLEX            B( LDB, * ), E( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J;
       REAL               ANORM, BNORM, EPS, XNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANHT, SCASUM, SLAMCH
       // EXTERNAL CLANHT, SCASUM, SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLAPTM
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Compute the 1-norm of the tridiagonal matrix A.
+      // Compute the 1-norm of the tridiagonal matrix A.
 *
       ANORM = CLANHT( '1', N, D, E )
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = SLAMCH( 'Epsilon' )
       IF( ANORM.LE.ZERO ) THEN
@@ -55,12 +55,12 @@
          RETURN
       END IF
 *
-*     Compute B - A*X.
+      // Compute B - A*X.
 *
       CALL CLAPTM( UPLO, N, NRHS, -ONE, D, E, X, LDX, ONE, B, LDB )
 *
-*     Compute the maximum over the number of right hand sides of
-*        norm(B - A*X) / ( norm(A) * norm(X) * EPS ).
+      // Compute the maximum over the number of right hand sides of
+         // norm(B - A*X) / ( norm(A) * norm(X) * EPS ).
 *
       RESID = ZERO
       DO 10 J = 1, NRHS
@@ -75,6 +75,6 @@
 *
       RETURN
 *
-*     End of CPTT02
+      // End of CPTT02
 *
       END

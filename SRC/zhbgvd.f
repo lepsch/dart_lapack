@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, KA, KB, LDAB, LDBB, LDZ, LIWORK, LRWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), W( * );
       COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         CONE, CZERO
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;
       String             VECT;
       int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSTERF, XERBLA, ZGEMM, ZHBGST, ZHBTRD, ZLACPY, ZPBSTF, ZSTEDC
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       UPPER = LSAME( UPLO, 'U' )
@@ -93,11 +93,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Form a split Cholesky factorization of B.
+      // Form a split Cholesky factorization of B.
 *
       CALL ZPBSTF( UPLO, N, KB, BB, LDBB, INFO )
       IF( INFO.NE.0 ) THEN
@@ -105,7 +105,7 @@
          RETURN
       END IF
 *
-*     Transform problem to standard eigenvalue problem.
+      // Transform problem to standard eigenvalue problem.
 *
       INDE = 1
       INDWRK = INDE + N
@@ -114,7 +114,7 @@
       LLRWK = LRWORK - INDWRK + 2
       CALL ZHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, RWORK, IINFO )
 *
-*     Reduce Hermitian band matrix to tridiagonal form.
+      // Reduce Hermitian band matrix to tridiagonal form.
 *
       IF( WANTZ ) THEN
          VECT = 'U'
@@ -123,7 +123,7 @@
       END IF
       CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
 *
-*     For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEDC.
+      // For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
@@ -138,6 +138,6 @@
       IWORK( 1 ) = LIWMIN
       RETURN
 *
-*     End of ZHBGVD
+      // End of ZHBGVD
 *
       END

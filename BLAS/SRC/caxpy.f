@@ -4,36 +4,36 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX CA
       int     INCX,INCY,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX CX(*),CY(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int     I,IX,IY;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL SCABS1
       // EXTERNAL SCABS1
-*     ..
+      // ..
       IF (N.LE.0) RETURN
       IF (SCABS1(CA).EQ.0.0E+0) RETURN
       IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN
 *
-*        code for both increments equal to 1
+         // code for both increments equal to 1
 *
          DO I = 1,N
             CY(I) = CY(I) + CA*CX(I)
          END DO
       ELSE
 *
-*        code for unequal increments or equal increments
-*          not equal to 1
+         // code for unequal increments or equal increments
+           // not equal to 1
 *
          IX = 1
          IY = 1
@@ -48,6 +48,6 @@
 *
       RETURN
 *
-*     End of CAXPY
+      // End of CAXPY
 *
       END

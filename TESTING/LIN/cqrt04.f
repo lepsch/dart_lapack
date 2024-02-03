@@ -5,40 +5,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     M, N, NB, LDT;
-*     .. Return values ..
+      // .. Return values ..
       REAL RESULT(6)
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local allocatable arrays
+      // ..
+      // .. Local allocatable arrays
       COMPLEX, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
       REAL, ALLOCATABLE :: RWORK(:)
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL ZERO
       COMPLEX ONE, CZERO
       PARAMETER( ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int     INFO, J, K, L, LWORK;
       REAL   ANORM, EPS, RESID, CNORM, DNORM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL SLAMCH
       REAL CLANGE, CLANSY
       bool     LSAME;
       // EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /
 *
       EPS = SLAMCH( 'Epsilon' )
@@ -46,11 +46,11 @@
       L = MAX(M,N)
       LWORK = MAX(2,L)*MAX(2,L)*NB
 *
-*     Dynamically allocate local arrays
+      // Dynamically allocate local arrays
 *
       ALLOCATE ( A(M,N), AF(M,N), Q(M,M), R(M,L), RWORK(L), WORK(LWORK), T(NB,N), C(M,N), CF(M,N), D(N,M), DF(N,M) )
 *
-*     Put random numbers into A and copy to AF
+      // Put random numbers into A and copy to AF
 *
       LDT=NB
       DO J=1,N
@@ -58,21 +58,21 @@
       END DO
       CALL CLACPY( 'Full', M, N, A, M, AF, M )
 *
-*     Factor the matrix A in the array AF.
+      // Factor the matrix A in the array AF.
 *
       CALL CGEQRT( M, N, NB, AF, M, T, LDT, WORK, INFO )
 *
-*     Generate the m-by-m matrix Q
+      // Generate the m-by-m matrix Q
 *
       CALL CLASET( 'Full', M, M, CZERO, ONE, Q, M )
       CALL CGEMQRT( 'R', 'N', M, M, K, NB, AF, M, T, LDT, Q, M, WORK, INFO )
 *
-*     Copy R
+      // Copy R
 *
       CALL CLASET( 'Full', M, N, CZERO, CZERO, R, M )
       CALL CLACPY( 'Upper', M, N, AF, M, R, M )
 *
-*     Compute |R - Q'*A| / |A| and store in RESULT(1)
+      // Compute |R - Q'*A| / |A| and store in RESULT(1)
 *
       CALL CGEMM( 'C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M )
       ANORM = CLANGE( '1', M, N, A, M, RWORK )
@@ -83,14 +83,14 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute |I - Q'*Q| and store in RESULT(2)
+      // Compute |I - Q'*Q| and store in RESULT(2)
 *
       CALL CLASET( 'Full', M, M, CZERO, ONE, R, M )
       CALL CHERK( 'U', 'C', M, M, REAL(-ONE), Q, M, REAL(ONE), R, M )
       RESID = CLANSY( '1', 'Upper', M, R, M, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,M))
 *
-*     Generate random m-by-n matrix C and a copy CF
+      // Generate random m-by-n matrix C and a copy CF
 *
       DO J=1,N
          CALL CLARNV( 2, ISEED, M, C( 1, J ) )
@@ -98,11 +98,11 @@
       CNORM = CLANGE( '1', M, N, C, M, RWORK)
       CALL CLACPY( 'Full', M, N, C, M, CF, M )
 *
-*     Apply Q to C as Q*C
+      // Apply Q to C as Q*C
 *
       CALL CGEMQRT( 'L', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
 *
-*     Compute |Q*C - Q*C| / |C|
+      // Compute |Q*C - Q*C| / |C|
 *
       CALL CGEMM( 'N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
@@ -112,15 +112,15 @@
          RESULT( 3 ) = ZERO
       END IF
 *
-*     Copy C into CF again
+      // Copy C into CF again
 *
       CALL CLACPY( 'Full', M, N, C, M, CF, M )
 *
-*     Apply Q to C as QT*C
+      // Apply Q to C as QT*C
 *
       CALL CGEMQRT( 'L', 'C', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
 *
-*     Compute |QT*C - QT*C| / |C|
+      // Compute |QT*C - QT*C| / |C|
 *
       CALL CGEMM( 'C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
@@ -130,7 +130,7 @@
          RESULT( 4 ) = ZERO
       END IF
 *
-*     Generate random n-by-m matrix D and a copy DF
+      // Generate random n-by-m matrix D and a copy DF
 *
       DO J=1,M
          CALL CLARNV( 2, ISEED, N, D( 1, J ) )
@@ -138,11 +138,11 @@
       DNORM = CLANGE( '1', N, M, D, N, RWORK)
       CALL CLACPY( 'Full', N, M, D, N, DF, N )
 *
-*     Apply Q to D as D*Q
+      // Apply Q to D as D*Q
 *
       CALL CGEMQRT( 'R', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
 *
-*     Compute |D*Q - D*Q| / |D|
+      // Compute |D*Q - D*Q| / |D|
 *
       CALL CGEMM( 'N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
@@ -152,15 +152,15 @@
          RESULT( 5 ) = ZERO
       END IF
 *
-*     Copy D into DF again
+      // Copy D into DF again
 *
       CALL CLACPY( 'Full', N, M, D, N, DF, N )
 *
-*     Apply Q to D as D*QT
+      // Apply Q to D as D*QT
 *
       CALL CGEMQRT( 'R', 'C', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
 *
-*     Compute |D*QT - D*QT| / |D|
+      // Compute |D*QT - D*QT| / |D|
 *
       CALL CGEMM( 'N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
@@ -170,7 +170,7 @@
          RESULT( 6 ) = ZERO
       END IF
 *
-*     Deallocate all arrays
+      // Deallocate all arrays
 *
       DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF)
 *

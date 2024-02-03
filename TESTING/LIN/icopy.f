@@ -4,26 +4,26 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, INCY, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                SX( * ), SY( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, IX, IY, M, MP1;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) RETURN       IF( INCX.EQ.1 .AND. INCY.EQ.1 ) GO TO 20
 *
-*     Code for unequal increments or equal increments not equal to 1
+      // Code for unequal increments or equal increments not equal to 1
 *
       IX = 1
       IY = 1
@@ -35,9 +35,9 @@
    10 CONTINUE
       RETURN
 *
-*     Code for both increments equal to 1
+      // Code for both increments equal to 1
 *
-*     Clean-up loop
+      // Clean-up loop
 *
    20 CONTINUE
       M = MOD( N, 7 )
@@ -59,6 +59,6 @@
    50 CONTINUE
       RETURN
 *
-*     End of ICOPY
+      // End of ICOPY
 *
       END

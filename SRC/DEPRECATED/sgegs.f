@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVSL, JOBVSR;
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILVSL, ILVSR, LQUERY;
       int                ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, ITAU, IWORK, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3;
       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANGE
       // EXTERNAL ILAENV, LSAME, SLAMCH, SLANGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVSL, 'N' ) ) THEN
          IJOBVL = 1
@@ -61,7 +61,7 @@
          ILVSR = .FALSE.
       END IF
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       LWKMIN = MAX( 4*N, 1 )
       LWKOPT = LWKMIN
@@ -102,18 +102,18 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'E' )*SLAMCH( 'B' )
       SAFMIN = SLAMCH( 'S' )
       SMLNUM = N*SAFMIN / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = .FALSE.
@@ -133,7 +133,7 @@
          END IF
       END IF
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = .FALSE.
@@ -153,9 +153,9 @@
          END IF
       END IF
 *
-*     Permute the matrix to make it more nearly triangular
-*     Workspace layout:  (2*N words -- "work..." not actually used)
-*        left_permutation, right_permutation, work...
+      // Permute the matrix to make it more nearly triangular
+      // Workspace layout:  (2*N words -- "work..." not actually used)
+         // left_permutation, right_permutation, work...
 *
       ILEFT = 1
       IRIGHT = N + 1
@@ -166,9 +166,9 @@
          GO TO 10
       END IF
 *
-*     Reduce B to triangular form, and initialize VSL and/or VSR
-*     Workspace layout:  ("work..." must have at least N words)
-*        left_permutation, right_permutation, tau, work...
+      // Reduce B to triangular form, and initialize VSL and/or VSR
+      // Workspace layout:  ("work..." must have at least N words)
+         // left_permutation, right_permutation, tau, work...
 *
       IROWS = IHI + 1 - ILO
       ICOLS = N + 1 - ILO
@@ -199,7 +199,7 @@
 *
       IF( ILVSR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR )
 *
-*     Reduce to generalized Hessenberg form
+      // Reduce to generalized Hessenberg form
 *
       CALL SGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IINFO )
       IF( IINFO.NE.0 ) THEN
@@ -207,9 +207,9 @@
          GO TO 10
       END IF
 *
-*     Perform QZ algorithm, computing Schur vectors if desired
-*     Workspace layout:  ("work..." must have at least 1 word)
-*        left_permutation, right_permutation, work...
+      // Perform QZ algorithm, computing Schur vectors if desired
+      // Workspace layout:  ("work..." must have at least 1 word)
+         // left_permutation, right_permutation, work...
 *
       IWORK = ITAU
       CALL SHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, IINFO )
@@ -225,7 +225,7 @@
          GO TO 10
       END IF
 *
-*     Apply permutation to VSL and VSR
+      // Apply permutation to VSL and VSR
 *
       IF( ILVSL ) THEN
          CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IINFO )
@@ -242,7 +242,7 @@
          END IF
       END IF
 *
-*     Undo scaling
+      // Undo scaling
 *
       IF( ILASCL ) THEN
          CALL SLASCL( 'H', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO )
@@ -280,6 +280,6 @@
 *
       RETURN
 *
-*     End of SGEGS
+      // End of SGEGS
 *
       END

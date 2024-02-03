@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             ALPHA, BETA;
       int                K, LDA, N;
       String             TRANS, TRANSR, UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), C( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER, NORMALTRANSR, NISODD, NOTRANS;
       int                INFO, NROWA, J, NK, N1, N2;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, DGEMM, DSYRK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
@@ -67,10 +67,10 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
-*     The quick return case: ((ALPHA.EQ.0).AND.(BETA.NE.ZERO)) is not
-*     done (it is in DSYRK for example) and left in the general case.
+      // The quick return case: ((ALPHA.EQ.0).AND.(BETA.NE.ZERO)) is not
+      // done (it is in DSYRK for example) and left in the general case.
 *
       IF( ( N.EQ.0 ) .OR. ( ( ( ALPHA.EQ.ZERO ) .OR. ( K.EQ.0 ) ) .AND. ( BETA.EQ.ONE ) ) )RETURN
 *
@@ -81,9 +81,9 @@
          RETURN
       END IF
 *
-*     C is N-by-N.
-*     If N is odd, set NISODD = .TRUE., and N1 and N2.
-*     If N is even, NISODD = .FALSE., and NK.
+      // C is N-by-N.
+      // If N is odd, set NISODD = .TRUE., and N1 and N2.
+      // If N is even, NISODD = .FALSE., and NK.
 *
       IF( MOD( N, 2 ).EQ.0 ) THEN
          NISODD = .FALSE.
@@ -101,25 +101,25 @@
 *
       IF( NISODD ) THEN
 *
-*        N is odd
+         // N is odd
 *
          IF( NORMALTRANSR ) THEN
 *
-*           N is odd and TRANSR = 'N'
+            // N is odd and TRANSR = 'N'
 *
             IF( LOWER ) THEN
 *
-*              N is odd, TRANSR = 'N', and UPLO = 'L'
+               // N is odd, TRANSR = 'N', and UPLO = 'L'
 *
                IF( NOTRANS ) THEN
 *
-*                 N is odd, TRANSR = 'N', UPLO = 'L', and TRANS = 'N'
+                  // N is odd, TRANSR = 'N', UPLO = 'L', and TRANS = 'N'
 *
                   CALL DSYRK( 'L', 'N', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 1 ), N )                   CALL DSYRK( 'U', 'N', N2, K, ALPHA, A( N1+1, 1 ), LDA, BETA, C( N+1 ), N )                   CALL DGEMM( 'N', 'T', N2, N1, K, ALPHA, A( N1+1, 1 ), LDA, A( 1, 1 ), LDA, BETA, C( N1+1 ), N )
 *
                ELSE
 *
-*                 N is odd, TRANSR = 'N', UPLO = 'L', and TRANS = 'T'
+                  // N is odd, TRANSR = 'N', UPLO = 'L', and TRANS = 'T'
 *
                   CALL DSYRK( 'L', 'T', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 1 ), N )                   CALL DSYRK( 'U', 'T', N2, K, ALPHA, A( 1, N1+1 ), LDA, BETA, C( N+1 ), N )                   CALL DGEMM( 'T', 'N', N2, N1, K, ALPHA, A( 1, N1+1 ), LDA, A( 1, 1 ), LDA, BETA, C( N1+1 ), N )
 *
@@ -127,17 +127,17 @@
 *
             ELSE
 *
-*              N is odd, TRANSR = 'N', and UPLO = 'U'
+               // N is odd, TRANSR = 'N', and UPLO = 'U'
 *
                IF( NOTRANS ) THEN
 *
-*                 N is odd, TRANSR = 'N', UPLO = 'U', and TRANS = 'N'
+                  // N is odd, TRANSR = 'N', UPLO = 'U', and TRANS = 'N'
 *
                   CALL DSYRK( 'L', 'N', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( N2+1 ), N )                   CALL DSYRK( 'U', 'N', N2, K, ALPHA, A( N2, 1 ), LDA, BETA, C( N1+1 ), N )                   CALL DGEMM( 'N', 'T', N1, N2, K, ALPHA, A( 1, 1 ), LDA, A( N2, 1 ), LDA, BETA, C( 1 ), N )
 *
                ELSE
 *
-*                 N is odd, TRANSR = 'N', UPLO = 'U', and TRANS = 'T'
+                  // N is odd, TRANSR = 'N', UPLO = 'U', and TRANS = 'T'
 *
                   CALL DSYRK( 'L', 'T', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( N2+1 ), N )                   CALL DSYRK( 'U', 'T', N2, K, ALPHA, A( 1, N2 ), LDA, BETA, C( N1+1 ), N )                   CALL DGEMM( 'T', 'N', N1, N2, K, ALPHA, A( 1, 1 ), LDA, A( 1, N2 ), LDA, BETA, C( 1 ), N )
 *
@@ -147,21 +147,21 @@
 *
          ELSE
 *
-*           N is odd, and TRANSR = 'T'
+            // N is odd, and TRANSR = 'T'
 *
             IF( LOWER ) THEN
 *
-*              N is odd, TRANSR = 'T', and UPLO = 'L'
+               // N is odd, TRANSR = 'T', and UPLO = 'L'
 *
                IF( NOTRANS ) THEN
 *
-*                 N is odd, TRANSR = 'T', UPLO = 'L', and TRANS = 'N'
+                  // N is odd, TRANSR = 'T', UPLO = 'L', and TRANS = 'N'
 *
                   CALL DSYRK( 'U', 'N', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 1 ), N1 )                   CALL DSYRK( 'L', 'N', N2, K, ALPHA, A( N1+1, 1 ), LDA, BETA, C( 2 ), N1 )                   CALL DGEMM( 'N', 'T', N1, N2, K, ALPHA, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA, BETA, C( N1*N1+1 ), N1 )
 *
                ELSE
 *
-*                 N is odd, TRANSR = 'T', UPLO = 'L', and TRANS = 'T'
+                  // N is odd, TRANSR = 'T', UPLO = 'L', and TRANS = 'T'
 *
                   CALL DSYRK( 'U', 'T', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 1 ), N1 )                   CALL DSYRK( 'L', 'T', N2, K, ALPHA, A( 1, N1+1 ), LDA, BETA, C( 2 ), N1 )                   CALL DGEMM( 'T', 'N', N1, N2, K, ALPHA, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA, BETA, C( N1*N1+1 ), N1 )
 *
@@ -169,17 +169,17 @@
 *
             ELSE
 *
-*              N is odd, TRANSR = 'T', and UPLO = 'U'
+               // N is odd, TRANSR = 'T', and UPLO = 'U'
 *
                IF( NOTRANS ) THEN
 *
-*                 N is odd, TRANSR = 'T', UPLO = 'U', and TRANS = 'N'
+                  // N is odd, TRANSR = 'T', UPLO = 'U', and TRANS = 'N'
 *
                   CALL DSYRK( 'U', 'N', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( N2*N2+1 ), N2 )                   CALL DSYRK( 'L', 'N', N2, K, ALPHA, A( N1+1, 1 ), LDA, BETA, C( N1*N2+1 ), N2 )                   CALL DGEMM( 'N', 'T', N2, N1, K, ALPHA, A( N1+1, 1 ), LDA, A( 1, 1 ), LDA, BETA, C( 1 ), N2 )
 *
                ELSE
 *
-*                 N is odd, TRANSR = 'T', UPLO = 'U', and TRANS = 'T'
+                  // N is odd, TRANSR = 'T', UPLO = 'U', and TRANS = 'T'
 *
                   CALL DSYRK( 'U', 'T', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( N2*N2+1 ), N2 )                   CALL DSYRK( 'L', 'T', N2, K, ALPHA, A( 1, N1+1 ), LDA, BETA, C( N1*N2+1 ), N2 )                   CALL DGEMM( 'T', 'N', N2, N1, K, ALPHA, A( 1, N1+1 ), LDA, A( 1, 1 ), LDA, BETA, C( 1 ), N2 )
 *
@@ -191,25 +191,25 @@
 *
       ELSE
 *
-*        N is even
+         // N is even
 *
          IF( NORMALTRANSR ) THEN
 *
-*           N is even and TRANSR = 'N'
+            // N is even and TRANSR = 'N'
 *
             IF( LOWER ) THEN
 *
-*              N is even, TRANSR = 'N', and UPLO = 'L'
+               // N is even, TRANSR = 'N', and UPLO = 'L'
 *
                IF( NOTRANS ) THEN
 *
-*                 N is even, TRANSR = 'N', UPLO = 'L', and TRANS = 'N'
+                  // N is even, TRANSR = 'N', UPLO = 'L', and TRANS = 'N'
 *
                   CALL DSYRK( 'L', 'N', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 2 ), N+1 )                   CALL DSYRK( 'U', 'N', NK, K, ALPHA, A( NK+1, 1 ), LDA, BETA, C( 1 ), N+1 )                   CALL DGEMM( 'N', 'T', NK, NK, K, ALPHA, A( NK+1, 1 ), LDA, A( 1, 1 ), LDA, BETA, C( NK+2 ), N+1 )
 *
                ELSE
 *
-*                 N is even, TRANSR = 'N', UPLO = 'L', and TRANS = 'T'
+                  // N is even, TRANSR = 'N', UPLO = 'L', and TRANS = 'T'
 *
                   CALL DSYRK( 'L', 'T', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 2 ), N+1 )                   CALL DSYRK( 'U', 'T', NK, K, ALPHA, A( 1, NK+1 ), LDA, BETA, C( 1 ), N+1 )                   CALL DGEMM( 'T', 'N', NK, NK, K, ALPHA, A( 1, NK+1 ), LDA, A( 1, 1 ), LDA, BETA, C( NK+2 ), N+1 )
 *
@@ -217,17 +217,17 @@
 *
             ELSE
 *
-*              N is even, TRANSR = 'N', and UPLO = 'U'
+               // N is even, TRANSR = 'N', and UPLO = 'U'
 *
                IF( NOTRANS ) THEN
 *
-*                 N is even, TRANSR = 'N', UPLO = 'U', and TRANS = 'N'
+                  // N is even, TRANSR = 'N', UPLO = 'U', and TRANS = 'N'
 *
                   CALL DSYRK( 'L', 'N', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK+2 ), N+1 )                   CALL DSYRK( 'U', 'N', NK, K, ALPHA, A( NK+1, 1 ), LDA, BETA, C( NK+1 ), N+1 )                   CALL DGEMM( 'N', 'T', NK, NK, K, ALPHA, A( 1, 1 ), LDA, A( NK+1, 1 ), LDA, BETA, C( 1 ), N+1 )
 *
                ELSE
 *
-*                 N is even, TRANSR = 'N', UPLO = 'U', and TRANS = 'T'
+                  // N is even, TRANSR = 'N', UPLO = 'U', and TRANS = 'T'
 *
                   CALL DSYRK( 'L', 'T', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK+2 ), N+1 )                   CALL DSYRK( 'U', 'T', NK, K, ALPHA, A( 1, NK+1 ), LDA, BETA, C( NK+1 ), N+1 )                   CALL DGEMM( 'T', 'N', NK, NK, K, ALPHA, A( 1, 1 ), LDA, A( 1, NK+1 ), LDA, BETA, C( 1 ), N+1 )
 *
@@ -237,21 +237,21 @@
 *
          ELSE
 *
-*           N is even, and TRANSR = 'T'
+            // N is even, and TRANSR = 'T'
 *
             IF( LOWER ) THEN
 *
-*              N is even, TRANSR = 'T', and UPLO = 'L'
+               // N is even, TRANSR = 'T', and UPLO = 'L'
 *
                IF( NOTRANS ) THEN
 *
-*                 N is even, TRANSR = 'T', UPLO = 'L', and TRANS = 'N'
+                  // N is even, TRANSR = 'T', UPLO = 'L', and TRANS = 'N'
 *
                   CALL DSYRK( 'U', 'N', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK+1 ), NK )                   CALL DSYRK( 'L', 'N', NK, K, ALPHA, A( NK+1, 1 ), LDA, BETA, C( 1 ), NK )                   CALL DGEMM( 'N', 'T', NK, NK, K, ALPHA, A( 1, 1 ), LDA, A( NK+1, 1 ), LDA, BETA, C( ( ( NK+1 )*NK )+1 ), NK )
 *
                ELSE
 *
-*                 N is even, TRANSR = 'T', UPLO = 'L', and TRANS = 'T'
+                  // N is even, TRANSR = 'T', UPLO = 'L', and TRANS = 'T'
 *
                   CALL DSYRK( 'U', 'T', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK+1 ), NK )                   CALL DSYRK( 'L', 'T', NK, K, ALPHA, A( 1, NK+1 ), LDA, BETA, C( 1 ), NK )                   CALL DGEMM( 'T', 'N', NK, NK, K, ALPHA, A( 1, 1 ), LDA, A( 1, NK+1 ), LDA, BETA, C( ( ( NK+1 )*NK )+1 ), NK )
 *
@@ -259,17 +259,17 @@
 *
             ELSE
 *
-*              N is even, TRANSR = 'T', and UPLO = 'U'
+               // N is even, TRANSR = 'T', and UPLO = 'U'
 *
                IF( NOTRANS ) THEN
 *
-*                 N is even, TRANSR = 'T', UPLO = 'U', and TRANS = 'N'
+                  // N is even, TRANSR = 'T', UPLO = 'U', and TRANS = 'N'
 *
                   CALL DSYRK( 'U', 'N', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK*( NK+1 )+1 ), NK )                   CALL DSYRK( 'L', 'N', NK, K, ALPHA, A( NK+1, 1 ), LDA, BETA, C( NK*NK+1 ), NK )                   CALL DGEMM( 'N', 'T', NK, NK, K, ALPHA, A( NK+1, 1 ), LDA, A( 1, 1 ), LDA, BETA, C( 1 ), NK )
 *
                ELSE
 *
-*                 N is even, TRANSR = 'T', UPLO = 'U', and TRANS = 'T'
+                  // N is even, TRANSR = 'T', UPLO = 'U', and TRANS = 'T'
 *
                   CALL DSYRK( 'U', 'T', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK*( NK+1 )+1 ), NK )                   CALL DSYRK( 'L', 'T', NK, K, ALPHA, A( 1, NK+1 ), LDA, BETA, C( NK*NK+1 ), NK )                   CALL DGEMM( 'T', 'N', NK, NK, K, ALPHA, A( 1, NK+1 ), LDA, A( 1, 1 ), LDA, BETA, C( 1 ), NK )
 *
@@ -283,6 +283,6 @@
 *
       RETURN
 *
-*     End of DSFRK
+      // End of DSFRK
 *
       END

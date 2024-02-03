@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOB, SIDE;
       int                IHI, ILO, INFO, LDV, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             LSCALE( * ), RSCALE( * );
       COMPLEX*16         V( LDV, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LEFTV, RIGHTV;
       int                I, K;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZDSCAL, ZSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, INT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       RIGHTV = LSAME( SIDE, 'R' )
       LEFTV = LSAME( SIDE, 'L' )
@@ -61,17 +61,17 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN
 *
       IF( ILO.EQ.IHI ) GO TO 30
 *
-*     Backward balance
+      // Backward balance
 *
       IF( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) THEN
 *
-*        Backward transformation on right eigenvectors
+         // Backward transformation on right eigenvectors
 *
          IF( RIGHTV ) THEN
             DO 10 I = ILO, IHI
@@ -79,7 +79,7 @@
    10       CONTINUE
          END IF
 *
-*        Backward transformation on left eigenvectors
+         // Backward transformation on left eigenvectors
 *
          IF( LEFTV ) THEN
             DO 20 I = ILO, IHI
@@ -88,12 +88,12 @@
          END IF
       END IF
 *
-*     Backward permutation
+      // Backward permutation
 *
    30 CONTINUE
       IF( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) THEN
 *
-*        Backward permutation on right eigenvectors
+         // Backward permutation on right eigenvectors
 *
          IF( RIGHTV ) THEN
             IF( ILO.EQ.1 ) GO TO 50
@@ -112,7 +112,7 @@
    60       CONTINUE
          END IF
 *
-*        Backward permutation on left eigenvectors
+         // Backward permutation on left eigenvectors
 *
    70    CONTINUE
          IF( LEFTV ) THEN
@@ -137,6 +137,6 @@
 *
       RETURN
 *
-*     End of ZGGBAK
+      // End of ZGGBAK
 *
       END

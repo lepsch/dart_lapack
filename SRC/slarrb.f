@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IFIRST, ILAST, INFO, N, OFFSET, TWIST;
       REAL               PIVMIN, RTOL1, RTOL2, SPDIAM
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               D( * ), LLD( * ), W( * ), WERR( * ), WGAP( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, TWO, HALF
       PARAMETER        ( ZERO = 0.0E0, TWO = 2.0E0, HALF = 0.5E0 )
       int       MAXITR;
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R       REAL               BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                SLANEG;
       // EXTERNAL SLANEG
 *
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          RETURN
@@ -47,17 +47,17 @@
       R = TWIST
       IF((R.LT.1).OR.(R.GT.N)) R = N
 *
-*     Initialize unconverged intervals in [ WORK(2*I-1), WORK(2*I) ].
-*     The Sturm Count, Count( WORK(2*I-1) ) is arranged to be I-1, while
-*     Count( WORK(2*I) ) is stored in IWORK( 2*I ). The integer IWORK( 2*I-1 )
-*     for an unconverged interval is set to the index of the next unconverged
-*     interval, and is -1 or 0 for a converged interval. Thus a linked
-*     list of unconverged intervals is set up.
+      // Initialize unconverged intervals in [ WORK(2*I-1), WORK(2*I) ].
+      // The Sturm Count, Count( WORK(2*I-1) ) is arranged to be I-1, while
+      // Count( WORK(2*I) ) is stored in IWORK( 2*I ). The integer IWORK( 2*I-1 )
+      // for an unconverged interval is set to the index of the next unconverged
+      // interval, and is -1 or 0 for a converged interval. Thus a linked
+      // list of unconverged intervals is set up.
 *
       I1 = IFIRST
-*     The number of unconverged intervals
+      // The number of unconverged intervals
       NINT = 0
-*     The last unconverged interval found
+      // The last unconverged interval found
       PREV = 0
 
       RGAP = WGAP( I1-OFFSET )
@@ -70,10 +70,10 @@
          RGAP = WGAP( II )
          GAP = MIN( LGAP, RGAP )
 
-*        Make sure that [LEFT,RIGHT] contains the desired eigenvalue
-*        Compute negcount from dstqds facto L+D+L+^T = L D L^T - LEFT
+         // Make sure that [LEFT,RIGHT] contains the desired eigenvalue
+         // Compute negcount from dstqds facto L+D+L+^T = L D L^T - LEFT
 *
-*        Do while( NEGCNT(LEFT).GT.I-1 )
+         // Do while( NEGCNT(LEFT).GT.I-1 )
 *
          BACK = WERR( II )
  20      CONTINUE
@@ -84,8 +84,8 @@
             GO TO 20
          END IF
 *
-*        Do while( NEGCNT(RIGHT).LT.I )
-*        Compute negcount from dstqds facto L+D+L+^T = L D L^T - RIGHT
+         // Do while( NEGCNT(RIGHT).LT.I )
+         // Compute negcount from dstqds facto L+D+L+^T = L D L^T - RIGHT
 *
          BACK = WERR( II )
  50      CONTINUE
@@ -100,16 +100,16 @@
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
          IF( WIDTH.LE.CVRGD .OR. WIDTH.LE.MNWDTH ) THEN
-*           This interval has already converged and does not need refinement.
-*           (Note that the gaps might change through refining the
-*            eigenvalues, however, they can only get bigger.)
-*           Remove it from the list.
+            // This interval has already converged and does not need refinement.
+            // (Note that the gaps might change through refining the
+             // eigenvalues, however, they can only get bigger.)
+            // Remove it from the list.
             IWORK( K-1 ) = -1
-*           Make sure that I1 always points to the first unconverged interval
+            // Make sure that I1 always points to the first unconverged interval
             IF((I.EQ.I1).AND.(I.LT.ILAST)) I1 = I + 1
             IF((PREV.GE.I1).AND.(I.LE.ILAST)) IWORK( 2*PREV-1 ) = I + 1
          ELSE
-*           unconverged interval found
+            // unconverged interval found
             PREV = I
             NINT = NINT + 1
             IWORK( K-1 ) = I + 1
@@ -120,8 +120,8 @@
  75   CONTINUE
 
 *
-*     Do while( NINT.GT.0 ), i.e. there are still unconverged intervals
-*     and while (ITER.LT.MAXITR)
+      // Do while( NINT.GT.0 ), i.e. there are still unconverged intervals
+      // and while (ITER.LT.MAXITR)
 *
       ITER = 0
  80   CONTINUE
@@ -141,19 +141,19 @@
          RIGHT = WORK( K )
          MID = HALF*( LEFT + RIGHT )
 
-*        semiwidth of interval
+         // semiwidth of interval
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
          IF( ( WIDTH.LE.CVRGD ) .OR. ( WIDTH.LE.MNWDTH ).OR. ( ITER.EQ.MAXITR ) )THEN
-*           reduce number of unconverged intervals
+            // reduce number of unconverged intervals
             NINT = NINT - 1
-*           Mark interval as converged.
+            // Mark interval as converged.
             IWORK( K-1 ) = 0
             IF( I1.EQ.I ) THEN
                I1 = NEXT
             ELSE
-*              Prev holds the last unconverged interval previously examined
+               // Prev holds the last unconverged interval previously examined
                IF(PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT
             END IF
             I = NEXT
@@ -161,7 +161,7 @@
          END IF
          PREV = I
 *
-*        Perform one bisection step
+         // Perform one bisection step
 *
          NEGCNT = SLANEG( N, D, LLD, MID, PIVMIN, R )
          IF( NEGCNT.LE.I-1 ) THEN
@@ -172,17 +172,17 @@
          I = NEXT
  100  CONTINUE
       ITER = ITER + 1
-*     do another loop if there are still unconverged intervals
-*     However, in the last iteration, all intervals are accepted
-*     since this is the best we can do.
+      // do another loop if there are still unconverged intervals
+      // However, in the last iteration, all intervals are accepted
+      // since this is the best we can do.
       IF( ( NINT.GT.0 ).AND.(ITER.LE.MAXITR) ) GO TO 80
 *
 *
-*     At this point, all the intervals have converged
+      // At this point, all the intervals have converged
       DO 110 I = IFIRST, ILAST
          K = 2*I
          II = I - OFFSET
-*        All intervals marked by '0' have been refined.
+         // All intervals marked by '0' have been refined.
          IF( IWORK( K-1 ).EQ.0 ) THEN
             W( II ) = HALF*( WORK( K-1 )+WORK( K ) )
             WERR( II ) = WORK( K ) - W( II )
@@ -197,6 +197,6 @@
 
       RETURN
 *
-*     End of SLARRB
+      // End of SLARRB
 *
       END

@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, N;
       double             ANORM, RCOND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             AB( LDAB, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       String             NORMIN;
       int                IX, KASE;
       double             AINVNM, SCALE, SCALEL, SCALEU, SMLNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLACN2, DLATBS, DRSCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -63,7 +63,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -75,7 +75,7 @@
 *
       SMLNUM = DLAMCH( 'Safe minimum' )
 *
-*     Estimate the 1-norm of the inverse.
+      // Estimate the 1-norm of the inverse.
 *
       KASE = 0
       NORMIN = 'N'
@@ -84,27 +84,27 @@
       IF( KASE.NE.0 ) THEN
          IF( UPPER ) THEN
 *
-*           Multiply by inv(U**T).
+            // Multiply by inv(U**T).
 *
             CALL DLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
-*           Multiply by inv(U).
+            // Multiply by inv(U).
 *
             CALL DLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          ELSE
 *
-*           Multiply by inv(L).
+            // Multiply by inv(L).
 *
             CALL DLATBS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
-*           Multiply by inv(L**T).
+            // Multiply by inv(L**T).
 *
             CALL DLATBS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          END IF
 *
-*        Multiply by 1/SCALE if doing so will not cause overflow.
+         // Multiply by 1/SCALE if doing so will not cause overflow.
 *
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
@@ -115,7 +115,7 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
@@ -123,6 +123,6 @@
 *
       RETURN
 *
-*     End of DPBCON
+      // End of DPBCON
 *
       END

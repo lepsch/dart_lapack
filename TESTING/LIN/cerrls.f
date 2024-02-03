@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                INFO, IRNK;
       REAL               RCOND
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX );
       REAL               RW( NMAX ), S( NMAX )
       COMPLEX            A( NMAX, NMAX ), B( NMAX, NMAX ), W( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, CGELS, CGELSD, CGELSS, CGELST, CGELSY, CGETSLS
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       C2 = PATH( 2: 3 )
@@ -52,11 +52,11 @@
       OK = .TRUE.
       WRITE( NOUT, FMT = * )
 *
-*     Test error exits for the least squares driver routines.
+      // Test error exits for the least squares driver routines.
 *
       IF( LSAMEN( 2, C2, 'LS' ) ) THEN
 *
-*        CGELS
+         // CGELS
 *
          SRNAMT = 'CGELS '
          INFOT = 1
@@ -84,7 +84,7 @@
          CALL CGELS( 'N', 1, 1, 0, A, 1, B, 1, W, 1, INFO )
          CALL CHKXER( 'CGELS ', INFOT, NOUT, LERR, OK )
 *
-*        CGELST
+         // CGELST
 *
          SRNAMT = 'CGELST'
          INFOT = 1
@@ -112,7 +112,7 @@
          CALL CGELST( 'N', 1, 1, 0, A, 1, B, 1, W, 1, INFO )
          CALL CHKXER( 'CGELST', INFOT, NOUT, LERR, OK )
 *
-*        CGETSLS
+         // CGETSLS
 *
          SRNAMT = 'CGETSLS'
          INFOT = 1
@@ -137,7 +137,7 @@
          CALL CGETSLS( 'N', 0, 2, 0, A, 1, B, 1, W, 2, INFO )
          CALL CHKXER( 'CGETSLS', INFOT, NOUT, LERR, OK )
 *
-*        CGELSS
+         // CGELSS
 *
          SRNAMT = 'CGELSS'
          INFOT = 1
@@ -156,7 +156,7 @@
          CALL CGELSS( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 2, RW, INFO )
          CALL CHKXER( 'CGELSS', INFOT, NOUT, LERR, OK )
 *
-*        CGELSY
+         // CGELSY
 *
          SRNAMT = 'CGELSY'
          INFOT = 1
@@ -178,7 +178,7 @@
          CALL CGELSY( 0, 3, 0, A, 1, B, 3, IP, RCOND, IRNK, W, 1, RW, INFO )
          CALL CHKXER( 'CGELSY', INFOT, NOUT, LERR, OK )
 *
-*        CGELSD
+         // CGELSD
 *
          SRNAMT = 'CGELSD'
          INFOT = 1
@@ -201,12 +201,12 @@
          CALL CHKXER( 'CGELSD', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of CERRLS
+      // End of CERRLS
 *
       END

@@ -5,44 +5,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX*16         A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, ZGEQRT2, ZGEQRT3, ZGEQRT, ZGEMQRT
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO J = 1, NMAX
          DO I = 1, NMAX
@@ -54,9 +54,9 @@
       END DO
       OK = .TRUE.
 *
-*     Error exits for QRT factorization
+      // Error exits for QRT factorization
 *
-*     ZGEQRT
+      // ZGEQRT
 *
       SRNAMT = 'ZGEQRT'
       INFOT = 1
@@ -75,7 +75,7 @@
       CALL ZGEQRT( 2, 2, 2, A, 2, T, 1, W, INFO )
       CALL CHKXER( 'ZGEQRT', INFOT, NOUT, LERR, OK )
 *
-*     ZGEQRT2
+      // ZGEQRT2
 *
       SRNAMT = 'ZGEQRT2'
       INFOT = 1
@@ -91,7 +91,7 @@
       CALL ZGEQRT2( 2, 2, A, 2, T, 1, INFO )
       CALL CHKXER( 'ZGEQRT2', INFOT, NOUT, LERR, OK )
 *
-*     ZGEQRT3
+      // ZGEQRT3
 *
       SRNAMT = 'ZGEQRT3'
       INFOT = 1
@@ -107,7 +107,7 @@
       CALL ZGEQRT3( 2, 2, A, 2, T, 1, INFO )
       CALL CHKXER( 'ZGEQRT3', INFOT, NOUT, LERR, OK )
 *
-*     ZGEMQRT
+      // ZGEMQRT
 *
       SRNAMT = 'ZGEMQRT'
       INFOT = 1
@@ -144,12 +144,12 @@
       CALL ZGEMQRT( 'L', 'N', 1, 1, 1, 1, A, 1, T, 1, C, 0, W, INFO )
       CALL CHKXER( 'ZGEMQRT', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of ZERRQRT
+      // End of ZERRQRT
 *
       END

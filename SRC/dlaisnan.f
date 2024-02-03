@@ -4,9 +4,9 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double          , INTENT(IN) :: DIN1, DIN2;
-*     ..
+      // ..
 *
 *  =====================================================================
 *

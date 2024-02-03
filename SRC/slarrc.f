@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBT;
       int                EIGCNT, INFO, LCNT, N, RCNT;
       REAL               PIVMIN, VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       bool               MATT;
       REAL               LPIVOT, RPIVOT, SL, SU, TMP, TMP2
 
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       LCNT = 0
       RCNT = 0
       EIGCNT = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          RETURN
@@ -46,7 +46,7 @@
 
 
       IF (MATT) THEN
-*        Sturm sequence count on T
+         // Sturm sequence count on T
          LPIVOT = D( 1 ) - VL
          RPIVOT = D( 1 ) - VU
          IF( LPIVOT.LE.ZERO ) THEN
@@ -67,7 +67,7 @@
             ENDIF
  10      CONTINUE
       ELSE
-*        Sturm sequence count on L D L^T
+         // Sturm sequence count on L D L^T
          SL = -VL
          SU = -VU
          DO 20 I = 1, N - 1
@@ -108,6 +108,6 @@
 
       RETURN
 *
-*     End of SLARRC
+      // End of SLARRC
 *
       END

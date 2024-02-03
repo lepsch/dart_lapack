@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * );
       COMPLEX*16         B( LDB, * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                IUPLO, J, JB, NB;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZPTTS2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments.
+      // Test the input arguments.
 *
       INFO = 0
       UPPER = ( UPLO.EQ.'U' .OR. UPLO.EQ.'u' )
@@ -49,11 +49,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
-*     Determine the number of right-hand sides to solve at a time.
+      // Determine the number of right-hand sides to solve at a time.
 *
       IF( NRHS.EQ.1 ) THEN
          NB = 1
@@ -61,7 +61,7 @@
          NB = MAX( 1, ILAENV( 1, 'ZPTTRS', UPLO, N, NRHS, -1, -1 ) )
       END IF
 *
-*     Decode UPLO
+      // Decode UPLO
 *
       IF( UPPER ) THEN
          IUPLO = 1
@@ -80,6 +80,6 @@
 *
       RETURN
 *
-*     End of ZPTTRS
+      // End of ZPTTRS
 *
       END

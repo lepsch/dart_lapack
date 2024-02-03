@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                JPVT( * );
       double             RWORK( * );
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ITEMP, J, MA, MN, PVT;
       double             TEMP, TEMP2, TOL3Z;
       COMPLEX*16         AII
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEQR2, ZLARF, ZLARFG, ZSWAP, ZUNM2R
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCMPLX, DCONJG, MAX, MIN, SQRT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX;
       double             DLAMCH, DZNRM2;
       // EXTERNAL IDAMAX, DLAMCH, DZNRM2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -55,7 +55,7 @@
       MN = MIN( M, N )
       TOL3Z = SQRT(DLAMCH('Epsilon'))
 *
-*     Move initial columns up front
+      // Move initial columns up front
 *
       ITEMP = 1
       DO 10 I = 1, N
@@ -74,7 +74,7 @@
    10 CONTINUE
       ITEMP = ITEMP - 1
 *
-*     Compute the QR factorization and update remaining columns
+      // Compute the QR factorization and update remaining columns
 *
       IF( ITEMP.GT.0 ) THEN
          MA = MIN( ITEMP, M )
@@ -86,19 +86,19 @@
 *
       IF( ITEMP.LT.MN ) THEN
 *
-*        Initialize partial column norms. The first n elements of
-*        work store the exact column norms.
+         // Initialize partial column norms. The first n elements of
+         // work store the exact column norms.
 *
          DO 20 I = ITEMP + 1, N
             RWORK( I ) = DZNRM2( M-ITEMP, A( ITEMP+1, I ), 1 )
             RWORK( N+I ) = RWORK( I )
    20    CONTINUE
 *
-*        Compute factorization
+         // Compute factorization
 *
          DO 40 I = ITEMP + 1, MN
 *
-*           Determine ith pivot column and swap if necessary
+            // Determine ith pivot column and swap if necessary
 *
             PVT = ( I-1 ) + IDAMAX( N-I+1, RWORK( I ), 1 )
 *
@@ -111,7 +111,7 @@
                RWORK( N+PVT ) = RWORK( N+I )
             END IF
 *
-*           Generate elementary reflector H(i)
+            // Generate elementary reflector H(i)
 *
             AII = A( I, I )
             CALL ZLARFG( M-I+1, AII, A( MIN( I+1, M ), I ), 1, TAU( I ) )
@@ -119,7 +119,7 @@
 *
             IF( I.LT.N ) THEN
 *
-*              Apply H(i) to A(i:m,i+1:n) from the left
+               // Apply H(i) to A(i:m,i+1:n) from the left
 *
                AII = A( I, I )
                A( I, I ) = DCMPLX( ONE )
@@ -127,13 +127,13 @@
                A( I, I ) = AII
             END IF
 *
-*           Update partial column norms
+            // Update partial column norms
 *
             DO 30 J = I + 1, N
                IF( RWORK( J ).NE.ZERO ) THEN
 *
-*                 NOTE: The following 4 lines follow from the analysis in
-*                 Lapack Working Note 176.
+                  // NOTE: The following 4 lines follow from the analysis in
+                  // Lapack Working Note 176.
 *
                   TEMP = ABS( A( I, J ) ) / RWORK( J )
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
@@ -156,6 +156,6 @@
       END IF
       RETURN
 *
-*     End of ZGEQPF
+      // End of ZGEQPF
 *
       END

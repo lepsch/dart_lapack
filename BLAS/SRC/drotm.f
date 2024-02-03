@@ -4,22 +4,22 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,INCY,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double           DPARAM(5),DX(*),DY(*);
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double           DFLAG,DH11,DH12,DH21,DH22,TWO,W,Z,ZERO;
       int     I,KX,KY,NSTEPS;
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA ZERO,TWO/0.D0,2.D0/
-*     ..
+      // ..
 *
       DFLAG = DPARAM(1)
       IF (N.LE.0 .OR. (DFLAG+TWO.EQ.ZERO)) RETURN
@@ -101,6 +101,6 @@
       END IF
       RETURN
 *
-*     End of DROTM
+      // End of DROTM
 *
       END

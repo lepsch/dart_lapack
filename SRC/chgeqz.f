@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             COMPQ, COMPZ, JOB;
       int                IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            ALPHA( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               HALF
       PARAMETER          ( HALF = 0.5E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILAZR2, ILAZRO, ILQ, ILSCHR, ILZ, LQUERY;
       int                ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT       REAL               ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL, C, SAFMIN, TEMP, TEMP2, TEMPR, ULP       COMPLEX            ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2, CTEMP3, ESHIFT, S, SHIFT, SIGNBC, U12, X, ABI12, Y;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       COMPLEX            CLADIV
       bool               LSAME;
       REAL               CLANHS, SLAMCH
       // EXTERNAL CLADIV, LSAME, CLANHS, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLARTG, CLASET, CROT, CSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL, SQRT
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               ABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode JOB, COMPQ, COMPZ
+      // Decode JOB, COMPQ, COMPZ
 *
       IF( LSAME( JOB, 'E' ) ) THEN
          ILSCHR = .FALSE.
@@ -88,7 +88,7 @@
          ICOMPZ = 0
       END IF
 *
-*     Check Argument Values
+      // Check Argument Values
 *
       INFO = 0
       WORK( 1 ) = MAX( 1, N )
@@ -123,19 +123,19 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
-*     WORK( 1 ) = CMPLX( 1 )
+      // WORK( 1 ) = CMPLX( 1 )
       IF( N.LE.0 ) THEN
          WORK( 1 ) = CMPLX( 1 )
          RETURN
       END IF
 *
-*     Initialize Q and Z
+      // Initialize Q and Z
 *
       IF( ICOMPQ.EQ.3 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
 *
-*     Machine Constants
+      // Machine Constants
 *
       IN = IHI + 1 - ILO
       SAFMIN = SLAMCH( 'S' )
@@ -148,7 +148,7 @@
       BSCALE = ONE / MAX( SAFMIN, BNORM )
 *
 *
-*     Set Eigenvalues IHI+1:N
+      // Set Eigenvalues IHI+1:N
 *
       DO 10 J = IHI + 1, N
          ABSB = ABS( T( J, J ) )
@@ -169,24 +169,24 @@
          BETA( J ) = T( J, J )
    10 CONTINUE
 *
-*     If IHI < ILO, skip QZ steps
+      // If IHI < ILO, skip QZ steps
 *
       IF( IHI.LT.ILO ) GO TO 190
 *
-*     MAIN QZ ITERATION LOOP
+      // MAIN QZ ITERATION LOOP
 *
-*     Initialize dynamic indices
+      // Initialize dynamic indices
 *
-*     Eigenvalues ILAST+1:N have been found.
-*        Column operations modify rows IFRSTM:whatever
-*        Row operations modify columns whatever:ILASTM
+      // Eigenvalues ILAST+1:N have been found.
+         // Column operations modify rows IFRSTM:whatever
+         // Row operations modify columns whatever:ILASTM
 *
-*     If only eigenvalues are being computed, then
-*        IFRSTM is the row of the last splitting row above row ILAST;
-*        this is always at least ILO.
-*     IITER counts iterations since the last eigenvalue was found,
-*        to tell when to use an extraordinary shift.
-*     MAXIT is the maximum number of QZ sweeps allowed.
+      // If only eigenvalues are being computed, then
+         // IFRSTM is the row of the last splitting row above row ILAST;
+        t // his is always at least ILO.
+      // IITER counts iterations since the last eigenvalue was found,
+        t // o tell when to use an extraordinary shift.
+      // MAXIT is the maximum number of QZ sweeps allowed.
 *
       ILAST = IHI
       IF( ILSCHR ) THEN
@@ -202,17 +202,17 @@
 *
       DO 170 JITER = 1, MAXIT
 *
-*        Check for too many iterations.
+         // Check for too many iterations.
 *
          IF( JITER.GT.MAXIT ) GO TO 180
 *
-*        Split the matrix if possible.
+         // Split the matrix if possible.
 *
-*        Two tests:
-*           1: H(j,j-1)=0  or  j=ILO
-*           2: T(j,j)=0
+         // Two tests:
+            // 1: H(j,j-1)=0  or  j=ILO
+            // 2: T(j,j)=0
 *
-*        Special case: j=ILAST
+         // Special case: j=ILAST
 *
          IF( ILAST.EQ.ILO ) THEN
             GO TO 60
@@ -228,11 +228,11 @@
             GO TO 50
          END IF
 *
-*        General case: j<ILAST
+         // General case: j<ILAST
 *
          DO 40 J = ILAST - 1, ILO, -1
 *
-*           Test 1: for H(j,j-1)=0 or j=ILO
+            // Test 1: for H(j,j-1)=0 or j=ILO
 *
             IF( J.EQ.ILO ) THEN
                ILAZRO = .TRUE.
@@ -245,23 +245,23 @@
                END IF
             END IF
 *
-*           Test 2: for T(j,j)=0
+            // Test 2: for T(j,j)=0
 *
             IF( ABS( T( J, J ) ).LT.BTOL ) THEN
                T( J, J ) = CZERO
 *
-*              Test 1a: Check for 2 consecutive small subdiagonals in A
+               // Test 1a: Check for 2 consecutive small subdiagonals in A
 *
                ILAZR2 = .FALSE.
                IF( .NOT.ILAZRO ) THEN
                   IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ).LE.ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = .TRUE.
                END IF
 *
-*              If both tests pass (1 & 2), i.e., the leading diagonal
-*              element of B in the block is zero, split a 1x1 block off
-*              at the top. (I.e., at the J-th row/column) The leading
-*              diagonal element of the remainder can also be zero, so
-*              this may have to be done repeatedly.
+               // If both tests pass (1 & 2), i.e., the leading diagonal
+               // element of B in the block is zero, split a 1x1 block off
+               // at the top. (I.e., at the J-th row/column) The leading
+               // diagonal element of the remainder can also be zero, so
+              t // his may have to be done repeatedly.
 *
                IF( ILAZRO .OR. ILAZR2 ) THEN
                   DO 20 JCH = J, ILAST - 1
@@ -284,8 +284,8 @@
                   GO TO 50
                ELSE
 *
-*                 Only test 2 passed -- chase the zero to T(ILAST,ILAST)
-*                 Then process as in the case T(ILAST,ILAST)=0
+                  // Only test 2 passed -- chase the zero to T(ILAST,ILAST)
+                  // Then process as in the case T(ILAST,ILAST)=0
 *
                   DO 30 JCH = J, ILAST - 1
                      CTEMP = T( JCH, JCH+1 )
@@ -301,23 +301,23 @@
                END IF
             ELSE IF( ILAZRO ) THEN
 *
-*              Only test 1 passed -- work on J:ILAST
+               // Only test 1 passed -- work on J:ILAST
 *
                IFIRST = J
                GO TO 70
             END IF
 *
-*           Neither test passed -- try next J
+            // Neither test passed -- try next J
 *
    40    CONTINUE
 *
-*        (Drop-through is "impossible")
+         // (Drop-through is "impossible")
 *
          INFO = 2*N + 1
          GO TO 210
 *
-*        T(ILAST,ILAST)=0 -- clear H(ILAST,ILAST-1) to split off a
-*        1x1 block.
+         // T(ILAST,ILAST)=0 -- clear H(ILAST,ILAST-1) to split off a
+         // 1x1 block.
 *
    50    CONTINUE
          CTEMP = H( ILAST, ILAST )
@@ -325,7 +325,7 @@
          H( ILAST, ILAST-1 ) = CZERO
          CALL CROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL CROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL CROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
 *
-*        H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
+         // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
 *
    60    CONTINUE
          ABSB = ABS( T( ILAST, ILAST ) )
@@ -345,12 +345,12 @@
          ALPHA( ILAST ) = H( ILAST, ILAST )
          BETA( ILAST ) = T( ILAST, ILAST )
 *
-*        Go to next block -- exit if finished.
+         // Go to next block -- exit if finished.
 *
          ILAST = ILAST - 1
          IF( ILAST.LT.ILO ) GO TO 190
 *
-*        Reset counters
+         // Reset counters
 *
          IITER = 0
          ESHIFT = CZERO
@@ -360,10 +360,10 @@
          END IF
          GO TO 160
 *
-*        QZ step
+         // QZ step
 *
-*        This iteration only involves rows/columns IFIRST:ILAST.  We
-*        assume IFIRST < ILAST, and that the diagonal of B is non-zero.
+         // This iteration only involves rows/columns IFIRST:ILAST.  We
+         // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
 *
    70    CONTINUE
          IITER = IITER + 1
@@ -371,20 +371,20 @@
             IFRSTM = IFIRST
          END IF
 *
-*        Compute the Shift.
+         // Compute the Shift.
 *
-*        At this point, IFIRST < ILAST, and the diagonal elements of
-*        T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
-*        magnitude)
+         // At this point, IFIRST < ILAST, and the diagonal elements of
+         // T(IFIRST:ILAST,IFIRST,ILAST) are larger than BTOL (in
+         // magnitude)
 *
          IF( ( IITER / 10 )*10.NE.IITER ) THEN
 *
-*           The Wilkinson shift (AEP p.512), i.e., the eigenvalue of
-*           the bottom-right 2x2 block of A inv(B) which is nearest to
-*           the bottom-right element.
+            // The Wilkinson shift (AEP p.512), i.e., the eigenvalue of
+           t // he bottom-right 2x2 block of A inv(B) which is nearest to
+           t // he bottom-right element.
 *
-*           We factor B as U*D, where U has unit diagonals, and
-*           compute (A*inv(D))*inv(U).
+            // We factor B as U*D, where U has unit diagonals, and
+            // compute (A*inv(D))*inv(U).
 *
             U12 = ( BSCALE*T( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD11 = ( ASCALE*H( ILAST-1, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD21 = ( ASCALE*H( ILAST, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD12 = ( ASCALE*H( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD22 = ( ASCALE*H( ILAST, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )
             ABI22 = AD22 - U12*AD21
@@ -405,7 +405,7 @@
             END IF
          ELSE
 *
-*           Exceptional shift.  Chosen for no particularly good reason.
+            // Exceptional shift.  Chosen for no particularly good reason.
 *
             IF( ( IITER / 20 )*20.EQ.IITER .AND.  BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
             ELSE
@@ -414,7 +414,7 @@
             SHIFT = ESHIFT
          END IF
 *
-*        Now check for two consecutive small subdiagonals.
+         // Now check for two consecutive small subdiagonals.
 *
          DO 80 J = ILAST - 1, IFIRST + 1, -1
             ISTART = J
@@ -433,14 +433,14 @@
          CTEMP = ASCALE*H( IFIRST, IFIRST ) - SHIFT*( BSCALE*T( IFIRST, IFIRST ) )
    90    CONTINUE
 *
-*        Do an implicit-shift QZ sweep.
+         // Do an implicit-shift QZ sweep.
 *
-*        Initial Q
+         // Initial Q
 *
          CTEMP2 = ASCALE*H( ISTART+1, ISTART )
          CALL CLARTG( CTEMP, CTEMP2, C, S, CTEMP3 )
 *
-*        Sweep
+         // Sweep
 *
          DO 150 J = ISTART, ILAST - 1
             IF( J.GT.ISTART ) THEN
@@ -492,17 +492,17 @@
 *
   170 CONTINUE
 *
-*     Drop-through = non-convergence
+      // Drop-through = non-convergence
 *
   180 CONTINUE
       INFO = ILAST
       GO TO 210
 *
-*     Successful completion of all QZ steps
+      // Successful completion of all QZ steps
 *
   190 CONTINUE
 *
-*     Set Eigenvalues 1:ILO-1
+      // Set Eigenvalues 1:ILO-1
 *
       DO 200 J = 1, ILO - 1
          ABSB = ABS( T( J, J ) )
@@ -523,16 +523,16 @@
          BETA( J ) = T( J, J )
   200 CONTINUE
 *
-*     Normal Termination
+      // Normal Termination
 *
       INFO = 0
 *
-*     Exit (other than argument error) -- return optimal workspace size
+      // Exit (other than argument error) -- return optimal workspace size
 *
   210 CONTINUE
       WORK( 1 ) = CMPLX( N )
       RETURN
 *
-*     End of CHGEQZ
+      // End of CHGEQZ
 *
       END

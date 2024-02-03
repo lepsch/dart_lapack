@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOB, SIDE;
       int                IHI, ILO, INFO, LDV, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             SCALE( * ), V( LDV, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE;
       PARAMETER          ( ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LEFTV, RIGHTV;
       int                I, II, K;
       double             S;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and Test the input parameters
+      // Decode and Test the input parameters
 *
       RIGHTV = LSAME( SIDE, 'R' )
       LEFTV = LSAME( SIDE, 'L' )
@@ -61,13 +61,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN
 *
       IF( ILO.EQ.IHI ) GO TO 30
 *
-*     Backward balance
+      // Backward balance
 *
       IF( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) THEN
 *
@@ -87,10 +87,10 @@
 *
       END IF
 *
-*     Backward permutation
+      // Backward permutation
 *
-*     For  I = ILO-1 step -1 until 1,
-*              IHI+1 step 1 until N do --
+      // For  I = ILO-1 step -1 until 1,
+               // IHI+1 step 1 until N do --
 *
    30 CONTINUE
       IF( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) THEN
@@ -117,6 +117,6 @@
 *
       RETURN
 *
-*     End of DGEBAK
+      // End of DGEBAK
 *
       END

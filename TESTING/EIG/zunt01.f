@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         U( LDU, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
       double             EPS;
       COMPLEX*16         TMP, ZDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANSY;
       COMPLEX*16         ZDOTC
       // EXTERNAL LSAME, DLAMCH, ZLANSY, ZDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZHERK, ZLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, MAX, MIN
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESID = ZERO
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
@@ -69,17 +69,17 @@
       END IF
       IF( LDWORK.GT.0 ) THEN
 *
-*        Compute I - U*U' or I - U'*U.
+         // Compute I - U*U' or I - U'*U.
 *
          CALL ZLASET( 'Upper', MNMIN, MNMIN, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, LDWORK )          CALL ZHERK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
 *
-*        Compute norm( I - U*U' ) / ( K * EPS ) .
+         // Compute norm( I - U*U' ) / ( K * EPS ) .
 *
          RESID = ZLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, RWORK )
          RESID = ( RESID / DBLE( K ) ) / EPS
       ELSE IF( TRANSU.EQ.'C' ) THEN
 *
-*        Find the maximum element in abs( I - U'*U ) / ( m * EPS )
+         // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 *
          DO 20 J = 1, N
             DO 10 I = 1, J
@@ -95,7 +95,7 @@
          RESID = ( RESID / DBLE( M ) ) / EPS
       ELSE
 *
-*        Find the maximum element in abs( I - U*U' ) / ( n * EPS )
+         // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
 *
          DO 40 J = 1, M
             DO 30 I = 1, J
@@ -112,6 +112,6 @@
       END IF
       RETURN
 *
-*     End of ZUNT01
+      // End of ZUNT01
 *
       END

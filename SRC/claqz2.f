@@ -1,7 +1,7 @@
       RECURSIVE SUBROUTINE CLAQZ2( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, NS, ND, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK, LWORK, RWORK, REC, INFO )
       IMPLICIT NONE
 
-*     Arguments
+      // Arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC;
        COMPLEX, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * )
@@ -9,24 +9,24 @@
       COMPLEX :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * )
       REAL :: RWORK( * )
 
-*     Parameters
+      // Parameters
       COMPLEX         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) )
       REAL :: ZERO, ONE, HALF
       PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
 
-*     Local Scalars
+      // Local Scalars
       int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, CTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;
       REAL :: SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR
       COMPLEX :: S, S1, TEMP
 
-*     External Functions
+      // External Functions
       // EXTERNAL :: XERBLA, CLAQZ0, CLAQZ1, CLACPY, CLASET, CGEMM, CTGEXC, CLARTG, CROT
       REAL, EXTERNAL :: SLAMCH
 
       INFO = 0
 
-*     Set up deflation window
+      // Set up deflation window
       JW = MIN( NW, IHI-ILO+1 )
       KWTOP = IHI-JW+1
       IF ( KWTOP .EQ. ILO ) THEN
@@ -35,14 +35,14 @@
          S = A( KWTOP, KWTOP-1 )
       END IF
 
-*     Determine required workspace
+      // Determine required workspace
       IFST = 1
       ILST = JW
       CALL CLAQZ0( 'S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK, -1, RWORK, REC+1, QZ_SMALL_INFO )
       LWORKREQ = INT( WORK( 1 ) )+2*JW**2
       LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N )
       IF ( LWORK .EQ.-1 ) THEN
-*        workspace query, quick return
+         // workspace query, quick return
          WORK( 1 ) = LWORKREQ
          RETURN
       ELSE IF ( LWORK .LT. LWORKREQ ) THEN
@@ -54,14 +54,14 @@
          RETURN
       END IF
 
-*     Get machine constants
+      // Get machine constants
       SAFMIN = SLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE/SAFMIN
       ULP = SLAMCH( 'PRECISION' )
       SMLNUM = SAFMIN*( REAL( N )/ULP )
 
       IF ( IHI .EQ. KWTOP ) THEN
-*        1 by 1 deflation window, just try a regular deflation
+         // 1 by 1 deflation window, just try a regular deflation
          ALPHA( KWTOP ) = A( KWTOP, KWTOP )
          BETA( KWTOP ) = B( KWTOP, KWTOP )
          NS = 1
@@ -76,17 +76,17 @@
       END IF
 
 
-*     Store window in case of convergence failure
+      // Store window in case of convergence failure
       CALL CLACPY( 'ALL', JW, JW, A( KWTOP, KWTOP ), LDA, WORK, JW )
       CALL CLACPY( 'ALL', JW, JW, B( KWTOP, KWTOP ), LDB, WORK( JW**2+ 1 ), JW )
 
-*     Transform window to real schur form
+      // Transform window to real schur form
       CALL CLASET( 'FULL', JW, JW, CZERO, CONE, QC, LDQC )
       CALL CLASET( 'FULL', JW, JW, CZERO, CONE, ZC, LDZC )
       CALL CLAQZ0( 'S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK( 2*JW**2+1 ), LWORK-2*JW**2, RWORK, REC+1, QZ_SMALL_INFO )
 
       IF( QZ_SMALL_INFO .NE. 0 ) THEN
-*        Convergence failure, restore the window and exit
+         // Convergence failure, restore the window and exit
          ND = 0
          NS = JW-QZ_SMALL_INFO
          CALL CLACPY( 'ALL', JW, JW, WORK, JW, A( KWTOP, KWTOP ), LDA )
@@ -94,7 +94,7 @@
          RETURN
       END IF
 
-*     Deflation detection loop
+      // Deflation detection loop
       IF ( KWTOP .EQ. ILO .OR. S .EQ. CZERO ) THEN
          KWBOT = KWTOP-1
       ELSE
@@ -102,16 +102,16 @@
          K = 1
          K2 = 1
          DO WHILE ( K .LE. JW )
-*              Try to deflate eigenvalue
+               // Try to deflate eigenvalue
                TEMPR = ABS( A( KWBOT, KWBOT ) )
                IF( TEMPR .EQ. ZERO ) THEN
                   TEMPR = ABS( S )
                END IF
                IF ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMPR, SMLNUM ) ) THEN
-*                 Deflatable
+                  // Deflatable
                   KWBOT = KWBOT-1
                ELSE
-*                 Not deflatable, move out of the way
+                  // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
                   CALL CTGEXC( .TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, CTGEXC_INFO )
@@ -122,7 +122,7 @@
          END DO
       END IF
 
-*     Store eigenvalues
+      // Store eigenvalues
       ND = IHI-KWBOT
       NS = JW-ND
       K = KWTOP
@@ -133,7 +133,7 @@
       END DO
 
       IF ( KWTOP .NE. ILO .AND. S .NE. CZERO ) THEN
-*        Reflect spike back, this will create optimally packed bulges
+         // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 ) *CONJG( QC( 1, 1:JW-ND ) )
          DO K = KWBOT-1, KWTOP, -1
             CALL CLARTG( A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP )
@@ -143,13 +143,13 @@
             CALL CROT( IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 )             CALL CROT( IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 )             CALL CROT( JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, CONJG( S1 ) )
          END DO
 
-*        Chase bulges down
+         // Chase bulges down
          ISTARTM = KWTOP
          ISTOPM = IHI
          K = KWBOT-1
          DO WHILE ( K .GE. KWTOP )
 
-*           Move bulge down and remove it
+            // Move bulge down and remove it
             DO K2 = K, KWBOT-1
                CALL CLAQZ1( .TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC )
             END DO
@@ -159,7 +159,7 @@
 
       END IF
 
-*     Apply Qc and Zc to rest of the matrix
+      // Apply Qc and Zc to rest of the matrix
       IF ( ILSCHUR ) THEN
          ISTARTM = 1
          ISTOPM = N

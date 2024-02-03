@@ -4,62 +4,62 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NM, NMAX, NNS, NOUT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NSVAL( * ), IWORK( * );
       REAL               SWORK(*)
       double             A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 11 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, IM, IMAT, INFO, IOFF, IRHS, IZERO, KL, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             ANORM, CNDNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-*     ..
-*     .. Local Variables ..
+      // ..
+      // .. Local Variables ..
       int                ITER, KASE;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, DGET08, DLACPY, DLARHS, DLASET, DLATB4, DLATMS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN, SQRT
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 2006, 2007, 2008, 2009 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       KASE = 0
       PATH( 1: 1 ) = 'double          ';
@@ -73,7 +73,7 @@
 *
       INFOT = 0
 *
-*     Do for each value of M in MVAL
+      // Do for each value of M in MVAL
 *
       DO 120 IM = 1, NM
          M = MVAL( IM )
@@ -85,32 +85,32 @@
 *
          DO 100 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 100
 *
-*           Skip types 5, 6, or 7 if the matrix size is too small.
+            // Skip types 5, 6, or 7 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
             IF( ZEROT .AND. N.LT.IMAT-4 ) GO TO 100
 *
-*           Set up parameters with DLATB4 and generate a test matrix
-*           with DLATMS.
+            // Set up parameters with DLATB4 and generate a test matrix
+            // with DLATMS.
 *
             CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
             SRNAMT = 'DLATMS'
             CALL DLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
-*           Check error code from DLATMS.
+            // Check error code from DLATMS.
 *
             IF( INFO.NE.0 ) THEN
                CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 100
             END IF
 *
-*           For types 5-7, zero one or more columns of the matrix to
-*           test that INFO is returned correctly.
+            // For types 5-7, zero one or more columns of the matrix to
+           t // est that INFO is returned correctly.
 *
             IF( ZEROT ) THEN
                IF( IMAT.EQ.5 ) THEN
@@ -152,8 +152,8 @@
                    CALL DLACPY( 'Full', M, N, AFAC, LDA, A, LDA )
                ENDIF
 *
-*              Check error code from DSGESV. This should be the same as
-*              the one of DGETRF.
+               // Check error code from DSGESV. This should be the same as
+              t // he one of DGETRF.
 *
                IF( INFO.NE.IZERO ) THEN
 *
@@ -167,27 +167,27 @@
                   END IF
                END IF
 *
-*              Skip the remaining test if the matrix is singular.
+               // Skip the remaining test if the matrix is singular.
 *
                IF( INFO.NE.0 ) GO TO 100
 *
-*              Check the quality of the solution
+               // Check the quality of the solution
 *
                CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
 *
                CALL DGET08( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
 *
-*              Check if the test passes the testing.
-*              Print information about the tests that did not
-*              pass the testing.
+               // Check if the test passes the testing.
+               // Print information about the tests that did not
+               // pass the testing.
 *
-*              If iterative refinement has been used and claimed to
-*              be successful (ITER>0), we want
-*                NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS*SRQT(N)) < 1
+               // If iterative refinement has been used and claimed to
+               // be successful (ITER>0), we want
+                 // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS*SRQT(N)) < 1
 *
-*              If double precision has been used (ITER<0), we want
-*                NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
-*              (Cf. the linear solver testing routines)
+               // If double precision has been used (ITER<0), we want
+                 // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
+               // (Cf. the linear solver testing routines)
 *
                IF ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
 *
@@ -208,7 +208,7 @@
   100    CONTINUE
   120 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       IF( NFAIL.GT.0 ) THEN
          WRITE( NOUT, FMT = 9996 )'DSGESV', NFAIL, NRUN
@@ -227,13 +227,13 @@
      $      ' routines passed the threshold ( ', I6, ' tests run)' )
  9994 FORMAT( 6X, I6, ' error messages recorded' )
 *
-*     SUBNAM, INFO, INFOE, M, IMAT
+      // SUBNAM, INFO, INFOE, M, IMAT
 *
  9988 FORMAT( ' *** ', A6, ' returned with INFO =', I5, ' instead of ',
      $      I5, / ' ==> M =', I5, ', type ',
      $      I2 )
 *
-*     SUBNAM, INFO, M, IMAT
+      // SUBNAM, INFO, M, IMAT
 *
  9975 FORMAT( ' *** Error code from ', A6, '=', I5, ' for M=', I5,
      $      ', type ', I2 )
@@ -252,6 +252,6 @@
      $      '( norm_1(A) * norm_1(X) * EPS ) > THRES if DGETRF' )
       RETURN
 *
-*     End of DDRVAB
+      // End of DDRVAB
 *
       END

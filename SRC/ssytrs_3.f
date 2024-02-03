@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               A( LDA, * ), B( LDB, * ), E( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                I, J, K, KP;
       REAL               AK, AKM1, AKM1K, BK, BKM1, DENOM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SSCAL, SSWAP, STRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -54,24 +54,24 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Begin Upper
+         // Begin Upper
 *
-*        Solve A*X = B, where A = U*D*U**T.
+         // Solve A*X = B, where A = U*D*U**T.
 *
-*        P**T * B
+         // P**T * B
 *
-*        Interchange rows K and IPIV(K) of matrix B in the same order
-*        that the formation order of IPIV(I) vector for Upper case.
+         // Interchange rows K and IPIV(K) of matrix B in the same order
+        t // hat the formation order of IPIV(I) vector for Upper case.
 *
-*        (We can do the simple loop over IPIV with decrement -1,
-*        since the ABS value of IPIV(I) represents the row index
-*        of the interchange with row i in both 1x1 and 2x2 pivot cases)
+         // (We can do the simple loop over IPIV with decrement -1,
+         // since the ABS value of IPIV(I) represents the row index
+         // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 *
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
@@ -80,11 +80,11 @@
             END IF
          END DO
 *
-*        Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
+         // Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 *
          CALL STRSM( 'L', 'U', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        Compute D \ B -> B   [ D \ (U \P**T * B) ]
+         // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 *
          I = N
          DO WHILE ( I.GE.1 )
@@ -106,18 +106,18 @@
             I = I - 1
          END DO
 *
-*        Compute (U**T \ B) -> B   [ U**T \ (D \ (U \P**T * B) ) ]
+         // Compute (U**T \ B) -> B   [ U**T \ (D \ (U \P**T * B) ) ]
 *
          CALL STRSM( 'L', 'U', 'T', 'U', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        P * B  [ P * (U**T \ (D \ (U \P**T * B) )) ]
+         // P * B  [ P * (U**T \ (D \ (U \P**T * B) )) ]
 *
-*        Interchange rows K and IPIV(K) of matrix B in reverse order
-*        from the formation order of IPIV(I) vector for Upper case.
+         // Interchange rows K and IPIV(K) of matrix B in reverse order
+         // from the formation order of IPIV(I) vector for Upper case.
 *
-*        (We can do the simple loop over IPIV with increment 1,
-*        since the ABS value of IPIV(I) represents the row index
-*        of the interchange with row i in both 1x1 and 2x2 pivot cases)
+         // (We can do the simple loop over IPIV with increment 1,
+         // since the ABS value of IPIV(I) represents the row index
+         // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 *
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
@@ -128,17 +128,17 @@
 *
       ELSE
 *
-*        Begin Lower
+         // Begin Lower
 *
-*        Solve A*X = B, where A = L*D*L**T.
+         // Solve A*X = B, where A = L*D*L**T.
 *
-*        P**T * B
-*        Interchange rows K and IPIV(K) of matrix B in the same order
-*        that the formation order of IPIV(I) vector for Lower case.
+         // P**T * B
+         // Interchange rows K and IPIV(K) of matrix B in the same order
+        t // hat the formation order of IPIV(I) vector for Lower case.
 *
-*        (We can do the simple loop over IPIV with increment 1,
-*        since the ABS value of IPIV(I) represents the row index
-*        of the interchange with row i in both 1x1 and 2x2 pivot cases)
+         // (We can do the simple loop over IPIV with increment 1,
+         // since the ABS value of IPIV(I) represents the row index
+         // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 *
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
@@ -147,11 +147,11 @@
             END IF
          END DO
 *
-*        Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
+         // Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 *
          CALL STRSM( 'L', 'L', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        Compute D \ B -> B   [ D \ (L \P**T * B) ]
+         // Compute D \ B -> B   [ D \ (L \P**T * B) ]
 *
          I = 1
          DO WHILE ( I.LE.N )
@@ -173,18 +173,18 @@
             I = I + 1
          END DO
 *
-*        Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
+         // Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
 *
          CALL STRSM('L', 'L', 'T', 'U', N, NRHS, ONE, A, LDA, B, LDB )
 *
-*        P * B  [ P * (L**T \ (D \ (L \P**T * B) )) ]
+         // P * B  [ P * (L**T \ (D \ (L \P**T * B) )) ]
 *
-*        Interchange rows K and IPIV(K) of matrix B in reverse order
-*        from the formation order of IPIV(I) vector for Lower case.
+         // Interchange rows K and IPIV(K) of matrix B in reverse order
+         // from the formation order of IPIV(I) vector for Lower case.
 *
-*        (We can do the simple loop over IPIV with decrement -1,
-*        since the ABS value of IPIV(I) represents the row index
-*        of the interchange with row i in both 1x1 and 2x2 pivot cases)
+         // (We can do the simple loop over IPIV with decrement -1,
+         // since the ABS value of IPIV(I) represents the row index
+         // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 *
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
@@ -193,12 +193,12 @@
             END IF
          END DO
 *
-*        END Lower
+         // END Lower
 *
       END IF
 *
       RETURN
 *
-*     End of SSYTRS_3
+      // End of SSYTRS_3
 *
       END

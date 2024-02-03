@@ -4,35 +4,35 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                ITYPE, KBAND, LDA, LDU, LDV, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J, JJ, JJ1, JJ2, NN, NNP1;
       double             ANORM, ULP, UNFL, WNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANSY;
       // EXTERNAL DLAMCH, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM, DORT01, DSYMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -41,15 +41,15 @@
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Norm of A:
+      // Norm of A:
 *
       ANORM = MAX( DLANSY( '1', UPLO, N, A, LDA, WORK ), UNFL )
 *
-*     Compute error matrix:
+      // Compute error matrix:
 *
-*     ITYPE=1: error = U**T A U - S
+      // ITYPE=1: error = U**T A U - S
 *
       CALL DSYMM( 'L', UPLO, N, M, ONE, A, LDA, U, LDU, ZERO, WORK, N )
       NN = N*N
@@ -79,14 +79,14 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U**T U - I
+      // Compute  U**T U - I
 *
       IF( ITYPE.EQ.1 ) CALL DORT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) )
 *
       RETURN
 *
-*     End of DSYT22
+      // End of DSYT22
 *
       END

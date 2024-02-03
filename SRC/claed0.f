@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDQ, LDQS, N, QSIZ;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               D( * ), E( * ), RWORK( * )
       COMPLEX            Q( LDQ, * ), QSTORE( LDQS, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
 *  Warning:      N could be as big as QSIZ!
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               TWO
       PARAMETER          ( TWO = 2.E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, LL, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS;
       REAL               TEMP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CLACRM, CLAED7, SCOPY, SSTEQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ILAENV;
       // EXTERNAL ILAENV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
-*     IF( ICOMPQ .LT. 0 .OR. ICOMPQ .GT. 2 ) THEN
-*        INFO = -1
-*     ELSE IF( ( ICOMPQ .EQ. 1 ) .AND. ( QSIZ .LT. MAX( 0, N ) ) )
+      // IF( ICOMPQ .LT. 0 .OR. ICOMPQ .GT. 2 ) THEN
+         // INFO = -1
+      // ELSE IF( ( ICOMPQ .EQ. 1 ) .AND. ( QSIZ .LT. MAX( 0, N ) ) )
 *    $        THEN
       IF( QSIZ.LT.MAX( 0, N ) ) THEN
          INFO = -1
@@ -59,14 +59,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
       SMLSIZ = ILAENV( 9, 'CLAED0', ' ', 0, 0, 0, 0 )
 *
-*     Determine the size and placement of the submatrices, and save in
-*     the leading elements of IWORK.
+      // Determine the size and placement of the submatrices, and save in
+     t // he leading elements of IWORK.
 *
       IWORK( 1 ) = N
       SUBPBS = 1
@@ -85,8 +85,8 @@
          IWORK( J ) = IWORK( J ) + IWORK( J-1 )
    30 CONTINUE
 *
-*     Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
-*     using rank-1 modifications (cuts).
+      // Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
+      // using rank-1 modifications (cuts).
 *
       SPM1 = SUBPBS - 1
       DO 40 I = 1, SPM1
@@ -98,8 +98,8 @@
 *
       INDXQ = 4*N + 3
 *
-*     Set up workspaces for eigenvalues only/accumulate new vectors
-*     routine
+      // Set up workspaces for eigenvalues only/accumulate new vectors
+      // routine
 *
       TEMP = LOG( REAL( N ) ) / LOG( TWO )
       LGN = INT( TEMP )
@@ -113,15 +113,15 @@
       IGIVNM = 1
       IQ = IGIVNM + 2*N*LGN
       IWREM = IQ + N**2 + 1
-*     Initialize pointers
+      // Initialize pointers
       DO 50 I = 0, SUBPBS
          IWORK( IPRMPT+I ) = 1
          IWORK( IGIVPT+I ) = 1
    50 CONTINUE
       IWORK( IQPTR ) = 1
 *
-*     Solve each submatrix eigenproblem at the bottom of the divide and
-*     conquer tree.
+      // Solve each submatrix eigenproblem at the bottom of the divide and
+      // conquer tree.
 *
       CURR = 0
       DO 70 I = 0, SPM1
@@ -147,10 +147,10 @@
    60    CONTINUE
    70 CONTINUE
 *
-*     Successively merge eigensystems of adjacent submatrices
-*     into eigensystem for the corresponding larger matrix.
+      // Successively merge eigensystems of adjacent submatrices
+      // into eigensystem for the corresponding larger matrix.
 *
-*     while ( SUBPBS > 1 )
+      // while ( SUBPBS > 1 )
 *
       CURLVL = 1
    80 CONTINUE
@@ -169,12 +169,12 @@
                CURPRB = CURPRB + 1
             END IF
 *
-*     Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
-*     into an eigensystem of size MATSIZ.  CLAED7 handles the case
-*     when the eigenvectors of a full or band Hermitian matrix (which
-*     was reduced to tridiagonal form) are desired.
+      // Merge lower order eigensystems (of size MSD2 and MATSIZ - MSD2)
+      // into an eigensystem of size MATSIZ.  CLAED7 handles the case
+      // when the eigenvectors of a full or band Hermitian matrix (which
+      // was reduced to tridiagonal form) are desired.
 *
-*     I am free to use Q as a valuable working space until Loop 150.
+      // I am free to use Q as a valuable working space until Loop 150.
 *
             CALL CLAED7( MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ), RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), RWORK( IGIVNM ), Q( 1, SUBMAT ), RWORK( IWREM ), IWORK( SUBPBS+1 ), INFO )
             IF( INFO.GT.0 ) THEN
@@ -188,10 +188,10 @@
          GO TO 80
       END IF
 *
-*     end while
+      // end while
 *
-*     Re-merge the eigenvalues/vectors which were deflated at the final
-*     merge step.
+      // Re-merge the eigenvalues/vectors which were deflated at the final
+      // merge step.
 *
       DO 100 I = 1, N
          J = IWORK( INDXQ+I )
@@ -202,6 +202,6 @@
 *
       RETURN
 *
-*     End of CLAED0
+      // End of CLAED0
 *
       END

@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), DF( * ), E( * ), EF( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       double             ANORM, DE, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
@@ -40,7 +40,7 @@
 *
       EPS = DLAMCH( 'Epsilon' )
 *
-*     Construct the difference L*D*L' - A.
+      // Construct the difference L*D*L' - A.
 *
       WORK( 1 ) = DF( 1 ) - D( 1 )
       DO 10 I = 1, N - 1
@@ -49,7 +49,7 @@
          WORK( 1+I ) = DE*EF( I ) + DF( I+1 ) - D( I+1 )
    10 CONTINUE
 *
-*     Compute the 1-norms of the tridiagonal matrices A and WORK.
+      // Compute the 1-norms of the tridiagonal matrices A and WORK.
 *
       IF( N.EQ.1 ) THEN
          ANORM = D( 1 )
@@ -63,7 +63,7 @@
    20    CONTINUE
       END IF
 *
-*     Compute norm(L*D*L' - A) / (n * norm(A) * EPS)
+      // Compute norm(L*D*L' - A) / (n * norm(A) * EPS)
 *
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
@@ -73,6 +73,6 @@
 *
       RETURN
 *
-*     End of DPTT01
+      // End of DPTT01
 *
       END

@@ -4,36 +4,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                N, LDAB, LDAFB, INFO, KL, KU, CMODE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * ), IPIV( * );
       REAL               AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * )
 *    ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J, KD, KE;
       REAL               AINVNM, TMP
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLACN2, SGBTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       SLA_GBRCOND = 0.0
 *
@@ -61,8 +61,8 @@
          RETURN
       END IF
 *
-*     Compute the equilibration matrix R such that
-*     inv(R)*A*C has unit 1-norm.
+      // Compute the equilibration matrix R such that
+      // inv(R)*A*C has unit 1-norm.
 *
       KD = KU + 1
       KE = KL + 1
@@ -104,7 +104,7 @@
          END DO
       END IF
 *
-*     Estimate the norm of inv(op(A)).
+      // Estimate the norm of inv(op(A)).
 *
       AINVNM = 0.0
 
@@ -114,7 +114,7 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
@@ -126,7 +126,7 @@
                CALL SGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 *
-*           Multiply by inv(C).
+            // Multiply by inv(C).
 *
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
@@ -139,7 +139,7 @@
             END IF
          ELSE
 *
-*           Multiply by inv(C**T).
+            // Multiply by inv(C**T).
 *
             IF ( CMODE .EQ. 1 ) THEN
                DO I = 1, N
@@ -157,7 +157,7 @@
                CALL SGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
@@ -166,12 +166,12 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM .NE. 0.0 ) SLA_GBRCOND = ( 1.0 / AINVNM )
 *
       RETURN
 *
-*     End of SLA_GBRCOND
+      // End of SLA_GBRCOND
 *
       END

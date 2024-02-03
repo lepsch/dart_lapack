@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDU, LDVT, N, NS;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       double             BNORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DASUM, DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DASUM, DLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       RESID = ZERO
       IF( N.LE.0 .OR. NS.LE.0 ) RETURN
 *
       EPS = DLAMCH( 'Precision' )
 *
-*     Compute S - U' * B * V.
+      // Compute S - U' * B * V.
 *
       BNORM = ZERO
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        B is upper bidiagonal.
+         // B is upper bidiagonal.
 *
          K = 0
          DO 20 I = 1, NS
@@ -67,7 +67,7 @@
    30    CONTINUE
       ELSE
 *
-*        B is lower bidiagonal.
+         // B is lower bidiagonal.
 *
          K = 0
          DO 50 I = 1, NS
@@ -86,7 +86,7 @@
 *
       CALL DGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS )
 *
-*     norm(S - U' * B * V)
+      // norm(S - U' * B * V)
 *
       K = N*NS
       DO 70 I = 1, NS
@@ -111,6 +111,6 @@
 *
       RETURN
 *
-*     End of DBDT04
+      // End of DBDT04
 *
       END

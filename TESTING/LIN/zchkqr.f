@@ -4,63 +4,63 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NMAX, NN, NNB, NOUT, NRHS;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * );
       double             RWORK( * );
       COMPLEX*16         A( * ), AC( * ), AF( * ), AQ( * ), AR( * ), B( * ), TAU( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NTESTS;
       PARAMETER          ( NTESTS = 9 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 8 )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             DIST, TYPE;
       String             PATH;
       int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX;
       double             ANORM, CNDNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), KVAL( 4 );
       double             RESULT( NTESTS );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               ZGENND;
       // EXTERNAL ZGENND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, XLAENV, ZERRQR, ZGELS, ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZQRT01, ZQRT01P, ZQRT02, ZQRT03
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'Zomplex precision'
       PATH( 2: 3 ) = 'QR'
@@ -71,7 +71,7 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL ZERRQR( PATH, NOUT )
       INFOT = 0
@@ -80,40 +80,40 @@
       LDA = NMAX
       LWORK = NMAX*MAX( NMAX, NRHS )
 *
-*     Do for each value of M in MVAL.
+      // Do for each value of M in MVAL.
 *
       DO 70 IM = 1, NM
          M = MVAL( IM )
 *
-*        Do for each value of N in NVAL.
+         // Do for each value of N in NVAL.
 *
          DO 60 IN = 1, NN
             N = NVAL( IN )
             MINMN = MIN( M, N )
             DO 50 IMAT = 1, NTYPES
 *
-*              Do the tests only if DOTYPE( IMAT ) is true.
+               // Do the tests only if DOTYPE( IMAT ) is true.
 *
                IF( .NOT.DOTYPE( IMAT ) ) GO TO 50
 *
-*              Set up parameters with ZLATB4 and generate a test matrix
-*              with ZLATMS.
+               // Set up parameters with ZLATB4 and generate a test matrix
+               // with ZLATMS.
 *
                CALL ZLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'ZLATMS'
                CALL ZLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
-*              Check error code from ZLATMS.
+               // Check error code from ZLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 50
                END IF
 *
-*              Set some values for K: the first value must be MINMN,
-*              corresponding to the call of ZQRT01; other values are
-*              used in the calls of ZQRT02, and must not exceed MINMN.
+               // Set some values for K: the first value must be MINMN,
+               // corresponding to the call of ZQRT01; other values are
+               // used in the calls of ZQRT02, and must not exceed MINMN.
 *
                KVAL( 1 ) = MINMN
                KVAL( 2 ) = 0
@@ -129,12 +129,12 @@
                   NK = 4
                END IF
 *
-*              Do for each value of K in KVAL
+               // Do for each value of K in KVAL
 *
                DO 40 IK = 1, NK
                   K = KVAL( IK )
 *
-*                 Do for each pair of values (NB,NX) in NBVAL and NXVAL.
+                  // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 *
                   DO 30 INB = 1, NNB
                      NB = NBVAL( INB )
@@ -147,53 +147,53 @@
                      NT = 2
                      IF( IK.EQ.1 ) THEN
 *
-*                       Test ZGEQRF
+                        // Test ZGEQRF
 *
                         CALL ZQRT01( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
 *
-*                       Test ZGEQRFP
+                        // Test ZGEQRFP
 *
                         CALL ZQRT01P( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) )
                           IF( .NOT. ZGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                         NT = NT + 1
                      ELSE IF( M.GE.N ) THEN
 *
-*                       Test ZUNGQR, using factorization
-*                       returned by ZQRT01
+                        // Test ZUNGQR, using factorization
+                        // returned by ZQRT01
 *
                         CALL ZQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
                      END IF
                      IF( M.GE.K ) THEN
 *
-*                       Test ZUNMQR, using factorization returned
-*                       by ZQRT01
+                        // Test ZUNMQR, using factorization returned
+                        // by ZQRT01
 *
                         CALL ZQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) )
                         NT = NT + 4
 *
-*                       If M>=N and K=N, call ZGELS to solve a system
-*                       with NRHS right hand sides and compute the
-*                       residual.
+                        // If M>=N and K=N, call ZGELS to solve a system
+                        // with NRHS right hand sides and compute the
+                        // residual.
 *
                         IF( K.EQ.N .AND. INB.EQ.1 ) THEN
 *
-*                          Generate a solution and set the right
-*                          hand side.
+                           // Generate a solution and set the right
+                           // hand side.
 *
                            SRNAMT = 'ZLARHS'
                            CALL ZLARHS( PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
 *
                            CALL ZLACPY( 'Full', M, NRHS, B, LDA, X, LDA )
 *
-*                          Reset AF to the original matrix. ZGELS
-*                          factors the matrix before solving the system.
+                           // Reset AF to the original matrix. ZGELS
+                           // factors the matrix before solving the system.
 *
                            CALL ZLACPY( 'Full', M, N, A, LDA, AF, LDA )
 *
                            SRNAMT = 'ZGELS'
                            CALL ZGELS( 'No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO )
 *
-*                          Check error code from ZGELS.
+                           // Check error code from ZGELS.
 *
                            IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
@@ -202,8 +202,8 @@
                         END IF
                      END IF
 *
-*                    Print information about the tests that did not
-*                    pass the threshold.
+                     // Print information about the tests that did not
+                     // pass the threshold.
 *
                      DO 20 I = 1, NTESTS
                         IF( RESULT( I ).GE.THRESH ) THEN
@@ -218,7 +218,7 @@
    60    CONTINUE
    70 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -226,6 +226,6 @@
      $      I5, ', type ', I2, ', test(', I2, ')=', G12.5 )
       RETURN
 *
-*     End of ZCHKQR
+      // End of ZCHKQR
 *
       END

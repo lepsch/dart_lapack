@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDAINV, LDWORK, N;
       REAL               RCOND, RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I;
       REAL               AINVNM, ANORM, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLANGE
       // EXTERNAL SLAMCH, SLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RCOND = ONE
@@ -42,7 +42,7 @@
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANGE( '1', N, N, A, LDA, RWORK )
@@ -54,14 +54,14 @@
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
 *
-*     Compute I - A * AINV
+      // Compute I - A * AINV
 *
       CALL SGEMM( 'No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA, ZERO, WORK, LDWORK )
       DO 10 I = 1, N
          WORK( I, I ) = ONE + WORK( I, I )
    10 CONTINUE
 *
-*     Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
+      // Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
 *
       RESID = SLANGE( '1', N, N, WORK, LDWORK, RWORK )
 *
@@ -69,6 +69,6 @@
 *
       RETURN
 *
-*     End of SGET03
+      // End of SGET03
 *
       END

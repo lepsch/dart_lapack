@@ -5,38 +5,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     LWORK, M, N, L, NB, LDT;
-*     .. Return values ..
+      // .. Return values ..
       REAL RESULT(6)
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local allocatable arrays
+      // ..
+      // .. Local allocatable arrays
       REAL, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL ZERO, ONE
       PARAMETER( ZERO = 0.0, ONE = 1.0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int     INFO, J, K, M2, NP1;
       REAL   ANORM, EPS, RESID, CNORM, DNORM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 );
-*     ..
-*     .. External Subroutine ..
+      // ..
+      // .. External Subroutine ..
       // EXTERNAL SGEMM, SLARNV, STPMQRT, STPQRT, SGEMQRT, SSYRK, SLACPY, SLASET
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL SLAMCH
       REAL SLANGE, SLANSY
       bool     LSAME;
       // EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /
 *
       EPS = SLAMCH( 'Epsilon' )
@@ -49,11 +49,11 @@
       END IF
       LWORK = M2*M2*NB
 *
-*     Dynamically allocate all arrays
+      // Dynamically allocate all arrays
 *
       ALLOCATE(A(M2,N),AF(M2,N),Q(M2,M2),R(M2,M2),RWORK(M2), WORK(LWORK),T(NB,N),C(M2,N),CF(M2,N), D(N,M2),DF(N,M2) )
 *
-*     Put random stuff into A
+      // Put random stuff into A
 *
       LDT=NB
       CALL SLASET( 'Full', M2, N, ZERO, ZERO, A, M2 )
@@ -72,25 +72,25 @@
          END DO
       END IF
 *
-*     Copy the matrix A to the array AF.
+      // Copy the matrix A to the array AF.
 *
       CALL SLACPY( 'Full', M2, N, A, M2, AF, M2 )
 *
-*     Factor the matrix A in the array AF.
+      // Factor the matrix A in the array AF.
 *
       CALL STPQRT( M,N,L,NB,AF,M2,AF(NP1,1),M2,T,LDT,WORK,INFO)
 *
-*     Generate the (M+N)-by-(M+N) matrix Q by applying H to I
+      // Generate the (M+N)-by-(M+N) matrix Q by applying H to I
 *
       CALL SLASET( 'Full', M2, M2, ZERO, ONE, Q, M2 )
       CALL SGEMQRT( 'R', 'N', M2, M2, K, NB, AF, M2, T, LDT, Q, M2, WORK, INFO )
 *
-*     Copy R
+      // Copy R
 *
       CALL SLASET( 'Full', M2, N, ZERO, ZERO, R, M2 )
       CALL SLACPY( 'Upper', M2, N, AF, M2, R, M2 )
 *
-*     Compute |R - Q'*A| / |A| and store in RESULT(1)
+      // Compute |R - Q'*A| / |A| and store in RESULT(1)
 *
       CALL SGEMM( 'T', 'N', M2, N, M2, -ONE, Q, M2, A, M2, ONE, R, M2 )
       ANORM = SLANGE( '1', M2, N, A, M2, RWORK )
@@ -101,14 +101,14 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute |I - Q'*Q| and store in RESULT(2)
+      // Compute |I - Q'*Q| and store in RESULT(2)
 *
       CALL SLASET( 'Full', M2, M2, ZERO, ONE, R, M2 )
       CALL SSYRK( 'U', 'C', M2, M2, -ONE, Q, M2, ONE, R, M2 )
       RESID = SLANSY( '1', 'Upper', M2, R, M2, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,M2))
 *
-*     Generate random m-by-n matrix C and a copy CF
+      // Generate random m-by-n matrix C and a copy CF
 *
       DO J=1,N
          CALL SLARNV( 2, ISEED, M2, C( 1, J ) )
@@ -116,11 +116,11 @@
       CNORM = SLANGE( '1', M2, N, C, M2, RWORK)
       CALL SLACPY( 'Full', M2, N, C, M2, CF, M2 )
 *
-*     Apply Q to C as Q*C
+      // Apply Q to C as Q*C
 *
       CALL STPMQRT( 'L','N', M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF, M2,CF(NP1,1),M2,WORK,INFO)
 *
-*     Compute |Q*C - Q*C| / |C|
+      // Compute |Q*C - Q*C| / |C|
 *
       CALL SGEMM( 'N', 'N', M2, N, M2, -ONE, Q,M2,C,M2,ONE,CF,M2)
       RESID = SLANGE( '1', M2, N, CF, M2, RWORK )
@@ -130,15 +130,15 @@
          RESULT( 3 ) = ZERO
       END IF
 *
-*     Copy C into CF again
+      // Copy C into CF again
 *
       CALL SLACPY( 'Full', M2, N, C, M2, CF, M2 )
 *
-*     Apply Q to C as QT*C
+      // Apply Q to C as QT*C
 *
       CALL STPMQRT('L','T',M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2, CF(NP1,1),M2,WORK,INFO)
 *
-*     Compute |QT*C - QT*C| / |C|
+      // Compute |QT*C - QT*C| / |C|
 *
       CALL SGEMM('T','N',M2,N,M2,-ONE,Q,M2,C,M2,ONE,CF,M2)
       RESID = SLANGE( '1', M2, N, CF, M2, RWORK )
@@ -148,7 +148,7 @@
          RESULT( 4 ) = ZERO
       END IF
 *
-*     Generate random n-by-m matrix D and a copy DF
+      // Generate random n-by-m matrix D and a copy DF
 *
       DO J=1,M2
          CALL SLARNV( 2, ISEED, N, D( 1, J ) )
@@ -156,11 +156,11 @@
       DNORM = SLANGE( '1', N, M2, D, N, RWORK)
       CALL SLACPY( 'Full', N, M2, D, N, DF, N )
 *
-*     Apply Q to D as D*Q
+      // Apply Q to D as D*Q
 *
       CALL STPMQRT('R','N',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 *
-*     Compute |D*Q - D*Q| / |D|
+      // Compute |D*Q - D*Q| / |D|
 *
       CALL SGEMM('N','N',N,M2,M2,-ONE,D,N,Q,M2,ONE,DF,N)
       RESID = SLANGE('1',N, M2,DF,N,RWORK )
@@ -170,16 +170,16 @@
          RESULT( 5 ) = ZERO
       END IF
 *
-*     Copy D into DF again
+      // Copy D into DF again
 *
       CALL SLACPY('Full',N,M2,D,N,DF,N )
 *
-*     Apply Q to D as D*QT
+      // Apply Q to D as D*QT
 *
       CALL STPMQRT('R','T',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 
 *
-*     Compute |D*QT - D*QT| / |D|
+      // Compute |D*QT - D*QT| / |D|
 *
       CALL SGEMM( 'N', 'T', N, M2, M2, -ONE, D, N, Q, M2, ONE, DF, N )
       RESID = SLANGE( '1', N, M2, DF, N, RWORK )
@@ -189,7 +189,7 @@
          RESULT( 6 ) = ZERO
       END IF
 *
-*     Deallocate all arrays
+      // Deallocate all arrays
 *
       DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF)
       RETURN

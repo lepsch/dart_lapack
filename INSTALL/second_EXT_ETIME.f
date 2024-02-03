@@ -6,22 +6,22 @@
 *
 * =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               T1
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               TARRAY( 2 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               ETIME
       // EXTERNAL ETIME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       T1 = ETIME( TARRAY )
       SECOND = TARRAY( 1 )
       RETURN
 *
-*     End of SECOND
+      // End of SECOND
 *
       END

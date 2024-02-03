@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             HOWMNY, SIDE;
       int                INFO, LDT, LDVL, LDVR, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       REAL               RWORK( * )
       COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CMZERO, CMONE
       PARAMETER          ( CMZERO = ( 0.0E+0, 0.0E+0 ), CMONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV;
       int                I, II, IS, J, K, KI;
       REAL               OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL
       COMPLEX            CDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
       REAL               SCASUM, SLAMCH
       // EXTERNAL LSAME, ICAMAX, SCASUM, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEMV, CLATRS, CSSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       BOTHV = LSAME( SIDE, 'B' )
       RIGHTV = LSAME( SIDE, 'R' ) .OR. BOTHV
@@ -58,8 +58,8 @@
       OVER = LSAME( HOWMNY, 'B' )
       SOMEV = LSAME( HOWMNY, 'S' )
 *
-*     Set M to the number of columns required to store the selected
-*     eigenvectors.
+      // Set M to the number of columns required to store the selected
+      // eigenvectors.
 *
       IF( SOMEV ) THEN
          M = 0
@@ -91,25 +91,25 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Set the constants to control overflow.
+      // Set the constants to control overflow.
 *
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
       ULP = SLAMCH( 'Precision' )
       SMLNUM = UNFL*( N / ULP )
 *
-*     Store the diagonal elements of T in working array WORK.
+      // Store the diagonal elements of T in working array WORK.
 *
       DO 20 I = 1, N
          WORK( I+N ) = T( I, I )
    20 CONTINUE
 *
-*     Compute 1-norm of each column of strictly upper triangular
-*     part of T to control overflow in triangular solver.
+      // Compute 1-norm of each column of strictly upper triangular
+      // part of T to control overflow in triangular solver.
 *
       RWORK( 1 ) = ZERO
       DO 30 J = 2, N
@@ -118,7 +118,7 @@
 *
       IF( RIGHTV ) THEN
 *
-*        Compute right eigenvectors.
+         // Compute right eigenvectors.
 *
          IS = M
          DO 80 KI = N, 1, -1
@@ -130,14 +130,14 @@
 *
             WORK( 1 ) = CMONE
 *
-*           Form right-hand side.
+            // Form right-hand side.
 *
             DO 40 K = 1, KI - 1
                WORK( K ) = -T( K, KI )
    40       CONTINUE
 *
-*           Solve the triangular system:
-*              (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
+            // Solve the triangular system:
+               // (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
 *
             DO 50 K = 1, KI - 1
                T( K, K ) = T( K, K ) - T( KI, KI )
@@ -149,7 +149,7 @@
                WORK( KI ) = SCALE
             END IF
 *
-*           Copy the vector x or Q*x to VR and normalize.
+            // Copy the vector x or Q*x to VR and normalize.
 *
             IF( .NOT.OVER ) THEN
                CALL CCOPY( KI, WORK( 1 ), 1, VR( 1, IS ), 1 )
@@ -169,7 +169,7 @@
                CALL CSSCAL( N, REMAX, VR( 1, KI ), 1 )
             END IF
 *
-*           Set back the original diagonal elements of T.
+            // Set back the original diagonal elements of T.
 *
             DO 70 K = 1, KI - 1
                T( K, K ) = WORK( K+N )
@@ -181,7 +181,7 @@
 *
       IF( LEFTV ) THEN
 *
-*        Compute left eigenvectors.
+         // Compute left eigenvectors.
 *
          IS = 1
          DO 130 KI = 1, N
@@ -193,14 +193,14 @@
 *
             WORK( N ) = CMONE
 *
-*           Form right-hand side.
+            // Form right-hand side.
 *
             DO 90 K = KI + 1, N
                WORK( K ) = -CONJG( T( KI, K ) )
    90       CONTINUE
 *
-*           Solve the triangular system:
-*              (T(KI+1:N,KI+1:N) - T(KI,KI))**H*X = SCALE*WORK.
+            // Solve the triangular system:
+               // (T(KI+1:N,KI+1:N) - T(KI,KI))**H*X = SCALE*WORK.
 *
             DO 100 K = KI + 1, N
                T( K, K ) = T( K, K ) - T( KI, KI )
@@ -212,7 +212,7 @@
                WORK( KI ) = SCALE
             END IF
 *
-*           Copy the vector x or Q*x to VL and normalize.
+            // Copy the vector x or Q*x to VL and normalize.
 *
             IF( .NOT.OVER ) THEN
                CALL CCOPY( N-KI+1, WORK( KI ), 1, VL( KI, IS ), 1 )
@@ -232,7 +232,7 @@
                CALL CSSCAL( N, REMAX, VL( 1, KI ), 1 )
             END IF
 *
-*           Set back the original diagonal elements of T.
+            // Set back the original diagonal elements of T.
 *
             DO 120 K = KI + 1, N
                T( K, K ) = WORK( K+N )
@@ -244,6 +244,6 @@
 *
       RETURN
 *
-*     End of CTREVC
+      // End of CTREVC
 *
       END

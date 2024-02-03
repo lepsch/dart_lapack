@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             NORM, UPLO;
       int                LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), WORK( * );
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             ABSA, SCALE, SUM, VALUE;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASSQ
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, DISNAN;
       // EXTERNAL LSAME, DISNAN
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.EQ.0 ) THEN
          VALUE = ZERO
       ELSE IF( LSAME( NORM, 'M' ) ) THEN
 *
-*        Find max(abs(A(i,j))).
+         // Find max(abs(A(i,j))).
 *
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
@@ -58,7 +58,7 @@
          END IF
       ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
 *
-*        Find normI(A) ( = norm1(A), since A is symmetric).
+         // Find normI(A) ( = norm1(A), since A is symmetric).
 *
          VALUE = ZERO
          IF( LSAME( UPLO, 'U' ) ) THEN
@@ -91,7 +91,7 @@
          END IF
       ELSE IF( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) THEN
 *
-*        Find normF(A).
+         // Find normF(A).
 *
          SCALE = ZERO
          SUM = ONE
@@ -112,6 +112,6 @@
       DLANSY = VALUE
       RETURN
 *
-*     End of DLANSY
+      // End of DLANSY
 *
       END

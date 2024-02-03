@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO, ISCL, NCOLS, NROWS;
       double             ERR, NORMA, NORMB, NORMRS, SMLNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             RWORK( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE;
       // EXTERNAL LSAME, DLAMCH, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEMM, ZLACPY, ZLASCL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       ZQRT17 = ZERO
 *
@@ -62,7 +62,7 @@
       SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
       ISCL = 0
 *
-*     compute residual and scale it
+      // compute residual and scale it
 *
       CALL ZLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
       CALL ZGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, DCMPLX( -ONE ), A, LDA, X, LDX, DCMPLX( ONE ), C, LDB )
@@ -72,11 +72,11 @@
          CALL ZLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
       END IF
 *
-*     compute R**H * op(A)
+      // compute R**H * op(A)
 *
       CALL ZGEMM( 'Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, DCMPLX( ONE ), C, LDB, A, LDA, DCMPLX( ZERO ), WORK, NRHS )
 *
-*     compute and properly scale error
+      // compute and properly scale error
 *
       ERR = ZLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
       IF( NORMA.NE.ZERO ) ERR = ERR / NORMA
@@ -93,6 +93,6 @@
       ZQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) )
       RETURN
 *
-*     End of ZQRT17
+      // End of ZQRT17
 *
       END

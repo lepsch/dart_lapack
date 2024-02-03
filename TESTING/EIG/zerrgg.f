@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = 6*NMAX )
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                DUMMYK, DUMMYL, I, IFST, IHI, ILO, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK;
       double             ANRM, BNRM, DIF, SCALE, TOLA, TOLB;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               BW( NMAX ), SEL( NMAX );
       int                IW( LW ), IDUM(NMAX);
       double             LS( NMAX ), R1( NMAX ), R2( NMAX ), RCE( NMAX ), RCV( NMAX ), RS( NMAX ), RW( LW )       COMPLEX*16         A( NMAX, NMAX ), ALPHA( NMAX ), B( NMAX, NMAX ), BETA( NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN, ZLCTES, ZLCTSX;
       // EXTERNAL LSAMEN, ZLCTES, ZLCTSX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, ZGGES,  ZGGESX, ZGGEV,  ZGGEVX, ZGGGLM, ZGGHRD, ZGGLSE, ZGGQRF, ZGGRQF, ZHGEQZ, ZTGEVC, ZTGEXC, ZTGSEN, ZTGSJA, ZTGSNA, ZTGSYL, ZUNCSD, ZGGES3, ZGGEV3, ZGGHD3, ZGGSVD3, ZGGSVP3, XLAENV
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          SEL( J ) = .TRUE.
@@ -70,7 +70,7 @@
       NT = 0
       LWORK = 1
 *
-*     Call XLAENV to set the parameters used in CLAQZ0
+      // Call XLAENV to set the parameters used in CLAQZ0
 *
       CALL XLAENV( 12, 10 )
       CALL XLAENV( 13, 12 )
@@ -78,11 +78,11 @@
       CALL XLAENV( 15, 2 )
       CALL XLAENV( 17, 10 )
 *
-*     Test error exits for the GG path.
+      // Test error exits for the GG path.
 *
       IF( LSAMEN( 2, C2, 'GG' ) ) THEN
 *
-*        ZGGHRD
+         // ZGGHRD
 *
          SRNAMT = 'ZGGHRD'
          INFOT = 1
@@ -114,7 +114,7 @@
          CALL CHKXER( 'ZGGHRD', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        ZGGHD3
+         // ZGGHD3
 *
          SRNAMT = 'ZGGHD3'
          INFOT = 1
@@ -146,7 +146,7 @@
          CALL CHKXER( 'ZGGHD3', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        ZHGEQZ
+         // ZHGEQZ
 *
          SRNAMT = 'ZHGEQZ'
          INFOT = 1
@@ -181,7 +181,7 @@
          CALL CHKXER( 'ZHGEQZ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        ZTGEVC
+         // ZTGEVC
 *
          SRNAMT = 'ZTGEVC'
          INFOT = 1
@@ -210,11 +210,11 @@
          CALL CHKXER( 'ZTGEVC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the GSV path.
+      // Test error exits for the GSV path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GSV' ) ) THEN
 *
-*        ZGGSVD3
+         // ZGGSVD3
 *
          SRNAMT = 'ZGGSVD3'
          INFOT = 1
@@ -252,7 +252,7 @@
          CALL CHKXER( 'ZGGSVD3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        ZGGSVP3
+         // ZGGSVP3
 *
          SRNAMT = 'ZGGSVP3'
          INFOT = 1
@@ -290,7 +290,7 @@
          CALL CHKXER( 'ZGGSVP3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        ZTGSJA
+         // ZTGSJA
 *
          SRNAMT = 'ZTGSJA'
          INFOT = 1
@@ -328,11 +328,11 @@
          CALL CHKXER( 'ZTGSJA', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*     Test error exits for the GLM path.
+      // Test error exits for the GLM path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GLM' ) ) THEN
 *
-*        ZGGGLM
+         // ZGGGLM
 *
          SRNAMT = 'ZGGGLM'
          INFOT = 1
@@ -361,11 +361,11 @@
          CALL CHKXER( 'ZGGGLM', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the LSE path.
+      // Test error exits for the LSE path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'LSE' ) ) THEN
 *
-*        ZGGLSE
+         // ZGGLSE
 *
          SRNAMT = 'ZGGLSE'
          INFOT = 1
@@ -394,11 +394,11 @@
          CALL CHKXER( 'ZGGLSE', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the CSD path.
+      // Test error exits for the CSD path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'CSD' ) ) THEN
 *
-*        ZUNCSD
+         // ZUNCSD
 *
          SRNAMT = 'ZUNCSD'
          INFOT = 7
@@ -427,11 +427,11 @@
          CALL CHKXER( 'ZUNCSD', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the GQR path.
+      // Test error exits for the GQR path.
 *
       ELSE IF( LSAMEN( 3, PATH, 'GQR' ) ) THEN
 *
-*        ZGGQRF
+         // ZGGQRF
 *
          SRNAMT = 'ZGGQRF'
          INFOT = 1
@@ -454,7 +454,7 @@
          CALL CHKXER( 'ZGGQRF', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        ZGGRQF
+         // ZGGRQF
 *
          SRNAMT = 'ZGGRQF'
          INFOT = 1
@@ -477,11 +477,11 @@
          CALL CHKXER( 'ZGGRQF', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*     Test error exits for the ZGS, ZGV, ZGX, and ZXV paths.
+      // Test error exits for the ZGS, ZGV, ZGX, and ZXV paths.
 *
       ELSE IF( LSAMEN( 3, PATH, 'ZGS' ) .OR. LSAMEN( 3, PATH, 'ZGV' ) .OR. LSAMEN( 3, PATH, 'ZGX' ) .OR. LSAMEN( 3, PATH, 'ZXV' ) ) THEN
 *
-*        ZGGES
+         // ZGGES
 *
          SRNAMT = 'ZGGES '
          INFOT = 1
@@ -519,7 +519,7 @@
          CALL CHKXER( 'ZGGES ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        ZGGES3
+         // ZGGES3
 *
          SRNAMT = 'ZGGES3'
          INFOT = 1
@@ -557,7 +557,7 @@
          CALL CHKXER( 'ZGGES3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        ZGGESX
+         // ZGGESX
 *
          SRNAMT = 'ZGGESX'
          INFOT = 1
@@ -601,7 +601,7 @@
          CALL CHKXER( 'ZGGESX', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        ZGGEV
+         // ZGGEV
 *
          SRNAMT = 'ZGGEV '
          INFOT = 1
@@ -636,7 +636,7 @@
          CALL CHKXER( 'ZGGEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        ZGGEV3
+         // ZGGEV3
 *
          SRNAMT = 'ZGGEV3'
          INFOT = 1
@@ -671,7 +671,7 @@
          CALL CHKXER( 'ZGGEV3', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        ZGGEVX
+         // ZGGEVX
 *
          SRNAMT = 'ZGGEVX'
          INFOT = 1
@@ -712,7 +712,7 @@
          CALL CHKXER( 'ZGGEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        ZTGEXC
+         // ZTGEXC
 *
          SRNAMT = 'ZTGEXC'
          INFOT = 3
@@ -738,7 +738,7 @@
          CALL CHKXER( 'ZTGEXC', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 *
-*        ZTGSEN
+         // ZTGSEN
 *
          SRNAMT = 'ZTGSEN'
          INFOT = 1
@@ -773,7 +773,7 @@
          CALL CHKXER( 'ZTGSEN', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        ZTGSNA
+         // ZTGSNA
 *
          SRNAMT = 'ZTGSNA'
          INFOT = 1
@@ -805,7 +805,7 @@
          CALL CHKXER( 'ZTGSNA', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        ZTGSYL
+         // ZTGSYL
 *
          SRNAMT = 'ZTGSYL'
          INFOT = 1
@@ -847,7 +847,7 @@
          NT = NT + 12
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -862,6 +862,6 @@
 *
       RETURN
 *
-*     End of ZERRGG
+      // End of ZERRGG
 *
       END

@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
       double             RESULT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         U( LDU, * ), V( LDV, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IRC, J, LMX;
       double             RES1, RES2, ULP;
       COMPLEX*16         S, SU, SV
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH;
       // EXTERNAL LSAME, IZAMAX, DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZUNT01
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check inputs
+      // Check inputs
 *
       INFO = 0
       IF( LSAME( RC, 'R' ) ) THEN
@@ -70,18 +70,18 @@
          RETURN
       END IF
 *
-*     Initialize result
+      // Initialize result
 *
       RESULT = ZERO
       IF( MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Machine constants
+      // Machine constants
 *
       ULP = DLAMCH( 'Precision' )
 *
       IF( IRC.EQ.0 ) THEN
 *
-*        Compare rows
+         // Compare rows
 *
          RES1 = ZERO
          DO 20 I = 1, K
@@ -103,13 +103,13 @@
    20    CONTINUE
          RES1 = RES1 / ( DBLE( N )*ULP )
 *
-*        Compute orthogonality of rows of V.
+         // Compute orthogonality of rows of V.
 *
          CALL ZUNT01( 'Rows', MV, N, V, LDV, WORK, LWORK, RWORK, RES2 )
 *
       ELSE
 *
-*        Compare columns
+         // Compare columns
 *
          RES1 = ZERO
          DO 40 I = 1, K
@@ -131,7 +131,7 @@
    40    CONTINUE
          RES1 = RES1 / ( DBLE( N )*ULP )
 *
-*        Compute orthogonality of columns of V.
+         // Compute orthogonality of columns of V.
 *
          CALL ZUNT01( 'Columns', N, MV, V, LDV, WORK, LWORK, RWORK, RES2 )
       END IF
@@ -139,6 +139,6 @@
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )
       RETURN
 *
-*     End of ZUNT03
+      // End of ZUNT03
 *
       END

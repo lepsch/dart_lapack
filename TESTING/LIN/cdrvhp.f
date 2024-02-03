@@ -4,66 +4,66 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       REAL               RWORK( * )
       COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
       int                NTYPES, NTESTS;
       PARAMETER          ( NTYPES = 10, NTESTS = 6 )
       int                NFACT;
       PARAMETER          ( NFACT = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NPP, NRUN, NT;
       REAL               AINVNM, ANORM, CNDNUM, RCOND, RCONDC
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             FACTS( NFACT );
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANHP, SGET06
       // EXTERNAL CLANHP, SGET06
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, CCOPY, CERRVX, CGET04, CHPSV, CHPSVX, CHPT01, CHPTRF, CHPTRI, CLACPY, CLAIPD, CLARHS, CLASET, CLATB4, CLATMS, CPPT02, CPPT05, XLAENV
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               FACTS / 'F', 'N' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'C'
       PATH( 2: 3 ) = 'HP'
@@ -74,19 +74,19 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL CERRVX( PATH, NOUT )
       INFOT = 0
 *
-*     Set the block size and minimum block size for testing.
+      // Set the block size and minimum block size for testing.
 *
       NB = 1
       NBMIN = 2
       CALL XLAENV( 1, NB )
       CALL XLAENV( 2, NBMIN )
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 180 IN = 1, NN
          N = NVAL( IN )
@@ -98,16 +98,16 @@
 *
          DO 170 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 170
 *
-*           Skip types 3, 4, 5, or 6 if the matrix size is too small.
+            // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
             IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 160 IUPLO = 1, 2
                IF( IUPLO.EQ.1 ) THEN
@@ -118,23 +118,23 @@
                   PACKIT = 'R'
                END IF
 *
-*              Set up parameters with CLATB4 and generate a test matrix
-*              with CLATMS.
+               // Set up parameters with CLATB4 and generate a test matrix
+               // with CLATMS.
 *
                CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'CLATMS'
                CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
 *
-*              Check error code from CLATMS.
+               // Check error code from CLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 160
                END IF
 *
-*              For types 3-6, zero one or more rows and columns of the
-*              matrix to test that INFO is returned correctly.
+               // For types 3-6, zero one or more rows and columns of the
+               // matrix to test that INFO is returned correctly.
 *
                IF( ZEROT ) THEN
                   IF( IMAT.EQ.3 ) THEN
@@ -147,7 +147,7 @@
 *
                   IF( IMAT.LT.6 ) THEN
 *
-*                    Set row and column IZERO to zero.
+                     // Set row and column IZERO to zero.
 *
                      IF( IUPLO.EQ.1 ) THEN
                         IOFF = ( IZERO-1 )*IZERO / 2
@@ -174,7 +174,7 @@
                      IOFF = 0
                      IF( IUPLO.EQ.1 ) THEN
 *
-*                       Set the first IZERO rows and columns to zero.
+                        // Set the first IZERO rows and columns to zero.
 *
                         DO 70 J = 1, N
                            I2 = MIN( J, IZERO )
@@ -185,7 +185,7 @@
    70                   CONTINUE
                      ELSE
 *
-*                       Set the last IZERO rows and columns to zero.
+                        // Set the last IZERO rows and columns to zero.
 *
                         DO 90 J = 1, N
                            I1 = MAX( J, IZERO )
@@ -200,7 +200,7 @@
                   IZERO = 0
                END IF
 *
-*              Set the imaginary part of the diagonals.
+               // Set the imaginary part of the diagonals.
 *
                IF( IUPLO.EQ.1 ) THEN
                   CALL CLAIPD( N, A, 2, 1 )
@@ -210,12 +210,12 @@
 *
                DO 150 IFACT = 1, NFACT
 *
-*                 Do first for FACT = 'F', then for other values.
+                  // Do first for FACT = 'F', then for other values.
 *
                   FACT = FACTS( IFACT )
 *
-*                 Compute the condition number for comparison with
-*                 the value returned by CHPSVX.
+                  // Compute the condition number for comparison with
+                 t // he value returned by CHPSVX.
 *
                   IF( ZEROT ) THEN
                      IF( IFACT.EQ.1 ) GO TO 150
@@ -223,22 +223,22 @@
 *
                   ELSE IF( IFACT.EQ.1 ) THEN
 *
-*                    Compute the 1-norm of A.
+                     // Compute the 1-norm of A.
 *
                      ANORM = CLANHP( '1', UPLO, N, A, RWORK )
 *
-*                    Factor the matrix A.
+                     // Factor the matrix A.
 *
                      CALL CCOPY( NPP, A, 1, AFAC, 1 )
                      CALL CHPTRF( UPLO, N, AFAC, IWORK, INFO )
 *
-*                    Compute inv(A) and take its norm.
+                     // Compute inv(A) and take its norm.
 *
                      CALL CCOPY( NPP, AFAC, 1, AINV, 1 )
                      CALL CHPTRI( UPLO, N, AINV, IWORK, WORK, INFO )
                      AINVNM = CLANHP( '1', UPLO, N, AINV, RWORK )
 *
-*                    Compute the 1-norm condition number of A.
+                     // Compute the 1-norm condition number of A.
 *
                      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                         RCONDC = ONE
@@ -247,25 +247,25 @@
                      END IF
                   END IF
 *
-*                 Form an exact solution and set the right hand side.
+                  // Form an exact solution and set the right hand side.
 *
                   SRNAMT = 'CLARHS'
                   CALL CLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                   XTYPE = 'C'
 *
-*                 --- Test CHPSV  ---
+                  // --- Test CHPSV  ---
 *
                   IF( IFACT.EQ.2 ) THEN
                      CALL CCOPY( NPP, A, 1, AFAC, 1 )
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
-*                    Factor the matrix and solve the system using CHPSV.
+                     // Factor the matrix and solve the system using CHPSV.
 *
                      SRNAMT = 'CHPSV '
                      CALL CHPSV( UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO )
 *
-*                    Adjust the expected value of INFO to account for
-*                    pivoting.
+                     // Adjust the expected value of INFO to account for
+                     // pivoting.
 *
                      K = IZERO
                      IF( K.GT.0 ) THEN
@@ -281,7 +281,7 @@
                         END IF
                      END IF
 *
-*                    Check error code from CHPSV .
+                     // Check error code from CHPSV .
 *
                      IF( INFO.NE.K ) THEN
                         CALL ALAERH( PATH, 'CHPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -290,23 +290,23 @@
                         GO TO 120
                      END IF
 *
-*                    Reconstruct matrix from factors and compute
-*                    residual.
+                     // Reconstruct matrix from factors and compute
+                     // residual.
 *
                      CALL CHPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
 *
-*                    Compute residual of the computed solution.
+                     // Compute residual of the computed solution.
 *
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
                      CALL CPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
-*                    Check solution from generated exact solution.
+                     // Check solution from generated exact solution.
 *
                      CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                      NT = 3
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      DO 110 K = 1, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
@@ -318,19 +318,19 @@
   120                CONTINUE
                   END IF
 *
-*                 --- Test CHPSVX ---
+                  // --- Test CHPSVX ---
 *
                   IF( IFACT.EQ.2 .AND. NPP.GT.0 ) CALL CLASET( 'Full', NPP, 1, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, NPP )
                   CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
 *
-*                 Solve the system and compute the condition number and
-*                 error bounds using CHPSVX.
+                  // Solve the system and compute the condition number and
+                  // error bounds using CHPSVX.
 *
                   SRNAMT = 'CHPSVX'
                   CALL CHPSVX( FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
-*                 Adjust the expected value of INFO to account for
-*                 pivoting.
+                  // Adjust the expected value of INFO to account for
+                  // pivoting.
 *
                   K = IZERO
                   IF( K.GT.0 ) THEN
@@ -346,7 +346,7 @@
                      END IF
                   END IF
 *
-*                 Check the error code from CHPSVX.
+                  // Check the error code from CHPSVX.
 *
                   IF( INFO.NE.K ) THEN
                      CALL ALAERH( PATH, 'CHPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -356,8 +356,8 @@
                   IF( INFO.EQ.0 ) THEN
                      IF( IFACT.GE.2 ) THEN
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL CHPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
@@ -365,29 +365,29 @@
                         K1 = 2
                      END IF
 *
-*                    Compute residual of the computed solution.
+                     // Compute residual of the computed solution.
 *
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
                      CALL CPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
-*                    Check solution from generated exact solution.
+                     // Check solution from generated exact solution.
 *
                      CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
-*                    Check the error bounds from iterative refinement.
+                     // Check the error bounds from iterative refinement.
 *
                      CALL CPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                   ELSE
                      K1 = 6
                   END IF
 *
-*                 Compare RCOND from CHPSVX with the computed value
-*                 in RCONDC.
+                  // Compare RCOND from CHPSVX with the computed value
+                  // in RCONDC.
 *
                   RESULT( 6 ) = SGET06( RCOND, RCONDC )
 *
-*                 Print information about the tests that did not pass
-*                 the threshold.
+                  // Print information about the tests that did not pass
+                 t // he threshold.
 *
                   DO 140 K = K1, 6
                      IF( RESULT( K ).GE.THRESH ) THEN
@@ -403,7 +403,7 @@
   170    CONTINUE
   180 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -413,6 +413,6 @@
      $      ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
       RETURN
 *
-*     End of CDRVHP
+      // End of CDRVHP
 *
       END

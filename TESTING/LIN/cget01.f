@@ -4,64 +4,64 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDAFAC, M, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       REAL               ANORM, EPS
       COMPLEX            T
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, SLAMCH
       COMPLEX            CDOTU
       // EXTERNAL CLANGE, SLAMCH, CDOTU
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMV, CLASWP, CSCAL, CTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if M = 0 or N = 0.
+      // Quick exit if M = 0 or N = 0.
 *
       IF( M.LE.0 .OR. N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANGE( '1', M, N, A, LDA, RWORK )
 *
-*     Compute the product L*U and overwrite AFAC with the result.
-*     A column at a time of the product is obtained, starting with
-*     column N.
+      // Compute the product L*U and overwrite AFAC with the result.
+      // A column at a time of the product is obtained, starting with
+      // column N.
 *
       DO 10 K = N, 1, -1
          IF( K.GT.M ) THEN
             CALL CTRMV( 'Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          ELSE
 *
-*           Compute elements (K+1:M,K)
+            // Compute elements (K+1:M,K)
 *
             T = AFAC( K, K )
             IF( K+1.LE.M ) THEN
@@ -69,18 +69,18 @@
                CALL CGEMV( 'No transpose', M-K, K-1, CONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, CONE, AFAC( K+1, K ), 1 )
             END IF
 *
-*           Compute the (K,K) element
+            // Compute the (K,K) element
 *
             AFAC( K, K ) = T + CDOTU( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 )
 *
-*           Compute elements (1:K-1,K)
+            // Compute elements (1:K-1,K)
 *
             CALL CTRMV( 'Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          END IF
    10 CONTINUE
       CALL CLASWP( N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 )
 *
-*     Compute the difference  L*U - A  and store in AFAC.
+      // Compute the difference  L*U - A  and store in AFAC.
 *
       DO 30 J = 1, N
          DO 20 I = 1, M
@@ -88,7 +88,7 @@
    20    CONTINUE
    30 CONTINUE
 *
-*     Compute norm( L*U - A ) / ( N * norm(A) * EPS )
+      // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 *
       RESID = CLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
 *
@@ -100,6 +100,6 @@
 *
       RETURN
 *
-*     End of CGET01
+      // End of CGET01
 *
       END

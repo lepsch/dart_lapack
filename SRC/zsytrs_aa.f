@@ -6,35 +6,35 @@
 *
       IMPLICIT NONE
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LDB, LWORK, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
       COMPLEX*16         ONE
       PARAMETER          ( ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, UPPER;
       int                K, KP, LWKOPT;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGTSV, ZSWAP, ZLACPY, ZTRSM, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -61,33 +61,33 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Solve A*X = B, where A = U**T*T*U.
+         // Solve A*X = B, where A = U**T*T*U.
 *
-*        1) Forward substitution with U**T
+         // 1) Forward substitution with U**T
 *
          IF( N.GT.1 ) THEN
 *
-*           Pivot, P**T * B -> B
+            // Pivot, P**T * B -> B
 *
             DO K = 1, N
                KP = IPIV( K )
                IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             END DO
 *
-*           Compute U**T \ B -> B    [ (U**T \P**T * B) ]
+            // Compute U**T \ B -> B    [ (U**T \P**T * B) ]
 *
             CALL ZTRSM( 'L', 'U', 'T', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B( 2, 1 ), LDB)
          END IF
 *
-*        2) Solve with triangular matrix T
+         // 2) Solve with triangular matrix T
 *
-*        Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
+         // Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
 *
          CALL ZLACPY( 'F', 1, N, A( 1, 1 ), LDA+1, WORK( N ), 1)
          IF( N.GT.1 ) THEN
@@ -96,15 +96,15 @@
          END IF
          CALL ZGTSV( N, NRHS, WORK( 1 ), WORK( N ), WORK( 2*N ), B, LDB, INFO )
 *
-*        3) Backward substitution with U
+         // 3) Backward substitution with U
 *
          IF( N.GT.1 ) THEN
 *
-*           Compute U \ B -> B   [ U \ (T \ (U**T \P**T * B) ) ]
+            // Compute U \ B -> B   [ U \ (T \ (U**T \P**T * B) ) ]
 *
             CALL ZTRSM( 'L', 'U', 'N', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B( 2, 1 ), LDB)
 *
-*           Pivot, P * B -> B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
+            // Pivot, P * B -> B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
 *
             DO K = N, 1, -1
                KP = IPIV( K )
@@ -114,27 +114,27 @@
 *
       ELSE
 *
-*        Solve A*X = B, where A = L*T*L**T.
+         // Solve A*X = B, where A = L*T*L**T.
 *
-*        1) Forward substitution with L
+         // 1) Forward substitution with L
 *
          IF( N.GT.1 ) THEN
 *
-*           Pivot, P**T * B -> B
+            // Pivot, P**T * B -> B
 *
             DO K = 1, N
                KP = IPIV( K )
                IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             END DO
 *
-*           Compute L \ B -> B    [ (L \P**T * B) ]
+            // Compute L \ B -> B    [ (L \P**T * B) ]
 *
             CALL ZTRSM( 'L', 'L', 'N', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B( 2, 1 ), LDB)
          END IF
 *
-*        2) Solve with triangular matrix T
+         // 2) Solve with triangular matrix T
 *
-*        Compute T \ B -> B   [ T \ (L \P**T * B) ]
+         // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 *
          CALL ZLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1)
          IF( N.GT.1 ) THEN
@@ -143,15 +143,15 @@
          END IF
          CALL ZGTSV( N, NRHS, WORK( 1 ), WORK(N), WORK( 2*N ), B, LDB, INFO)
 *
-*        3) Backward substitution with L**T
+         // 3) Backward substitution with L**T
 *
          IF( N.GT.1 ) THEN
 *
-*           Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
+            // Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
 *
             CALL ZTRSM( 'L', 'L', 'T', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B( 2, 1 ), LDB)
 *
-*           Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
+            // Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
 *
             DO K = N, 1, -1
                KP = IPIV( K )
@@ -163,6 +163,6 @@
 *
       RETURN
 *
-*     End of ZSYTRS_AA
+      // End of ZSYTRS_AA
 *
       END

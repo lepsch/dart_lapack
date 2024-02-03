@@ -4,36 +4,36 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double           DA;
       int     INCX,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16 ZX(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int     I,NINCX;
-*     .. Parameters ..
+      // .. Parameters ..
       double           ONE;
       PARAMETER (ONE=1.0D+0)
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DIMAG
-*     ..
+      // ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. DA.EQ.ONE) RETURN
       IF (INCX.EQ.1) THEN
 *
-*        code for increment equal to 1
+         // code for increment equal to 1
 *
          DO I = 1,N
             ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)))
          END DO
       ELSE
 *
-*        code for increment not equal to 1
+         // code for increment not equal to 1
 *
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
@@ -42,6 +42,6 @@
       END IF
       RETURN
 *
-*     End of ZDSCAL
+      // End of ZDSCAL
 *
       END

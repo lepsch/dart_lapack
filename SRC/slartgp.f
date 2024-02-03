@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               CS, F, G, R, SN
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
       REAL               TWO
       PARAMETER          ( TWO = 2.0E0 )
-*     ..
-*     .. Local Scalars ..
-*     LOGICAL            FIRST
+      // ..
+      // .. Local Scalars ..
+      // LOGICAL            FIRST
       int                COUNT, I;
       REAL               EPS, F1, G1, SAFMIN, SAFMN2, SAFMX2, SCALE
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, SIGN, SQRT
-*     ..
-*     .. Save statement ..
-*     SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
-*     ..
-*     .. Data statements ..
-*     DATA               FIRST / .TRUE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Save statement ..
+      // SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
+      // ..
+      // .. Data statements ..
+      // DATA               FIRST / .TRUE. /
+      // ..
+      // .. Executable Statements ..
 *
-*     IF( FIRST ) THEN
+      // IF( FIRST ) THEN
          SAFMIN = SLAMCH( 'S' )
          EPS = SLAMCH( 'E' )
          SAFMN2 = SLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( SLAMCH( 'B' ) ) / TWO )
          SAFMX2 = ONE / SAFMN2
-*        FIRST = .FALSE.
-*     END IF
+         // FIRST = .FALSE.
+      // END IF
       IF( G.EQ.ZERO ) THEN
          CS = SIGN( ONE, F )
          SN = ZERO
@@ -98,6 +98,6 @@
       END IF
       RETURN
 *
-*     End of SLARTGP
+      // End of SLARTGP
 *
       END

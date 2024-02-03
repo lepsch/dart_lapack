@@ -4,64 +4,64 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDC, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               A( * ), AFAC( * ), C( LDC, * ), RWORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J, JC;
       REAL               ANORM, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH, SLANSP, SLANSY
       // EXTERNAL LSAME, SLAMCH, SLANSP, SLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAVSP, SLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANSP( '1', UPLO, N, A, RWORK )
 *
-*     Initialize C to the identity matrix.
+      // Initialize C to the identity matrix.
 *
       CALL SLASET( 'Full', N, N, ZERO, ONE, C, LDC )
 *
-*     Call SLAVSP to form the product D * U' (or D * L' ).
+      // Call SLAVSP to form the product D * U' (or D * L' ).
 *
       CALL SLAVSP( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
 *
-*     Call SLAVSP again to multiply by U ( or L ).
+      // Call SLAVSP again to multiply by U ( or L ).
 *
       CALL SLAVSP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
 *
-*     Compute the difference  C - A .
+      // Compute the difference  C - A .
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          JC = 0
@@ -81,7 +81,7 @@
    40    CONTINUE
       END IF
 *
-*     Compute norm( C - A ) / ( N * norm(A) * EPS )
+      // Compute norm( C - A ) / ( N * norm(A) * EPS )
 *
       RESID = SLANSY( '1', UPLO, N, C, LDC, RWORK )
 *
@@ -93,6 +93,6 @@
 *
       RETURN
 *
-*     End of SSPT01
+      // End of SSPT01
 *
       END

@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IINFO;
       double             EPS, SCALE, SAFMIN, SIGMN, SIGMX;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DLAS2, DLASCL, DLASQ2, DLASRT, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH;
       // EXTERNAL DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -50,7 +50,7 @@
          RETURN
       END IF
 *
-*     Estimate the largest singular value.
+      // Estimate the largest singular value.
 *
       SIGMX = ZERO
       DO 10 I = 1, N - 1
@@ -59,7 +59,7 @@
    10 CONTINUE
       D( N ) = ABS( D( N ) )
 *
-*     Early return if SIGMX is zero (matrix is already diagonal).
+      // Early return if SIGMX is zero (matrix is already diagonal).
 *
       IF( SIGMX.EQ.ZERO ) THEN
          CALL DLASRT( 'D', N, D, IINFO )
@@ -70,8 +70,8 @@
          SIGMX = MAX( SIGMX, D( I ) )
    20 CONTINUE
 *
-*     Copy D and E into WORK (in the Z format) and scale (squaring the
-*     input data makes scaling by a power of the radix pointless).
+      // Copy D and E into WORK (in the Z format) and scale (squaring the
+      // input data makes scaling by a power of the radix pointless).
 *
       EPS = DLAMCH( 'Precision' )
       SAFMIN = DLAMCH( 'Safe minimum' )
@@ -80,7 +80,7 @@
       CALL DCOPY( N-1, E, 1, WORK( 2 ), 2 )
       CALL DLASCL( 'G', 0, 0, SIGMX, SCALE, 2*N-1, 1, WORK, 2*N-1, IINFO )
 *
-*     Compute the q's and e's.
+      // Compute the q's and e's.
 *
       DO 30 I = 1, 2*N - 1
          WORK( I ) = WORK( I )**2
@@ -96,8 +96,8 @@
          CALL DLASCL( 'G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO )
       ELSE IF( INFO.EQ.2 ) THEN
 *
-*     Maximum number of iterations exceeded.  Move data from WORK
-*     into D and E so the calling subroutine can try to finish
+      // Maximum number of iterations exceeded.  Move data from WORK
+      // into D and E so the calling subroutine can try to finish
 *
          DO I = 1, N
             D( I ) = SQRT( WORK( 2*I-1 ) )
@@ -109,6 +109,6 @@
 *
       RETURN
 *
-*     End of DLASQ1
+      // End of DLASQ1
 *
       END

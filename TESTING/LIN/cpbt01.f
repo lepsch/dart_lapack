@@ -4,49 +4,49 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                KD, LDA, LDAFAC, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K, KC, KLEN, ML, MU;
       REAL               AKK, ANORM, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANHB, SLAMCH
       COMPLEX            CDOTC
       // EXTERNAL LSAME, CLANHB, SLAMCH, CDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHER, CSSCAL, CTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHB( '1', UPLO, N, KD, A, LDA, RWORK )
@@ -55,8 +55,8 @@
          RETURN
       END IF
 *
-*     Check the imaginary parts of the diagonal elements and return with
-*     an error code if any are nonzero.
+      // Check the imaginary parts of the diagonal elements and return with
+      // an error code if any are nonzero.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 10 J = 1, N
@@ -74,36 +74,36 @@
    20    CONTINUE
       END IF
 *
-*     Compute the product U'*U, overwriting U.
+      // Compute the product U'*U, overwriting U.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 30 K = N, 1, -1
             KC = MAX( 1, KD+2-K )
             KLEN = KD + 1 - KC
 *
-*           Compute the (K,K) element of the result.
+            // Compute the (K,K) element of the result.
 *
             AKK = REAL( CDOTC( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 ) )
             AFAC( KD+1, K ) = AKK
 *
-*           Compute the rest of column K.
+            // Compute the rest of column K.
 *
             IF( KLEN.GT.0 ) CALL CTRMV( 'Upper', 'Conjugate', 'Non-unit', KLEN, AFAC( KD+1, K-KLEN ), LDAFAC-1, AFAC( KC, K ), 1 )
 *
    30    CONTINUE
 *
-*     UPLO = 'L':  Compute the product L*L', overwriting L.
+      // UPLO = 'L':  Compute the product L*L', overwriting L.
 *
       ELSE
          DO 40 K = N, 1, -1
             KLEN = MIN( KD, N-K )
 *
-*           Add a multiple of column K of the factor L to each of
-*           columns K+1 through N.
+            // Add a multiple of column K of the factor L to each of
+            // columns K+1 through N.
 *
             IF( KLEN.GT.0 ) CALL CHER( 'Lower', KLEN, ONE, AFAC( 2, K ), 1, AFAC( 1, K+1 ), LDAFAC-1 )
 *
-*           Scale column K by the diagonal element.
+            // Scale column K by the diagonal element.
 *
             AKK = REAL( AFAC( 1, K ) )
             CALL CSSCAL( KLEN+1, AKK, AFAC( 1, K ), 1 )
@@ -111,7 +111,7 @@
    40    CONTINUE
       END IF
 *
-*     Compute the difference  L*L' - A  or  U'*U - A.
+      // Compute the difference  L*L' - A  or  U'*U - A.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 60 J = 1, N
@@ -129,7 +129,7 @@
    80    CONTINUE
       END IF
 *
-*     Compute norm( L*L' - A ) / ( N * norm(A) * EPS )
+      // Compute norm( L*L' - A ) / ( N * norm(A) * EPS )
 *
       RESID = CLANHB( '1', UPLO, N, KD, AFAC, LDAFAC, RWORK )
 *
@@ -137,6 +137,6 @@
 *
       RETURN
 *
-*     End of CPBT01
+      // End of CPBT01
 *
       END

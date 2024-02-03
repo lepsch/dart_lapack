@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS;
       double             RCOND, RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             X( LDX, * ), XACT( LDXACT, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IX, J;
       double             DIFFNM, EPS, XNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX;
       double             DLAMCH;
       // EXTERNAL IDAMAX, DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0 or NRHS = 0.
+      // Quick exit if N = 0 or NRHS = 0.
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if RCOND is invalid.
+      // Exit with RESID = 1/EPS if RCOND is invalid.
 *
       EPS = DLAMCH( 'Epsilon' )
       IF( RCOND.LT.ZERO ) THEN
@@ -47,9 +47,9 @@
          RETURN
       END IF
 *
-*     Compute the maximum of
-*        norm(X - XACT) / ( norm(XACT) * EPS )
-*     over all the vectors X and XACT .
+      // Compute the maximum of
+         // norm(X - XACT) / ( norm(XACT) * EPS )
+      // over all the vectors X and XACT .
 *
       RESID = ZERO
       DO 20 J = 1, NRHS
@@ -69,6 +69,6 @@
 *
       RETURN
 *
-*     End of DGET04
+      // End of DGET04
 *
       END

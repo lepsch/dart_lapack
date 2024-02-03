@@ -4,31 +4,31 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, K, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), TAU( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, L;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARF, DSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -45,13 +45,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 ) RETURN
 *
       IF( K.LT.M ) THEN
 *
-*        Initialise rows k+1:m to rows of the unit matrix
+         // Initialise rows k+1:m to rows of the unit matrix
 *
          DO 20 J = 1, N
             DO 10 L = K + 1, M
@@ -63,7 +63,7 @@
 *
       DO 40 I = K, 1, -1
 *
-*        Apply H(i) to A(i:m,i:n) from the right
+         // Apply H(i) to A(i:m,i:n) from the right
 *
          IF( I.LT.N ) THEN
             IF( I.LT.M ) THEN
@@ -74,7 +74,7 @@
          END IF
          A( I, I ) = ONE - TAU( I )
 *
-*        Set A(i,1:i-1) to zero
+         // Set A(i,1:i-1) to zero
 *
          DO 30 L = 1, I - 1
             A( I, L ) = ZERO
@@ -82,6 +82,6 @@
    40 CONTINUE
       RETURN
 *
-*     End of DORGL2
+      // End of DORGL2
 *
       END

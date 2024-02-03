@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               LLEFT, LRIGHT, LROWS;
       int                LDA, NL;
       REAL               C, S, XLEFT, XRIGHT
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                IINC, INEXT, IX, IY, IYT, NT;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               XT( 2 ), YT( 2 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SROT, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Set up indices, arrays for ends
+      // Set up indices, arrays for ends
 *
       IF( LROWS ) THEN
          IINC = LDA
@@ -55,7 +55,7 @@
          YT( NT ) = A( IYT )
       END IF
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NL.LT.NT ) THEN
          CALL XERBLA( 'SLAROT', 4 )
@@ -66,12 +66,12 @@
          RETURN
       END IF
 *
-*     Rotate
+      // Rotate
 *
       CALL SROT( NL-NT, A( IX ), IINC, A( IY ), IINC, C, S )
       CALL SROT( NT, XT, 1, YT, 1, C, S )
 *
-*     Stuff values back into XLEFT, XRIGHT, etc.
+      // Stuff values back into XLEFT, XRIGHT, etc.
 *
       IF( LLEFT ) THEN
          A( 1 ) = XT( 1 )
@@ -85,6 +85,6 @@
 *
       RETURN
 *
-*     End of SLAROT
+      // End of SLAROT
 *
       END

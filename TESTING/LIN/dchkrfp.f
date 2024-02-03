@@ -6,7 +6,7 @@
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXIN;
       PARAMETER          ( MAXIN = 12 )
       int                NMAX;
@@ -17,15 +17,15 @@
       PARAMETER          ( NTYPES = 9 )
       int                NIN, NOUT;
       PARAMETER          ( NIN = 5, NOUT = 6 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FATAL, TSTERR;
       int                VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       int                I, NN, NNS, NNT;
       double             EPS, S1, S2, THRESH;
 
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
       double             WORKA( NMAX, NMAX );
       double             WORKASAV( NMAX, NMAX );
@@ -45,29 +45,29 @@
       double             D_WORK_DLANSY( NMAX );
       double             D_WORK_DPOT02( NMAX );
       double             D_WORK_DPOT03( NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DSECND;
       // EXTERNAL DLAMCH, DSECND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ILAVER, DDRVRFP, DDRVRF1, DDRVRF2, DDRVRF3, DDRVRF4
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       S1 = DSECND( )
       FATAL = .FALSE.
 *
-*     Read a dummy line.
+      // Read a dummy line.
 *
       READ( NIN, FMT = * )
 *
-*     Report LAPACK version tag (e.g. LAPACK-3.2.0)
+      // Report LAPACK version tag (e.g. LAPACK-3.2.0)
 *
       CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
 *
-*     Read the values of N
+      // Read the values of N
 *
       READ( NIN, FMT = * )NN
       IF( NN.LT.1 ) THEN
@@ -91,7 +91,7 @@
    10 CONTINUE
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 *
-*     Read the values of NRHS
+      // Read the values of NRHS
 *
       READ( NIN, FMT = * )NNS
       IF( NNS.LT.1 ) THEN
@@ -115,7 +115,7 @@
    30 CONTINUE
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
-*     Read the matrix types
+      // Read the matrix types
 *
       READ( NIN, FMT = * )NNT
       IF( NNT.LT.1 ) THEN
@@ -139,12 +139,12 @@
   320 CONTINUE
       IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 *
-*     Read the threshold value for the test ratios.
+      // Read the threshold value for the test ratios.
 *
       READ( NIN, FMT = * )THRESH
       WRITE( NOUT, FMT = 9992 )THRESH
 *
-*     Read the flag that indicates whether to test the error exits.
+      // Read the flag that indicates whether to test the error exits.
 *
       READ( NIN, FMT = * )TSTERR
 *
@@ -153,7 +153,7 @@
          STOP
       END IF
 *
-*     Calculate and print the machine dependent constants.
+      // Calculate and print the machine dependent constants.
 *
       EPS = DLAMCH( 'Underflow threshold' )
       WRITE( NOUT, FMT = 9991 )'underflow', EPS
@@ -163,30 +163,30 @@
       WRITE( NOUT, FMT = 9991 )'precision', EPS
       WRITE( NOUT, FMT = * )
 *
-*     Test the error exit of:
+      // Test the error exit of:
 *
       IF( TSTERR ) CALL DERRRFP( NOUT )
 *
-*     Test the routines: dpftrf, dpftri, dpftrs (as in DDRVPO).
-*     This also tests the routines: dtfsm, dtftri, dtfttr, dtrttf.
+      // Test the routines: dpftrf, dpftri, dpftrs (as in DDRVPO).
+      // This also tests the routines: dtfsm, dtftri, dtfttr, dtrttf.
 *
       CALL DDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02, D_TEMP_DPOT03, D_WORK_DLANSY, D_WORK_DPOT02, D_WORK_DPOT03 )
 *
-*     Test the routine: dlansf
+      // Test the routine: dlansf
 *
       CALL DDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_DLANSY )
 *
-*     Test the conversion routines:
-*       dtfttp, dtpttf, dtfttr, dtrttf, dtrttp and dtpttr.
+      // Test the conversion routines:
+        // dtfttp, dtpttf, dtfttr, dtrttf, dtrttp and dtpttr.
 *
       CALL DDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV )
 *
-*     Test the routine: dtfsm
+      // Test the routine: dtfsm
 *
       CALL DDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, D_WORK_DLANSY, D_WORK_DPOT03, D_WORK_DPOT01 )
 *
 *
-*     Test the routine: dsfrk
+      // Test the routine: dsfrk
 *
       CALL DDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX, D_WORK_DLANSY)
 *
@@ -210,6 +210,6 @@
      $      'less than', F8.2, / )
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 )
 *
-*     End of DCHKRFP
+      // End of DCHKRFP
 *
       END

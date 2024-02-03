@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLAUUM, DTRTRI, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -41,21 +41,21 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Invert the triangular Cholesky factor U or L.
+      // Invert the triangular Cholesky factor U or L.
 *
       CALL DTRTRI( UPLO, 'Non-unit', N, A, LDA, INFO )
       IF( INFO.GT.0 ) RETURN
 *
-*     Form inv(U) * inv(U)**T or inv(L)**T * inv(L).
+      // Form inv(U) * inv(U)**T or inv(L)**T * inv(L).
 *
       CALL DLAUUM( UPLO, N, A, LDA, INFO )
 *
       RETURN
 *
-*     End of DPOTRI
+      // End of DPOTRI
 *
       END

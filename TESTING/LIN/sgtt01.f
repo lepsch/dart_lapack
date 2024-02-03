@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDWORK, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), RWORK( * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IP, J, LASTJ;
       REAL               ANORM, EPS, LI
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLANGT, SLANHS
       // EXTERNAL SLAMCH, SLANGT, SLANHS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SAXPY, SSWAP
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
@@ -44,7 +44,7 @@
 *
       EPS = SLAMCH( 'Epsilon' )
 *
-*     Copy the matrix U to WORK.
+      // Copy the matrix U to WORK.
 *
       DO 20 J = 1, N
          DO 10 I = 1, N
@@ -64,7 +64,7 @@
          END IF
    30 CONTINUE
 *
-*     Multiply on the left by L.
+      // Multiply on the left by L.
 *
       LASTJ = N
       DO 40 I = N - 1, 1, -1
@@ -78,7 +78,7 @@
          END IF
    40 CONTINUE
 *
-*     Subtract the matrix A.
+      // Subtract the matrix A.
 *
       WORK( 1, 1 ) = WORK( 1, 1 ) - D( 1 )
       IF( N.GT.1 ) THEN
@@ -92,16 +92,16 @@
    50    CONTINUE
       END IF
 *
-*     Compute the 1-norm of the tridiagonal matrix A.
+      // Compute the 1-norm of the tridiagonal matrix A.
 *
       ANORM = SLANGT( '1', N, DL, D, DU )
 *
-*     Compute the 1-norm of WORK, which is only guaranteed to be
-*     upper Hessenberg.
+      // Compute the 1-norm of WORK, which is only guaranteed to be
+      // upper Hessenberg.
 *
       RESID = SLANHS( '1', N, WORK, LDWORK, RWORK )
 *
-*     Compute norm(L*U - A) / (norm(A) * EPS)
+      // Compute norm(L*U - A) / (norm(A) * EPS)
 *
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
@@ -111,6 +111,6 @@
 *
       RETURN
 *
-*     End of SGTT01
+      // End of SGTT01
 *
       END

@@ -6,38 +6,38 @@
 *
       IMPLICIT NONE
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                N, NRHS, LDA, LDB, LTB, LWORK, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
       COMPLEX*16         A( LDA, * ), B( LDB, * ), TB( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE  = ( 1.0D+0, 0.0D+0 ) )
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                LWKOPT, LWKMIN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       // EXTERNAL LSAME, ILAENV
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZHETRF_AA_2STAGE, ZHETRS_AA_2STAGE
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -73,12 +73,12 @@
          RETURN
       END IF
 *
-*     Compute the factorization A = U**H*T*U or A = L*T*L**H.
+      // Compute the factorization A = U**H*T*U or A = L*T*L**H.
 *
       CALL ZHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
-*        Solve the system A*X = B, overwriting B with X.
+         // Solve the system A*X = B, overwriting B with X.
 *
          CALL ZHETRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 *
@@ -88,6 +88,6 @@
 *
       RETURN
 *
-*     End of ZHESV_AA_2STAGE
+      // End of ZHESV_AA_2STAGE
 *
       END

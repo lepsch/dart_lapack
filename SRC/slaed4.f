@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                I, INFO, N;
       REAL               DLAM, RHO
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), DELTA( * ), Z( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                MAXIT;
       PARAMETER          ( MAXIT = 30 )
       REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0, EIGHT = 8.0E0, TEN = 10.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ORGATI, SWTCH, SWTCH3;
       int                II, IIM1, IIP1, IP1, ITER, J, NITER;
       REAL               A, B, C, DEL, DLTLB, DLTUB, DPHI, DPSI, DW, EPS, ERRETM, ETA, MIDPT, PHI, PREW, PSI, RHOINV, TAU, TEMP, TEMP1, W
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               ZZ( 3 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAED5, SLAED6
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Since this routine is called in an inner loop, we do no argument
-*     checking.
+      // Since this routine is called in an inner loop, we do no argument
+      // checking.
 *
-*     Quick return for N=1 and 2.
+      // Quick return for N=1 and 2.
 *
       INFO = 0
       IF( N.EQ.1 ) THEN
 *
-*         Presumably, I=1 upon entry
+          // Presumably, I=1 upon entry
 *
          DLAM = D( 1 ) + RHO*Z( 1 )*Z( 1 )
          DELTA( 1 ) = ONE
@@ -59,26 +59,26 @@
          RETURN
       END IF
 *
-*     Compute machine epsilon
+      // Compute machine epsilon
 *
       EPS = SLAMCH( 'Epsilon' )
       RHOINV = ONE / RHO
 *
-*     The case I = N
+      // The case I = N
 *
       IF( I.EQ.N ) THEN
 *
-*        Initialize some basic variables
+         // Initialize some basic variables
 *
          II = N - 1
          NITER = 1
 *
-*        Calculate initial guess
+         // Calculate initial guess
 *
          MIDPT = RHO / TWO
 *
-*        If ||Z||_2 is not one, then TEMP should be set to
-*        RHO * ||Z||_2^2 / TWO
+         // If ||Z||_2 is not one, then TEMP should be set to
+         // RHO * ||Z||_2^2 / TWO
 *
          DO 10 J = 1, N
             DELTA( J ) = ( D( J )-D( I ) ) - MIDPT
@@ -107,8 +107,8 @@
                END IF
             END IF
 *
-*           It can be proved that
-*               D(N)+RHO/2 <= LAMBDA(N) < D(N)+TAU <= D(N)+RHO
+            // It can be proved that
+                // D(N)+RHO/2 <= LAMBDA(N) < D(N)+TAU <= D(N)+RHO
 *
             DLTLB = MIDPT
             DLTUB = RHO
@@ -122,8 +122,8 @@
                TAU = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
             END IF
 *
-*           It can be proved that
-*               D(N) < D(N)+TAU < LAMBDA(N) < D(N)+RHO/2
+            // It can be proved that
+                // D(N) < D(N)+TAU < LAMBDA(N) < D(N)+RHO/2
 *
             DLTLB = ZERO
             DLTUB = MIDPT
@@ -133,7 +133,7 @@
             DELTA( J ) = ( D( J )-D( I ) ) - TAU
    30    CONTINUE
 *
-*        Evaluate PSI and the derivative DPSI
+         // Evaluate PSI and the derivative DPSI
 *
          DPSI = ZERO
          PSI = ZERO
@@ -146,7 +146,7 @@
    40    CONTINUE
          ERRETM = ABS( ERRETM )
 *
-*        Evaluate PHI and the derivative DPHI
+         // Evaluate PHI and the derivative DPHI
 *
          TEMP = Z( N ) / DELTA( N )
          PHI = Z( N )*TEMP
@@ -155,7 +155,7 @@
 *
          W = RHOINV + PHI + PSI
 *
-*        Test for convergence
+         // Test for convergence
 *
          IF( ABS( W ).LE.EPS*ERRETM ) THEN
             DLAM = D( I ) + TAU
@@ -168,7 +168,7 @@
             DLTUB = MIN( DLTUB, TAU )
          END IF
 *
-*        Calculate the new step
+         // Calculate the new step
 *
          NITER = NITER + 1
          C = W - DELTA( N-1 )*DPSI - DELTA( N )*DPHI
@@ -176,11 +176,11 @@
          B = DELTA( N-1 )*DELTA( N )*W
          IF( C.LT.ZERO ) C = ABS( C )
          IF( C.EQ.ZERO ) THEN
-*           ETA = B/A
-*           ETA = RHO - TAU
-*           ETA = DLTUB - TAU
+            // ETA = B/A
+            // ETA = RHO - TAU
+            // ETA = DLTUB - TAU
 *
-*           Update proposed by Li, Ren-Cang:
+            // Update proposed by Li, Ren-Cang:
             ETA = -W / ( DPSI+DPHI )
          ELSE IF( A.GE.ZERO ) THEN
             ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
@@ -188,11 +188,11 @@
             ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
          END IF
 *
-*        Note, eta should be positive if w is negative, and
-*        eta should be negative otherwise. However,
-*        if for some reason caused by roundoff, eta*w > 0,
-*        we simply use one Newton step instead. This way
-*        will guarantee eta*w < 0.
+         // Note, eta should be positive if w is negative, and
+         // eta should be negative otherwise. However,
+         // if for some reason caused by roundoff, eta*w > 0,
+         // we simply use one Newton step instead. This way
+         // will guarantee eta*w < 0.
 *
          IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
          TEMP = TAU + ETA
@@ -209,7 +209,7 @@
 *
          TAU = TAU + ETA
 *
-*        Evaluate PSI and the derivative DPSI
+         // Evaluate PSI and the derivative DPSI
 *
          DPSI = ZERO
          PSI = ZERO
@@ -222,7 +222,7 @@
    60    CONTINUE
          ERRETM = ABS( ERRETM )
 *
-*        Evaluate PHI and the derivative DPHI
+         // Evaluate PHI and the derivative DPHI
 *
          TEMP = Z( N ) / DELTA( N )
          PHI = Z( N )*TEMP
@@ -231,13 +231,13 @@
 *
          W = RHOINV + PHI + PSI
 *
-*        Main loop to update the values of the array   DELTA
+         // Main loop to update the values of the array   DELTA
 *
          ITER = NITER + 1
 *
          DO 90 NITER = ITER, MAXIT
 *
-*           Test for convergence
+            // Test for convergence
 *
             IF( ABS( W ).LE.EPS*ERRETM ) THEN
                DLAM = D( I ) + TAU
@@ -250,7 +250,7 @@
                DLTUB = MIN( DLTUB, TAU )
             END IF
 *
-*           Calculate the new step
+            // Calculate the new step
 *
             C = W - DELTA( N-1 )*DPSI - DELTA( N )*DPHI
             A = ( DELTA( N-1 )+DELTA( N ) )*W - DELTA( N-1 )*DELTA( N )*( DPSI+DPHI )
@@ -261,11 +261,11 @@
                ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
             END IF
 *
-*           Note, eta should be positive if w is negative, and
-*           eta should be negative otherwise. However,
-*           if for some reason caused by roundoff, eta*w > 0,
-*           we simply use one Newton step instead. This way
-*           will guarantee eta*w < 0.
+            // Note, eta should be positive if w is negative, and
+            // eta should be negative otherwise. However,
+            // if for some reason caused by roundoff, eta*w > 0,
+            // we simply use one Newton step instead. This way
+            // will guarantee eta*w < 0.
 *
             IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
             TEMP = TAU + ETA
@@ -282,7 +282,7 @@
 *
             TAU = TAU + ETA
 *
-*           Evaluate PSI and the derivative DPSI
+            // Evaluate PSI and the derivative DPSI
 *
             DPSI = ZERO
             PSI = ZERO
@@ -295,7 +295,7 @@
    80       CONTINUE
             ERRETM = ABS( ERRETM )
 *
-*           Evaluate PHI and the derivative DPHI
+            // Evaluate PHI and the derivative DPHI
 *
             TEMP = Z( N ) / DELTA( N )
             PHI = Z( N )*TEMP
@@ -305,22 +305,22 @@
             W = RHOINV + PHI + PSI
    90    CONTINUE
 *
-*        Return with INFO = 1, NITER = MAXIT and not converged
+         // Return with INFO = 1, NITER = MAXIT and not converged
 *
          INFO = 1
          DLAM = D( I ) + TAU
          GO TO 250
 *
-*        End for the case I = N
+         // End for the case I = N
 *
       ELSE
 *
-*        The case for I < N
+         // The case for I < N
 *
          NITER = 1
          IP1 = I + 1
 *
-*        Calculate initial guess
+         // Calculate initial guess
 *
          DEL = D( IP1 ) - D( I )
          MIDPT = DEL / TWO
@@ -342,9 +342,9 @@
 *
          IF( W.GT.ZERO ) THEN
 *
-*           d(i)< the ith eigenvalue < (d(i)+d(i+1))/2
+            // d(i)< the ith eigenvalue < (d(i)+d(i+1))/2
 *
-*           We choose d(i) as origin.
+            // We choose d(i) as origin.
 *
             ORGATI = .TRUE.
             A = C*DEL + Z( I )*Z( I ) + Z( IP1 )*Z( IP1 )
@@ -358,9 +358,9 @@
             DLTUB = MIDPT
          ELSE
 *
-*           (d(i)+d(i+1))/2 <= the ith eigenvalue < d(i+1)
+            // (d(i)+d(i+1))/2 <= the ith eigenvalue < d(i+1)
 *
-*           We choose d(i+1) as origin.
+            // We choose d(i+1) as origin.
 *
             ORGATI = .FALSE.
             A = C*DEL - Z( I )*Z( I ) - Z( IP1 )*Z( IP1 )
@@ -391,7 +391,7 @@
          IIM1 = II - 1
          IIP1 = II + 1
 *
-*        Evaluate PSI and the derivative DPSI
+         // Evaluate PSI and the derivative DPSI
 *
          DPSI = ZERO
          PSI = ZERO
@@ -404,7 +404,7 @@
   150    CONTINUE
          ERRETM = ABS( ERRETM )
 *
-*        Evaluate PHI and the derivative DPHI
+         // Evaluate PHI and the derivative DPHI
 *
          DPHI = ZERO
          PHI = ZERO
@@ -417,8 +417,8 @@
 *
          W = RHOINV + PHI + PSI
 *
-*        W is the value of the secular function with
-*        its ii-th element removed.
+         // W is the value of the secular function with
+         // its ii-th element removed.
 *
          SWTCH3 = .FALSE.
          IF( ORGATI ) THEN
@@ -434,7 +434,7 @@
          W = W + TEMP
          ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP ) + ABS( TAU )*DW
 *
-*        Test for convergence
+         // Test for convergence
 *
          IF( ABS( W ).LE.EPS*ERRETM ) THEN
             IF( ORGATI ) THEN
@@ -451,7 +451,7 @@
             DLTUB = MIN( DLTUB, TAU )
          END IF
 *
-*        Calculate the new step
+         // Calculate the new step
 *
          NITER = NITER + 1
          IF( .NOT.SWTCH3 ) THEN
@@ -478,7 +478,7 @@
             END IF
          ELSE
 *
-*           Interpolation using THREE most relevant poles
+            // Interpolation using THREE most relevant poles
 *
             TEMP = RHOINV + PSI + PHI
             IF( ORGATI ) THEN
@@ -497,11 +497,11 @@
             CALL SLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )             IF( INFO.NE.0 ) GO TO 250
          END IF
 *
-*        Note, eta should be positive if w is negative, and
-*        eta should be negative otherwise. However,
-*        if for some reason caused by roundoff, eta*w > 0,
-*        we simply use one Newton step instead. This way
-*        will guarantee eta*w < 0.
+         // Note, eta should be positive if w is negative, and
+         // eta should be negative otherwise. However,
+         // if for some reason caused by roundoff, eta*w > 0,
+         // we simply use one Newton step instead. This way
+         // will guarantee eta*w < 0.
 *
          IF( W*ETA.GE.ZERO ) ETA = -W / DW
          TEMP = TAU + ETA
@@ -519,7 +519,7 @@
             DELTA( J ) = DELTA( J ) - ETA
   180    CONTINUE
 *
-*        Evaluate PSI and the derivative DPSI
+         // Evaluate PSI and the derivative DPSI
 *
          DPSI = ZERO
          PSI = ZERO
@@ -532,7 +532,7 @@
   190    CONTINUE
          ERRETM = ABS( ERRETM )
 *
-*        Evaluate PHI and the derivative DPHI
+         // Evaluate PHI and the derivative DPHI
 *
          DPHI = ZERO
          PHI = ZERO
@@ -558,13 +558,13 @@
 *
          TAU = TAU + ETA
 *
-*        Main loop to update the values of the array   DELTA
+         // Main loop to update the values of the array   DELTA
 *
          ITER = NITER + 1
 *
          DO 240 NITER = ITER, MAXIT
 *
-*           Test for convergence
+            // Test for convergence
 *
             IF( ABS( W ).LE.EPS*ERRETM ) THEN
                IF( ORGATI ) THEN
@@ -581,7 +581,7 @@
                DLTUB = MIN( DLTUB, TAU )
             END IF
 *
-*           Calculate the new step
+            // Calculate the new step
 *
             IF( .NOT.SWTCH3 ) THEN
                IF( .NOT.SWTCH ) THEN
@@ -621,7 +621,7 @@
                END IF
             ELSE
 *
-*              Interpolation using THREE most relevant poles
+               // Interpolation using THREE most relevant poles
 *
                TEMP = RHOINV + PSI + PHI
                IF( SWTCH ) THEN
@@ -645,11 +645,11 @@
                CALL SLAED6( NITER, ORGATI, C, DELTA( IIM1 ), ZZ, W, ETA, INFO )                IF( INFO.NE.0 ) GO TO 250
             END IF
 *
-*           Note, eta should be positive if w is negative, and
-*           eta should be negative otherwise. However,
-*           if for some reason caused by roundoff, eta*w > 0,
-*           we simply use one Newton step instead. This way
-*           will guarantee eta*w < 0.
+            // Note, eta should be positive if w is negative, and
+            // eta should be negative otherwise. However,
+            // if for some reason caused by roundoff, eta*w > 0,
+            // we simply use one Newton step instead. This way
+            // will guarantee eta*w < 0.
 *
             IF( W*ETA.GE.ZERO ) ETA = -W / DW
             TEMP = TAU + ETA
@@ -668,7 +668,7 @@
             TAU = TAU + ETA
             PREW = W
 *
-*           Evaluate PSI and the derivative DPSI
+            // Evaluate PSI and the derivative DPSI
 *
             DPSI = ZERO
             PSI = ZERO
@@ -681,7 +681,7 @@
   220       CONTINUE
             ERRETM = ABS( ERRETM )
 *
-*           Evaluate PHI and the derivative DPHI
+            // Evaluate PHI and the derivative DPHI
 *
             DPHI = ZERO
             PHI = ZERO
@@ -700,7 +700,7 @@
 *
   240    CONTINUE
 *
-*        Return with INFO = 1, NITER = MAXIT and not converged
+         // Return with INFO = 1, NITER = MAXIT and not converged
 *
          INFO = 1
          IF( ORGATI ) THEN
@@ -715,6 +715,6 @@
 *
       RETURN
 *
-*     End of SLAED4
+      // End of SLAED4
 *
       END

@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, N;
       REAL               ANORM, RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            AB( LDAB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       String             NORMIN;
       int                IX, KASE;
       REAL               AINVNM, SCALE, SCALEL, SCALEU, SMLNUM
       COMPLEX            ZDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH
       // EXTERNAL LSAME, ICAMAX, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLACN2, CLATBS, CSRSCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -70,7 +70,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -82,7 +82,7 @@
 *
       SMLNUM = SLAMCH( 'Safe minimum' )
 *
-*     Estimate the 1-norm of the inverse.
+      // Estimate the 1-norm of the inverse.
 *
       KASE = 0
       NORMIN = 'N'
@@ -91,27 +91,27 @@
       IF( KASE.NE.0 ) THEN
          IF( UPPER ) THEN
 *
-*           Multiply by inv(U**H).
+            // Multiply by inv(U**H).
 *
             CALL CLATBS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO )
             NORMIN = 'Y'
 *
-*           Multiply by inv(U).
+            // Multiply by inv(U).
 *
             CALL CLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK, INFO )
          ELSE
 *
-*           Multiply by inv(L).
+            // Multiply by inv(L).
 *
             CALL CLATBS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO )
             NORMIN = 'Y'
 *
-*           Multiply by inv(L**H).
+            // Multiply by inv(L**H).
 *
             CALL CLATBS( 'Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK, INFO )
          END IF
 *
-*        Multiply by 1/SCALE if doing so will not cause overflow.
+         // Multiply by 1/SCALE if doing so will not cause overflow.
 *
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
@@ -122,7 +122,7 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
@@ -130,6 +130,6 @@
 *
       RETURN
 *
-*     End of CPBCON
+      // End of CPBCON
 *
       END

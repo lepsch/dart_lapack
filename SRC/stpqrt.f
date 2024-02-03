@@ -4,25 +4,25 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INFO, LDA, LDB, LDT, N, M, L, NB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int        I, IB, LB, MB, IINFO;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL STPQRT2, STPRFB, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -45,13 +45,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
       DO I = 1, N, NB
 *
-*     Compute the QR factorization of the current block
+      // Compute the QR factorization of the current block
 *
          IB = MIN( N-I+1, NB )
          MB = MIN( M-L+I+IB-1, M )
@@ -63,7 +63,7 @@
 *
          CALL STPQRT2( MB, IB, LB, A(I,I), LDA, B( 1, I ), LDB, T(1, I ), LDT, IINFO )
 *
-*     Update by applying H^H to B(:,I+IB:N) from the left
+      // Update by applying H^H to B(:,I+IB:N) from the left
 *
          IF( I+IB.LE.N ) THEN
             CALL STPRFB( 'L', 'T', 'F', 'C', MB, N-I-IB+1, IB, LB, B( 1, I ), LDB, T( 1, I ), LDT, A( I, I+IB ), LDA, B( 1, I+IB ), LDB, WORK, IB )
@@ -71,6 +71,6 @@
       END DO
       RETURN
 *
-*     End of STPQRT
+      // End of STPQRT
 *
       END

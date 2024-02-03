@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO, J;
       REAL               ANRM, RCOND
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX ), IW( NMAX );
       REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SSPCON, SSPRFS, SSPTRF, SSPTRI, SSPTRS, SSYCON, SSYCON_3, SSYCON_ROOK, SSYRFS, SSYTF2_RK, SSYTF2_ROOK, SSYTRF, SSYTRF_RK, SSYTRF_ROOK, SSYTRI, SSYTF2, SSYTRI_3, SSYTRI_3X, SSYTRI_ROOK, SSYTRF_AA, SSYTRI2, SSYTRI2X, SSYTRS, SSYTRS_3, SSYTRS_ROOK, SSYTRS_AA, SSYTRF_AA_2STAGE, SSYTRS_AA_2STAGE
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -71,11 +71,11 @@
 *
       IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with partial
-*        (Bunch-Kaufman) pivoting.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with partial
+         // (Bunch-Kaufman) pivoting.
 *
-*        SSYTRF
+         // SSYTRF
 *
          SRNAMT = 'SSYTRF'
          INFOT = 1
@@ -94,7 +94,7 @@
          CALL SSYTRF( 'U', 0, A, 1, IP, W, -2, INFO )
          CALL CHKXER( 'SSYTRF', INFOT, NOUT, LERR, OK )
 *
-*        SSYTF2
+         // SSYTF2
 *
          SRNAMT = 'SSYTF2'
          INFOT = 1
@@ -107,7 +107,7 @@
          CALL SSYTF2( 'U', 2, A, 1, IP, INFO )
          CALL CHKXER( 'SSYTF2', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRI
+         // SSYTRI
 *
          SRNAMT = 'SSYTRI'
          INFOT = 1
@@ -120,7 +120,7 @@
          CALL SSYTRI( 'U', 2, A, 1, IP, W, INFO )
          CALL CHKXER( 'SSYTRI', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRI2
+         // SSYTRI2
 *
          SRNAMT = 'SSYTRI2'
          INFOT = 1
@@ -133,7 +133,7 @@
          CALL SSYTRI2( 'U', 2, A, 1, IP, W, IW(1), INFO )
          CALL CHKXER( 'SSYTRI2', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRI2X
+         // SSYTRI2X
 *
          SRNAMT = 'SSYTRI2X'
          INFOT = 1
@@ -146,7 +146,7 @@
          CALL SSYTRI2X( 'U', 2, A, 1, IP, W, 1, INFO )
          CALL CHKXER( 'SSYTRI2X', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRS
+         // SSYTRS
 *
          SRNAMT = 'SSYTRS'
          INFOT = 1
@@ -165,7 +165,7 @@
          CALL SSYTRS( 'U', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'SSYTRS', INFOT, NOUT, LERR, OK )
 *
-*        SSYRFS
+         // SSYRFS
 *
          SRNAMT = 'SSYRFS'
          INFOT = 1
@@ -190,7 +190,7 @@
          CALL SSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSYRFS', INFOT, NOUT, LERR, OK )
 *
-*        SSYCON
+         // SSYCON
 *
          SRNAMT = 'SSYCON'
          INFOT = 1
@@ -208,11 +208,11 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting.
 *
-*        SSYTRF_ROOK
+         // SSYTRF_ROOK
 *
          SRNAMT = 'SSYTRF_ROOK'
          INFOT = 1
@@ -231,7 +231,7 @@
          CALL SSYTRF_ROOK( 'U', 0, A, 1, IP, W, -2, INFO )
          CALL CHKXER( 'SSYTRF_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        SSYTF2_ROOK
+         // SSYTF2_ROOK
 *
          SRNAMT = 'SSYTF2_ROOK'
          INFOT = 1
@@ -244,7 +244,7 @@
          CALL SSYTF2_ROOK( 'U', 2, A, 1, IP, INFO )
          CALL CHKXER( 'SSYTF2_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRI_ROOK
+         // SSYTRI_ROOK
 *
          SRNAMT = 'SSYTRI_ROOK'
          INFOT = 1
@@ -257,7 +257,7 @@
          CALL SSYTRI_ROOK( 'U', 2, A, 1, IP, W, INFO )
          CALL CHKXER( 'SSYTRI_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRS_ROOK
+         // SSYTRS_ROOK
 *
          SRNAMT = 'SSYTRS_ROOK'
          INFOT = 1
@@ -276,7 +276,7 @@
          CALL SSYTRS_ROOK( 'U', 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'SSYTRS_ROOK', INFOT, NOUT, LERR, OK )
 *
-*        SSYCON_ROOK
+         // SSYCON_ROOK
 *
          SRNAMT = 'SSYCON_ROOK'
          INFOT = 1
@@ -294,15 +294,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
-*        SSYTRF_RK
+         // SSYTRF_RK
 *
          SRNAMT = 'SSYTRF_RK'
          INFOT = 1
@@ -321,7 +321,7 @@
          CALL SSYTRF_RK( 'U', 0, A, 1, E, IP, W, -2, INFO )
          CALL CHKXER( 'SSYTRF_RK', INFOT, NOUT, LERR, OK )
 *
-*        SSYTF2_RK
+         // SSYTF2_RK
 *
          SRNAMT = 'SSYTF2_RK'
          INFOT = 1
@@ -334,7 +334,7 @@
          CALL SSYTF2_RK( 'U', 2, A, 1, E, IP, INFO )
          CALL CHKXER( 'SSYTF2_RK', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRI_3
+         // SSYTRI_3
 *
          SRNAMT = 'SSYTRI_3'
          INFOT = 1
@@ -353,7 +353,7 @@
          CALL SSYTRI_3( 'U', 0, A, 1, E, IP, W, -2, INFO )
          CALL CHKXER( 'SSYTRI_3', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRI_3X
+         // SSYTRI_3X
 *
          SRNAMT = 'SSYTRI_3X'
          INFOT = 1
@@ -366,7 +366,7 @@
          CALL SSYTRI_3X( 'U', 2, A, 1, E, IP, W, 1, INFO )
          CALL CHKXER( 'SSYTRI_3X', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRS_3
+         // SSYTRS_3
 *
          SRNAMT = 'SSYTRS_3'
          INFOT = 1
@@ -385,7 +385,7 @@
          CALL SSYTRS_3( 'U', 2, 1, A, 2, E, IP, B, 1, INFO )
          CALL CHKXER( 'SSYTRS_3', INFOT, NOUT, LERR, OK )
 *
-*        SSYCON_3
+         // SSYCON_3
 *
          SRNAMT = 'SSYCON_3'
          INFOT = 1
@@ -403,10 +403,10 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with Aasen's algorithm.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with Aasen's algorithm.
 *
-*        SSYTRF_AA
+         // SSYTRF_AA
 *
          SRNAMT = 'SSYTRF_AA'
          INFOT = 1
@@ -425,7 +425,7 @@
          CALL SSYTRF_AA( 'U', 0, A, 1, IP, W, -2, INFO )
          CALL CHKXER( 'SSYTRF_AA', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRS_AA
+         // SSYTRS_AA
 *
          SRNAMT = 'SSYTRS_AA'
          INFOT = 1
@@ -451,10 +451,10 @@
          CALL CHKXER( 'SSYTRS_AA', INFOT, NOUT, LERR, OK )
       ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite matrix with Aasen's algorithm.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite matrix with Aasen's algorithm.
 *
-*        SSYTRF_AA_2STAGE
+         // SSYTRF_AA_2STAGE
 *
          SRNAMT = 'SSYTRF_AA_2STAGE'
          INFOT = 1
@@ -473,7 +473,7 @@
          CALL SSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0, INFO )
          CALL CHKXER( 'SSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
 *
-*        SSYTRS_AA_2STAGE
+         // SSYTRS_AA_2STAGE
 *
          SRNAMT = 'SSYTRS_AA_2STAGE'
          INFOT = 1
@@ -497,11 +497,11 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        Test error exits of the routines that use factorization
-*        of a symmetric indefinite packed matrix with partial
-*        (Bunch-Kaufman) pivoting.
+         // Test error exits of the routines that use factorization
+         // of a symmetric indefinite packed matrix with partial
+         // (Bunch-Kaufman) pivoting.
 *
-*        SSPTRF
+         // SSPTRF
 *
          SRNAMT = 'SSPTRF'
          INFOT = 1
@@ -511,7 +511,7 @@
          CALL SSPTRF( 'U', -1, A, IP, INFO )
          CALL CHKXER( 'SSPTRF', INFOT, NOUT, LERR, OK )
 *
-*        SSPTRI
+         // SSPTRI
 *
          SRNAMT = 'SSPTRI'
          INFOT = 1
@@ -521,7 +521,7 @@
          CALL SSPTRI( 'U', -1, A, IP, W, INFO )
          CALL CHKXER( 'SSPTRI', INFOT, NOUT, LERR, OK )
 *
-*        SSPTRS
+         // SSPTRS
 *
          SRNAMT = 'SSPTRS'
          INFOT = 1
@@ -537,7 +537,7 @@
          CALL SSPTRS( 'U', 2, 1, A, IP, B, 1, INFO )
          CALL CHKXER( 'SSPTRS', INFOT, NOUT, LERR, OK )
 *
-*        SSPRFS
+         // SSPRFS
 *
          SRNAMT = 'SSPRFS'
          INFOT = 1
@@ -556,7 +556,7 @@
          CALL SSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSPRFS', INFOT, NOUT, LERR, OK )
 *
-*        SSPCON
+         // SSPCON
 *
          SRNAMT = 'SSPCON'
          INFOT = 1
@@ -570,12 +570,12 @@
          CALL CHKXER( 'SSPCON', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of SERRSY
+      // End of SERRSY
 *
       END

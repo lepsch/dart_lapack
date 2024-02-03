@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     SRNAME_LEN, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       String   (1) SRNAME_ARRAY(SRNAME_LEN);
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int     I;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String       SRNAME;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN, LEN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       SRNAME = ' '
       DO I = 1, MIN( SRNAME_LEN, LEN( SRNAME ) )
          SRNAME( I:I ) = SRNAME_ARRAY( I )

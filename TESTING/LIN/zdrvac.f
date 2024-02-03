@@ -4,65 +4,65 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                NMAX, NM, NNS, NOUT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NSVAL( * );
       double             RWORK( * );
       COMPLEX            SWORK(*)
       COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 9 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 1 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             ANORM, CNDNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-*     ..
-*     .. Local Variables ..
+      // ..
+      // .. Local Variables ..
       int                ITER, KASE;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAERH, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPOT06, ZCPOSV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, SQRT
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS / 'U', 'L' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       KASE = 0
       PATH( 1: 1 ) = 'Zomplex precision'
@@ -76,7 +76,7 @@
 *
       INFOT = 0
 *
-*     Do for each value of N in MVAL
+      // Do for each value of N in MVAL
 *
       DO 120 IM = 1, NM
          N = MVAL( IM )
@@ -86,37 +86,37 @@
 *
          DO 110 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 110
 *
-*           Skip types 3, 4, or 5 if the matrix size is too small.
+            // Skip types 3, 4, or 5 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
             IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 110
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 100 IUPLO = 1, 2
                UPLO = UPLOS( IUPLO )
 *
-*              Set up parameters with ZLATB4 and generate a test matrix
-*              with ZLATMS.
+               // Set up parameters with ZLATB4 and generate a test matrix
+               // with ZLATMS.
 *
                CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'ZLATMS'
                CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
 *
-*              Check error code from ZLATMS.
+               // Check error code from ZLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
                END IF
 *
-*              For types 3-5, zero one row and column of the matrix to
-*              test that INFO is returned correctly.
+               // For types 3-5, zero one row and column of the matrix to
+              t // est that INFO is returned correctly.
 *
                IF( ZEROT ) THEN
                   IF( IMAT.EQ.3 ) THEN
@@ -128,7 +128,7 @@
                   END IF
                   IOFF = ( IZERO-1 )*LDA
 *
-*                 Set row and column IZERO of A to 0.
+                  // Set row and column IZERO of A to 0.
 *
                   IF( IUPLO.EQ.1 ) THEN
                      DO 20 I = 1, IZERO - 1
@@ -154,7 +154,7 @@
                   IZERO = 0
                END IF
 *
-*              Set the imaginary part of the diagonals.
+               // Set the imaginary part of the diagonals.
 *
                CALL ZLAIPD( N, A, LDA+1, 0 )
 *
@@ -162,13 +162,13 @@
                   NRHS = NSVAL( IRHS )
                   XTYPE = 'N'
 *
-*                 Form an exact solution and set the right hand side.
+                  // Form an exact solution and set the right hand side.
 *
                   SRNAMT = 'ZLARHS'
                   CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO )
 *
-*                 Compute the L*L' or U'*U factorization of the
-*                 matrix and solve the system.
+                  // Compute the L*L' or U'*U factorization of the
+                  // matrix and solve the system.
 *
                   SRNAMT = 'ZCPOSV '
                   KASE = KASE + 1
@@ -181,7 +181,7 @@
                      CALL ZLACPY( 'All', N, N, A, LDA, AFAC, LDA )
                   ENDIF
 *
-*                 Check error code from ZCPOSV .
+                  // Check error code from ZCPOSV .
 *
                   IF( INFO.NE.IZERO ) THEN
 *
@@ -195,27 +195,27 @@
                      END IF
                   END IF
 *
-*                 Skip the remaining test if the matrix is singular.
+                  // Skip the remaining test if the matrix is singular.
 *
                   IF( INFO.NE.0 ) GO TO 110
 *
-*                 Check the quality of the solution
+                  // Check the quality of the solution
 *
                   CALL ZLACPY( 'All', N, NRHS, B, LDA, WORK, LDA )
 *
                   CALL ZPOT06( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
 *
-*                 Check if the test passes the testing.
-*                 Print information about the tests that did not
-*                 pass the testing.
+                  // Check if the test passes the testing.
+                  // Print information about the tests that did not
+                  // pass the testing.
 *
-*                 If iterative refinement has been used and claimed to
-*                 be successful (ITER>0), we want
-*                 NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS*SRQT(N)) < 1
+                  // If iterative refinement has been used and claimed to
+                  // be successful (ITER>0), we want
+                  // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS*SRQT(N)) < 1
 *
-*                 If double precision has been used (ITER<0), we want
-*                 NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
-*                 (Cf. the linear solver testing routines)
+                  // If double precision has been used (ITER<0), we want
+                  // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
+                  // (Cf. the linear solver testing routines)
 *
                   IF ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
 *
@@ -241,7 +241,7 @@
   110    CONTINUE
   120 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       IF( NFAIL.GT.0 ) THEN
          WRITE( NOUT, FMT = 9996 )'ZCPOSV', NFAIL, NRUN
@@ -260,13 +260,13 @@
      $      ' routines passed the threshold ( ', I6, ' tests run)' )
  9994 FORMAT( 6X, I6, ' error messages recorded' )
 *
-*     SUBNAM, INFO, INFOE, N, IMAT
+      // SUBNAM, INFO, INFOE, N, IMAT
 *
  9988 FORMAT( ' *** ', A6, ' returned with INFO =', I5, ' instead of ',
      $      I5, / ' ==> N =', I5, ', type ',
      $      I2 )
 *
-*     SUBNAM, INFO, N, IMAT
+      // SUBNAM, INFO, N, IMAT
 *
  9975 FORMAT( ' *** Error code from ', A6, '=', I5, ' for M=', I5,
      $      ', type ', I2 )
@@ -286,6 +286,6 @@
 
       RETURN
 *
-*     End of ZDRVAC
+      // End of ZDRVAC
 *
       END

@@ -4,32 +4,32 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, K;
       REAL               AII
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLARF, SLARFG, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       IF( M.LT.0 ) THEN
@@ -48,12 +48,12 @@
 *
       DO 10 I = K, 1, -1
 *
-*        Generate elementary reflector H(i) to annihilate
-*        A(m-k+i,1:n-k+i-1)
+         // Generate elementary reflector H(i) to annihilate
+         // A(m-k+i,1:n-k+i-1)
 *
          CALL SLARFG( N-K+I, A( M-K+I, N-K+I ), A( M-K+I, 1 ), LDA, TAU( I ) )
 *
-*        Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
+         // Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
 *
          AII = A( M-K+I, N-K+I )
          A( M-K+I, N-K+I ) = ONE
@@ -62,6 +62,6 @@
    10 CONTINUE
       RETURN
 *
-*     End of SGERQ2
+      // End of SGERQ2
 *
       END

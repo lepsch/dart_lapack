@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE;
       int                LDC, M, N;
       COMPLEX            TAU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            C( LDC, * ), V( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J;
       COMPLEX            SUM, T1, T10, T2, T3, T4, T5, T6, T7, T8, T9, V1, V10, V2, V3, V4, V5, V6, V7, V8, V9
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLARF
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( TAU.EQ.ZERO ) RETURN
       IF( LSAME( SIDE, 'L' ) ) THEN
 *
-*        Form  H * C, where H has order m.
+         // Form  H * C, where H has order m.
 *
          GO TO ( 10, 30, 50, 70, 90, 110, 130, 150, 170, 190 )M
 *
-*        Code for general M
+         // Code for general M
 *
          CALL CLARF( SIDE, M, N, V, 1, TAU, C, LDC, WORK )
          GO TO 410
    10    CONTINUE
 *
-*        Special code for 1 x 1 Householder
+         // Special code for 1 x 1 Householder
 *
          T1 = ONE - TAU*V( 1 )*CONJG( V( 1 ) )
          DO 20 J = 1, N
@@ -57,7 +57,7 @@
          GO TO 410
    30    CONTINUE
 *
-*        Special code for 2 x 2 Householder
+         // Special code for 2 x 2 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -71,7 +71,7 @@
          GO TO 410
    50    CONTINUE
 *
-*        Special code for 3 x 3 Householder
+         // Special code for 3 x 3 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -88,7 +88,7 @@
          GO TO 410
    70    CONTINUE
 *
-*        Special code for 4 x 4 Householder
+         // Special code for 4 x 4 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -108,7 +108,7 @@
          GO TO 410
    90    CONTINUE
 *
-*        Special code for 5 x 5 Householder
+         // Special code for 5 x 5 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -131,7 +131,7 @@
          GO TO 410
   110    CONTINUE
 *
-*        Special code for 6 x 6 Householder
+         // Special code for 6 x 6 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -157,7 +157,7 @@
          GO TO 410
   130    CONTINUE
 *
-*        Special code for 7 x 7 Householder
+         // Special code for 7 x 7 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -186,7 +186,7 @@
          GO TO 410
   150    CONTINUE
 *
-*        Special code for 8 x 8 Householder
+         // Special code for 8 x 8 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -218,7 +218,7 @@
          GO TO 410
   170    CONTINUE
 *
-*        Special code for 9 x 9 Householder
+         // Special code for 9 x 9 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -253,7 +253,7 @@
          GO TO 410
   190    CONTINUE
 *
-*        Special code for 10 x 10 Householder
+         // Special code for 10 x 10 Householder
 *
          V1 = CONJG( V( 1 ) )
          T1 = TAU*CONJG( V1 )
@@ -291,17 +291,17 @@
          GO TO 410
       ELSE
 *
-*        Form  C * H, where H has order n.
+         // Form  C * H, where H has order n.
 *
          GO TO ( 210, 230, 250, 270, 290, 310, 330, 350, 370, 390 )N
 *
-*        Code for general N
+         // Code for general N
 *
          CALL CLARF( SIDE, M, N, V, 1, TAU, C, LDC, WORK )
          GO TO 410
   210    CONTINUE
 *
-*        Special code for 1 x 1 Householder
+         // Special code for 1 x 1 Householder
 *
          T1 = ONE - TAU*V( 1 )*CONJG( V( 1 ) )
          DO 220 J = 1, M
@@ -310,7 +310,7 @@
          GO TO 410
   230    CONTINUE
 *
-*        Special code for 2 x 2 Householder
+         // Special code for 2 x 2 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -324,7 +324,7 @@
          GO TO 410
   250    CONTINUE
 *
-*        Special code for 3 x 3 Householder
+         // Special code for 3 x 3 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -341,7 +341,7 @@
          GO TO 410
   270    CONTINUE
 *
-*        Special code for 4 x 4 Householder
+         // Special code for 4 x 4 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -361,7 +361,7 @@
          GO TO 410
   290    CONTINUE
 *
-*        Special code for 5 x 5 Householder
+         // Special code for 5 x 5 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -384,7 +384,7 @@
          GO TO 410
   310    CONTINUE
 *
-*        Special code for 6 x 6 Householder
+         // Special code for 6 x 6 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -410,7 +410,7 @@
          GO TO 410
   330    CONTINUE
 *
-*        Special code for 7 x 7 Householder
+         // Special code for 7 x 7 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -439,7 +439,7 @@
          GO TO 410
   350    CONTINUE
 *
-*        Special code for 8 x 8 Householder
+         // Special code for 8 x 8 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -471,7 +471,7 @@
          GO TO 410
   370    CONTINUE
 *
-*        Special code for 9 x 9 Householder
+         // Special code for 9 x 9 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -506,7 +506,7 @@
          GO TO 410
   390    CONTINUE
 *
-*        Special code for 10 x 10 Householder
+         // Special code for 10 x 10 Householder
 *
          V1 = V( 1 )
          T1 = TAU*CONJG( V1 )
@@ -545,6 +545,6 @@
       END IF
   410 RETURN
 *
-*     End of CLARFX
+      // End of CLARFX
 *
       END

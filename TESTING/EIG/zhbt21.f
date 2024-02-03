@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                KA, KS, LDA, LDU, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * ), RESULT( 2 ), RWORK( * );
       COMPLEX*16         A( LDA, * ), U( LDU, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IKA, J, JC, JR;
       double             ANORM, ULP, UNFL, WNORM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE, ZLANHB, ZLANHP;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHB, ZLANHP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZHPR, ZHPR2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Constants
+      // Constants
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -59,17 +59,17 @@
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
 *
-*     Some Error Checks
+      // Some Error Checks
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Norm of A:
+      // Norm of A:
 *
       ANORM = MAX( ZLANHB( '1', CUPLO, N, IKA, A, LDA, RWORK ), UNFL )
 *
-*     Compute error matrix:    Error = A - U S U**H
+      // Compute error matrix:    Error = A - U S U**H
 *
-*     Copy A from SB to SP storage format.
+      // Copy A from SB to SP storage format.
 *
       J = 0
       DO 50 JC = 1, N
@@ -115,9 +115,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U U**H - I
+      // Compute  U U**H - I
 *
       CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 *
@@ -129,6 +129,6 @@
 *
       RETURN
 *
-*     End of ZHBT21
+      // End of ZHBT21
 *
       END

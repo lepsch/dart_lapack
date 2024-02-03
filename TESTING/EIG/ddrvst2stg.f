@@ -4,63 +4,63 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LIWORK, LWORK, NOUNIT, NSIZES, NTYPES;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       double             A( LDA, * ), D1( * ), D2( * ), D3( * ), D4( * ), EVEIGS( * ), RESULT( * ), TAU( * ), U( LDU, * ), V( LDU, * ), WA1( * ), WA2( * ), WA3( * ), WORK( * ), Z( LDU, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, TEN = 10.0D0 )
       double             HALF;
       PARAMETER          ( HALF = 0.5D0 )
       int                MAXTYP;
       PARAMETER          ( MAXTYP = 18 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADNN;
       String             UPLO;
       int                I, IDIAG, IHBW, IINFO, IL, IMODE, INDX, IROW, ITEMP, ITYPE, IU, IUPLO, J, J1, J2, JCOL, JSIZE, JTYPE, KD, LGN, LIWEDC, LWEDC, M, M2, M3, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
       double             ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), ISEED3( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLARND, DSXT1;
       // EXTERNAL DLAMCH, DLARND, DSXT1
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALASVM, DLACPY, DLAFTS, DLASET, DLATMR, DLATMS, DSBEV, DSBEVD, DSBEVX, DSPEV, DSPEVD, DSPEVX, DSTEV, DSTEVD, DSTEVR, DSTEVX, DSTT21, DSTT22, DSYEV, DSYEVD, DSYEVR, DSYEVX, DSYT21, DSYEVD_2STAGE, DSYEVR_2STAGE, DSYEVX_2STAGE, DSYEV_2STAGE, DSBEV_2STAGE, DSBEVD_2STAGE, DSBEVX_2STAGE, DSYTRD_2STAGE, DSYTRD_SY2SB, DSYTRD_SB2ST, DSYT22, XERBLA
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, INT, LOG, MAX, MIN, SQRT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 3*9 /
       DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 4, 4 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Keep ftrnchek happy
+      // Keep ftrnchek happy
 *
       VL = ZERO
       VU = ZERO
 *
-*     1)      Check for errors
+      // 1)      Check for errors
 *
       NTESTT = 0
       INFO = 0
@@ -72,7 +72,7 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
-*     Check for errors
+      // Check for errors
 *
       IF( NSIZES.LT.0 ) THEN
          INFO = -1
@@ -93,11 +93,11 @@
          RETURN
       END IF
 *
-*     Quick return if nothing to do
+      // Quick return if nothing to do
 *
       IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
-*     More Important constants
+      // More Important constants
 *
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = DLAMCH( 'Overflow' )
@@ -106,7 +106,7 @@
       RTUNFL = SQRT( UNFL )
       RTOVFL = SQRT( OVFL )
 *
-*     Loop over sizes, types
+      // Loop over sizes, types
 *
       DO 20 I = 1, 4
          ISEED2( I ) = ISEED( I )
@@ -123,11 +123,11 @@
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
             IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
-c           LIWEDC = 6 + 6*N + 5*N*LGN
+            // LIWEDC = 6 + 6*N + 5*N*LGN
             LIWEDC = 3 + 5*N
          ELSE
             LWEDC = 9
-c           LIWEDC = 12
+            // LIWEDC = 12
             LIWEDC = 8
          END IF
          ANINV = ONE / DBLE( MAX( 1, N ) )
@@ -148,27 +148,27 @@ c           LIWEDC = 12
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
 *
-*           2)      Compute "A"
+            // 2)      Compute "A"
 *
-*                   Control parameters:
+                    // Control parameters:
 *
-*               KMAGN  KMODE        KTYPE
-*           =1  O(1)   clustered 1  zero
-*           =2  large  clustered 2  identity
-*           =3  small  exponential  (none)
-*           =4         arithmetic   diagonal, (w/ eigenvalues)
-*           =5         random log   symmetric, w/ eigenvalues
-*           =6         random       (none)
-*           =7                      random diagonal
-*           =8                      random symmetric
-*           =9                      band symmetric, w/ eigenvalues
+                // KMAGN  KMODE        KTYPE
+            // =1  O(1)   clustered 1  zero
+            // =2  large  clustered 2  identity
+            // =3  small  exponential  (none)
+            // =4         arithmetic   diagonal, (w/ eigenvalues)
+            // =5         random log   symmetric, w/ eigenvalues
+            // =6         random       (none)
+            // =7                      random diagonal
+            // =8                      random symmetric
+            // =9                      band symmetric, w/ eigenvalues
 *
             IF( MTYPES.GT.MAXTYP ) GO TO 110
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
 *
-*           Compute norm
+            // Compute norm
 *
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 *
@@ -190,16 +190,16 @@ c           LIWEDC = 12
             IINFO = 0
             COND = ULPINV
 *
-*           Special Matrices -- Identity & Jordan block
+            // Special Matrices -- Identity & Jordan block
 *
-*                   Zero
+                    // Zero
 *
             IF( ITYPE.EQ.1 ) THEN
                IINFO = 0
 *
             ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*              Identity
+               // Identity
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
@@ -207,38 +207,38 @@ c           LIWEDC = 12
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
-*              Diagonal Matrix, [Eigen]values Specified
+               // Diagonal Matrix, [Eigen]values Specified
 *
                CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
-*              Symmetric, eigenvalues specified
+               // Symmetric, eigenvalues specified
 *
                CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
-*              Diagonal, random eigenvalues
+               // Diagonal, random eigenvalues
 *
                IDUMMA( 1 ) = 1
                CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
-*              Symmetric, random eigenvalues
+               // Symmetric, random eigenvalues
 *
                IDUMMA( 1 ) = 1
                CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
-*              Symmetric banded, eigenvalues specified
+               // Symmetric banded, eigenvalues specified
 *
                IHBW = INT( ( N-1 )*DLARND( 1, ISEED3 ) )
                CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK( N+1 ), IINFO )
 *
-*              Store as dense matrix for most routines.
+               // Store as dense matrix for most routines.
 *
                CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
                DO 100 IDIAG = -IHBW, IHBW
@@ -276,7 +276,7 @@ c           LIWEDC = 12
                END IF
             END IF
 *
-*           3)      If matrix is tridiagonal, call DSTEV and DSTEVX.
+            // 3)      If matrix is tridiagonal, call DSTEV and DSTEVX.
 *
             IF( JTYPE.LE.7 ) THEN
                NTEST = 1
@@ -301,7 +301,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 1 and 2.
+               // Do tests 1 and 2.
 *
                DO 140 I = 1, N
                   D3( I ) = DBLE( A( I, I ) )
@@ -328,7 +328,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 3.
+               // Do test 3.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -368,7 +368,7 @@ c           LIWEDC = 12
                   TEMP3 = ZERO
                END IF
 *
-*              Do tests 4 and 5.
+               // Do tests 4 and 5.
 *
                DO 210 I = 1, N
                   D3( I ) = DBLE( A( I, I ) )
@@ -395,7 +395,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 6.
+               // Do test 6.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -433,7 +433,7 @@ c           LIWEDC = 12
                   TEMP3 = ZERO
                END IF
 *
-*              Do tests 7 and 8.
+               // Do tests 7 and 8.
 *
                DO 280 I = 1, N
                   D3( I ) = DBLE( A( I, I ) )
@@ -460,7 +460,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 9.
+               // Do test 9.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -495,7 +495,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 10 and 11.
+               // Do tests 10 and 11.
 *
                DO 350 I = 1, N
                   D3( I ) = DBLE( A( I, I ) )
@@ -523,7 +523,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 12.
+               // Do test 12.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -576,7 +576,7 @@ c           LIWEDC = 12
                   GO TO 440
                END IF
 *
-*              Do tests 13 and 14.
+               // Do tests 13 and 14.
 *
                DO 410 I = 1, N
                   D3( I ) = DBLE( A( I, I ) )
@@ -603,7 +603,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 15.
+               // Do test 15.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -633,7 +633,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 16 and 17.
+               // Do tests 16 and 17.
 *
                DO 470 I = 1, N
                   D3( I ) = DBLE( A( I, I ) )
@@ -660,7 +660,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 18.
+               // Do test 18.
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -694,7 +694,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              DO tests 19 and 20.
+               // DO tests 19 and 20.
 *
                DO 540 I = 1, N
                   D3( I ) = DBLE( A( I, I ) )
@@ -722,7 +722,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 21.
+               // Do test 21.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -775,7 +775,7 @@ c           LIWEDC = 12
                   GO TO 630
                END IF
 *
-*              Do tests 22 and 23.
+               // Do tests 22 and 23.
 *
                DO 600 I = 1, N
                   D3( I ) = DBLE( A( I, I ) )
@@ -802,7 +802,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 24.
+               // Do test 24.
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -820,8 +820,8 @@ c           LIWEDC = 12
                NTEST = 24
             END IF
 *
-*           Perform remaining tests storing upper or lower triangular
-*           part of matrix.
+            // Perform remaining tests storing upper or lower triangular
+            // part of matrix.
 *
             DO 1720 IUPLO = 0, 1
                IF( IUPLO.EQ.0 ) THEN
@@ -830,7 +830,7 @@ c           LIWEDC = 12
                   UPLO = 'U'
                END IF
 *
-*              4)      Call DSYEV and DSYEVX.
+               // 4)      Call DSYEV and DSYEVX.
 *
                CALL DLACPY( ' ', N, N, A, LDA, V, LDU )
 *
@@ -850,7 +850,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 25 and 26 (or +54)
+               // Do tests 25 and 26 (or +54)
 *
                CALL DSYT21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -870,7 +870,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 27 (or +54)
+               // Do test 27 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -918,7 +918,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 28 and 29 (or +54)
+               // Do tests 28 and 29 (or +54)
 *
                CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -938,7 +938,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 30 (or +54)
+               // Do test 30 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -967,7 +967,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 31 and 32 (or +54)
+               // Do tests 31 and 32 (or +54)
 *
                CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -988,7 +988,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 33 (or +54)
+               // Do test 33 (or +54)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1012,7 +1012,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 34 and 35 (or +54)
+               // Do tests 34 and 35 (or +54)
 *
                CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -1038,7 +1038,7 @@ c           LIWEDC = 12
                   GO TO 700
                END IF
 *
-*              Do test 36 (or +54)
+               // Do test 36 (or +54)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1051,12 +1051,12 @@ c           LIWEDC = 12
 *
   700          CONTINUE
 *
-*              5)      Call DSPEV and DSPEVX.
+               // 5)      Call DSPEV and DSPEVX.
 *
                CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
 *
-*              Load array WORK with the upper or lower triangular
-*              part of the matrix in packed form.
+               // Load array WORK with the upper or lower triangular
+               // part of the matrix in packed form.
 *
                IF( IUPLO.EQ.1 ) THEN
                   INDX = 1
@@ -1092,7 +1092,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 37 and 38 (or +54)
+               // Do tests 37 and 38 (or +54)
 *
                CALL DSYT21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1128,7 +1128,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 39 (or +54)
+               // Do test 39 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1138,8 +1138,8 @@ c           LIWEDC = 12
   790          CONTINUE
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*              Load array WORK with the upper or lower triangular part
-*              of the matrix in packed form.
+               // Load array WORK with the upper or lower triangular part
+               // of the matrix in packed form.
 *
   800          CONTINUE
                IF( IUPLO.EQ.1 ) THEN
@@ -1195,7 +1195,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 40 and 41 (or +54)
+               // Do tests 40 and 41 (or +54)
 *
                CALL DSYT21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1232,7 +1232,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 42 (or +54)
+               // Do test 42 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1278,7 +1278,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 43 and 44 (or +54)
+               // Do tests 43 and 44 (or +54)
 *
                CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1320,7 +1320,7 @@ c           LIWEDC = 12
                   GO TO 990
                END IF
 *
-*              Do test 45 (or +54)
+               // Do test 45 (or +54)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1367,7 +1367,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 46 and 47 (or +54)
+               // Do tests 46 and 47 (or +54)
 *
                CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1409,7 +1409,7 @@ c           LIWEDC = 12
                   GO TO 1080
                END IF
 *
-*              Do test 48 (or +54)
+               // Do test 48 (or +54)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1422,7 +1422,7 @@ c           LIWEDC = 12
 *
  1080          CONTINUE
 *
-*              6)      Call DSBEV and DSBEVX.
+               // 6)      Call DSBEV and DSBEVX.
 *
                IF( JTYPE.LE.7 ) THEN
                   KD = 1
@@ -1432,8 +1432,8 @@ c           LIWEDC = 12
                   KD = IHBW
                END IF
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
                IF( IUPLO.EQ.1 ) THEN
                   DO 1100 J = 1, N
@@ -1465,7 +1465,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 49 and 50 (or ... )
+               // Do tests 49 and 50 (or ... )
 *
                CALL DSYT21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1497,7 +1497,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 51 (or +54)
+               // Do test 51 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1507,8 +1507,8 @@ c           LIWEDC = 12
  1170          CONTINUE
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
  1180          CONTINUE
                IF( IUPLO.EQ.1 ) THEN
@@ -1541,7 +1541,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 52 and 53 (or +54)
+               // Do tests 52 and 53 (or +54)
 *
                CALL DSYT21( 1, UPLO, N, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1574,7 +1574,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 54 (or +54)
+               // Do test 54 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1615,7 +1615,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 55 and 56 (or +54)
+               // Do tests 55 and 56 (or +54)
 *
                CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1648,7 +1648,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 57 (or +54)
+               // Do test 57 (or +54)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1690,7 +1690,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 58 and 59 (or +54)
+               // Do tests 58 and 59 (or +54)
 *
                CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1728,7 +1728,7 @@ c           LIWEDC = 12
                   GO TO 1460
                END IF
 *
-*              Do test 60 (or +54)
+               // Do test 60 (or +54)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -1741,7 +1741,7 @@ c           LIWEDC = 12
 *
  1460          CONTINUE
 *
-*              7)      Call DSYEVD
+               // 7)      Call DSYEVD
 *
                CALL DLACPY( ' ', N, N, A, LDA, V, LDU )
 *
@@ -1761,7 +1761,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 61 and 62 (or +54)
+               // Do tests 61 and 62 (or +54)
 *
                CALL DSYT21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1781,7 +1781,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 63 (or +54)
+               // Do test 63 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1793,12 +1793,12 @@ c           LIWEDC = 12
 *
  1480          CONTINUE
 *
-*              8)      Call DSPEVD.
+               // 8)      Call DSPEVD.
 *
                CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
 *
-*              Load array WORK with the upper or lower triangular
-*              part of the matrix in packed form.
+               // Load array WORK with the upper or lower triangular
+               // part of the matrix in packed form.
 *
                IF( IUPLO.EQ.1 ) THEN
                   INDX = 1
@@ -1834,7 +1834,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 64 and 65 (or +54)
+               // Do tests 64 and 65 (or +54)
 *
                CALL DSYT21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1871,7 +1871,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 66 (or +54)
+               // Do test 66 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1882,7 +1882,7 @@ c           LIWEDC = 12
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
  1580          CONTINUE
 *
-*              9)      Call DSBEVD.
+               // 9)      Call DSBEVD.
 *
                IF( JTYPE.LE.7 ) THEN
                   KD = 1
@@ -1892,8 +1892,8 @@ c           LIWEDC = 12
                   KD = IHBW
                END IF
 *
-*              Load array V with the upper or lower triangular part
-*              of the matrix in band form.
+               // Load array V with the upper or lower triangular part
+               // of the matrix in band form.
 *
                IF( IUPLO.EQ.1 ) THEN
                   DO 1600 J = 1, N
@@ -1925,7 +1925,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 67 and 68 (or +54)
+               // Do tests 67 and 68 (or +54)
 *
                CALL DSYT21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
 *
@@ -1957,7 +1957,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 69 (or +54)
+               // Do test 69 (or +54)
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -1987,7 +1987,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 70 and 71 (or ... )
+               // Do tests 70 and 71 (or ... )
 *
                CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -2007,7 +2007,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 72 (or ... )
+               // Do test 72 (or ... )
 *
                TEMP1 = ZERO
                TEMP2 = ZERO
@@ -2036,7 +2036,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 73 and 74 (or +54)
+               // Do tests 73 and 74 (or +54)
 *
                CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -2057,7 +2057,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do test 75 (or +54)
+               // Do test 75 (or +54)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -2081,7 +2081,7 @@ c           LIWEDC = 12
                   END IF
                END IF
 *
-*              Do tests 76 and 77 (or +54)
+               // Do tests 76 and 77 (or +54)
 *
                CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
 *
@@ -2107,7 +2107,7 @@ c           LIWEDC = 12
                   GO TO 1720
                END IF
 *
-*              Do test 78 (or +54)
+               // Do test 78 (or +54)
 *
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
@@ -2122,7 +2122,7 @@ c           LIWEDC = 12
 *
  1720       CONTINUE
 *
-*           End of Loop -- Check for RESULT(j) > THRESH
+            // End of Loop -- Check for RESULT(j) > THRESH
 *
             NTESTT = NTESTT + NTEST
 *
@@ -2131,7 +2131,7 @@ c           LIWEDC = 12
  1730    CONTINUE
  1740 CONTINUE
 *
-*     Summary
+      // Summary
 *
       CALL ALASVM( 'DST', NOUNIT, NERRS, NTESTT, 0 )
 *
@@ -2140,6 +2140,6 @@ c           LIWEDC = 12
 *
       RETURN
 *
-*     End of DDRVST2STG
+      // End of DDRVST2STG
 *
       END

@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
       REAL                PIVMIN, RELTOL, VL, VU, WL, WU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF, FUDGE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = ONE/TWO, FUDGE = TWO )
       int       ALLRNG, VALRNG, INDRNG;
       PARAMETER ( ALLRNG = 1, VALRNG = 2, INDRNG = 3 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
       int                I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU;
       REAL               ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL
 
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDUMMA( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH
       // EXTERNAL LSAME, ILAENV, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAEBZ
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       M = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          RETURN
       END IF
 *
-*     Decode RANGE
+      // Decode RANGE
 *
       IF( LSAME( RANGE, 'A' ) ) THEN
          IRANGE = ALLRNG
@@ -65,7 +65,7 @@
          IRANGE = 0
       END IF
 *
-*     Check for Errors
+      // Check for Errors
 *
       IF( IRANGE.LE.0 ) THEN
          INFO = -1
@@ -84,25 +84,25 @@
          RETURN
       END IF
 
-*     Initialize error flags
+      // Initialize error flags
       NCNVRG = .FALSE.
       TOOFEW = .FALSE.
 
-*     Simplification:
+      // Simplification:
       IF( IRANGE.EQ.INDRNG .AND. IL.EQ.1 .AND. IU.EQ.N ) IRANGE = 1
 
-*     Get machine constants
+      // Get machine constants
       EPS = SLAMCH( 'P' )
       UFLOW = SLAMCH( 'U' )
 
 
-*     Special Case when N=1
-*     Treat case of 1x1 matrix for quick return
+      // Special Case when N=1
+      // Treat case of 1x1 matrix for quick return
       IF( N.EQ.1 ) THEN
          IF( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) THEN
             M = 1
             W(1) = D(1)
-*           The computation error of the eigenvalue is zero
+            // The computation error of the eigenvalue is zero
             WERR(1) = ZERO
             IBLOCK( 1 ) = 1
             INDEXW( 1 ) = 1
@@ -110,41 +110,41 @@
          RETURN
       END IF
 
-*     NB is the minimum vector length for vector bisection, or 0
-*     if only scalar is to be done.
+      // NB is the minimum vector length for vector bisection, or 0
+      // if only scalar is to be done.
       NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 )
       IF( NB.LE.1 ) NB = 0
 
-*     Find global spectral radius
+      // Find global spectral radius
       GL = D(1)
       GU = D(1)
       DO 5 I = 1,N
          GL =  MIN( GL, GERS( 2*I - 1))
          GU = MAX( GU, GERS(2*I) )
  5    CONTINUE
-*     Compute global Gerschgorin bounds and spectral diameter
+      // Compute global Gerschgorin bounds and spectral diameter
       TNORM = MAX( ABS( GL ), ABS( GU ) )
       GL = GL - FUDGE*TNORM*EPS*N - FUDGE*TWO*PIVMIN
       GU = GU + FUDGE*TNORM*EPS*N + FUDGE*TWO*PIVMIN
-*     [JAN/28/2009] remove the line below since SPDIAM variable not use
-*     SPDIAM = GU - GL
-*     Input arguments for SLAEBZ:
-*     The relative tolerance.  An interval (a,b] lies within
-*     "relative tolerance" if  b-a < RELTOL*max(|a|,|b|),
+      // [JAN/28/2009] remove the line below since SPDIAM variable not use
+      // SPDIAM = GU - GL
+      // Input arguments for SLAEBZ:
+      // The relative tolerance.  An interval (a,b] lies within
+      // "relative tolerance" if  b-a < RELTOL*max(|a|,|b|),
       RTOLI = RELTOL
-*     Set the absolute tolerance for interval convergence to zero to force
-*     interval convergence based on relative size of the interval.
-*     This is dangerous because intervals might not converge when RELTOL is
-*     small. But at least a very small number should be selected so that for
-*     strongly graded matrices, the code can get relatively accurate
-*     eigenvalues.
+      // Set the absolute tolerance for interval convergence to zero to force
+      // interval convergence based on relative size of the interval.
+      // This is dangerous because intervals might not converge when RELTOL is
+      // small. But at least a very small number should be selected so that for
+      // strongly graded matrices, the code can get relatively accurate
+      // eigenvalues.
       ATOLI = FUDGE*TWO*UFLOW + FUDGE*TWO*PIVMIN
 
       IF( IRANGE.EQ.INDRNG ) THEN
 
-*        RANGE='I': Compute an interval containing eigenvalues
-*        IL through IU. The initial interval [GL,GU] from the global
-*        Gerschgorin bounds GL and GU is refined by SLAEBZ.
+         // RANGE='I': Compute an interval containing eigenvalues
+         // IL through IU. The initial interval [GL,GU] from the global
+         // Gerschgorin bounds GL and GU is refined by SLAEBZ.
          ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
          WORK( N+1 ) = GL
          WORK( N+2 ) = GL
@@ -164,7 +164,7 @@
             INFO = IINFO
             RETURN
          END IF
-*        On exit, output intervals may not be ordered by ascending negcount
+         // On exit, output intervals may not be ordered by ascending negcount
          IF( IWORK( 6 ).EQ.IU ) THEN
             WL = WORK( N+1 )
             WLU = WORK( N+3 )
@@ -180,8 +180,8 @@
             WUL = WORK( N+1 )
             NWU = IWORK( 3 )
          END IF
-*        On exit, the interval [WL, WLU] contains a value with negcount NWL,
-*        and [WUL, WU] contains a value with negcount NWU.
+         // On exit, the interval [WL, WLU] contains a value with negcount NWL,
+         // and [WUL, WU] contains a value with negcount NWU.
          IF( NWL.LT.0 .OR. NWL.GE.N .OR. NWU.LT.1 .OR. NWU.GT.N ) THEN
             INFO = 4
             RETURN
@@ -198,9 +198,9 @@
 
 
 
-*     Find Eigenvalues -- Loop Over blocks and recompute NWL and NWU.
-*     NWL accumulates the number of eigenvalues .le. WL,
-*     NWU accumulates the number of eigenvalues .le. WU
+      // Find Eigenvalues -- Loop Over blocks and recompute NWL and NWU.
+      // NWL accumulates the number of eigenvalues .le. WL,
+      // NWU accumulates the number of eigenvalues .le. WU
       M = 0
       IEND = 0
       INFO = 0
@@ -214,67 +214,67 @@
          IN = IEND - IOFF
 *
          IF( IN.EQ.1 ) THEN
-*           1x1 block
+            // 1x1 block
             IF( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) THEN
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
-*              The gap for a single block doesn't matter for the later
-*              algorithm and is assigned an arbitrary large value
+               // The gap for a single block doesn't matter for the later
+               // algorithm and is assigned an arbitrary large value
                IBLOCK( M ) = JBLK
                INDEXW( M ) = 1
             END IF
 
-*        Disabled 2x2 case because of a failure on the following matrix
-*        RANGE = 'I', IL = IU = 4
-*          Original Tridiagonal, d = [
-*           -0.150102010615740E+00
-*           -0.849897989384260E+00
-*           -0.128208148052635E-15
-*            0.128257718286320E-15
-*          ];
-*          e = [
-*           -0.357171383266986E+00
-*           -0.180411241501588E-15
-*           -0.175152352710251E-15
-*          ];
+         // Disabled 2x2 case because of a failure on the following matrix
+         // RANGE = 'I', IL = IU = 4
+           // Original Tridiagonal, d = [
+            // -0.150102010615740E+00
+            // -0.849897989384260E+00
+            // -0.128208148052635E-15
+             // 0.128257718286320E-15
+           // ];
+           // e = [
+            // -0.357171383266986E+00
+            // -0.180411241501588E-15
+            // -0.175152352710251E-15
+           // ];
 *
-*         ELSE IF( IN.EQ.2 ) THEN
+          // ELSE IF( IN.EQ.2 ) THEN
 **           2x2 block
-*            DISC = SQRT( (HALF*(D(IBEGIN)-D(IEND)))**2 + E(IBEGIN)**2 )
-*            TMP1 = HALF*(D(IBEGIN)+D(IEND))
-*            L1 = TMP1 - DISC
-*            IF( WL.GE. L1-PIVMIN )
-*     $         NWL = NWL + 1
-*            IF( WU.GE. L1-PIVMIN )
-*     $         NWU = NWU + 1
-*            IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.L1-PIVMIN .AND. WU.GE.
-*     $          L1-PIVMIN ) ) THEN
-*               M = M + 1
-*               W( M ) = L1
+             // DISC = SQRT( (HALF*(D(IBEGIN)-D(IEND)))**2 + E(IBEGIN)**2 )
+             // TMP1 = HALF*(D(IBEGIN)+D(IEND))
+             // L1 = TMP1 - DISC
+             // IF( WL.GE. L1-PIVMIN )
+      // $         NWL = NWL + 1
+             // IF( WU.GE. L1-PIVMIN )
+      // $         NWU = NWU + 1
+             // IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.L1-PIVMIN .AND. WU.GE.
+      // $          L1-PIVMIN ) ) THEN
+                // M = M + 1
+                // W( M ) = L1
 **              The uncertainty of eigenvalues of a 2x2 matrix is very small
-*               WERR( M ) = EPS * ABS( W( M ) ) * TWO
-*               IBLOCK( M ) = JBLK
-*               INDEXW( M ) = 1
-*            ENDIF
-*            L2 = TMP1 + DISC
-*            IF( WL.GE. L2-PIVMIN )
-*     $         NWL = NWL + 1
-*            IF( WU.GE. L2-PIVMIN )
-*     $         NWU = NWU + 1
-*            IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.L2-PIVMIN .AND. WU.GE.
-*     $          L2-PIVMIN ) ) THEN
-*               M = M + 1
-*               W( M ) = L2
+                // WERR( M ) = EPS * ABS( W( M ) ) * TWO
+                // IBLOCK( M ) = JBLK
+                // INDEXW( M ) = 1
+             // ENDIF
+             // L2 = TMP1 + DISC
+             // IF( WL.GE. L2-PIVMIN )
+      // $         NWL = NWL + 1
+             // IF( WU.GE. L2-PIVMIN )
+      // $         NWU = NWU + 1
+             // IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.L2-PIVMIN .AND. WU.GE.
+      // $          L2-PIVMIN ) ) THEN
+                // M = M + 1
+                // W( M ) = L2
 **              The uncertainty of eigenvalues of a 2x2 matrix is very small
-*               WERR( M ) = EPS * ABS( W( M ) ) * TWO
-*               IBLOCK( M ) = JBLK
-*               INDEXW( M ) = 2
-*            ENDIF
+                // WERR( M ) = EPS * ABS( W( M ) ) * TWO
+                // IBLOCK( M ) = JBLK
+                // INDEXW( M ) = 2
+             // ENDIF
          ELSE
-*           General Case - block of size IN >= 2
-*           Compute local Gerschgorin interval and use it as the initial
-*           interval for SLAEBZ
+            // General Case - block of size IN >= 2
+            // Compute local Gerschgorin interval and use it as the initial
+            // interval for SLAEBZ
             GU = D( IBEGIN )
             GL = D( IBEGIN )
             TMP1 = ZERO
@@ -283,29 +283,29 @@
                GL =  MIN( GL, GERS( 2*J - 1))
                GU = MAX( GU, GERS(2*J) )
    40       CONTINUE
-*           [JAN/28/2009]
-*           change SPDIAM by TNORM in lines 2 and 3 thereafter
-*           line 1: remove computation of SPDIAM (not useful anymore)
-*           SPDIAM = GU - GL
-*           GL = GL - FUDGE*SPDIAM*EPS*IN - FUDGE*PIVMIN
-*           GU = GU + FUDGE*SPDIAM*EPS*IN + FUDGE*PIVMIN
+            // [JAN/28/2009]
+            // change SPDIAM by TNORM in lines 2 and 3 thereafter
+            // line 1: remove computation of SPDIAM (not useful anymore)
+            // SPDIAM = GU - GL
+            // GL = GL - FUDGE*SPDIAM*EPS*IN - FUDGE*PIVMIN
+            // GU = GU + FUDGE*SPDIAM*EPS*IN + FUDGE*PIVMIN
             GL = GL - FUDGE*TNORM*EPS*IN - FUDGE*PIVMIN
             GU = GU + FUDGE*TNORM*EPS*IN + FUDGE*PIVMIN
 *
             IF( IRANGE.GT.1 ) THEN
                IF( GU.LT.WL ) THEN
-*                 the local block contains none of the wanted eigenvalues
+                 t // he local block contains none of the wanted eigenvalues
                   NWL = NWL + IN
                   NWU = NWU + IN
                   GO TO 70
                END IF
-*              refine search interval if possible, only range (WL,WU] matters
+               // refine search interval if possible, only range (WL,WU] matters
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
                IF( GL.GE.GU ) GO TO 70
             END IF
 
-*           Find negcount of initial interval boundaries GL and GU
+            // Find negcount of initial interval boundaries GL and GU
             WORK( N+1 ) = GL
             WORK( N+IN+1 ) = GU
             CALL SLAEBZ( 1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
@@ -318,23 +318,23 @@
             NWU = NWU + IWORK( IN+1 )
             IWOFF = M - IWORK( 1 )
 
-*           Compute Eigenvalues
+            // Compute Eigenvalues
             ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2             CALL SLAEBZ( 2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
             IF( IINFO .NE. 0 ) THEN
                INFO = IINFO
                RETURN
             END IF
 *
-*           Copy eigenvalues into W and IBLOCK
-*           Use -JBLK for block number for unconverged eigenvalues.
-*           Loop over the number of output intervals from SLAEBZ
+            // Copy eigenvalues into W and IBLOCK
+            // Use -JBLK for block number for unconverged eigenvalues.
+            // Loop over the number of output intervals from SLAEBZ
             DO 60 J = 1, IOUT
-*              eigenvalue approximation is middle point of interval
+               // eigenvalue approximation is middle point of interval
                TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) )
-*              semi length of error interval
+               // semi length of error interval
                TMP2 = HALF*ABS( WORK( J+N )-WORK( J+IN+N ) )
                IF( J.GT.IOUT-IINFO ) THEN
-*                 Flag non-convergence.
+                  // Flag non-convergence.
                   NCNVRG = .TRUE.
                   IB = -JBLK
                ELSE
@@ -352,8 +352,8 @@
          END IF
    70 CONTINUE
 
-*     If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
-*     If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
+      // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
+      // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
       IF( IRANGE.EQ.INDRNG ) THEN
          IDISCL = IL - 1 - NWL
          IDISCU = NWU - IU
@@ -361,8 +361,8 @@
          IF( IDISCL.GT.0 ) THEN
             IM = 0
             DO 80 JE = 1, M
-*              Remove some of the smallest eigenvalues from the left so that
-*              at the end IDISCL =0. Move all eigenvalues up to the left.
+               // Remove some of the smallest eigenvalues from the left so that
+               // at the end IDISCL =0. Move all eigenvalues up to the left.
                IF( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) THEN
                   IDISCL = IDISCL - 1
                ELSE
@@ -376,8 +376,8 @@
             M = IM
          END IF
          IF( IDISCU.GT.0 ) THEN
-*           Remove some of the largest eigenvalues from the right so that
-*           at the end IDISCU =0. Move all eigenvalues up to the left.
+            // Remove some of the largest eigenvalues from the right so that
+            // at the end IDISCU =0. Move all eigenvalues up to the left.
             IM=M+1
             DO 81 JE = M, 1, -1
                IF( W( JE ).GE.WUL .AND. IDISCU.GT.0 ) THEN
@@ -402,12 +402,12 @@
          END IF
 
          IF( IDISCL.GT.0 .OR. IDISCU.GT.0 ) THEN
-*           Code to deal with effects of bad arithmetic. (If N(w) is
-*           monotone non-decreasing, this should never happen.)
-*           Some low eigenvalues to be discarded are not in (WL,WLU],
-*           or high eigenvalues to be discarded are not in (WUL,WU]
-*           so just kill off the smallest IDISCL/largest IDISCU
-*           eigenvalues, by marking the corresponding IBLOCK = 0
+            // Code to deal with effects of bad arithmetic. (If N(w) is
+            // monotone non-decreasing, this should never happen.)
+            // Some low eigenvalues to be discarded are not in (WL,WLU],
+            // or high eigenvalues to be discarded are not in (WUL,WU]
+            // so just kill off the smallest IDISCL/largest IDISCU
+            // eigenvalues, by marking the corresponding IBLOCK = 0
             IF( IDISCL.GT.0 ) THEN
                WKILL = WU
                DO 100 JDISC = 1, IDISCL
@@ -434,7 +434,7 @@
                   IBLOCK( IW ) = 0
  120           CONTINUE
             END IF
-*           Now erase all eigenvalues with IBLOCK set to zero
+            // Now erase all eigenvalues with IBLOCK set to zero
             IM = 0
             DO 130 JE = 1, M
                IF( IBLOCK( JE ).NE.0 ) THEN
@@ -456,9 +456,9 @@
          TOOFEW = .TRUE.
       END IF
 
-*     If ORDER='B', do nothing the eigenvalues are already sorted by
-*        block.
-*     If ORDER='E', sort the eigenvalues from smallest to largest
+      // If ORDER='B', do nothing the eigenvalues are already sorted by
+         // block.
+      // If ORDER='E', sort the eigenvalues from smallest to largest
 
       IF( LSAME(ORDER,'E') .AND. NSPLIT.GT.1 ) THEN
          DO 150 JE = 1, M - 1
@@ -490,6 +490,6 @@
       IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
       RETURN
 *
-*     End of SLARRD
+      // End of SLARRD
 *
       END

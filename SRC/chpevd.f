@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, LDZ, LIWORK, LRWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               RWORK( * ), W( * )
       COMPLEX            AP( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWRK, ISCALE, LIWMIN, LLRWK, LLWRK, LRWMIN, LWMIN       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANHP, SLAMCH, SROUNDUP_LWORK
       // EXTERNAL LSAME, CLANHP, SLAMCH, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHPTRD, CSSCAL, CSTEDC, CUPMTR, SSCAL, SSTERF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LQUERY = ( LWORK.EQ.-1 .OR. LRWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
@@ -91,7 +91,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -101,7 +101,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS = SLAMCH( 'Precision' )
@@ -110,7 +110,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ANRM = CLANHP( 'M', UPLO, N, AP, RWORK )
       ISCALE = 0
@@ -125,7 +125,7 @@
          CALL CSSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
       END IF
 *
-*     Call CHPTRD to reduce Hermitian packed matrix to tridiagonal form.
+      // Call CHPTRD to reduce Hermitian packed matrix to tridiagonal form.
 *
       INDE = 1
       INDTAU = 1
@@ -135,8 +135,8 @@
       LLRWK = LRWORK - INDRWK + 1
       CALL CHPTRD( UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO )
 *
-*     For eigenvalues only, call SSTERF.  For eigenvectors, first call
-*     CUPGTR to generate the orthogonal matrix, then call CSTEDC.
+      // For eigenvalues only, call SSTERF.  For eigenvectors, first call
+      // CUPGTR to generate the orthogonal matrix, then call CSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
@@ -145,7 +145,7 @@
          CALL CUPMTR( 'L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
@@ -161,6 +161,6 @@
       IWORK( 1 ) = LIWMIN
       RETURN
 *
-*     End of CHPEVD
+      // End of CHPEVD
 *
       END

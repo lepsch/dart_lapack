@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LIWORK, LRWORK, LWORK, M, N;
       double             ABSTOL, VL, VU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
       double             RWORK( * ), W( * );
       COMPLEX*16         A( LDA, * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ, TRYRAC;
       String             ORDER;
       int                I, IEEEOK, IINFO, IMAX, INDIBL, INDIFL, INDISP, INDIWO, INDRD, INDRDD, INDRE, INDREE, INDRWK, INDTAU, INDWK, INDWKN, ISCALE, ITMP1, J, JJ, LIWMIN, LLWORK, LLRWORK, LLWRKN, LRWMIN, LWKOPT, LWMIN, NB, NSPLIT;
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, ZLANSY;
       // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZDSCAL, ZHETRD, ZSTEMR, ZSTEIN, ZSWAP, ZUNMTR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IEEEOK = ILAENV( 10, 'ZHEEVR', 'N', 1, 2, 3, 4 )
 *
@@ -115,7 +115,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) THEN
@@ -142,7 +142,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
@@ -151,7 +151,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       ABSTLL = ABSTOL
@@ -184,55 +184,55 @@
          END IF
       END IF
 
-*     Initialize indices into workspaces.  Note: The IWORK indices are
-*     used only if DSTERF or ZSTEMR fail.
+      // Initialize indices into workspaces.  Note: The IWORK indices are
+      // used only if DSTERF or ZSTEMR fail.
 
-*     WORK(INDTAU:INDTAU+N-1) stores the complex scalar factors of the
-*     elementary reflectors used in ZHETRD.
+      // WORK(INDTAU:INDTAU+N-1) stores the complex scalar factors of the
+      // elementary reflectors used in ZHETRD.
       INDTAU = 1
-*     INDWK is the starting offset of the remaining complex workspace,
-*     and LLWORK is the remaining complex workspace size.
+      // INDWK is the starting offset of the remaining complex workspace,
+      // and LLWORK is the remaining complex workspace size.
       INDWK = INDTAU + N
       LLWORK = LWORK - INDWK + 1
 
-*     RWORK(INDRD:INDRD+N-1) stores the real tridiagonal's diagonal
-*     entries.
+      // RWORK(INDRD:INDRD+N-1) stores the real tridiagonal's diagonal
+      // entries.
       INDRD = 1
-*     RWORK(INDRE:INDRE+N-1) stores the off-diagonal entries of the
-*     tridiagonal matrix from ZHETRD.
+      // RWORK(INDRE:INDRE+N-1) stores the off-diagonal entries of the
+     t // ridiagonal matrix from ZHETRD.
       INDRE = INDRD + N
-*     RWORK(INDRDD:INDRDD+N-1) is a copy of the diagonal entries over
-*     -written by ZSTEMR (the DSTERF path copies the diagonal to W).
+      // RWORK(INDRDD:INDRDD+N-1) is a copy of the diagonal entries over
+      // -written by ZSTEMR (the DSTERF path copies the diagonal to W).
       INDRDD = INDRE + N
-*     RWORK(INDREE:INDREE+N-1) is a copy of the off-diagonal entries over
-*     -written while computing the eigenvalues in DSTERF and ZSTEMR.
+      // RWORK(INDREE:INDREE+N-1) is a copy of the off-diagonal entries over
+      // -written while computing the eigenvalues in DSTERF and ZSTEMR.
       INDREE = INDRDD + N
-*     INDRWK is the starting offset of the left-over real workspace, and
-*     LLRWORK is the remaining workspace size.
+      // INDRWK is the starting offset of the left-over real workspace, and
+      // LLRWORK is the remaining workspace size.
       INDRWK = INDREE + N
       LLRWORK = LRWORK - INDRWK + 1
 
-*     IWORK(INDIBL:INDIBL+M-1) corresponds to IBLOCK in DSTEBZ and
-*     stores the block indices of each of the M<=N eigenvalues.
+      // IWORK(INDIBL:INDIBL+M-1) corresponds to IBLOCK in DSTEBZ and
+      // stores the block indices of each of the M<=N eigenvalues.
       INDIBL = 1
-*     IWORK(INDISP:INDISP+NSPLIT-1) corresponds to ISPLIT in DSTEBZ and
-*     stores the starting and finishing indices of each block.
+      // IWORK(INDISP:INDISP+NSPLIT-1) corresponds to ISPLIT in DSTEBZ and
+      // stores the starting and finishing indices of each block.
       INDISP = INDIBL + N
-*     IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
-*     that corresponding to eigenvectors that fail to converge in
-*     DSTEIN.  This information is discarded; if any fail, the driver
-*     returns INFO > 0.
+      // IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
+     t // hat corresponding to eigenvectors that fail to converge in
+      // DSTEIN.  This information is discarded; if any fail, the driver
+      // returns INFO > 0.
       INDIFL = INDISP + N
-*     INDIWO is the offset of the remaining integer workspace.
+      // INDIWO is the offset of the remaining integer workspace.
       INDIWO = INDIFL + N
 
 *
-*     Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
+      // Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
 *
       CALL ZHETRD( UPLO, N, A, LDA, RWORK( INDRD ), RWORK( INDRE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
 *
-*     If all eigenvalues are desired
-*     then call DSTERF or ZSTEMR and ZUNMTR.
+      // If all eigenvalues are desired
+     t // hen call DSTERF or ZSTEMR and ZUNMTR.
 *
       TEST = .FALSE.
       IF( INDEIG ) THEN
@@ -256,8 +256,8 @@
             END IF
             CALL ZSTEMR( JOBZ, 'A', N, RWORK( INDRDD ), RWORK( INDREE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, RWORK( INDRWK ), LLRWORK, IWORK, LIWORK, INFO )
 *
-*           Apply unitary matrix used in reduction to tridiagonal
-*           form to eigenvectors returned by ZSTEMR.
+            // Apply unitary matrix used in reduction to tridiagonal
+            // form to eigenvectors returned by ZSTEMR.
 *
             IF( WANTZ .AND. INFO.EQ.0 ) THEN
                INDWKN = INDWK
@@ -274,8 +274,8 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call DSTEBZ and, if eigenvectors are desired, ZSTEIN.
-*     Also call DSTEBZ and ZSTEIN if ZSTEMR fails.
+      // Otherwise, call DSTEBZ and, if eigenvectors are desired, ZSTEIN.
+      // Also call DSTEBZ and ZSTEIN if ZSTEMR fails.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -287,15 +287,15 @@
       IF( WANTZ ) THEN
          CALL ZSTEIN( N, RWORK( INDRD ), RWORK( INDRE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
 *
-*        Apply unitary matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by ZSTEIN.
+         // Apply unitary matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by ZSTEIN.
 *
          INDWKN = INDWK
          LLWRKN = LWORK - INDWKN + 1
          CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
    30 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -307,8 +307,8 @@
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 50 J = 1, M - 1
@@ -332,7 +332,7 @@
    50    CONTINUE
       END IF
 *
-*     Set WORK(1) to optimal workspace size.
+      // Set WORK(1) to optimal workspace size.
 *
       WORK( 1 )  = LWKOPT
       RWORK( 1 ) = LRWMIN
@@ -340,6 +340,6 @@
 *
       RETURN
 *
-*     End of ZHEEVR
+      // End of ZHEEVR
 *
       END

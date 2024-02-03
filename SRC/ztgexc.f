@@ -4,28 +4,28 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
       int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                HERE;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZTGEX2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test input arguments.
+      // Decode and test input arguments.
       INFO = 0
       IF( N.LT.0 ) THEN
          INFO = -3
@@ -47,7 +47,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.1 ) RETURN       IF( IFST.EQ.ILST ) RETURN
 *
@@ -57,7 +57,7 @@
 *
    10    CONTINUE
 *
-*        Swap with next one below
+         // Swap with next one below
 *
          CALL ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
          IF( INFO.NE.0 ) THEN
@@ -72,7 +72,7 @@
 *
    20    CONTINUE
 *
-*        Swap with next one above
+         // Swap with next one above
 *
          CALL ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
          IF( INFO.NE.0 ) THEN
@@ -86,6 +86,6 @@
       ILST = HERE
       RETURN
 *
-*     End of ZTGEXC
+      // End of ZTGEXC
 *
       END

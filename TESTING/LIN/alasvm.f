@@ -4,14 +4,14 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TYPE;
       int                NFAIL, NOUT, NRUN, NERRS;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       IF( NFAIL.GT.0 ) THEN
          WRITE( NOUT, FMT = 9999 )TYPE, NFAIL, NRUN
@@ -29,6 +29,6 @@
  9997 FORMAT( 14X, I6, ' error messages recorded' )
       RETURN
 *
-*     End of ALASVM
+      // End of ALASVM
 *
       END

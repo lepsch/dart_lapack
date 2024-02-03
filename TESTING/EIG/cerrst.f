@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LIW, LW;
       PARAMETER          ( NMAX = 3, LIW = 12*NMAX, LW = 20*NMAX )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO, J, M, N, NT;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                I1( NMAX ), I2( NMAX ), I3( NMAX ), IW( LIW );
       REAL               D( NMAX ), E( NMAX ), R( LW ), RW( LW ), X( NMAX )       COMPLEX            A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHBEV, CHBEVD, CHBEVX, CHBTRD, CHEEV, CHEEVD, CHEEVR, CHEEVX, CHETRD, CHKXER, CHPEV, CHPEVD, CHPEVX, CHPTRD, CPTEQR, CSTEDC, CSTEIN, CSTEQR, CUNGTR, CUNMTR, CUPGTR, CUPMTR, CHETD2, CHEEVD_2STAGE, CHEEVR_2STAGE, CHEEVX_2STAGE, CHEEV_2STAGE, CHBEV_2STAGE, CHBEVD_2STAGE, CHBEVX_2STAGE, CHETRD_2STAGE, CHETRD_HE2HB, CHETRD_HB2ST
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -65,11 +65,11 @@
       OK = .TRUE.
       NT = 0
 *
-*     Test error exits for the ST path.
+      // Test error exits for the ST path.
 *
       IF( LSAMEN( 2, C2, 'ST' ) ) THEN
 *
-*        CHETRD
+         // CHETRD
 *
          SRNAMT = 'CHETRD'
          INFOT = 1
@@ -86,7 +86,7 @@
          CALL CHKXER( 'CHETRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        CHETD2
+         // CHETD2
 *
          SRNAMT = 'CHETD2'
          INFOT = 1
@@ -100,7 +100,7 @@
          CALL CHKXER( 'CHETD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        CHETRD_2STAGE
+         // CHETRD_2STAGE
 *
          SRNAMT = 'CHETRD_2STAGE'
          INFOT = 1
@@ -126,7 +126,7 @@
          CALL CHKXER( 'CHETRD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 *
-*        CHETRD_HE2HB
+         // CHETRD_HE2HB
 *
          SRNAMT = 'CHETRD_HE2HB'
          INFOT = 1
@@ -149,7 +149,7 @@
          CALL CHKXER( 'CHETRD_HE2HB', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        CHETRD_HB2ST
+         // CHETRD_HB2ST
 *
          SRNAMT = 'CHETRD_HB2ST'
          INFOT = 1
@@ -181,7 +181,7 @@
          CALL CHKXER( 'CHETRD_HB2ST', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        CUNGTR
+         // CUNGTR
 *
          SRNAMT = 'CUNGTR'
          INFOT = 1
@@ -198,7 +198,7 @@
          CALL CHKXER( 'CUNGTR', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        CUNMTR
+         // CUNMTR
 *
          SRNAMT = 'CUNMTR'
          INFOT = 1
@@ -233,7 +233,7 @@
          CALL CHKXER( 'CUNMTR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        CHPTRD
+         // CHPTRD
 *
          SRNAMT = 'CHPTRD'
          INFOT = 1
@@ -244,7 +244,7 @@
          CALL CHKXER( 'CHPTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 2
 *
-*        CUPGTR
+         // CUPGTR
 *
          SRNAMT = 'CUPGTR'
          INFOT = 1
@@ -258,7 +258,7 @@
          CALL CHKXER( 'CUPGTR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        CUPMTR
+         // CUPMTR
 *
          SRNAMT = 'CUPMTR'
          INFOT = 1
@@ -281,7 +281,7 @@
          CALL CHKXER( 'CUPMTR', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        CPTEQR
+         // CPTEQR
 *
          SRNAMT = 'CPTEQR'
          INFOT = 1
@@ -295,7 +295,7 @@
          CALL CHKXER( 'CPTEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        CSTEIN
+         // CSTEIN
 *
          SRNAMT = 'CSTEIN'
          INFOT = 1
@@ -312,7 +312,7 @@
          CALL CHKXER( 'CSTEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        CSTEQR
+         // CSTEQR
 *
          SRNAMT = 'CSTEQR'
          INFOT = 1
@@ -326,7 +326,7 @@
          CALL CHKXER( 'CSTEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        CSTEDC
+         // CSTEDC
 *
          SRNAMT = 'CSTEDC'
          INFOT = 1
@@ -364,7 +364,7 @@
          CALL CHKXER( 'CSTEDC', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        CHEEVD
+         // CHEEVD
 *
          SRNAMT = 'CHEEVD'
          INFOT = 1
@@ -405,7 +405,7 @@
          CALL CHKXER( 'CHEEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        CHEEVD_2STAGE
+         // CHEEVD_2STAGE
 *
          SRNAMT = 'CHEEVD_2STAGE'
          INFOT = 1
@@ -429,30 +429,30 @@
          INFOT = 8
          CALL CHEEVD_2STAGE( 'N', 'U', 2, A, 2, X, W, 2, RW, 2, IW, 1, INFO )
          CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 8
-*         CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 3,
-*     $                            RW, 25, IW, 12, INFO )
-*         CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 8
+          // CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 3,
+      // $                            RW, 25, IW, 12, INFO )
+          // CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10
          CALL CHEEVD_2STAGE( 'N', 'U', 1, A, 1, X, W, 1, RW, 0, IW, 1, INFO )
          CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10
          CALL CHEEVD_2STAGE( 'N', 'U', 2, A, 2, X, W, 25, RW, 1, IW, 1, INFO )
          CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 10
-*         CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
-*     $                            RW, 18, IW, 12, INFO )
-*         CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 10
+          // CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
+      // $                            RW, 18, IW, 12, INFO )
+          // CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 12
          CALL CHEEVD_2STAGE( 'N', 'U', 1, A, 1, X, W, 1, RW, 1, IW, 0, INFO )
          CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 12
-*         CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
-*     $                            RW, 25, IW, 11, INFO )
-*         CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // CALL CHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
+      // $                            RW, 25, IW, 11, INFO )
+          // CALL CHKXER( 'CHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        CHEEV
+         // CHEEV
 *
          SRNAMT = 'CHEEV '
          INFOT = 1
@@ -472,7 +472,7 @@
          CALL CHKXER( 'CHEEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 5
 *
-*        CHEEV_2STAGE
+         // CHEEV_2STAGE
 *
          SRNAMT = 'CHEEV_2STAGE '
          INFOT = 1
@@ -495,7 +495,7 @@
          CALL CHKXER( 'CHEEV_2STAGE ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        CHEEVX
+         // CHEEVX
 *
          SRNAMT = 'CHEEVX'
          INFOT = 1
@@ -529,7 +529,7 @@
          CALL CHKXER( 'CHEEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        CHEEVX_2STAGE
+         // CHEEVX_2STAGE
 *
          SRNAMT = 'CHEEVX_2STAGE'
          INFOT = 1
@@ -566,7 +566,7 @@
          CALL CHKXER( 'CHEEVX_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        CHEEVR
+         // CHEEVR
 *
          SRNAMT = 'CHEEVR'
          N = 1
@@ -609,7 +609,7 @@
          CALL CHKXER( 'CHEEVR', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        CHEEVR_2STAGE
+         // CHEEVR_2STAGE
 *
          SRNAMT = 'CHEEVR_2STAGE'
          N = 1
@@ -654,7 +654,7 @@
          CALL CHKXER( 'CHEEVR_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        CHPEVD
+         // CHPEVD
 *
          SRNAMT = 'CHPEVD'
          INFOT = 1
@@ -698,7 +698,7 @@
          CALL CHKXER( 'CHPEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        CHPEV
+         // CHPEV
 *
          SRNAMT = 'CHPEV '
          INFOT = 1
@@ -715,7 +715,7 @@
          CALL CHKXER( 'CHPEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        CHPEVX
+         // CHPEVX
 *
          SRNAMT = 'CHPEVX'
          INFOT = 1
@@ -744,11 +744,11 @@
          CALL CHKXER( 'CHPEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the HB path.
+      // Test error exits for the HB path.
 *
       ELSE IF( LSAMEN( 2, C2, 'HB' ) ) THEN
 *
-*        CHBTRD
+         // CHBTRD
 *
          SRNAMT = 'CHBTRD'
          INFOT = 1
@@ -771,7 +771,7 @@
          CALL CHKXER( 'CHBTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        CHETRD_HB2ST
+         // CHETRD_HB2ST
 *
          SRNAMT = 'CHETRD_HB2ST'
          INFOT = 1
@@ -803,7 +803,7 @@
          CALL CHKXER( 'CHETRD_HB2ST', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        CHBEVD
+         // CHBEVD
 *
          SRNAMT = 'CHBEVD'
          INFOT = 1
@@ -853,7 +853,7 @@
          CALL CHKXER( 'CHBEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 15
 *
-*        CHBEVD_2STAGE
+         // CHBEVD_2STAGE
 *
          SRNAMT = 'CHBEVD_2STAGE'
          INFOT = 1
@@ -883,33 +883,33 @@
          INFOT = 11
          CALL CHBEVD_2STAGE( 'N', 'U', 2, 1, A, 2, X, Z, 2, W, 1, RW, 2, IW, 1, INFO )
          CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 11
-*         CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
-*     $                         W, 2, RW, 25, IW, 12, INFO )
-*         CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 11
+          // CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
+      // $                         W, 2, RW, 25, IW, 12, INFO )
+          // CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 13
          CALL CHBEVD_2STAGE( 'N', 'U', 1, 0, A, 1, X, Z, 1, W, 1, RW, 0, IW, 1, INFO )
          CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 13
          CALL CHBEVD_2STAGE( 'N', 'U', 2, 1, A, 2, X, Z, 2, W, 25, RW, 1, IW, 1, INFO )
          CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 13
-*         CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
-*     $                          W, 25, RW, 2, IW, 12, INFO )
-*         CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 13
+          // CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
+      // $                          W, 25, RW, 2, IW, 12, INFO )
+          // CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 15
          CALL CHBEVD_2STAGE( 'N', 'U', 1, 0, A, 1, X, Z, 1, W, 1, RW, 1, IW, 0, INFO )
          CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 15
          CALL CHBEVD_2STAGE( 'N', 'U', 2, 1, A, 2, X, Z, 2, W, 25, RW, 2, IW, 0, INFO )
          CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 15
-*         CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
-*     $                          W, 25, RW, 25, IW, 2, INFO )
-*         CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 15
+          // CALL CHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
+      // $                          W, 25, RW, 25, IW, 2, INFO )
+          // CALL CHKXER( 'CHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        CHBEV
+         // CHBEV
 *
          SRNAMT = 'CHBEV '
          INFOT = 1
@@ -932,7 +932,7 @@
          CALL CHKXER( 'CHBEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        CHBEV_2STAGE
+         // CHBEV_2STAGE
 *
          SRNAMT = 'CHBEV_2STAGE '
          INFOT = 1
@@ -961,7 +961,7 @@
          CALL CHKXER( 'CHBEV_2STAGE ', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*        CHBEVX
+         // CHBEVX
 *
          SRNAMT = 'CHBEVX'
          INFOT = 1
@@ -998,7 +998,7 @@
          CALL CHKXER( 'CHBEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        CHBEVX_2STAGE
+         // CHBEVX_2STAGE
 *
          SRNAMT = 'CHBEVX_2STAGE'
          INFOT = 1
@@ -1020,11 +1020,11 @@
          INFOT = 7
          CALL CHBEVX_2STAGE( 'N', 'A', 'U', 2, 1, A, 1, Q, 2, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 2, W, 0, RW, IW, I3, INFO )
          CALL CHKXER( 'CHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 9
-*         CALL CHBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 1,
-*     $                       0.0, 0.0, 0, 0, 0.0,
-*     $                       M, X, Z, 2, W, 0, RW, IW, I3, INFO )
-*         CALL CHKXER( 'CHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 9
+          // CALL CHBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 1,
+      // $                       0.0, 0.0, 0, 0, 0.0,
+      // $                       M, X, Z, 2, W, 0, RW, IW, I3, INFO )
+          // CALL CHKXER( 'CHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
          CALL CHBEVX_2STAGE( 'N', 'V', 'U', 1, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, RW, IW, I3, INFO )
          CALL CHKXER( 'CHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
@@ -1043,7 +1043,7 @@
          NT = NT + 12
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -1058,6 +1058,6 @@
 *
       RETURN
 *
-*     End of CERRST
+      // End of CERRST
 *
       END

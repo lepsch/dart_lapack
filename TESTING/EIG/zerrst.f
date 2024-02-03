@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LIW, LW;
       PARAMETER          ( NMAX = 3, LIW = 12*NMAX, LW = 20*NMAX )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO, J, M, N, NT;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                I1( NMAX ), I2( NMAX ), I3( NMAX ), IW( LIW );
       double             D( NMAX ), E( NMAX ), R( LW ), RW( LW ), X( NMAX )       COMPLEX*16         A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, ZHBEV, ZHBEVD, ZHBEVX, ZHBTRD, ZHEEV, ZHEEVD, ZHEEVR, ZHEEVX, ZHETRD, ZHPEV, ZHPEVD, ZHPEVX, ZHPTRD, ZPTEQR, ZSTEDC, ZSTEIN, ZSTEQR, ZUNGTR, ZUNMTR, ZUPGTR, ZUPMTR, ZHETD2, ZHEEVD_2STAGE, ZHEEVR_2STAGE, ZHEEVX_2STAGE, ZHEEV_2STAGE, ZHBEV_2STAGE, ZHBEVD_2STAGE, ZHBEVX_2STAGE, ZHETRD_2STAGE
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -65,11 +65,11 @@
       OK = .TRUE.
       NT = 0
 *
-*     Test error exits for the ST path.
+      // Test error exits for the ST path.
 *
       IF( LSAMEN( 2, C2, 'ST' ) ) THEN
 *
-*        ZHETRD
+         // ZHETRD
 *
          SRNAMT = 'ZHETRD'
          INFOT = 1
@@ -86,7 +86,7 @@
          CALL CHKXER( 'ZHETRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        ZHETD2
+         // ZHETD2
 *
          SRNAMT = 'ZHETD2'
          INFOT = 1
@@ -100,7 +100,7 @@
          CALL CHKXER( 'ZHETD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        ZHETRD_2STAGE
+         // ZHETRD_2STAGE
 *
          SRNAMT = 'ZHETRD_2STAGE'
          INFOT = 1
@@ -126,7 +126,7 @@
          CALL CHKXER( 'ZHETRD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 *
-*        ZHETRD_HE2HB
+         // ZHETRD_HE2HB
 *
          SRNAMT = 'ZHETRD_HE2HB'
          INFOT = 1
@@ -149,7 +149,7 @@
          CALL CHKXER( 'ZHETRD_HE2HB', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        ZHETRD_HB2ST
+         // ZHETRD_HB2ST
 *
          SRNAMT = 'ZHETRD_HB2ST'
          INFOT = 1
@@ -181,7 +181,7 @@
          CALL CHKXER( 'ZHETRD_HB2ST', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        ZUNGTR
+         // ZUNGTR
 *
          SRNAMT = 'ZUNGTR'
          INFOT = 1
@@ -198,7 +198,7 @@
          CALL CHKXER( 'ZUNGTR', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        ZUNMTR
+         // ZUNMTR
 *
          SRNAMT = 'ZUNMTR'
          INFOT = 1
@@ -233,7 +233,7 @@
          CALL CHKXER( 'ZUNMTR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        ZHPTRD
+         // ZHPTRD
 *
          SRNAMT = 'ZHPTRD'
          INFOT = 1
@@ -244,7 +244,7 @@
          CALL CHKXER( 'ZHPTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 2
 *
-*        ZUPGTR
+         // ZUPGTR
 *
          SRNAMT = 'ZUPGTR'
          INFOT = 1
@@ -258,7 +258,7 @@
          CALL CHKXER( 'ZUPGTR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        ZUPMTR
+         // ZUPMTR
 *
          SRNAMT = 'ZUPMTR'
          INFOT = 1
@@ -281,7 +281,7 @@
          CALL CHKXER( 'ZUPMTR', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        ZPTEQR
+         // ZPTEQR
 *
          SRNAMT = 'ZPTEQR'
          INFOT = 1
@@ -295,7 +295,7 @@
          CALL CHKXER( 'ZPTEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        ZSTEIN
+         // ZSTEIN
 *
          SRNAMT = 'ZSTEIN'
          INFOT = 1
@@ -312,7 +312,7 @@
          CALL CHKXER( 'ZSTEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        ZSTEQR
+         // ZSTEQR
 *
          SRNAMT = 'ZSTEQR'
          INFOT = 1
@@ -326,7 +326,7 @@
          CALL CHKXER( 'ZSTEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        ZSTEDC
+         // ZSTEDC
 *
          SRNAMT = 'ZSTEDC'
          INFOT = 1
@@ -364,7 +364,7 @@
          CALL CHKXER( 'ZSTEDC', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        ZHEEVD
+         // ZHEEVD
 *
          SRNAMT = 'ZHEEVD'
          INFOT = 1
@@ -405,7 +405,7 @@
          CALL CHKXER( 'ZHEEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        ZHEEVD_2STAGE
+         // ZHEEVD_2STAGE
 *
          SRNAMT = 'ZHEEVD_2STAGE'
          INFOT = 1
@@ -429,30 +429,30 @@
          INFOT = 8
          CALL ZHEEVD_2STAGE( 'N', 'U', 2, A, 2, X, W, 2, RW, 2, IW, 1, INFO )
          CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 8
-*         CALL ZHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 3,
-*     $                            RW, 25, IW, 12, INFO )
-*         CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 8
+          // CALL ZHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 3,
+      // $                            RW, 25, IW, 12, INFO )
+          // CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10
          CALL ZHEEVD_2STAGE( 'N', 'U', 1, A, 1, X, W, 1, RW, 0, IW, 1, INFO )
          CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10
          CALL ZHEEVD_2STAGE( 'N', 'U', 2, A, 2, X, W, 25, RW, 1, IW, 1, INFO )
          CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 10
-*         CALL ZHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
-*     $                            RW, 18, IW, 12, INFO )
-*         CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 10
+          // CALL ZHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
+      // $                            RW, 18, IW, 12, INFO )
+          // CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 12
          CALL ZHEEVD_2STAGE( 'N', 'U', 1, A, 1, X, W, 1, RW, 1, IW, 0, INFO )
          CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 12
-*         CALL ZHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
-*     $                            RW, 25, IW, 11, INFO )
-*         CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // CALL ZHEEVD_2STAGE( 'V', 'U', 2, A, 2, X, W, 8,
+      // $                            RW, 25, IW, 11, INFO )
+          // CALL CHKXER( 'ZHEEVD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        ZHEEV
+         // ZHEEV
 *
          SRNAMT = 'ZHEEV '
          INFOT = 1
@@ -472,7 +472,7 @@
          CALL CHKXER( 'ZHEEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 5
 *
-*        ZHEEV_2STAGE
+         // ZHEEV_2STAGE
 *
          SRNAMT = 'ZHEEV_2STAGE '
          INFOT = 1
@@ -495,7 +495,7 @@
          CALL CHKXER( 'ZHEEV_2STAGE ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        ZHEEVX
+         // ZHEEVX
 *
          SRNAMT = 'ZHEEVX'
          INFOT = 1
@@ -529,7 +529,7 @@
          CALL CHKXER( 'ZHEEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        ZHEEVX_2STAGE
+         // ZHEEVX_2STAGE
 *
          SRNAMT = 'ZHEEVX_2STAGE'
          INFOT = 1
@@ -566,7 +566,7 @@
          CALL CHKXER( 'ZHEEVX_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        ZHEEVR
+         // ZHEEVR
 *
          SRNAMT = 'ZHEEVR'
          N = 1
@@ -609,7 +609,7 @@
          CALL CHKXER( 'ZHEEVR', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
-*        ZHEEVR_2STAGE
+         // ZHEEVR_2STAGE
 *
          SRNAMT = 'ZHEEVR_2STAGE'
          N = 1
@@ -654,7 +654,7 @@
          CALL CHKXER( 'ZHEEVR_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        ZHPEVD
+         // ZHPEVD
 *
          SRNAMT = 'ZHPEVD'
          INFOT = 1
@@ -698,7 +698,7 @@
          CALL CHKXER( 'ZHPEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        ZHPEV
+         // ZHPEV
 *
          SRNAMT = 'ZHPEV '
          INFOT = 1
@@ -715,7 +715,7 @@
          CALL CHKXER( 'ZHPEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        ZHPEVX
+         // ZHPEVX
 *
          SRNAMT = 'ZHPEVX'
          INFOT = 1
@@ -744,11 +744,11 @@
          CALL CHKXER( 'ZHPEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*     Test error exits for the HB path.
+      // Test error exits for the HB path.
 *
       ELSE IF( LSAMEN( 2, C2, 'HB' ) ) THEN
 *
-*        ZHBTRD
+         // ZHBTRD
 *
          SRNAMT = 'ZHBTRD'
          INFOT = 1
@@ -771,7 +771,7 @@
          CALL CHKXER( 'ZHBTRD', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        ZHETRD_HB2ST
+         // ZHETRD_HB2ST
 *
          SRNAMT = 'ZHETRD_HB2ST'
          INFOT = 1
@@ -803,7 +803,7 @@
          CALL CHKXER( 'ZHETRD_HB2ST', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        ZHBEVD
+         // ZHBEVD
 *
          SRNAMT = 'ZHBEVD'
          INFOT = 1
@@ -853,7 +853,7 @@
          CALL CHKXER( 'ZHBEVD', INFOT, NOUT, LERR, OK )
          NT = NT + 15
 *
-*        ZHBEVD_2STAGE
+         // ZHBEVD_2STAGE
 *
          SRNAMT = 'ZHBEVD_2STAGE'
          INFOT = 1
@@ -883,33 +883,33 @@
          INFOT = 11
          CALL ZHBEVD_2STAGE( 'N', 'U', 2, 1, A, 2, X, Z, 2, W, 1, RW, 2, IW, 1, INFO )
          CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 11
-*         CALL ZHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
-*     $                         W, 2, RW, 25, IW, 12, INFO )
-*         CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 11
+          // CALL ZHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
+      // $                         W, 2, RW, 25, IW, 12, INFO )
+          // CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 13
          CALL ZHBEVD_2STAGE( 'N', 'U', 1, 0, A, 1, X, Z, 1, W, 1, RW, 0, IW, 1, INFO )
          CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 13
          CALL ZHBEVD_2STAGE( 'N', 'U', 2, 1, A, 2, X, Z, 2, W, 25, RW, 1, IW, 1, INFO )
          CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 13
-*         CALL ZHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
-*     $                          W, 25, RW, 2, IW, 12, INFO )
-*         CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 13
+          // CALL ZHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
+      // $                          W, 25, RW, 2, IW, 12, INFO )
+          // CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 15
          CALL ZHBEVD_2STAGE( 'N', 'U', 1, 0, A, 1, X, Z, 1, W, 1, RW, 1, IW, 0, INFO )
          CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 15
          CALL ZHBEVD_2STAGE( 'N', 'U', 2, 1, A, 2, X, Z, 2, W, 25, RW, 2, IW, 0, INFO )
          CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 15
-*         CALL ZHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
-*     $                          W, 25, RW, 25, IW, 2, INFO )
-*         CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 15
+          // CALL ZHBEVD_2STAGE( 'V', 'U', 2, 1, A, 2, X, Z, 2,
+      // $                          W, 25, RW, 25, IW, 2, INFO )
+          // CALL CHKXER( 'ZHBEVD_2STAGE', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        ZHBEV
+         // ZHBEV
 *
          SRNAMT = 'ZHBEV '
          INFOT = 1
@@ -932,7 +932,7 @@
          CALL CHKXER( 'ZHBEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        ZHBEV_2STAGE
+         // ZHBEV_2STAGE
 *
          SRNAMT = 'ZHBEV_2STAGE '
          INFOT = 1
@@ -961,7 +961,7 @@
          CALL CHKXER( 'ZHBEV_2STAGE ', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*        ZHBEVX
+         // ZHBEVX
 *
          SRNAMT = 'ZHBEVX'
          INFOT = 1
@@ -998,7 +998,7 @@
          CALL CHKXER( 'ZHBEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
-*        ZHBEVX_2STAGE
+         // ZHBEVX_2STAGE
 *
          SRNAMT = 'ZHBEVX_2STAGE'
          INFOT = 1
@@ -1020,11 +1020,11 @@
          INFOT = 7
          CALL ZHBEVX_2STAGE( 'N', 'A', 'U', 2, 1, A, 1, Q, 2, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 2, W, 0, RW, IW, I3, INFO )
          CALL CHKXER( 'ZHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
-*         INFOT = 9
-*         CALL ZHBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 1,
-*     $                       0.0D0, 0.0D0, 0, 0, 0.0D0,
-*     $                       M, X, Z, 2, W, 0, RW, IW, I3, INFO )
-*         CALL CHKXER( 'ZHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
+          // INFOT = 9
+          // CALL ZHBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 1,
+      // $                       0.0D0, 0.0D0, 0, 0, 0.0D0,
+      // $                       M, X, Z, 2, W, 0, RW, IW, I3, INFO )
+          // CALL CHKXER( 'ZHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
          CALL ZHBEVX_2STAGE( 'N', 'V', 'U', 1, 0, A, 1, Q, 1, 0.0D0, 0.0D0, 0, 0, 0.0D0, M, X, Z, 1, W, 0, RW, IW, I3, INFO )
          CALL CHKXER( 'ZHBEVX_2STAGE', INFOT, NOUT, LERR, OK )
@@ -1043,7 +1043,7 @@
          NT = NT + 12
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -1058,6 +1058,6 @@
 *
       RETURN
 *
-*     End of ZERRST
+      // End of ZERRST
 *
       END

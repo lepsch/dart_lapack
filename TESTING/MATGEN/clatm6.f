@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDX, LDY, N, TYPE;
       COMPLEX            ALPHA, BETA, WX, WY
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               DIF( * ), S( * )
       COMPLEX            A( LDA, * ), B( LDA, * ), X( LDX, * ), Y( LDY, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               RONE, TWO, THREE
       PARAMETER          ( RONE = 1.0E+0, TWO = 2.0E+0, THREE = 3.0E+0 )
       COMPLEX            ZERO, ONE
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               RWORK( 50 )
       COMPLEX            WORK( 26 ), Z( 8, 8 )
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CABS, CMPLX, CONJG, REAL, SQRT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGESVD, CLACPY, CLAKF2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Generate test problem ...
-*     (Da, Db) ...
+      // Generate test problem ...
+      // (Da, Db) ...
 *
       DO 20 I = 1, N
          DO 10 J = 1, N
@@ -60,7 +60,7 @@
          A( 5, 5 ) = CONJG( A( 4, 4 ) )
       END IF
 *
-*     Form X and Y
+      // Form X and Y
 *
       CALL CLACPY( 'F', N, N, B, LDA, Y, LDY )
       Y( 3, 1 ) = -CONJG( WY )
@@ -78,7 +78,7 @@
       X( 2, 4 ) = -WX
       X( 2, 5 ) = -WX
 *
-*     Form (A, B)
+      // Form (A, B)
 *
       B( 1, 3 ) = WX + WY
       B( 2, 3 ) = -WX + WY
@@ -93,7 +93,7 @@
       A( 1, 5 ) = -WX*A( 1, 1 ) + WY*A( 5, 5 )
       A( 2, 5 ) = WX*A( 2, 2 ) + WY*A( 5, 5 )
 *
-*     Compute condition numbers
+      // Compute condition numbers
 *
       S( 1 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 1, 1 ) )*CABS( A( 1, 1 ) ) ) )       S( 2 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 2, 2 ) )*CABS( A( 2, 2 ) ) ) )       S( 3 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 3, 3 ) )*CABS( A( 3, 3 ) ) ) )       S( 4 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 4, 4 ) )*CABS( A( 4, 4 ) ) ) )       S( 5 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 5, 5 ) )*CABS( A( 5, 5 ) ) ) )
 *
@@ -107,6 +107,6 @@
 *
       RETURN
 *
-*     End of CLATM6
+      // End of CLATM6
 *
       END

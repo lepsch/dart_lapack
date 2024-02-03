@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                INFO, LDA, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               A( LDA, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOUNIT;
       int                J, K, KP;
       REAL               D11, D12, D21, D22, T1, T2
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMV, SGER, SSCAL, SSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -57,45 +57,45 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) RETURN
 *
       NOUNIT = LSAME( DIAG, 'N' )
 *------------------------------------------
 *
-*     Compute  B := A * B  (No transpose)
+      // Compute  B := A * B  (No transpose)
 *
 *------------------------------------------
       IF( LSAME( TRANS, 'N' ) ) THEN
 *
-*        Compute  B := U*B
-*        where U = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
+         // Compute  B := U*B
+         // where U = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Loop forward applying the transformations.
+         // Loop forward applying the transformations.
 *
             K = 1
    10       CONTINUE
             IF( K.GT.N ) GO TO 30
             IF( IPIV( K ).GT.0 ) THEN
 *
-*              1 x 1 pivot block
+               // 1 x 1 pivot block
 *
-*              Multiply by the diagonal element if forming U * D.
+               // Multiply by the diagonal element if forming U * D.
 *
                IF( NOUNIT ) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
 *
-*              Multiply by  P(K) * inv(U(K))  if K > 1.
+               // Multiply by  P(K) * inv(U(K))  if K > 1.
 *
                IF( K.GT.1 ) THEN
 *
-*                 Apply the transformation.
+                  // Apply the transformation.
 *
                   CALL SGER( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
 *
-*                 Interchange if P(K) .ne. I.
+                  // Interchange if P(K) .ne. I.
 *
                   KP = IPIV( K )
                   IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -103,9 +103,9 @@
                K = K + 1
             ELSE
 *
-*              2 x 2 pivot block
+               // 2 x 2 pivot block
 *
-*              Multiply by the diagonal block if forming U * D.
+               // Multiply by the diagonal block if forming U * D.
 *
                IF( NOUNIT ) THEN
                   D11 = A( K, K )
@@ -120,15 +120,15 @@
    20             CONTINUE
                END IF
 *
-*              Multiply by  P(K) * inv(U(K))  if K > 1.
+               // Multiply by  P(K) * inv(U(K))  if K > 1.
 *
                IF( K.GT.1 ) THEN
 *
-*                 Apply the transformations.
+                  // Apply the transformations.
 *
                   CALL SGER( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL SGER( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB )
 *
-*                 Interchange if P(K) .ne. I.
+                  // Interchange if P(K) .ne. I.
 *
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -138,39 +138,39 @@
             GO TO 10
    30       CONTINUE
 *
-*        Compute  B := L*B
-*        where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
+         // Compute  B := L*B
+         // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
 *
          ELSE
 *
-*           Loop backward applying the transformations to B.
+            // Loop backward applying the transformations to B.
 *
             K = N
    40       CONTINUE
             IF( K.LT.1 ) GO TO 60
 *
-*           Test the pivot index.  If greater than zero, a 1 x 1
-*           pivot was used, otherwise a 2 x 2 pivot was used.
+            // Test the pivot index.  If greater than zero, a 1 x 1
+            // pivot was used, otherwise a 2 x 2 pivot was used.
 *
             IF( IPIV( K ).GT.0 ) THEN
 *
-*              1 x 1 pivot block:
+               // 1 x 1 pivot block:
 *
-*              Multiply by the diagonal element if forming L * D.
+               // Multiply by the diagonal element if forming L * D.
 *
                IF( NOUNIT ) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
 *
-*              Multiply by  P(K) * inv(L(K))  if K < N.
+               // Multiply by  P(K) * inv(L(K))  if K < N.
 *
                IF( K.NE.N ) THEN
                   KP = IPIV( K )
 *
-*                 Apply the transformation.
+                  // Apply the transformation.
 *
                   CALL SGER( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
 *
-*                 Interchange if a permutation was applied at the
-*                 K-th step of the factorization.
+                  // Interchange if a permutation was applied at the
+                  // K-th step of the factorization.
 *
                   IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
                END IF
@@ -178,9 +178,9 @@
 *
             ELSE
 *
-*              2 x 2 pivot block:
+               // 2 x 2 pivot block:
 *
-*              Multiply by the diagonal block if forming L * D.
+               // Multiply by the diagonal block if forming L * D.
 *
                IF( NOUNIT ) THEN
                   D11 = A( K-1, K-1 )
@@ -195,16 +195,16 @@
    50             CONTINUE
                END IF
 *
-*              Multiply by  P(K) * inv(L(K))  if K < N.
+               // Multiply by  P(K) * inv(L(K))  if K < N.
 *
                IF( K.NE.N ) THEN
 *
-*                 Apply the transformation.
+                  // Apply the transformation.
 *
                   CALL SGER( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL SGER( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB )
 *
-*                 Interchange if a permutation was applied at the
-*                 K-th step of the factorization.
+                  // Interchange if a permutation was applied at the
+                  // K-th step of the factorization.
 *
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
@@ -216,56 +216,56 @@
          END IF
 *----------------------------------------
 *
-*     Compute  B := A' * B  (transpose)
+      // Compute  B := A' * B  (transpose)
 *
 *----------------------------------------
       ELSE
 *
-*        Form  B := U'*B
-*        where U  = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
-*        and   U' = inv(U'(1))*P(1)* ... *inv(U'(m))*P(m)
+         // Form  B := U'*B
+         // where U  = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
+         // and   U' = inv(U'(1))*P(1)* ... *inv(U'(m))*P(m)
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*           Loop backward applying the transformations.
+            // Loop backward applying the transformations.
 *
             K = N
    70       CONTINUE
             IF( K.LT.1 ) GO TO 90
 *
-*           1 x 1 pivot block.
+            // 1 x 1 pivot block.
 *
             IF( IPIV( K ).GT.0 ) THEN
                IF( K.GT.1 ) THEN
 *
-*                 Interchange if P(K) .ne. I.
+                  // Interchange if P(K) .ne. I.
 *
                   KP = IPIV( K )
                   IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*                 Apply the transformation
+                  // Apply the transformation
 *
                   CALL SGEMV( 'Transpose', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
                END IF
                IF( NOUNIT ) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K - 1
 *
-*           2 x 2 pivot block.
+            // 2 x 2 pivot block.
 *
             ELSE
                IF( K.GT.2 ) THEN
 *
-*                 Interchange if P(K) .ne. I.
+                  // Interchange if P(K) .ne. I.
 *
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K-1 ) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*                 Apply the transformations
+                  // Apply the transformations
 *
                   CALL SGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )                   CALL SGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
                END IF
 *
-*              Multiply by the diagonal block if non-unit.
+               // Multiply by the diagonal block if non-unit.
 *
                IF( NOUNIT ) THEN
                   D11 = A( K-1, K-1 )
@@ -284,51 +284,51 @@
             GO TO 70
    90       CONTINUE
 *
-*        Form  B := L'*B
-*        where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
-*        and   L' = inv(L'(m))*P(m)* ... *inv(L'(1))*P(1)
+         // Form  B := L'*B
+         // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
+         // and   L' = inv(L'(m))*P(m)* ... *inv(L'(1))*P(1)
 *
          ELSE
 *
-*           Loop forward applying the L-transformations.
+            // Loop forward applying the L-transformations.
 *
             K = 1
   100       CONTINUE
             IF( K.GT.N ) GO TO 120
 *
-*           1 x 1 pivot block
+            // 1 x 1 pivot block
 *
             IF( IPIV( K ).GT.0 ) THEN
                IF( K.LT.N ) THEN
 *
-*                 Interchange if P(K) .ne. I.
+                  // Interchange if P(K) .ne. I.
 *
                   KP = IPIV( K )
                   IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*                 Apply the transformation
+                  // Apply the transformation
 *
                   CALL SGEMV( 'Transpose', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
                END IF
                IF( NOUNIT ) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K + 1
 *
-*           2 x 2 pivot block.
+            // 2 x 2 pivot block.
 *
             ELSE
                IF( K.LT.N-1 ) THEN
 *
-*              Interchange if P(K) .ne. I.
+               // Interchange if P(K) .ne. I.
 *
                   KP = ABS( IPIV( K ) )
                   IF( KP.NE.K+1 ) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
 *
-*                 Apply the transformation
+                  // Apply the transformation
 *
                   CALL SGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB )                   CALL SGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE, B( K, 1 ), LDB )
                END IF
 *
-*              Multiply by the diagonal block if non-unit.
+               // Multiply by the diagonal block if non-unit.
 *
                IF( NOUNIT ) THEN
                   D11 = A( K, K )
@@ -351,6 +351,6 @@
       END IF
       RETURN
 *
-*     End of SLAVSY
+      // End of SLAVSY
 *
       END

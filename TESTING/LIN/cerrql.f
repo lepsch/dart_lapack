@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CGEQL2, CGEQLF, CGEQLS, CHKXER, CUNG2L, CUNGQL, CUNM2L, CUNMQL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -54,9 +54,9 @@
    20 CONTINUE
       OK = .TRUE.
 *
-*     Error exits for QL factorization
+      // Error exits for QL factorization
 *
-*     CGEQLF
+      // CGEQLF
 *
       SRNAMT = 'CGEQLF'
       INFOT = 1
@@ -72,7 +72,7 @@
       CALL CGEQLF( 1, 2, A, 1, B, W, 1, INFO )
       CALL CHKXER( 'CGEQLF', INFOT, NOUT, LERR, OK )
 *
-*     CGEQL2
+      // CGEQL2
 *
       SRNAMT = 'CGEQL2'
       INFOT = 1
@@ -85,7 +85,7 @@
       CALL CGEQL2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'CGEQL2', INFOT, NOUT, LERR, OK )
 *
-*     CGEQLS
+      // CGEQLS
 *
       SRNAMT = 'CGEQLS'
       INFOT = 1
@@ -110,7 +110,7 @@
       CALL CGEQLS( 1, 1, 2, A, 1, X, B, 1, W, 1, INFO )
       CALL CHKXER( 'CGEQLS', INFOT, NOUT, LERR, OK )
 *
-*     CUNGQL
+      // CUNGQL
 *
       SRNAMT = 'CUNGQL'
       INFOT = 1
@@ -135,7 +135,7 @@
       CALL CUNGQL( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'CUNGQL', INFOT, NOUT, LERR, OK )
 *
-*     CUNG2L
+      // CUNG2L
 *
       SRNAMT = 'CUNG2L'
       INFOT = 1
@@ -157,7 +157,7 @@
       CALL CUNG2L( 2, 1, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'CUNG2L', INFOT, NOUT, LERR, OK )
 *
-*     CUNMQL
+      // CUNMQL
 *
       SRNAMT = 'CUNMQL'
       INFOT = 1
@@ -197,7 +197,7 @@
       CALL CUNMQL( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'CUNMQL', INFOT, NOUT, LERR, OK )
 *
-*     CUNM2L
+      // CUNM2L
 *
       SRNAMT = 'CUNM2L'
       INFOT = 1
@@ -231,12 +231,12 @@
       CALL CUNM2L( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'CUNM2L', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of CERRQL
+      // End of CERRQL
 *
       END

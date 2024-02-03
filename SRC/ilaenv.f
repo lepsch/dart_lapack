@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>       NAME, OPTS;
       int                ISPEC, N1, N2, N3, N4;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, IC, IZ, NB, NBMIN, NX;
       bool               CNAME, SNAME, TWOSTAGE;
       String             C1*1, C2*2, C4*2, C3*3, SUBNAM*16;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CHAR, ICHAR, INT, MIN, REAL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IEEECK, IPARMQ, IPARAM2STAGE;
       // EXTERNAL IEEECK, IPARMQ, IPARAM2STAGE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       GO TO ( 10, 10, 10, 80, 90, 100, 110, 120, 130, 140, 150, 160, 160, 160, 160, 160, 160)ISPEC
 *
-*     Invalid value for ISPEC
+      // Invalid value for ISPEC
 *
       ILAENV = -1
       RETURN
 *
    10 CONTINUE
 *
-*     Convert NAME to upper case if the first character is lower case.
+      // Convert NAME to upper case if the first character is lower case.
 *
       ILAENV = 1
       SUBNAM = NAME
@@ -42,7 +42,7 @@
       IZ = ICHAR( 'Z' )
       IF( IZ.EQ.90 .OR. IZ.EQ.122 ) THEN
 *
-*        ASCII character set
+         // ASCII character set
 *
          IF( IC.GE.97 .AND. IC.LE.122 ) THEN
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
@@ -54,7 +54,7 @@
 *
       ELSE IF( IZ.EQ.233 .OR. IZ.EQ.169 ) THEN
 *
-*        EBCDIC character set
+         // EBCDIC character set
 *
          IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
             SUBNAM( 1: 1 ) = CHAR( IC+64 )
@@ -66,7 +66,7 @@
 *
       ELSE IF( IZ.EQ.218 .OR. IZ.EQ.250 ) THEN
 *
-*        Prime machines:  ASCII+128
+         // Prime machines:  ASCII+128
 *
          IF( IC.GE.225 .AND. IC.LE.250 ) THEN
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
@@ -90,17 +90,17 @@
 *
    50 CONTINUE
 *
-*     ISPEC = 1:  block size
+      // ISPEC = 1:  block size
 *
-*     In these examples, separate code is provided for setting NB for
-*     real and complex.  We assume that NB will take the same value in
-*     single or double precision.
+      // In these examples, separate code is provided for setting NB for
+      // real and complex.  We assume that NB will take the same value in
+      // single or double precision.
 *
       NB = 1
 *
       IF( SUBNAM(2:6).EQ.'LAORH' ) THEN
 *
-*        This is for *LAORHR_GETRFNP routine
+         // This is for *LAORHR_GETRFNP routine
 *
          IF( SNAME ) THEN
              NB = 32
@@ -123,7 +123,7 @@
          ELSE IF( C3.EQ.'QR ') THEN
             IF( N3 .EQ. 1) THEN
                IF( SNAME ) THEN
-*     M*N
+      // M*N
                   IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
                      NB = N1
                   ELSE
@@ -146,7 +146,7 @@
          ELSE IF( C3.EQ.'LQ ') THEN
             IF( N3 .EQ. 2) THEN
                IF( SNAME ) THEN
-*     M*N
+      // M*N
                   IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
                      NB = N1
                   ELSE
@@ -297,7 +297,7 @@
                NB = 64
             END IF
          ELSE IF( C3.EQ.'SYL' ) THEN
-*           The upper bound is to prevent overly aggressive scaling.
+            // The upper bound is to prevent overly aggressive scaling.
             IF( SNAME ) THEN
                NB = MIN( MAX( 48, INT( ( MIN( N1, N2 ) * 16 ) / 100) ), 240 )
             ELSE
@@ -337,7 +337,7 @@
 *
    60 CONTINUE
 *
-*     ISPEC = 2:  minimum block size
+      // ISPEC = 2:  minimum block size
 *
       NBMIN = 2
       IF( C2.EQ.'GE' ) THEN
@@ -418,7 +418,7 @@
 *
    70 CONTINUE
 *
-*     ISPEC = 3:  crossover point
+      // ISPEC = 3:  crossover point
 *
       NX = 0
       IF( C2.EQ.'GE' ) THEN
@@ -478,53 +478,53 @@
 *
    80 CONTINUE
 *
-*     ISPEC = 4:  number of shifts (used by xHSEQR)
+      // ISPEC = 4:  number of shifts (used by xHSEQR)
 *
       ILAENV = 6
       RETURN
 *
    90 CONTINUE
 *
-*     ISPEC = 5:  minimum column dimension (not used)
+      // ISPEC = 5:  minimum column dimension (not used)
 *
       ILAENV = 2
       RETURN
 *
   100 CONTINUE
 *
-*     ISPEC = 6:  crossover point for SVD (used by xGELSS and xGESVD)
+      // ISPEC = 6:  crossover point for SVD (used by xGELSS and xGESVD)
 *
       ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
       RETURN
 *
   110 CONTINUE
 *
-*     ISPEC = 7:  number of processors (not used)
+      // ISPEC = 7:  number of processors (not used)
 *
       ILAENV = 1
       RETURN
 *
   120 CONTINUE
 *
-*     ISPEC = 8:  crossover point for multishift (used by xHSEQR)
+      // ISPEC = 8:  crossover point for multishift (used by xHSEQR)
 *
       ILAENV = 50
       RETURN
 *
   130 CONTINUE
 *
-*     ISPEC = 9:  maximum size of the subproblems at the bottom of the
-*                 computation tree in the divide-and-conquer algorithm
-*                 (used by xGELSD and xGESDD)
+      // ISPEC = 9:  maximum size of the subproblems at the bottom of the
+                  // computation tree in the divide-and-conquer algorithm
+                  // (used by xGELSD and xGESDD)
 *
       ILAENV = 25
       RETURN
 *
   140 CONTINUE
 *
-*     ISPEC = 10: ieee and infinity NaN arithmetic can be trusted not to trap
+      // ISPEC = 10: ieee and infinity NaN arithmetic can be trusted not to trap
 *
-*     ILAENV = 0
+      // ILAENV = 0
       ILAENV = 1
       IF( ILAENV.EQ.1 ) THEN
          ILAENV = IEEECK( 1, 0.0, 1.0 )
@@ -533,9 +533,9 @@
 *
   150 CONTINUE
 *
-*     ISPEC = 11: ieee infinity arithmetic can be trusted not to trap
+      // ISPEC = 11: ieee infinity arithmetic can be trusted not to trap
 *
-*     ILAENV = 0
+      // ILAENV = 0
       ILAENV = 1
       IF( ILAENV.EQ.1 ) THEN
          ILAENV = IEEECK( 0, 0.0, 1.0 )
@@ -544,11 +544,11 @@
 *
   160 CONTINUE
 *
-*     12 <= ISPEC <= 17: xHSEQR or related subroutines.
+      // 12 <= ISPEC <= 17: xHSEQR or related subroutines.
 *
       ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
       RETURN
 *
-*     End of ILAENV
+      // End of ILAENV
 *
       END

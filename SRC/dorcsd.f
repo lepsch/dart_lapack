@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBU1, JOBU2, JOBV1T, JOBV2T, SIGNS, TRANS;
       int                INFO, LDU1, LDU2, LDV1T, LDV2T, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             THETA( * );
       double             U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
-*     ..
+      // ..
 *
 *  ===================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANST, SIGNST;
       int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, ITAUQ2, J, LBBCSDWORK, LBBCSDWORKMIN, LBBCSDWORKOPT, LORBDBWORK, LORBDBWORKMIN, LORBDBWORKOPT, LORGLQWORK, LORGLQWORKMIN, LORGLQWORKOPT, LORGQRWORK, LORGQRWORKMIN, LORGQRWORKOPT, LWORKMIN, LWORKOPT;
       bool               COLMAJOR, DEFAULTSIGNS, LQUERY, WANTU1, WANTU2, WANTV1T, WANTV2T;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DBBCSD, DLACPY, DLAPMR, DLAPMT, DORBDB, DORGLQ, DORGQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Intrinsic Functions
+      // ..
+      // .. Intrinsic Functions
       // INTRINSIC INT, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test input arguments
+      // Test input arguments
 *
       INFO = 0
       WANTU1 = LSAME( JOBU1, 'Y' )
@@ -79,7 +79,7 @@
          INFO = -26
       END IF
 *
-*     Work with transpose if convenient
+      // Work with transpose if convenient
 *
       IF( INFO .EQ. 0 .AND. MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) THEN
          IF( COLMAJOR ) THEN
@@ -96,8 +96,8 @@
          RETURN
       END IF
 *
-*     Work with permutation [ 0 I; I 0 ] * X * [ 0 I; I 0 ] if
-*     convenient
+      // Work with permutation [ 0 I; I 0 ] * X * [ 0 I; I 0 ] if
+      // convenient
 *
       IF( INFO .EQ. 0 .AND. M-Q .LT. Q ) THEN
          IF( DEFAULTSIGNS ) THEN
@@ -109,7 +109,7 @@
          RETURN
       END IF
 *
-*     Compute workspace
+      // Compute workspace
 *
       IF( INFO .EQ. 0 ) THEN
 *
@@ -155,7 +155,7 @@
          END IF
       END IF
 *
-*     Abort if any illegal arguments
+      // Abort if any illegal arguments
 *
       IF( INFO .NE. 0 ) THEN
          CALL XERBLA( 'DORCSD', -INFO )
@@ -164,11 +164,11 @@
          RETURN
       END IF
 *
-*     Transform to bidiagonal block form
+      // Transform to bidiagonal block form
 *
       CALL DORBDB( TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(ITAUQ2), WORK(IORBDB), LORBDBWORK, CHILDINFO )
 *
-*     Accumulate Householder reflectors
+      // Accumulate Householder reflectors
 *
       IF( COLMAJOR ) THEN
          IF( WANTU1 .AND. P .GT. 0 ) THEN
@@ -221,14 +221,14 @@
          END IF
       END IF
 *
-*     Compute the CSD of the matrix in bidiagonal-block form
+      // Compute the CSD of the matrix in bidiagonal-block form
 *
       CALL DBBCSD( JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, WORK(IPHI), U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSDWORK, INFO )
 *
-*     Permute rows and columns to place identity submatrices in top-
-*     left corner of (1,1)-block and/or bottom-right corner of (1,2)-
-*     block and/or bottom-right corner of (2,1)-block and/or top-left
-*     corner of (2,2)-block
+      // Permute rows and columns to place identity submatrices in top-
+      // left corner of (1,1)-block and/or bottom-right corner of (1,2)-
+      // block and/or bottom-right corner of (2,1)-block and/or top-left
+      // corner of (2,2)-block
 *
       IF( Q .GT. 0 .AND. WANTU2 ) THEN
          DO I = 1, Q
@@ -259,6 +259,6 @@
 *
       RETURN
 *
-*     End DORCSD
+      // End DORCSD
 *
       END

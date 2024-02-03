@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDWORK, N;
       double             RCOND, RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX*16         A( * ), AINV( * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, JJ;
       double             AINVNM, ANORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE, ZLANHP;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCONJG
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZCOPY, ZHPMV
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RCOND = ONE
@@ -47,7 +47,7 @@
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANHP( '1', UPLO, N, A, RWORK )
@@ -59,14 +59,14 @@
       END IF
       RCOND = ( ONE / ANORM ) / AINVNM
 *
-*     UPLO = 'U':
-*     Copy the leading N-1 x N-1 submatrix of AINV to WORK(1:N,2:N) and
-*     expand it to a full matrix, then multiply by A one column at a
-*     time, moving the result one column to the left.
+      // UPLO = 'U':
+      // Copy the leading N-1 x N-1 submatrix of AINV to WORK(1:N,2:N) and
+      // expand it to a full matrix, then multiply by A one column at a
+     t // ime, moving the result one column to the left.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Copy AINV
+         // Copy AINV
 *
          JJ = 1
          DO 20 J = 1, N - 1
@@ -81,20 +81,20 @@
             WORK( N, I+1 ) = DCONJG( AINV( JJ+I-1 ) )
    30    CONTINUE
 *
-*        Multiply by A
+         // Multiply by A
 *
          DO 40 J = 1, N - 1
             CALL ZHPMV( 'Upper', N, -CONE, A, WORK( 1, J+1 ), 1, CZERO, WORK( 1, J ), 1 )
    40    CONTINUE
          CALL ZHPMV( 'Upper', N, -CONE, A, AINV( JJ ), 1, CZERO, WORK( 1, N ), 1 )
 *
-*     UPLO = 'L':
-*     Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
-*     and multiply by A, moving each column to the right.
+      // UPLO = 'L':
+      // Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
+      // and multiply by A, moving each column to the right.
 *
       ELSE
 *
-*        Copy AINV
+         // Copy AINV
 *
          DO 50 I = 1, N - 1
             WORK( 1, I ) = DCONJG( AINV( I+1 ) )
@@ -108,7 +108,7 @@
             JJ = JJ + N - J + 1
    70    CONTINUE
 *
-*        Multiply by A
+         // Multiply by A
 *
          DO 80 J = N, 2, -1
             CALL ZHPMV( 'Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO, WORK( 1, J ), 1 )
@@ -117,13 +117,13 @@
 *
       END IF
 *
-*     Add the identity matrix to WORK .
+      // Add the identity matrix to WORK .
 *
       DO 90 I = 1, N
          WORK( I, I ) = WORK( I, I ) + CONE
    90 CONTINUE
 *
-*     Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
+      // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 *
       RESID = ZLANGE( '1', N, N, WORK, LDWORK, RWORK )
 *
@@ -131,6 +131,6 @@
 *
       RETURN
 *
-*     End of ZPPT03
+      // End of ZPPT03
 *
       END

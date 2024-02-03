@@ -4,29 +4,29 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double           DX(*);
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       double           DMAX;
       int     I,IX;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DABS
-*     ..
+      // ..
       IDAMAX = 0
       IF (N.LT.1 .OR. INCX.LE.0) RETURN
       IDAMAX = 1
       IF (N.EQ.1) RETURN
       IF (INCX.EQ.1) THEN
 *
-*        code for increment equal to 1
+         // code for increment equal to 1
 *
          DMAX = DABS(DX(1))
          DO I = 2,N
@@ -37,7 +37,7 @@
          END DO
       ELSE
 *
-*        code for increment not equal to 1
+         // code for increment not equal to 1
 *
          IX = 1
          DMAX = DABS(DX(1))
@@ -52,6 +52,6 @@
       END IF
       RETURN
 *
-*     End of IDAMAX
+      // End of IDAMAX
 *
       END

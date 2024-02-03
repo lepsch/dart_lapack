@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, INCY, N;
       REAL               SSMIN
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               X( * ), Y( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               A11, A12, A22, C, SSMAX, TAU
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SDOT
       // EXTERNAL SDOT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SAXPY, SLARFG, SLAS2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.1 ) THEN
          SSMIN = ZERO
          RETURN
       END IF
 *
-*     Compute the QR factorization of the N-by-2 matrix ( X Y )
+      // Compute the QR factorization of the N-by-2 matrix ( X Y )
 *
       CALL SLARFG( N, X( 1 ), X( 1+INCX ), INCX, TAU )
       A11 = X( 1 )
@@ -51,12 +51,12 @@
       A12 = Y( 1 )
       A22 = Y( 1+INCY )
 *
-*     Compute the SVD of 2-by-2 Upper triangular matrix.
+      // Compute the SVD of 2-by-2 Upper triangular matrix.
 *
       CALL SLAS2( A11, A12, A22, SSMIN, SSMAX )
 *
       RETURN
 *
-*     End of SLAPLL
+      // End of SLAPLL
 *
       END

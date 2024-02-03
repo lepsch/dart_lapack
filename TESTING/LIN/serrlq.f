@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SGELQ2, SGELQF, SORGL2, SORGLQ, SORML2, SORMLQ
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -54,9 +54,9 @@
    20 CONTINUE
       OK = .TRUE.
 *
-*     Error exits for LQ factorization
+      // Error exits for LQ factorization
 *
-*     SGELQF
+      // SGELQF
 *
       SRNAMT = 'SGELQF'
       INFOT = 1
@@ -72,7 +72,7 @@
       CALL SGELQF( 2, 1, A, 2, B, W, 1, INFO )
       CALL CHKXER( 'SGELQF', INFOT, NOUT, LERR, OK )
 *
-*     SGELQ2
+      // SGELQ2
 *
       SRNAMT = 'SGELQ2'
       INFOT = 1
@@ -85,7 +85,7 @@
       CALL SGELQ2( 2, 1, A, 1, B, W, INFO )
       CALL CHKXER( 'SGELQ2', INFOT, NOUT, LERR, OK )
 *
-*     SORGLQ
+      // SORGLQ
 *
       SRNAMT = 'SORGLQ'
       INFOT = 1
@@ -110,7 +110,7 @@
       CALL SORGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
       CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
 *
-*     SORGL2
+      // SORGL2
 *
       SRNAMT = 'SORGL2'
       INFOT = 1
@@ -132,7 +132,7 @@
       CALL SORGL2( 2, 2, 0, A, 1, X, W, INFO )
       CALL CHKXER( 'SORGL2', INFOT, NOUT, LERR, OK )
 *
-*     SORMLQ
+      // SORMLQ
 *
       SRNAMT = 'SORMLQ'
       INFOT = 1
@@ -172,7 +172,7 @@
       CALL SORMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
       CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
 *
-*     SORML2
+      // SORML2
 *
       SRNAMT = 'SORML2'
       INFOT = 1
@@ -206,12 +206,12 @@
       CALL SORML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
       CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of SERRLQ
+      // End of SERRLQ
 *
       END

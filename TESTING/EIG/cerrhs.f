@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 3, LW = NMAX*NMAX )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, IHI, ILO, INFO, J, M, NT;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SEL( NMAX );
       int                IFAILL( NMAX ), IFAILR( NMAX );
       REAL               RW( NMAX ), S( NMAX )
       COMPLEX            A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), X( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, CGEBAK, CGEBAL, CGEHRD, CHSEIN, CHSEQR, CUNGHR, CUNMHR, CTREVC, CTREVC3, CGEHD2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -61,11 +61,11 @@
       OK = .TRUE.
       NT = 0
 *
-*     Test error exits of the nonsymmetric eigenvalue routines.
+      // Test error exits of the nonsymmetric eigenvalue routines.
 *
       IF( LSAMEN( 2, C2, 'HS' ) ) THEN
 *
-*        CGEBAL
+         // CGEBAL
 *
          SRNAMT = 'CGEBAL'
          INFOT = 1
@@ -79,7 +79,7 @@
          CALL CHKXER( 'CGEBAL', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        CGEBAK
+         // CGEBAK
 *
          SRNAMT = 'CGEBAK'
          INFOT = 1
@@ -111,7 +111,7 @@
          CALL CHKXER( 'CGEBAK', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        CGEHRD
+         // CGEHRD
 *
          SRNAMT = 'CGEHRD'
          INFOT = 1
@@ -137,7 +137,7 @@
          CALL CHKXER( 'CGEHRD', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 *
-*        CGEHD2
+         // CGEHD2
 *
          SRNAMT = 'CGEHD2'
          INFOT = 1
@@ -160,7 +160,7 @@
          CALL CHKXER( 'CGEHD2', INFOT, NOUT, LERR, OK )
          NT = NT + 6
 *
-*        CUNGHR
+         // CUNGHR
 *
          SRNAMT = 'CUNGHR'
          INFOT = 1
@@ -186,7 +186,7 @@
          CALL CHKXER( 'CUNGHR', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 *
-*        CUNMHR
+         // CUNMHR
 *
          SRNAMT = 'CUNMHR'
          INFOT = 1
@@ -239,7 +239,7 @@
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          NT = NT + 16
 *
-*        CHSEQR
+         // CHSEQR
 *
          SRNAMT = 'CHSEQR'
          INFOT = 1
@@ -271,7 +271,7 @@
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
-*        CHSEIN
+         // CHSEIN
 *
          SRNAMT = 'CHSEIN'
          INFOT = 1
@@ -300,7 +300,7 @@
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*        CTREVC
+         // CTREVC
 *
          SRNAMT = 'CTREVC'
          INFOT = 1
@@ -326,7 +326,7 @@
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 *
-*        CTREVC3
+         // CTREVC3
 *
          SRNAMT = 'CTREVC3'
          INFOT = 1
@@ -359,7 +359,7 @@
          NT = NT + 9
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -374,6 +374,6 @@
 *
       RETURN
 *
-*     End of CERRHS
+      // End of CERRHS
 *
       END

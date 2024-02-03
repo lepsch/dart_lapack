@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             EPS, SFMIN, TOL;
       int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP;
       String             JOBV;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), D( N ), SVA( N ), V( LDV, * ), WORK( LWORK );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Parameters ..
+      // .. Local Parameters ..
       double             ZERO, HALF, ONE;
       PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             FASTR( 5 );
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DABS, MAX, DBLE, MIN, DSIGN, DSQRT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DDOT, DNRM2;
       int                IDAMAX;
       bool               LSAME;
       // EXTERNAL IDAMAX, LSAME, DDOT, DNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DLASCL, DLASSQ, DROTM, DSWAP, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       APPLV = LSAME( JOBV, 'A' )
       RSVEC = LSAME( JOBV, 'V' )
@@ -69,7 +69,7 @@
          INFO = 0
       END IF
 *
-*     #:(
+      // #:(
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DGSVJ1', -INFO )
          RETURN
@@ -91,21 +91,21 @@
       BIGTHETA = ONE / ROOTEPS
       ROOTTOL = DSQRT( TOL )
 *
-*     .. Initialize the right singular vector matrix ..
+      // .. Initialize the right singular vector matrix ..
 *
-*     RSVEC = LSAME( JOBV, 'Y' )
+      // RSVEC = LSAME( JOBV, 'Y' )
 *
       EMPTSW = N1*( N-N1 )
       NOTROT = 0
       FASTR( 1 ) = ZERO
 *
-*     .. Row-cyclic pivot strategy with de Rijk's pivoting ..
+      // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 *
       KBL = MIN( 8, N )
       NBLR = N1 / KBL
       IF( ( NBLR*KBL ).NE.N1 )NBLR = NBLR + 1
 
-*     .. the tiling is nblr-by-nblc [tiles]
+      // .. the tiling is nblr-by-nblc [tiles]
 
       NBLC = ( N-N1 ) / KBL
       IF( ( NBLC*KBL ).NE.( N-N1 ) )NBLC = NBLC + 1
@@ -116,20 +116,20 @@
 *[TP] ROWSKIP is a tuning parameter.
       SWBAND = 0
 *[TP] SWBAND is a tuning parameter. It is meaningful and effective
-*     if SGESVJ is used as a computational routine in the preconditioned
-*     Jacobi SVD algorithm SGESVJ.
+      // if SGESVJ is used as a computational routine in the preconditioned
+      // Jacobi SVD algorithm SGESVJ.
 *
 *
-*     | *   *   * [x] [x] [x]|
-*     | *   *   * [x] [x] [x]|    Row-cycling in the nblr-by-nblc [x] blocks.
-*     | *   *   * [x] [x] [x]|    Row-cyclic pivoting inside each [x] block.
-*     |[x] [x] [x] *   *   * |
-*     |[x] [x] [x] *   *   * |
-*     |[x] [x] [x] *   *   * |
+      // | *   *   * [x] [x] [x]|
+      // | *   *   * [x] [x] [x]|    Row-cycling in the nblr-by-nblc [x] blocks.
+      // | *   *   * [x] [x] [x]|    Row-cyclic pivoting inside each [x] block.
+      // |[x] [x] [x] *   *   * |
+      // |[x] [x] [x] *   *   * |
+      // |[x] [x] [x] *   *   * |
 *
 *
       DO 1993 i = 1, NSWEEP
-*     .. go go go ...
+      // .. go go go ...
 *
          MXAAPQ = ZERO
          MXSINJ = ZERO
@@ -152,7 +152,7 @@
 
                jgl = N1 + ( jbc-1 )*KBL + 1
 
-*        doing the block at ( ibr, jbc )
+         // doing the block at ( ibr, jbc )
 
                IJBLSK = 0
                DO 2100 p = igl, MIN( igl+KBL-1, N1 )
@@ -170,9 +170,9 @@
                         IF( AAQQ.GT.ZERO ) THEN
                            AAPP0 = AAPP
 *
-*     .. M x 2 Jacobi SVD ..
+      // .. M x 2 Jacobi SVD ..
 *
-*        .. Safe Gram matrix computation ..
+         // .. Safe Gram matrix computation ..
 *
                            IF( AAQQ.GE.ONE ) THEN
                               IF( AAPP.GE.AAQQ ) THEN
@@ -202,11 +202,11 @@
 
                            MXAAPQ = MAX( MXAAPQ, DABS( AAPQ ) )
 
-*        TO rotate or NOT to rotate, THAT is the question ...
+         // TO rotate or NOT to rotate, THAT is the question ...
 *
                            IF( DABS( AAPQ ).GT.TOL ) THEN
                               NOTROT = 0
-*           ROTATED  = ROTATED + 1
+            // ROTATED  = ROTATED + 1
                               PSKIPPED = 0
                               ISWROT = ISWROT + 1
 *
@@ -226,7 +226,7 @@
                                     MXSINJ = MAX( MXSINJ, DABS( T ) )
                                  ELSE
 *
-*                 .. choose correct signum for THETA and rotate
+                  // .. choose correct signum for THETA and rotate
 *
                                     THSIGN = -DSIGN( ONE, AAPQ )
                                     IF( AAQQ.GT.AAPP0 )THSIGN = -THSIGN
@@ -297,10 +297,10 @@
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                  END IF
                               END IF
-*           END IF ROTOK THEN ... ELSE
+            // END IF ROTOK THEN ... ELSE
 *
-*           In the case of cancellation in updating SVA(q)
-*           .. recompute SVA(q)
+            // In the case of cancellation in updating SVA(q)
+            // .. recompute SVA(q)
                               IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* D( q )
                                  ELSE
                                     T = ZERO
@@ -319,10 +319,10 @@
                                  END IF
                                  SVA( p ) = AAPP
                               END IF
-*              end of OK rotation
+               // end of OK rotation
                            ELSE
                               NOTROT = NOTROT + 1
-*           SKIPPED  = SKIPPED  + 1
+            // SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1
                               IJBLSK = IJBLSK + 1
                            END IF
@@ -332,7 +332,7 @@
                            IJBLSK = IJBLSK + 1
                         END IF
 
-*      IF ( NOTROT .GE. EMPTSW )  GO TO 2011
+       // IF ( NOTROT .GE. EMPTSW )  GO TO 2011
                         IF( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) ) THEN
                            SVA( p ) = AAPP
                            NOTROT = 0
@@ -346,7 +346,7 @@
 
 *
  2200                CONTINUE
-*        end of the q-loop
+         // end of the q-loop
  2203                CONTINUE
 
                      SVA( p ) = AAPP
@@ -358,9 +358,9 @@
                   END IF
 
  2100          CONTINUE
-*     end of the p-loop
+      // end of the p-loop
  2010       CONTINUE
-*     end of the jbc-loop
+      // end of the jbc-loop
  2011       CONTINUE
 *2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N )
@@ -370,7 +370,7 @@
  2000    CONTINUE
 *2000 :: end of the ibr-loop
 *
-*     .. update SVA(N)
+      // .. update SVA(N)
          IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) THEN
             SVA( N ) = DNRM2( M, A( 1, N ), 1 )*D( N )
          ELSE
@@ -380,7 +380,7 @@
             SVA( N ) = T*DSQRT( AAPP )*D( N )
          END IF
 *
-*     Additional steering devices
+      // Additional steering devices
 *
          IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
           IF( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.DBLE( N )*TOL ) .AND. ( DBLE( N )*MXAAPQ*MXSINJ.LT.TOL ) ) THEN
@@ -391,20 +391,20 @@
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 
  1993 CONTINUE
-*     end i=1:NSWEEP loop
+      // end i=1:NSWEEP loop
 * #:) Reaching this point means that the procedure has completed the given
-*     number of sweeps.
+      // number of sweeps.
       INFO = NSWEEP - 1
       GO TO 1995
  1994 CONTINUE
 * #:) Reaching this point means that during the i-th sweep all pivots were
-*     below the given threshold, causing early exit.
+      // below the given threshold, causing early exit.
 
       INFO = 0
 * #:) INFO = 0 confirms successful iterations.
  1995 CONTINUE
 *
-*     Sort the vector D
+      // Sort the vector D
 *
       DO 5991 p = 1, N - 1
          q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1
@@ -421,7 +421,7 @@
  5991 CONTINUE
 *
       RETURN
-*     ..
-*     .. END OF DGSVJ1
-*     ..
+      // ..
+      // .. END OF DGSVJ1
+      // ..
       END

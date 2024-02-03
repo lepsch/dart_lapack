@@ -4,27 +4,27 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                I;
       double             DLAM, RHO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( 2 ), DELTA( 2 ), Z( 2 );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO, FOUR;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             B, C, DEL, TAU, TEMP, W;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       DEL = D( 2 ) - D( 1 )
       IF( I.EQ.1 ) THEN
@@ -33,7 +33,7 @@
             B = DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 1 )*Z( 1 )*DEL
 *
-*           B > ZERO, always
+            // B > ZERO, always
 *
             TAU = TWO*C / ( B+SQRT( ABS( B*B-FOUR*C ) ) )
             DLAM = D( 1 ) + TAU
@@ -56,7 +56,7 @@
          DELTA( 2 ) = DELTA( 2 ) / TEMP
       ELSE
 *
-*     Now I=2
+      // Now I=2
 *
          B = -DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
          C = RHO*Z( 2 )*Z( 2 )*DEL
@@ -74,6 +74,6 @@
       END IF
       RETURN
 *
-*     End of DLAED5
+      // End of DLAED5
 *
       END

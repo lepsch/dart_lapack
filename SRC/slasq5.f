@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               IEEE;
       int                I0, N0, PP;
       REAL               DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               Z( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameter ..
+      // .. Parameter ..
       REAL               ZERO, HALF
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J4, J4P2;
       REAL               D, EMIN, TEMP, DTHRESH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( ( N0-I0-1 ).LE.0 ) RETURN
 *
@@ -41,7 +41,7 @@
 *
          IF( IEEE ) THEN
 *
-*     Code for IEEE arithmetic.
+      // Code for IEEE arithmetic.
 *
             IF( PP.EQ.0 ) THEN
                DO 10 J4 = 4*I0, 4*( N0-3 ), 4
@@ -63,7 +63,7 @@
  20            CONTINUE
             END IF
 *
-*     Unroll last two steps.
+      // Unroll last two steps.
 *
             DNM2 = D
             DMIN2 = DMIN
@@ -84,7 +84,7 @@
 *
          ELSE
 *
-*     Code for non IEEE arithmetic.
+      // Code for non IEEE arithmetic.
 *
             IF( PP.EQ.0 ) THEN
                DO 30 J4 = 4*I0, 4*( N0-3 ), 4
@@ -112,7 +112,7 @@
  40            CONTINUE
             END IF
 *
-*     Unroll last two steps.
+      // Unroll last two steps.
 *
             DNM2 = D
             DMIN2 = DMIN
@@ -142,7 +142,7 @@
          END IF
 *
       ELSE
-*     This is the version that sets d's to zero if they are small enough
+      // This is the version that sets d's to zero if they are small enough
          J4 = 4*I0 + PP - 3
          EMIN = Z( J4+4 )
          D = Z( J4 ) - TAU
@@ -150,7 +150,7 @@
          DMIN1 = -Z( J4 )
          IF( IEEE ) THEN
 *
-*     Code for IEEE arithmetic.
+      // Code for IEEE arithmetic.
 *
             IF( PP.EQ.0 ) THEN
                DO 50 J4 = 4*I0, 4*( N0-3 ), 4
@@ -174,7 +174,7 @@
  60            CONTINUE
             END IF
 *
-*     Unroll last two steps.
+      // Unroll last two steps.
 *
             DNM2 = D
             DMIN2 = DMIN
@@ -195,7 +195,7 @@
 *
          ELSE
 *
-*     Code for non IEEE arithmetic.
+      // Code for non IEEE arithmetic.
 *
             IF( PP.EQ.0 ) THEN
                DO 70 J4 = 4*I0, 4*( N0-3 ), 4
@@ -225,7 +225,7 @@
  80            CONTINUE
             END IF
 *
-*     Unroll last two steps.
+      // Unroll last two steps.
 *
             DNM2 = D
             DMIN2 = DMIN
@@ -259,6 +259,6 @@
       Z( 4*N0-PP ) = EMIN
       RETURN
 *
-*     End of SLASQ5
+      // End of SLASQ5
 *
       END

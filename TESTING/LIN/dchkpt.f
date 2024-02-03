@@ -4,62 +4,62 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NNS, NOUT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
       double             A( * ), B( * ), D( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 12 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 7 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ZEROT;
       String             DIST, TYPE;
       String             PATH;
       int                I, IA, IMAT, IN, INFO, IRHS, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
       double             AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS ), Z( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX;
       double             DASUM, DGET06, DLANST;
       // EXTERNAL IDAMAX, DASUM, DGET06, DLANST
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, DCOPY, DERRGT, DGET04, DLACPY, DLAPTM, DLARNV, DLATB4, DLATMS, DPTCON, DPTRFS, DPTT01, DPTT02, DPTT05, DPTTRF, DPTTRS, DSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 0, 0, 0, 1 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'PT'
@@ -70,14 +70,14 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL DERRGT( PATH, NOUT )
       INFOT = 0
 *
       DO 110 IN = 1, NN
 *
-*        Do for each value of N in NVAL.
+         // Do for each value of N in NVAL.
 *
          N = NVAL( IN )
          LDA = MAX( 1, N )
@@ -86,24 +86,24 @@
 *
          DO 100 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) ) GO TO 100
 *
-*           Set up parameters with DLATB4.
+            // Set up parameters with DLATB4.
 *
             CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 *
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
 *
-*              Type 1-6:  generate a symmetric tridiagonal matrix of
-*              known condition number in lower triangular band storage.
+               // Type 1-6:  generate a symmetric tridiagonal matrix of
+               // known condition number in lower triangular band storage.
 *
                SRNAMT = 'DLATMS'
                CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
 *
-*              Check the error code from DLATMS.
+               // Check the error code from DLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
@@ -111,7 +111,7 @@
                END IF
                IZERO = 0
 *
-*              Copy the matrix to D and E.
+               // Copy the matrix to D and E.
 *
                IA = 1
                DO 20 I = 1, N - 1
@@ -122,17 +122,17 @@
                IF( N.GT.0 ) D( N ) = A( IA )
             ELSE
 *
-*              Type 7-12:  generate a diagonally dominant matrix with
-*              unknown condition number in the vectors D and E.
+               // Type 7-12:  generate a diagonally dominant matrix with
+               // unknown condition number in the vectors D and E.
 *
                IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 7 ) ) THEN
 *
-*                 Let D and E have values from [-1,1].
+                  // Let D and E have values from [-1,1].
 *
                   CALL DLARNV( 2, ISEED, N, D )
                   CALL DLARNV( 2, ISEED, N-1, E )
 *
-*                 Make the tridiagonal matrix diagonally dominant.
+                  // Make the tridiagonal matrix diagonally dominant.
 *
                   IF( N.EQ.1 ) THEN
                      D( 1 ) = ABS( D( 1 ) )
@@ -144,7 +144,7 @@
    30                CONTINUE
                   END IF
 *
-*                 Scale D and E so the maximum element is ANORM.
+                  // Scale D and E so the maximum element is ANORM.
 *
                   IX = IDAMAX( N, D, 1 )
                   DMAX = D( IX )
@@ -153,8 +153,8 @@
 *
                ELSE IF( IZERO.GT.0 ) THEN
 *
-*                 Reuse the last matrix by copying back the zeroed out
-*                 elements.
+                  // Reuse the last matrix by copying back the zeroed out
+                  // elements.
 *
                   IF( IZERO.EQ.1 ) THEN
                      D( 1 ) = Z( 2 )
@@ -169,8 +169,8 @@
                   END IF
                END IF
 *
-*              For types 8-10, set one row and column of the matrix to
-*              zero.
+               // For types 8-10, set one row and column of the matrix to
+               // zero.
 *
                IZERO = 0
                IF( IMAT.EQ.8 ) THEN
@@ -206,12 +206,12 @@
             IF( N.GT.1 ) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 )
 *
 *+    TEST 1
-*           Factor A as L*D*L' and compute the ratio
-*              norm(L*D*L' - A) / (n * norm(A) * EPS )
+            // Factor A as L*D*L' and compute the ratio
+               // norm(L*D*L' - A) / (n * norm(A) * EPS )
 *
             CALL DPTTRF( N, D( N+1 ), E( N+1 ), INFO )
 *
-*           Check error code from DPTTRF.
+            // Check error code from DPTTRF.
 *
             IF( INFO.NE.IZERO ) THEN
                CALL ALAERH( PATH, 'DPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
@@ -225,7 +225,7 @@
 *
             CALL DPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
 *
-*           Print the test ratio if greater than or equal to THRESH.
+            // Print the test ratio if greater than or equal to THRESH.
 *
             IF( RESULT( 1 ).GE.THRESH ) THEN
                IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
@@ -234,14 +234,14 @@
             END IF
             NRUN = NRUN + 1
 *
-*           Compute RCONDC = 1 / (norm(A) * norm(inv(A))
+            // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
 *
-*           Compute norm(A).
+            // Compute norm(A).
 *
             ANORM = DLANST( '1', N, D, E )
 *
-*           Use DPTTRS to solve for one column at a time of inv(A),
-*           computing the maximum column sum as we go.
+            // Use DPTTRS to solve for one column at a time of inv(A),
+            // computing the maximum column sum as we go.
 *
             AINVNM = ZERO
             DO 50 I = 1, N
@@ -257,7 +257,7 @@
             DO 80 IRHS = 1, NNS
                NRHS = NSVAL( IRHS )
 *
-*           Generate NRHS random solution vectors.
+            // Generate NRHS random solution vectors.
 *
                IX = 1
                DO 60 J = 1, NRHS
@@ -265,17 +265,17 @@
                   IX = IX + LDA
    60          CONTINUE
 *
-*           Set the right hand side.
+            // Set the right hand side.
 *
                CALL DLAPTM( N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
 *
 *+    TEST 2
-*           Solve A*x = b and compute the residual.
+            // Solve A*x = b and compute the residual.
 *
                CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
                CALL DPTTRS( N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
 *
-*           Check error code from DPTTRS.
+            // Check error code from DPTTRS.
 *
                IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPTTRS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
@@ -283,24 +283,24 @@
                CALL DPTT02( N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
 *
 *+    TEST 3
-*           Check solution from generated exact solution.
+            // Check solution from generated exact solution.
 *
                CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *+    TESTS 4, 5, and 6
-*           Use iterative refinement to improve the solution.
+            // Use iterative refinement to improve the solution.
 *
                SRNAMT = 'DPTRFS'
                CALL DPTRFS( N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, INFO )
 *
-*           Check error code from DPTRFS.
+            // Check error code from DPTRFS.
 *
                IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPTRFS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                CALL DPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 *
-*           Print information about the tests that did not pass the
-*           threshold.
+            // Print information about the tests that did not pass the
+           t // hreshold.
 *
                DO 70 K = 2, 6
                   IF( RESULT( K ).GE.THRESH ) THEN
@@ -312,20 +312,20 @@
    80       CONTINUE
 *
 *+    TEST 7
-*           Estimate the reciprocal of the condition number of the
-*           matrix.
+            // Estimate the reciprocal of the condition number of the
+            // matrix.
 *
    90       CONTINUE
             SRNAMT = 'DPTCON'
             CALL DPTCON( N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO )
 *
-*           Check error code from DPTCON.
+            // Check error code from DPTCON.
 *
             IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
             RESULT( 7 ) = DGET06( RCOND, RCONDC )
 *
-*           Print the test ratio if greater than or equal to THRESH.
+            // Print the test ratio if greater than or equal to THRESH.
 *
             IF( RESULT( 7 ).GE.THRESH ) THEN
                IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
@@ -336,7 +336,7 @@
   100    CONTINUE
   110 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -346,6 +346,6 @@
      $      ') = ', G12.5 )
       RETURN
 *
-*     End of DCHKPT
+      // End of DCHKPT
 *
       END

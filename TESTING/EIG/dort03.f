@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
       double             RESULT;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             U( LDU, * ), V( LDV, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IRC, J, LMX;
       double             RES1, RES2, S, ULP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SIGN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DORT01, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check inputs
+      // Check inputs
 *
       INFO = 0
       IF( LSAME( RC, 'R' ) ) THEN
@@ -67,18 +67,18 @@
          RETURN
       END IF
 *
-*     Initialize result
+      // Initialize result
 *
       RESULT = ZERO
       IF( MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Machine constants
+      // Machine constants
 *
       ULP = DLAMCH( 'Precision' )
 *
       IF( IRC.EQ.0 ) THEN
 *
-*        Compare rows
+         // Compare rows
 *
          RES1 = ZERO
          DO 20 I = 1, K
@@ -90,13 +90,13 @@
    20    CONTINUE
          RES1 = RES1 / ( DBLE( N )*ULP )
 *
-*        Compute orthogonality of rows of V.
+         // Compute orthogonality of rows of V.
 *
          CALL DORT01( 'Rows', MV, N, V, LDV, WORK, LWORK, RES2 )
 *
       ELSE
 *
-*        Compare columns
+         // Compare columns
 *
          RES1 = ZERO
          DO 40 I = 1, K
@@ -108,7 +108,7 @@
    40    CONTINUE
          RES1 = RES1 / ( DBLE( N )*ULP )
 *
-*        Compute orthogonality of columns of V.
+         // Compute orthogonality of columns of V.
 *
          CALL DORT01( 'Columns', N, MV, V, LDV, WORK, LWORK, RES2 )
       END IF
@@ -116,6 +116,6 @@
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )
       RETURN
 *
-*     End of DORT03
+      // End of DORT03
 *
       END

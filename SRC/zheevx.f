@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LWORK, M, N;
       double             ABSTOL, VL, VU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       double             RWORK( * ), W( * );
       COMPLEX*16         A( LDA, * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CONE
       PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWK, INDRWK, INDTAU, INDWRK, ISCALE, ITMP1, J, JJ, LLWORK, LWKMIN, LWKOPT, NB, NSPLIT;
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, ZLANHE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANHE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZDSCAL, ZHETRD, ZLACPY, ZSTEIN, ZSTEQR, ZSWAP, ZUNGTR, ZUNMTR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       LOWER = LSAME( UPLO, 'L' )
       WANTZ = LSAME( JOBZ, 'V' )
@@ -102,7 +102,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) THEN
@@ -123,7 +123,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
@@ -132,7 +132,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       ABSTLL = ABSTOL
@@ -165,7 +165,7 @@
          END IF
       END IF
 *
-*     Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
+      // Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
 *
       INDD = 1
       INDE = INDD + N
@@ -175,9 +175,9 @@
       LLWORK = LWORK - INDWRK + 1
       CALL ZHETRD( UPLO, N, A, LDA, RWORK( INDD ), RWORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
 *
-*     If all eigenvalues are desired and ABSTOL is less than or equal to
-*     zero, then call DSTERF or ZUNGTR and ZSTEQR.  If this fails for
-*     some eigenvalue, then try DSTEBZ.
+      // If all eigenvalues are desired and ABSTOL is less than or equal to
+      // zero, then call DSTERF or ZUNGTR and ZSTEQR.  If this fails for
+      // some eigenvalue, then try DSTEBZ.
 *
       TEST = .FALSE.
       IF( INDEIG ) THEN
@@ -209,7 +209,7 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call DSTEBZ and, if eigenvectors are desired, ZSTEIN.
+      // Otherwise, call DSTEBZ and, if eigenvectors are desired, ZSTEIN.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -224,13 +224,13 @@
       IF( WANTZ ) THEN
          CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
 *
-*        Apply unitary matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by ZSTEIN.
+         // Apply unitary matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by ZSTEIN.
 *
          CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), LLWORK, IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
    40 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -242,8 +242,8 @@
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 60 J = 1, M - 1
@@ -272,12 +272,12 @@
    60    CONTINUE
       END IF
 *
-*     Set WORK(1) to optimal complex workspace size.
+      // Set WORK(1) to optimal complex workspace size.
 *
       WORK( 1 ) = LWKOPT
 *
       RETURN
 *
-*     End of ZHEEVX
+      // End of ZHEEVX
 *
       END

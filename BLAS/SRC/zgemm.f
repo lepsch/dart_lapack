@@ -4,43 +4,43 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16 ALPHA,BETA
       int     K,LDA,LDB,LDC,M,N;
       String    TRANSA,TRANSB;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16 A(LDA,*),B(LDB,*),C(LDC,*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCONJG,MAX
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16 TEMP
       int     I,INFO,J,L,NROWA,NROWB;
       bool    CONJA,CONJB,NOTA,NOTB;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       COMPLEX*16 ONE
       PARAMETER (ONE= (1.0D+0,0.0D+0))
       COMPLEX*16 ZERO
       PARAMETER (ZERO= (0.0D+0,0.0D+0))
-*     ..
+      // ..
 *
-*     Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
-*     conjugated or transposed, set  CONJA and CONJB  as true if  A  and
-*     B  respectively are to be  transposed but  not conjugated  and set
-*     NROWA and NROWB  as the number of rows  of  A  and  B  respectively.
+      // Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
+      // conjugated or transposed, set  CONJA and CONJB  as true if  A  and
+      // B  respectively are to be  transposed but  not conjugated  and set
+      // NROWA and NROWB  as the number of rows  of  A  and  B  respectively.
 *
       NOTA = LSAME(TRANSA,'N')
       NOTB = LSAME(TRANSB,'N')
@@ -57,7 +57,7 @@
           NROWB = N
       END IF
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF ((.NOT.NOTA) .AND. (.NOT.CONJA) .AND. (.NOT.LSAME(TRANSA,'T'))) THEN
@@ -82,11 +82,11 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
 *
-*     And when  alpha.eq.zero.
+      // And when  alpha.eq.zero.
 *
       IF (ALPHA.EQ.ZERO) THEN
           IF (BETA.EQ.ZERO) THEN
@@ -105,12 +105,12 @@
           RETURN
       END IF
 *
-*     Start the operations.
+      // Start the operations.
 *
       IF (NOTB) THEN
           IF (NOTA) THEN
 *
-*           Form  C := alpha*A*B + beta*C.
+            // Form  C := alpha*A*B + beta*C.
 *
               DO 90 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
@@ -131,7 +131,7 @@
    90         CONTINUE
           ELSE IF (CONJA) THEN
 *
-*           Form  C := alpha*A**H*B + beta*C.
+            // Form  C := alpha*A**H*B + beta*C.
 *
               DO 120 J = 1,N
                   DO 110 I = 1,M
@@ -148,7 +148,7 @@
   120         CONTINUE
           ELSE
 *
-*           Form  C := alpha*A**T*B + beta*C
+            // Form  C := alpha*A**T*B + beta*C
 *
               DO 150 J = 1,N
                   DO 140 I = 1,M
@@ -167,7 +167,7 @@
       ELSE IF (NOTA) THEN
           IF (CONJB) THEN
 *
-*           Form  C := alpha*A*B**H + beta*C.
+            // Form  C := alpha*A*B**H + beta*C.
 *
               DO 200 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
@@ -188,7 +188,7 @@
   200         CONTINUE
           ELSE
 *
-*           Form  C := alpha*A*B**T + beta*C
+            // Form  C := alpha*A*B**T + beta*C
 *
               DO 250 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
@@ -211,7 +211,7 @@
       ELSE IF (CONJA) THEN
           IF (CONJB) THEN
 *
-*           Form  C := alpha*A**H*B**H + beta*C.
+            // Form  C := alpha*A**H*B**H + beta*C.
 *
               DO 280 J = 1,N
                   DO 270 I = 1,M
@@ -228,7 +228,7 @@
   280         CONTINUE
           ELSE
 *
-*           Form  C := alpha*A**H*B**T + beta*C
+            // Form  C := alpha*A**H*B**T + beta*C
 *
               DO 310 J = 1,N
                   DO 300 I = 1,M
@@ -247,7 +247,7 @@
       ELSE
           IF (CONJB) THEN
 *
-*           Form  C := alpha*A**T*B**H + beta*C
+            // Form  C := alpha*A**T*B**H + beta*C
 *
               DO 340 J = 1,N
                   DO 330 I = 1,M
@@ -264,7 +264,7 @@
   340         CONTINUE
           ELSE
 *
-*           Form  C := alpha*A**T*B**T + beta*C
+            // Form  C := alpha*A**T*B**T + beta*C
 *
               DO 370 J = 1,N
                   DO 360 I = 1,M
@@ -284,6 +284,6 @@
 *
       RETURN
 *
-*     End of ZGEMM
+      // End of ZGEMM
 *
       END

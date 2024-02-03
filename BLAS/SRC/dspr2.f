@@ -4,34 +4,34 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double           ALPHA;
       int     INCX,INCY,N;
       String    UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double           AP(*),X(*),Y(*);
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double           ZERO;
       PARAMETER (ZERO=0.0D+0)
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double           TEMP1,TEMP2;
       int     I,INFO,IX,IY,J,JX,JY,K,KK,KX,KY;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
@@ -48,12 +48,12 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((N.EQ.0) .OR. (ALPHA.EQ.ZERO)) RETURN
 *
-*     Set up the start points in X and Y if the increments are not both
-*     unity.
+      // Set up the start points in X and Y if the increments are not both
+      // unity.
 *
       IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
           IF (INCX.GT.0) THEN
@@ -70,13 +70,13 @@
           JY = KY
       END IF
 *
-*     Start the operations. In this version the elements of the array AP
-*     are accessed sequentially with one pass through AP.
+      // Start the operations. In this version the elements of the array AP
+      // are accessed sequentially with one pass through AP.
 *
       KK = 1
       IF (LSAME(UPLO,'U')) THEN
 *
-*        Form  A  when upper triangle is stored in AP.
+         // Form  A  when upper triangle is stored in AP.
 *
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 20 J = 1,N
@@ -111,7 +111,7 @@
           END IF
       ELSE
 *
-*        Form  A  when lower triangle is stored in AP.
+         // Form  A  when lower triangle is stored in AP.
 *
           IF ((INCX.EQ.1) .AND. (INCY.EQ.1)) THEN
               DO 60 J = 1,N
@@ -148,6 +148,6 @@
 *
       RETURN
 *
-*     End of DSPR2
+      // End of DSPR2
 *
       END

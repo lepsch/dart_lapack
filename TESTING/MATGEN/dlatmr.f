@@ -4,54 +4,54 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N;
       double             ANORM, COND, CONDL, CONDR, DMAX, SPARSE;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIVOT( * ), ISEED( 4 ), IWORK( * );
       double             A( LDA, * ), D( * ), DL( * ), DR( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS;
       double             ALPHA, ONORM, TEMP;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             TEMPA( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLATM1, DSCAL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, MOD
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     1)      Decode and Test the input parameters.
-*             Initialize flags & seed.
+      // 1)      Decode and Test the input parameters.
+              // Initialize flags & seed.
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
-*     Decode DIST
+      // Decode DIST
 *
       IF( LSAME( DIST, 'U' ) ) THEN
          IDIST = 1
@@ -63,7 +63,7 @@
          IDIST = -1
       END IF
 *
-*     Decode SYM
+      // Decode SYM
 *
       IF( LSAME( SYM, 'S' ) ) THEN
          ISYM = 0
@@ -75,7 +75,7 @@
          ISYM = -1
       END IF
 *
-*     Decode RSIGN
+      // Decode RSIGN
 *
       IF( LSAME( RSIGN, 'F' ) ) THEN
          IRSIGN = 0
@@ -85,7 +85,7 @@
          IRSIGN = -1
       END IF
 *
-*     Decode PIVTNG
+      // Decode PIVTNG
 *
       IF( LSAME( PIVTNG, 'N' ) ) THEN
          IPVTNG = 0
@@ -107,7 +107,7 @@
          IPVTNG = -1
       END IF
 *
-*     Decode GRADE
+      // Decode GRADE
 *
       IF( LSAME( GRADE, 'N' ) ) THEN
          IGRADE = 0
@@ -125,7 +125,7 @@
          IGRADE = -1
       END IF
 *
-*     Decode PACK
+      // Decode PACK
 *
       IF( LSAME( PACK, 'N' ) ) THEN
          IPACK = 0
@@ -147,13 +147,13 @@
          IPACK = -1
       END IF
 *
-*     Set certain internal parameters
+      // Set certain internal parameters
 *
       MNMIN = MIN( M, N )
       KLL = MIN( KL, M-1 )
       KUU = MIN( KU, N-1 )
 *
-*     If inv(DL) is used, check to see if DL has a zero entry.
+      // If inv(DL) is used, check to see if DL has a zero entry.
 *
       DZERO = .FALSE.
       IF( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) THEN
@@ -162,7 +162,7 @@
    10    CONTINUE
       END IF
 *
-*     Check values in IPIVOT
+      // Check values in IPIVOT
 *
       BADPVT = .FALSE.
       IF( IPVTNG.GT.0 ) THEN
@@ -171,7 +171,7 @@
    20    CONTINUE
       END IF
 *
-*     Set INFO if an error
+      // Set INFO if an error
 *
       IF( M.LT.0 ) THEN
          INFO = -1
@@ -222,12 +222,12 @@
          RETURN
       END IF
 *
-*     Decide if we can pivot consistently
+      // Decide if we can pivot consistently
 *
       FULBND = .FALSE.
       IF( KUU.EQ.N-1 .AND. KLL.EQ.M-1 ) FULBND = .TRUE.
 *
-*     Initialize random number generator
+      // Initialize random number generator
 *
       DO 30 I = 1, 4
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
@@ -235,9 +235,9 @@
 *
       ISEED( 4 ) = 2*( ISEED( 4 ) / 2 ) + 1
 *
-*     2)      Set up D, DL, and DR, if indicated.
+      // 2)      Set up D, DL, and DR, if indicated.
 *
-*             Compute D according to COND and MODE
+              // Compute D according to COND and MODE
 *
       CALL DLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO )
       IF( INFO.NE.0 ) THEN
@@ -246,7 +246,7 @@
       END IF
       IF( MODE.NE.0 .AND. MODE.NE.-6 .AND. MODE.NE.6 ) THEN
 *
-*        Scale by DMAX
+         // Scale by DMAX
 *
          TEMP = ABS( D( 1 ) )
          DO 40 I = 2, MNMIN
@@ -267,7 +267,7 @@
 *
       END IF
 *
-*     Compute DL if grading set
+      // Compute DL if grading set
 *
       IF( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ. 5 ) THEN
          CALL DLATM1( MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO )
@@ -277,7 +277,7 @@
          END IF
       END IF
 *
-*     Compute DR if grading set
+      // Compute DR if grading set
 *
       IF( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) THEN
          CALL DLATM1( MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO )
@@ -287,7 +287,7 @@
          END IF
       END IF
 *
-*     3)     Generate IWORK if pivoting
+      // 3)     Generate IWORK if pivoting
 *
       IF( IPVTNG.GT.0 ) THEN
          DO 60 I = 1, NPVTS
@@ -310,15 +310,15 @@
          END IF
       END IF
 *
-*     4)      Generate matrices for each kind of PACKing
-*             Always sweep matrix columnwise (if symmetric, upper
-*             half only) so that matrix generated does not depend
-*             on PACK
+      // 4)      Generate matrices for each kind of PACKing
+              // Always sweep matrix columnwise (if symmetric, upper
+              // half only) so that matrix generated does not depend
+              // on PACK
 *
       IF( FULBND ) THEN
 *
-*        Use DLATM3 so matrices generated with differing PIVOTing only
-*        differ only in the order of their rows and/or columns.
+         // Use DLATM3 so matrices generated with differing PIVOTing only
+         // differ only in the order of their rows and/or columns.
 *
          IF( IPACK.EQ.0 ) THEN
             IF( ISYM.EQ.0 ) THEN
@@ -368,14 +368,14 @@
                DO 170 I = 1, J
                   TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
 *
-*                 Compute K = location of (ISUB,JSUB) entry in packed
-*                 array
+                  // Compute K = location of (ISUB,JSUB) entry in packed
+                  // array
 *
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
                   K = MXSUB*( MXSUB-1 ) / 2 + MNSUB
 *
-*                 Convert K to (IISUB,JJSUB) location
+                  // Convert K to (IISUB,JJSUB) location
 *
                   JJSUB = ( K-1 ) / LDA + 1
                   IISUB = K - LDA*( JJSUB-1 )
@@ -390,7 +390,7 @@
                DO 190 I = 1, J
                   TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
 *
-*                 Compute K = location of (I,J) entry in packed array
+                  // Compute K = location of (I,J) entry in packed array
 *
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
@@ -400,7 +400,7 @@
                      K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) / 2 + MXSUB - MNSUB + 1
                   END IF
 *
-*                 Convert K to (IISUB,JJSUB) location
+                  // Convert K to (IISUB,JJSUB) location
 *
                   JJSUB = ( K-1 ) / LDA + 1
                   IISUB = K - LDA*( JJSUB-1 )
@@ -460,7 +460,7 @@
 *
       ELSE
 *
-*        Use DLATM2
+         // Use DLATM2
 *
          IF( IPACK.EQ.0 ) THEN
             IF( ISYM.EQ.0 ) THEN
@@ -515,7 +515,7 @@
                DO 400 J = 1, N
                   DO 390 I = 1, J
 *
-*                    Compute K = location of (I,J) entry in packed array
+                     // Compute K = location of (I,J) entry in packed array
 *
                      IF( I.EQ.1 ) THEN
                         K = J
@@ -523,7 +523,7 @@
                         K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 + J - I + 1
                      END IF
 *
-*                    Convert K to (ISUB,JSUB) location
+                     // Convert K to (ISUB,JSUB) location
 *
                      JSUB = ( K-1 ) / LDA + 1
                      ISUB = K - LDA*( JSUB-1 )
@@ -587,7 +587,7 @@
 *
       END IF
 *
-*     5)      Scaling the norm
+      // 5)      Scaling the norm
 *
       IF( IPACK.EQ.0 ) THEN
          ONORM = DLANGE( 'M', M, N, A, LDA, TEMPA )
@@ -611,14 +611,14 @@
 *
          IF( ANORM.GT.ZERO .AND. ONORM.EQ.ZERO ) THEN
 *
-*           Desired scaling impossible
+            // Desired scaling impossible
 *
             INFO = 5
             RETURN
 *
          ELSE IF( ( ANORM.GT.ONE .AND. ONORM.LT.ONE ) .OR. ( ANORM.LT.ONE .AND. ONORM.GT.ONE ) ) THEN
 *
-*           Scale carefully to avoid over / underflow
+            // Scale carefully to avoid over / underflow
 *
             IF( IPACK.LE.2 ) THEN
                DO 510 J = 1, N
@@ -642,7 +642,7 @@
 *
          ELSE
 *
-*           Scale straightforwardly
+            // Scale straightforwardly
 *
             IF( IPACK.LE.2 ) THEN
                DO 530 J = 1, N
@@ -664,6 +664,6 @@
 *
       END IF
 *
-*     End of DLATMR
+      // End of DLATMR
 *
       END

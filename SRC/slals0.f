@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE;
       REAL               C, S
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), PERM( * );
       REAL               B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO, NEGONE
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0, NEGONE = -1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, M, N, NLP1;
       REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMV, SLACPY, SLASCL, SROT, SSCAL, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMC3, SNRM2
       // EXTERNAL SLAMC3, SNRM2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       N = NL + NR + 1
@@ -73,23 +73,23 @@
 *
       IF( ICOMPQ.EQ.0 ) THEN
 *
-*        Apply back orthogonal transformations from the left.
+         // Apply back orthogonal transformations from the left.
 *
-*        Step (1L): apply back the Givens rotations performed.
+         // Step (1L): apply back the Givens rotations performed.
 *
          DO 10 I = 1, GIVPTR
             CALL SROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) )
    10    CONTINUE
 *
-*        Step (2L): permute rows of B.
+         // Step (2L): permute rows of B.
 *
          CALL SCOPY( NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX )
          DO 20 I = 2, N
             CALL SCOPY( NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX )
    20    CONTINUE
 *
-*        Step (3L): apply the inverse of the left singular vector
-*        matrix to BX.
+         // Step (3L): apply the inverse of the left singular vector
+         // matrix to BX.
 *
          IF( K.EQ.1 ) THEN
             CALL SCOPY( NRHS, BX, LDBX, B, LDB )
@@ -115,9 +115,9 @@
                      WORK( I ) = ZERO
                   ELSE
 *
-*                    Use calls to the subroutine SLAMC3 to enforce the
-*                    parentheses (x+y)+z. The goal is to prevent
-*                    optimizing compilers from doing x+(y+z).
+                     // Use calls to the subroutine SLAMC3 to enforce the
+                     // parentheses (x+y)+z. The goal is to prevent
+                     // optimizing compilers from doing x+(y+z).
 *
                      WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ )
                   END IF
@@ -135,15 +135,15 @@
    50       CONTINUE
          END IF
 *
-*        Move the deflated rows of BX to B also.
+         // Move the deflated rows of BX to B also.
 *
          IF( K.LT.MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB )
       ELSE
 *
-*        Apply back the right orthogonal transformations.
+         // Apply back the right orthogonal transformations.
 *
-*        Step (1R): apply back the new right singular vector matrix
-*        to B.
+         // Step (1R): apply back the new right singular vector matrix
+        t // o B.
 *
          IF( K.EQ.1 ) THEN
             CALL SCOPY( NRHS, B, LDB, BX, LDBX )
@@ -160,9 +160,9 @@
                      WORK( I ) = ZERO
                   ELSE
 *
-*                    Use calls to the subroutine SLAMC3 to enforce the
-*                    parentheses (x+y)+z. The goal is to prevent
-*                    optimizing compilers from doing x+(y+z).
+                     // Use calls to the subroutine SLAMC3 to enforce the
+                     // parentheses (x+y)+z. The goal is to prevent
+                     // optimizing compilers from doing x+(y+z).
 *
                      WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   END IF
@@ -178,8 +178,8 @@
    80       CONTINUE
          END IF
 *
-*        Step (2R): if SQRE = 1, apply back the rotation that is
-*        related to the right null space of the subproblem.
+         // Step (2R): if SQRE = 1, apply back the rotation that is
+         // related to the right null space of the subproblem.
 *
          IF( SQRE.EQ.1 ) THEN
             CALL SCOPY( NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX )
@@ -187,7 +187,7 @@
          END IF
          IF( K.LT.MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
 *
-*        Step (3R): permute rows of B.
+         // Step (3R): permute rows of B.
 *
          CALL SCOPY( NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB )
          IF( SQRE.EQ.1 ) THEN
@@ -197,7 +197,7 @@
             CALL SCOPY( NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB )
    90    CONTINUE
 *
-*        Step (4R): apply back the Givens rotations performed.
+         // Step (4R): apply back the Givens rotations performed.
 *
          DO 100 I = GIVPTR, 1, -1
             CALL SROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) )
@@ -206,6 +206,6 @@
 *
       RETURN
 *
-*     End of SLALS0
+      // End of SLALS0
 *
       END

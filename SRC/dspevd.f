@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, UPLO;
       int                INFO, LDZ, LIWORK, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             AP( * ), W( * ), WORK( * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, WANTZ;
       int                IINFO, INDE, INDTAU, INDWRK, ISCALE, LIWMIN, LLWORK, LWMIN       double             ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, DLANSP;
       // EXTERNAL LSAME, DLAMCH, DLANSP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DOPMTR, DSCAL, DSPTRD, DSTEDC, DSTERF, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       WANTZ = LSAME( JOBZ, 'V' )
       LQUERY = ( LWORK.EQ.-1 .OR. LIWORK.EQ.-1 )
@@ -82,7 +82,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -92,7 +92,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
@@ -101,7 +101,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = SQRT( BIGNUM )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ANRM = DLANSP( 'M', UPLO, N, AP, WORK )
       ISCALE = 0
@@ -116,16 +116,16 @@
          CALL DSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
       END IF
 *
-*     Call DSPTRD to reduce symmetric packed matrix to tridiagonal form.
+      // Call DSPTRD to reduce symmetric packed matrix to tridiagonal form.
 *
       INDE = 1
       INDTAU = INDE + N
       CALL DSPTRD( UPLO, N, AP, W, WORK( INDE ), WORK( INDTAU ), IINFO )
 *
-*     For eigenvalues only, call DSTERF.  For eigenvectors, first call
-*     DSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
-*     tridiagonal matrix, then call DOPMTR to multiply it by the
-*     Householder transformations represented in AP.
+      // For eigenvalues only, call DSTERF.  For eigenvectors, first call
+      // DSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
+     t // ridiagonal matrix, then call DOPMTR to multiply it by the
+      // Householder transformations represented in AP.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, WORK( INDE ), INFO )
@@ -135,7 +135,7 @@
          CALL DSTEDC( 'I', N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWORK, IWORK, LIWORK, INFO )          CALL DOPMTR( 'L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
       IF( ISCALE.EQ.1 ) CALL DSCAL( N, ONE / SIGMA, W, 1 )
 *
@@ -143,6 +143,6 @@
       IWORK( 1 ) = LIWMIN
       RETURN
 *
-*     End of DSPEVD
+      // End of DSPEVD
 *
       END

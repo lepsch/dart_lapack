@@ -4,66 +4,66 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       REAL               THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       REAL               A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), RWORK( * ), S( * ), WORK( * ), X( * ), XACT( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 9 )
       int                NTESTS;
       PARAMETER          ( NTESTS = 6 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, ZEROT;
       String             DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NERRS, NFACT, NFAIL, NIMAT, NPP, NRUN, NT;
       REAL               AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             EQUEDS( 2 ), FACTS( 3 ), PACKS( 2 ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       REAL               RESULT( NTESTS )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SGET06, SLANSP
       // EXTERNAL LSAME, SGET06, SLANSP
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, SCOPY, SERRVX, SGET04, SLACPY, SLAQSP, SLARHS, SLASET, SLATB4, SLATMS, SPPEQU, SPPSV, SPPSVX, SPPT01, SPPT02, SPPT05, SPPTRF, SPPTRI
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               UPLOS / 'U', 'L' / , FACTS / 'F', 'N', 'E' / , PACKS / 'C', 'R' / , EQUEDS / 'N', 'Y' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'PP'
@@ -74,12 +74,12 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL SERRVX( PATH, NOUT )
       INFOT = 0
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 140 IN = 1, NN
          N = NVAL( IN )
@@ -91,23 +91,23 @@
 *
          DO 130 IMAT = 1, NIMAT
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 130
 *
-*           Skip types 3, 4, or 5 if the matrix size is too small.
+            // Skip types 3, 4, or 5 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
             IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 130
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 120 IUPLO = 1, 2
                UPLO = UPLOS( IUPLO )
                PACKIT = PACKS( IUPLO )
 *
-*              Set up parameters with SLATB4 and generate a test matrix
-*              with SLATMS.
+               // Set up parameters with SLATB4 and generate a test matrix
+               // with SLATMS.
 *
                CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
                RCONDC = ONE / CNDNUM
@@ -115,15 +115,15 @@
                SRNAMT = 'SLATMS'
                CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
 *
-*              Check error code from SLATMS.
+               // Check error code from SLATMS.
 *
                IF( INFO.NE.0 ) THEN
                   CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 120
                END IF
 *
-*              For types 3-5, zero one row and column of the matrix to
-*              test that INFO is returned correctly.
+               // For types 3-5, zero one row and column of the matrix to
+              t // est that INFO is returned correctly.
 *
                IF( ZEROT ) THEN
                   IF( IMAT.EQ.3 ) THEN
@@ -134,7 +134,7 @@
                      IZERO = N / 2 + 1
                   END IF
 *
-*                 Set row and column IZERO of A to 0.
+                  // Set row and column IZERO of A to 0.
 *
                   IF( IUPLO.EQ.1 ) THEN
                      IOFF = ( IZERO-1 )*IZERO / 2
@@ -161,7 +161,7 @@
                   IZERO = 0
                END IF
 *
-*              Save a copy of the matrix A in ASAV.
+               // Save a copy of the matrix A in ASAV.
 *
                CALL SCOPY( NPP, A, 1, ASAV, 1 )
 *
@@ -185,46 +185,46 @@
 *
                      ELSE IF( .NOT.LSAME( FACT, 'N' ) ) THEN
 *
-*                       Compute the condition number for comparison with
-*                       the value returned by SPPSVX (FACT = 'N' reuses
-*                       the condition number from the previous iteration
-*                       with FACT = 'F').
+                        // Compute the condition number for comparison with
+                       t // he value returned by SPPSVX (FACT = 'N' reuses
+                       t // he condition number from the previous iteration
+                        // with FACT = 'F').
 *
                         CALL SCOPY( NPP, ASAV, 1, AFAC, 1 )
                         IF( EQUIL .OR. IEQUED.GT.1 ) THEN
 *
-*                          Compute row and column scale factors to
-*                          equilibrate the matrix A.
+                           // Compute row and column scale factors to
+                           // equilibrate the matrix A.
 *
                            CALL SPPEQU( UPLO, N, AFAC, S, SCOND, AMAX, INFO )
                            IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
                               IF( IEQUED.GT.1 ) SCOND = ZERO
 *
-*                             Equilibrate the matrix.
+                              // Equilibrate the matrix.
 *
                               CALL SLAQSP( UPLO, N, AFAC, S, SCOND, AMAX, EQUED )
                            END IF
                         END IF
 *
-*                       Save the condition number of the
-*                       non-equilibrated system for use in SGET04.
+                        // Save the condition number of the
+                        // non-equilibrated system for use in SGET04.
 *
                         IF( EQUIL ) ROLDC = RCONDC
 *
-*                       Compute the 1-norm of A.
+                        // Compute the 1-norm of A.
 *
                         ANORM = SLANSP( '1', UPLO, N, AFAC, RWORK )
 *
-*                       Factor the matrix A.
+                        // Factor the matrix A.
 *
                         CALL SPPTRF( UPLO, N, AFAC, INFO )
 *
-*                       Form the inverse of A.
+                        // Form the inverse of A.
 *
                         CALL SCOPY( NPP, AFAC, 1, A, 1 )
                         CALL SPPTRI( UPLO, N, A, INFO )
 *
-*                       Compute the 1-norm condition number of A.
+                        // Compute the 1-norm condition number of A.
 *
                         AINVNM = SLANSP( '1', UPLO, N, A, RWORK )
                         IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -234,11 +234,11 @@
                         END IF
                      END IF
 *
-*                    Restore the matrix A.
+                     // Restore the matrix A.
 *
                      CALL SCOPY( NPP, ASAV, 1, A, 1 )
 *
-*                    Form an exact solution and set the right hand side.
+                     // Form an exact solution and set the right hand side.
 *
                      SRNAMT = 'SLARHS'
                      CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
@@ -247,10 +247,10 @@
 *
                      IF( NOFACT ) THEN
 *
-*                       --- Test SPPSV  ---
+                        // --- Test SPPSV  ---
 *
-*                       Compute the L*L' or U'*U factorization of the
-*                       matrix and solve the system.
+                        // Compute the L*L' or U'*U factorization of the
+                        // matrix and solve the system.
 *
                         CALL SCOPY( NPP, A, 1, AFAC, 1 )
                         CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
@@ -258,7 +258,7 @@
                         SRNAMT = 'SPPSV '
                         CALL SPPSV( UPLO, N, NRHS, AFAC, X, LDA, INFO )
 *
-*                       Check error code from SPPSV .
+                        // Check error code from SPPSV .
 *
                         IF( INFO.NE.IZERO ) THEN
                            CALL ALAERH( PATH, 'SPPSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -267,22 +267,22 @@
                            GO TO 70
                         END IF
 *
-*                       Reconstruct matrix from factors and compute
-*                       residual.
+                        // Reconstruct matrix from factors and compute
+                        // residual.
 *
                         CALL SPPT01( UPLO, N, A, AFAC, RWORK, RESULT( 1 ) )
 *
-*                       Compute residual of the computed solution.
+                        // Compute residual of the computed solution.
 *
                         CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL SPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         NT = 3
 *
-*                       Print information about the tests that did not
-*                       pass the threshold.
+                        // Print information about the tests that did not
+                        // pass the threshold.
 *
                         DO 60 K = 1, NT
                            IF( RESULT( K ).GE.THRESH ) THEN
@@ -294,25 +294,25 @@
    70                   CONTINUE
                      END IF
 *
-*                    --- Test SPPSVX ---
+                     // --- Test SPPSVX ---
 *
                      IF( .NOT.PREFAC .AND. NPP.GT.0 ) CALL SLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP )
                      CALL SLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
-*                       Equilibrate the matrix if FACT='F' and
-*                       EQUED='Y'.
+                        // Equilibrate the matrix if FACT='F' and
+                        // EQUED='Y'.
 *
                         CALL SLAQSP( UPLO, N, A, S, SCOND, AMAX, EQUED )
                      END IF
 *
-*                    Solve the system and compute the condition number
-*                    and error bounds using SPPSVX.
+                     // Solve the system and compute the condition number
+                     // and error bounds using SPPSVX.
 *
                      SRNAMT = 'SPPSVX'
                      CALL SPPSVX( FACT, UPLO, N, NRHS, A, AFAC, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
 *
-*                    Check the error code from SPPSVX.
+                     // Check the error code from SPPSVX.
 *
                      IF( INFO.NE.IZERO ) THEN
                         CALL ALAERH( PATH, 'SPPSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -322,8 +322,8 @@
                      IF( INFO.EQ.0 ) THEN
                         IF( .NOT.PREFAC ) THEN
 *
-*                          Reconstruct matrix from factors and compute
-*                          residual.
+                           // Reconstruct matrix from factors and compute
+                           // residual.
 *
                            CALL SPPT01( UPLO, N, A, AFAC, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                            K1 = 1
@@ -331,32 +331,32 @@
                            K1 = 2
                         END IF
 *
-*                       Compute residual of the computed solution.
+                        // Compute residual of the computed solution.
 *
                         CALL SLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL SPPT02( UPLO, N, NRHS, ASAV, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
-*                       Check solution from generated exact solution.
+                        // Check solution from generated exact solution.
 *
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         ELSE
                            CALL SGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                         END IF
 *
-*                       Check the error bounds from iterative
-*                       refinement.
+                        // Check the error bounds from iterative
+                        // refinement.
 *
                         CALL SPPT05( UPLO, N, NRHS, ASAV, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                      ELSE
                         K1 = 6
                      END IF
 *
-*                    Compare RCOND from SPPSVX with the computed value
-*                    in RCONDC.
+                     // Compare RCOND from SPPSVX with the computed value
+                     // in RCONDC.
 *
                      RESULT( 6 ) = SGET06( RCOND, RCONDC )
 *
-*                    Print information about the tests that did not pass
-*                    the threshold.
+                     // Print information about the tests that did not pass
+                    t // he threshold.
 *
                      DO 80 K = K1, 6
                         IF( RESULT( K ).GE.THRESH ) THEN
@@ -377,7 +377,7 @@
   130    CONTINUE
   140 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -390,6 +390,6 @@
      $      G12.5 )
       RETURN
 *
-*     End of SDRVPP
+      // End of SDRVPP
 *
       END

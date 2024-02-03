@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INCX, N;
       COMPLEX*16         ALPHA, TAU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             TWO, ONE, ZERO;
       PARAMETER          ( TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                J, KNT;
       double             ALPHI, ALPHR, BETA, BIGNUM, EPS, SMLNUM, XNORM;
       COMPLEX*16         SAVEALPHA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLAPY3, DLAPY2, DZNRM2;
       COMPLEX*16         ZLADIV
       // EXTERNAL DLAMCH, DLAPY3, DLAPY2, DZNRM2, ZLADIV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, SIGN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZDSCAL, ZSCAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) THEN
          TAU = ZERO
@@ -48,16 +48,16 @@
 *
       IF( XNORM.LE.EPS*ABS(ALPHA) .AND. ALPHI.EQ.ZERO ) THEN
 *
-*        H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
+         // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
 *
          IF( ALPHR.GE.ZERO ) THEN
-*           When TAU.eq.ZERO, the vector is special-cased to be
-*           all zeros in the application routines.  We do not need
-*           to clear it.
+            // When TAU.eq.ZERO, the vector is special-cased to be
+            // all zeros in the application routines.  We do not need
+           t // o clear it.
             TAU = ZERO
          ELSE
-*           However, the application routines rely on explicit
-*           zero checks when TAU.ne.ZERO, and we must clear X.
+            // However, the application routines rely on explicit
+            // zero checks when TAU.ne.ZERO, and we must clear X.
             TAU = TWO
             DO J = 1, N-1
                X( 1 + (J-1)*INCX ) = ZERO
@@ -66,7 +66,7 @@
          END IF
       ELSE
 *
-*        general case
+         // general case
 *
          BETA = SIGN( DLAPY3( ALPHR, ALPHI, XNORM ), ALPHR )
          SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'E' )
@@ -75,7 +75,7 @@
          KNT = 0
          IF( ABS( BETA ).LT.SMLNUM ) THEN
 *
-*           XNORM, BETA may be inaccurate; scale X and recompute them
+            // XNORM, BETA may be inaccurate; scale X and recompute them
 *
    10       CONTINUE
             KNT = KNT + 1
@@ -85,7 +85,7 @@
             ALPHR = ALPHR*BIGNUM
             IF( (ABS( BETA ).LT.SMLNUM) .AND. (KNT .LT. 20) ) GO TO 10
 *
-*           New BETA is at most 1, at least SMLNUM
+            // New BETA is at most 1, at least SMLNUM
 *
             XNORM = DZNRM2( N-1, X, INCX )
             ALPHA = DCMPLX( ALPHR, ALPHI )
@@ -106,12 +106,12 @@
 *
          IF ( ABS(TAU).LE.SMLNUM ) THEN
 *
-*           In the case where the computed TAU ends up being a denormalized number,
-*           it loses relative accuracy. This is a BIG problem. Solution: flush TAU
-*           to ZERO (or TWO or whatever makes a nonnegative real number for BETA).
+            // In the case where the computed TAU ends up being a denormalized number,
+            // it loses relative accuracy. This is a BIG problem. Solution: flush TAU
+           t // o ZERO (or TWO or whatever makes a nonnegative real number for BETA).
 *
-*           (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
-*           (Thanks Pat. Thanks MathWorks.)
+            // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
+            // (Thanks Pat. Thanks MathWorks.)
 *
             ALPHR = DBLE( SAVEALPHA )
             ALPHI = DIMAG( SAVEALPHA )
@@ -136,13 +136,13 @@
 *
          ELSE
 *
-*           This is the general case.
+            // This is the general case.
 *
             CALL ZSCAL( N-1, ALPHA, X, INCX )
 *
          END IF
 *
-*        If BETA is subnormal, it may lose relative accuracy
+         // If BETA is subnormal, it may lose relative accuracy
 *
          DO 20 J = 1, KNT
             BETA = BETA*SMLNUM
@@ -152,6 +152,6 @@
 *
       RETURN
 *
-*     End of ZLARFGP
+      // End of ZLARFGP
 *
       END

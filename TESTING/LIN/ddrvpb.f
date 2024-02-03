@@ -4,67 +4,67 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       double             A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), RWORK( * ), S( * ), WORK( * ), X( * ), XACT( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       int                NTYPES, NTESTS;
       PARAMETER          ( NTYPES = 8, NTESTS = 6 )
       int                NBW;
       PARAMETER          ( NBW = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, ZEROT;
       String             DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IEQUED, IFACT, IKD, IMAT, IN, INFO, IOFF, IUPLO, IW, IZERO, K, K1, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKD, NRUN, NT;
       double             AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       String             EQUEDS( 2 ), FACTS( 3 );
       int                ISEED( 4 ), ISEEDY( 4 ), KDVAL( NBW );
       double             RESULT( NTESTS );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DGET06, DLANGE, DLANSB;
       // EXTERNAL LSAME, DGET06, DLANGE, DLANSB
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, DCOPY, DERRVX, DGET04, DLACPY, DLAQSB, DLARHS, DLASET, DLATB4, DLATMS, DPBEQU, DPBSV, DPBSVX, DPBT01, DPBT02, DPBT05, DPBTRF, DPBTRS, DSWAP, XLAENV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               ISEEDY / 1988, 1989, 1990, 1991 /
       DATA               FACTS / 'F', 'N', 'E' /
       DATA               EQUEDS / 'N', 'Y' /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants and the random number seed.
+      // Initialize constants and the random number seed.
 *
       PATH( 1: 1 ) = 'double          ';
       PATH( 2: 3 ) = 'PB'
@@ -75,27 +75,27 @@
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 *
-*     Test the error exits
+      // Test the error exits
 *
       IF( TSTERR ) CALL DERRVX( PATH, NOUT )
       INFOT = 0
       KDVAL( 1 ) = 0
 *
-*     Set the block size and minimum block size for testing.
+      // Set the block size and minimum block size for testing.
 *
       NB = 1
       NBMIN = 2
       CALL XLAENV( 1, NB )
       CALL XLAENV( 2, NBMIN )
 *
-*     Do for each value of N in NVAL
+      // Do for each value of N in NVAL
 *
       DO 110 IN = 1, NN
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          XTYPE = 'N'
 *
-*        Set limits on the number of loop iterations.
+         // Set limits on the number of loop iterations.
 *
          NKD = MAX( 1, MIN( N, 4 ) )
          NIMAT = NTYPES
@@ -107,14 +107,14 @@
 *
          DO 100 IKD = 1, NKD
 *
-*           Do for KD = 0, (5*N+1)/4, (3N-1)/4, and (N+1)/4. This order
-*           makes it easier to skip redundant values for small values
-*           of N.
+            // Do for KD = 0, (5*N+1)/4, (3N-1)/4, and (N+1)/4. This order
+            // makes it easier to skip redundant values for small values
+            // of N.
 *
             KD = KDVAL( IKD )
             LDAB = KD + 1
 *
-*           Do first for UPLO = 'U', then for UPLO = 'L'
+            // Do first for UPLO = 'U', then for UPLO = 'L'
 *
             DO 90 IUPLO = 1, 2
                KOFF = 1
@@ -129,26 +129,26 @@
 *
                DO 80 IMAT = 1, NIMAT
 *
-*                 Do the tests only if DOTYPE( IMAT ) is true.
+                  // Do the tests only if DOTYPE( IMAT ) is true.
 *
                   IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
 *
-*                 Skip types 2, 3, or 4 if the matrix size is too small.
+                  // Skip types 2, 3, or 4 if the matrix size is too small.
 *
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
                   IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 80
 *
                   IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) THEN
 *
-*                    Set up parameters with DLATB4 and generate a test
-*                    matrix with DLATMS.
+                     // Set up parameters with DLATB4 and generate a test
+                     // matrix with DLATMS.
 *
                      CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                      SRNAMT = 'DLATMS'
                      CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO )
 *
-*                    Check error code from DLATMS.
+                     // Check error code from DLATMS.
 *
                      IF( INFO.NE.0 ) THEN
                         CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
@@ -156,8 +156,8 @@
                      END IF
                   ELSE IF( IZERO.GT.0 ) THEN
 *
-*                    Use the same matrix for types 3 and 4 as for type
-*                    2 by copying back the zeroed out column,
+                     // Use the same matrix for types 3 and 4 as for type
+                     // 2 by copying back the zeroed out column,
 *
                      IW = 2*LDA + 1
                      IF( IUPLO.EQ.1 ) THEN
@@ -174,8 +174,8 @@
                      END IF
                   END IF
 *
-*                 For types 2-4, zero one row and column of the matrix
-*                 to test that INFO is returned correctly.
+                  // For types 2-4, zero one row and column of the matrix
+                 t // o test that INFO is returned correctly.
 *
                   IZERO = 0
                   IF( ZEROT ) THEN
@@ -187,7 +187,7 @@
                         IZERO = N / 2 + 1
                      END IF
 *
-*                    Save the zeroed out row and column in WORK(*,3)
+                     // Save the zeroed out row and column in WORK(*,3)
 *
                      IW = 2*LDA
                      DO 20 I = 1, MIN( 2*KD+1, N )
@@ -211,7 +211,7 @@
                      END IF
                   END IF
 *
-*                 Save a copy of the matrix A in ASAV.
+                  // Save a copy of the matrix A in ASAV.
 *
                   CALL DLACPY( 'Full', KD+1, N, A, LDAB, ASAV, LDAB )
 *
@@ -235,47 +235,47 @@
 *
                         ELSE IF( .NOT.LSAME( FACT, 'N' ) ) THEN
 *
-*                          Compute the condition number for comparison
-*                          with the value returned by DPBSVX (FACT =
-*                          'N' reuses the condition number from the
-*                          previous iteration with FACT = 'F').
+                           // Compute the condition number for comparison
+                           // with the value returned by DPBSVX (FACT =
+                           // 'N' reuses the condition number from the
+                           // previous iteration with FACT = 'F').
 *
                            CALL DLACPY( 'Full', KD+1, N, ASAV, LDAB, AFAC, LDAB )
                            IF( EQUIL .OR. IEQUED.GT.1 ) THEN
 *
-*                             Compute row and column scale factors to
-*                             equilibrate the matrix A.
+                              // Compute row and column scale factors to
+                              // equilibrate the matrix A.
 *
                               CALL DPBEQU( UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, INFO )
                               IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
                                  IF( IEQUED.GT.1 ) SCOND = ZERO
 *
-*                                Equilibrate the matrix.
+                                 // Equilibrate the matrix.
 *
                                  CALL DLAQSB( UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, EQUED )
                               END IF
                            END IF
 *
-*                          Save the condition number of the
-*                          non-equilibrated system for use in DGET04.
+                           // Save the condition number of the
+                           // non-equilibrated system for use in DGET04.
 *
                            IF( EQUIL ) ROLDC = RCONDC
 *
-*                          Compute the 1-norm of A.
+                           // Compute the 1-norm of A.
 *
                            ANORM = DLANSB( '1', UPLO, N, KD, AFAC, LDAB, RWORK )
 *
-*                          Factor the matrix A.
+                           // Factor the matrix A.
 *
                            CALL DPBTRF( UPLO, N, KD, AFAC, LDAB, INFO )
 *
-*                          Form the inverse of A.
+                           // Form the inverse of A.
 *
                            CALL DLASET( 'Full', N, N, ZERO, ONE, A, LDA )
                            SRNAMT = 'DPBTRS'
                            CALL DPBTRS( UPLO, N, KD, N, AFAC, LDAB, A, LDA, INFO )
 *
-*                          Compute the 1-norm condition number of A.
+                           // Compute the 1-norm condition number of A.
 *
                            AINVNM = DLANGE( '1', N, N, A, LDA, RWORK )
                            IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
@@ -285,12 +285,12 @@
                            END IF
                         END IF
 *
-*                       Restore the matrix A.
+                        // Restore the matrix A.
 *
                         CALL DLACPY( 'Full', KD+1, N, ASAV, LDAB, A, LDAB )
 *
-*                       Form an exact solution and set the right hand
-*                       side.
+                        // Form an exact solution and set the right hand
+                        // side.
 *
                         SRNAMT = 'DLARHS'
                         CALL DLARHS( PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO )
@@ -299,17 +299,17 @@
 *
                         IF( NOFACT ) THEN
 *
-*                          --- Test DPBSV  ---
+                           // --- Test DPBSV  ---
 *
-*                          Compute the L*L' or U'*U factorization of the
-*                          matrix and solve the system.
+                           // Compute the L*L' or U'*U factorization of the
+                           // matrix and solve the system.
 *
                            CALL DLACPY( 'Full', KD+1, N, A, LDAB, AFAC, LDAB )                            CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                            SRNAMT = 'DPBSV '
                            CALL DPBSV( UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO )
 *
-*                          Check error code from DPBSV .
+                           // Check error code from DPBSV .
 *
                            IF( INFO.NE.IZERO ) THEN
                               CALL ALAERH( PATH, 'DPBSV ', INFO, IZERO, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -318,22 +318,22 @@
                               GO TO 40
                            END IF
 *
-*                          Reconstruct matrix from factors and compute
-*                          residual.
+                           // Reconstruct matrix from factors and compute
+                           // residual.
 *
                            CALL DPBT01( UPLO, N, KD, A, LDAB, AFAC, LDAB, RWORK, RESULT( 1 ) )
 *
-*                          Compute residual of the computed solution.
+                           // Compute residual of the computed solution.
 *
                            CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                            CALL DPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
-*                          Check solution from generated exact solution.
+                           // Check solution from generated exact solution.
 *
                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                            NT = 3
 *
-*                          Print information about the tests that did
-*                          not pass the threshold.
+                           // Print information about the tests that did
+                           // not pass the threshold.
 *
                            DO 30 K = 1, NT
                               IF( RESULT( K ).GE.THRESH ) THEN
@@ -345,25 +345,25 @@
    40                      CONTINUE
                         END IF
 *
-*                       --- Test DPBSVX ---
+                        // --- Test DPBSVX ---
 *
                         IF( .NOT.PREFAC ) CALL DLASET( 'Full', KD+1, N, ZERO, ZERO, AFAC, LDAB )
                         CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
                         IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
-*                          Equilibrate the matrix if FACT='F' and
-*                          EQUED='Y'
+                           // Equilibrate the matrix if FACT='F' and
+                           // EQUED='Y'
 *
                            CALL DLAQSB( UPLO, N, KD, A, LDAB, S, SCOND, AMAX, EQUED )
                         END IF
 *
-*                       Solve the system and compute the condition
-*                       number and error bounds using DPBSVX.
+                        // Solve the system and compute the condition
+                        // number and error bounds using DPBSVX.
 *
                         SRNAMT = 'DPBSVX'
                         CALL DPBSVX( FACT, UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
 *
-*                       Check the error code from DPBSVX.
+                        // Check the error code from DPBSVX.
 *
                         IF( INFO.NE.IZERO ) THEN
                            CALL ALAERH( PATH, 'DPBSVX', INFO, IZERO, FACT // UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
@@ -373,8 +373,8 @@
                         IF( INFO.EQ.0 ) THEN
                            IF( .NOT.PREFAC ) THEN
 *
-*                             Reconstruct matrix from factors and
-*                             compute residual.
+                              // Reconstruct matrix from factors and
+                              // compute residual.
 *
                               CALL DPBT01( UPLO, N, KD, A, LDAB, AFAC, LDAB, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                               K1 = 1
@@ -382,32 +382,32 @@
                               K1 = 2
                            END IF
 *
-*                          Compute residual of the computed solution.
+                           // Compute residual of the computed solution.
 *
                            CALL DLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                            CALL DPBT02( UPLO, N, KD, NRHS, ASAV, LDAB, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
-*                          Check solution from generated exact solution.
+                           // Check solution from generated exact solution.
 *
                            IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                               CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                            ELSE
                               CALL DGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                            END IF
 *
-*                          Check the error bounds from iterative
-*                          refinement.
+                           // Check the error bounds from iterative
+                           // refinement.
 *
                            CALL DPBT05( UPLO, N, KD, NRHS, ASAV, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                         ELSE
                            K1 = 6
                         END IF
 *
-*                       Compare RCOND from DPBSVX with the computed
-*                       value in RCONDC.
+                        // Compare RCOND from DPBSVX with the computed
+                        // value in RCONDC.
 *
                         RESULT( 6 ) = DGET06( RCOND, RCONDC )
 *
-*                       Print information about the tests that did not
-*                       pass the threshold.
+                        // Print information about the tests that did not
+                        // pass the threshold.
 *
                         DO 50 K = K1, 6
                            IF( RESULT( K ).GE.THRESH ) THEN
@@ -428,7 +428,7 @@
   100    CONTINUE
   110 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 *
@@ -441,6 +441,6 @@
      $      ')=', G12.5 )
       RETURN
 *
-*     End of DDRVPB
+      // End of DDRVPB
 *
       END

@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String    DIRECT, SIDE, STOREV, TRANS;
       int       K, L, LDA, LDB, LDT, LDV, LDWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX   A( LDA, * ), B( LDB, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  ==========================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX   ONE, ZERO
       PARAMETER ( ONE = (1.0,0.0), ZERO = (0.0,0.0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int       I, J, MP, NP, KP;
       bool      LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool      LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CTRMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 .OR. K.LE.0 .OR. L.LT.0 ) RETURN
 *
@@ -77,16 +77,16 @@
 *
 * ---------------------------------------------------------------------------
 *
-*        Let  W =  [ I ]    (K-by-K)
-*                  [ V ]    (M-by-K)
+         // Let  W =  [ I ]    (K-by-K)
+                   // [ V ]    (M-by-K)
 *
-*        Form  H C  or  H**H C  where  C = [ A ]  (K-by-N)
-*                                          [ B ]  (M-by-N)
+         // Form  H C  or  H**H C  where  C = [ A ]  (K-by-N)
+                                           // [ B ]  (M-by-N)
 *
-*        H = I - W T W**H          or  H**H = I - W T**H W**H
+         // H = I - W T W**H          or  H**H = I - W T**H W**H
 *
-*        A = A -   T (A + V**H B)  or  A = A -   T**H (A + V**H B)
-*        B = B - V T (A + V**H B)  or  B = B - V T**H (A + V**H B)
+         // A = A -   T (A + V**H B)  or  A = A -   T**H (A + V**H B)
+         // B = B - V T (A + V**H B)  or  B = B - V T**H (A + V**H B)
 *
 * ---------------------------------------------------------------------------
 *
@@ -127,15 +127,15 @@
 *
 * ---------------------------------------------------------------------------
 *
-*        Let  W =  [ I ]    (K-by-K)
-*                  [ V ]    (N-by-K)
+         // Let  W =  [ I ]    (K-by-K)
+                   // [ V ]    (N-by-K)
 *
-*        Form  C H or  C H**H  where  C = [ A B ] (A is M-by-K, B is M-by-N)
+         // Form  C H or  C H**H  where  C = [ A B ] (A is M-by-K, B is M-by-N)
 *
-*        H = I - W T W**H          or  H**H = I - W T**H W**H
+         // H = I - W T W**H          or  H**H = I - W T**H W**H
 *
-*        A = A - (A + B V) T      or  A = A - (A + B V) T**H
-*        B = B - (A + B V) T V**H  or  B = B - (A + B V) T**H V**H
+         // A = A - (A + B V) T      or  A = A - (A + B V) T**H
+         // B = B - (A + B V) T V**H  or  B = B - (A + B V) T**H V**H
 *
 * ---------------------------------------------------------------------------
 *
@@ -176,16 +176,16 @@
 *
 * ---------------------------------------------------------------------------
 *
-*        Let  W =  [ V ]    (M-by-K)
-*                  [ I ]    (K-by-K)
+         // Let  W =  [ V ]    (M-by-K)
+                   // [ I ]    (K-by-K)
 *
-*        Form  H C  or  H**H C  where  C = [ B ]  (M-by-N)
-*                                          [ A ]  (K-by-N)
+         // Form  H C  or  H**H C  where  C = [ B ]  (M-by-N)
+                                           // [ A ]  (K-by-N)
 *
-*        H = I - W T W**H          or  H**H = I - W T**H W**H
+         // H = I - W T W**H          or  H**H = I - W T**H W**H
 *
-*        A = A -   T (A + V**H B)  or  A = A -   T**H (A + V**H B)
-*        B = B - V T (A + V**H B)  or  B = B - V T**H (A + V**H B)
+         // A = A -   T (A + V**H B)  or  A = A -   T**H (A + V**H B)
+         // B = B - V T (A + V**H B)  or  B = B - V T**H (A + V**H B)
 *
 * ---------------------------------------------------------------------------
 *
@@ -227,15 +227,15 @@
 *
 * ---------------------------------------------------------------------------
 *
-*        Let  W =  [ V ]    (N-by-K)
-*                  [ I ]    (K-by-K)
+         // Let  W =  [ V ]    (N-by-K)
+                   // [ I ]    (K-by-K)
 *
-*        Form  C H  or  C H**H  where  C = [ B A ] (B is M-by-N, A is M-by-K)
+         // Form  C H  or  C H**H  where  C = [ B A ] (B is M-by-N, A is M-by-K)
 *
-*        H = I - W T W**H          or  H**H = I - W T**H W**H
+         // H = I - W T W**H          or  H**H = I - W T**H W**H
 *
-*        A = A - (A + B V) T      or  A = A - (A + B V) T**H
-*        B = B - (A + B V) T V**H  or  B = B - (A + B V) T**H V**H
+         // A = A - (A + B V) T      or  A = A - (A + B V) T**H
+         // B = B - (A + B V) T V**H  or  B = B - (A + B V) T**H V**H
 *
 * ---------------------------------------------------------------------------
 *
@@ -276,15 +276,15 @@
 *
 * ---------------------------------------------------------------------------
 *
-*        Let  W =  [ I V ] ( I is K-by-K, V is K-by-M )
+         // Let  W =  [ I V ] ( I is K-by-K, V is K-by-M )
 *
-*        Form  H C  or  H**H C  where  C = [ A ]  (K-by-N)
-*                                          [ B ]  (M-by-N)
+         // Form  H C  or  H**H C  where  C = [ A ]  (K-by-N)
+                                           // [ B ]  (M-by-N)
 *
-*        H = I - W**H T W          or  H**H = I - W**H T**H W
+         // H = I - W**H T W          or  H**H = I - W**H T**H W
 *
-*        A = A -     T (A + V B)  or  A = A -     T**H (A + V B)
-*        B = B - V**H T (A + V B)  or  B = B - V**H T**H (A + V B)
+         // A = A -     T (A + V B)  or  A = A -     T**H (A + V B)
+         // B = B - V**H T (A + V B)  or  B = B - V**H T**H (A + V B)
 *
 * ---------------------------------------------------------------------------
 *
@@ -325,14 +325,14 @@
 *
 * ---------------------------------------------------------------------------
 *
-*        Let  W =  [ I V ] ( I is K-by-K, V is K-by-N )
+         // Let  W =  [ I V ] ( I is K-by-K, V is K-by-N )
 *
-*        Form  C H  or  C H**H  where  C = [ A B ] (A is M-by-K, B is M-by-N)
+         // Form  C H  or  C H**H  where  C = [ A B ] (A is M-by-K, B is M-by-N)
 *
-*        H = I - W**H T W            or  H**H = I - W**H T**H W
+         // H = I - W**H T W            or  H**H = I - W**H T**H W
 *
-*        A = A - (A + B V**H) T      or  A = A - (A + B V**H) T**H
-*        B = B - (A + B V**H) T V    or  B = B - (A + B V**H) T**H V
+         // A = A - (A + B V**H) T      or  A = A - (A + B V**H) T**H
+         // B = B - (A + B V**H) T V    or  B = B - (A + B V**H) T**H V
 *
 * ---------------------------------------------------------------------------
 *
@@ -373,15 +373,15 @@
 *
 * ---------------------------------------------------------------------------
 *
-*        Let  W =  [ V I ] ( I is K-by-K, V is K-by-M )
+         // Let  W =  [ V I ] ( I is K-by-K, V is K-by-M )
 *
-*        Form  H C  or  H**H C  where  C = [ B ]  (M-by-N)
-*                                          [ A ]  (K-by-N)
+         // Form  H C  or  H**H C  where  C = [ B ]  (M-by-N)
+                                           // [ A ]  (K-by-N)
 *
-*        H = I - W**H T W          or  H**H = I - W**H T**H W
+         // H = I - W**H T W          or  H**H = I - W**H T**H W
 *
-*        A = A -     T (A + V B)  or  A = A -     T**H (A + V B)
-*        B = B - V**H T (A + V B)  or  B = B - V**H T**H (A + V B)
+         // A = A -     T (A + V B)  or  A = A -     T**H (A + V B)
+         // B = B - V**H T (A + V B)  or  B = B - V**H T**H (A + V B)
 *
 * ---------------------------------------------------------------------------
 *
@@ -422,14 +422,14 @@
 *
 * ---------------------------------------------------------------------------
 *
-*        Let  W =  [ V I ] ( I is K-by-K, V is K-by-N )
+         // Let  W =  [ V I ] ( I is K-by-K, V is K-by-N )
 *
-*        Form  C H  or  C H**H  where  C = [ B A ] (A is M-by-K, B is M-by-N)
+         // Form  C H  or  C H**H  where  C = [ B A ] (A is M-by-K, B is M-by-N)
 *
-*        H = I - W**H T W            or  H**H = I - W**H T**H W
+         // H = I - W**H T W            or  H**H = I - W**H T**H W
 *
-*        A = A - (A + B V**H) T      or  A = A - (A + B V**H) T**H
-*        B = B - (A + B V**H) T V    or  B = B - (A + B V**H) T**H V
+         // A = A - (A + B V**H) T      or  A = A - (A + B V**H) T**H
+         // B = B - (A + B V**H) T V    or  B = B - (A + B V**H) T**H V
 *
 * ---------------------------------------------------------------------------
 *
@@ -468,6 +468,6 @@
 *
       RETURN
 *
-*     End of CTPRFB
+      // End of CTPRFB
 *
       END

@@ -4,40 +4,40 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX ALPHA,BETA
       int     K,LDA,LDC,N;
       String    TRANS,UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX A(LDA,*),C(LDC,*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX TEMP
       int     I,INFO,J,L,NROWA;
       bool    UPPER;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       COMPLEX ONE
       PARAMETER (ONE= (1.0E+0,0.0E+0))
       COMPLEX ZERO
       PARAMETER (ZERO= (0.0E+0,0.0E+0))
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IF (LSAME(TRANS,'N')) THEN
           NROWA = N
@@ -65,11 +65,11 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
 *
-*     And when  alpha.eq.zero.
+      // And when  alpha.eq.zero.
 *
       IF (ALPHA.EQ.ZERO) THEN
           IF (UPPER) THEN
@@ -104,11 +104,11 @@
           RETURN
       END IF
 *
-*     Start the operations.
+      // Start the operations.
 *
       IF (LSAME(TRANS,'N')) THEN
 *
-*        Form  C := alpha*A*A**T + beta*C.
+         // Form  C := alpha*A*A**T + beta*C.
 *
           IF (UPPER) THEN
               DO 130 J = 1,N
@@ -153,7 +153,7 @@
           END IF
       ELSE
 *
-*        Form  C := alpha*A**T*A + beta*C.
+         // Form  C := alpha*A**T*A + beta*C.
 *
           IF (UPPER) THEN
               DO 210 J = 1,N
@@ -188,6 +188,6 @@
 *
       RETURN
 *
-*     End of CSYRK
+      // End of CSYRK
 *
       END

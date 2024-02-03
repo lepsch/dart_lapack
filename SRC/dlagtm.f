@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                LDB, LDX, N, NRHS;
       double             ALPHA, BETA;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Multiply B by BETA if BETA.NE.1.
+      // Multiply B by BETA if BETA.NE.1.
 *
       IF( BETA.EQ.ZERO ) THEN
          DO 20 J = 1, NRHS
@@ -49,7 +49,7 @@
       IF( ALPHA.EQ.ONE ) THEN
          IF( LSAME( TRANS, 'N' ) ) THEN
 *
-*           Compute B := B + A*X
+            // Compute B := B + A*X
 *
             DO 60 J = 1, NRHS
                IF( N.EQ.1 ) THEN
@@ -63,7 +63,7 @@
    60       CONTINUE
          ELSE
 *
-*           Compute B := B + A**T*X
+            // Compute B := B + A**T*X
 *
             DO 80 J = 1, NRHS
                IF( N.EQ.1 ) THEN
@@ -79,7 +79,7 @@
       ELSE IF( ALPHA.EQ.-ONE ) THEN
          IF( LSAME( TRANS, 'N' ) ) THEN
 *
-*           Compute B := B - A*X
+            // Compute B := B - A*X
 *
             DO 100 J = 1, NRHS
                IF( N.EQ.1 ) THEN
@@ -93,7 +93,7 @@
   100       CONTINUE
          ELSE
 *
-*           Compute B := B - A**T*X
+            // Compute B := B - A**T*X
 *
             DO 120 J = 1, NRHS
                IF( N.EQ.1 ) THEN
@@ -109,6 +109,6 @@
       END IF
       RETURN
 *
-*     End of DLAGTM
+      // End of DLAGTM
 *
       END

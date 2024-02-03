@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             NORM;
       int                INFO, LDA, N;
       REAL               ANORM, RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       REAL               A( LDA, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ONENRM;
       String             NORMIN;
       int                IX, KASE, KASE1;
       REAL               AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, SISNAN;
       int                ISAMAX;
       REAL               SLAMCH
       // EXTERNAL LSAME, ISAMAX, SLAMCH, SISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLACN2, SLATRS, SRSCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       HUGEVAL = SLAMCH( 'Overflow' )
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
@@ -63,7 +63,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -82,7 +82,7 @@
 *
       SMLNUM = SLAMCH( 'Safe minimum' )
 *
-*     Estimate the norm of inv(A).
+      // Estimate the norm of inv(A).
 *
       AINVNM = ZERO
       NORMIN = 'N'
@@ -97,25 +97,25 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.KASE1 ) THEN
 *
-*           Multiply by inv(L).
+            // Multiply by inv(L).
 *
             CALL SLATRS( 'Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, WORK( 2*N+1 ), INFO )
 *
-*           Multiply by inv(U).
+            // Multiply by inv(U).
 *
             CALL SLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO )
          ELSE
 *
-*           Multiply by inv(U**T).
+            // Multiply by inv(U**T).
 *
             CALL SLATRS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO )
 *
-*           Multiply by inv(L**T).
+            // Multiply by inv(L**T).
 *
             CALL SLATRS( 'Lower', 'Transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, WORK( 2*N+1 ), INFO )
          END IF
 *
-*        Divide X by 1/(SL*SU) if doing so will not cause overflow.
+         // Divide X by 1/(SL*SU) if doing so will not cause overflow.
 *
          SCALE = SL*SU
          NORMIN = 'Y'
@@ -127,7 +127,7 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) THEN
          RCOND = ( ONE / AINVNM ) / ANORM
@@ -136,13 +136,13 @@
          RETURN
       END IF
 *
-*     Check for NaNs and Infs
+      // Check for NaNs and Infs
 *
       IF( SISNAN( RCOND ) .OR. RCOND.GT.HUGEVAL ) INFO = 1
 *
    20 CONTINUE
       RETURN
 *
-*     End of SGECON
+      // End of SGECON
 *
       END

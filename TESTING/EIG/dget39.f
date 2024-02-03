@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
       double             RMAX;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                LDT, LDT2;
       PARAMETER          ( LDT = 10, LDT2 = 2*LDT )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM       double             BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX;
       double             DASUM, DDOT, DLAMCH, DLANGE;
       // EXTERNAL IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMV, DLAQTR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, COS, DBLE, MAX, SIN, SQRT
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IDIM( 6 ), IVAL( 5, 5, 6 );
       double             B( LDT ), D( LDT2 ), DUM( 1 ), T( LDT, LDT ), VM1( 5 ), VM2( 5 ), VM3( 5 ), VM4( 5 ), VM5( 3 ), WORK( LDT ), X( LDT2 ), Y( LDT2 );
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               IDIM / 4, 5*5 /
       DATA               IVAL / 3, 4*0, 1, 1, -1, 0, 0, 3, 2, 1, 0, 0, 4, 3, 2, 2, 0, 5*0, 1, 4*0, 2, 2, 3*0, 3, 3, 4, 0, 0, 4, 2, 2, 3, 0, 4*1, 5, 1, 4*0, 2, 4, -2, 0, 0, 3, 3, 4, 0, 0, 4, 2, 2, 3, 0, 5*1, 1, 4*0, 2, 1, -1, 0, 0, 9, 8, 1, 0, 0, 4, 9, 1, 2, -1, 5*2, 9, 4*0, 6, 4, 0, 0, 0, 3, 2, 1, 1, 0, 5, 1, -1, 1, 0, 5*2, 4, 4*0, 2, 2, 0, 0, 0, 1, 4, 4, 0, 0, 2, 4, 2, 2, -1, 5*2 /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' )
       BIGNUM = ONE / SMLNUM
 *
-*     Set up test case parameters
+      // Set up test case parameters
 *
       VM1( 1 ) = ONE
       VM1( 2 ) = SQRT( SMLNUM )
@@ -77,14 +77,14 @@
       VM5( 2 ) = EPS
       VM5( 3 ) = SQRT( SMLNUM )
 *
-*     Initialization
+      // Initialization
 *
       KNT = 0
       RMAX = ZERO
       NINFO = 0
       SMLNUM = SMLNUM / EPS
 *
-*     Begin test loop
+      // Begin test loop
 *
       DO 140 IVM5 = 1, 3
          DO 130 IVM4 = 1, 5
@@ -118,8 +118,8 @@
                         KNT = KNT + 1
                         CALL DLAQTR( .FALSE., .TRUE., N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 *
-*                       || T*x - scale*d || /
-*                         max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
+                        // || T*x - scale*d || /
+                          // max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
 *
                         CALL DCOPY( N, D, 1, Y, 1 )
                         CALL DGEMV( 'No transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 )
@@ -136,8 +136,8 @@
                         KNT = KNT + 1
                         CALL DLAQTR( .TRUE., .TRUE., N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 *
-*                       || T*x - scale*d || /
-*                         max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
+                        // || T*x - scale*d || /
+                          // max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
 *
                         CALL DCOPY( N, D, 1, Y, 1 )
                         CALL DGEMV( 'Transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 )
@@ -154,9 +154,9 @@
                         KNT = KNT + 1
                         CALL DLAQTR( .FALSE., .FALSE., N, T, LDT, B, W, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 *
-*                       ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
-*                          max(ulp*(||T||+||B||)*(||x1||+||x2||),
-*                                  smlnum/ulp * (||T||+||B||), smlnum )
+                        // ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
+                           // max(ulp*(||T||+||B||)*(||x1||+||x2||),
+                                   // smlnum/ulp * (||T||+||B||), smlnum )
 *
 *
                         CALL DCOPY( 2*N, D, 1, Y, 1 )
@@ -184,9 +184,9 @@
                         KNT = KNT + 1
                         CALL DLAQTR( .TRUE., .FALSE., N, T, LDT, B, W, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 *
-*                       ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
-*                          max(ulp*(||T||+||B||)*(||x1||+||x2||),
-*                                  smlnum/ulp * (||T||+||B||), smlnum )
+                        // ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
+                           // max(ulp*(||T||+||B||)*(||x1||+||x2||),
+                                   // smlnum/ulp * (||T||+||B||), smlnum )
 *
                         CALL DCOPY( 2*N, D, 1, Y, 1 )
                         Y( 1 ) = B( 1 )*X( 1+N ) - SCALE*Y( 1 )
@@ -218,6 +218,6 @@
 *
       RETURN
 *
-*     End of DGET39
+      // End of DGET39
 *
       END

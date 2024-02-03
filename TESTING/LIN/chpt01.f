@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDC, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               RWORK( * )
       COMPLEX            A( * ), AFAC( * ), C( LDC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J, JC;
       REAL               ANORM, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANHE, CLANHP, SLAMCH
       // EXTERNAL LSAME, CLANHE, CLANHP, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLAVHP, CLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHP( '1', UPLO, N, A, RWORK )
 *
-*     Check the imaginary parts of the diagonal elements and return with
-*     an error code if any are nonzero.
+      // Check the imaginary parts of the diagonal elements and return with
+      // an error code if any are nonzero.
 *
       JC = 1
       IF( LSAME( UPLO, 'U' ) ) THEN
@@ -74,19 +74,19 @@
    20    CONTINUE
       END IF
 *
-*     Initialize C to the identity matrix.
+      // Initialize C to the identity matrix.
 *
       CALL CLASET( 'Full', N, N, CZERO, CONE, C, LDC )
 *
-*     Call CLAVHP to form the product D * U' (or D * L' ).
+      // Call CLAVHP to form the product D * U' (or D * L' ).
 *
       CALL CLAVHP( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
 *
-*     Call CLAVHP again to multiply by U ( or L ).
+      // Call CLAVHP again to multiply by U ( or L ).
 *
       CALL CLAVHP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
 *
-*     Compute the difference  C - A .
+      // Compute the difference  C - A .
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          JC = 0
@@ -108,7 +108,7 @@
    60    CONTINUE
       END IF
 *
-*     Compute norm( C - A ) / ( N * norm(A) * EPS )
+      // Compute norm( C - A ) / ( N * norm(A) * EPS )
 *
       RESID = CLANHE( '1', UPLO, N, C, LDC, RWORK )
 *
@@ -120,6 +120,6 @@
 *
       RETURN
 *
-*     End of CHPT01
+      // End of CHPT01
 *
       END

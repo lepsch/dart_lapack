@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                INFO, LDB, LDX, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * )
       COMPLEX            AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
       COMPLEX            ONE
       PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       String             TRANSN, TRANST;
       int                I, J, K, KASE, KC, NZ;
       REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
       COMPLEX            ZDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CLACN2, CTPMV, CTPSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH
       // EXTERNAL LSAME, SLAMCH
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -77,7 +77,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) THEN
          DO 10 J = 1, NRHS
@@ -95,7 +95,7 @@
          TRANST = 'N'
       END IF
 *
-*     NZ = maximum number of nonzero elements in each row of A, plus 1
+      // NZ = maximum number of nonzero elements in each row of A, plus 1
 *
       NZ = N + 1
       EPS = SLAMCH( 'Epsilon' )
@@ -103,25 +103,25 @@
       SAFE1 = NZ*SAFMIN
       SAFE2 = SAFE1 / EPS
 *
-*     Do for each right hand side
+      // Do for each right hand side
 *
       DO 250 J = 1, NRHS
 *
-*        Compute residual R = B - op(A) * X,
-*        where op(A) = A, A**T, or A**H, depending on TRANS.
+         // Compute residual R = B - op(A) * X,
+         // where op(A) = A, A**T, or A**H, depending on TRANS.
 *
          CALL CCOPY( N, X( 1, J ), 1, WORK, 1 )
          CALL CTPMV( UPLO, TRANS, DIAG, N, AP, WORK, 1 )
          CALL CAXPY( N, -ONE, B( 1, J ), 1, WORK, 1 )
 *
-*        Compute componentwise relative backward error from formula
+         // Compute componentwise relative backward error from formula
 *
-*        max(i) ( abs(R(i)) / ( abs(op(A))*abs(X) + abs(B) )(i) )
+         // max(i) ( abs(R(i)) / ( abs(op(A))*abs(X) + abs(B) )(i) )
 *
-*        where abs(Z) is the componentwise absolute value of the matrix
-*        or vector Z.  If the i-th component of the denominator is less
-*        than SAFE2, then SAFE1 is added to the i-th components of the
-*        numerator and denominator before dividing.
+         // where abs(Z) is the componentwise absolute value of the matrix
+         // or vector Z.  If the i-th component of the denominator is less
+        t // han SAFE2, then SAFE1 is added to the i-th components of the
+         // numerator and denominator before dividing.
 *
          DO 20 I = 1, N
             RWORK( I ) = CABS1( B( I, J ) )
@@ -129,7 +129,7 @@
 *
          IF( NOTRAN ) THEN
 *
-*           Compute abs(A)*abs(X) + abs(B).
+            // Compute abs(A)*abs(X) + abs(B).
 *
             IF( UPPER ) THEN
                KC = 1
@@ -174,7 +174,7 @@
             END IF
          ELSE
 *
-*           Compute abs(A**H)*abs(X) + abs(B).
+            // Compute abs(A**H)*abs(X) + abs(B).
 *
             IF( UPPER ) THEN
                KC = 1
@@ -230,27 +230,27 @@
   190    CONTINUE
          BERR( J ) = S
 *
-*        Bound error from formula
+         // Bound error from formula
 *
-*        norm(X - XTRUE) / norm(X) .le. FERR =
-*        norm( abs(inv(op(A)))*
-*           ( abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) ))) / norm(X)
+         // norm(X - XTRUE) / norm(X) .le. FERR =
+         // norm( abs(inv(op(A)))*
+            // ( abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) ))) / norm(X)
 *
-*        where
-*          norm(Z) is the magnitude of the largest component of Z
-*          inv(op(A)) is the inverse of op(A)
-*          abs(Z) is the componentwise absolute value of the matrix or
-*             vector Z
-*          NZ is the maximum number of nonzeros in any row of A, plus 1
-*          EPS is machine epsilon
+         // where
+           // norm(Z) is the magnitude of the largest component of Z
+           // inv(op(A)) is the inverse of op(A)
+           // abs(Z) is the componentwise absolute value of the matrix or
+              // vector Z
+           // NZ is the maximum number of nonzeros in any row of A, plus 1
+           // EPS is machine epsilon
 *
-*        The i-th component of abs(R)+NZ*EPS*(abs(op(A))*abs(X)+abs(B))
-*        is incremented by SAFE1 if the i-th component of
-*        abs(op(A))*abs(X) + abs(B) is less than SAFE2.
+         // The i-th component of abs(R)+NZ*EPS*(abs(op(A))*abs(X)+abs(B))
+         // is incremented by SAFE1 if the i-th component of
+         // abs(op(A))*abs(X) + abs(B) is less than SAFE2.
 *
-*        Use CLACN2 to estimate the infinity-norm of the matrix
-*           inv(op(A)) * diag(W),
-*        where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
+         // Use CLACN2 to estimate the infinity-norm of the matrix
+            // inv(op(A)) * diag(W),
+         // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 *
          DO 200 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
@@ -266,7 +266,7 @@
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.1 ) THEN
 *
-*              Multiply by diag(W)*inv(op(A)**H).
+               // Multiply by diag(W)*inv(op(A)**H).
 *
                CALL CTPSV( UPLO, TRANST, DIAG, N, AP, WORK, 1 )
                DO 220 I = 1, N
@@ -274,7 +274,7 @@
   220          CONTINUE
             ELSE
 *
-*              Multiply by inv(op(A))*diag(W).
+               // Multiply by inv(op(A))*diag(W).
 *
                DO 230 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
@@ -284,7 +284,7 @@
             GO TO 210
          END IF
 *
-*        Normalize error.
+         // Normalize error.
 *
          LSTRES = ZERO
          DO 240 I = 1, N
@@ -296,6 +296,6 @@
 *
       RETURN
 *
-*     End of CTPRFS
+      // End of CTPRFS
 *
       END

@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                KD, LDU, LDVT, N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * ), E( * ), S( * );
       COMPLEX*16         U( LDU, * ), VT( LDVT, * ), WORK( * )
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       double             BNORM, EPS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IDAMAX;
       double             DLAMCH, DZASUM;
       // EXTERNAL LSAME, IDAMAX, DLAMCH, DZASUM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ZGEMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RESID = ZERO
       IF( N.LE.0 ) RETURN
 *
-*     Compute B - U * S * V' one column at a time.
+      // Compute B - U * S * V' one column at a time.
 *
       BNORM = ZERO
       IF( KD.GE.1 ) THEN
 *
-*        B is bidiagonal.
+         // B is bidiagonal.
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*           B is upper bidiagonal.
+            // B is upper bidiagonal.
 *
             DO 20 J = 1, N
                DO 10 I = 1, N
@@ -70,7 +70,7 @@
    20       CONTINUE
          ELSE
 *
-*           B is lower bidiagonal.
+            // B is lower bidiagonal.
 *
             DO 40 J = 1, N
                DO 30 I = 1, N
@@ -89,7 +89,7 @@
          END IF
       ELSE
 *
-*        B is diagonal.
+         // B is diagonal.
 *
          DO 60 J = 1, N
             DO 50 I = 1, N
@@ -103,7 +103,7 @@
          BNORM = ABS( D( J ) )
       END IF
 *
-*     Compute norm(B - U * S * V') / ( n * norm(B) * EPS )
+      // Compute norm(B - U * S * V') / ( n * norm(B) * EPS )
 *
       EPS = DLAMCH( 'Precision' )
 *
@@ -123,6 +123,6 @@
 *
       RETURN
 *
-*     End of ZBDT03
+      // End of ZBDT03
 *
       END

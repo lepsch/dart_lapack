@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               U( LDU, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
       REAL               EPS, TMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SDOT, SLAMCH, SLANSY
       // EXTERNAL LSAME, SDOT, SLAMCH, SLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLASET, SSYRK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESID = ZERO
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
@@ -60,18 +60,18 @@
       END IF
       IF( LDWORK.GT.0 ) THEN
 *
-*        Compute I - U*U' or I - U'*U.
+         // Compute I - U*U' or I - U'*U.
 *
          CALL SLASET( 'Upper', MNMIN, MNMIN, ZERO, ONE, WORK, LDWORK )
          CALL SSYRK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
 *
-*        Compute norm( I - U*U' ) / ( K * EPS ) .
+         // Compute norm( I - U*U' ) / ( K * EPS ) .
 *
          RESID = SLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, WORK( LDWORK*MNMIN+1 ) )
          RESID = ( RESID / REAL( K ) ) / EPS
       ELSE IF( TRANSU.EQ.'T' ) THEN
 *
-*        Find the maximum element in abs( I - U'*U ) / ( m * EPS )
+         // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 *
          DO 20 J = 1, N
             DO 10 I = 1, J
@@ -87,7 +87,7 @@
          RESID = ( RESID / REAL( M ) ) / EPS
       ELSE
 *
-*        Find the maximum element in abs( I - U*U' ) / ( n * EPS )
+         // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
 *
          DO 40 J = 1, M
             DO 30 I = 1, J
@@ -104,6 +104,6 @@
       END IF
       RETURN
 *
-*     End of SORT01
+      // End of SORT01
 *
       END

@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             HOWMNY, SIDE;
       int                INFO, LDP, LDS, LDVL, LDVR, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       REAL               P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
-*     ..
+      // ..
 *
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, SAFETY
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, SAFETY = 1.0E+2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               COMPL, COMPR, IL2BY2, ILABAD, ILALL, ILBACK, ILBBAD, ILCOMP, ILCPLX, LSA, LSB       int                I, IBEG, IEIG, IEND, IHWMNY, IINFO, IM, ISIDE, J, JA, JC, JE, JR, JW, NA, NW       REAL               ACOEF, ACOEFA, ANORM, ASCALE, BCOEFA, BCOEFI, BCOEFR, BIG, BIGNUM, BNORM, BSCALE, CIM2A, CIM2B, CIMAGA, CIMAGB, CRE2A, CRE2B, CREALA, CREALB, DMIN, SAFMIN, SALFAR, SBETA, SCALE, SMALL, TEMP, TEMP2, TEMP2I, TEMP2R, ULP, XMAX, XSCALE;;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               BDIAG( 2 ), SUM( 2, 2 ), SUMS( 2, 2 ), SUMP( 2, 2 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               SLAMCH
       // EXTERNAL LSAME, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMV, SLACPY, SLAG2, SLALN2, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and Test the input parameters
+      // Decode and Test the input parameters
 *
       IF( LSAME( HOWMNY, 'A' ) ) THEN
          IHWMNY = 1
@@ -91,7 +91,7 @@
          RETURN
       END IF
 *
-*     Count the number of eigenvectors to be computed
+      // Count the number of eigenvectors to be computed
 *
       IF( .NOT.ILALL ) THEN
          IM = 0
@@ -114,7 +114,7 @@
          IM = N
       END IF
 *
-*     Check 2-by-2 diagonal blocks of A, B
+      // Check 2-by-2 diagonal blocks of A, B
 *
       ILABAD = .FALSE.
       ILBBAD = .FALSE.
@@ -143,12 +143,12 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = IM
       IF( N.EQ.0 ) RETURN
 *
-*     Machine Constants
+      // Machine Constants
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       BIG = ONE / SAFMIN
@@ -157,10 +157,10 @@
       BIG = ONE / SMALL
       BIGNUM = ONE / ( SAFMIN*N )
 *
-*     Compute the 1-norm of each column of the strictly upper triangular
-*     part (i.e., excluding all elements belonging to the diagonal
-*     blocks) of A and B to check for possible overflow in the
-*     triangular solver.
+      // Compute the 1-norm of each column of the strictly upper triangular
+      // part (i.e., excluding all elements belonging to the diagonal
+      // blocks) of A and B to check for possible overflow in the
+     t // riangular solver.
 *
       ANORM = ABS( S( 1, 1 ) )
       IF( N.GT.1 ) ANORM = ANORM + ABS( S( 2, 1 ) )
@@ -193,20 +193,20 @@
       ASCALE = ONE / MAX( ANORM, SAFMIN )
       BSCALE = ONE / MAX( BNORM, SAFMIN )
 *
-*     Left eigenvectors
+      // Left eigenvectors
 *
       IF( COMPL ) THEN
          IEIG = 0
 *
-*        Main loop over eigenvalues
+         // Main loop over eigenvalues
 *
          ILCPLX = .FALSE.
          DO 220 JE = 1, N
 *
-*           Skip this iteration if (a) HOWMNY='S' and SELECT=.FALSE., or
-*           (b) this would be the second of a complex pair.
-*           Check for complex eigenvalue, so as to be sure of which
-*           entry(-ies) of SELECT to look at.
+            // Skip this iteration if (a) HOWMNY='S' and SELECT=.FALSE., or
+            // (b) this would be the second of a complex pair.
+            // Check for complex eigenvalue, so as to be sure of which
+            // entry(-ies) of SELECT to look at.
 *
             IF( ILCPLX ) THEN
                ILCPLX = .FALSE.
@@ -228,13 +228,13 @@
             END IF
             IF( .NOT.ILCOMP ) GO TO 220
 *
-*           Decide if (a) singular pencil, (b) real eigenvalue, or
-*           (c) complex eigenvalue.
+            // Decide if (a) singular pencil, (b) real eigenvalue, or
+            // (c) complex eigenvalue.
 *
             IF( .NOT.ILCPLX ) THEN
                IF( ABS( S( JE, JE ) ).LE.SAFMIN .AND. ABS( P( JE, JE ) ).LE.SAFMIN ) THEN
 *
-*                 Singular matrix pencil -- return unit eigenvector
+                  // Singular matrix pencil -- return unit eigenvector
 *
                   IEIG = IEIG + 1
                   DO 60 JR = 1, N
@@ -245,19 +245,19 @@
                END IF
             END IF
 *
-*           Clear vector
+            // Clear vector
 *
             DO 70 JR = 1, NW*N
                WORK( 2*N+JR ) = ZERO
    70       CONTINUE
-*                                                 T
-*           Compute coefficients in  ( a A - b B )  y = 0
-*              a  is  ACOEF
-*              b  is  BCOEFR + i*BCOEFI
+                                                  // T
+            // Compute coefficients in  ( a A - b B )  y = 0
+               // a  is  ACOEF
+               // b  is  BCOEFR + i*BCOEFI
 *
             IF( .NOT.ILCPLX ) THEN
 *
-*              Real eigenvalue
+               // Real eigenvalue
 *
                TEMP = ONE / MAX( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN )
                SALFAR = ( TEMP*S( JE, JE ) )*ASCALE
@@ -266,7 +266,7 @@
                BCOEFR = SALFAR*BSCALE
                BCOEFI = ZERO
 *
-*              Scale to avoid underflow
+               // Scale to avoid underflow
 *
                SCALE = ONE
                LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEF ).LT.SMALL
@@ -287,13 +287,13 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR )
 *
-*              First component is 1
+               // First component is 1
 *
                WORK( 2*N+JE ) = ONE
                XMAX = ONE
             ELSE
 *
-*              Complex eigenvalue
+               // Complex eigenvalue
 *
                CALL SLAG2( S( JE, JE ), LDS, P( JE, JE ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI )
                BCOEFI = -BCOEFI
@@ -302,7 +302,7 @@
                   RETURN
                END IF
 *
-*              Scale to avoid over/underflow
+               // Scale to avoid over/underflow
 *
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
@@ -316,7 +316,7 @@
                   BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                END IF
 *
-*              Compute first two components of eigenvector
+               // Compute first two components of eigenvector
 *
                TEMP = ACOEF*S( JE+1, JE )
                TEMP2R = ACOEF*S( JE, JE ) - BCOEFR*P( JE, JE )
@@ -338,11 +338,11 @@
 *
             DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
 *
-*                                           T
-*           Triangular solve of  (a A - b B)  y = 0
+                                            // T
+            // Triangular solve of  (a A - b B)  y = 0
 *
-*                                   T
-*           (rowwise in  (a A - b B) , or columnwise in (a A - b B) )
+                                    // T
+            // (rowwise in  (a A - b B) , or columnwise in (a A - b B) )
 *
             IL2BY2 = .FALSE.
 *
@@ -362,7 +362,7 @@
                   END IF
                END IF
 *
-*              Check whether scaling is necessary for dot products
+               // Check whether scaling is necessary for dot products
 *
                XSCALE = ONE / MAX( ONE, XMAX )
                TEMP = MAX( WORK( J ), WORK( N+J ), ACOEFA*WORK( J )+BCOEFA*WORK( N+J ) )                IF( IL2BY2 ) TEMP = MAX( TEMP, WORK( J+1 ), WORK( N+J+1 ), ACOEFA*WORK( J+1 )+BCOEFA*WORK( N+J+1 ) )
@@ -375,20 +375,20 @@
                   XMAX = XMAX*XSCALE
                END IF
 *
-*              Compute dot products
+               // Compute dot products
 *
-*                    j-1
-*              SUM = sum  conjg( a*S(k,j) - b*P(k,j) )*x(k)
-*                    k=je
+                     // j-1
+               // SUM = sum  conjg( a*S(k,j) - b*P(k,j) )*x(k)
+                     // k=je
 *
-*              To reduce the op count, this is done as
+               // To reduce the op count, this is done as
 *
-*              _        j-1                  _        j-1
-*              a*conjg( sum  S(k,j)*x(k) ) - b*conjg( sum  P(k,j)*x(k) )
-*                       k=je                          k=je
+               // _        j-1                  _        j-1
+               // a*conjg( sum  S(k,j)*x(k) ) - b*conjg( sum  P(k,j)*x(k) )
+                        // k=je                          k=je
 *
-*              which may cause underflow problems if A or B are close
-*              to underflow.  (E.g., less than SMALL.)
+               // which may cause underflow problems if A or B are close
+              t // o underflow.  (E.g., less than SMALL.)
 *
 *
                DO 120 JW = 1, NW
@@ -410,9 +410,9 @@
                   END IF
   130          CONTINUE
 *
-*                                  T
-*              Solve  ( a A - b B )  y = SUM(,)
-*              with scaling and perturbation of the denominator
+                                   // T
+               // Solve  ( a A - b B )  y = SUM(,)
+               // with scaling and perturbation of the denominator
 *
                CALL SLALN2( .TRUE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR, BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP, IINFO )
                IF( SCALE.LT.ONE ) THEN
@@ -426,8 +426,8 @@
                XMAX = MAX( XMAX, TEMP )
   160       CONTINUE
 *
-*           Copy eigenvector to VL, back transforming if
-*           HOWMNY='B'.
+            // Copy eigenvector to VL, back transforming if
+            // HOWMNY='B'.
 *
             IEIG = IEIG + 1
             IF( ILBACK ) THEN
@@ -441,7 +441,7 @@
                IBEG = JE
             END IF
 *
-*           Scale eigenvector
+            // Scale eigenvector
 *
             XMAX = ZERO
             IF( ILCPLX ) THEN
@@ -468,23 +468,23 @@
   220    CONTINUE
       END IF
 *
-*     Right eigenvectors
+      // Right eigenvectors
 *
       IF( COMPR ) THEN
          IEIG = IM + 1
 *
-*        Main loop over eigenvalues
+         // Main loop over eigenvalues
 *
          ILCPLX = .FALSE.
          DO 500 JE = N, 1, -1
 *
-*           Skip this iteration if (a) HOWMNY='S' and SELECT=.FALSE., or
-*           (b) this would be the second of a complex pair.
-*           Check for complex eigenvalue, so as to be sure of which
-*           entry(-ies) of SELECT to look at -- if complex, SELECT(JE)
-*           or SELECT(JE-1).
-*           If this is a complex pair, the 2-by-2 diagonal block
-*           corresponding to the eigenvalue is in rows/columns JE-1:JE
+            // Skip this iteration if (a) HOWMNY='S' and SELECT=.FALSE., or
+            // (b) this would be the second of a complex pair.
+            // Check for complex eigenvalue, so as to be sure of which
+            // entry(-ies) of SELECT to look at -- if complex, SELECT(JE)
+            // or SELECT(JE-1).
+            // If this is a complex pair, the 2-by-2 diagonal block
+            // corresponding to the eigenvalue is in rows/columns JE-1:JE
 *
             IF( ILCPLX ) THEN
                ILCPLX = .FALSE.
@@ -506,13 +506,13 @@
             END IF
             IF( .NOT.ILCOMP ) GO TO 500
 *
-*           Decide if (a) singular pencil, (b) real eigenvalue, or
-*           (c) complex eigenvalue.
+            // Decide if (a) singular pencil, (b) real eigenvalue, or
+            // (c) complex eigenvalue.
 *
             IF( .NOT.ILCPLX ) THEN
                IF( ABS( S( JE, JE ) ).LE.SAFMIN .AND. ABS( P( JE, JE ) ).LE.SAFMIN ) THEN
 *
-*                 Singular matrix pencil -- unit eigenvector
+                  // Singular matrix pencil -- unit eigenvector
 *
                   IEIG = IEIG - 1
                   DO 230 JR = 1, N
@@ -523,7 +523,7 @@
                END IF
             END IF
 *
-*           Clear vector
+            // Clear vector
 *
             DO 250 JW = 0, NW - 1
                DO 240 JR = 1, N
@@ -531,13 +531,13 @@
   240          CONTINUE
   250       CONTINUE
 *
-*           Compute coefficients in  ( a A - b B ) x = 0
-*              a  is  ACOEF
-*              b  is  BCOEFR + i*BCOEFI
+            // Compute coefficients in  ( a A - b B ) x = 0
+               // a  is  ACOEF
+               // b  is  BCOEFR + i*BCOEFI
 *
             IF( .NOT.ILCPLX ) THEN
 *
-*              Real eigenvalue
+               // Real eigenvalue
 *
                TEMP = ONE / MAX( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN )
                SALFAR = ( TEMP*S( JE, JE ) )*ASCALE
@@ -546,7 +546,7 @@
                BCOEFR = SALFAR*BSCALE
                BCOEFI = ZERO
 *
-*              Scale to avoid underflow
+               // Scale to avoid underflow
 *
                SCALE = ONE
                LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEF ).LT.SMALL
@@ -567,20 +567,20 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR )
 *
-*              First component is 1
+               // First component is 1
 *
                WORK( 2*N+JE ) = ONE
                XMAX = ONE
 *
-*              Compute contribution from column JE of A and B to sum
-*              (See "Further Details", above.)
+               // Compute contribution from column JE of A and B to sum
+               // (See "Further Details", above.)
 *
                DO 260 JR = 1, JE - 1
                   WORK( 2*N+JR ) = BCOEFR*P( JR, JE ) - ACOEF*S( JR, JE )
   260          CONTINUE
             ELSE
 *
-*              Complex eigenvalue
+               // Complex eigenvalue
 *
                CALL SLAG2( S( JE-1, JE-1 ), LDS, P( JE-1, JE-1 ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI )
                IF( BCOEFI.EQ.ZERO ) THEN
@@ -588,7 +588,7 @@
                   RETURN
                END IF
 *
-*              Scale to avoid over/underflow
+               // Scale to avoid over/underflow
 *
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
@@ -602,8 +602,8 @@
                   BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                END IF
 *
-*              Compute first two components of eigenvector
-*              and contribution to sums
+               // Compute first two components of eigenvector
+               // and contribution to sums
 *
                TEMP = ACOEF*S( JE, JE-1 )
                TEMP2R = ACOEF*S( JE, JE ) - BCOEFR*P( JE, JE )
@@ -623,8 +623,8 @@
 *
                XMAX = MAX( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE-1 ) )+ABS( WORK( 3*N+JE-1 ) ) )
 *
-*              Compute contribution from columns JE and JE-1
-*              of A and B to the sums.
+               // Compute contribution from columns JE and JE-1
+               // of A and B to the sums.
 *
                CREALA = ACOEF*WORK( 2*N+JE-1 )
                CIMAGA = ACOEF*WORK( 3*N+JE-1 )
@@ -640,13 +640,13 @@
 *
             DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
 *
-*           Columnwise triangular solve of  (a A - b B)  x = 0
+            // Columnwise triangular solve of  (a A - b B)  x = 0
 *
             IL2BY2 = .FALSE.
             DO 370 J = JE - NW, 1, -1
 *
-*              If a 2-by-2 block, is in position j-1:j, wait until
-*              next iteration to process it (when it will be j:j+1)
+               // If a 2-by-2 block, is in position j-1:j, wait until
+               // next iteration to process it (when it will be j:j+1)
 *
                IF( .NOT.IL2BY2 .AND. J.GT.1 ) THEN
                   IF( S( J, J-1 ).NE.ZERO ) THEN
@@ -662,7 +662,7 @@
                   NA = 1
                END IF
 *
-*              Compute x(j) (and x(j+1), if 2-by-2 block)
+               // Compute x(j) (and x(j+1), if 2-by-2 block)
 *
                CALL SLALN2( .FALSE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ), N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO )
                IF( SCALE.LT.ONE ) THEN
@@ -681,11 +681,11 @@
   300             CONTINUE
   310          CONTINUE
 *
-*              w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
+               // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
 *
                IF( J.GT.1 ) THEN
 *
-*                 Check whether scaling is necessary for sum.
+                  // Check whether scaling is necessary for sum.
 *
                   XSCALE = ONE / MAX( ONE, XMAX )
                   TEMP = ACOEFA*WORK( J ) + BCOEFA*WORK( N+J )
@@ -701,9 +701,9 @@
                      XMAX = XMAX*XSCALE
                   END IF
 *
-*                 Compute the contributions of the off-diagonals of
-*                 column j (and j+1, if 2-by-2 block) of A and B to the
-*                 sums.
+                  // Compute the contributions of the off-diagonals of
+                  // column j (and j+1, if 2-by-2 block) of A and B to the
+                  // sums.
 *
 *
                   DO 360 JA = 1, NA
@@ -727,8 +727,8 @@
                IL2BY2 = .FALSE.
   370       CONTINUE
 *
-*           Copy eigenvector to VR, back transforming if
-*           HOWMNY='B'.
+            // Copy eigenvector to VR, back transforming if
+            // HOWMNY='B'.
 *
             IEIG = IEIG - NW
             IF( ILBACK ) THEN
@@ -738,8 +738,8 @@
                      WORK( ( JW+4 )*N+JR ) = WORK( ( JW+2 )*N+1 )* VR( JR, 1 )
   380             CONTINUE
 *
-*                 A series of compiler directives to defeat
-*                 vectorization for the next loop
+                  // A series of compiler directives to defeat
+                  // vectorization for the next loop
 *
 *
                   DO 400 JC = 2, JE
@@ -766,7 +766,7 @@
                IEND = JE
             END IF
 *
-*           Scale eigenvector
+            // Scale eigenvector
 *
             XMAX = ZERO
             IF( ILCPLX ) THEN
@@ -792,6 +792,6 @@
 *
       RETURN
 *
-*     End of STGEVC
+      // End of STGEVC
 *
       END

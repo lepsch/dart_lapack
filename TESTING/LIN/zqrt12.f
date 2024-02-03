@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             RWORK( * ), S( * );
       COMPLEX*16         A( LDA, * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, ISCL, J, MN;
       double             ANRM, BIGNUM, NRMSVL, SMLNUM;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             DUMMY( 1 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DASUM, DLAMCH, DNRM2, ZLANGE;
       // EXTERNAL DASUM, DLAMCH, DNRM2, ZLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DBDSQR, DLASCL, XERBLA, ZGEBD2, ZLASCL, ZLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       ZQRT12 = ZERO
 *
-*     Test that enough workspace is supplied
+      // Test that enough workspace is supplied
 *
       IF( LWORK.LT.M*N+2*MIN( M, N )+MAX( M, N ) ) THEN
          CALL XERBLA( 'ZQRT12', 7 )
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       MN = MIN( M, N )
       IF( MN.LE.ZERO ) RETURN
 *
       NRMSVL = DNRM2( MN, S, 1 )
 *
-*     Copy upper triangle of A into work
+      // Copy upper triangle of A into work
 *
       CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M )
       DO J = 1, N
@@ -62,24 +62,24 @@
          END DO
       END DO
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' )
       BIGNUM = ONE / SMLNUM
 *
-*     Scale work if max entry outside range [SMLNUM,BIGNUM]
+      // Scale work if max entry outside range [SMLNUM,BIGNUM]
 *
       ANRM = ZLANGE( 'M', M, N, WORK, M, DUMMY )
       ISCL = 0
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO )
          ISCL = 1
       ELSE IF( ANRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM
+         // Scale matrix norm down to BIGNUM
 *
          CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO )
          ISCL = 1
@@ -87,7 +87,7 @@
 *
       IF( ANRM.NE.ZERO ) THEN
 *
-*        Compute SVD of work
+         // Compute SVD of work
 *
          CALL ZGEBD2( M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ), WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), INFO )          CALL DBDSQR( 'Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ), INFO )
 *
@@ -107,7 +107,7 @@
          END DO
       END IF
 *
-*     Compare s and singular values of work
+      // Compare s and singular values of work
 *
       CALL DAXPY( MN, -ONE, S, 1, RWORK( 1 ), 1 )
       ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
@@ -116,6 +116,6 @@
 *
       RETURN
 *
-*     End of ZQRT12
+      // End of ZQRT12
 *
       END

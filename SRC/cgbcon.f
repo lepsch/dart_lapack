@@ -4,55 +4,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             NORM;
       int                INFO, KL, KU, LDAB, N;
       REAL               ANORM, RCOND
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               RWORK( * )
       COMPLEX            AB( LDAB, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LNOTI, ONENRM;
       String             NORMIN;
       int                IX, J, JP, KASE, KASE1, KD, LM;
       REAL               AINVNM, SCALE, SMLNUM
       COMPLEX            T, ZDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH
       COMPLEX            CDOTC
       // EXTERNAL LSAME, ICAMAX, SLAMCH, CDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CLACN2, CLATBS, CSRSCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MIN, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       ONENRM = NORM.EQ.'1' .OR. LSAME( NORM, 'O' )
@@ -74,7 +74,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       RCOND = ZERO
       IF( N.EQ.0 ) THEN
@@ -86,7 +86,7 @@
 *
       SMLNUM = SLAMCH( 'Safe minimum' )
 *
-*     Estimate the norm of inv(A).
+      // Estimate the norm of inv(A).
 *
       AINVNM = ZERO
       NORMIN = 'N'
@@ -103,7 +103,7 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.KASE1 ) THEN
 *
-*           Multiply by inv(L).
+            // Multiply by inv(L).
 *
             IF( LNOTI ) THEN
                DO 20 J = 1, N - 1
@@ -118,16 +118,16 @@
    20          CONTINUE
             END IF
 *
-*           Multiply by inv(U).
+            // Multiply by inv(U).
 *
             CALL CLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, RWORK, INFO )
          ELSE
 *
-*           Multiply by inv(U**H).
+            // Multiply by inv(U**H).
 *
             CALL CLATBS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, RWORK, INFO )
 *
-*           Multiply by inv(L**H).
+            // Multiply by inv(L**H).
 *
             IF( LNOTI ) THEN
                DO 30 J = N - 1, 1, -1
@@ -143,7 +143,7 @@
             END IF
          END IF
 *
-*        Divide X by 1/SCALE if doing so will not cause overflow.
+         // Divide X by 1/SCALE if doing so will not cause overflow.
 *
          NORMIN = 'Y'
          IF( SCALE.NE.ONE ) THEN
@@ -154,13 +154,13 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    40 CONTINUE
       RETURN
 *
-*     End of CGBCON
+      // End of CGBCON
 *
       END

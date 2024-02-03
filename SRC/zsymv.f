@@ -4,40 +4,40 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INCX, INCY, LDA, N;
       COMPLEX*16         ALPHA, BETA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), X( * ), Y( * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
       COMPLEX*16         ZERO
       PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, IX, IY, J, JX, JY, KX, KY;
       COMPLEX*16         TEMP1, TEMP2
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
@@ -56,11 +56,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( ( N.EQ.0 ) .OR. ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ONE ) ) ) RETURN
 *
-*     Set up the start points in  X  and  Y.
+      // Set up the start points in  X  and  Y.
 *
       IF( INCX.GT.0 ) THEN
          KX = 1
@@ -73,11 +73,11 @@
          KY = 1 - ( N-1 )*INCY
       END IF
 *
-*     Start the operations. In this version the elements of A are
-*     accessed sequentially with one pass through the triangular part
-*     of A.
+      // Start the operations. In this version the elements of A are
+      // accessed sequentially with one pass through the triangular part
+      // of A.
 *
-*     First form  y := beta*y.
+      // First form  y := beta*y.
 *
       IF( BETA.NE.ONE ) THEN
          IF( INCY.EQ.1 ) THEN
@@ -108,7 +108,7 @@
       IF( ALPHA.EQ.ZERO ) RETURN
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Form  y  when A is stored in upper triangle.
+         // Form  y  when A is stored in upper triangle.
 *
          IF( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) THEN
             DO 60 J = 1, N
@@ -141,7 +141,7 @@
          END IF
       ELSE
 *
-*        Form  y  when A is stored in lower triangle.
+         // Form  y  when A is stored in lower triangle.
 *
          IF( ( INCX.EQ.1 ) .AND. ( INCY.EQ.1 ) ) THEN
             DO 100 J = 1, N
@@ -178,6 +178,6 @@
 *
       RETURN
 *
-*     End of ZSYMV
+      // End of ZSYMV
 *
       END

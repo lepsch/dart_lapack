@@ -4,49 +4,49 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       REAL               ANORM, EPS, TR
       COMPLEX            TC
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANHE, SLAMCH
       COMPLEX            CDOTC
       // EXTERNAL LSAME, CLANHE, SLAMCH, CDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHER, CSCAL, CTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK )
@@ -55,8 +55,8 @@
          RETURN
       END IF
 *
-*     Check the imaginary parts of the diagonal elements and return with
-*     an error code if any are nonzero.
+      // Check the imaginary parts of the diagonal elements and return with
+      // an error code if any are nonzero.
 *
       DO 10 J = 1, N
          IF( AIMAG( AFAC( J, J ) ).NE.ZERO ) THEN
@@ -65,33 +65,33 @@
          END IF
    10 CONTINUE
 *
-*     Compute the product U**H * U, overwriting U.
+      // Compute the product U**H * U, overwriting U.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 20 K = N, 1, -1
 *
-*           Compute the (K,K) element of the result.
+            // Compute the (K,K) element of the result.
 *
             TR = REAL( CDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) )
             AFAC( K, K ) = TR
 *
-*           Compute the rest of column K.
+            // Compute the rest of column K.
 *
             CALL CTRMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
 *
    20    CONTINUE
 *
-*     Compute the product L * L**H, overwriting L.
+      // Compute the product L * L**H, overwriting L.
 *
       ELSE
          DO 30 K = N, 1, -1
 *
-*           Add a multiple of column K of the factor L to each of
-*           columns K+1 through N.
+            // Add a multiple of column K of the factor L to each of
+            // columns K+1 through N.
 *
             IF( K+1.LE.N ) CALL CHER( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC )
 *
-*           Scale column K by the diagonal element.
+            // Scale column K by the diagonal element.
 *
             TC = AFAC( K, K )
             CALL CSCAL( N-K+1, TC, AFAC( K, K ), 1 )
@@ -99,7 +99,7 @@
    30    CONTINUE
       END IF
 *
-*     Compute the difference L * L**H - A (or U**H * U - A).
+      // Compute the difference L * L**H - A (or U**H * U - A).
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 50 J = 1, N
@@ -117,7 +117,7 @@
    70    CONTINUE
       END IF
 *
-*     Compute norm(L*U - A) / ( N * norm(A) * EPS )
+      // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 *
       RESID = CLANHE( '1', UPLO, N, AFAC, LDAFAC, RWORK )
 *
@@ -125,6 +125,6 @@
 *
       RETURN
 *
-*     End of CPOT01
+      // End of CPOT01
 *
       END

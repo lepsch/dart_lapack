@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                LDB, LDX, N, NRHS;
       REAL               RESID, SCALE, TSCAL
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               CNORM( * )
       COMPLEX            AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, ZERO
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                IX, J, JJ;
       REAL               EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
       REAL               SLAMCH
       // EXTERNAL LSAME, ICAMAX, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CSSCAL, CTPMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, MAX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 .OR. NRHS.LE.0 ) THEN
          RESID = ZERO
@@ -47,8 +47,8 @@
       EPS = SLAMCH( 'Epsilon' )
       SMLNUM = SLAMCH( 'Safe minimum' )
 *
-*     Compute the norm of the triangular matrix A using the column
-*     norms already computed by CLATPS.
+      // Compute the norm of the triangular matrix A using the column
+      // norms already computed by CLATPS.
 *
       TNORM = 0.
       IF( LSAME( DIAG, 'N' ) ) THEN
@@ -71,8 +71,8 @@
    30    CONTINUE
       END IF
 *
-*     Compute the maximum over the number of right hand sides of
-*        norm(op(A)*x - s*b) / ( norm(A) * norm(x) * EPS ).
+      // Compute the maximum over the number of right hand sides of
+         // norm(op(A)*x - s*b) / ( norm(A) * norm(x) * EPS ).
 *
       RESID = ZERO
       DO 40 J = 1, NRHS
@@ -102,6 +102,6 @@
 *
       RETURN
 *
-*     End of CTPT03
+      // End of CTPT03
 *
       END

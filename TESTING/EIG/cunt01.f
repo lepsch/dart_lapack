@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            U( LDU, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
       REAL               EPS
       COMPLEX            TMP, ZDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANSY, SLAMCH
       COMPLEX            CDOTC
       // EXTERNAL LSAME, CLANSY, SLAMCH, CDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHERK, CLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CMPLX, MAX, MIN, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESID = ZERO
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
@@ -69,17 +69,17 @@
       END IF
       IF( LDWORK.GT.0 ) THEN
 *
-*        Compute I - U*U' or I - U'*U.
+         // Compute I - U*U' or I - U'*U.
 *
          CALL CLASET( 'Upper', MNMIN, MNMIN, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDWORK )          CALL CHERK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
 *
-*        Compute norm( I - U*U' ) / ( K * EPS ) .
+         // Compute norm( I - U*U' ) / ( K * EPS ) .
 *
          RESID = CLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, RWORK )
          RESID = ( RESID / REAL( K ) ) / EPS
       ELSE IF( TRANSU.EQ.'C' ) THEN
 *
-*        Find the maximum element in abs( I - U'*U ) / ( m * EPS )
+         // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 *
          DO 20 J = 1, N
             DO 10 I = 1, J
@@ -95,7 +95,7 @@
          RESID = ( RESID / REAL( M ) ) / EPS
       ELSE
 *
-*        Find the maximum element in abs( I - U*U' ) / ( n * EPS )
+         // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
 *
          DO 40 J = 1, M
             DO 30 I = 1, J
@@ -112,6 +112,6 @@
       END IF
       RETURN
 *
-*     End of CUNT01
+      // End of CUNT01
 *
       END

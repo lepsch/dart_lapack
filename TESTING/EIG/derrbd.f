@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX, LW;
       PARAMETER          ( NMAX = 4, LW = NMAX )
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                I, INFO, J, NS, NT;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IQ( NMAX, NMAX ), IW( NMAX );
       double             A( NMAX, NMAX ), D( NMAX ), E( NMAX ), Q( NMAX, NMAX ), S( NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, DBDSDC, DBDSQR, DBDSVDX, DGEBD2, DGEBRD, DORGBR, DORMBR
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -60,11 +60,11 @@
       OK = .TRUE.
       NT = 0
 *
-*     Test error exits of the SVD routines.
+      // Test error exits of the SVD routines.
 *
       IF( LSAMEN( 2, C2, 'BD' ) ) THEN
 *
-*        DGEBRD
+         // DGEBRD
 *
          SRNAMT = 'DGEBRD'
          INFOT = 1
@@ -81,7 +81,7 @@
          CALL CHKXER( 'DGEBRD', INFOT, NOUT, LERR, OK )
          NT = NT + 4
 *
-*        DGEBD2
+         // DGEBD2
 *
          SRNAMT = 'DGEBD2'
          INFOT = 1
@@ -95,7 +95,7 @@
          CALL CHKXER( 'DGEBD2', INFOT, NOUT, LERR, OK )
          NT = NT + 3
 *
-*        DORGBR
+         // DORGBR
 *
          SRNAMT = 'DORGBR'
          INFOT = 1
@@ -130,7 +130,7 @@
          CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
-*        DORMBR
+         // DORMBR
 *
          SRNAMT = 'DORMBR'
          INFOT = 1
@@ -174,7 +174,7 @@
          CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
-*        DBDSQR
+         // DBDSQR
 *
          SRNAMT = 'DBDSQR'
          INFOT = 1
@@ -203,7 +203,7 @@
          CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
-*        DBDSDC
+         // DBDSDC
 *
          SRNAMT = 'DBDSDC'
          INFOT = 1
@@ -223,7 +223,7 @@
          CALL CHKXER( 'DBDSDC', INFOT, NOUT, LERR, OK )
          NT = NT + 5
 *
-*        DBDSVDX
+         // DBDSVDX
 *
          SRNAMT = 'DBDSVDX'
          INFOT = 1
@@ -265,7 +265,7 @@
          NT = NT + 12
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
@@ -280,6 +280,6 @@
 *
       RETURN
 *
-*     End of DERRBD
+      // End of DERRBD
 *
       END

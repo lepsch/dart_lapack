@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, M, N;
       COMPLEX*16         ALPHA, BETA
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*        Set the diagonal to BETA and the strictly upper triangular
-*        part of the array to ALPHA.
+         // Set the diagonal to BETA and the strictly upper triangular
+         // part of the array to ALPHA.
 *
          DO 20 J = 2, N
             DO 10 I = 1, MIN( J-1, M )
@@ -43,8 +43,8 @@
 *
       ELSE IF( LSAME( UPLO, 'L' ) ) THEN
 *
-*        Set the diagonal to BETA and the strictly lower triangular
-*        part of the array to ALPHA.
+         // Set the diagonal to BETA and the strictly lower triangular
+         // part of the array to ALPHA.
 *
          DO 50 J = 1, MIN( M, N )
             DO 40 I = J + 1, M
@@ -57,8 +57,8 @@
 *
       ELSE
 *
-*        Set the array to BETA on the diagonal and ALPHA on the
-*        offdiagonal.
+         // Set the array to BETA on the diagonal and ALPHA on the
+         // offdiagonal.
 *
          DO 80 J = 1, N
             DO 70 I = 1, M
@@ -72,6 +72,6 @@
 *
       RETURN
 *
-*     End of ZLASET
+      // End of ZLASET
 *
       END

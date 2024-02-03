@@ -4,42 +4,42 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N;
       double             RESID;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             U( LDU, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
       double             EPS, TMP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       double             DDOT, DLAMCH, DLANSY;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLASET, DSYRK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESID = ZERO
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
@@ -60,18 +60,18 @@
       END IF
       IF( LDWORK.GT.0 ) THEN
 *
-*        Compute I - U*U' or I - U'*U.
+         // Compute I - U*U' or I - U'*U.
 *
          CALL DLASET( 'Upper', MNMIN, MNMIN, ZERO, ONE, WORK, LDWORK )
          CALL DSYRK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
 *
-*        Compute norm( I - U*U' ) / ( K * EPS ) .
+         // Compute norm( I - U*U' ) / ( K * EPS ) .
 *
          RESID = DLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, WORK( LDWORK*MNMIN+1 ) )
          RESID = ( RESID / DBLE( K ) ) / EPS
       ELSE IF( TRANSU.EQ.'T' ) THEN
 *
-*        Find the maximum element in abs( I - U'*U ) / ( m * EPS )
+         // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 *
          DO 20 J = 1, N
             DO 10 I = 1, J
@@ -87,7 +87,7 @@
          RESID = ( RESID / DBLE( M ) ) / EPS
       ELSE
 *
-*        Find the maximum element in abs( I - U*U' ) / ( n * EPS )
+         // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
 *
          DO 40 J = 1, M
             DO 30 I = 1, J
@@ -104,6 +104,6 @@
       END IF
       RETURN
 *
-*     End of DORT01
+      // End of DORT01
 *
       END

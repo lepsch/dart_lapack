@@ -4,54 +4,54 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBVL, JOBVR;
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWRK, ITAU, IWRK, JC, JR, LWKMIN, LWKOPT;
       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
       COMPLEX            X
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               LDUMMA( 1 );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               ABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode the input arguments
+      // Decode the input arguments
 *
       IF( LSAME( JOBVL, 'N' ) ) THEN
          IJOBVL = 1
@@ -76,7 +76,7 @@
       END IF
       ILV = ILVL .OR. ILVR
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -96,13 +96,13 @@
          INFO = -13
       END IF
 *
-*     Compute workspace
-*      (Note: Comments in the code beginning "Workspace:" describe the
-*       minimal amount of workspace needed at that point in the code,
-*       as well as the preferred amount for good performance.
-*       NB refers to the optimal block size for the immediately
-*       following subroutine, as returned by ILAENV. The workspace is
-*       computed assuming ILO = 1 and IHI = N, the worst case.)
+      // Compute workspace
+       // (Note: Comments in the code beginning "Workspace:" describe the
+        // minimal amount of workspace needed at that point in the code,
+        // as well as the preferred amount for good performance.
+        // NB refers to the optimal block size for the immediately
+        // following subroutine, as returned by ILAENV. The workspace is
+        // computed assuming ILO = 1 and IHI = N, the worst case.)
 *
       IF( INFO.EQ.0 ) THEN
          LWKMIN = MAX( 1, 2*N )
@@ -123,11 +123,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Get machine constants
+      // Get machine constants
 *
       EPS = SLAMCH( 'E' )*SLAMCH( 'B' )
       SMLNUM = SLAMCH( 'S' )
@@ -135,7 +135,7 @@
       SMLNUM = SQRT( SMLNUM ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     Scale A if max element outside range [SMLNUM,BIGNUM]
+      // Scale A if max element outside range [SMLNUM,BIGNUM]
 *
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = .FALSE.
@@ -148,7 +148,7 @@
       END IF
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
-*     Scale B if max element outside range [SMLNUM,BIGNUM]
+      // Scale B if max element outside range [SMLNUM,BIGNUM]
 *
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = .FALSE.
@@ -161,16 +161,16 @@
       END IF
       IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
-*     Permute the matrices A, B to isolate eigenvalues if possible
-*     (Real Workspace: need 6*N)
+      // Permute the matrices A, B to isolate eigenvalues if possible
+      // (Real Workspace: need 6*N)
 *
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
       CALL CGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
 *
-*     Reduce B to triangular form (QR decomposition of B)
-*     (Complex Workspace: need N, prefer N*NB)
+      // Reduce B to triangular form (QR decomposition of B)
+      // (Complex Workspace: need N, prefer N*NB)
 *
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
@@ -182,13 +182,13 @@
       IWRK = ITAU + IROWS
       CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Apply the orthogonal transformation to matrix A
-*     (Complex Workspace: need N, prefer N*NB)
+      // Apply the orthogonal transformation to matrix A
+      // (Complex Workspace: need N, prefer N*NB)
 *
       CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
-*     Initialize VL
-*     (Complex Workspace: need N, prefer N*NB)
+      // Initialize VL
+      // (Complex Workspace: need N, prefer N*NB)
 *
       IF( ILVL ) THEN
          CALL CLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
@@ -198,25 +198,25 @@
          CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-*     Initialize VR
+      // Initialize VR
 *
       IF( ILVR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
 *
-*     Reduce to generalized Hessenberg form
+      // Reduce to generalized Hessenberg form
 *
       IF( ILV ) THEN
 *
-*        Eigenvectors requested -- work on whole matrix.
+         // Eigenvectors requested -- work on whole matrix.
 *
          CALL CGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
       ELSE
          CALL CGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
       END IF
 *
-*     Perform QZ algorithm (Compute eigenvalues, and optionally, the
-*     Schur form and Schur vectors)
-*     (Complex Workspace: need N)
-*     (Real Workspace: need N)
+      // Perform QZ algorithm (Compute eigenvalues, and optionally, the
+      // Schur form and Schur vectors)
+      // (Complex Workspace: need N)
+      // (Real Workspace: need N)
 *
       IWRK = ITAU
       IF( ILV ) THEN
@@ -236,9 +236,9 @@
          GO TO 70
       END IF
 *
-*     Compute Eigenvectors
-*     (Real Workspace: need 2*N)
-*     (Complex Workspace: need 2*N)
+      // Compute Eigenvectors
+      // (Real Workspace: need 2*N)
+      // (Complex Workspace: need 2*N)
 *
       IF( ILV ) THEN
          IF( ILVL ) THEN
@@ -257,8 +257,8 @@
             GO TO 70
          END IF
 *
-*        Undo balancing on VL and VR and normalization
-*        (Workspace: none needed)
+         // Undo balancing on VL and VR and normalization
+         // (Workspace: none needed)
 *
          IF( ILVL ) THEN
             CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IERR )
@@ -290,7 +290,7 @@
          END IF
       END IF
 *
-*     Undo scaling if necessary
+      // Undo scaling if necessary
 *
    70 CONTINUE
 *
@@ -301,6 +301,6 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN
 *
-*     End of CGGEV
+      // End of CGGEV
 *
       END

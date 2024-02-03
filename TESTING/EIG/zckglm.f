@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, NIN, NMATS, NMAX, NN, NOUT;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * );
       double             RWORK( * );
       COMPLEX*16         A( * ), AF( * ), B( * ), BF( * ), WORK( * ), X( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NTYPES;
       PARAMETER          ( NTYPES = 8 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FIRSTT;
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                I, IINFO, IK, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, P;
       double             ANORM, BNORM, CNDNMA, CNDNMB, RESID;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               DOTYPE( NTYPES );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       COMPLEX*16         ZLARND
       // EXTERNAL ZLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAHDG, ALAREQ, ALASUM, DLATB9, ZGLMTS, ZLATMS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants.
+      // Initialize constants.
 *
       PATH( 1: 3 ) = 'GLM'
       INFO = 0
@@ -54,7 +54,7 @@
       LDB = NMAX
       LWORK = NMAX*NMAX
 *
-*     Check for valid input values.
+      // Check for valid input values.
 *
       DO 10 IK = 1, NN
          M = MVAL( IK )
@@ -70,7 +70,7 @@
    10 CONTINUE
       FIRSTT = .TRUE.
 *
-*     Do for each value of M in MVAL.
+      // Do for each value of M in MVAL.
 *
       DO 40 IK = 1, NN
          M = MVAL( IK )
@@ -80,12 +80,12 @@
 *
          DO 30 IMAT = 1, NTYPES
 *
-*           Do the tests only if DOTYPE( IMAT ) is true.
+            // Do the tests only if DOTYPE( IMAT ) is true.
 *
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 30
 *
-*           Set up parameters with DLATB9 and generate test
-*           matrices A and B with ZLATMS.
+            // Set up parameters with DLATB9 and generate test
+            // matrices A and B with ZLATMS.
 *
             CALL DLATB9( PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
@@ -103,7 +103,7 @@
                GO TO 30
             END IF
 *
-*           Generate random left hand side vector of GLM
+            // Generate random left hand side vector of GLM
 *
             DO 20 I = 1, N
                X( I ) = ZLARND( 2, ISEED )
@@ -111,8 +111,8 @@
 *
             CALL ZGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, X, X( NMAX+1 ), X( 2*NMAX+1 ), X( 3*NMAX+1 ), WORK, LWORK, RWORK, RESID )
 *
-*           Print information about the tests that did not
-*           pass the threshold.
+            // Print information about the tests that did not
+            // pass the threshold.
 *
             IF( RESID.GE.THRESH ) THEN
                IF( NFAIL.EQ.0 .AND. FIRSTT ) THEN
@@ -127,7 +127,7 @@
    30    CONTINUE
    40 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
 *
@@ -139,6 +139,6 @@
      $      '(this set of values will be skipped)' )
       RETURN
 *
-*     End of ZCKGLM
+      // End of ZCKGLM
 *
       END

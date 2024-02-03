@@ -4,39 +4,39 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDB;
       REAL               CSL, CSR, SNL, SNR
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), ALPHAI( 2 ), ALPHAR( 2 ), B( LDB, * ), BETA( 2 )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLAG2, SLARTG, SLASV2, SROT
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLAPY2
       // EXTERNAL SLAMCH, SLAPY2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       SAFMIN = SLAMCH( 'S' )
       ULP = SLAMCH( 'P' )
 *
-*     Scale A
+      // Scale A
 *
       ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )
       ASCALE = ONE / ANORM
@@ -45,7 +45,7 @@
       A( 2, 1 ) = ASCALE*A( 2, 1 )
       A( 2, 2 ) = ASCALE*A( 2, 2 )
 *
-*     Scale B
+      // Scale B
 *
       BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN )
       BSCALE = ONE / BNORM
@@ -53,7 +53,7 @@
       B( 1, 2 ) = BSCALE*B( 1, 2 )
       B( 2, 2 ) = BSCALE*B( 2, 2 )
 *
-*     Check if A can be deflated
+      // Check if A can be deflated
 *
       IF( ABS( A( 2, 1 ) ).LE.ULP ) THEN
          CSL = ONE
@@ -64,7 +64,7 @@
          B( 2, 1 ) = ZERO
          WI = ZERO
 *
-*     Check if B is singular
+      // Check if B is singular
 *
       ELSE IF( ABS( B( 1, 1 ) ).LE.ULP ) THEN
          CALL SLARTG( A( 1, 1 ), A( 2, 1 ), CSL, SNL, R )
@@ -91,13 +91,13 @@
 *
       ELSE
 *
-*        B is nonsingular, first compute the eigenvalues of (A,B)
+         // B is nonsingular, first compute the eigenvalues of (A,B)
 *
          CALL SLAG2( A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, WI )
 *
          IF( WI.EQ.ZERO ) THEN
 *
-*           two real eigenvalues, compute s*A-w*B
+           t // wo real eigenvalues, compute s*A-w*B
 *
             H1 = SCALE1*A( 1, 1 ) - WR1*B( 1, 1 )
             H2 = SCALE1*A( 1, 2 ) - WR1*B( 1, 2 )
@@ -108,15 +108,15 @@
 *
             IF( RR.GT.QQ ) THEN
 *
-*              find right rotation matrix to zero 1,1 element of
-*              (sA - wB)
+               // find right rotation matrix to zero 1,1 element of
+               // (sA - wB)
 *
                CALL SLARTG( H2, H1, CSR, SNR, T )
 *
             ELSE
 *
-*              find right rotation matrix to zero 2,1 element of
-*              (sA - wB)
+               // find right rotation matrix to zero 2,1 element of
+               // (sA - wB)
 *
                CALL SLARTG( H3, SCALE1*A( 2, 1 ), CSR, SNR, T )
 *
@@ -126,19 +126,19 @@
             CALL SROT( 2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR )
             CALL SROT( 2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR )
 *
-*           compute inf norms of A and B
+            // compute inf norms of A and B
 *
             H1 = MAX( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
 *
             IF( ( SCALE1*H1 ).GE.ABS( WR1 )*H2 ) THEN
 *
-*              find left rotation matrix Q to zero out B(2,1)
+               // find left rotation matrix Q to zero out B(2,1)
 *
                CALL SLARTG( B( 1, 1 ), B( 2, 1 ), CSL, SNL, R )
 *
             ELSE
 *
-*              find left rotation matrix Q to zero out A(2,1)
+               // find left rotation matrix Q to zero out A(2,1)
 *
                CALL SLARTG( A( 1, 1 ), A( 2, 1 ), CSL, SNL, R )
 *
@@ -152,13 +152,13 @@
 *
          ELSE
 *
-*           a pair of complex conjugate eigenvalues
-*           first compute the SVD of the matrix B
+            // a pair of complex conjugate eigenvalues
+            // first compute the SVD of the matrix B
 *
             CALL SLASV2( B( 1, 1 ), B( 1, 2 ), B( 2, 2 ), R, T, SNR, CSR, SNL, CSL )
 *
-*           Form (A,B) := Q(A,B)Z**T where Q is left rotation matrix and
-*           Z is right rotation matrix computed from SLASV2
+            // Form (A,B) := Q(A,B)Z**T where Q is left rotation matrix and
+            // Z is right rotation matrix computed from SLASV2
 *
             CALL SROT( 2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL )
             CALL SROT( 2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL )
@@ -172,7 +172,7 @@
 *
       END IF
 *
-*     Unscaling
+      // Unscaling
 *
       A( 1, 1 ) = ANORM*A( 1, 1 )
       A( 2, 1 ) = ANORM*A( 2, 1 )
@@ -201,6 +201,6 @@
 *
       RETURN
 *
-*     End of SLAGV2
+      // End of SLAGV2
 *
       END

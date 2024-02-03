@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                ITYPE, KBAND, LDU, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * )
       COMPLEX            AP( * ), TAU( * ), U( LDU, * ), VP( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 10.0E+0 )
       REAL               HALF
       PARAMETER          ( HALF = 1.0E+0 / 2.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP;
       REAL               ANORM, ULP, UNFL, WNORM
       COMPLEX            TEMP, VSAVE
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANGE, CLANHP, SLAMCH
       COMPLEX            CDOTC
       // EXTERNAL LSAME, CLANGE, CLANHP, SLAMCH, CDOTC
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CGEMM, CHPMV, CHPR, CHPR2, CLACPY, CLASET, CUPMTR
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Constants
+      // Constants
 *
       RESULT( 1 ) = ZERO
       IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
@@ -62,16 +62,16 @@
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
 *
-*     Some Error Checks
+      // Some Error Checks
 *
       IF( ITYPE.LT.1 .OR. ITYPE.GT.3 ) THEN
          RESULT( 1 ) = TEN / ULP
          RETURN
       END IF
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Norm of A:
+      // Norm of A:
 *
       IF( ITYPE.EQ.3 ) THEN
          ANORM = ONE
@@ -79,11 +79,11 @@
          ANORM = MAX( CLANHP( '1', CUPLO, N, AP, RWORK ), UNFL )
       END IF
 *
-*     Compute error matrix:
+      // Compute error matrix:
 *
       IF( ITYPE.EQ.1 ) THEN
 *
-*        ITYPE=1: error = A - U S U**H
+         // ITYPE=1: error = A - U S U**H
 *
          CALL CLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
          CALL CCOPY( LAP, AP, 1, WORK, 1 )
@@ -101,7 +101,7 @@
 *
       ELSE IF( ITYPE.EQ.2 ) THEN
 *
-*        ITYPE=2: error = V S V**H - A
+         // ITYPE=2: error = V S V**H - A
 *
          CALL CLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
 *
@@ -155,7 +155,7 @@
 *
       ELSE IF( ITYPE.EQ.3 ) THEN
 *
-*        ITYPE=3: error = U V**H - I
+         // ITYPE=3: error = U V**H - I
 *
          IF( N.LT.2 ) RETURN
          CALL CLACPY( ' ', N, N, U, LDU, WORK, N )
@@ -182,9 +182,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U U**H - I
+      // Compute  U U**H - I
 *
       IF( ITYPE.EQ.1 ) THEN
          CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
@@ -198,6 +198,6 @@
 *
       RETURN
 *
-*     End of CHPT21
+      // End of CHPT21
 *
       END

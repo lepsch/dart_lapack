@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       bool               CAPPLY;
       int                N, LDA, LDAF, INFO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), AF( LDAF, * ), WORK( * )
       REAL               C( * ), RWORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                KASE;
       REAL               AINVNM, ANORM, TMP
       int                I, J;
       bool               UP, UPPER;
       COMPLEX            ZDUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISAVE( 3 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLACN2, CPOTRS, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, REAL, AIMAG
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL CABS1
-*     ..
-*     .. Statement Function Definitions ..
+      // ..
+      // .. Statement Function Definitions ..
       CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       CLA_PORCOND_C = 0.0E+0
 *
@@ -64,7 +64,7 @@
       UP = .FALSE.
       IF ( LSAME( UPLO, 'U' ) ) UP = .TRUE.
 *
-*     Compute norm of op(A)*op2(C).
+      // Compute norm of op(A)*op2(C).
 *
       ANORM = 0.0E+0
       IF ( UP ) THEN
@@ -111,7 +111,7 @@
          END DO
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) THEN
          CLA_PORCOND_C = 1.0E+0
@@ -120,7 +120,7 @@
          RETURN
       END IF
 *
-*     Estimate the norm of inv(op(A)).
+      // Estimate the norm of inv(op(A)).
 *
       AINVNM = 0.0E+0
 *
@@ -130,7 +130,7 @@
       IF( KASE.NE.0 ) THEN
          IF( KASE.EQ.2 ) THEN
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
@@ -142,7 +142,7 @@
                CALL CPOTRS( 'L', N, 1, AF, LDAF, WORK, N, INFO )
             ENDIF
 *
-*           Multiply by inv(C).
+            // Multiply by inv(C).
 *
             IF ( CAPPLY ) THEN
                DO I = 1, N
@@ -151,7 +151,7 @@
             END IF
          ELSE
 *
-*           Multiply by inv(C**H).
+            // Multiply by inv(C**H).
 *
             IF ( CAPPLY ) THEN
                DO I = 1, N
@@ -165,7 +165,7 @@
                CALL CPOTRS( 'L', N, 1, AF, LDAF, WORK, N, INFO )
             END IF
 *
-*           Multiply by R.
+            // Multiply by R.
 *
             DO I = 1, N
                WORK( I ) = WORK( I ) * RWORK( I )
@@ -174,12 +174,12 @@
          GO TO 10
       END IF
 *
-*     Compute the estimate of the reciprocal condition number.
+      // Compute the estimate of the reciprocal condition number.
 *
       IF( AINVNM .NE. 0.0E+0 ) CLA_PORCOND_C = 1.0E+0 / AINVNM
 *
       RETURN
 *
-*     End of CLA_PORCOND_C
+      // End of CLA_PORCOND_C
 *
       END

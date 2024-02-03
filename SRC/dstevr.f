@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N;
       double             ABSTOL, VL, VU;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TWO;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, LQUERY, VALEIG, WANTZ, TRYRAC;
       String             ORDER;
       int                I, IEEEOK, IMAX, INDIBL, INDIFL, INDISP, INDIWO, ISCALE, ITMP1, J, JJ, LIWMIN, LWMIN, NSPLIT;
       double             BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       double             DLAMCH, DLANST;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANST
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DSCAL, DSTEBZ, DSTEMR, DSTEIN, DSTERF, DSWAP, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       IEEEOK = ILAENV( 10, 'DSTEVR', 'N', 1, 2, 3, 4 )
 *
@@ -97,7 +97,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) RETURN
@@ -116,7 +116,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       EPS = DLAMCH( 'Precision' )
@@ -126,7 +126,7 @@
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 *
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       IF( VALEIG ) THEN
@@ -151,26 +151,26 @@
          END IF
       END IF
 
-*     Initialize indices into workspaces.  Note: These indices are used only
-*     if DSTERF or DSTEMR fail.
+      // Initialize indices into workspaces.  Note: These indices are used only
+      // if DSTERF or DSTEMR fail.
 
-*     IWORK(INDIBL:INDIBL+M-1) corresponds to IBLOCK in DSTEBZ and
-*     stores the block indices of each of the M<=N eigenvalues.
+      // IWORK(INDIBL:INDIBL+M-1) corresponds to IBLOCK in DSTEBZ and
+      // stores the block indices of each of the M<=N eigenvalues.
       INDIBL = 1
-*     IWORK(INDISP:INDISP+NSPLIT-1) corresponds to ISPLIT in DSTEBZ and
-*     stores the starting and finishing indices of each block.
+      // IWORK(INDISP:INDISP+NSPLIT-1) corresponds to ISPLIT in DSTEBZ and
+      // stores the starting and finishing indices of each block.
       INDISP = INDIBL + N
-*     IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
-*     that corresponding to eigenvectors that fail to converge in
-*     DSTEIN.  This information is discarded; if any fail, the driver
-*     returns INFO > 0.
+      // IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
+     t // hat corresponding to eigenvectors that fail to converge in
+      // DSTEIN.  This information is discarded; if any fail, the driver
+      // returns INFO > 0.
       INDIFL = INDISP + N
-*     INDIWO is the offset of the remaining integer workspace.
+      // INDIWO is the offset of the remaining integer workspace.
       INDIWO = INDISP + N
 *
-*     If all eigenvalues are desired, then
-*     call DSTERF or DSTEMR.  If this fails for some eigenvalue, then
-*     try DSTEBZ.
+      // If all eigenvalues are desired, then
+      // call DSTERF or DSTEMR.  If this fails for some eigenvalue, then
+     t // ry DSTEBZ.
 *
 *
       TEST = .FALSE.
@@ -201,7 +201,7 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call DSTEBZ and, if eigenvectors are desired, DSTEIN.
+      // Otherwise, call DSTEBZ and, if eigenvectors are desired, DSTEIN.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -214,7 +214,7 @@
          CALL DSTEIN( N, D, E, M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK, IWORK( INDIWO ), IWORK( INDIFL ), INFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
    10 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -226,8 +226,8 @@
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 30 J = 1, M - 1
@@ -251,14 +251,14 @@
    30    CONTINUE
       END IF
 *
-*      Causes problems with tests 19 & 20:
-*      IF (wantz .and. INDEIG ) Z( 1,1) = Z(1,1) / 1.002 + .002
+       // Causes problems with tests 19 & 20:
+       // IF (wantz .and. INDEIG ) Z( 1,1) = Z(1,1) / 1.002 + .002
 *
 *
       WORK( 1 ) = LWMIN
       IWORK( 1 ) = LIWMIN
       RETURN
 *
-*     End of DSTEVR
+      // End of DSTEVR
 *
       END

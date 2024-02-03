@@ -4,50 +4,50 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, NIN;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
       REAL               RMAX( 3 )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
       REAL               EPSIN
       PARAMETER          ( EPSIN = 5.9605E-8 )
       int                LDT, LWORK;
       PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, ICMP, IFND, INFO, ISCL, J, KMIN, M, N;
       REAL               BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               SELECT( LDT );
       int                IWORK( 2*LDT ), LCMP( 3 );
       REAL               DUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), T( LDT, LDT ), TMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WIIN( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRIN( LDT ), WRTMP( LDT )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLANGE
       // EXTERNAL SLAMCH, SLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEHRD, SHSEQR, SLACPY, SSCAL, STREVC, STRSNA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-*     EPSIN = 2**(-24) = precision to which input data computed
+      // EPSIN = 2**(-24) = precision to which input data computed
 *
       EPS = MAX( EPS, EPSIN )
       RMAX( 1 ) = ZERO
@@ -65,9 +65,9 @@
       VAL( 2 ) = ONE
       VAL( 3 ) = SQRT( BIGNUM )
 *
-*     Read input data until N=0.  Assume input eigenvalues are sorted
-*     lexicographically (increasing by real part, then decreasing by
-*     imaginary part)
+      // Read input data until N=0.  Assume input eigenvalues are sorted
+      // lexicographically (increasing by real part, then decreasing by
+      // imaginary part)
 *
    10 CONTINUE
       READ( NIN, FMT = * )N
@@ -80,11 +80,11 @@
    30 CONTINUE
       TNRM = SLANGE( 'M', N, N, TMP, LDT, WORK )
 *
-*     Begin test
+      // Begin test
 *
       DO 240 ISCL = 1, 3
 *
-*        Scale input matrix
+         // Scale input matrix
 *
          KNT = KNT + 1
          CALL SLACPY( 'F', N, N, TMP, LDT, T, LDT )
@@ -94,7 +94,7 @@
    40    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
 *
-*        Compute eigenvalues and eigenvectors
+         // Compute eigenvalues and eigenvectors
 *
          CALL SGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
          IF( INFO.NE.0 ) THEN
@@ -108,7 +108,7 @@
    50       CONTINUE
    60    CONTINUE
 *
-*        Compute Schur form
+         // Compute Schur form
 *
          CALL SHSEQR( 'S', 'N', N, 1, N, T, LDT, WR, WI, DUM, 1, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
@@ -117,11 +117,11 @@
             GO TO 240
          END IF
 *
-*        Compute eigenvectors
+         // Compute eigenvectors
 *
          CALL STREVC( 'Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, INFO )
 *
-*        Compute condition numbers
+         // Compute condition numbers
 *
          CALL STRSNA( 'Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, IWORK, INFO )
          IF( INFO.NE.0 ) THEN
@@ -130,8 +130,8 @@
             GO TO 240
          END IF
 *
-*        Sort eigenvalues and condition numbers lexicographically
-*        to compare with inputs
+         // Sort eigenvalues and condition numbers lexicographically
+        t // o compare with inputs
 *
          CALL SCOPY( N, WR, 1, WRTMP, 1 )
          CALL SCOPY( N, WI, 1, WITMP, 1 )
@@ -161,8 +161,8 @@
             SEPTMP( I ) = VRMIN
    80    CONTINUE
 *
-*        Compare condition numbers for eigenvalues
-*        taking their condition numbers into account
+         // Compare condition numbers for eigenvalues
+        t // aking their condition numbers into account
 *
          V = MAX( TWO*REAL( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
@@ -196,8 +196,8 @@
             END IF
    90    CONTINUE
 *
-*        Compare condition numbers for eigenvectors
-*        taking their condition numbers into account
+         // Compare condition numbers for eigenvectors
+        t // aking their condition numbers into account
 *
          DO 100 I = 1, N
             IF( V.GT.SEPTMP( I )*STMP( I ) ) THEN
@@ -229,8 +229,8 @@
             END IF
   100    CONTINUE
 *
-*        Compare condition numbers for eigenvalues
-*        without taking their condition numbers into account
+         // Compare condition numbers for eigenvalues
+         // without taking their condition numbers into account
 *
          DO 110 I = 1, N
             IF( SIN( I ).LE.REAL( 2*N )*EPS .AND. STMP( I ).LE. REAL( 2*N )*EPS ) THEN
@@ -252,8 +252,8 @@
             END IF
   110    CONTINUE
 *
-*        Compare condition numbers for eigenvectors
-*        without taking their condition numbers into account
+         // Compare condition numbers for eigenvectors
+         // without taking their condition numbers into account
 *
          DO 120 I = 1, N
             IF( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) THEN
@@ -275,7 +275,7 @@
             END IF
   120    CONTINUE
 *
-*        Compute eigenvalue condition numbers only and compare
+         // Compute eigenvalue condition numbers only and compare
 *
          VMAX = ZERO
          DUM( 1 ) = -ONE
@@ -291,7 +291,7 @@
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   130    CONTINUE
 *
-*        Compute eigenvector condition numbers only and compare
+         // Compute eigenvector condition numbers only and compare
 *
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
@@ -305,7 +305,7 @@
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   140    CONTINUE
 *
-*        Compute all condition numbers using SELECT and compare
+         // Compute all condition numbers using SELECT and compare
 *
          DO 150 I = 1, N
             SELECT( I ) = .TRUE.
@@ -322,7 +322,7 @@
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
   160    CONTINUE
 *
-*        Compute eigenvalue condition numbers using SELECT and compare
+         // Compute eigenvalue condition numbers using SELECT and compare
 *
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
@@ -336,7 +336,7 @@
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   170    CONTINUE
 *
-*        Compute eigenvector condition numbers using SELECT and compare
+         // Compute eigenvector condition numbers using SELECT and compare
 *
          CALL SCOPY( N, DUM, 0, STMP, 1 )
          CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
@@ -354,7 +354,7 @@
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
 *
-*        Select first real and first complex eigenvalue
+         // Select first real and first complex eigenvalue
 *
          IF( WI( 1 ).EQ.ZERO ) THEN
             LCMP( 1 ) = 1
@@ -398,7 +398,7 @@
             END IF
          END IF
 *
-*        Compute all selected condition numbers
+         // Compute all selected condition numbers
 *
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
@@ -413,7 +413,7 @@
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
   210    CONTINUE
 *
-*        Compute selected eigenvalue condition numbers
+         // Compute selected eigenvalue condition numbers
 *
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
@@ -428,7 +428,7 @@
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   220    CONTINUE
 *
-*        Compute selected eigenvector condition numbers
+         // Compute selected eigenvector condition numbers
 *
          CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
@@ -449,6 +449,6 @@
   240 CONTINUE
       GO TO 10
 *
-*     End of SGET37
+      // End of SGET37
 *
       END

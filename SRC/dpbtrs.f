@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AB( LDAB, * ), B( LDB, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DTBSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -52,35 +52,35 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Solve A*X = B where A = U**T *U.
+         // Solve A*X = B where A = U**T *U.
 *
          DO 10 J = 1, NRHS
 *
-*           Solve U**T *X = B, overwriting B with X.
+            // Solve U**T *X = B, overwriting B with X.
 *
             CALL DTBSV( 'Upper', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
 *
-*           Solve U*X = B, overwriting B with X.
+            // Solve U*X = B, overwriting B with X.
 *
             CALL DTBSV( 'Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
    10    CONTINUE
       ELSE
 *
-*        Solve A*X = B where A = L*L**T.
+         // Solve A*X = B where A = L*L**T.
 *
          DO 20 J = 1, NRHS
 *
-*           Solve L*X = B, overwriting B with X.
+            // Solve L*X = B, overwriting B with X.
 *
             CALL DTBSV( 'Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
 *
-*           Solve L**T *X = B, overwriting B with X.
+            // Solve L**T *X = B, overwriting B with X.
 *
             CALL DTBSV( 'Lower', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
    20    CONTINUE
@@ -88,6 +88,6 @@
 *
       RETURN
 *
-*     End of DPBTRS
+      // End of DPBTRS
 *
       END

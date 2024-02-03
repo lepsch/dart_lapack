@@ -4,27 +4,27 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             F, G, H, SSMAX, SSMIN;
-*     ..
+      // ..
 *
 *  ====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
       double             ONE;
       PARAMETER          ( ONE = 1.0D0 )
       double             TWO;
       PARAMETER          ( TWO = 2.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       FA = ABS( F )
       GA = ABS( G )
@@ -50,9 +50,9 @@
             AU = FHMX / GA
             IF( AU.EQ.ZERO ) THEN
 *
-*              Avoid possible harmful underflow if exponent range
-*              asymmetric (true SSMIN may not underflow even if
-*              AU underflows)
+               // Avoid possible harmful underflow if exponent range
+               // asymmetric (true SSMIN may not underflow even if
+               // AU underflows)
 *
                SSMIN = ( FHMN*FHMX ) / GA
                SSMAX = GA
@@ -68,6 +68,6 @@
       END IF
       RETURN
 *
-*     End of DLAS2
+      // End of DLAS2
 *
       END

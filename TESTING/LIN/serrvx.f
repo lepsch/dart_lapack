@@ -4,53 +4,53 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 4 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J;
       REAL               RCOND
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IP( NMAX ), IW( NMAX );
       REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), E( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, SGBSV, SGBSVX, SGESV, SGESVX, SGTSV, SGTSVX, SPBSV, SPBSVX, SPOSV, SPOSVX, SPPSV, SPPSVX, SPTSV, SPTSVX, SSPSV, SSPSVX, SSYSV, SSYSV_AA, SSYSV_RK, SSYSV_ROOK, SSYSVX, SSYSV_AA_2STAGE
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
 *
-*     Set the variables to innocuous values.
+      // Set the variables to innocuous values.
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
@@ -72,7 +72,7 @@
 *
       IF( LSAMEN( 2, C2, 'GE' ) ) THEN
 *
-*        SGESV
+         // SGESV
 *
          SRNAMT = 'SGESV '
          INFOT = 1
@@ -88,7 +88,7 @@
          CALL SGESV( 2, 1, A, 2, IP, B, 1, INFO )
          CALL CHKXER( 'SGESV ', INFOT, NOUT, LERR, OK )
 *
-*        SGESVX
+         // SGESVX
 *
          SRNAMT = 'SGESVX'
          INFOT = 1
@@ -130,7 +130,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
-*        SGBSV
+         // SGBSV
 *
          SRNAMT = 'SGBSV '
          INFOT = 1
@@ -152,7 +152,7 @@
          CALL SGBSV( 2, 0, 0, 0, A, 1, IP, B, 1, INFO )
          CALL CHKXER( 'SGBSV ', INFOT, NOUT, LERR, OK )
 *
-*        SGBSVX
+         // SGBSVX
 *
          SRNAMT = 'SGBSVX'
          INFOT = 1
@@ -200,7 +200,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
 *
-*        SGTSV
+         // SGTSV
 *
          SRNAMT = 'SGTSV '
          INFOT = 1
@@ -213,7 +213,7 @@
          CALL SGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'SGTSV ', INFOT, NOUT, LERR, OK )
 *
-*        SGTSVX
+         // SGTSVX
 *
          SRNAMT = 'SGTSVX'
          INFOT = 1
@@ -237,7 +237,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
 *
-*        SPOSV
+         // SPOSV
 *
          SRNAMT = 'SPOSV '
          INFOT = 1
@@ -256,7 +256,7 @@
          CALL SPOSV( 'U', 2, 0, A, 2, B, 1, INFO )
          CALL CHKXER( 'SPOSV ', INFOT, NOUT, LERR, OK )
 *
-*        SPOSVX
+         // SPOSVX
 *
          SRNAMT = 'SPOSVX'
          INFOT = 1
@@ -294,7 +294,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
 *
-*        SPPSV
+         // SPPSV
 *
          SRNAMT = 'SPPSV '
          INFOT = 1
@@ -310,7 +310,7 @@
          CALL SPPSV( 'U', 2, 0, A, B, 1, INFO )
          CALL CHKXER( 'SPPSV ', INFOT, NOUT, LERR, OK )
 *
-*        SPPSVX
+         // SPPSVX
 *
          SRNAMT = 'SPPSVX'
          INFOT = 1
@@ -342,7 +342,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
 *
-*        SPBSV
+         // SPBSV
 *
          SRNAMT = 'SPBSV '
          INFOT = 1
@@ -364,7 +364,7 @@
          CALL SPBSV( 'U', 2, 0, 0, A, 1, B, 1, INFO )
          CALL CHKXER( 'SPBSV ', INFOT, NOUT, LERR, OK )
 *
-*        SPBSVX
+         // SPBSVX
 *
          SRNAMT = 'SPBSVX'
          INFOT = 1
@@ -405,7 +405,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
 *
-*        SPTSV
+         // SPTSV
 *
          SRNAMT = 'SPTSV '
          INFOT = 1
@@ -418,7 +418,7 @@
          CALL SPTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO )
          CALL CHKXER( 'SPTSV ', INFOT, NOUT, LERR, OK )
 *
-*        SPTSVX
+         // SPTSVX
 *
          SRNAMT = 'SPTSVX'
          INFOT = 1
@@ -439,7 +439,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
 *
-*        SSYSV
+         // SSYSV
 *
          SRNAMT = 'SSYSV '
          INFOT = 1
@@ -464,7 +464,7 @@
          CALL SSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'SSYSV ', INFOT, NOUT, LERR, OK )
 *
-*        SSYSVX
+         // SSYSVX
 *
          SRNAMT = 'SSYSVX'
          INFOT = 1
@@ -498,7 +498,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
 *
-*        SSYSV_ROOK
+         // SSYSV_ROOK
 *
          SRNAMT = 'SSYSV_ROOK'
          INFOT = 1
@@ -525,15 +525,15 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SK' ) ) THEN
 *
-*        SSYSV_RK
+         // SSYSV_RK
 *
-*        Test error exits of the driver that uses factorization
-*        of a symmetric indefinite matrix with rook
-*        (bounded Bunch-Kaufman) pivoting with the new storage
-*        format for factors L ( or U) and D.
+         // Test error exits of the driver that uses factorization
+         // of a symmetric indefinite matrix with rook
+         // (bounded Bunch-Kaufman) pivoting with the new storage
+         // format for factors L ( or U) and D.
 *
-*        L (or U) is stored in A, diagonal of D is stored on the
-*        diagonal of A, subdiagonal of D is stored in a separate array E.
+         // L (or U) is stored in A, diagonal of D is stored on the
+         // diagonal of A, subdiagonal of D is stored in a separate array E.
 *
          SRNAMT = 'SSYSV_RK'
          INFOT = 1
@@ -560,7 +560,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
 *
-*        SSYSV_AASEN
+         // SSYSV_AASEN
 *
          SRNAMT = 'SSYSV_AA'
          INFOT = 1
@@ -584,7 +584,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
 *
-*        SSYSV_AASEN_2STAGE
+         // SSYSV_AASEN_2STAGE
 *
          SRNAMT = 'SSYSV_AA_2STAGE'
          INFOT = 1
@@ -611,7 +611,7 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
-*        SSPSV
+         // SSPSV
 *
          SRNAMT = 'SSPSV '
          INFOT = 1
@@ -627,7 +627,7 @@
          CALL SSPSV( 'U', 2, 0, A, IP, B, 1, INFO )
          CALL CHKXER( 'SSPSV ', INFOT, NOUT, LERR, OK )
 *
-*        SSPSVX
+         // SSPSVX
 *
          SRNAMT = 'SSPSVX'
          INFOT = 1
@@ -650,7 +650,7 @@
          CALL CHKXER( 'SSPSVX', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH
@@ -664,6 +664,6 @@
 *
       RETURN
 *
-*     End of SERRVX
+      // End of SERRVX
 *
       END

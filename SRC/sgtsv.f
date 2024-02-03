@@ -4,30 +4,30 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDB, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               B( LDB, * ), D( * ), DL( * ), DU( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       REAL               FACT, TEMP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       IF( N.LT.0 ) THEN
@@ -48,7 +48,7 @@
          DO 10 I = 1, N - 2
             IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
 *
-*              No row interchange required
+               // No row interchange required
 *
                IF( D( I ).NE.ZERO ) THEN
                   FACT = DL( I ) / D( I )
@@ -61,7 +61,7 @@
                DL( I ) = ZERO
             ELSE
 *
-*              Interchange rows I and I+1
+               // Interchange rows I and I+1
 *
                FACT = D( I ) / DL( I )
                D( I ) = DL( I )
@@ -105,7 +105,7 @@
          DO 40 I = 1, N - 2
             IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
 *
-*              No row interchange required
+               // No row interchange required
 *
                IF( D( I ).NE.ZERO ) THEN
                   FACT = DL( I ) / D( I )
@@ -120,7 +120,7 @@
                DL( I ) = ZERO
             ELSE
 *
-*              Interchange rows I and I+1
+               // Interchange rows I and I+1
 *
                FACT = D( I ) / DL( I )
                D( I ) = DL( I )
@@ -168,7 +168,7 @@
          END IF
       END IF
 *
-*     Back solve with the matrix U from the factorization.
+      // Back solve with the matrix U from the factorization.
 *
       IF( NRHS.LE.2 ) THEN
          J = 1
@@ -194,6 +194,6 @@
 *
       RETURN
 *
-*     End of SGTSV
+      // End of SGTSV
 *
       END

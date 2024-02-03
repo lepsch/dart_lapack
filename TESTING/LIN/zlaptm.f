@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDB, LDX, N, NRHS;
       double             ALPHA, BETA;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             D( * );
       COMPLEX*16         B( LDB, * ), E( * ), X( LDX, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ONE, ZERO;
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCONJG
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.EQ.0 ) RETURN
 *
@@ -51,7 +51,7 @@
       IF( ALPHA.EQ.ONE ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*           Compute B := B + A*X, where E is the superdiagonal of A.
+            // Compute B := B + A*X, where E is the superdiagonal of A.
 *
             DO 60 J = 1, NRHS
                IF( N.EQ.1 ) THEN
@@ -65,7 +65,7 @@
    60       CONTINUE
          ELSE
 *
-*           Compute B := B + A*X, where E is the subdiagonal of A.
+            // Compute B := B + A*X, where E is the subdiagonal of A.
 *
             DO 80 J = 1, NRHS
                IF( N.EQ.1 ) THEN
@@ -81,7 +81,7 @@
       ELSE IF( ALPHA.EQ.-ONE ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
 *
-*           Compute B := B - A*X, where E is the superdiagonal of A.
+            // Compute B := B - A*X, where E is the superdiagonal of A.
 *
             DO 100 J = 1, NRHS
                IF( N.EQ.1 ) THEN
@@ -95,7 +95,7 @@
   100       CONTINUE
          ELSE
 *
-*           Compute B := B - A*X, where E is the subdiagonal of A.
+            // Compute B := B - A*X, where E is the subdiagonal of A.
 *
             DO 120 J = 1, NRHS
                IF( N.EQ.1 ) THEN
@@ -111,6 +111,6 @@
       END IF
       RETURN
 *
-*     End of ZLAPTM
+      // End of ZLAPTM
 *
       END

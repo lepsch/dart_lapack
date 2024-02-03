@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             PATH;
       int                NUNIT;
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NMAX;
       PARAMETER          ( NMAX = 2 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             C2;
       int                INFO;
       double             RCOND, SCALE, SCALES(0);
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IW( NMAX );
       double             A( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( NMAX ), X( NMAX );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAMEN;
       // EXTERNAL LSAMEN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, DLATBS, DLATPS, DLATRS, DLATRS3, DTBCON, DTBRFS, DTBTRS, DTPCON, DTPRFS, DTPTRI, DTPTRS, DTRCON, DTRRFS, DTRTI2, DTRTRI, DTRTRS
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
@@ -53,9 +53,9 @@
 *
       IF( LSAMEN( 2, C2, 'TR' ) ) THEN
 *
-*        Test error exits for the general triangular routines.
+         // Test error exits for the general triangular routines.
 *
-*        DTRTRI
+         // DTRTRI
 *
          SRNAMT = 'DTRTRI'
          INFOT = 1
@@ -71,7 +71,7 @@
          CALL DTRTRI( 'U', 'N', 2, A, 1, INFO )
          CALL CHKXER( 'DTRTRI', INFOT, NOUT, LERR, OK )
 *
-*        DTRTI2
+         // DTRTI2
 *
          SRNAMT = 'DTRTI2'
          INFOT = 1
@@ -87,7 +87,7 @@
          CALL DTRTI2( 'U', 'N', 2, A, 1, INFO )
          CALL CHKXER( 'DTRTI2', INFOT, NOUT, LERR, OK )
 *
-*        DTRTRS
+         // DTRTRS
 *
          SRNAMT = 'DTRTRS'
          INFOT = 1
@@ -112,7 +112,7 @@
          CALL DTRTRS( 'U', 'N', 'N', 2, 1, A, 2, X, 1, INFO )
          CALL CHKXER( 'DTRTRS', INFOT, NOUT, LERR, OK )
 *
-*        DTRRFS
+         // DTRRFS
 *
          SRNAMT = 'DTRRFS'
          INFOT = 1
@@ -140,7 +140,7 @@
          CALL DTRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DTRRFS', INFOT, NOUT, LERR, OK )
 *
-*        DTRCON
+         // DTRCON
 *
          SRNAMT = 'DTRCON'
          INFOT = 1
@@ -159,7 +159,7 @@
          CALL DTRCON( '1', 'U', 'N', 2, A, 1, RCOND, W, IW, INFO )
          CALL CHKXER( 'DTRCON', INFOT, NOUT, LERR, OK )
 *
-*        DLATRS
+         // DLATRS
 *
          SRNAMT = 'DLATRS'
          INFOT = 1
@@ -181,7 +181,7 @@
          CALL DLATRS( 'U', 'N', 'N', 'N', 2, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'DLATRS', INFOT, NOUT, LERR, OK )
 *
-*        DLATRS3
+         // DLATRS3
 *
          SRNAMT = 'DLATRS3'
          INFOT = 1
@@ -214,9 +214,9 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
 *
-*        Test error exits for the packed triangular routines.
+         // Test error exits for the packed triangular routines.
 *
-*        DTPTRI
+         // DTPTRI
 *
          SRNAMT = 'DTPTRI'
          INFOT = 1
@@ -229,7 +229,7 @@
          CALL DTPTRI( 'U', 'N', -1, A, INFO )
          CALL CHKXER( 'DTPTRI', INFOT, NOUT, LERR, OK )
 *
-*        DTPTRS
+         // DTPTRS
 *
          SRNAMT = 'DTPTRS'
          INFOT = 1
@@ -251,7 +251,7 @@
          CALL DTPTRS( 'U', 'N', 'N', 2, 1, A, X, 1, INFO )
          CALL CHKXER( 'DTPTRS', INFOT, NOUT, LERR, OK )
 *
-*        DTPRFS
+         // DTPRFS
 *
          SRNAMT = 'DTPRFS'
          INFOT = 1
@@ -276,7 +276,7 @@
          CALL DTPRFS( 'U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DTPRFS', INFOT, NOUT, LERR, OK )
 *
-*        DTPCON
+         // DTPCON
 *
          SRNAMT = 'DTPCON'
          INFOT = 1
@@ -292,7 +292,7 @@
          CALL DTPCON( '1', 'U', 'N', -1, A, RCOND, W, IW, INFO )
          CALL CHKXER( 'DTPCON', INFOT, NOUT, LERR, OK )
 *
-*        DLATPS
+         // DLATPS
 *
          SRNAMT = 'DLATPS'
          INFOT = 1
@@ -313,9 +313,9 @@
 *
       ELSE IF( LSAMEN( 2, C2, 'TB' ) ) THEN
 *
-*        Test error exits for the banded triangular routines.
+         // Test error exits for the banded triangular routines.
 *
-*        DTBTRS
+         // DTBTRS
 *
          SRNAMT = 'DTBTRS'
          INFOT = 1
@@ -343,7 +343,7 @@
          CALL DTBTRS( 'U', 'N', 'N', 2, 0, 1, A, 1, X, 1, INFO )
          CALL CHKXER( 'DTBTRS', INFOT, NOUT, LERR, OK )
 *
-*        DTBRFS
+         // DTBRFS
 *
          SRNAMT = 'DTBRFS'
          INFOT = 1
@@ -374,7 +374,7 @@
          CALL DTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DTBRFS', INFOT, NOUT, LERR, OK )
 *
-*        DTBCON
+         // DTBCON
 *
          SRNAMT = 'DTBCON'
          INFOT = 1
@@ -396,7 +396,7 @@
          CALL DTBCON( '1', 'U', 'N', 2, 1, A, 1, RCOND, W, IW, INFO )
          CALL CHKXER( 'DTBCON', INFOT, NOUT, LERR, OK )
 *
-*        DLATBS
+         // DLATBS
 *
          SRNAMT = 'DLATBS'
          INFOT = 1
@@ -422,12 +422,12 @@
          CALL CHKXER( 'DLATBS', INFOT, NOUT, LERR, OK )
       END IF
 *
-*     Print a summary line.
+      // Print a summary line.
 *
       CALL ALAESM( PATH, OK, NOUT )
 *
       RETURN
 *
-*     End of DERRTR
+      // End of DERRTR
 *
       END

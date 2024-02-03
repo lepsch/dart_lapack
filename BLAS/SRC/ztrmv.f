@@ -4,37 +4,37 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,LDA,N;
       String    DIAG,TRANS,UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16 A(LDA,*),X(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16 ZERO
       PARAMETER (ZERO= (0.0D+0,0.0D+0))
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16 TEMP
       int     I,INFO,IX,J,JX,KX;
       bool    NOCONJ,NOUNIT;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCONJG,MAX
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       IF (.NOT.LSAME(UPLO,'U') .AND. .NOT.LSAME(UPLO,'L')) THEN
@@ -55,15 +55,15 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF (N.EQ.0) RETURN
 *
       NOCONJ = LSAME(TRANS,'T')
       NOUNIT = LSAME(DIAG,'N')
 *
-*     Set up the start point in X if the increment is not unity. This
-*     will be  ( N - 1 )*INCX  too small for descending loops.
+      // Set up the start point in X if the increment is not unity. This
+      // will be  ( N - 1 )*INCX  too small for descending loops.
 *
       IF (INCX.LE.0) THEN
           KX = 1 - (N-1)*INCX
@@ -71,12 +71,12 @@
           KX = 1
       END IF
 *
-*     Start the operations. In this version the elements of A are
-*     accessed sequentially with one pass through A.
+      // Start the operations. In this version the elements of A are
+      // accessed sequentially with one pass through A.
 *
       IF (LSAME(TRANS,'N')) THEN
 *
-*        Form  x := A*x.
+         // Form  x := A*x.
 *
           IF (LSAME(UPLO,'U')) THEN
               IF (INCX.EQ.1) THEN
@@ -134,7 +134,7 @@
           END IF
       ELSE
 *
-*        Form  x := A**T*x  or  x := A**H*x.
+         // Form  x := A**T*x  or  x := A**H*x.
 *
           IF (LSAME(UPLO,'U')) THEN
               IF (INCX.EQ.1) THEN
@@ -219,6 +219,6 @@
 *
       RETURN
 *
-*     End of ZTRMV
+      // End of ZTRMV
 *
       END

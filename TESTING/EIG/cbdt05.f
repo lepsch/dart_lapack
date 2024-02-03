@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               S( * )
       COMPLEX            A( LDA, * ), U( * ), VT( LDVT, * ), WORK( * )
-*     ..
+      // ..
 *
 * ======================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J;
       REAL               ANORM, EPS
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUM( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
       REAL               SASUM, SCASUM, SLAMCH, CLANGE
       // EXTERNAL LSAME, ISAMAX, SASUM, SCASUM, SLAMCH, CLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       RESID = ZERO
       IF( MIN( M, N ).LE.0 .OR. NS.LE.0 ) RETURN
@@ -50,11 +50,11 @@
       EPS = SLAMCH( 'Precision' )
       ANORM = CLANGE( 'M', M, N, A, LDA, DUM )
 *
-*     Compute U' * A * V.
+      // Compute U' * A * V.
 *
       CALL CGEMM( 'N', 'C', M, NS, N, CONE, A, LDA, VT, LDVT, CZERO, WORK( 1+NS*NS ), M )       CALL CGEMM( 'C', 'N', NS, NS, M, -CONE, U, LDU, WORK( 1+NS*NS ), M, CZERO, WORK, NS )
 *
-*     norm(S - U' * B * V)
+      // norm(S - U' * B * V)
 *
       J = 0
       DO 10 I = 1, NS
@@ -79,6 +79,6 @@
 *
       RETURN
 *
-*     End of CBDT05
+      // End of CBDT05
 *
       END

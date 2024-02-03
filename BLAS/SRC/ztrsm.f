@@ -4,40 +4,40 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16 ALPHA
       int     LDA,LDB,M,N;
       String    DIAG,SIDE,TRANSA,UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16 A(LDA,*),B(LDB,*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCONJG,MAX
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX*16 TEMP
       int     I,INFO,J,K,NROWA;
       bool    LSIDE,NOCONJ,NOUNIT,UPPER;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       COMPLEX*16 ONE
       PARAMETER (ONE= (1.0D+0,0.0D+0))
       COMPLEX*16 ZERO
       PARAMETER (ZERO= (0.0D+0,0.0D+0))
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       LSIDE = LSAME(SIDE,'L')
       IF (LSIDE) THEN
@@ -72,11 +72,11 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF (M.EQ.0 .OR. N.EQ.0) RETURN
 *
-*     And when  alpha.eq.zero.
+      // And when  alpha.eq.zero.
 *
       IF (ALPHA.EQ.ZERO) THEN
           DO 20 J = 1,N
@@ -87,12 +87,12 @@
           RETURN
       END IF
 *
-*     Start the operations.
+      // Start the operations.
 *
       IF (LSIDE) THEN
           IF (LSAME(TRANSA,'N')) THEN
 *
-*           Form  B := alpha*inv( A )*B.
+            // Form  B := alpha*inv( A )*B.
 *
               IF (UPPER) THEN
                   DO 60 J = 1,N
@@ -129,8 +129,8 @@
               END IF
           ELSE
 *
-*           Form  B := alpha*inv( A**T )*B
-*           or    B := alpha*inv( A**H )*B.
+            // Form  B := alpha*inv( A**T )*B
+            // or    B := alpha*inv( A**H )*B.
 *
               IF (UPPER) THEN
                   DO 140 J = 1,N
@@ -173,7 +173,7 @@
       ELSE
           IF (LSAME(TRANSA,'N')) THEN
 *
-*           Form  B := alpha*B*inv( A ).
+            // Form  B := alpha*B*inv( A ).
 *
               IF (UPPER) THEN
                   DO 230 J = 1,N
@@ -220,8 +220,8 @@
               END IF
           ELSE
 *
-*           Form  B := alpha*B*inv( A**T )
-*           or    B := alpha*B*inv( A**H ).
+            // Form  B := alpha*B*inv( A**T )
+            // or    B := alpha*B*inv( A**H ).
 *
               IF (UPPER) THEN
                   DO 330 K = N,1,-1
@@ -289,6 +289,6 @@
 *
       RETURN
 *
-*     End of ZTRSM
+      // End of ZTRSM
 *
       END

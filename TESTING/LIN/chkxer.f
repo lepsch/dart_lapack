@@ -4,15 +4,15 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               LERR, OK;
       List<String>         SRNAMT;
       int                INFOT, NOUT;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
       IF( .NOT.LERR ) THEN
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT( 1:LEN_TRIM( SRNAMT ) )
          OK = .FALSE.
@@ -23,6 +23,6 @@
  9999 FORMAT( ' *** Illegal value of parameter number ', I2,
      $      ' not detected by ', A6, ' ***' )
 *
-*     End of CHKXER
+      // End of CHKXER
 *
       END

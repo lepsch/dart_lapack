@@ -6,7 +6,7 @@
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NIN;
       PARAMETER          ( NIN = 5 )
       int                NSUBS;
@@ -17,44 +17,44 @@
       PARAMETER          ( NMAX = 65, INCMAX = 2 )
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
       PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               EPS, ERR, THRESH
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;;
       String             TRANS;
       String             SNAMET;
       String             SNAPS, SUMMRY;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX )
       int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX );
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
-*     .. External Functions ..
+      // .. External Functions ..
       REAL               SDIFF
       bool               LSE;
       // EXTERNAL SDIFF, LSE
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SCHK1, SCHK2, SCHK3, SCHK4, SCHK5, SCHK6, SCHKE, SMVCH
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
       String             SRNAMT;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
       COMMON             /SRNAMC/SRNAMT
-*     .. Data statements ..
+      // .. Data statements ..
       DATA               SNAMES/'SGEMV ', 'SGBMV ', 'SSYMV ', 'SSBMV ', 'SSPMV ', 'STRMV ', 'STBMV ', 'STPMV ', 'STRSV ', 'STBSV ', 'STPSV ', 'SGER  ', 'SSYR  ', 'SSPR  ', 'SSYR2 ', 'SSPR2 '/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
-*     Read name and unit number for summary output file and open file.
+      // Read name and unit number for summary output file and open file.
 *
       READ( NIN, FMT = * )SUMMRY
       READ( NIN, FMT = * )NOUT
       OPEN( NOUT, FILE = SUMMRY, STATUS = 'UNKNOWN' )
       NOUTC = NOUT
 *
-*     Read name and unit number for snapshot output file and open file.
+      // Read name and unit number for snapshot output file and open file.
 *
       READ( NIN, FMT = * )SNAPS
       READ( NIN, FMT = * )NTRA
@@ -62,19 +62,19 @@
       IF( TRACE )THEN
          OPEN( NTRA, FILE = SNAPS, STATUS = 'UNKNOWN' )
       END IF
-*     Read the flag that directs rewinding of the snapshot file.
+      // Read the flag that directs rewinding of the snapshot file.
       READ( NIN, FMT = * )REWI
       REWI = REWI.AND.TRACE
-*     Read the flag that directs stopping on any failure.
+      // Read the flag that directs stopping on any failure.
       READ( NIN, FMT = * )SFATAL
-*     Read the flag that indicates whether error exits are to be tested.
+      // Read the flag that indicates whether error exits are to be tested.
       READ( NIN, FMT = * )TSTERR
-*     Read the threshold value of the test ratio
+      // Read the threshold value of the test ratio
       READ( NIN, FMT = * )THRESH
 *
-*     Read and check the parameter values for the tests.
+      // Read and check the parameter values for the tests.
 *
-*     Values of N
+      // Values of N
       READ( NIN, FMT = * )NIDIM
       IF( NIDIM.LT.1.OR.NIDIM.GT.NIDMAX )THEN
          WRITE( NOUT, FMT = 9997 )'N', NIDMAX
@@ -87,7 +87,7 @@
             GO TO 230
          END IF
    10 CONTINUE
-*     Values of K
+      // Values of K
       READ( NIN, FMT = * )NKB
       IF( NKB.LT.1.OR.NKB.GT.NKBMAX )THEN
          WRITE( NOUT, FMT = 9997 )'K', NKBMAX
@@ -100,7 +100,7 @@
             GO TO 230
          END IF
    20 CONTINUE
-*     Values of INCX and INCY
+      // Values of INCX and INCY
       READ( NIN, FMT = * )NINC
       IF( NINC.LT.1.OR.NINC.GT.NINMAX )THEN
          WRITE( NOUT, FMT = 9997 )'INCX AND INCY', NINMAX
@@ -113,14 +113,14 @@
             GO TO 230
          END IF
    30 CONTINUE
-*     Values of ALPHA
+      // Values of ALPHA
       READ( NIN, FMT = * )NALF
       IF( NALF.LT.1.OR.NALF.GT.NALMAX )THEN
          WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
          GO TO 230
       END IF
       READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
-*     Values of BETA
+      // Values of BETA
       READ( NIN, FMT = * )NBET
       IF( NBET.LT.1.OR.NBET.GT.NBEMAX )THEN
          WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
@@ -128,7 +128,7 @@
       END IF
       READ( NIN, FMT = * )( BET( I ), I = 1, NBET )
 *
-*     Report values of parameters.
+      // Report values of parameters.
 *
       WRITE( NOUT, FMT = 9993 )
       WRITE( NOUT, FMT = 9992 )( IDIM( I ), I = 1, NIDIM )
@@ -144,8 +144,8 @@
       WRITE( NOUT, FMT = 9999 )THRESH
       WRITE( NOUT, FMT = * )
 *
-*     Read names of subroutines and flags which indicate
-*     whether they are to be tested.
+      // Read names of subroutines and flags which indicate
+      // whether they are to be tested.
 *
       DO 40 I = 1, NSUBS
          LTEST( I ) = .FALSE.
@@ -162,12 +162,12 @@
    80 CONTINUE
       CLOSE ( NIN )
 *
-*     Compute EPS (the machine precision).
+      // Compute EPS (the machine precision).
 *
       EPS = EPSILON(ZERO)
       WRITE( NOUT, FMT = 9998 )EPS
 *
-*     Check the reliability of SMVCH using exact data.
+      // Check the reliability of SMVCH using exact data.
 *
       N = MIN( 32, NMAX )
       DO 120 J = 1, N
@@ -180,8 +180,8 @@
       DO 130 J = 1, N
          YY( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   130 CONTINUE
-*     YY holds the exact result. On exit from SMVCH YT holds
-*     the result computed by SMVCH.
+      // YY holds the exact result. On exit from SMVCH YT holds
+     t // he result computed by SMVCH.
       TRANS = 'N'
       CALL SMVCH( TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LSE( YY, YT, N )
@@ -197,56 +197,56 @@
          STOP
       END IF
 *
-*     Test each subroutine in turn.
+      // Test each subroutine in turn.
 *
       DO 210 ISNUM = 1, NSUBS
          WRITE( NOUT, FMT = * )
          IF( .NOT.LTEST( ISNUM ) )THEN
-*           Subprogram is not to be tested.
+            // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9983 )SNAMES( ISNUM )
          ELSE
             SRNAMT = SNAMES( ISNUM )
-*           Test error exits.
+            // Test error exits.
             IF( TSTERR )THEN
                CALL SCHKE( ISNUM, SNAMES( ISNUM ), NOUT )
                WRITE( NOUT, FMT = * )
             END IF
-*           Test computations.
+            // Test computations.
             INFOT = 0
             OK = .TRUE.
             FATAL = .FALSE.
             GO TO ( 140, 140, 150, 150, 150, 160, 160, 160, 160, 160, 160, 170, 180, 180, 190, 190 )ISNUM
-*           Test SGEMV, 01, and SGBMV, 02.
+            // Test SGEMV, 01, and SGBMV, 02.
   140       CALL SCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
      $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF,
      $                  NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS,
      $                  X, XX, XS, Y, YY, YS, YT, G )
             GO TO 200
-*           Test SSYMV, 03, SSBMV, 04, and SSPMV, 05.
+            // Test SSYMV, 03, SSBMV, 04, and SSPMV, 05.
   150       CALL SCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
      $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF,
      $                  NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS,
      $                  X, XX, XS, Y, YY, YS, YT, G )
             GO TO 200
-*           Test STRMV, 06, STBMV, 07, STPMV, 08,
-*           STRSV, 09, STBSV, 10, and STPSV, 11.
+            // Test STRMV, 06, STBMV, 07, STPMV, 08,
+            // STRSV, 09, STBSV, 10, and STPSV, 11.
   160       CALL SCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
      $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC,
      $                  NMAX, INCMAX, A, AA, AS, Y, YY, YS, YT, G, Z )
             GO TO 200
-*           Test SGER, 12.
+            // Test SGER, 12.
   170       CALL SCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
      $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
      $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
      $                  YT, G, Z )
             GO TO 200
-*           Test SSYR, 13, and SSPR, 14.
+            // Test SSYR, 13, and SSPR, 14.
   180       CALL SCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
      $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
      $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
      $                  YT, G, Z )
             GO TO 200
-*           Test SSYR2, 15, and SSPR2, 16.
+            // Test SSYR2, 15, and SSPR2, 16.
   190       CALL SCHK6( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
      $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
      $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
@@ -302,7 +302,7 @@
  9981 FORMAT( /' ******* FATAL ERROR - TESTS ABANDONED *******' )
  9980 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' )
 *
-*     End of SBLAT2
+      // End of SBLAT2
 *
       END
       SUBROUTINE SCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
@@ -312,46 +312,46 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF
       PARAMETER          ( ZERO = 0.0, HALF = 0.5 )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL
       int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS;
       bool               BANDED, FULL, NULL, RESET, SAME, TRAN;
       String             TRANS, TRANSS;
       String             ICH;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       bool               ISAME( 13 );
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SGBMV, SGEMV, SMAKE, SMVCH, SREGR1
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-*     .. Data statements ..
+      // .. Data statements ..
       DATA               ICH/'NTC'/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       FULL = SNAME( 3: 3 ).EQ.'E'
       BANDED = SNAME( 3: 3 ).EQ.'B'
-*     Define the number of arguments.
+      // Define the number of arguments.
       IF( FULL )THEN
          NARGS = 11
       ELSE IF( BANDED )THEN
@@ -382,19 +382,19 @@
                   KU = N - 1
                   KL = M - 1
                END IF
-*              Set LDA to 1 more than minimum value if room.
+               // Set LDA to 1 more than minimum value if room.
                IF( BANDED )THEN
                   LDA = KL + KU + 1
                ELSE
                   LDA = M
                END IF
                IF( LDA.LT.NMAX ) LDA = LDA + 1
-*              Skip tests if not enough room.
+               // Skip tests if not enough room.
                IF( LDA.GT.NMAX ) GO TO 100
                LAA = LDA*N
                NULL = N.LE.0.OR.M.LE.0
 *
-*              Generate the matrix A.
+               // Generate the matrix A.
 *
                TRANSL = ZERO
                CALL SMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
@@ -415,7 +415,7 @@
                      INCX = INC( IX )
                      LX = ABS( INCX )*NL
 *
-*                    Generate the vector X.
+                     // Generate the vector X.
 *
                      TRANSL = HALF
                      CALL SMAKE( 'GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL )
@@ -434,15 +434,15 @@
                            DO 50 IB = 1, NBET
                               BETA = BET( IB )
 *
-*                             Generate the vector Y.
+                              // Generate the vector Y.
 *
                               TRANSL = ZERO
                               CALL SMAKE( 'GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL )
 *
                               NC = NC + 1
 *
-*                             Save every datum before calling the
-*                             subroutine.
+                              // Save every datum before calling the
+                              // subroutine.
 *
                               TRANSS = TRANS
                               MS = M
@@ -464,7 +464,7 @@
    30                         CONTINUE
                               INCYS = INCY
 *
-*                             Call the subroutine.
+                              // Call the subroutine.
 *
                               IF( FULL )THEN
                                  IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
@@ -474,7 +474,7 @@
                                  IF( REWI ) REWIND NTRA                                  CALL SGBMV( TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
                               END IF
 *
-*                             Check if error-exit was taken incorrectly.
+                              // Check if error-exit was taken incorrectly.
 *
                               IF( .NOT.OK )THEN
                                  WRITE( NOUT, FMT = 9993 )
@@ -482,7 +482,7 @@
                                  GO TO 130
                               END IF
 *
-*                             See what data changed inside subroutines.
+                              // See what data changed inside subroutines.
 *
                               ISAME( 1 ) = TRANS.EQ.TRANSS
                               ISAME( 2 ) = MS.EQ.M
@@ -517,8 +517,8 @@
                                  ISAME( 13 ) = INCYS.EQ.INCY
                               END IF
 *
-*                             If data was incorrectly changed, report
-*                             and return.
+                              // If data was incorrectly changed, report
+                              // and return.
 *
                               SAME = .TRUE.
                               DO 40 I = 1, NARGS
@@ -532,16 +532,16 @@
 *
                               IF( .NOT.NULL )THEN
 *
-*                                Check the result.
+                                 // Check the result.
 *
                                  CALL SMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  ERRMAX = MAX( ERRMAX, ERR )
-*                                If got really bad answer, report and
-*                                return.
+                                 // If got really bad answer, report and
+                                 // return.
                                  IF( FATAL ) GO TO 130
                               ELSE
-*                                Avoid repeating tests with M.le.0 or
-*                                N.le.0.
+                                 // Avoid repeating tests with M.le.0 or
+                                 // N.le.0.
                                  GO TO 110
                               END IF
 *
@@ -561,7 +561,7 @@
 *
   120 CONTINUE
 *
-*     Regression test to verify preservation of y when m zero, n nonzero.
+      // Regression test to verify preservation of y when m zero, n nonzero.
 *
       CALL SREGR1( TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS )
       IF( FULL )THEN
@@ -578,7 +578,7 @@
          GO TO 130
       END IF
 *
-*     Report result.
+      // Report result.
 *
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
@@ -614,7 +614,7 @@
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
 *
-*     End of SCHK1
+      // End of SCHK1
 *
       END
       SUBROUTINE SCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
@@ -624,47 +624,47 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF
       PARAMETER          ( ZERO = 0.0, HALF = 0.5 )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL
       int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             UPLO, UPLOS;
       String             ICH;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       bool               ISAME( 13 );
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SMAKE, SMVCH, SSBMV, SSPMV, SSYMV
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-*     .. Data statements ..
+      // .. Data statements ..
       DATA               ICH/'UL'/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       FULL = SNAME( 3: 3 ).EQ.'Y'
       BANDED = SNAME( 3: 3 ).EQ.'B'
       PACKED = SNAME( 3: 3 ).EQ.'P'
-*     Define the number of arguments.
+      // Define the number of arguments.
       IF( FULL )THEN
          NARGS = 10
       ELSE IF( BANDED )THEN
@@ -691,14 +691,14 @@
             ELSE
                K = N - 1
             END IF
-*           Set LDA to 1 more than minimum value if room.
+            // Set LDA to 1 more than minimum value if room.
             IF( BANDED )THEN
                LDA = K + 1
             ELSE
                LDA = N
             END IF
             IF( LDA.LT.NMAX ) LDA = LDA + 1
-*           Skip tests if not enough room.
+            // Skip tests if not enough room.
             IF( LDA.GT.NMAX ) GO TO 100
             IF( PACKED )THEN
                LAA = ( N*( N + 1 ) )/2
@@ -710,7 +710,7 @@
             DO 90 IC = 1, 2
                UPLO = ICH( IC: IC )
 *
-*              Generate the matrix A.
+               // Generate the matrix A.
 *
                TRANSL = ZERO
                CALL SMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
@@ -719,7 +719,7 @@
                   INCX = INC( IX )
                   LX = ABS( INCX )*N
 *
-*                 Generate the vector X.
+                  // Generate the vector X.
 *
                   TRANSL = HALF
                   CALL SMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
@@ -738,15 +738,15 @@
                         DO 50 IB = 1, NBET
                            BETA = BET( IB )
 *
-*                          Generate the vector Y.
+                           // Generate the vector Y.
 *
                            TRANSL = ZERO
                            CALL SMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
 *
                            NC = NC + 1
 *
-*                          Save every datum before calling the
-*                          subroutine.
+                           // Save every datum before calling the
+                           // subroutine.
 *
                            UPLOS = UPLO
                            NS = N
@@ -766,7 +766,7 @@
    30                      CONTINUE
                            INCYS = INCY
 *
-*                          Call the subroutine.
+                           // Call the subroutine.
 *
                            IF( FULL )THEN
                               IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY
@@ -779,7 +779,7 @@
                               IF( REWI ) REWIND NTRA                               CALL SSPMV( UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY )
                            END IF
 *
-*                          Check if error-exit was taken incorrectly.
+                           // Check if error-exit was taken incorrectly.
 *
                            IF( .NOT.OK )THEN
                               WRITE( NOUT, FMT = 9992 )
@@ -787,7 +787,7 @@
                               GO TO 120
                            END IF
 *
-*                          See what data changed inside subroutines.
+                           // See what data changed inside subroutines.
 *
                            ISAME( 1 ) = UPLO.EQ.UPLOS
                            ISAME( 2 ) = NS.EQ.N
@@ -832,8 +832,8 @@
                               ISAME( 9 ) = INCYS.EQ.INCY
                            END IF
 *
-*                          If data was incorrectly changed, report and
-*                          return.
+                           // If data was incorrectly changed, report and
+                           // return.
 *
                            SAME = .TRUE.
                            DO 40 I = 1, NARGS
@@ -847,15 +847,15 @@
 *
                            IF( .NOT.NULL )THEN
 *
-*                             Check the result.
+                              // Check the result.
 *
                               CALL SMVCH( 'N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
                               ERRMAX = MAX( ERRMAX, ERR )
-*                             If got really bad answer, report and
-*                             return.
+                              // If got really bad answer, report and
+                              // return.
                               IF( FATAL ) GO TO 120
                            ELSE
-*                             Avoid repeating tests with N.le.0
+                              // Avoid repeating tests with N.le.0
                               GO TO 110
                            END IF
 *
@@ -873,7 +873,7 @@
 *
   110 CONTINUE
 *
-*     Report result.
+      // Report result.
 *
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
@@ -913,7 +913,7 @@
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
 *
-*     End of SCHK2
+      // End of SCHK2
 *
       END
       SUBROUTINE SCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z )
@@ -923,48 +923,48 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX )
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               ERR, ERRMAX, TRANSL
       int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS;
       String             ICHD, ICHU;
       String             ICHT;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       bool               ISAME( 13 );
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SMAKE, SMVCH, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-*     .. Data statements ..
+      // .. Data statements ..
       DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       FULL = SNAME( 3: 3 ).EQ.'R'
       BANDED = SNAME( 3: 3 ).EQ.'B'
       PACKED = SNAME( 3: 3 ).EQ.'P'
-*     Define the number of arguments.
+      // Define the number of arguments.
       IF( FULL )THEN
          NARGS = 8
       ELSE IF( BANDED )THEN
@@ -976,7 +976,7 @@
       NC = 0
       RESET = .TRUE.
       ERRMAX = ZERO
-*     Set up zero vector for SMVCH.
+      // Set up zero vector for SMVCH.
       DO 10 I = 1, NMAX
          Z( I ) = ZERO
    10 CONTINUE
@@ -995,14 +995,14 @@
             ELSE
                K = N - 1
             END IF
-*           Set LDA to 1 more than minimum value if room.
+            // Set LDA to 1 more than minimum value if room.
             IF( BANDED )THEN
                LDA = K + 1
             ELSE
                LDA = N
             END IF
             IF( LDA.LT.NMAX ) LDA = LDA + 1
-*           Skip tests if not enough room.
+            // Skip tests if not enough room.
             IF( LDA.GT.NMAX ) GO TO 100
             IF( PACKED )THEN
                LAA = ( N*( N + 1 ) )/2
@@ -1020,7 +1020,7 @@
                   DO 70 ICD = 1, 2
                      DIAG = ICHD( ICD: ICD )
 *
-*                    Generate the matrix A.
+                     // Generate the matrix A.
 *
                      TRANSL = ZERO
                      CALL SMAKE( SNAME( 2: 3 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
@@ -1029,7 +1029,7 @@
                         INCX = INC( IX )
                         LX = ABS( INCX )*N
 *
-*                       Generate the vector X.
+                        // Generate the vector X.
 *
                         TRANSL = HALF
                         CALL SMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
@@ -1040,7 +1040,7 @@
 *
                         NC = NC + 1
 *
-*                       Save every datum before calling the subroutine.
+                        // Save every datum before calling the subroutine.
 *
                         UPLOS = UPLO
                         TRANSS = TRANS
@@ -1056,7 +1056,7 @@
    30                   CONTINUE
                         INCXS = INCX
 *
-*                       Call the subroutine.
+                        // Call the subroutine.
 *
                         IF( SNAME( 4: 5 ).EQ.'MV' )THEN
                            IF( FULL )THEN
@@ -1082,7 +1082,7 @@
                            END IF
                         END IF
 *
-*                       Check if error-exit was taken incorrectly.
+                        // Check if error-exit was taken incorrectly.
 *
                         IF( .NOT.OK )THEN
                            WRITE( NOUT, FMT = 9992 )
@@ -1090,7 +1090,7 @@
                            GO TO 120
                         END IF
 *
-*                       See what data changed inside subroutines.
+                        // See what data changed inside subroutines.
 *
                         ISAME( 1 ) = UPLO.EQ.UPLOS
                         ISAME( 2 ) = TRANS.EQ.TRANSS
@@ -1125,8 +1125,8 @@
                            ISAME( 7 ) = INCXS.EQ.INCX
                         END IF
 *
-*                       If data was incorrectly changed, report and
-*                       return.
+                        // If data was incorrectly changed, report and
+                        // return.
 *
                         SAME = .TRUE.
                         DO 40 I = 1, NARGS
@@ -1141,12 +1141,12 @@
                         IF( .NOT.NULL )THEN
                            IF( SNAME( 4: 5 ).EQ.'MV' )THEN
 *
-*                             Check the result.
+                              // Check the result.
 *
                               CALL SMVCH( TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. )
                            ELSE IF( SNAME( 4: 5 ).EQ.'SV' )THEN
 *
-*                             Compute approximation to original vector.
+                              // Compute approximation to original vector.
 *
                               DO 50 I = 1, N
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
@@ -1154,10 +1154,10 @@
                               CALL SMVCH( TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. )
                            END IF
                            ERRMAX = MAX( ERRMAX, ERR )
-*                          If got really bad answer, report and return.
+                           // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 120
                         ELSE
-*                          Avoid repeating tests with N.le.0.
+                           // Avoid repeating tests with N.le.0.
                            GO TO 110
                         END IF
 *
@@ -1173,7 +1173,7 @@
 *
   110 CONTINUE
 *
-*     Report result.
+      // Report result.
 *
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
@@ -1212,7 +1212,7 @@
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
 *
-*     End of SCHK3
+      // End of SCHK3
 *
       END
       SUBROUTINE SCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
@@ -1222,41 +1222,41 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
       int                IDIM( NIDIM ), INC( NINC );
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL
       int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS;
       bool               NULL, RESET, SAME;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL               W( 1 )
       bool               ISAME( 13 );
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SGER, SMAKE, SMVCH
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-*     .. Executable Statements ..
-*     Define the number of arguments.
+      // .. Executable Statements ..
+      // Define the number of arguments.
       NARGS = 9
 *
       NC = 0
@@ -1270,10 +1270,10 @@
          DO 110 IM = 1, 2
             IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
 *
-*           Set LDA to 1 more than minimum value if room.
+            // Set LDA to 1 more than minimum value if room.
             LDA = M
             IF( LDA.LT.NMAX ) LDA = LDA + 1
-*           Skip tests if not enough room.
+            // Skip tests if not enough room.
             IF( LDA.GT.NMAX ) GO TO 110
             LAA = LDA*N
             NULL = N.LE.0.OR.M.LE.0
@@ -1282,7 +1282,7 @@
                INCX = INC( IX )
                LX = ABS( INCX )*M
 *
-*              Generate the vector X.
+               // Generate the vector X.
 *
                TRANSL = HALF
                CALL SMAKE( 'GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL )
@@ -1295,7 +1295,7 @@
                   INCY = INC( IY )
                   LY = ABS( INCY )*N
 *
-*                 Generate the vector Y.
+                  // Generate the vector Y.
 *
                   TRANSL = ZERO
                   CALL SMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
@@ -1307,14 +1307,14 @@
                   DO 80 IA = 1, NALF
                      ALPHA = ALF( IA )
 *
-*                    Generate the matrix A.
+                     // Generate the matrix A.
 *
                      TRANSL = ZERO
                      CALL SMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, M - 1, N - 1, RESET, TRANSL )
 *
                      NC = NC + 1
 *
-*                    Save every datum before calling the subroutine.
+                     // Save every datum before calling the subroutine.
 *
                      MS = M
                      NS = N
@@ -1332,12 +1332,12 @@
    30                CONTINUE
                      INCYS = INCY
 *
-*                    Call the subroutine.
+                     // Call the subroutine.
 *
                      IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA
                      IF( REWI ) REWIND NTRA                      CALL SGER( M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
 *
-*                    Check if error-exit was taken incorrectly.
+                     // Check if error-exit was taken incorrectly.
 *
                      IF( .NOT.OK )THEN
                         WRITE( NOUT, FMT = 9993 )
@@ -1345,7 +1345,7 @@
                         GO TO 140
                      END IF
 *
-*                    See what data changed inside subroutine.
+                     // See what data changed inside subroutine.
 *
                      ISAME( 1 ) = MS.EQ.M
                      ISAME( 2 ) = NS.EQ.N
@@ -1361,7 +1361,7 @@
                      END IF
                      ISAME( 9 ) = LDAS.EQ.LDA
 *
-*                    If data was incorrectly changed, report and return.
+                     // If data was incorrectly changed, report and return.
 *
                      SAME = .TRUE.
                      DO 40 I = 1, NARGS
@@ -1375,7 +1375,7 @@
 *
                      IF( .NOT.NULL )THEN
 *
-*                       Check the result column by column.
+                        // Check the result column by column.
 *
                         IF( INCX.GT.0 )THEN
                            DO 50 I = 1, M
@@ -1394,11 +1394,11 @@
                            END IF
                            CALL SMVCH( 'N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, .TRUE. )
                            ERRMAX = MAX( ERRMAX, ERR )
-*                          If got really bad answer, report and return.
+                           // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 130
    70                   CONTINUE
                      ELSE
-*                       Avoid repeating tests with M.le.0 or N.le.0.
+                        // Avoid repeating tests with M.le.0 or N.le.0.
                         GO TO 110
                      END IF
 *
@@ -1412,7 +1412,7 @@
 *
   120 CONTINUE
 *
-*     Report result.
+      // Report result.
 *
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
@@ -1445,7 +1445,7 @@
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
 *
-*     End of SCHK4
+      // End of SCHK4
 *
       END
       SUBROUTINE SCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
@@ -1455,47 +1455,47 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
       int                IDIM( NIDIM ), INC( NINC );
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL
       int                I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             ICH;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL               W( 1 )
       bool               ISAME( 13 );
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SMAKE, SMVCH, SSPR, SSYR
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-*     .. Data statements ..
+      // .. Data statements ..
       DATA               ICH/'UL'/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       FULL = SNAME( 3: 3 ).EQ.'Y'
       PACKED = SNAME( 3: 3 ).EQ.'P'
-*     Define the number of arguments.
+      // Define the number of arguments.
       IF( FULL )THEN
          NARGS = 7
       ELSE IF( PACKED )THEN
@@ -1508,10 +1508,10 @@
 *
       DO 100 IN = 1, NIDIM
          N = IDIM( IN )
-*        Set LDA to 1 more than minimum value if room.
+         // Set LDA to 1 more than minimum value if room.
          LDA = N
          IF( LDA.LT.NMAX ) LDA = LDA + 1
-*        Skip tests if not enough room.
+         // Skip tests if not enough room.
          IF( LDA.GT.NMAX ) GO TO 100
          IF( PACKED )THEN
             LAA = ( N*( N + 1 ) )/2
@@ -1527,7 +1527,7 @@
                INCX = INC( IX )
                LX = ABS( INCX )*N
 *
-*              Generate the vector X.
+               // Generate the vector X.
 *
                TRANSL = HALF
                CALL SMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
@@ -1540,14 +1540,14 @@
                   ALPHA = ALF( IA )
                   NULL = N.LE.0.OR.ALPHA.EQ.ZERO
 *
-*                 Generate the matrix A.
+                  // Generate the matrix A.
 *
                   TRANSL = ZERO
                   CALL SMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
 *
                   NC = NC + 1
 *
-*                 Save every datum before calling the subroutine.
+                  // Save every datum before calling the subroutine.
 *
                   UPLOS = UPLO
                   NS = N
@@ -1561,7 +1561,7 @@
    20             CONTINUE
                   INCXS = INCX
 *
-*                 Call the subroutine.
+                  // Call the subroutine.
 *
                   IF( FULL )THEN
                      IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, LDA
@@ -1573,7 +1573,7 @@
                      CALL SSPR( UPLO, N, ALPHA, XX, INCX, AA )
                   END IF
 *
-*                 Check if error-exit was taken incorrectly.
+                  // Check if error-exit was taken incorrectly.
 *
                   IF( .NOT.OK )THEN
                      WRITE( NOUT, FMT = 9992 )
@@ -1581,7 +1581,7 @@
                      GO TO 120
                   END IF
 *
-*                 See what data changed inside subroutines.
+                  // See what data changed inside subroutines.
 *
                   ISAME( 1 ) = UPLO.EQ.UPLOS
                   ISAME( 2 ) = NS.EQ.N
@@ -1597,7 +1597,7 @@
                      ISAME( 7 ) = LDAS.EQ.LDA
                   END IF
 *
-*                 If data was incorrectly changed, report and return.
+                  // If data was incorrectly changed, report and return.
 *
                   SAME = .TRUE.
                   DO 30 I = 1, NARGS
@@ -1611,7 +1611,7 @@
 *
                   IF( .NOT.NULL )THEN
 *
-*                    Check the result column by column.
+                     // Check the result column by column.
 *
                      IF( INCX.GT.0 )THEN
                         DO 40 I = 1, N
@@ -1643,11 +1643,11 @@
                            JA = JA + LJ
                         END IF
                         ERRMAX = MAX( ERRMAX, ERR )
-*                       If got really bad answer, report and return.
+                        // If got really bad answer, report and return.
                         IF( FATAL ) GO TO 110
    60                CONTINUE
                   ELSE
-*                    Avoid repeating tests if N.le.0.
+                     // Avoid repeating tests if N.le.0.
                      IF( N.LE.0 ) GO TO 100
                   END IF
 *
@@ -1659,7 +1659,7 @@
 *
   100 CONTINUE
 *
-*     Report result.
+      // Report result.
 *
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
@@ -1698,7 +1698,7 @@
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
 *
-*     End of SCHK5
+      // End of SCHK5
 *
       END
       SUBROUTINE SCHK6( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
@@ -1708,47 +1708,47 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, HALF, ONE
       PARAMETER          ( ZERO = 0.0, HALF = 0.5, ONE = 1.0 )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 )
       int                IDIM( NIDIM ), INC( NINC );
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL
       int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             ICH;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL               W( 2 )
       bool               ISAME( 13 );
-*     .. External Functions ..
+      // .. External Functions ..
       bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SMAKE, SMVCH, SSPR2, SSYR2
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-*     .. Data statements ..
+      // .. Data statements ..
       DATA               ICH/'UL'/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       FULL = SNAME( 3: 3 ).EQ.'Y'
       PACKED = SNAME( 3: 3 ).EQ.'P'
-*     Define the number of arguments.
+      // Define the number of arguments.
       IF( FULL )THEN
          NARGS = 9
       ELSE IF( PACKED )THEN
@@ -1761,10 +1761,10 @@
 *
       DO 140 IN = 1, NIDIM
          N = IDIM( IN )
-*        Set LDA to 1 more than minimum value if room.
+         // Set LDA to 1 more than minimum value if room.
          LDA = N
          IF( LDA.LT.NMAX ) LDA = LDA + 1
-*        Skip tests if not enough room.
+         // Skip tests if not enough room.
          IF( LDA.GT.NMAX ) GO TO 140
          IF( PACKED )THEN
             LAA = ( N*( N + 1 ) )/2
@@ -1780,7 +1780,7 @@
                INCX = INC( IX )
                LX = ABS( INCX )*N
 *
-*              Generate the vector X.
+               // Generate the vector X.
 *
                TRANSL = HALF
                CALL SMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
@@ -1793,7 +1793,7 @@
                   INCY = INC( IY )
                   LY = ABS( INCY )*N
 *
-*                 Generate the vector Y.
+                  // Generate the vector Y.
 *
                   TRANSL = ZERO
                   CALL SMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
@@ -1806,14 +1806,14 @@
                      ALPHA = ALF( IA )
                      NULL = N.LE.0.OR.ALPHA.EQ.ZERO
 *
-*                    Generate the matrix A.
+                     // Generate the matrix A.
 *
                      TRANSL = ZERO
                      CALL SMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
 *
                      NC = NC + 1
 *
-*                    Save every datum before calling the subroutine.
+                     // Save every datum before calling the subroutine.
 *
                      UPLOS = UPLO
                      NS = N
@@ -1831,7 +1831,7 @@
    30                CONTINUE
                      INCYS = INCY
 *
-*                    Call the subroutine.
+                     // Call the subroutine.
 *
                      IF( FULL )THEN
                         IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA
@@ -1841,7 +1841,7 @@
                         IF( REWI ) REWIND NTRA                         CALL SSPR2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA )
                      END IF
 *
-*                    Check if error-exit was taken incorrectly.
+                     // Check if error-exit was taken incorrectly.
 *
                      IF( .NOT.OK )THEN
                         WRITE( NOUT, FMT = 9992 )
@@ -1849,7 +1849,7 @@
                         GO TO 160
                      END IF
 *
-*                    See what data changed inside subroutines.
+                     // See what data changed inside subroutines.
 *
                      ISAME( 1 ) = UPLO.EQ.UPLOS
                      ISAME( 2 ) = NS.EQ.N
@@ -1867,7 +1867,7 @@
                         ISAME( 9 ) = LDAS.EQ.LDA
                      END IF
 *
-*                    If data was incorrectly changed, report and return.
+                     // If data was incorrectly changed, report and return.
 *
                      SAME = .TRUE.
                      DO 40 I = 1, NARGS
@@ -1881,7 +1881,7 @@
 *
                      IF( .NOT.NULL )THEN
 *
-*                       Check the result column by column.
+                        // Check the result column by column.
 *
                         IF( INCX.GT.0 )THEN
                            DO 50 I = 1, N
@@ -1923,11 +1923,11 @@
                               JA = JA + LJ
                            END IF
                            ERRMAX = MAX( ERRMAX, ERR )
-*                          If got really bad answer, report and return.
+                           // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 150
    90                   CONTINUE
                      ELSE
-*                       Avoid repeating tests with N.le.0.
+                        // Avoid repeating tests with N.le.0.
                         IF( N.LE.0 ) GO TO 140
                      END IF
 *
@@ -1941,7 +1941,7 @@
 *
   140 CONTINUE
 *
-*     Report result.
+      // Report result.
 *
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
@@ -1980,7 +1980,7 @@
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
      $      '******' )
 *
-*     End of SCHK6
+      // End of SCHK6
 *
       END
       SUBROUTINE SCHKE( ISNUM, SRNAMT, NOUT )
@@ -1992,29 +1992,29 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                ISNUM, NOUT;
       String             SRNAMT;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUTC;
       bool               LERR, OK;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               ALPHA, BETA
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL               A( 1, 1 ), X( 1 ), Y( 1 )
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL CHKXER, SGBMV, SGEMV, SGER, SSBMV, SSPMV, SSPR, SSPR2, SSYMV, SSYR, SSYR2, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
-*     .. Executable Statements ..
-*     OK is set to .FALSE. by the special version of XERBLA or by CHKXER
-*     if anything is wrong.
+      // .. Executable Statements ..
+      // OK is set to .FALSE. by the special version of XERBLA or by CHKXER
+      // if anything is wrong.
       OK = .TRUE.
-*     LERR is set to .TRUE. by the special version of XERBLA each time
-*     it is called, and is then tested and re-set by CHKXER.
+      // LERR is set to .TRUE. by the special version of XERBLA each time
+      // it is called, and is then tested and re-set by CHKXER.
       LERR = .FALSE.
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160 )ISNUM
    10 INFOT = 1
@@ -2302,7 +2302,7 @@
  9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****',
      $      '**' )
 *
-*     End of SCHKE
+      // End of SCHKE
 *
       END
       SUBROUTINE SMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
@@ -2317,31 +2317,31 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
       REAL               ROGUE
       PARAMETER          ( ROGUE = -1.0E10 )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               TRANSL
       int                KL, KU, LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A( NMAX, * ), AA( * )
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, KK;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
-*     .. External Functions ..
+      // .. External Functions ..
       REAL               SBEG
       // EXTERNAL SBEG
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       GEN = TYPE( 1: 1 ).EQ.'G'
       SYM = TYPE( 1: 1 ).EQ.'S'
       TRI = TYPE( 1: 1 ).EQ.'T'
@@ -2349,7 +2349,7 @@
       LOWER = ( SYM.OR.TRI ).AND.UPLO.EQ.'L'
       UNIT = TRI.AND.DIAG.EQ.'U'
 *
-*     Generate data in array A.
+      // Generate data in array A.
 *
       DO 20 J = 1, N
          DO 10 I = 1, M
@@ -2370,7 +2370,7 @@
          IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
    20 CONTINUE
 *
-*     Store elements in array AS in data structure required by routine.
+      // Store elements in array AS in data structure required by routine.
 *
       IF( TYPE.EQ.'GE' )THEN
          DO 50 J = 1, N
@@ -2470,7 +2470,7 @@
       END IF
       RETURN
 *
-*     End of SMAKE
+      // End of SMAKE
 *
       END
       SUBROUTINE SMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV )
@@ -2480,26 +2480,26 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               ALPHA, BETA, EPS, ERR
       int                INCX, INCY, M, N, NMAX, NOUT;
       bool               FATAL, MV;
       String             TRANS;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A( NMAX, * ), G( * ), X( * ), Y( * ), YT( * ), YY( * )
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               ERRI
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
       bool               TRAN;
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
       IF( TRAN )THEN
          ML = N
@@ -2523,8 +2523,8 @@
          INCYL = 1
       END IF
 *
-*     Compute expected result in YT using data in A, X and Y.
-*     Compute gauges in G.
+      // Compute expected result in YT using data in A, X and Y.
+      // Compute gauges in G.
 *
       IY = KY
       DO 30 I = 1, ML
@@ -2549,7 +2549,7 @@
          IY = IY + INCYL
    30 CONTINUE
 *
-*     Compute the error ratio for this result.
+      // Compute the error ratio for this result.
 *
       ERR = ZERO
       DO 40 I = 1, ML
@@ -2558,10 +2558,10 @@
          ERR = MAX( ERR, ERRI )
          IF( ERR*SQRT( EPS ).GE.ONE ) GO TO 50
    40 CONTINUE
-*     If the loop completes, all results are at least half accurate.
+      // If the loop completes, all results are at least half accurate.
       GO TO 70
 *
-*     Report fatal error.
+      // Report fatal error.
 *
    50 FATAL = .TRUE.
       WRITE( NOUT, FMT = 9999 )
@@ -2581,7 +2581,7 @@
      $      'TED RESULT' )
  9998 FORMAT( 1X, I7, 2G18.6 )
 *
-*     End of SMVCH
+      // End of SMVCH
 *
       END
       bool    FUNCTION LSE( RI, RJ, LR );
@@ -2591,16 +2591,16 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LR;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               RI( * ), RJ( * )
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I;
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       DO 10 I = 1, LR
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
    10 CONTINUE
@@ -2610,7 +2610,7 @@
       LSE = .FALSE.
    30 RETURN
 *
-*     End of LSE
+      // End of LSE
 *
       END
       bool    FUNCTION LSERES( TYPE, UPLO, M, N, AA, AS, LDA );
@@ -2622,19 +2622,19 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, M, N;
       String             UPLO;
       String             TYPE;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               AA( LDA, * ), AS( LDA, * )
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
       IF( TYPE.EQ.'GE' )THEN
          DO 20 J = 1, N
@@ -2666,7 +2666,7 @@
       LSERES = .FALSE.
    80 RETURN
 *
-*     End of LSERES
+      // End of LSERES
 *
       END
       REAL FUNCTION SBEG( RESET )
@@ -2676,31 +2676,31 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               RESET;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, IC, MI;
-*     .. Save statement ..
+      // .. Save statement ..
       SAVE               I, IC, MI
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       IF( RESET )THEN
-*        Initialize local variables.
+         // Initialize local variables.
          MI = 891
          I = 7
          IC = 0
          RESET = .FALSE.
       END IF
 *
-*     The sequence of values of I is bounded between 1 and 999.
-*     If initial I = 1,2,3,6,7 or 9, the period will be 50.
-*     If initial I = 4 or 8, the period will be 25.
-*     If initial I = 5, the period will be 10.
-*     IC is used to break up the period by skipping 1 value of I in 6.
+      // The sequence of values of I is bounded between 1 and 999.
+      // If initial I = 1,2,3,6,7 or 9, the period will be 50.
+      // If initial I = 4 or 8, the period will be 25.
+      // If initial I = 5, the period will be 10.
+      // IC is used to break up the period by skipping 1 value of I in 6.
 *
       IC = IC + 1
    10 I = I*MI
@@ -2712,7 +2712,7 @@
       SBEG = REAL( I - 500 )/1001.0
       RETURN
 *
-*     End of SBEG
+      // End of SBEG
 *
       END
       REAL FUNCTION SDIFF( X, Y )
@@ -2720,15 +2720,15 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
+      // Richard Hanson, Sandia National Labs.
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               X, Y
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       SDIFF = X - Y
       RETURN
 *
-*     End of SDIFF
+      // End of SDIFF
 *
       END
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
@@ -2738,14 +2738,14 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFOT, NOUT;
       bool               LERR, OK;
       String             SRNAMT;
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       IF( .NOT.LERR )THEN
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT
          OK = .FALSE.
@@ -2756,24 +2756,24 @@
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D',
      $      'ETECTED BY ', A6, ' *****' )
 *
-*     End of CHKXER
+      // End of CHKXER
 *
       END
       SUBROUTINE SREGR1( TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS )
 *
 *  Input initialization for regression test.
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                LY, M, N, KL, KU, LDA, INCX, INCY;
       REAL               ALPHA, BETA
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL               A(LDA,*), X(*), Y(*), YS(*)
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I;
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       TRANS = 'T'
       M = 0
       N = 5
@@ -2805,20 +2805,20 @@
 *  Auxiliary routine for test program for Level 2 Blas.
 *
 *  -- Written on 10-August-1987.
-*     Richard Hanson, Sandia National Labs.
-*     Jeremy Du Croz, NAG Central Office.
+      // Richard Hanson, Sandia National Labs.
+      // Jeremy Du Croz, NAG Central Office.
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO;
       String             SRNAME;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int                INFOT, NOUT;
       bool               LERR, OK;
       String             SRNAMT;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUT, OK, LERR
       COMMON             /SRNAMC/SRNAMT
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       LERR = .TRUE.
       IF( INFO.NE.INFOT )THEN
          IF( INFOT.NE.0 )THEN
@@ -2841,6 +2841,6 @@
  9997 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6,
      $      ' *******' )
 *
-*     End of XERBLA
+      // End of XERBLA
 *
       END

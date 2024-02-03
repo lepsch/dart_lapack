@@ -4,56 +4,56 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               RWORK( * ), S( * )
       COMPLEX            A( LDA, * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, ISCL, J, MN;
       REAL               ANRM, BIGNUM, NRMSVL, SMLNUM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               DUMMY( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               CLANGE, SASUM, SLAMCH, SNRM2
       // EXTERNAL CLANGE, SASUM, SLAMCH, SNRM2
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEBD2, CLASCL, CLASET, SAXPY, SBDSQR, SLASCL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       CQRT12 = ZERO
 *
-*     Test that enough workspace is supplied
+      // Test that enough workspace is supplied
 *
       IF( LWORK.LT.M*N+2*MIN( M, N )+MAX( M, N ) ) THEN
          CALL XERBLA( 'CQRT12', 7 )
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       MN = MIN( M, N )
       IF( MN.LE.ZERO ) RETURN
 *
       NRMSVL = SNRM2( MN, S, 1 )
 *
-*     Copy upper triangle of A into work
+      // Copy upper triangle of A into work
 *
       CALL CLASET( 'Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), WORK, M )
       DO J = 1, N
@@ -62,24 +62,24 @@
          END DO
       END DO
 *
-*     Get machine parameters
+      // Get machine parameters
 *
       SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'P' )
       BIGNUM = ONE / SMLNUM
 *
-*     Scale work if max entry outside range [SMLNUM,BIGNUM]
+      // Scale work if max entry outside range [SMLNUM,BIGNUM]
 *
       ANRM = CLANGE( 'M', M, N, WORK, M, DUMMY )
       ISCL = 0
       IF( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) THEN
 *
-*        Scale matrix norm up to SMLNUM
+         // Scale matrix norm up to SMLNUM
 *
          CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO )
          ISCL = 1
       ELSE IF( ANRM.GT.BIGNUM ) THEN
 *
-*        Scale matrix norm down to BIGNUM
+         // Scale matrix norm down to BIGNUM
 *
          CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO )
          ISCL = 1
@@ -87,7 +87,7 @@
 *
       IF( ANRM.NE.ZERO ) THEN
 *
-*        Compute SVD of work
+         // Compute SVD of work
 *
          CALL CGEBD2( M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ), WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), INFO )          CALL SBDSQR( 'Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ), INFO )
 *
@@ -107,13 +107,13 @@
          END DO
       END IF
 *
-*     Compare s and singular values of work
+      // Compare s and singular values of work
 *
       CALL SAXPY( MN, -ONE, S, 1, RWORK( 1 ), 1 )
       CQRT12 = SASUM( MN, RWORK( 1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL.NE.ZERO ) CQRT12 = CQRT12 / NRMSVL
 *
       RETURN
 *
-*     End of CQRT12
+      // End of CQRT12
 *
       END

@@ -4,28 +4,28 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                ICOMPQ, INFO, LDB, LDBX, LDGCOL, LDU, N, NRHS, SMLSIZ;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       REAL               B( LDB, * ), BX( LDBX, * ), C( * ), DIFL( LDU, * ), DIFR( LDU, * ), GIVNUM( LDU, * ), POLES( LDU, * ), S( * ), U( LDU, * ), VT( LDU, * ), WORK( * ), Z( LDU, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, I1, IC, IM1, INODE, J, LF, LL, LVL, LVL2, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQRE;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMM, SLALS0, SLASDT, XERBLA
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
 *
@@ -51,7 +51,7 @@
          RETURN
       END IF
 *
-*     Book-keeping and  setting up the computation tree.
+      // Book-keeping and  setting up the computation tree.
 *
       INODE = 1
       NDIML = INODE + N
@@ -59,26 +59,26 @@
 *
       CALL SLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
 *
-*     The following code applies back the left singular vector factors.
-*     For applying back the right singular vector factors, go to 50.
+      // The following code applies back the left singular vector factors.
+      // For applying back the right singular vector factors, go to 50.
 *
       IF( ICOMPQ.EQ.1 ) THEN
          GO TO 50
       END IF
 *
-*     The nodes on the bottom level of the tree were solved
-*     by SLASDQ. The corresponding left and right singular vector
-*     matrices are in explicit form. First apply back the left
-*     singular vector matrices.
+      // The nodes on the bottom level of the tree were solved
+      // by SLASDQ. The corresponding left and right singular vector
+      // matrices are in explicit form. First apply back the left
+      // singular vector matrices.
 *
       NDB1 = ( ND+1 ) / 2
       DO 10 I = NDB1, ND
 *
-*        IC : center row of each node
-*        NL : number of rows of left  subproblem
-*        NR : number of rows of right subproblem
-*        NLF: starting row of the left   subproblem
-*        NRF: starting row of the right  subproblem
+         // IC : center row of each node
+         // NL : number of rows of left  subproblem
+         // NR : number of rows of right subproblem
+         // NLF: starting row of the left   subproblem
+         // NRF: starting row of the right  subproblem
 *
          I1 = I - 1
          IC = IWORK( INODE+I1 )
@@ -89,16 +89,16 @@
          CALL SGEMM( 'T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )          CALL SGEMM( 'T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
    10 CONTINUE
 *
-*     Next copy the rows of B that correspond to unchanged rows
-*     in the bidiagonal matrix to BX.
+      // Next copy the rows of B that correspond to unchanged rows
+      // in the bidiagonal matrix to BX.
 *
       DO 20 I = 1, ND
          IC = IWORK( INODE+I-1 )
          CALL SCOPY( NRHS, B( IC, 1 ), LDB, BX( IC, 1 ), LDBX )
    20 CONTINUE
 *
-*     Finally go through the left singular vector matrices of all
-*     the other subproblems bottom-up on the tree.
+      // Finally go through the left singular vector matrices of all
+     t // he other subproblems bottom-up on the tree.
 *
       J = 2**NLVL
       SQRE = 0
@@ -106,8 +106,8 @@
       DO 40 LVL = NLVL, 1, -1
          LVL2 = 2*LVL - 1
 *
-*        find the first node LF and last node LL on
-*        the current level LVL
+         // find the first node LF and last node LL on
+        t // he current level LVL
 *
          IF( LVL.EQ.1 ) THEN
             LF = 1
@@ -129,19 +129,19 @@
    40 CONTINUE
       GO TO 90
 *
-*     ICOMPQ = 1: applying back the right singular vector factors.
+      // ICOMPQ = 1: applying back the right singular vector factors.
 *
    50 CONTINUE
 *
-*     First now go through the right singular vector matrices of all
-*     the tree nodes top-down.
+      // First now go through the right singular vector matrices of all
+     t // he tree nodes top-down.
 *
       J = 0
       DO 70 LVL = 1, NLVL
          LVL2 = 2*LVL - 1
 *
-*        Find the first node LF and last node LL on
-*        the current level LVL.
+         // Find the first node LF and last node LL on
+        t // he current level LVL.
 *
          IF( LVL.EQ.1 ) THEN
             LF = 1
@@ -167,9 +167,9 @@
    60    CONTINUE
    70 CONTINUE
 *
-*     The nodes on the bottom level of the tree were solved
-*     by SLASDQ. The corresponding right singular vector
-*     matrices are in explicit form. Apply them back.
+      // The nodes on the bottom level of the tree were solved
+      // by SLASDQ. The corresponding right singular vector
+      // matrices are in explicit form. Apply them back.
 *
       NDB1 = ( ND+1 ) / 2
       DO 80 I = NDB1, ND
@@ -192,6 +192,6 @@
 *
       RETURN
 *
-*     End of SLALSA
+      // End of SLALSA
 *
       END

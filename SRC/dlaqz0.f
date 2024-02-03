@@ -1,30 +1,30 @@
       RECURSIVE SUBROUTINE DLAQZ0( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, REC, INFO )
       IMPLICIT NONE
 
-*     Arguments
+      // Arguments
       String   , INTENT( IN ) :: WANTS, WANTQ, WANTZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, REC;
 
       int    , INTENT( OUT ) :: INFO;
        double          , INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * ), WORK( * );
 
-*     Parameters
+      // Parameters
       double           :: ZERO, ONE, HALF;
       PARAMETER( ZERO = 0.0D0, ONE = 1.0D0, HALF = 0.5D0 )
 
-*     Local scalars
+      // Local scalars
       double           :: SMLNUM, ULP, ESHIFT, SAFMIN, SAFMAX, C1, S1, TEMP, SWAP, BNORM, BTOL       int     :: ISTART, ISTOP, IITER, MAXIT, ISTART2, K, LD, NSHIFTS, NBLOCK, NW, NMIN, NIBBLE, N_UNDEFLATED, N_DEFLATED, NS, SWEEP_INFO, SHIFTPOS, LWORKREQ, K2, ISTARTM, ISTOPM, IWANTS, IWANTQ, IWANTZ, NORM_INFO, AED_INFO, NWR, NBR, NSR, ITEMP1, ITEMP2, RCOST, I;;
       bool    :: ILSCHUR, ILQ, ILZ;
       String    :: JBCMPZ*3;
 
-*     External Functions
+      // External Functions
       // EXTERNAL :: XERBLA, DHGEQZ, DLASET, DLAQZ3, DLAQZ4, DLARTG, DROT
       double          , EXTERNAL :: DLAMCH, DLANHS;
       bool   , EXTERNAL :: LSAME;
       int    , EXTERNAL :: ILAENV;
 
 *
-*     Decode wantS,wantQ,wantZ
+      // Decode wantS,wantQ,wantZ
 *
       IF( LSAME( WANTS, 'E' ) ) THEN
          ILSCHUR = .FALSE.
@@ -62,7 +62,7 @@
          IWANTZ = 0
       END IF
 *
-*     Check Argument Values
+      // Check Argument Values
 *
       INFO = 0
       IF( IWANTS.EQ.0 ) THEN
@@ -92,7 +92,7 @@
       END IF
 
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          WORK( 1 ) = DBLE( 1 )
@@ -100,7 +100,7 @@
       END IF
 
 *
-*     Get the parameters
+      // Get the parameters
 *
       JBCMPZ( 1:1 ) = WANTS
       JBCMPZ( 2:2 ) = WANTQ
@@ -129,14 +129,14 @@
       END IF
 
 *
-*     Find out required workspace
+      // Find out required workspace
 *
 
-*     Workspace query to dlaqz3
+      // Workspace query to dlaqz3
       NW = MAX( NWR, NMIN )
       CALL DLAQZ3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHAR, ALPHAI, BETA, WORK, NW, WORK, NW, WORK, -1, REC, AED_INFO )
       ITEMP1 = INT( WORK( 1 ) )
-*     Workspace query to dlaqz4
+      // Workspace query to dlaqz4
       CALL DLAQZ4( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSR, NBR, ALPHAR, ALPHAI, BETA, A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBR, WORK, NBR, WORK, -1, SWEEP_INFO )
       ITEMP2 = INT( WORK( 1 ) )
 
@@ -152,12 +152,12 @@
          RETURN
       END IF
 *
-*     Initialize Q and Z
+      // Initialize Q and Z
 *
       IF( IWANTQ.EQ.3 ) CALL DLASET( 'FULL', N, N, ZERO, ONE, Q, LDQ )
       IF( IWANTZ.EQ.3 ) CALL DLASET( 'FULL', N, N, ZERO, ONE, Z, LDZ )
 
-*     Get machine constants
+      // Get machine constants
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE/SAFMIN
       ULP = DLAMCH( 'PRECISION' )
@@ -181,7 +181,7 @@
             EXIT
          END IF
 
-*        Check deflations at the end
+         // Check deflations at the end
          IF ( ABS( A( ISTOP-1, ISTOP-2 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTOP-1, ISTOP-1 ) )+ABS( A( ISTOP-2, ISTOP-2 ) ) ) ) ) THEN
             A( ISTOP-1, ISTOP-2 ) = ZERO
             ISTOP = ISTOP-2
@@ -193,7 +193,7 @@
             LD = 0
             ESHIFT = ZERO
          END IF
-*        Check deflations at the start
+         // Check deflations at the start
          IF ( ABS( A( ISTART+2, ISTART+1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTART+1, ISTART+1 ) )+ABS( A( ISTART+2, ISTART+2 ) ) ) ) ) THEN
             A( ISTART+2, ISTART+1 ) = ZERO
             ISTART = ISTART+2
@@ -210,7 +210,7 @@
             EXIT
          END IF
 
-*        Check interior deflations
+         // Check interior deflations
          ISTART2 = ISTART
          DO K = ISTOP, ISTART+1, -1
             IF ( ABS( A( K, K-1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) THEN
@@ -220,7 +220,7 @@
             END IF
          END DO
 
-*        Get range to apply rotations to
+         // Get range to apply rotations to
          IF ( ILSCHUR ) THEN
             ISTARTM = 1
             ISTOPM = N
@@ -229,14 +229,14 @@
             ISTOPM = ISTOP
          END IF
 
-*        Check infinite eigenvalues, this is done without blocking so might
-*        slow down the method when many infinite eigenvalues are present
+         // Check infinite eigenvalues, this is done without blocking so might
+         // slow down the method when many infinite eigenvalues are present
          K = ISTOP
          DO WHILE ( K.GE.ISTART2 )
 
             IF( ABS( B( K, K ) ) .LT. BTOL ) THEN
-*              A diagonal element of B is negligible, move it
-*              to the top and deflate it
+               // A diagonal element of B is negligible, move it
+              t // o the top and deflate it
 
                DO K2 = K, ISTART2+1, -1
                   CALL DLARTG( B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP )
@@ -275,8 +275,8 @@
             K = K-1
          END DO
 
-*        istart2 now points to the top of the bottom right
-*        unreduced Hessenberg block
+         // istart2 now points to the top of the bottom right
+         // unreduced Hessenberg block
          IF ( ISTART2 .GE. ISTOP ) THEN
             ISTOP = ISTART2-1
             LD = 0
@@ -289,9 +289,9 @@
          NBLOCK = NBR
 
          IF ( ISTOP-ISTART2+1 .LT. NMIN ) THEN
-*           Setting nw to the size of the subblock will make AED deflate
-*           all the eigenvalues. This is slightly more efficient than just
-*           using DHGEQZ because the off diagonal part gets updated via BLAS.
+            // Setting nw to the size of the subblock will make AED deflate
+            // all the eigenvalues. This is slightly more efficient than just
+            // using DHGEQZ because the off diagonal part gets updated via BLAS.
             IF ( ISTOP-ISTART+1 .LT. NMIN ) THEN
                NW = ISTOP-ISTART+1
                ISTART2 = ISTART
@@ -301,7 +301,7 @@
          END IF
 
 *
-*        Time for AED
+         // Time for AED
 *
          CALL DLAQZ3( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHAR, ALPHAI, BETA, WORK, NW, WORK( NW**2+1 ), NW, WORK( 2*NW**2+1 ), LWORK-2*NW**2, REC, AED_INFO )
 
@@ -311,8 +311,8 @@
             ESHIFT = ZERO
          END IF
           IF ( 100*N_DEFLATED > NIBBLE*( N_DEFLATED+N_UNDEFLATED ) .OR. ISTOP-ISTART2+1 .LT. NMIN ) THEN
-*           AED has uncovered many eigenvalues. Skip a QZ sweep and run
-*           AED again.
+            // AED has uncovered many eigenvalues. Skip a QZ sweep and run
+            // AED again.
             CYCLE
          END IF
 
@@ -322,8 +322,8 @@
          NS = MIN( NS, N_UNDEFLATED )
          SHIFTPOS = ISTOP-N_UNDEFLATED+1
 *
-*        Shuffle shifts to put double shifts in front
-*        This ensures that we don't split up a double shift
+         // Shuffle shifts to put double shifts in front
+         // This ensures that we don't split up a double shift
 *
          DO I = SHIFTPOS, SHIFTPOS+N_UNDEFLATED-1, 2
             IF( ALPHAI( I ).NE.-ALPHAI( I+1 ) ) THEN
@@ -347,7 +347,7 @@
 
          IF ( MOD( LD, 6 ) .EQ. 0 ) THEN
 *
-*           Exceptional shift.  Chosen for no particularly good reason.
+            // Exceptional shift.  Chosen for no particularly good reason.
 *
             IF( ( DBLE( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ).LT.ABS( A( ISTOP-1, ISTOP-1 ) ) ) THEN
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 )
@@ -364,17 +364,17 @@
          END IF
 
 *
-*        Time for a QZ sweep
+         // Time for a QZ sweep
 *
          CALL DLAQZ4( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NS, NBLOCK, ALPHAR( SHIFTPOS ), ALPHAI( SHIFTPOS ), BETA( SHIFTPOS ), A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBLOCK, WORK( NBLOCK**2+1 ), NBLOCK, WORK( 2*NBLOCK**2+1 ), LWORK-2*NBLOCK**2, SWEEP_INFO )
 
       END DO
 
 *
-*     Call DHGEQZ to normalize the eigenvalue blocks and set the eigenvalues
-*     If all the eigenvalues have been found, DHGEQZ will not do any iterations
-*     and only normalize the blocks. In case of a rare convergence failure,
-*     the single shift might perform better.
+      // Call DHGEQZ to normalize the eigenvalue blocks and set the eigenvalues
+      // If all the eigenvalues have been found, DHGEQZ will not do any iterations
+      // and only normalize the blocks. In case of a rare convergence failure,
+     t // he single shift might perform better.
 *
    80 CALL DHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB,
      $             ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK,

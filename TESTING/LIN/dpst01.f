@@ -4,47 +4,47 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       double             RESID;
       int                LDA, LDAFAC, LDPERM, N, RANK;
       String             UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * );
       int                PIV( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       double             ANORM, EPS, T;
       int                I, J, K;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DDOT, DLAMCH, DLANSY;
       bool               LSAME;
       // EXTERNAL DDOT, DLAMCH, DLANSY, LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DSCAL, DSYR, DTRMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Exit with RESID = 1/EPS if ANORM = 0.
+      // Exit with RESID = 1/EPS if ANORM = 0.
 *
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
@@ -53,7 +53,7 @@
          RETURN
       END IF
 *
-*     Compute the product U'*U, overwriting U.
+      // Compute the product U'*U, overwriting U.
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
@@ -67,18 +67,18 @@
 *
          DO 120 K = N, 1, -1
 *
-*           Compute the (K,K) element of the result.
+            // Compute the (K,K) element of the result.
 *
             T = DDOT( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 )
             AFAC( K, K ) = T
 *
-*           Compute the rest of column K.
+            // Compute the rest of column K.
 *
             CALL DTRMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
 *
   120    CONTINUE
 *
-*     Compute the product L*L', overwriting L.
+      // Compute the product L*L', overwriting L.
 *
       ELSE
 *
@@ -91,12 +91,12 @@
          END IF
 *
          DO 150 K = N, 1, -1
-*           Add a multiple of column K of the factor L to each of
-*           columns K+1 through N.
+            // Add a multiple of column K of the factor L to each of
+            // columns K+1 through N.
 *
             IF( K+1.LE.N ) CALL DSYR( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC )
 *
-*           Scale column K by the diagonal element.
+            // Scale column K by the diagonal element.
 *
             T = AFAC( K, K )
             CALL DSCAL( N-K+1, T, AFAC( K, K ), 1 )
@@ -104,7 +104,7 @@
 *
       END IF
 *
-*        Form P*L*L'*P' or P*U'*U*P'
+         // Form P*L*L'*P' or P*U'*U*P'
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
@@ -137,7 +137,7 @@
 *
       END IF
 *
-*     Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
+      // Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 210 J = 1, N
@@ -153,8 +153,8 @@
   230    CONTINUE
       END IF
 *
-*     Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or
-*     ( P*U'*U*P' - A )/ ( N * norm(A) * EPS ).
+      // Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or
+      // ( P*U'*U*P' - A )/ ( N * norm(A) * EPS ).
 *
       RESID = DLANSY( '1', UPLO, N, PERM, LDAFAC, RWORK )
 *
@@ -162,6 +162,6 @@
 *
       RETURN
 *
-*     End of DPST01
+      // End of DPST01
 *
       END

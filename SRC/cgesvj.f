@@ -5,59 +5,59 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
       IMPLICIT NONE
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, LRWORK, M, MV, N;
       String             JOBA, JOBU, JOBV;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ),  V( LDV, * ), CWORK( LWORK )
       REAL               RWORK( LRWORK ), SVA( N )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Parameters ..
+      // .. Local Parameters ..
       REAL         ZERO,         HALF,         ONE
       PARAMETER  ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0)
       COMPLEX      CZERO,                  CONE
       PARAMETER  ( CZERO = (0.0E0, 0.0E0), CONE = (1.0E0, 0.0E0) )
       int          NSWEEP;
       PARAMETER  ( NSWEEP = 30 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       COMPLEX    AAPQ, OMPQ
       REAL       AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL       int        BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN, LRWMIN;
       bool       APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
-*     ..
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, CONJG, REAL, SIGN, SQRT
-*     ..
-*     .. External Functions ..
-*     ..
-*     from BLAS
+      // ..
+      // .. External Functions ..
+      // ..
+      // from BLAS
       REAL               SCNRM2
       COMPLEX            CDOTC
       // EXTERNAL CDOTC, SCNRM2
       int                ISAMAX;
       // EXTERNAL ISAMAX
-*     from LAPACK
+      // from LAPACK
       REAL               SLAMCH, SROUNDUP_LWORK
       // EXTERNAL SLAMCH, SROUNDUP_LWORK
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
-*     ..
-*     from BLAS
+      // ..
+      // .. External Subroutines ..
+      // ..
+      // from BLAS
       // EXTERNAL CCOPY, CROT, CSSCAL, CSWAP, CAXPY
-*     from LAPACK
+      // from LAPACK
       // EXTERNAL CLASCL, CLASET, CLASSQ, SLASCL, XERBLA
       // EXTERNAL CGSVJ0, CGSVJ1
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       LSVEC = LSAME( JOBU, 'U' ) .OR. LSAME( JOBU, 'F' )
       UCTOL = LSAME( JOBU, 'C' )
@@ -102,7 +102,7 @@
          INFO = 0
       END IF
 *
-*     #:(
+      // #:(
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CGESVJ', -INFO )
          RETURN
@@ -116,25 +116,25 @@
 *
       IF( MINMN.EQ.0 ) RETURN
 *
-*     Set numerical parameters
-*     The stopping criterion for Jacobi rotations is
+      // Set numerical parameters
+      // The stopping criterion for Jacobi rotations is
 *
-*     max_{i<>j}|A(:,i)^* * A(:,j)| / (||A(:,i)||*||A(:,j)||) < CTOL*EPS
+      // max_{i<>j}|A(:,i)^* * A(:,j)| / (||A(:,i)||*||A(:,j)||) < CTOL*EPS
 *
-*     where EPS is the round-off and CTOL is defined as follows:
+      // where EPS is the round-off and CTOL is defined as follows:
 *
       IF( UCTOL ) THEN
-*        ... user controlled
+         // ... user controlled
          CTOL = RWORK( 1 )
       ELSE
-*        ... default
+         // ... default
          IF( LSVEC .OR. RSVEC .OR. APPLV ) THEN
             CTOL = SQRT( REAL( M ) )
          ELSE
             CTOL = REAL( M )
          END IF
       END IF
-*     ... and the machine dependent parameters are
+      // ... and the machine dependent parameters are
 *[!]  (Make sure that SLAMCH() works properly on the target machine.)
 *
       EPSLN = SLAMCH( 'Epsilon' )
@@ -142,10 +142,10 @@
       SFMIN = SLAMCH( 'SafeMinimum' )
       ROOTSFMIN = SQRT( SFMIN )
       SMALL = SFMIN / EPSLN
-*      BIG = SLAMCH( 'Overflow' )
+       // BIG = SLAMCH( 'Overflow' )
       BIG     = ONE  / SFMIN
       ROOTBIG = ONE / ROOTSFMIN
-*     LARGE = BIG / SQRT( REAL( M*N ) )
+      // LARGE = BIG / SQRT( REAL( M*N ) )
       BIGTHETA = ONE / ROOTEPS
 *
       TOL = CTOL*EPSLN
@@ -157,7 +157,7 @@
          RETURN
       END IF
 *
-*     Initialize the right singular vector matrix.
+      // Initialize the right singular vector matrix.
 *
       IF( RSVEC ) THEN
          MVL = N
@@ -167,21 +167,21 @@
       END IF
       RSVEC = RSVEC .OR. APPLV
 *
-*     Initialize SVA( 1:N ) = ( ||A e_i||_2, i = 1:N )
+      // Initialize SVA( 1:N ) = ( ||A e_i||_2, i = 1:N )
 *(!)  If necessary, scale A to protect the largest singular value
-*     from overflow. It is possible that saving the largest singular
-*     value destroys the information about the small ones.
-*     This initial scaling is almost minimal in the sense that the
-*     goal is to make sure that no column norm overflows, and that
-*     SQRT(N)*max_i SVA(i) does not overflow. If INFinite entries
-*     in A are detected, the procedure returns with INFO=-6.
+      // from overflow. It is possible that saving the largest singular
+      // value destroys the information about the small ones.
+      // This initial scaling is almost minimal in the sense that the
+      // goal is to make sure that no column norm overflows, and that
+      // SQRT(N)*max_i SVA(i) does not overflow. If INFinite entries
+      // in A are detected, the procedure returns with INFO=-6.
 *
       SKL = ONE / SQRT( REAL( M )*REAL( N ) )
       NOSCALE = .TRUE.
       GOSCALE = .TRUE.
 *
       IF( LOWER ) THEN
-*        the input matrix is M-by-N lower triangular (trapezoidal)
+        t // he input matrix is M-by-N lower triangular (trapezoidal)
          DO 1874 p = 1, N
             AAPP = ZERO
             AAQQ = ONE
@@ -206,7 +206,7 @@
             END IF
  1874    CONTINUE
       ELSE IF( UPPER ) THEN
-*        the input matrix is M-by-N upper triangular (trapezoidal)
+        t // he input matrix is M-by-N upper triangular (trapezoidal)
          DO 2874 p = 1, N
             AAPP = ZERO
             AAQQ = ONE
@@ -231,7 +231,7 @@
             END IF
  2874    CONTINUE
       ELSE
-*        the input matrix is M-by-N general dense
+        t // he input matrix is M-by-N general dense
          DO 3874 p = 1, N
             AAPP = ZERO
             AAQQ = ONE
@@ -259,9 +259,9 @@
 *
       IF( NOSCALE )SKL = ONE
 *
-*     Move the smaller part of the spectrum from the underflow threshold
+      // Move the smaller part of the spectrum from the underflow threshold
 *(!)  Start by determining the position of the nonzero entries of the
-*     array SVA() relative to ( SFMIN, BIG ).
+      // array SVA() relative to ( SFMIN, BIG ).
 *
       AAPP = ZERO
       AAQQ = BIG
@@ -300,32 +300,32 @@
          RETURN
       END IF
 *
-*     Protect small singular values from underflow, and try to
-*     avoid underflows/overflows in computing Jacobi rotations.
+      // Protect small singular values from underflow, and try to
+      // avoid underflows/overflows in computing Jacobi rotations.
 *
       SN = SQRT( SFMIN / EPSLN )
       TEMP1 = SQRT( BIG / REAL( N ) )
       IF( ( AAPP.LE.SN ) .OR. ( AAQQ.GE.TEMP1 ) .OR. ( ( SN.LE.AAQQ ) .AND. ( AAPP.LE.TEMP1 ) ) ) THEN
          TEMP1 = MIN( BIG, TEMP1 / AAPP )
-*         AAQQ  = AAQQ*TEMP1
-*         AAPP  = AAPP*TEMP1
+          // AAQQ  = AAQQ*TEMP1
+          // AAPP  = AAPP*TEMP1
       ELSE IF( ( AAQQ.LE.SN ) .AND. ( AAPP.LE.TEMP1 ) ) THEN
          TEMP1 = MIN( SN / AAQQ, BIG / ( AAPP*SQRT( REAL( N ) ) ) )
-*         AAQQ  = AAQQ*TEMP1
-*         AAPP  = AAPP*TEMP1
+          // AAQQ  = AAQQ*TEMP1
+          // AAPP  = AAPP*TEMP1
       ELSE IF( ( AAQQ.GE.SN ) .AND. ( AAPP.GE.TEMP1 ) ) THEN
          TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP )
-*         AAQQ  = AAQQ*TEMP1
-*         AAPP  = AAPP*TEMP1
+          // AAQQ  = AAQQ*TEMP1
+          // AAPP  = AAPP*TEMP1
       ELSE IF( ( AAQQ.LE.SN ) .AND. ( AAPP.GE.TEMP1 ) ) THEN
          TEMP1 = MIN( SN / AAQQ, BIG / ( SQRT( REAL( N ) )*AAPP ) )
-*         AAQQ  = AAQQ*TEMP1
-*         AAPP  = AAPP*TEMP1
+          // AAQQ  = AAQQ*TEMP1
+          // AAPP  = AAPP*TEMP1
       ELSE
          TEMP1 = ONE
       END IF
 *
-*     Scale, if necessary
+      // Scale, if necessary
 *
       IF( TEMP1.NE.ONE ) THEN
          CALL SLASCL( 'G', 0, 0, ONE, TEMP1, N, 1, SVA, N, IERR )
@@ -336,7 +336,7 @@
          SKL = ONE / SKL
       END IF
 *
-*     Row-cyclic Jacobi SVD algorithm with column pivoting
+      // Row-cyclic Jacobi SVD algorithm with column pivoting
 *
       EMPTSW = ( N*( N-1 ) ) / 2
       NOTROT = 0
@@ -349,17 +349,17 @@
 *
       SWBAND = 3
 *[TP] SWBAND is a tuning parameter [TP]. It is meaningful and effective
-*     if CGESVJ is used as a computational routine in the preconditioned
-*     Jacobi SVD algorithm CGEJSV. For sweeps i=1:SWBAND the procedure
-*     works on pivots inside a band-like region around the diagonal.
-*     The boundaries are determined dynamically, based on the number of
-*     pivots above a threshold.
+      // if CGESVJ is used as a computational routine in the preconditioned
+      // Jacobi SVD algorithm CGEJSV. For sweeps i=1:SWBAND the procedure
+      // works on pivots inside a band-like region around the diagonal.
+      // The boundaries are determined dynamically, based on the number of
+      // pivots above a threshold.
 *
       KBL = MIN( 8, N )
 *[TP] KBL is a tuning parameter that defines the tile size in the
-*     tiling of the p-q loops of pivot pairs. In general, an optimal
-*     value of KBL depends on the matrix dimensions and on the
-*     parameters of the computer's memory.
+     t // iling of the p-q loops of pivot pairs. In general, an optimal
+      // value of KBL depends on the matrix dimensions and on the
+      // parameters of the computer's memory.
 *
       NBL = N / KBL
       IF( ( NBL*KBL ).NE.N )NBL = NBL + 1
@@ -373,14 +373,14 @@
       LKAHEAD = 1
 *[TP] LKAHEAD is a tuning parameter.
 *
-*     Quasi block transformations, using the lower (upper) triangular
-*     structure of the input matrix. The quasi-block-cycling usually
-*     invokes cubic convergence. Big part of this cycle is done inside
-*     canonical subspaces of dimensions less than M.
+      // Quasi block transformations, using the lower (upper) triangular
+      // structure of the input matrix. The quasi-block-cycling usually
+      // invokes cubic convergence. Big part of this cycle is done inside
+      // canonical subspaces of dimensions less than M.
 *
       IF( ( LOWER .OR. UPPER ) .AND. ( N.GT.MAX( 64, 4*KBL ) ) ) THEN
 *[TP] The number of partition levels and the actual partition are
-*     tuning parameters.
+     t // uning parameters.
          N4 = N / 4
          N2 = N / 2
          N34 = 3*N4
@@ -392,13 +392,13 @@
 *
          IF( LOWER ) THEN
 *
-*     This works very well on lower triangular matrices, in particular
-*     in the framework of the preconditioned Jacobi SVD (xGEJSV).
-*     The idea is simple:
-*     [+ 0 0 0]   Note that Jacobi transformations of [0 0]
-*     [+ + 0 0]                                       [0 0]
-*     [+ + x 0]   actually work on [x 0]              [x 0]
-*     [+ + x x]                    [x x].             [x x]
+      // This works very well on lower triangular matrices, in particular
+      // in the framework of the preconditioned Jacobi SVD (xGEJSV).
+      // The idea is simple:
+      // [+ 0 0 0]   Note that Jacobi transformations of [0 0]
+      // [+ + 0 0]                                       [0 0]
+      // [+ + x 0]   actually work on [x 0]              [x 0]
+      // [+ + x x]                    [x x].             [x x]
 *
             CALL CGSVJ0( JOBV, M-N34, N-N34, A( N34+1, N34+1 ), LDA, CWORK( N34+1 ), SVA( N34+1 ), MVL, V( N34*q+1, N34+1 ), LDV, EPSLN, SFMIN, TOL, 2, CWORK( N+1 ), LWORK-N, IERR )              CALL CGSVJ0( JOBV, M-N2, N34-N2, A( N2+1, N2+1 ), LDA, CWORK( N2+1 ), SVA( N2+1 ), MVL, V( N2*q+1, N2+1 ), LDV, EPSLN, SFMIN, TOL, 2, CWORK( N+1 ), LWORK-N, IERR )              CALL CGSVJ1( JOBV, M-N2, N-N2, N4, A( N2+1, N2+1 ), LDA, CWORK( N2+1 ), SVA( N2+1 ), MVL, V( N2*q+1, N2+1 ), LDV, EPSLN, SFMIN, TOL, 1, CWORK( N+1 ), LWORK-N, IERR )
 *
@@ -424,11 +424,11 @@
 *
       END IF
 *
-*     .. Row-cyclic pivot strategy with de Rijk's pivoting ..
+      // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 *
       DO 1993 i = 1, NSWEEP
 *
-*     .. go go go ...
+      // .. go go go ...
 *
          MXAAPQ = ZERO
          MXSINJ = ZERO
@@ -437,10 +437,10 @@
          NOTROT = 0
          PSKIPPED = 0
 *
-*     Each sweep is unrolled using KBL-by-KBL tiles over the pivot pairs
-*     1 <= p < q <= N. This is the first step toward a blocked implementation
-*     of the rotations. New implementation, based on block transformations,
-*     is under development.
+      // Each sweep is unrolled using KBL-by-KBL tiles over the pivot pairs
+      // 1 <= p < q <= N. This is the first step toward a blocked implementation
+      // of the rotations. New implementation, based on block transformations,
+      // is under development.
 *
          DO 2000 ibr = 1, NBL
 *
@@ -452,7 +452,7 @@
 *
                DO 2001 p = igl, MIN( igl+KBL-1, N-1 )
 *
-*     .. de Rijk's pivoting
+      // .. de Rijk's pivoting
 *
                   q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
                   IF( p.NE.q ) THEN
@@ -468,17 +468,17 @@
 *
                   IF( ir1.EQ.0 ) THEN
 *
-*        Column norms are periodically updated by explicit
-*        norm computation.
+         // Column norms are periodically updated by explicit
+         // norm computation.
 *[!]     Caveat:
-*        Unfortunately, some BLAS implementations compute SCNRM2(M,A(1,p),1)
-*        as SQRT(S=CDOTC(M,A(1,p),1,A(1,p),1)), which may cause the result to
-*        overflow for ||A(:,p)||_2 > SQRT(overflow_threshold), and to
-*        underflow for ||A(:,p)||_2 < SQRT(underflow_threshold).
-*        Hence, SCNRM2 cannot be trusted, not even in the case when
-*        the true norm is far from the under(over)flow boundaries.
-*        If properly implemented SCNRM2 is available, the IF-THEN-ELSE-END IF
-*        below should be replaced with "AAPP = SCNRM2( M, A(1,p), 1 )".
+         // Unfortunately, some BLAS implementations compute SCNRM2(M,A(1,p),1)
+         // as SQRT(S=CDOTC(M,A(1,p),1,A(1,p),1)), which may cause the result to
+         // overflow for ||A(:,p)||_2 > SQRT(overflow_threshold), and to
+         // underflow for ||A(:,p)||_2 < SQRT(underflow_threshold).
+         // Hence, SCNRM2 cannot be trusted, not even in the case when
+        t // he true norm is far from the under(over)flow boundaries.
+         // If properly implemented SCNRM2 is available, the IF-THEN-ELSE-END IF
+         // below should be replaced with "AAPP = SCNRM2( M, A(1,p), 1 )".
 *
                      IF( ( SVA( p ).LT.ROOTBIG ) .AND. ( SVA( p ).GT.ROOTSFMIN ) ) THEN
                         SVA( p ) = SCNRM2( M, A( 1, p ), 1 )
@@ -521,16 +521,16 @@
                               END IF
                            END IF
 *
-*                           AAPQ = AAPQ * CONJG( CWORK(p) ) * CWORK(q)
+                            // AAPQ = AAPQ * CONJG( CWORK(p) ) * CWORK(q)
                            AAPQ1  = -ABS(AAPQ)
                            MXAAPQ = MAX( MXAAPQ, -AAPQ1 )
 *
-*        TO rotate or NOT to rotate, THAT is the question ...
+         // TO rotate or NOT to rotate, THAT is the question ...
 *
                            IF( ABS( AAPQ1 ).GT.TOL ) THEN
                                OMPQ = AAPQ / ABS(AAPQ)
 *
-*           .. rotate
+            // .. rotate
 *[RTD]      ROTATED = ROTATED + ONE
 *
                               IF( ir1.EQ.0 ) THEN
@@ -558,7 +558,7 @@
 *
                                  ELSE
 *
-*                 .. choose correct signum for THETA and rotate
+                  // .. choose correct signum for THETA and rotate
 *
                                     THSIGN = -SIGN( ONE, AAPQ1 )
                                     T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) )
@@ -576,15 +576,15 @@
                                  CWORK(p) = -CWORK(q) * OMPQ
 *
                                  ELSE
-*              .. have to use modified Gram-Schmidt like transformation
+               // .. have to use modified Gram-Schmidt like transformation
                                  CALL CCOPY( M, A( 1, p ), 1, CWORK(N+1), 1 )                                  CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR )
                                  CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                  CALL CAXPY( M, -AAPQ, CWORK(N+1), 1, A( 1, q ), 1 )                                  CALL CLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                  MXSINJ = MAX( MXSINJ, SFMIN )
                               END IF
-*           END IF ROTOK THEN ... ELSE
+            // END IF ROTOK THEN ... ELSE
 *
-*           In the case of cancellation in updating SVA(q), SVA(p)
-*           recompute SVA(q), SVA(p).
+            // In the case of cancellation in updating SVA(q), SVA(p)
+            // recompute SVA(q), SVA(p).
 *
                               IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1 )
@@ -608,13 +608,13 @@
                               END IF
 *
                            ELSE
-*                             A(:,p) and A(:,q) already numerically orthogonal
+                              // A(:,p) and A(:,q) already numerically orthogonal
                               IF( ir1.EQ.0 )NOTROT = NOTROT + 1
 *[RTD]      SKIPPED  = SKIPPED + 1
                               PSKIPPED = PSKIPPED + 1
                            END IF
                         ELSE
-*                          A(:,q) is zero column
+                           // A(:,q) is zero column
                            IF( ir1.EQ.0 )NOTROT = NOTROT + 1
                            PSKIPPED = PSKIPPED + 1
                         END IF
@@ -626,10 +626,10 @@
                         END IF
 *
  2002                CONTINUE
-*     END q-LOOP
+      // END q-LOOP
 *
  2103                CONTINUE
-*     bailed out of q-loop
+      // bailed out of q-loop
 *
                      SVA( p ) = AAPP
 *
@@ -639,10 +639,10 @@
                   END IF
 *
  2001          CONTINUE
-*     end of the p-loop
-*     end of doing the block ( ibr, ibr )
+      // end of the p-loop
+      // end of doing the block ( ibr, ibr )
  1002       CONTINUE
-*     end of ir1-loop
+      // end of ir1-loop
 *
 * ... go to the off diagonal blocks
 *
@@ -652,7 +652,7 @@
 *
                jgl = ( jbc-1 )*KBL + 1
 *
-*        doing the block at ( ibr, jbc )
+         // doing the block at ( ibr, jbc )
 *
                IJBLSK = 0
                DO 2100 p = igl, MIN( igl+KBL-1, N )
@@ -668,9 +668,9 @@
                         IF( AAQQ.GT.ZERO ) THEN
                            AAPP0 = AAPP
 *
-*     .. M x 2 Jacobi SVD ..
+      // .. M x 2 Jacobi SVD ..
 *
-*        Safe Gram matrix computation
+         // Safe Gram matrix computation
 *
                            IF( AAQQ.GE.ONE ) THEN
                               IF( AAPP.GE.AAQQ ) THEN
@@ -698,11 +698,11 @@
                               END IF
                            END IF
 *
-*                           AAPQ = AAPQ * CONJG(CWORK(p))*CWORK(q)
+                            // AAPQ = AAPQ * CONJG(CWORK(p))*CWORK(q)
                            AAPQ1  = -ABS(AAPQ)
                            MXAAPQ = MAX( MXAAPQ, -AAPQ1 )
 *
-*        TO rotate or NOT to rotate, THAT is the question ...
+         // TO rotate or NOT to rotate, THAT is the question ...
 *
                            IF( ABS( AAPQ1 ).GT.TOL ) THEN
                               OMPQ = AAPQ / ABS(AAPQ)
@@ -729,7 +729,7 @@
                                     MXSINJ = MAX( MXSINJ, ABS( T ) )
                                  ELSE
 *
-*                 .. choose correct signum for THETA and rotate
+                  // .. choose correct signum for THETA and rotate
 *
                                     THSIGN = -SIGN( ONE, AAPQ1 )
                                     IF( AAQQ.GT.AAPP0 )THSIGN = -THSIGN
@@ -747,7 +747,7 @@
                                  CWORK(p) = -CWORK(q) * OMPQ
 *
                               ELSE
-*              .. have to use modified Gram-Schmidt like transformation
+               // .. have to use modified Gram-Schmidt like transformation
                                IF( AAPP.GT.AAQQ ) THEN
                                     CALL CCOPY( M, A( 1, p ), 1, CWORK(N+1), 1 )                                     CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1),LDA, IERR )                                     CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                     CALL CAXPY( M, -AAPQ, CWORK(N+1), 1, A( 1, q ), 1 )                                     CALL CLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
@@ -758,10 +758,10 @@
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                END IF
                               END IF
-*           END IF ROTOK THEN ... ELSE
+            // END IF ROTOK THEN ... ELSE
 *
-*           In the case of cancellation in updating SVA(q), SVA(p)
-*           .. recompute SVA(q), SVA(p)
+            // In the case of cancellation in updating SVA(q), SVA(p)
+            // .. recompute SVA(q), SVA(p)
                               IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1)
                                   ELSE
@@ -782,7 +782,7 @@
                                  END IF
                                  SVA( p ) = AAPP
                               END IF
-*              end of OK rotation
+               // end of OK rotation
                            ELSE
                               NOTROT = NOTROT + 1
 *[RTD]      SKIPPED  = SKIPPED  + 1
@@ -807,7 +807,7 @@
                         END IF
 *
  2200                CONTINUE
-*        end of the q-loop
+         // end of the q-loop
  2203                CONTINUE
 *
                      SVA( p ) = AAPP
@@ -820,9 +820,9 @@
                   END IF
 *
  2100          CONTINUE
-*     end of the p-loop
+      // end of the p-loop
  2010       CONTINUE
-*     end of the jbc-loop
+      // end of the jbc-loop
  2011       CONTINUE
 *2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N )
@@ -832,7 +832,7 @@
  2000    CONTINUE
 *2000 :: end of the ibr-loop
 *
-*     .. update SVA(N)
+      // .. update SVA(N)
          IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) THEN
             SVA( N ) = SCNRM2( M, A( 1, N ), 1 )
          ELSE
@@ -842,7 +842,7 @@
             SVA( N ) = T*SQRT( AAPP )
          END IF
 *
-*     Additional steering devices
+      // Additional steering devices
 *
          IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
 *
@@ -853,7 +853,7 @@
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 *
  1993 CONTINUE
-*     end i=1:NSWEEP loop
+      // end i=1:NSWEEP loop
 *
 * #:( Reaching this point means that the procedure has not converged.
       INFO = NSWEEP - 1
@@ -861,14 +861,14 @@
 *
  1994 CONTINUE
 * #:) Reaching this point means numerical convergence after the i-th
-*     sweep.
+      // sweep.
 *
       INFO = 0
 * #:) INFO = 0 confirms successful iterations.
  1995 CONTINUE
 *
-*     Sort the singular values and find how many are above
-*     the underflow threshold.
+      // Sort the singular values and find how many are above
+     t // he underflow threshold.
 *
       N2 = 0
       N4 = 0
@@ -891,16 +891,16 @@
          IF( SVA( N )*SKL.GT.SFMIN )N2 = N2 + 1
       END IF
 *
-*     Normalize the left singular vectors.
+      // Normalize the left singular vectors.
 *
       IF( LSVEC .OR. UCTOL ) THEN
          DO 1998 p = 1, N4
-*           CALL CSSCAL( M, ONE / SVA( p ), A( 1, p ), 1 )
+            // CALL CSSCAL( M, ONE / SVA( p ), A( 1, p ), 1 )
             CALL CLASCL( 'G',0,0, SVA(p), ONE, M, 1, A(1,p), M, IERR )
  1998    CONTINUE
       END IF
 *
-*     Scale the product of Jacobi rotations.
+      // Scale the product of Jacobi rotations.
 *
       IF( RSVEC ) THEN
             DO 2399 p = 1, N
@@ -909,7 +909,7 @@
  2399       CONTINUE
       END IF
 *
-*     Undo scaling, if necessary (and possible).
+      // Undo scaling, if necessary (and possible).
       IF( ( ( SKL.GT.ONE ) .AND. ( SVA( 1 ).LT.( BIG / SKL ) ) ) .OR. ( ( SKL.LT.ONE ) .AND. ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL ) ) ) ) THEN
          DO 2400 p = 1, N
             SVA( P ) = SKL*SVA( P )
@@ -918,32 +918,32 @@
       END IF
 *
       RWORK( 1 ) = SKL
-*     The singular values of A are SKL*SVA(1:N). If SKL.NE.ONE
-*     then some of the singular values may overflow or underflow and
-*     the spectrum is given in this factored representation.
+      // The singular values of A are SKL*SVA(1:N). If SKL.NE.ONE
+     t // hen some of the singular values may overflow or underflow and
+     t // he spectrum is given in this factored representation.
 *
       RWORK( 2 ) = REAL( N4 )
-*     N4 is the number of computed nonzero singular values of A.
+      // N4 is the number of computed nonzero singular values of A.
 *
       RWORK( 3 ) = REAL( N2 )
-*     N2 is the number of singular values of A greater than SFMIN.
-*     If N2<N, SVA(N2:N) contains ZEROS and/or denormalized numbers
-*     that may carry some information.
+      // N2 is the number of singular values of A greater than SFMIN.
+      // If N2<N, SVA(N2:N) contains ZEROS and/or denormalized numbers
+     t // hat may carry some information.
 *
       RWORK( 4 ) = REAL( i )
-*     i is the index of the last sweep before declaring convergence.
+      // i is the index of the last sweep before declaring convergence.
 *
       RWORK( 5 ) = MXAAPQ
-*     MXAAPQ is the largest absolute value of scaled pivots in the
-*     last sweep
+      // MXAAPQ is the largest absolute value of scaled pivots in the
+      // last sweep
 *
       RWORK( 6 ) = MXSINJ
-*     MXSINJ is the largest absolute value of the sines of Jacobi angles
-*     in the last sweep
+      // MXSINJ is the largest absolute value of the sines of Jacobi angles
+      // in the last sweep
 *
       RETURN
-*     ..
-*     .. END OF CGESVJ
-*     ..
+      // ..
+      // .. END OF CGESVJ
+      // ..
       END
 *

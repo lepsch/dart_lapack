@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KBAND, LDU, LDWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( LDWORK, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, J, K;
       REAL               ANORM, AUKJ, ULP, UNFL, WNORM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLANGE, SLANSY
       // EXTERNAL SLAMCH, SLANGE, SLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -40,9 +40,9 @@
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Epsilon' )
 *
-*     Do Test 1
+      // Do Test 1
 *
-*     Compute the 1-norm of A.
+      // Compute the 1-norm of A.
 *
       IF( N.GT.1 ) THEN
          ANORM = ABS( AD( 1 ) ) + ABS( AE( 1 ) )
@@ -55,7 +55,7 @@
       END IF
       ANORM = MAX( ANORM, UNFL )
 *
-*     Norm of U'AU - S
+      // Norm of U'AU - S
 *
       DO 40 I = 1, M
          DO 30 J = 1, M
@@ -84,9 +84,9 @@
          END IF
       END IF
 *
-*     Do Test 2
+      // Do Test 2
 *
-*     Compute  U'U - I
+      // Compute  U'U - I
 *
       CALL SGEMM( 'T', 'N', M, M, N, ONE, U, LDU, U, LDU, ZERO, WORK, M )
 *
@@ -98,6 +98,6 @@
 *
       RETURN
 *
-*     End of SSTT22
+      // End of SSTT22
 *
       END

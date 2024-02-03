@@ -1,29 +1,29 @@
       program zmul
 *
 *  -- LAPACK test routine --
-*     Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
+      // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
-*     ..
-*     .. Constants ..
+      // ..
+      // .. Constants ..
       int               nNaN, nInf;
       parameter       ( nNaN = 3, nInf = 5 )
       double complex    czero, cone
       parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) )
-*     ..
-*     .. Local Variables ..
+      // ..
+      // .. Local Variables ..
       int               i, nFailingTests, nTests;
       double            aInf, aNaN, OV;
       double complex    Y, R, cInf( nInf ), cNaN( nNaN )
 *
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // intrinsic HUGE, DCMPLX
 
 *
-*     .. Initialize error counts ..
+      // .. Initialize error counts ..
       nFailingTests = 0
       nTests = 0
 *
-*     .. Inf entries ..
+      // .. Inf entries ..
       OV = HUGE(0.0d0)
       aInf = OV * 2
       cInf(1) = DCMPLX( aInf, 0.0d0 )
@@ -32,16 +32,16 @@
       cInf(4) = DCMPLX( 0.0d0,-aInf )
       cInf(5) = DCMPLX( aInf,  aInf )
 *
-*     .. NaN entries ..
+      // .. NaN entries ..
       aNaN = aInf / aInf
       cNaN(1) = DCMPLX( aNaN, 0.0d0 )
       cNaN(2) = DCMPLX( 0.0d0, aNaN )
       cNaN(3) = DCMPLX( aNaN,  aNaN )
 
 *
-*     .. Tests ..
+      // .. Tests ..
 *
-*     Test (a) Infs
+      // Test (a) Infs
       do 10 i = 1, nInf
           nTests = nTests + 3
           Y = cInf(i)
@@ -74,7 +74,7 @@
           endif
   10  continue
 *
-*     Test (b) NaNs
+      // Test (b) NaNs
       do 20 i = 1, nNaN
           nTests = nTests + 3
           Y = cNaN(i)
@@ -101,11 +101,11 @@
          print *, "# All tests pass for complex multiplication."
       endif
 *
-*     .. Formats ..
+      // .. Formats ..
  9998 FORMAT( '[',A2,I1, '] (', (ES24.16E3,SP,ES24.16E3,"*I"), ') * (',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ') = (',
      $         (ES24.16E3,SP,ES24.16E3,"*I"), ') differs from ', A17 )
 *
-*     End of zmul
+      // End of zmul
 *
       END

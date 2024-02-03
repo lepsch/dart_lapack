@@ -9,6 +9,6 @@
       SECOND = 0.0E+0
       RETURN
 *
-*     End of SECOND
+      // End of SECOND
 *
       END

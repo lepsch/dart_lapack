@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, ITYPE, LDA, LDB, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX            A( LDA, * ), B( LDB, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE, HALF
       PARAMETER          ( ONE = 1.0E+0, HALF = 0.5E+0 )
       COMPLEX            CONE
       PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               UPPER;
       int                K;
       REAL               AKK, BKK
       COMPLEX            CT
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CAXPY, CHER2, CLACGV, CSSCAL, CTRMV, CTRSV, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -61,11 +61,11 @@
       IF( ITYPE.EQ.1 ) THEN
          IF( UPPER ) THEN
 *
-*           Compute inv(U**H)*A*inv(U)
+            // Compute inv(U**H)*A*inv(U)
 *
             DO 10 K = 1, N
 *
-*              Update the upper triangle of A(k:n,k:n)
+               // Update the upper triangle of A(k:n,k:n)
 *
                AKK = REAL( A( K, K ) )
                BKK = REAL( B( K, K ) )
@@ -84,11 +84,11 @@
    10       CONTINUE
          ELSE
 *
-*           Compute inv(L)*A*inv(L**H)
+            // Compute inv(L)*A*inv(L**H)
 *
             DO 20 K = 1, N
 *
-*              Update the lower triangle of A(k:n,k:n)
+               // Update the lower triangle of A(k:n,k:n)
 *
                AKK = REAL( A( K, K ) )
                BKK = REAL( B( K, K ) )
@@ -107,11 +107,11 @@
       ELSE
          IF( UPPER ) THEN
 *
-*           Compute U*A*U**H
+            // Compute U*A*U**H
 *
             DO 30 K = 1, N
 *
-*              Update the upper triangle of A(1:k,1:k)
+               // Update the upper triangle of A(1:k,1:k)
 *
                AKK = REAL( A( K, K ) )
                BKK = REAL( B( K, K ) )
@@ -125,11 +125,11 @@
    30       CONTINUE
          ELSE
 *
-*           Compute L**H *A*L
+            // Compute L**H *A*L
 *
             DO 40 K = 1, N
 *
-*              Update the lower triangle of A(1:k,1:k)
+               // Update the lower triangle of A(1:k,1:k)
 *
                AKK = REAL( A( K, K ) )
                BKK = REAL( B( K, K ) )
@@ -149,6 +149,6 @@
       END IF
       RETURN
 *
-*     End of CHEGS2
+      // End of CHEGS2
 *
       END

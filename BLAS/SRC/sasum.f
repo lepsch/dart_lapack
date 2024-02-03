@@ -4,30 +4,30 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int     INCX,N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL SX(*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL STEMP
       int     I,M,MP1,NINCX;
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS,MOD
-*     ..
+      // ..
       SASUM = 0.0e0
       STEMP = 0.0e0
       IF (N.LE.0 .OR. INCX.LE.0) RETURN
       IF (INCX.EQ.1) THEN
-*        code for increment equal to 1
+         // code for increment equal to 1
 *
 *
-*        clean-up loop
+         // clean-up loop
 *
          M = MOD(N,6)
          IF (M.NE.0) THEN
@@ -45,7 +45,7 @@
          END DO
       ELSE
 *
-*        code for increment not equal to 1
+         // code for increment not equal to 1
 *
          NINCX = N*INCX
          DO I = 1,NINCX,INCX
@@ -55,6 +55,6 @@
       SASUM = STEMP
       RETURN
 *
-*     End of SASUM
+      // End of SASUM
 *
       END

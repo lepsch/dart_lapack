@@ -5,55 +5,55 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String            TSSW;
       int               M, N, MB, NB;
-*     .. Return values ..
+      // .. Return values ..
       REAL              RESULT(6)
 *
 *  =====================================================================
 *
-*     ..
-*     .. Local allocatable arrays
+      // ..
+      // .. Local allocatable arrays
       COMPLEX, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:)
       REAL, ALLOCATABLE :: RWORK(:)
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL ZERO
       COMPLEX ONE, CZERO
       PARAMETER( ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool    TESTZEROS, TS;
       int     INFO, J, K, L, LWORK, TSIZE, MNB;
       REAL    ANORM, EPS, RESID, CNORM, DNORM
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                ISEED( 4 );
       COMPLEX            TQUERY( 5 ), WORKQUERY( 1 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL     SLAMCH, CLANGE, CLANSY
       bool     LSAME;
       int      ILAENV;
       // EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME, ILAENV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       String             srnamt;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / srnamc / srnamt
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA ISEED / 1988, 1989, 1990, 1991 /
 *
-*     TEST TALL SKINNY OR SHORT WIDE
+      // TEST TALL SKINNY OR SHORT WIDE
 *
       TS = LSAME(TSSW, 'TS')
 *
-*     TEST MATRICES WITH HALF OF MATRIX BEING ZEROS
+      // TEST MATRICES WITH HALF OF MATRIX BEING ZEROS
 *
       TESTZEROS = .FALSE.
 *
@@ -63,11 +63,11 @@
       MNB = MAX ( MB, NB)
       LWORK = MAX(3,L)*MNB
 *
-*     Dynamically allocate local arrays
+      // Dynamically allocate local arrays
 *
       ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L), C(M,N), CF(M,N), D(N,M), DF(N,M), LQ(L,N) )
 *
-*     Put random numbers into A and copy to AF
+      // Put random numbers into A and copy to AF
 *
       DO J=1,N
          CALL CLARNV( 2, ISEED, M, A( 1, J ) )
@@ -83,7 +83,7 @@
 *
       IF (TS) THEN
 *
-*     Factor the matrix A in the array AF.
+      // Factor the matrix A in the array AF.
 *
       CALL CGEQR( M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO )
       TSIZE = INT( TQUERY( 1 ) )
@@ -103,18 +103,18 @@
       srnamt = 'CGEQR'
       CALL CGEQR( M, N, AF, M, T, TSIZE, WORK, LWORK, INFO )
 *
-*     Generate the m-by-m matrix Q
+      // Generate the m-by-m matrix Q
 *
       CALL CLASET( 'Full', M, M, CZERO, ONE, Q, M )
       srnamt = 'CGEMQR'
       CALL CGEMQR( 'L', 'N', M, M, K, AF, M, T, TSIZE, Q, M, WORK, LWORK, INFO )
 *
-*     Copy R
+      // Copy R
 *
       CALL CLASET( 'Full', M, N, CZERO, CZERO, R, M )
       CALL CLACPY( 'Upper', M, N, AF, M, R, M )
 *
-*     Compute |R - Q'*A| / |A| and store in RESULT(1)
+      // Compute |R - Q'*A| / |A| and store in RESULT(1)
 *
       CALL CGEMM( 'C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M )
       ANORM = CLANGE( '1', M, N, A, M, RWORK )
@@ -125,14 +125,14 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute |I - Q'*Q| and store in RESULT(2)
+      // Compute |I - Q'*Q| and store in RESULT(2)
 *
       CALL CLASET( 'Full', M, M, CZERO, ONE, R, M )
       CALL CHERK( 'U', 'C', M, M, REAL(-ONE), Q, M, REAL(ONE), R, M )
       RESID = CLANSY( '1', 'Upper', M, R, M, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,M))
 *
-*     Generate random m-by-n matrix C and a copy CF
+      // Generate random m-by-n matrix C and a copy CF
 *
       DO J=1,N
          CALL CLARNV( 2, ISEED, M, C( 1, J ) )
@@ -140,12 +140,12 @@
       CNORM = CLANGE( '1', M, N, C, M, RWORK)
       CALL CLACPY( 'Full', M, N, C, M, CF, M )
 *
-*     Apply Q to C as Q*C
+      // Apply Q to C as Q*C
 *
       srnamt = 'CGEMQR'
       CALL CGEMQR( 'L', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
-*     Compute |Q*C - Q*C| / |C|
+      // Compute |Q*C - Q*C| / |C|
 *
       CALL CGEMM( 'N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
@@ -155,16 +155,16 @@
          RESULT( 3 ) = ZERO
       END IF
 *
-*     Copy C into CF again
+      // Copy C into CF again
 *
       CALL CLACPY( 'Full', M, N, C, M, CF, M )
 *
-*     Apply Q to C as QT*C
+      // Apply Q to C as QT*C
 *
       srnamt = 'CGEMQR'
       CALL CGEMQR( 'L', 'C', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
-*     Compute |QT*C - QT*C| / |C|
+      // Compute |QT*C - QT*C| / |C|
 *
       CALL CGEMM( 'C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
@@ -174,7 +174,7 @@
          RESULT( 4 ) = ZERO
       END IF
 *
-*     Generate random n-by-m matrix D and a copy DF
+      // Generate random n-by-m matrix D and a copy DF
 *
       DO J=1,M
          CALL CLARNV( 2, ISEED, N, D( 1, J ) )
@@ -182,12 +182,12 @@
       DNORM = CLANGE( '1', N, M, D, N, RWORK)
       CALL CLACPY( 'Full', N, M, D, N, DF, N )
 *
-*     Apply Q to D as D*Q
+      // Apply Q to D as D*Q
 *
       srnamt = 'CGEMQR'
       CALL CGEMQR( 'R', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
-*     Compute |D*Q - D*Q| / |D|
+      // Compute |D*Q - D*Q| / |D|
 *
       CALL CGEMM( 'N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
@@ -197,15 +197,15 @@
          RESULT( 5 ) = ZERO
       END IF
 *
-*     Copy D into DF again
+      // Copy D into DF again
 *
       CALL CLACPY( 'Full', N, M, D, N, DF, N )
 *
-*     Apply Q to D as D*QT
+      // Apply Q to D as D*QT
 *
       CALL CGEMQR( 'R', 'C', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
-*     Compute |D*QT - D*QT| / |D|
+      // Compute |D*QT - D*QT| / |D|
 *
       CALL CGEMM( 'N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
@@ -215,7 +215,7 @@
          RESULT( 6 ) = ZERO
       END IF
 *
-*     Short and wide
+      // Short and wide
 *
       ELSE
       CALL CGELQ( M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO )
@@ -237,18 +237,18 @@
       CALL CGELQ( M, N, AF, M, T, TSIZE, WORK, LWORK, INFO )
 *
 *
-*     Generate the n-by-n matrix Q
+      // Generate the n-by-n matrix Q
 *
       CALL CLASET( 'Full', N, N, CZERO, ONE, Q, N )
       srnamt = 'CGEMLQ'
       CALL CGEMLQ( 'R', 'N', N, N, K, AF, M, T, TSIZE, Q, N, WORK, LWORK, INFO )
 *
-*     Copy R
+      // Copy R
 *
       CALL CLASET( 'Full', M, N, CZERO, CZERO, LQ, L )
       CALL CLACPY( 'Lower', M, N, AF, M, LQ, L )
 *
-*     Compute |L - A*Q'| / |A| and store in RESULT(1)
+      // Compute |L - A*Q'| / |A| and store in RESULT(1)
 *
       CALL CGEMM( 'N', 'C', M, N, N, -ONE, A, M, Q, N, ONE, LQ, L )
       ANORM = CLANGE( '1', M, N, A, M, RWORK )
@@ -259,14 +259,14 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute |I - Q'*Q| and store in RESULT(2)
+      // Compute |I - Q'*Q| and store in RESULT(2)
 *
       CALL CLASET( 'Full', N, N, CZERO, ONE, LQ, L )
       CALL CHERK( 'U', 'C', N, N, REAL(-ONE), Q, N, REAL(ONE), LQ, L)
       RESID = CLANSY( '1', 'Upper', N, LQ, L, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,N))
 *
-*     Generate random m-by-n matrix C and a copy CF
+      // Generate random m-by-n matrix C and a copy CF
 *
       DO J=1,M
          CALL CLARNV( 2, ISEED, N, D( 1, J ) )
@@ -274,11 +274,11 @@
       DNORM = CLANGE( '1', N, M, D, N, RWORK)
       CALL CLACPY( 'Full', N, M, D, N, DF, N )
 *
-*     Apply Q to C as Q*C
+      // Apply Q to C as Q*C
 *
       CALL CGEMLQ( 'L', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
-*     Compute |Q*D - Q*D| / |D|
+      // Compute |Q*D - Q*D| / |D|
 *
       CALL CGEMM( 'N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
@@ -288,15 +288,15 @@
          RESULT( 3 ) = ZERO
       END IF
 *
-*     Copy D into DF again
+      // Copy D into DF again
 *
       CALL CLACPY( 'Full', N, M, D, N, DF, N )
 *
-*     Apply Q to D as QT*D
+      // Apply Q to D as QT*D
 *
       CALL CGEMLQ( 'L', 'C', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
-*     Compute |QT*D - QT*D| / |D|
+      // Compute |QT*D - QT*D| / |D|
 *
       CALL CGEMM( 'C', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
@@ -306,7 +306,7 @@
          RESULT( 4 ) = ZERO
       END IF
 *
-*     Generate random n-by-m matrix D and a copy DF
+      // Generate random n-by-m matrix D and a copy DF
 *
       DO J=1,N
          CALL CLARNV( 2, ISEED, M, C( 1, J ) )
@@ -314,11 +314,11 @@
       CNORM = CLANGE( '1', M, N, C, M, RWORK)
       CALL CLACPY( 'Full', M, N, C, M, CF, M )
 *
-*     Apply Q to C as C*Q
+      // Apply Q to C as C*Q
 *
       CALL CGEMLQ( 'R', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
-*     Compute |C*Q - C*Q| / |C|
+      // Compute |C*Q - C*Q| / |C|
 *
       CALL CGEMM( 'N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M )
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
@@ -328,15 +328,15 @@
          RESULT( 5 ) = ZERO
       END IF
 *
-*     Copy C into CF again
+      // Copy C into CF again
 *
       CALL CLACPY( 'Full', M, N, C, M, CF, M )
 *
-*     Apply Q to D as D*QT
+      // Apply Q to D as D*QT
 *
       CALL CGEMLQ( 'R', 'C', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
-*     Compute |C*QT - C*QT| / |C|
+      // Compute |C*QT - C*QT| / |C|
 *
       CALL CGEMM( 'N', 'C', M, N, N, -ONE, C, M, Q, N, ONE, CF, M )
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
@@ -348,7 +348,7 @@
 *
       END IF
 *
-*     Deallocate all arrays
+      // Deallocate all arrays
 *
       DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF)
 *

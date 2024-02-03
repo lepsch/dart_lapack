@@ -4,43 +4,43 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LWORK, M, N;
       REAL               ABSTOL, VL, VU
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       REAL               A( LDA, * ), W( * ), WORK( * ), Z( LDZ, * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWO, INDTAU, INDWKN, INDWRK, ISCALE, ITMP1, J, JJ, LLWORK, LLWRKN, LWKMIN, LWKOPT, NB, NSPLIT;
       REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SLAMCH, SLANSY, SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANSY, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLACPY, SORGTR, SORMTR, SSCAL, SSTEBZ, SSTEIN, SSTEQR, SSTERF, SSWAP, SSYTRD, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       LOWER = LSAME( UPLO, 'L' )
       WANTZ = LSAME( JOBZ, 'V' )
@@ -99,7 +99,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       M = 0
       IF( N.EQ.0 ) THEN
@@ -120,7 +120,7 @@
          RETURN
       END IF
 *
-*     Get machine constants.
+      // Get machine constants.
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       EPS = SLAMCH( 'Precision' )
@@ -129,7 +129,7 @@
       RMIN = SQRT( SMLNUM )
       RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
 *
-*     Scale matrix to allowable range, if necessary.
+      // Scale matrix to allowable range, if necessary.
 *
       ISCALE = 0
       ABSTLL = ABSTOL
@@ -162,7 +162,7 @@
          END IF
       END IF
 *
-*     Call SSYTRD to reduce symmetric matrix to tridiagonal form.
+      // Call SSYTRD to reduce symmetric matrix to tridiagonal form.
 *
       INDTAU = 1
       INDE = INDTAU + N
@@ -171,9 +171,9 @@
       LLWORK = LWORK - INDWRK + 1
       CALL SSYTRD( UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
 *
-*     If all eigenvalues are desired and ABSTOL is less than or equal to
-*     zero, then call SSTERF or SORGTR and SSTEQR.  If this fails for
-*     some eigenvalue, then try SSTEBZ.
+      // If all eigenvalues are desired and ABSTOL is less than or equal to
+      // zero, then call SSTERF or SORGTR and SSTEQR.  If this fails for
+      // some eigenvalue, then try SSTEBZ.
 *
       TEST = .FALSE.
       IF( INDEIG ) THEN
@@ -205,7 +205,7 @@
          INFO = 0
       END IF
 *
-*     Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
+      // Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
 *
       IF( WANTZ ) THEN
          ORDER = 'B'
@@ -220,15 +220,15 @@
       IF( WANTZ ) THEN
          CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
 *
-*        Apply orthogonal matrix used in reduction to tridiagonal
-*        form to eigenvectors returned by SSTEIN.
+         // Apply orthogonal matrix used in reduction to tridiagonal
+         // form to eigenvectors returned by SSTEIN.
 *
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
          CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
 *
-*     If matrix was scaled, then rescale eigenvalues appropriately.
+      // If matrix was scaled, then rescale eigenvalues appropriately.
 *
    40 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
@@ -240,8 +240,8 @@
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
       END IF
 *
-*     If eigenvalues are not in order, then sort them, along with
-*     eigenvectors.
+      // If eigenvalues are not in order, then sort them, along with
+      // eigenvectors.
 *
       IF( WANTZ ) THEN
          DO 60 J = 1, M - 1
@@ -270,12 +270,12 @@
    60    CONTINUE
       END IF
 *
-*     Set WORK(1) to optimal workspace size.
+      // Set WORK(1) to optimal workspace size.
 *
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 *
       RETURN
 *
-*     End of SSYEVX
+      // End of SSYEVX
 *
       END

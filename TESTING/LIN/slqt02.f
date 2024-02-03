@@ -4,65 +4,65 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                K, LDA, LWORK, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               ROGUE
       PARAMETER          ( ROGUE = -1.0E+10 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                INFO;
       REAL               ANORM, EPS, RESID
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLANGE, SLANSY
       // EXTERNAL SLAMCH, SLANGE, SLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEMM, SLACPY, SLASET, SORGLQ, SSYRK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, REAL
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       String             SRNAMT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = SLAMCH( 'Epsilon' )
 *
-*     Copy the first k rows of the factorization to the array Q
+      // Copy the first k rows of the factorization to the array Q
 *
       CALL SLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
       CALL SLACPY( 'Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
 *
-*     Generate the first n columns of the matrix Q
+      // Generate the first n columns of the matrix Q
 *
       SRNAMT = 'SORGLQ'
       CALL SORGLQ( M, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
 *
-*     Copy L(1:k,1:m)
+      // Copy L(1:k,1:m)
 *
       CALL SLASET( 'Full', K, M, ZERO, ZERO, L, LDA )
       CALL SLACPY( 'Lower', K, M, AF, LDA, L, LDA )
 *
-*     Compute L(1:k,1:m) - A(1:k,1:n) * Q(1:m,1:n)'
+      // Compute L(1:k,1:m) - A(1:k,1:n) * Q(1:m,1:n)'
 *
       CALL SGEMM( 'No transpose', 'Transpose', K, M, N, -ONE, A, LDA, Q, LDA, ONE, L, LDA )
 *
-*     Compute norm( L - A*Q' ) / ( N * norm(A) * EPS ) .
+      // Compute norm( L - A*Q' ) / ( N * norm(A) * EPS ) .
 *
       ANORM = SLANGE( '1', K, N, A, LDA, RWORK )
       RESID = SLANGE( '1', K, M, L, LDA, RWORK )
@@ -72,12 +72,12 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute I - Q*Q'
+      // Compute I - Q*Q'
 *
       CALL SLASET( 'Full', M, M, ZERO, ONE, L, LDA )
       CALL SSYRK( 'Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L, LDA )
 *
-*     Compute norm( I - Q*Q' ) / ( N * EPS ) .
+      // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 *
       RESID = SLANSY( '1', 'Upper', M, L, LDA, RWORK )
 *
@@ -85,6 +85,6 @@
 *
       RETURN
 *
-*     End of SLQT02
+      // End of SLQT02
 *
       END

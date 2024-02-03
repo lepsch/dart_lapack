@@ -4,33 +4,33 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               X, Y
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL               W, XABS, YABS, Z, HUGEVAL
       bool               X_IS_NAN, Y_IS_NAN;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               SISNAN;
       // EXTERNAL SISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       REAL               SLAMCH
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       X_IS_NAN = SISNAN( X )
       Y_IS_NAN = SISNAN( Y )
@@ -51,6 +51,6 @@
       END IF
       RETURN
 *
-*     End of SLAPY2
+      // End of SLAPY2
 *
       END

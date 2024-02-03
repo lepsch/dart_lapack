@@ -4,13 +4,13 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               A, B, C, D, P, Q
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               BS
       PARAMETER          ( BS = 2.0E0 )
       REAL               HALF
@@ -18,20 +18,20 @@
       REAL               TWO
       PARAMETER          ( TWO = 2.0E0 )
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLADIV1
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       AA = A
       BB = B
@@ -77,7 +77,7 @@
 *
       RETURN
 *
-*     End of SLADIV
+      // End of SLADIV
 *
       END
 
@@ -90,24 +90,24 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               A, B, C, D, P, Q
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               R, T
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLADIV2
       // EXTERNAL SLADIV2
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       R = D / C
       T = ONE / (C + D * R)
@@ -117,7 +117,7 @@
 *
       RETURN
 *
-*     End of SLADIV1
+      // End of SLADIV1
 *
       END
 
@@ -129,20 +129,20 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               A, B, C, D, R, T
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E0 )
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL               BR
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( R.NE.ZERO ) THEN
          BR = B * R
@@ -157,6 +157,6 @@
 *
       RETURN
 *
-*     End of SLADIV2
+      // End of SLADIV2
 *
       END

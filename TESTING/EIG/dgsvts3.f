@@ -4,41 +4,41 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, N, P;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       double             A( LDA, * ), AF( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), BF( LDB, * ), Q( LDQ, * ), R( LDR, * ), RESULT( 6 ), RWORK( * ), U( LDU, * ), V( LDV, * ), WORK( LWORK );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J, K, L;
       double             ANORM, BNORM, RESID, TEMP, ULP, ULPINV, UNFL;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL DLAMCH, DLANGE, DLANSY
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DCOPY, DGEMM, DGGSVD3, DLACPY, DLASET, DSYRK
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DBLE, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       ULP = DLAMCH( 'Precision' )
       ULPINV = ONE / ULP
       UNFL = DLAMCH( 'Safe minimum' )
 *
-*     Copy the matrix A to the array AF.
+      // Copy the matrix A to the array AF.
 *
       CALL DLACPY( 'Full', M, N, A, LDA, AF, LDA )
       CALL DLACPY( 'Full', P, N, B, LDB, BF, LDB )
@@ -46,11 +46,11 @@
       ANORM = MAX( DLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
       BNORM = MAX( DLANGE( '1', P, N, B, LDB, RWORK ), UNFL )
 *
-*     Factorize the matrices A and B in the arrays AF and BF.
+      // Factorize the matrices A and B in the arrays AF and BF.
 *
       CALL DGGSVD3( 'U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO )
 *
-*     Copy R
+      // Copy R
 *
       DO 20 I = 1, MIN( K+L, M )
          DO 10 J = I, K + L
@@ -66,7 +66,7 @@
    40    CONTINUE
       END IF
 *
-*     Compute A:= U'*A*Q - D1*R
+      // Compute A:= U'*A*Q - D1*R
 *
       CALL DGEMM( 'No transpose', 'No transpose', M, N, N, ONE, A, LDA, Q, LDQ, ZERO, WORK, LDA )
 *
@@ -84,7 +84,7 @@
    70    CONTINUE
    80 CONTINUE
 *
-*     Compute norm( U'*A*Q - D1*R ) / ( MAX(1,M,N)*norm(A)*ULP ) .
+      // Compute norm( U'*A*Q - D1*R ) / ( MAX(1,M,N)*norm(A)*ULP ) .
 *
       RESID = DLANGE( '1', M, N, A, LDA, RWORK )
 *
@@ -94,7 +94,7 @@
          RESULT( 1 ) = ZERO
       END IF
 *
-*     Compute B := V'*B*Q - D2*R
+      // Compute B := V'*B*Q - D2*R
 *
       CALL DGEMM( 'No transpose', 'No transpose', P, N, N, ONE, B, LDB, Q, LDQ, ZERO, WORK, LDB )
 *
@@ -106,7 +106,7 @@
    90    CONTINUE
   100 CONTINUE
 *
-*     Compute norm( V'*B*Q - D2*R ) / ( MAX(P,N)*norm(B)*ULP ) .
+      // Compute norm( V'*B*Q - D2*R ) / ( MAX(P,N)*norm(B)*ULP ) .
 *
       RESID = DLANGE( '1', P, N, B, LDB, RWORK )
       IF( BNORM.GT.ZERO ) THEN
@@ -115,37 +115,37 @@
          RESULT( 2 ) = ZERO
       END IF
 *
-*     Compute I - U'*U
+      // Compute I - U'*U
 *
       CALL DLASET( 'Full', M, M, ZERO, ONE, WORK, LDQ )
       CALL DSYRK( 'Upper', 'Transpose', M, M, -ONE, U, LDU, ONE, WORK, LDU )
 *
-*     Compute norm( I - U'*U ) / ( M * ULP ) .
+      // Compute norm( I - U'*U ) / ( M * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', M, WORK, LDU, RWORK )
       RESULT( 3 ) = ( RESID / DBLE( MAX( 1, M ) ) ) / ULP
 *
-*     Compute I - V'*V
+      // Compute I - V'*V
 *
       CALL DLASET( 'Full', P, P, ZERO, ONE, WORK, LDV )
       CALL DSYRK( 'Upper', 'Transpose', P, P, -ONE, V, LDV, ONE, WORK, LDV )
 *
-*     Compute norm( I - V'*V ) / ( P * ULP ) .
+      // Compute norm( I - V'*V ) / ( P * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', P, WORK, LDV, RWORK )
       RESULT( 4 ) = ( RESID / DBLE( MAX( 1, P ) ) ) / ULP
 *
-*     Compute I - Q'*Q
+      // Compute I - Q'*Q
 *
       CALL DLASET( 'Full', N, N, ZERO, ONE, WORK, LDQ )
       CALL DSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDQ, ONE, WORK, LDQ )
 *
-*     Compute norm( I - Q'*Q ) / ( N * ULP ) .
+      // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 *
       RESID = DLANSY( '1', 'Upper', N, WORK, LDQ, RWORK )
       RESULT( 5 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / ULP
 *
-*     Check sorting
+      // Check sorting
 *
       CALL DCOPY( N, ALPHA, 1, WORK, 1 )
       DO 110 I = K + 1, MIN( K+L, M )
@@ -164,6 +164,6 @@
 *
       RETURN
 *
-*     End of DGSVTS3
+      // End of DGSVTS3
 *
       END

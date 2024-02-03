@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO;
       REAL               RMAX
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       int                LDT, LWORK;
       PARAMETER          ( LDT = 10, LWORK = 2*LDT*LDT )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IFST, ILST, INFO1, INFO2, J, N;
       REAL               EPS, RES
       COMPLEX            CTEMP
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       REAL               RESULT( 2 ), RWORK( LDT )
       COMPLEX            DIAG( LDT ), Q( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CHST01, CLACPY, CLASET, CTREXC
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       EPS = SLAMCH( 'P' )
       RMAX = ZERO
@@ -43,7 +43,7 @@
       KNT = 0
       NINFO = 0
 *
-*     Read input data until N=0
+      // Read input data until N=0
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, IFST, ILST
@@ -56,7 +56,7 @@
       CALL CLACPY( 'F', N, N, TMP, LDT, T2, LDT )
       RES = ZERO
 *
-*     Test without accumulating Q
+      // Test without accumulating Q
 *
       CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDT )
       CALL CTREXC( 'N', N, T1, LDT, Q, LDT, IFST, ILST, INFO1 )
@@ -66,12 +66,12 @@
    30    CONTINUE
    40 CONTINUE
 *
-*     Test with accumulating Q
+      // Test with accumulating Q
 *
       CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDT )
       CALL CTREXC( 'V', N, T2, LDT, Q, LDT, IFST, ILST, INFO2 )
 *
-*     Compare T1 with T2
+      // Compare T1 with T2
 *
       DO 60 I = 1, N
          DO 50 J = 1, N
@@ -80,7 +80,7 @@
    60 CONTINUE
       IF( INFO1.NE.0 .OR. INFO2.NE.0 ) NINFO = NINFO + 1       IF( INFO1.NE.INFO2 ) RES = RES + ONE / EPS
 *
-*     Test for successful reordering of T2
+      // Test for successful reordering of T2
 *
       CALL CCOPY( N, TMP, LDT+1, DIAG, 1 )
       IF( IFST.LT.ILST ) THEN
@@ -100,12 +100,12 @@
          IF( T2( I, I ).NE.DIAG( I ) ) RES = RES + ONE / EPS
    90 CONTINUE
 *
-*     Test for small residual, and orthogonality of Q
+      // Test for small residual, and orthogonality of Q
 *
       CALL CHST01( N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT )
       RES = RES + RESULT( 1 ) + RESULT( 2 )
 *
-*     Test for T2 being in Schur form
+      // Test for T2 being in Schur form
 *
       DO 110 J = 1, N - 1
          DO 100 I = J + 1, N
@@ -118,6 +118,6 @@
       END IF
       GO TO 10
 *
-*     End of CGET36
+      // End of CGET36
 *
       END

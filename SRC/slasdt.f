@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                LVL, MSUB, N, ND;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                INODE( * ), NDIML( * ), NDIMR( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               TWO
       PARAMETER          ( TWO = 2.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IL, IR, LLST, MAXN, NCRNT, NLVL;
       REAL               TEMP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC INT, LOG, MAX, REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Find the number of levels on the tree.
+      // Find the number of levels on the tree.
 *
       MAXN = MAX( 1, N )
       TEMP = LOG( REAL( MAXN ) / REAL( MSUB+1 ) ) / LOG( TWO )
@@ -41,8 +41,8 @@
       LLST = 1
       DO 20 NLVL = 1, LVL - 1
 *
-*        Constructing the tree at (NLVL+1)-st level. The number of
-*        nodes created on this level is LLST * 2.
+         // Constructing the tree at (NLVL+1)-st level. The number of
+         // nodes created on this level is LLST * 2.
 *
          DO 10 I = 0, LLST - 1
             IL = IL + 2
@@ -61,6 +61,6 @@
 *
       RETURN
 *
-*     End of SLASDT
+      // End of SLASDT
 *
       END

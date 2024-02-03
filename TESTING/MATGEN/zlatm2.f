@@ -4,66 +4,66 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
 *
       int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N;
       double             SPARSE;
-*     ..
+      // ..
 *
-*     .. Array Arguments ..
+      // .. Array Arguments ..
 *
       int                ISEED( 4 ), IWORK( * );
       COMPLEX*16         D( * ), DL( * ), DR( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
 *
       COMPLEX*16         CZERO
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ) )
       double             ZERO;
       PARAMETER          ( ZERO = 0.0D0 )
-*     ..
+      // ..
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
 *
       int                ISUB, JSUB;
       COMPLEX*16         CTEMP
-*     ..
+      // ..
 *
-*     .. External Functions ..
+      // .. External Functions ..
 *
       double             DLARAN;
       COMPLEX*16         ZLARND
       // EXTERNAL DLARAN, ZLARND
-*     ..
+      // ..
 *
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
 *
       // INTRINSIC DCONJG
-*     ..
+      // ..
 *
 *-----------------------------------------------------------------------
 *
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
 *
-*     Check for I and J in range
+      // Check for I and J in range
 *
       IF( I.LT.1 .OR. I.GT.M .OR. J.LT.1 .OR. J.GT.N ) THEN
          ZLATM2 = CZERO
          RETURN
       END IF
 *
-*     Check for banding
+      // Check for banding
 *
       IF( J.GT.I+KU .OR. J.LT.I-KL ) THEN
          ZLATM2 = CZERO
          RETURN
       END IF
 *
-*     Check for sparsity
+      // Check for sparsity
 *
       IF( SPARSE.GT.ZERO ) THEN
          IF( DLARAN( ISEED ).LT.SPARSE ) THEN
@@ -72,7 +72,7 @@
          END IF
       END IF
 *
-*     Compute subscripts depending on IPVTNG
+      // Compute subscripts depending on IPVTNG
 *
       IF( IPVTNG.EQ.0 ) THEN
          ISUB = I
@@ -88,7 +88,7 @@
          JSUB = IWORK( J )
       END IF
 *
-*     Compute entry and grade it according to IGRADE
+      // Compute entry and grade it according to IGRADE
 *
       IF( ISUB.EQ.JSUB ) THEN
          CTEMP = D( ISUB )
@@ -111,6 +111,6 @@
       ZLATM2 = CTEMP
       RETURN
 *
-*     End of ZLATM2
+      // End of ZLATM2
 *
       END

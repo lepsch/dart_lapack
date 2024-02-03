@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             VECT;
       int                INFO, KL, KU, LDAB, LDC, LDPT, LDQ, M, N, NCC;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             AB( LDAB, * ), C( LDC, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               WANTB, WANTC, WANTPT, WANTQ;
       int                I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MN, MU, MU0, NR, NRT;
       double             RA, RB, RC, RS;
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DLARGV, DLARTG, DLARTV, DLASET, DROT, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters
+      // Test the input parameters
 *
       WANTB = LSAME( VECT, 'B' )
       WANTQ = LSAME( VECT, 'Q' ) .OR. WANTB
@@ -69,11 +69,11 @@
          RETURN
       END IF
 *
-*     Initialize Q and P**T to the unit matrix, if needed
+      // Initialize Q and P**T to the unit matrix, if needed
 *
       IF( WANTQ ) CALL DLASET( 'Full', M, M, ZERO, ONE, Q, LDQ )       IF( WANTPT ) CALL DLASET( 'Full', N, N, ZERO, ONE, PT, LDPT )
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
@@ -81,9 +81,9 @@
 *
       IF( KL+KU.GT.1 ) THEN
 *
-*        Reduce to upper bidiagonal form if KU > 0; if KU = 0, reduce
-*        first to lower bidiagonal form and then transform to upper
-*        bidiagonal
+         // Reduce to upper bidiagonal form if KU > 0; if KU = 0, reduce
+         // first to lower bidiagonal form and then transform to upper
+         // bidiagonal
 *
          IF( KU.GT.0 ) THEN
             ML0 = 1
@@ -93,11 +93,11 @@
             MU0 = 1
          END IF
 *
-*        Wherever possible, plane rotations are generated and applied in
-*        vector operations of length NR over the index set J1:J2:KLU1.
+         // Wherever possible, plane rotations are generated and applied in
+         // vector operations of length NR over the index set J1:J2:KLU1.
 *
-*        The sines of the plane rotations are stored in WORK(1:max(m,n))
-*        and the cosines in WORK(max(m,n)+1:2*max(m,n)).
+         // The sines of the plane rotations are stored in WORK(1:max(m,n))
+         // and the cosines in WORK(max(m,n)+1:2*max(m,n)).
 *
          MN = MAX( M, N )
          KLM = MIN( M-1, KL )
@@ -111,7 +111,7 @@
 *
          DO 90 I = 1, MINMN
 *
-*           Reduce i-th column and i-th row of matrix to bidiagonal form
+            // Reduce i-th column and i-th row of matrix to bidiagonal form
 *
             ML = KLM + 1
             MU = KUN + 1
@@ -119,12 +119,12 @@
                J1 = J1 + KB
                J2 = J2 + KB
 *
-*              generate plane rotations to annihilate nonzero elements
-*              which have been created below the band
+               // generate plane rotations to annihilate nonzero elements
+               // which have been created below the band
 *
                IF( NR.GT.0 ) CALL DLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, WORK( MN+J1 ), KB1 )
 *
-*              apply plane rotations from the left
+               // apply plane rotations from the left
 *
                DO 10 L = 1, KB
                   IF( J2-KLM+L-1.GT.N ) THEN
@@ -138,8 +138,8 @@
                IF( ML.GT.ML0 ) THEN
                   IF( ML.LE.M-I+1 ) THEN
 *
-*                    generate plane rotation to annihilate a(i+ml-1,i)
-*                    within the band, and apply rotation from the left
+                     // generate plane rotation to annihilate a(i+ml-1,i)
+                     // within the band, and apply rotation from the left
 *
                      CALL DLARTG( AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA )
                      AB( KU+ML-1, I ) = RA
@@ -151,7 +151,7 @@
 *
                IF( WANTQ ) THEN
 *
-*                 accumulate product of plane rotations in Q
+                  // accumulate product of plane rotations in Q
 *
                   DO 20 J = J1, J2, KB1
                      CALL DROT( M, Q( 1, J-1 ), 1, Q( 1, J ), 1, WORK( MN+J ), WORK( J ) )
@@ -160,7 +160,7 @@
 *
                IF( WANTC ) THEN
 *
-*                 apply plane rotations to C
+                  // apply plane rotations to C
 *
                   DO 30 J = J1, J2, KB1
                      CALL DROT( NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, WORK( MN+J ), WORK( J ) )
@@ -169,7 +169,7 @@
 *
                IF( J2+KUN.GT.N ) THEN
 *
-*                 adjust J2 to keep within the bounds of the matrix
+                  // adjust J2 to keep within the bounds of the matrix
 *
                   NR = NR - 1
                   J2 = J2 - KB1
@@ -177,19 +177,19 @@
 *
                DO 40 J = J1, J2, KB1
 *
-*                 create nonzero element a(j-1,j+ku) above the band
-*                 and store it in WORK(n+1:2*n)
+                  // create nonzero element a(j-1,j+ku) above the band
+                  // and store it in WORK(n+1:2*n)
 *
                   WORK( J+KUN ) = WORK( J )*AB( 1, J+KUN )
                   AB( 1, J+KUN ) = WORK( MN+J )*AB( 1, J+KUN )
    40          CONTINUE
 *
-*              generate plane rotations to annihilate nonzero elements
-*              which have been generated above the band
+               // generate plane rotations to annihilate nonzero elements
+               // which have been generated above the band
 *
                IF( NR.GT.0 ) CALL DLARGV( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, WORK( MN+J1+KUN ), KB1 )
 *
-*              apply plane rotations from the right
+               // apply plane rotations from the right
 *
                DO 50 L = 1, KB
                   IF( J2+L-1.GT.M ) THEN
@@ -203,8 +203,8 @@
                IF( ML.EQ.ML0 .AND. MU.GT.MU0 ) THEN
                   IF( MU.LE.N-I+1 ) THEN
 *
-*                    generate plane rotation to annihilate a(i,i+mu-1)
-*                    within the band, and apply rotation from the right
+                     // generate plane rotation to annihilate a(i,i+mu-1)
+                     // within the band, and apply rotation from the right
 *
                      CALL DLARTG( AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), WORK( MN+I+MU-1 ), WORK( I+MU-1 ), RA )
                      AB( KU-MU+3, I+MU-2 ) = RA
@@ -216,7 +216,7 @@
 *
                IF( WANTPT ) THEN
 *
-*                 accumulate product of plane rotations in P**T
+                  // accumulate product of plane rotations in P**T
 *
                   DO 60 J = J1, J2, KB1
                      CALL DROT( N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, WORK( MN+J+KUN ), WORK( J+KUN ) )
@@ -225,7 +225,7 @@
 *
                IF( J2+KB.GT.M ) THEN
 *
-*                 adjust J2 to keep within the bounds of the matrix
+                  // adjust J2 to keep within the bounds of the matrix
 *
                   NR = NR - 1
                   J2 = J2 - KB1
@@ -233,8 +233,8 @@
 *
                DO 70 J = J1, J2, KB1
 *
-*                 create nonzero element a(j+kl+ku,j+ku-1) below the
-*                 band and store it in WORK(1:n)
+                  // create nonzero element a(j+kl+ku,j+ku-1) below the
+                  // band and store it in WORK(1:n)
 *
                   WORK( J+KB ) = WORK( J+KUN )*AB( KLU1, J+KUN )
                   AB( KLU1, J+KUN ) = WORK( MN+J+KUN )*AB( KLU1, J+KUN )
@@ -251,11 +251,11 @@
 *
       IF( KU.EQ.0 .AND. KL.GT.0 ) THEN
 *
-*        A has been reduced to lower bidiagonal form
+         // A has been reduced to lower bidiagonal form
 *
-*        Transform lower bidiagonal form to upper bidiagonal by applying
-*        plane rotations from the left, storing diagonal elements in D
-*        and off-diagonal elements in E
+         // Transform lower bidiagonal form to upper bidiagonal by applying
+         // plane rotations from the left, storing diagonal elements in D
+         // and off-diagonal elements in E
 *
          DO 100 I = 1, MIN( M-1, N )
             CALL DLARTG( AB( 1, I ), AB( 2, I ), RC, RS, RA )
@@ -269,13 +269,13 @@
          IF( M.LE.N ) D( M ) = AB( 1, M )
       ELSE IF( KU.GT.0 ) THEN
 *
-*        A has been reduced to upper bidiagonal form
+         // A has been reduced to upper bidiagonal form
 *
          IF( M.LT.N ) THEN
 *
-*           Annihilate a(m,m+1) by applying plane rotations from the
-*           right, storing diagonal elements in D and off-diagonal
-*           elements in E
+            // Annihilate a(m,m+1) by applying plane rotations from the
+            // right, storing diagonal elements in D and off-diagonal
+            // elements in E
 *
             RB = AB( KU, M+1 )
             DO 110 I = M, 1, -1
@@ -289,7 +289,7 @@
   110       CONTINUE
          ELSE
 *
-*           Copy off-diagonal elements to E and diagonal elements to D
+            // Copy off-diagonal elements to E and diagonal elements to D
 *
             DO 120 I = 1, MINMN - 1
                E( I ) = AB( KU, I+1 )
@@ -300,8 +300,8 @@
          END IF
       ELSE
 *
-*        A is diagonal. Set elements of E to zero and copy diagonal
-*        elements to D.
+         // A is diagonal. Set elements of E to zero and copy diagonal
+         // elements to D.
 *
          DO 140 I = 1, MINMN - 1
             E( I ) = ZERO
@@ -312,6 +312,6 @@
       END IF
       RETURN
 *
-*     End of DGBBRD
+      // End of DGBBRD
 *
       END

@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               TSTERR;
       int                NIN, NOUT;
       REAL               THRESH
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               OK;
       String             PATH;
       int                KLAEXC, KLALN2, KLANV2, KLAQTR, KLASY2, KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LLAEXC, LLALN2, LLANV2, LLAQTR, LLASY2, LTREXC, LTRSYL, NLANV2, NLAQTR, NLASY2, NTESTS, NTRSYL, KTGEXC, LTGEXC;
       REAL               EPS, RLAEXC, RLALN2, RLANV2, RLAQTR, RLASY2, RTREXC, SFMIN, RTGEXC
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NLAEXC( 2 ), NLALN2( 2 ), NTGEXC( 2 ), NTREXC( 3 ), NTRSEN( 3 ), NTRSNA( 3 );
       REAL               RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 )
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SERREC, SGET31, SGET32, SGET33, SGET34, SGET35, SGET36, SGET37, SGET38, SGET39, SGET40, SSYL01
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH
       // EXTERNAL SLAMCH
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       PATH( 1: 1 ) = 'Single precision'
       PATH( 2: 3 ) = 'EC'
       EPS = SLAMCH( 'P' )
       SFMIN = SLAMCH( 'S' )
 *
-*     Print header information
+      // Print header information
 *
       WRITE( NOUT, FMT = 9989 )
       WRITE( NOUT, FMT = 9988 )EPS, SFMIN
       WRITE( NOUT, FMT = 9987 )THRESH
 *
-*     Test error exits if TSTERR is .TRUE.
+      // Test error exits if TSTERR is .TRUE.
 *
       IF( TSTERR ) CALL SERREC( PATH, NOUT )
 *
@@ -160,6 +160,6 @@
  9970 FORMAT( 'Error in STRSYL: ', I8, ' tests fail the threshold.', /
      $      'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
 *
-*     End of SCHKEC
+      // End of SCHKEC
 *
       END

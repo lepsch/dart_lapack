@@ -1,34 +1,34 @@
       RECURSIVE SUBROUTINE CLAQZ0( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, REC, INFO )
       IMPLICIT NONE
 
-*     Arguments
+      // Arguments
       String   , INTENT( IN ) :: WANTS, WANTQ, WANTZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, REC;
       int    , INTENT( OUT ) :: INFO;
       COMPLEX, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * ), WORK( * )
       REAL, INTENT( OUT ) :: RWORK( * )
 
-*     Parameters
+      // Parameters
       COMPLEX         CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) )
       REAL :: ZERO, ONE, HALF
       PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
 
-*     Local scalars
+      // Local scalars
       REAL :: SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR, BNORM, BTOL
       COMPLEX :: ESHIFT, S1, TEMP
       int     :: ISTART, ISTOP, IITER, MAXIT, ISTART2, K, LD, NSHIFTS, NBLOCK, NW, NMIN, NIBBLE, N_UNDEFLATED, N_DEFLATED, NS, SWEEP_INFO, SHIFTPOS, LWORKREQ, K2, ISTARTM, ISTOPM, IWANTS, IWANTQ, IWANTZ, NORM_INFO, AED_INFO, NWR, NBR, NSR, ITEMP1, ITEMP2, RCOST;
       bool    :: ILSCHUR, ILQ, ILZ;
       String    :: JBCMPZ*3;
 
-*     External Functions
+      // External Functions
       // EXTERNAL :: XERBLA, CHGEQZ, CLAQZ2, CLAQZ3, CLASET, CLARTG, CROT
       REAL, EXTERNAL :: SLAMCH, CLANHS
       bool   , EXTERNAL :: LSAME;
       int    , EXTERNAL :: ILAENV;
 
 *
-*     Decode wantS,wantQ,wantZ
+      // Decode wantS,wantQ,wantZ
 *
       IF( LSAME( WANTS, 'E' ) ) THEN
          ILSCHUR = .FALSE.
@@ -66,7 +66,7 @@
          IWANTZ = 0
       END IF
 *
-*     Check Argument Values
+      // Check Argument Values
 *
       INFO = 0
       IF( IWANTS.EQ.0 ) THEN
@@ -96,7 +96,7 @@
       END IF
 
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.LE.0 ) THEN
          WORK( 1 ) = REAL( 1 )
@@ -104,7 +104,7 @@
       END IF
 
 *
-*     Get the parameters
+      // Get the parameters
 *
       JBCMPZ( 1:1 ) = WANTS
       JBCMPZ( 2:2 ) = WANTQ
@@ -133,14 +133,14 @@
       END IF
 
 *
-*     Find out required workspace
+      // Find out required workspace
 *
 
-*     Workspace query to CLAQZ2
+      // Workspace query to CLAQZ2
       NW = MAX( NWR, NMIN )
       CALL CLAQZ2( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHA, BETA, WORK, NW, WORK, NW, WORK, -1, RWORK, REC, AED_INFO )
       ITEMP1 = INT( WORK( 1 ) )
-*     Workspace query to CLAQZ3
+      // Workspace query to CLAQZ3
       CALL CLAQZ3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSR, NBR, ALPHA, BETA, A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBR, WORK, NBR, WORK, -1, SWEEP_INFO )
       ITEMP2 = INT( WORK( 1 ) )
 
@@ -156,11 +156,11 @@
          RETURN
       END IF
 *
-*     Initialize Q and Z
+      // Initialize Q and Z
 *
       IF( IWANTQ.EQ.3 ) CALL CLASET( 'FULL', N, N, CZERO, CONE, Q, LDQ )       IF( IWANTZ.EQ.3 ) CALL CLASET( 'FULL', N, N, CZERO, CONE, Z, LDZ )
 
-*     Get machine constants
+      // Get machine constants
       SAFMIN = SLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE/SAFMIN
       ULP = SLAMCH( 'PRECISION' )
@@ -184,14 +184,14 @@
             EXIT
          END IF
 
-*        Check deflations at the end
+         // Check deflations at the end
          IF ( ABS( A( ISTOP, ISTOP-1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) THEN
             A( ISTOP, ISTOP-1 ) = CZERO
             ISTOP = ISTOP-1
             LD = 0
             ESHIFT = CZERO
          END IF
-*        Check deflations at the start
+         // Check deflations at the start
          IF ( ABS( A( ISTART+1, ISTART ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) THEN
             A( ISTART+1, ISTART ) = CZERO
             ISTART = ISTART+1
@@ -203,7 +203,7 @@
             EXIT
          END IF
 
-*        Check interior deflations
+         // Check interior deflations
          ISTART2 = ISTART
          DO K = ISTOP, ISTART+1, -1
             IF ( ABS( A( K, K-1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) THEN
@@ -213,7 +213,7 @@
             END IF
          END DO
 
-*        Get range to apply rotations to
+         // Get range to apply rotations to
          IF ( ILSCHUR ) THEN
             ISTARTM = 1
             ISTOPM = N
@@ -222,14 +222,14 @@
             ISTOPM = ISTOP
          END IF
 
-*        Check infinite eigenvalues, this is done without blocking so might
-*        slow down the method when many infinite eigenvalues are present
+         // Check infinite eigenvalues, this is done without blocking so might
+         // slow down the method when many infinite eigenvalues are present
          K = ISTOP
          DO WHILE ( K.GE.ISTART2 )
 
             IF( ABS( B( K, K ) ) .LT. BTOL ) THEN
-*              A diagonal element of B is negligible, move it
-*              to the top and deflate it
+               // A diagonal element of B is negligible, move it
+              t // o the top and deflate it
 
                DO K2 = K, ISTART2+1, -1
                   CALL CLARTG( B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP )
@@ -268,8 +268,8 @@
             K = K-1
          END DO
 
-*        istart2 now points to the top of the bottom right
-*        unreduced Hessenberg block
+         // istart2 now points to the top of the bottom right
+         // unreduced Hessenberg block
          IF ( ISTART2 .GE. ISTOP ) THEN
             ISTOP = ISTART2-1
             LD = 0
@@ -282,9 +282,9 @@
          NBLOCK = NBR
 
          IF ( ISTOP-ISTART2+1 .LT. NMIN ) THEN
-*           Setting nw to the size of the subblock will make AED deflate
-*           all the eigenvalues. This is slightly more efficient than just
-*           using CHGEQZ because the off diagonal part gets updated via BLAS.
+            // Setting nw to the size of the subblock will make AED deflate
+            // all the eigenvalues. This is slightly more efficient than just
+            // using CHGEQZ because the off diagonal part gets updated via BLAS.
             IF ( ISTOP-ISTART+1 .LT. NMIN ) THEN
                NW = ISTOP-ISTART+1
                ISTART2 = ISTART
@@ -294,7 +294,7 @@
          END IF
 
 *
-*        Time for AED
+         // Time for AED
 *
          CALL CLAQZ2( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHA, BETA, WORK, NW, WORK( NW**2+1 ), NW, WORK( 2*NW**2+1 ), LWORK-2*NW**2, RWORK, REC, AED_INFO )
 
@@ -304,8 +304,8 @@
             ESHIFT = CZERO
          END IF
           IF ( 100*N_DEFLATED > NIBBLE*( N_DEFLATED+N_UNDEFLATED ) .OR. ISTOP-ISTART2+1 .LT. NMIN ) THEN
-*           AED has uncovered many eigenvalues. Skip a QZ sweep and run
-*           AED again.
+            // AED has uncovered many eigenvalues. Skip a QZ sweep and run
+            // AED again.
             CYCLE
          END IF
 
@@ -317,7 +317,7 @@
 
          IF ( MOD( LD, 6 ) .EQ. 0 ) THEN
 *
-*           Exceptional shift.  Chosen for no particularly good reason.
+            // Exceptional shift.  Chosen for no particularly good reason.
 *
             IF( ( REAL( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ).LT.ABS( A( ISTOP-1, ISTOP-1 ) ) ) THEN
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 )
@@ -330,17 +330,17 @@
          END IF
 
 *
-*        Time for a QZ sweep
+         // Time for a QZ sweep
 *
          CALL CLAQZ3( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NS, NBLOCK, ALPHA( SHIFTPOS ), BETA( SHIFTPOS ), A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBLOCK, WORK( NBLOCK** 2+1 ), NBLOCK, WORK( 2*NBLOCK**2+1 ), LWORK-2*NBLOCK**2, SWEEP_INFO )
 
       END DO
 
 *
-*     Call CHGEQZ to normalize the eigenvalue blocks and set the eigenvalues
-*     If all the eigenvalues have been found, CHGEQZ will not do any iterations
-*     and only normalize the blocks. In case of a rare convergence failure,
-*     the single shift might perform better.
+      // Call CHGEQZ to normalize the eigenvalue blocks and set the eigenvalues
+      // If all the eigenvalues have been found, CHGEQZ will not do any iterations
+      // and only normalize the blocks. In case of a rare convergence failure,
+     t // he single shift might perform better.
 *
    80 CALL CHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB,
      $             ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK,

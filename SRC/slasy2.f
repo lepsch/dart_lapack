@@ -4,60 +4,60 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               LTRANL, LTRANR;
       int                INFO, ISGN, LDB, LDTL, LDTR, LDX, N1, N2;
       REAL               SCALE, XNORM
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL               B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ), X( LDX, * )
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               TWO, HALF, EIGHT
       PARAMETER          ( TWO = 2.0E+0, HALF = 0.5E+0, EIGHT = 8.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BSWAP, XSWAP;
       int                I, IP, IPIV, IPSV, J, JP, JPSV, K;
       REAL               BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1, TEMP, U11, U12, U22, XMAX
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               BSWPIV( 4 ), XSWPIV( 4 );
       int                JPIV( 4 ), LOCL21( 4 ), LOCU12( 4 ), LOCU22( 4 );
       REAL               BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 )
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                ISAMAX;
       REAL               SLAMCH
       // EXTERNAL ISAMAX, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SSWAP
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Data statements ..
+      // ..
+      // .. Data statements ..
       DATA               LOCU12 / 3, 4, 1, 2 / , LOCL21 / 2, 1, 4, 3 / , LOCU22 / 4, 3, 2, 1 /
       DATA               XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
       DATA               BSWPIV / .FALSE., .TRUE., .FALSE., .TRUE. /
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Do not check the input parameters for errors
+      // Do not check the input parameters for errors
 *
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N1.EQ.0 .OR. N2.EQ.0 ) RETURN
 *
-*     Set constants to control overflow
+      // Set constants to control overflow
 *
       EPS = SLAMCH( 'P' )
       SMLNUM = SLAMCH( 'S' ) / EPS
@@ -66,7 +66,7 @@
       K = N1 + N1 + N2 - 2
       GO TO ( 10, 20, 30, 50 )K
 *
-*     1 by 1: TL11*X + SGN*X*TR11 = B11
+      // 1 by 1: TL11*X + SGN*X*TR11 = B11
 *
    10 CONTINUE
       TAU1 = TL( 1, 1 ) + SGN*TR( 1, 1 )
@@ -85,9 +85,9 @@
       XNORM = ABS( X( 1, 1 ) )
       RETURN
 *
-*     1 by 2:
-*     TL11*[X11 X12] + ISGN*[X11 X12]*op[TR11 TR12]  = [B11 B12]
-*                                       [TR21 TR22]
+      // 1 by 2:
+      // TL11*[X11 X12] + ISGN*[X11 X12]*op[TR11 TR12]  = [B11 B12]
+                                        // [TR21 TR22]
 *
    20 CONTINUE
 *
@@ -105,9 +105,9 @@
       BTMP( 2 ) = B( 1, 2 )
       GO TO 40
 *
-*     2 by 1:
-*          op[TL11 TL12]*[X11] + ISGN* [X11]*TR11  = [B11]
-*            [TL21 TL22] [X21]         [X21]         [B21]
+      // 2 by 1:
+           // op[TL11 TL12]*[X11] + ISGN* [X11]*TR11  = [B11]
+             // [TL21 TL22] [X21]         [X21]         [B21]
 *
    30 CONTINUE
       SMIN = MAX( EPS*MAX( ABS( TR( 1, 1 ) ), ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) ), SMLNUM )
@@ -124,8 +124,8 @@
       BTMP( 2 ) = B( 2, 1 )
    40 CONTINUE
 *
-*     Solve 2 by 2 system using complete pivoting.
-*     Set pivots less than SMIN to SMIN.
+      // Solve 2 by 2 system using complete pivoting.
+      // Set pivots less than SMIN to SMIN.
 *
       IPIV = ISAMAX( 4, TMP, 1 )
       U11 = TMP( IPIV )
@@ -172,12 +172,12 @@
       END IF
       RETURN
 *
-*     2 by 2:
-*     op[TL11 TL12]*[X11 X12] +ISGN* [X11 X12]*op[TR11 TR12] = [B11 B12]
-*       [TL21 TL22] [X21 X22]        [X21 X22]   [TR21 TR22]   [B21 B22]
+      // 2 by 2:
+      // op[TL11 TL12]*[X11 X12] +ISGN* [X11 X12]*op[TR11 TR12] = [B11 B12]
+        // [TL21 TL22] [X21 X22]        [X21 X22]   [TR21 TR22]   [B21 B22]
 *
-*     Solve equivalent 4 by 4 system using complete pivoting.
-*     Set pivots less than SMIN to SMIN.
+      // Solve equivalent 4 by 4 system using complete pivoting.
+      // Set pivots less than SMIN to SMIN.
 *
    50 CONTINUE
       SMIN = MAX( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )       SMIN = MAX( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) )
@@ -215,7 +215,7 @@
       BTMP( 3 ) = B( 1, 2 )
       BTMP( 4 ) = B( 2, 2 )
 *
-*     Perform elimination
+      // Perform elimination
 *
       DO 100 I = 1, 3
          XMAX = ZERO
@@ -282,6 +282,6 @@
       XNORM = MAX( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ), ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) )
       RETURN
 *
-*     End of SLASY2
+      // End of SLASY2
 *
       END

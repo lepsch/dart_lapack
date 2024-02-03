@@ -4,34 +4,34 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, LDB, LWORK, N, NRHS;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       double             A( LDA, * ), B( LDB, * ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                LWKOPT;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, DSYTRF, DSYTRS, DSYTRS2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -66,22 +66,22 @@
          RETURN
       END IF
 *
-*     Compute the factorization A = U*D*U**T or A = L*D*L**T.
+      // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 *
       CALL DSYTRF( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
-*        Solve the system A*X = B, overwriting B with X.
+         // Solve the system A*X = B, overwriting B with X.
 *
          IF ( LWORK.LT.N ) THEN
 *
-*        Solve with TRS ( Use Level BLAS 2)
+         // Solve with TRS ( Use Level BLAS 2)
 *
             CALL DSYTRS( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
 *
          ELSE
 *
-*        Solve with TRS2 ( Use Level BLAS 3)
+         // Solve with TRS2 ( Use Level BLAS 3)
 *
             CALL DSYTRS2( UPLO,N,NRHS,A,LDA,IPIV,B,LDB,WORK,INFO )
 *
@@ -93,6 +93,6 @@
 *
       RETURN
 *
-*     End of DSYSV
+      // End of DSYSV
 *
       END

@@ -4,38 +4,38 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE;
       REAL               ALPHA, BETA, C, S
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ), IDXQ( * ), PERM( * )       REAL               D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ), VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ), ZW( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO, EIGHT
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, EIGHT = 8.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
 *
       int                I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2;
       REAL               EPS, HLFTOL, TAU, TOL, Z1
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLAMRG, SROT, XERBLA
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLAPY2
       // EXTERNAL SLAMCH, SLAPY2
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       INFO = 0
       N = NL + NR + 1
@@ -65,8 +65,8 @@
          GIVPTR = 0
       END IF
 *
-*     Generate the first part of the vector Z and move the singular
-*     values in the first part of D one position backward.
+      // Generate the first part of the vector Z and move the singular
+      // values in the first part of D one position backward.
 *
       Z1 = ALPHA*VL( NLP1 )
       VL( NLP1 ) = ZERO
@@ -80,20 +80,20 @@
    10 CONTINUE
       VF( 1 ) = TAU
 *
-*     Generate the second part of the vector Z.
+      // Generate the second part of the vector Z.
 *
       DO 20 I = NLP2, M
          Z( I ) = BETA*VF( I )
          VF( I ) = ZERO
    20 CONTINUE
 *
-*     Sort the singular values into increasing order
+      // Sort the singular values into increasing order
 *
       DO 30 I = NLP2, N
          IDXQ( I ) = IDXQ( I ) + NLP1
    30 CONTINUE
 *
-*     DSIGMA, IDXC, IDXC, and ZW are used as storage space.
+      // DSIGMA, IDXC, IDXC, and ZW are used as storage space.
 *
       DO 40 I = 2, N
          DSIGMA( I ) = D( IDXQ( I ) )
@@ -112,37 +112,37 @@
          VL( I ) = VLW( IDXI )
    50 CONTINUE
 *
-*     Calculate the allowable deflation tolerance
+      // Calculate the allowable deflation tolerance
 *
       EPS = SLAMCH( 'Epsilon' )
       TOL = MAX( ABS( ALPHA ), ABS( BETA ) )
       TOL = EIGHT*EIGHT*EPS*MAX( ABS( D( N ) ), TOL )
 *
-*     There are 2 kinds of deflation -- first a value in the z-vector
-*     is small, second two (or more) singular values are very close
-*     together (their difference is small).
+      // There are 2 kinds of deflation -- first a value in the z-vector
+      // is small, second two (or more) singular values are very close
+     t // ogether (their difference is small).
 *
-*     If the value in the z-vector is small, we simply permute the
-*     array so that the corresponding singular value is moved to the
-*     end.
+      // If the value in the z-vector is small, we simply permute the
+      // array so that the corresponding singular value is moved to the
+      // end.
 *
-*     If two values in the D-vector are close, we perform a two-sided
-*     rotation designed to make one of the corresponding z-vector
-*     entries zero, and then permute the array so that the deflated
-*     singular value is moved to the end.
+      // If two values in the D-vector are close, we perform a two-sided
+      // rotation designed to make one of the corresponding z-vector
+      // entries zero, and then permute the array so that the deflated
+      // singular value is moved to the end.
 *
-*     If there are multiple singular values then the problem deflates.
-*     Here the number of equal singular values are found.  As each equal
-*     singular value is found, an elementary reflector is computed to
-*     rotate the corresponding singular subspace so that the
-*     corresponding components of Z are zero in this new basis.
+      // If there are multiple singular values then the problem deflates.
+      // Here the number of equal singular values are found.  As each equal
+      // singular value is found, an elementary reflector is computed to
+      // rotate the corresponding singular subspace so that the
+      // corresponding components of Z are zero in this new basis.
 *
       K = 1
       K2 = N + 1
       DO 60 J = 2, N
          IF( ABS( Z( J ) ).LE.TOL ) THEN
 *
-*           Deflate due to small z component.
+            // Deflate due to small z component.
 *
             K2 = K2 - 1
             IDXP( K2 ) = J
@@ -159,23 +159,23 @@
       IF( J.GT.N ) GO TO 90
       IF( ABS( Z( J ) ).LE.TOL ) THEN
 *
-*        Deflate due to small z component.
+         // Deflate due to small z component.
 *
          K2 = K2 - 1
          IDXP( K2 ) = J
       ELSE
 *
-*        Check if singular values are close enough to allow deflation.
+         // Check if singular values are close enough to allow deflation.
 *
          IF( ABS( D( J )-D( JPREV ) ).LE.TOL ) THEN
 *
-*           Deflation is possible.
+            // Deflation is possible.
 *
             S = Z( JPREV )
             C = Z( J )
 *
-*           Find sqrt(a**2+b**2) without overflow or
-*           destructive underflow.
+            // Find sqrt(a**2+b**2) without overflow or
+            // destructive underflow.
 *
             TAU = SLAPY2( C, S )
             Z( J ) = TAU
@@ -183,7 +183,7 @@
             C = C / TAU
             S = -S / TAU
 *
-*           Record the appropriate Givens rotation
+            // Record the appropriate Givens rotation
 *
             IF( ICOMPQ.EQ.1 ) THEN
                GIVPTR = GIVPTR + 1
@@ -216,7 +216,7 @@
       GO TO 80
    90 CONTINUE
 *
-*     Record the last singular value.
+      // Record the last singular value.
 *
       K = K + 1
       ZW( K ) = Z( JPREV )
@@ -225,9 +225,9 @@
 *
   100 CONTINUE
 *
-*     Sort the singular values into DSIGMA. The singular values which
-*     were not deflated go into the first K slots of DSIGMA, except
-*     that DSIGMA(1) is treated separately.
+      // Sort the singular values into DSIGMA. The singular values which
+      // were not deflated go into the first K slots of DSIGMA, except
+     t // hat DSIGMA(1) is treated separately.
 *
       DO 110 J = 2, N
          JP = IDXP( J )
@@ -245,13 +245,13 @@
   120    CONTINUE
       END IF
 *
-*     The deflated singular values go back into the last N - K slots of
-*     D.
+      // The deflated singular values go back into the last N - K slots of
+      // D.
 *
       CALL SCOPY( N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 )
 *
-*     Determine DSIGMA(1), DSIGMA(2), Z(1), VF(1), VL(1), VF(M), and
-*     VL(M).
+      // Determine DSIGMA(1), DSIGMA(2), Z(1), VF(1), VL(1), VF(M), and
+      // VL(M).
 *
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
@@ -276,7 +276,7 @@
          END IF
       END IF
 *
-*     Restore Z, VF, and VL.
+      // Restore Z, VF, and VL.
 *
       CALL SCOPY( K-1, ZW( 2 ), 1, Z( 2 ), 1 )
       CALL SCOPY( N-1, VFW( 2 ), 1, VF( 2 ), 1 )
@@ -284,6 +284,6 @@
 *
       RETURN
 *
-*     End of SLASD7
+      // End of SLASD7
 *
       END

@@ -4,52 +4,52 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               LREAL, LTRAN;
       int                INFO, LDT, N;
       double             SCALE, W;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             B( * ), T( LDT, * ), WORK( * ), X( * );
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               NOTRAN;
       int                I, IERR, J, J1, J2, JNEXT, K, N1, N2;
       double             BIGNUM, EPS, REC, SCALOC, SI, SMIN, SMINW, SMLNUM, SR, TJJ, TMP, XJ, XMAX, XNORM, Z;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       double             D( 2, 2 ), V( 2, 2 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       int                IDAMAX;
       double             DASUM, DDOT, DLAMCH, DLANGE;
       // EXTERNAL IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DAXPY, DLADIV, DLALN2, DSCAL
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Do not test the input parameters for errors
+      // Do not test the input parameters for errors
 *
       NOTRAN = .NOT.LTRAN
       INFO = 0
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Set constants to control overflow
+      // Set constants to control overflow
 *
       EPS = DLAMCH( 'P' )
       SMLNUM = DLAMCH( 'S' ) / EPS
@@ -59,8 +59,8 @@
       IF( .NOT.LREAL ) XNORM = MAX( XNORM, ABS( W ), DLANGE( 'M', N, 1, B, N, D ) )
       SMIN = MAX( SMLNUM, EPS*XNORM )
 *
-*     Compute 1-norm of each column of strictly upper triangular
-*     part of T to control overflow in triangular solver.
+      // Compute 1-norm of each column of strictly upper triangular
+      // part of T to control overflow in triangular solver.
 *
       WORK( 1 ) = ZERO
       DO 10 J = 2, N
@@ -90,7 +90,7 @@
 *
          IF( NOTRAN ) THEN
 *
-*           Solve T*p = scale*c
+            // Solve T*p = scale*c
 *
             JNEXT = N
             DO 30 J = N, 1, -1
@@ -107,10 +107,10 @@
 *
                IF( J1.EQ.J2 ) THEN
 *
-*                 Meet 1 by 1 diagonal block
+                  // Meet 1 by 1 diagonal block
 *
-*                 Scale to avoid overflow when computing
-*                     x(j) = b(j)/T(j,j)
+                  // Scale to avoid overflow when computing
+                      // x(j) = b(j)/T(j,j)
 *
                   XJ = ABS( X( J1 ) )
                   TJJ = ABS( T( J1, J1 ) )
@@ -134,8 +134,8 @@
                   X( J1 ) = X( J1 ) / TMP
                   XJ = ABS( X( J1 ) )
 *
-*                 Scale x if necessary to avoid overflow when adding a
-*                 multiple of column j1 of T.
+                  // Scale x if necessary to avoid overflow when adding a
+                  // multiple of column j1 of T.
 *
                   IF( XJ.GT.ONE ) THEN
                      REC = ONE / XJ
@@ -152,10 +152,10 @@
 *
                ELSE
 *
-*                 Meet 2 by 2 diagonal block
+                  // Meet 2 by 2 diagonal block
 *
-*                 Call 2 by 2 linear system solve, to take
-*                 care of possible overflow by scaling factor.
+                  // Call 2 by 2 linear system solve, to take
+                  // care of possible overflow by scaling factor.
 *
                   D( 1, 1 ) = X( J1 )
                   D( 2, 1 ) = X( J2 )
@@ -169,8 +169,8 @@
                   X( J1 ) = V( 1, 1 )
                   X( J2 ) = V( 2, 1 )
 *
-*                 Scale V(1,1) (= X(J1)) and/or V(2,1) (=X(J2))
-*                 to avoid overflow in updating right-hand side.
+                  // Scale V(1,1) (= X(J1)) and/or V(2,1) (=X(J2))
+                 t // o avoid overflow in updating right-hand side.
 *
                   XJ = MAX( ABS( V( 1, 1 ) ), ABS( V( 2, 1 ) ) )
                   IF( XJ.GT.ONE ) THEN
@@ -181,7 +181,7 @@
                      END IF
                   END IF
 *
-*                 Update right-hand side
+                  // Update right-hand side
 *
                   IF( J1.GT.1 ) THEN
                      CALL DAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
@@ -196,7 +196,7 @@
 *
          ELSE
 *
-*           Solve T**T*p = scale*c
+            // Solve T**T*p = scale*c
 *
             JNEXT = 1
             DO 40 J = 1, N
@@ -213,10 +213,10 @@
 *
                IF( J1.EQ.J2 ) THEN
 *
-*                 1 by 1 diagonal block
+                  // 1 by 1 diagonal block
 *
-*                 Scale if necessary to avoid overflow in forming the
-*                 right-hand side element by inner product.
+                  // Scale if necessary to avoid overflow in forming the
+                  // right-hand side element by inner product.
 *
                   XJ = ABS( X( J1 ) )
                   IF( XMAX.GT.ONE ) THEN
@@ -252,10 +252,10 @@
 *
                ELSE
 *
-*                 2 by 2 diagonal block
+                  // 2 by 2 diagonal block
 *
-*                 Scale if necessary to avoid overflow in forming the
-*                 right-hand side elements by inner product.
+                  // Scale if necessary to avoid overflow in forming the
+                  // right-hand side elements by inner product.
 *
                   XJ = MAX( ABS( X( J1 ) ), ABS( X( J2 ) ) )
                   IF( XMAX.GT.ONE ) THEN
@@ -289,7 +289,7 @@
          SMINW = MAX( EPS*ABS( W ), SMIN )
          IF( NOTRAN ) THEN
 *
-*           Solve (T + iB)*(p+iq) = c+id
+            // Solve (T + iB)*(p+iq) = c+id
 *
             JNEXT = N
             DO 70 J = N, 1, -1
@@ -306,9 +306,9 @@
 *
                IF( J1.EQ.J2 ) THEN
 *
-*                 1 by 1 diagonal block
+                  // 1 by 1 diagonal block
 *
-*                 Scale if necessary to avoid overflow in division
+                  // Scale if necessary to avoid overflow in division
 *
                   Z = W
                   IF( J1.EQ.1 ) Z = B( 1 )
@@ -336,8 +336,8 @@
                   X( N+J1 ) = SI
                   XJ = ABS( X( J1 ) ) + ABS( X( N+J1 ) )
 *
-*                 Scale x if necessary to avoid overflow when adding a
-*                 multiple of column j1 of T.
+                  // Scale x if necessary to avoid overflow when adding a
+                  // multiple of column j1 of T.
 *
                   IF( XJ.GT.ONE ) THEN
                      REC = ONE / XJ
@@ -362,7 +362,7 @@
 *
                ELSE
 *
-*                 Meet 2 by 2 diagonal block
+                  // Meet 2 by 2 diagonal block
 *
                   D( 1, 1 ) = X( J1 )
                   D( 2, 1 ) = X( J2 )
@@ -380,8 +380,8 @@
                   X( N+J1 ) = V( 1, 2 )
                   X( N+J2 ) = V( 2, 2 )
 *
-*                 Scale X(J1), .... to avoid overflow in
-*                 updating right hand side.
+                  // Scale X(J1), .... to avoid overflow in
+                  // updating right hand side.
 *
                   XJ = MAX( ABS( V( 1, 1 ) )+ABS( V( 1, 2 ) ), ABS( V( 2, 1 ) )+ABS( V( 2, 2 ) ) )
                   IF( XJ.GT.ONE ) THEN
@@ -392,7 +392,7 @@
                      END IF
                   END IF
 *
-*                 Update the right-hand side.
+                  // Update the right-hand side.
 *
                   IF( J1.GT.1 ) THEN
                      CALL DAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
@@ -413,7 +413,7 @@
 *
          ELSE
 *
-*           Solve (T + iB)**T*(p+iq) = c+id
+            // Solve (T + iB)**T*(p+iq) = c+id
 *
             JNEXT = 1
             DO 80 J = 1, N
@@ -430,10 +430,10 @@
 *
                IF( J1.EQ.J2 ) THEN
 *
-*                 1 by 1 diagonal block
+                  // 1 by 1 diagonal block
 *
-*                 Scale if necessary to avoid overflow in forming the
-*                 right-hand side element by inner product.
+                  // Scale if necessary to avoid overflow in forming the
+                  // right-hand side element by inner product.
 *
                   XJ = ABS( X( J1 ) ) + ABS( X( J1+N ) )
                   IF( XMAX.GT.ONE ) THEN
@@ -456,8 +456,8 @@
                   Z = W
                   IF( J1.EQ.1 ) Z = B( 1 )
 *
-*                 Scale if necessary to avoid overflow in
-*                 complex division
+                  // Scale if necessary to avoid overflow in
+                  // complex division
 *
                   TJJ = ABS( T( J1, J1 ) ) + ABS( Z )
                   TMP = T( J1, J1 )
@@ -482,10 +482,10 @@
 *
                ELSE
 *
-*                 2 by 2 diagonal block
+                  // 2 by 2 diagonal block
 *
-*                 Scale if necessary to avoid overflow in forming the
-*                 right-hand side element by inner product.
+                  // Scale if necessary to avoid overflow in forming the
+                  // right-hand side element by inner product.
 *
                   XJ = MAX( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ) )
                   IF( XMAX.GT.ONE ) THEN
@@ -526,6 +526,6 @@
 *
       RETURN
 *
-*     End of DLAQTR
+      // End of DLAQTR
 *
       END

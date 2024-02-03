@@ -4,60 +4,60 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               COMP;
       int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT;
       REAL               RCDEIN, RCDVIN, THRESH
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * );
       REAL               RESULT( 17 ), RWORK( * )
       COMPLEX            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               EPSIN
       PARAMETER          ( EPSIN = 5.9605E-8 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       String             SORT;
       int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1       REAL               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
       COMPLEX            CTMP
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       int                IPNT( 20 );
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               CSLECT;
       REAL               CLANGE, SLAMCH
       // EXTERNAL CSLECT, CLANGE, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEESX, CGEMM, CLACPY, CUNT01, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
-*     ..
-*     .. Arrays in Common ..
+      // ..
+      // .. Arrays in Common ..
       bool               SELVAL( 20 );
       REAL               SELWI( 20 ), SELWR( 20 )
-*     ..
-*     .. Scalars in Common ..
+      // ..
+      // .. Scalars in Common ..
       int                SELDIM, SELOPT;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Check for errors
+      // Check for errors
 *
       INFO = 0
       IF( THRESH.LT.ZERO ) THEN
@@ -79,7 +79,7 @@
          RETURN
       END IF
 *
-*     Quick return if nothing to do
+      // Quick return if nothing to do
 *
       DO 10 I = 1, 17
          RESULT( I ) = -ONE
@@ -87,13 +87,13 @@
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Important constants
+      // Important constants
 *
       SMLNUM = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Precision' )
       ULPINV = ONE / ULP
 *
-*     Perform tests (1)-(13)
+      // Perform tests (1)-(13)
 *
       SELOPT = 0
       DO 90 ISORT = 0, 1
@@ -105,7 +105,7 @@
             RSUB = 6
          END IF
 *
-*        Compute Schur form and Schur vectors, and test them
+         // Compute Schur form and Schur vectors, and test them
 *
          CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
          CALL CGEESX( 'V', SORT, CSLECT, 'N', N, H, LDA, SDIM, W, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
@@ -123,7 +123,7 @@
             CALL CCOPY( N, W, 1, WTMP, 1 )
          END IF
 *
-*        Do Test (1) or Test (7)
+         // Do Test (1) or Test (7)
 *
          RESULT( 1+RSUB ) = ZERO
          DO 30 J = 1, N - 1
@@ -132,17 +132,17 @@
    20       CONTINUE
    30    CONTINUE
 *
-*        Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
+         // Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
 *
-*        Copy A to VS1, used as workspace
+         // Copy A to VS1, used as workspace
 *
          CALL CLACPY( ' ', N, N, A, LDA, VS1, LDVS )
 *
-*        Compute Q*H and store in HT.
+         // Compute Q*H and store in HT.
 *
          CALL CGEMM( 'No transpose', 'No transpose', N, N, N, CONE, VS, LDVS, H, LDA, CZERO, HT, LDA )
 *
-*        Compute A - Q*H*Q'
+         // Compute A - Q*H*Q'
 *
          CALL CGEMM( 'No transpose', 'Conjugate transpose', N, N, N, -CONE, HT, LDA, VS, LDVS, CONE, VS1, LDVS )
 *
@@ -159,18 +159,18 @@
             END IF
          END IF
 *
-*        Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
+         // Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
 *
          CALL CUNT01( 'Columns', N, N, VS, LDVS, WORK, LWORK, RWORK, RESULT( 3+RSUB ) )
 *
-*        Do Test (4) or Test (10)
+         // Do Test (4) or Test (10)
 *
          RESULT( 4+RSUB ) = ZERO
          DO 40 I = 1, N
             IF( H( I, I ).NE.W( I ) ) RESULT( 4+RSUB ) = ULPINV
    40    CONTINUE
 *
-*        Do Test (5) or Test (11)
+         // Do Test (5) or Test (11)
 *
          CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL CGEESX( 'N', SORT, CSLECT, 'N', N, HT, LDA, SDIM, WT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
@@ -192,14 +192,14 @@
    50       CONTINUE
    60    CONTINUE
 *
-*        Do Test (6) or Test (12)
+         // Do Test (6) or Test (12)
 *
          RESULT( 6+RSUB ) = ZERO
          DO 70 I = 1, N
             IF( W( I ).NE.WT( I ) ) RESULT( 6+RSUB ) = ULPINV
    70    CONTINUE
 *
-*        Do Test (13)
+         // Do Test (13)
 *
          IF( ISORT.EQ.1 ) THEN
             RESULT( 13 ) = ZERO
@@ -215,12 +215,12 @@
 *
    90 CONTINUE
 *
-*     If there is enough workspace, perform tests (14) and (15)
-*     as well as (10) through (13)
+      // If there is enough workspace, perform tests (14) and (15)
+      // as well as (10) through (13)
 *
       IF( LWORK.GE.( N*( N+1 ) ) / 2 ) THEN
 *
-*        Compute both RCONDE and RCONDV with VS
+         // Compute both RCONDE and RCONDV with VS
 *
          SORT = 'S'
          RESULT( 14 ) = ZERO
@@ -239,7 +239,7 @@
             GO TO 220
          END IF
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 110 I = 1, N
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
@@ -249,7 +249,7 @@
   110    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute both RCONDE and RCONDV without VS, and compare
+         // Compute both RCONDE and RCONDV without VS, and compare
 *
          CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL CGEESX( 'N', SORT, CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
@@ -265,11 +265,11 @@
             GO TO 220
          END IF
 *
-*        Perform tests (14) and (15)
+         // Perform tests (14) and (15)
 *
          IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 130 I = 1, N
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
@@ -279,7 +279,7 @@
   130    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute RCONDE with VS, and compare
+         // Compute RCONDE with VS, and compare
 *
          CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL CGEESX( 'V', SORT, CSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
@@ -294,11 +294,11 @@
             GO TO 220
          END IF
 *
-*        Perform test (14)
+         // Perform test (14)
 *
          IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 150 I = 1, N
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
@@ -308,7 +308,7 @@
   150    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute RCONDE without VS, and compare
+         // Compute RCONDE without VS, and compare
 *
          CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL CGEESX( 'N', SORT, CSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
@@ -323,11 +323,11 @@
             GO TO 220
          END IF
 *
-*        Perform test (14)
+         // Perform test (14)
 *
          IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 170 I = 1, N
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
@@ -337,7 +337,7 @@
   170    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute RCONDV with VS, and compare
+         // Compute RCONDV with VS, and compare
 *
          CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL CGEESX( 'V', SORT, CSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
@@ -352,11 +352,11 @@
             GO TO 220
          END IF
 *
-*        Perform test (15)
+         // Perform test (15)
 *
          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 190 I = 1, N
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
@@ -366,7 +366,7 @@
   190    CONTINUE
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 *
-*        Compute RCONDV without VS, and compare
+         // Compute RCONDV without VS, and compare
 *
          CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL CGEESX( 'N', SORT, CSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
@@ -381,11 +381,11 @@
             GO TO 220
          END IF
 *
-*        Perform test (15)
+         // Perform test (15)
 *
          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
 *
-*        Perform tests (10), (11), (12), and (13)
+         // Perform tests (10), (11), (12), and (13)
 *
          DO 210 I = 1, N
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
@@ -399,14 +399,14 @@
 *
   220 CONTINUE
 *
-*     If there are precomputed reciprocal condition numbers, compare
-*     computed values with them.
+      // If there are precomputed reciprocal condition numbers, compare
+      // computed values with them.
 *
       IF( COMP ) THEN
 *
-*        First set up SELOPT, SELDIM, SELVAL, SELWR and SELWI so that
-*        the logical function CSLECT selects the eigenvalues specified
-*        by NSLCT, ISLCT and ISRT.
+         // First set up SELOPT, SELDIM, SELVAL, SELWR and SELWI so that
+        t // he logical function CSLECT selects the eigenvalues specified
+         // by NSLCT, ISLCT and ISRT.
 *
          SELDIM = N
          SELOPT = 1
@@ -446,7 +446,7 @@
             SELVAL( IPNT( ISLCT( I ) ) ) = .TRUE.
   260    CONTINUE
 *
-*        Compute condition numbers
+         // Compute condition numbers
 *
          CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
          CALL CGEESX( 'N', 'S', CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
@@ -458,8 +458,8 @@
             GO TO 270
          END IF
 *
-*        Compare condition number for average of selected eigenvalues
-*        taking its condition number into account
+         // Compare condition number for average of selected eigenvalues
+        t // aking its condition number into account
 *
          ANORM = CLANGE( '1', N, N, A, LDA, RWORK )
          V = MAX( REAL( N )*EPS*ANORM, SMLNUM )
@@ -488,8 +488,8 @@
             RESULT( 16 ) = ONE
          END IF
 *
-*        Compare condition numbers for right invariant subspace
-*        taking its condition number into account
+         // Compare condition numbers for right invariant subspace
+        t // aking its condition number into account
 *
          IF( V.GT.RCONDV*RCONDE ) THEN
             TOL = RCONDV
@@ -526,6 +526,6 @@
 *
       RETURN
 *
-*     End of CGET24
+      // End of CGET24
 *
       END

@@ -1,32 +1,32 @@
       PROGRAM SCBLAT1
-*     Test program for the REAL             Level 1 CBLAS.
-*     Based upon the original CBLAS test routine together with:
-*     F06EAF Example Program Text
-*     .. Parameters ..
+      // Test program for the REAL             Level 1 CBLAS.
+      // Based upon the original CBLAS test routine together with:
+      // F06EAF Example Program Text
+      // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL             SFAC
       int              IC;
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL CHECK0, CHECK1, CHECK2, CHECK3, HEADER
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA             SFAC/9.765625E-4/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       WRITE (NOUT,99999)
       DO 20 IC = 1, 10
          ICASE = IC
          CALL HEADER
 *
-*        .. Initialize  PASS,  INCX,  INCY, and MODE for a new case. ..
-*        .. the value 9999 for INCX, INCY or MODE will appear in the ..
-*        .. detailed  output, if any, for cases  that do not involve ..
-*        .. these parameters ..
+         // .. Initialize  PASS,  INCX,  INCY, and MODE for a new case. ..
+         // .. the value 9999 for INCX, INCY or MODE will appear in the ..
+         // .. detailed  output, if any, for cases  that do not involve ..
+         // .. these parameters ..
 *
          PASS = .TRUE.
          INCX = 9999
@@ -41,7 +41,7 @@
          ELSE IF (ICASE.EQ.4) THEN
             CALL CHECK3(SFAC)
          END IF
-*        -- Print
+         // -- Print
          IF (PASS) WRITE (NOUT,99998)
    20 CONTINUE
       STOP
@@ -50,17 +50,17 @@
 99998 FORMAT ('                                    ----- PASS -----')
       END
       SUBROUTINE HEADER
-*     .. Parameters ..
+      // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       String            L(10);
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA             L(1)/'CBLAS_SDOT '/
       DATA             L(2)/'CBLAS_SAXPY '/
       DATA             L(3)/'CBLAS_SROTG '/
@@ -71,46 +71,46 @@
       DATA             L(8)/'CBLAS_SASUM '/
       DATA             L(9)/'CBLAS_SSCAL '/
       DATA             L(10)/'CBLAS_ISAMAX'/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       WRITE (NOUT,99999) ICASE, L(ICASE)
       RETURN
 *
 99999 FORMAT (/' Test of subprogram number',I3,9X,A15)
       END
       SUBROUTINE CHECK0(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL              SFAC
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL              SA, SB, SC, SS
       int               K;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL              DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8)
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SROTGTEST, STEST1
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              DA1/0.3E0, 0.4E0, -0.3E0, -0.4E0, -0.3E0, 0.0E0, 0.0E0, 1.0E0/       DATA              DB1/0.4E0, 0.3E0, 0.4E0, 0.3E0, -0.4E0, 0.0E0, 1.0E0, 0.0E0/       DATA              DC1/0.6E0, 0.8E0, -0.6E0, 0.8E0, 0.6E0, 1.0E0, 0.0E0, 1.0E0/       DATA              DS1/0.8E0, 0.6E0, 0.8E0, -0.6E0, 0.8E0, 0.0E0, 1.0E0, 0.0E0/       DATA              DATRUE/0.5E0, 0.5E0, 0.5E0, -0.5E0, -0.5E0, 0.0E0, 1.0E0, 1.0E0/       DATA              DBTRUE/0.0E0, 0.6E0, 0.0E0, -0.6E0, 0.0E0, 0.0E0, 1.0E0, 0.0E0/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
-*     Compute true values which cannot be prestored
-*     in decimal notation
+      // Compute true values which cannot be prestored
+      // in decimal notation
 *
       DBTRUE(1) = 1.0E0/0.6E0
       DBTRUE(3) = -1.0E0/0.6E0
       DBTRUE(5) = 1.0E0/0.6E0
 *
       DO 20 K = 1, 8
-*        .. Set N=K for identification in output if any ..
+         // .. Set N=K for identification in output if any ..
          N = K
          IF (ICASE.EQ.3) THEN
-*           .. SROTGTEST ..
+            // .. SROTGTEST ..
             IF (K.GT.8) GO TO 40
             SA = DA1(K)
             SB = DB1(K)
@@ -127,62 +127,62 @@
    40 RETURN
       END
       SUBROUTINE CHECK1(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL              SFAC
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int               I, LEN, NP1;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL              DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), SA(10), STEMP(1), STRUE(8), SX(8)
       int               ITRUE2(5);
-*     .. External Functions ..
+      // .. External Functions ..
       REAL              SASUMTEST, SNRM2TEST
       int               ISAMAXTEST;
       // EXTERNAL SASUMTEST, SNRM2TEST, ISAMAXTEST
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL ITEST1, SSCALTEST, STEST, STEST1
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              SA/0.3E0, -1.0E0, 0.0E0, 1.0E0, 0.3E0, 0.3E0, 0.3E0, 0.3E0, 0.3E0, 0.3E0/       DATA              DV/0.1E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 0.3E0, 3.0E0, 3.0E0, 3.0E0, 3.0E0, 3.0E0, 3.0E0, 3.0E0, 0.3E0, -0.4E0, 4.0E0, 4.0E0, 4.0E0, 4.0E0, 4.0E0, 4.0E0, 0.2E0, -0.6E0, 0.3E0, 5.0E0, 5.0E0, 5.0E0, 5.0E0, 5.0E0, 0.1E0, -0.3E0, 0.5E0, -0.1E0, 6.0E0, 6.0E0, 6.0E0, 6.0E0, 0.1E0, 8.0E0, 8.0E0, 8.0E0, 8.0E0, 8.0E0, 8.0E0, 8.0E0, 0.3E0, 9.0E0, 9.0E0, 9.0E0, 9.0E0, 9.0E0, 9.0E0, 9.0E0, 0.3E0, 2.0E0, -0.4E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 0.2E0, 3.0E0, -0.6E0, 5.0E0, 0.3E0, 2.0E0, 2.0E0, 2.0E0, 0.1E0, 4.0E0, -0.3E0, 6.0E0, -0.5E0, 7.0E0, -0.1E0, 3.0E0/
       DATA              DTRUE1/0.0E0, 0.3E0, 0.5E0, 0.7E0, 0.6E0/
       DATA              DTRUE3/0.0E0, 0.3E0, 0.7E0, 1.1E0, 1.0E0/
       DATA              DTRUE5/0.10E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, -0.3E0, 3.0E0, 3.0E0, 3.0E0, 3.0E0, 3.0E0, 3.0E0, 3.0E0, 0.0E0, 0.0E0, 4.0E0, 4.0E0, 4.0E0, 4.0E0, 4.0E0, 4.0E0, 0.20E0, -0.60E0, 0.30E0, 5.0E0, 5.0E0, 5.0E0, 5.0E0, 5.0E0, 0.03E0, -0.09E0, 0.15E0, -0.03E0, 6.0E0, 6.0E0, 6.0E0, 6.0E0, 0.10E0, 8.0E0, 8.0E0, 8.0E0, 8.0E0, 8.0E0, 8.0E0, 8.0E0, 0.09E0, 9.0E0, 9.0E0, 9.0E0, 9.0E0, 9.0E0, 9.0E0, 9.0E0, 0.09E0, 2.0E0, -0.12E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 2.0E0, 0.06E0, 3.0E0, -0.18E0, 5.0E0, 0.09E0, 2.0E0, 2.0E0, 2.0E0, 0.03E0, 4.0E0, -0.09E0, 6.0E0, -0.15E0, 7.0E0, -0.03E0, 3.0E0/
       DATA              ITRUE2/0, 1, 2, 2, 3/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       DO 80 INCX = 1, 2
          DO 60 NP1 = 1, 5
             N = NP1 - 1
             LEN = 2*MAX(N,1)
-*           .. Set vector arguments ..
+            // .. Set vector arguments ..
             DO 20 I = 1, LEN
                SX(I) = DV(I,NP1,INCX)
    20       CONTINUE
 *
             IF (ICASE.EQ.7) THEN
-*              .. SNRM2TEST ..
+               // .. SNRM2TEST ..
                STEMP(1) = DTRUE1(NP1)
                CALL STEST1(SNRM2TEST(N,SX,INCX),STEMP(1),STEMP,SFAC)
             ELSE IF (ICASE.EQ.8) THEN
-*              .. SASUMTEST ..
+               // .. SASUMTEST ..
                STEMP(1) = DTRUE3(NP1)
                CALL STEST1(SASUMTEST(N,SX,INCX),STEMP(1),STEMP,SFAC)
             ELSE IF (ICASE.EQ.9) THEN
-*              .. SSCALTEST ..
+               // .. SSCALTEST ..
                CALL SSCALTEST(N,SA((INCX-1)*5+NP1),SX,INCX)
                DO 40 I = 1, LEN
                   STRUE(I) = DTRUE5(I,NP1,INCX)
    40          CONTINUE
                CALL STEST(LEN,SX,STRUE,STRUE,SFAC)
             ELSE IF (ICASE.EQ.10) THEN
-*              .. ISAMAXTEST ..
+               // .. ISAMAXTEST ..
                CALL ITEST1(ISAMAXTEST(N,SX,INCX),ITRUE2(NP1))
             ELSE
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
@@ -193,30 +193,30 @@
       RETURN
       END
       SUBROUTINE CHECK2(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL              SFAC
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL              SA
       int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL              DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7)
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
-*     .. External Functions ..
+      // .. External Functions ..
       REAL              SDOTTEST
       // EXTERNAL SDOTTEST
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SAXPYTEST, SCOPYTEST, SSWAPTEST, STEST, STEST1
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              SA/0.3E0/
       DATA              INCXS/1, 2, -2, -1/
       DATA              INCYS/1, -2, 1, -2/
@@ -226,7 +226,7 @@
       DATA              DT10X/0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, -0.9E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, -0.9E0, 0.3E0, 0.7E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.3E0, 0.1E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.8E0, 0.1E0, -0.6E0, 0.8E0, 0.3E0, -0.3E0, 0.5E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, -0.9E0, 0.1E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.7E0, 0.1E0, 0.3E0, 0.8E0, -0.9E0, -0.3E0, 0.5E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.3E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.3E0, -0.6E0, 0.8E0, 0.0E0, 0.0E0, 0.0E0/       DATA              DT10Y/0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.1E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.1E0, -0.5E0, 0.8E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, -0.5E0, -0.9E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, -0.4E0, -0.9E0, 0.9E0, 0.7E0, -0.5E0, 0.2E0, 0.6E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, -0.5E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, -0.4E0, 0.9E0, -0.5E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, -0.9E0, 0.1E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, -0.9E0, 0.1E0, 0.7E0, -0.5E0, 0.2E0, 0.8E0/
       DATA              SSIZE1/0.0E0, 0.3E0, 1.6E0, 3.2E0/
       DATA              SSIZE2/0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       DO 120 KI = 1, 4
          INCX = INCXS(KI)
@@ -239,31 +239,31 @@
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
-*           .. Initialize all argument arrays ..
+            // .. Initialize all argument arrays ..
             DO 20 I = 1, 7
                SX(I) = DX1(I)
                SY(I) = DY1(I)
    20       CONTINUE
 *
             IF (ICASE.EQ.1) THEN
-*              .. SDOTTEST ..
+               // .. SDOTTEST ..
                CALL STEST1(SDOTTEST(N,SX,INCX,SY,INCY),DT7(KN,KI), SSIZE1(KN),SFAC)
             ELSE IF (ICASE.EQ.2) THEN
-*              .. SAXPYTEST ..
+               // .. SAXPYTEST ..
                CALL SAXPYTEST(N,SA,SX,INCX,SY,INCY)
                DO 40 J = 1, LENY
                   STY(J) = DT8(J,KN,KI)
    40          CONTINUE
                CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
             ELSE IF (ICASE.EQ.5) THEN
-*              .. SCOPYTEST ..
+               // .. SCOPYTEST ..
                DO 60 I = 1, 7
                   STY(I) = DT10Y(I,KN,KI)
    60          CONTINUE
                CALL SCOPYTEST(N,SX,INCX,SY,INCY)
                CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0E0)
             ELSE IF (ICASE.EQ.6) THEN
-*              .. SSWAPTEST ..
+               // .. SSWAPTEST ..
                CALL SSWAPTEST(N,SX,INCX,SY,INCY)
                DO 80 I = 1, 7
                   STX(I) = DT10X(I,KN,KI)
@@ -280,27 +280,27 @@
       RETURN
       END
       SUBROUTINE CHECK3(SFAC)
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL              SFAC
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL              SC, SS
       int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY;
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL              COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7)
       int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4);
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL SROTTEST, STEST
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, MIN
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Data statements ..
+      // .. Data statements ..
       DATA              INCXS/1, 2, -2, -1/
       DATA              INCYS/1, -2, 1, -2/
       DATA              LENS/1, 1, 2, 4, 1, 1, 3, 7/
@@ -309,7 +309,7 @@
       DATA              SC, SS/0.8E0, 0.6E0/
       DATA              DT9X/0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, -0.46E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, -0.46E0, -0.22E0, 1.06E0, 0.0E0, 0.0E0, 0.0E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.66E0, 0.1E0, -0.1E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.96E0, 0.1E0, -0.76E0, 0.8E0, 0.90E0, -0.3E0, -0.02E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, -0.06E0, 0.1E0, -0.1E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.90E0, 0.1E0, -0.22E0, 0.8E0, 0.18E0, -0.3E0, -0.02E0, 0.6E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.26E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.78E0, 0.26E0, -0.76E0, 1.12E0, 0.0E0, 0.0E0, 0.0E0/       DATA              DT9Y/0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, -0.78E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, -0.78E0, 0.54E0, 0.08E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.7E0, -0.9E0, -0.12E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.64E0, -0.9E0, -0.30E0, 0.7E0, -0.18E0, 0.2E0, 0.28E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.7E0, -1.08E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.64E0, -1.26E0, 0.54E0, 0.20E0, 0.0E0, 0.0E0, 0.0E0, 0.5E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, -0.9E0, 0.18E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.04E0, -0.9E0, 0.18E0, 0.7E0, -0.18E0, 0.2E0, 0.16E0/
       DATA              SSIZE2/0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0/
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       DO 60 KI = 1, 4
          INCX = INCXS(KI)
@@ -324,7 +324,7 @@
             LENY = LENS(KN,MY)
 *
             IF (ICASE.EQ.4) THEN
-*              .. SROTTEST ..
+               // .. SROTTEST ..
                DO 20 I = 1, 7
                   SX(I) = DX1(I)
                   SY(I) = DY1(I)
@@ -437,45 +437,45 @@
       RETURN
       END
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
-*     ********************************* STEST **************************
+      // ********************************* STEST **************************
 *
-*     THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
-*     SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
-*     NEGLIGIBLE.
+      // THIS SUBR COMPARES ARRAYS  SCOMP() AND STRUE() OF LENGTH LEN TO
+      // SEE IF THE TERM BY TERM DIFFERENCES, MULTIPLIED BY SFAC, ARE
+      // NEGLIGIBLE.
 *
-*     C. L. LAWSON, JPL, 1974 DEC 10
+      // C. L. LAWSON, JPL, 1974 DEC 10
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int              NOUT;
       PARAMETER        (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL             SFAC
       int              LEN;
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN)
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       REAL             SD
       int              I;
-*     .. External Functions ..
+      // .. External Functions ..
       REAL             SDIFF
       // EXTERNAL SDIFF
-*     .. Intrinsic Functions ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       DO 40 I = 1, LEN
          SD = SCOMP(I) - STRUE(I)
          IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))).EQ.0.0E0) GO TO 40
 *
-*                             HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
+                              // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 *
          IF ( .NOT. PASS) GO TO 20
-*                             PRINT FAIL MESSAGE AND HEADER.
+                              // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
@@ -491,23 +491,23 @@
 99997 FORMAT (1X,I4,I3,3I5,I3,2E36.8,2E12.4)
       END
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
-*     ************************* STEST1 *****************************
+      // ************************* STEST1 *****************************
 *
-*     THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
-*     REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
-*     ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
+      // THIS IS AN INTERFACE SUBROUTINE TO ACCOMMODATE THE FORTRAN
+      // REQUIREMENT THAT WHEN A DUMMY ARGUMENT IS AN ARRAY, THE
+      // ACTUAL ARGUMENT MUST ALSO BE AN ARRAY OR AN ARRAY ELEMENT.
 *
-*     C.L. LAWSON, JPL, 1978 DEC 6
+      // C.L. LAWSON, JPL, 1978 DEC 6
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL              SCOMP1, SFAC, STRUE1
-*     .. Array Arguments ..
+      // .. Array Arguments ..
       REAL              SSIZE(*)
-*     .. Local Arrays ..
+      // .. Local Arrays ..
       REAL              SCOMP(1), STRUE(1)
-*     .. External Subroutines ..
+      // .. External Subroutines ..
       // EXTERNAL STEST
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
@@ -516,42 +516,42 @@
       RETURN
       END
       REAL             FUNCTION SDIFF(SA,SB)
-*     ********************************* SDIFF **************************
-*     COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
+      // ********************************* SDIFF **************************
+      // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL                            SA, SB
-*     .. Executable Statements ..
+      // .. Executable Statements ..
       SDIFF = SA - SB
       RETURN
       END
       SUBROUTINE ITEST1(ICOMP,ITRUE)
-*     ********************************* ITEST1 *************************
+      // ********************************* ITEST1 *************************
 *
-*     THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
-*     EQUALITY.
-*     C. L. LAWSON, JPL, 1974 DEC 10
+      // THIS SUBROUTINE COMPARES THE VARIABLES ICOMP AND ITRUE FOR
+      // EQUALITY.
+      // C. L. LAWSON, JPL, 1974 DEC 10
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int               NOUT;
       PARAMETER         (NOUT=6)
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int               ICOMP, ITRUE;
-*     .. Scalars in Common ..
+      // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int               ID;
-*     .. Common blocks ..
+      // .. Common blocks ..
       COMMON            /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
-*     .. Executable Statements ..
+      // .. Executable Statements ..
 *
       IF (ICOMP.EQ.ITRUE) GO TO 40
 *
-*                            HERE ICOMP IS NOT EQUAL TO ITRUE.
+                             // HERE ICOMP IS NOT EQUAL TO ITRUE.
 *
       IF ( .NOT. PASS) GO TO 20
-*                             PRINT FAIL MESSAGE AND HEADER.
+                              // PRINT FAIL MESSAGE AND HEADER.
       PASS = .FALSE.
       WRITE (NOUT,99999)
       WRITE (NOUT,99998)

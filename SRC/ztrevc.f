@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             HOWMNY, SIDE;
       int                INFO, LDT, LDVL, LDVR, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       double             RWORK( * );
       COMPLEX*16         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE;
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CMZERO, CMONE
       PARAMETER          ( CMZERO = ( 0.0D+0, 0.0D+0 ), CMONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV;
       int                I, II, IS, J, K, KI;
       double             OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL;
       COMPLEX*16         CDUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH, DZASUM;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, DZASUM
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZCOPY, ZDSCAL, ZGEMV, ZLATRS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCMPLX, DCONJG, DIMAG, MAX
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       double             CABS1;
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters
+      // Decode and test the input parameters
 *
       BOTHV = LSAME( SIDE, 'B' )
       RIGHTV = LSAME( SIDE, 'R' ) .OR. BOTHV
@@ -58,8 +58,8 @@
       OVER = LSAME( HOWMNY, 'B' )
       SOMEV = LSAME( HOWMNY, 'S' )
 *
-*     Set M to the number of columns required to store the selected
-*     eigenvectors.
+      // Set M to the number of columns required to store the selected
+      // eigenvectors.
 *
       IF( SOMEV ) THEN
          M = 0
@@ -91,25 +91,25 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Set the constants to control overflow.
+      // Set the constants to control overflow.
 *
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = ONE / UNFL
       ULP = DLAMCH( 'Precision' )
       SMLNUM = UNFL*( N / ULP )
 *
-*     Store the diagonal elements of T in working array WORK.
+      // Store the diagonal elements of T in working array WORK.
 *
       DO 20 I = 1, N
          WORK( I+N ) = T( I, I )
    20 CONTINUE
 *
-*     Compute 1-norm of each column of strictly upper triangular
-*     part of T to control overflow in triangular solver.
+      // Compute 1-norm of each column of strictly upper triangular
+      // part of T to control overflow in triangular solver.
 *
       RWORK( 1 ) = ZERO
       DO 30 J = 2, N
@@ -118,7 +118,7 @@
 *
       IF( RIGHTV ) THEN
 *
-*        Compute right eigenvectors.
+         // Compute right eigenvectors.
 *
          IS = M
          DO 80 KI = N, 1, -1
@@ -130,14 +130,14 @@
 *
             WORK( 1 ) = CMONE
 *
-*           Form right-hand side.
+            // Form right-hand side.
 *
             DO 40 K = 1, KI - 1
                WORK( K ) = -T( K, KI )
    40       CONTINUE
 *
-*           Solve the triangular system:
-*              (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
+            // Solve the triangular system:
+               // (T(1:KI-1,1:KI-1) - T(KI,KI))*X = SCALE*WORK.
 *
             DO 50 K = 1, KI - 1
                T( K, K ) = T( K, K ) - T( KI, KI )
@@ -149,7 +149,7 @@
                WORK( KI ) = SCALE
             END IF
 *
-*           Copy the vector x or Q*x to VR and normalize.
+            // Copy the vector x or Q*x to VR and normalize.
 *
             IF( .NOT.OVER ) THEN
                CALL ZCOPY( KI, WORK( 1 ), 1, VR( 1, IS ), 1 )
@@ -169,7 +169,7 @@
                CALL ZDSCAL( N, REMAX, VR( 1, KI ), 1 )
             END IF
 *
-*           Set back the original diagonal elements of T.
+            // Set back the original diagonal elements of T.
 *
             DO 70 K = 1, KI - 1
                T( K, K ) = WORK( K+N )
@@ -181,7 +181,7 @@
 *
       IF( LEFTV ) THEN
 *
-*        Compute left eigenvectors.
+         // Compute left eigenvectors.
 *
          IS = 1
          DO 130 KI = 1, N
@@ -193,14 +193,14 @@
 *
             WORK( N ) = CMONE
 *
-*           Form right-hand side.
+            // Form right-hand side.
 *
             DO 90 K = KI + 1, N
                WORK( K ) = -DCONJG( T( KI, K ) )
    90       CONTINUE
 *
-*           Solve the triangular system:
-*              (T(KI+1:N,KI+1:N) - T(KI,KI))**H * X = SCALE*WORK.
+            // Solve the triangular system:
+               // (T(KI+1:N,KI+1:N) - T(KI,KI))**H * X = SCALE*WORK.
 *
             DO 100 K = KI + 1, N
                T( K, K ) = T( K, K ) - T( KI, KI )
@@ -212,7 +212,7 @@
                WORK( KI ) = SCALE
             END IF
 *
-*           Copy the vector x or Q*x to VL and normalize.
+            // Copy the vector x or Q*x to VL and normalize.
 *
             IF( .NOT.OVER ) THEN
                CALL ZCOPY( N-KI+1, WORK( KI ), 1, VL( KI, IS ), 1 )
@@ -232,7 +232,7 @@
                CALL ZDSCAL( N, REMAX, VL( 1, KI ), 1 )
             END IF
 *
-*           Set back the original diagonal elements of T.
+            // Set back the original diagonal elements of T.
 *
             DO 120 K = KI + 1, N
                T( K, K ) = WORK( K+N )
@@ -244,6 +244,6 @@
 *
       RETURN
 *
-*     End of ZTREVC
+      // End of ZTREVC
 *
       END

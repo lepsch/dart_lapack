@@ -4,22 +4,22 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               FORWRD;
       int                LDX, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                K( * );
       double             X( LDX, * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Local Scalars ..
+      // .. Local Scalars ..
       int                I, II, IN, J;
       double             TEMP;
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.1 ) RETURN
 *
@@ -29,7 +29,7 @@
 *
       IF( FORWRD ) THEN
 *
-*        Forward permutation
+         // Forward permutation
 *
          DO 50 I = 1, N
 *
@@ -59,7 +59,7 @@
 *
       ELSE
 *
-*        Backward permutation
+         // Backward permutation
 *
          DO 90 I = 1, N
 *
@@ -88,6 +88,6 @@
 *
       RETURN
 *
-*     End of DLAPMT
+      // End of DLAPMT
 *
       END

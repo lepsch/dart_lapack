@@ -4,29 +4,29 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       COMPLEX*16         ALPHA, BETA
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
-*     DOUBLE PRECISION               ZERO
-*     PARAMETER          ( ZERO = 0.0E+0 )
-*     COMPLEX*16            CZERO
-*     PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Scalars in Common ..
+      // .. Parameters ..
+      // DOUBLE PRECISION               ZERO
+      // PARAMETER          ( ZERO = 0.0E+0 )
+      // COMPLEX*16            CZERO
+      // PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
+      // ..
+      // .. Scalars in Common ..
       bool               FS;
       int                I, M, MPLUSN, N;
-*     ..
-*     .. Common blocks ..
+      // ..
+      // .. Common blocks ..
       COMMON             / MN / M, N, MPLUSN, I, FS
-*     ..
-*     .. Save statement ..
+      // ..
+      // .. Save statement ..
       SAVE
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( FS ) THEN
          I = I + 1
@@ -52,14 +52,14 @@
          END IF
       END IF
 *
-*      IF( BETA.EQ.CZERO ) THEN
-*         ZLCTSX = ( DBLE( ALPHA ).GT.ZERO )
-*      ELSE
-*         ZLCTSX = ( DBLE( ALPHA/BETA ).GT.ZERO )
-*      END IF
+       // IF( BETA.EQ.CZERO ) THEN
+          // ZLCTSX = ( DBLE( ALPHA ).GT.ZERO )
+       // ELSE
+          // ZLCTSX = ( DBLE( ALPHA/BETA ).GT.ZERO )
+       // END IF
 *
       RETURN
 *
-*     End of ZLCTSX
+      // End of ZLCTSX
 *
       END

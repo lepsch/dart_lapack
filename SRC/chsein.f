@@ -4,51 +4,51 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EIGSRC, INITV, SIDE;
       int                INFO, LDH, LDVL, LDVR, M, MM, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * );
       REAL               RWORK( * )
       COMPLEX            H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX            ZERO
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
       REAL               RZERO
       PARAMETER          ( RZERO = 0.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KS, LDWORK;
       REAL               EPS3, HNORM, SMLNUM, ULP, UNFL
       COMPLEX            CDUM, WK
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME, SISNAN;
       REAL               CLANHS, SLAMCH
       // EXTERNAL LSAME, CLANHS, SLAMCH, SISNAN
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLAEIN, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL
-*     ..
-*     .. Statement Functions ..
+      // ..
+      // .. Statement Functions ..
       REAL               CABS1
-*     ..
-*     .. Statement Function definitions ..
+      // ..
+      // .. Statement Function definitions ..
       CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) )
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test the input parameters.
+      // Decode and test the input parameters.
 *
       BOTHV = LSAME( SIDE, 'B' )
       RIGHTV = LSAME( SIDE, 'R' ) .OR. BOTHV
@@ -58,8 +58,8 @@
 *
       NOINIT = LSAME( INITV, 'N' )
 *
-*     Set M to the number of columns required to store the selected
-*     eigenvectors.
+      // Set M to the number of columns required to store the selected
+      // eigenvectors.
 *
       M = 0
       DO 10 K = 1, N
@@ -89,11 +89,11 @@
          RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF( N.EQ.0 ) RETURN
 *
-*     Set machine-dependent constants.
+      // Set machine-dependent constants.
 *
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Precision' )
@@ -113,20 +113,20 @@
       DO 100 K = 1, N
          IF( SELECT( K ) ) THEN
 *
-*           Compute eigenvector(s) corresponding to W(K).
+            // Compute eigenvector(s) corresponding to W(K).
 *
             IF( FROMQR ) THEN
 *
-*              If affiliation of eigenvalues is known, check whether
-*              the matrix splits.
+               // If affiliation of eigenvalues is known, check whether
+              t // he matrix splits.
 *
-*              Determine KL and KR such that 1 <= KL <= K <= KR <= N
-*              and H(KL,KL-1) and H(KR+1,KR) are zero (or KL = 1 or
-*              KR = N).
+               // Determine KL and KR such that 1 <= KL <= K <= KR <= N
+               // and H(KL,KL-1) and H(KR+1,KR) are zero (or KL = 1 or
+               // KR = N).
 *
-*              Then inverse iteration can be performed with the
-*              submatrix H(KL:N,KL:N) for a left eigenvector, and with
-*              the submatrix H(1:KR,1:KR) for a right eigenvector.
+               // Then inverse iteration can be performed with the
+               // submatrix H(KL:N,KL:N) for a left eigenvector, and with
+              t // he submatrix H(1:KR,1:KR) for a right eigenvector.
 *
                DO 20 I = K, KL + 1, -1
                   IF( H( I, I-1 ).EQ.ZERO ) GO TO 30
@@ -145,8 +145,8 @@
             IF( KL.NE.KLN ) THEN
                KLN = KL
 *
-*              Compute infinity-norm of submatrix H(KL:KR,KL:KR) if it
-*              has not ben computed before.
+               // Compute infinity-norm of submatrix H(KL:KR,KL:KR) if it
+               // has not ben computed before.
 *
                HNORM = CLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, RWORK )
                IF( SISNAN( HNORM ) ) THEN
@@ -159,9 +159,9 @@
                END IF
             END IF
 *
-*           Perturb eigenvalue if it is close to any previous
-*           selected eigenvalues affiliated to the submatrix
-*           H(KL:KR,KL:KR). Close roots are modified by EPS3.
+            // Perturb eigenvalue if it is close to any previous
+            // selected eigenvalues affiliated to the submatrix
+            // H(KL:KR,KL:KR). Close roots are modified by EPS3.
 *
             WK = W( K )
    60       CONTINUE
@@ -175,7 +175,7 @@
 *
             IF( LEFTV ) THEN
 *
-*              Compute left eigenvector.
+               // Compute left eigenvector.
 *
                CALL CLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
                IF( IINFO.GT.0 ) THEN
@@ -190,7 +190,7 @@
             END IF
             IF( RIGHTV ) THEN
 *
-*              Compute right eigenvector.
+               // Compute right eigenvector.
 *
                CALL CLAEIN( .TRUE., NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
                IF( IINFO.GT.0 ) THEN
@@ -209,6 +209,6 @@
 *
       RETURN
 *
-*     End of CHSEIN
+      // End of CHSEIN
 *
       END

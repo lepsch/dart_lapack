@@ -4,67 +4,67 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
       REAL               RESID
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * );
       REAL               RWORK( * )
       COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
       PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, INFO, J;
       REAL               ANORM, EPS
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       REAL               CLANSY, SLAMCH
       // EXTERNAL LSAME, CLANSY, SLAMCH
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CLASET, CLAVSY
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC REAL
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Quick exit if N = 0.
+      // Quick exit if N = 0.
 *
       IF( N.LE.0 ) THEN
          RESID = ZERO
          RETURN
       END IF
 *
-*     Determine EPS and the norm of A.
+      // Determine EPS and the norm of A.
 *
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANSY( '1', UPLO, N, A, LDA, RWORK )
 *
-*     Initialize C to the identity matrix.
+      // Initialize C to the identity matrix.
 *
       CALL CLASET( 'Full', N, N, CZERO, CONE, C, LDC )
 *
-*     Call CLAVSY to form the product D * U' (or D * L' ).
+      // Call CLAVSY to form the product D * U' (or D * L' ).
 *
       CALL CLAVSY( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
-*     Call CLAVSY again to multiply by U (or L ).
+      // Call CLAVSY again to multiply by U (or L ).
 *
       CALL CLAVSY( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
-*     Compute the difference  C - A .
+      // Compute the difference  C - A .
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 20 J = 1, N
@@ -80,7 +80,7 @@
    40    CONTINUE
       END IF
 *
-*     Compute norm( C - A ) / ( N * norm(A) * EPS )
+      // Compute norm( C - A ) / ( N * norm(A) * EPS )
 *
       RESID = CLANSY( '1', UPLO, N, C, LDC, RWORK )
 *
@@ -92,6 +92,6 @@
 *
       RETURN
 *
-*     End of CSYT01
+      // End of CSYT01
 *
       END

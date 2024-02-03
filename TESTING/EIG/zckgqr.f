@@ -4,44 +4,44 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, NMAX, NN, NOUT, NP;
       double             THRESH;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * );
       double             RWORK( * );
       COMPLEX*16         A( * ), AF( * ), AQ( * ), AR( * ), B( * ), BF( * ), BT( * ), BWK( * ), BZ( * ), TAUA( * ), TAUB( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       int                NTESTS;
       PARAMETER          ( NTESTS = 7 )
       int                NTYPES;
       PARAMETER          ( NTYPES = 8 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FIRSTT;
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                I, IINFO, IM, IMAT, IN, IP, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P;
       double             ANORM, BNORM, CNDNMA, CNDNMB;
-*     ..
-*     .. Local Arrays ..
+      // ..
+      // .. Local Arrays ..
       bool               DOTYPE( NTYPES );
       double             RESULT( NTESTS );
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL ALAHDG, ALAREQ, ALASUM, DLATB9, ZGQRTS, ZGRQTS, ZLATMS
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Initialize constants.
+      // Initialize constants.
 *
       PATH( 1: 3 ) = 'GQR'
       INFO = 0
@@ -53,31 +53,31 @@
       LDB = NMAX
       LWORK = NMAX*NMAX
 *
-*     Do for each value of M in MVAL.
+      // Do for each value of M in MVAL.
 *
       DO 60 IM = 1, NM
          M = MVAL( IM )
 *
-*        Do for each value of P in PVAL.
+         // Do for each value of P in PVAL.
 *
          DO 50 IP = 1, NP
             P = PVAL( IP )
 *
-*           Do for each value of N in NVAL.
+            // Do for each value of N in NVAL.
 *
             DO 40 IN = 1, NN
                N = NVAL( IN )
 *
                DO 30 IMAT = 1, NTYPES
 *
-*                 Do the tests only if DOTYPE( IMAT ) is true.
+                  // Do the tests only if DOTYPE( IMAT ) is true.
 *
                   IF( .NOT.DOTYPE( IMAT ) ) GO TO 30
 *
-*                 Test ZGGRQF
+                  // Test ZGGRQF
 *
-*                 Set up parameters with DLATB9 and generate test
-*                 matrices A and B with ZLATMS.
+                  // Set up parameters with DLATB9 and generate test
+                  // matrices A and B with ZLATMS.
 *
                   CALL DLATB9( 'GRQ', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
@@ -99,8 +99,8 @@
 *
                   CALL ZGRQTS( M, P, N, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
-*                 Print information about the tests that did not
-*                 pass the threshold.
+                  // Print information about the tests that did not
+                  // pass the threshold.
 *
                   DO 10 I = 1, NT
                      IF( RESULT( I ).GE.THRESH ) THEN
@@ -114,10 +114,10 @@
    10             CONTINUE
                   NRUN = NRUN + NT
 *
-*                 Test ZGGQRF
+                  // Test ZGGQRF
 *
-*                 Set up parameters with DLATB9 and generate test
-*                 matrices A and B with ZLATMS.
+                  // Set up parameters with DLATB9 and generate test
+                  // matrices A and B with ZLATMS.
 *
                   CALL DLATB9( 'GQR', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
@@ -139,8 +139,8 @@
 *
                   CALL ZGQRTS( N, M, P, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
-*                 Print information about the tests that did not
-*                 pass the threshold.
+                  // Print information about the tests that did not
+                  // pass the threshold.
 *
                   DO 20 I = 1, NT
                      IF( RESULT( I ).GE.THRESH ) THEN
@@ -159,7 +159,7 @@
    50    CONTINUE
    60 CONTINUE
 *
-*     Print a summary of the results.
+      // Print a summary of the results.
 *
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
 *
@@ -170,6 +170,6 @@
      $      ', test ', I2, ', ratio=', G13.6 )
       RETURN
 *
-*     End of ZCKGQR
+      // End of ZCKGQR
 *
       END

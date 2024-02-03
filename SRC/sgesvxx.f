@@ -4,19 +4,19 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
       REAL               RCOND, RPVGRW
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
       REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
-*     ..
+      // ..
 *
 *  ==================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
@@ -25,24 +25,24 @@
       PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
       PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       int                INFEQU, J;
       REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       // EXTERNAL LSAME, SLAMCH, SLA_GERPVGRW
       bool               LSAME;
       REAL               SLAMCH, SLA_GERPVGRW
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SGEEQUB, SGETRF, SGETRS, SLACPY, SLAQGE, XERBLA, SLASCL2, SGERFSX
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
@@ -59,13 +59,13 @@
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
       END IF
 *
-*     Default is failure.  If an input parameter is wrong or
-*     factorization fails, make everything look horrible.  Only the
-*     pivot growth is set here, the rest is initialized in SGERFSX.
+      // Default is failure.  If an input parameter is wrong or
+      // factorization fails, make everything look horrible.  Only the
+      // pivot growth is set here, the rest is initialized in SGERFSX.
 *
       RPVGRW = ZERO
 *
-*     Test the input parameters.  PARAMS is not tested until SGERFSX.
+      // Test the input parameters.  PARAMS is not tested until SGERFSX.
 *
       IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
@@ -128,19 +128,19 @@
 *
       IF( EQUIL ) THEN
 *
-*     Compute row and column scalings to equilibrate the matrix A.
+      // Compute row and column scalings to equilibrate the matrix A.
 *
          CALL SGEEQUB( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
-*     Equilibrate the matrix.
+      // Equilibrate the matrix.
 *
             CALL SLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
 *
-*     If the scaling factors are not applied, set them to 1.0.
+      // If the scaling factors are not applied, set them to 1.0.
 *
          IF ( .NOT.ROWEQU ) THEN
             DO J = 1, N
@@ -154,7 +154,7 @@
          END IF
       END IF
 *
-*     Scale the right-hand side.
+      // Scale the right-hand side.
 *
       IF( NOTRAN ) THEN
          IF( ROWEQU ) CALL SLASCL2( N, NRHS, R, B, LDB )
@@ -164,39 +164,39 @@
 *
       IF( NOFACT .OR. EQUIL ) THEN
 *
-*        Compute the LU factorization of A.
+         // Compute the LU factorization of A.
 *
          CALL SLACPY( 'Full', N, N, A, LDA, AF, LDAF )
          CALL SGETRF( N, N, AF, LDAF, IPIV, INFO )
 *
-*        Return if INFO is non-zero.
+         // Return if INFO is non-zero.
 *
          IF( INFO.GT.0 ) THEN
 *
-*           Pivot in column INFO is exactly 0
-*           Compute the reciprocal pivot growth factor of the
-*           leading rank-deficient INFO columns of A.
+            // Pivot in column INFO is exactly 0
+            // Compute the reciprocal pivot growth factor of the
+            // leading rank-deficient INFO columns of A.
 *
             RPVGRW = SLA_GERPVGRW( N, INFO, A, LDA, AF, LDAF )
             RETURN
          END IF
       END IF
 *
-*     Compute the reciprocal pivot growth factor RPVGRW.
+      // Compute the reciprocal pivot growth factor RPVGRW.
 *
       RPVGRW = SLA_GERPVGRW( N, N, A, LDA, AF, LDAF )
 *
-*     Compute the solution matrix X.
+      // Compute the solution matrix X.
 *
       CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
       CALL SGETRS( TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
 *
-*     Use iterative refinement to improve the computed solution and
-*     compute error bounds and backward error estimates for it.
+      // Use iterative refinement to improve the computed solution and
+      // compute error bounds and backward error estimates for it.
 *
       CALL SGERFSX( TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
 *
-*     Scale solutions.
+      // Scale solutions.
 *
       IF ( COLEQU .AND. NOTRAN ) THEN
          CALL SLASCL2 ( N, NRHS, C, X, LDX )
@@ -206,6 +206,6 @@
 *
       RETURN
 *
-*     End of SGESVXX
+      // End of SGESVXX
 
       END

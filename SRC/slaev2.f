@@ -4,13 +4,13 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL               A, B, C, CS1, RT1, RT2, SN1
-*     ..
+      // ..
 *
 * =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E0 )
       REAL               TWO
@@ -19,17 +19,17 @@
       PARAMETER          ( ZERO = 0.0E0 )
       REAL               HALF
       PARAMETER          ( HALF = 0.5E0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                SGN1, SGN2;
       REAL               AB, ACMN, ACMX, ACS, ADF, CS, CT, DF, RT, SM, TB, TN
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Compute the eigenvalues
+      // Compute the eigenvalues
 *
       SM = A + C
       DF = A - C
@@ -49,7 +49,7 @@
          RT = AB*SQRT( ONE+( ADF / AB )**2 )
       ELSE
 *
-*        Includes case AB=ADF=0
+         // Includes case AB=ADF=0
 *
          RT = AB*SQRT( TWO )
       END IF
@@ -57,30 +57,30 @@
          RT1 = HALF*( SM-RT )
          SGN1 = -1
 *
-*        Order of execution important.
-*        To get fully accurate smaller eigenvalue,
-*        next line needs to be executed in higher precision.
+         // Order of execution important.
+         // To get fully accurate smaller eigenvalue,
+         // next line needs to be executed in higher precision.
 *
          RT2 = ( ACMX / RT1 )*ACMN - ( B / RT1 )*B
       ELSE IF( SM.GT.ZERO ) THEN
          RT1 = HALF*( SM+RT )
          SGN1 = 1
 *
-*        Order of execution important.
-*        To get fully accurate smaller eigenvalue,
-*        next line needs to be executed in higher precision.
+         // Order of execution important.
+         // To get fully accurate smaller eigenvalue,
+         // next line needs to be executed in higher precision.
 *
          RT2 = ( ACMX / RT1 )*ACMN - ( B / RT1 )*B
       ELSE
 *
-*        Includes case RT1 = RT2 = 0
+         // Includes case RT1 = RT2 = 0
 *
          RT1 = HALF*RT
          RT2 = -HALF*RT
          SGN1 = 1
       END IF
 *
-*     Compute the eigenvector
+      // Compute the eigenvector
 *
       IF( DF.GE.ZERO ) THEN
          CS = DF + RT
@@ -111,6 +111,6 @@
       END IF
       RETURN
 *
-*     End of SLAEV2
+      // End of SLAEV2
 *
       END

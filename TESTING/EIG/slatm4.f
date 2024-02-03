@@ -4,48 +4,48 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int                IDIST, ISIGN, ITYPE, LDA, N, NZ1, NZ2;
       REAL               AMAGN, RCOND, TRIANG
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                ISEED( 4 );
       REAL               A( LDA, * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE, TWO
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
       REAL               HALF
       PARAMETER          ( HALF = ONE / TWO )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       int                I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
       REAL               ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SLAMCH, SLARAN, SLARND
       // EXTERNAL SLAMCH, SLARAN, SLARND
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SLASET
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, EXP, LOG, MAX, MIN, MOD, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       IF( N.LE.0 ) RETURN
       CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
 *
-*     Insure a correct ISEED
+      // Insure a correct ISEED
 *
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
-*     Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
-*     and RCOND
+      // Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
+      // and RCOND
 *
       IF( ITYPE.NE.0 ) THEN
          IF( ABS( ITYPE ).GE.4 ) THEN
@@ -61,7 +61,7 @@
          ISDE = 0
          GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )ABS( ITYPE )
 *
-*        abs(ITYPE) = 1: Identity
+         // abs(ITYPE) = 1: Identity
 *
    10    CONTINUE
          DO 20 JD = 1, N
@@ -69,7 +69,7 @@
    20    CONTINUE
          GO TO 220
 *
-*        abs(ITYPE) = 2: Transposed Jordan block
+         // abs(ITYPE) = 2: Transposed Jordan block
 *
    30    CONTINUE
          DO 40 JD = 1, N - 1
@@ -79,8 +79,8 @@
          ISDE = N - 1
          GO TO 220
 *
-*        abs(ITYPE) = 3: Transposed Jordan block, followed by the
-*                        identity.
+         // abs(ITYPE) = 3: Transposed Jordan block, followed by the
+                         // identity.
 *
    50    CONTINUE
          K = ( N-1 ) / 2
@@ -94,7 +94,7 @@
    70    CONTINUE
          GO TO 220
 *
-*        abs(ITYPE) = 4: 1,...,k
+         // abs(ITYPE) = 4: 1,...,k
 *
    80    CONTINUE
          DO 90 JD = KBEG, KEND
@@ -102,7 +102,7 @@
    90    CONTINUE
          GO TO 220
 *
-*        abs(ITYPE) = 5: One large D value:
+         // abs(ITYPE) = 5: One large D value:
 *
   100    CONTINUE
          DO 110 JD = KBEG + 1, KEND
@@ -111,7 +111,7 @@
          A( KBEG, KBEG ) = ONE
          GO TO 220
 *
-*        abs(ITYPE) = 6: One small D value:
+         // abs(ITYPE) = 6: One small D value:
 *
   120    CONTINUE
          DO 130 JD = KBEG, KEND - 1
@@ -120,7 +120,7 @@
          A( KEND, KEND ) = RCOND
          GO TO 220
 *
-*        abs(ITYPE) = 7: Exponentially distributed D values:
+         // abs(ITYPE) = 7: Exponentially distributed D values:
 *
   140    CONTINUE
          A( KBEG, KBEG ) = ONE
@@ -132,7 +132,7 @@
          END IF
          GO TO 220
 *
-*        abs(ITYPE) = 8: Arithmetically distributed D values:
+         // abs(ITYPE) = 8: Arithmetically distributed D values:
 *
   160    CONTINUE
          A( KBEG, KBEG ) = ONE
@@ -144,7 +144,7 @@
          END IF
          GO TO 220
 *
-*        abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
+         // abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
 *
   180    CONTINUE
          ALPHA = LOG( RCOND )
@@ -153,7 +153,7 @@
   190    CONTINUE
          GO TO 220
 *
-*        abs(ITYPE) = 10: Randomly distributed D values from DIST
+         // abs(ITYPE) = 10: Randomly distributed D values from DIST
 *
   200    CONTINUE
          DO 210 JD = KBEG, KEND
@@ -162,7 +162,7 @@
 *
   220    CONTINUE
 *
-*        Scale by AMAGN
+         // Scale by AMAGN
 *
          DO 230 JD = KBEG, KEND
             A( JD, JD ) = AMAGN*REAL( A( JD, JD ) )
@@ -171,8 +171,8 @@
             A( JD+1, JD ) = AMAGN*REAL( A( JD+1, JD ) )
   240    CONTINUE
 *
-*        If ISIGN = 1 or 2, assign random signs to diagonal and
-*        subdiagonal
+         // If ISIGN = 1 or 2, assign random signs to diagonal and
+         // subdiagonal
 *
          IF( ISIGN.GT.0 ) THEN
             DO 250 JD = KBEG, KEND
@@ -187,7 +187,7 @@
   260       CONTINUE
          END IF
 *
-*        Reverse if ITYPE < 0
+         // Reverse if ITYPE < 0
 *
          IF( ITYPE.LT.0 ) THEN
             DO 270 JD = KBEG, ( KBEG+KEND-1 ) / 2
@@ -202,15 +202,15 @@
   280       CONTINUE
          END IF
 *
-*        If ISIGN = 2, and no subdiagonals already, then apply
-*        random rotations to make 2x2 blocks.
+         // If ISIGN = 2, and no subdiagonals already, then apply
+         // random rotations to make 2x2 blocks.
 *
          IF( ISIGN.EQ.2 .AND. ITYPE.NE.2 .AND. ITYPE.NE.3 ) THEN
             SAFMIN = SLAMCH( 'S' )
             DO 290 JD = KBEG, KEND - 1, 2
                IF( SLARAN( ISEED ).GT.HALF ) THEN
 *
-*                 Rotation on left.
+                  // Rotation on left.
 *
                   CL = TWO*SLARAN( ISEED ) - ONE
                   SL = TWO*SLARAN( ISEED ) - ONE
@@ -218,7 +218,7 @@
                   CL = CL*TEMP
                   SL = SL*TEMP
 *
-*                 Rotation on right.
+                  // Rotation on right.
 *
                   CR = TWO*SLARAN( ISEED ) - ONE
                   SR = TWO*SLARAN( ISEED ) - ONE
@@ -226,7 +226,7 @@
                   CR = CR*TEMP
                   SR = SR*TEMP
 *
-*                 Apply
+                  // Apply
 *
                   SV1 = A( JD, JD )
                   SV2 = A( JD+1, JD+1 )
@@ -240,7 +240,7 @@
 *
       END IF
 *
-*     Fill in upper triangle (except for 2x2 blocks)
+      // Fill in upper triangle (except for 2x2 blocks)
 *
       IF( TRIANG.NE.ZERO ) THEN
          IF( ISIGN.NE.2 .OR. ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) THEN
@@ -261,6 +261,6 @@
 *
       RETURN
 *
-*     End of SLATM4
+      // End of SLATM4
 *
       END

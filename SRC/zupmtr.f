@@ -4,45 +4,45 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             SIDE, TRANS, UPLO;
       int                INFO, LDC, M, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       COMPLEX*16         AP( * ), C( LDC, * ), TAU( * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       COMPLEX*16         ONE
       PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               FORWRD, LEFT, NOTRAN, UPPER;
       int                I, I1, I2, I3, IC, II, JC, MI, NI, NQ;
       COMPLEX*16         AII, TAUI
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLARF
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LEFT = LSAME( SIDE, 'L' )
       NOTRAN = LSAME( TRANS, 'N' )
       UPPER = LSAME( UPLO, 'U' )
 *
-*     NQ is the order of Q
+      // NQ is the order of Q
 *
       IF( LEFT ) THEN
          NQ = M
@@ -67,13 +67,13 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
-*        Q was determined by a call to ZHPTRD with UPLO = 'U'
+         // Q was determined by a call to ZHPTRD with UPLO = 'U'
 *
          FORWRD = ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN )
 *
@@ -98,17 +98,17 @@
          DO 10 I = I1, I2, I3
             IF( LEFT ) THEN
 *
-*              H(i) or H(i)**H is applied to C(1:i,1:n)
+               // H(i) or H(i)**H is applied to C(1:i,1:n)
 *
                MI = I
             ELSE
 *
-*              H(i) or H(i)**H is applied to C(1:m,1:i)
+               // H(i) or H(i)**H is applied to C(1:m,1:i)
 *
                NI = I
             END IF
 *
-*           Apply H(i) or H(i)**H
+            // Apply H(i) or H(i)**H
 *
             IF( NOTRAN ) THEN
                TAUI = TAU( I )
@@ -128,7 +128,7 @@
    10    CONTINUE
       ELSE
 *
-*        Q was determined by a call to ZHPTRD with UPLO = 'L'.
+         // Q was determined by a call to ZHPTRD with UPLO = 'L'.
 *
          FORWRD = ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN )
 *
@@ -157,19 +157,19 @@
             AP( II ) = ONE
             IF( LEFT ) THEN
 *
-*              H(i) or H(i)**H is applied to C(i+1:m,1:n)
+               // H(i) or H(i)**H is applied to C(i+1:m,1:n)
 *
                MI = M - I
                IC = I + 1
             ELSE
 *
-*              H(i) or H(i)**H is applied to C(1:m,i+1:n)
+               // H(i) or H(i)**H is applied to C(1:m,i+1:n)
 *
                NI = N - I
                JC = I + 1
             END IF
 *
-*           Apply H(i) or H(i)**H
+            // Apply H(i) or H(i)**H
 *
             IF( NOTRAN ) THEN
                TAUI = TAU( I )
@@ -188,6 +188,6 @@
       END IF
       RETURN
 *
-*     End of ZUPMTR
+      // End of ZUPMTR
 *
       END

@@ -4,46 +4,46 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, LWORK, M, N;
       REAL               DIF, SCALE
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       int                IWORK( * );
       COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *  Replaced various illegal calls to CCOPY by calls to CLASET.
 *  Sven Hammarling, 1/5/02.
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO
       PARAMETER          ( CZERO = (0.0E+0, 0.0E+0) )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY, NOTRAN;
       int                I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LINFO, LWMIN, MB, NB, P, PQ, Q;
       REAL               DSCALE, DSUM, SCALE2, SCALOC
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
       REAL               SROUNDUP_LWORK
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL CGEMM, CLACPY, CLASET, CSCAL, CTGSY2, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, MAX, REAL, SQRT
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Decode and test input parameters
+      // Decode and test input parameters
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
@@ -100,7 +100,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( M.EQ.0 .OR. N.EQ.0 ) THEN
          SCALE = 1
@@ -112,7 +112,7 @@
          RETURN
       END IF
 *
-*     Determine  optimal block sizes MB and NB
+      // Determine  optimal block sizes MB and NB
 *
       MB = ILAENV( 2, 'CTGSYL', TRANS, M, N, -1, -1 )
       NB = ILAENV( 5, 'CTGSYL', TRANS, M, N, -1, -1 )
@@ -131,7 +131,7 @@
 *
       IF( ( MB.LE.1 .AND. NB.LE.1 ) .OR. ( MB.GE.M .AND. NB.GE.N ) ) THEN
 *
-*        Use unblocked Level 2 solver
+         // Use unblocked Level 2 solver
 *
          DO 30 IROUND = 1, ISOLVE
 *
@@ -167,7 +167,7 @@
 *
       END IF
 *
-*     Determine block structure of A
+      // Determine block structure of A
 *
       P = 0
       I = 1
@@ -182,7 +182,7 @@
       IWORK( P+1 ) = M + 1
       IF( IWORK( P ).EQ.IWORK( P+1 ) ) P = P - 1
 *
-*     Determine block structure of B
+      // Determine block structure of B
 *
       Q = P + 1
       J = 1
@@ -202,10 +202,10 @@
       IF( NOTRAN ) THEN
          DO 150 IROUND = 1, ISOLVE
 *
-*           Solve (I, J) - subsystem
-*               A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
-*               D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
-*           for I = P, P - 1, ..., 1; J = 1, 2, ..., Q
+            // Solve (I, J) - subsystem
+                // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
+                // D(I, I) * R(I, J) - L(I, J) * E(J, J) = F(I, J)
+            // for I = P, P - 1, ..., 1; J = 1, 2, ..., Q
 *
             PQ = 0
             SCALE = ONE
@@ -238,7 +238,7 @@
                      SCALE = SCALE*SCALOC
                   END IF
 *
-*                 Substitute R(I,J) and L(I,J) into remaining equation.
+                  // Substitute R(I,J) and L(I,J) into remaining equation.
 *
                   IF( I.GT.1 ) THEN
                      CALL CGEMM( 'N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( 1, JS ), LDC )                      CALL CGEMM( 'N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), F( 1, JS ), LDF )
@@ -272,10 +272,10 @@
   150    CONTINUE
       ELSE
 *
-*        Solve transposed (I, J)-subsystem
-*            A(I, I)**H * R(I, J) + D(I, I)**H * L(I, J) = C(I, J)
-*            R(I, J) * B(J, J)  + L(I, J) * E(J, J) = -F(I, J)
-*        for I = 1,2,..., P; J = Q, Q-1,..., 1
+         // Solve transposed (I, J)-subsystem
+             // A(I, I)**H * R(I, J) + D(I, I)**H * L(I, J) = C(I, J)
+             // R(I, J) * B(J, J)  + L(I, J) * E(J, J) = -F(I, J)
+         // for I = 1,2,..., P; J = Q, Q-1,..., 1
 *
          SCALE = ONE
          DO 210 I = 1, P
@@ -304,7 +304,7 @@
                   SCALE = SCALE*SCALOC
                END IF
 *
-*              Substitute R(I,J) and L(I,J) into remaining equation.
+               // Substitute R(I,J) and L(I,J) into remaining equation.
 *
                IF( J.GT.P+2 ) THEN
                   CALL CGEMM( 'N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF )                   CALL CGEMM( 'N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF )
@@ -320,6 +320,6 @@
 *
       RETURN
 *
-*     End of CTGSYL
+      // End of CTGSYL
 *
       END

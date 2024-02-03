@@ -5,36 +5,36 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       int               INFO, LDA, LDT, LWORK, M, N, NB1, NB2, MB1;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL              A( LDA, * ), T( LDT, * ), WORK( * )
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       REAL               ONE
       PARAMETER          ( ONE = 1.0E+0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               LQUERY;
       int                I, IINFO, J, LW1, LW2, LWT, LDWT, LWORKOPT, NB1LOCAL, NB2LOCAL, NUM_ALL_ROW_BLOCKS;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       REAL               SROUNDUP_LWORK
       // EXTERNAL SROUNDUP_LWORK
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL SCOPY, SLATSQR, SORGTSQR_ROW, SORHR_COL, XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC CEILING, MAX, MIN
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
-*     Test the input arguments
+      // Test the input arguments
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
@@ -54,35 +54,35 @@
          INFO = -9
       ELSE
 *
-*        Test the input LWORK for the dimension of the array WORK.
-*        This workspace is used to store array:
-*        a) Matrix T and WORK for SLATSQR;
-*        b) N-by-N upper-triangular factor R_tsqr;
-*        c) Matrix T and array WORK for SORGTSQR_ROW;
-*        d) Diagonal D for SORHR_COL.
+         // Test the input LWORK for the dimension of the array WORK.
+         // This workspace is used to store array:
+         // a) Matrix T and WORK for SLATSQR;
+         // b) N-by-N upper-triangular factor R_tsqr;
+         // c) Matrix T and array WORK for SORGTSQR_ROW;
+         // d) Diagonal D for SORHR_COL.
 *
          IF( LWORK.LT.N*N+1 .AND. .NOT.LQUERY ) THEN
             INFO = -11
          ELSE
 *
-*           Set block size for column blocks
+            // Set block size for column blocks
 *
             NB1LOCAL = MIN( NB1, N )
 *
             NUM_ALL_ROW_BLOCKS = MAX( 1, CEILING( REAL( M - N ) / REAL( MB1 - N ) ) )
 *
-*           Length and leading dimension of WORK array to place
-*           T array in TSQR.
+            // Length and leading dimension of WORK array to place
+            // T array in TSQR.
 *
             LWT = NUM_ALL_ROW_BLOCKS * N * NB1LOCAL
 
             LDWT = NB1LOCAL
 *
-*           Length of TSQR work array
+            // Length of TSQR work array
 *
             LW1 = NB1LOCAL * N
 *
-*           Length of SORGTSQR_ROW work array.
+            // Length of SORGTSQR_ROW work array.
 *
             LW2 = NB1LOCAL * MAX( NB1LOCAL, ( N - NB1LOCAL ) )
 *
@@ -96,7 +96,7 @@
          END IF
       END IF
 *
-*     Handle error in the input parameters and return workspace query.
+      // Handle error in the input parameters and return workspace query.
 *
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGETSQRHRT', -INFO )
@@ -106,7 +106,7 @@
          RETURN
       END IF
 *
-*     Quick return if possible
+      // Quick return if possible
 *
       IF( MIN( M, N ).EQ.0 ) THEN
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
@@ -116,41 +116,41 @@
       NB2LOCAL = MIN( NB2, N )
 *
 *
-*     (1) Perform TSQR-factorization of the M-by-N matrix A.
+      // (1) Perform TSQR-factorization of the M-by-N matrix A.
 *
       CALL SLATSQR( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK(LWT+1), LW1, IINFO )
 *
-*     (2) Copy the factor R_tsqr stored in the upper-triangular part
-*         of A into the square matrix in the work array
-*         WORK(LWT+1:LWT+N*N) column-by-column.
+      // (2) Copy the factor R_tsqr stored in the upper-triangular part
+          // of A into the square matrix in the work array
+          // WORK(LWT+1:LWT+N*N) column-by-column.
 *
       DO J = 1, N
          CALL SCOPY( J, A( 1, J ), 1, WORK( LWT + N*(J-1)+1 ), 1 )
       END DO
 *
-*     (3) Generate a M-by-N matrix Q with orthonormal columns from
-*     the result stored below the diagonal in the array A in place.
+      // (3) Generate a M-by-N matrix Q with orthonormal columns from
+     t // he result stored below the diagonal in the array A in place.
 *
        CALL SORGTSQR_ROW( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK( LWT+N*N+1 ), LW2, IINFO )
 *
-*     (4) Perform the reconstruction of Householder vectors from
-*     the matrix Q (stored in A) in place.
+      // (4) Perform the reconstruction of Householder vectors from
+     t // he matrix Q (stored in A) in place.
 *
       CALL SORHR_COL( M, N, NB2LOCAL, A, LDA, T, LDT, WORK( LWT+N*N+1 ), IINFO )
 *
-*     (5) Copy the factor R_tsqr stored in the square matrix in the
-*     work array WORK(LWT+1:LWT+N*N) into the upper-triangular
-*     part of A.
+      // (5) Copy the factor R_tsqr stored in the square matrix in the
+      // work array WORK(LWT+1:LWT+N*N) into the upper-triangular
+      // part of A.
 *
-*     (6) Compute from R_tsqr the factor R_hr corresponding to
-*     the reconstructed Householder vectors, i.e. R_hr = S * R_tsqr.
-*     This multiplication by the sign matrix S on the left means
-*     changing the sign of I-th row of the matrix R_tsqr according
-*     to sign of the I-th diagonal element DIAG(I) of the matrix S.
-*     DIAG is stored in WORK( LWT+N*N+1 ) from the SORHR_COL output.
+      // (6) Compute from R_tsqr the factor R_hr corresponding to
+     t // he reconstructed Householder vectors, i.e. R_hr = S * R_tsqr.
+      // This multiplication by the sign matrix S on the left means
+      // changing the sign of I-th row of the matrix R_tsqr according
+     t // o sign of the I-th diagonal element DIAG(I) of the matrix S.
+      // DIAG is stored in WORK( LWT+N*N+1 ) from the SORHR_COL output.
 *
-*     (5) and (6) can be combined in a single loop, so the rows in A
-*     are accessed only once.
+      // (5) and (6) can be combined in a single loop, so the rows in A
+      // are accessed only once.
 *
       DO I = 1, N
          IF( WORK( LWT+N*N+I ).EQ.-ONE ) THEN
@@ -165,6 +165,6 @@
       WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
       RETURN
 *
-*     End of SGETSQRHRT
+      // End of SGETSQRHRT
 *
       END

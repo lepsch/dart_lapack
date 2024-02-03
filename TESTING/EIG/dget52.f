@@ -4,37 +4,37 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       bool               LEFT;
       int                LDA, LDB, LDE, N;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), E( LDE, * ), RESULT( 2 ), WORK( * );
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. Parameters ..
+      // .. Parameters ..
       double             ZERO, ONE, TEN;
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       bool               ILCPLX;
       String             NORMAB, TRANS;
       int                J, JVEC;
       double             ABMAX, ACOEF, ALFMAX, ANORM, BCOEFI, BCOEFR, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SALFI, SALFR, SBETA, SCALE, TEMP1, ULP;
-*     ..
-*     .. External Functions ..
+      // ..
+      // .. External Functions ..
       double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL DGEMV
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX
-*     ..
-*     .. Executable Statements ..
+      // ..
+      // .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
@@ -52,7 +52,7 @@
          NORMAB = 'O'
       END IF
 *
-*     Norm of A, B, and E:
+      // Norm of A, B, and E:
 *
       ANORM = MAX( DLANGE( NORMAB, N, N, A, LDA, WORK ), SAFMIN )
       BNORM = MAX( DLANGE( NORMAB, N, N, B, LDB, WORK ), SAFMIN )
@@ -60,14 +60,14 @@
       ALFMAX = SAFMAX / MAX( ONE, BNORM )
       BETMAX = SAFMAX / MAX( ONE, ANORM )
 *
-*     Compute error matrix.
-*     Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
+      // Compute error matrix.
+      // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
 *
       ILCPLX = .FALSE.
       DO 10 JVEC = 1, N
          IF( ILCPLX ) THEN
 *
-*           2nd Eigenvalue/-vector of pair -- do nothing
+            // 2nd Eigenvalue/-vector of pair -- do nothing
 *
             ILCPLX = .FALSE.
          ELSE
@@ -76,7 +76,7 @@
             SBETA = BETA( JVEC )
             IF( SALFI.EQ.ZERO ) THEN
 *
-*              Real eigenvalue and -vector
+               // Real eigenvalue and -vector
 *
                ABMAX = MAX( ABS( SALFR ), ABS( SBETA ) )
                IF( ABS( SALFR ).GT.ALFMAX .OR. ABS( SBETA ).GT. BETMAX .OR. ABMAX.LT.ONE ) THEN
@@ -90,7 +90,7 @@
                CALL DGEMV( TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 )
             ELSE
 *
-*              Complex conjugate pair
+               // Complex conjugate pair
 *
                ILCPLX = .TRUE.
                IF( JVEC.EQ.N ) THEN
@@ -121,11 +121,11 @@
 *
       ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM
 *
-*     Compute RESULT(1)
+      // Compute RESULT(1)
 *
       RESULT( 1 ) = ERRNRM / ULP
 *
-*     Normalization of E:
+      // Normalization of E:
 *
       ENRMER = ZERO
       ILCPLX = .FALSE.
@@ -149,12 +149,12 @@
          END IF
    40 CONTINUE
 *
-*     Compute RESULT(2) : the normalization error in E.
+      // Compute RESULT(2) : the normalization error in E.
 *
       RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP )
 *
       RETURN
 *
-*     End of DGET52
+      // End of DGET52
 *
       END

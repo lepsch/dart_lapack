@@ -4,38 +4,38 @@
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
-*     .. Scalar Arguments ..
+      // .. Scalar Arguments ..
       REAL ALPHA
       int     LDA,LDB,M,N;
       String    DIAG,SIDE,TRANSA,UPLO;
-*     ..
-*     .. Array Arguments ..
+      // ..
+      // .. Array Arguments ..
       REAL A(LDA,*),B(LDB,*)
-*     ..
+      // ..
 *
 *  =====================================================================
 *
-*     .. External Functions ..
+      // .. External Functions ..
       bool    LSAME;
       // EXTERNAL LSAME
-*     ..
-*     .. External Subroutines ..
+      // ..
+      // .. External Subroutines ..
       // EXTERNAL XERBLA
-*     ..
-*     .. Intrinsic Functions ..
+      // ..
+      // .. Intrinsic Functions ..
       // INTRINSIC MAX
-*     ..
-*     .. Local Scalars ..
+      // ..
+      // .. Local Scalars ..
       REAL TEMP
       int     I,INFO,J,K,NROWA;
       bool    LSIDE,NOUNIT,UPPER;
-*     ..
-*     .. Parameters ..
+      // ..
+      // .. Parameters ..
       REAL ONE,ZERO
       PARAMETER (ONE=1.0E+0,ZERO=0.0E+0)
-*     ..
+      // ..
 *
-*     Test the input parameters.
+      // Test the input parameters.
 *
       LSIDE = LSAME(SIDE,'L')
       IF (LSIDE) THEN
@@ -69,11 +69,11 @@
           RETURN
       END IF
 *
-*     Quick return if possible.
+      // Quick return if possible.
 *
       IF (M.EQ.0 .OR. N.EQ.0) RETURN
 *
-*     And when  alpha.eq.zero.
+      // And when  alpha.eq.zero.
 *
       IF (ALPHA.EQ.ZERO) THEN
           DO 20 J = 1,N
@@ -84,12 +84,12 @@
           RETURN
       END IF
 *
-*     Start the operations.
+      // Start the operations.
 *
       IF (LSIDE) THEN
           IF (LSAME(TRANSA,'N')) THEN
 *
-*           Form  B := alpha*A*B.
+            // Form  B := alpha*A*B.
 *
               IF (UPPER) THEN
                   DO 50 J = 1,N
@@ -120,7 +120,7 @@
               END IF
           ELSE
 *
-*           Form  B := alpha*A**T*B.
+            // Form  B := alpha*A**T*B.
 *
               IF (UPPER) THEN
                   DO 110 J = 1,N
@@ -149,7 +149,7 @@
       ELSE
           IF (LSAME(TRANSA,'N')) THEN
 *
-*           Form  B := alpha*B*A.
+            // Form  B := alpha*B*A.
 *
               IF (UPPER) THEN
                   DO 180 J = N,1,-1
@@ -186,7 +186,7 @@
               END IF
           ELSE
 *
-*           Form  B := alpha*B*A**T.
+            // Form  B := alpha*B*A**T.
 *
               IF (UPPER) THEN
                   DO 260 K = 1,N
@@ -230,6 +230,6 @@
 *
       RETURN
 *
-*     End of STRMM
+      // End of STRMM
 *
       END
