@@ -68,7 +68,7 @@
 
          // Return if INFO is non-zero.
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             RCOND = ZERO
             RETURN
          }

@@ -300,14 +300,14 @@ void main() {
 
       // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails + caseInfFails + caseNaNFails
-      if (nFailingTests .gt. 0) {
+      if (nFailingTests > 0) {
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex division,", nFailingTests," fail."
       } else {
          print *, "# All tests pass for complex division."
       }
 
       // If anything was written to stderr, print the message
-      if( (caseAFails .gt. 0) || (caseBFails .gt. 0) || (caseCFails .gt. 0) || (caseDFails .gt. 0) || (caseEFails .gt. 0) || (caseFFails .gt. 0) ) print *, "# Please check the failed divisions in [stderr]"
+      if( (caseAFails > 0) || (caseBFails > 0) || (caseCFails > 0) || (caseDFails > 0) || (caseEFails > 0) || (caseFFails > 0) ) print *, "# Please check the failed divisions in [stderr]"
 
       // .. Formats ..
  9998 FORMAT( '[',A2,I1, '] ', (ES24.16E3,SP,ES24.16E3,"*I"), ' * ', (ES24.16E3,SP,ES24.16E3,"*I"), ' = ', (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', A10 )

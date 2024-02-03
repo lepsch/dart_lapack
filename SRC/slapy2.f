@@ -43,7 +43,7 @@
          YABS = ABS( Y )
          W = MAX( XABS, YABS )
          Z = MIN( XABS, YABS )
-         if ( Z == ZERO || W.GT.HUGEVAL ) {
+         if ( Z == ZERO || W > HUGEVAL ) {
             SLAPY2 = W
          } else {
             SLAPY2 = W*SQRT( ONE+( Z / W )**2 )

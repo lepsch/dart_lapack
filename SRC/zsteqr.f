@@ -57,7 +57,7 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( ( LDZ < 1 ) || ( ICOMPZ.GT.0 && LDZ < MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < MAX( 1, N ) ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -99,7 +99,7 @@
       NM1 = N - 1
 
       } // 10
-      if (L1.GT.N) GO TO 160       IF( L1.GT.1 ) E( L1-1 ) = ZERO;
+      if (L1 > N) GO TO 160       IF( L1 > 1 ) E( L1-1 ) = ZERO;
       if ( L1.LE.NM1 ) {
          for (M = L1; M <= NM1; M++) { // 20
             TST = ABS( E( M ) )
@@ -124,7 +124,7 @@
       ANORM = DLANST( 'I', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
       if (ANORM == ZERO) GO TO 10;
-      if ( ANORM.GT.SSFMAX ) {
+      if ( ANORM > SSFMAX ) {
          ISCALE = 1
          dlascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO );
          dlascl('G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
@@ -141,7 +141,7 @@
          L = LENDSV
       }
 
-      if ( LEND.GT.L ) {
+      if ( LEND > L ) {
 
          // QL Iteration
 
@@ -167,7 +167,7 @@
          // to compute its eigensystem.
 
          if ( M == L+1 ) {
-            if ( ICOMPZ.GT.0 ) {
+            if ( ICOMPZ > 0 ) {
                dlaev2(D( L ), E( L ), D( L+1 ), RT1, RT2, C, S );
                WORK( L ) = C
                WORK( N-1+L ) = S
@@ -212,7 +212,7 @@
 
             // If eigenvectors are desired, then save rotations.
 
-            if ( ICOMPZ.GT.0 ) {
+            if ( ICOMPZ > 0 ) {
                WORK( I ) = C
                WORK( N-1+I ) = -S
             }
@@ -221,7 +221,7 @@
 
          // If eigenvectors are desired, then apply saved rotations.
 
-         if ( ICOMPZ.GT.0 ) {
+         if ( ICOMPZ > 0 ) {
             MM = M - L + 1
             zlasr('R', 'V', 'B', N, MM, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ );
          }
@@ -257,7 +257,7 @@
          M = LEND
 
          } // 110
-         if (M.GT.LEND) E( M-1 ) = ZERO;
+         if (M > LEND) E( M-1 ) = ZERO;
          P = D( L )
          if (M == L) GO TO 130;
 
@@ -265,7 +265,7 @@
          // to compute its eigensystem.
 
          if ( M == L-1 ) {
-            if ( ICOMPZ.GT.0 ) {
+            if ( ICOMPZ > 0 ) {
                dlaev2(D( L-1 ), E( L-1 ), D( L ), RT1, RT2, C, S );
                WORK( M ) = C
                WORK( N-1+M ) = S
@@ -310,7 +310,7 @@
 
             // If eigenvectors are desired, then save rotations.
 
-            if ( ICOMPZ.GT.0 ) {
+            if ( ICOMPZ > 0 ) {
                WORK( I ) = C
                WORK( N-1+I ) = S
             }
@@ -319,7 +319,7 @@
 
          // If eigenvectors are desired, then apply saved rotations.
 
-         if ( ICOMPZ.GT.0 ) {
+         if ( ICOMPZ > 0 ) {
             MM = L - M + 1
             zlasr('R', 'V', 'F', N, MM, WORK( M ), WORK( N-1+M ), Z( 1, M ), LDZ );
          }

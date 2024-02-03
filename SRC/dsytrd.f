@@ -75,7 +75,7 @@
 
       NX = N
       IWS = 1
-      if ( NB.GT.1 && NB < N ) {
+      if ( NB > 1 && NB < N ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code).

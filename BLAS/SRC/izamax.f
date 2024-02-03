@@ -31,7 +31,7 @@
 
          DMAX = DCABS1(ZX(1))
          for (I = 2; I <= N; I++) {
-            if (DCABS1(ZX(I)).GT.DMAX) {
+            if (DCABS1(ZX(I)) > DMAX) {
                IZAMAX = I
                DMAX = DCABS1(ZX(I))
             }
@@ -44,7 +44,7 @@
          DMAX = DCABS1(ZX(1))
          IX = IX + INCX
          for (I = 2; I <= N; I++) {
-            if (DCABS1(ZX(IX)).GT.DMAX) {
+            if (DCABS1(ZX(IX)) > DMAX) {
                IZAMAX = I
                DMAX = DCABS1(ZX(IX))
             }

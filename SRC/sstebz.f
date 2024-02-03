@@ -78,9 +78,9 @@
          INFO = -3
       } else if ( IRANGE == 2 ) {
          if (VL.GE.VU) INFO = -5;
-      } else if ( IRANGE == 3 && ( IL < 1 || IL.GT.MAX( 1, N ) ) ) {
+      } else if ( IRANGE == 3 && ( IL < 1 || IL > MAX( 1, N ) ) ) {
          INFO = -6
-      } else if ( IRANGE == 3 && ( IU < MIN( N, IL ) || IU.GT.N ) ) {
+      } else if ( IRANGE == 3 && ( IU < MIN( N, IL ) || IU > N ) ) {
          INFO = -7
       }
 
@@ -137,7 +137,7 @@
 
       for (J = 2; J <= N; J++) { // 10
          TMP1 = E( J-1 )**2
-         if ( ABS( D( J )*D( J-1 ) )*ULP**2+SAFEMN.GT.TMP1 ) {
+         if ( ABS( D( J )*D( J-1 ) )*ULP**2+SAFEMN > TMP1 ) {
             ISPLIT( NSPLIT ) = J - 1
             NSPLIT = NSPLIT + 1
             WORK( J-1 ) = ZERO
@@ -216,7 +216,7 @@
             NWU = IWORK( 3 )
          }
 
-         if ( NWL < 0 || NWL.GE.N || NWU < 1 || NWU.GT.N ) {
+         if ( NWL < 0 || NWL.GE.N || NWU < 1 || NWU > N ) {
             INFO = 4
             RETURN
          }
@@ -302,7 +302,7 @@
                ATOLI = ABSTOL
             }
 
-            if ( IRANGE.GT.1 ) {
+            if ( IRANGE > 1 ) {
                if ( GU < WL ) {
                   NWL = NWL + IN
                   NWU = NWU + IN
@@ -336,7 +336,7 @@
 
                // Flag non-convergence.
 
-               if ( J.GT.IOUT-IINFO ) {
+               if ( J > IOUT-IINFO ) {
                   NCNVRG = true;
                   IB = -JB
                } else {
@@ -360,11 +360,11 @@
          IDISCL = IL - 1 - NWL
          IDISCU = NWU - IU
 
-         if ( IDISCL.GT.0 || IDISCU.GT.0 ) {
+         if ( IDISCL > 0 || IDISCU > 0 ) {
             for (JE = 1; JE <= M; JE++) { // 80
-               if ( W( JE ).LE.WLU && IDISCL.GT.0 ) {
+               if ( W( JE ).LE.WLU && IDISCL > 0 ) {
                   IDISCL = IDISCL - 1
-               } else if ( W( JE ).GE.WUL && IDISCU.GT.0 ) {
+               } else if ( W( JE ).GE.WUL && IDISCU > 0 ) {
                   IDISCU = IDISCU - 1
                } else {
                   IM = IM + 1
@@ -374,7 +374,7 @@
             } // 80
             M = IM
          }
-         if ( IDISCL.GT.0 || IDISCU.GT.0 ) {
+         if ( IDISCL > 0 || IDISCU > 0 ) {
 
             // Code to deal with effects of bad arithmetic:
             // Some low eigenvalues to be discarded are not in (WL,WLU],
@@ -386,7 +386,7 @@
             // (If N(w) is monotone non-decreasing, this should never
                 // happen.)
 
-            if ( IDISCL.GT.0 ) {
+            if ( IDISCL > 0 ) {
                WKILL = WU
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
@@ -399,13 +399,13 @@
                   IBLOCK( IW ) = 0
                } // 100
             }
-            if ( IDISCU.GT.0 ) {
+            if ( IDISCU > 0 ) {
 
                WKILL = WL
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 110
-                     if ( IBLOCK( JE ) != 0 && ( W( JE ).GT.WKILL || IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 && ( W( JE ) > WKILL || IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -432,7 +432,7 @@
          // by block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
-      if ( IORDER == 1 && NSPLIT.GT.1 ) {
+      if ( IORDER == 1 && NSPLIT > 1 ) {
          for (JE = 1; JE <= M - 1; JE++) { // 150
             IE = 0
             TMP1 = W( JE )

@@ -98,7 +98,7 @@
                RWORK( I*2 ) = SN
             }
          } // 10
-         if ( NRHS.GT.1 ) {
+         if ( NRHS > 1 ) {
             for (I = 1; I <= NRHS; I++) { // 30
                for (J = 1; J <= N - 1; J++) { // 20
                   CS = RWORK( J*2-1 )

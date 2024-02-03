@@ -93,7 +93,7 @@
                // Only repeat test 3 to 5 for different ranks
                // Other tests use full rank
 
-               IF( ( IMAT < 3 || IMAT.GT.5 ) && IRANK.GT.1 ) GO TO 130
+               IF( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130
 
                RANK = CEILING( ( N * DBLE( RANKVAL( IRANK ) ) ) / 100.D+0 )
 

@@ -89,7 +89,7 @@
             DIAG( I ) = DIAG( I-1 )
             DIAG( I-1 ) = CTEMP
          } // 70
-      } else if ( IFST.GT.ILST ) {
+      } else if ( IFST > ILST ) {
          DO 80 I = IFST - 1, ILST, -1
             CTEMP = DIAG( I+1 )
             DIAG( I+1 ) = DIAG( I )
@@ -112,7 +112,7 @@
             IF( T2( I, J ) != CZERO ) RES = RES + ONE / EPS
          } // 100
       } // 110
-      if ( RES.GT.RMAX ) {
+      if ( RES > RMAX ) {
          RMAX = RES
          LMAX = KNT
       }

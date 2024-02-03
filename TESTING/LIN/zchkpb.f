@@ -144,7 +144,7 @@
                         alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60
                      }
-                  } else if ( IZERO.GT.0 ) {
+                  } else if ( IZERO > 0 ) {
 
                      // Use the same matrix for types 3 and 4 as for type
                      // 2 by copying back the zeroed out column,
@@ -250,7 +250,7 @@
 
                      // Only do other tests if this is the first blocksize.
 
-                     if (INB.GT.1) GO TO 50;
+                     if (INB > 1) GO TO 50;
 
                      // Form the inverse of A so we can get a good estimate
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).

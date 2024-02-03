@@ -66,7 +66,7 @@
          // Apply previous Householder reflectors to column K:
          // A(RK:M,K) := A(RK:M,K) - A(RK:M,1:K-1)*F(K,1:K-1)**H.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             for (J = 1; J <= K - 1; J++) { // 20
                F( K, J ) = CONJG( F( K, J ) )
             } // 20
@@ -105,7 +105,7 @@
          // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**H
                      // *A(RK:M,K).
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             cgemv('Conjugate transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, CZERO, AUXV( 1 ), 1 );
 
             cgemv('No transpose', N, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 );
@@ -160,7 +160,7 @@
       // Recomputation of difficult columns.
 
       } // 60
-      if ( LSTICC.GT.0 ) {
+      if ( LSTICC > 0 ) {
          ITEMP = NINT( VN2( LSTICC ) )
          VN1( LSTICC ) = SCNRM2( M-RK, A( RK+1, LSTICC ), 1 )
 

@@ -45,39 +45,39 @@
 
       OK = true;
       zget35(RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN );
-      if ( RTRSYL( 1 ).GT.THRESH ) {
+      if ( RTRSYL( 1 ) > THRESH ) {
          OK = false;
          WRITE( NOUT, FMT = 9999 )RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL
       }
 
       zsyl01(THRESH, FTRSYL, RTRSYL, ITRSYL, KTRSYL3 );
-      if ( FTRSYL( 1 ).GT.0 ) {
+      if ( FTRSYL( 1 ) > 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9970 )FTRSYL( 1 ), RTRSYL( 1 ), THRESH
       }
-      if ( FTRSYL( 2 ).GT.0 ) {
+      if ( FTRSYL( 2 ) > 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9971 )FTRSYL( 2 ), RTRSYL( 2 ), THRESH
       }
-      if ( FTRSYL( 3 ).GT.0 ) {
+      if ( FTRSYL( 3 ) > 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9972 )FTRSYL( 3 )
       }
 
       zget36(RTREXC, LTREXC, NTREXC, KTREXC, NIN );
-      if ( RTREXC.GT.THRESH || NTREXC.GT.0 ) {
+      if ( RTREXC > THRESH || NTREXC > 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9998 )RTREXC, LTREXC, NTREXC, KTREXC
       }
 
       zget37(RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN );
-      if ( RTRSNA( 1 ).GT.THRESH || RTRSNA( 2 ).GT.THRESH || NTRSNA( 1 ) != 0 || NTRSNA( 2 ) != 0 || NTRSNA( 3 ) != 0 ) {
+      if ( RTRSNA( 1 ) > THRESH || RTRSNA( 2 ) > THRESH || NTRSNA( 1 ) != 0 || NTRSNA( 2 ) != 0 || NTRSNA( 3 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9997 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       }
 
       zget38(RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN );
-      if ( RTRSEN( 1 ).GT.THRESH || RTRSEN( 2 ).GT.THRESH || NTRSEN( 1 ) != 0 || NTRSEN( 2 ) != 0 || NTRSEN( 3 ) != 0 ) {
+      if ( RTRSEN( 1 ) > THRESH || RTRSEN( 2 ) > THRESH || NTRSEN( 1 ) != 0 || NTRSEN( 2 ) != 0 || NTRSEN( 3 ) != 0 ) {
          OK = false;
          WRITE( NOUT, FMT = 9996 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       }

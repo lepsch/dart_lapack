@@ -41,7 +41,7 @@
 
       INFO = 0
 
-      if ( ICOMPQ < 0 || ICOMPQ.GT.1 ) {
+      if ( ICOMPQ < 0 || ICOMPQ > 1 ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -3
@@ -49,7 +49,7 @@
          INFO = -4
       } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -7
-      } else if ( CUTPNT < MIN( 1, N ) || CUTPNT.GT.N ) {
+      } else if ( CUTPNT < MIN( 1, N ) || CUTPNT > N ) {
          INFO = -10
       } else if ( LDQ2 < MAX( 1, N ) ) {
          INFO = -14
@@ -154,7 +154,7 @@
       } // 70
       } // 80
       J = J + 1
-      if (J.GT.N) GO TO 100;
+      if (J > N) GO TO 100;
       if ( RHO*ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.

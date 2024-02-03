@@ -251,7 +251,7 @@
                   // (Scale if necessary)
 
                   TEMP = ONE / XMAX
-                  if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GT.BIGNUM* TEMP ) {
+                  if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ) > BIGNUM* TEMP ) {
                      for (JR = JE; JR <= J - 1; JR++) { // 70
                         WORK( JR ) = TEMP*WORK( JR )
                      } // 70
@@ -305,7 +305,7 @@
                   XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
                } // 110
 
-               if ( XMAX.GT.SAFMIN ) {
+               if ( XMAX > SAFMIN ) {
                   TEMP = ONE / XMAX
                   for (JR = IBEG; JR <= N; JR++) { // 120
                      VL( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
@@ -419,11 +419,11 @@
 
                   WORK( J ) = ZLADIV( -WORK( J ), D )
 
-                  if ( J.GT.1 ) {
+                  if ( J > 1 ) {
 
                      // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
 
-                     if ( ABS1( WORK( J ) ).GT.ONE ) {
+                     if ( ABS1( WORK( J ) ) > ONE ) {
                         TEMP = ONE / ABS1( WORK( J ) )
                         if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GE. BIGNUM*TEMP ) {
                            for (JR = 1; JR <= JE; JR++) { // 190
@@ -458,7 +458,7 @@
                   XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
                } // 220
 
-               if ( XMAX.GT.SAFMIN ) {
+               if ( XMAX > SAFMIN ) {
                   TEMP = ONE / XMAX
                   for (JR = 1; JR <= IEND; JR++) { // 230
                      VR( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )

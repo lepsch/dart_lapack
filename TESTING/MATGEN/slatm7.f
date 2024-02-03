@@ -49,13 +49,13 @@
 
       // Set INFO if an error
 
-      if ( MODE < -6 || MODE.GT.6 ) {
+      if ( MODE < -6 || MODE > 6 ) {
          INFO = -1
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && ( IRSIGN != 0 && IRSIGN != 1 ) ) {
          INFO = -2
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND < ONE ) {
          INFO = -3
-      } else if ( ( MODE == 6 || MODE == -6 ) && ( IDIST < 1 || IDIST.GT.3 ) ) {
+      } else if ( ( MODE == 6 || MODE == -6 ) && ( IDIST < 1 || IDIST > 3 ) ) {
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -7
@@ -99,7 +99,7 @@
 
          } // 160
          D( 1 ) = ONE
-         if ( N.GT.1 && RANK.GT.1 ) {
+         if ( N > 1 && RANK > 1 ) {
             ALPHA = COND**( -ONE / REAL( RANK-1 ) )
             for (I = 2; I <= RANK; I++) { // 170
                D( I ) = ALPHA**( I-1 )
@@ -114,7 +114,7 @@
 
          } // 190
          D( 1 ) = ONE
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             TEMP = ONE / COND
             ALPHA = ( ONE-TEMP ) / REAL( N-1 )
             for (I = 2; I <= N; I++) { // 200
@@ -145,7 +145,7 @@
          if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == 1 ) {
             for (I = 1; I <= N; I++) { // 250
                TEMP = SLARAN( ISEED )
-               if (TEMP.GT.HALF) D( I ) = -D( I );
+               if (TEMP > HALF) D( I ) = -D( I );
             } // 250
          }
 

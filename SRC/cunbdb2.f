@@ -42,7 +42,7 @@
 
       if ( M < 0 ) {
          INFO = -1
-      } else if ( P < 0 || P .GT. M-P ) {
+      } else if ( P < 0 || P > M-P ) {
          INFO = -2
       } else if ( Q < 0 || Q < P || M-Q < P ) {
          INFO = -3
@@ -77,7 +77,7 @@
 
       for (I = 1; I <= P; I++) {
 
-         if ( I .GT. 1 ) {
+         if ( I > 1 ) {
             csrot(Q-I+1, X11(I,I), LDX11, X21(I-1,I), LDX21, C, S );
          }
          clacgv(Q-I+1, X11(I,I), LDX11 );

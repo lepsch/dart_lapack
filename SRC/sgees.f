@@ -125,10 +125,10 @@
 
       ANRM = SLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          SCALEA = true;
          CSCALE = BIGNUM
       }
@@ -165,7 +165,7 @@
       // (Workspace: need N+1, prefer N+HSWORK (see comments) )
 
       IWRK = ITAU
-      CALL SHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL.GT.0 ) INFO = IEVAL
+      CALL SHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL > 0 ) INFO = IEVAL
 
       // Sort eigenvalues if desired
 
@@ -182,7 +182,7 @@
          // (Workspace: none needed)
 
          strsen('N', JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, ICOND );
-         if (ICOND.GT.0) INFO = N + ICOND;
+         if (ICOND > 0) INFO = N + ICOND;
       }
 
       if ( WANTVS ) {
@@ -205,7 +205,7 @@
             // offdiagonal element of a 2-by-2 block in the Schur form
             // underflows.
 
-            if ( IEVAL.GT.0 ) {
+            if ( IEVAL > 0 ) {
                I1 = IEVAL + 1
                I2 = IHI - 1
                slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, MAX( ILO-1, 1 ), IERR );
@@ -228,7 +228,7 @@
                   } else if ( A( I+1, I ) != ZERO && A( I, I+1 ) == ZERO ) {
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
-                     if (I.GT.1) CALL SSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N.GT.I+1 ) CALL SSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
+                     if (I > 1) CALL SSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N > I+1 ) CALL SSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
                      if ( WANTVS ) {
                         sswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }

@@ -30,7 +30,7 @@
       YABS = ABS( Y )
       ZABS = ABS( Z )
       W = MAX( XABS, YABS, ZABS )
-      if ( W == ZERO || W.GT.HUGEVAL ) {
+      if ( W == ZERO || W > HUGEVAL ) {
       // W can be zero for max(0,nan,0)
       // adding all three entries together will make sure
       // NaN will not disappear.

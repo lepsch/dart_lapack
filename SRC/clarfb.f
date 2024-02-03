@@ -69,7 +69,7 @@
                // W := W * V1
 
                ctrmm('Right', 'Lower', 'No transpose', 'Unit', N, K, ONE, V, LDV, WORK, LDWORK );
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // W := W + C2**H *V2
 
@@ -82,7 +82,7 @@
 
                // C := C - V * W**H
 
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // C2 := C2 - V2 * W**H
 
@@ -116,7 +116,7 @@
                // W := W * V1
 
                ctrmm('Right', 'Lower', 'No transpose', 'Unit', M, K, ONE, V, LDV, WORK, LDWORK );
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // W := W + C2 * V2
 
@@ -129,7 +129,7 @@
 
                // C := C - W * V**H
 
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // C2 := C2 - W * V2**H
 
@@ -172,7 +172,7 @@
                // W := W * V2
 
                ctrmm('Right', 'Upper', 'No transpose', 'Unit', N, K, ONE, V( M-K+1, 1 ), LDV, WORK, LDWORK );
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // W := W + C1**H * V1
 
@@ -185,7 +185,7 @@
 
                // C := C - V * W**H
 
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // C1 := C1 - V1 * W**H
 
@@ -219,7 +219,7 @@
                // W := W * V2
 
                ctrmm('Right', 'Upper', 'No transpose', 'Unit', M, K, ONE, V( N-K+1, 1 ), LDV, WORK, LDWORK );
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // W := W + C1 * V1
 
@@ -232,7 +232,7 @@
 
                // C := C - W * V**H
 
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // C1 := C1 - W * V1**H
 
@@ -277,7 +277,7 @@
                // W := W * V1**H
 
                ctrmm('Right', 'Upper', 'Conjugate transpose', 'Unit', N, K, ONE, V, LDV, WORK, LDWORK );
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // W := W + C2**H * V2**H
 
@@ -290,7 +290,7 @@
 
                // C := C - V**H * W**H
 
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // C2 := C2 - V2**H * W**H
 
@@ -324,7 +324,7 @@
                // W := W * V1**H
 
                ctrmm('Right', 'Upper', 'Conjugate transpose', 'Unit', M, K, ONE, V, LDV, WORK, LDWORK );
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // W := W + C2 * V2**H
 
@@ -337,7 +337,7 @@
 
                // C := C - W * V
 
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // C2 := C2 - W * V2
 
@@ -380,7 +380,7 @@
                // W := W * V2**H
 
                ctrmm('Right', 'Lower', 'Conjugate transpose', 'Unit', N, K, ONE, V( 1, M-K+1 ), LDV, WORK, LDWORK );
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // W := W + C1**H * V1**H
 
@@ -393,7 +393,7 @@
 
                // C := C - V**H * W**H
 
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // C1 := C1 - V1**H * W**H
 
@@ -427,7 +427,7 @@
                // W := W * V2**H
 
                ctrmm('Right', 'Lower', 'Conjugate transpose', 'Unit', M, K, ONE, V( 1, N-K+1 ), LDV, WORK, LDWORK );
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // W := W + C1 * V1**H
 
@@ -440,7 +440,7 @@
 
                // C := C - W * V
 
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // C1 := C1 - W * V1
 

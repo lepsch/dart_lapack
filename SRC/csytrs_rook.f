@@ -74,7 +74,7 @@
 
          if (K < 1) GO TO 30;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -107,7 +107,7 @@
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in columns K-1 and K of A.
 
-            if ( K.GT.2 ) {
+            if ( K > 2 ) {
                cgeru(K-2, NRHS,-CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
                cgeru(K-2, NRHS,-CONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
             }
@@ -140,16 +140,16 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 50;
+         if (K > N) GO TO 50;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
             // Multiply by inv(U**T(K)), where U(K) is the transformation
             // stored in column K of A.
 
-            if (K.GT.1) CALL CGEMV( 'Transpose', K-1, NRHS, -CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
+            if (K > 1) CALL CGEMV( 'Transpose', K-1, NRHS, -CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
 
             // Interchange rows K and IPIV(K).
 
@@ -163,7 +163,7 @@
             // Multiply by inv(U**T(K+1)), where U(K+1) is the transformation
             // stored in columns K and K+1 of A.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                cgemv('Transpose', K-1, NRHS, -CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
                cgemv('Transpose', K-1, NRHS, -CONE, B, LDB, A( 1, K+1 ), 1, CONE, B( K+1, 1 ), LDB );
             }
@@ -196,9 +196,9 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 80;
+         if (K > N) GO TO 80;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -266,7 +266,7 @@
 
          if (K < 1) GO TO 100;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 

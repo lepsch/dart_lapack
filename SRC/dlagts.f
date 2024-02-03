@@ -36,7 +36,7 @@
       // .. Executable Statements ..
 
       INFO = 0
-      if ( ( ABS( JOB ).GT.2 ) || ( JOB == 0 ) ) {
+      if ( ( ABS( JOB ) > 2 ) || ( JOB == 0 ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -55,7 +55,7 @@
       if ( JOB < 0 ) {
          if ( TOL.LE.ZERO ) {
             TOL = ABS( A( 1 ) )
-            if (N.GT.1) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) );
+            if (N > 1) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) );
             for (K = 3; K <= N; K++) { // 10
                TOL = MAX( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) )
             } // 10
@@ -87,14 +87,14 @@
                ABSAK = ABS( AK )
                if ( ABSAK < ONE ) {
                   if ( ABSAK < SFMIN ) {
-                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
                         INFO = K
                         RETURN
                      } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
                      }
-                  } else if ( ABS( TEMP ).GT.ABSAK*BIGNUM ) {
+                  } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
                      INFO = K
                      RETURN
                   }
@@ -116,7 +116,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK < ONE ) {
                   if ( ABSAK < SFMIN ) {
-                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 40
@@ -124,7 +124,7 @@
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
                      }
-                  } else if ( ABS( TEMP ).GT.ABSAK*BIGNUM ) {
+                  } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
                      AK = AK + PERT
                      PERT = 2*PERT
                      GO TO 40
@@ -150,14 +150,14 @@
                ABSAK = ABS( AK )
                if ( ABSAK < ONE ) {
                   if ( ABSAK < SFMIN ) {
-                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
                         INFO = K
                         RETURN
                      } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
                      }
-                  } else if ( ABS( TEMP ).GT.ABSAK*BIGNUM ) {
+                  } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
                      INFO = K
                      RETURN
                   }
@@ -179,7 +179,7 @@
                ABSAK = ABS( AK )
                if ( ABSAK < ONE ) {
                   if ( ABSAK < SFMIN ) {
-                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN.GT.ABSAK ) {
+                     if ( ABSAK == ZERO || ABS( TEMP )*SFMIN > ABSAK ) {
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 70
@@ -187,7 +187,7 @@
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
                      }
-                  } else if ( ABS( TEMP ).GT.ABSAK*BIGNUM ) {
+                  } else if ( ABS( TEMP ) > ABSAK*BIGNUM ) {
                      AK = AK + PERT
                      PERT = 2*PERT
                      GO TO 70

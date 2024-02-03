@@ -129,20 +129,20 @@ void main() {
 
       // Values of N
       READ( NIN, FMT = * )NIDIM
-      if ( NIDIM < 1 || NIDIM.GT.NIDMAX ) {
+      if ( NIDIM < 1 || NIDIM > NIDMAX ) {
          WRITE( NOUT, FMT = 9997 )'N', NIDMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
       for (I = 1; I <= NIDIM; I++) { // 10
-         if ( IDIM( I ) < 0 || IDIM( I ).GT.NMAX ) {
+         if ( IDIM( I ) < 0 || IDIM( I ) > NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 230
          }
       } // 10
       // Values of K
       READ( NIN, FMT = * )NKB
-      if ( NKB < 1 || NKB.GT.NKBMAX ) {
+      if ( NKB < 1 || NKB > NKBMAX ) {
          WRITE( NOUT, FMT = 9997 )'K', NKBMAX
          GO TO 230
       }
@@ -155,27 +155,27 @@ void main() {
       } // 20
       // Values of INCX and INCY
       READ( NIN, FMT = * )NINC
-      if ( NINC < 1 || NINC.GT.NINMAX ) {
+      if ( NINC < 1 || NINC > NINMAX ) {
          WRITE( NOUT, FMT = 9997 )'INCX AND INCY', NINMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( INC( I ), I = 1, NINC )
       for (I = 1; I <= NINC; I++) { // 30
-         if ( INC( I ) == 0 || ABS( INC( I ) ).GT.INCMAX ) {
+         if ( INC( I ) == 0 || ABS( INC( I ) ) > INCMAX ) {
             WRITE( NOUT, FMT = 9994 )INCMAX
             GO TO 230
          }
       } // 30
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
-      if ( NALF < 1 || NALF.GT.NALMAX ) {
+      if ( NALF < 1 || NALF > NALMAX ) {
          WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
          GO TO 230
       }
       READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
       // Values of BETA
       READ( NIN, FMT = * )NBET
-      if ( NBET < 1 || NBET.GT.NBEMAX ) {
+      if ( NBET < 1 || NBET > NBEMAX ) {
          WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
          GO TO 230
       }
@@ -470,7 +470,7 @@ void main() {
                }
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               if (LDA.GT.NMAX) GO TO 100;
+               if (LDA > NMAX) GO TO 100;
                LAA = LDA*N
                NULL = N.LE.0 || M.LE.0
 
@@ -506,7 +506,7 @@ void main() {
 
                      TRANSL = HALF
                      smake('ge', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL );
-                     if ( NL.GT.1 ) {
+                     if ( NL > 1 ) {
                         X( NL/2 ) = ZERO
                         XX( 1 + ABS( INCX )*( NL/2 - 1 ) ) = ZERO
                      }
@@ -769,7 +769,7 @@ void main() {
             }
             if (LDA < NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            if (LDA.GT.NMAX) GO TO 100;
+            if (LDA > NMAX) GO TO 100;
             if ( PACKED ) {
                LAA = ( N*( N + 1 ) )/2
             } else {
@@ -798,7 +798,7 @@ void main() {
 
                   TRANSL = HALF
                   smake('ge', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
-                  if ( N.GT.1 ) {
+                  if ( N > 1 ) {
                      X( N/2 ) = ZERO
                      XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                   }
@@ -1078,7 +1078,7 @@ void main() {
             }
             if (LDA < NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            if (LDA.GT.NMAX) GO TO 100;
+            if (LDA > NMAX) GO TO 100;
             if ( PACKED ) {
                LAA = ( N*( N + 1 ) )/2
             } else {
@@ -1125,7 +1125,7 @@ void main() {
 
                         TRANSL = HALF
                         smake('ge', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
-                        if ( N.GT.1 ) {
+                        if ( N > 1 ) {
                            X( N/2 ) = ZERO
                            XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                         }
@@ -1369,7 +1369,7 @@ void main() {
             LDA = M
             if (LDA < NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            if (LDA.GT.NMAX) GO TO 110;
+            if (LDA > NMAX) GO TO 110;
             LAA = LDA*N
             NULL = N.LE.0 || M.LE.0
 
@@ -1381,7 +1381,7 @@ void main() {
 
                TRANSL = HALF
                smake('ge', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL );
-               if ( M.GT.1 ) {
+               if ( M > 1 ) {
                   X( M/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( M/2 - 1 ) ) = ZERO
                }
@@ -1394,7 +1394,7 @@ void main() {
 
                   TRANSL = ZERO
                   smake('ge', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
-                  if ( N.GT.1 ) {
+                  if ( N > 1 ) {
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
                   }
@@ -1473,7 +1473,7 @@ void main() {
 
                         // Check the result column by column.
 
-                        if ( INCX.GT.0 ) {
+                        if ( INCX > 0 ) {
                            for (I = 1; I <= M; I++) { // 50
                               Z( I ) = X( I )
                            } // 50
@@ -1483,7 +1483,7 @@ void main() {
                            } // 60
                         }
                         for (J = 1; J <= N; J++) { // 70
-                           if ( INCY.GT.0 ) {
+                           if ( INCY > 0 ) {
                               W( 1 ) = Y( J )
                            } else {
                               W( 1 ) = Y( N - J + 1 )
@@ -1608,7 +1608,7 @@ void main() {
          LDA = N
          if (LDA < NMAX) LDA = LDA + 1;
          // Skip tests if not enough room.
-         if (LDA.GT.NMAX) GO TO 100;
+         if (LDA > NMAX) GO TO 100;
          if ( PACKED ) {
             LAA = ( N*( N + 1 ) )/2
          } else {
@@ -1632,7 +1632,7 @@ void main() {
 
                TRANSL = HALF
                smake('ge', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
-               if ( N.GT.1 ) {
+               if ( N > 1 ) {
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                }
@@ -1714,7 +1714,7 @@ void main() {
 
                      // Check the result column by column.
 
-                     if ( INCX.GT.0 ) {
+                     if ( INCX > 0 ) {
                         for (I = 1; I <= N; I++) { // 40
                            Z( I ) = X( I )
                         } // 40
@@ -1865,7 +1865,7 @@ void main() {
          LDA = N
          if (LDA < NMAX) LDA = LDA + 1;
          // Skip tests if not enough room.
-         if (LDA.GT.NMAX) GO TO 140;
+         if (LDA > NMAX) GO TO 140;
          if ( PACKED ) {
             LAA = ( N*( N + 1 ) )/2
          } else {
@@ -1889,7 +1889,7 @@ void main() {
 
                TRANSL = HALF
                smake('ge', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
-               if ( N.GT.1 ) {
+               if ( N > 1 ) {
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                }
@@ -1902,7 +1902,7 @@ void main() {
 
                   TRANSL = ZERO
                   smake('ge', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
-                  if ( N.GT.1 ) {
+                  if ( N > 1 ) {
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
                   }
@@ -1990,7 +1990,7 @@ void main() {
 
                         // Check the result column by column.
 
-                        if ( INCX.GT.0 ) {
+                        if ( INCX > 0 ) {
                            for (I = 1; I <= N; I++) { // 50
                               Z( I, 1 ) = X( I )
                            } // 50
@@ -1999,7 +1999,7 @@ void main() {
                               Z( I, 1 ) = X( N - I + 1 )
                            } // 60
                         }
-                        if ( INCY.GT.0 ) {
+                        if ( INCY > 0 ) {
                            for (I = 1; I <= N; I++) { // 70
                               Z( I, 2 ) = Y( I )
                            } // 70

@@ -127,7 +127,7 @@
 
          } // 140
          A( KBEG, KBEG ) = CONE
-         if ( KLEN.GT.1 ) {
+         if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / DBLE( KLEN-1 ) )
             for (I = 2; I <= KLEN; I++) { // 150
                A( NZ1+I, NZ1+I ) = DCMPLX( ALPHA**DBLE( I-1 ) )
@@ -139,7 +139,7 @@
 
          } // 160
          A( KBEG, KBEG ) = CONE
-         if ( KLEN.GT.1 ) {
+         if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / DBLE( KLEN-1 )
             for (I = 2; I <= KLEN; I++) { // 170
                A( NZ1+I, NZ1+I ) = DCMPLX( DBLE( KLEN-I )*ALPHA+RCOND )

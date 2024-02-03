@@ -58,9 +58,9 @@
 
       if ( M < 0 ) {
          INFO = -3
-      } else if ( P < 0 || P .GT. M ) {
+      } else if ( P < 0 || P > M ) {
          INFO = -4
-      } else if ( Q < 0 || Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
+      } else if ( Q < 0 || Q > P || Q > M-P || Q > M-Q ) {
          INFO = -5
       } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
          INFO = -7
@@ -120,29 +120,29 @@
 
             THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), 1 ), SNRM2( P-I+1, X11(I,I), 1 ) )
 
-            if ( P .GT. I ) {
+            if ( P > I ) {
                slarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
             } else if ( P == I ) {
                slarfgp(P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) );
             }
             X11(I,I) = ONE
-            if ( M-P .GT. I ) {
+            if ( M-P > I ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
             } else if ( M-P == I ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) );
             }
             X21(I,I) = ONE
 
-            if ( Q .GT. I ) {
+            if ( Q > I ) {
                slarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK );
             }
-            if ( M-Q+1 .GT. I ) {
+            if ( M-Q+1 > I ) {
                slarf('L', P-I+1, M-Q-I+1, X11(I,I), 1, TAUP1(I), X12(I,I), LDX12, WORK );
             }
-            if ( Q .GT. I ) {
+            if ( Q > I ) {
                slarf('L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK );
             }
-            if ( M-Q+1 .GT. I ) {
+            if ( M-Q+1 > I ) {
                slarf('L', M-P-I+1, M-Q-I+1, X21(I,I), 1, TAUP2(I), X22(I,I), LDX22, WORK );
             }
 
@@ -176,10 +176,10 @@
                slarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
                slarf('R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
-            if ( P .GT. I ) {
+            if ( P > I ) {
                slarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
-            if ( M-P .GT. I ) {
+            if ( M-P > I ) {
                slarf('R', M-P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(I+1,I), LDX22, WORK );
             }
 
@@ -197,7 +197,7 @@
             }
             X12(I,I) = ONE
 
-            if ( P .GT. I ) {
+            if ( P > I ) {
                slarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
             if (M-P-Q .GE. 1) CALL SLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
@@ -251,16 +251,16 @@
             }
             X21(I,I) = ONE
 
-            if ( Q .GT. I ) {
+            if ( Q > I ) {
                slarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK );
             }
-            if ( M-Q+1 .GT. I ) {
+            if ( M-Q+1 > I ) {
                slarf('R', M-Q-I+1, P-I+1, X11(I,I), LDX11, TAUP1(I), X12(I,I), LDX12, WORK );
             }
-            if ( Q .GT. I ) {
+            if ( Q > I ) {
                slarf('R', Q-I, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X21(I+1,I), LDX21, WORK );
             }
-            if ( M-Q+1 .GT. I ) {
+            if ( M-Q+1 > I ) {
                slarf('R', M-Q-I+1, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X22(I,I), LDX22, WORK );
             }
 
@@ -281,7 +281,7 @@
                }
                X11(I+1,I) = ONE
             }
-            if ( M-Q .GT. I ) {
+            if ( M-Q > I ) {
                slarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             } else {
                slarfgp(M-Q-I+1, X12(I,I), X12(I,I), 1, TAUQ2(I) );
@@ -293,7 +293,7 @@
                slarf('L', Q-I, M-P-I, X11(I+1,I), 1, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
             slarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
-            if ( M-P-I .GT. 0 ) {
+            if ( M-P-I > 0 ) {
                slarf('L', M-Q-I+1, M-P-I, X12(I,I), 1, TAUQ2(I), X22(I,I+1), LDX22, WORK );
             }
 
@@ -307,7 +307,7 @@
             slarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             X12(I,I) = ONE
 
-            if ( P .GT. I ) {
+            if ( P > I ) {
                slarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
             }
             if (M-P-Q .GE. 1) CALL SLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, TAUQ2(I), X22(I,Q+1), LDX22, WORK );

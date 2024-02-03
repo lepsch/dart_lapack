@@ -77,7 +77,7 @@
       NS = 0
       ND = 0
       WORK( 1 ) = ONE
-      if (KTOP.GT.KBOT) RETURN;
+      if (KTOP > KBOT) RETURN;
       // ... nor for an empty deflation window. ====
       if (NW < 1) RETURN;
 
@@ -108,7 +108,7 @@
          if ( CABS1( S ).LE.MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
-            if (KWTOP.GT.KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
+            if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
          WORK( 1 ) = ONE
          RETURN
@@ -163,7 +163,7 @@
          for (I = INFQR + 1; I <= NS; I++) { // 30
             IFST = I
             for (J = I + 1; J <= NS; J++) { // 20
-               IF( CABS1( T( J, J ) ).GT.CABS1( T( IFST, IFST ) ) ) IFST = J
+               IF( CABS1( T( J, J ) ) > CABS1( T( IFST, IFST ) ) ) IFST = J
             } // 20
             ILST = I
             if (IFST != ILST) CALL ZTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
@@ -178,7 +178,7 @@
 
 
       if ( NS < JW || S == ZERO ) {
-         if ( NS.GT.1 && S != ZERO ) {
+         if ( NS > 1 && S != ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====
 
@@ -201,14 +201,14 @@
 
          // ==== Copy updated reduced window into place ====
 
-         if (KWTOP.GT.1) H( KWTOP, KWTOP-1 ) = S*DCONJG( V( 1, 1 ) );
+         if (KWTOP > 1) H( KWTOP, KWTOP-1 ) = S*DCONJG( V( 1, 1 ) );
          zlacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
          zcopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
 
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
 
-         if (NS.GT.1 && S != ZERO) CALL ZUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
+         if (NS > 1 && S != ZERO) CALL ZUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
 
          // ==== Update vertical slab in H ====
 

@@ -39,7 +39,7 @@
       INFO = 0
       if ( N < 0 ) {
          INFO = -1
-      } else if ( K < 0 || K.GT.N-1 ) {
+      } else if ( K < 0 || K > N-1 ) {
          INFO = -2
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5

@@ -53,7 +53,7 @@
 
       // Check whether E(N0-1) is negligible, 1 eigenvalue.
 
-      IF( Z( NN-5 ).GT.TOL2*( SIGMA+Z( NN-3 ) ) && Z( NN-2*PP-4 ).GT.TOL2*Z( NN-7 ) ) GO TO 30
+      IF( Z( NN-5 ) > TOL2*( SIGMA+Z( NN-3 ) ) && Z( NN-2*PP-4 ) > TOL2*Z( NN-7 ) ) GO TO 30
 
       } // 20
 
@@ -65,17 +65,17 @@
 
       } // 30
 
-      IF( Z( NN-9 ).GT.TOL2*SIGMA && Z( NN-2*PP-8 ).GT.TOL2*Z( NN-11 ) ) GO TO 50
+      IF( Z( NN-9 ) > TOL2*SIGMA && Z( NN-2*PP-8 ) > TOL2*Z( NN-11 ) ) GO TO 50
 
       } // 40
 
-      if ( Z( NN-3 ).GT.Z( NN-7 ) ) {
+      if ( Z( NN-3 ) > Z( NN-7 ) ) {
          S = Z( NN-3 )
          Z( NN-3 ) = Z( NN-7 )
          Z( NN-7 ) = S
       }
       T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) )
-      if ( Z( NN-5 ).GT.Z( NN-3 )*TOL2 && T != ZERO ) {
+      if ( Z( NN-5 ) > Z( NN-3 )*TOL2 && T != ZERO ) {
          S = Z( NN-3 )*( Z( NN-5 ) / T )
          if ( S.LE.T ) {
             S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
@@ -145,7 +145,7 @@
 
          GO TO 90
 
-      } else if ( DMIN < ZERO && DMIN1.GT.ZERO && Z( 4*( N0-1 )-PP ) < TOL*( SIGMA+DN1 ) && ABS( DN ) < TOL*SIGMA ) {
+      } else if ( DMIN < ZERO && DMIN1 > ZERO && Z( 4*( N0-1 )-PP ) < TOL*( SIGMA+DN1 ) && ABS( DN ) < TOL*SIGMA ) {
 
          // Convergence hidden by negative DN.
 
@@ -162,7 +162,7 @@
             // Failed twice. Play it safe.
 
             TAU = ZERO
-         } else if ( DMIN1.GT.ZERO ) {
+         } else if ( DMIN1 > ZERO ) {
 
             // Late failure. Gives excellent shift.
 

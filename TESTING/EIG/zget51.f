@@ -47,7 +47,7 @@
 
       // Some Error Checks
 
-      if ( ITYPE < 1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE > 3 ) {
          RESULT = TEN / ULP
          RETURN
       }
@@ -84,7 +84,7 @@
 
          WNORM = ZLANGE( '1', N, N, WORK, N, RWORK )
 
-         if ( ANORM.GT.WNORM ) {
+         if ( ANORM > WNORM ) {
             RESULT = ( WNORM / ANORM ) / ( N*ULP )
          } else {
             if ( ANORM < ONE ) {

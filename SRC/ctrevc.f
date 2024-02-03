@@ -144,7 +144,7 @@
                IF( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN
             } // 50
 
-            if ( KI.GT.1 ) {
+            if ( KI > 1 ) {
                clatrs('Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 ), SCALE, RWORK, INFO );
                WORK( KI ) = SCALE
             }
@@ -162,7 +162,7 @@
                   VR( K, IS ) = CMZERO
                } // 60
             } else {
-               if (KI.GT.1) CALL CGEMV( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 );
+               if (KI > 1) CALL CGEMV( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 );
 
                II = ICAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )

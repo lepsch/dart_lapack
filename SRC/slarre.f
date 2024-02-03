@@ -81,7 +81,7 @@
 
       // Treat case of 1x1 matrix for quick return
       if ( N == 1 ) {
-         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1).GT.VL) && (D(1).LE.VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
+         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1).LE.VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -173,7 +173,7 @@
 
          // 1 X 1 block
          if ( IN == 1 ) {
-            if ( (IRANGE == ALLRNG) || ( (IRANGE == VALRNG) && ( D( IBEGIN ).GT.VL ) && ( D( IBEGIN ).LE.VU ) ) || ( (IRANGE == INDRNG) && (IBLOCK(WBEGIN) == JBLK)) ) {
+            if ( (IRANGE == ALLRNG) || ( (IRANGE == VALRNG) && ( D( IBEGIN ) > VL ) && ( D( IBEGIN ).LE.VU ) ) || ( (IRANGE == INDRNG) && (IBLOCK(WBEGIN) == JBLK)) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -225,7 +225,7 @@
             } else {
 
                // Decide whether dqds or bisection is more efficient
-               USEDQD = ( (MB .GT. FAC*IN) && (.NOT.FORCEB) )
+               USEDQD = ( (MB > FAC*IN) && (.NOT.FORCEB) )
                WEND = WBEGIN + MB - 1
                // Calculate gaps for the current block
                // In later stages, when representations for individual
@@ -299,7 +299,7 @@
          }
 
          // Compute the negcount at the 1/4 and 3/4 points
-         if (MB.GT.1) {
+         if (MB > 1) {
             slarrc('T', IN, S1, S2, D(IBEGIN), E(IBEGIN), PIVMIN, CNT, CNT1, CNT2, IINFO);
          }
 
@@ -346,7 +346,7 @@
             TAU = SPDIAM*EPS*N + TWO*PIVMIN
             TAU = MAX( TAU,TWO*EPS*ABS(SIGMA) )
          } else {
-            if (MB.GT.1) {
+            if (MB > 1) {
                CLWDTH = W(WEND) + WERR(WEND) - W(WBEGIN) - WERR(WBEGIN)
                AVGAP = ABS(CLWDTH / REAL(WEND-WBEGIN))
                if ( SGNDEF == ONE ) {
@@ -379,7 +379,7 @@
                J = J + 1
             } // 70
             // check for element growth
-            if ( DMAX .GT. MAXGROWTH*SPDIAM ) {
+            if ( DMAX > MAXGROWTH*SPDIAM ) {
                NOREP = true;
             } else {
                NOREP = false;
@@ -427,7 +427,7 @@
          scopy(IN-1, WORK( IN+1 ), 1, E( IBEGIN ), 1 );
 
 
-         if (MB.GT.1 ) {
+         if (MB > 1 ) {
 
             // Perturb each entry of the base representation by a small
             // (but random) relative amount to overcome difficulties with
@@ -518,7 +518,7 @@
                   }
                } // 149
             }
-            if ( SGNDEF.GT.ZERO ) {
+            if ( SGNDEF > ZERO ) {
                for (I = INDL; I <= INDU; I++) { // 150
                   M = M + 1
                   W( M ) = WORK( IN-I+1 )

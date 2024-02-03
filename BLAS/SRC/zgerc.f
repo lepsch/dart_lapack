@@ -55,7 +55,7 @@
       // Start the operations. In this version the elements of A are
       // accessed sequentially with one pass through A.
 
-      if (INCY.GT.0) {
+      if (INCY > 0) {
           JY = 1
       } else {
           JY = 1 - (N-1)*INCY
@@ -71,7 +71,7 @@
               JY = JY + INCY
           } // 20
       } else {
-          if (INCX.GT.0) {
+          if (INCX > 0) {
               KX = 1
           } else {
               KX = 1 - (M-1)*INCX

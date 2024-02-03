@@ -81,7 +81,7 @@
          SCALE = ZERO
          SUM = ONE
          classq(N, D, 1, SCALE, SUM );
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             classq(N-1, DL, 1, SCALE, SUM );
             classq(N-1, DU, 1, SCALE, SUM );
          }

@@ -97,7 +97,7 @@
       // Compute the QR factorization of fixed columns and update
       // remaining columns.
 
-      if ( NFXD.GT.0 ) {
+      if ( NFXD > 0 ) {
          NA = MIN( M, NFXD )
 *CC      CALL DGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
          dgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
@@ -125,7 +125,7 @@
          NBMIN = 2
          NX = 0
 
-         if ( ( NB.GT.1 ) && ( NB < SMINMN ) ) {
+         if ( ( NB > 1 ) && ( NB < SMINMN ) ) {
 
             // Determine when to cross over from blocked to unblocked code.
 

@@ -115,8 +115,8 @@
                   INFO = 1
                }
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
-               if ( DA11 < ONE && DB.GT.ONE ) {
-                  if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
+               if ( DA11 < ONE && DB > ONE ) {
+                  if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
 
@@ -161,8 +161,8 @@
                   INFO = 1
                }
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
-               if ( DA11 < ONE && DB.GT.ONE ) {
-                  if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
+               if ( DA11 < ONE && DB > ONE ) {
+                  if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
@@ -211,8 +211,8 @@
                   INFO = 1
                }
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
-               if ( DA11 < ONE && DB.GT.ONE ) {
-                  if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
+               if ( DA11 < ONE && DB > ONE ) {
+                  if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
@@ -257,8 +257,8 @@
                   INFO = 1
                }
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
-               if ( DA11 < ONE && DB.GT.ONE ) {
-                  if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
+               if ( DA11 < ONE && DB > ONE ) {
+                  if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )

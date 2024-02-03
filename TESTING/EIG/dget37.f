@@ -167,21 +167,21 @@
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          if (TNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 90
-            if ( V.GT.SEPTMP( I ) ) {
+            if ( V > SEPTMP( I ) ) {
                TOL = ONE
             } else {
                TOL = V / SEPTMP( I )
             }
-            if ( V.GT.SEPIN( I ) ) {
+            if ( V > SEPIN( I ) ) {
                TOLIN = ONE
             } else {
                TOLIN = V / SEPIN( I )
             }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            if ( EPS*( SIN( I )-TOLIN ).GT.STMP( I )+TOL ) {
+            if ( EPS*( SIN( I )-TOLIN ) > STMP( I )+TOL ) {
                VMAX = ONE / EPS
-            } else if ( SIN( I )-TOLIN.GT.STMP( I )+TOL ) {
+            } else if ( SIN( I )-TOLIN > STMP( I )+TOL ) {
                VMAX = ( SIN( I )-TOLIN ) / ( STMP( I )+TOL )
             } else if ( SIN( I )+TOLIN < EPS*( STMP( I )-TOL ) ) {
                VMAX = ONE / EPS
@@ -190,7 +190,7 @@
             } else {
                VMAX = ONE
             }
-            if ( VMAX.GT.RMAX( 2 ) ) {
+            if ( VMAX > RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
             }
@@ -200,21 +200,21 @@
          // taking their condition numbers into account
 
          for (I = 1; I <= N; I++) { // 100
-            if ( V.GT.SEPTMP( I )*STMP( I ) ) {
+            if ( V > SEPTMP( I )*STMP( I ) ) {
                TOL = SEPTMP( I )
             } else {
                TOL = V / STMP( I )
             }
-            if ( V.GT.SEPIN( I )*SIN( I ) ) {
+            if ( V > SEPIN( I )*SIN( I ) ) {
                TOLIN = SEPIN( I )
             } else {
                TOLIN = V / SIN( I )
             }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            if ( EPS*( SEPIN( I )-TOLIN ).GT.SEPTMP( I )+TOL ) {
+            if ( EPS*( SEPIN( I )-TOLIN ) > SEPTMP( I )+TOL ) {
                VMAX = ONE / EPS
-            } else if ( SEPIN( I )-TOLIN.GT.SEPTMP( I )+TOL ) {
+            } else if ( SEPIN( I )-TOLIN > SEPTMP( I )+TOL ) {
                VMAX = ( SEPIN( I )-TOLIN ) / ( SEPTMP( I )+TOL )
             } else if ( SEPIN( I )+TOLIN < EPS*( SEPTMP( I )-TOL ) ) {
                VMAX = ONE / EPS
@@ -223,7 +223,7 @@
             } else {
                VMAX = ONE
             }
-            if ( VMAX.GT.RMAX( 2 ) ) {
+            if ( VMAX > RMAX( 2 ) ) {
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
             }
@@ -235,9 +235,9 @@
          for (I = 1; I <= N; I++) { // 110
             if ( SIN( I ).LE.DBLE( 2*N )*EPS && STMP( I ).LE. DBLE( 2*N )*EPS ) {
                VMAX = ONE
-            } else if ( EPS*SIN( I ).GT.STMP( I ) ) {
+            } else if ( EPS*SIN( I ) > STMP( I ) ) {
                VMAX = ONE / EPS
-            } else if ( SIN( I ).GT.STMP( I ) ) {
+            } else if ( SIN( I ) > STMP( I ) ) {
                VMAX = SIN( I ) / STMP( I )
             } else if ( SIN( I ) < EPS*STMP( I ) ) {
                VMAX = ONE / EPS
@@ -246,7 +246,7 @@
             } else {
                VMAX = ONE
             }
-            if ( VMAX.GT.RMAX( 3 ) ) {
+            if ( VMAX > RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
             }
@@ -258,9 +258,9 @@
          for (I = 1; I <= N; I++) { // 120
             if ( SEPIN( I ).LE.V && SEPTMP( I ).LE.V ) {
                VMAX = ONE
-            } else if ( EPS*SEPIN( I ).GT.SEPTMP( I ) ) {
+            } else if ( EPS*SEPIN( I ) > SEPTMP( I ) ) {
                VMAX = ONE / EPS
-            } else if ( SEPIN( I ).GT.SEPTMP( I ) ) {
+            } else if ( SEPIN( I ) > SEPTMP( I ) ) {
                VMAX = SEPIN( I ) / SEPTMP( I )
             } else if ( SEPIN( I ) < EPS*SEPTMP( I ) ) {
                VMAX = ONE / EPS
@@ -269,7 +269,7 @@
             } else {
                VMAX = ONE
             }
-            if ( VMAX.GT.RMAX( 3 ) ) {
+            if ( VMAX > RMAX( 3 ) ) {
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
             }
@@ -349,7 +349,7 @@
          for (I = 1; I <= N; I++) { // 180
             IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( I ) ) VMAX = ONE / EPS
          } // 180
-         if ( VMAX.GT.RMAX( 1 ) ) {
+         if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
          }
@@ -442,7 +442,7 @@
             J = LCMP( I )
             IF( STMP( I ) != DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ) != SEP( J ) ) VMAX = ONE / EPS
          } // 230
-         if ( VMAX.GT.RMAX( 1 ) ) {
+         if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
          }

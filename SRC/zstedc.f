@@ -57,7 +57,7 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( ( LDZ < 1 ) || ( ICOMPZ.GT.0 && LDZ < MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < MAX( 1, N ) ) ) {
          INFO = -6
       }
 
@@ -179,7 +179,7 @@
             } // 40
             if ( FINISH < N ) {
                TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) )
-               if ( ABS( E( FINISH ) ).GT.TINY ) {
+               if ( ABS( E( FINISH ) ) > TINY ) {
                   FINISH = FINISH + 1
                   GO TO 40
                }
@@ -188,7 +188,7 @@
             // (Sub) Problem determined.  Compute its size and solve it.
 
             M = FINISH - START + 1
-            if ( M.GT.SMLSIZ ) {
+            if ( M > SMLSIZ ) {
 
                // Scale.
 
@@ -197,7 +197,7 @@
                dlascl('G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 
                zlaed0(N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO );
-               if ( INFO.GT.0 ) {
+               if ( INFO > 0 ) {
                   INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1
                   GO TO 70
                }
@@ -210,7 +210,7 @@
                dsteqr('I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO );
                zlacrm(N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) );
                zlacpy('A', N, M, WORK, N, Z( 1, START ), LDZ );
-               if ( INFO.GT.0 ) {
+               if ( INFO > 0 ) {
                   INFO = START*( N+1 ) + FINISH
                   GO TO 70
                }

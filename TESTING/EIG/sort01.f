@@ -58,7 +58,7 @@
       } else {
          LDWORK = 0
       }
-      if ( LDWORK.GT.0 ) {
+      if ( LDWORK > 0 ) {
 
          // Compute I - U*U' or I - U'*U.
 

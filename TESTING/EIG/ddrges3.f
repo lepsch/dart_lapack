@@ -183,7 +183,7 @@
             // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
             // RMAGN: used to implement KAMAGN and KBMAGN.
 
-            if (MTYPES.GT.MAXTYP) GO TO 110;
+            if (MTYPES > MAXTYP) GO TO 110;
             IINFO = 0
             if ( KCLASS( JTYPE ) < 3 ) {
 
@@ -197,7 +197,7 @@
                }
                dlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               if (IADD.GT.0 && IADD.LE.N) A( IADD, IADD ) = ONE;
+               if (IADD > 0 && IADD.LE.N) A( IADD, IADD ) = ONE;
 
                // Generate B (w/o rotation)
 
@@ -211,7 +211,7 @@
                IADD = KADD( KBZERO( JTYPE ) )
                if (IADD != 0 && IADD.LE.N) B( IADD, IADD ) = ONE;
 
-               if ( KCLASS( JTYPE ) == 2 && N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 && N > 0 ) {
 
                   // Include rotations
 
@@ -338,7 +338,7 @@
                            RESULT( 5+RSUB ) = ULPINV
                         }
                      }
-                     if ( J.GT.1 ) {
+                     if ( J > 1 ) {
                         if ( S( J, J-1 ) != ZERO ) {
                            ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
@@ -346,7 +346,7 @@
                      }
 
                   } else {
-                     if ( ALPHAI( J ).GT.ZERO ) {
+                     if ( ALPHAI( J ) > ZERO ) {
                         I1 = J
                      } else {
                         I1 = J - 1
@@ -358,7 +358,7 @@
                            ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV
                         }
-                     } else if ( I1.GT.1 ) {
+                     } else if ( I1 > 1 ) {
                         if ( S( I1, I1-1 ) != ZERO ) {
                            ILABAD = true;
                            RESULT( 5+RSUB ) = ULPINV

@@ -101,7 +101,7 @@
             } // 50
             IJ = IJ + 2
          } // 60
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
 
             // Generate Q(2:n,2:n)
 

@@ -56,9 +56,9 @@
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
-      } else if ( ILO < 1 || ILO.GT.MAX( 1, NQ ) ) {
+      } else if ( ILO < 1 || ILO > MAX( 1, NQ ) ) {
          INFO = -5
-      } else if ( IHI < MIN( ILO, NQ ) || IHI.GT.NQ ) {
+      } else if ( IHI < MIN( ILO, NQ ) || IHI > NQ ) {
          INFO = -6
       } else if ( LDA < MAX( 1, NQ ) ) {
          INFO = -8

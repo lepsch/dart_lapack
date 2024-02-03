@@ -64,12 +64,12 @@
 
       // Set up the start points in  X  and  Y.
 
-      if ( INCX.GT.0 ) {
+      if ( INCX > 0 ) {
          KX = 1
       } else {
          KX = 1 - ( N-1 )*INCX
       }
-      if ( INCY.GT.0 ) {
+      if ( INCY > 0 ) {
          KY = 1
       } else {
          KY = 1 - ( N-1 )*INCY
@@ -141,7 +141,7 @@
                Y( JY ) = Y( JY ) + TEMP1*A( KPLUS1, J ) + ALPHA*TEMP2
                JX = JX + INCX
                JY = JY + INCY
-               if ( J.GT.K ) {
+               if ( J > K ) {
                   KX = KX + INCX
                   KY = KY + INCY
                }

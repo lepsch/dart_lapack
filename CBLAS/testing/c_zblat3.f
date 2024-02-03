@@ -115,27 +115,27 @@ void main() {
 
       // Values of N
       READ( NIN, FMT = * )NIDIM
-      if ( NIDIM < 1 || NIDIM.GT.NIDMAX ) {
+      if ( NIDIM < 1 || NIDIM > NIDMAX ) {
          WRITE( NOUT, FMT = 9997 )'N', NIDMAX
          GO TO 220
       }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
       for (I = 1; I <= NIDIM; I++) { // 10
-         if ( IDIM( I ) < 0 || IDIM( I ).GT.NMAX ) {
+         if ( IDIM( I ) < 0 || IDIM( I ) > NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 220
          }
       } // 10
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
-      if ( NALF < 1 || NALF.GT.NALMAX ) {
+      if ( NALF < 1 || NALF > NALMAX ) {
          WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
          GO TO 220
       }
       READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
       // Values of BETA
       READ( NIN, FMT = * )NBET
-      if ( NBET < 1 || NBET.GT.NBEMAX ) {
+      if ( NBET < 1 || NBET > NBEMAX ) {
          WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
          GO TO 220
       }
@@ -420,7 +420,7 @@ void main() {
             LDC = M
             if (LDC < NMAX) LDC = LDC + 1;
             // Skip tests if not enough room.
-            if (LDC.GT.NMAX) GO TO 100;
+            if (LDC > NMAX) GO TO 100;
             LCC = LDC*N
             NULL = N.LE.0 || M.LE.0
 
@@ -442,7 +442,7 @@ void main() {
                   LDA = MA
                   if (LDA < NMAX) LDA = LDA + 1;
                   // Skip tests if not enough room.
-                  if (LDA.GT.NMAX) GO TO 80;
+                  if (LDA > NMAX) GO TO 80;
                   LAA = LDA*NA
 
                   // Generate the matrix A.
@@ -464,7 +464,7 @@ void main() {
                      LDB = MB
                      if (LDB < NMAX) LDB = LDB + 1;
                      // Skip tests if not enough room.
-                     if (LDB.GT.NMAX) GO TO 70;
+                     if (LDB > NMAX) GO TO 70;
                      LBB = LDB*NB
 
                      // Generate the matrix B.
@@ -708,14 +708,14 @@ void main() {
             LDC = M
             if (LDC < NMAX) LDC = LDC + 1;
             // Skip tests if not enough room.
-            if (LDC.GT.NMAX) GO TO 90;
+            if (LDC > NMAX) GO TO 90;
             LCC = LDC*N
             NULL = N.LE.0 || M.LE.0
             // Set LDB to 1 more than minimum value if room.
             LDB = M
             if (LDB < NMAX) LDB = LDB + 1;
             // Skip tests if not enough room.
-            if (LDB.GT.NMAX) GO TO 90;
+            if (LDB > NMAX) GO TO 90;
             LBB = LDB*N
 
             // Generate the matrix B.
@@ -735,7 +735,7 @@ void main() {
                LDA = NA
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               if (LDA.GT.NMAX) GO TO 80;
+               if (LDA > NMAX) GO TO 80;
                LAA = LDA*NA
 
                for (ICU = 1; ICU <= 2; ICU++) { // 70
@@ -988,7 +988,7 @@ void main() {
             LDB = M
             if (LDB < NMAX) LDB = LDB + 1;
             // Skip tests if not enough room.
-            if (LDB.GT.NMAX) GO TO 130;
+            if (LDB > NMAX) GO TO 130;
             LBB = LDB*N
             NULL = M.LE.0 || N.LE.0
 
@@ -1004,7 +1004,7 @@ void main() {
                LDA = NA
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               if (LDA.GT.NMAX) GO TO 130;
+               if (LDA > NMAX) GO TO 130;
                LAA = LDA*NA
 
                for (ICU = 1; ICU <= 2; ICU++) { // 110
@@ -1281,7 +1281,7 @@ void main() {
          LDC = N
          if (LDC < NMAX) LDC = LDC + 1;
          // Skip tests if not enough room.
-         if (LDC.GT.NMAX) GO TO 100;
+         if (LDC > NMAX) GO TO 100;
          LCC = LDC*N
 
          for (IK = 1; IK <= NIDIM; IK++) { // 90
@@ -1302,7 +1302,7 @@ void main() {
                LDA = MA
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               if (LDA.GT.NMAX) GO TO 80;
+               if (LDA > NMAX) GO TO 80;
                LAA = LDA*NA
 
                // Generate the matrix A.
@@ -1477,7 +1477,7 @@ void main() {
       GO TO 130
 
       } // 110
-      if (N.GT.1) WRITE( NOUT, FMT = 9995 )J;
+      if (N > 1) WRITE( NOUT, FMT = 9995 )J;
 
       } // 120
       WRITE( NOUT, FMT = 9996 )SNAME
@@ -1631,7 +1631,7 @@ void main() {
          LDC = N
          if (LDC < NMAX) LDC = LDC + 1;
          // Skip tests if not enough room.
-         if (LDC.GT.NMAX) GO TO 130;
+         if (LDC > NMAX) GO TO 130;
          LCC = LDC*N
 
          for (IK = 1; IK <= NIDIM; IK++) { // 120
@@ -1652,7 +1652,7 @@ void main() {
                LDA = MA
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               if (LDA.GT.NMAX) GO TO 110;
+               if (LDA > NMAX) GO TO 110;
                LAA = LDA*NA
 
                // Generate the matrix A.
@@ -1852,7 +1852,7 @@ void main() {
       GO TO 160
 
       } // 140
-      if (N.GT.1) WRITE( NOUT, FMT = 9995 )J;
+      if (N > 1) WRITE( NOUT, FMT = 9995 )J;
 
       } // 150
       WRITE( NOUT, FMT = 9996 )SNAME
@@ -2002,7 +2002,7 @@ void main() {
                A( I, J ) = ZBEG( RESET ) + TRANSL
                if ( I != J ) {
                   // Set some elements to zero
-                  if (N.GT.3 && J == N/2) A( I, J ) = ZERO;
+                  if (N > 3 && J == N/2) A( I, J ) = ZERO;
                   if ( HER ) {
                      A( J, I ) = DCONJG( A( I, J ) )
                   } else if ( SYM ) {
@@ -2219,7 +2219,7 @@ void main() {
             WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I )
          }
       } // 240
-      if (N.GT.1) WRITE( NOUT, FMT = 9997 )J;
+      if (N > 1) WRITE( NOUT, FMT = 9997 )J;
 
       } // 250
       RETURN

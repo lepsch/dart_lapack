@@ -75,7 +75,7 @@
       LDWRKX = M
       LDWRKY = N
 
-      if ( NB.GT.1 && NB < MINMN ) {
+      if ( NB > 1 && NB < MINMN ) {
 
          // Set the crossover point NX.
 

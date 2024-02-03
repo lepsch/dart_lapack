@@ -98,17 +98,17 @@
       MMAX = 0
       NSMAX = 0
       for (I = 1; I <= NM; I++) {
-         if ( MVAL( I ).GT.MMAX ) {
+         if ( MVAL( I ) > MMAX ) {
             MMAX = MVAL( I )
          }
       }
       for (I = 1; I <= NN; I++) {
-         if ( NVAL( I ).GT.NMAX ) {
+         if ( NVAL( I ) > NMAX ) {
             NMAX = NVAL( I )
          }
       }
       for (I = 1; I <= NNS; I++) {
-         if ( NSVAL( I ).GT.NSMAX ) {
+         if ( NSVAL( I ) > NSMAX ) {
             NSMAX = NSVAL( I )
          }
       }
@@ -233,7 +233,7 @@
 
                               // Set up a consistent rhs
 
-                              if ( NCOLS.GT.0 ) {
+                              if ( NCOLS > 0 ) {
                                  dlarnv(2, ISEED, NCOLS*NRHS, WORK );
                                  dscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
                               }
@@ -242,7 +242,7 @@
 
                               // Solve LS or overdetermined system
 
-                              if ( M.GT.0 && N.GT.0 ) {
+                              if ( M > 0 && N > 0 ) {
                                  dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
@@ -254,7 +254,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 && NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              if (NROWS > 0 && NRHS > 0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                               dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
@@ -321,7 +321,7 @@
 
                               // Set up a consistent rhs
 
-                              if ( NCOLS.GT.0 ) {
+                              if ( NCOLS > 0 ) {
                                  dlarnv(2, ISEED, NCOLS*NRHS, WORK );
                                  dscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
                               }
@@ -330,7 +330,7 @@
 
                               // Solve LS or overdetermined system
 
-                              if ( M.GT.0 && N.GT.0 ) {
+                              if ( M > 0 && N > 0 ) {
                                  dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
@@ -342,7 +342,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 && NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              if (NROWS > 0 && NRHS > 0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                               dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
@@ -416,7 +416,7 @@
 
                                  // Set up a consistent rhs
 
-                                 if ( NCOLS.GT.0 ) {
+                                 if ( NCOLS > 0 ) {
                                     dlarnv(2, ISEED, NCOLS*NRHS, WORK );
                                     dscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
                                  }
@@ -425,7 +425,7 @@
 
                                  // Solve LS or overdetermined system
 
-                                 if ( M.GT.0 && N.GT.0 ) {
+                                 if ( M > 0 && N > 0 ) {
                                     dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                     dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
@@ -437,7 +437,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 if (NROWS.GT.0 && NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                                 if (NROWS > 0 && NRHS > 0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                                  dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
@@ -525,14 +525,14 @@
                                  // workspace: NRHS*(M+N)
 
                         RESULT( 9 ) = ZERO
-                        if (M.GT.CRANK) RESULT( 9 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                        if (M > CRANK) RESULT( 9 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 10:  Check if x is in the rowspace of A
                                  // workspace: (M+NRHS)*(N+2)
 
                         RESULT( 10 ) = ZERO
 
-                        if (N.GT.CRANK) RESULT( 10 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                        if (N > CRANK) RESULT( 10 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Test DGELSS
 
@@ -550,7 +550,7 @@
 
                         // Test 11:  Compute relative error in svd
 
-                        if ( RANK.GT.0 ) {
+                        if ( RANK > 0 ) {
                            daxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
                            RESULT( 11 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
                         } else {
@@ -565,12 +565,12 @@
                         // Test 13:  Check norm of r'*A
 
                         RESULT( 13 ) = ZERO
-                        if (M.GT.CRANK) RESULT( 13 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                        if (M > CRANK) RESULT( 13 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 14:  Check if x is in the rowspace of A
 
                         RESULT( 14 ) = ZERO
-                        if (N.GT.CRANK) RESULT( 14 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                        if (N > CRANK) RESULT( 14 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Test DGELSD
 
@@ -592,7 +592,7 @@
 
                         // Test 15:  Compute relative error in svd
 
-                        if ( RANK.GT.0 ) {
+                        if ( RANK > 0 ) {
                            daxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
                            RESULT( 15 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
                         } else {
@@ -607,12 +607,12 @@
                         // Test 17:  Check norm of r'*A
 
                         RESULT( 17 ) = ZERO
-                        if (M.GT.CRANK) RESULT( 17 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
+                        if (M > CRANK) RESULT( 17 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 18:  Check if x is in the rowspace of A
 
                         RESULT( 18 ) = ZERO
-                        if (N.GT.CRANK) RESULT( 18 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
+                        if (N > CRANK) RESULT( 18 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Print information about the tests that did not
                         // pass the threshold.

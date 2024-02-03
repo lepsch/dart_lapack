@@ -203,9 +203,9 @@
          // we simply use one Newton step instead. This way
          // will guarantee eta*w < 0.
 
-         if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
+         if (W*ETA > ZERO) ETA = -W / ( DPSI+DPHI );
          TEMP = ETA - DTNSQ
-         if (TEMP.GT.RHO) ETA = RHO + DTNSQ;
+         if (TEMP > RHO) ETA = RHO + DTNSQ;
 
          ETA = ETA / ( SIGMA+SQRT( ETA+SIGMA*SIGMA ) )
          TAU = TAU + ETA
@@ -271,7 +271,7 @@
             // we simply use one Newton step instead. This way
             // will guarantee eta*w < 0.
 
-            if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
+            if (W*ETA > ZERO) ETA = -W / ( DPSI+DPHI );
             TEMP = ETA - DTNSQ
             if (TEMP.LE.ZERO) ETA = ETA / TWO;
 
@@ -347,7 +347,7 @@
          W = C + Z( I )*Z( I ) / ( WORK( I )*DELTA( I ) ) + Z( IP1 )*Z( IP1 ) / ( WORK( IP1 )*DELTA( IP1 ) )
 
          GEOMAVG = false;
-         if ( W.GT.ZERO ) {
+         if ( W > ZERO ) {
 
             // d(i)^2 < the ith sigma^2 < (d(i)^2+d(i+1)^2)/2
 
@@ -359,7 +359,7 @@
             SGUB = DELSQ2  / ( D( I )+SQ2 )
             A = C*DELSQ + Z( I )*Z( I ) + Z( IP1 )*Z( IP1 )
             B = Z( I )*Z( I )*DELSQ
-            if ( A.GT.ZERO ) {
+            if ( A > ZERO ) {
                TAU2 = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
             } else {
                TAU2 = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
@@ -371,7 +371,7 @@
 
             TAU = TAU2 / ( D( I )+SQRT( D( I )*D( I )+TAU2 ) )
             TEMP = SQRT(EPS)
-            if ( (D(I).LE.TEMP*D(IP1)) && (ABS(Z(I)).LE.TEMP) && (D(I).GT.ZERO) ) {
+            if ( (D(I).LE.TEMP*D(IP1)) && (ABS(Z(I)).LE.TEMP) && (D(I) > ZERO) ) {
                TAU = MIN( TEN*D(I), SGUB )
                GEOMAVG = true;
             }
@@ -441,7 +441,7 @@
          if ( ORGATI ) {
             if (W < ZERO) SWTCH3 = true ;
          } else {
-            if (W.GT.ZERO) SWTCH3 = true ;
+            if (W > ZERO) SWTCH3 = true ;
          }
          if (II == 1 || II == N) SWTCH3 = false ;
 
@@ -568,7 +568,7 @@
 
          ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
          TEMP = TAU + ETA
-         if ( TEMP.GT.SGUB || TEMP < SGLB ) {
+         if ( TEMP > SGUB || TEMP < SGLB ) {
             if ( W < ZERO ) {
                ETA = ( SGUB-TAU ) / TWO
             } else {
@@ -576,11 +576,11 @@
             }
             if ( GEOMAVG ) {
                if ( W < ZERO ) {
-                  if ( TAU .GT. ZERO ) {
+                  if ( TAU > ZERO ) {
                      ETA = SQRT(SGUB*TAU)-TAU
                   }
                } else {
-                  if ( SGLB .GT. ZERO ) {
+                  if ( SGLB > ZERO ) {
                      ETA = SQRT(SGLB*TAU)-TAU
                   }
                }
@@ -631,9 +631,9 @@
 
          SWTCH = false;
          if ( ORGATI ) {
-            IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = true;
+            IF( -W > ABS( PREW ) / TEN ) SWTCH = true;
          } else {
-            IF( W.GT.ABS( PREW ) / TEN ) SWTCH = true;
+            IF( W > ABS( PREW ) / TEN ) SWTCH = true;
          }
 
          // Main loop to update the values of the array   DELTA and WORK
@@ -793,7 +793,7 @@
 
             ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
             TEMP=TAU+ETA
-            if ( TEMP.GT.SGUB || TEMP < SGLB ) {
+            if ( TEMP > SGUB || TEMP < SGLB ) {
                if ( W < ZERO ) {
                   ETA = ( SGUB-TAU ) / TWO
                } else {
@@ -801,11 +801,11 @@
                }
                if ( GEOMAVG ) {
                   if ( W < ZERO ) {
-                     if ( TAU .GT. ZERO ) {
+                     if ( TAU > ZERO ) {
                         ETA = SQRT(SGUB*TAU)-TAU
                      }
                   } else {
-                     if ( SGLB .GT. ZERO ) {
+                     if ( SGLB > ZERO ) {
                         ETA = SQRT(SGLB*TAU)-TAU
                      }
                   }
@@ -854,7 +854,7 @@
             ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP )
 *    $             + ABS( TAU2 )*DW
 
-            IF( W*PREW.GT.ZERO && ABS( W ).GT.ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
+            IF( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
 
          } // 230
 

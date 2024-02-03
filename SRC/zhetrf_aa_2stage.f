@@ -143,14 +143,14 @@
             // Compute T(J,J)
 
             zlacpy('Upper', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                // T(J,J) = U(1:J,J)'*H(1:J)
                zgemm('Conjugate transpose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( 1, J*NB+1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += U(J,J)'*T(J,J-1)*U(J-1,J)
                zgemm('Conjugate transpose', 'NoTranspose', KB, NB, KB, ONE,  A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N );
                zgemm('NoTranspose', 'NoTranspose', KB, KB, NB, -ONE, WORK( 1 ), N, A( (J-2)*NB+1, J*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
-            if ( J.GT.0 ) {
+            if ( J > 0 ) {
                zhegst(1, 'Upper', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, IINFO );
             }
 
@@ -164,7 +164,7 @@
             }
 
             if ( J < NT-1 ) {
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
 
                   // Compute H(J,J)
 
@@ -210,7 +210,7 @@
                KB = MIN(NB, N-(J+1)*NB)
                zlaset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB) , LDTB-1 );
                zlacpy('Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
                   ztrsm('R', 'U', 'N', 'U', KB, NB, ONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
@@ -236,7 +236,7 @@
                      // > Apply pivots to previous columns of L
                      zswap(K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
-                     if ( I2.GT.(I1+1) ) {
+                     if ( I2 > (I1+1) ) {
                         zswap(I2-I1-1, A( I1, I1+1 ), LDA, A( I1+1, I2 ), 1 );
                         zlacgv(I2-I1-1, A( I1+1, I2 ), 1 );
                      }
@@ -248,7 +248,7 @@
                      A( I1, I1 ) = A( I2, I2 )
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
-                     if ( J.GT.0 ) {
+                     if ( J > 0 ) {
                         zswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                      }
                   }
@@ -289,14 +289,14 @@
             // Compute T(J,J)
 
             zlacpy('Lower', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                // T(J,J) = L(J,1:J)*H(1:J)
                zgemm('NoTranspose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( J*NB+1, 1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += L(J,J)*T(J,J-1)*L(J,J-1)'
                zgemm('NoTranspose', 'NoTranspose', KB, NB, KB, ONE,  A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N );
                zgemm('NoTranspose', 'Conjugate transpose', KB, KB, NB, -ONE, WORK( 1 ), N, A( J*NB+1, (J-2)*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
-            if ( J.GT.0 ) {
+            if ( J > 0 ) {
                zhegst(1, 'Lower', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, IINFO );
             }
 
@@ -310,7 +310,7 @@
             }
 
             if ( J < NT-1 ) {
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
 
                   // Compute H(J,J)
 
@@ -337,7 +337,7 @@
                KB = MIN(NB, N-(J+1)*NB)
                zlaset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB) , LDTB-1 );
                zlacpy('Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
                   ztrsm('R', 'L', 'C', 'U', KB, NB, ONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
@@ -363,7 +363,7 @@
                      // > Apply pivots to previous columns of L
                      zswap(K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
-                     if ( I2.GT.(I1+1) ) {
+                     if ( I2 > (I1+1) ) {
                         zswap(I2-I1-1, A( I1+1, I1 ), 1, A( I2, I1+1 ), LDA );
                         zlacgv(I2-I1-1, A( I2, I1+1 ), LDA );
                      }
@@ -375,7 +375,7 @@
                      A( I1, I1 ) = A( I2, I2 )
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
-                     if ( J.GT.0 ) {
+                     if ( J > 0 ) {
                         zswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                      }
                   }

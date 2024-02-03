@@ -44,7 +44,7 @@
       WANTB = LSAME( VECT, 'B' )
       WANTQ = LSAME( VECT, 'Q' ) || WANTB
       WANTPT = LSAME( VECT, 'P' ) || WANTB
-      WANTC = NCC.GT.0
+      WANTC = NCC > 0
       KLU1 = KL + KU + 1
       INFO = 0
       if ( .NOT.WANTQ && .NOT.WANTPT && .NOT.LSAME( VECT, 'N' ) ) {
@@ -83,13 +83,13 @@
 
       MINMN = MIN( M, N )
 
-      if ( KL+KU.GT.1 ) {
+      if ( KL+KU > 1 ) {
 
          // Reduce to upper bidiagonal form if KU > 0; if KU = 0, reduce
          // first to lower bidiagonal form and then transform to upper
          // bidiagonal
 
-         if ( KU.GT.0 ) {
+         if ( KU > 0 ) {
             ML0 = 1
             MU0 = 2
          } else {
@@ -125,20 +125,20 @@
                // generate plane rotations to annihilate nonzero elements
                // which have been created below the band
 
-               if (NR.GT.0) CALL ZLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, RWORK( J1 ), KB1 );
+               if (NR > 0) CALL ZLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, RWORK( J1 ), KB1 );
 
                // apply plane rotations from the left
 
                for (L = 1; L <= KB; L++) { // 10
-                  if ( J2-KLM+L-1.GT.N ) {
+                  if ( J2-KLM+L-1 > N ) {
                      NRT = NR - 1
                   } else {
                      NRT = NR
                   }
-                  if (NRT.GT.0) CALL ZLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, RWORK( J1 ), WORK( J1 ), KB1 );
+                  if (NRT > 0) CALL ZLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, RWORK( J1 ), WORK( J1 ), KB1 );
                } // 10
 
-               if ( ML.GT.ML0 ) {
+               if ( ML > ML0 ) {
                   if ( ML.LE.M-I+1 ) {
 
                      // generate plane rotation to annihilate a(i+ml-1,i)
@@ -170,7 +170,7 @@
                   } // 30
                }
 
-               if ( J2+KUN.GT.N ) {
+               if ( J2+KUN > N ) {
 
                   // adjust J2 to keep within the bounds of the matrix
 
@@ -190,20 +190,20 @@
                // generate plane rotations to annihilate nonzero elements
                // which have been generated above the band
 
-               if (NR.GT.0) CALL ZLARGV( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, RWORK( J1+KUN ), KB1 );
+               if (NR > 0) CALL ZLARGV( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, RWORK( J1+KUN ), KB1 );
 
                // apply plane rotations from the right
 
                for (L = 1; L <= KB; L++) { // 50
-                  if ( J2+L-1.GT.M ) {
+                  if ( J2+L-1 > M ) {
                      NRT = NR - 1
                   } else {
                      NRT = NR
                   }
-                  if (NRT.GT.0) CALL ZLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 );
+                  if (NRT > 0) CALL ZLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 );
                } // 50
 
-               if ( ML == ML0 && MU.GT.MU0 ) {
+               if ( ML == ML0 && MU > MU0 ) {
                   if ( MU.LE.N-I+1 ) {
 
                      // generate plane rotation to annihilate a(i,i+mu-1)
@@ -226,7 +226,7 @@
                   } // 60
                }
 
-               if ( J2+KB.GT.M ) {
+               if ( J2+KB > M ) {
 
                   // adjust J2 to keep within the bounds of the matrix
 
@@ -243,7 +243,7 @@
                   AB( KLU1, J+KUN ) = RWORK( J+KUN )*AB( KLU1, J+KUN )
                } // 70
 
-               if ( ML.GT.ML0 ) {
+               if ( ML > ML0 ) {
                   ML = ML - 1
                } else {
                   MU = MU - 1
@@ -252,7 +252,7 @@
          } // 90
       }
 
-      if ( KU == 0 && KL.GT.0 ) {
+      if ( KU == 0 && KL > 0 ) {
 
          // A has been reduced to complex lower bidiagonal form
 
@@ -274,7 +274,7 @@
          // A has been reduced to complex upper bidiagonal form or is
          // diagonal
 
-         if ( KU.GT.0 && M < N ) {
+         if ( KU > 0 && M < N ) {
 
             // Annihilate a(m,m+1) by applying plane rotations from the
             // right
@@ -283,7 +283,7 @@
             DO 110 I = M, 1, -1
                zlartg(AB( KU+1, I ), RB, RC, RS, RA );
                AB( KU+1, I ) = RA
-               if ( I.GT.1 ) {
+               if ( I > 1 ) {
                   RB = -DCONJG( RS )*AB( KU, I )
                   AB( KU, I ) = RC*AB( KU, I )
                }

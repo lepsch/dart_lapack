@@ -31,7 +31,7 @@
 
       // Invalid value for ISPEC
 
-      if ( (ISPEC < 17) || (ISPEC.GT.21) ) {
+      if ( (ISPEC < 17) || (ISPEC > 21) ) {
           IPARAM2STAGE = -1
           RETURN
       }
@@ -114,7 +114,7 @@
       // Could be also dependent from N but for now it
       // depend only on sequential or parallel
 
-         if ( NTHREADS.GT.4 ) {
+         if ( NTHREADS > 4 ) {
             if ( CPREC ) {
                KD = 128
                IB = 32
@@ -122,7 +122,7 @@
                KD = 160
                IB = 40
             }
-         } else if ( NTHREADS.GT.1 ) {
+         } else if ( NTHREADS > 1 ) {
             if ( CPREC ) {
                KD = 64
                IB = 32
@@ -204,7 +204,7 @@
          }
          LWORK = MAX ( 1, LWORK )
 
-         if ( LWORK.GT.0 ) {
+         if ( LWORK > 0 ) {
             IPARAM2STAGE = LWORK
          } else {
             IPARAM2STAGE = -1

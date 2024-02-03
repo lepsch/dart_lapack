@@ -76,13 +76,13 @@
            INFO = -203
            xerbla('SLASQ2', 2 );
            RETURN
-         } else if ( Z( 3 ).GT.Z( 1 ) ) {
+         } else if ( Z( 3 ) > Z( 1 ) ) {
             D = Z( 3 )
             Z( 3 ) = Z( 1 )
             Z( 1 ) = D
          }
          Z( 5 ) = Z( 1 ) + Z( 2 ) + Z( 3 )
-         if ( Z( 2 ).GT.Z( 3 )*TOL2 ) {
+         if ( Z( 2 ) > Z( 3 )*TOL2 ) {
             T = HALF*( ( Z( 1 )-Z( 3 ) )+Z( 2 ) )
             S = Z( 3 )*( Z( 2 ) / T )
             if ( S.LE.T ) {
@@ -277,7 +277,7 @@
          // EMIN. Find Gershgorin-type bound if Q's much greater than E's.
 
          EMAX = ZERO
-         if ( N0.GT.I0 ) {
+         if ( N0 > I0 ) {
             EMIN = ABS( Z( 4*N0-5 ) )
          } else {
             EMIN = ZERO
@@ -299,7 +299,7 @@
          I0 = I4 / 4
          PP = 0
 
-         if ( N0-I0.GT.1 ) {
+         if ( N0-I0 > 1 ) {
             DEE = Z( 4*I0-3 )
             DEEMIN = DEE
             KMIN = I0
@@ -342,7 +342,7 @@
 
          NBIG = 100*( N0-I0+1 )
          for (IWHILB = 1; IWHILB <= NBIG; IWHILB++) { // 140
-            if (I0.GT.N0) GO TO 150;
+            if (I0 > N0) GO TO 150;
 
             // While submatrix unfinished take a good dqds step.
 
@@ -399,7 +399,7 @@
 
          // Prepare to do this on the previous block if there is one
 
-         if ( I1.GT.1 ) {
+         if ( I1 > 1 ) {
             N1 = I1-1
             DO WHILE( ( I1.GE.2 ) && ( Z(4*I1-5).GE.ZERO ) )
                I1 = I1 - 1

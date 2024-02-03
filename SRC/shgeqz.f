@@ -93,7 +93,7 @@
          INFO = -4
       } else if ( ILO < 1 ) {
          INFO = -5
-      } else if ( IHI.GT.N || IHI < ILO-1 ) {
+      } else if ( IHI > N || IHI < ILO-1 ) {
          INFO = -6
       } else if ( LDH < N ) {
          INFO = -8
@@ -360,7 +360,7 @@
          ESHIFT = ZERO
          if ( .NOT.ILSCHR ) {
             ILASTM = ILAST
-            if (IFRSTM.GT.ILAST) IFRSTM = ILO;
+            if (IFRSTM > ILAST) IFRSTM = ILO;
          }
          GO TO 350
 
@@ -401,7 +401,7 @@
 
             slag2(H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, S2, WR, WR2, WI );
 
-            if ( ABS( (WR/S1)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) .GT. ABS( (WR2/S2)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) ) {
+            if ( ABS( (WR/S1)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) > ABS( (WR2/S2)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) ) {
                TEMP = WR
                WR = WR2
                WR2 = TEMP
@@ -416,14 +416,14 @@
          // Fiddle with shift to avoid overflow
 
          TEMP = MIN( ASCALE, ONE )*( HALF*SAFMAX )
-         if ( S1.GT.TEMP ) {
+         if ( S1 > TEMP ) {
             SCALE = TEMP / S1
          } else {
             SCALE = ONE
          }
 
          TEMP = MIN( BSCALE, ONE )*( HALF*SAFMAX )
-         IF( ABS( WR ).GT.TEMP ) SCALE = MIN( SCALE, TEMP / ABS( WR ) )
+         IF( ABS( WR ) > TEMP ) SCALE = MIN( SCALE, TEMP / ABS( WR ) )
          S1 = SCALE*S1
          WR = SCALE*WR
 
@@ -455,7 +455,7 @@
          // Sweep
 
          for (J = ISTART; J <= ILAST - 1; J++) { // 190
-            if ( J.GT.ISTART ) {
+            if ( J > ISTART ) {
                TEMP = H( J, J-1 )
                slartg(TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
                H( J+1, J-1 ) = ZERO
@@ -589,7 +589,7 @@
             C22R = S1*A22 - WR*B22
             C22I = -WI*B22
 
-            if ( ABS( C11R )+ABS( C11I )+ABS( C12 ).GT.ABS( C21 )+ ABS( C22R )+ABS( C22I ) ) {
+            if ( ABS( C11R )+ABS( C11I )+ABS( C12 ) > ABS( C21 )+ ABS( C22R )+ABS( C22I ) ) {
                T1 = SLAPY3( C12, C11R, C11I )
                CZ = C12 / T1
                SZR = -C11R / T1
@@ -619,7 +619,7 @@
             AN = ABS( A11 ) + ABS( A12 ) + ABS( A21 ) + ABS( A22 )
             BN = ABS( B11 ) + ABS( B22 )
             WABS = ABS( WR ) + ABS( WI )
-            if ( S1*AN.GT.WABS*BN ) {
+            if ( S1*AN > WABS*BN ) {
                CQ = CZ*B11
                SQR = SZR*B22
                SQI = -SZI*B22
@@ -676,7 +676,7 @@
             ESHIFT = ZERO
             if ( .NOT.ILSCHR ) {
                ILASTM = ILAST
-               if (IFRSTM.GT.ILAST) IFRSTM = ILO;
+               if (IFRSTM > ILAST) IFRSTM = ILO;
             }
             GO TO 350
          } else {
@@ -714,7 +714,7 @@
 
                // Zero (j-1)st column of A
 
-               if ( J.GT.ISTART ) {
+               if ( J > ISTART ) {
                   V( 1 ) = H( J, J-1 )
                   V( 2 ) = H( J+1, J-1 )
                   V( 3 ) = H( J+2, J-1 )
@@ -776,7 +776,7 @@
 
                // Swap columns if nec.
 
-               if ( ABS( W12 ).GT.ABS( W11 ) ) {
+               if ( ABS( W12 ) > ABS( W11 ) ) {
                   ILPIVT = true;
                   TEMP = W12
                   TEMP2 = W22

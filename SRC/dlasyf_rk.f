@@ -91,7 +91,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             IMAX = IDAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = ABS( W( IMAX, KW ) )
          } else {
@@ -108,7 +108,7 @@
 
             // Set E( K ) to zero
 
-            if (K.GT.1) E( K ) = ZERO;
+            if (K > 1) E( K ) = ZERO;
 
          } else {
 
@@ -154,10 +154,10 @@
                      ROWMAX = ZERO
                   }
 
-                  if ( IMAX.GT.1 ) {
+                  if ( IMAX > 1 ) {
                      ITEMP = IDAMAX( IMAX-1, W( 1, KW-1 ), 1 )
                      DTEMP = ABS( W( ITEMP, KW-1 ) )
-                     if ( DTEMP.GT.ROWMAX ) {
+                     if ( DTEMP > ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
                      }
@@ -261,7 +261,7 @@
                // Store U(k) in column k of A
 
                dcopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
-               if ( K.GT.1 ) {
+               if ( K > 1 ) {
                   if ( ABS( A( K, K ) ).GE.SFMIN ) {
                      R1 = ONE / A( K, K )
                      dscal(K-1, R1, A( 1, K ), 1 );
@@ -287,7 +287,7 @@
                // where U(k) and U(k-1) are the k-th and (k-1)-th columns
                // of U
 
-               if ( K.GT.2 ) {
+               if ( K > 2 ) {
 
                   // Store U(k) and U(k-1) in columns k and k-1 of A
 
@@ -373,7 +373,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB < N ) || K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB < N ) || K > N ) GO TO 90
 
          KSTEP = 1
          P = K
@@ -381,7 +381,7 @@
          // Copy column K of A to column K of W and update it
 
          dcopy(N-K+1, A( K, K ), 1, W( K, K ), 1 );
-         if (K.GT.1) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( K, 1 ), LDW, ONE, W( K, K ), 1 );
+         if (K > 1) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( K, 1 ), LDW, ONE, W( K, K ), 1 );
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
@@ -440,7 +440,7 @@
                   // Copy column IMAX to column K+1 of W and update it
 
                   dcopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1);
-                  dcopy(N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                   IF( K.GT.1 ) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, ONE, W( K, K+1 ), 1 );
+                  dcopy(N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                   IF( K > 1 ) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, ONE, W( K, K+1 ), 1 );
 
                   // JMAX is the column-index of the largest off-diagonal
                   // element in row IMAX, and ROWMAX is its absolute value.
@@ -456,7 +456,7 @@
                   if ( IMAX < N ) {
                      ITEMP = IMAX + IDAMAX( N-IMAX, W( IMAX+1, K+1 ), 1)
                      DTEMP = ABS( W( ITEMP, K+1 ) )
-                     if ( DTEMP.GT.ROWMAX ) {
+                     if ( DTEMP > ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
                      }

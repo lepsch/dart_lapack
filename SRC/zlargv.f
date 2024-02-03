@@ -119,7 +119,7 @@
             CS = F2S / G2S
             // Make sure abs(FF) = 1
             // Do complex/real division explicitly with 2 real divisions
-            if ( ABS1( F ).GT.ONE ) {
+            if ( ABS1( F ) > ONE ) {
                D = DLAPY2( DBLE( F ), DIMAG( F ) )
                FF = DCMPLX( DBLE( F ) / D, DIMAG( F ) / D )
             } else {
@@ -146,7 +146,7 @@
             SN = DCMPLX( DBLE( R ) / D, DIMAG( R ) / D )
             SN = SN*DCONJG( GS )
             if ( COUNT != 0 ) {
-               if ( COUNT.GT.0 ) {
+               if ( COUNT > 0 ) {
                   for (J = 1; J <= COUNT; J++) { // 30
                      R = R*SAFMX2
                   } // 30

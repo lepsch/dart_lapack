@@ -79,7 +79,7 @@
       } // 10
 
       ZUSEDL = 1
-      if (DOL.GT.1) {
+      if (DOL > 1) {
          // Set lower bound for use of Z
          ZUSEDL = DOL-1
       }
@@ -134,7 +134,7 @@
          if ( WEND < WBEGIN ) {
             IBEGIN = IEND + 1
             GO TO 170
-         } else if ( (WEND < DOL) || (WBEGIN.GT.DOU) ) {
+         } else if ( (WEND < DOL) || (WBEGIN > DOU) ) {
             IBEGIN = IEND + 1
             WBEGIN = WEND + 1
             GO TO 170
@@ -203,7 +203,7 @@
          } // 40
          if ( IDONE < IM ) {
             // This is a crude protection against infinitely deep trees
-            if ( NDEPTH.GT.M ) {
+            if ( NDEPTH > M ) {
                INFO = -2
                RETURN
             }
@@ -229,7 +229,7 @@
                                 // to WBEGIN when accessing W, WGAP, WERR, Z
                OLDFST = IWORK( J-1 )
                OLDLST = IWORK( J )
-               if ( NDEPTH.GT.0 ) {
+               if ( NDEPTH > 0 ) {
                   // Retrieve relatively robust representation (RRR) of cluster
                   // that has been computed at the previous level
                   // The RRR is stored in Z and overwritten once the eigenvectors
@@ -243,7 +243,7 @@
                      if (WBEGIN+OLDFST-1 < DOL) {
                         // Get representation from the left end of Z array
                         J = DOL - 1
-                     } else if (WBEGIN+OLDFST-1.GT.DOU) {
+                     } else if (WBEGIN+OLDFST-1 > DOU) {
                         // Get representation from the right end of Z array
                         J = DOU
                      } else {
@@ -267,7 +267,7 @@
                   WORK( INDLLD-1+J ) = TMP*L( J )
                } // 50
 
-               if ( NDEPTH.GT.0 ) {
+               if ( NDEPTH > 0 ) {
                   // P and Q are index of the first and last eigenvalue to compute
                   // within the current block
                   P = INDEXW( WBEGIN-1+OLDFST )
@@ -290,7 +290,7 @@
                   // WBEGIN-1+OLDLST are correctly computed in SLARRB.
                   // However, we only allow the gaps to become greater since
                   // this is what should happen when we decrease WERR
-                  if ( OLDFST.GT.1) {
+                  if ( OLDFST > 1) {
                      WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) )
                   }
                   if ( WBEGIN + OLDLST -1 < WEND ) {
@@ -333,7 +333,7 @@
                      if (WBEGIN+NEWFST-1 < DOL) {
                         // Store representation at the left end of Z array
                         NEWFTT = DOL - 1
-                     } else if (WBEGIN+NEWFST-1.GT.DOU) {
+                     } else if (WBEGIN+NEWFST-1 > DOU) {
                         // Store representation at the right end of Z array
                         NEWFTT = DOU
                      } else {
@@ -341,7 +341,7 @@
                      }
                   }
 
-                  if ( NEWSIZ.GT.1) {
+                  if ( NEWSIZ > 1) {
 
                      // Current child is not a singleton but a cluster.
                      // Compute and store new representation of child.
@@ -378,7 +378,7 @@
                         slarrb(IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
                      } // 55
 
-                     if ((WBEGIN+NEWLST-1 < DOL) || (WBEGIN+NEWFST-1.GT.DOU)) {
+                     if ((WBEGIN+NEWLST-1 < DOL) || (WBEGIN+NEWFST-1 > DOU)) {
                         // if the cluster contains no desired eigenvalues
                         // skip the computation of that branch of the rep. tree
 
@@ -445,7 +445,7 @@
                      LAMBDA = WORK( WINDEX )
                      DONE = DONE + 1
                      // Check if eigenvector computation is to be skipped
-                     if ((WINDEX < DOL) || (WINDEX.GT.DOU)) {
+                     if ((WINDEX < DOL) || (WINDEX > DOU)) {
                         ESKIP = true;
                         GOTO 125
                      } else {
@@ -549,7 +549,7 @@
                      // Convergence test for Rayleigh-Quotient iteration
                      // (omitted when Bisection has been used)
 
-                     if ( RESID.GT.TOL*GAP && ABS( RQCORR ).GT. RQTOL*ABS( LAMBDA ) && .NOT. USEDBS) {
+                     if ( RESID > TOL*GAP && ABS( RQCORR ) > RQTOL*ABS( LAMBDA ) && .NOT. USEDBS) {
                         // We need to check that the RQCORR update doesn't
                         // move the eigenvalue away from the desired one and
                         // towards a neighbor. -> protection with bisection
@@ -633,7 +633,7 @@
                            Z( II, WINDEX ) = ZERO
                         } // 122
                      }
-                     if (ISUPMX.GT.ZTO) {
+                     if (ISUPMX > ZTO) {
                         for (II = ZTO+1; II <= ISUPMX; II++) { // 123
                            Z( II, WINDEX ) = ZERO
                         } // 123
@@ -649,7 +649,7 @@
                      // where the initial gaps are underestimated due
                      // to WERR being too crude.)
                      if (.NOT.ESKIP) {
-                        if ( K.GT.1) {
+                        if ( K > 1) {
                            WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) )
                         }
                         if ( WINDEX < WEND ) {

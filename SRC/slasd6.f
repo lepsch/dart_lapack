@@ -37,13 +37,13 @@
       N = NL + NR + 1
       M = N + SQRE
 
-      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ > 1 ) ) {
          INFO = -1
       } else if ( NL < 1 ) {
          INFO = -2
       } else if ( NR < 1 ) {
          INFO = -3
-      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
          INFO = -4
       } else if ( LDGCOL < N ) {
          INFO = -14
@@ -73,7 +73,7 @@
       ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) )
       D( NL+1 ) = ZERO
       for (I = 1; I <= N; I++) { // 10
-         if ( ABS( D( I ) ).GT.ORGNRM ) {
+         if ( ABS( D( I ) ) > ORGNRM ) {
             ORGNRM = ABS( D( I ) )
          }
       } // 10

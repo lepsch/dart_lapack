@@ -89,7 +89,7 @@
               J2 = MIN( ED+NB, N )
               LN = ED-ST+1
               LM = J2-J1+1
-              if ( LM.GT.0) {
+              if ( LM > 0) {
                   clarfx('Left', LN, LM, V( VPOS ), CONJG( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK);
 
                   if ( WANTZ ) {
@@ -154,7 +154,7 @@
               LN = ED-ST+1
               LM = J2-J1+1
 
-              if ( LM.GT.0) {
+              if ( LM > 0) {
                   clarfx('Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK);
 
                   if ( WANTZ ) {

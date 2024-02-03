@@ -124,7 +124,7 @@
 
          } // 140
          A( KBEG, KBEG ) = ONE
-         if ( KLEN.GT.1 ) {
+         if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) )
             for (I = 2; I <= KLEN; I++) { // 150
                A( NZ1+I, NZ1+I ) = ALPHA**REAL( I-1 )
@@ -136,7 +136,7 @@
 
          } // 160
          A( KBEG, KBEG ) = ONE
-         if ( KLEN.GT.1 ) {
+         if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 )
             for (I = 2; I <= KLEN; I++) { // 170
                A( NZ1+I, NZ1+I ) = REAL( KLEN-I )*ALPHA + RCOND
@@ -174,15 +174,15 @@
          // If ISIGN = 1 or 2, assign random signs to diagonal and
          // subdiagonal
 
-         if ( ISIGN.GT.0 ) {
+         if ( ISIGN > 0 ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
                if ( REAL( A( JD, JD ) ) != ZERO ) {
-                  IF( SLARAN( ISEED ).GT.HALF ) A( JD, JD ) = -A( JD, JD )
+                  IF( SLARAN( ISEED ) > HALF ) A( JD, JD ) = -A( JD, JD )
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
                if ( REAL( A( JD+1, JD ) ) != ZERO ) {
-                  IF( SLARAN( ISEED ).GT.HALF ) A( JD+1, JD ) = -A( JD+1, JD )
+                  IF( SLARAN( ISEED ) > HALF ) A( JD+1, JD ) = -A( JD+1, JD )
                }
             } // 260
          }
@@ -208,7 +208,7 @@
          if ( ISIGN == 2 && ITYPE != 2 && ITYPE != 3 ) {
             SAFMIN = SLAMCH( 'S' )
             DO 290 JD = KBEG, KEND - 1, 2
-               if ( SLARAN( ISEED ).GT.HALF ) {
+               if ( SLARAN( ISEED ) > HALF ) {
 
                   // Rotation on left.
 

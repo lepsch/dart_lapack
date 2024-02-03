@@ -90,7 +90,7 @@
          INFO = -11
       } else if ( LDU < NMAX ) {
          INFO = -15
-      } else if ( ( MAX( LDA, NMAX )+1 )*NMAX.GT.LWORK ) {
+      } else if ( ( MAX( LDA, NMAX )+1 )*NMAX > LWORK ) {
          INFO = -17
       }
 
@@ -123,7 +123,7 @@
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 180
             K = KK( JWIDTH )
-            if (K.GT.N) GO TO 180;
+            if (K > N) GO TO 180;
             K = MAX( 0, MIN( N-1, K ) )
 
             if ( NSIZES != 1 ) {
@@ -158,7 +158,7 @@
                // =9                      positive definite
                // =10                     diagonally dominant tridiagonal
 
-               if (MTYPES.GT.MAXTYP) GO TO 100;
+               if (MTYPES > MAXTYP) GO TO 100;
 
                ITYPE = KTYPE( JTYPE )
                IMODE = KMODE( JTYPE )
@@ -238,11 +238,11 @@
 
                   // Positive definite tridiagonal, eigenvalues specified.
 
-                  if (N.GT.1) K = MAX( 1, K );
+                  if (N > 1) K = MAX( 1, K );
                   zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK, IINFO );
                   for (I = 2; I <= N; I++) { // 90
                      TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
-                     if ( TEMP1.GT.HALF ) {
+                     if ( TEMP1 > HALF ) {
                         A( K, I ) = HALF*SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
                      }
                   } // 90
@@ -295,7 +295,7 @@
                // DSYTRD_SB2ST
 
                dcopy(N, SD, 1, D1, 1 );
-               if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
+               if (N > 0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
                zsteqr('N', N, D1, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
@@ -324,7 +324,7 @@
                // Compute D2 from the DSYTRD_SB2ST Upper case
 
                dcopy(N, SD, 1, D2, 1 );
-               if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
+               if (N > 0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
                zsteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
@@ -390,7 +390,7 @@
                // Compute D3 from the 2-stage Upper case
 
                dcopy(N, SD, 1, D3, 1 );
-               if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
+               if (N > 0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
                zsteqr('N', N, D3, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {

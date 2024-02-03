@@ -131,7 +131,7 @@
 
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
-            if ( (J2 != IPIV(J2)) && ((J1-K1).GT.2) ) {
+            if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                sswap(J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 );
             }
          }
@@ -145,7 +145,7 @@
 
             // If first panel and JB=1 (NB=1), then nothing to do
 
-            if ( J1.GT.1 || JB.GT.1 ) {
+            if ( J1 > 1 || JB > 1 ) {
 
                // Merge rank-1 update with BLAS-3 update
 
@@ -158,7 +158,7 @@
                 // explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
                 // while K1=0 and K2=1 for the rest
 
-               if ( J1.GT.1 ) {
+               if ( J1 > 1 ) {
 
                   // Not first panel
 
@@ -238,7 +238,7 @@
 
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
-            if ( (J2 != IPIV(J2)) && ((J1-K1).GT.2) ) {
+            if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                sswap(J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA );
             }
          }
@@ -252,7 +252,7 @@
 
             // if first panel and JB=1 (NB=1), then nothing to do
 
-            if ( J1.GT.1 || JB.GT.1 ) {
+            if ( J1 > 1 || JB > 1 ) {
 
                // Merge rank-1 update with BLAS-3 update
 
@@ -265,7 +265,7 @@
                 // explicitly stored, e.g., K1=1 and K2= 0 for the first panel,
                 // while K1=0 and K2=1 for the rest
 
-               if ( J1.GT.1 ) {
+               if ( J1 > 1 ) {
 
                   // Not first panel
 

@@ -139,10 +139,10 @@
 
       ANRM = CLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          SCALEA = true;
          CSCALE = BIGNUM
       }
@@ -184,7 +184,7 @@
       // (RWorkspace: none)
 
       IWRK = ITAU
-      CALL CHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, W, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL.GT.0 ) INFO = IEVAL
+      CALL CHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, W, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL > 0 ) INFO = IEVAL
 
       // Sort eigenvalues if desired
 

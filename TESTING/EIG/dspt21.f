@@ -59,7 +59,7 @@
 
       // Some Error Checks
 
-      if ( ITYPE < 1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE > 3 ) {
          RESULT( 1 ) = TEN / ULP
          RETURN
       }
@@ -87,7 +87,7 @@
             dspr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
          } // 10
 
-         if ( N.GT.1 && KBAND == 1 ) {
+         if ( N > 1 && KBAND == 1 ) {
             for (J = 1; J <= N - 1; J++) { // 20
                dspr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
             } // 20
@@ -170,7 +170,7 @@
          WNORM = DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) )
       }
 
-      if ( ANORM.GT.WNORM ) {
+      if ( ANORM > WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
          if ( ANORM < ONE ) {

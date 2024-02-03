@@ -139,7 +139,7 @@
          VRMX = ZERO
          for (JJ = 1; JJ <= N; JJ++) { // 20
             VTST = ABS( VR( JJ, J ) )
-            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
+            if (VTST > VMX) VMX = VTST             IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
          } // 20
          if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
       } // 30
@@ -153,7 +153,7 @@
          VRMX = ZERO
          for (JJ = 1; JJ <= N; JJ++) { // 40
             VTST = ABS( VL( JJ, J ) )
-            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
+            if (VTST > VMX) VMX = VTST             IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
          } // 40
          if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
       } // 50
@@ -196,7 +196,7 @@
 
          // Do Test (9)
 
-         if ( ISENS == 2 && N.GT.1 ) {
+         if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 80
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 80
@@ -242,7 +242,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS == 2 && N.GT.1 ) {
+         if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 130
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 130
@@ -288,7 +288,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS == 2 && N.GT.1 ) {
+         if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 180
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 180
@@ -350,21 +350,21 @@
          V = MAX( REAL( N )*EPS*ABNRM, SMLNUM )
          if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
-            if ( V.GT.RCONDV( I )*RCONDE( I ) ) {
+            if ( V > RCONDV( I )*RCONDE( I ) ) {
                TOL = RCONDV( I )
             } else {
                TOL = V / RCONDE( I )
             }
-            if ( V.GT.RCDVIN( I )*RCDEIN( I ) ) {
+            if ( V > RCDVIN( I )*RCDEIN( I ) ) {
                TOLIN = RCDVIN( I )
             } else {
                TOLIN = V / RCDEIN( I )
             }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            if ( EPS*( RCDVIN( I )-TOLIN ).GT.RCONDV( I )+TOL ) {
+            if ( EPS*( RCDVIN( I )-TOLIN ) > RCONDV( I )+TOL ) {
                VMAX = ONE / EPS
-            } else if ( RCDVIN( I )-TOLIN.GT.RCONDV( I )+TOL ) {
+            } else if ( RCDVIN( I )-TOLIN > RCONDV( I )+TOL ) {
                VMAX = ( RCDVIN( I )-TOLIN ) / ( RCONDV( I )+TOL )
             } else if ( RCDVIN( I )+TOLIN < EPS*( RCONDV( I )-TOL ) ) {
                VMAX = ONE / EPS
@@ -381,21 +381,21 @@
 
          RESULT( 11 ) = ZERO
          for (I = 1; I <= N; I++) { // 240
-            if ( V.GT.RCONDV( I ) ) {
+            if ( V > RCONDV( I ) ) {
                TOL = ONE
             } else {
                TOL = V / RCONDV( I )
             }
-            if ( V.GT.RCDVIN( I ) ) {
+            if ( V > RCDVIN( I ) ) {
                TOLIN = ONE
             } else {
                TOLIN = V / RCDVIN( I )
             }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            if ( EPS*( RCDEIN( I )-TOLIN ).GT.RCONDE( I )+TOL ) {
+            if ( EPS*( RCDEIN( I )-TOLIN ) > RCONDE( I )+TOL ) {
                VMAX = ONE / EPS
-            } else if ( RCDEIN( I )-TOLIN.GT.RCONDE( I )+TOL ) {
+            } else if ( RCDEIN( I )-TOLIN > RCONDE( I )+TOL ) {
                VMAX = ( RCDEIN( I )-TOLIN ) / ( RCONDE( I )+TOL )
             } else if ( RCDEIN( I )+TOLIN < EPS*( RCONDE( I )-TOL ) ) {
                VMAX = ONE / EPS

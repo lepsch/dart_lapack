@@ -88,7 +88,7 @@
             } // 10
             if ( SMIN.LE.ZERO ) {
                INFO = -10
-            } else if ( N.GT.0 ) {
+            } else if ( N > 0 ) {
                SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
             } else {
                SCOND = ONE
@@ -135,20 +135,20 @@
 
          // Return if INFO is non-zero.
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
 
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
 
-            if (N.GT.0) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK );
+            if (N > 0) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK );
             RETURN
          }
       }
 
       // Compute the reciprocal pivot growth factor RPVGRW.
 
-      if (N.GT.0) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK );
+      if (N > 0) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK );
 
       // Compute the solution matrix X.
 

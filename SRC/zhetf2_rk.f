@@ -104,7 +104,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             IMAX = IZAMAX( K-1, A( 1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
@@ -121,7 +121,7 @@
 
             // Set E( K ) to zero
 
-            if (K.GT.1) E( K ) = CZERO;
+            if (K > 1) E( K ) = CZERO;
 
          } else {
 
@@ -161,10 +161,10 @@
                      ROWMAX = ZERO
                   }
 
-                  if ( IMAX.GT.1 ) {
+                  if ( IMAX > 1 ) {
                      ITEMP = IZAMAX( IMAX-1, A( 1, IMAX ), 1 )
                      DTEMP = CABS1( A( ITEMP, IMAX ) )
-                     if ( DTEMP.GT.ROWMAX ) {
+                     if ( DTEMP > ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
                      }
@@ -225,7 +225,7 @@
 
             if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
-               if (P.GT.1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
+               if (P > 1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = P + 1; J <= K - 1; J++) { // 14
                   T = DCONJG( A( J, K ) )
@@ -251,7 +251,7 @@
 
             if ( KP != KK ) {
                // (1) Swap columnar parts
-               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               if (KP > 1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KP + 1; J <= KK - 1; J++) { // 15
                   T = DCONJG( A( J, KK ) )
@@ -295,7 +295,7 @@
 
                // where U(k) is the k-th column of U
 
-               if ( K.GT.1 ) {
+               if ( K > 1 ) {
 
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
@@ -351,7 +351,7 @@
 
                // and store L(k) and L(k+1) in columns k and k+1
 
-               if ( K.GT.2 ) {
+               if ( K > 2 ) {
                   // D = |A12|
                   D = DLAPY2( DBLE( A( K-1, K ) ), DIMAG( A( K-1, K ) ) )
                   D11 = DBLE( A( K, K ) / D )
@@ -428,7 +428,7 @@
 
          // If K > N, exit from loop
 
-         if (K.GT.N) GO TO 64;
+         if (K > N) GO TO 64;
          KSTEP = 1
          P = K
 
@@ -501,7 +501,7 @@
                   if ( IMAX < N ) {
                      ITEMP = IMAX + IZAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                      DTEMP = CABS1( A( ITEMP, IMAX ) )
-                     if ( DTEMP.GT.ROWMAX ) {
+                     if ( DTEMP > ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
                      }
@@ -580,7 +580,7 @@
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
 
-               if (K.GT.1) CALL ZSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
+               if (K > 1) CALL ZSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
 
             }
 
@@ -615,7 +615,7 @@
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
 
-               if (K.GT.1) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
+               if (K > 1) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
 
             } else {
                // (*) Make sure that diagonal element of pivot is real

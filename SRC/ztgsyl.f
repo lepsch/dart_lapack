@@ -51,7 +51,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB < 0 ) || ( IJOB.GT.4 ) ) {
+         if ( ( IJOB < 0 ) || ( IJOB > 4 ) ) {
             INFO = -2
          }
       }
@@ -171,7 +171,7 @@
       P = 0
       I = 1
       } // 40
-      if (I.GT.M) GO TO 50;
+      if (I > M) GO TO 50;
       P = P + 1
       IWORK( P ) = I
       I = I + MB
@@ -186,7 +186,7 @@
       Q = P + 1
       J = 1
       } // 60
-      if (J.GT.N) GO TO 70;
+      if (J > N) GO TO 70;
 
       Q = Q + 1
       IWORK( Q ) = J
@@ -219,7 +219,7 @@
                   IE = IWORK( I+1 ) - 1
                   MB = IE - IS + 1
                   ztgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
-                  if (LINFO.GT.0) INFO = LINFO;
+                  if (LINFO > 0) INFO = LINFO;
                   PQ = PQ + MB*NB
                   if ( SCALOC != ONE ) {
                      for (K = 1; K <= JS - 1; K++) { // 80
@@ -243,7 +243,7 @@
 
                   // Substitute R(I,J) and L(I,J) into remaining equation.
 
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      zgemm('N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( 1, JS ), LDC );
                      zgemm('N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), F( 1, JS ), LDF );
                   }
@@ -292,7 +292,7 @@
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
                ztgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
-               if (LINFO.GT.0) INFO = LINFO;
+               if (LINFO > 0) INFO = LINFO;
                if ( SCALOC != ONE ) {
                   for (K = 1; K <= JS - 1; K++) { // 160
                      zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
@@ -315,7 +315,7 @@
 
                // Substitute R(I,J) and L(I,J) into remaining equation.
 
-               if ( J.GT.P+2 ) {
+               if ( J > P+2 ) {
                   zgemm('N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
                   zgemm('N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
                }

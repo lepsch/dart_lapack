@@ -115,7 +115,7 @@
       // Handle pivot permutations on the way out of the recursion
       NPIVED = IAND( NSTEP, -NSTEP )
       J = NSTEP - NPIVED
-      DO WHILE ( J .GT. 0 )
+      DO WHILE ( J > 0 )
          NTOPIV = IAND( J, -J )
          dlaswp(NTOPIV, A( 1, J-NTOPIV+1 ), LDA, J+1, NSTEP, IPIV, 1 );
          J = J - NTOPIV

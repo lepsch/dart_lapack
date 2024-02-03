@@ -115,7 +115,7 @@
          for (I = 2; I <= N; I++) { // 60
             A( I, 1 ) = ZERO
          } // 60
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
 
             // Generate Q(2:n,2:n)
 

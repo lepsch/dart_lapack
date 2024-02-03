@@ -64,14 +64,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
          } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
          } // 20
       }
       INFO = 0
@@ -88,9 +88,9 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 40;
+         if (K > N) GO TO 40;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -100,7 +100,7 @@
 
             // Compute column K of the inverse.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                dcopy(K-1, A( 1, K ), 1, WORK, 1 );
                dsymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 );
             }
@@ -122,7 +122,7 @@
 
             // Compute columns K and K+1 of the inverse.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                dcopy(K-1, A( 1, K ), 1, WORK, 1 );
                dsymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - DDOT( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
                dcopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
@@ -138,7 +138,7 @@
 
             KP = IPIV( K )
             if ( KP != K ) {
-               if (KP.GT.1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -151,7 +151,7 @@
 
             KP = -IPIV( K )
             if ( KP != K ) {
-               if (KP.GT.1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
 
                TEMP = A( K, K )
@@ -165,7 +165,7 @@
             K = K + 1
             KP = -IPIV( K )
             if ( KP != K ) {
-               if (KP.GT.1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -191,7 +191,7 @@
 
          if (K < 1) GO TO 60;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 

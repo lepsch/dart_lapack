@@ -53,7 +53,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB < 0 ) || ( IJOB.GT.2 ) ) {
+         if ( ( IJOB < 0 ) || ( IJOB > 2 ) ) {
             INFO = -2
          }
       }
@@ -87,7 +87,7 @@
       P = 0
       I = 1
       } // 10
-      if (I.GT.M) GO TO 20;
+      if (I > M) GO TO 20;
       P = P + 1
       IWORK( P ) = I
       if (I == M) GO TO 20;
@@ -105,7 +105,7 @@
       Q = P + 1
       J = 1
       } // 30
-      if (J.GT.N) GO TO 40;
+      if (J > N) GO TO 40;
       Q = Q + 1
       IWORK( Q ) = J
       if (J == N) GO TO 40;
@@ -158,7 +158,7 @@
                   // Solve Z * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  if (IERR.GT.0) INFO = IERR;
+                  if (IERR > 0) INFO = IERR;
 
                   if ( IJOB == 0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
@@ -181,7 +181,7 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      ALPHA = -RHS( 1 )
                      saxpy(IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ), 1 );
                      saxpy(IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ), 1 );
@@ -225,7 +225,7 @@
                   // Solve Z * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  if (IERR.GT.0) INFO = IERR;
+                  if (IERR > 0) INFO = IERR;
 
                   if ( IJOB == 0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
@@ -250,7 +250,7 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      sger(IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC );
                      sger(IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF );
                   }
@@ -295,7 +295,7 @@
                   // Solve Z * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  if (IERR.GT.0) INFO = IERR;
+                  if (IERR > 0) INFO = IERR;
                   if ( IJOB == 0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC != ONE ) {
@@ -319,7 +319,7 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      sgemv('N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 );
                      sgemv('N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 );
                   }
@@ -384,7 +384,7 @@
                   // Solve Z * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  if (IERR.GT.0) INFO = IERR;
+                  if (IERR > 0) INFO = IERR;
                   if ( IJOB == 0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC != ONE ) {
@@ -412,7 +412,7 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      sgemm('N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC );
                      sgemm('N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF );
                   }
@@ -465,7 +465,7 @@
                   // Solve Z**T * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  if (IERR.GT.0) INFO = IERR;
+                  if (IERR > 0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC != ONE ) {
@@ -484,7 +484,7 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  if ( J.GT.P+2 ) {
+                  if ( J > P+2 ) {
                      ALPHA = RHS( 1 )
                      saxpy(JS-1, ALPHA, B( 1, JS ), 1, F( IS, 1 ), LDF );
                      ALPHA = RHS( 2 )
@@ -531,7 +531,7 @@
                   // Solve Z**T * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  if (IERR.GT.0) INFO = IERR;
+                  if (IERR > 0) INFO = IERR;
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC != ONE ) {
                      for (K = 1; K <= N; K++) { // 140
@@ -551,7 +551,7 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  if ( J.GT.P+2 ) {
+                  if ( J > P+2 ) {
                      saxpy(JS-1, RHS( 1 ), B( 1, JS ), 1, F( IS, 1 ), LDF );
                      saxpy(JS-1, RHS( 2 ), B( 1, JSP1 ), 1, F( IS, 1 ), LDF );
                      saxpy(JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF );
@@ -596,7 +596,7 @@
                   // Solve Z**T * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  if (IERR.GT.0) INFO = IERR;
+                  if (IERR > 0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC != ONE ) {
@@ -617,7 +617,7 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  if ( J.GT.P+2 ) {
+                  if ( J > P+2 ) {
                      sger(MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF );
                      sger(MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF );
                   }
@@ -683,7 +683,7 @@
                   // Solve Z**T * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  if (IERR.GT.0) INFO = IERR;
+                  if (IERR > 0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC != ONE ) {
@@ -708,7 +708,7 @@
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
 
-                  if ( J.GT.P+2 ) {
+                  if ( J > P+2 ) {
                      sgemm('N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF );
                      sgemm('N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF );
                   }

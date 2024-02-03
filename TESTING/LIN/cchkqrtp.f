@@ -77,7 +77,7 @@
 
                   // Test CTPQRT and CTPMQRT
 
-                  if ( (NB.LE.N) && (NB.GT.0) ) {
+                  if ( (NB.LE.N) && (NB > 0) ) {
                      cqrt05(M, N, L, NB, RESULT );
 
                      // Print information about the tests that did not

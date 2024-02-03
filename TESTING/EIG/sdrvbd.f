@@ -102,7 +102,7 @@
          INFO = -12
       } else if ( LDVT < MAX( 1, NMAX ) ) {
          INFO = -14
-      } else if ( MINWRK.GT.LWORK ) {
+      } else if ( MINWRK > LWORK ) {
          INFO = -21
       }
 
@@ -146,7 +146,7 @@
 
             // Compute "A"
 
-            if (MTYPES.GT.MAXTYP) GO TO 30;
+            if (MTYPES > MAXTYP) GO TO 30;
 
             if ( JTYPE == 1 ) {
 
@@ -192,7 +192,7 @@
                LSWORK = MAX( LSWORK, 1 )
                if (IWS == 4) LSWORK = LWORK;
 
-               if (IWS.GT.1) CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA );
+               if (IWS > 1) CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'SGESVD'
                sgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO );
                if ( IINFO != 0 ) {
@@ -233,7 +233,7 @@
                      // Compare U
 
                      DIF = ZERO
-                     if ( M.GT.0 && N.GT.0 ) {
+                     if ( M > 0 && N > 0 ) {
                         if ( IJU == 1 ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, IINFO );
                         } else if ( IJU == 2 ) {
@@ -247,7 +247,7 @@
                      // Compare VT
 
                      DIF = ZERO
-                     if ( M.GT.0 && N.GT.0 ) {
+                     if ( M > 0 && N > 0 ) {
                         if ( IJVT == 1 ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, IINFO );
                         } else if ( IJVT == 2 ) {
@@ -316,7 +316,7 @@
                   // Compare U
 
                   DIF = ZERO
-                  if ( M.GT.0 && N.GT.0 ) {
+                  if ( M > 0 && N > 0 ) {
                      if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, INFO );
@@ -332,7 +332,7 @@
                   // Compare VT
 
                   DIF = ZERO
-                  if ( M.GT.0 && N.GT.0 ) {
+                  if ( M > 0 && N > 0 ) {
                      if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
@@ -542,7 +542,7 @@
                      // Compare U
 
                      DIF = ZERO
-                     if ( M.GT.0 && N.GT.0 ) {
+                     if ( M > 0 && N > 0 ) {
                         if ( IJU == 1 ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
@@ -552,7 +552,7 @@
                      // Compare VT
 
                      DIF = ZERO
-                     if ( M.GT.0 && N.GT.0 ) {
+                     if ( M > 0 && N > 0 ) {
                         if ( IJVT == 1 ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
@@ -605,7 +605,7 @@
 
                // Do tests 33--35: SGESVDX( 'V', 'V', 'V' )
 
-               if ( MNMIN.GT.0 && NSI.GT.1 ) {
+               if ( MNMIN > 0 && NSI > 1 ) {
                   if ( IL != 1 ) {
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                   } else {

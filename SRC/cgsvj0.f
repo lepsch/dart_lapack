@@ -58,7 +58,7 @@
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
-      } else if ( ( N < 0 ) || ( N.GT.M ) ) {
+      } else if ( ( N < 0 ) || ( N > M ) ) {
          INFO = -3
       } else if ( LDA < M ) {
          INFO = -5
@@ -193,7 +193,7 @@
          // If properly implemented SCNRM2 is available, the IF-THEN-ELSE-END IF
          // below should be replaced with "AAPP = SCNRM2( M, A(1,p), 1 )".
 
-                     if ( ( SVA( p ) < ROOTBIG ) && ( SVA( p ).GT.ROOTSFMIN ) ) {
+                     if ( ( SVA( p ) < ROOTBIG ) && ( SVA( p ) > ROOTSFMIN ) ) {
                         SVA( p ) = SCNRM2( M, A( 1, p ), 1 )
                      } else {
                         TEMP1 = ZERO
@@ -206,7 +206,7 @@
                      AAPP = SVA( p )
                   }
 
-                  if ( AAPP.GT.ZERO ) {
+                  if ( AAPP > ZERO ) {
 
                      PSKIPPED = 0
 
@@ -214,7 +214,7 @@
 
                         AAQQ = SVA( q )
 
-                        if ( AAQQ.GT.ZERO ) {
+                        if ( AAQQ > ZERO ) {
 
                            AAPP0 = AAPP
                            if ( AAQQ.GE.ONE ) {
@@ -227,7 +227,7 @@
                               }
                            } else {
                               ROTOK = AAPP.LE.( AAQQ / SMALL )
-                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
+                              if ( AAPP > ( SMALL / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAPP ) / AAQQ
                               } else {
                                  ccopy(M, A( 1, q ), 1, WORK, 1 );
@@ -242,7 +242,7 @@
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           if ( ABS( AAPQ1 ).GT.TOL ) {
+                           if ( ABS( AAPQ1 ) > TOL ) {
                               OMPQ = AAPQ / ABS(AAPQ)
 
             // .. rotate
@@ -260,7 +260,7 @@
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*ABS( AQOAP-APOAQ )/AAPQ1
 
-                                 if ( ABS( THETA ).GT.BIGTHETA ) {
+                                 if ( ABS( THETA ) > BIGTHETA ) {
 
                                     T  = HALF / THETA
                                     CS = ONE
@@ -304,7 +304,7 @@
             // In the case of cancellation in updating SVA(q), SVA(p)
             // recompute SVA(q), SVA(p).
 
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1 )
                                  } else {
                                     T = ZERO
@@ -314,7 +314,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 ).LE.ROOTEPS ) {
-                                 if ( ( AAPP < ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
+                                 if ( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
@@ -337,7 +337,7 @@
                            PSKIPPED = PSKIPPED + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( PSKIPPED.GT.ROWSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            if (ir1 == 0) AAPP = -AAPP;
                            NOTROT = 0
                            GO TO 2103
@@ -376,14 +376,14 @@
                DO 2100 p = igl, MIN( igl+KBL-1, N )
 
                   AAPP = SVA( p )
-                  if ( AAPP.GT.ZERO ) {
+                  if ( AAPP > ZERO ) {
 
                      PSKIPPED = 0
 
                      DO 2200 q = jgl, MIN( jgl+KBL-1, N )
 
                         AAQQ = SVA( q )
-                        if ( AAQQ.GT.ZERO ) {
+                        if ( AAQQ > ZERO ) {
                            AAPP0 = AAPP
 
       // .. M x 2 Jacobi SVD ..
@@ -409,7 +409,7 @@
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
                               }
-                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
+                              if ( AAPP > ( SMALL / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
                               } else {
                                  ccopy(M, A( 1, q ), 1, WORK, 1 );
@@ -424,7 +424,7 @@
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           if ( ABS( AAPQ1 ).GT.TOL ) {
+                           if ( ABS( AAPQ1 ) > TOL ) {
                               OMPQ = AAPQ / ABS(AAPQ)
                               NOTROT = 0
 *[RTD]      ROTATED  = ROTATED + 1
@@ -436,9 +436,9 @@
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*ABS( AQOAP-APOAQ )/ AAPQ1
-                                 if (AAQQ.GT.AAPP0) THETA = -THETA;
+                                 if (AAQQ > AAPP0) THETA = -THETA;
 
-                                 if ( ABS( THETA ).GT.BIGTHETA ) {
+                                 if ( ABS( THETA ) > BIGTHETA ) {
                                     T  = HALF / THETA
                                     CS = ONE
                                     crot(M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*T );
@@ -452,7 +452,7 @@
                   // .. choose correct signum for THETA and rotate
 
                                     THSIGN = -SIGN( ONE, AAPQ1 )
-                                    if (AAQQ.GT.AAPP0) THSIGN = -THSIGN;
+                                    if (AAQQ > AAPP0) THSIGN = -THSIGN;
                                     T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) )
                                     CS = SQRT( ONE / ( ONE+T*T ) )
                                     SN = T*CS
@@ -468,7 +468,7 @@
 
                               } else {
                // .. have to use modified Gram-Schmidt like transformation
-                               if ( AAPP.GT.AAQQ ) {
+                               if ( AAPP > AAQQ ) {
                                     ccopy(M, A( 1, p ), 1, WORK, 1 );
                                     clascl('G', 0, 0, AAPP, ONE, M, 1, WORK,LDA, IERR );
                                     clascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
@@ -490,7 +490,7 @@
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1)
                                   } else {
                                     T = ZERO
@@ -500,7 +500,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
-                                 if ( ( AAPP < ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
+                                 if ( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
@@ -528,7 +528,7 @@
                            NOTROT = 0
                            GO TO 2011
                         }
-                        if ( ( i.LE.SWBAND ) && ( PSKIPPED.GT.ROWSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
@@ -561,7 +561,7 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
+         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
             SVA( N ) = SCNRM2( M, A( 1, N ), 1 )
          } else {
             T = ZERO
@@ -574,7 +574,7 @@
 
          IF( ( i < SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
 
-         if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ < SQRT( REAL( N ) )* TOL ) && ( REAL( N )*MXAAPQ*MXSINJ < TOL ) ) {
+         if ( ( i > SWBAND+1 ) && ( MXAAPQ < SQRT( REAL( N ) )* TOL ) && ( REAL( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994
          }
 

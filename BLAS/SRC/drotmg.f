@@ -49,13 +49,13 @@
          DQ2 = DP2*DY1
          DQ1 = DP1*DX1
 
-         if (DABS(DQ1).GT.DABS(DQ2)) {
+         if (DABS(DQ1) > DABS(DQ2)) {
             DH21 = -DY1/DX1
             DH12 = DP2/DP1
 
             DU = ONE - DH12*DH21
 
-           if (DU.GT.ZERO) {
+           if (DU > ZERO) {
              DFLAG = ZERO
              DD1 = DD1/DU
              DD2 = DD2/DU

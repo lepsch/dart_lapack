@@ -222,7 +222,7 @@
 
       // Cap the error at 1.0.
 
-            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I && ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
+            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I && ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) > 1.0D+0 ) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
 
       // Threshold the error (see LAWN).
 
@@ -263,7 +263,7 @@
 
       // Cap the error at 1.0.
 
-            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I && ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
+            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I && ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) > 1.0D+0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
 
       // Threshold the error (see LAWN).
 

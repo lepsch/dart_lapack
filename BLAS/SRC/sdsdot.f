@@ -22,7 +22,7 @@
          SDSDOT = REAL(DSDOT)
          RETURN
       }
-      if (INCX == INCY && INCX.GT.0) {
+      if (INCX == INCY && INCX > 0) {
 
       // Code for equal and positive increments.
 

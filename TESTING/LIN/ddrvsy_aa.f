@@ -229,7 +229,7 @@
                      // Adjust the expected value of INFO to account for
                      // pivoting.
 
-                     if ( IZERO.GT.0 ) {
+                     if ( IZERO > 0 ) {
                         J = 1
                         K = IZERO
                         } // 100

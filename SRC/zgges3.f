@@ -152,10 +152,10 @@
 
       ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ANRMTO = BIGNUM
          ILASCL = true;
       }
@@ -166,10 +166,10 @@
 
       BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
          BNRMTO = BIGNUM
          ILBSCL = true;
       }
@@ -199,7 +199,7 @@
 
       if ( ILVSL ) {
          zlaset('Full', N, N, CZERO, CONE, VSL, LDVSL );
-         if ( IROWS.GT.1 ) {
+         if ( IROWS > 1 ) {
             zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL );
          }
          zungqr(IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
@@ -220,9 +220,9 @@
       IWRK = ITAU
       zlaqz0('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR );
       if ( IERR != 0 ) {
-         if ( IERR.GT.0 && IERR.LE.N ) {
+         if ( IERR > 0 && IERR.LE.N ) {
             INFO = IERR
-         } else if ( IERR.GT.N && IERR.LE.2*N ) {
+         } else if ( IERR > N && IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1

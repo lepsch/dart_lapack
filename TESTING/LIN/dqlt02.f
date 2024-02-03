@@ -54,7 +54,7 @@
       // Copy the last k columns of the factorization to the array Q
 
       dlaset('Full', M, N, ROGUE, ROGUE, Q, LDA );
-      if (K < M) CALL DLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, N-K+1 ), LDA )       IF( K.GT.1 ) CALL DLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, N-K+2 ), LDA );
+      if (K < M) CALL DLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, N-K+1 ), LDA )       IF( K > 1 ) CALL DLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, N-K+2 ), LDA );
 
       // Generate the last n columns of the matrix Q
 
@@ -74,7 +74,7 @@
 
       ANORM = DLANGE( '1', M, K, A( 1, N-K+1 ), LDA, RWORK )
       RESID = DLANGE( '1', N, K, L( M-N+1, N-K+1 ), LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO

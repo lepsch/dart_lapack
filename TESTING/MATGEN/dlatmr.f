@@ -165,9 +165,9 @@
       // Check values in IPIVOT
 
       BADPVT = false;
-      if ( IPVTNG.GT.0 ) {
+      if ( IPVTNG > 0 ) {
          for (J = 1; J <= NPVTS; J++) { // 20
-            IF( IPIVOT( J ).LE.0 || IPIVOT( J ).GT.NPVTS ) BADPVT = true;
+            IF( IPIVOT( J ).LE.0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
          } // 20
       }
 
@@ -183,7 +183,7 @@
          INFO = -3
       } else if ( ISYM == -1 ) {
          INFO = -5
-      } else if ( MODE < -6 || MODE.GT.6 ) {
+      } else if ( MODE < -6 || MODE > 6 ) {
          INFO = -7
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND < ONE ) {
          INFO = -8
@@ -193,11 +193,11 @@
          INFO = -11
       } else if ( IGRADE == 4 && DZERO ) {
          INFO = -12
-      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 ) && ( MODEL < -6 || MODEL.GT.6 ) ) {
+      } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 ) && ( MODEL < -6 || MODEL > 6 ) ) {
          INFO = -13
       } else if ( ( IGRADE == 1 || IGRADE == 3 || IGRADE == 4 || IGRADE == 5 ) && ( MODEL != -6 && MODEL != 0 && MODEL != 6 ) && CONDL < ONE ) {
          INFO = -14
-      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER < -6 || MODER.GT.6 ) ) {
+      } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER < -6 || MODER > 6 ) ) {
          INFO = -16
       } else if ( ( IGRADE == 2 || IGRADE == 3 ) && ( MODER != -6 && MODER != 0 && MODER != 6 ) && CONDR < ONE ) {
          INFO = -17
@@ -209,7 +209,7 @@
          INFO = -20
       } else if ( KU < 0 || ( ISYM == 0 && KL != KU ) ) {
          INFO = -21
-      } else if ( SPARSE < ZERO || SPARSE.GT.ONE ) {
+      } else if ( SPARSE < ZERO || SPARSE > ONE ) {
          INFO = -22
       } else if ( IPACK == -1 || ( ( IPACK == 1 || IPACK == 2 || IPACK == 5 || IPACK == 6 ) && ISYM == 1 ) || ( IPACK == 3 && ISYM == 1 && ( KL != 0 || M != N ) ) || ( IPACK == 4 && ISYM == 1 && ( KU != 0 || M != N ) ) ) {
          INFO = -24
@@ -289,7 +289,7 @@
 
       // 3)     Generate IWORK if pivoting
 
-      if ( IPVTNG.GT.0 ) {
+      if ( IPVTNG > 0 ) {
          for (I = 1; I <= NPVTS; I++) { // 60
             IWORK( I ) = I
          } // 60
@@ -501,7 +501,7 @@
             for (J = 1; J <= N; J++) { // 380
                for (I = 1; I <= J; I++) { // 370
                   ISUB = ISUB + 1
-                  if ( ISUB.GT.LDA ) {
+                  if ( ISUB > LDA ) {
                      ISUB = 1
                      JSUB = JSUB + 1
                   }
@@ -537,7 +537,7 @@
                for (J = 1; J <= N; J++) { // 420
                   for (I = J; I <= M; I++) { // 410
                      ISUB = ISUB + 1
-                     if ( ISUB.GT.LDA ) {
+                     if ( ISUB > LDA ) {
                         ISUB = 1
                         JSUB = JSUB + 1
                      }
@@ -609,14 +609,14 @@
 
       if ( ANORM.GE.ZERO ) {
 
-         if ( ANORM.GT.ZERO && ONORM == ZERO ) {
+         if ( ANORM > ZERO && ONORM == ZERO ) {
 
             // Desired scaling impossible
 
             INFO = 5
             RETURN
 
-         } else if ( ( ANORM.GT.ONE && ONORM < ONE ) || ( ANORM < ONE && ONORM.GT.ONE ) ) {
+         } else if ( ( ANORM > ONE && ONORM < ONE ) || ( ANORM < ONE && ONORM > ONE ) ) {
 
             // Scale carefully to avoid over / underflow
 

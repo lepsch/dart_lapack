@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      if (N == 0 || N1 == 0 || N2 == 0) RETURN       IF( J1+N1.GT.N ) RETURN;
+      if (N == 0 || N1 == 0 || N2 == 0) RETURN       IF( J1+N1 > N ) RETURN;
 
       J2 = J1 + 1
       J3 = J1 + 2
@@ -124,7 +124,7 @@
 
          // Test whether to reject swap.
 
-         IF( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 3, 3 )-T11 ) ).GT.THRESH )GO TO 50
+         IF( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 3, 3 )-T11 ) ) > THRESH )GO TO 50
 
          // Accept swap: apply transformation to the entire matrix T.
 
@@ -165,7 +165,7 @@
 
          // Test whether to reject swap.
 
-         IF( MAX( ABS( D( 2, 1 ) ), ABS( D( 3, 1 ) ), ABS( D( 1, 1 )-T33 ) ).GT.THRESH )GO TO 50
+         IF( MAX( ABS( D( 2, 1 ) ), ABS( D( 3, 1 ) ), ABS( D( 1, 1 )-T33 ) ) > THRESH )GO TO 50
 
          // Accept swap: apply transformation to the entire matrix T.
 
@@ -216,7 +216,7 @@
 
          // Test whether to reject swap.
 
-         IF( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 4, 1 ) ), ABS( D( 4, 2 ) ) ).GT.THRESH )GO TO 50
+         IF( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 4, 1 ) ), ABS( D( 4, 2 ) ) ) > THRESH )GO TO 50
 
          // Accept swap: apply transformation to the entire matrix T.
 

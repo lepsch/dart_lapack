@@ -90,7 +90,7 @@
             MAXWRK = MAX( MAXWRK, 3*N+WLALSD )
             MINWRK = MAX( 3*N+MM, 3*N+NRHS, 3*N+WLALSD )
          }
-         if ( N.GT.M ) {
+         if ( N > M ) {
             WLALSD = 9*M+2*M*SMLSIZ+8*M*NLVL+M*NRHS+(SMLSIZ+1)**2
             if ( N.GE.MNTHR ) {
 
@@ -99,7 +99,7 @@
 
                MAXWRK = M + M*ILAENV( 1, 'DGELQF', ' ', M, N, -1, -1 )
                MAXWRK = MAX( MAXWRK, M*M+4*M+2*M* ILAENV( 1, 'DGEBRD', ' ', M, M, -1, -1 ) )                MAXWRK = MAX( MAXWRK, M*M+4*M+NRHS* ILAENV( 1, 'DORMBR', 'QLT', M, NRHS, M, -1 ) )                MAXWRK = MAX( MAXWRK, M*M+4*M+( M-1 )* ILAENV( 1, 'DORMBR', 'PLN', M, NRHS, M, -1 ) )
-               if ( NRHS.GT.1 ) {
+               if ( NRHS > 1 ) {
                   MAXWRK = MAX( MAXWRK, M*M+M+M*NRHS )
                } else {
                   MAXWRK = MAX( MAXWRK, M*M+2*M )
@@ -152,13 +152,13 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
@@ -178,13 +178,13 @@
 
       BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
          dlascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
@@ -223,7 +223,7 @@
 
             // Zero out below R.
 
-            if ( N.GT.1 ) {
+            if ( N > 1 ) {
                dlaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
             }
          }

@@ -69,7 +69,7 @@
 
          SCALE = ZERO
          SUM = ONE
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             zlassq(N-1, E, 1, SCALE, SUM );
             SUM = 2*SUM
          }

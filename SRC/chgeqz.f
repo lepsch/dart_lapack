@@ -105,7 +105,7 @@
          INFO = -4
       } else if ( ILO < 1 ) {
          INFO = -5
-      } else if ( IHI.GT.N || IHI < ILO-1 ) {
+      } else if ( IHI > N || IHI < ILO-1 ) {
          INFO = -6
       } else if ( LDH < N ) {
          INFO = -8
@@ -154,7 +154,7 @@
 
       for (J = IHI + 1; J <= N; J++) { // 10
          ABSB = ABS( T( J, J ) )
-         if ( ABSB.GT.SAFMIN ) {
+         if ( ABSB > SAFMIN ) {
             SIGNBC = CONJG( T( J, J ) / ABSB )
             T( J, J ) = ABSB
             if ( ILSCHR ) {
@@ -206,7 +206,7 @@
 
          // Check for too many iterations.
 
-         if (JITER.GT.MAXIT) GO TO 180;
+         if (JITER > MAXIT) GO TO 180;
 
          // Split the matrix if possible.
 
@@ -335,7 +335,7 @@
 
          } // 60
          ABSB = ABS( T( ILAST, ILAST ) )
-         if ( ABSB.GT.SAFMIN ) {
+         if ( ABSB > SAFMIN ) {
             SIGNBC = CONJG( T( ILAST, ILAST ) / ABSB )
             T( ILAST, ILAST ) = ABSB
             if ( ILSCHR ) {
@@ -362,7 +362,7 @@
          ESHIFT = CZERO
          if ( .NOT.ILSCHR ) {
             ILASTM = ILAST
-            if (IFRSTM.GT.ILAST) IFRSTM = ILO;
+            if (IFRSTM > ILAST) IFRSTM = ILO;
          }
          GO TO 160
 
@@ -404,7 +404,7 @@
                TEMP2 = ABS1( X )
                TEMP = MAX( TEMP, ABS1( X ) )
                Y = TEMP*SQRT( ( X / TEMP )**2+( CTEMP / TEMP )**2 )
-               if ( TEMP2.GT.ZERO ) {
+               if ( TEMP2 > ZERO ) {
                   IF( REAL( X / TEMP2 )*REAL( Y )+ AIMAG( X / TEMP2 )*AIMAG( Y ) < ZERO )Y = -Y
                }
                SHIFT = SHIFT - CTEMP*CLADIV( CTEMP, ( X+Y ) )
@@ -413,7 +413,7 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            IF( ( IITER / 20 )*20 == IITER && BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
+            IF( ( IITER / 20 )*20 == IITER && BSCALE*ABS1(T( ILAST, ILAST )) > SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
             } else {
                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) )
             }
@@ -449,7 +449,7 @@
          // Sweep
 
          for (J = ISTART; J <= ILAST - 1; J++) { // 150
-            if ( J.GT.ISTART ) {
+            if ( J > ISTART ) {
                CTEMP = H( J, J-1 )
                clartg(CTEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
                H( J+1, J-1 ) = CZERO
@@ -512,7 +512,7 @@
 
       for (J = 1; J <= ILO - 1; J++) { // 200
          ABSB = ABS( T( J, J ) )
-         if ( ABSB.GT.SAFMIN ) {
+         if ( ABSB > SAFMIN ) {
             SIGNBC = CONJG( T( J, J ) / ABSB )
             T( J, J ) = ABSB
             if ( ILSCHR ) {

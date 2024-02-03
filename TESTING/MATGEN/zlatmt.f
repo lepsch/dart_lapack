@@ -158,7 +158,7 @@
          INFO = -3
       } else if ( ISYM == -1 ) {
          INFO = -5
-      } else if ( ABS( MODE ).GT.6 ) {
+      } else if ( ABS( MODE ) > 6 ) {
          INFO = -7
       } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
          INFO = -8
@@ -166,7 +166,7 @@
          INFO = -10
       } else if ( KU < 0 || ( ISYM != 1 && KL != KU ) ) {
          INFO = -11
-      } else if ( IPACK == -1 || ( ISYMPK == 1 && ISYM == 1 ) || ( ISYMPK == 2 && ISYM == 1 && KL.GT.0 ) || ( ISYMPK == 3 && ISYM == 1 && KU.GT.0 ) || ( ISYMPK != 0 && M != N ) ) {
+      } else if ( IPACK == -1 || ( ISYMPK == 1 && ISYM == 1 ) || ( ISYMPK == 2 && ISYM == 1 && KL > 0 ) || ( ISYMPK == 3 && ISYM == 1 && KU > 0 ) || ( ISYMPK != 0 && M != N ) ) {
          INFO = -12
       } else if ( LDA < MAX( 1, MINLDA ) ) {
          INFO = -14
@@ -213,7 +213,7 @@
             TEMP = MAX( TEMP, ABS( D( I ) ) )
          } // 110
 
-         if ( TEMP.GT.ZERO ) {
+         if ( TEMP > ZERO ) {
             ALPHA = DMAX / TEMP
          } else {
             INFO = 2
@@ -235,10 +235,10 @@
                 // the (i,j)-th element is in
                 // A( i - ISKEW*j + IOFFST, j )
 
-      if ( IPACK.GT.4 ) {
+      if ( IPACK > 4 ) {
          ILDA = LDA - 1
          ISKEW = 1
-         if ( IPACK.GT.5 ) {
+         if ( IPACK > 5 ) {
             IOFFST = UUB + 1
          } else {
             IOFFST = 1
@@ -274,7 +274,7 @@
 
             // Non-symmetric -- A = U D V
 
-            if ( IPACK.GT.4 ) {
+            if ( IPACK > 4 ) {
                IPACKG = IPACK
             } else {
                IPACKG = 0
@@ -301,7 +301,7 @@
                      ICOL = MAX( 1, JR-JKL )
                      if ( JR < M ) {
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
-                        zlarot( true , JR.GT.JKL, false , IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
+                        zlarot( true , JR > JKL, false , IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -318,7 +318,7 @@
                         IROW = MAX( 1, JCH-JKU )
                         IL = IR + 2 - IROW
                         ZTEMP = CZERO
-                        ILTEMP = JCH.GT.JKU
+                        ILTEMP = JCH > JKU
                         zlarot( false , ILTEMP, true , IL, C, S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, ZTEMP, EXTRA );
                         if ( ILTEMP ) {
                            zlartg(A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), ZTEMP, REALC, S, DUMMY );
@@ -329,7 +329,7 @@
                            ICOL = MAX( 1, JCH-JKU-JKL )
                            IL = IC + 2 - ICOL
                            EXTRA = CZERO
-                           zlarot( true , JCH.GT.JKU+JKL, true , IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP );
+                           zlarot( true , JCH > JKU+JKL, true , IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -350,7 +350,7 @@
                      IROW = MAX( 1, JC-JKU )
                      if ( JC < N ) {
                         IL = MIN( M, JC+JKL ) + 1 - IROW
-                        zlarot( false , JC.GT.JKU, false , IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
+                        zlarot( false , JC > JKU, false , IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -367,7 +367,7 @@
                         ICOL = MAX( 1, JCH-JKL )
                         IL = IC + 2 - ICOL
                         ZTEMP = CZERO
-                        ILTEMP = JCH.GT.JKL
+                        ILTEMP = JCH > JKL
                         zlarot( true , ILTEMP, true , IL, C, S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, ZTEMP, EXTRA );
                         if ( ILTEMP ) {
                            zlartg(A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), ZTEMP, REALC, S, DUMMY );
@@ -377,7 +377,7 @@
                            IROW = MAX( 1, JCH-JKL-JKU )
                            IL = IR + 2 - IROW
                            EXTRA = CZERO
-                           zlarot( false , JCH.GT.JKL+JKU, true , IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP );
+                           zlarot( false , JCH > JKL+JKU, true , IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -404,7 +404,7 @@
                      C = COS( ANGLE )*ZLARND( 5, ISEED )
                      S = SIN( ANGLE )*ZLARND( 5, ISEED )
                      IROW = MAX( 1, JC-JKU+1 )
-                     if ( JC.GT.0 ) {
+                     if ( JC > 0 ) {
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
                         zlarot( false , false , JC+JKL < M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
                      }
@@ -413,7 +413,7 @@
 
                      IC = JC
                      DO 200 JCH = JC + JKL, IENDCH, JKL + JKU
-                        ILEXTR = IC.GT.0
+                        ILEXTR = IC > 0
                         if ( ILEXTR ) {
                            zlartg(A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
@@ -454,7 +454,7 @@
                      C = COS( ANGLE )*ZLARND( 5, ISEED )
                      S = SIN( ANGLE )*ZLARND( 5, ISEED )
                      ICOL = MAX( 1, JR-JKL+1 )
-                     if ( JR.GT.0 ) {
+                     if ( JR > 0 ) {
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
                         zlarot( true , false , JR+JKU < N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
                      }
@@ -463,7 +463,7 @@
 
                      IR = JR
                      DO 230 JCH = JR + JKU, IENDCH, JKL + JKU
-                        ILEXTR = IR.GT.0
+                        ILEXTR = IR > 0
                         if ( ILEXTR ) {
                            zlartg(A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
@@ -531,7 +531,7 @@
                         CT = DCONJG( C )
                         ST = DCONJG( S )
                      }
-                     zlarot( false , JC.GT.K, true , IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, ZTEMP );
+                     zlarot( false , JC > K, true , IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, ZTEMP );
                      zlarot( true , true , false , MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, DUMMY );
 
                      // Chase EXTRA back up the matrix
@@ -555,7 +555,7 @@
                         IROW = MAX( 1, JCH-K )
                         IL = MIN( JCH+1, K+2 )
                         EXTRA = CZERO
-                        zlarot( false , JCH.GT.K, true , IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, ZTEMP );
+                        zlarot( false , JCH > K, true , IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, ZTEMP );
                         ICOL = JCH
                      } // 270
                   } // 280
@@ -621,7 +621,7 @@
                         CT = DCONJG( C )
                         ST = DCONJG( S )
                      }
-                     zlarot( false , true , N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, EXTRA );
+                     zlarot( false , true , N-JC > K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, EXTRA );
                      ICOL = MAX( 1, JC-K+1 )
                      zlarot( true , false , true , JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, ZTEMP );
 
@@ -645,7 +645,7 @@
                         zlarot( true , true , true , K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, ZTEMP );
                         IL = MIN( N+1-JCH, K+2 )
                         EXTRA = CZERO
-                        zlarot( false , true , N-JCH.GT.K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, ZTEMP, EXTRA );
+                        zlarot( false , true , N-JCH > K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, ZTEMP, EXTRA );
                         ICOL = JCH
                      } // 360
                   } // 370
@@ -757,7 +757,7 @@
             for (J = 1; J <= M; J++) { // 500
                for (I = 1; I <= J; I++) { // 490
                   IROW = IROW + 1
-                  if ( IROW.GT.LDA ) {
+                  if ( IROW > LDA ) {
                      IROW = 1
                      ICOL = ICOL + 1
                   }
@@ -774,7 +774,7 @@
             for (J = 1; J <= M; J++) { // 520
                for (I = J; I <= M; I++) { // 510
                   IROW = IROW + 1
-                  if ( IROW.GT.LDA ) {
+                  if ( IROW > LDA ) {
                      IROW = 1
                      ICOL = ICOL + 1
                   }

@@ -80,7 +80,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
          NM = 0
          FATAL = true;
-      } else if ( NM.GT.MAXIN ) {
+      } else if ( NM > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN
          NM = 0
          FATAL = true;
@@ -90,12 +90,12 @@ void main() {
          if ( MVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
             FATAL = true;
-         } else if ( MVAL( I ).GT.NMAX ) {
+         } else if ( MVAL( I ) > NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
             FATAL = true;
          }
       } // 10
-      if (NM.GT.0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
+      if (NM > 0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
 
       // Read the values of NRHS
 
@@ -104,7 +104,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
          FATAL = true;
-      } else if ( NNS.GT.MAXIN ) {
+      } else if ( NNS > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
          FATAL = true;
@@ -114,12 +114,12 @@ void main() {
          if ( NSVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = true;
-         } else if ( NSVAL( I ).GT.MAXRHS ) {
+         } else if ( NSVAL( I ) > MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = true;
          }
       } // 30
-      if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
+      if (NNS > 0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
 
       // Read the threshold value for the test ratios.
 
@@ -167,7 +167,7 @@ void main() {
       I = 3
       } // 90
       I = I + 1
-      if ( I.GT.72 ) {
+      if ( I > 72 ) {
          NMATS = MATMAX
          GO TO 130
       }
@@ -185,7 +185,7 @@ void main() {
       } // 120
       NMATS = NMATS*10 + IC
       I = I + 1
-      if (I.GT.72) GO TO 130;
+      if (I > 72) GO TO 130;
       GO TO 100
       } // 130
       C1 = PATH( 1: 1 )

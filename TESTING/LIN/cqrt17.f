@@ -67,7 +67,7 @@
       clacpy('All', NROWS, NRHS, B, LDB, C, LDB );
       cgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CMPLX( -ONE ), A, LDA, X, LDX, CMPLX( ONE ), C, LDB );
       NORMRS = CLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
-      if ( NORMRS.GT.SMLNUM ) {
+      if ( NORMRS > SMLNUM ) {
          ISCL = 1
          clascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
       }

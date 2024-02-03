@@ -165,7 +165,7 @@
       // triangular solver.
 
       ANORM = ABS( S( 1, 1 ) )
-      if (N.GT.1) ANORM = ANORM + ABS( S( 2, 1 ) );
+      if (N > 1) ANORM = ANORM + ABS( S( 2, 1 ) );
       BNORM = ABS( P( 1, 1 ) )
       WORK( 1 ) = ZERO
       WORK( N+1 ) = ZERO
@@ -309,7 +309,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               if (ACOEFA*ULP < SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP < SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -323,7 +323,7 @@
                TEMP = ACOEF*S( JE+1, JE )
                TEMP2R = ACOEF*S( JE, JE ) - BCOEFR*P( JE, JE )
                TEMP2I = -BCOEFI*P( JE, JE )
-               if ( ABS( TEMP ).GT.ABS( TEMP2R )+ABS( TEMP2I ) ) {
+               if ( ABS( TEMP ) > ABS( TEMP2R )+ABS( TEMP2I ) ) {
                   WORK( 2*N+JE ) = ONE
                   WORK( 3*N+JE ) = ZERO
                   WORK( 2*N+JE+1 ) = -TEMP2R / TEMP
@@ -368,7 +368,7 @@
 
                XSCALE = ONE / MAX( ONE, XMAX )
                TEMP = MAX( WORK( J ), WORK( N+J ), ACOEFA*WORK( J )+BCOEFA*WORK( N+J ) )                IF( IL2BY2 ) TEMP = MAX( TEMP, WORK( J+1 ), WORK( N+J+1 ), ACOEFA*WORK( J+1 )+BCOEFA*WORK( N+J+1 ) )
-               if ( TEMP.GT.BIGNUM*XSCALE ) {
+               if ( TEMP > BIGNUM*XSCALE ) {
                   for (JW = 0; JW <= NW - 1; JW++) { // 90
                      for (JR = JE; JR <= J - 1; JR++) { // 80
                         WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR )
@@ -456,7 +456,7 @@
                } // 190
             }
 
-            if ( XMAX.GT.SAFMIN ) {
+            if ( XMAX > SAFMIN ) {
                XSCALE = ONE / XMAX
 
                for (JW = 0; JW <= NW - 1; JW++) { // 210
@@ -493,7 +493,7 @@
                GO TO 500
             }
             NW = 1
-            if ( JE.GT.1 ) {
+            if ( JE > 1 ) {
                if ( S( JE, JE-1 ) != ZERO ) {
                   ILCPLX = true;
                   NW = 2
@@ -595,7 +595,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               if (ACOEFA*ULP < SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP < SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -650,7 +650,7 @@
                // If a 2-by-2 block, is in position j-1:j, wait until
                // next iteration to process it (when it will be j:j+1)
 
-               if ( .NOT.IL2BY2 && J.GT.1 ) {
+               if ( .NOT.IL2BY2 && J > 1 ) {
                   if ( S( J, J-1 ) != ZERO ) {
                      IL2BY2 = true;
                      GO TO 370
@@ -685,7 +685,7 @@
 
                // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
 
-               if ( J.GT.1 ) {
+               if ( J > 1 ) {
 
                   // Check whether scaling is necessary for sum.
 
@@ -693,7 +693,7 @@
                   TEMP = ACOEFA*WORK( J ) + BCOEFA*WORK( N+J )
                   if (IL2BY2) TEMP = MAX( TEMP, ACOEFA*WORK( J+1 )+BCOEFA* WORK( N+J+1 ) );
                   TEMP = MAX( TEMP, ACOEFA, BCOEFA )
-                  if ( TEMP.GT.BIGNUM*XSCALE ) {
+                  if ( TEMP > BIGNUM*XSCALE ) {
 
                      for (JW = 0; JW <= NW - 1; JW++) { // 330
                         for (JR = 1; JR <= JE; JR++) { // 320
@@ -781,7 +781,7 @@
                } // 470
             }
 
-            if ( XMAX.GT.SAFMIN ) {
+            if ( XMAX > SAFMIN ) {
                XSCALE = ONE / XMAX
                for (JW = 0; JW <= NW - 1; JW++) { // 490
                   for (JR = 1; JR <= IEND; JR++) { // 480

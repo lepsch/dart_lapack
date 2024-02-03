@@ -64,7 +64,7 @@
       if (N == 0 || NRHS == 0) RETURN;
 
       KD = KU + KL + 1
-      LNOTI = KL.GT.0
+      LNOTI = KL > 0
 
       if ( NOTRAN ) {
 

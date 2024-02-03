@@ -61,7 +61,7 @@
          JU = MIN( KL+KU, J-1 )
          JL = MIN( KL, M-J )
          LENJ = MIN( M, J ) - J + JU + 1
-         if ( LENJ.GT.0 ) {
+         if ( LENJ > 0 ) {
             dcopy(LENJ, AFAC( KD-JU, J ), 1, WORK, 1 );
             for (I = LENJ + 1; I <= JU + JL + 1; I++) { // 20
                WORK( I ) = ZERO
@@ -72,7 +72,7 @@
 
             DO 30 I = MIN( M-1, J ), J - JU, -1
                IL = MIN( KL, M-I )
-               if ( IL.GT.0 ) {
+               if ( IL > 0 ) {
                   IW = I - J + JU + 1
                   T = WORK( IW )
                   daxpy(IL, T, AFAC( KD+1, I ), 1, WORK( IW+1 ), 1 );
@@ -88,7 +88,7 @@
             // Subtract the corresponding column of A.
 
             JUA = MIN( JU, KU )
-            if (JUA+JL+1.GT.0) CALL DAXPY( JUA+JL+1, -ONE, A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 );
+            if (JUA+JL+1 > 0) CALL DAXPY( JUA+JL+1, -ONE, A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 );
 
             // Compute the 1-norm of the column.
 

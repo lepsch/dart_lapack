@@ -47,7 +47,7 @@
 
          // Read a line of matrix types if 0 < NMATS < NTYPES.
 
-         if ( NMATS.GT.0 ) {
+         if ( NMATS > 0 ) {
             READ( NIN, FMT = '(A80)', END = 90 )LINE
             LENP = LEN( LINE )
             I = 0
@@ -56,8 +56,8 @@
                I1 = 0
                } // 30
                I = I + 1
-               if ( I.GT.LENP ) {
-                  if ( J == NMATS && I1.GT.0 ) {
+               if ( I > LENP ) {
+                  if ( J == NMATS && I1 > 0 ) {
                      GO TO 60
                   } else {
                      WRITE( NOUT, FMT = 9995 )LINE
@@ -83,7 +83,7 @@
                   } // 50
                   NREQ( J ) = 10*NREQ( J ) + IC
                   GO TO 30
-               } else if ( I1.GT.0 ) {
+               } else if ( I1 > 0 ) {
                   GO TO 60
                } else {
                   GO TO 30
@@ -92,7 +92,7 @@
          }
          for (I = 1; I <= NMATS; I++) { // 70
             NT = NREQ( I )
-            if ( NT.GT.0 && NT.LE.NTYPES ) {
+            if ( NT > 0 && NT.LE.NTYPES ) {
                if ( DOTYPE( NT ) ) {
                   if (FIRSTT) WRITE( NOUT, FMT = * );
                   FIRSTT = false;

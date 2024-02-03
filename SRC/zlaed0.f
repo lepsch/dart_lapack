@@ -41,7 +41,7 @@
 
       INFO = 0
 
-      // IF( ICOMPQ < 0 || ICOMPQ .GT. 2 ) THEN
+      // IF( ICOMPQ < 0 || ICOMPQ > 2 ) THEN
          // INFO = -1
       // ELSE IF( ( ICOMPQ == 1 ) && ( QSIZ < MAX( 0, N ) ) )
 *    $        THEN
@@ -72,7 +72,7 @@
       SUBPBS = 1
       TLVLS = 0
       } // 10
-      if ( IWORK( SUBPBS ).GT.SMLSIZ ) {
+      if ( IWORK( SUBPBS ) > SMLSIZ ) {
          DO 20 J = SUBPBS, 1, -1
             IWORK( 2*J ) = ( IWORK( J )+1 ) / 2
             IWORK( 2*J-1 ) = IWORK( J ) / 2
@@ -137,7 +137,7 @@
          zlacrm(QSIZ, MATSIZ, Q( 1, SUBMAT ), LDQ, RWORK( LL ), MATSIZ, QSTORE( 1, SUBMAT ), LDQS, RWORK( IWREM ) );
          IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2
          CURR = CURR + 1
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
             RETURN
          }
@@ -155,7 +155,7 @@
 
       CURLVL = 1
       } // 80
-      if ( SUBPBS.GT.1 ) {
+      if ( SUBPBS > 1 ) {
          SPM2 = SUBPBS - 2
          DO 90 I = 0, SPM2, 2
             if ( I == 0 ) {
@@ -178,7 +178,7 @@
       // I am free to use Q as a valuable working space until Loop 150.
 
             zlaed7(MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ), RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), RWORK( IGIVNM ), Q( 1, SUBMAT ), RWORK( IWREM ), IWORK( SUBPBS+1 ), INFO );
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
                INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
                RETURN
             }

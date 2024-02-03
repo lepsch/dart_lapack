@@ -91,11 +91,11 @@
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
-      } else if ( VALEIG && N.GT.0 && WU.LE.WL ) {
+      } else if ( VALEIG && N > 0 && WU.LE.WL ) {
          INFO = -7
-      } else if ( INDEIG && ( IIL < 1 || IIL.GT.N ) ) {
+      } else if ( INDEIG && ( IIL < 1 || IIL > N ) ) {
          INFO = -8
-      } else if ( INDEIG && ( IIU < IIL || IIU.GT.N ) ) {
+      } else if ( INDEIG && ( IIU < IIL || IIU > N ) ) {
          INFO = -9
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
          INFO = -13
@@ -182,7 +182,7 @@
             R2 = E(2)
             LAESWAP = true;
          }
-         if ( ALLEIG || (VALEIG && (R2.GT.WL) && (R2.LE.WU)) || (INDEIG && (IIL == 1)) ) {
+         if ( ALLEIG || (VALEIG && (R2 > WL) && (R2.LE.WU)) || (INDEIG && (IIL == 1)) ) {
             M = M+1
             W( M ) = R2
             if ( WANTZ && (.NOT.ZQUERY) ) {
@@ -208,7 +208,7 @@
                }
             }
          }
-         if ( ALLEIG || (VALEIG && (R1.GT.WL) && (R1.LE.WU)) || (INDEIG && (IIU == 2)) ) {
+         if ( ALLEIG || (VALEIG && (R1 > WL) && (R1.LE.WU)) || (INDEIG && (IIU == 2)) ) {
             M = M+1
             W( M ) = R1
             if ( WANTZ && (.NOT.ZQUERY) ) {
@@ -259,9 +259,9 @@
 
          SCALE = ONE
          TNRM = DLANST( 'M', N, D, E )
-         if ( TNRM.GT.ZERO && TNRM < RMIN ) {
+         if ( TNRM > ZERO && TNRM < RMIN ) {
             SCALE = RMIN / TNRM
-         } else if ( TNRM.GT.RMAX ) {
+         } else if ( TNRM > RMAX ) {
             SCALE = RMAX / TNRM
          }
          if ( SCALE != ONE ) {
@@ -399,7 +399,7 @@
       // If eigenvalues are not in increasing order, then sort them,
       // possibly along with eigenvectors.
 
-      if ( NSPLIT.GT.1 || N == 2 ) {
+      if ( NSPLIT > 1 || N == 2 ) {
          if ( .NOT. WANTZ ) {
             dlasrt('I', M, W, IINFO );
             if ( IINFO != 0 ) {

@@ -32,7 +32,7 @@
 
          DMAX = ABS(ZX(1))
          for (I = 2; I <= N; I++) {
-            if (ABS(ZX(I)).GT.DMAX) {
+            if (ABS(ZX(I)) > DMAX) {
                IZMAX1 = I
                DMAX = ABS(ZX(I))
             }
@@ -45,7 +45,7 @@
          DMAX = ABS(ZX(1))
          IX = IX + INCX
          for (I = 2; I <= N; I++) {
-            if (ABS(ZX(IX)).GT.DMAX) {
+            if (ABS(ZX(IX)) > DMAX) {
                IZMAX1 = I
                DMAX = ABS(ZX(IX))
             }

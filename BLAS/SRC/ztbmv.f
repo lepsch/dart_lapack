@@ -107,7 +107,7 @@
                           if (NOUNIT) X(JX) = X(JX)*A(KPLUS1,J);
                       }
                       JX = JX + INCX
-                      if (J.GT.K) KX = KX + INCX;
+                      if (J > K) KX = KX + INCX;
                   } // 40
               }
           } else {

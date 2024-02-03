@@ -76,11 +76,11 @@
          INFO = -9
       } else if ( LDZ.LE.1 || LDZ < NMAX ) {
          INFO = -16
-      } else if ( 2*MAX( NMAX, 2 )**2.GT.NWORK ) {
+      } else if ( 2*MAX( NMAX, 2 )**2 > NWORK ) {
          INFO = -21
-      } else if ( 2*MAX( NMAX, 2 )**2.GT.LRWORK ) {
+      } else if ( 2*MAX( NMAX, 2 )**2 > LRWORK ) {
          INFO = -23
-      } else if ( 2*MAX( NMAX, 2 )**2.GT.LIWORK ) {
+      } else if ( 2*MAX( NMAX, 2 )**2 > LIWORK ) {
          INFO = -25
       }
 
@@ -147,7 +147,7 @@
             // =8                      random hermitian
             // =9                      banded, w/ eigenvalues
 
-            if (MTYPES.GT.MAXTYP) GO TO 90;
+            if (MTYPES > MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -240,7 +240,7 @@
                  // ka = 3   kb = 3
 
                KB9 = KB9 + 1
-               if ( KB9.GT.KA9 ) {
+               if ( KB9 > KA9 ) {
                   KA9 = KA9 + 1
                   KB9 = 1
                }
@@ -268,7 +268,7 @@
             } else {
                IL = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) )
-               if ( IL.GT.IU ) {
+               if ( IL > IU ) {
                   ITEMP = IL
                   IL = IU
                   IU = ITEMP

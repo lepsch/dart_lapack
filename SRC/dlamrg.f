@@ -21,12 +21,12 @@
 
       N1SV = N1
       N2SV = N2
-      if ( DTRD1.GT.0 ) {
+      if ( DTRD1 > 0 ) {
          IND1 = 1
       } else {
          IND1 = N1
       }
-      if ( DTRD2.GT.0 ) {
+      if ( DTRD2 > 0 ) {
          IND2 = 1 + N1
       } else {
          IND2 = N1 + N2
@@ -34,7 +34,7 @@
       I = 1
       // while ( (N1SV > 0) & (N2SV > 0) )
       } // 10
-      if ( N1SV.GT.0 && N2SV.GT.0 ) {
+      if ( N1SV > 0 && N2SV > 0 ) {
          if ( A( IND1 ).LE.A( IND2 ) ) {
             INDEX( I ) = IND1
             I = I + 1

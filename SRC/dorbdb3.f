@@ -42,7 +42,7 @@
 
       if ( M < 0 ) {
          INFO = -1
-      } else if ( 2*P < M || P .GT. M ) {
+      } else if ( 2*P < M || P > M ) {
          INFO = -2
       } else if ( Q < M-P || M-Q < M-P ) {
          INFO = -3
@@ -77,7 +77,7 @@
 
       for (I = 1; I <= M-P; I++) {
 
-         if ( I .GT. 1 ) {
+         if ( I > 1 ) {
             drot(Q-I+1, X11(I-1,I), LDX11, X21(I,I), LDX11, C, S );
          }
 

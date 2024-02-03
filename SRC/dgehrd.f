@@ -42,9 +42,9 @@
       LQUERY = ( LWORK == -1 )
       if ( N < 0 ) {
          INFO = -1
-      } else if ( ILO < 1 || ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
          INFO = -2
-      } else if ( IHI < MIN( ILO, N ) || IHI.GT.N ) {
+      } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
          INFO = -3
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
@@ -93,7 +93,7 @@
 
       NB = MIN( NBMAX, ILAENV( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) )
       NBMIN = 2
-      if ( NB.GT.1 && NB < NH ) {
+      if ( NB > 1 && NB < NH ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code)

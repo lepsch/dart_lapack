@@ -101,7 +101,7 @@
          INFO = -21
       } else if ( LDPT < MNMAX ) {
          INFO = -23
-      } else if ( MINWRK.GT.LWORK ) {
+      } else if ( MINWRK > LWORK ) {
          INFO = -27
       }
 
@@ -168,7 +168,7 @@
         // =9                      random nonsymmetric
         // =10                     random bidiagonal (log. distrib.)
 
-            if (MTYPES.GT.MAXTYP) GO TO 100;
+            if (MTYPES > MAXTYP) GO TO 100;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -356,7 +356,7 @@
             // B := U * S1 * VT, and compute Z = U' * Y.
 
             dcopy(MNMIN, BD, 1, S1, 1 );
-            if (MNMIN.GT.0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
+            if (MNMIN > 0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
             zlacpy(' ', M, NRHS, Y, LDX, Z, LDX );
             zlaset('Full', MNMIN, MNMIN, CZERO, CONE, U, LDPT );
             zlaset('Full', MNMIN, MNMIN, CZERO, CONE, VT, LDPT );
@@ -380,7 +380,7 @@
             // bidiagonal matrix B;  U, VT, and Z should not be modified.
 
             dcopy(MNMIN, BD, 1, S2, 1 );
-            if (MNMIN.GT.0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
+            if (MNMIN > 0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
 
             zbdsqr(UPLO, MNMIN, 0, 0, 0, S2, RWORK, VT, LDPT, U, LDPT, Z, LDX, RWORK( MNMIN+1 ), IINFO );
 
@@ -448,7 +448,7 @@
 
             if ( .NOT.BIDIAG ) {
                dcopy(MNMIN, BD, 1, S2, 1 );
-               if (MNMIN.GT.0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
+               if (MNMIN > 0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
 
                zbdsqr(UPLO, MNMIN, N, M, NRHS, S2, RWORK, PT, LDPT, Q, LDQ, Y, LDX, RWORK( MNMIN+1 ), IINFO );
 

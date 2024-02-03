@@ -78,8 +78,8 @@
 
             K = 1
             } // 10
-            if (K.GT.N) GO TO 30;
-            if ( IPIV( K ).GT.0 ) {
+            if (K > N) GO TO 30;
+            if ( IPIV( K ) > 0 ) {
 
                // 1 x 1 pivot block
 
@@ -89,7 +89,7 @@
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
 
-               if ( K.GT.1 ) {
+               if ( K > 1 ) {
 
                   // Apply the transformation.
 
@@ -122,7 +122,7 @@
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
 
-               if ( K.GT.1 ) {
+               if ( K > 1 ) {
 
                   // Apply the transformations.
 
@@ -153,7 +153,7 @@
             // Test the pivot index.  If greater than zero, a 1 x 1
             // pivot was used, otherwise a 2 x 2 pivot was used.
 
-            if ( IPIV( K ).GT.0 ) {
+            if ( IPIV( K ) > 0 ) {
 
                // 1 x 1 pivot block:
 
@@ -236,8 +236,8 @@
 
             // 1 x 1 pivot block.
 
-            if ( IPIV( K ).GT.0 ) {
-               if ( K.GT.1 ) {
+            if ( IPIV( K ) > 0 ) {
+               if ( K > 1 ) {
 
                   // Interchange if P(K) != I.
 
@@ -258,7 +258,7 @@
             // 2 x 2 pivot block.
 
             } else {
-               if ( K.GT.2 ) {
+               if ( K > 2 ) {
 
                   // Interchange if P(K) != I.
 
@@ -308,11 +308,11 @@
 
             K = 1
             } // 100
-            if (K.GT.N) GO TO 120;
+            if (K > N) GO TO 120;
 
             // 1 x 1 pivot block
 
-            if ( IPIV( K ).GT.0 ) {
+            if ( IPIV( K ) > 0 ) {
                if ( K < N ) {
 
                   // Interchange if P(K) != I.

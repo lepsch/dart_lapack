@@ -52,7 +52,7 @@
 
       if ( N < 0 ) {
          INFO = -1
-      } else if ( M < 0 || M.GT.N ) {
+      } else if ( M < 0 || M > N ) {
          INFO = -4
       } else if ( LDZ < MAX( 1, N ) ) {
          INFO = -9
@@ -152,7 +152,7 @@
             // If eigenvalues j and j-1 are too close, add a relatively
             // small perturbation.
 
-            if ( JBLK.GT.1 ) {
+            if ( JBLK > 1 ) {
                EPS1 = ABS( EPS*XJ )
                PERTOL = TEN*EPS1
                SEP = XJ - XJM
@@ -181,7 +181,7 @@
 
             } // 70
             ITS = ITS + 1
-            if (ITS.GT.MAXITS) GO TO 120;
+            if (ITS > MAXITS) GO TO 120;
 
             // Normalize and scale the righthand side vector Pb.
 
@@ -196,7 +196,7 @@
             // Reorthogonalize by modified Gram-Schmidt if eigenvalues are
             // close enough.
 
-            if (JBLK == 1) GO TO 110             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J;
+            if (JBLK == 1) GO TO 110             IF( ABS( XJ-XJM ) > ORTOL ) GPIND = J;
             if ( GPIND != J ) {
                for (I = GPIND; I <= J - 1; I++) { // 100
                   CTR = ZERO

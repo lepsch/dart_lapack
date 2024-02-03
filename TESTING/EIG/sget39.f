@@ -128,7 +128,7 @@
                         RESID = SASUM( N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM )
                         RESID = RESID / DOMIN
-                        if ( RESID.GT.RMAX ) {
+                        if ( RESID > RMAX ) {
                            RMAX = RESID
                            LMAX = KNT
                         }
@@ -146,7 +146,7 @@
                         RESID = SASUM( N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM )
                         RESID = RESID / DOMIN
-                        if ( RESID.GT.RMAX ) {
+                        if ( RESID > RMAX ) {
                            RMAX = RESID
                            LMAX = KNT
                         }
@@ -176,7 +176,7 @@
                         RESID = SASUM( 2*N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*SASUM( 2*N, X, 1 ) ) )
                         RESID = RESID / DOMIN
-                        if ( RESID.GT.RMAX ) {
+                        if ( RESID > RMAX ) {
                            RMAX = RESID
                            LMAX = KNT
                         }
@@ -205,7 +205,7 @@
                         RESID = SASUM( 2*N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*SASUM( 2*N, X, 1 ) ) )
                         RESID = RESID / DOMIN
-                        if ( RESID.GT.RMAX ) {
+                        if ( RESID > RMAX ) {
                            RMAX = RESID
                            LMAX = KNT
                         }

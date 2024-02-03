@@ -95,7 +95,7 @@
 
       // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
 
-      if (NB.GT.MN) NB = MN;
+      if (NB > MN) NB = MN;
 
       // Determine the block size from the supplied LWORK
       // ( at this stage we know that LWORK >= (minimum required workspace,
@@ -120,13 +120,13 @@
 
       ANRM = CLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
@@ -145,13 +145,13 @@
       if (TPSD) BROW = N;
       BNRM = CLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          clascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 1
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
@@ -184,7 +184,7 @@
 
             ctrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
                RETURN
             }
 
@@ -202,7 +202,7 @@
 
             ctrtrs('Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
                RETURN
             }
 
@@ -246,7 +246,7 @@
 
             ctrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
                RETURN
             }
 
@@ -283,7 +283,7 @@
 
             ctrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
                RETURN
             }
 

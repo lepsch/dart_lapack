@@ -68,7 +68,7 @@
          dsyr('L', N, -SD( J ), U( 1, J ), 1, WORK, N );
       } // 20
 
-      if ( N.GT.1 && KBAND == 1 ) {
+      if ( N > 1 && KBAND == 1 ) {
          for (J = 1; J <= N - 1; J++) { // 30
             dsyr2('L', N, -SE( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
          } // 30
@@ -76,7 +76,7 @@
 
       WNORM = DLANSY( '1', 'L', N, WORK, N, WORK( N**2+1 ) )
 
-      if ( ANORM.GT.WNORM ) {
+      if ( ANORM > WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
          if ( ANORM < ONE ) {

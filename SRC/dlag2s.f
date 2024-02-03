@@ -30,7 +30,7 @@
       RMAX = SLAMCH( 'O' )
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( ( A( I, J ) < -RMAX ) || ( A( I, J ).GT.RMAX ) ) {
+            if ( ( A( I, J ) < -RMAX ) || ( A( I, J ) > RMAX ) ) {
                INFO = 1
                GO TO 30
             }

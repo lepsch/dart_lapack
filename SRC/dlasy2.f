@@ -79,7 +79,7 @@
 
       SCALE = ONE
       GAM = ABS( B( 1, 1 ) )
-      if (SMLNUM*GAM.GT.BET) SCALE = ONE / GAM;
+      if (SMLNUM*GAM > BET) SCALE = ONE / GAM;
 
       X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / TAU1
       XNORM = ABS( X( 1, 1 ) )
@@ -150,7 +150,7 @@
          BTMP( 2 ) = BTMP( 2 ) - L21*BTMP( 1 )
       }
       SCALE = ONE
-      if ( ( TWO*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( U22 ) || ( TWO*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( U11 ) ) {
+      if ( ( TWO*SMLNUM )*ABS( BTMP( 2 ) ) > ABS( U22 ) || ( TWO*SMLNUM )*ABS( BTMP( 1 ) ) > ABS( U11 ) ) {
          SCALE = HALF / MAX( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ) )
          BTMP( 1 ) = BTMP( 1 )*SCALE
          BTMP( 2 ) = BTMP( 2 )*SCALE
@@ -253,7 +253,7 @@
          T16( 4, 4 ) = SMIN
       }
       SCALE = ONE
-      if ( ( EIGHT*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( T16( 1, 1 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( T16( 2, 2 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 3 ) ).GT.ABS( T16( 3, 3 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 4 ) ).GT.ABS( T16( 4, 4 ) ) ) {
+      if ( ( EIGHT*SMLNUM )*ABS( BTMP( 1 ) ) > ABS( T16( 1, 1 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 2 ) ) > ABS( T16( 2, 2 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 3 ) ) > ABS( T16( 3, 3 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 4 ) ) > ABS( T16( 4, 4 ) ) ) {
          SCALE = ( ONE / EIGHT ) / MAX( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ), ABS( BTMP( 3 ) ), ABS( BTMP( 4 ) ) )
          BTMP( 1 ) = BTMP( 1 )*SCALE
          BTMP( 2 ) = BTMP( 2 )*SCALE

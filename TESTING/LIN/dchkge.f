@@ -232,7 +232,7 @@
                   // block size or if M != N.  Skip the solve tests if
                   // the matrix is singular.
 
-                  if (INB.GT.1 || M != N) GO TO 90                   IF( TRFCON ) GO TO 70;
+                  if (INB > 1 || M != N) GO TO 90                   IF( TRFCON ) GO TO 70;
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
                      NRHS = NSVAL( IRHS )

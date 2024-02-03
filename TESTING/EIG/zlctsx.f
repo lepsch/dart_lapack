@@ -53,9 +53,9 @@
       }
 
        // IF( BETA == CZERO ) THEN
-          // ZLCTSX = ( DBLE( ALPHA ).GT.ZERO )
+          // ZLCTSX = ( DBLE( ALPHA ) > ZERO )
        // ELSE
-          // ZLCTSX = ( DBLE( ALPHA/BETA ).GT.ZERO )
+          // ZLCTSX = ( DBLE( ALPHA/BETA ) > ZERO )
        // END IF
 
       RETURN

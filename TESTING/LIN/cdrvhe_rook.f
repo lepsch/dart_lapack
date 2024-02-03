@@ -274,7 +274,7 @@
                      // pivoting.
 
                      K = IZERO
-                     if ( K.GT.0 ) {
+                     if ( K > 0 ) {
                         } // 100
                         if ( IWORK( K ) < 0 ) {
                            if ( IWORK( K ) != -K ) {

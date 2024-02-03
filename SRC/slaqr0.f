@@ -98,7 +98,7 @@
          }
 
          // ==== NWR = recommended deflation window size.  At this
-         // .    point,  N .GT. NTINY = 15, so there is enough
+         // .    point,  N > NTINY = 15, so there is enough
          // .    subdiagonal workspace for NWR.GE.2 as required.
          // .    (In fact, there is enough subdiagonal space for
          // .    NWR.GE.4.) ====
@@ -108,7 +108,7 @@
          NWR = MIN( IHI-ILO+1, ( N-1 ) / 3, NWR )
 
          // ==== NSR = recommended number of simultaneous shifts.
-         // .    At this point N .GT. NTINY = 15, so there is at
+         // .    At this point N > NTINY = 15, so there is at
          // .    enough subdiagonal workspace for NSR to be even
          // .    and greater than or equal to two as required. ====
 
@@ -219,7 +219,7 @@
                   NW = NH
                } else {
                   KWTOP = KBOT - NW + 1
-                  IF( ABS( H( KWTOP, KWTOP-1 ) ).GT. ABS( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
+                  IF( ABS( H( KWTOP, KWTOP-1 ) ) > ABS( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
                }
             }
             if ( NDFL < KEXNW ) {
@@ -265,7 +265,7 @@
             // .    skipped if many eigenvalues have just been deflated
             // .    or if the remaining active block is small.
 
-            if ( ( LD == 0 ) || ( ( 100*LD.LE.NW*NIBBLE ) && ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) {
+            if ( ( LD == 0 ) || ( ( 100*LD.LE.NW*NIBBLE ) && ( KBOT- KTOP+1 > MIN( NMIN, NWMAX ) ) ) ) {
 
                // ==== NS = nominal number of simultaneous shifts.
                // .    This may be lowered (slightly) if SLAQR3
@@ -309,7 +309,7 @@
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
                      slacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH );
-                     if ( NS.GT.NMIN ) {
+                     if ( NS > NMIN ) {
                         slaqr4( false , false , NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF );
                      } else {
                         slahqr( false , false , NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, INF );
@@ -330,7 +330,7 @@
                      }
                   }
 
-                  if ( KBOT-KS+1.GT.NS ) {
+                  if ( KBOT-KS+1 > NS ) {
 
                      // ==== Sort the shifts (Helps a little)
                      // .    Bubble sort keeps complex conjugate
@@ -426,7 +426,7 @@
 
             // ==== Note progress (or the lack of it). ====
 
-            if ( LD.GT.0 ) {
+            if ( LD > 0 ) {
                NDFL = 1
             } else {
                NDFL = NDFL + 1

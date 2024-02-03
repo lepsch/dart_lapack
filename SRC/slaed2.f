@@ -47,7 +47,7 @@
          INFO = -2
       } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -6
-      } else if ( MIN( 1, ( N / 2 ) ).GT.N1 || ( N / 2 ) < N1 ) {
+      } else if ( MIN( 1, ( N / 2 ) ) > N1 || ( N / 2 ) < N1 ) {
          INFO = -3
       }
       if ( INFO != 0 ) {
@@ -151,7 +151,7 @@
       } // 80
       J = J + 1
       NJ = INDX( J )
-      if (J.GT.N) GO TO 100;
+      if (J > N) GO TO 100;
       if ( RHO*ABS( Z( NJ ) ).LE.TOL ) {
 
          // Deflate due to small z component.

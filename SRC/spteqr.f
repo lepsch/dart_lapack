@@ -53,7 +53,7 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( ( LDZ < 1 ) || ( ICOMPZ.GT.0 && LDZ < MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < MAX( 1, N ) ) ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -66,7 +66,7 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         if (ICOMPZ.GT.0) Z( 1, 1 ) = ONE;
+         if (ICOMPZ > 0) Z( 1, 1 ) = ONE;
          RETURN
       }
       if (ICOMPZ == 2) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
@@ -85,7 +85,7 @@
       // Call SBDSQR to compute the singular values/vectors of the
       // bidiagonal factor.
 
-      if ( ICOMPZ.GT.0 ) {
+      if ( ICOMPZ > 0 ) {
          NRU = N
       } else {
          NRU = 0

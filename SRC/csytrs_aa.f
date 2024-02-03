@@ -72,7 +72,7 @@
 
          // 1) Forward substitution with U**T
 
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
 
             // Pivot, P**T * B -> B
 
@@ -91,7 +91,7 @@
          // Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
 
          clacpy('F', 1, N, A( 1, 1 ), LDA+1, WORK( N ), 1);
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             clacpy('F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 1 ), 1 );
             clacpy('F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 2*N ), 1 );
          }
@@ -99,7 +99,7 @@
 
          // 3) Backward substitution with U
 
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
 
             // Compute U \ B -> B   [ U \ (T \ (U**T \P**T * B) ) ]
 
@@ -119,7 +119,7 @@
 
          // 1) Forward substitution with L
 
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
 
             // Pivot, P**T * B -> B
 
@@ -139,7 +139,7 @@
          // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 
          clacpy('F', 1, N, A(1, 1), LDA+1, WORK(N), 1);
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             clacpy('F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 1 ), 1 );
             clacpy('F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 2*N ), 1 );
          }
@@ -147,7 +147,7 @@
 
          // 3) Backward substitution with L**T
 
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
 
             // Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
 

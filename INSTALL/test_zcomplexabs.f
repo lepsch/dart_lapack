@@ -223,7 +223,7 @@ void main() {
         nTests = nTests + 1
         Y = cInf(i)
         R = ABS( Y )
-        if ( .not.(R .gt. HUGE(0.0d0)) ) {
+        if ( .not.(R > HUGE(0.0d0)) ) {
             caseEFails = caseEFails + 1
             WRITE( *, FMT = 9997 ) 'i',i, Y, R
         }
@@ -242,14 +242,14 @@ void main() {
 
       // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails
-      if (nFailingTests .gt. 0) {
+      if (nFailingTests > 0) {
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for ABS(a+b*I),", nFailingTests, " tests fail."
       } else {
          print *, "# All tests pass for ABS(a+b*I)"
       }
 
       // If anything was written to stderr, print the message
-      if ( (caseAFails .gt. 0) || (caseBFails .gt. 0) || (caseCFails .gt. 0) || (caseDFails .gt. 0) ) {
+      if ( (caseAFails > 0) || (caseBFails > 0) || (caseCFails > 0) || (caseDFails > 0) ) {
          print *, "# Please check the failed ABS(a+b*I) in [stderr]"
       }
 

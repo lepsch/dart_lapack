@@ -88,7 +88,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( M.GE.N && MINMN.GT.0 ) {
+         if ( M.GE.N && MINMN > 0 ) {
 
             // Space needed for ZBDSQR is BDSPAC = 5*N
 
@@ -231,7 +231,7 @@
                }
                MINWRK = 2*N + M
             }
-         } else if ( MINMN.GT.0 ) {
+         } else if ( MINMN > 0 ) {
 
             // Space needed for CBDSQR is BDSPAC = 5*M
 
@@ -406,10 +406,10 @@
 
       ANRM = CLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ISCL = 1
          clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ISCL = 1
          clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
@@ -438,7 +438,7 @@
 
                // Zero out below R
 
-               if ( N .GT. 1 ) {
+               if ( N > 1 ) {
                   claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
                }
                IE = 1
@@ -633,7 +633,7 @@
                   // Copy R to VT, zeroing out below it
 
                   clacpy('U', N, N, A, LDA, VT, LDVT );
-                  if (N.GT.1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
+                  if (N > 1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -701,7 +701,7 @@
                   // Copy R to VT, zeroing out below it
 
                   clacpy('U', N, N, A, LDA, VT, LDVT );
-                  if (N.GT.1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
+                  if (N > 1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (CWorkspace: need 2*N, prefer N+N*NB)
@@ -843,7 +843,7 @@
 
                      // Zero out below R in A
 
-                     if ( N .GT. 1 ) {
+                     if ( N > 1 ) {
                         claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
                      }
 
@@ -996,7 +996,7 @@
 
                      // Zero out below R in A
 
-                     if ( N .GT. 1 ) {
+                     if ( N > 1 ) {
                         claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
                      }
 
@@ -1135,7 +1135,7 @@
                      // Copy R to VT, zeroing out below it
 
                      clacpy('U', N, N, A, LDA, VT, LDVT );
-                     if (N.GT.1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
+                     if (N > 1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1279,7 +1279,7 @@
 
                      // Zero out below R in A
 
-                     if ( N .GT. 1 ) {
+                     if ( N > 1 ) {
                         claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
                      }
 
@@ -1436,7 +1436,7 @@
 
                      // Zero out below R in A
 
-                     if ( N .GT. 1 ) {
+                     if ( N > 1 ) {
                         claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
                      }
 
@@ -1581,7 +1581,7 @@
                      // Copy R from A to VT, zeroing out below it
 
                      clacpy('U', N, N, A, LDA, VT, LDVT );
-                     if (N.GT.1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
+                     if (N > 1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -3011,7 +3011,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
+         if (ANRM > BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM > BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

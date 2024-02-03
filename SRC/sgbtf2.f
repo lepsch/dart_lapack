@@ -99,7 +99,7 @@
 
             if (JP != 1) CALL SSWAP( JU-J+1, AB( KV+JP, J ), LDAB-1, AB( KV+1, J ), LDAB-1 );
 
-            if ( KM.GT.0 ) {
+            if ( KM > 0 ) {
 
                // Compute multipliers.
 
@@ -107,7 +107,7 @@
 
                // Update trailing submatrix within the band.
 
-               if (JU.GT.J) CALL SGER( KM, JU-J, -ONE, AB( KV+2, J ), 1, AB( KV, J+1 ), LDAB-1, AB( KV+1, J+1 ), LDAB-1 );
+               if (JU > J) CALL SGER( KM, JU-J, -ONE, AB( KV+2, J ), 1, AB( KV, J+1 ), LDAB-1, AB( KV+1, J+1 ), LDAB-1 );
             }
          } else {
 

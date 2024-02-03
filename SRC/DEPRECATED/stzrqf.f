@@ -59,7 +59,7 @@
 
             slarfg(N-M+1, A( K, K ), A( K, M1 ), LDA, TAU( K ) );
 
-            if ( ( TAU( K ) != ZERO ) && ( K.GT.1 ) ) {
+            if ( ( TAU( K ) != ZERO ) && ( K > 1 ) ) {
 
                // We now perform the operation  A := A*P( k ).
 

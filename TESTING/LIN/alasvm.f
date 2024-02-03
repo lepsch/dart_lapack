@@ -13,12 +13,12 @@
 
       // .. Executable Statements ..
 
-      if ( NFAIL.GT.0 ) {
+      if ( NFAIL > 0 ) {
          WRITE( NOUT, FMT = 9999 )TYPE, NFAIL, NRUN
       } else {
          WRITE( NOUT, FMT = 9998 )TYPE, NRUN
       }
-      if ( NERRS.GT.0 ) {
+      if ( NERRS > 0 ) {
          WRITE( NOUT, FMT = 9997 )NERRS
       }
 

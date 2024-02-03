@@ -43,7 +43,7 @@
       T2 = SECOND( )
       TNOSEC = T2 - T1
       WRITE( 6, 9999 )TOTAL, TNOSEC
-      if ( TNOSEC.GT.0.0 ) {
+      if ( TNOSEC > 0.0 ) {
          WRITE( 6, 9998 )(TOTAL/1.0E6)/TNOSEC
       } else {
          WRITE( 6, 9994 )
@@ -65,12 +65,12 @@
 
       WRITE( 6, 9997 )T2 - T1
       AVG = ( ( T2-T1 ) - TNOSEC ) * 1000.0E+00/REAL( ITS )
-      if (AVG.GT.0.0) WRITE( 6, 9996 )AVG;
+      if (AVG > 0.0) WRITE( 6, 9996 )AVG;
 
       // Compute the equivalent number of floating point operations used
       // by an average call to SECOND.
 
-      IF(( AVG.GT.0.0 ) && ( TNOSEC.GT.0.0 )) WRITE( 6, 9995 )(AVG/1000) * TOTAL / TNOSEC
+      IF(( AVG > 0.0 ) && ( TNOSEC > 0.0 )) WRITE( 6, 9995 )(AVG/1000) * TOTAL / TNOSEC
 
  9999 FORMAT( ' Time for ', G10.3,' SAXPY ops = ', G10.3, ' seconds' )
  9998 FORMAT( ' SAXPY performance rate        = ', G10.3, ' mflops ' )

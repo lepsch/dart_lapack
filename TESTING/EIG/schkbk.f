@@ -70,12 +70,12 @@
       for (I = 1; I <= N; I++) { // 50
          for (J = 1; J <= N; J++) { // 40
             X = ABS( E( I, J )-EIN( I, J ) ) / EPS
-            IF( ABS( E( I, J ) ).GT.SAFMIN ) X = X / ABS( E( I, J ) )
+            IF( ABS( E( I, J ) ) > SAFMIN ) X = X / ABS( E( I, J ) )
             VMAX = MAX( VMAX, X )
          } // 40
       } // 50
 
-      if ( VMAX.GT.RMAX ) {
+      if ( VMAX > RMAX ) {
          LMAX( 2 ) = KNT
          RMAX = VMAX
       }

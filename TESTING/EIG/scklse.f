@@ -58,7 +58,7 @@
          M = MVAL( IK )
          P = PVAL( IK )
          N = NVAL( IK )
-         if ( P.GT.N || N.GT.M+P ) {
+         if ( P > N || N > M+P ) {
             if ( FIRSTT ) {
                WRITE( NOUT, FMT = * )
                FIRSTT = false;
@@ -74,7 +74,7 @@
          M = MVAL( IK )
          P = PVAL( IK )
          N = NVAL( IK )
-         if (P.GT.N || N.GT.M+P) GO TO 40;
+         if (P > N || N > M+P) GO TO 40;
 
          for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 30
 

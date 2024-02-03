@@ -25,11 +25,11 @@
 
       DLARMM = ONE
       if ( BNORM .LE. ONE ) {
-         if ( ANORM * BNORM .GT. BIGNUM - CNORM ) {
+         if ( ANORM * BNORM > BIGNUM - CNORM ) {
             DLARMM = HALF
          }
       } else {
-         if ( ANORM .GT. (BIGNUM - CNORM) / BNORM ) {
+         if ( ANORM > (BIGNUM - CNORM) / BNORM ) {
             DLARMM = HALF / BNORM
          }
       }

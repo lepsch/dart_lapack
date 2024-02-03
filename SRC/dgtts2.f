@@ -45,7 +45,7 @@
             // Solve U*x = b.
 
             B( N, J ) = B( N, J ) / D( N )
-            if (N.GT.1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
+            if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
             DO 30 I = N - 2, 1, -1
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
             } // 30
@@ -71,7 +71,7 @@
                // Solve U*x = b.
 
                B( N, J ) = B( N, J ) / D( N )
-               if (N.GT.1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
+               if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
                DO 50 I = N - 2, 1, -1
                   B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
                } // 50
@@ -88,7 +88,7 @@
             J = 1
             } // 70
             B( 1, J ) = B( 1, J ) / D( 1 )
-            if (N.GT.1) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 );
+            if (N > 1) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 );
             for (I = 3; I <= N; I++) { // 80
                B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )-DU2( I-2 )* B( I-2, J ) ) / D( I )
             } // 80
@@ -112,7 +112,7 @@
                // Solve U**T*x = b.
 
                B( 1, J ) = B( 1, J ) / D( 1 )
-               if (N.GT.1) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 );
+               if (N > 1) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 );
                for (I = 3; I <= N; I++) { // 100
                   B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I )
                } // 100

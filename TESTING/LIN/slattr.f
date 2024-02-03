@@ -196,7 +196,7 @@
          } // 90
 
          X = SQRT( CNDNUM ) - 1 / SQRT( CNDNUM )
-         if ( N.GT.2 ) {
+         if ( N > 2 ) {
             Y = SQRT( 2. / ( N-2 ) )*X
          } else {
             Y = ZERO
@@ -204,9 +204,9 @@
          Z = X*X
 
          if ( UPPER ) {
-            if ( N.GT.3 ) {
+            if ( N > 3 ) {
                scopy(N-3, WORK, 1, A( 2, 3 ), LDA+1 );
-               if (N.GT.4) CALL SCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 );
+               if (N > 4) CALL SCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 );
             }
             for (J = 2; J <= N - 1; J++) { // 100
                A( 1, J ) = Y
@@ -214,9 +214,9 @@
             } // 100
             A( 1, N ) = Z
          } else {
-            if ( N.GT.3 ) {
+            if ( N > 3 ) {
                scopy(N-3, WORK, 1, A( 3, 2 ), LDA+1 );
-               if (N.GT.4) CALL SCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 );
+               if (N > 4) CALL SCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 );
             }
             for (J = 2; J <= N - 1; J++) { // 110
                A( J, 1 ) = Y
@@ -235,11 +235,11 @@
 
                // Multiply by [ c  s; -s  c] on the left.
 
-               if (N.GT.J+1) CALL SROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S );
+               if (N > J+1) CALL SROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S );
 
                // Multiply by [-c -s;  s -c] on the right.
 
-               if (J.GT.1) CALL SROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S );
+               if (J > 1) CALL SROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -253,11 +253,11 @@
 
                // Multiply by [ c -s;  s  c] on the right.
 
-               if (N.GT.J+1) CALL SROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S );
+               if (N > J+1) CALL SROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S );
 
                // Multiply by [-c  s; -s -c] on the left.
 
-               if (J.GT.1) CALL SROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S );
+               if (J > 1) CALL SROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S );
 
                // Negate A(J+1,J).
 
@@ -313,7 +313,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 170
                slarnv(2, ISEED, N-J+1, A( J, J ) );
-               if (N.GT.J) CALL SSCAL( N-J, TSCAL, A( J+1, J ), 1 );
+               if (N > J) CALL SSCAL( N-J, TSCAL, A( J+1, J ), 1 );
                A( J, J ) = SIGN( ONE, A( J, J ) )
             } // 170
             A( 1, 1 ) = SMLNUM*A( 1, 1 )
@@ -358,7 +358,7 @@
                   A( J, J ) = ONE
                }
                JCOUNT = JCOUNT + 1
-               if (JCOUNT.GT.4) JCOUNT = 1;
+               if (JCOUNT > 4) JCOUNT = 1;
             } // 210
          } else {
             JCOUNT = 1
@@ -372,7 +372,7 @@
                   A( J, J ) = ONE
                }
                JCOUNT = JCOUNT + 1
-               if (JCOUNT.GT.4) JCOUNT = 1;
+               if (JCOUNT > 4) JCOUNT = 1;
             } // 230
          }
 
@@ -406,7 +406,7 @@
                for (I = 1; I <= J - 2; I++) { // 260
                   A( I, J ) = 0.
                } // 260
-               if (J.GT.1) A( J-1, J ) = -ONE;
+               if (J > 1) A( J-1, J ) = -ONE;
                A( J, J ) = TSCAL
             } // 270
             B( N ) = ONE

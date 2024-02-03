@@ -29,7 +29,7 @@
       DEL = D( 2 ) - D( 1 )
       if ( I == 1 ) {
          W = ONE + TWO*RHO*( Z( 2 )*Z( 2 )-Z( 1 )*Z( 1 ) ) / DEL
-         if ( W.GT.ZERO ) {
+         if ( W > ZERO ) {
             B = DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 1 )*Z( 1 )*DEL
 
@@ -42,7 +42,7 @@
          } else {
             B = -DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 2 )*Z( 2 )*DEL
-            if ( B.GT.ZERO ) {
+            if ( B > ZERO ) {
                TAU = -TWO*C / ( B+SQRT( B*B+FOUR*C ) )
             } else {
                TAU = ( B-SQRT( B*B+FOUR*C ) ) / TWO
@@ -60,7 +60,7 @@
 
          B = -DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
          C = RHO*Z( 2 )*Z( 2 )*DEL
-         if ( B.GT.ZERO ) {
+         if ( B > ZERO ) {
             TAU = ( B+SQRT( B*B+FOUR*C ) ) / TWO
          } else {
             TAU = TWO*C / ( -B+SQRT( B*B+FOUR*C ) )

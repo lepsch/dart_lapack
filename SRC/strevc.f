@@ -180,11 +180,11 @@
 
                JNXT = KI - 1
                DO 60 J = KI - 1, 1, -1
-                  if (J.GT.JNXT) GO TO 60;
+                  if (J > JNXT) GO TO 60;
                   J1 = J
                   J2 = J
                   JNXT = J - 1
-                  if ( J.GT.1 ) {
+                  if ( J > 1 ) {
                      if ( T( J, J-1 ) != ZERO ) {
                         J1 = J - 1
                         JNXT = J - 2
@@ -200,8 +200,8 @@
                      // Scale X(1,1) to avoid overflow when updating
                      // the right-hand side.
 
-                     if ( XNORM.GT.ONE ) {
-                        if ( WORK( J ).GT.BIGNUM / XNORM ) {
+                     if ( XNORM > ONE ) {
+                        if ( WORK( J ) > BIGNUM / XNORM ) {
                            X( 1, 1 ) = X( 1, 1 ) / XNORM
                            SCALE = SCALE / XNORM
                         }
@@ -225,9 +225,9 @@
                      // Scale X(1,1) and X(2,1) to avoid overflow when
                      // updating the right-hand side.
 
-                     if ( XNORM.GT.ONE ) {
+                     if ( XNORM > ONE ) {
                         BETA = MAX( WORK( J-1 ), WORK( J ) )
-                        if ( BETA.GT.BIGNUM / XNORM ) {
+                        if ( BETA > BIGNUM / XNORM ) {
                            X( 1, 1 ) = X( 1, 1 ) / XNORM
                            X( 2, 1 ) = X( 2, 1 ) / XNORM
                            SCALE = SCALE / XNORM
@@ -260,7 +260,7 @@
                      VR( K, IS ) = ZERO
                   } // 70
                } else {
-                  if (KI.GT.1) CALL SGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 );
+                  if (KI > 1) CALL SGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 );
 
                   II = ISAMAX( N, VR( 1, KI ), 1 )
                   REMAX = ONE / ABS( VR( II, KI ) )
@@ -297,11 +297,11 @@
 
                JNXT = KI - 2
                DO 90 J = KI - 2, 1, -1
-                  if (J.GT.JNXT) GO TO 90;
+                  if (J > JNXT) GO TO 90;
                   J1 = J
                   J2 = J
                   JNXT = J - 1
-                  if ( J.GT.1 ) {
+                  if ( J > 1 ) {
                      if ( T( J, J-1 ) != ZERO ) {
                         J1 = J - 1
                         JNXT = J - 2
@@ -317,8 +317,8 @@
                      // Scale X(1,1) and X(1,2) to avoid overflow when
                      // updating the right-hand side.
 
-                     if ( XNORM.GT.ONE ) {
-                        if ( WORK( J ).GT.BIGNUM / XNORM ) {
+                     if ( XNORM > ONE ) {
+                        if ( WORK( J ) > BIGNUM / XNORM ) {
                            X( 1, 1 ) = X( 1, 1 ) / XNORM
                            X( 1, 2 ) = X( 1, 2 ) / XNORM
                            SCALE = SCALE / XNORM
@@ -348,9 +348,9 @@
                      // Scale X to avoid overflow when updating
                      // the right-hand side.
 
-                     if ( XNORM.GT.ONE ) {
+                     if ( XNORM > ONE ) {
                         BETA = MAX( WORK( J-1 ), WORK( J ) )
-                        if ( BETA.GT.BIGNUM / XNORM ) {
+                        if ( BETA > BIGNUM / XNORM ) {
                            REC = ONE / XNORM
                            X( 1, 1 ) = X( 1, 1 )*REC
                            X( 1, 2 ) = X( 1, 2 )*REC
@@ -402,7 +402,7 @@
 
                } else {
 
-                  if ( KI.GT.2 ) {
+                  if ( KI > 2 ) {
                      sgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI-1+N ), VR( 1, KI-1 ), 1 );
                      sgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1+N2 ), 1, WORK( KI+N2 ), VR( 1, KI ), 1 );
                   } else {
@@ -488,7 +488,7 @@
                      // Scale if necessary to avoid overflow when forming
                      // the right-hand side.
 
-                     if ( WORK( J ).GT.VCRIT ) {
+                     if ( WORK( J ) > VCRIT ) {
                         REC = ONE / VMAX
                         sscal(N-KI+1, REC, WORK( KI+N ), 1 );
                         VMAX = ONE
@@ -516,7 +516,7 @@
                      // the right-hand side.
 
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
-                     if ( BETA.GT.VCRIT ) {
+                     if ( BETA > VCRIT ) {
                         REC = ONE / VMAX
                         sscal(N-KI+1, REC, WORK( KI+N ), 1 );
                         VMAX = ONE
@@ -619,7 +619,7 @@
                      // Scale if necessary to avoid overflow when
                      // forming the right-hand side elements.
 
-                     if ( WORK( J ).GT.VCRIT ) {
+                     if ( WORK( J ) > VCRIT ) {
                         REC = ONE / VMAX
                         sscal(N-KI+1, REC, WORK( KI+N ), 1 );
                         sscal(N-KI+1, REC, WORK( KI+N2 ), 1 );
@@ -652,7 +652,7 @@
                      // the right-hand side elements.
 
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
-                     if ( BETA.GT.VCRIT ) {
+                     if ( BETA > VCRIT ) {
                         REC = ONE / VMAX
                         sscal(N-KI+1, REC, WORK( KI+N ), 1 );
                         sscal(N-KI+1, REC, WORK( KI+N2 ), 1 );

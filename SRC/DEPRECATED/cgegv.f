@@ -140,7 +140,7 @@
          }
       }
 
-      if ( ANRM.GT.ZERO ) {
+      if ( ANRM > ZERO ) {
          clascl('G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 10
@@ -160,7 +160,7 @@
          }
       }
 
-      if ( BNRM.GT.ZERO ) {
+      if ( BNRM > ZERO ) {
          clascl('G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 10
@@ -242,9 +242,9 @@
       chgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO );
       if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
-         if ( IINFO.GT.0 && IINFO.LE.N ) {
+         if ( IINFO > 0 && IINFO.LE.N ) {
             INFO = IINFO
-         } else if ( IINFO.GT.N && IINFO.LE.2*N ) {
+         } else if ( IINFO > N && IINFO.LE.2*N ) {
             INFO = IINFO - N
          } else {
             INFO = N + 6
@@ -357,7 +357,7 @@
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHA, BETA if necessary.

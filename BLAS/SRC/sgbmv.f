@@ -73,12 +73,12 @@
           LENX = M
           LENY = N
       }
-      if (INCX.GT.0) {
+      if (INCX > 0) {
           KX = 1
       } else {
           KX = 1 - (LENX-1)*INCX
       }
-      if (INCY.GT.0) {
+      if (INCY > 0) {
           KY = 1
       } else {
           KY = 1 - (LENY-1)*INCY
@@ -141,7 +141,7 @@
                       IY = IY + INCY
                   } // 70
                   JX = JX + INCX
-                  if (J.GT.KU) KY = KY + INCY;
+                  if (J > KU) KY = KY + INCY;
               } // 80
           }
       } else {
@@ -170,7 +170,7 @@
                   } // 110
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
-                  if (J.GT.KU) KX = KX + INCX;
+                  if (J > KU) KX = KX + INCX;
               } // 120
           }
       }

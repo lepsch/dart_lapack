@@ -31,12 +31,12 @@
 
       INFO = 0
 
-      // IF( ICOMPQ < 0 || ICOMPQ.GT.1 ) THEN
+      // IF( ICOMPQ < 0 || ICOMPQ > 1 ) THEN
          // INFO = -1
       // ELSE IF( N < 0 ) THEN
       if ( N < 0 ) {
          INFO = -1
-      } else if ( MIN( 1, N ).GT.CUTPNT || N < CUTPNT ) {
+      } else if ( MIN( 1, N ) > CUTPNT || N < CUTPNT ) {
          INFO = -2
       } else if ( QSIZ < N ) {
          INFO = -3

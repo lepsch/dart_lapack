@@ -165,7 +165,7 @@
       J = JPREV
       } // 100
       J = J + 1
-      if (J.GT.N) GO TO 110;
+      if (J > N) GO TO 110;
       if ( ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.
@@ -288,7 +288,7 @@
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
       IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL ) DSIGMA( 2 ) = HLFTOL
-      if ( M.GT.N ) {
+      if ( M > N ) {
          Z( 1 ) = SLAPY2( Z1, Z( M ) )
          if ( Z( 1 ).LE.TOL ) {
             C = ONE
@@ -315,7 +315,7 @@
 
       slaset('A', N, 1, ZERO, ZERO, U2, LDU2 );
       U2( NLP1, 1 ) = ONE
-      if ( M.GT.N ) {
+      if ( M > N ) {
          for (I = 1; I <= NLP1; I++) { // 170
             VT( M, I ) = -S*VT( NLP1, I )
             VT2( 1, I ) = C*VT( NLP1, I )
@@ -327,14 +327,14 @@
       } else {
          scopy(M, VT( NLP1, 1 ), LDVT, VT2( 1, 1 ), LDVT2 );
       }
-      if ( M.GT.N ) {
+      if ( M > N ) {
          scopy(M, VT( M, 1 ), LDVT, VT2( M, 1 ), LDVT2 );
       }
 
       // The deflated singular values and their corresponding vectors go
       // into the back of D, U, and V respectively.
 
-      if ( N.GT.K ) {
+      if ( N > K ) {
          scopy(N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 );
          slacpy('A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU );
          slacpy('A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT );

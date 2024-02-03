@@ -98,7 +98,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             IMAX = IZAMAX( K-1, A( 1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
@@ -145,10 +145,10 @@
                      ROWMAX = ZERO
                   }
 
-                  if ( IMAX.GT.1 ) {
+                  if ( IMAX > 1 ) {
                      ITEMP = IZAMAX( IMAX-1, A( 1, IMAX ), 1 )
                      DTEMP = CABS1( A( ITEMP, IMAX ) )
-                     if ( DTEMP.GT.ROWMAX ) {
+                     if ( DTEMP > ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
                      }
@@ -200,7 +200,7 @@
                // Interchange rows and column K and P in the leading
                // submatrix A(1:k,1:k) if we have a 2-by-2 pivot
 
-               if (P.GT.1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )                IF( P < (K-1) ) CALL ZSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
+               if (P > 1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )                IF( P < (K-1) ) CALL ZSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
                T = A( K, K )
                A( K, K ) = A( P, P )
                A( P, P ) = T
@@ -214,7 +214,7 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )                IF( ( KK.GT.1 ) && ( KP < (KK-1) ) ) CALL ZSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
+               if (KP > 1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )                IF( ( KK > 1 ) && ( KP < (KK-1) ) ) CALL ZSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -235,7 +235,7 @@
 
                // where U(k) is the k-th column of U
 
-               if ( K.GT.1 ) {
+               if ( K > 1 ) {
 
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
@@ -286,7 +286,7 @@
 
                // and store L(k) and L(k+1) in columns k and k+1
 
-               if ( K.GT.2 ) {
+               if ( K > 2 ) {
 
                   D12 = A( K-1, K )
                   D22 = A( K-1, K-1 ) / D12
@@ -340,7 +340,7 @@
 
          // If K > N, exit from loop
 
-         if (K.GT.N) GO TO 70;
+         if (K > N) GO TO 70;
          KSTEP = 1
          P = K
 
@@ -402,7 +402,7 @@
                   if ( IMAX < N ) {
                      ITEMP = IMAX + IZAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                      DTEMP = CABS1( A( ITEMP, IMAX ) )
-                     if ( DTEMP.GT.ROWMAX ) {
+                     if ( DTEMP > ROWMAX ) {
                         ROWMAX = DTEMP
                         JMAX = ITEMP
                      }
@@ -454,7 +454,7 @@
                // Interchange rows and column K and P in the trailing
                // submatrix A(k:n,k:n) if we have a 2-by-2 pivot
 
-               if (P < N) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )                IF( P.GT.(K+1) ) CALL ZSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
+               if (P < N) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )                IF( P > (K+1) ) CALL ZSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                T = A( K, K )
                A( K, K ) = A( P, P )
                A( P, P ) = T
@@ -468,7 +468,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP < N) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                IF( ( KK < N ) && ( KP.GT.(KK+1) ) ) CALL ZSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
+               if (KP < N) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                IF( ( KK < N ) && ( KP > (KK+1) ) ) CALL ZSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T

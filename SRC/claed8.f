@@ -47,7 +47,7 @@
          INFO = -3
       } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( CUTPNT < MIN( 1, N ) || CUTPNT.GT.N ) {
+      } else if ( CUTPNT < MIN( 1, N ) || CUTPNT > N ) {
          INFO = -8
       } else if ( LDQ2 < MAX( 1, N ) ) {
          INFO = -12
@@ -146,7 +146,7 @@
       } // 60
       } // 70
       J = J + 1
-      if (J.GT.N) GO TO 90;
+      if (J > N) GO TO 90;
       if ( RHO*ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.

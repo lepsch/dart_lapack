@@ -65,7 +65,7 @@
             X( I-1, I-1 ) = CLARND( 2, ISEED )
             X( I-3, I-3 ) = CLARND( 2, ISEED )
             X( I-4, I-4 ) = CLARND( 2, ISEED )
-            if ( ABS( X( I-3, I-3 ) ).GT.ABS( X( I-4, I-4 ) ) ) {
+            if ( ABS( X( I-3, I-3 ) ) > ABS( X( I-4, I-4 ) ) ) {
                X( I-4, I-3 ) = 2.0*X( I-3, I-3 )
             } else {
                X( I-4, I-3 ) = 2.0*X( I-4, I-4 )
@@ -75,7 +75,7 @@
          // Clean-up for N not a multiple of 5.
 
          I = N5 - 1
-         if ( I.GT.2 ) {
+         if ( I > 2 ) {
             A = ALPHA3*CLARND( 5, ISEED )
             B = CLARND( 5, ISEED ) / ALPHA
             C = A - 2.*B*EYE
@@ -87,10 +87,10 @@
             X( I-1, I-1 ) = CLARND( 2, ISEED )
             I = I - 3
          }
-         if ( I.GT.1 ) {
+         if ( I > 1 ) {
             X( I, I ) = CLARND( 2, ISEED )
             X( I-1, I-1 ) = CLARND( 2, ISEED )
-            if ( ABS( X( I, I ) ).GT.ABS( X( I-1, I-1 ) ) ) {
+            if ( ABS( X( I, I ) ) > ABS( X( I-1, I-1 ) ) ) {
                X( I-1, I ) = 2.0*X( I, I )
             } else {
                X( I-1, I ) = 2.0*X( I-1, I-1 )
@@ -127,7 +127,7 @@
             X( I+1, I+1 ) = CLARND( 2, ISEED )
             X( I+3, I+3 ) = CLARND( 2, ISEED )
             X( I+4, I+4 ) = CLARND( 2, ISEED )
-            if ( ABS( X( I+3, I+3 ) ).GT.ABS( X( I+4, I+4 ) ) ) {
+            if ( ABS( X( I+3, I+3 ) ) > ABS( X( I+4, I+4 ) ) ) {
                X( I+4, I+3 ) = 2.0*X( I+3, I+3 )
             } else {
                X( I+4, I+3 ) = 2.0*X( I+4, I+4 )
@@ -152,7 +152,7 @@
          if ( I < N ) {
             X( I, I ) = CLARND( 2, ISEED )
             X( I+1, I+1 ) = CLARND( 2, ISEED )
-            if ( ABS( X( I, I ) ).GT.ABS( X( I+1, I+1 ) ) ) {
+            if ( ABS( X( I, I ) ) > ABS( X( I+1, I+1 ) ) ) {
                X( I+1, I ) = 2.0*X( I, I )
             } else {
                X( I+1, I ) = 2.0*X( I+1, I+1 )

@@ -92,7 +92,7 @@
             } // 10
             if ( RCMIN.LE.ZERO ) {
                INFO = -11
-            } else if ( N.GT.0 ) {
+            } else if ( N > 0 ) {
                ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
             } else {
                ROWCND = ONE
@@ -107,7 +107,7 @@
             } // 20
             if ( RCMIN.LE.ZERO ) {
                INFO = -12
-            } else if ( N.GT.0 ) {
+            } else if ( N > 0 ) {
                COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
             } else {
                COLCND = ONE
@@ -172,7 +172,7 @@
 
          // Return if INFO is non-zero.
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
 
             // Pivot in column INFO is exactly 0
             // Compute the reciprocal pivot growth factor of the

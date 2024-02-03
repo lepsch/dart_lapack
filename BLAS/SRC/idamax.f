@@ -30,7 +30,7 @@
 
          DMAX = DABS(DX(1))
          for (I = 2; I <= N; I++) {
-            if (DABS(DX(I)).GT.DMAX) {
+            if (DABS(DX(I)) > DMAX) {
                IDAMAX = I
                DMAX = DABS(DX(I))
             }
@@ -43,7 +43,7 @@
          DMAX = DABS(DX(1))
          IX = IX + INCX
          for (I = 2; I <= N; I++) {
-            if (DABS(DX(IX)).GT.DMAX) {
+            if (DABS(DX(IX)) > DMAX) {
                IDAMAX = I
                DMAX = DABS(DX(IX))
             }

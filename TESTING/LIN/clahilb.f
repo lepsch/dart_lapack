@@ -47,7 +47,7 @@
       // Test the input arguments
 
       INFO = 0
-      if (N < 0 || N .GT. NMAX_APPROX) {
+      if (N < 0 || N > NMAX_APPROX) {
          INFO = -1
       } else if (NRHS < 0) {
          INFO = -2
@@ -62,7 +62,7 @@
          xerbla('CLAHILB', -INFO);
          RETURN
       }
-      if (N .GT. NMAX_EXACT) {
+      if (N > NMAX_EXACT) {
          INFO = 1
       }
 

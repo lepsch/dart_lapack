@@ -33,9 +33,9 @@
       INFO = 0
       if ( M < 0 ) {
          INFO = -1
-      } else if ( N < 0 || N.GT.M ) {
+      } else if ( N < 0 || N > M ) {
          INFO = -2
-      } else if ( K < 0 || K.GT.N ) {
+      } else if ( K < 0 || K > N ) {
          INFO = -3
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5

@@ -85,7 +85,7 @@
          INFO = -3
       } else if ( M < 0 ) {
          INFO = -4
-      } else if ( ( N < 0 ) || ( N.GT.M ) ) {
+      } else if ( ( N < 0 ) || ( N > M ) ) {
          INFO = -5
       } else if ( LDA < M ) {
          INFO = -7
@@ -187,7 +187,7 @@
             AAPP = ZERO
             AAQQ = ONE
             zlassq(M-p+1, A( p, p ), 1, AAPP, AAQQ );
-            if ( AAPP.GT.BIG ) {
+            if ( AAPP > BIG ) {
                INFO = -6
                xerbla('ZGESVJ', -INFO );
                RETURN
@@ -212,7 +212,7 @@
             AAPP = ZERO
             AAQQ = ONE
             zlassq(p, A( 1, p ), 1, AAPP, AAQQ );
-            if ( AAPP.GT.BIG ) {
+            if ( AAPP > BIG ) {
                INFO = -6
                xerbla('ZGESVJ', -INFO );
                RETURN
@@ -237,7 +237,7 @@
             AAPP = ZERO
             AAQQ = ONE
             zlassq(M, A( 1, p ), 1, AAPP, AAQQ );
-            if ( AAPP.GT.BIG ) {
+            if ( AAPP > BIG ) {
                INFO = -6
                xerbla('ZGESVJ', -INFO );
                RETURN
@@ -379,7 +379,7 @@
       // invokes cubic convergence. Big part of this cycle is done inside
       // canonical subspaces of dimensions less than M.
 
-      if ( ( LOWER || UPPER ) && ( N.GT.MAX( 64, 4*KBL ) ) ) {
+      if ( ( LOWER || UPPER ) && ( N > MAX( 64, 4*KBL ) ) ) {
 *[TP] The number of partition levels and the actual partition are
       // tuning parameters.
          N4 = N / 4
@@ -482,7 +482,7 @@
          // If properly implemented SCNRM2 is available, the IF-THEN-ELSE-END IF
          // below should be replaced with "AAPP = DZNRM2( M, A(1,p), 1 )".
 
-                     if ( ( SVA( p ) < ROOTBIG ) && ( SVA( p ).GT.ROOTSFMIN ) ) {
+                     if ( ( SVA( p ) < ROOTBIG ) && ( SVA( p ) > ROOTSFMIN ) ) {
                         SVA( p ) = DZNRM2( M, A( 1, p ), 1 )
                      } else {
                         TEMP1 = ZERO
@@ -495,7 +495,7 @@
                      AAPP = SVA( p )
                   }
 
-                  if ( AAPP.GT.ZERO ) {
+                  if ( AAPP > ZERO ) {
 
                      PSKIPPED = 0
 
@@ -503,7 +503,7 @@
 
                         AAQQ = SVA( q )
 
-                        if ( AAQQ.GT.ZERO ) {
+                        if ( AAQQ > ZERO ) {
 
                            AAPP0 = AAPP
                            if ( AAQQ.GE.ONE ) {
@@ -516,7 +516,7 @@
                               }
                            } else {
                               ROTOK = AAPP.LE.( AAQQ / SMALL )
-                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
+                              if ( AAPP > ( SMALL / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAPP ) / AAQQ
                               } else {
                                  zcopy(M, A( 1, q ), 1, CWORK(N+1), 1 );
@@ -532,7 +532,7 @@
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           if ( ABS( AAPQ1 ).GT.TOL ) {
+                           if ( ABS( AAPQ1 ) > TOL ) {
                            OMPQ = AAPQ / ABS(AAPQ)
 
             // .. rotate
@@ -550,7 +550,7 @@
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*ABS( AQOAP-APOAQ )/AAPQ1
 
-                                 if ( ABS( THETA ).GT.BIGTHETA ) {
+                                 if ( ABS( THETA ) > BIGTHETA ) {
 
                                     T  = HALF / THETA
                                     CS = ONE
@@ -594,7 +594,7 @@
             // In the case of cancellation in updating SVA(q), SVA(p)
             // recompute SVA(q), SVA(p).
 
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
                                     SVA( q ) = DZNRM2( M, A( 1, q ), 1 )
                                  } else {
                                     T = ZERO
@@ -604,7 +604,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 ).LE.ROOTEPS ) {
-                                 if ( ( AAPP < ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
+                                 if ( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
                                     AAPP = DZNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
@@ -627,7 +627,7 @@
                            PSKIPPED = PSKIPPED + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( PSKIPPED.GT.ROWSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            if (ir1 == 0) AAPP = -AAPP;
                            NOTROT = 0
                            GO TO 2103
@@ -666,14 +666,14 @@
                DO 2100 p = igl, MIN( igl+KBL-1, N )
 
                   AAPP = SVA( p )
-                  if ( AAPP.GT.ZERO ) {
+                  if ( AAPP > ZERO ) {
 
                      PSKIPPED = 0
 
                      DO 2200 q = jgl, MIN( jgl+KBL-1, N )
 
                         AAQQ = SVA( q )
-                        if ( AAQQ.GT.ZERO ) {
+                        if ( AAQQ > ZERO ) {
                            AAPP0 = AAPP
 
       // .. M x 2 Jacobi SVD ..
@@ -699,7 +699,7 @@
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
                               }
-                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
+                              if ( AAPP > ( SMALL / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
                               } else {
                                  zcopy(M, A( 1, q ), 1, CWORK(N+1), 1 );
@@ -715,7 +715,7 @@
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           if ( ABS( AAPQ1 ).GT.TOL ) {
+                           if ( ABS( AAPQ1 ) > TOL ) {
                               OMPQ = AAPQ / ABS(AAPQ)
                               NOTROT = 0
 *[RTD]      ROTATED  = ROTATED + 1
@@ -727,9 +727,9 @@
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*ABS( AQOAP-APOAQ )/ AAPQ1
-                                 if (AAQQ.GT.AAPP0) THETA = -THETA;
+                                 if (AAQQ > AAPP0) THETA = -THETA;
 
-                                 if ( ABS( THETA ).GT.BIGTHETA ) {
+                                 if ( ABS( THETA ) > BIGTHETA ) {
                                     T  = HALF / THETA
                                     CS = ONE
                                     zrot(M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*T );
@@ -743,7 +743,7 @@
                   // .. choose correct signum for THETA and rotate
 
                                     THSIGN = -SIGN( ONE, AAPQ1 )
-                                    if (AAQQ.GT.AAPP0) THSIGN = -THSIGN;
+                                    if (AAQQ > AAPP0) THSIGN = -THSIGN;
                                     T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) )
                                     CS = SQRT( ONE / ( ONE+T*T ) )
                                     SN = T*CS
@@ -759,7 +759,7 @@
 
                               } else {
                // .. have to use modified Gram-Schmidt like transformation
-                               if ( AAPP.GT.AAQQ ) {
+                               if ( AAPP > AAQQ ) {
                                     zcopy(M, A( 1, p ), 1, CWORK(N+1), 1 );
                                     zlascl('G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1),LDA, IERR );
                                     zlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
@@ -781,7 +781,7 @@
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
                                     SVA( q ) = DZNRM2( M, A( 1, q ), 1)
                                   } else {
                                     T = ZERO
@@ -791,7 +791,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
-                                 if ( ( AAPP < ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
+                                 if ( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
                                     AAPP = DZNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
@@ -819,7 +819,7 @@
                            NOTROT = 0
                            GO TO 2011
                         }
-                        if ( ( i.LE.SWBAND ) && ( PSKIPPED.GT.ROWSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
@@ -852,7 +852,7 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
+         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
             SVA( N ) = DZNRM2( M, A( 1, N ), 1 )
          } else {
             T = ZERO
@@ -865,7 +865,7 @@
 
          IF( ( i < SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
 
-         if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ < SQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
+         if ( ( i > SWBAND+1 ) && ( MXAAPQ < SQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994
          }
 
@@ -902,12 +902,12 @@
          }
          if ( SVA( p ) != ZERO ) {
             N4 = N4 + 1
-            IF( SVA( p )*SKL.GT.SFMIN )N2 = N2 + 1
+            IF( SVA( p )*SKL > SFMIN )N2 = N2 + 1
          }
       } // 5991
       if ( SVA( N ) != ZERO ) {
          N4 = N4 + 1
-         IF( SVA( N )*SKL.GT.SFMIN )N2 = N2 + 1
+         IF( SVA( N )*SKL > SFMIN )N2 = N2 + 1
       }
 
       // Normalize the left singular vectors.
@@ -929,7 +929,7 @@
       }
 
       // Undo scaling, if necessary (and possible).
-      if ( ( ( SKL.GT.ONE ) && ( SVA( 1 ) < ( BIG / SKL ) ) ) || ( ( SKL < ONE ) && ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL ) ) ) ) {
+      if ( ( ( SKL > ONE ) && ( SVA( 1 ) < ( BIG / SKL ) ) ) || ( ( SKL < ONE ) && ( SVA( MAX( N2, 1 ) ) > ( SFMIN / SKL ) ) ) ) {
          for (p = 1; p <= N; p++) { // 2400
             SVA( p ) = SKL*SVA( p )
          } // 2400

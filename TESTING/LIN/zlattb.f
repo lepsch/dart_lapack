@@ -149,7 +149,7 @@
                   AB( 2, 2*J+1 ) = TNORM*WORK( J )
                } // 100
             }
-         } else if ( KD.GT.1 ) {
+         } else if ( KD > 1 ) {
 
             // Form a unit triangular matrix T with condition CNDNUM.  T is
             // given by
@@ -221,7 +221,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 130
                LENJ = MIN( N-J, KD )
-               if (LENJ.GT.0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
+               if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = ZLARND( 5, ISEED )*TWO
             } // 130
          }
@@ -245,7 +245,7 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 140
                LENJ = MIN( J-1, KD )
-               if ( LENJ.GT.0 ) {
+               if ( LENJ > 0 ) {
                   zlarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                   zdscal(LENJ, TSCAL, AB( KD+2-LENJ, J ), 1 );
                }
@@ -255,7 +255,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 150
                LENJ = MIN( N-J, KD )
-               if ( LENJ.GT.0 ) {
+               if ( LENJ > 0 ) {
                   zlarnv(4, ISEED, LENJ, AB( 2, J ) );
                   zdscal(LENJ, TSCAL, AB( 2, J ), 1 );
                }
@@ -274,14 +274,14 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 160
                LENJ = MIN( J-1, KD )
-               if (LENJ.GT.0) CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
+               if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                AB( KD+1, J ) = ZLARND( 5, ISEED )
             } // 160
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          } else {
             for (J = 1; J <= N; J++) { // 170
                LENJ = MIN( N-J, KD )
-               if (LENJ.GT.0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
+               if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = ZLARND( 5, ISEED )
             } // 170
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
@@ -305,7 +305,7 @@
                   AB( KD+1, J ) = ZLARND( 5, ISEED )
                }
                JCOUNT = JCOUNT + 1
-               if (JCOUNT.GT.4) JCOUNT = 1;
+               if (JCOUNT > 4) JCOUNT = 1;
             } // 190
          } else {
             JCOUNT = 1
@@ -319,7 +319,7 @@
                   AB( 1, J ) = ZLARND( 5, ISEED )
                }
                JCOUNT = JCOUNT + 1
-               if (JCOUNT.GT.4) JCOUNT = 1;
+               if (JCOUNT > 4) JCOUNT = 1;
             } // 210
          }
 
@@ -353,7 +353,7 @@
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
                } // 240
-               if (J.GT.1 && KD.GT.0) AB( KD, J ) = DCMPLX( -ONE, -ONE );
+               if (J > 1 && KD > 0) AB( KD, J ) = DCMPLX( -ONE, -ONE );
                AB( KD+1, J ) = TSCAL*ZLARND( 5, ISEED )
             } // 250
             B( N ) = DCMPLX( ONE, ONE )
@@ -362,7 +362,7 @@
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
                } // 260
-               if (J < N && KD.GT.0) AB( 2, J ) = DCMPLX( -ONE, -ONE );
+               if (J < N && KD > 0) AB( 2, J ) = DCMPLX( -ONE, -ONE );
                AB( 1, J ) = TSCAL*ZLARND( 5, ISEED )
             } // 270
             B( 1 ) = DCMPLX( ONE, ONE )
@@ -412,14 +412,14 @@
             } // 300
          } // 310
          TEXP = ONE
-         if ( KD.GT.0 ) {
+         if ( KD > 0 ) {
             if ( UPPER ) {
                DO 330 J = N, 1, -KD
                   DO 320 I = J, MAX( 1, J-KD+1 ), -2
                      AB( 1+( J-I ), I ) = -TSCAL / DBLE( KD+2 )
                      AB( KD+1, I ) = ONE
                      B( I ) = TEXP*( ONE-ULP )
-                     if ( I.GT.MAX( 1, J-KD+1 ) ) {
+                     if ( I > MAX( 1, J-KD+1 ) ) {
                         AB( 2+( J-I ), I-1 ) = -( TSCAL / DBLE( KD+2 ) ) / DBLE( KD+3 )
                         AB( KD+1, I-1 ) = ONE
                         B( I-1 ) = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD )
@@ -463,7 +463,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 370
                LENJ = MIN( N-J, KD )
-               if (LENJ.GT.0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
+               if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = DBLE( J )
             } // 370
          }

@@ -246,7 +246,7 @@
 
             stgexc( false , false , N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, WORK( N*N*2+1 ), LWORK-2*N*N, IERR );
 
-            if ( IERR.GT.0 ) {
+            if ( IERR > 0 ) {
 
                // Ill-conditioned problem - swap rejected.
 

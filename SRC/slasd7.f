@@ -42,13 +42,13 @@
       N = NL + NR + 1
       M = N + SQRE
 
-      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ > 1 ) ) {
          INFO = -1
       } else if ( NL < 1 ) {
          INFO = -2
       } else if ( NR < 1 ) {
          INFO = -3
-      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
          INFO = -4
       } else if ( LDGCOL < N ) {
          INFO = -22
@@ -157,7 +157,7 @@
       J = JPREV
       } // 80
       J = J + 1
-      if (J.GT.N) GO TO 90;
+      if (J > N) GO TO 90;
       if ( ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.
@@ -257,7 +257,7 @@
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
       IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL ) DSIGMA( 2 ) = HLFTOL
-      if ( M.GT.N ) {
+      if ( M > N ) {
          Z( 1 ) = SLAPY2( Z1, Z( M ) )
          if ( Z( 1 ).LE.TOL ) {
             C = ONE

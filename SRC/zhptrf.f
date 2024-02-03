@@ -90,7 +90,7 @@
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             IMAX = IZAMAX( K-1, AP( KC ), 1 )
             COLMAX = CABS1( AP( KC+IMAX-1 ) )
          } else {
@@ -119,14 +119,14 @@
                JMAX = IMAX
                KX = IMAX*( IMAX+1 ) / 2 + IMAX
                for (J = IMAX + 1; J <= K; J++) { // 20
-                  if ( CABS1( AP( KX ) ).GT.ROWMAX ) {
+                  if ( CABS1( AP( KX ) ) > ROWMAX ) {
                      ROWMAX = CABS1( AP( KX ) )
                      JMAX = J
                   }
                   KX = KX + J
                } // 20
                KPC = ( IMAX-1 )*IMAX / 2 + 1
-               if ( IMAX.GT.1 ) {
+               if ( IMAX > 1 ) {
                   JMAX = IZAMAX( IMAX-1, AP( KPC ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( AP( KPC+JMAX-1 ) ) )
                }
@@ -216,7 +216,7 @@
                // A := A - ( U(k-1) U(k) )*D(k)*( U(k-1) U(k) )**H
                   // = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**H
 
-               if ( K.GT.2 ) {
+               if ( K > 2 ) {
 
                   D = DLAPY2( DBLE( AP( K-1+( K-1 )*K / 2 ) ), DIMAG( AP( K-1+( K-1 )*K / 2 ) ) )
                   D22 = DBLE( AP( K-1+( K-2 )*( K-1 ) / 2 ) ) / D
@@ -270,7 +270,7 @@
 
          // If K > N, exit from loop
 
-         if (K.GT.N) GO TO 110;
+         if (K > N) GO TO 110;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -309,7 +309,7 @@
                ROWMAX = ZERO
                KX = KC + IMAX - K
                for (J = K; J <= IMAX - 1; J++) { // 70
-                  if ( CABS1( AP( KX ) ).GT.ROWMAX ) {
+                  if ( CABS1( AP( KX ) ) > ROWMAX ) {
                      ROWMAX = CABS1( AP( KX ) )
                      JMAX = J
                   }

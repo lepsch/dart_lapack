@@ -169,7 +169,7 @@
                       if (NOUNIT) TEMP = TEMP/A(KPLUS1,J);
                       X(JX) = TEMP
                       JX = JX + INCX
-                      if (J.GT.K) KX = KX + INCX;
+                      if (J > K) KX = KX + INCX;
                   } // 120
               }
           } else {

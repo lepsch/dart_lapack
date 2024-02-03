@@ -154,7 +154,7 @@ void main() {
          N = K
          if (ICASE == 3) {
             // .. SROTG ..
-            if (K.GT.8) GO TO 40;
+            if (K > 8) GO TO 40;
             SA = DA1(K)
             SB = DB1(K)
             srotg(SA,SB,SC,SS);
@@ -793,7 +793,7 @@ void main() {
 
       // Check that the arrays are large enough
 
-      if (N*ABS(INCX).GT.NMAX) {
+      if (N*ABS(INCX) > NMAX) {
          WRITE (NOUT,99) "SNRM2", NMAX, INCX, N, N*ABS(INCX)
          RETURN
       }
@@ -824,13 +824,13 @@ void main() {
 
       for (IV = 1; IV <= NV; IV++) {
          V0 = VALUES(IV)
-         if (ABS(V0).GT.ONE) {
+         if (ABS(V0) > ONE) {
          V0 = V0*HALF
          }
          Z(1) = V0
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW)
-            if (ABS(V1).GT.ONE) {
+            if (ABS(V1) > ONE) {
                V1 = (V1*HALF) / SQRT(REAL(N))
             }
             for (I = 2; I <= N; I++) {
@@ -840,7 +840,7 @@ void main() {
             // Compute the expected value of the 2-norm
 
             Y1 = ABS(V0)
-            if (N.GT.1) {
+            if (N > 1) {
                Y2 = ABS(V1)*SQRT(WORKSSQ)
             } else {
                Y2 = ZERO

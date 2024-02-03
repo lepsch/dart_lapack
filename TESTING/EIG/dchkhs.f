@@ -76,7 +76,7 @@
          INFO = -9
       } else if ( LDU.LE.1 || LDU < NMAX ) {
          INFO = -14
-      } else if ( 4*NMAX*NMAX+2.GT.NWORK ) {
+      } else if ( 4*NMAX*NMAX+2 > NWORK ) {
          INFO = -28
       }
 
@@ -150,7 +150,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            if (MTYPES.GT.MAXTYP) GO TO 100;
+            if (MTYPES > MAXTYP) GO TO 100;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -199,7 +199,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 90
                   A( JCOL, JCOL ) = ANORM
-                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
+                  if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 90
 
             } else if ( ITYPE == 4 ) {
@@ -400,7 +400,7 @@
                }
                J = J - 2
             }
-            if (J.GT.0) GO TO 140;
+            if (J > 0) GO TO 140;
 
             dtrevc('Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
@@ -413,7 +413,7 @@
 
             dget22('N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
-            if ( DUMMA( 2 ).GT.THRESH ) {
+            if ( DUMMA( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC', DUMMA( 2 ), N, JTYPE, IOLDSD
             }
 
@@ -466,7 +466,7 @@
 
             dget22('Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
             RESULT( 10 ) = DUMMA( 3 )
-            if ( DUMMA( 4 ).GT.THRESH ) {
+            if ( DUMMA( 4 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC', DUMMA( 4 ), N, JTYPE, IOLDSD
             }
 
@@ -524,7 +524,7 @@
                          // (from inverse iteration)
 
                CALL DGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ) < ULPINV ) RESULT( 11 ) = DUMMA( 1 )*ANINV
-               if ( DUMMA( 2 ).GT.THRESH ) {
+               if ( DUMMA( 2 ) > THRESH ) {
                   WRITE( NOUNIT, FMT = 9998 )'Right', 'DHSEIN', DUMMA( 2 ), N, JTYPE, IOLDSD
                }
             }
@@ -549,7 +549,7 @@
                          // (from inverse iteration)
 
                CALL DGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ) < ULPINV ) RESULT( 12 ) = DUMMA( 3 )*ANINV
-               if ( DUMMA( 4 ).GT.THRESH ) {
+               if ( DUMMA( 4 ) > THRESH ) {
                   WRITE( NOUNIT, FMT = 9998 )'Left', 'DHSEIN', DUMMA( 4 ), N, JTYPE, IOLDSD
                }
             }
@@ -614,7 +614,7 @@
 
             dget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
             RESULT( 15 ) = DUMMA( 1 )
-            if ( DUMMA( 2 ).GT.THRESH ) {
+            if ( DUMMA( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD
             }
 
@@ -638,7 +638,7 @@
 
             dget22('Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
             RESULT( 16 ) = DUMMA( 3 )
-            if ( DUMMA( 4 ).GT.THRESH ) {
+            if ( DUMMA( 4 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD
             }
 

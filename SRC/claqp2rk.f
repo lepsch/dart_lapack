@@ -164,7 +164,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( INFO == 0 && MAXC2NRMK.GT.HUGEVAL ) {
+            if ( INFO == 0 && MAXC2NRMK > HUGEVAL ) {
                INFO = N + KK - 1 + KP
             }
 

@@ -102,7 +102,7 @@
         // following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
-         if ( N.GT.0 ) {
+         if ( N > 0 ) {
             MINWRK = MAX( 8*N, 6*N + 16 )
             MAXWRK = MINWRK - N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) )
             if ( ILVSL ) {
@@ -143,10 +143,10 @@
 
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ANRMTO = BIGNUM
          ILASCL = true;
       }
@@ -156,10 +156,10 @@
 
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
          BNRMTO = BIGNUM
          ILBSCL = true;
       }
@@ -192,7 +192,7 @@
 
       if ( ILVSL ) {
          slaset('Full', N, N, ZERO, ONE, VSL, LDVSL );
-         if ( IROWS.GT.1 ) {
+         if ( IROWS > 1 ) {
             slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL );
          }
          sorgqr(IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
@@ -213,9 +213,9 @@
       IWRK = ITAU
       shgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR );
       if ( IERR != 0 ) {
-         if ( IERR.GT.0 && IERR.LE.N ) {
+         if ( IERR > 0 && IERR.LE.N ) {
             INFO = IERR
-         } else if ( IERR.GT.N && IERR.LE.2*N ) {
+         } else if ( IERR > N && IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1
@@ -262,12 +262,12 @@
       if ( ILASCL ) {
          for (I = 1; I <= N; I++) { // 50
             if ( ALPHAI( I ) != ZERO ) {
-               if ( ( ALPHAR( I )/SAFMAX ).GT.( ANRMTO/ANRM ) || ( SAFMIN/ALPHAR( I ) ).GT.( ANRM/ANRMTO ) ) {
+               if ( ( ALPHAR( I )/SAFMAX ) > ( ANRMTO/ANRM ) || ( SAFMIN/ALPHAR( I ) ) > ( ANRM/ANRMTO ) ) {
                   WORK( 1 ) = ABS( A( I, I )/ALPHAR( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
                   ALPHAI( I ) = ALPHAI( I )*WORK( 1 )
-               } else if ( ( ALPHAI( I )/SAFMAX ).GT.( ANRMTO/ANRM ) || ( SAFMIN/ALPHAI( I ) ).GT.( ANRM/ANRMTO ) ) {
+               } else if ( ( ALPHAI( I )/SAFMAX ) > ( ANRMTO/ANRM ) || ( SAFMIN/ALPHAI( I ) ) > ( ANRM/ANRMTO ) ) {
                   WORK( 1 ) = ABS( A( I, I+1 )/ALPHAI( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
@@ -280,7 +280,7 @@
       if ( ILBSCL ) {
          for (I = 1; I <= N; I++) { // 60
             if ( ALPHAI( I ) != ZERO ) {
-                if ( ( BETA( I )/SAFMAX ).GT.( BNRMTO/BNRM ) || ( SAFMIN/BETA( I ) ).GT.( BNRM/BNRMTO ) ) {
+                if ( ( BETA( I )/SAFMAX ) > ( BNRMTO/BNRM ) || ( SAFMIN/BETA( I ) ) > ( BNRM/BNRMTO ) ) {
                    WORK( 1 ) = ABS(B( I, I )/BETA( I ))
                    BETA( I ) = BETA( I )*WORK( 1 )
                    ALPHAR( I ) = ALPHAR( I )*WORK( 1 )

@@ -73,7 +73,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
          NN = 0
          FATAL = true;
-      } else if ( NN.GT.MAXIN ) {
+      } else if ( NN > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN
          NN = 0
          FATAL = true;
@@ -83,12 +83,12 @@ void main() {
          if ( NVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', NVAL( I ), 0
             FATAL = true;
-         } else if ( NVAL( I ).GT.NMAX ) {
+         } else if ( NVAL( I ) > NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', NVAL( I ), NMAX
             FATAL = true;
          }
       } // 10
-      if (NN.GT.0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
+      if (NN > 0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
 
       // Read the values of NRHS
 
@@ -97,7 +97,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
          FATAL = true;
-      } else if ( NNS.GT.MAXIN ) {
+      } else if ( NNS > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
          FATAL = true;
@@ -107,12 +107,12 @@ void main() {
          if ( NSVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = true;
-         } else if ( NSVAL( I ).GT.MAXRHS ) {
+         } else if ( NSVAL( I ) > MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = true;
          }
       } // 30
-      if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
+      if (NNS > 0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
 
       // Read the matrix types
 
@@ -121,7 +121,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NMA', NNT, 1
          NNT = 0
          FATAL = true;
-      } else if ( NNT.GT.NTYPES ) {
+      } else if ( NNT > NTYPES ) {
          WRITE( NOUT, FMT = 9995 )' NMA', NNT, NTYPES
          NNT = 0
          FATAL = true;
@@ -131,12 +131,12 @@ void main() {
          if ( NTVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )'TYPE', NTVAL( I ), 0
             FATAL = true;
-         } else if ( NTVAL( I ).GT.NTYPES ) {
+         } else if ( NTVAL( I ) > NTYPES ) {
             WRITE( NOUT, FMT = 9995 )'TYPE', NTVAL( I ), NTYPES
             FATAL = true;
          }
       } // 320
-      if (NNT.GT.0) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT );
+      if (NNT > 0) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT );
 
       // Read the threshold value for the test ratios.
 

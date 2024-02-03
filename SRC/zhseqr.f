@@ -70,9 +70,9 @@
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ILO < 1 || ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
          INFO = -4
-      } else if ( IHI < MIN( ILO, N ) || IHI.GT.N ) {
+      } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
          INFO = -5
       } else if ( LDH < MAX( 1, N ) ) {
          INFO = -7
@@ -109,7 +109,7 @@
 
          // ==== copy eigenvalues isolated by ZGEBAL ====
 
-         if (ILO.GT.1) CALL ZCOPY( ILO-1, H, LDH+1, W, 1 )          IF( IHI < N ) CALL ZCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 );
+         if (ILO > 1) CALL ZCOPY( ILO-1, H, LDH+1, W, 1 )          IF( IHI < N ) CALL ZCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 );
 
          // ==== Initialize Z, if requested ====
 
@@ -129,7 +129,7 @@
 
          // ==== ZLAQR0 for big matrices; ZLAHQR for small ones ====
 
-         if ( N.GT.NMIN ) {
+         if ( N > NMIN ) {
             zlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          } else {
 
@@ -137,7 +137,7 @@
 
             zlahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, INFO );
 
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
 
                // ==== A rare ZLAHQR failure!  ZLAQR0 sometimes succeeds
                // .    when ZLAHQR fails. ====
@@ -168,7 +168,7 @@
 
          // ==== Clear out the trash, if necessary. ====
 
-         IF( ( WANTT || INFO != 0 ) && N.GT.2 ) CALL ZLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
+         IF( ( WANTT || INFO != 0 ) && N > 2 ) CALL ZLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====

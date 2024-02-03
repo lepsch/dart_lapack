@@ -63,9 +63,9 @@
 
       claset('Full', P, P, CROGUE, CROGUE, Z, LDB );
       if ( N.LE.P ) {
-         if (N.GT.0 && N < P) CALL CLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL CLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB );
+         if (N > 0 && N < P) CALL CLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N > 1 ) CALL CLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB );
       } else {
-         if (P.GT.1) CALL CLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
+         if (P > 1) CALL CLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
       }
       cungrq(P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
@@ -91,7 +91,7 @@
       // Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 
       RESID = CLANGE( '1', N, M, R, LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / REAL( MAX(1,M,N) ) ) / ANORM ) / ULP
       } else {
          RESULT( 1 ) = ZERO
@@ -104,7 +104,7 @@
       // Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
       RESID = CLANGE( '1', N, P, BWK, LDB, RWORK )
-      if ( BNORM.GT.ZERO ) {
+      if ( BNORM > ZERO ) {
          RESULT( 2 ) = ( ( RESID / REAL( MAX(1,P,N ) ) )/BNORM ) / ULP
       } else {
          RESULT( 2 ) = ZERO

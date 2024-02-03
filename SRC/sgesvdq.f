@@ -92,7 +92,7 @@
          INFO = -5
       } else if ( M < 0 ) {
          INFO = -6
-      } else if ( ( N < 0 ) || ( N.GT.M ) ) {
+      } else if ( ( N < 0 ) || ( N > M ) ) {
          INFO = -7
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -9
@@ -355,7 +355,7 @@
                RETURN
             }
 
-            if ( RWORK(1) .GT. BIG / SQRT(REAL(M)) ) {
+            if ( RWORK(1) > BIG / SQRT(REAL(M)) ) {
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
                 slascl('G',0,0,SQRT(REAL(M)),ONE, M,N, A,LDA, IERR);
@@ -376,7 +376,7 @@
                xerbla('SGESVDQ', -INFO );
                RETURN
           }
-          if ( RTMP .GT. BIG / SQRT(REAL(M)) ) {
+          if ( RTMP > BIG / SQRT(REAL(M)) ) {
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
               slascl('G',0,0, SQRT(REAL(M)),ONE, M,N, A,LDA, IERR);
@@ -501,7 +501,7 @@
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
-            if (NR .GT. 1) CALL SLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA );
+            if (NR > 1) CALL SLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA );
             sgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO );
 
          }
@@ -519,7 +519,7 @@
                   U(q,p) = A(p,q)
                } // 1193
             } // 1192
-            if (NR .GT. 1) CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, U(1,2), LDU );
+            if (NR > 1) CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, U(1,2), LDU );
             // .. the left singular vectors not computed, the NR right singular
             // vectors overwrite [U](1:NR,1:NR) as transposed. These
             // will be pre-multiplied by Q to build the left singular vectors of A.
@@ -537,7 +537,7 @@
              // .. apply SGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
              slacpy('U', NR, N, A, LDA, U, LDU );
-             if (NR .GT. 1) CALL SLASET( 'L', NR-1, NR-1, ZERO, ZERO, U(2,1), LDU );
+             if (NR > 1) CALL SLASET( 'L', NR-1, NR-1, ZERO, ZERO, U(2,1), LDU );
              // .. the right singular vectors not computed, the NR left singular
              // vectors overwrite [U](1:NR,1:NR)
                 sgesvd('O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
@@ -574,7 +574,7 @@
                   V(q,p) = (A(p,q))
                } // 1166
             } // 1165
-            if (NR .GT. 1) CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
+            if (NR > 1) CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
             // .. the left singular vectors of R**T overwrite V, the right singular
             // vectors not computed
             if ( WNTVR || ( NR == N ) ) {
@@ -619,7 +619,7 @@
              // .. aply SGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
              slacpy('U', NR, N, A, LDA, V, LDV );
-             if (NR .GT. 1) CALL SLASET( 'L', NR-1, NR-1, ZERO, ZERO, V(2,1), LDV );
+             if (NR > 1) CALL SLASET( 'L', NR-1, NR-1, ZERO, ZERO, V(2,1), LDV );
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U(1:NR,1:NR)
              if ( WNTVR || ( NR == N ) ) {
@@ -656,7 +656,7 @@
                   V(q,p) = A(p,q)
                } // 1169
             } // 1168
-            if (NR .GT. 1) CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
+            if (NR > 1) CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
 
             // .. the left singular vectors of R**T overwrite [V], the NR right
             // singular vectors of R**T stored in [U](1:NR,1:NR) as transposed
@@ -704,13 +704,13 @@
                 // OPTRATIO = ILAENV(6, 'SGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                 OPTRATIO = 2
-                if ( OPTRATIO*NR .GT. N ) {
+                if ( OPTRATIO*NR > N ) {
                    for (p = 1; p <= NR; p++) { // 1198
                       for (q = p; q <= N; q++) { // 1199
                          V(q,p) = A(p,q)
                       } // 1199
                    } // 1198
-                   if (NR .GT. 1) CALL SLASET('U',NR-1,NR-1, ZERO,ZERO, V(1,2),LDV);
+                   if (NR > 1) CALL SLASET('U',NR-1,NR-1, ZERO,ZERO, V(1,2),LDV);
 
                    slaset('A',N,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
                    sgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO );
@@ -749,7 +749,7 @@
                          U(q,NR+p) = A(p,q)
                       } // 1197
                    } // 1196
-                   if (NR .GT. 1) CALL SLASET('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU);
+                   if (NR > 1) CALL SLASET('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU);
                    sgeqrf(N, NR, U(1,NR+1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
@@ -782,7 +782,7 @@
              if ( WNTVR || ( NR == N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  slacpy('U', NR, N, A, LDA, V, LDV );
-                if (NR .GT. 1) CALL SLASET( 'L', NR-1,NR-1, ZERO,ZERO, V(2,1), LDV );
+                if (NR > 1) CALL SLASET( 'L', NR-1,NR-1, ZERO,ZERO, V(2,1), LDV );
                 // .. the right singular vectors of R overwrite [V], the NR left
                 // singular vectors of R stored in [U](1:NR,1:NR)
                 sgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
@@ -808,9 +808,9 @@
                 // OPTRATIO = ILAENV(6, 'SGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                OPTRATIO = 2
-               if ( OPTRATIO * NR .GT. N ) {
+               if ( OPTRATIO * NR > N ) {
                   slacpy('U', NR, N, A, LDA, V, LDV );
-                  if (NR .GT. 1) CALL SLASET('L', NR-1,NR-1, ZERO,ZERO, V(2,1),LDV);
+                  if (NR > 1) CALL SLASET('L', NR-1,NR-1, ZERO,ZERO, V(2,1),LDV);
                // .. the right singular vectors of R overwrite [V], the NR left
                   // singular vectors of R stored in [U](1:NR,1:NR)
                   slaset('A', N-NR,N, ZERO,ZERO, V(NR+1,1),LDV);
@@ -830,10 +830,10 @@
                   }
                } else {
                   slacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
-                  if (NR .GT. 1) CALL SLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU);
+                  if (NR > 1) CALL SLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU);
                   sgelqf(NR, N, U(NR+1,1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
                   slacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
-                  if (NR .GT. 1) CALL SLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV);
+                  if (NR > 1) CALL SLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV);
                   sgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, WORK(N+NR+1), LWORK-N-NR, INFO );
                   slaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV);
                   slaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
@@ -867,7 +867,7 @@
       // due to underflow, and update the numerical rank.
       p = NR
       DO 4001 q = p, 1, -1
-          IF ( S(q) .GT. ZERO ) GO TO 4002
+          IF ( S(q) > ZERO ) GO TO 4002
           NR = NR - 1
       } // 4001
       } // 4002

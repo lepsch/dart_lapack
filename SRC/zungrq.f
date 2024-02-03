@@ -41,7 +41,7 @@
          INFO = -1
       } else if ( N < M ) {
          INFO = -2
-      } else if ( K < 0 || K.GT.M ) {
+      } else if ( K < 0 || K > M ) {
          INFO = -3
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
@@ -77,7 +77,7 @@
       NBMIN = 2
       NX = 0
       IWS = M
-      if ( NB.GT.1 && NB < K ) {
+      if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -121,14 +121,14 @@
 
       zungr2(M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO );
 
-      if ( KK.GT.0 ) {
+      if ( KK > 0 ) {
 
          // Use blocked code
 
          DO 50 I = K - KK + 1, K, NB
             IB = MIN( NB, K-I+1 )
             II = M - K + I
-            if ( II.GT.1 ) {
+            if ( II > 1 ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)

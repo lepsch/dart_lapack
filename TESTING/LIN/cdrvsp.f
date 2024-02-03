@@ -270,7 +270,7 @@
                      // pivoting.
 
                      K = IZERO
-                     if ( K.GT.0 ) {
+                     if ( K > 0 ) {
                         } // 100
                         if ( IWORK( K ) < 0 ) {
                            if ( IWORK( K ) != -K ) {
@@ -322,7 +322,7 @@
 
                   // --- Test CSPSVX ---
 
-                  if (IFACT == 2 && NPP.GT.0) CALL CLASET( 'Full', NPP, 1, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, NPP );
+                  if (IFACT == 2 && NPP > 0) CALL CLASET( 'Full', NPP, 1, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, NPP );
                   claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
 
                   // Solve the system and compute the condition number and
@@ -335,7 +335,7 @@
                   // pivoting.
 
                   K = IZERO
-                  if ( K.GT.0 ) {
+                  if ( K > 0 ) {
                      } // 130
                      if ( IWORK( K ) < 0 ) {
                         if ( IWORK( K ) != -K ) {

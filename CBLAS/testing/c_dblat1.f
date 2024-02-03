@@ -115,7 +115,7 @@ void main() {      // Test program for the double           Level 1 CBLAS.;
          N = K
          if (ICASE == 3) {
             // .. DROTGTEST ..
-            if (K.GT.8) GO TO 40;
+            if (K > 8) GO TO 40;
             SA = DA1(K)
             SB = DB1(K)
             drotgtest(SA,SB,SC,SS);

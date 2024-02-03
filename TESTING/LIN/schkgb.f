@@ -141,13 +141,13 @@
 
                   LDA = KL + KU + 1
                   LDAFAC = 2*KL + KU + 1
-                  if ( ( LDA*N ).GT.LA || ( LDAFAC*N ).GT.LAFAC ) {
+                  if ( ( LDA*N ) > LA || ( LDAFAC*N ) > LAFAC ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
-                     if ( N*( KL+KU+1 ).GT.LA ) {
+                     if ( N*( KL+KU+1 ) > LA ) {
                         WRITE( NOUT, FMT = 9999 )LA, M, N, KL, KU, N*( KL+KU+1 )
                         NERRS = NERRS + 1
                      }
-                     if ( N*( 2*KL+KU+1 ).GT.LAFAC ) {
+                     if ( N*( 2*KL+KU+1 ) > LAFAC ) {
                         WRITE( NOUT, FMT = 9998 )LAFAC, M, N, KL, KU, N*( 2*KL+KU+1 )
                         NERRS = NERRS + 1
                      }
@@ -186,7 +186,7 @@
                            alaerh(PATH, 'SLATMS', INFO, 0, ' ', M, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 120
                         }
-                     } else if ( IZERO.GT.0 ) {
+                     } else if ( IZERO > 0 ) {
 
                         // Use the same matrix for types 3 and 4 as for
                         // type 2 by copying back the zeroed out column.
@@ -243,7 +243,7 @@
 
                         // Compute the LU factorization of the band matrix.
 
-                        if (M.GT.0 && N.GT.0) CALL SLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
+                        if (M > 0 && N > 0) CALL SLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
                         SRNAMT = 'SGBTRF'
                         sgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
@@ -270,7 +270,7 @@
                         // Skip the remaining tests if this is not the
                         // first block size or if M != N.
 
-                        if (INB.GT.1 || M != N) GO TO 110;
+                        if (INB > 1 || M != N) GO TO 110;
 
                         ANORMO = SLANGB( 'O', N, KL, KU, A, LDA, RWORK )
                         ANORMI = SLANGB( 'I', N, KL, KU, A, LDA, RWORK )

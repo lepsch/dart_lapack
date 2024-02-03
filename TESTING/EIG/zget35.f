@@ -112,8 +112,8 @@
                            if (INFO != 0) NINFO = NINFO + 1;
                            XNRM = ZLANGE( 'M', M, N, C, LDT, DUM )
                            RMUL = CONE
-                           if ( XNRM.GT.ONE && TNRM.GT.ONE ) {
-                              if ( XNRM.GT.BIGNUM / TNRM ) {
+                           if ( XNRM > ONE && TNRM > ONE ) {
+                              if ( XNRM > BIGNUM / TNRM ) {
                                  RMUL = MAX( XNRM, TNRM )
                                  RMUL = CONE / RMUL
                               }
@@ -122,7 +122,7 @@
                            zgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = ZLANGE( 'M', M, N, CSAV, LDT, DUM )
                            RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
-                           if ( RES.GT.RMAX ) {
+                           if ( RES > RMAX ) {
                               LMAX = KNT
                               RMAX = RES
                            }

@@ -85,7 +85,7 @@
          INFO = -9
       } else if ( LDU < NMAX ) {
          INFO = -16
-      } else if ( 2*MAX( 2, NMAX )**2.GT.LWORK ) {
+      } else if ( 2*MAX( 2, NMAX )**2 > LWORK ) {
          INFO = -21
       }
 
@@ -120,7 +120,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 1740
          N = NN( JSIZE )
-         if ( N.GT.0 ) {
+         if ( N > 0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) )
             if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
@@ -164,7 +164,7 @@
             // =8                      random symmetric
             // =9                      band symmetric, w/ eigenvalues
 
-            if (MTYPES.GT.MAXTYP) GO TO 110;
+            if (MTYPES > MAXTYP) GO TO 110;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -270,7 +270,7 @@
             } else {
                IL = 1 + INT( ( N-1 )*SLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( N-1 )*SLARND( 1, ISEED2 ) )
-               if ( IL.GT.IU ) {
+               if ( IL > IU ) {
                   ITEMP = IL
                   IL = IU
                   IU = ITEMP
@@ -363,7 +363,7 @@
                      GO TO 250
                   }
                }
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -428,7 +428,7 @@
                      GO TO 320
                   }
                }
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -533,7 +533,7 @@
                } // 380
 
                NTEST = 12
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   if ( IL != 1 ) {
                      VL = WA1( IL ) - MAX( HALF* ( WA1( IL )-WA1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else {
@@ -570,7 +570,7 @@
                   }
                }
 
-               if ( M2 == 0 && N.GT.0 ) {
+               if ( M2 == 0 && N > 0 ) {
                   RESULT( 13 ) = ULPINV
                   RESULT( 14 ) = ULPINV
                   RESULT( 15 ) = ULPINV
@@ -732,7 +732,7 @@
                } // 570
 
                NTEST = 21
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   if ( IL != 1 ) {
                      VL = WA1( IL ) - MAX( HALF* ( WA1( IL )-WA1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   } else {
@@ -769,7 +769,7 @@
                   }
                }
 
-               if ( M2 == 0 && N.GT.0 ) {
+               if ( M2 == 0 && N > 0 ) {
                   RESULT( 22 ) = ULPINV
                   RESULT( 23 ) = ULPINV
                   RESULT( 24 ) = ULPINV
@@ -886,16 +886,16 @@
 
                NTEST = NTEST + 1
 
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) )
                   if ( IL != 1 ) {
                      VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  } else if ( N.GT.0 ) {
+                  } else if ( N > 0 ) {
                      VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
                   if ( IU != N ) {
                      VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  } else if ( N.GT.0 ) {
+                  } else if ( N > 0 ) {
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
                } else {
@@ -1034,7 +1034,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 700
                }
@@ -1043,7 +1043,7 @@
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -1163,16 +1163,16 @@
 
                NTEST = NTEST + 1
 
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) )
                   if ( IL != 1 ) {
                      VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  } else if ( N.GT.0 ) {
+                  } else if ( N > 0 ) {
                      VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
                   if ( IU != N ) {
                      VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  } else if ( N.GT.0 ) {
+                  } else if ( N > 0 ) {
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
                } else {
@@ -1316,7 +1316,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 990
                }
@@ -1325,7 +1325,7 @@
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -1405,7 +1405,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1080
                }
@@ -1414,7 +1414,7 @@
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -1653,7 +1653,7 @@
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -1724,7 +1724,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1460
                }
@@ -1733,7 +1733,7 @@
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -2103,7 +2103,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 700
                }
@@ -2112,7 +2112,7 @@
 
                TEMP1 = SSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO

@@ -51,7 +51,7 @@
          // .....................................................
 
          } // 10
-         IF ( J.GT.MIN(M, NB) ) GO TO 20
+         IF ( J > MIN(M, NB) ) GO TO 20
 
          // K is the column to be factorized
           // when being called from ZHETRF_AA,
@@ -71,7 +71,7 @@
          // H(J:N, J) := A(J, J:N) - H(J:N, 1:(J-1)) * L(J1:(J-1), J),
           // where H(J:N, J) has been initialized to be A(J, J:N)
 
-         if ( K.GT.2 ) {
+         if ( K > 2 ) {
 
          // K is the column to be factorized
           // > for the first block column, K is J, skipping the first two
@@ -88,7 +88,7 @@
 
          zcopy(MJ, H( J, J ), 1, WORK( 1 ), 1 );
 
-         if ( J.GT.K1 ) {
+         if ( J > K1 ) {
 
             // Compute WORK := WORK - L(J-1, J:N) * T(J-1,J),
              // where A(J-1, J) stores T(J-1, J) and A(J-2, J:N) stores U(J-1, J:N)
@@ -106,7 +106,7 @@
             // Compute WORK(2:N) = T(J, J) L(J, (J+1):N)
              // where A(J, J) stores T(J, J) and A(J-1, (J+1):N) stores U(J, (J+1):N)
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                ALPHA = -A( K, J )
                zaxpy(M-J, ALPHA, A( K-1, J+1 ), LDA, WORK( 2 ), 1 );
             }
@@ -149,7 +149,7 @@
                zswap(I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH );
                IPIV( I1 ) = I2
 
-               if ( I1.GT.(K1-1) ) {
+               if ( I1 > (K1-1) ) {
 
                   // Swap L(1:I1-1, I1) with L(1:I1-1, I2),
                    // skipping the first column
@@ -195,7 +195,7 @@
          // .....................................................
 
          } // 30
-         IF( J.GT.MIN( M, NB ) ) GO TO 40
+         IF( J > MIN( M, NB ) ) GO TO 40
 
          // K is the column to be factorized
           // when being called from ZHETRF_AA,
@@ -215,7 +215,7 @@
          // H(J:N, J) := A(J:N, J) - H(J:N, 1:(J-1)) * L(J, J1:(J-1))^T,
           // where H(J:N, J) has been initialized to be A(J:N, J)
 
-         if ( K.GT.2 ) {
+         if ( K > 2 ) {
 
          // K is the column to be factorized
           // > for the first block column, K is J, skipping the first two
@@ -232,7 +232,7 @@
 
          zcopy(MJ, H( J, J ), 1, WORK( 1 ), 1 );
 
-         if ( J.GT.K1 ) {
+         if ( J > K1 ) {
 
             // Compute WORK := WORK - L(J:N, J-1) * T(J-1,J),
              // where A(J-1, J) = T(J-1, J) and A(J, J-2) = L(J, J-1)
@@ -250,7 +250,7 @@
             // Compute WORK(2:N) = T(J, J) L((J+1):N, J)
              // where A(J, J) = T(J, J) and A((J+1):N, J-1) = L((J+1):N, J)
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                ALPHA = -A( J, K )
                zaxpy(M-J, ALPHA, A( J+1, K-1 ), 1, WORK( 2 ), 1 );
             }
@@ -293,7 +293,7 @@
                zswap(I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH );
                IPIV( I1 ) = I2
 
-               if ( I1.GT.(K1-1) ) {
+               if ( I1 > (K1-1) ) {
 
                   // Swap L(1:I1-1, I1) with L(1:I1-1, I2),
                    // skipping the first column

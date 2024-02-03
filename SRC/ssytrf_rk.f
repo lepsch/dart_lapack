@@ -66,7 +66,7 @@
 
       NBMIN = 2
       LDWORK = N
-      if ( NB.GT.1 && NB < N ) {
+      if ( NB > 1 && NB < N ) {
          IWS = LDWORK*NB
          if ( LWORK < IWS ) {
             NB = MAX( LWORK / LDWORK, 1 )
@@ -92,7 +92,7 @@
 
          if (K < 1) GO TO 15;
 
-         if ( K.GT.NB ) {
+         if ( K > NB ) {
 
             // Factorize columns k-kb+1:k of A and use blocked code to
             // update columns 1:k-kb
@@ -108,7 +108,7 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         if (INFO == 0 && IINFO.GT.0) INFO = IINFO;
+         if (INFO == 0 && IINFO > 0) INFO = IINFO;
 
          // No need to adjust IPIV
 
@@ -154,7 +154,7 @@
 
          // If K > N, exit from loop
 
-         if (K.GT.N) GO TO 35;
+         if (K > N) GO TO 35;
 
          if ( K.LE.N-NB ) {
 
@@ -175,12 +175,12 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         if (INFO == 0 && IINFO.GT.0) INFO = IINFO + K - 1;
+         if (INFO == 0 && IINFO > 0) INFO = IINFO + K - 1;
 
          // Adjust IPIV
 
          for (I = K; I <= K + KB - 1; I++) {
-            if ( IPIV( I ).GT.0 ) {
+            if ( IPIV( I ) > 0 ) {
                IPIV( I ) = IPIV( I ) + K - 1
             } else {
                IPIV( I ) = IPIV( I ) - K + 1
@@ -196,7 +196,7 @@
          // since the ABS value of IPIV( I ) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             DO I = K, ( K + KB - 1 ), 1
                IP = ABS( IPIV( I ) )
                if ( IP != I ) {

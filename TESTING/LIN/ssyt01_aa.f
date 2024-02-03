@@ -53,7 +53,7 @@
 
       slaset('Full', N, N, ZERO, ZERO, C, LDC );
       slacpy('F', 1, N, AFAC( 1, 1 ), LDAFAC+1, C( 1, 1 ), LDC+1 );
-      if ( N.GT.1 ) {
+      if ( N > 1 ) {
          if ( LSAME( UPLO, 'U' ) ) {
             slacpy('F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 );
             slacpy('F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 );

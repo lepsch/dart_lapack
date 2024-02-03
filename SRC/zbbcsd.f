@@ -54,11 +54,11 @@
 
       if ( M < 0 ) {
          INFO = -6
-      } else if ( P < 0 || P .GT. M ) {
+      } else if ( P < 0 || P > M ) {
          INFO = -7
-      } else if ( Q < 0 || Q .GT. M ) {
+      } else if ( Q < 0 || Q > M ) {
          INFO = -8
-      } else if ( Q .GT. P || Q .GT. M-P || Q .GT. M-Q ) {
+      } else if ( Q > P || Q > M-P || Q > M-Q ) {
          INFO = -8
       } else if ( WANTU1 && LDU1 < P ) {
          INFO = -12
@@ -117,14 +117,14 @@
       for (I = 1; I <= Q; I++) {
          if ( THETA(I) < THRESH ) {
             THETA(I) = ZERO
-         } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
+         } else if ( THETA(I) > PIOVER2-THRESH ) {
             THETA(I) = PIOVER2
          }
       }
       for (I = 1; I <= Q-1; I++) {
          if ( PHI(I) < THRESH ) {
             PHI(I) = ZERO
-         } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
+         } else if ( PHI(I) > PIOVER2-THRESH ) {
             PHI(I) = PIOVER2
          }
       }
@@ -132,14 +132,14 @@
       // Initial deflation
 
       IMAX = Q
-      DO WHILE( IMAX .GT. 1 )
+      DO WHILE( IMAX > 1 )
          if ( PHI(IMAX-1) != ZERO ) {
             EXIT
          }
          IMAX = IMAX - 1
       }
       IMIN = IMAX - 1
-      if ( IMIN .GT. 1 ) {
+      if ( IMIN > 1 ) {
          DO WHILE( PHI(IMIN-1) != ZERO )
             IMIN = IMIN - 1
             if (IMIN .LE. 1) EXIT;
@@ -153,7 +153,7 @@
 
       // Begin main iteration loop
 
-      DO WHILE( IMAX .GT. 1 )
+      DO WHILE( IMAX > 1 )
 
          // Compute the matrix entries
 
@@ -174,7 +174,7 @@
 
          // Abort if not converging; otherwise, increment ITER
 
-         if ( ITER .GT. MAXIT ) {
+         if ( ITER > MAXIT ) {
             INFO = 0
             for (I = 1; I <= Q; I++) {
                IF( PHI(I) != ZERO ) INFO = INFO + 1
@@ -192,7 +192,7 @@
             IF( THETA(I) > THETAMAX ) THETAMAX = THETA(I)             IF( THETA(I) < THETAMIN ) THETAMIN = THETA(I)
          }
 
-         if ( THETAMAX .GT. PIOVER2 - THRESH ) {
+         if ( THETAMAX > PIOVER2 - THRESH ) {
 
             // Zero on diagonals of B11 and B22; induce deflation with a
             // zero shift
@@ -255,14 +255,14 @@
 
          // Chase the bulges in B11(IMIN+1,IMIN) and B21(IMIN+1,IMIN)
 
-         if ( B11D(IMIN)**2+B11BULGE**2 .GT. THRESH**2 ) {
+         if ( B11D(IMIN)**2+B11BULGE**2 > THRESH**2 ) {
             dlartgp(B11BULGE, B11D(IMIN), RWORK(IU1SN+IMIN-1), RWORK(IU1CS+IMIN-1), R );
          } else if ( MU .LE. NU ) {
             dlartgs(B11E( IMIN ), B11D( IMIN + 1 ), MU, RWORK(IU1CS+IMIN-1), RWORK(IU1SN+IMIN-1) );
          } else {
             dlartgs(B12D( IMIN ), B12E( IMIN ), NU, RWORK(IU1CS+IMIN-1), RWORK(IU1SN+IMIN-1) );
          }
-         if ( B21D(IMIN)**2+B21BULGE**2 .GT. THRESH**2 ) {
+         if ( B21D(IMIN)**2+B21BULGE**2 > THRESH**2 ) {
             dlartgp(B21BULGE, B21D(IMIN), RWORK(IU2SN+IMIN-1), RWORK(IU2CS+IMIN-1), R );
          } else if ( NU < MU ) {
             dlartgs(B21E( IMIN ), B21D( IMIN + 1 ), NU, RWORK(IU2CS+IMIN-1), RWORK(IU2SN+IMIN-1) );
@@ -274,7 +274,7 @@
 
          TEMP = RWORK(IU1CS+IMIN-1)*B11E(IMIN) + RWORK(IU1SN+IMIN-1)*B11D(IMIN+1)          B11D(IMIN+1) = RWORK(IU1CS+IMIN-1)*B11D(IMIN+1) - RWORK(IU1SN+IMIN-1)*B11E(IMIN)
          B11E(IMIN) = TEMP
-         if ( IMAX .GT. IMIN+1 ) {
+         if ( IMAX > IMIN+1 ) {
             B11BULGE = RWORK(IU1SN+IMIN-1)*B11E(IMIN+1)
             B11E(IMIN+1) = RWORK(IU1CS+IMIN-1)*B11E(IMIN+1)
          }
@@ -284,7 +284,7 @@
          B12D(IMIN+1) = RWORK(IU1CS+IMIN-1)*B12D(IMIN+1)
          TEMP = RWORK(IU2CS+IMIN-1)*B21E(IMIN) + RWORK(IU2SN+IMIN-1)*B21D(IMIN+1)          B21D(IMIN+1) = RWORK(IU2CS+IMIN-1)*B21D(IMIN+1) - RWORK(IU2SN+IMIN-1)*B21E(IMIN)
          B21E(IMIN) = TEMP
-         if ( IMAX .GT. IMIN+1 ) {
+         if ( IMAX > IMIN+1 ) {
             B21BULGE = RWORK(IU2SN+IMIN-1)*B21E(IMIN+1)
             B21E(IMIN+1) = RWORK(IU2CS+IMIN-1)*B21E(IMIN+1)
          }
@@ -499,7 +499,7 @@
 
          // Fix signs on B11(IMAX-1,IMAX) and B21(IMAX-1,IMAX)
 
-         if ( B11E(IMAX-1)+B21E(IMAX-1) .GT. 0 ) {
+         if ( B11E(IMAX-1)+B21E(IMAX-1) > 0 ) {
             B11D(IMAX) = -B11D(IMAX)
             B21D(IMAX) = -B21D(IMAX)
             if ( WANTV1T ) {
@@ -530,7 +530,7 @@
                }
             }
          }
-         if ( B21D(IMAX)+B22E(IMAX-1) .GT. 0 ) {
+         if ( B21D(IMAX)+B22E(IMAX-1) > 0 ) {
             B22D(IMAX) = -B22D(IMAX)
             if ( WANTU2 ) {
                if ( COLMAJOR ) {
@@ -558,28 +558,28 @@
          for (I = IMIN; I <= IMAX; I++) {
             if ( THETA(I) < THRESH ) {
                THETA(I) = ZERO
-            } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
+            } else if ( THETA(I) > PIOVER2-THRESH ) {
                THETA(I) = PIOVER2
             }
          }
          for (I = IMIN; I <= IMAX-1; I++) {
             if ( PHI(I) < THRESH ) {
                PHI(I) = ZERO
-            } else if ( PHI(I) .GT. PIOVER2-THRESH ) {
+            } else if ( PHI(I) > PIOVER2-THRESH ) {
                PHI(I) = PIOVER2
             }
          }
 
          // Deflate
 
-         if (IMAX .GT. 1) {
+         if (IMAX > 1) {
             DO WHILE( PHI(IMAX-1) == ZERO )
                IMAX = IMAX - 1
                if (IMAX .LE. 1) EXIT;
             }
          }
-         if (IMIN .GT. IMAX - 1) IMIN = IMAX - 1;
-         if (IMIN .GT. 1) {
+         if (IMIN > IMAX - 1) IMIN = IMAX - 1;
+         if (IMIN > 1) {
             DO WHILE (PHI(IMIN-1) != ZERO)
                 IMIN = IMIN - 1
                 if (IMIN .LE. 1) EXIT;

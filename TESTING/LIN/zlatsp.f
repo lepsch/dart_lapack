@@ -68,7 +68,7 @@
             X( JJ ) = ZLARND( 2, ISEED )
             JJ = JJ - ( J-3 )
             X( JJ ) = ZLARND( 2, ISEED )
-            if ( ABS( X( JJ+( J-3 ) ) ).GT.ABS( X( JJ ) ) ) {
+            if ( ABS( X( JJ+( J-3 ) ) ) > ABS( X( JJ ) ) ) {
                X( JJ+( J-4 ) ) = 2.0D0*X( JJ+( J-3 ) )
             } else {
                X( JJ+( J-4 ) ) = 2.0D0*X( JJ )
@@ -79,7 +79,7 @@
          // Clean-up for N not a multiple of 5.
 
          J = N5 - 1
-         if ( J.GT.2 ) {
+         if ( J > 2 ) {
             A = ALPHA3*ZLARND( 5, ISEED )
             B = ZLARND( 5, ISEED ) / ALPHA
             C = A - 2.D0*B*EYE
@@ -94,10 +94,10 @@
             JJ = JJ - ( J-2 )
             J = J - 3
          }
-         if ( J.GT.1 ) {
+         if ( J > 1 ) {
             X( JJ ) = ZLARND( 2, ISEED )
             X( JJ-J ) = ZLARND( 2, ISEED )
-            if ( ABS( X( JJ ) ).GT.ABS( X( JJ-J ) ) ) {
+            if ( ABS( X( JJ ) ) > ABS( X( JJ-J ) ) ) {
                X( JJ-1 ) = 2.0D0*X( JJ )
             } else {
                X( JJ-1 ) = 2.0D0*X( JJ-J )
@@ -132,7 +132,7 @@
             X( JJ ) = ZLARND( 2, ISEED )
             JJ = JJ + ( N-J-2 )
             X( JJ ) = ZLARND( 2, ISEED )
-            if ( ABS( X( JJ-( N-J-2 ) ) ).GT.ABS( X( JJ ) ) ) {
+            if ( ABS( X( JJ-( N-J-2 ) ) ) > ABS( X( JJ ) ) ) {
                X( JJ-( N-J-2 )+1 ) = 2.0D0*X( JJ-( N-J-2 ) )
             } else {
                X( JJ-( N-J-2 )+1 ) = 2.0D0*X( JJ )
@@ -161,7 +161,7 @@
          if ( J < N ) {
             X( JJ ) = ZLARND( 2, ISEED )
             X( JJ+( N-J+1 ) ) = ZLARND( 2, ISEED )
-            if ( ABS( X( JJ ) ).GT.ABS( X( JJ+( N-J+1 ) ) ) ) {
+            if ( ABS( X( JJ ) ) > ABS( X( JJ+( N-J+1 ) ) ) ) {
                X( JJ+1 ) = 2.0D0*X( JJ )
             } else {
                X( JJ+1 ) = 2.0D0*X( JJ+( N-J+1 ) )

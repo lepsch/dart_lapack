@@ -105,7 +105,7 @@
             // Compute elements j+1:j+km of the j-th row and update the
             // trailing submatrix within the band.
 
-            if ( KM.GT.0 ) {
+            if ( KM > 0 ) {
                csscal(KM, ONE / AJJ, AB( KD, J+1 ), KLD );
                clacgv(KM, AB( KD, J+1 ), KLD );
                cher('Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
@@ -156,7 +156,7 @@
             // Compute elements j+1:j+km of the j-th column and update the
             // trailing submatrix within the band.
 
-            if ( KM.GT.0 ) {
+            if ( KM > 0 ) {
                csscal(KM, ONE / AJJ, AB( 2, J ), 1 );
                cher('Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }

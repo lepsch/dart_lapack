@@ -40,7 +40,7 @@
       LQUERY = ( LWORK == -1 )
       if ( N < 0 ) {
          INFO = -1
-      } else if ( M < 0 || M.GT.N ) {
+      } else if ( M < 0 || M > N ) {
          INFO = -2
       } else if ( P < 0 || P < N-M ) {
          INFO = -3
@@ -111,10 +111,10 @@
 
       // Solve T22*y2 = d2 for y2
 
-      if ( N.GT.M ) {
+      if ( N > M ) {
          dtrtrs('Upper', 'No transpose', 'Non unit', N-M, 1, B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO );
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             INFO = 1
             RETURN
          }
@@ -134,10 +134,10 @@
 
       // Solve triangular system: R11*x = d1
 
-      if ( M.GT.0 ) {
+      if ( M > 0 ) {
          dtrtrs('Upper', 'No Transpose', 'Non unit', M, 1, A, LDA, D, M, INFO );
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             INFO = 2
             RETURN
          }

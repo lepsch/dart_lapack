@@ -38,7 +38,7 @@
             C( IC ) = ZERO
             Y( IY ) = ONE
             X( IX ) = G
-         } else if ( ABS( F ).GT.ABS( G ) ) {
+         } else if ( ABS( F ) > ABS( G ) ) {
             T = G / F
             TT = SQRT( ONE+T*T )
             C( IC ) = ONE / TT

@@ -90,7 +90,7 @@
       // Compute norm( U'*A*Q - D1*R ) / ( MAX(1,M,N)*norm(A)*ULP ) .
 
       RESID = ZLANGE( '1', M, N, A, LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
       } else {
          RESULT( 1 ) = ZERO
@@ -111,7 +111,7 @@
       // Compute norm( V'*B*Q - D2*R ) / ( MAX(P,N)*norm(B)*ULP ) .
 
       RESID = ZLANGE( '1', P, N, B, LDB, RWORK )
-      if ( BNORM.GT.ZERO ) {
+      if ( BNORM > ZERO ) {
          RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP
       } else {
          RESULT( 2 ) = ZERO

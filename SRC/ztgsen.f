@@ -50,7 +50,7 @@
       INFO = 0
       LQUERY = ( LWORK == -1 || LIWORK == -1 )
 
-      if ( IJOB < 0 || IJOB.GT.5 ) {
+      if ( IJOB < 0 || IJOB > 5 ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -5
@@ -156,7 +156,7 @@
 
             if (K != KS) CALL ZTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, K, KS, IERR );
 
-            if ( IERR.GT.0 ) {
+            if ( IERR > 0 ) {
 
                // Swap is rejected: exit.
 
@@ -288,7 +288,7 @@
 
       for (K = 1; K <= N; K++) { // 60
          DSCALE = ABS( B( K, K ) )
-         if ( DSCALE.GT.SAFMIN ) {
+         if ( DSCALE > SAFMIN ) {
             TEMP1 = DCONJG( B( K, K ) / DSCALE )
             TEMP2 = B( K, K ) / DSCALE
             B( K, K ) = DSCALE

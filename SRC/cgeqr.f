@@ -50,17 +50,17 @@
 
       // Determine the block size
 
-      if ( MIN( M, N ).GT.0 ) {
+      if ( MIN( M, N ) > 0 ) {
         MB = ILAENV( 1, 'CGEQR ', ' ', M, N, 1, -1 )
         NB = ILAENV( 1, 'CGEQR ', ' ', M, N, 2, -1 )
       } else {
         MB = M
         NB = 1
       }
-      if (MB.GT.M || MB.LE.N) MB = M;
-      IF( NB.GT.MIN( M, N ) || NB < 1 ) NB = 1
+      if (MB > M || MB.LE.N) MB = M;
+      IF( NB > MIN( M, N ) || NB < 1 ) NB = 1
       MINTSZ = N + 5
-      if ( MB.GT.N && M.GT.N ) {
+      if ( MB > N && M > N ) {
         if ( MOD( M - N, MB - N ) == 0 ) {
           NBLCKS = ( M - N ) / ( MB - N )
         } else {

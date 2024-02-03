@@ -173,7 +173,7 @@
 
          zhst01(N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT );
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
-         if ( VMAX.GT.RMAX( 1 ) ) {
+         if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
          }
@@ -183,21 +183,21 @@
 
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          if (TNRM == ZERO) V = ONE;
-         if ( V.GT.SEPTMP ) {
+         if ( V > SEPTMP ) {
             TOL = ONE
          } else {
             TOL = V / SEPTMP
          }
-         if ( V.GT.SEPIN ) {
+         if ( V > SEPIN ) {
             TOLIN = ONE
          } else {
             TOLIN = V / SEPIN
          }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         if ( EPS*( SIN-TOLIN ).GT.STMP+TOL ) {
+         if ( EPS*( SIN-TOLIN ) > STMP+TOL ) {
             VMAX = ONE / EPS
-         } else if ( SIN-TOLIN.GT.STMP+TOL ) {
+         } else if ( SIN-TOLIN > STMP+TOL ) {
             VMAX = ( SIN-TOLIN ) / ( STMP+TOL )
          } else if ( SIN+TOLIN < EPS*( STMP-TOL ) ) {
             VMAX = ONE / EPS
@@ -206,7 +206,7 @@
          } else {
             VMAX = ONE
          }
-         if ( VMAX.GT.RMAX( 2 ) ) {
+         if ( VMAX > RMAX( 2 ) ) {
             RMAX( 2 ) = VMAX
             IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
          }
@@ -214,21 +214,21 @@
          // Compare condition numbers for invariant subspace
          // taking its condition number into account
 
-         if ( V.GT.SEPTMP*STMP ) {
+         if ( V > SEPTMP*STMP ) {
             TOL = SEPTMP
          } else {
             TOL = V / STMP
          }
-         if ( V.GT.SEPIN*SIN ) {
+         if ( V > SEPIN*SIN ) {
             TOLIN = SEPIN
          } else {
             TOLIN = V / SIN
          }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         if ( EPS*( SEPIN-TOLIN ).GT.SEPTMP+TOL ) {
+         if ( EPS*( SEPIN-TOLIN ) > SEPTMP+TOL ) {
             VMAX = ONE / EPS
-         } else if ( SEPIN-TOLIN.GT.SEPTMP+TOL ) {
+         } else if ( SEPIN-TOLIN > SEPTMP+TOL ) {
             VMAX = ( SEPIN-TOLIN ) / ( SEPTMP+TOL )
          } else if ( SEPIN+TOLIN < EPS*( SEPTMP-TOL ) ) {
             VMAX = ONE / EPS
@@ -237,7 +237,7 @@
          } else {
             VMAX = ONE
          }
-         if ( VMAX.GT.RMAX( 2 ) ) {
+         if ( VMAX > RMAX( 2 ) ) {
             RMAX( 2 ) = VMAX
             IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
          }
@@ -247,9 +247,9 @@
 
          if ( SIN.LE.DBLE( 2*N )*EPS && STMP.LE.DBLE( 2*N )*EPS ) {
             VMAX = ONE
-         } else if ( EPS*SIN.GT.STMP ) {
+         } else if ( EPS*SIN > STMP ) {
             VMAX = ONE / EPS
-         } else if ( SIN.GT.STMP ) {
+         } else if ( SIN > STMP ) {
             VMAX = SIN / STMP
          } else if ( SIN < EPS*STMP ) {
             VMAX = ONE / EPS
@@ -258,7 +258,7 @@
          } else {
             VMAX = ONE
          }
-         if ( VMAX.GT.RMAX( 3 ) ) {
+         if ( VMAX > RMAX( 3 ) ) {
             RMAX( 3 ) = VMAX
             IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
          }
@@ -268,9 +268,9 @@
 
          if ( SEPIN.LE.V && SEPTMP.LE.V ) {
             VMAX = ONE
-         } else if ( EPS*SEPIN.GT.SEPTMP ) {
+         } else if ( EPS*SEPIN > SEPTMP ) {
             VMAX = ONE / EPS
-         } else if ( SEPIN.GT.SEPTMP ) {
+         } else if ( SEPIN > SEPTMP ) {
             VMAX = SEPIN / SEPTMP
          } else if ( SEPIN < EPS*SEPTMP ) {
             VMAX = ONE / EPS
@@ -279,7 +279,7 @@
          } else {
             VMAX = ONE
          }
-         if ( VMAX.GT.RMAX( 3 ) ) {
+         if ( VMAX > RMAX( 3 ) ) {
             RMAX( 3 ) = VMAX
             IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
          }
@@ -364,7 +364,7 @@
                IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS
             } // 180
          } // 190
-         if ( VMAX.GT.RMAX( 1 ) ) {
+         if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
          }

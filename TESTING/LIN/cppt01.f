@@ -90,7 +90,7 @@
 
             // Compute the rest of column K.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                ctpmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 );
                KC = KC - ( K-1 )
             }

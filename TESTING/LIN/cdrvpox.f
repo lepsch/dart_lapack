@@ -202,14 +202,14 @@
                         // with FACT = 'F').
 
                         clacpy(UPLO, N, N, ASAV, LDA, AFAC, LDA );
-                        if ( EQUIL || IEQUED.GT.1 ) {
+                        if ( EQUIL || IEQUED > 1 ) {
 
                            // Compute row and column scale factors to
                            // equilibrate the matrix A.
 
                            cpoequ(N, AFAC, LDA, S, SCOND, AMAX, INFO );
-                           if ( INFO == 0 && N.GT.0 ) {
-                              if (IEQUED.GT.1) SCOND = ZERO;
+                           if ( INFO == 0 && N > 0 ) {
+                              if (IEQUED > 1) SCOND = ZERO;
 
                               // Equilibrate the matrix.
 
@@ -310,7 +310,7 @@
 
                      if (.NOT.PREFAC) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
                      claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
-                     if ( IEQUED.GT.1 && N.GT.0 ) {
+                     if ( IEQUED > 1 && N > 0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.
@@ -393,7 +393,7 @@
                      clacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
                       if (.NOT.PREFAC) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
                      claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
-                     if ( IEQUED.GT.1 && N.GT.0 ) {
+                     if ( IEQUED > 1 && N > 0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.

@@ -68,7 +68,7 @@
 
       WNORM = SLANGE( '1', N, 2*N, WORK, N, DUM )
 
-      if ( ABNORM.GT.WNORM ) {
+      if ( ABNORM > WNORM ) {
          RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP )
       } else {
          if ( ABNORM < ONE ) {

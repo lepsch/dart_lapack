@@ -154,7 +154,7 @@
                         alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 80
                      }
-                  } else if ( IZERO.GT.0 ) {
+                  } else if ( IZERO > 0 ) {
 
                      // Use the same matrix for types 3 and 4 as for type
                      // 2 by copying back the zeroed out column,
@@ -249,14 +249,14 @@
                            // previous iteration with FACT = 'F').
 
                            clacpy('Full', KD+1, N, ASAV, LDAB, AFAC, LDAB );
-                           if ( EQUIL || IEQUED.GT.1 ) {
+                           if ( EQUIL || IEQUED > 1 ) {
 
                               // Compute row and column scale factors to
                               // equilibrate the matrix A.
 
                               cpbequ(UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, INFO );
-                              if ( INFO == 0 && N.GT.0 ) {
-                                 if (IEQUED.GT.1) SCOND = ZERO;
+                              if ( INFO == 0 && N > 0 ) {
+                                 if (IEQUED > 1) SCOND = ZERO;
 
                                  // Equilibrate the matrix.
 
@@ -359,7 +359,7 @@
 
                         if (.NOT.PREFAC) CALL CLASET( 'Full', KD+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDAB );
                         claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
-                        if ( IEQUED.GT.1 && N.GT.0 ) {
+                        if ( IEQUED > 1 && N > 0 ) {
 
                            // Equilibrate the matrix if FACT='F' and
                            // EQUED='Y'

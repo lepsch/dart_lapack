@@ -88,7 +88,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( N.GT.0 && .NOT.DOTYPE( IMAT ) ) GO TO 110
+            IF( N > 0 && .NOT.DOTYPE( IMAT ) ) GO TO 110
 
             // Set up parameters with DLATB4.
 
@@ -119,7 +119,7 @@
                   E( I ) = A( IA+1 )
                   IA = IA + 2
                } // 20
-               if (N.GT.0) D( N ) = A( IA );
+               if (N > 0) D( N ) = A( IA );
             } else {
 
                // Type 7-12:  generate a diagonally dominant matrix with
@@ -149,16 +149,16 @@
                   IX = IDAMAX( N, D, 1 )
                   DMAX = D( IX )
                   dscal(N, ANORM / DMAX, D, 1 );
-                  if (N.GT.1) CALL DSCAL( N-1, ANORM / DMAX, E, 1 );
+                  if (N > 1) CALL DSCAL( N-1, ANORM / DMAX, E, 1 );
 
-               } else if ( IZERO.GT.0 ) {
+               } else if ( IZERO > 0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
                   if ( IZERO == 1 ) {
                      D( 1 ) = Z( 2 )
-                     if (N.GT.1) E( 1 ) = Z( 3 );
+                     if (N > 1) E( 1 ) = Z( 3 );
                   } else if ( IZERO == N ) {
                      E( N-1 ) = Z( 1 )
                      D( N ) = Z( 2 )
@@ -177,13 +177,13 @@
                   IZERO = 1
                   Z( 2 ) = D( 1 )
                   D( 1 ) = ZERO
-                  if ( N.GT.1 ) {
+                  if ( N > 1 ) {
                      Z( 3 ) = E( 1 )
                      E( 1 ) = ZERO
                   }
                } else if ( IMAT == 9 ) {
                   IZERO = N
-                  if ( N.GT.1 ) {
+                  if ( N > 1 ) {
                      Z( 1 ) = E( N-1 )
                      E( N-1 ) = ZERO
                   }
@@ -191,7 +191,7 @@
                   D( N ) = ZERO
                } else if ( IMAT == 10 ) {
                   IZERO = ( N+1 ) / 2
-                  if ( IZERO.GT.1 ) {
+                  if ( IZERO > 1 ) {
                      Z( 1 ) = E( IZERO-1 )
                      Z( 3 ) = E( IZERO )
                      E( IZERO-1 ) = ZERO
@@ -235,7 +235,7 @@
                   ANORM = DLANST( '1', N, D, E )
 
                   dcopy(N, D, 1, D( N+1 ), 1 );
-                  if (N.GT.1) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 );
+                  if (N > 1) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 );
 
                   // Factor the matrix A.
 
@@ -268,7 +268,7 @@
                   // --- Test DPTSV --
 
                   dcopy(N, D, 1, D( N+1 ), 1 );
-                  if (N.GT.1) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 );
+                  if (N > 1) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 );
                   dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   // Factor A as L*D*L' and solve the system A*X = B.
@@ -312,7 +312,7 @@
 
                // --- Test DPTSVX ---
 
-               if ( IFACT.GT.1 ) {
+               if ( IFACT > 1 ) {
 
                   // Initialize D( N+1:2*N ) and E( N+1:2*N ) to zero.
 
@@ -320,7 +320,7 @@
                      D( N+I ) = ZERO
                      E( N+I ) = ZERO
                   } // 80
-                  if (N.GT.0) D( N+N ) = ZERO;
+                  if (N > 0) D( N+N ) = ZERO;
                }
 
                dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );

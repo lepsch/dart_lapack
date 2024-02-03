@@ -32,7 +32,7 @@
 
          SMAX = ABS(CX(1))
          for (I = 2; I <= N; I++) {
-            if (ABS(CX(I)).GT.SMAX) {
+            if (ABS(CX(I)) > SMAX) {
                ICMAX1 = I
                SMAX = ABS(CX(I))
             }
@@ -45,7 +45,7 @@
          SMAX = ABS(CX(1))
          IX = IX + INCX
          for (I = 2; I <= N; I++) {
-            if (ABS(CX(IX)).GT.SMAX) {
+            if (ABS(CX(IX)) > SMAX) {
                ICMAX1 = I
                SMAX = ABS(CX(IX))
             }

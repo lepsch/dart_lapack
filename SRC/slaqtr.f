@@ -80,7 +80,7 @@
       XMAX = ABS( X( K ) )
       SCALE = ONE
 
-      if ( XMAX.GT.BIGNUM ) {
+      if ( XMAX > BIGNUM ) {
          SCALE = BIGNUM / XMAX
          sscal(N1, SCALE, X, 1 );
          XMAX = BIGNUM
@@ -94,11 +94,11 @@
 
             JNEXT = N
             DO 30 J = N, 1, -1
-               if (J.GT.JNEXT) GO TO 30;
+               if (J > JNEXT) GO TO 30;
                J1 = J
                J2 = J
                JNEXT = J - 1
-               if ( J.GT.1 ) {
+               if ( J > 1 ) {
                   if ( T( J, J-1 ) != ZERO ) {
                      J1 = J - 1
                      JNEXT = J - 2
@@ -124,7 +124,7 @@
                   if (XJ == ZERO) GO TO 30;
 
                   if ( TJJ < ONE ) {
-                     if ( XJ.GT.BIGNUM*TJJ ) {
+                     if ( XJ > BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         sscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
@@ -137,14 +137,14 @@
                   // Scale x if necessary to avoid overflow when adding a
                   // multiple of column j1 of T.
 
-                  if ( XJ.GT.ONE ) {
+                  if ( XJ > ONE ) {
                      REC = ONE / XJ
-                     if ( WORK( J1 ).GT.( BIGNUM-XMAX )*REC ) {
+                     if ( WORK( J1 ) > ( BIGNUM-XMAX )*REC ) {
                         sscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                      }
                   }
-                  if ( J1.GT.1 ) {
+                  if ( J1 > 1 ) {
                      saxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      K = ISAMAX( J1-1, X, 1 )
                      XMAX = ABS( X( K ) )
@@ -173,9 +173,9 @@
                   // to avoid overflow in updating right-hand side.
 
                   XJ = MAX( ABS( V( 1, 1 ) ), ABS( V( 2, 1 ) ) )
-                  if ( XJ.GT.ONE ) {
+                  if ( XJ > ONE ) {
                      REC = ONE / XJ
-                     if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XMAX )*REC ) {
+                     if ( MAX( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
                         sscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                      }
@@ -183,7 +183,7 @@
 
                   // Update right-hand side
 
-                  if ( J1.GT.1 ) {
+                  if ( J1 > 1 ) {
                      saxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      saxpy(J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 );
                      K = ISAMAX( J1-1, X, 1 )
@@ -219,9 +219,9 @@
                   // right-hand side element by inner product.
 
                   XJ = ABS( X( J1 ) )
-                  if ( XMAX.GT.ONE ) {
+                  if ( XMAX > ONE ) {
                      REC = ONE / XMAX
-                     if ( WORK( J1 ).GT.( BIGNUM-XJ )*REC ) {
+                     if ( WORK( J1 ) > ( BIGNUM-XJ )*REC ) {
                         sscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
@@ -240,7 +240,7 @@
                   }
 
                   if ( TJJ < ONE ) {
-                     if ( XJ.GT.BIGNUM*TJJ ) {
+                     if ( XJ > BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         sscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
@@ -258,9 +258,9 @@
                   // right-hand side elements by inner product.
 
                   XJ = MAX( ABS( X( J1 ) ), ABS( X( J2 ) ) )
-                  if ( XMAX.GT.ONE ) {
+                  if ( XMAX > ONE ) {
                      REC = ONE / XMAX
-                     if ( MAX( WORK( J2 ), WORK( J1 ) ).GT.( BIGNUM-XJ )* REC ) {
+                     if ( MAX( WORK( J2 ), WORK( J1 ) ) > ( BIGNUM-XJ )* REC ) {
                         sscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
@@ -293,11 +293,11 @@
 
             JNEXT = N
             DO 70 J = N, 1, -1
-               if (J.GT.JNEXT) GO TO 70;
+               if (J > JNEXT) GO TO 70;
                J1 = J
                J2 = J
                JNEXT = J - 1
-               if ( J.GT.1 ) {
+               if ( J > 1 ) {
                   if ( T( J, J-1 ) != ZERO ) {
                      J1 = J - 1
                      JNEXT = J - 2
@@ -324,7 +324,7 @@
                   if (XJ == ZERO) GO TO 70;
 
                   if ( TJJ < ONE ) {
-                     if ( XJ.GT.BIGNUM*TJJ ) {
+                     if ( XJ > BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         sscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
@@ -339,15 +339,15 @@
                   // Scale x if necessary to avoid overflow when adding a
                   // multiple of column j1 of T.
 
-                  if ( XJ.GT.ONE ) {
+                  if ( XJ > ONE ) {
                      REC = ONE / XJ
-                     if ( WORK( J1 ).GT.( BIGNUM-XMAX )*REC ) {
+                     if ( WORK( J1 ) > ( BIGNUM-XMAX )*REC ) {
                         sscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                      }
                   }
 
-                  if ( J1.GT.1 ) {
+                  if ( J1 > 1 ) {
                      saxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      saxpy(J1-1, -X( N+J1 ), T( 1, J1 ), 1, X( N+1 ), 1 );
 
@@ -384,9 +384,9 @@
                   // updating right hand side.
 
                   XJ = MAX( ABS( V( 1, 1 ) )+ABS( V( 1, 2 ) ), ABS( V( 2, 1 ) )+ABS( V( 2, 2 ) ) )
-                  if ( XJ.GT.ONE ) {
+                  if ( XJ > ONE ) {
                      REC = ONE / XJ
-                     if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XMAX )*REC ) {
+                     if ( MAX( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
                         sscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                      }
@@ -394,7 +394,7 @@
 
                   // Update the right-hand side.
 
-                  if ( J1.GT.1 ) {
+                  if ( J1 > 1 ) {
                      saxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      saxpy(J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 );
 
@@ -437,9 +437,9 @@
                   // right-hand side element by inner product.
 
                   XJ = ABS( X( J1 ) ) + ABS( X( J1+N ) )
-                  if ( XMAX.GT.ONE ) {
+                  if ( XMAX > ONE ) {
                      REC = ONE / XMAX
-                     if ( WORK( J1 ).GT.( BIGNUM-XJ )*REC ) {
+                     if ( WORK( J1 ) > ( BIGNUM-XJ )*REC ) {
                         sscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
@@ -448,7 +448,7 @@
 
                   X( J1 ) = X( J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X, 1 )
                   X( N+J1 ) = X( N+J1 ) - SDOT( J1-1, T( 1, J1 ), 1, X( N+1 ), 1 )
-                  if ( J1.GT.1 ) {
+                  if ( J1 > 1 ) {
                      X( J1 ) = X( J1 ) - B( J1 )*X( N+1 )
                      X( N+J1 ) = X( N+J1 ) + B( J1 )*X( 1 )
                   }
@@ -469,7 +469,7 @@
                   }
 
                   if ( TJJ < ONE ) {
-                     if ( XJ.GT.BIGNUM*TJJ ) {
+                     if ( XJ > BIGNUM*TJJ ) {
                         REC = ONE / XJ
                         sscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
@@ -489,9 +489,9 @@
                   // right-hand side element by inner product.
 
                   XJ = MAX( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ) )
-                  if ( XMAX.GT.ONE ) {
+                  if ( XMAX > ONE ) {
                      REC = ONE / XMAX
-                     if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XJ ) / XMAX ) {
+                     if ( MAX( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XJ ) / XMAX ) {
                         sscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC

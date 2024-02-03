@@ -76,7 +76,7 @@
             // trailing submatrix within the band.
 
             KN = MIN( KD, N-J )
-            if ( KN.GT.0 ) {
+            if ( KN > 0 ) {
                sscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
                ssyr('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
             }
@@ -98,7 +98,7 @@
             // trailing submatrix within the band.
 
             KN = MIN( KD, N-J )
-            if ( KN.GT.0 ) {
+            if ( KN > 0 ) {
                sscal(KN, ONE / AJJ, AB( 2, J ), 1 );
                ssyr('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }

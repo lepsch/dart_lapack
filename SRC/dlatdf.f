@@ -62,9 +62,9 @@
             SPLUS = SPLUS + DDOT( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 )
             SMINU = DDOT( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 )
             SPLUS = SPLUS*RHS( J )
-            if ( SPLUS.GT.SMINU ) {
+            if ( SPLUS > SMINU ) {
                RHS( J ) = BP
-            } else if ( SMINU.GT.SPLUS ) {
+            } else if ( SMINU > SPLUS ) {
                RHS( J ) = BM
             } else {
 
@@ -106,7 +106,7 @@
             SPLUS = SPLUS + ABS( XP( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
          } // 30
-         if (SPLUS.GT.SMINU) CALL DCOPY( N, XP, 1, RHS, 1 );
+         if (SPLUS > SMINU) CALL DCOPY( N, XP, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
@@ -133,7 +133,7 @@
          daxpy(N, -ONE, XM, 1, RHS, 1 );
          dgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
          dgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
-         IF( DASUM( N, XP, 1 ).GT.DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 )
+         IF( DASUM( N, XP, 1 ) > DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 )
 
          // Compute the sum of squares
 

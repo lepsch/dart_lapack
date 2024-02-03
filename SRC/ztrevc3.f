@@ -177,7 +177,7 @@
                IF( CABS1( T( K, K ) ) < SMIN ) T( K, K ) = SMIN
             } // 50
 
-            if ( KI.GT.1 ) {
+            if ( KI > 1 ) {
                zlatrs('Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 + IV*N ), SCALE, RWORK, INFO );
                WORK( KI + IV*N ) = SCALE
             }
@@ -200,7 +200,7 @@
             } else if ( NB == 1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
-               if (KI.GT.1) CALL ZGEMV( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, DCMPLX( SCALE ), VR( 1, KI ), 1 );
+               if (KI > 1) CALL ZGEMV( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, DCMPLX( SCALE ), VR( 1, KI ), 1 );
 
                II = IZAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )

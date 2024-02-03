@@ -40,13 +40,13 @@
       INFO = 0
       N = NL + NR + 1
 
-      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ > 1 ) ) {
          INFO = -1
       } else if ( NL < 1 ) {
          INFO = -2
       } else if ( NR < 1 ) {
          INFO = -3
-      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
          INFO = -4
       } else if ( NRHS < 1 ) {
          INFO = -5

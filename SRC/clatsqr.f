@@ -50,7 +50,7 @@
         INFO = -2
       } else if ( MB < 1 ) {
         INFO = -3
-      } else if ( NB < 1 || ( NB.GT.N && N.GT.0 ) ) {
+      } else if ( NB < 1 || ( NB > N && N > 0 ) ) {
         INFO = -4
       } else if ( LDA < MAX( 1, M ) ) {
         INFO = -6

@@ -59,7 +59,7 @@
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K < 0 || K.GT.NQ ) {
+      } else if ( K < 0 || K > NQ ) {
          INFO = -5
       } else if ( LDA < MAX( 1, NQ ) ) {
          INFO = -7
@@ -97,7 +97,7 @@
 
       NBMIN = 2
       LDWORK = NW
-      if ( NB.GT.1 && NB < K ) {
+      if ( NB > 1 && NB < K ) {
          if ( LWORK < LWKOPT ) {
             NB = (LWORK-TSIZE) / LDWORK
             NBMIN = MAX( 2, ILAENV( 2, 'ZUNMQL', SIDE // TRANS, M, N, K, -1 ) )

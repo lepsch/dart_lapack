@@ -87,7 +87,7 @@
                   RES = RESULT( 1 ) + RESULT( 2 )
                   if (INFO != 0) RES = RES + ONE / EPS                   IF( T( 1, 1 ) != T1( 2, 2 ) ) RES = RES + ONE / EPS                   IF( T( 2, 2 ) != T1( 1, 1 ) ) RES = RES + ONE / EPS                   IF( T( 2, 1 ) != ZERO ) RES = RES + ONE / EPS;
                   KNT = KNT + 1
-                  if ( RES.GT.RMAX ) {
+                  if ( RES > RMAX ) {
                      LMAX = KNT
                      RMAX = RES
                   }
@@ -123,7 +123,7 @@
                               IF( T1( 1, 1 ) != T( 3, 3 ) ) RES = RES + ONE / EPS                               IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 2, 1 ) != 0 && ( T( 1, 1 ) != T( 2, 2 ) || SIGN( ONE, T( 1, 2 ) ) == SIGN( ONE, T( 2, 1 ) ) ) ) RES = RES + ONE / EPS
                            }
                            KNT = KNT + 1
-                           if ( RES.GT.RMAX ) {
+                           if ( RES > RMAX ) {
                               LMAX = KNT
                               RMAX = RES
                            }
@@ -162,7 +162,7 @@
                               IF( T1( 3, 3 ) != T( 1, 1 ) ) RES = RES + ONE / EPS                               IF( T( 2, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ) != 0 && ( T( 2, 2 ) != T( 3, 3 ) || SIGN( ONE, T( 2, 3 ) ) == SIGN( ONE, T( 3, 2 ) ) ) ) RES = RES + ONE / EPS
                            }
                            KNT = KNT + 1
-                           if ( RES.GT.RMAX ) {
+                           if ( RES > RMAX ) {
                               LMAX = KNT
                               RMAX = RES
                            }
@@ -215,7 +215,7 @@
                                        IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 1 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 3, 2 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 2 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 2, 1 ) != 0 && ( T( 1, 1 ) != T( 2, 2 ) || SIGN( ONE, T( 1, 2 ) ) == SIGN( ONE, T( 2, 1 ) ) ) )RES = RES + ONE / EPS                                        IF( T( 4, 3 ) != 0 && ( T( 3, 3 ) != T( 4, 4 ) || SIGN( ONE, T( 3, 4 ) ) == SIGN( ONE, T( 4, 3 ) ) ) )RES = RES + ONE / EPS
                                     }
                                     KNT = KNT + 1
-                                    if ( RES.GT.RMAX ) {
+                                    if ( RES > RMAX ) {
                                        LMAX = KNT
                                        RMAX = RES
                                     }

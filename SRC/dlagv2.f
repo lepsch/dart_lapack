@@ -106,7 +106,7 @@
             RR = DLAPY2( H1, H2 )
             QQ = DLAPY2( SCALE1*A( 2, 1 ), H3 )
 
-            if ( RR.GT.QQ ) {
+            if ( RR > QQ ) {
 
                // find right rotation matrix to zero 1,1 element of
                // (sA - wB)

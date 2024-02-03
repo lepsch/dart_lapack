@@ -156,7 +156,7 @@
          }
          S = ZERO
          for (I = 1; I <= N; I++) { // 80
-            if ( RWORK( I ).GT.SAFE2 ) {
+            if ( RWORK( I ) > SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
@@ -170,7 +170,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         if ( BERR( J ).GT.EPS && TWO*BERR( J ).LE.LSTRES && COUNT.LE.ITMAX ) {
+         if ( BERR( J ) > EPS && TWO*BERR( J ).LE.LSTRES && COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 
@@ -204,7 +204,7 @@
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          for (I = 1; I <= N; I++) { // 90
-            if ( RWORK( I ).GT.SAFE2 ) {
+            if ( RWORK( I ) > SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1

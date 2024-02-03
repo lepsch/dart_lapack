@@ -49,7 +49,7 @@
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
-      } else if ( ( N < 0 ) || ( N.GT.M ) ) {
+      } else if ( ( N < 0 ) || ( N > M ) ) {
          INFO = -3
       } else if ( N1 < 0 ) {
          INFO = -4
@@ -159,7 +159,7 @@
 
                   AAPP = SVA( p )
 
-                  if ( AAPP.GT.ZERO ) {
+                  if ( AAPP > ZERO ) {
 
                      PSKIPPED = 0
 
@@ -167,7 +167,7 @@
 
                         AAQQ = SVA( q )
 
-                        if ( AAQQ.GT.ZERO ) {
+                        if ( AAQQ > ZERO ) {
                            AAPP0 = AAPP
 
       // .. M x 2 Jacobi SVD ..
@@ -192,7 +192,7 @@
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
                               }
-                              if ( AAPP.GT.( SMALL / AAQQ ) ) {
+                              if ( AAPP > ( SMALL / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*D( p )*D( q ) / AAQQ ) / AAPP
                               } else {
                                  dcopy(M, A( 1, q ), 1, WORK, 1 );
@@ -204,7 +204,7 @@
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
-                           if ( DABS( AAPQ ).GT.TOL ) {
+                           if ( DABS( AAPQ ) > TOL ) {
                               NOTROT = 0
             // ROTATED  = ROTATED + 1
                               PSKIPPED = 0
@@ -215,9 +215,9 @@
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*DABS(AQOAP-APOAQ) / AAPQ
-                                 if (AAQQ.GT.AAPP0) THETA = -THETA;
+                                 if (AAQQ > AAPP0) THETA = -THETA;
 
-                                 if ( DABS( THETA ).GT.BIGTHETA ) {
+                                 if ( DABS( THETA ) > BIGTHETA ) {
                                     T = HALF / THETA
                                     FASTR( 3 ) = T*D( p ) / D( q )
                                     FASTR( 4 ) = -T*D( q ) / D( p )
@@ -229,7 +229,7 @@
                   // .. choose correct signum for THETA and rotate
 
                                     THSIGN = -DSIGN( ONE, AAPQ )
-                                    if (AAQQ.GT.AAPP0) THSIGN = -THSIGN;
+                                    if (AAQQ > AAPP0) THSIGN = -THSIGN;
                                     T = ONE / ( THETA+THSIGN* DSQRT( ONE+THETA*THETA ) )
                                     CS = DSQRT( ONE / ( ONE+T*T ) )
                                     SN = T*CS
@@ -291,7 +291,7 @@
                                  }
 
                               } else {
-                                 if ( AAPP.GT.AAQQ ) {
+                                 if ( AAPP > AAQQ ) {
                                     dcopy(M, A( 1, p ), 1, WORK, 1 );
                                     dlascl('G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR );
                                     dlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
@@ -315,7 +315,7 @@
 
             // In the case of cancellation in updating SVA(q)
             // .. recompute SVA(q)
-                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* D( q )
+                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* D( q )
                                  } else {
                                     T = ZERO
                                     AAQQ = ONE
@@ -324,7 +324,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
-                                 IF( ( AAPP < ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* D( p )
+                                 IF( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* D( p )
                                  } else {
                                     T = ZERO
                                     AAPP = ONE
@@ -352,7 +352,7 @@
                            NOTROT = 0
                            GO TO 2011
                         }
-                        if ( ( i.LE.SWBAND ) && ( PSKIPPED.GT.ROWSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
@@ -385,7 +385,7 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
+         if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
             SVA( N ) = DNRM2( M, A( 1, N ), 1 )*D( N )
          } else {
             T = ZERO
@@ -397,7 +397,7 @@
       // Additional steering devices
 
          IF( ( i < SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
-          if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ < DBLE( N )*TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
+          if ( ( i > SWBAND+1 ) && ( MXAAPQ < DBLE( N )*TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994
          }
 

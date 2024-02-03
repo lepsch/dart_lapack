@@ -56,7 +56,7 @@
         LWMIN = MAX( 1, LW )
       }
 
-      if ( ( NB.GT.K ) && ( MN.GT.K ) ) {
+      if ( ( NB > K ) && ( MN > K ) ) {
         if ( MOD( MN - K, NB - K ) == 0 ) {
           NBLCKS = ( MN - K ) / ( NB - K )
         } else {
@@ -75,7 +75,7 @@
         INFO = -3
       } else if ( N < 0 ) {
         INFO = -4
-      } else if ( K < 0 || K.GT.MN ) {
+      } else if ( K < 0 || K > MN ) {
         INFO = -5
       } else if ( LDA < MAX( 1, K ) ) {
         INFO = -7

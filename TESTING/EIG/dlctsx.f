@@ -46,7 +46,7 @@
          }
       }
 
-        // IF( AR/BETA.GT.0.0 )THEN
+        // IF( AR/BETA > 0.0 )THEN
            // DLCTSX = true;
         // ELSE
            // DLCTSX = false;

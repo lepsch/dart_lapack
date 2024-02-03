@@ -305,10 +305,10 @@
       CMAX = ZERO
       for (I = ILO; I <= IHI; I++) { // 340
          COR = ALPHA*WORK( I+N )
-         IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
+         IF( ABS( COR ) > CMAX ) CMAX = ABS( COR )
          LSCALE( I ) = LSCALE( I ) + COR
          COR = ALPHA*WORK( I )
-         IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
+         IF( ABS( COR ) > CMAX ) CMAX = ABS( COR )
          RSCALE( I ) = RSCALE( I ) + COR
       } // 340
       if (CMAX < HALF) GO TO 350;

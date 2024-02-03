@@ -68,7 +68,7 @@
 
       for (I = 1; I <= N; I++) { // 30
          ABSXI = ABS( X( I ) )
-         if ( ABSXI.GT.SAFMIN ) {
+         if ( ABSXI > SAFMIN ) {
             X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
          } else {
             X( I ) = CONE
@@ -109,7 +109,7 @@
 
       for (I = 1; I <= N; I++) { // 80
          ABSXI = ABS( X( I ) )
-         if ( ABSXI.GT.SAFMIN ) {
+         if ( ABSXI > SAFMIN ) {
             X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
          } else {
             X( I ) = CONE
@@ -147,7 +147,7 @@
 
       } // 120
       TEMP = TWO*( SCSUM1( N, X, 1 ) / REAL( 3*N ) )
-      if ( TEMP.GT.EST ) {
+      if ( TEMP > EST ) {
          ccopy(N, X, 1, V, 1 );
          EST = TEMP
       }

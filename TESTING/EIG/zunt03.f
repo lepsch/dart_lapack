@@ -58,7 +58,7 @@
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K < 0 || K.GT.MAX( MU, MV ) ) {
+      } else if ( K < 0 || K > MAX( MU, MV ) ) {
          INFO = -5
       } else if ( ( IRC == 0 && LDU < MAX( 1, MU ) ) || ( IRC == 1 && LDU < MAX( 1, N ) ) ) {
          INFO = -7

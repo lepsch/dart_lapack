@@ -56,12 +56,12 @@
       // unity.
 
       if ((INCX != 1) || (INCY != 1)) {
-          if (INCX.GT.0) {
+          if (INCX > 0) {
               KX = 1
           } else {
               KX = 1 - (N-1)*INCX
           }
-          if (INCY.GT.0) {
+          if (INCY > 0) {
               KY = 1
           } else {
               KY = 1 - (N-1)*INCY

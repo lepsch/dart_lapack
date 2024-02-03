@@ -55,7 +55,7 @@
       // Copy the last k rows of the factorization to the array Q
 
       zlaset('Full', M, N, ROGUE, ROGUE, Q, LDA );
-      if (K < N) CALL ZLACPY( 'Full', K, N-K, AF( M-K+1, 1 ), LDA, Q( M-K+1, 1 ), LDA )       IF( K.GT.1 ) CALL ZLACPY( 'Lower', K-1, K-1, AF( M-K+2, N-K+1 ), LDA, Q( M-K+2, N-K+1 ), LDA );
+      if (K < N) CALL ZLACPY( 'Full', K, N-K, AF( M-K+1, 1 ), LDA, Q( M-K+1, 1 ), LDA )       IF( K > 1 ) CALL ZLACPY( 'Lower', K-1, K-1, AF( M-K+2, N-K+1 ), LDA, Q( M-K+2, N-K+1 ), LDA );
 
       // Generate the last n rows of the matrix Q
 
@@ -74,7 +74,7 @@
 
       ANORM = ZLANGE( '1', K, N, A( M-K+1, 1 ), LDA, RWORK )
       RESID = ZLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO

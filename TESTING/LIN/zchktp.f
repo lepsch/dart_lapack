@@ -118,7 +118,7 @@
 *+    TEST 1
                // Form the inverse of A.
 
-               if (N.GT.0) CALL ZCOPY( LAP, AP, 1, AINVP, 1 );
+               if (N > 0) CALL ZCOPY( LAP, AP, 1, AINVP, 1 );
                SRNAMT = 'ZTPTRI'
                ztptri(UPLO, DIAG, N, AINVP, INFO );
 

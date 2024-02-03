@@ -35,14 +35,14 @@
       ADF = ABS( DF )
       TB = B + B
       AB = ABS( TB )
-      if ( ABS( A ).GT.ABS( C ) ) {
+      if ( ABS( A ) > ABS( C ) ) {
          ACMX = A
          ACMN = C
       } else {
          ACMX = C
          ACMN = A
       }
-      if ( ADF.GT.AB ) {
+      if ( ADF > AB ) {
          RT = ADF*SQRT( ONE+( AB / ADF )**2 )
       } else if ( ADF < AB ) {
          RT = AB*SQRT( ONE+( ADF / AB )**2 )
@@ -60,7 +60,7 @@
          // next line needs to be executed in higher precision.
 
          RT2 = ( ACMX / RT1 )*ACMN - ( B / RT1 )*B
-      } else if ( SM.GT.ZERO ) {
+      } else if ( SM > ZERO ) {
          RT1 = HALF*( SM+RT )
 
          // Order of execution important.

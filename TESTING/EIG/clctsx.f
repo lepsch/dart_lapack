@@ -53,9 +53,9 @@
       }
 
        // IF( BETA == CZERO ) THEN
-          // CLCTSX = ( REAL( ALPHA ).GT.ZERO )
+          // CLCTSX = ( REAL( ALPHA ) > ZERO )
        // ELSE
-          // CLCTSX = ( REAL( ALPHA/BETA ).GT.ZERO )
+          // CLCTSX = ( REAL( ALPHA/BETA ) > ZERO )
        // END IF
 
       RETURN

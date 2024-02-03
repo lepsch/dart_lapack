@@ -35,7 +35,7 @@
       if ( UPPER ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
-               if ( ( A( I, J ) < -RMAX ) || ( A( I, J ).GT.RMAX ) ) {
+               if ( ( A( I, J ) < -RMAX ) || ( A( I, J ) > RMAX ) ) {
                   INFO = 1
                   GO TO 50
                }
@@ -45,7 +45,7 @@
       } else {
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= N; I++) { // 30
-               if ( ( A( I, J ) < -RMAX ) || ( A( I, J ).GT.RMAX ) ) {
+               if ( ( A( I, J ) < -RMAX ) || ( A( I, J ) > RMAX ) ) {
                   INFO = 1
                   GO TO 50
                }

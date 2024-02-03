@@ -49,9 +49,9 @@
 
       if ( M < 0 ) {
          INFO = -4
-      } else if ( P < 0 || P .GT. M ) {
+      } else if ( P < 0 || P > M ) {
          INFO = -5
-      } else if ( Q < 0 || Q .GT. M ) {
+      } else if ( Q < 0 || Q > M ) {
          INFO = -6
       } else if ( LDX11 < MAX( 1, P ) ) {
          INFO = -8
@@ -110,17 +110,17 @@
          if ( R == Q ) {
             dorbdb1(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK, -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
-            if ( WANTU1 && P .GT. 0 ) {
+            if ( WANTU1 && P > 0 ) {
                dorgqr(P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTU2 && M-P .GT. 0 ) {
+            if ( WANTU2 && M-P > 0 ) {
                dorgqr(M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTV1T && Q .GT. 0 ) {
+            if ( WANTV1T && Q > 0 ) {
                dorglq(Q-1, Q-1, Q-1, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q-1 )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
@@ -130,17 +130,17 @@
          } else if ( R == P ) {
             dorbdb2(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
-            if ( WANTU1 && P .GT. 0 ) {
+            if ( WANTU1 && P > 0 ) {
                dorgqr(P-1, P-1, P-1, U1(2,2), LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P-1 )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTU2 && M-P .GT. 0 ) {
+            if ( WANTU2 && M-P > 0 ) {
                dorgqr(M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTV1T && Q .GT. 0 ) {
+            if ( WANTV1T && Q > 0 ) {
                dorglq(Q, Q, R, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
@@ -150,17 +150,17 @@
          } else if ( R == M-P ) {
             dorbdb3(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
-            if ( WANTU1 && P .GT. 0 ) {
+            if ( WANTU1 && P > 0 ) {
                dorgqr(P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTU2 && M-P .GT. 0 ) {
+            if ( WANTU2 && M-P > 0 ) {
                dorgqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P-1 )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTV1T && Q .GT. 0 ) {
+            if ( WANTV1T && Q > 0 ) {
                dorglq(Q, Q, R, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
@@ -170,17 +170,17 @@
          } else {
             dorbdb4(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LORBDB = M + INT( WORK(1) )
-            if ( WANTU1 && P .GT. 0 ) {
+            if ( WANTU1 && P > 0 ) {
                dorgqr(P, P, M-Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTU2 && M-P .GT. 0 ) {
+            if ( WANTU2 && M-P > 0 ) {
                dorgqr(M-P, M-P, M-Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTV1T && Q .GT. 0 ) {
+            if ( WANTV1T && Q > 0 ) {
                dorglq(Q, Q, Q, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
@@ -216,15 +216,15 @@
 
          // Accumulate Householder reflectors
 
-         if ( WANTU1 && P .GT. 0 ) {
+         if ( WANTU1 && P > 0 ) {
             dlacpy('L', P, Q, X11, LDX11, U1, LDU1 );
             dorgqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTU2 && M-P .GT. 0 ) {
+         if ( WANTU2 && M-P > 0 ) {
             dlacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
             dorgqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTV1T && Q .GT. 0 ) {
+         if ( WANTV1T && Q > 0 ) {
             V1T(1,1) = ONE
             for (J = 2; J <= Q; J++) {
                V1T(1,J) = ZERO
@@ -241,7 +241,7 @@
          // Permute rows and columns to place zero submatrices in
          // preferred positions
 
-         if ( Q .GT. 0 && WANTU2 ) {
+         if ( Q > 0 && WANTU2 ) {
             for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
             }
@@ -260,7 +260,7 @@
 
          // Accumulate Householder reflectors
 
-         if ( WANTU1 && P .GT. 0 ) {
+         if ( WANTU1 && P > 0 ) {
             U1(1,1) = ONE
             for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
@@ -269,11 +269,11 @@
             dlacpy('L', P-1, P-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             dorgqr(P-1, P-1, P-1, U1(2,2), LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTU2 && M-P .GT. 0 ) {
+         if ( WANTU2 && M-P > 0 ) {
             dlacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
             dorgqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTV1T && Q .GT. 0 ) {
+         if ( WANTV1T && Q > 0 ) {
             dlacpy('U', P, Q, X11, LDX11, V1T, LDV1T );
             dorglq(Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
@@ -285,7 +285,7 @@
          // Permute rows and columns to place identity submatrices in
          // preferred positions
 
-         if ( Q .GT. 0 && WANTU2 ) {
+         if ( Q > 0 && WANTU2 ) {
             for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
             }
@@ -304,11 +304,11 @@
 
          // Accumulate Householder reflectors
 
-         if ( WANTU1 && P .GT. 0 ) {
+         if ( WANTU1 && P > 0 ) {
             dlacpy('L', P, Q, X11, LDX11, U1, LDU1 );
             dorgqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTU2 && M-P .GT. 0 ) {
+         if ( WANTU2 && M-P > 0 ) {
             U2(1,1) = ONE
             for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
@@ -317,7 +317,7 @@
             dlacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             dorgqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTV1T && Q .GT. 0 ) {
+         if ( WANTV1T && Q > 0 ) {
             dlacpy('U', M-P, Q, X21, LDX21, V1T, LDV1T );
             dorglq(Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
@@ -329,7 +329,7 @@
          // Permute rows and columns to place identity submatrices in
          // preferred positions
 
-         if ( Q .GT. R ) {
+         if ( Q > R ) {
             for (I = 1; I <= R; I++) {
                IWORK(I) = Q - R + I
             }
@@ -353,10 +353,10 @@
 
          // Accumulate Householder reflectors
 
-         if ( WANTU2 && M-P .GT. 0 ) {
+         if ( WANTU2 && M-P > 0 ) {
             dcopy(M-P, WORK(IORBDB+P), 1, U2, 1 );
          }
-         if ( WANTU1 && P .GT. 0 ) {
+         if ( WANTU1 && P > 0 ) {
             dcopy(P, WORK(IORBDB), 1, U1, 1 );
             for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
@@ -364,14 +364,14 @@
             dlacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             dorgqr(P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTU2 && M-P .GT. 0 ) {
+         if ( WANTU2 && M-P > 0 ) {
             for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
             }
             dlacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             dorgqr(M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTV1T && Q .GT. 0 ) {
+         if ( WANTV1T && Q > 0 ) {
             dlacpy('U', M-Q, Q, X21, LDX21, V1T, LDV1T );
             dlacpy('U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T );
             dlacpy('U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T );
@@ -385,7 +385,7 @@
          // Permute rows and columns to place identity submatrices in
          // preferred positions
 
-         if ( P .GT. R ) {
+         if ( P > R ) {
             for (I = 1; I <= R; I++) {
                IWORK(I) = P - R + I
             }

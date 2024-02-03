@@ -165,7 +165,7 @@
 
                ctgexc( false , false , N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR );
 
-               if ( IERR.GT.0 ) {
+               if ( IERR > 0 ) {
 
                   // Ill-conditioned problem - swap rejected.
 

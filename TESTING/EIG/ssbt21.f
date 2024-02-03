@@ -96,14 +96,14 @@
          sspr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
       } // 60
 
-      if ( N.GT.1 && KS == 1 ) {
+      if ( N > 1 && KS == 1 ) {
          for (J = 1; J <= N - 1; J++) { // 70
             sspr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
          } // 70
       }
       WNORM = SLANSP( '1', CUPLO, N, WORK, WORK( LW+1 ) )
 
-      if ( ANORM.GT.WNORM ) {
+      if ( ANORM > WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
          if ( ANORM < ONE ) {

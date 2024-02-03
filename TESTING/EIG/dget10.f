@@ -53,7 +53,7 @@
 
       ANORM = MAX( DLANGE( '1', M, N, A, LDA, WORK ), UNFL )
 
-      if ( ANORM.GT.WNORM ) {
+      if ( ANORM > WNORM ) {
          RESULT = ( WNORM / ANORM ) / ( M*EPS )
       } else {
          if ( ANORM < ONE ) {

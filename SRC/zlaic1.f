@@ -110,7 +110,7 @@
 
             B = ( ONE-ZETA1*ZETA1-ZETA2*ZETA2 )*HALF
             C = ZETA1*ZETA1
-            if ( B.GT.ZERO ) {
+            if ( B > ZERO ) {
                T = DBLE( C / ( B+SQRT( B*B+C ) ) )
             } else {
                T = DBLE( SQRT( B*B+C ) - B )

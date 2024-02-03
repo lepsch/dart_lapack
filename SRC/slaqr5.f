@@ -299,7 +299,7 @@
                      T3 = T2*VT( 3 )
                      REFSUM = H( K+1, K )+VT( 2 )*H( K+2, K )
 
-                     if ( ABS( H( K+2, K )-REFSUM*T2 )+ ABS( REFSUM*T3 ).GT.ULP* ( ABS( H( K, K ) )+ABS( H( K+1, K+1 ) )+ABS( H( K+2, K+2 ) ) ) ) {
+                     if ( ABS( H( K+2, K )-REFSUM*T2 )+ ABS( REFSUM*T3 ) > ULP* ( ABS( H( K, K ) )+ABS( H( K+1, K+1 ) )+ABS( H( K+2, K+2 ) ) ) ) {
 
                         // ==== Starting a new bulge here would
                         // .    create non-negligible fill.  Use

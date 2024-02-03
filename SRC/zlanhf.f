@@ -433,7 +433,7 @@
                         S = S + AA
                         WORK( I+K ) = WORK( I+K ) + AA
                      }
-                     if ( J.GT.0 ) {
+                     if ( J > 0 ) {
                         AA = ABS( DBLE( A( I+J*LDA ) ) )
                         // -> A(j+k,j+k)
                         S = S + AA

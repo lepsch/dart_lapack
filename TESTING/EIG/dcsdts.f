@@ -46,7 +46,7 @@
 
       dlaset('Full', M, M, ZERO, ONE, WORK, LDX );
       dsyrk('Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE, WORK, LDX );
-      if (M.GT.0) {
+      if (M > 0) {
          EPS2 = MAX( ULP, DLANGE( '1', M, M, WORK, LDX, RWORK ) / DBLE( M ) )
       } else {
          EPS2 = ULP
@@ -173,10 +173,10 @@
 
       RESULT( 9 ) = REALZERO
       for (I = 1; I <= R; I++) {
-         if ( THETA(I) < REALZERO || THETA(I).GT.PIOVER2 ) {
+         if ( THETA(I) < REALZERO || THETA(I) > PIOVER2 ) {
             RESULT( 9 ) = ULPINV
          }
-         if ( I.GT.1 ) {
+         if ( I > 1 ) {
             if ( THETA(I) < THETA(I-1) ) {
                RESULT( 9 ) = ULPINV
             }
@@ -187,7 +187,7 @@
 
       dlaset('Full', Q, Q, ZERO, ONE, WORK, LDX );
       dsyrk('Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE, WORK, LDX );
-      if ( M.GT.0 ) {
+      if ( M > 0 ) {
          EPS2 = MAX( ULP, DLANGE( '1', Q, Q, WORK, LDX, RWORK ) / DBLE( M ) )
       } else {
          EPS2 = ULP
@@ -270,10 +270,10 @@
 
       RESULT( 15 ) = REALZERO
       for (I = 1; I <= R; I++) {
-         if ( THETA(I) < REALZERO || THETA(I).GT.PIOVER2 ) {
+         if ( THETA(I) < REALZERO || THETA(I) > PIOVER2 ) {
             RESULT( 15 ) = ULPINV
          }
-         if ( I.GT.1 ) {
+         if ( I > 1 ) {
             if ( THETA(I) < THETA(I-1) ) {
                RESULT( 15 ) = ULPINV
             }

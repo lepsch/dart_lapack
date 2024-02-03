@@ -77,7 +77,7 @@
 
       ANORM = CLANGE( '1', M, N, A, LDA, RWORK )
       RESID = CLANGE( '1', M, N, R, LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO

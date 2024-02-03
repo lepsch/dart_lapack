@@ -60,7 +60,7 @@
                } // 10
                cgemv('No transpose', N, N, -CMPLX( ONE ), U, LDU, WORK( N+1 ), 1, CMPLX( ZERO ), WORK, 1 );
                WORK( J ) = WORK( J ) + D( J )
-               if ( J.GT.1 ) {
+               if ( J > 1 ) {
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 )
                   BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) )
                } else {

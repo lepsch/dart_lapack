@@ -176,7 +176,7 @@
             if ( LSAME( DIAG, 'U' ) ) {
                SCALE = ONE
                SUM = N
-               if ( K.GT.0 ) {
+               if ( K > 0 ) {
                   for (J = 2; J <= N; J++) { // 280
                      zlassq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
                   } // 280
@@ -192,7 +192,7 @@
             if ( LSAME( DIAG, 'U' ) ) {
                SCALE = ONE
                SUM = N
-               if ( K.GT.0 ) {
+               if ( K > 0 ) {
                   for (J = 1; J <= N - 1; J++) { // 300
                      zlassq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
                   } // 300

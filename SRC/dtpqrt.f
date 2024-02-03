@@ -29,9 +29,9 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( L < 0 || (L.GT.MIN(M,N) && MIN(M,N).GE.0)) {
+      } else if ( L < 0 || (L > MIN(M,N) && MIN(M,N).GE.0)) {
          INFO = -3
-      } else if ( NB < 1 || (NB.GT.N && N.GT.0)) {
+      } else if ( NB < 1 || (NB > N && N > 0)) {
          INFO = -4
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -6

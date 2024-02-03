@@ -93,7 +93,7 @@
 
             // Adjust INFO and the pivot indices.
 
-            if (INFO == 0 && IINFO.GT.0) INFO = IINFO + J - 1;
+            if (INFO == 0 && IINFO > 0) INFO = IINFO + J - 1;
             DO 10 I = J, MIN( M, J+JB-1 )
                IPIV( I ) = J - 1 + IPIV( I )
             } // 10
@@ -109,7 +109,7 @@
 
          // Apply update to the M+1:N columns when N > M
 
-         if ( N.GT.M ) {
+         if ( N > M ) {
 
             zlaswp(N-M, A(1, M+1), LDA, 1, M, IPIV, 1 );
 

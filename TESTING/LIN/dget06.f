@@ -27,14 +27,14 @@
       // .. Executable Statements ..
 
       EPS = DLAMCH( 'Epsilon' )
-      if ( RCOND.GT.ZERO ) {
-         if ( RCONDC.GT.ZERO ) {
+      if ( RCOND > ZERO ) {
+         if ( RCONDC > ZERO ) {
             RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS )
          } else {
             RAT = RCOND / EPS
          }
       } else {
-         if ( RCONDC.GT.ZERO ) {
+         if ( RCONDC > ZERO ) {
             RAT = RCONDC / EPS
          } else {
             RAT = ZERO

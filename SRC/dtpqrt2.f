@@ -36,7 +36,7 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( L < 0 || L.GT.MIN(M,N) ) {
+      } else if ( L < 0 || L > MIN(M,N) ) {
          INFO = -3
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5

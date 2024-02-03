@@ -43,9 +43,9 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( KL < 0 || KL.GT.M-1 ) {
+      } else if ( KL < 0 || KL > M-1 ) {
          INFO = -3
-      } else if ( KU < 0 || KU.GT.N-1 ) {
+      } else if ( KU < 0 || KU > N-1 ) {
          INFO = -4
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -7

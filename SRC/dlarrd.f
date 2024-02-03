@@ -75,9 +75,9 @@
       } else if ( N < 0 ) {
          INFO = -3
       } else if ( IRANGE == VALRNG ) {
-         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL.GT.MAX( 1, N ) ) ) {
+         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL > MAX( 1, N ) ) ) {
          INFO = -6
-      } else if ( IRANGE == INDRNG && ( IU < MIN( N, IL ) || IU.GT.N ) ) {
+      } else if ( IRANGE == INDRNG && ( IU < MIN( N, IL ) || IU > N ) ) {
          INFO = -7
       }
 
@@ -100,7 +100,7 @@
       // Special Case when N=1
       // Treat case of 1x1 matrix for quick return
       if ( N == 1 ) {
-         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1).GT.VL) && (D(1).LE.VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
+         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1).LE.VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -183,7 +183,7 @@
          }
          // On exit, the interval [WL, WLU] contains a value with negcount NWL,
          // and [WUL, WU] contains a value with negcount NWU.
-         if ( NWL < 0 || NWL.GE.N || NWU < 1 || NWU.GT.N ) {
+         if ( NWL < 0 || NWL.GE.N || NWU < 1 || NWU > N ) {
             INFO = 4
             RETURN
          }
@@ -293,7 +293,7 @@
             GL = GL - FUDGE*TNORM*EPS*IN - FUDGE*PIVMIN
             GU = GU + FUDGE*TNORM*EPS*IN + FUDGE*PIVMIN
 
-            if ( IRANGE.GT.1 ) {
+            if ( IRANGE > 1 ) {
                if ( GU < WL ) {
                   // the local block contains none of the wanted eigenvalues
                   NWL = NWL + IN
@@ -335,7 +335,7 @@
                TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) )
                // semi length of error interval
                TMP2 = HALF*ABS( WORK( J+N )-WORK( J+IN+N ) )
-               if ( J.GT.IOUT-IINFO ) {
+               if ( J > IOUT-IINFO ) {
                   // Flag non-convergence.
                   NCNVRG = true;
                   IB = -JBLK
@@ -360,12 +360,12 @@
          IDISCL = IL - 1 - NWL
          IDISCU = NWU - IU
 
-         if ( IDISCL.GT.0 ) {
+         if ( IDISCL > 0 ) {
             IM = 0
             for (JE = 1; JE <= M; JE++) { // 80
                // Remove some of the smallest eigenvalues from the left so that
                // at the end IDISCL =0. Move all eigenvalues up to the left.
-               if ( W( JE ).LE.WLU && IDISCL.GT.0 ) {
+               if ( W( JE ).LE.WLU && IDISCL > 0 ) {
                   IDISCL = IDISCL - 1
                } else {
                   IM = IM + 1
@@ -377,12 +377,12 @@
             } // 80
             M = IM
          }
-         if ( IDISCU.GT.0 ) {
+         if ( IDISCU > 0 ) {
             // Remove some of the largest eigenvalues from the right so that
             // at the end IDISCU =0. Move all eigenvalues up to the left.
             IM=M+1
             DO 81 JE = M, 1, -1
-               if ( W( JE ).GE.WUL && IDISCU.GT.0 ) {
+               if ( W( JE ).GE.WUL && IDISCU > 0 ) {
                   IDISCU = IDISCU - 1
                } else {
                   IM = IM - 1
@@ -403,14 +403,14 @@
             M = M-IM+1
          }
 
-         if ( IDISCL.GT.0 || IDISCU.GT.0 ) {
+         if ( IDISCL > 0 || IDISCU > 0 ) {
             // Code to deal with effects of bad arithmetic. (If N(w) is
             // monotone non-decreasing, this should never happen.)
             // Some low eigenvalues to be discarded are not in (WL,WLU],
             // or high eigenvalues to be discarded are not in (WUL,WU]
             // so just kill off the smallest IDISCL/largest IDISCU
             // eigenvalues, by marking the corresponding IBLOCK = 0
-            if ( IDISCL.GT.0 ) {
+            if ( IDISCL > 0 ) {
                WKILL = WU
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
@@ -423,7 +423,7 @@
                   IBLOCK( IW ) = 0
                } // 100
             }
-            if ( IDISCU.GT.0 ) {
+            if ( IDISCU > 0 ) {
                WKILL = WL
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
@@ -462,7 +462,7 @@
          // block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
-      if ( LSAME(ORDER,'E') && NSPLIT.GT.1 ) {
+      if ( LSAME(ORDER,'E') && NSPLIT > 1 ) {
          for (JE = 1; JE <= M - 1; JE++) { // 150
             IE = 0
             TMP1 = W( JE )

@@ -54,9 +54,9 @@
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K < 0 || K.GT.Q ) {
+      } else if ( K < 0 || K > Q ) {
          INFO = -5
-      } else if ( MB < 1 || (MB.GT.K && K.GT.0)) {
+      } else if ( MB < 1 || (MB > K && K > 0)) {
          INFO = -6
       } else if ( LDV < MAX( 1, K ) ) {
           INFO = -8

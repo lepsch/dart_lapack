@@ -87,7 +87,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( M.GE.N && MINMN.GT.0 ) {
+         if ( M.GE.N && MINMN > 0 ) {
 
             // There is no complex work space needed for bidiagonal SVD
             // The real work space needed for bidiagonal SVD (sbdsdc) is
@@ -217,7 +217,7 @@
                   MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN )
                }
             }
-         } else if ( MINMN.GT.0 ) {
+         } else if ( MINMN > 0 ) {
 
             // There is no complex work space needed for bidiagonal SVD
             // The real work space needed for bidiagonal SVD (sbdsdc) is
@@ -384,10 +384,10 @@
           RETURN
       }
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ISCL = 1
          clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ISCL = 1
          clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
@@ -1037,7 +1037,7 @@
                // Set the right corner of U to identity matrix
 
                claset('F', M, M, CZERO, CZERO, U, LDU );
-               if ( M.GT.N ) {
+               if ( M > N ) {
                   claset('F', M-N, M-N, CZERO, CONE, U( N+1, N+1 ), LDU );
                }
 
@@ -1742,7 +1742,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
+         if (ANRM > BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM > BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

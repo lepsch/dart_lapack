@@ -91,7 +91,7 @@
 
       // Continue only if ANORM > 0.
 
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
 
          // Estimate the 1-norm of the inverse of A.
 

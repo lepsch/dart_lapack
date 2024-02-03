@@ -57,16 +57,16 @@
 
       claset('Full', N, N, CROGUE, CROGUE, Q, LDA );
       if ( M.LE.N ) {
-         if (M.GT.0 && M < N) CALL CLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL CLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
+         if (M > 0 && M < N) CALL CLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M > 1 ) CALL CLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
       } else {
-         if (N.GT.1) CALL CLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
+         if (N > 1) CALL CLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
       }
       cungrq(N, N, MIN( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
       claset('Full', P, P, CROGUE, CROGUE, Z, LDB );
-      if (P.GT.1) CALL CLACPY( 'Lower', P-1, N, BF( 2,1 ), LDB, Z( 2,1 ), LDB );
+      if (P > 1) CALL CLACPY( 'Lower', P-1, N, BF( 2,1 ), LDB, Z( 2,1 ), LDB );
       cungqr(P, P, MIN( P,N ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R
@@ -91,7 +91,7 @@
       // Compute norm( R - A*Q' ) / ( MAX(M,N)*norm(A)*ULP ) .
 
       RESID = CLANGE( '1', M, N, R, LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / REAL(MAX(1,M,N) ) ) / ANORM ) / ULP
       } else {
          RESULT( 1 ) = ZERO
@@ -104,7 +104,7 @@
       // Compute norm( T*Q - Z'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
       RESID = CLANGE( '1', P, N, BWK, LDB, RWORK )
-      if ( BNORM.GT.ZERO ) {
+      if ( BNORM > ZERO ) {
          RESULT( 2 ) = ( ( RESID / REAL( MAX( 1,P,M ) ) )/BNORM ) / ULP
       } else {
          RESULT( 2 ) = ZERO

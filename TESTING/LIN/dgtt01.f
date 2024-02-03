@@ -81,7 +81,7 @@
       // Subtract the matrix A.
 
       WORK( 1, 1 ) = WORK( 1, 1 ) - D( 1 )
-      if ( N.GT.1 ) {
+      if ( N > 1 ) {
          WORK( 1, 2 ) = WORK( 1, 2 ) - DU( 1 )
          WORK( N, N-1 ) = WORK( N, N-1 ) - DL( N-1 )
          WORK( N, N ) = WORK( N, N ) - D( N )

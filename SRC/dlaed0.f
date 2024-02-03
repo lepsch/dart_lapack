@@ -38,7 +38,7 @@
 
       INFO = 0
 
-      if ( ICOMPQ < 0 || ICOMPQ.GT.2 ) {
+      if ( ICOMPQ < 0 || ICOMPQ > 2 ) {
          INFO = -1
       } else if ( ( ICOMPQ == 1 ) && ( QSIZ < MAX( 0, N ) ) ) {
          INFO = -2
@@ -67,7 +67,7 @@
       SUBPBS = 1
       TLVLS = 0
       } // 10
-      if ( IWORK( SUBPBS ).GT.SMLSIZ ) {
+      if ( IWORK( SUBPBS ) > SMLSIZ ) {
          DO 20 J = SUBPBS, 1, -1
             IWORK( 2*J ) = ( IWORK( J )+1 ) / 2
             IWORK( 2*J-1 ) = IWORK( J ) / 2
@@ -156,7 +156,7 @@
 
       CURLVL = 1
       } // 80
-      if ( SUBPBS.GT.1 ) {
+      if ( SUBPBS > 1 ) {
          SPM2 = SUBPBS - 2
          DO 90 I = 0, SPM2, 2
             if ( I == 0 ) {

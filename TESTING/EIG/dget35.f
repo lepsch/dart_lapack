@@ -112,8 +112,8 @@
                                  if (INFO != 0) NINFO = NINFO + 1;
                                  XNRM = DLANGE( 'M', M, N, C, 6, DUM )
                                  RMUL = ONE
-                                 if ( XNRM.GT.ONE && TNRM.GT.ONE ) {
-                                    if ( XNRM.GT.BIGNUM / TNRM ) {
+                                 if ( XNRM > ONE && TNRM > ONE ) {
+                                    if ( XNRM > BIGNUM / TNRM ) {
                                        RMUL = ONE / MAX( XNRM, TNRM )
                                     }
                                  }
@@ -121,7 +121,7 @@
                                  dgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 );
                                  RES1 = DLANGE( 'M', M, N, CC, 6, DUM )
                                  RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
-                                 if ( RES.GT.RMAX ) {
+                                 if ( RES > RMAX ) {
                                     LMAX = KNT
                                     RMAX = RES
                                  }

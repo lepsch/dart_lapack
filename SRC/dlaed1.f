@@ -34,7 +34,7 @@
          INFO = -1
       } else if ( LDQ < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( MIN( 1, N / 2 ).GT.CUTPNT || ( N / 2 ) < CUTPNT ) {
+      } else if ( MIN( 1, N / 2 ) > CUTPNT || ( N / 2 ) < CUTPNT ) {
          INFO = -7
       }
       if ( INFO != 0 ) {

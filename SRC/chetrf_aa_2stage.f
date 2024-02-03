@@ -145,14 +145,14 @@
             // Compute T(J,J)
 
             clacpy('Upper', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                // T(J,J) = U(1:J,J)'*H(1:J)
                cgemm('Conjugate transpose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( 1, J*NB+1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += U(J,J)'*T(J,J-1)*U(J-1,J)
                cgemm('Conjugate transpose', 'NoTranspose', KB, NB, KB, ONE,  A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N );
                cgemm('NoTranspose', 'NoTranspose', KB, KB, NB, -ONE, WORK( 1 ), N, A( (J-2)*NB+1, J*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
-            if ( J.GT.0 ) {
+            if ( J > 0 ) {
                chegst(1, 'Upper', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, IINFO );
             }
 
@@ -166,7 +166,7 @@
             }
 
             if ( J < NT-1 ) {
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
 
                   // Compute H(J,J)
 
@@ -212,7 +212,7 @@
                KB = MIN(NB, N-(J+1)*NB)
                claset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 );
                clacpy('Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
                   ctrsm('R', 'U', 'N', 'U', KB, NB, ONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
@@ -238,7 +238,7 @@
                      // > Apply pivots to previous columns of L
                      cswap(K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
-                     if ( I2.GT.(I1+1) ) {
+                     if ( I2 > (I1+1) ) {
                         cswap(I2-I1-1, A( I1, I1+1 ), LDA, A( I1+1, I2 ), 1 );
                         clacgv(I2-I1-1, A( I1+1, I2 ), 1 );
                      }
@@ -250,7 +250,7 @@
                      A( I1, I1 ) = A( I2, I2 )
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
-                     if ( J.GT.0 ) {
+                     if ( J > 0 ) {
                         cswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                      }
                   }
@@ -291,14 +291,14 @@
             // Compute T(J,J)
 
             clacpy('Lower', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                // T(J,J) = L(J,1:J)*H(1:J)
                cgemm('NoTranspose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( J*NB+1, 1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += L(J,J)*T(J,J-1)*L(J,J-1)'
                cgemm('NoTranspose', 'NoTranspose', KB, NB, KB, ONE,  A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N );
                cgemm('NoTranspose', 'Conjugate transpose', KB, KB, NB, -ONE, WORK( 1 ), N, A( J*NB+1, (J-2)*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
-            if ( J.GT.0 ) {
+            if ( J > 0 ) {
                chegst(1, 'Lower', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, IINFO );
             }
 
@@ -312,7 +312,7 @@
             }
 
             if ( J < NT-1 ) {
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
 
                   // Compute H(J,J)
 
@@ -339,7 +339,7 @@
                KB = MIN(NB, N-(J+1)*NB)
                claset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 );
                clacpy('Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
                   ctrsm('R', 'L', 'C', 'U', KB, NB, ONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
@@ -365,7 +365,7 @@
                      // > Apply pivots to previous columns of L
                      cswap(K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
-                     if ( I2.GT.(I1+1) ) {
+                     if ( I2 > (I1+1) ) {
                         cswap(I2-I1-1, A( I1+1, I1 ), 1, A( I2, I1+1 ), LDA );
                         clacgv(I2-I1-1, A( I2, I1+1 ), LDA );
                      }
@@ -377,7 +377,7 @@
                      A( I1, I1 ) = A( I2, I2 )
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
-                     if ( J.GT.0 ) {
+                     if ( J > 0 ) {
                         cswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                      }
                   }

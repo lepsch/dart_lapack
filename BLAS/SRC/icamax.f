@@ -31,7 +31,7 @@
 
          SMAX = SCABS1(CX(1))
          for (I = 2; I <= N; I++) {
-            if (SCABS1(CX(I)).GT.SMAX) {
+            if (SCABS1(CX(I)) > SMAX) {
                ICAMAX = I
                SMAX = SCABS1(CX(I))
             }
@@ -44,7 +44,7 @@
          SMAX = SCABS1(CX(1))
          IX = IX + INCX
          for (I = 2; I <= N; I++) {
-            if (SCABS1(CX(IX)).GT.SMAX) {
+            if (SCABS1(CX(IX)) > SMAX) {
                ICAMAX = I
                SMAX = SCABS1(CX(IX))
             }

@@ -53,7 +53,7 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
          if ( .NOT.LQUERY ) {
-            IF( LWORK.LE.0 || ( M.GT.0 && LWORK < MAX( 1, N ) ) ) INFO = -7
+            IF( LWORK.LE.0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7
          }
       }
 
@@ -73,7 +73,7 @@
       NBMIN = 2
       NX = 1
       IWS = N
-      if ( NB.GT.1 && NB < K ) {
+      if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -110,7 +110,7 @@
             // A(1:m-k+i+ib-1,n-k+i:n-k+i+ib-1)
 
             sgeql2(M-K+I+IB-1, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, IINFO );
-            if ( N-K+I.GT.1 ) {
+            if ( N-K+I > 1 ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
@@ -131,7 +131,7 @@
 
       // Use unblocked code to factor the last or only block
 
-      if (MU.GT.0 && NU.GT.0) CALL SGEQL2( MU, NU, A, LDA, TAU, WORK, IINFO );
+      if (MU > 0 && NU > 0) CALL SGEQL2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
       WORK( 1 ) = SROUNDUP_LWORK(IWS)
       RETURN

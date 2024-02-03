@@ -54,9 +54,9 @@
          INFO = -4
       } else if ( K < 0 ) {
          INFO = -5
-      } else if ( L < 0 || L.GT.K ) {
+      } else if ( L < 0 || L > K ) {
          INFO = -6
-      } else if ( MB < 1 || (MB.GT.K && K.GT.0) ) {
+      } else if ( MB < 1 || (MB > K && K > 0) ) {
          INFO = -7
       } else if ( LDV < K ) {
          INFO = -9

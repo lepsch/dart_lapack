@@ -153,10 +153,10 @@
          for (I = 1; I <= M; I++) { // 240
             if ( I.LE.4 ) {
                A( I, I ) = ONE
-               if (I.GT.2) A( I, I ) = ONE + REEPS;
+               if (I > 2) A( I, I ) = ONE + REEPS;
                if ( MOD( I, 2 ) != 0 && I < M ) {
                   A( I, I+1 ) = IMEPS
-               } else if ( I.GT.1 ) {
+               } else if ( I > 1 ) {
                   A( I, I-1 ) = -IMEPS
                }
             } else if ( I.LE.8 ) {
@@ -167,14 +167,14 @@
                }
                if ( MOD( I, 2 ) != 0 && I < M ) {
                   A( I, I+1 ) = ONE
-               } else if ( I.GT.1 ) {
+               } else if ( I > 1 ) {
                   A( I, I-1 ) = -ONE
                }
             } else {
                A( I, I ) = ONE
                if ( MOD( I, 2 ) != 0 && I < M ) {
                   A( I, I+1 ) = IMEPS*2
-               } else if ( I.GT.1 ) {
+               } else if ( I > 1 ) {
                   A( I, I-1 ) = -IMEPS*2
                }
             }
@@ -184,10 +184,10 @@
             E( I, I ) = ONE
             if ( I.LE.4 ) {
                B( I, I ) = -ONE
-               if (I.GT.2) B( I, I ) = ONE - REEPS;
+               if (I > 2) B( I, I ) = ONE - REEPS;
                if ( MOD( I, 2 ) != 0 && I < N ) {
                   B( I, I+1 ) = IMEPS
-               } else if ( I.GT.1 ) {
+               } else if ( I > 1 ) {
                   B( I, I-1 ) = -IMEPS
                }
             } else if ( I.LE.8 ) {
@@ -198,14 +198,14 @@
                }
                if ( MOD( I, 2 ) != 0 && I < N ) {
                   B( I, I+1 ) = ONE + IMEPS
-               } else if ( I.GT.1 ) {
+               } else if ( I > 1 ) {
                   B( I, I-1 ) = -ONE - IMEPS
                }
             } else {
                B( I, I ) = ONE - REEPS
                if ( MOD( I, 2 ) != 0 && I < N ) {
                   B( I, I+1 ) = IMEPS*2
-               } else if ( I.GT.1 ) {
+               } else if ( I > 1 ) {
                   B( I, I-1 ) = -IMEPS*2
                }
             }

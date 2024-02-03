@@ -87,7 +87,7 @@
          KASE1 = 2
       }
       KD = KL + KU + 1
-      LNOTI = KL.GT.0
+      LNOTI = KL > 0
       KASE = 0
       } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );

@@ -235,7 +235,7 @@
                   // pivoting.
 
                   K = IZERO
-                  if ( K.GT.0 ) {
+                  if ( K > 0 ) {
                      } // 100
                      if ( IWORK( K ) < 0 ) {
                         if ( IWORK( K ) != -K ) {
@@ -303,7 +303,7 @@
                   // Skip the other tests if this is not the first block
                   // size.
 
-                  if (INB.GT.1) GO TO 150;
+                  if (INB > 1) GO TO 150;
 
                   // Do only the condition estimate if INFO is not 0.
 

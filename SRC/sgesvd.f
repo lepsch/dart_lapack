@@ -83,7 +83,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( M.GE.N && MINMN.GT.0 ) {
+         if ( M.GE.N && MINMN > 0 ) {
 
             // Compute space needed for SBDSQR
 
@@ -237,7 +237,7 @@
                MAXWRK = MAX( MAXWRK, BDSPAC )
                MINWRK = MAX( 3*N+M, BDSPAC )
             }
-         } else if ( MINMN.GT.0 ) {
+         } else if ( MINMN > 0 ) {
 
             // Compute space needed for SBDSQR
 
@@ -424,10 +424,10 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ISCL = 1
          slascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ISCL = 1
          slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
@@ -455,7 +455,7 @@
 
                // Zero out below R
 
-               if ( N .GT. 1 ) {
+               if ( N > 1 ) {
                   slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                }
                IE = 1
@@ -637,7 +637,7 @@
                   // Copy R to VT, zeroing out below it
 
                   slacpy('U', N, N, A, LDA, VT, LDVT );
-                  if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
+                  if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -698,7 +698,7 @@
                   // Copy R to VT, zeroing out below it
 
                   slacpy('U', N, N, A, LDA, VT, LDVT );
-                  if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
+                  if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (Workspace: need 2*N, prefer N+N*NB)
@@ -827,7 +827,7 @@
 
                      // Zero out below R in A
 
-                     if ( N .GT. 1 ) {
+                     if ( N > 1 ) {
                         slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                      }
 
@@ -967,7 +967,7 @@
 
                      // Zero out below R in A
 
-                     if ( N .GT. 1 ) {
+                     if ( N > 1 ) {
                         slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                      }
 
@@ -1093,7 +1093,7 @@
                      // Copy R to VT, zeroing out below it
 
                      slacpy('U', N, N, A, LDA, VT, LDVT );
-                     if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
+                     if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1225,7 +1225,7 @@
 
                      // Zero out below R in A
 
-                     if ( N .GT. 1 ) {
+                     if ( N > 1 ) {
                         slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                      }
 
@@ -1370,7 +1370,7 @@
 
                      // Zero out below R in A
 
-                     if ( N .GT. 1 ) {
+                     if ( N > 1 ) {
                         slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                      }
 
@@ -1502,7 +1502,7 @@
                      // Copy R from A to VT, zeroing out below it
 
                      slacpy('U', N, N, A, LDA, VT, LDVT );
-                     if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
+                     if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -2812,7 +2812,7 @@
       // to WORK( 2:MINMN )
 
       if ( INFO != 0 ) {
-         if ( IE.GT.2 ) {
+         if ( IE > 2 ) {
             for (I = 1; I <= MINMN - 1; I++) { // 50
                WORK( I+1 ) = WORK( I+IE-1 )
             } // 50
@@ -2827,7 +2827,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if (ANRM > BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM > BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

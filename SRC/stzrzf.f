@@ -86,7 +86,7 @@
       NBMIN = 2
       NX = 1
       IWS = M
-      if ( NB.GT.1 && NB < M ) {
+      if ( NB > 1 && NB < M ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -124,7 +124,7 @@
             // A(i:i+ib-1,i:n)
 
             slatrz(IB, N-I+1, N-M, A( I, I ), LDA, TAU( I ), WORK );
-            if ( I.GT.1 ) {
+            if ( I > 1 ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
@@ -143,7 +143,7 @@
 
       // Use unblocked code to factor the last or only block
 
-      if (MU.GT.0) CALL SLATRZ( MU, N, N-M, A, LDA, TAU, WORK );
+      if (MU > 0) CALL SLATRZ( MU, N, N-M, A, LDA, TAU, WORK );
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 

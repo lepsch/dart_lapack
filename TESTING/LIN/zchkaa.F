@@ -100,7 +100,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
          NM = 0
          FATAL = true;
-      } else if ( NM.GT.MAXIN ) {
+      } else if ( NM > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN
          NM = 0
          FATAL = true;
@@ -110,12 +110,12 @@ void main() {
          if ( MVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
             FATAL = true;
-         } else if ( MVAL( I ).GT.NMAX ) {
+         } else if ( MVAL( I ) > NMAX ) {
             WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
             FATAL = true;
          }
       } // 10
-      if (NM.GT.0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
+      if (NM > 0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
 
       // Read the values of N
 
@@ -124,7 +124,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
          NN = 0
          FATAL = true;
-      } else if ( NN.GT.MAXIN ) {
+      } else if ( NN > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN
          NN = 0
          FATAL = true;
@@ -134,12 +134,12 @@ void main() {
          if ( NVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' N  ', NVAL( I ), 0
             FATAL = true;
-         } else if ( NVAL( I ).GT.NMAX ) {
+         } else if ( NVAL( I ) > NMAX ) {
             WRITE( NOUT, FMT = 9995 )' N  ', NVAL( I ), NMAX
             FATAL = true;
          }
       } // 20
-      if (NN.GT.0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
+      if (NN > 0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
 
       // Read the values of NRHS
 
@@ -148,7 +148,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
          NNS = 0
          FATAL = true;
-      } else if ( NNS.GT.MAXIN ) {
+      } else if ( NNS > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
          NNS = 0
          FATAL = true;
@@ -158,12 +158,12 @@ void main() {
          if ( NSVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = true;
-         } else if ( NSVAL( I ).GT.MAXRHS ) {
+         } else if ( NSVAL( I ) > MAXRHS ) {
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = true;
          }
       } // 30
-      if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
+      if (NNS > 0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
 
       // Read the values of NB
 
@@ -172,7 +172,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )'NNB ', NNB, 1
          NNB = 0
          FATAL = true;
-      } else if ( NNB.GT.MAXIN ) {
+      } else if ( NNB > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )'NNB ', NNB, MAXIN
          NNB = 0
          FATAL = true;
@@ -184,7 +184,7 @@ void main() {
             FATAL = true;
          }
       } // 40
-      if (NNB.GT.0) WRITE( NOUT, FMT = 9993 )'NB  ', ( NBVAL( I ), I = 1, NNB );
+      if (NNB > 0) WRITE( NOUT, FMT = 9993 )'NB  ', ( NBVAL( I ), I = 1, NNB );
 
       // Set NBVAL2 to be the set of unique values of NB
 
@@ -207,7 +207,7 @@ void main() {
             FATAL = true;
          }
       } // 70
-      if (NNB.GT.0) WRITE( NOUT, FMT = 9993 )'NX  ', ( NXVAL( I ), I = 1, NNB );
+      if (NNB > 0) WRITE( NOUT, FMT = 9993 )'NX  ', ( NXVAL( I ), I = 1, NNB );
 
       // Read the values of RANKVAL
 
@@ -216,7 +216,7 @@ void main() {
          WRITE( NOUT, FMT = 9996 )' NRANK ', NRANK, 1
          NRANK = 0
          FATAL = true;
-      } else if ( NN.GT.MAXIN ) {
+      } else if ( NN > MAXIN ) {
          WRITE( NOUT, FMT = 9995 )' NRANK ', NRANK, MAXIN
          NRANK = 0
          FATAL = true;
@@ -226,12 +226,12 @@ void main() {
          if ( RANKVAL( I ) < 0 ) {
             WRITE( NOUT, FMT = 9996 )' RANK  ', RANKVAL( I ), 0
             FATAL = true;
-         } else if ( RANKVAL( I ).GT.100 ) {
+         } else if ( RANKVAL( I ) > 100 ) {
             WRITE( NOUT, FMT = 9995 )' RANK  ', RANKVAL( I ), 100
             FATAL = true;
          }
       }
-      if (NRANK.GT.0) WRITE( NOUT, FMT = 9993 )'RANK % OF N', ( RANKVAL( I ), I = 1, NRANK );
+      if (NRANK > 0) WRITE( NOUT, FMT = 9993 )'RANK % OF N', ( RANKVAL( I ), I = 1, NRANK );
 
       // Read the threshold value for the test ratios.
 
@@ -276,7 +276,7 @@ void main() {
       I = 3
       } // 90
       I = I + 1
-      if (I.GT.72) GO TO 130       IF( ALINE( I: I ) == ' ' ) GO TO 90;
+      if (I > 72) GO TO 130       IF( ALINE( I: I ) == ' ' ) GO TO 90;
       NMATS = 0
       } // 100
       C1 = ALINE( I: I )
@@ -290,7 +290,7 @@ void main() {
       } // 120
       NMATS = NMATS*10 + IC
       I = I + 1
-      if (I.GT.72) GO TO 130;
+      if (I > 72) GO TO 130;
       GO TO 100
       } // 130
       C1 = PATH( 1: 1 )

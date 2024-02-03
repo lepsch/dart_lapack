@@ -562,7 +562,7 @@ void main() {
 
       // Check that the arrays are large enough
 
-      if (N*ABS(INCX).GT.NMAX) {
+      if (N*ABS(INCX) > NMAX) {
          WRITE (NOUT,99) "SCNRM2", NMAX, INCX, N, N*ABS(INCX)
          RETURN
       }
@@ -594,13 +594,13 @@ void main() {
 
       for (IV = 1; IV <= NV; IV++) {
          V0 = VALUES(IV)
-         if (ABS(V0).GT.ONE) {
+         if (ABS(V0) > ONE) {
             V0 = V0*HALF*HALF
          }
          Z(1) = CMPLX(V0,-THREE*V0)
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW)
-            if (ABS(V1).GT.ONE) {
+            if (ABS(V1) > ONE) {
                V1 = (V1*HALF) / SQRT(REAL(KS+1))
             }
             for (I = 1; I <= N-1; I++) {
@@ -610,7 +610,7 @@ void main() {
             // Compute the expected value of the 2-norm
 
             Y1 = ABS(V0) * SQRT(10.0E0)
-            if (N.GT.1) {
+            if (N > 1) {
                Y2 = ABS(V1)*SQRT(WORKSSQ)
             } else {
                Y2 = ZERO

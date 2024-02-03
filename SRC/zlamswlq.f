@@ -99,7 +99,7 @@
           KK = MOD((M-K),(NB-K))
           CTR = (M-K)/(NB-K)
 
-          if (KK.GT.0) {
+          if (KK > 0) {
             II=M-KK+1
             ztpmlqt('L','C',KK , N, K, 0, MB, A(1,II), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO );
           } else {
@@ -150,7 +150,7 @@
 
           KK = MOD((N-K),(NB-K))
           CTR = (N-K)/(NB-K)
-          if (KK.GT.0) {
+          if (KK > 0) {
             II=N-KK+1
             ztpmlqt('R','N',M , KK, K, 0, MB, A(1, II), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO );
           } else {

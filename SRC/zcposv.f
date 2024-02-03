@@ -148,7 +148,7 @@
       for (I = 1; I <= NRHS; I++) {
          XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) )
          RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) )
-         if (RNRM.GT.XNRM*CTE) GO TO 10;
+         if (RNRM > XNRM*CTE) GO TO 10;
       }
 
       // If we are here, the NRHS normwise backward errors satisfy the
@@ -196,7 +196,7 @@
          for (I = 1; I <= NRHS; I++) {
             XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) )
             RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) )
-            if (RNRM.GT.XNRM*CTE) GO TO 20;
+            if (RNRM > XNRM*CTE) GO TO 20;
          }
 
          // If we are here, the NRHS normwise backward errors satisfy the

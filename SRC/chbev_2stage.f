@@ -108,10 +108,10 @@
 
       ANRM = CLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
+      if ( ANRM > ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      } else if ( ANRM.GT.RMAX ) {
+      } else if ( ANRM > RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }

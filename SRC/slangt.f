@@ -81,7 +81,7 @@
          SCALE = ZERO
          SUM = ONE
          slassq(N, D, 1, SCALE, SUM );
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             slassq(N-1, DL, 1, SCALE, SUM );
             slassq(N-1, DU, 1, SCALE, SUM );
          }

@@ -37,7 +37,7 @@
       K = MIN( M, N )
       NB = ILAENV( 1, 'DGEQRF', ' ', M, N, -1, -1 )
 
-      if ( NB.GT.1 && NB < K ) {
+      if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -68,7 +68,7 @@
          LWKOPT = 1
          WORK( 1 ) = LWKOPT
 
-      } else if ( NT.GT.NB ) {
+      } else if ( NT > NB ) {
 
           LBWORK = K-NT
 
@@ -96,7 +96,7 @@
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       } else if ( .NOT.LQUERY ) {
-         IF( LWORK.LE.0 || ( M.GT.0 && LWORK < MAX( 1, N ) ) ) INFO = -7
+         IF( LWORK.LE.0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7
       }
       if ( INFO != 0 ) {
          xerbla('DGEQRF', -INFO );
@@ -111,7 +111,7 @@
          RETURN
       }
 
-      if ( NB.GT.1 && NB < K ) {
+      if ( NB > 1 && NB < K ) {
 
          if ( NX < K ) {
 

@@ -71,7 +71,7 @@ void main() {
           }
       } // 30
 
-      if (nFailingTests .gt. 0) {
+      if (nFailingTests > 0) {
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for intrinsic MIN and MAX,", nFailingTests," fail."
       } else {
          print *, "# All tests pass for intrinsic MIN and MAX."

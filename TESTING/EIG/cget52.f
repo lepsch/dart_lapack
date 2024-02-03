@@ -76,7 +76,7 @@
          ALPHAI = ALPHA( JVEC )
          BETAI = BETA( JVEC )
          ABMAX = MAX( ABS1( ALPHAI ), ABS1( BETAI ) )
-         if ( ABS1( ALPHAI ).GT.ALFMAX || ABS1( BETAI ).GT.BETMAX || ABMAX < ONE ) {
+         if ( ABS1( ALPHAI ) > ALFMAX || ABS1( BETAI ) > BETMAX || ABMAX < ONE ) {
             SCALE = ONE / MAX( ABMAX, SAFMIN )
             ALPHAI = SCALE*ALPHAI
             BETAI = SCALE*BETAI

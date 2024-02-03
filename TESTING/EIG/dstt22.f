@@ -44,7 +44,7 @@
 
       // Compute the 1-norm of A.
 
-      if ( N.GT.1 ) {
+      if ( N > 1 ) {
          ANORM = ABS( AD( 1 ) ) + ABS( AE( 1 ) )
          for (J = 2; J <= N - 1; J++) { // 10
             ANORM = MAX( ANORM, ABS( AD( J ) )+ABS( AE( J ) )+ ABS( AE( J-1 ) ) )
@@ -74,7 +74,7 @@
 
       WNORM = DLANSY( '1', 'L', M, WORK, M, WORK( 1, M+1 ) )
 
-      if ( ANORM.GT.WNORM ) {
+      if ( ANORM > WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP )
       } else {
          if ( ANORM < ONE ) {

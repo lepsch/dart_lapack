@@ -45,7 +45,7 @@
       INFO = 0
       LIWMIN = 1
       LWMIN = 1
-      if ( N.GT.1 && WANTZ ) {
+      if ( N > 1 && WANTZ ) {
          LWMIN = 1 + 4*N + N**2
          LIWMIN = 3 + 5*N
       }
@@ -98,10 +98,10 @@
 
       ISCALE = 0
       TNRM = SLANST( 'M', N, D, E )
-      if ( TNRM.GT.ZERO && TNRM < RMIN ) {
+      if ( TNRM > ZERO && TNRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
-      } else if ( TNRM.GT.RMAX ) {
+      } else if ( TNRM > RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / TNRM
       }

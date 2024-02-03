@@ -120,10 +120,10 @@
 
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ANRMTO = BIGNUM
          ILASCL = true;
       }
@@ -140,10 +140,10 @@
 
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
          BNRMTO = BIGNUM
          ILBSCL = true;
       }
@@ -214,9 +214,9 @@
       chgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO );
       if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
-         if ( IINFO.GT.0 && IINFO.LE.N ) {
+         if ( IINFO > 0 && IINFO.LE.N ) {
             INFO = IINFO
-         } else if ( IINFO.GT.N && IINFO.LE.2*N ) {
+         } else if ( IINFO > N && IINFO.LE.2*N ) {
             INFO = IINFO - N
          } else {
             INFO = N + 6

@@ -35,7 +35,7 @@
          INFO = -1
       } else if ( N < M ) {
          INFO = -2
-      } else if ( K < 0 || K.GT.M ) {
+      } else if ( K < 0 || K > M ) {
          INFO = -3
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
@@ -57,7 +57,7 @@
             for (L = 1; L <= M - K; L++) { // 10
                A( L, J ) = ZERO
             } // 10
-            if (J.GT.N-M && J.LE.N-K) A( M-N+J, J ) = ONE;
+            if (J > N-M && J.LE.N-K) A( M-N+J, J ) = ONE;
          } // 20
       }
 

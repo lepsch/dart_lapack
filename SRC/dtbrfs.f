@@ -205,7 +205,7 @@
          }
          S = ZERO
          for (I = 1; I <= N; I++) { // 190
-            if ( WORK( I ).GT.SAFE2 ) {
+            if ( WORK( I ) > SAFE2 ) {
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
@@ -236,7 +236,7 @@
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          for (I = 1; I <= N; I++) { // 200
-            if ( WORK( I ).GT.SAFE2 ) {
+            if ( WORK( I ) > SAFE2 ) {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1

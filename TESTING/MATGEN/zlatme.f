@@ -119,7 +119,7 @@
          INFO = -1
       } else if ( IDIST == -1 ) {
          INFO = -2
-      } else if ( ABS( MODE ).GT.6 ) {
+      } else if ( ABS( MODE ) > 6 ) {
          INFO = -5
       } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
          INFO = -6
@@ -131,7 +131,7 @@
          INFO = -11
       } else if ( BADS ) {
          INFO = -12
-      } else if ( ISIM == 1 && ABS( MODES ).GT.5 ) {
+      } else if ( ISIM == 1 && ABS( MODES ) > 5 ) {
          INFO = -13
       } else if ( ISIM == 1 && MODES != 0 && CONDS < ONE ) {
          INFO = -14
@@ -174,7 +174,7 @@
             TEMP = MAX( TEMP, ABS( D( I ) ) )
          } // 30
 
-         if ( TEMP.GT.ZERO ) {
+         if ( TEMP > ZERO ) {
             ALPHA = DMAX / TEMP
          } else {
             INFO = 2
@@ -308,7 +308,7 @@
 
       if ( ANORM.GE.ZERO ) {
          TEMP = ZLANGE( 'M', N, N, A, LDA, TEMPA )
-         if ( TEMP.GT.ZERO ) {
+         if ( TEMP > ZERO ) {
             RALPHA = ANORM / TEMP
             for (J = 1; J <= N; J++) { // 80
                zdscal(N, RALPHA, A( 1, J ), 1 );

@@ -34,7 +34,7 @@
 
       // Quick return if possible
 
-      if (M < 0 || N.LE.0 || K == 0 || K.GT.N) RETURN;
+      if (M < 0 || N.LE.0 || K == 0 || K > N) RETURN;
 
       LNOTIDENT = .NOT.LSAME( IDENT, 'I' )
 
@@ -47,7 +47,7 @@
 
       // ------------------------------------------------------------------
 
-      if ( N.GT.K ) {
+      if ( N > K ) {
 
          // col2_(1) Compute W2: = A2. Therefore, copy A2 = A(1:K, K+1:N)
          // into W2=WORK(1:K, 1:N-K) column-by-column.
@@ -69,7 +69,7 @@
          // col2_(3) Compute W2: = W2 + (V2**T) * B2 = W2 + (B1**T) * B2
          // V2 stored in B1.
 
-         if ( M.GT.0 ) {
+         if ( M > 0 ) {
             dgemm('T', 'N', K, N-K, M, ONE, B, LDB, B( 1, K+1 ), LDB, ONE, WORK, LDWORK );
          }
 
@@ -81,7 +81,7 @@
          // col2_(5) Compute B2: = B2 - V2 * W2 = B2 - B1 * W2,
          // V2 stored in B1.
 
-         if ( M.GT.0 ) {
+         if ( M > 0 ) {
             dgemm('N', 'N', M, N-K, K, -ONE, B, LDB, WORK, LDWORK, ONE, B( 1, K+1 ), LDB );
          }
 
@@ -150,7 +150,7 @@
       // col1_(4) Compute B1: = - V2 * W1 = - B1 * W1,
       // V2 = B1, W1 is upper-triangular with zeroes below the diagonal.
 
-      if ( M.GT.0 ) {
+      if ( M > 0 ) {
          dtrmm('R', 'U', 'N', 'N', M, K, -ONE, WORK, LDWORK, B, LDB );
       }
 

@@ -34,7 +34,7 @@
       if (N.LE.1) RETURN;
 
       for (I = 1; I <= NB; I++) { // 10
-         if ( I.GT.1 ) {
+         if ( I > 1 ) {
 
             // Update A(K+1:N,I)
 
@@ -101,7 +101,7 @@
       // Compute Y(1:K,1:NB)
 
       dlacpy('ALL', K, NB, A( 1, 2 ), LDA, Y, LDY );
-      dtrmm('RIGHT', 'Lower', 'NO TRANSPOSE', 'UNIT', K, NB, ONE, A( K+1, 1 ), LDA, Y, LDY )       IF( N.GT.K+NB ) CALL DGEMM( 'NO TRANSPOSE', 'NO TRANSPOSE', K, NB, N-K-NB, ONE, A( 1, 2+NB ), LDA, A( K+1+NB, 1 ), LDA, ONE, Y, LDY );
+      dtrmm('RIGHT', 'Lower', 'NO TRANSPOSE', 'UNIT', K, NB, ONE, A( K+1, 1 ), LDA, Y, LDY )       IF( N > K+NB ) CALL DGEMM( 'NO TRANSPOSE', 'NO TRANSPOSE', K, NB, N-K-NB, ONE, A( 1, 2+NB ), LDA, A( K+1+NB, 1 ), LDA, ONE, Y, LDY );
       dtrmm('RIGHT', 'Upper', 'NO TRANSPOSE', 'NON-UNIT', K, NB, ONE, T, LDT, Y, LDY );
 
       RETURN

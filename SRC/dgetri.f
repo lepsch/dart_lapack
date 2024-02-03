@@ -64,11 +64,11 @@
       // and the inverse is not computed.
 
       dtrtri('Upper', 'Non-unit', N, A, LDA, INFO );
-      if (INFO.GT.0) RETURN;
+      if (INFO > 0) RETURN;
 
       NBMIN = 2
       LDWORK = N
-      if ( NB.GT.1 && NB < N ) {
+      if ( NB > 1 && NB < N ) {
          IWS = MAX( LDWORK*NB, 1 )
          if ( LWORK < IWS ) {
             NB = LWORK / LDWORK

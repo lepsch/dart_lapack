@@ -76,9 +76,9 @@
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -5
-      } else if ( M.GT.LDA ) {
+      } else if ( M > LDA ) {
          INFO = -7
-      } else if ( MINMN.GT.0 ) {
+      } else if ( MINMN > 0 ) {
          if ( VALS ) {
             if ( VL < ZERO ) {
                INFO = -8
@@ -86,9 +86,9 @@
                INFO = -9
             }
          } else if ( INDS ) {
-            if ( IL < 1 || IL.GT.MAX( 1, MINMN ) ) {
+            if ( IL < 1 || IL > MAX( 1, MINMN ) ) {
                INFO = -10
-            } else if ( IU < MIN( MINMN, IL ) || IU.GT.MINMN ) {
+            } else if ( IU < MIN( MINMN, IL ) || IU > MINMN ) {
                INFO = -11
             }
          }
@@ -117,7 +117,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( MINMN.GT.0 ) {
+         if ( MINMN > 0 ) {
             if ( M.GE.N ) {
                MNTHR = ILAENV( 6, 'ZGESVD', JOBU // JOBVT, M, N, 0, 0 )
                if ( M.GE.MNTHR ) {
@@ -212,10 +212,10 @@
 
       ANRM = ZLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ISCL = 1
          zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ISCL = 1
          zlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
       }
@@ -508,7 +508,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
+         if (ANRM > BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
 
       // Return optimal workspace in WORK(1)

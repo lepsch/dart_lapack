@@ -62,12 +62,12 @@
          // Compute the L*D*L**H (or U**H*D*U) factorization of A.
 
          dcopy(N, D, 1, DF, 1 );
-         if (N.GT.1) CALL ZCOPY( N-1, E, 1, EF, 1 );
+         if (N > 1) CALL ZCOPY( N-1, E, 1, EF, 1 );
          zpttrf(N, DF, EF, INFO );
 
          // Return if INFO is non-zero.
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             RCOND = ZERO
             RETURN
          }

@@ -92,7 +92,7 @@
          INFO = -19
       } else if ( LDLRE < 1 || LDLRE < NMAX ) {
          INFO = -21
-      } else if ( 6*NMAX+2*NMAX**2.GT.NWORK ) {
+      } else if ( 6*NMAX+2*NMAX**2 > NWORK ) {
          INFO = -32
       }
 
@@ -151,7 +151,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            if (MTYPES.GT.MAXTYP) GO TO 90;
+            if (MTYPES > MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -199,7 +199,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
+                  if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -301,7 +301,7 @@
                      IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                      IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
                   } // 100
 
-                  if (NFAIL.GT.0) NTESTF = NTESTF + 1;
+                  if (NFAIL > 0) NTESTF = NTESTF + 1;
                   if ( NTESTF == 1 ) {
                      WRITE( NOUNIT, FMT = 9999 )PATH
                      WRITE( NOUNIT, FMT = 9998 )
@@ -356,7 +356,7 @@
          IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1          IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
       } // 200
 
-      if (NFAIL.GT.0) NTESTF = NTESTF + 1;
+      if (NFAIL > 0) NTESTF = NTESTF + 1;
       if ( NTESTF == 1 ) {
          WRITE( NOUNIT, FMT = 9999 )PATH
          WRITE( NOUNIT, FMT = 9998 )

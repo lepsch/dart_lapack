@@ -34,7 +34,7 @@
       if (N.LE.1) RETURN;
 
       for (I = 1; I <= NB; I++) { // 10
-         if ( I.GT.1 ) {
+         if ( I > 1 ) {
 
             // Update A(1:n,i)
 

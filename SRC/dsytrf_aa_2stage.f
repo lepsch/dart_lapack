@@ -143,14 +143,14 @@
             // Compute T(J,J)
 
             dlacpy('Upper', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                // T(J,J) = U(1:J,J)'*H(1:J)
                dgemm('Transpose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( 1, J*NB+1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += U(J,J)'*T(J,J-1)*U(J-1,J)
                dgemm('Transpose', 'NoTranspose', KB, NB, KB, ONE,  A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N );
                dgemm('NoTranspose', 'NoTranspose', KB, KB, NB, -ONE, WORK( 1 ), N, A( (J-2)*NB+1, J*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
-            if ( J.GT.0 ) {
+            if ( J > 0 ) {
                dsygst(1, 'Upper', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, IINFO );
             }
 
@@ -163,7 +163,7 @@
             }
 
             if ( J < NT-1 ) {
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
 
                   // Compute H(J,J)
 
@@ -202,7 +202,7 @@
                KB = MIN(NB, N-(J+1)*NB)
                dlaset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 );
                dlacpy('Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
                   dtrsm('R', 'U', 'N', 'U', KB, NB, ONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
@@ -228,7 +228,7 @@
                      // > Apply pivots to previous columns of L
                      dswap(K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
-                     IF( I2.GT.(I1+1) ) CALL DSWAP( I2-I1-1, A( I1, I1+1 ), LDA, A( I1+1, I2 ), 1 )
+                     IF( I2 > (I1+1) ) CALL DSWAP( I2-I1-1, A( I1, I1+1 ), LDA, A( I1+1, I2 ), 1 )
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
                      if (I2 < N) CALL DSWAP( N-I2, A( I1, I2+1 ), LDA, A( I2, I2+1 ), LDA );
                      // > Swap A(I1, I1) with A(I2, I2)
@@ -236,7 +236,7 @@
                      A( I1, I1 ) = A( I2, I2 )
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
-                     if ( J.GT.0 ) {
+                     if ( J > 0 ) {
                         dswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                      }
                   }
@@ -277,14 +277,14 @@
             // Compute T(J,J)
 
             dlacpy('Lower', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                // T(J,J) = L(J,1:J)*H(1:J)
                dgemm('NoTranspose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( J*NB+1, 1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += L(J,J)*T(J,J-1)*L(J,J-1)'
                dgemm('NoTranspose', 'NoTranspose', KB, NB, KB, ONE,  A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N );
                dgemm('NoTranspose', 'Transpose', KB, KB, NB, -ONE, WORK( 1 ), N, A( J*NB+1, (J-2)*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
-            if ( J.GT.0 ) {
+            if ( J > 0 ) {
                dsygst(1, 'Lower', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, IINFO );
             }
 
@@ -297,7 +297,7 @@
             }
 
             if ( J < NT-1 ) {
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
 
                   // Compute H(J,J)
 
@@ -324,7 +324,7 @@
                KB = MIN(NB, N-(J+1)*NB)
                dlaset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 );
                dlacpy('Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
-               if ( J.GT.0 ) {
+               if ( J > 0 ) {
                   dtrsm('R', 'L', 'T', 'U', KB, NB, ONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
@@ -350,7 +350,7 @@
                      // > Apply pivots to previous columns of L
                      dswap(K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
-                     IF( I2.GT.(I1+1) ) CALL DSWAP( I2-I1-1, A( I1+1, I1 ), 1, A( I2, I1+1 ), LDA )
+                     IF( I2 > (I1+1) ) CALL DSWAP( I2-I1-1, A( I1+1, I1 ), 1, A( I2, I1+1 ), LDA )
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
                      if (I2 < N) CALL DSWAP( N-I2, A( I2+1, I1 ), 1, A( I2+1, I2 ), 1 );
                      // > Swap A(I1, I1) with A(I2, I2)
@@ -358,7 +358,7 @@
                      A( I1, I1 ) = A( I2, I2 )
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
-                     if ( J.GT.0 ) {
+                     if ( J > 0 ) {
                         dswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                      }
                   }

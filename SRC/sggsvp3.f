@@ -121,7 +121,7 @@
 
       L = 0
       DO 20 I = 1, MIN( P, N )
-         IF( ABS( B( I, I ) ).GT.TOLB ) L = L + 1
+         IF( ABS( B( I, I ) ) > TOLB ) L = L + 1
       } // 20
 
       if ( WANTV ) {
@@ -129,7 +129,7 @@
          // Copy the details of V, and form V.
 
          slaset('Full', P, P, ZERO, ZERO, V, LDV );
-         if (P.GT.1) CALL SLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
+         if (P > 1) CALL SLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
          sorg2r(P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO );
       }
 
@@ -140,7 +140,7 @@
             B( I, J ) = ZERO
          } // 30
       } // 40
-      if (P.GT.L) CALL SLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB );
+      if (P > L) CALL SLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB );
 
       if ( WANTQ ) {
 
@@ -195,7 +195,7 @@
 
       K = 0
       DO 80 I = 1, MIN( M, N-L )
-         IF( ABS( A( I, I ) ).GT.TOLA ) K = K + 1
+         IF( ABS( A( I, I ) ) > TOLA ) K = K + 1
       } // 80
 
       // Update A12 := U**T*A12, where A12 = A( 1:M, N-L+1:N )
@@ -207,7 +207,7 @@
          // Copy the details of U, and form U
 
          slaset('Full', M, M, ZERO, ZERO, U, LDU );
-         if (M.GT.1) CALL SLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
+         if (M > 1) CALL SLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
          sorg2r(M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO );
       }
 
@@ -226,9 +226,9 @@
             A( I, J ) = ZERO
          } // 90
       } // 100
-      if (M.GT.K) CALL SLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA );
+      if (M > K) CALL SLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA );
 
-      if ( N-L.GT.K ) {
+      if ( N-L > K ) {
 
          // RQ factorization of ( T11 T12 ) = ( 0 T12 )*Z1
 
@@ -252,7 +252,7 @@
 
       }
 
-      if ( M.GT.K ) {
+      if ( M > K ) {
 
          // QR factorization of A( K+1:M,N-L+1:N )
 

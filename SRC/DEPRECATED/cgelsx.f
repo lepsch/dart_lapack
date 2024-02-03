@@ -81,13 +81,13 @@
 
       ANRM = CLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
@@ -104,13 +104,13 @@
 
       BNRM = CLANGE( 'M', M, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          clascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 

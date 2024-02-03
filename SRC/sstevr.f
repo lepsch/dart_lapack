@@ -64,11 +64,11 @@
          INFO = -3
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 && VU.LE.VL) INFO = -7;
+            if (N > 0 && VU.LE.VL) INFO = -7;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -8
-            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU > N ) {
                INFO = -9
             }
          }
@@ -135,10 +135,10 @@
       }
 
       TNRM = SLANST( 'M', N, D, E )
-      if ( TNRM.GT.ZERO && TNRM < RMIN ) {
+      if ( TNRM > ZERO && TNRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
-      } else if ( TNRM.GT.RMAX ) {
+      } else if ( TNRM > RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / TNRM
       }

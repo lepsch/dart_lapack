@@ -132,7 +132,7 @@
          INFO = -1
       } else if ( IDIST == -1 ) {
          INFO = -2
-      } else if ( ABS( MODE ).GT.6 ) {
+      } else if ( ABS( MODE ) > 6 ) {
          INFO = -5
       } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
          INFO = -6
@@ -146,7 +146,7 @@
          INFO = -11
       } else if ( BADS ) {
          INFO = -12
-      } else if ( ISIM == 1 && ABS( MODES ).GT.5 ) {
+      } else if ( ISIM == 1 && ABS( MODES ) > 5 ) {
          INFO = -13
       } else if ( ISIM == 1 && MODES != 0 && CONDS < ONE ) {
          INFO = -14
@@ -189,7 +189,7 @@
             TEMP = MAX( TEMP, ABS( D( I ) ) )
          } // 40
 
-         if ( TEMP.GT.ZERO ) {
+         if ( TEMP > ZERO ) {
             ALPHA = DMAX / TEMP
          } else if ( DMAX != ZERO ) {
             INFO = 2
@@ -221,7 +221,7 @@
       } else if ( ABS( MODE ) == 5 ) {
 
          DO 60 J = 2, N, 2
-            if ( DLARAN( ISEED ).GT.HALF ) {
+            if ( DLARAN( ISEED ) > HALF ) {
                A( J-1, J ) = A( J, J )
                A( J, J-1 ) = -A( J, J )
                A( J, J ) = A( J-1, J-1 )
@@ -344,7 +344,7 @@
 
       if ( ANORM.GE.ZERO ) {
          TEMP = DLANGE( 'M', N, N, A, LDA, TEMPA )
-         if ( TEMP.GT.ZERO ) {
+         if ( TEMP > ZERO ) {
             ALPHA = ANORM / TEMP
             for (J = 1; J <= N; J++) { // 110
                dscal(N, ALPHA, A( 1, J ), 1 );

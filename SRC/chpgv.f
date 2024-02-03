@@ -35,7 +35,7 @@
       UPPER = LSAME( UPLO, 'U' )
 
       INFO = 0
-      if ( ITYPE < 1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE > 3 ) {
          INFO = -1
       } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
@@ -73,7 +73,7 @@
          // Backtransform eigenvectors to the original problem.
 
          NEIG = N
-         if (INFO.GT.0) NEIG = INFO - 1;
+         if (INFO > 0) NEIG = INFO - 1;
          if ( ITYPE == 1 || ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;

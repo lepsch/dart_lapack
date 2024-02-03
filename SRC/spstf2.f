@@ -69,7 +69,7 @@
       PVT = 1
       AJJ = A( PVT, PVT )
       for (I = 2; I <= N; I++) {
-         if ( A( I, I ).GT.AJJ ) {
+         if ( A( I, I ) > AJJ ) {
             PVT = I
             AJJ = A( PVT, PVT )
          }
@@ -106,14 +106,14 @@
 
             for (I = J; I <= N; I++) { // 120
 
-               if ( J.GT.1 ) {
+               if ( J > 1 ) {
                   WORK( I ) = WORK( I ) + A( J-1, I )**2
                }
                WORK( N+I ) = A( I, I ) - WORK( I )
 
             } // 120
 
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                PVT = ITEMP + J - 1
                AJJ = WORK( N+PVT )
@@ -166,14 +166,14 @@
 
             for (I = J; I <= N; I++) { // 140
 
-               if ( J.GT.1 ) {
+               if ( J > 1 ) {
                   WORK( I ) = WORK( I ) + A( I, J-1 )**2
                }
                WORK( N+I ) = A( I, I ) - WORK( I )
 
             } // 140
 
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                PVT = ITEMP + J - 1
                AJJ = WORK( N+PVT )

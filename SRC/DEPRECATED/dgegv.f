@@ -131,7 +131,7 @@
          }
       }
 
-      if ( ANRM.GT.ZERO ) {
+      if ( ANRM > ZERO ) {
          dlascl('G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 10
@@ -151,7 +151,7 @@
          }
       }
 
-      if ( BNRM.GT.ZERO ) {
+      if ( BNRM > ZERO ) {
          dlascl('G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO );
          if ( IINFO != 0 ) {
             INFO = N + 10
@@ -238,9 +238,9 @@
       dhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
-         if ( IINFO.GT.0 && IINFO.LE.N ) {
+         if ( IINFO > 0 && IINFO.LE.N ) {
             INFO = IINFO
-         } else if ( IINFO.GT.N && IINFO.LE.2*N ) {
+         } else if ( IINFO > N && IINFO.LE.2*N ) {
             INFO = IINFO - N
          } else {
             INFO = N + 6
@@ -368,9 +368,9 @@
             // If insignificant underflow in ALPHAI, then make the
             // conjugate eigenvalue real.
 
-            if ( ALPHAI( JC ) < ZERO && JC.GT.1 ) {
+            if ( ALPHAI( JC ) < ZERO && JC > 1 ) {
                ALPHAI( JC-1 ) = ZERO
-            } else if ( ALPHAI( JC ).GT.ZERO && JC < N ) {
+            } else if ( ALPHAI( JC ) > ZERO && JC < N ) {
                ALPHAI( JC+1 ) = ZERO
             }
          }
@@ -392,7 +392,7 @@
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.

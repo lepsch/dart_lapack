@@ -43,7 +43,7 @@
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       } else if ( .NOT.LQUERY ) {
-         IF( LWORK.LE.0 || ( N.GT.0 && LWORK < MAX( 1, M ) ) ) INFO = -7
+         IF( LWORK.LE.0 || ( N > 0 && LWORK < MAX( 1, M ) ) ) INFO = -7
       }
       if ( INFO != 0 ) {
          xerbla('CGELQF', -INFO );
@@ -68,7 +68,7 @@
       NBMIN = 2
       NX = 0
       IWS = M
-      if ( NB.GT.1 && NB < K ) {
+      if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 

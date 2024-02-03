@@ -65,9 +65,9 @@
             SPLUS = SPLUS + REAL( CDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) )
             SMINU = REAL( CDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) )
             SPLUS = SPLUS*REAL( RHS( J ) )
-            if ( SPLUS.GT.SMINU ) {
+            if ( SPLUS > SMINU ) {
                RHS( J ) = BP
-            } else if ( SMINU.GT.SPLUS ) {
+            } else if ( SMINU > SPLUS ) {
                RHS( J ) = BM
             } else {
 
@@ -108,7 +108,7 @@
             SPLUS = SPLUS + ABS( WORK( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
          } // 30
-         if (SPLUS.GT.SMINU) CALL CCOPY( N, WORK, 1, RHS, 1 );
+         if (SPLUS > SMINU) CALL CCOPY( N, WORK, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
@@ -137,7 +137,7 @@
       caxpy(N, -CONE, XM, 1, RHS, 1 );
       cgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE );
       cgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE );
-      IF( SCASUM( N, XP, 1 ).GT.SCASUM( N, RHS, 1 ) ) CALL CCOPY( N, XP, 1, RHS, 1 )
+      IF( SCASUM( N, XP, 1 ) > SCASUM( N, RHS, 1 ) ) CALL CCOPY( N, XP, 1, RHS, 1 )
 
       // Compute the sum of squares
 

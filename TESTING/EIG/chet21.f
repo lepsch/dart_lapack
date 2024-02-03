@@ -57,7 +57,7 @@
 
       // Some Error Checks
 
-      if ( ITYPE < 1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE > 3 ) {
          RESULT( 1 ) = TEN / ULP
          RETURN
       }
@@ -85,7 +85,7 @@
             cher(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
          } // 10
 
-         if ( N.GT.1 && KBAND == 1 ) {
+         if ( N > 1 && KBAND == 1 ) {
             for (J = 1; J <= N - 1; J++) { // 20
                cher2(CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
             } // 20
@@ -168,7 +168,7 @@
          WNORM = CLANGE( '1', N, N, WORK, N, RWORK )
       }
 
-      if ( ANORM.GT.WNORM ) {
+      if ( ANORM > WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
       } else {
          if ( ANORM < ONE ) {

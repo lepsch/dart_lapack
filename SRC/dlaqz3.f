@@ -69,7 +69,7 @@
          if ( ABS( S ) .LE. MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
-            if ( KWTOP .GT. ILO ) {
+            if ( KWTOP > ILO ) {
                A( KWTOP, KWTOP-1 ) = ZERO
             }
          }

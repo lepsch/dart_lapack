@@ -65,7 +65,7 @@
          INFO = -3
       } else if ( ILO < 1 ) {
          INFO = -4
-      } else if ( IHI.GT.N || IHI < ILO-1 ) {
+      } else if ( IHI > N || IHI < ILO-1 ) {
          INFO = -5
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7
@@ -91,7 +91,7 @@
 
       // Zero out lower triangle of B.
 
-      if (N.GT.1) CALL SLASET( 'Lower', N-1, N-1, ZERO, ZERO, B(2, 1), LDB );
+      if (N > 1) CALL SLASET( 'Lower', N-1, N-1, ZERO, ZERO, B(2, 1), LDB );
 
       // Quick return if possible
 
@@ -103,7 +103,7 @@
       // Determine the blocksize.
 
       NBMIN = ILAENV( 2, 'SGGHD3', ' ', N, ILO, IHI, -1 )
-      if ( NB.GT.1 && NB < NH ) {
+      if ( NB > 1 && NB < NH ) {
 
          // Determine when to use unblocked instead of blocked code.
 
@@ -274,7 +274,7 @@
                   }
                }
 
-               if ( JJ.GT.0 ) {
+               if ( JJ > 0 ) {
                   DO I = JJ, 1, -1
                      srot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, A( J+1+I, J ), -B( J+1+I, J ) );
                   }
@@ -419,7 +419,7 @@
 
             // Accumulate right Givens rotations if required.
 
-            if ( WANTZ || TOP.GT.0 ) {
+            if ( WANTZ || TOP > 0 ) {
 
                // Initialize small orthogonal factors that will hold the
                // accumulated Givens rotations in workspace.
@@ -480,7 +480,7 @@
 
             // Apply accumulated orthogonal matrices to A and B.
 
-            if ( TOP.GT.0 ) {
+            if ( TOP > 0 ) {
                J = IHI - NBLST + 1
                sgemm('No Transpose', 'No Transpose', TOP, NBLST, NBLST, ONE, A( 1, J ), LDA, WORK, NBLST, ZERO, WORK( PW ), TOP );
                slacpy('All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA );

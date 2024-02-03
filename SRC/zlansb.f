@@ -98,7 +98,7 @@
 
          SCALE = ZERO
          SUM = ONE
-         if ( K.GT.0 ) {
+         if ( K > 0 ) {
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 2; J <= N; J++) { // 110
                   zlassq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );

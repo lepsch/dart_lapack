@@ -149,7 +149,7 @@
          INFO = -3
       } else if ( ISYM == -1 ) {
          INFO = -5
-      } else if ( ABS( MODE ).GT.6 ) {
+      } else if ( ABS( MODE ) > 6 ) {
          INFO = -7
       } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
          INFO = -8
@@ -157,7 +157,7 @@
          INFO = -10
       } else if ( KU < 0 || ( ISYM != 1 && KL != KU ) ) {
          INFO = -11
-      } else if ( IPACK == -1 || ( ISYMPK == 1 && ISYM == 1 ) || ( ISYMPK == 2 && ISYM == 1 && KL.GT.0 ) || ( ISYMPK == 3 && ISYM == 1 && KU.GT.0 ) || ( ISYMPK != 0 && M != N ) ) {
+      } else if ( IPACK == -1 || ( ISYMPK == 1 && ISYM == 1 ) || ( ISYMPK == 2 && ISYM == 1 && KL > 0 ) || ( ISYMPK == 3 && ISYM == 1 && KU > 0 ) || ( ISYMPK != 0 && M != N ) ) {
          INFO = -12
       } else if ( LDA < MAX( 1, MINLDA ) ) {
          INFO = -14
@@ -204,7 +204,7 @@
             TEMP = MAX( TEMP, ABS( D( I ) ) )
          } // 110
 
-         if ( TEMP.GT.ZERO ) {
+         if ( TEMP > ZERO ) {
             ALPHA = DMAX / TEMP
          } else {
             INFO = 2
@@ -224,10 +224,10 @@
                 // the (i,j)-th element is in
                 // A( i - ISKEW*j + IOFFST, j )
 
-      if ( IPACK.GT.4 ) {
+      if ( IPACK > 4 ) {
          ILDA = LDA - 1
          ISKEW = 1
-         if ( IPACK.GT.5 ) {
+         if ( IPACK > 5 ) {
             IOFFST = UUB + 1
          } else {
             IOFFST = 1
@@ -261,7 +261,7 @@
 
             // Non-symmetric -- A = U D V
 
-            if ( IPACK.GT.4 ) {
+            if ( IPACK > 4 ) {
                IPACKG = IPACK
             } else {
                IPACKG = 0
@@ -286,7 +286,7 @@
                      ICOL = MAX( 1, JR-JKL )
                      if ( JR < M ) {
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
-                        dlarot( true , JR.GT.JKL, false , IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
+                        dlarot( true , JR > JKL, false , IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -300,14 +300,14 @@
                         IROW = MAX( 1, JCH-JKU )
                         IL = IR + 2 - IROW
                         TEMP = ZERO
-                        ILTEMP = JCH.GT.JKU
+                        ILTEMP = JCH > JKU
                         dlarot( false , ILTEMP, true , IL, C, -S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, TEMP, EXTRA );
                         if ( ILTEMP ) {
                            dlartg(A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), TEMP, C, S, DUMMY );
                            ICOL = MAX( 1, JCH-JKU-JKL )
                            IL = IC + 2 - ICOL
                            EXTRA = ZERO
-                           dlarot( true , JCH.GT.JKU+JKL, true , IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP );
+                           dlarot( true , JCH > JKU+JKL, true , IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -328,7 +328,7 @@
                      IROW = MAX( 1, JC-JKU )
                      if ( JC < N ) {
                         IL = MIN( M, JC+JKL ) + 1 - IROW
-                        dlarot( false , JC.GT.JKU, false , IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
+                        dlarot( false , JC > JKU, false , IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -342,14 +342,14 @@
                         ICOL = MAX( 1, JCH-JKL )
                         IL = IC + 2 - ICOL
                         TEMP = ZERO
-                        ILTEMP = JCH.GT.JKL
+                        ILTEMP = JCH > JKL
                         dlarot( true , ILTEMP, true , IL, C, -S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA );
                         if ( ILTEMP ) {
                            dlartg(A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), TEMP, C, S, DUMMY );
                            IROW = MAX( 1, JCH-JKL-JKU )
                            IL = IR + 2 - IROW
                            EXTRA = ZERO
-                           dlarot( false , JCH.GT.JKL+JKU, true , IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP );
+                           dlarot( false , JCH > JKL+JKU, true , IL, C, -S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, TEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -376,7 +376,7 @@
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
                      IROW = MAX( 1, JC-JKU+1 )
-                     if ( JC.GT.0 ) {
+                     if ( JC > 0 ) {
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
                         dlarot( false , false , JC+JKL < M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
                      }
@@ -385,7 +385,7 @@
 
                      IC = JC
                      DO 180 JCH = JC + JKL, IENDCH, JKL + JKU
-                        ILEXTR = IC.GT.0
+                        ILEXTR = IC > 0
                         if ( ILEXTR ) {
                            dlartg(A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, C, S, DUMMY );
                         }
@@ -420,7 +420,7 @@
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
                      ICOL = MAX( 1, JR-JKL+1 )
-                     if ( JR.GT.0 ) {
+                     if ( JR > 0 ) {
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
                         dlarot( true , false , JR+JKU < N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
                      }
@@ -429,7 +429,7 @@
 
                      IR = JR
                      DO 210 JCH = JR + JKU, IENDCH, JKL + JKU
-                        ILEXTR = IR.GT.0
+                        ILEXTR = IR > 0
                         if ( ILEXTR ) {
                            dlartg(A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, C, S, DUMMY );
                         }
@@ -478,7 +478,7 @@
                      ANGLE = TWOPI*DLARND( 1, ISEED )
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
-                     dlarot( false , JC.GT.K, true , IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, TEMP );
+                     dlarot( false , JC > K, true , IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, TEMP );
                      dlarot( true , true , false , MIN( K, N-JC )+1, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, DUMMY );
 
                      // Chase EXTRA back up the matrix
@@ -491,7 +491,7 @@
                         IROW = MAX( 1, JCH-K )
                         IL = MIN( JCH+1, K+2 )
                         EXTRA = ZERO
-                        dlarot( false , JCH.GT.K, true , IL, C, -S, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, TEMP );
+                        dlarot( false , JCH > K, true , IL, C, -S, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, TEMP );
                         ICOL = JCH
                      } // 240
                   } // 250
@@ -540,7 +540,7 @@
                      ANGLE = TWOPI*DLARND( 1, ISEED )
                      C = COS( ANGLE )
                      S = -SIN( ANGLE )
-                     dlarot( false , true , N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, EXTRA );
+                     dlarot( false , true , N-JC > K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, EXTRA );
                      ICOL = MAX( 1, JC-K+1 )
                      dlarot( true , false , true , JC+2-ICOL, C, S, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, TEMP );
 
@@ -553,7 +553,7 @@
                         dlarot( true , true , true , K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, TEMP );
                         IL = MIN( N+1-JCH, K+2 )
                         EXTRA = ZERO
-                        dlarot( false , true , N-JCH.GT.K, IL, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, TEMP, EXTRA );
+                        dlarot( false , true , N-JCH > K, IL, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, TEMP, EXTRA );
                         ICOL = JCH
                      } // 310
                   } // 320
@@ -644,7 +644,7 @@
             for (J = 1; J <= M; J++) { // 430
                for (I = 1; I <= J; I++) { // 420
                   IROW = IROW + 1
-                  if ( IROW.GT.LDA ) {
+                  if ( IROW > LDA ) {
                      IROW = 1
                      ICOL = ICOL + 1
                   }
@@ -661,7 +661,7 @@
             for (J = 1; J <= M; J++) { // 450
                for (I = J; I <= M; I++) { // 440
                   IROW = IROW + 1
-                  if ( IROW.GT.LDA ) {
+                  if ( IROW > LDA ) {
                      IROW = 1
                      ICOL = ICOL + 1
                   }

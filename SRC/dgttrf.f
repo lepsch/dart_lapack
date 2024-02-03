@@ -75,7 +75,7 @@
             IPIV( I ) = I + 1
          }
       } // 30
-      if ( N.GT.1 ) {
+      if ( N > 1 ) {
          I = N - 1
          if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
             if ( D( I ) != ZERO ) {

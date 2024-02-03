@@ -63,7 +63,7 @@
 
          KP = N*( N+1 ) / 2
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 && AP( KP ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) RETURN
             KP = KP - INFO
          } // 10
       } else {
@@ -72,7 +72,7 @@
 
          KP = 1
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ).GT.0 && AP( KP ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) RETURN
             KP = KP + N - INFO + 1
          } // 20
       }
@@ -91,10 +91,10 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 50;
+         if (K > N) GO TO 50;
 
          KCNEXT = KC + K
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -104,7 +104,7 @@
 
             // Compute column K of the inverse.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                zcopy(K-1, AP( KC ), 1, WORK, 1 );
                zspmv(UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - ZDOTU( K-1, WORK, 1, AP( KC ), 1 );
             }
@@ -126,7 +126,7 @@
 
             // Compute columns K and K+1 of the inverse.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                zcopy(K-1, AP( KC ), 1, WORK, 1 );
                zspmv(UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - ZDOTU( K-1, WORK, 1, AP( KC ), 1 )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - ZDOTU( K-1, AP( KC ), 1, AP( KCNEXT ), 1 );
                zcopy(K-1, AP( KCNEXT ), 1, WORK, 1 );
@@ -183,7 +183,7 @@
          if (K < 1) GO TO 80;
 
          KCNEXT = KC - ( N-K+2 )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 

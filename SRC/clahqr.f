@@ -155,7 +155,7 @@
          } // 40
          } // 50
          L = K
-         if ( L.GT.ILO ) {
+         if ( L > ILO ) {
 
             // H(L,L-1) is negligible
 
@@ -200,7 +200,7 @@
                SX = CABS1( X )
                S = MAX( S, CABS1( X ) )
                Y = S*SQRT( ( X / S )**2+( U / S )**2 )
-               if ( SX.GT.RZERO ) {
+               if ( SX > RZERO ) {
                   IF( REAL( X / SX )*REAL( Y )+AIMAG( X / SX )* AIMAG( Y ) < RZERO )Y = -Y
                }
                T = T - U*CLADIV( U, ( X+Y ) )
@@ -254,9 +254,9 @@
             // V(2) is always real before the call to CLARFG, and hence
             // after the call T2 ( = T1*V(2) ) is also real.
 
-            if (K.GT.M) CALL CCOPY( 2, H( K, K-1 ), 1, V, 1 );
+            if (K > M) CALL CCOPY( 2, H( K, K-1 ), 1, V, 1 );
             clarfg(2, V( 1 ), V( 2 ), 1, T1 );
-            if ( K.GT.M ) {
+            if ( K > M ) {
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
             }
@@ -292,7 +292,7 @@
                } // 100
             }
 
-            if ( K == M && M.GT.L ) {
+            if ( K == M && M > L ) {
 
                // If the QR step was started at row M > L because two
                // consecutive small subdiagonals were found, then extra
@@ -305,7 +305,7 @@
                if (M+2.LE.I) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP;
                for (J = M; J <= I; J++) { // 110
                   if ( J != M+1 ) {
-                     if (I2.GT.J) CALL CSCAL( I2-J, TEMP, H( J, J+1 ), LDH );
+                     if (I2 > J) CALL CSCAL( I2-J, TEMP, H( J, J+1 ), LDH );
                      cscal(J-I1, CONJG( TEMP ), H( I1, J ), 1 );
                      if ( WANTZ ) {
                         cscal(NZ, CONJG( TEMP ), Z( ILOZ, J ), 1 );
@@ -322,7 +322,7 @@
             RTEMP = ABS( TEMP )
             H( I, I-1 ) = RTEMP
             TEMP = TEMP / RTEMP
-            if (I2.GT.I) CALL CSCAL( I2-I, CONJG( TEMP ), H( I, I+1 ), LDH );
+            if (I2 > I) CALL CSCAL( I2-I, CONJG( TEMP ), H( I, I+1 ), LDH );
             cscal(I-I1, TEMP, H( I1, I ), 1 );
             if ( WANTZ ) {
                cscal(NZ, TEMP, Z( ILOZ, I ), 1 );

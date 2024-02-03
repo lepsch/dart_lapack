@@ -65,7 +65,7 @@
          // Compute the LU factorization of A.
 
          ccopy(N, D, 1, DF, 1 );
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             ccopy(N-1, DL, 1, DLF, 1 );
             ccopy(N-1, DU, 1, DUF, 1 );
          }
@@ -73,7 +73,7 @@
 
          // Return if INFO is non-zero.
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             RCOND = ZERO
             RETURN
          }

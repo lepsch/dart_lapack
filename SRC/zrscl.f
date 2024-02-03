@@ -58,7 +58,7 @@
       } else if ( AR == ZERO ) {
          // If alpha has a zero real part, then we follow the same rules as if
          // alpha were real.
-         if ( ABSI.GT.SAFMAX ) {
+         if ( ABSI > SAFMAX ) {
             zdscal(N, SAFMIN, X, INCX );
             zscal(N, DCMPLX( ZERO, -SAFMAX / AI ), X, INCX );
          } else if ( ABSI < SAFMIN ) {
@@ -83,13 +83,13 @@
             // This means that both alphaR and alphaI are very small.
             zscal(N, DCMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX );
             zdscal(N, SAFMAX, X, INCX );
-         } else if ( (ABS( UR ).GT.SAFMAX) || (ABS( UI ).GT.SAFMAX) ) {
-            if ( (ABSR.GT.OV) || (ABSI.GT.OV) ) {
+         } else if ( (ABS( UR ) > SAFMAX) || (ABS( UI ) > SAFMAX) ) {
+            if ( (ABSR > OV) || (ABSI > OV) ) {
                // This means that a and b are both Inf. No need for scaling.
                zscal(N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX );
             } else {
                zdscal(N, SAFMIN, X, INCX );
-               if ( (ABS( UR ).GT.OV) || (ABS( UI ).GT.OV) ) {
+               if ( (ABS( UR ) > OV) || (ABS( UI ) > OV) ) {
                   // Infs were generated. We do proper scaling to avoid them.
                   if ( ABSR.GE.ABSI ) {
                      // ABS( UR ) <= ABS( UI )

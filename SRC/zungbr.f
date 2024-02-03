@@ -44,7 +44,7 @@
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
-      } else if ( N < 0 || ( WANTQ && ( N.GT.M || N < MIN( M, K ) ) ) || ( .NOT.WANTQ && ( M.GT.N || M < MIN( N, K ) ) ) ) {
+      } else if ( N < 0 || ( WANTQ && ( N > M || N < MIN( M, K ) ) ) || ( .NOT.WANTQ && ( M > N || M < MIN( N, K ) ) ) ) {
          INFO = -3
       } else if ( K < 0 ) {
          INFO = -4
@@ -60,7 +60,7 @@
             if ( M.GE.K ) {
                zungqr(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
             } else {
-               if ( M.GT.1 ) {
+               if ( M > 1 ) {
                   zungqr(M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO );
                }
             }
@@ -68,7 +68,7 @@
             if ( K < N ) {
                zunglq(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
             } else {
-               if ( N.GT.1 ) {
+               if ( N > 1 ) {
                   zunglq(N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO );
                }
             }
@@ -121,7 +121,7 @@
             for (I = 2; I <= M; I++) { // 30
                A( I, 1 ) = ZERO
             } // 30
-            if ( M.GT.1 ) {
+            if ( M > 1 ) {
 
                // Form Q(2:m,2:m)
 
@@ -157,7 +157,7 @@
                } // 50
                A( 1, J ) = ZERO
             } // 60
-            if ( N.GT.1 ) {
+            if ( N > 1 ) {
 
                // Form P**H(2:n,2:n)
 

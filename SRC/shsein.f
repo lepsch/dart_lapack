@@ -138,7 +138,7 @@
                } // 20
                } // 30
                KL = I
-               if ( K.GT.KR ) {
+               if ( K > KR ) {
                   for (I = K; I <= N - 1; I++) { // 40
                      IF( H( I+1, I ) == ZERO ) GO TO 50
                   } // 40
@@ -157,7 +157,7 @@
                if ( SISNAN( HNORM ) ) {
                   INFO = -6
                   RETURN
-               } else if ( HNORM.GT.ZERO ) {
+               } else if ( HNORM > ZERO ) {
                   EPS3 = HNORM*ULP
                } else {
                   EPS3 = SMLNUM
@@ -190,7 +190,7 @@
                // Compute left eigenvector.
 
                slaein( false , NOINIT, N-KL+1, H( KL, KL ), LDH, WKR, WKI, VL( KL, KSR ), VL( KL, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO );
-               if ( IINFO.GT.0 ) {
+               if ( IINFO > 0 ) {
                   if ( PAIR ) {
                      INFO = INFO + 2
                   } else {
@@ -216,7 +216,7 @@
                // Compute right eigenvector.
 
                slaein( true , NOINIT, KR, H, LDH, WKR, WKI, VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO );
-               if ( IINFO.GT.0 ) {
+               if ( IINFO > 0 ) {
                   if ( PAIR ) {
                      INFO = INFO + 2
                   } else {

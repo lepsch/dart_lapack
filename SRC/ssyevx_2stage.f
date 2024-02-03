@@ -64,11 +64,11 @@
          INFO = -6
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 && VU.LE.VL) INFO = -8;
+            if (N > 0 && VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -9
-            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU > N ) {
                INFO = -10
             }
          }
@@ -138,10 +138,10 @@
          VUU = VU
       }
       ANRM = SLANSY( 'M', UPLO, N, A, LDA, WORK )
-      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
+      if ( ANRM > ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      } else if ( ANRM.GT.RMAX ) {
+      } else if ( ANRM > RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
@@ -155,7 +155,7 @@
                sscal(J, SIGMA, A( 1, J ), 1 );
             } // 20
          }
-         if (ABSTOL.GT.0) ABSTLL = ABSTOL*SIGMA;
+         if (ABSTOL > 0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA

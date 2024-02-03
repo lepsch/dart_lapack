@@ -96,7 +96,7 @@
          VMAX = MAX( VMAX, ABS( SCALE( I )-SCALIN( I ) ) / TEMP )
       } // 60
 
-      if ( VMAX.GT.RMAX ) {
+      if ( VMAX > RMAX ) {
          LMAX( 3 ) = KNT
          RMAX = VMAX
       }

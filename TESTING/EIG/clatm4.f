@@ -127,7 +127,7 @@
 
          } // 140
          A( KBEG, KBEG ) = CONE
-         if ( KLEN.GT.1 ) {
+         if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) )
             for (I = 2; I <= KLEN; I++) { // 150
                A( NZ1+I, NZ1+I ) = CMPLX( ALPHA**REAL( I-1 ) )
@@ -139,7 +139,7 @@
 
          } // 160
          A( KBEG, KBEG ) = CONE
-         if ( KLEN.GT.1 ) {
+         if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 )
             for (I = 2; I <= KLEN; I++) { // 170
                A( NZ1+I, NZ1+I ) = CMPLX( REAL( KLEN-I )*ALPHA+RCOND )

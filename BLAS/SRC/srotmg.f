@@ -49,13 +49,13 @@
          SQ2 = SP2*SY1
          SQ1 = SP1*SX1
 
-         if (ABS(SQ1).GT.ABS(SQ2)) {
+         if (ABS(SQ1) > ABS(SQ2)) {
             SH21 = -SY1/SX1
             SH12 = SP2/SP1
 
             SU = ONE - SH12*SH21
 
-           if (SU.GT.ZERO) {
+           if (SU > ZERO) {
              SFLAG = ZERO
              SD1 = SD1/SU
              SD2 = SD2/SU

@@ -56,7 +56,7 @@
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
-      } else if ( K < 0 || K.GT.NQ ) {
+      } else if ( K < 0 || K > NQ ) {
          INFO = -5
       } else if ( LDA < MAX( 1, K ) ) {
          INFO = -7

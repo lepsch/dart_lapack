@@ -70,7 +70,7 @@
       }
 
       if ( INFO == 0 ) {
-         if ( M.GT.0 && N.GT.0 ) {
+         if ( M > 0 && N > 0 ) {
             if ( APPLYQ ) {
                if ( LEFT ) {
                   NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, M-1, N, M-1, -1 )
@@ -111,7 +111,7 @@
             // Q was determined by a call to ZGEBRD with nq >= k
 
             zunmqr(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
-         } else if ( NQ.GT.1 ) {
+         } else if ( NQ > 1 ) {
 
             // Q was determined by a call to ZGEBRD with nq < k
 
@@ -137,12 +137,12 @@
          } else {
             TRANST = 'N'
          }
-         if ( NQ.GT.K ) {
+         if ( NQ > K ) {
 
             // P was determined by a call to ZGEBRD with nq > k
 
             zunmlq(SIDE, TRANST, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
-         } else if ( NQ.GT.1 ) {
+         } else if ( NQ > 1 ) {
 
             // P was determined by a call to ZGEBRD with nq <= k
 

@@ -76,7 +76,7 @@
 
                   // Test DTPLQT and DTPMLQT
 
-                  if ( (NB.LE.M) && (NB.GT.0) ) {
+                  if ( (NB.LE.M) && (NB > 0) ) {
                      slqt05(M, N, L, NB, RESULT );
 
                      // Print information about the tests that did not

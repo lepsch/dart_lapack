@@ -206,7 +206,7 @@
          } // 90
 
          X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM )
-         if ( N.GT.2 ) {
+         if ( N > 2 ) {
             Y = SQRT( TWO / REAL( N-2 ) )*X
          } else {
             Y = ZERO
@@ -221,7 +221,7 @@
             JC = 1
             for (J = 2; J <= N; J++) { // 100
                A( JC+1 ) = Y
-               if (J.GT.2) A( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) A( JC+J-2 ) = WORK( N+J-3 );
+               if (J > 2) A( JC+J-1 ) = WORK( J-2 )                IF( J > 3 ) A( JC+J-2 ) = WORK( N+J-3 );
                JC = JC + J
             } // 100
             JC = JC - N
@@ -259,7 +259,7 @@
 
                // Multiply by [ c  s; -s  c] on the left.
 
-               if ( N.GT.J+1 ) {
+               if ( N > J+1 ) {
                   JX = JCNEXT + J
                   for (I = J + 2; I <= N; I++) { // 140
                      STEMP = C*A( JX+J ) + S*A( JX+J+1 )
@@ -271,7 +271,7 @@
 
                // Multiply by [-c -s;  s -c] on the right.
 
-               if (J.GT.1) CALL SROT( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S );
+               if (J > 1) CALL SROT( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -288,11 +288,11 @@
 
                // Multiply by [ c -s;  s  c] on the right.
 
-               if (N.GT.J+1) CALL SROT( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S );
+               if (N > J+1) CALL SROT( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S );
 
                // Multiply by [-c  s; -s -c] on the left.
 
-               if ( J.GT.1 ) {
+               if ( J > 1 ) {
                   JX = 1
                   for (I = 1; I <= J - 1; I++) { // 160
                      STEMP = -C*A( JX+J-I ) + S*A( JX+J-I+1 )
@@ -415,7 +415,7 @@
                   A( JC+J-1 ) = ONE
                }
                JCOUNT = JCOUNT + 1
-               if (JCOUNT.GT.4) JCOUNT = 1;
+               if (JCOUNT > 4) JCOUNT = 1;
                JC = JC - J + 1
             } // 250
          } else {
@@ -431,7 +431,7 @@
                   A( JC ) = ONE
                }
                JCOUNT = JCOUNT + 1
-               if (JCOUNT.GT.4) JCOUNT = 1;
+               if (JCOUNT > 4) JCOUNT = 1;
                JC = JC + N - J + 1
             } // 270
          }
@@ -467,7 +467,7 @@
                for (I = 1; I <= J - 2; I++) { // 300
                   A( JC+I-1 ) = ZERO
                } // 300
-               if (J.GT.1) A( JC+J-2 ) = -ONE;
+               if (J > 1) A( JC+J-2 ) = -ONE;
                A( JC+J-1 ) = TSCAL
                JC = JC + J
             } // 310

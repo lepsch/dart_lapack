@@ -126,7 +126,7 @@
          } // 30
          } // 40
          L = K
-         if ( L.GT.ILO ) {
+         if ( L > ILO ) {
 
             // H(L,L-1) is negligible
 
@@ -251,13 +251,13 @@
             // submatrix. NR is the order of G.
 
             NR = MIN( 3, I-K+1 )
-            if (K.GT.M) CALL DCOPY( NR, H( K, K-1 ), 1, V, 1 );
+            if (K > M) CALL DCOPY( NR, H( K, K-1 ), 1, V, 1 );
             dlarfg(NR, V( 1 ), V( 2 ), 1, T1 );
-            if ( K.GT.M ) {
+            if ( K > M ) {
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
                if (K < I-1) H( K+2, K-1 ) = ZERO;
-            } else if ( M.GT.L ) {
+            } else if ( M > L ) {
                 // ==== Use the following instead of
                 // .    H( K, K-1 ) = -H( K, K-1 ) to
                 // .    avoid a bug when v(2) and v(3)
@@ -362,7 +362,7 @@
 
             // Apply the transformation to the rest of H.
 
-            if (I2.GT.I) CALL DROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN );
+            if (I2 > I) CALL DROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN );
             drot(I-I1-1, H( I1, I-1 ), 1, H( I1, I ), 1, CS, SN );
          }
          if ( WANTZ ) {

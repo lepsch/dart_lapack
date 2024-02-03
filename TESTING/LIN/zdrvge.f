@@ -181,13 +181,13 @@
                      // with FACT = 'F').
 
                      zlacpy('Full', N, N, ASAV, LDA, AFAC, LDA );
-                     if ( EQUIL || IEQUED.GT.1 ) {
+                     if ( EQUIL || IEQUED > 1 ) {
 
                         // Compute row and column scale factors to
                         // equilibrate the matrix A.
 
                         zgeequ(N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
-                        if ( INFO == 0 && N.GT.0 ) {
+                        if ( INFO == 0 && N > 0 ) {
                            if ( LSAME( EQUED, 'R' ) ) {
                               ROWCND = ZERO
                               COLCND = ONE
@@ -322,7 +322,7 @@
 
                      if (.NOT.PREFAC) CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
-                     if ( IEQUED.GT.1 && N.GT.0 ) {
+                     if ( IEQUED > 1 && N > 0 ) {
 
                         // Equilibrate the matrix if FACT = 'F' and
                         // EQUED = 'R', 'C', or 'B'.

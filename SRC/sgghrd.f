@@ -76,7 +76,7 @@
          INFO = -3
       } else if ( ILO < 1 ) {
          INFO = -4
-      } else if ( IHI.GT.N || IHI < ILO-1 ) {
+      } else if ( IHI > N || IHI < ILO-1 ) {
          INFO = -5
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -7

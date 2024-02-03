@@ -91,7 +91,7 @@
          INFO = -18
       } else if ( LDLRE < 1 || LDLRE < NMAX ) {
          INFO = -20
-      } else if ( 5*NMAX+2*NMAX**2.GT.NWORK ) {
+      } else if ( 5*NMAX+2*NMAX**2 > NWORK ) {
          INFO = -23
       }
 
@@ -150,7 +150,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            if (MTYPES.GT.MAXTYP) GO TO 90;
+            if (MTYPES > MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -198,7 +198,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
+                  if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -314,16 +314,16 @@
                   TNRM = ONE
                   if ( WI( J ) == ZERO ) {
                      TNRM = SNRM2( N, VR( 1, J ), 1 )
-                  } else if ( WI( J ).GT.ZERO ) {
+                  } else if ( WI( J ) > ZERO ) {
                      TNRM = SLAPY2( SNRM2( N, VR( 1, J ), 1 ), SNRM2( N, VR( 1, J+1 ), 1 ) )
                   }
                   RESULT( 3 ) = MAX( RESULT( 3 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
-                  if ( WI( J ).GT.ZERO ) {
+                  if ( WI( J ) > ZERO ) {
                      VMX = ZERO
                      VRMX = ZERO
                      for (JJ = 1; JJ <= N; JJ++) { // 110
                         VTST = SLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
-                        if (VTST.GT.VMX) VMX = VTST                         IF( VR( JJ, J+1 ) == ZERO && ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) );
+                        if (VTST > VMX) VMX = VTST                         IF( VR( JJ, J+1 ) == ZERO && ABS( VR( JJ, J ) ) > VRMX ) VRMX = ABS( VR( JJ, J ) );
                      } // 110
                      if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
                   }
@@ -335,16 +335,16 @@
                   TNRM = ONE
                   if ( WI( J ) == ZERO ) {
                      TNRM = SNRM2( N, VL( 1, J ), 1 )
-                  } else if ( WI( J ).GT.ZERO ) {
+                  } else if ( WI( J ) > ZERO ) {
                      TNRM = SLAPY2( SNRM2( N, VL( 1, J ), 1 ), SNRM2( N, VL( 1, J+1 ), 1 ) )
                   }
                   RESULT( 4 ) = MAX( RESULT( 4 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
-                  if ( WI( J ).GT.ZERO ) {
+                  if ( WI( J ) > ZERO ) {
                      VMX = ZERO
                      VRMX = ZERO
                      for (JJ = 1; JJ <= N; JJ++) { // 130
                         VTST = SLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
-                        if (VTST.GT.VMX) VMX = VTST                         IF( VL( JJ, J+1 ) == ZERO && ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) );
+                        if (VTST > VMX) VMX = VTST                         IF( VL( JJ, J+1 ) == ZERO && ABS( VL( JJ, J ) ) > VRMX ) VRMX = ABS( VL( JJ, J ) );
                      } // 130
                      if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
                   }
@@ -427,7 +427,7 @@
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
                } // 230
 
-               if (NFAIL.GT.0) NTESTF = NTESTF + 1;
+               if (NFAIL > 0) NTESTF = NTESTF + 1;
                if ( NTESTF == 1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )

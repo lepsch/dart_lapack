@@ -34,7 +34,7 @@
 
       INFO = 0
 
-      if ( ( ICOMPQ < 0 ) || ( ICOMPQ.GT.1 ) ) {
+      if ( ( ICOMPQ < 0 ) || ( ICOMPQ > 1 ) ) {
          INFO = -1
       } else if ( SMLSIZ < 3 ) {
          INFO = -2

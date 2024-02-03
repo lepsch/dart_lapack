@@ -99,7 +99,7 @@
             // Compute elements j+1:j+km of the j-th row and update the
             // trailing submatrix within the band.
 
-            if ( KM.GT.0 ) {
+            if ( KM > 0 ) {
                sscal(KM, ONE / AJJ, AB( KD, J+1 ), KLD );
                ssyr('Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
             }
@@ -140,7 +140,7 @@
             // Compute elements j+1:j+km of the j-th column and update the
             // trailing submatrix within the band.
 
-            if ( KM.GT.0 ) {
+            if ( KM > 0 ) {
                sscal(KM, ONE / AJJ, AB( 2, J ), 1 );
                ssyr('Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }

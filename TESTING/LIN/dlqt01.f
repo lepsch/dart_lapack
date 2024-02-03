@@ -56,7 +56,7 @@
       // Copy details of Q
 
       dlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
-      if (N.GT.1) CALL DLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
+      if (N > 1) CALL DLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the n-by-n matrix Q
 
@@ -76,7 +76,7 @@
 
       ANORM = DLANGE( '1', M, N, A, LDA, RWORK )
       RESID = DLANGE( '1', M, N, L, LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO

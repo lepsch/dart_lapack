@@ -198,7 +198,7 @@
          // Now compute  b = 2.0**m  with the smallest positive integer m
          // such that
 
-            // fl( a + b ) .gt. a.
+            // fl( a + b ) > a.
 
          B = 1
          C = DLAMC3( A, B )
@@ -245,7 +245,7 @@
 
          T1 = DLAMC3( B / 2, A )
          T2 = DLAMC3( B / 2, SAVEC )
-         LIEEE1 = ( T1 == A ) && ( T2.GT.SAVEC ) && LRND
+         LIEEE1 = ( T1 == A ) && ( T2 > SAVEC ) && LRND
 
          // Now find  the  mantissa, t.  It should  be the  integer part of
          // log to the base beta of a,  however it is safer to determine  t
@@ -419,9 +419,9 @@
 
          LEPS = 1
 
-*+       WHILE( ( LEPS.GT.B ) && ( B.GT.ZERO ) )LOOP
+*+       WHILE( ( LEPS > B ) && ( B > ZERO ) )LOOP
          } // 10
-         if ( ( LEPS.GT.B ) && ( B.GT.ZERO ) ) {
+         if ( ( LEPS > B ) && ( B > ZERO ) ) {
             LEPS = B
             C = DLAMC3( HALF*LEPS, ( TWO**5 )*( LEPS**2 ) )
             C = DLAMC3( HALF, -C )
@@ -768,7 +768,7 @@
       // than or equal to EMIN. EXBITS is the number of bits needed to
       // store the exponent.
 
-      if ( ( UEXP+EMIN ).GT.( -LEXP-EMIN ) ) {
+      if ( ( UEXP+EMIN ) > ( -LEXP-EMIN ) ) {
          EXPSUM = 2*LEXP
       } else {
          EXPSUM = 2*UEXP

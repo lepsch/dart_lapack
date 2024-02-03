@@ -500,7 +500,7 @@
 
                   // (1) Compute B:=Q**T * B in the matrix B.
 
-                  if ( MINMN.GT.0 ) {
+                  if ( MINMN > 0 ) {
 
                      LWORK_MQR = MAX(1, NRHS)
                      sormqr('Left', 'Transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO );

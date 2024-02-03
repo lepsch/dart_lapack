@@ -44,7 +44,7 @@
          INFO = -1
       } else if ( N < M ) {
          INFO = -2
-      } else if ( K < 0 || K.GT.M ) {
+      } else if ( K < 0 || K > M ) {
          INFO = -3
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
@@ -68,7 +68,7 @@
       NBMIN = 2
       NX = 0
       IWS = M
-      if ( NB.GT.1 && NB < K ) {
+      if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -113,7 +113,7 @@
 
       if (KK < M) CALL DORGL2( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO );
 
-      if ( KK.GT.0 ) {
+      if ( KK > 0 ) {
 
          // Use blocked code
 

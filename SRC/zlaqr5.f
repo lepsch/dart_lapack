@@ -280,7 +280,7 @@
                      T3 = T1*VT( 3 )
                      REFSUM = H( K+1, K )+DCONJG( VT( 2 ) )*H( K+2, K )
 
-                     if ( CABS1( H( K+2, K )-REFSUM*T2 )+ CABS1( REFSUM*T3 ).GT.ULP* ( CABS1( H( K, K ) )+CABS1( H( K+1, K+1 ) )+CABS1( H( K+2, K+2 ) ) ) ) {
+                     if ( CABS1( H( K+2, K )-REFSUM*T2 )+ CABS1( REFSUM*T3 ) > ULP* ( CABS1( H( K, K ) )+CABS1( H( K+1, K+1 ) )+CABS1( H( K+2, K+2 ) ) ) ) {
 
                         // ==== Starting a new bulge here would
                         // .    create non-negligible fill.  Use

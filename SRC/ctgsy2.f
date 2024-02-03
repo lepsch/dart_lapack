@@ -50,7 +50,7 @@
       if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
-         if ( ( IJOB < 0 ) || ( IJOB.GT.2 ) ) {
+         if ( ( IJOB < 0 ) || ( IJOB > 2 ) ) {
             INFO = -2
          }
       }
@@ -105,7 +105,7 @@
                // Solve Z * x = RHS
 
                cgetc2(LDZ, Z, LDZ, IPIV, JPIV, IERR );
-               if (IERR.GT.0) INFO = IERR;
+               if (IERR > 0) INFO = IERR;
                if ( IJOB == 0 ) {
                   cgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC != ONE ) {
@@ -126,7 +126,7 @@
 
                // Substitute R(I, J) and L(I, J) into remaining equation.
 
-               if ( I.GT.1 ) {
+               if ( I > 1 ) {
                   ALPHA = -RHS( 1 )
                   caxpy(I-1, ALPHA, A( 1, I ), 1, C( 1, J ), 1 );
                   caxpy(I-1, ALPHA, D( 1, I ), 1, F( 1, J ), 1 );
@@ -166,7 +166,7 @@
                // Solve Z**H * x = RHS
 
                cgetc2(LDZ, Z, LDZ, IPIV, JPIV, IERR );
-               if (IERR.GT.0) INFO = IERR;
+               if (IERR > 0) INFO = IERR;
                cgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                if ( SCALOC != ONE ) {
                   for (K = 1; K <= N; K++) { // 40

@@ -59,7 +59,7 @@
                clacgv(N-I, A( I, I+1 ), LDA );
                A( I, I ) = REAL( A( I, I ) )
             }
-            if ( I.GT.1 ) {
+            if ( I > 1 ) {
 
                // Generate elementary reflector H(i) to annihilate
                // A(1:i-2,i)

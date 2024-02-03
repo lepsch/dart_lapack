@@ -97,7 +97,7 @@
 
       for (IN = 1; IN <= NN; IN++) { // 180
          N = NVAL( IN )
-         if ( N .GT. NMAX ) {
+         if ( N > NMAX ) {
             NFAIL = NFAIL + 1
             WRITE(NOUT, 9995) 'M ', N, NMAX
             GO TO 180
@@ -255,7 +255,7 @@
                   // Adjust the expected value of INFO to account for
                   // pivoting.
 
-                  if ( IZERO.GT.0 ) {
+                  if ( IZERO > 0 ) {
                      J = 1
                      K = IZERO
                      } // 100

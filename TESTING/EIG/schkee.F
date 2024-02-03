@@ -230,7 +230,7 @@ void main() {
          WRITE( NOUT, FMT = 9989 )'   NN ', NN, 1
          NN = 0
          FATAL = true;
-      } else if ( NN.GT.MAXIN ) {
+      } else if ( NN > MAXIN ) {
          WRITE( NOUT, FMT = 9988 )'   NN ', NN, MAXIN
          NN = 0
          FATAL = true;
@@ -249,7 +249,7 @@ void main() {
             if ( MVAL( I ) < 0 ) {
                WRITE( NOUT, FMT = 9989 )VNAME, MVAL( I ), 0
                FATAL = true;
-            } else if ( MVAL( I ).GT.NMAX ) {
+            } else if ( MVAL( I ) > NMAX ) {
                WRITE( NOUT, FMT = 9988 )VNAME, MVAL( I ), NMAX
                FATAL = true;
             }
@@ -265,7 +265,7 @@ void main() {
             if ( PVAL( I ) < 0 ) {
                WRITE( NOUT, FMT = 9989 )' P  ', PVAL( I ), 0
                FATAL = true;
-            } else if ( PVAL( I ).GT.NMAX ) {
+            } else if ( PVAL( I ) > NMAX ) {
                WRITE( NOUT, FMT = 9988 )' P  ', PVAL( I ), NMAX
                FATAL = true;
             }
@@ -281,7 +281,7 @@ void main() {
             if ( NVAL( I ) < 0 ) {
                WRITE( NOUT, FMT = 9989 )'    N ', NVAL( I ), 0
                FATAL = true;
-            } else if ( NVAL( I ).GT.NMAX ) {
+            } else if ( NVAL( I ) > NMAX ) {
                WRITE( NOUT, FMT = 9988 )'    N ', NVAL( I ), NMAX
                FATAL = true;
             }
@@ -306,7 +306,7 @@ void main() {
             if ( KVAL( I ) < 0 ) {
                WRITE( NOUT, FMT = 9989 )'    K ', KVAL( I ), 0
                FATAL = true;
-            } else if ( KVAL( I ).GT.NMAX ) {
+            } else if ( KVAL( I ) > NMAX ) {
                WRITE( NOUT, FMT = 9988 )'    K ', KVAL( I ), NMAX
                FATAL = true;
             }
@@ -405,7 +405,7 @@ void main() {
             WRITE( NOUT, FMT = 9989 )'NPARMS', NPARMS, 1
             NPARMS = 0
             FATAL = true;
-         } else if ( NPARMS.GT.MAXIN ) {
+         } else if ( NPARMS > MAXIN ) {
             WRITE( NOUT, FMT = 9988 )'NPARMS', NPARMS, MAXIN
             NPARMS = 0
             FATAL = true;
@@ -419,7 +419,7 @@ void main() {
                if ( NBVAL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( I ), 0
                   FATAL = true;
-               } else if ( NBVAL( I ).GT.NMAX ) {
+               } else if ( NBVAL( I ) > NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'   NB ', NBVAL( I ), NMAX
                   FATAL = true;
                }
@@ -435,7 +435,7 @@ void main() {
                if ( NBMIN( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( I ), 0
                   FATAL = true;
-               } else if ( NBMIN( I ).GT.NMAX ) {
+               } else if ( NBMIN( I ) > NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'NBMIN ', NBMIN( I ), NMAX
                   FATAL = true;
                }
@@ -455,7 +455,7 @@ void main() {
                if ( NXVAL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( I ), 0
                   FATAL = true;
-               } else if ( NXVAL( I ).GT.NMAX ) {
+               } else if ( NXVAL( I ) > NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'   NX ', NXVAL( I ), NMAX
                   FATAL = true;
                }
@@ -476,7 +476,7 @@ void main() {
                if ( NSVAL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( I ), 0
                   FATAL = true;
-               } else if ( NSVAL( I ).GT.NMAX ) {
+               } else if ( NSVAL( I ) > NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'   NS ', NSVAL( I ), NMAX
                   FATAL = true;
                }
@@ -496,7 +496,7 @@ void main() {
                if ( MXBVAL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( I ), 0
                   FATAL = true;
-               } else if ( MXBVAL( I ).GT.NMAX ) {
+               } else if ( MXBVAL( I ) > NMAX ) {
                   WRITE( NOUT, FMT = 9988 )' MAXB ', MXBVAL( I ), NMAX
                   FATAL = true;
                }
@@ -601,7 +601,7 @@ void main() {
                if ( NBCOL( I ) < 0 ) {
                   WRITE( NOUT, FMT = 9989 )'NBCOL ', NBCOL( I ), 0
                   FATAL = true;
-               } else if ( NBCOL( I ).GT.NMAX ) {
+               } else if ( NBCOL( I ) > NMAX ) {
                   WRITE( NOUT, FMT = 9988 )'NBCOL ', NBCOL( I ), NMAX
                   FATAL = true;
                }
@@ -678,8 +678,8 @@ void main() {
          I1 = 0
          } // 210
          I = I + 1
-         if ( I.GT.LENP ) {
-            if ( I1.GT.0 ) {
+         if ( I > LENP ) {
+            if ( I1 > 0 ) {
                GO TO 240
             } else {
                NTYPES = MAXT
@@ -703,7 +703,7 @@ void main() {
             } // 230
             ITMP = 10*ITMP + IC
             GO TO 210
-         } else if ( I1.GT.0 ) {
+         } else if ( I1 > 0 ) {
             GO TO 240
          } else {
             GO TO 210

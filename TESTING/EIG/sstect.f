@@ -77,7 +77,7 @@
       if ( U.LE.SUN ) {
          if ( U.LE.ZERO ) {
             NUM = NUM + 1
-            if (U.GT.-SUN) U = -SUN;
+            if (U > -SUN) U = -SUN;
          } else {
             U = SUN
          }
@@ -88,7 +88,7 @@
          if ( U.LE.SUN ) {
             if ( U.LE.ZERO ) {
                NUM = NUM + 1
-               if (U.GT.-SUN) U = -SUN;
+               if (U > -SUN) U = -SUN;
             } else {
                U = SUN
             }

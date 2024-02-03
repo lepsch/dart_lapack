@@ -153,7 +153,7 @@
 
       } // 140
       TEMP = TWO*( DASUM( N, X, 1 ) / DBLE( 3*N ) )
-      if ( TEMP.GT.EST ) {
+      if ( TEMP > EST ) {
          dcopy(N, X, 1, V, 1 );
          EST = TEMP
       }

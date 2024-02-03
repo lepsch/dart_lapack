@@ -42,7 +42,7 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( P < 0 || P.GT.N || P < N-M ) {
+      } else if ( P < 0 || P > N || P < N-M ) {
          INFO = -3
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5
@@ -103,10 +103,10 @@
 
       // Solve T12*x2 = d for x2
 
-      if ( P.GT.0 ) {
+      if ( P > 0 ) {
          ztrtrs('Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO );
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             INFO = 1
             RETURN
          }
@@ -122,10 +122,10 @@
 
       // Solve R11*x1 = c1 for x1
 
-      if ( N.GT.P ) {
+      if ( N > P ) {
          ztrtrs('Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO );
 
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             INFO = 2
             RETURN
          }
@@ -139,11 +139,11 @@
 
       if ( M < N ) {
          NR = M + P - N
-         if (NR.GT.0) CALL ZGEMV( 'No transpose', NR, N-M, -CONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, CONE, C( N-P+1 ), 1 );
+         if (NR > 0) CALL ZGEMV( 'No transpose', NR, N-M, -CONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, CONE, C( N-P+1 ), 1 );
       } else {
          NR = P
       }
-      if ( NR.GT.0 ) {
+      if ( NR > 0 ) {
          ztrmv('Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 );
          zaxpy(NR, -CONE, D, 1, C( N-P+1 ), 1 );
       }

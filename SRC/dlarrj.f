@@ -78,7 +78,7 @@
             PREV = I
             // Make sure that [LEFT,RIGHT] contains the desired eigenvalue
 
-            // Do while( CNT(LEFT).GT.I-1 )
+            // Do while( CNT(LEFT) > I-1 )
 
             FAC = ONE
             } // 20
@@ -90,7 +90,7 @@
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
                if (DPLUS < ZERO) CNT = CNT + 1;
             } // 30
-            if ( CNT.GT.I-1 ) {
+            if ( CNT > I-1 ) {
                LEFT = LEFT - WERR( II )*FAC
                FAC = TWO*FAC
                GO TO 20
@@ -124,7 +124,7 @@
 
       SAVI1 = I1
 
-      // Do while( NINT.GT.0 ), i.e. there are still unconverged intervals
+      // Do while( NINT > 0 ), i.e. there are still unconverged intervals
       // and while (ITER < MAXITR)
 
       ITER = 0
@@ -182,7 +182,7 @@
       // do another loop if there are still unconverged intervals
       // However, in the last iteration, all intervals are accepted
       // since this is the best we can do.
-      IF( ( NINT.GT.0 ) && (ITER.LE.MAXITR) ) GO TO 80
+      IF( ( NINT > 0 ) && (ITER.LE.MAXITR) ) GO TO 80
 
 
       // At this point, all the intervals have converged

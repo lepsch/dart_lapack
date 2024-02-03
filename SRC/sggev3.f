@@ -136,10 +136,10 @@
 
       ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ANRMTO = BIGNUM
          ILASCL = true;
       }
@@ -149,10 +149,10 @@
 
       BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
          BNRMTO = BIGNUM
          ILBSCL = true;
       }
@@ -185,7 +185,7 @@
 
       if ( ILVL ) {
          slaset('Full', N, N, ZERO, ONE, VL, LDVL );
-         if ( IROWS.GT.1 ) {
+         if ( IROWS > 1 ) {
             slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          }
          sorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
@@ -217,9 +217,9 @@
       }
       slaqz0(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR );
       if ( IERR != 0 ) {
-         if ( IERR.GT.0 && IERR.LE.N ) {
+         if ( IERR > 0 && IERR.LE.N ) {
             INFO = IERR
-         } else if ( IERR.GT.N && IERR.LE.2*N ) {
+         } else if ( IERR > N && IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1

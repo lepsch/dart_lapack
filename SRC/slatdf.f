@@ -62,9 +62,9 @@
             SPLUS = SPLUS + SDOT( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 )
             SMINU = SDOT( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 )
             SPLUS = SPLUS*RHS( J )
-            if ( SPLUS.GT.SMINU ) {
+            if ( SPLUS > SMINU ) {
                RHS( J ) = BP
-            } else if ( SMINU.GT.SPLUS ) {
+            } else if ( SMINU > SPLUS ) {
                RHS( J ) = BM
             } else {
 
@@ -106,7 +106,7 @@
             SPLUS = SPLUS + ABS( XP( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
          } // 30
-         if (SPLUS.GT.SMINU) CALL SCOPY( N, XP, 1, RHS, 1 );
+         if (SPLUS > SMINU) CALL SCOPY( N, XP, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
@@ -133,7 +133,7 @@
          saxpy(N, -ONE, XM, 1, RHS, 1 );
          sgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
          sgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
-         IF( SASUM( N, XP, 1 ).GT.SASUM( N, RHS, 1 ) ) CALL SCOPY( N, XP, 1, RHS, 1 )
+         IF( SASUM( N, XP, 1 ) > SASUM( N, RHS, 1 ) ) CALL SCOPY( N, XP, 1, RHS, 1 )
 
          // Compute the sum of squares
 

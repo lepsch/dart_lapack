@@ -100,7 +100,7 @@
          INFO = -21
       } else if ( LDC < NMAX ) {
          INFO = -23
-      } else if ( ( MAX( LDA, NMAX )+1 )*NMAX.GT.LWORK ) {
+      } else if ( ( MAX( LDA, NMAX )+1 )*NMAX > LWORK ) {
          INFO = -26
       }
 
@@ -169,7 +169,7 @@
                // =8                      (none)
                // =9                      random nonhermitian
 
-               if (MTYPES.GT.MAXTYP) GO TO 90;
+               if (MTYPES > MAXTYP) GO TO 90;
 
                ITYPE = KTYPE( JTYPE )
                IMODE = KMODE( JTYPE )

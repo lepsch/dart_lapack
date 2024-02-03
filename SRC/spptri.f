@@ -54,7 +54,7 @@
       // Invert the triangular Cholesky factor U or L.
 
       stptri(UPLO, 'Non-unit', N, AP, INFO );
-      if (INFO.GT.0) RETURN;
+      if (INFO > 0) RETURN;
 
       if ( UPPER ) {
 
@@ -64,7 +64,7 @@
          for (J = 1; J <= N; J++) { // 10
             JC = JJ + 1
             JJ = JJ + J
-            if (J.GT.1) CALL SSPR( 'Upper', J-1, ONE, AP( JC ), 1, AP );
+            if (J > 1) CALL SSPR( 'Upper', J-1, ONE, AP( JC ), 1, AP );
             AJJ = AP( JJ )
             sscal(J, AJJ, AP( JC ), 1 );
          } // 10

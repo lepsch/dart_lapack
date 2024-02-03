@@ -86,7 +86,7 @@
       KDN = MIN( N-1, KD )
       if ( UPPER ) {
 
-         if ( KD.GT.1 ) {
+         if ( KD > 1 ) {
 
             // Reduce to complex Hermitian tridiagonal form, working with
             // the upper triangle
@@ -104,7 +104,7 @@
                   J1 = J1 + KDN
                   J2 = J2 + KDN
 
-                  if ( NR.GT.0 ) {
+                  if ( NR > 0 ) {
 
                      // generate plane rotations to annihilate nonzero
                      // elements which have been created outside the band
@@ -131,7 +131,7 @@
                   }
 
 
-                  if ( K.GT.2 ) {
+                  if ( K > 2 ) {
                      if ( K.LE.N-I+1 ) {
 
                         // generate plane rotation to annihilate a(i,i+k-1)
@@ -151,11 +151,11 @@
                   // apply plane rotations from both sides to diagonal
                   // blocks
 
-                  if (NR.GT.0) CALL ZLAR2V( NR, AB( KD1, J1-1 ), AB( KD1, J1 ), AB( KD, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
+                  if (NR > 0) CALL ZLAR2V( NR, AB( KD1, J1-1 ), AB( KD1, J1 ), AB( KD, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
 
                   // apply plane rotations from the left
 
-                  if ( NR.GT.0 ) {
+                  if ( NR > 0 ) {
                      zlacgv(NR, WORK( J1 ), KD1 );
                      if ( 2*KD-1 < NR ) {
 
@@ -163,12 +163,12 @@
                      // ZLARTV or ZROT is used
 
                         for (L = 1; L <= KD - 1; L++) { // 30
-                           if ( J2+L.GT.N ) {
+                           if ( J2+L > N ) {
                               NRT = NR - 1
                            } else {
                               NRT = NR
                            }
-                           if (NRT.GT.0) CALL ZLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
+                           if (NRT > 0) CALL ZLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 30
                      } else {
                         J1END = J1 + KD1*( NR-2 )
@@ -179,7 +179,7 @@
                         }
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
-                        if (LEND.GT.0) CALL ZROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) );
+                        if (LEND > 0) CALL ZROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) );
                      }
                   }
 
@@ -214,7 +214,7 @@
 
                   }
 
-                  if ( J2+KDN.GT.N ) {
+                  if ( J2+KDN > N ) {
 
                      // adjust J2 to keep within the bounds of the matrix
 
@@ -234,7 +234,7 @@
             } // 90
          }
 
-         if ( KD.GT.0 ) {
+         if ( KD > 0 ) {
 
             // make off-diagonal elements real and copy them to E
 
@@ -270,7 +270,7 @@
 
       } else {
 
-         if ( KD.GT.1 ) {
+         if ( KD > 1 ) {
 
             // Reduce to complex Hermitian tridiagonal form, working with
             // the lower triangle
@@ -288,7 +288,7 @@
                   J1 = J1 + KDN
                   J2 = J2 + KDN
 
-                  if ( NR.GT.0 ) {
+                  if ( NR > 0 ) {
 
                      // generate plane rotations to annihilate nonzero
                      // elements which have been created outside the band
@@ -301,7 +301,7 @@
                      // Dependent on the the number of diagonals either
                      // ZLARTV or ZROT is used
 
-                     if ( NR.GT.2*KD-1 ) {
+                     if ( NR > 2*KD-1 ) {
                         for (L = 1; L <= KD - 1; L++) { // 130
                            zlartv(NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 130
@@ -314,7 +314,7 @@
 
                   }
 
-                  if ( K.GT.2 ) {
+                  if ( K > 2 ) {
                      if ( K.LE.N-I+1 ) {
 
                         // generate plane rotation to annihilate a(i+k-1,i)
@@ -334,7 +334,7 @@
                   // apply plane rotations from both sides to diagonal
                   // blocks
 
-                  if (NR.GT.0) CALL ZLAR2V( NR, AB( 1, J1-1 ), AB( 1, J1 ), AB( 2, J1-1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
+                  if (NR > 0) CALL ZLAR2V( NR, AB( 1, J1-1 ), AB( 1, J1 ), AB( 2, J1-1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
 
                   // apply plane rotations from the right
 
@@ -342,16 +342,16 @@
                      // Dependent on the the number of diagonals either
                      // ZLARTV or ZROT is used
 
-                  if ( NR.GT.0 ) {
+                  if ( NR > 0 ) {
                      zlacgv(NR, WORK( J1 ), KD1 );
-                     if ( NR.GT.2*KD-1 ) {
+                     if ( NR > 2*KD-1 ) {
                         for (L = 1; L <= KD - 1; L++) { // 150
-                           if ( J2+L.GT.N ) {
+                           if ( J2+L > N ) {
                               NRT = NR - 1
                            } else {
                               NRT = NR
                            }
-                           if (NRT.GT.0) CALL ZLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
+                           if (NRT > 0) CALL ZLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 150
                      } else {
                         J1END = J1 + KD1*( NR-2 )
@@ -362,7 +362,7 @@
                         }
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
-                        if (LEND.GT.0) CALL ZROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) );
+                        if (LEND > 0) CALL ZROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) );
                      }
                   }
 
@@ -398,7 +398,7 @@
                      }
                   }
 
-                  if ( J2+KDN.GT.N ) {
+                  if ( J2+KDN > N ) {
 
                      // adjust J2 to keep within the bounds of the matrix
 
@@ -418,7 +418,7 @@
             } // 210
          }
 
-         if ( KD.GT.0 ) {
+         if ( KD > 0 ) {
 
             // make off-diagonal elements real and copy them to E
 

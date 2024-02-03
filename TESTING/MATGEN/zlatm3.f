@@ -50,7 +50,7 @@
 
       // Check for I and J in range
 
-      if ( I < 1 || I.GT.M || J < 1 || J.GT.N ) {
+      if ( I < 1 || I > M || J < 1 || J > N ) {
          ISUB = I
          JSUB = J
          ZLATM3 = CZERO
@@ -75,14 +75,14 @@
 
       // Check for banding
 
-      if ( JSUB.GT.ISUB+KU || JSUB < ISUB-KL ) {
+      if ( JSUB > ISUB+KU || JSUB < ISUB-KL ) {
          ZLATM3 = CZERO
          RETURN
       }
 
       // Check for sparsity
 
-      if ( SPARSE.GT.ZERO ) {
+      if ( SPARSE > ZERO ) {
          if ( DLARAN( ISEED ) < SPARSE ) {
             ZLATM3 = CZERO
             RETURN

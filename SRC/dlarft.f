@@ -81,7 +81,7 @@
 
                dtrmv('Upper', 'No transpose', 'Non-unit', I-1, T, LDT, T( 1, I ), 1 );
                T( I, I ) = TAU( I )
-               if ( I.GT.1 ) {
+               if ( I > 1 ) {
                   PREVLASTV = MAX( PREVLASTV, LASTV )
                } else {
                   PREVLASTV = LASTV
@@ -134,7 +134,7 @@
                   // T(i+1:k,i) := T(i+1:k,i+1:k) * T(i+1:k,i)
 
                   dtrmv('Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 );
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      PREVLASTV = MIN( PREVLASTV, LASTV )
                   } else {
                      PREVLASTV = LASTV

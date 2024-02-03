@@ -72,14 +72,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == CZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == CZERO ) RETURN
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
-            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == CZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == CZERO ) RETURN
          }
       }
 
@@ -110,7 +110,7 @@
 
          K = 1
          DO WHILE( K.LE.N )
-            if ( IPIV( K ).GT.0 ) {
+            if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
                WORK( K, INVD ) = ONE / DBLE( A( K, K ) )
                WORK( K, INVD+1 ) = CZERO
@@ -135,7 +135,7 @@
          // inv(U**H) * inv(D) * inv(U)
 
          CUT = N
-         DO WHILE( CUT.GT.0 )
+         DO WHILE( CUT > 0 )
             NNB = NB
             if ( CUT.LE.NNB ) {
                NNB = CUT
@@ -175,7 +175,7 @@
 
             I = 1
             DO WHILE( I.LE.CUT )
-               if ( IPIV( I ).GT.0 ) {
+               if ( IPIV( I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK( I, J ) = WORK( I, INVD ) * WORK( I, J )
                   }
@@ -194,7 +194,7 @@
 
             I = 1
             DO WHILE ( I.LE.NNB )
-               if ( IPIV( CUT+I ).GT.0 ) {
+               if ( IPIV( CUT+I ) > 0 ) {
                   for (J = I; J <= NNB; J++) {
                      WORK( U11+I, J ) = WORK(CUT+I,INVD) * WORK(U11+I,J)
                   }
@@ -264,7 +264,7 @@
              IP = ABS( IPIV( I ) )
              if ( IP != I ) {
                 if (I < IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP );
-                if (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
+                if (I > IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
              }
          }
 
@@ -280,7 +280,7 @@
 
          K = N
          DO WHILE ( K .GE. 1 )
-            if ( IPIV( K ).GT.0 ) {
+            if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
                WORK( K, INVD ) = ONE / DBLE( A( K, K ) )
                WORK( K, INVD+1 ) = CZERO
@@ -307,7 +307,7 @@
          CUT = 0
          DO WHILE( CUT < N )
             NNB = NB
-            if ( (CUT + NNB).GT.N ) {
+            if ( (CUT + NNB) > N ) {
                NNB = N - CUT
             } else {
                ICOUNT = 0
@@ -343,7 +343,7 @@
 
             I = N-CUT-NNB
             DO WHILE( I.GE.1 )
-               if ( IPIV( CUT+NNB+I ).GT.0 ) {
+               if ( IPIV( CUT+NNB+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK( I, J ) = WORK( CUT+NNB+I, INVD) * WORK( I, J)
                   }
@@ -362,7 +362,7 @@
 
             I = NNB
             DO WHILE( I.GE.1 )
-               if ( IPIV( CUT+I ).GT.0 ) {
+               if ( IPIV( CUT+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK( U11+I, J ) = WORK( CUT+I, INVD)*WORK(U11+I,J)
                   }
@@ -448,7 +448,7 @@
              IP = ABS( IPIV( I ) )
              if ( IP != I ) {
                 if (I < IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP );
-                if (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
+                if (I > IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
              }
          }
 

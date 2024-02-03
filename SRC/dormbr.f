@@ -108,7 +108,7 @@
             // Q was determined by a call to DGEBRD with nq >= k
 
             dormqr(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
-         } else if ( NQ.GT.1 ) {
+         } else if ( NQ > 1 ) {
 
             // Q was determined by a call to DGEBRD with nq < k
 
@@ -134,12 +134,12 @@
          } else {
             TRANST = 'N'
          }
-         if ( NQ.GT.K ) {
+         if ( NQ > K ) {
 
             // P was determined by a call to DGEBRD with nq > k
 
             dormlq(SIDE, TRANST, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
-         } else if ( NQ.GT.1 ) {
+         } else if ( NQ > 1 ) {
 
             // P was determined by a call to DGEBRD with nq <= k
 

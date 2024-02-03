@@ -215,7 +215,7 @@
 
       HUGEVAL = DLAMCH( 'Overflow' )
 
-      if ( MAXC2NRM.GT.HUGEVAL ) {
+      if ( MAXC2NRM > HUGEVAL ) {
 
          // Check if the matrix A contains +Inf or -Inf, set INFO parameter
          // to the column number, where the first +/-Inf  is found plus N,
@@ -295,7 +295,7 @@
       NBMIN = 2
       NX = 0
 
-      if ( ( NB.GT.1 ) && ( NB < MINMN ) ) {
+      if ( ( NB > 1 ) && ( NB < MINMN ) ) {
 
          // Determine when to cross over from blocked to unblocked code.
          // (for N less than NX, unblocked code should be used).
@@ -339,7 +339,7 @@
 
       JMAXB = MIN( KMAX, MINMN - NX )
 
-      if ( NB.GE.NBMIN && NB < JMAX && JMAXB.GT.0 ) {
+      if ( NB.GE.NBMIN && NB < JMAX && JMAXB > 0 ) {
 
          // Loop over the column blocks of the matrix A(1:M,1:JMAXB). Here:
          // J   is the column index of a column block;
@@ -363,7 +363,7 @@
 
             // Set INFO on the first occurence of Inf.
 
-            if ( IINFO.GT.N_SUB && INFO == 0 ) {
+            if ( IINFO > N_SUB && INFO == 0 ) {
                INFO = 2*IOFFSET + IINFO
             }
 
@@ -387,7 +387,7 @@
                // Set INFO on the first occurrence of NaN, NaN takes
                // prcedence over Inf.
 
-               if ( IINFO.LE.N_SUB && IINFO.GT.0 ) {
+               if ( IINFO.LE.N_SUB && IINFO > 0 ) {
                   INFO = IOFFSET + IINFO
                }
 
@@ -437,9 +437,9 @@
          // Set INFO on the first exception occurence of Inf or NaN,
          // (NaN takes precedence over Inf).
 
-         if ( IINFO.GT.N_SUB && INFO == 0 ) {
+         if ( IINFO > N_SUB && INFO == 0 ) {
             INFO = 2*IOFFSET + IINFO
-         } else if ( IINFO.LE.N_SUB && IINFO.GT.0 ) {
+         } else if ( IINFO.LE.N_SUB && IINFO > 0 ) {
             INFO = IOFFSET + IINFO
          }
 

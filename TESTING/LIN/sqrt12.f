@@ -70,13 +70,13 @@
 
       ANRM = SLANGE( 'M', M, N, WORK, M, DUMMY )
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          slascl('G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO );
          ISCL = 1
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
@@ -92,7 +92,7 @@
          sbdsqr('Upper', MN, 0, 0, 0, WORK( M*N+1 ), WORK( M*N+MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, WORK( M*N+2*MN+1 ), INFO );
 
          if ( ISCL == 1 ) {
-            if ( ANRM.GT.BIGNUM ) {
+            if ( ANRM > BIGNUM ) {
                slascl('G', 0, 0, BIGNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO );
             }
             if ( ANRM < SMLNUM ) {

@@ -190,7 +190,7 @@
                  // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
                // (Cf. the linear solver testing routines)
 
-               if ((THRESH.LE.0.0E+00) || ((ITER.GE.0) && (N.GT.0) && (RESULT(1).GE.SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1).GE.THRESH))) {
+               if ((THRESH.LE.0.0E+00) || ((ITER.GE.0) && (N > 0) && (RESULT(1).GE.SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1).GE.THRESH))) {
 
                   if ( NFAIL == 0 && NERRS == 0 ) {
                      WRITE( NOUT, FMT = 8999 )'DGE'
@@ -211,12 +211,12 @@
 
       // Print a summary of the results.
 
-      if ( NFAIL.GT.0 ) {
+      if ( NFAIL > 0 ) {
          WRITE( NOUT, FMT = 9996 )'ZCGESV', NFAIL, NRUN
       } else {
          WRITE( NOUT, FMT = 9995 )'ZCGESV', NRUN
       }
-      if ( NERRS.GT.0 ) {
+      if ( NERRS > 0 ) {
          WRITE( NOUT, FMT = 9994 )NERRS
       }
 

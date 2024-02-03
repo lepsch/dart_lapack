@@ -69,7 +69,7 @@
 
             I = N
             E( 1 ) = ZERO
-            DO WHILE ( I.GT.1 )
+            DO WHILE ( I > 1 )
                if ( IPIV( I ) < 0 ) {
                   E( I ) = A( I-1, I )
                   E( I-1 ) = ZERO
@@ -88,7 +88,7 @@
 
             I = N
             DO WHILE ( I.GE.1 )
-               if ( IPIV( I ).GT.0 ) {
+               if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
 
@@ -136,7 +136,7 @@
 
             I = 1
             DO WHILE ( I.LE.N )
-               if ( IPIV( I ).GT.0 ) {
+               if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
 
@@ -177,7 +177,7 @@
             // superdiagonal entries of A.
 
             I = N
-            DO WHILE ( I.GT.1 )
+            DO WHILE ( I > 1 )
                if ( IPIV( I ) < 0 ) {
                   A( I-1, I ) = E( I )
                   I = I - 1
@@ -223,14 +223,14 @@
 
             I = 1
             DO WHILE ( I.LE.N )
-               if ( IPIV( I ).GT.0 ) {
+               if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(i:N,1:i-1)
 
                   IP = IPIV( I )
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      if ( IP != I ) {
                         cswap(I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                      }
@@ -245,7 +245,7 @@
 
                   IP = -IPIV( I )
                   IP2 = -IPIV( I+1 )
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      if ( IP != I ) {
                         cswap(I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                      }
@@ -271,14 +271,14 @@
 
             I = N
             DO WHILE ( I.GE.1 )
-               if ( IPIV( I ).GT.0 ) {
+               if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(i:N,1:i-1)
 
                   IP = IPIV( I )
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      if ( IP != I ) {
                         cswap(I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA );
                      }
@@ -294,7 +294,7 @@
                   I = I - 1
                   IP = -IPIV( I )
                   IP2 = -IPIV( I+1 )
-                  if ( I.GT.1 ) {
+                  if ( I > 1 ) {
                      if ( IP2 != (I+1) ) {
                         cswap(I-1, A( IP2, 1 ), LDA, A( I+1, 1 ), LDA );
                      }

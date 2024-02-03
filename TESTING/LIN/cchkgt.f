@@ -114,7 +114,7 @@
                }
                IZERO = 0
 
-               if ( N.GT.1 ) {
+               if ( N > 1 ) {
                   ccopy(N-1, AF( 4 ), 3, A, 1 );
                   ccopy(N-1, AF( 3 ), 3, A( N+M+1 ), 1 );
                }
@@ -131,14 +131,14 @@
 
                   clarnv(2, ISEED, N+2*M, A );
                   if (ANORM != ONE) CALL CSSCAL( N+2*M, ANORM, A, 1 );
-               } else if ( IZERO.GT.0 ) {
+               } else if ( IZERO > 0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
                   // elements.
 
                   if ( IZERO == 1 ) {
                      A( N ) = Z( 2 )
-                     if (N.GT.1) A( 1 ) = Z( 3 );
+                     if (N > 1) A( 1 ) = Z( 3 );
                   } else if ( IZERO == N ) {
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
@@ -157,7 +157,7 @@
                   IZERO = 1
                   Z( 2 ) = A( N )
                   A( N ) = ZERO
-                  if ( N.GT.1 ) {
+                  if ( N > 1 ) {
                      Z( 3 ) = A( 1 )
                      A( 1 ) = ZERO
                   }

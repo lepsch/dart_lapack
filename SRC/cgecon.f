@@ -82,7 +82,7 @@
          RCOND = ANORM
          INFO = -5
          RETURN
-      } else if ( ANORM.GT.HUGEVAL ) {
+      } else if ( ANORM > HUGEVAL ) {
          INFO = -5
          RETURN
       }
@@ -145,7 +145,7 @@
 
       // Check for NaNs and Infs
 
-      IF( SISNAN( RCOND ) || RCOND.GT.HUGEVAL ) INFO = 1
+      IF( SISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1
 
       } // 20
       RETURN

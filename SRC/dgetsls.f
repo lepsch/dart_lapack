@@ -133,13 +133,13 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
@@ -159,13 +159,13 @@
       }
       BNRM = DLANGE( 'M', BROW, NRHS, B, LDB, WORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 1
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
@@ -189,7 +189,7 @@
             // B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 
           dtrtrs('U', 'N', 'N', N, NRHS, A, LDA, B, LDB, INFO );
-          if ( INFO.GT.0 ) {
+          if ( INFO > 0 ) {
             RETURN
           }
           SCLLEN = N
@@ -201,7 +201,7 @@
 
             dtrtrs('U', 'T', 'N', N, NRHS, A, LDA, B, LDB, INFO );
 
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
                RETURN
             }
 
@@ -237,7 +237,7 @@
 
             dtrtrs('L', 'N', 'N', M, NRHS, A, LDA, B, LDB, INFO );
 
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
                RETURN
             }
 
@@ -271,7 +271,7 @@
 
             dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
-            if ( INFO.GT.0 ) {
+            if ( INFO > 0 ) {
                RETURN
             }
 

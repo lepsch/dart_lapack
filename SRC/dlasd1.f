@@ -40,7 +40,7 @@
          INFO = -1
       } else if ( NR < 1 ) {
          INFO = -2
-      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
          INFO = -3
       }
       if ( INFO != 0 ) {
@@ -74,7 +74,7 @@
       ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) )
       D( NL+1 ) = ZERO
       for (I = 1; I <= N; I++) { // 10
-         if ( ABS( D( I ) ).GT.ORGNRM ) {
+         if ( ABS( D( I ) ) > ORGNRM ) {
             ORGNRM = ABS( D( I ) )
          }
       } // 10

@@ -51,7 +51,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1 || N1.LE.0 || N2.LE.0) RETURN       IF( N1.GT.N || ( J1+N1 ).GT.N ) RETURN;
+      if (N.LE.1 || N1.LE.0 || N2.LE.0) RETURN       IF( N1 > N || ( J1+N1 ) > N ) RETURN;
       M = N1 + N2
       if ( LWORK < MAX( N*M, M*M*2 ) ) {
          INFO = -16
@@ -325,7 +325,7 @@
          WORK( 1 ) = ONE
          T( 1, 1 ) = ONE
          IDUM = LWORK - M*M - 2
-         if ( N2.GT.1 ) {
+         if ( N2 > 1 ) {
             slagv2(A( J1, J1 ), LDA, B( J1, J1 ), LDB, AR, AI, BE, WORK( 1 ), WORK( 2 ), T( 1, 1 ), T( 2, 1 ) );
             WORK( M+1 ) = -WORK( 2 )
             WORK( M+2 ) = WORK( 1 )
@@ -335,7 +335,7 @@
          WORK( M*M ) = ONE
          T( M, M ) = ONE
 
-         if ( N1.GT.1 ) {
+         if ( N1 > 1 ) {
             slagv2(A( J1+N2, J1+N2 ), LDA, B( J1+N2, J1+N2 ), LDB, TAUR, TAUL, WORK( M*M+1 ), WORK( N2*M+N2+1 ), WORK( N2*M+N2+2 ), T( N2+1, N2+1 ), T( M, M-1 ) );
             WORK( M*M ) = WORK( N2*M+N2+1 )
             WORK( M*M-1 ) = -WORK( N2*M+N2+2 )
@@ -380,7 +380,7 @@
             slacpy('Full', M, N-I+1, WORK, M, B( J1, I ), LDB );
          }
          I = J1 - 1
-         if ( I.GT.0 ) {
+         if ( I > 0 ) {
             sgemm('N', 'N', I, M, M, ONE, A( 1, J1 ), LDA, IR, LDST, ZERO, WORK, I );
             slacpy('Full', I, M, WORK, I, A( 1, J1 ), LDA );
             sgemm('N', 'N', I, M, M, ONE, B( 1, J1 ), LDB, IR, LDST, ZERO, WORK, I );

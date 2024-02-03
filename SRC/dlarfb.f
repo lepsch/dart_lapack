@@ -65,7 +65,7 @@
                // W := W * V1
 
                dtrmm('Right', 'Lower', 'No transpose', 'Unit', N, K, ONE, V, LDV, WORK, LDWORK );
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // W := W + C2**T * V2
 
@@ -78,7 +78,7 @@
 
                // C := C - V * W**T
 
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // C2 := C2 - V2 * W**T
 
@@ -112,7 +112,7 @@
                // W := W * V1
 
                dtrmm('Right', 'Lower', 'No transpose', 'Unit', M, K, ONE, V, LDV, WORK, LDWORK );
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // W := W + C2 * V2
 
@@ -125,7 +125,7 @@
 
                // C := C - W * V**T
 
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // C2 := C2 - W * V2**T
 
@@ -167,7 +167,7 @@
                // W := W * V2
 
                dtrmm('Right', 'Upper', 'No transpose', 'Unit', N, K, ONE, V( M-K+1, 1 ), LDV, WORK, LDWORK );
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // W := W + C1**T * V1
 
@@ -180,7 +180,7 @@
 
                // C := C - V * W**T
 
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // C1 := C1 - V1 * W**T
 
@@ -214,7 +214,7 @@
                // W := W * V2
 
                dtrmm('Right', 'Upper', 'No transpose', 'Unit', M, K, ONE, V( N-K+1, 1 ), LDV, WORK, LDWORK );
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // W := W + C1 * V1
 
@@ -227,7 +227,7 @@
 
                // C := C - W * V**T
 
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // C1 := C1 - W * V1**T
 
@@ -271,7 +271,7 @@
                // W := W * V1**T
 
                dtrmm('Right', 'Upper', 'Transpose', 'Unit', N, K, ONE, V, LDV, WORK, LDWORK );
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // W := W + C2**T * V2**T
 
@@ -284,7 +284,7 @@
 
                // C := C - V**T * W**T
 
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // C2 := C2 - V2**T * W**T
 
@@ -318,7 +318,7 @@
                // W := W * V1**T
 
                dtrmm('Right', 'Upper', 'Transpose', 'Unit', M, K, ONE, V, LDV, WORK, LDWORK );
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // W := W + C2 * V2**T
 
@@ -331,7 +331,7 @@
 
                // C := C - W * V
 
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // C2 := C2 - W * V2
 
@@ -373,7 +373,7 @@
                // W := W * V2**T
 
                dtrmm('Right', 'Lower', 'Transpose', 'Unit', N, K, ONE, V( 1, M-K+1 ), LDV, WORK, LDWORK );
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // W := W + C1**T * V1**T
 
@@ -386,7 +386,7 @@
 
                // C := C - V**T * W**T
 
-               if ( M.GT.K ) {
+               if ( M > K ) {
 
                   // C1 := C1 - V1**T * W**T
 
@@ -420,7 +420,7 @@
                // W := W * V2**T
 
                dtrmm('Right', 'Lower', 'Transpose', 'Unit', M, K, ONE, V( 1, N-K+1 ), LDV, WORK, LDWORK );
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // W := W + C1 * V1**T
 
@@ -433,7 +433,7 @@
 
                // C := C - W * V
 
-               if ( N.GT.K ) {
+               if ( N > K ) {
 
                   // C1 := C1 - W * V1
 

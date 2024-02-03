@@ -68,7 +68,7 @@
       NS = 0
       ND = 0
       WORK( 1 ) = ONE
-      if (KTOP.GT.KBOT) RETURN;
+      if (KTOP > KBOT) RETURN;
       // ... nor for an empty deflation window. ====
       if (NW < 1) RETURN;
 
@@ -100,7 +100,7 @@
          if ( ABS( S ).LE.MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
-            if (KWTOP.GT.KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
+            if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
          WORK( 1 ) = ONE
          RETURN
@@ -124,7 +124,7 @@
          T( J+2, J ) = ZERO
          T( J+3, J ) = ZERO
       } // 10
-      if (JW.GT.2) T( JW, JW-2 ) = ZERO;
+      if (JW > 2) T( JW, JW-2 ) = ZERO;
 
       // ==== Deflation detection loop ====
 
@@ -278,7 +278,7 @@
       }
 
       if ( NS < JW || S == ZERO ) {
-         if ( NS.GT.1 && S != ZERO ) {
+         if ( NS > 1 && S != ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====
 
@@ -298,14 +298,14 @@
 
          // ==== Copy updated reduced window into place ====
 
-         if (KWTOP.GT.1) H( KWTOP, KWTOP-1 ) = S*V( 1, 1 );
+         if (KWTOP > 1) H( KWTOP, KWTOP-1 ) = S*V( 1, 1 );
          dlacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
          dcopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
 
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
 
-         if (NS.GT.1 && S != ZERO) CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
+         if (NS > 1 && S != ZERO) CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
 
          // ==== Update vertical slab in H ====
 

@@ -128,14 +128,14 @@
 
                   for (I = J; I <= N; I++) { // 130
 
-                     if ( J.GT.K ) {
+                     if ( J > K ) {
                         WORK( I ) = WORK( I ) + REAL( CONJG( A( J-1, I ) )* A( J-1, I ) )
                      }
                      WORK( N+I ) = REAL( A( I, I ) ) - WORK( I )
 
                   } // 130
 
-                  if ( J.GT.1 ) {
+                  if ( J > 1 ) {
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
@@ -216,14 +216,14 @@
 
                   for (I = J; I <= N; I++) { // 180
 
-                     if ( J.GT.K ) {
+                     if ( J > K ) {
                         WORK( I ) = WORK( I ) + REAL( CONJG( A( I, J-1 ) )* A( I, J-1 ) )
                      }
                      WORK( N+I ) = REAL( A( I, I ) ) - WORK( I )
 
                   } // 180
 
-                  if ( J.GT.1 ) {
+                  if ( J > 1 ) {
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )

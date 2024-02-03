@@ -42,7 +42,7 @@
          INFO = -3
       } else if ( KA < 0 ) {
          INFO = -4
-      } else if ( KB < 0 || KB.GT.KA ) {
+      } else if ( KB < 0 || KB > KA ) {
          INFO = -5
       } else if ( LDAB < KA+1 ) {
          INFO = -7

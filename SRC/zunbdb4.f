@@ -44,7 +44,7 @@
          INFO = -1
       } else if ( P < M-Q || M-P < M-Q ) {
          INFO = -2
-      } else if ( Q < M-Q || Q .GT. M ) {
+      } else if ( Q < M-Q || Q > M ) {
          INFO = -3
       } else if ( LDX11 < MAX( 1, P ) ) {
          INFO = -5

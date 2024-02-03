@@ -79,7 +79,7 @@
             // trailing submatrix within the band.
 
             KN = MIN( KD, N-J )
-            if ( KN.GT.0 ) {
+            if ( KN > 0 ) {
                zdscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
                zlacgv(KN, AB( KD, J+1 ), KLD );
                zher('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
@@ -106,7 +106,7 @@
             // trailing submatrix within the band.
 
             KN = MIN( KD, N-J )
-            if ( KN.GT.0 ) {
+            if ( KN > 0 ) {
                zdscal(KN, ONE / AJJ, AB( 2, J ), 1 );
                zher('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }

@@ -150,7 +150,7 @@
          ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), SMLNUM )
          WNORM = ZLANGE( '1', N, N, VS1, LDVS, RWORK )
 
-         if ( ANORM.GT.WNORM ) {
+         if ( ANORM > WNORM ) {
             RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP )
          } else {
             if ( ANORM < ONE ) {
@@ -465,21 +465,21 @@
          ANORM = ZLANGE( '1', N, N, A, LDA, RWORK )
          V = MAX( DBLE( N )*EPS*ANORM, SMLNUM )
          if (ANORM == ZERO) V = ONE;
-         if ( V.GT.RCONDV ) {
+         if ( V > RCONDV ) {
             TOL = ONE
          } else {
             TOL = V / RCONDV
          }
-         if ( V.GT.RCDVIN ) {
+         if ( V > RCDVIN ) {
             TOLIN = ONE
          } else {
             TOLIN = V / RCDVIN
          }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         if ( EPS*( RCDEIN-TOLIN ).GT.RCONDE+TOL ) {
+         if ( EPS*( RCDEIN-TOLIN ) > RCONDE+TOL ) {
             RESULT( 16 ) = ULPINV
-         } else if ( RCDEIN-TOLIN.GT.RCONDE+TOL ) {
+         } else if ( RCDEIN-TOLIN > RCONDE+TOL ) {
             RESULT( 16 ) = ( RCDEIN-TOLIN ) / ( RCONDE+TOL )
          } else if ( RCDEIN+TOLIN < EPS*( RCONDE-TOL ) ) {
             RESULT( 16 ) = ULPINV
@@ -492,21 +492,21 @@
          // Compare condition numbers for right invariant subspace
          // taking its condition number into account
 
-         if ( V.GT.RCONDV*RCONDE ) {
+         if ( V > RCONDV*RCONDE ) {
             TOL = RCONDV
          } else {
             TOL = V / RCONDE
          }
-         if ( V.GT.RCDVIN*RCDEIN ) {
+         if ( V > RCDVIN*RCDEIN ) {
             TOLIN = RCDVIN
          } else {
             TOLIN = V / RCDEIN
          }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         if ( EPS*( RCDVIN-TOLIN ).GT.RCONDV+TOL ) {
+         if ( EPS*( RCDVIN-TOLIN ) > RCONDV+TOL ) {
             RESULT( 17 ) = ULPINV
-         } else if ( RCDVIN-TOLIN.GT.RCONDV+TOL ) {
+         } else if ( RCDVIN-TOLIN > RCONDV+TOL ) {
             RESULT( 17 ) = ( RCDVIN-TOLIN ) / ( RCONDV+TOL )
          } else if ( RCDVIN+TOLIN < EPS*( RCONDV-TOL ) ) {
             RESULT( 17 ) = ULPINV

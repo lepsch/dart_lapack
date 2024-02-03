@@ -70,7 +70,7 @@
       NBMIN = 2
       NX = 0
       IWS = LWKMIN
-      if ( NB.GT.1 && NB < K ) {
+      if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 

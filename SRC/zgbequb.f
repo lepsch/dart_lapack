@@ -92,7 +92,7 @@
          } // 20
       } // 30
       for (I = 1; I <= M; I++) {
-         if ( R( I ).GT.ZERO ) {
+         if ( R( I ) > ZERO ) {
             R( I ) = RADIX**INT( LOG( R( I ) ) / LOGRDX )
          }
       }
@@ -143,7 +143,7 @@
          DO 80 I = MAX( J-KU, 1 ), MIN( J+KL, M )
             C( J ) = MAX( C( J ), CABS1( AB( KD+I-J, J ) )*R( I ) )
          } // 80
-         if ( C( J ).GT.ZERO ) {
+         if ( C( J ) > ZERO ) {
             C( J ) = RADIX**INT( LOG( C( J ) ) / LOGRDX )
          }
       } // 90

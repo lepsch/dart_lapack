@@ -76,7 +76,7 @@
 
       NB = MIN( NB, NBMAX )
 
-      if ( NB.LE.1 || NB.GT.KL ) {
+      if ( NB.LE.1 || NB > KL ) {
 
          // Use unblocked code
 
@@ -182,7 +182,7 @@
                   // which needs to be updated.
 
                   JM = MIN( JU, J+JB-1 )
-                  if (JM.GT.JJ) CALL SGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 );
+                  if (JM > JJ) CALL SGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 );
                } else {
 
                   // If pivot is zero, set INFO to the index of the pivot
@@ -194,7 +194,7 @@
                // Copy current column of A31 into the work array WORK31
 
                NW = MIN( JJ-J+1, I3 )
-               if (NW.GT.0) CALL SCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 );
+               if (NW > 0) CALL SCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 );
             } // 80
             if ( J+JB.LE.N ) {
 
@@ -232,20 +232,20 @@
 
                // Update the relevant part of the trailing submatrix
 
-               if ( J2.GT.0 ) {
+               if ( J2 > 0 ) {
 
                   // Update A12
 
                   strsm('Left', 'Lower', 'No transpose', 'Unit', JB, J2, ONE, AB( KV+1, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1 );
 
-                  if ( I2.GT.0 ) {
+                  if ( I2 > 0 ) {
 
                      // Update A22
 
                      sgemm('No transpose', 'No transpose', I2, J2, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+1, J+JB ), LDAB-1 );
                   }
 
-                  if ( I3.GT.0 ) {
+                  if ( I3 > 0 ) {
 
                      // Update A32
 
@@ -253,7 +253,7 @@
                   }
                }
 
-               if ( J3.GT.0 ) {
+               if ( J3 > 0 ) {
 
                   // Copy the lower triangle of A13 into the work array
                   // WORK13
@@ -268,14 +268,14 @@
 
                   strsm('Left', 'Lower', 'No transpose', 'Unit', JB, J3, ONE, AB( KV+1, J ), LDAB-1, WORK13, LDWORK );
 
-                  if ( I2.GT.0 ) {
+                  if ( I2 > 0 ) {
 
                      // Update A23
 
                      sgemm('No transpose', 'No transpose', I2, J3, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, WORK13, LDWORK, ONE, AB( 1+JB, J+KV ), LDAB-1 );
                   }
 
-                  if ( I3.GT.0 ) {
+                  if ( I3 > 0 ) {
 
                      // Update A33
 
@@ -325,7 +325,7 @@
                // Copy the current column of A31 back into place
 
                NW = MIN( I3, JJ-J+1 )
-               if (NW.GT.0) CALL SCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 );
+               if (NW > 0) CALL SCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 );
             } // 170
          } // 180
       }

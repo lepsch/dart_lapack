@@ -65,7 +65,7 @@
 
             // Compute the rest of column K.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                dtpmv('Upper', 'Transpose', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 );
                KC = KC - ( K-1 )
             }

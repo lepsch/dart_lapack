@@ -132,16 +132,16 @@
          TNRM = ONE
          if ( WI( J ) == ZERO ) {
             TNRM = DNRM2( N, VR( 1, J ), 1 )
-         } else if ( WI( J ).GT.ZERO ) {
+         } else if ( WI( J ) > ZERO ) {
             TNRM = DLAPY2( DNRM2( N, VR( 1, J ), 1 ), DNRM2( N, VR( 1, J+1 ), 1 ) )
          }
          RESULT( 3 ) = MAX( RESULT( 3 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
-         if ( WI( J ).GT.ZERO ) {
+         if ( WI( J ) > ZERO ) {
             VMX = ZERO
             VRMX = ZERO
             for (JJ = 1; JJ <= N; JJ++) { // 20
                VTST = DLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
-               if (VTST.GT.VMX) VMX = VTST                IF( VR( JJ, J+1 ) == ZERO && ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) );
+               if (VTST > VMX) VMX = VTST                IF( VR( JJ, J+1 ) == ZERO && ABS( VR( JJ, J ) ) > VRMX )VRMX = ABS( VR( JJ, J ) );
             } // 20
             if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
          }
@@ -153,16 +153,16 @@
          TNRM = ONE
          if ( WI( J ) == ZERO ) {
             TNRM = DNRM2( N, VL( 1, J ), 1 )
-         } else if ( WI( J ).GT.ZERO ) {
+         } else if ( WI( J ) > ZERO ) {
             TNRM = DLAPY2( DNRM2( N, VL( 1, J ), 1 ), DNRM2( N, VL( 1, J+1 ), 1 ) )
          }
          RESULT( 4 ) = MAX( RESULT( 4 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
-         if ( WI( J ).GT.ZERO ) {
+         if ( WI( J ) > ZERO ) {
             VMX = ZERO
             VRMX = ZERO
             for (JJ = 1; JJ <= N; JJ++) { // 40
                VTST = DLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
-               if (VTST.GT.VMX) VMX = VTST                IF( VL( JJ, J+1 ) == ZERO && ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) );
+               if (VTST > VMX) VMX = VTST                IF( VL( JJ, J+1 ) == ZERO && ABS( VL( JJ, J ) ) > VRMX )VRMX = ABS( VL( JJ, J ) );
             } // 40
             if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
          }
@@ -206,7 +206,7 @@
 
          // Do Test (9)
 
-         if ( ISENS == 2 && N.GT.1 ) {
+         if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 80
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 80
@@ -252,7 +252,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS == 2 && N.GT.1 ) {
+         if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 130
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 130
@@ -298,7 +298,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS == 2 && N.GT.1 ) {
+         if ( ISENS == 2 && N > 1 ) {
             for (J = 1; J <= N; J++) { // 180
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 180
@@ -354,21 +354,21 @@
          V = MAX( DBLE( N )*EPS*ABNRM, SMLNUM )
          if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
-            if ( V.GT.RCONDV( I )*RCONDE( I ) ) {
+            if ( V > RCONDV( I )*RCONDE( I ) ) {
                TOL = RCONDV( I )
             } else {
                TOL = V / RCONDE( I )
             }
-            if ( V.GT.RCDVIN( I )*RCDEIN( I ) ) {
+            if ( V > RCDVIN( I )*RCDEIN( I ) ) {
                TOLIN = RCDVIN( I )
             } else {
                TOLIN = V / RCDEIN( I )
             }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            if ( EPS*( RCDVIN( I )-TOLIN ).GT.RCONDV( I )+TOL ) {
+            if ( EPS*( RCDVIN( I )-TOLIN ) > RCONDV( I )+TOL ) {
                VMAX = ONE / EPS
-            } else if ( RCDVIN( I )-TOLIN.GT.RCONDV( I )+TOL ) {
+            } else if ( RCDVIN( I )-TOLIN > RCONDV( I )+TOL ) {
                VMAX = ( RCDVIN( I )-TOLIN ) / ( RCONDV( I )+TOL )
             } else if ( RCDVIN( I )+TOLIN < EPS*( RCONDV( I )-TOL ) ) {
                VMAX = ONE / EPS
@@ -385,21 +385,21 @@
 
          RESULT( 11 ) = ZERO
          for (I = 1; I <= N; I++) { // 240
-            if ( V.GT.RCONDV( I ) ) {
+            if ( V > RCONDV( I ) ) {
                TOL = ONE
             } else {
                TOL = V / RCONDV( I )
             }
-            if ( V.GT.RCDVIN( I ) ) {
+            if ( V > RCDVIN( I ) ) {
                TOLIN = ONE
             } else {
                TOLIN = V / RCDVIN( I )
             }
             TOL = MAX( TOL, SMLNUM / EPS )
             TOLIN = MAX( TOLIN, SMLNUM / EPS )
-            if ( EPS*( RCDEIN( I )-TOLIN ).GT.RCONDE( I )+TOL ) {
+            if ( EPS*( RCDEIN( I )-TOLIN ) > RCONDE( I )+TOL ) {
                VMAX = ONE / EPS
-            } else if ( RCDEIN( I )-TOLIN.GT.RCONDE( I )+TOL ) {
+            } else if ( RCDEIN( I )-TOLIN > RCONDE( I )+TOL ) {
                VMAX = ( RCDEIN( I )-TOLIN ) / ( RCONDE( I )+TOL )
             } else if ( RCDEIN( I )+TOLIN < EPS*( RCONDE( I )-TOL ) ) {
                VMAX = ONE / EPS

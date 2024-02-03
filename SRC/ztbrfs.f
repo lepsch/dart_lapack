@@ -214,7 +214,7 @@
          }
          S = ZERO
          for (I = 1; I <= N; I++) { // 190
-            if ( RWORK( I ).GT.SAFE2 ) {
+            if ( RWORK( I ) > SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
@@ -245,7 +245,7 @@
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
          for (I = 1; I <= N; I++) { // 200
-            if ( RWORK( I ).GT.SAFE2 ) {
+            if ( RWORK( I ) > SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1

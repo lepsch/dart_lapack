@@ -80,7 +80,7 @@
          MAXWRK = 1
          BDSPAC = 0
          MNTHR  = INT( MINMN*11.0E0 / 6.0E0 )
-         if ( M.GE.N && MINMN.GT.0 ) {
+         if ( M.GE.N && MINMN > 0 ) {
 
             // Compute space needed for SBDSDC
 
@@ -199,7 +199,7 @@
                   MINWRK = 3*N + MAX( M, BDSPAC )
                }
             }
-         } else if ( MINMN.GT.0 ) {
+         } else if ( MINMN > 0 ) {
 
             // Compute space needed for SBDSDC
 
@@ -355,10 +355,10 @@
           RETURN
       }
       ISCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ISCL = 1
          slascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          ISCL = 1
          slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
@@ -740,7 +740,7 @@
 
                // Set the right corner of U to identity matrix
 
-               if ( M.GT.N ) {
+               if ( M > N ) {
                   slaset('F', M - N, M - N, ZERO, ONE, U(N+1,N+1), LDU );
                }
 
@@ -1129,7 +1129,7 @@
 
                // Set the right corner of VT to identity matrix
 
-               if ( N.GT.M ) {
+               if ( N > M ) {
                   slaset('F', N-M, N-M, ZERO, ONE, VT(M+1,M+1), LDVT );
                }
 
@@ -1149,7 +1149,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         if (ANRM > BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

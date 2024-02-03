@@ -194,9 +194,9 @@
          // we simply use one Newton step instead. This way
          // will guarantee eta*w < 0.
 
-         if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
+         if (W*ETA > ZERO) ETA = -W / ( DPSI+DPHI );
          TEMP = TAU + ETA
-         if ( TEMP.GT.DLTUB || TEMP < DLTLB ) {
+         if ( TEMP > DLTUB || TEMP < DLTLB ) {
             if ( W < ZERO ) {
                ETA = ( DLTUB-TAU ) / TWO
             } else {
@@ -267,9 +267,9 @@
             // we simply use one Newton step instead. This way
             // will guarantee eta*w < 0.
 
-            if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
+            if (W*ETA > ZERO) ETA = -W / ( DPSI+DPHI );
             TEMP = TAU + ETA
-            if ( TEMP.GT.DLTUB || TEMP < DLTLB ) {
+            if ( TEMP > DLTUB || TEMP < DLTLB ) {
                if ( W < ZERO ) {
                   ETA = ( DLTUB-TAU ) / TWO
                } else {
@@ -340,7 +340,7 @@
          C = RHOINV + PSI + PHI
          W = C + Z( I )*Z( I ) / DELTA( I ) + Z( IP1 )*Z( IP1 ) / DELTA( IP1 )
 
-         if ( W.GT.ZERO ) {
+         if ( W > ZERO ) {
 
             // d(i)< the ith eigenvalue < (d(i)+d(i+1))/2
 
@@ -349,7 +349,7 @@
             ORGATI = true;
             A = C*DEL + Z( I )*Z( I ) + Z( IP1 )*Z( IP1 )
             B = Z( I )*Z( I )*DEL
-            if ( A.GT.ZERO ) {
+            if ( A > ZERO ) {
                TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
             } else {
                TAU = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
@@ -424,7 +424,7 @@
          if ( ORGATI ) {
             if (W < ZERO) SWTCH3 = true ;
          } else {
-            if (W.GT.ZERO) SWTCH3 = true ;
+            if (W > ZERO) SWTCH3 = true ;
          }
          if (II == 1 || II == N) SWTCH3 = false ;
 
@@ -505,7 +505,7 @@
 
          if (W*ETA.GE.ZERO) ETA = -W / DW;
          TEMP = TAU + ETA
-         if ( TEMP.GT.DLTUB || TEMP < DLTLB ) {
+         if ( TEMP > DLTUB || TEMP < DLTLB ) {
             if ( W < ZERO ) {
                ETA = ( DLTUB-TAU ) / TWO
             } else {
@@ -551,9 +551,9 @@
 
          SWTCH = false;
          if ( ORGATI ) {
-            IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = true;
+            IF( -W > ABS( PREW ) / TEN ) SWTCH = true;
          } else {
-            IF( W.GT.ABS( PREW ) / TEN ) SWTCH = true;
+            IF( W > ABS( PREW ) / TEN ) SWTCH = true;
          }
 
          TAU = TAU + ETA
@@ -653,7 +653,7 @@
 
             if (W*ETA.GE.ZERO) ETA = -W / DW;
             TEMP = TAU + ETA
-            if ( TEMP.GT.DLTUB || TEMP < DLTLB ) {
+            if ( TEMP > DLTUB || TEMP < DLTLB ) {
                if ( W < ZERO ) {
                   ETA = ( DLTUB-TAU ) / TWO
                } else {
@@ -696,7 +696,7 @@
             DW = DPSI + DPHI + TEMP*TEMP
             TEMP = Z( II )*TEMP
             W = RHOINV + PHI + PSI + TEMP
-            ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP ) + ABS( TAU )*DW             IF( W*PREW.GT.ZERO && ABS( W ).GT.ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
+            ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP ) + ABS( TAU )*DW             IF( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
 
          } // 240
 

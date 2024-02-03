@@ -137,10 +137,10 @@
 
       ANRM = DLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          SCALEA = true;
          CSCALE = BIGNUM
       }
@@ -240,7 +240,7 @@
             if ( WI( I ) == ZERO ) {
                SCL = ONE / DNRM2( N, VL( 1, I ), 1 )
                dscal(N, SCL, VL( 1, I ), 1 );
-            } else if ( WI( I ).GT.ZERO ) {
+            } else if ( WI( I ) > ZERO ) {
                SCL = ONE / DLAPY2( DNRM2( N, VL( 1, I ), 1 ), DNRM2( N, VL( 1, I+1 ), 1 ) )
                dscal(N, SCL, VL( 1, I ), 1 );
                dscal(N, SCL, VL( 1, I+1 ), 1 );
@@ -268,7 +268,7 @@
             if ( WI( I ) == ZERO ) {
                SCL = ONE / DNRM2( N, VR( 1, I ), 1 )
                dscal(N, SCL, VR( 1, I ), 1 );
-            } else if ( WI( I ).GT.ZERO ) {
+            } else if ( WI( I ) > ZERO ) {
                SCL = ONE / DLAPY2( DNRM2( N, VR( 1, I ), 1 ), DNRM2( N, VR( 1, I+1 ), 1 ) )
                dscal(N, SCL, VR( 1, I ), 1 );
                dscal(N, SCL, VR( 1, I+1 ), 1 );
@@ -289,7 +289,7 @@
       if ( SCALEA ) {
          dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR );
             dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );
          }

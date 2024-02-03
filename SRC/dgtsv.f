@@ -75,7 +75,7 @@
                B( I+1, 1 ) = TEMP - FACT*B( I+1, 1 )
             }
          } // 10
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             I = N - 1
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
                if ( D( I ) != ZERO ) {
@@ -136,7 +136,7 @@
                } // 30
             }
          } // 40
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             I = N - 1
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
                if ( D( I ) != ZERO ) {
@@ -174,7 +174,7 @@
          J = 1
          } // 70
          B( N, J ) = B( N, J ) / D( N )
-         if (N.GT.1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
+         if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
          DO 80 I = N - 2, 1, -1
             B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
          } // 80
@@ -185,7 +185,7 @@
       } else {
          for (J = 1; J <= NRHS; J++) { // 100
             B( N, J ) = B( N, J ) / D( N )
-            if (N.GT.1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
+            if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
             DO 90 I = N - 2, 1, -1
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
             } // 90

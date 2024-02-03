@@ -109,7 +109,7 @@
             // Q was determined by a call to SGEBRD with nq >= k
 
             sormqr(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
-         } else if ( NQ.GT.1 ) {
+         } else if ( NQ > 1 ) {
 
             // Q was determined by a call to SGEBRD with nq < k
 
@@ -135,12 +135,12 @@
          } else {
             TRANST = 'N'
          }
-         if ( NQ.GT.K ) {
+         if ( NQ > K ) {
 
             // P was determined by a call to SGEBRD with nq > k
 
             sormlq(SIDE, TRANST, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
-         } else if ( NQ.GT.1 ) {
+         } else if ( NQ > 1 ) {
 
             // P was determined by a call to SGEBRD with nq <= k
 

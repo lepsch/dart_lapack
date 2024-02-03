@@ -92,7 +92,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             IMAX = ICAMAX( K-1, A( 1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
@@ -119,7 +119,7 @@
 
                JMAX = IMAX + ICAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                ROWMAX = CABS1( A( IMAX, JMAX ) )
-               if ( IMAX.GT.1 ) {
+               if ( IMAX > 1 ) {
                   JMAX = ICAMAX( IMAX-1, A( 1, IMAX ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) )
                }
@@ -197,7 +197,7 @@
                // A := A - ( U(k-1) U(k) )*D(k)*( U(k-1) U(k) )**T
                   // = A - ( W(k-1) W(k) )*inv(D(k))*( W(k-1) W(k) )**T
 
-               if ( K.GT.2 ) {
+               if ( K > 2 ) {
 
                   D12 = A( K-1, K )
                   D22 = A( K-1, K-1 ) / D12
@@ -246,7 +246,7 @@
 
          // If K > N, exit from loop
 
-         if (K.GT.N) GO TO 70;
+         if (K > N) GO TO 70;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether

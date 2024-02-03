@@ -53,7 +53,7 @@
          INFO = -3
       } else if ( KA < 0 ) {
          INFO = -4
-      } else if ( KB < 0 || KB.GT.KA ) {
+      } else if ( KB < 0 || KB > KA ) {
          INFO = -5
       } else if ( LDAB < KA+1 ) {
          INFO = -7
@@ -160,7 +160,7 @@
          }
       } else {
          I = I + KA
-         if (I.GT.N-1) GO TO 480;
+         if (I > N-1) GO TO 480;
       }
 
       if ( UPPER ) {
@@ -198,7 +198,7 @@
                // post-multiply X by inv(S(i))
 
                csscal(N-M, ONE / BII, X( M+1, I ), 1 );
-               if (KBT.GT.0) CALL CGERC( N-M, KBT, -CONE, X( M+1, I ), 1, BB( KB1-KBT, I ), 1, X( M+1, I-KBT ), LDX );
+               if (KBT > 0) CALL CGERC( N-M, KBT, -CONE, X( M+1, I ), 1, BB( KB1-KBT, I ), 1, X( M+1, I-KBT ), LDX );
             }
 
             // store a(i,i1) in RA1 for use in next loop over K
@@ -216,7 +216,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I-K+KA < N && I-K.GT.1 ) {
+               if ( I-K+KA < N && I-K > 1 ) {
 
                   // generate rotation to annihilate a(i,i-k+ka+1)
 
@@ -252,8 +252,8 @@
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
 
-            if (NRT.GT.0) CALL CLARGV( NRT, AB( 1, J2T ), INCA, WORK( J2T-M ), KA1, RWORK( J2T-M ), KA1 );
-            if ( NR.GT.0 ) {
+            if (NRT > 0) CALL CLARGV( NRT, AB( 1, J2T ), INCA, WORK( J2T-M ), KA1, RWORK( J2T-M ), KA1 );
+            if ( NR > 0 ) {
 
                // apply rotations in 1st set from the right
 
@@ -273,7 +273,7 @@
 
             DO 110 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
             } // 110
 
             if ( WANTX ) {
@@ -287,7 +287,7 @@
          } // 130
 
          if ( UPDATE ) {
-            if ( I2.LE.N && KBT.GT.0 ) {
+            if ( I2.LE.N && KBT > 0 ) {
 
                // create nonzero element a(i-kbt,i-kbt+ka+1) outside the
                // band and store it in WORK(i-kbt)
@@ -307,7 +307,7 @@
 
             DO 140 L = KB - K, 1, -1
                NRT = ( N-J2+KA+L ) / KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( L, J2-L+1 ), INCA, AB( L+1, J2-L+1 ), INCA, RWORK( J2-KA ), WORK( J2-KA ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( L, J2-L+1 ), INCA, AB( L+1, J2-L+1 ), INCA, RWORK( J2-KA ), WORK( J2-KA ), KA1 );
             } // 140
             NR = ( N-J2+KA ) / KA1
             J1 = J2 + ( NR-1 )*KA1
@@ -332,7 +332,7 @@
             J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1
             NR = ( N-J2+KA ) / KA1
             J1 = J2 + ( NR-1 )*KA1
-            if ( NR.GT.0 ) {
+            if ( NR > 0 ) {
 
                // generate rotations in 2nd set to annihilate elements
                // which have been created outside the band
@@ -357,7 +357,7 @@
 
             DO 190 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2 ), WORK( J2 ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2 ), WORK( J2 ), KA1 );
             } // 190
 
             if ( WANTX ) {
@@ -377,11 +377,11 @@
 
             DO 220 L = KB - K, 1, -1
                NRT = ( N-J2+L ) / KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
             } // 220
          } // 230
 
-         if ( KB.GT.1 ) {
+         if ( KB > 1 ) {
             DO 240 J = N - 1, J2 + KA, -1
                RWORK( J-M ) = RWORK( J-KA-M )
                WORK( J-M ) = WORK( J-KA-M )
@@ -423,7 +423,7 @@
                // post-multiply X by inv(S(i))
 
                csscal(N-M, ONE / BII, X( M+1, I ), 1 );
-               if (KBT.GT.0) CALL CGERU( N-M, KBT, -CONE, X( M+1, I ), 1, BB( KBT+1, I-KBT ), LDBB-1, X( M+1, I-KBT ), LDX );
+               if (KBT > 0) CALL CGERU( N-M, KBT, -CONE, X( M+1, I ), 1, BB( KBT+1, I-KBT ), LDBB-1, X( M+1, I-KBT ), LDX );
             }
 
             // store a(i1,i) in RA1 for use in next loop over K
@@ -441,7 +441,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I-K+KA < N && I-K.GT.1 ) {
+               if ( I-K+KA < N && I-K > 1 ) {
 
                   // generate rotation to annihilate a(i-k+ka+1,i)
 
@@ -476,8 +476,8 @@
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
 
-            if (NRT.GT.0) CALL CLARGV( NRT, AB( KA1, J2T-KA ), INCA, WORK( J2T-M ), KA1, RWORK( J2T-M ), KA1 );
-            if ( NR.GT.0 ) {
+            if (NRT > 0) CALL CLARGV( NRT, AB( KA1, J2T-KA ), INCA, WORK( J2T-M ), KA1, RWORK( J2T-M ), KA1 );
+            if ( NR > 0 ) {
 
                // apply rotations in 1st set from the left
 
@@ -497,7 +497,7 @@
 
             DO 340 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
             } // 340
 
             if ( WANTX ) {
@@ -511,7 +511,7 @@
          } // 360
 
          if ( UPDATE ) {
-            if ( I2.LE.N && KBT.GT.0 ) {
+            if ( I2.LE.N && KBT > 0 ) {
 
                // create nonzero element a(i-kbt+ka+1,i-kbt) outside the
                // band and store it in WORK(i-kbt)
@@ -531,7 +531,7 @@
 
             DO 370 L = KB - K, 1, -1
                NRT = ( N-J2+KA+L ) / KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( KA1-L+1, J2-KA ), INCA, AB( KA1-L, J2-KA+1 ), INCA, RWORK( J2-KA ), WORK( J2-KA ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( KA1-L+1, J2-KA ), INCA, AB( KA1-L, J2-KA+1 ), INCA, RWORK( J2-KA ), WORK( J2-KA ), KA1 );
             } // 370
             NR = ( N-J2+KA ) / KA1
             J1 = J2 + ( NR-1 )*KA1
@@ -556,7 +556,7 @@
             J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1
             NR = ( N-J2+KA ) / KA1
             J1 = J2 + ( NR-1 )*KA1
-            if ( NR.GT.0 ) {
+            if ( NR > 0 ) {
 
                // generate rotations in 2nd set to annihilate elements
                // which have been created outside the band
@@ -581,7 +581,7 @@
 
             DO 420 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2 ), WORK( J2 ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2 ), WORK( J2 ), KA1 );
             } // 420
 
             if ( WANTX ) {
@@ -601,11 +601,11 @@
 
             DO 450 L = KB - K, 1, -1
                NRT = ( N-J2+L ) / KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
             } // 450
          } // 460
 
-         if ( KB.GT.1 ) {
+         if ( KB > 1 ) {
             DO 470 J = N - 1, J2 + KA, -1
                RWORK( J-M ) = RWORK( J-KA-M )
                WORK( J-M ) = WORK( J-KA-M )
@@ -643,7 +643,7 @@
          I0 = I + 1
          I1 = MAX( 1, I-KA )
          I2 = I + KBT - KA1
-         if ( I.GT.M ) {
+         if ( I > M ) {
             UPDATE = false;
             I = I - 1
             I0 = M + 1
@@ -696,7 +696,7 @@
                // post-multiply X by inv(S(i))
 
                csscal(NX, ONE / BII, X( 1, I ), 1 );
-               if (KBT.GT.0) CALL CGERU( NX, KBT, -CONE, X( 1, I ), 1, BB( KB, I+1 ), LDBB-1, X( 1, I+1 ), LDX );
+               if (KBT > 0) CALL CGERU( NX, KBT, -CONE, X( 1, I ), 1, BB( KB, I+1 ), LDBB-1, X( 1, I+1 ), LDX );
             }
 
             // store a(i1,i) in RA1 for use in next loop over K
@@ -713,7 +713,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I+K-KA1.GT.0 && I+K < M ) {
+               if ( I+K-KA1 > 0 && I+K < M ) {
 
                   // generate rotation to annihilate a(i+k-ka-1,i)
 
@@ -749,8 +749,8 @@
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
 
-            if (NRT.GT.0) CALL CLARGV( NRT, AB( 1, J1+KA ), INCA, WORK( J1 ), KA1, RWORK( J1 ), KA1 );
-            if ( NR.GT.0 ) {
+            if (NRT > 0) CALL CLARGV( NRT, AB( 1, J1+KA ), INCA, WORK( J1 ), KA1, RWORK( J1 ), KA1 );
+            if ( NR > 0 ) {
 
                // apply rotations in 1st set from the left
 
@@ -771,7 +771,7 @@
             DO 590 L = KA - 1, KB - K + 1, -1
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
             } // 590
 
             if ( WANTX ) {
@@ -785,7 +785,7 @@
          } // 610
 
          if ( UPDATE ) {
-            if ( I2.GT.0 && KBT.GT.0 ) {
+            if ( I2 > 0 && KBT > 0 ) {
 
                // create nonzero element a(i+kbt-ka-1,i+kbt) outside the
                // band and store it in WORK(m-kb+i+kbt)
@@ -806,7 +806,7 @@
             DO 620 L = KB - K, 1, -1
                NRT = ( J2+KA+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( L, J1T+KA ), INCA, AB( L+1, J1T+KA-1 ), INCA, RWORK( M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( L, J1T+KA ), INCA, AB( L+1, J1T+KA-1 ), INCA, RWORK( M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
             } // 620
             NR = ( J2+KA-1 ) / KA1
             J1 = J2 - ( NR-1 )*KA1
@@ -823,7 +823,7 @@
                AB( 1, J+KA-1 ) = RWORK( M-KB+J )*AB( 1, J+KA-1 )
             } // 640
             if ( UPDATE ) {
-               if (I+K.GT.KA1 && K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
+               if (I+K > KA1 && K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
             }
          } // 650
 
@@ -831,7 +831,7 @@
             J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1
             NR = ( J2+KA-1 ) / KA1
             J1 = J2 - ( NR-1 )*KA1
-            if ( NR.GT.0 ) {
+            if ( NR > 0 ) {
 
                // generate rotations in 2nd set to annihilate elements
                // which have been created outside the band
@@ -857,7 +857,7 @@
             DO 670 L = KA - 1, KB - K + 1, -1
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
             } // 670
 
             if ( WANTX ) {
@@ -878,11 +878,11 @@
             DO 700 L = KB - K, 1, -1
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
             } // 700
          } // 710
 
-         if ( KB.GT.1 ) {
+         if ( KB > 1 ) {
             for (J = 2; J <= I2 - KA; J++) { // 720
                RWORK( J ) = RWORK( J+KA )
                WORK( J ) = WORK( J+KA )
@@ -924,7 +924,7 @@
                // post-multiply X by inv(S(i))
 
                csscal(NX, ONE / BII, X( 1, I ), 1 );
-               if (KBT.GT.0) CALL CGERC( NX, KBT, -CONE, X( 1, I ), 1, BB( 2, I ), 1, X( 1, I+1 ), LDX );
+               if (KBT > 0) CALL CGERC( NX, KBT, -CONE, X( 1, I ), 1, BB( 2, I ), 1, X( 1, I+1 ), LDX );
             }
 
             // store a(i,i1) in RA1 for use in next loop over K
@@ -941,7 +941,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I+K-KA1.GT.0 && I+K < M ) {
+               if ( I+K-KA1 > 0 && I+K < M ) {
 
                   // generate rotation to annihilate a(i,i+k-ka-1)
 
@@ -977,8 +977,8 @@
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
 
-            if (NRT.GT.0) CALL CLARGV( NRT, AB( KA1, J1 ), INCA, WORK( J1 ), KA1, RWORK( J1 ), KA1 );
-            if ( NR.GT.0 ) {
+            if (NRT > 0) CALL CLARGV( NRT, AB( KA1, J1 ), INCA, WORK( J1 ), KA1, RWORK( J1 ), KA1 );
+            if ( NR > 0 ) {
 
                // apply rotations in 1st set from the right
 
@@ -999,7 +999,7 @@
             DO 820 L = KA - 1, KB - K + 1, -1
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
             } // 820
 
             if ( WANTX ) {
@@ -1013,7 +1013,7 @@
          } // 840
 
          if ( UPDATE ) {
-            if ( I2.GT.0 && KBT.GT.0 ) {
+            if ( I2 > 0 && KBT > 0 ) {
 
                // create nonzero element a(i+kbt,i+kbt-ka-1) outside the
                // band and store it in WORK(m-kb+i+kbt)
@@ -1034,7 +1034,7 @@
             DO 850 L = KB - K, 1, -1
                NRT = ( J2+KA+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( KA1-L+1, J1T+L-1 ), INCA, AB( KA1-L, J1T+L-1 ), INCA, RWORK( M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( KA1-L+1, J1T+L-1 ), INCA, AB( KA1-L, J1T+L-1 ), INCA, RWORK( M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
             } // 850
             NR = ( J2+KA-1 ) / KA1
             J1 = J2 - ( NR-1 )*KA1
@@ -1051,7 +1051,7 @@
                AB( KA1, J-1 ) = RWORK( M-KB+J )*AB( KA1, J-1 )
             } // 870
             if ( UPDATE ) {
-               if (I+K.GT.KA1 && K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
+               if (I+K > KA1 && K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
             }
          } // 880
 
@@ -1059,7 +1059,7 @@
             J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1
             NR = ( J2+KA-1 ) / KA1
             J1 = J2 - ( NR-1 )*KA1
-            if ( NR.GT.0 ) {
+            if ( NR > 0 ) {
 
                // generate rotations in 2nd set to annihilate elements
                // which have been created outside the band
@@ -1085,7 +1085,7 @@
             DO 900 L = KA - 1, KB - K + 1, -1
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
             } // 900
 
             if ( WANTX ) {
@@ -1106,11 +1106,11 @@
             DO 930 L = KB - K, 1, -1
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
-               if (NRT.GT.0) CALL CLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
+               if (NRT > 0) CALL CLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
             } // 930
          } // 940
 
-         if ( KB.GT.1 ) {
+         if ( KB > 1 ) {
             for (J = 2; J <= I2 - KA; J++) { // 950
                RWORK( J ) = RWORK( J+KA )
                WORK( J ) = WORK( J+KA )

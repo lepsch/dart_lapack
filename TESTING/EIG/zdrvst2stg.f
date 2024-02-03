@@ -78,7 +78,7 @@
          INFO = -9
       } else if ( LDU < NMAX ) {
          INFO = -16
-      } else if ( 2*MAX( 2, NMAX )**2.GT.LWORK ) {
+      } else if ( 2*MAX( 2, NMAX )**2 > LWORK ) {
          INFO = -22
       }
 
@@ -112,7 +112,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 1220
          N = NN( JSIZE )
-         if ( N.GT.0 ) {
+         if ( N > 0 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
             if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = MAX( 2*N+N*N, 2*N*N )
@@ -155,7 +155,7 @@
             // =8                      random Hermitian
             // =9                      band Hermitian, w/ eigenvalues
 
-            if (MTYPES.GT.MAXTYP) GO TO 110;
+            if (MTYPES > MAXTYP) GO TO 110;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -259,7 +259,7 @@
             } else {
                IL = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) )
-               if ( IL.GT.IU ) {
+               if ( IL > IU ) {
                   ITEMP = IL
                   IL = IU
                   IU = ITEMP
@@ -329,16 +329,16 @@
 
                NTEST = NTEST + 1
 
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) )
                   if ( IL != 1 ) {
                      VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  } else if ( N.GT.0 ) {
+                  } else if ( N > 0 ) {
                      VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
                   if ( IU != N ) {
                      VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  } else if ( N.GT.0 ) {
+                  } else if ( N > 0 ) {
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
                } else {
@@ -431,7 +431,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -475,7 +475,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 170
                }
@@ -484,7 +484,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -604,16 +604,16 @@
 
                NTEST = NTEST + 1
 
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) )
                   if ( IL != 1 ) {
                      VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  } else if ( N.GT.0 ) {
+                  } else if ( N > 0 ) {
                      VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
                   if ( IU != N ) {
                      VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
-                  } else if ( N.GT.0 ) {
+                  } else if ( N > 0 ) {
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   }
                } else {
@@ -756,7 +756,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -833,7 +833,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 550
                }
@@ -842,7 +842,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -1077,7 +1077,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -1147,7 +1147,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 930
                }
@@ -1156,7 +1156,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO
@@ -1515,7 +1515,7 @@
                   }
                }
 
-               if ( M3 == 0 && N.GT.0 ) {
+               if ( M3 == 0 && N > 0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1190
                }
@@ -1524,7 +1524,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
-               if ( N.GT.0 ) {
+               if ( N > 0 ) {
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
                } else {
                   TEMP3 = ZERO

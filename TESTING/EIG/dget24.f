@@ -156,7 +156,7 @@
          ANORM = MAX( DLANGE( '1', N, N, A, LDA, WORK ), SMLNUM )
          WNORM = DLANGE( '1', N, N, VS1, LDVS, WORK )
 
-         if ( ANORM.GT.WNORM ) {
+         if ( ANORM > WNORM ) {
             RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP )
          } else {
             if ( ANORM < ONE ) {
@@ -176,13 +176,13 @@
          for (I = 1; I <= N; I++) { // 60
             IF( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV
          } // 60
-         if ( N.GT.1 ) {
+         if ( N > 1 ) {
             IF( H( 2, 1 ) == ZERO && WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV             IF( H( N, N-1 ) == ZERO && WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV
          }
          for (I = 1; I <= N - 1; I++) { // 70
             if ( H( I+1, I ) != ZERO ) {
                TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, SMLNUM ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, SMLNUM ) )
-            } else if ( I.GT.1 ) {
+            } else if ( I > 1 ) {
                IF( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV
             }
          } // 70
@@ -475,21 +475,21 @@
          ANORM = DLANGE( '1', N, N, A, LDA, WORK )
          V = MAX( DBLE( N )*EPS*ANORM, SMLNUM )
          if (ANORM == ZERO) V = ONE;
-         if ( V.GT.RCONDV ) {
+         if ( V > RCONDV ) {
             TOL = ONE
          } else {
             TOL = V / RCONDV
          }
-         if ( V.GT.RCDVIN ) {
+         if ( V > RCDVIN ) {
             TOLIN = ONE
          } else {
             TOLIN = V / RCDVIN
          }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         if ( EPS*( RCDEIN-TOLIN ).GT.RCONDE+TOL ) {
+         if ( EPS*( RCDEIN-TOLIN ) > RCONDE+TOL ) {
             RESULT( 16 ) = ULPINV
-         } else if ( RCDEIN-TOLIN.GT.RCONDE+TOL ) {
+         } else if ( RCDEIN-TOLIN > RCONDE+TOL ) {
             RESULT( 16 ) = ( RCDEIN-TOLIN ) / ( RCONDE+TOL )
          } else if ( RCDEIN+TOLIN < EPS*( RCONDE-TOL ) ) {
             RESULT( 16 ) = ULPINV
@@ -502,21 +502,21 @@
          // Compare condition numbers for right invariant subspace
          // taking its condition number into account
 
-         if ( V.GT.RCONDV*RCONDE ) {
+         if ( V > RCONDV*RCONDE ) {
             TOL = RCONDV
          } else {
             TOL = V / RCONDE
          }
-         if ( V.GT.RCDVIN*RCDEIN ) {
+         if ( V > RCDVIN*RCDEIN ) {
             TOLIN = RCDVIN
          } else {
             TOLIN = V / RCDEIN
          }
          TOL = MAX( TOL, SMLNUM / EPS )
          TOLIN = MAX( TOLIN, SMLNUM / EPS )
-         if ( EPS*( RCDVIN-TOLIN ).GT.RCONDV+TOL ) {
+         if ( EPS*( RCDVIN-TOLIN ) > RCONDV+TOL ) {
             RESULT( 17 ) = ULPINV
-         } else if ( RCDVIN-TOLIN.GT.RCONDV+TOL ) {
+         } else if ( RCDVIN-TOLIN > RCONDV+TOL ) {
             RESULT( 17 ) = ( RCDVIN-TOLIN ) / ( RCONDV+TOL )
          } else if ( RCDVIN+TOLIN < EPS*( RCONDV-TOL ) ) {
             RESULT( 17 ) = ULPINV

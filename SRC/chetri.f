@@ -66,14 +66,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
          } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
          } // 20
       }
       INFO = 0
@@ -90,9 +90,9 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 50;
+         if (K > N) GO TO 50;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -102,7 +102,7 @@
 
             // Compute column K of the inverse.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                ccopy(K-1, A( 1, K ), 1, WORK, 1 );
                chemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) );
             }
@@ -124,7 +124,7 @@
 
             // Compute columns K and K+1 of the inverse.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                ccopy(K-1, A( 1, K ), 1, WORK, 1 );
                chemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
                ccopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
@@ -174,7 +174,7 @@
 
          if (K < 1) GO TO 80;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 

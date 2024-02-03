@@ -44,7 +44,7 @@
 
          RAT = ONE / EPS
 
-      } else if ( RMIN.GT.ZERO ) {
+      } else if ( RMIN > ZERO ) {
 
          // Both estimates are positive, return RMAX/RMIN - 1.
 

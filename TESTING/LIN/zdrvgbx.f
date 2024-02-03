@@ -140,13 +140,13 @@
 
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
-               if ( LDA*N.GT.LA || LDAFB*N.GT.LAFB ) {
+               if ( LDA*N > LA || LDAFB*N > LAFB ) {
                   if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
-                  if ( LDA*N.GT.LA ) {
+                  if ( LDA*N > LA ) {
                      WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 )
                      NERRS = NERRS + 1
                   }
-                  if ( LDAFB*N.GT.LAFB ) {
+                  if ( LDAFB*N > LAFB ) {
                      WRITE( NOUT, FMT = 9998 )LAFB, N, KL, KU, N*( 2*KL+KU+1 )
                      NERRS = NERRS + 1
                   }
@@ -240,13 +240,13 @@
                            // previous iteration with FACT = 'F').
 
                            zlacpy('Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB );
-                           if ( EQUIL || IEQUED.GT.1 ) {
+                           if ( EQUIL || IEQUED > 1 ) {
 
                               // Compute row and column scale factors to
                               // equilibrate the matrix A.
 
                               zgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
-                              if ( INFO == 0 && N.GT.0 ) {
+                              if ( INFO == 0 && N > 0 ) {
                                  if ( LSAME( EQUED, 'R' ) ) {
                                     ROWCND = ZERO
                                     COLCND = ONE
@@ -382,7 +382,7 @@
 
                            if (.NOT.PREFAC) CALL ZLASET( 'Full', 2*KL+KU+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFB, LDAFB );
                            zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDB );
-                           if ( IEQUED.GT.1 && N.GT.0 ) {
+                           if ( IEQUED > 1 && N > 0 ) {
 
                               // Equilibrate the matrix if FACT = 'F' and
                               // EQUED = 'R', 'C', or 'B'.
@@ -528,7 +528,7 @@
                      zlacpy('Full', N, NRHS, BSAV, LDB, B, LDB );
                       if (.NOT.PREFAC) CALL ZLASET( 'Full', 2*KL+KU+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFB, LDAFB );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDB );
-                     if ( IEQUED.GT.1 && N.GT.0 ) {
+                     if ( IEQUED > 1 && N > 0 ) {
 
                         // Equilibrate the matrix if FACT = 'F' and
                         // EQUED = 'R', 'C', or 'B'.
@@ -555,7 +555,7 @@
                      // reciprocal pivot growth factor RPVGRW
 
 
-                     if ( INFO .GT. 0 && INFO < N+1 ) {
+                     if ( INFO > 0 && INFO < N+1 ) {
                         RPVGRW = ZLA_GBRPVGRW(N, KL, KU, INFO, A, LDA, AFB, LDAFB)
                      } else {
                         RPVGRW = ZLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB)

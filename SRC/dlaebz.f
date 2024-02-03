@@ -31,7 +31,7 @@
       // Check for Errors
 
       INFO = 0
-      if ( IJOB < 1 || IJOB.GT.3 ) {
+      if ( IJOB < 1 || IJOB > 3 ) {
          INFO = -1
          RETURN
       }
@@ -84,7 +84,7 @@
 
          // Loop over intervals
 
-         if ( KL-KF+1.GE.NBMIN && NBMIN.GT.0 ) {
+         if ( KL-KF+1.GE.NBMIN && NBMIN > 0 ) {
 
             // Begin of Parallel Version of the loop
 
@@ -268,7 +268,7 @@
                // Converged -- Swap with position KFNEW,
                             // then increment KFNEW
 
-               if ( JI.GT.KFNEW ) {
+               if ( JI > KFNEW ) {
                   TMP1 = AB( JI, 1 )
                   TMP2 = AB( JI, 2 )
                   ITMP1 = NAB( JI, 1 )
@@ -300,7 +300,7 @@
 
          // If no more intervals to refine, quit.
 
-         if (KF.GT.KL) GO TO 140;
+         if (KF > KL) GO TO 140;
       } // 130
 
       // Converged

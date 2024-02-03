@@ -44,9 +44,9 @@
          INFO = 2
       } else if ( N < 0 ) {
          INFO = 3
-      } else if ( KL < 0 || KL.GT.M-1 ) {
+      } else if ( KL < 0 || KL > M-1 ) {
          INFO = 4
-      } else if ( KU < 0 || KU.GT.N-1 ) {
+      } else if ( KU < 0 || KU > N-1 ) {
          INFO = 5
       } else if ( LDAB < KL+KU+1 ) {
          INFO = 6
@@ -74,12 +74,12 @@
          LENX = M
          LENY = N
       }
-      if ( INCX.GT.0 ) {
+      if ( INCX > 0 ) {
          KX = 1
       } else {
          KX = 1 - ( LENX - 1 )*INCX
       }
-      if ( INCY.GT.0 ) {
+      if ( INCY > 0 ) {
          KY = 1
       } else {
          KY = 1 - ( LENY - 1 )*INCY

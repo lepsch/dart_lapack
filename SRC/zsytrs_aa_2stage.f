@@ -69,7 +69,7 @@
 
          // Solve A*X = B, where A = U**T*T*U.
 
-         if ( N.GT.NB ) {
+         if ( N > NB ) {
 
             // Pivot, P**T * B -> B
 
@@ -84,7 +84,7 @@
          // Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
 
          zgbtrs('N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO);
-         if ( N.GT.NB ) {
+         if ( N > NB ) {
 
             // Compute (U \ B) -> B   [ U \ (T \ (U**T \P**T * B) ) ]
 
@@ -100,7 +100,7 @@
 
          // Solve A*X = B, where A = L*T*L**T.
 
-         if ( N.GT.NB ) {
+         if ( N > NB ) {
 
             // Pivot, P**T * B -> B
 
@@ -115,7 +115,7 @@
          // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 
          zgbtrs('N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO);
-         if ( N.GT.NB ) {
+         if ( N > NB ) {
 
             // Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
 

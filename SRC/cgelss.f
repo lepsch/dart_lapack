@@ -72,7 +72,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( MINMN.GT.0 ) {
+         if ( MINMN > 0 ) {
             MM = M
             MNTHR = ILAENV( 6, 'CGELSS', ' ', M, N, NRHS, -1 )
             if ( M.GE.N && M.GE.MNTHR ) {
@@ -109,7 +109,7 @@
                MAXWRK = MAX( MAXWRK, N*NRHS )
                MINWRK = 2*N + MAX( NRHS, M )
             }
-            if ( N.GT.M ) {
+            if ( N > M ) {
                MINWRK = 2*M + MAX( NRHS, N )
                if ( N.GE.MNTHR ) {
 
@@ -136,7 +136,7 @@
                   MAXWRK = MAX( MAXWRK, 3*M + M*M + LWORK_CGEBRD )
                   MAXWRK = MAX( MAXWRK, 3*M + M*M + LWORK_CUNMBR )
                   MAXWRK = MAX( MAXWRK, 3*M + M*M + LWORK_CUNGBR )
-                  if ( NRHS.GT.1 ) {
+                  if ( NRHS > 1 ) {
                      MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS )
                   } else {
                      MAXWRK = MAX( MAXWRK, M*M + 2*M )
@@ -193,13 +193,13 @@
 
       ANRM = CLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
@@ -219,13 +219,13 @@
 
       BNRM = CLANGE( 'M', M, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          clascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
@@ -262,7 +262,7 @@
 
             // Zero out below R
 
-            if (N.GT.1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
+            if (N > 1) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
          }
 
          IE = 1
@@ -303,7 +303,7 @@
          if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= N; I++) { // 10
-            if ( S( I ).GT.THR ) {
+            if ( S( I ) > THR ) {
                csrscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
@@ -315,10 +315,10 @@
          // (CWorkspace: need N, prefer N*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS && NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS && NRHS > 1 ) {
             cgemm('C', 'N', N, NRHS, N, CONE, A, LDA, B, LDB, CZERO, WORK, LDB );
             clacpy('G', N, NRHS, WORK, LDB, B, LDB );
-         } else if ( NRHS.GT.1 ) {
+         } else if ( NRHS > 1 ) {
             CHUNK = LWORK / N
             DO 20 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
@@ -391,7 +391,7 @@
          if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= M; I++) { // 30
-            if ( S( I ).GT.THR ) {
+            if ( S( I ) > THR ) {
                csrscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
@@ -404,10 +404,10 @@
          // (CWorkspace: need M*M+2*M, prefer M*M+M+M*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS+IWORK-1 && NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS+IWORK-1 && NRHS > 1 ) {
             cgemm('C', 'N', M, NRHS, M, CONE, WORK( IL ), LDWORK, B, LDB, CZERO, WORK( IWORK ), LDB );
             clacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
-         } else if ( NRHS.GT.1 ) {
+         } else if ( NRHS > 1 ) {
             CHUNK = ( LWORK-IWORK+1 ) / M
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
@@ -472,7 +472,7 @@
          if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= M; I++) { // 50
-            if ( S( I ).GT.THR ) {
+            if ( S( I ) > THR ) {
                csrscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
@@ -484,10 +484,10 @@
          // (CWorkspace: need N, prefer N*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS && NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS && NRHS > 1 ) {
             cgemm('C', 'N', N, NRHS, M, CONE, A, LDA, B, LDB, CZERO, WORK, LDB );
             clacpy('G', N, NRHS, WORK, LDB, B, LDB );
-         } else if ( NRHS.GT.1 ) {
+         } else if ( NRHS > 1 ) {
             CHUNK = LWORK / N
             DO 60 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )

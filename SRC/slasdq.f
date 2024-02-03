@@ -42,7 +42,7 @@
       IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
       if ( IUPLO == 0 ) {
          INFO = -1
-      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -52,11 +52,11 @@
          INFO = -5
       } else if ( NCC < 0 ) {
          INFO = -6
-      } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT.GT.0 && LDVT < MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT > 0 && LDVT < MAX( 1, N ) ) ) {
          INFO = -10
       } else if ( LDU < MAX( 1, NRU ) ) {
          INFO = -12
-      } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC.GT.0 && LDC < MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC > 0 && LDC < MAX( 1, N ) ) ) {
          INFO = -14
       }
       if ( INFO != 0 ) {
@@ -67,7 +67,7 @@
 
       // ROTATE is true if any singular vectors desired, false otherwise
 
-      ROTATE = ( NCVT.GT.0 ) || ( NRU.GT.0 ) || ( NCC.GT.0 )
+      ROTATE = ( NCVT > 0 ) || ( NRU > 0 ) || ( NCC > 0 )
       NP1 = N + 1
       SQRE1 = SQRE
 
@@ -97,7 +97,7 @@
 
          // Update singular vectors if desired.
 
-         if (NCVT.GT.0) CALL SLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT );
+         if (NCVT > 0) CALL SLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT );
       }
 
       // If matrix lower bidiagonal, rotate to be upper bidiagonal
@@ -129,14 +129,14 @@
 
          // Update singular vectors if desired.
 
-         if ( NRU.GT.0 ) {
+         if ( NRU > 0 ) {
             if ( SQRE1 == 0 ) {
                slasr('R', 'V', 'F', NRU, N, WORK( 1 ), WORK( NP1 ), U, LDU );
             } else {
                slasr('R', 'V', 'F', NRU, NP1, WORK( 1 ), WORK( NP1 ), U, LDU );
             }
          }
-         if ( NCC.GT.0 ) {
+         if ( NCC > 0 ) {
             if ( SQRE1 == 0 ) {
                slasr('L', 'V', 'F', N, NCC, WORK( 1 ), WORK( NP1 ), C, LDC );
             } else {
@@ -171,7 +171,7 @@
 
             D( ISUB ) = D( I )
             D( I ) = SMIN
-            if (NCVT.GT.0) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU.GT.0 ) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC.GT.0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );
+            if (NCVT > 0) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU > 0 ) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC > 0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );
          }
       } // 40
 

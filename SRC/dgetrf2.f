@@ -111,7 +111,7 @@
                 // [ A21 ]
 
          dgetrf2(M, N1, A, LDA, IPIV, IINFO );
-          if (INFO == 0 && IINFO.GT.0) INFO = IINFO;
+          if (INFO == 0 && IINFO > 0) INFO = IINFO;
 
                                // [ A12 ]
          // Apply interchanges to [ --- ]
@@ -133,7 +133,7 @@
 
          // Adjust INFO and the pivot indices
 
-         if (INFO == 0 && IINFO.GT.0) INFO = IINFO + N1;
+         if (INFO == 0 && IINFO > 0) INFO = IINFO + N1;
          DO 20 I = N1+1, MIN( M, N )
             IPIV( I ) = IPIV( I ) + N1
          } // 20

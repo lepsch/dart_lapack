@@ -98,7 +98,7 @@
          INFO = -9
       } else if ( LDVS < 1 || LDVS < NMAX ) {
          INFO = -17
-      } else if ( 5*NMAX+2*NMAX**2.GT.NWORK ) {
+      } else if ( 5*NMAX+2*NMAX**2 > NWORK ) {
          INFO = -20
       }
 
@@ -154,7 +154,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            if (MTYPES.GT.MAXTYP) GO TO 90;
+            if (MTYPES > MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -202,7 +202,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
+                  if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -343,13 +343,13 @@
                   for (I = 1; I <= N; I++) { // 150
                      IF( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV
                   } // 150
-                  if ( N.GT.1 ) {
+                  if ( N > 1 ) {
                      IF( H( 2, 1 ) == ZERO && WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ) == ZERO && WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV
                   }
                   for (I = 1; I <= N - 1; I++) { // 160
                      if ( H( I+1, I ) != ZERO ) {
                         TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, UNFL ) )
-                     } else if ( I.GT.1 ) {
+                     } else if ( I > 1 ) {
                         IF( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV
                      }
                   } // 160
@@ -407,7 +407,7 @@
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
                } // 230
 
-               if (NFAIL.GT.0) NTESTF = NTESTF + 1;
+               if (NFAIL > 0) NTESTF = NTESTF + 1;
                if ( NTESTF == 1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )

@@ -67,7 +67,7 @@
             DIFFNM = MAX( DIFFNM, CABS1( X( I, J )-XACT( I, J ) ) )
          } // 10
          if ( XNORM.LE.ZERO ) {
-            if (DIFFNM.GT.ZERO) RESID = 1.0D0 / EPS;
+            if (DIFFNM > ZERO) RESID = 1.0D0 / EPS;
          } else {
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
          }

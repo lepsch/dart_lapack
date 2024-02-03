@@ -71,7 +71,7 @@
       classq(M2, X2, INCX2, SCL, SSQ );
       NORM = SCL * SQRT( SSQ )
 
-      if ( NORM .GT. N * EPS ) {
+      if ( NORM > N * EPS ) {
          // Scale vector to unit norm to avoid problems in the caller code.
          // Computing the reciprocal is undesirable but
           // * xLASCL cannot be used because of the vector increments and

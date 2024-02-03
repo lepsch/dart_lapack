@@ -247,7 +247,7 @@
                   // pivoting.
 
                   K = IZERO
-                  if ( K.GT.0 ) {
+                  if ( K > 0 ) {
                      } // 100
                      if ( IWORK( K ) < 0 ) {
                         if ( IWORK( K ) != -K ) {
@@ -327,7 +327,7 @@
                      } // 120
                      if (K.LE.1) GO TO 130;
 
-                     if ( IWORK( K ).GT.ZERO ) {
+                     if ( IWORK( K ) > ZERO ) {
 
                         // Get max absolute value from elements
                         // in column k in in U
@@ -346,7 +346,7 @@
                      // STEMP should be bounded by CONST
 
                      STEMP = STEMP - CONST + THRESH
-                     IF( STEMP.GT.RESULT( 3 ) ) RESULT( 3 ) = STEMP
+                     IF( STEMP > RESULT( 3 ) ) RESULT( 3 ) = STEMP
 
                      K = K - 1
 
@@ -361,7 +361,7 @@
                      } // 140
                      if (K.GE.N) GO TO 150;
 
-                     if ( IWORK( K ).GT.ZERO ) {
+                     if ( IWORK( K ) > ZERO ) {
 
                         // Get max absolute value from elements
                         // in column k in in L
@@ -380,7 +380,7 @@
                      // STEMP should be bounded by CONST
 
                      STEMP = STEMP - CONST + THRESH
-                     IF( STEMP.GT.RESULT( 3 ) ) RESULT( 3 ) = STEMP
+                     IF( STEMP > RESULT( 3 ) ) RESULT( 3 ) = STEMP
 
                      K = K + 1
 
@@ -429,7 +429,7 @@
                         // STEMP should be bounded by CONST
 
                         STEMP = STEMP - CONST + THRESH
-                        IF( STEMP.GT.RESULT( 4 ) ) RESULT( 4 ) = STEMP
+                        IF( STEMP > RESULT( 4 ) ) RESULT( 4 ) = STEMP
                         K = K - 1
 
                      }
@@ -469,7 +469,7 @@
                         // STEMP should be bounded by CONST
 
                         STEMP = STEMP - CONST + THRESH
-                        IF( STEMP.GT.RESULT( 4 ) ) RESULT( 4 ) = STEMP
+                        IF( STEMP > RESULT( 4 ) ) RESULT( 4 ) = STEMP
                         K = K + 1
 
                      }
@@ -494,7 +494,7 @@
                   // Skip the other tests if this is not the first block
                   // size.
 
-                  if (INB.GT.1) GO TO 240;
+                  if (INB > 1) GO TO 240;
 
                   // Do only the condition estimate if INFO is not 0.
 

@@ -56,7 +56,7 @@
       }
       LOPT = LWMIN
       LIOPT = LIWMIN
-      if ( ITYPE < 1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE > 3 ) {
          INFO = -1
       } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2

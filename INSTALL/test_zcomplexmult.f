@@ -94,7 +94,7 @@ void main() {
           }
       } // 20
 
-      if (nFailingTests .gt. 0) {
+      if (nFailingTests > 0) {
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex multiplication,", nFailingTests," fail."
       } else {
          print *, "# All tests pass for complex multiplication."

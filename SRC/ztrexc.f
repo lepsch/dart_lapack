@@ -44,9 +44,9 @@
          INFO = -4
       } else if ( LDQ < 1 || ( WANTQ && LDQ < MAX( 1, N ) ) ) {
          INFO = -6
-      } else if (( IFST < 1 || IFST.GT.N ) && ( N.GT.0 )) {
+      } else if (( IFST < 1 || IFST > N ) && ( N > 0 )) {
          INFO = -7
-      } else if (( ILST < 1 || ILST.GT.N ) && ( N.GT.0 )) {
+      } else if (( ILST < 1 || ILST > N ) && ( N > 0 )) {
          INFO = -8
       }
       if ( INFO != 0 ) {

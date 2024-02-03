@@ -178,7 +178,7 @@
             // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
             // RMAGN: used to implement KAMAGN and KBMAGN.
 
-            if (MTYPES.GT.MAXTYP) GO TO 100;
+            if (MTYPES > MAXTYP) GO TO 100;
             IERR = 0
             if ( KCLASS( JTYPE ) < 3 ) {
 
@@ -192,7 +192,7 @@
                }
                zlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               if (IADD.GT.0 && IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
+               if (IADD > 0 && IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
 
                // Generate B (w/o rotation)
 
@@ -206,7 +206,7 @@
                IADD = KADD( KBZERO( JTYPE ) )
                if (IADD != 0 && IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
 
-               if ( KCLASS( JTYPE ) == 2 && N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 && N > 0 ) {
 
                   // Include rotations
 
@@ -286,14 +286,14 @@
             // Do the tests (1) and (2)
 
             zget52( true , N, A, LDA, B, LDA, Q, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
-            if ( RESULT( 2 ).GT.THRESH ) {
+            if ( RESULT( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'ZGGEV1', RESULT( 2 ), N, JTYPE, IOLDSD
             }
 
             // Do the tests (3) and (4)
 
             zget52( false , N, A, LDA, B, LDA, Z, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 3 ) );
-            if ( RESULT( 4 ).GT.THRESH ) {
+            if ( RESULT( 4 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'ZGGEV1', RESULT( 4 ), N, JTYPE, IOLDSD
             }
 

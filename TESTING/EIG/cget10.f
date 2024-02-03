@@ -54,7 +54,7 @@
 
       ANORM = MAX( CLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
 
-      if ( ANORM.GT.WNORM ) {
+      if ( ANORM > WNORM ) {
          RESULT = ( WNORM / ANORM ) / ( M*EPS )
       } else {
          if ( ANORM < ONE ) {

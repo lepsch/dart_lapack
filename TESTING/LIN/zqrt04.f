@@ -77,7 +77,7 @@
       zgemm('C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
       ANORM = ZLANGE( '1', M, N, A, M, RWORK )
       RESID = ZLANGE( '1', M, N, R, M, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = RESID / (EPS*MAX(1,M)*ANORM)
       } else {
          RESULT( 1 ) = ZERO
@@ -106,7 +106,7 @@
 
       zgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = ZLANGE( '1', M, N, CF, M, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,M)*CNORM)
       } else {
          RESULT( 3 ) = ZERO
@@ -124,7 +124,7 @@
 
       zgemm('C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = ZLANGE( '1', M, N, CF, M, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,M)*CNORM)
       } else {
          RESULT( 4 ) = ZERO
@@ -146,7 +146,7 @@
 
       zgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,M)*DNORM)
       } else {
          RESULT( 5 ) = ZERO
@@ -164,7 +164,7 @@
 
       zgemm('N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,M)*DNORM)
       } else {
          RESULT( 6 ) = ZERO

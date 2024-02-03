@@ -53,9 +53,9 @@
       LRQUERY = LRWORK == -1
       if ( M < 0 ) {
          INFO = -7
-      } else if ( P < 0 || P .GT. M ) {
+      } else if ( P < 0 || P > M ) {
          INFO = -8
-      } else if ( Q < 0 || Q .GT. M ) {
+      } else if ( Q < 0 || Q > M ) {
          INFO = -9
       } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
         INFO = -11
@@ -185,15 +185,15 @@
       // Accumulate Householder reflectors
 
       if ( COLMAJOR ) {
-         if ( WANTU1 && P .GT. 0 ) {
+         if ( WANTU1 && P > 0 ) {
             zlacpy('L', P, Q, X11, LDX11, U1, LDU1 );
             zungqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQRWORK, INFO);
          }
-         if ( WANTU2 && M-P .GT. 0 ) {
+         if ( WANTU2 && M-P > 0 ) {
             zlacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
             zungqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQRWORK, INFO );
          }
-         if ( WANTV1T && Q .GT. 0 ) {
+         if ( WANTV1T && Q > 0 ) {
             zlacpy('U', Q-1, Q-1, X11(1,2), LDX11, V1T(2,2), LDV1T );
             V1T(1, 1) = ONE
             for (J = 2; J <= Q; J++) {
@@ -202,25 +202,25 @@
             }
             zunglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQWORK, INFO );
          }
-         if ( WANTV2T && M-Q .GT. 0 ) {
+         if ( WANTV2T && M-Q > 0 ) {
             zlacpy('U', P, M-Q, X12, LDX12, V2T, LDV2T );
-            if ( M-P .GT. Q) {
+            if ( M-P > Q) {
                zlacpy('U', M-P-Q, M-P-Q, X22(Q+1,P+1), LDX22, V2T(P+1,P+1), LDV2T );
             }
-            if ( M .GT. Q ) {
+            if ( M > Q ) {
                zunglq(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ), LORGLQWORK, INFO );
             }
          }
       } else {
-         if ( WANTU1 && P .GT. 0 ) {
+         if ( WANTU1 && P > 0 ) {
             zlacpy('U', Q, P, X11, LDX11, U1, LDU1 );
             zunglq(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGLQ), LORGLQWORK, INFO);
          }
-         if ( WANTU2 && M-P .GT. 0 ) {
+         if ( WANTU2 && M-P > 0 ) {
             zlacpy('U', Q, M-P, X21, LDX21, U2, LDU2 );
             zunglq(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGLQ), LORGLQWORK, INFO );
          }
-         if ( WANTV1T && Q .GT. 0 ) {
+         if ( WANTV1T && Q > 0 ) {
             zlacpy('L', Q-1, Q-1, X11(2,1), LDX11, V1T(2,2), LDV1T );
             V1T(1, 1) = ONE
             for (J = 2; J <= Q; J++) {
@@ -229,11 +229,11 @@
             }
             zungqr(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO );
          }
-         if ( WANTV2T && M-Q .GT. 0 ) {
+         if ( WANTV2T && M-Q > 0 ) {
             P1 = MIN( P+1, M )
             Q1 = MIN( Q+1, M )
             zlacpy('L', M-Q, P, X12, LDX12, V2T, LDV2T );
-            if ( M .GT. P+Q ) {
+            if ( M > P+Q ) {
                zlacpy('L', M-P-Q, M-P-Q, X22(P1,Q1), LDX22, V2T(P+1,P+1), LDV2T );
             }
             zungqr(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO );
@@ -249,7 +249,7 @@
       // block and/or bottom-right corner of (2,1)-block and/or top-left
       // corner of (2,2)-block
 
-      if ( Q .GT. 0 && WANTU2 ) {
+      if ( Q > 0 && WANTU2 ) {
          for (I = 1; I <= Q; I++) {
             IWORK(I) = M - P - Q + I
          }
@@ -262,7 +262,7 @@
             zlapmr( false , M-P, M-P, U2, LDU2, IWORK );
          }
       }
-      if ( M .GT. 0 && WANTV2T ) {
+      if ( M > 0 && WANTV2T ) {
          for (I = 1; I <= P; I++) {
             IWORK(I) = M - P - Q + I
          }

@@ -74,7 +74,7 @@
       dgemm('N', 'T', M, N, N, -ONE, A, M, Q, N, ONE, L, LL );
       ANORM = DLANGE( '1', M, N, A, M, RWORK )
       RESID = DLANGE( '1', M, N, L, LL, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = RESID / (EPS*MAX(1,M)*ANORM)
       } else {
          RESULT( 1 ) = ZERO
@@ -103,7 +103,7 @@
 
       dgemm('N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK )
-      if ( DNORM.GT.ZERO ) {
+      if ( DNORM > ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,M)*DNORM)
       } else {
          RESULT( 3 ) = ZERO
@@ -121,7 +121,7 @@
 
       dgemm('T', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK )
-      if ( DNORM.GT.ZERO ) {
+      if ( DNORM > ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,M)*DNORM)
       } else {
          RESULT( 4 ) = ZERO
@@ -143,7 +143,7 @@
 
       dgemm('N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
       RESID = DLANGE( '1', N, M, DF, N, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,M)*DNORM)
       } else {
          RESULT( 5 ) = ZERO
@@ -161,7 +161,7 @@
 
       dgemm('N', 'T', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
       RESID = DLANGE( '1', M, N, CF, M, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,M)*DNORM)
       } else {
          RESULT( 6 ) = ZERO

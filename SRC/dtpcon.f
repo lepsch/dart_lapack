@@ -80,7 +80,7 @@
 
       // Continue only if ANORM > 0.
 
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
 
          // Estimate the norm of the inverse of A.
 

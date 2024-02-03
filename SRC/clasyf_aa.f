@@ -51,7 +51,7 @@
          // .....................................................
 
          } // 10
-         IF ( J.GT.MIN(M, NB) ) GO TO 20
+         IF ( J > MIN(M, NB) ) GO TO 20
 
          // K is the column to be factorized
           // when being called from CSYTRF_AA,
@@ -71,7 +71,7 @@
          // H(J:M, J) := A(J, J:M) - H(J:M, 1:(J-1)) * L(J1:(J-1), J),
           // where H(J:M, J) has been initialized to be A(J, J:M)
 
-         if ( K.GT.2 ) {
+         if ( K > 2 ) {
 
          // K is the column to be factorized
           // > for the first block column, K is J, skipping the first two
@@ -86,7 +86,7 @@
 
          ccopy(MJ, H( J, J ), 1, WORK( 1 ), 1 );
 
-         if ( J.GT.K1 ) {
+         if ( J > K1 ) {
 
             // Compute WORK := WORK - L(J-1, J:M) * T(J-1,J),
              // where A(J-1, J) stores T(J-1, J) and A(J-2, J:M) stores U(J-1, J:M)
@@ -104,7 +104,7 @@
             // Compute WORK(2:M) = T(J, J) L(J, (J+1):M)
              // where A(J, J) stores T(J, J) and A(J-1, (J+1):M) stores U(J, (J+1):M)
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                ALPHA = -A( K, J )
                caxpy(M-J, ALPHA, A( K-1, J+1 ), LDA, WORK( 2 ), 1 );
             }
@@ -145,7 +145,7 @@
                cswap(I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH );
                IPIV( I1 ) = I2
 
-               if ( I1.GT.(K1-1) ) {
+               if ( I1 > (K1-1) ) {
 
                   // Swap L(1:I1-1, I1) with L(1:I1-1, I2),
                    // skipping the first column
@@ -191,7 +191,7 @@
          // .....................................................
 
          } // 30
-         IF( J.GT.MIN( M, NB ) ) GO TO 40
+         IF( J > MIN( M, NB ) ) GO TO 40
 
          // K is the column to be factorized
           // when being called from CSYTRF_AA,
@@ -211,7 +211,7 @@
          // H(J:M, J) := A(J:M, J) - H(J:M, 1:(J-1)) * L(J, J1:(J-1))^T,
           // where H(J:M, J) has been initialized to be A(J:M, J)
 
-         if ( K.GT.2 ) {
+         if ( K > 2 ) {
 
          // K is the column to be factorized
           // > for the first block column, K is J, skipping the first two
@@ -226,7 +226,7 @@
 
          ccopy(MJ, H( J, J ), 1, WORK( 1 ), 1 );
 
-         if ( J.GT.K1 ) {
+         if ( J > K1 ) {
 
             // Compute WORK := WORK - L(J:M, J-1) * T(J-1,J),
              // where A(J-1, J) = T(J-1, J) and A(J, J-2) = L(J, J-1)
@@ -244,7 +244,7 @@
             // Compute WORK(2:M) = T(J, J) L((J+1):M, J)
              // where A(J, J) = T(J, J) and A((J+1):M, J-1) = L((J+1):M, J)
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                ALPHA = -A( J, K )
                caxpy(M-J, ALPHA, A( J+1, K-1 ), 1, WORK( 2 ), 1 );
             }
@@ -285,7 +285,7 @@
                cswap(I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH );
                IPIV( I1 ) = I2
 
-               if ( I1.GT.(K1-1) ) {
+               if ( I1 > (K1-1) ) {
 
                   // Swap L(1:I1-1, I1) with L(1:I1-1, I2),
                    // skipping the first column

@@ -82,8 +82,8 @@
 
       if ( UPPER ) {
          K = N
-         DO WHILE ( K < NCOLS && K.GT.0 )
-            if ( IPIV( K ).GT.0 ) {
+         DO WHILE ( K < NCOLS && K > 0 )
+            if ( IPIV( K ) > 0 ) {
                // 1x1 pivot
                KP = IPIV( K )
                if ( KP != K ) {
@@ -111,7 +111,7 @@
          }
          K = NCOLS
          DO WHILE ( K .LE. N )
-            if ( IPIV( K ).GT.0 ) {
+            if ( IPIV( K ) > 0 ) {
                KP = IPIV( K )
                if ( KP != K ) {
                   TMP = WORK( N+K )
@@ -130,7 +130,7 @@
       } else {
          K = 1
          DO WHILE ( K .LE. NCOLS )
-            if ( IPIV( K ).GT.0 ) {
+            if ( IPIV( K ) > 0 ) {
                // 1x1 pivot
                KP = IPIV( K )
                if ( KP != K ) {
@@ -158,7 +158,7 @@
          }
          K = NCOLS
          DO WHILE ( K .GE. 1 )
-            if ( IPIV( K ).GT.0 ) {
+            if ( IPIV( K ) > 0 ) {
                KP = IPIV( K )
                if ( KP != K ) {
                   TMP = WORK( N+K )

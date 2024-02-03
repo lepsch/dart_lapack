@@ -63,7 +63,7 @@
          BABS = ABS( B )
          TABS = ABS( T )
          Z = MAX( BABS, TABS )
-         if (Z.GT.ZERO) T = Z*SQRT( ( T / Z )**2+( B / Z )**2 );
+         if (Z > ZERO) T = Z*SQRT( ( T / Z )**2+( B / Z )**2 );
 
          // Compute the two eigenvalues.  RT1 and RT2 are exchanged
          // if necessary so that RT1 will have the greater magnitude.
@@ -83,7 +83,7 @@
 
          SN1 = ( RT1-A ) / B
          TABS = ABS( SN1 )
-         if ( TABS.GT.ONE ) {
+         if ( TABS > ONE ) {
             T = TABS*SQRT( ( ONE / TABS )**2+( SN1 / TABS )**2 )
          } else {
             T = SQRT( CONE+SN1*SN1 )

@@ -60,11 +60,11 @@
          INFO = -4
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 && VU.LE.VL) INFO = -7;
+            if (N > 0 && VU.LE.VL) INFO = -7;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -8
-            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU > N ) {
                INFO = -9
             }
          }
@@ -118,16 +118,16 @@
          VUU = ZERO
       }
       ANRM = CLANHP( 'M', UPLO, N, AP, RWORK )
-      if ( ANRM.GT.ZERO && ANRM < RMIN ) {
+      if ( ANRM > ZERO && ANRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
-      } else if ( ANRM.GT.RMAX ) {
+      } else if ( ANRM > RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
       if ( ISCALE == 1 ) {
          csscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
-         if (ABSTOL.GT.0) ABSTLL = ABSTOL*SIGMA;
+         if (ABSTOL > 0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA

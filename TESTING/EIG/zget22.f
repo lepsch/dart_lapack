@@ -144,7 +144,7 @@
 
       // Compute RESULT(1) (avoiding under/overflow)
 
-      if ( ANORM.GT.ERRNRM ) {
+      if ( ANORM > ERRNRM ) {
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
       } else {
          if ( ANORM < ONE ) {

@@ -68,7 +68,7 @@
 
       for (I = 1; I <= N; I++) { // 30
          ABSXI = ABS( X( I ) )
-         if ( ABSXI.GT.SAFMIN ) {
+         if ( ABSXI > SAFMIN ) {
             X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI )
          } else {
             X( I ) = CONE
@@ -109,7 +109,7 @@
 
       for (I = 1; I <= N; I++) { // 80
          ABSXI = ABS( X( I ) )
-         if ( ABSXI.GT.SAFMIN ) {
+         if ( ABSXI > SAFMIN ) {
             X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI )
          } else {
             X( I ) = CONE
@@ -147,7 +147,7 @@
 
       } // 120
       TEMP = TWO*( DZSUM1( N, X, 1 ) / DBLE( 3*N ) )
-      if ( TEMP.GT.EST ) {
+      if ( TEMP > EST ) {
          zcopy(N, X, 1, V, 1 );
          EST = TEMP
       }

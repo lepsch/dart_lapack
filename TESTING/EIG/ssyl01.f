@@ -132,15 +132,15 @@
                         if (IINFO != 0) NINFO( 1 ) = NINFO( 1 ) + 1;
                         XNRM = SLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = ONE
-                        if ( XNRM.GT.ONE && TNRM.GT.ONE ) {
-                           if ( XNRM.GT.BIGNUM / TNRM ) {
+                        if ( XNRM > ONE && TNRM > ONE ) {
+                           if ( XNRM > BIGNUM / TNRM ) {
                               RMUL = ONE / MAX( XNRM, TNRM )
                            }
                         }
                         sgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, C, MAXM );
                         sgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, C, MAXM );
                         RES1 = SLANGE( 'M', M, N, C, MAXM, DUM )
-                        RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )                         IF( RES.GT.THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES.GT.RMAX( 1 ) ) RMAX( 1 ) = RES
+                        RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )                         IF( RES > THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES > RMAX( 1 ) ) RMAX( 1 ) = RES
 
                         slacpy('All', M, N, C, MAXM, X, MAXM );
                         slacpy('All', M, N, C, MAXM, CC, MAXM );
@@ -148,8 +148,8 @@
                         if (INFO != 0) NINFO( 2 ) = NINFO( 2 ) + 1;
                         XNRM = SLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = ONE
-                        if ( XNRM.GT.ONE && TNRM.GT.ONE ) {
-                           if ( XNRM.GT.BIGNUM / TNRM ) {
+                        if ( XNRM > ONE && TNRM > ONE ) {
+                           if ( XNRM > BIGNUM / TNRM ) {
                               RMUL = ONE / MAX( XNRM, TNRM )
                            }
                         }
@@ -159,10 +159,10 @@
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but
                         // there may be cases where TRSYL3 avoid flushing).
-                        if ( SCALE3 == ZERO && SCALE.GT.ZERO || IINFO != INFO ) {
+                        if ( SCALE3 == ZERO && SCALE > ZERO || IINFO != INFO ) {
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         }
-                        IF( RES.GT.THRESH || SISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES.GT.RMAX( 2 ) ) RMAX( 2 ) = RES
+                        IF( RES > THRESH || SISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES > RMAX( 2 ) ) RMAX( 2 ) = RES
                      }
                   }
                }

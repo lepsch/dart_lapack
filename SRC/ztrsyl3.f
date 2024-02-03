@@ -875,7 +875,7 @@
          }
       }
 
-      if ( BUF != ONE && BUF.GT.ZERO ) {
+      if ( BUF != ONE && BUF > ZERO ) {
 
          // Decrease SCALE as much as possible.
 
@@ -884,7 +884,7 @@
          SCALE = SCALE / SCALOC
       }
 
-      if ( BUF != ONE && BUF.GT.ZERO ) {
+      if ( BUF != ONE && BUF > ZERO ) {
 
          // In case of overly aggressive scaling during the computation,
          // flushing of the global scale factor may be prevented by

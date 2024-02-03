@@ -111,7 +111,7 @@
          // Compute smaller eigenvalue
 
          WSMALL = SHIFT + DIFF
-         if ( HALF*ABS( WBIG ).GT.MAX( ABS( WSMALL ), SAFMIN ) ) {
+         if ( HALF*ABS( WBIG ) > MAX( ABS( WSMALL ), SAFMIN ) ) {
             WDET = ( A11*A22-A12*A21 )*( BINV11*BINV22 )
             WSMALL = WDET / WBIG
          }
@@ -119,7 +119,7 @@
          // Choose (real) eigenvalue closest to 2,2 element of A*B**(-1)
          // for WR1.
 
-         if ( PP.GT.ABI22 ) {
+         if ( PP > ABI22 ) {
             WR1 = MIN( WBIG, WSMALL )
             WR2 = MAX( WBIG, WSMALL )
          } else {
@@ -168,7 +168,7 @@
       WSIZE = MAX( SAFMIN, C1, FUZZY1*( WABS*C2+C3 ), MIN( C4, HALF*MAX( WABS, C5 ) ) )
       if ( WSIZE != ONE ) {
          WSCALE = ONE / WSIZE
-         if ( WSIZE.GT.ONE ) {
+         if ( WSIZE > ONE ) {
             SCALE1 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
          } else {
             SCALE1 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )
@@ -190,7 +190,7 @@
          WSIZE = MAX( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ), MIN( C4, HALF*MAX( ABS( WR2 ), C5 ) ) )
          if ( WSIZE != ONE ) {
             WSCALE = ONE / WSIZE
-            if ( WSIZE.GT.ONE ) {
+            if ( WSIZE > ONE ) {
                SCALE2 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
             } else {
                SCALE2 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )

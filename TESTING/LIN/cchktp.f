@@ -118,7 +118,7 @@
 *+    TEST 1
                // Form the inverse of A.
 
-               if (N.GT.0) CALL CCOPY( LAP, AP, 1, AINVP, 1 );
+               if (N > 0) CALL CCOPY( LAP, AP, 1, AINVP, 1 );
                SRNAMT = 'CTPTRI'
                ctptri(UPLO, DIAG, N, AINVP, INFO );
 

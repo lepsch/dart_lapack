@@ -66,7 +66,7 @@
 
       ANORM = DLANGE( '1', M, K, A, LDA, RWORK )
       RESID = DLANGE( '1', N, K, R, LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO

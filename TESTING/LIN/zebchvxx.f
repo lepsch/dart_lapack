@@ -114,14 +114,14 @@
          if (ORCOND < EPS) {
          // Either factorization failed or the matrix is flagged, and 1 <=
          // INFO <= N+1. We don't decide based on rcond anymore.
-             // IF (INFO == 0 || INFO .GT. N+1) THEN
+             // IF (INFO == 0 || INFO > N+1) THEN
                 // NFAIL = NFAIL + 1
                 // WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
              // END IF
          } else {
          // Either everything succeeded (INFO == 0) or some solution failed
          // to converge (INFO > N+1).
-            if (INFO .GT. 0 && INFO .LE. N+1) {
+            if (INFO > 0 && INFO .LE. N+1) {
                NFAIL = NFAIL + 1
                WRITE (*, FMT=8000) C2, N, INFO, ORCOND, RCOND
             }
@@ -242,7 +242,7 @@
              // write (*,*) 'nwise2: ', k, nwise_bnd, nwise_err, errthresh
             if (NCOND .GE. CONDTHRESH) {
                NGUAR = 'YES'
-               if (NWISE_BND .GT. ERRTHRESH) {
+               if (NWISE_BND > ERRTHRESH) {
                   TSTRAT(1) = 1/(2.0D+0*EPS)
                } else {
                   if (NWISE_BND != 0.0D+0) {
@@ -252,7 +252,7 @@
                   } else {
                      TSTRAT(1) = 0.0D+0
                   }
-                  if (TSTRAT(1) .GT. 1.0D+0) {
+                  if (TSTRAT(1) > 1.0D+0) {
                      TSTRAT(1) = 1/(4.0D+0*EPS)
                   }
                }
@@ -269,7 +269,7 @@
              // write (*,*) 'cwise2: ', k, cwise_bnd, cwise_err, errthresh
             if (CCOND .GE. CONDTHRESH) {
                CGUAR = 'YES'
-               if (CWISE_BND .GT. ERRTHRESH) {
+               if (CWISE_BND > ERRTHRESH) {
                   TSTRAT(2) = 1/(2.0D+0*EPS)
                } else {
                   if (CWISE_BND != 0.0D+0) {
@@ -279,7 +279,7 @@
                   } else {
                      TSTRAT(2) = 0.0D+0
                   }
-                  IF (TSTRAT(2) .GT. 1.0D+0) TSTRAT(2) = 1/(4.0D+0*EPS)
+                  IF (TSTRAT(2) > 1.0D+0) TSTRAT(2) = 1/(4.0D+0*EPS)
                }
             } else {
                CGUAR = 'NO'
@@ -304,7 +304,7 @@
             IF (CCOND .GE. CONDTHRESH && TSTRAT(6) < 1.0D+0) TSTRAT(6) = 1.0D+0 / TSTRAT(6)
 
             for (I = 1; I <= NTESTS; I++) {
-               if (TSTRAT(I) .GT. THRESH) {
+               if (TSTRAT(I) > THRESH) {
                   if (.NOT.PRINTED_GUIDE) {
                      WRITE(*,*)
                      WRITE( *, 9996) 1
@@ -341,7 +341,7 @@ c$$$         WRITE(*,*)
       }
 
       WRITE(*,*)
-      if ( NFAIL .GT. 0 ) {
+      if ( NFAIL > 0 ) {
          WRITE(*,9998) C2, NFAIL, NTESTS*N+N_AUX_TESTS
       } else {
          WRITE(*,9997) C2

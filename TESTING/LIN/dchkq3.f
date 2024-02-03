@@ -97,7 +97,7 @@
                   // 6:  every second column fixed
 
                MODE = IMODE
-               if (IMODE.GT.3) MODE = 1;
+               if (IMODE > 3) MODE = 1;
 
                // Generate test matrix of size m by n using
                // singular value distribution indicated by `mode'.

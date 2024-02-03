@@ -69,7 +69,7 @@
 
       NB = MIN( NB, NBMAX )
 
-      if ( NB.LE.1 || NB.GT.KD ) {
+      if ( NB.LE.1 || NB > KD ) {
 
          // Use unblocked code
 
@@ -123,7 +123,7 @@
                   I2 = MIN( KD-IB, N-I-IB+1 )
                   I3 = MIN( IB, N-I-KD+1 )
 
-                  if ( I2.GT.0 ) {
+                  if ( I2 > 0 ) {
 
                      // Update A12
 
@@ -134,7 +134,7 @@
                      dsyrk('Upper', 'Transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 );
                   }
 
-                  if ( I3.GT.0 ) {
+                  if ( I3 > 0 ) {
 
                      // Copy the lower triangle of A13 into the work array.
 
@@ -150,7 +150,7 @@
 
                      // Update A23
 
-                     if (I2.GT.0) CALL DGEMM( 'Transpose', 'No Transpose', I2, I3, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, ONE, AB( 1+IB, I+KD ), LDAB-1 );
+                     if (I2 > 0) CALL DGEMM( 'Transpose', 'No Transpose', I2, I3, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, ONE, AB( 1+IB, I+KD ), LDAB-1 );
 
                      // Update A33
 
@@ -211,7 +211,7 @@
                   I2 = MIN( KD-IB, N-I-IB+1 )
                   I3 = MIN( IB, N-I-KD+1 )
 
-                  if ( I2.GT.0 ) {
+                  if ( I2 > 0 ) {
 
                      // Update A21
 
@@ -222,7 +222,7 @@
                      dsyrk('Lower', 'No Transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 );
                   }
 
-                  if ( I3.GT.0 ) {
+                  if ( I3 > 0 ) {
 
                      // Copy the upper triangle of A31 into the work array.
 
@@ -238,7 +238,7 @@
 
                      // Update A32
 
-                     if (I2.GT.0) CALL DGEMM( 'No transpose', 'Transpose', I3, I2, IB, -ONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, ONE, AB( 1+KD-IB, I+IB ), LDAB-1 );
+                     if (I2 > 0) CALL DGEMM( 'No transpose', 'Transpose', I3, I2, IB, -ONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, ONE, AB( 1+KD-IB, I+IB ), LDAB-1 );
 
                      // Update A33
 

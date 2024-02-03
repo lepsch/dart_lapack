@@ -79,7 +79,7 @@
          } // 20
       } // 30
       for (I = 1; I <= M; I++) {
-         if ( R( I ).GT.ZERO ) {
+         if ( R( I ) > ZERO ) {
             R( I ) = RADIX**INT( LOG( R( I ) ) / LOGRDX )
          }
       }
@@ -130,7 +130,7 @@
          for (I = 1; I <= M; I++) { // 80
             C( J ) = MAX( C( J ), ABS( A( I, J ) )*R( I ) )
          } // 80
-         if ( C( J ).GT.ZERO ) {
+         if ( C( J ) > ZERO ) {
             C( J ) = RADIX**INT( LOG( C( J ) ) / LOGRDX )
          }
       } // 90

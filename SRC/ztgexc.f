@@ -37,9 +37,9 @@
          INFO = -9
       } else if ( LDZ < 1 || WANTZ && ( LDZ < MAX( 1, N ) ) ) {
          INFO = -11
-      } else if ( IFST < 1 || IFST.GT.N ) {
+      } else if ( IFST < 1 || IFST > N ) {
          INFO = -12
-      } else if ( ILST < 1 || ILST.GT.N ) {
+      } else if ( ILST < 1 || ILST > N ) {
          INFO = -13
       }
       if ( INFO != 0 ) {

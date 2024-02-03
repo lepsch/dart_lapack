@@ -23,7 +23,7 @@
       // Interchange row I with row IPIV(K1+(I-K1)*abs(INCX)) for each of rows
       // K1 through K2.
 
-      if ( INCX.GT.0 ) {
+      if ( INCX > 0 ) {
          IX0 = K1
          I1 = K1
          I2 = K2

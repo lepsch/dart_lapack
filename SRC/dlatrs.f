@@ -284,7 +284,7 @@
                // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
                TJJ = ABS( A( J, J ) )
-               if (XJ.GT.TJJ) XBND = XBND*( TJJ / XJ );
+               if (XJ > TJJ) XBND = XBND*( TJJ / XJ );
             } // 60
             GROW = MIN( GROW, XBND )
          } else {
@@ -309,7 +309,7 @@
          } // 80
       }
 
-      if ( ( GROW*TSCAL ).GT.SMLNUM ) {
+      if ( ( GROW*TSCAL ) > SMLNUM ) {
 
          // Use the Level 2 BLAS solve if the reciprocal of the bound on
          // elements of X is not too small.
@@ -319,7 +319,7 @@
 
          // Use a Level 1 BLAS solve, scaling intermediate results.
 
-         if ( XMAX.GT.BIGNUM ) {
+         if ( XMAX > BIGNUM ) {
 
             // Scale X so that its components are less than or equal to
             // BIGNUM in absolute value.
@@ -345,12 +345,12 @@
                   if (TSCAL == ONE) GO TO 100;
                }
                TJJ = ABS( TJJS )
-               if ( TJJ.GT.SMLNUM ) {
+               if ( TJJ > SMLNUM ) {
 
                      // abs(A(j,j)) > SMLNUM:
 
                   if ( TJJ < ONE ) {
-                     if ( XJ.GT.TJJ*BIGNUM ) {
+                     if ( XJ > TJJ*BIGNUM ) {
 
                            // Scale x by 1/b(j).
 
@@ -362,17 +362,17 @@
                   }
                   X( J ) = X( J ) / TJJS
                   XJ = ABS( X( J ) )
-               } else if ( TJJ.GT.ZERO ) {
+               } else if ( TJJ > ZERO ) {
 
                      // 0 < abs(A(j,j)) <= SMLNUM:
 
-                  if ( XJ.GT.TJJ*BIGNUM ) {
+                  if ( XJ > TJJ*BIGNUM ) {
 
                         // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM
                         // to avoid overflow when dividing by A(j,j).
 
                      REC = ( TJJ*BIGNUM ) / XJ
-                     if ( CNORM( J ).GT.ONE ) {
+                     if ( CNORM( J ) > ONE ) {
 
                            // Scale by 1/CNORM(j) to avoid overflow when
                            // multiplying x(j) times column j.
@@ -403,9 +403,9 @@
                // Scale x if necessary to avoid overflow when adding a
                // multiple of column j of A.
 
-               if ( XJ.GT.ONE ) {
+               if ( XJ > ONE ) {
                   REC = ONE / XJ
-                  if ( CNORM( J ).GT.( BIGNUM-XMAX )*REC ) {
+                  if ( CNORM( J ) > ( BIGNUM-XMAX )*REC ) {
 
                      // Scale x by 1/(2*abs(x(j))).
 
@@ -413,7 +413,7 @@
                      dscal(N, REC, X, 1 );
                      SCALE = SCALE*REC
                   }
-               } else if ( XJ*CNORM( J ).GT.( BIGNUM-XMAX ) ) {
+               } else if ( XJ*CNORM( J ) > ( BIGNUM-XMAX ) ) {
 
                   // Scale x by 1/2.
 
@@ -422,7 +422,7 @@
                }
 
                if ( UPPER ) {
-                  if ( J.GT.1 ) {
+                  if ( J > 1 ) {
 
                      // Compute the update
                         // x(1:j-1) := x(1:j-1) - x(j) * A(1:j-1,j)
@@ -456,7 +456,7 @@
                XJ = ABS( X( J ) )
                USCAL = TSCAL
                REC = ONE / MAX( XMAX, ONE )
-               if ( CNORM( J ).GT.( BIGNUM-XJ )*REC ) {
+               if ( CNORM( J ) > ( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
 
@@ -467,7 +467,7 @@
                      TJJS = TSCAL
                   }
                   TJJ = ABS( TJJS )
-                  if ( TJJ.GT.ONE ) {
+                  if ( TJJ > ONE ) {
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
@@ -524,12 +524,12 @@
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.
 
                   TJJ = ABS( TJJS )
-                  if ( TJJ.GT.SMLNUM ) {
+                  if ( TJJ > SMLNUM ) {
 
                         // abs(A(j,j)) > SMLNUM:
 
                      if ( TJJ < ONE ) {
-                        if ( XJ.GT.TJJ*BIGNUM ) {
+                        if ( XJ > TJJ*BIGNUM ) {
 
                               // Scale X by 1/abs(x(j)).
 
@@ -540,11 +540,11 @@
                         }
                      }
                      X( J ) = X( J ) / TJJS
-                  } else if ( TJJ.GT.ZERO ) {
+                  } else if ( TJJ > ZERO ) {
 
                         // 0 < abs(A(j,j)) <= SMLNUM:
 
-                     if ( XJ.GT.TJJ*BIGNUM ) {
+                     if ( XJ > TJJ*BIGNUM ) {
 
                            // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM.
 

@@ -199,7 +199,7 @@
             F = ONE
             S = C + R
 
-            DO WHILE( C < G && MAX( F, C, CA ) < SFMAX2 && MIN( R, G, RA ).GT.SFMIN2 )
+            DO WHILE( C < G && MAX( F, C, CA ) < SFMAX2 && MIN( R, G, RA ) > SFMIN2 )
                F = F*SCLFAC
                C = C*SCLFAC
                CA = CA*SCLFAC
@@ -210,7 +210,7 @@
 
             G = C / SCLFAC
 
-            DO WHILE( G.GE.R && MAX( R, RA ) < SFMAX2 && MIN( F, C, G, CA ).GT.SFMIN2 )
+            DO WHILE( G.GE.R && MAX( R, RA ) < SFMAX2 && MIN( F, C, G, CA ) > SFMIN2 )
                F = F / SCLFAC
                C = C / SCLFAC
                G = G / SCLFAC
@@ -225,7 +225,7 @@
             if ( F < ONE && SCALE( I ) < ONE ) {
                IF( F*SCALE( I ).LE.SFMIN1 ) CYCLE
             }
-            if ( F.GT.ONE && SCALE( I ).GT.ONE ) {
+            if ( F > ONE && SCALE( I ) > ONE ) {
                IF( SCALE( I ).GE.SFMAX1 / F ) CYCLE
             }
             G = ONE / F

@@ -57,7 +57,7 @@
          INFO = -4
       } else if ( KA < 0 ) {
          INFO = -5
-      } else if ( KB < 0 || KB.GT.KA ) {
+      } else if ( KB < 0 || KB > KA ) {
          INFO = -6
       } else if ( LDAB < KA+1 ) {
          INFO = -8
@@ -67,11 +67,11 @@
          INFO = -12
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 && VU.LE.VL) INFO = -14;
+            if (N > 0 && VU.LE.VL) INFO = -14;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -15
-            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU > N ) {
                INFO = -16
             }
          }

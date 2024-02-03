@@ -133,13 +133,13 @@
 
                      RESULT( 1 ) = ZERO
                      cget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
-                     if ( RESULT( 2 ).GT.THRESH ) {
+                     if ( RESULT( 2 ) > THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'CGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
 
                      RESULT( 2 ) = ZERO
                      cget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
-                     if ( RESULT( 3 ).GT.THRESH ) {
+                     if ( RESULT( 3 ) > THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'CGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
 
@@ -148,9 +148,9 @@
                      RESULT( 3 ) = ZERO
                      for (I = 1; I <= N; I++) { // 10
                         if ( S( I ) == ZERO ) {
-                           IF( STRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
+                           IF( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV
                         } else if ( STRU( I ) == ZERO ) {
-                           IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
+                           IF( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV
                         } else {
                            RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) )
                            RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) )
@@ -161,13 +161,13 @@
 
                      RESULT( 4 ) = ZERO
                      if ( DIF( 1 ) == ZERO ) {
-                        IF( DIFTRU( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
+                        IF( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      } else if ( DIFTRU( 1 ) == ZERO ) {
-                        IF( DIF( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
+                        IF( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      } else if ( DIF( 5 ) == ZERO ) {
-                        IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
+                        IF( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      } else if ( DIFTRU( 5 ) == ZERO ) {
-                        IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
+                        IF( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      } else {
                         RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
                         RESULT( 4 ) = MAX( RATIO1, RATIO2 )
@@ -260,13 +260,13 @@
 
       RESULT( 1 ) = ZERO
       cget52( true , N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
-      if ( RESULT( 2 ).GT.THRESH ) {
+      if ( RESULT( 2 ) > THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'CGGEVX', RESULT( 2 ), N, NPTKNT
       }
 
       RESULT( 2 ) = ZERO
       cget52( false , N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
-      if ( RESULT( 3 ).GT.THRESH ) {
+      if ( RESULT( 3 ) > THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'CGGEVX', RESULT( 3 ), N, NPTKNT
       }
 
@@ -275,9 +275,9 @@
       RESULT( 3 ) = ZERO
       for (I = 1; I <= N; I++) { // 120
          if ( S( I ) == ZERO ) {
-            IF( STRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
+            IF( STRU( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV
          } else if ( STRU( I ) == ZERO ) {
-            IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
+            IF( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV
          } else {
             RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) )
             RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) )
@@ -288,13 +288,13 @@
 
       RESULT( 4 ) = ZERO
       if ( DIF( 1 ) == ZERO ) {
-         IF( DIFTRU( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
+         IF( DIFTRU( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV
       } else if ( DIFTRU( 1 ) == ZERO ) {
-         IF( DIF( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
+         IF( DIF( 1 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV
       } else if ( DIF( 5 ) == ZERO ) {
-         IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
+         IF( DIFTRU( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV
       } else if ( DIFTRU( 5 ) == ZERO ) {
-         IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
+         IF( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV
       } else {
          RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
          RESULT( 4 ) = MAX( RATIO1, RATIO2 )

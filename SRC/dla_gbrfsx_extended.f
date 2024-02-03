@@ -150,35 +150,35 @@
             if ( X_STATE == WORKING_STATE ) {
                if ( DX_X .LE. EPS ) {
                   X_STATE = CONV_STATE
-               } else if ( DXRAT .GT. RTHRESH ) {
+               } else if ( DXRAT > RTHRESH ) {
                   if ( Y_PREC_STATE != EXTRA_Y ) {
                      INCR_PREC = true;
                   } else {
                      X_STATE = NOPROG_STATE
                   }
                } else {
-                  if (DXRAT .GT. DXRATMAX) DXRATMAX = DXRAT;
+                  if (DXRAT > DXRATMAX) DXRATMAX = DXRAT;
                }
-               if (X_STATE .GT. WORKING_STATE) FINAL_DX_X = DX_X;
+               if (X_STATE > WORKING_STATE) FINAL_DX_X = DX_X;
             }
              if (Z_STATE == UNSTABLE_STATE && DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE && DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z .LE. EPS ) {
                   Z_STATE = CONV_STATE
-               } else if ( DZ_Z .GT. DZ_UB ) {
+               } else if ( DZ_Z > DZ_UB ) {
                   Z_STATE = UNSTABLE_STATE
                   DZRATMAX = 0.0D+0
                   FINAL_DZ_Z = HUGEVAL
-               } else if ( DZRAT .GT. RTHRESH ) {
+               } else if ( DZRAT > RTHRESH ) {
                   if ( Y_PREC_STATE != EXTRA_Y ) {
                      INCR_PREC = true;
                   } else {
                      Z_STATE = NOPROG_STATE
                   }
                } else {
-                  if (DZRAT .GT. DZRATMAX) DZRATMAX = DZRAT;
+                  if (DZRAT > DZRATMAX) DZRATMAX = DZRAT;
                }
-               if (Z_STATE .GT. WORKING_STATE) FINAL_DZ_Z = DZ_Z;
+               if (Z_STATE > WORKING_STATE) FINAL_DZ_Z = DZ_Z;
             }
 
             // Exit if both normwise and componentwise stopped working,
@@ -188,7 +188,7 @@
             if ( X_STATE != WORKING_STATE ) {
                if (IGNORE_CWISE) GOTO 666;
                if (Z_STATE == NOPROG_STATE || Z_STATE == CONV_STATE) GOTO 666;
-               if (Z_STATE == UNSTABLE_STATE && CNT.GT.1) GOTO 666;
+               if (Z_STATE == UNSTABLE_STATE && CNT > 1) GOTO 666;
             }
 
             if ( INCR_PREC ) {

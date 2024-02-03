@@ -52,7 +52,7 @@
                sgemv('No transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 );
                sgemv('No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 );
             }
-            if ( I.GT.1 ) {
+            if ( I > 1 ) {
 
                // Generate elementary reflector H(i) to annihilate
                // A(1:i-2,i)

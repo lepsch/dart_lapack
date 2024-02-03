@@ -60,7 +60,7 @@
          for (I = 1; I <= K - 1; I++) { // 10
             if (INCR) INCR = INCR && D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR && D( I ).GE.D( I+1 );
          } // 10
-         if ( SING && K.GT.0 ) {
+         if ( SING && K > 0 ) {
             if (INCR) INCR = INCR && ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR && D( K ).GE.ZERO;
          }
          IF( .NOT.( INCR || DECR ) ) INFO = -4
@@ -89,7 +89,7 @@
          SEP( K ) = OLDGAP
       }
       if ( SING ) {
-         if ( ( LEFT && M.GT.N ) || ( RIGHT && M < N ) ) {
+         if ( ( LEFT && M > N ) || ( RIGHT && M < N ) ) {
             if (INCR) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) );
          }
       }

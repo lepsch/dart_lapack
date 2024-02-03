@@ -41,7 +41,7 @@
       EPS = SLAMCH( 'Epsilon' )
       K = M
       N2 = M+N
-      if ( N.GT.0 ) {
+      if ( N > 0 ) {
          NP1 = M+1
       } else {
          NP1 = 1
@@ -60,12 +60,12 @@
       for (J = 1; J <= M; J++) {
          clarnv(2, ISEED, M-J+1, A( J, J ) );
       }
-      if ( N.GT.0 ) {
+      if ( N > 0 ) {
          for (J = 1; J <= N-L; J++) {
             clarnv(2, ISEED, M, A( 1, MIN(N+M,M+1) + J - 1 ) );
          }
       }
-      if ( L.GT.0 ) {
+      if ( L > 0 ) {
          for (J = 1; J <= L; J++) {
             clarnv(2, ISEED, M-J+1, A( J, MIN(N+M,N+M-L+1) + J - 1 ) );
          }
@@ -94,7 +94,7 @@
       cgemm('N', 'C', M, N2, N2, -ONE,  A, M, Q, N2, ONE, R, N2);
       ANORM = CLANGE( '1', M, N2, A, M, RWORK )
       RESID = CLANGE( '1', M, N2, R, N2, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = RESID / (EPS*ANORM*MAX(1,N2))
       } else {
          RESULT( 1 ) = ZERO
@@ -124,7 +124,7 @@
 
       cgemm('N', 'N', N2, M, N2, -ONE, Q, N2, C, N2, ONE, CF, N2 );
       RESID = CLANGE( '1', N2, M, CF, N2, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,N2)*CNORM)
       } else {
          RESULT( 3 ) = ZERO
@@ -144,7 +144,7 @@
       cgemm('C','N',N2,M,N2,-ONE,Q,N2,C,N2,ONE,CF,N2);
       RESID = CLANGE( '1', N2, M, CF, N2, RWORK )
 
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,N2)*CNORM)
       } else {
          RESULT( 4 ) = ZERO
@@ -166,7 +166,7 @@
 
       cgemm('N','N',M,N2,N2,-ONE,D,M,Q,N2,ONE,DF,M);
       RESID = CLANGE('1',M, N2,DF,M,RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,N2)*DNORM)
       } else {
          RESULT( 5 ) = ZERO
@@ -185,7 +185,7 @@
 
       cgemm('N', 'C', M, N2, N2, -ONE, D, M, Q, N2, ONE, DF, M );
       RESID = CLANGE( '1', M, N2, DF, M, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,N2)*DNORM)
       } else {
          RESULT( 6 ) = ZERO

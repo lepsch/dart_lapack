@@ -51,7 +51,7 @@
       NLP1 = NL + 1
       NLP2 = NL + 2
 
-      if ( ( K < 1 ) || ( K.GT.N ) ) {
+      if ( ( K < 1 ) || ( K > N ) ) {
          INFO = -4
       } else if ( LDQ < K ) {
          INFO = -7
@@ -74,7 +74,7 @@
       if ( K == 1 ) {
          D( 1 ) = ABS( Z( 1 ) )
          dcopy(M, VT2( 1, 1 ), LDVT2, VT( 1, 1 ), LDVT );
-         if ( Z( 1 ).GT.ZERO ) {
+         if ( Z( 1 ) > ZERO ) {
             dcopy(N, U2( 1, 1 ), 1, U( 1, 1 ), 1 );
          } else {
             for (I = 1; I <= N; I++) { // 10
@@ -143,13 +143,13 @@
          dgemm('N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U, LDU );
          GO TO 100
       }
-      if ( CTOT( 1 ).GT.0 ) {
+      if ( CTOT( 1 ) > 0 ) {
          dgemm('N', 'N', NL, K, CTOT( 1 ), ONE, U2( 1, 2 ), LDU2, Q( 2, 1 ), LDQ, ZERO, U( 1, 1 ), LDU );
-         if ( CTOT( 3 ).GT.0 ) {
+         if ( CTOT( 3 ) > 0 ) {
             KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
             dgemm('N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ONE, U( 1, 1 ), LDU );
          }
-      } else if ( CTOT( 3 ).GT.0 ) {
+      } else if ( CTOT( 3 ) > 0 ) {
          KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
          dgemm('N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( 1, 1 ), LDU );
       } else {
@@ -185,7 +185,7 @@
 
       KTEMP = CTOT( 1 ) + 1
       NRP1 = NR + SQRE
-      if ( KTEMP.GT.1 ) {
+      if ( KTEMP > 1 ) {
          for (I = 1; I <= K; I++) { // 130
             Q( I, KTEMP ) = Q( I, 1 )
          } // 130

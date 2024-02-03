@@ -97,7 +97,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             IMAX = ICAMAX( K-1, A( 1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
          } else {
@@ -149,10 +149,10 @@
                      ROWMAX = ZERO
                   }
 
-                  if ( IMAX.GT.1 ) {
+                  if ( IMAX > 1 ) {
                      ITEMP = ICAMAX( IMAX-1, A( 1, IMAX ), 1 )
                      STEMP = CABS1( A( ITEMP, IMAX ) )
-                     if ( STEMP.GT.ROWMAX ) {
+                     if ( STEMP > ROWMAX ) {
                         ROWMAX = STEMP
                         JMAX = ITEMP
                      }
@@ -213,7 +213,7 @@
 
             if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
-               if (P.GT.1) CALL CSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
+               if (P > 1) CALL CSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = P + 1; J <= K - 1; J++) { // 14
                   T = CONJG( A( J, K ) )
@@ -233,7 +233,7 @@
 
             if ( KP != KK ) {
                // (1) Swap columnar parts
-               if (KP.GT.1) CALL CSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               if (KP > 1) CALL CSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KP + 1; J <= KK - 1; J++) { // 15
                   T = CONJG( A( J, KK ) )
@@ -271,7 +271,7 @@
 
                // where U(k) is the k-th column of U
 
-               if ( K.GT.1 ) {
+               if ( K > 1 ) {
 
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
@@ -322,7 +322,7 @@
 
                // and store L(k) and L(k+1) in columns k and k+1
 
-               if ( K.GT.2 ) {
+               if ( K > 2 ) {
                   // D = |A12|
                   D = SLAPY2( REAL( A( K-1, K ) ), AIMAG( A( K-1, K ) ) )
                   D11 = REAL( A( K, K ) / D )
@@ -384,7 +384,7 @@
 
          // If K > N, exit from loop
 
-         if (K.GT.N) GO TO 70;
+         if (K > N) GO TO 70;
          KSTEP = 1
          P = K
 
@@ -452,7 +452,7 @@
                   if ( IMAX < N ) {
                      ITEMP = IMAX + ICAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                      STEMP = CABS1( A( ITEMP, IMAX ) )
-                     if ( STEMP.GT.ROWMAX ) {
+                     if ( STEMP > ROWMAX ) {
                         ROWMAX = STEMP
                         JMAX = ITEMP
                      }

@@ -34,7 +34,7 @@
       INFO = 0
       if ( M < 0 ) {
          INFO = -1
-      } else if ( N < 0 || N.GT.M ) {
+      } else if ( N < 0 || N > M ) {
          INFO = -2
       } else if ( NB < 1 ) {
          INFO = -3
@@ -74,7 +74,7 @@
 
       // (1-2) Solve for V2.
 
-      if ( M.GT.N ) {
+      if ( M > N ) {
          dtrsm('R', 'U', 'N', 'N', M-N, N, ONE, A, LDA, A( N+1, 1 ), LDA );
       }
 

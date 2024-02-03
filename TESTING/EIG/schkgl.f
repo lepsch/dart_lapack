@@ -100,7 +100,7 @@
 
       VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) )
 
-      if ( VMAX.GT.RMAX ) {
+      if ( VMAX > RMAX ) {
          LMAX( 3 ) = KNT
          RMAX = VMAX
       }

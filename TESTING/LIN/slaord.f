@@ -37,7 +37,7 @@
             } // 10
             if (IX == 1) GO TO 20;
             IXNEXT = IX - INC
-            if ( X( IX ).GT.X( IXNEXT ) ) {
+            if ( X( IX ) > X( IXNEXT ) ) {
                GO TO 20
             } else {
                TEMP = X( IX )

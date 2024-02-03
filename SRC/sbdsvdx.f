@@ -59,7 +59,7 @@
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
-      } else if ( N.GT.0 ) {
+      } else if ( N > 0 ) {
          if ( VALSV ) {
             if ( VL < ZERO ) {
                INFO = -7
@@ -67,9 +67,9 @@
                INFO = -8
             }
          } else if ( INDSV ) {
-            if ( IL < 1 || IL.GT.MAX( 1, N ) ) {
+            if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -9
-            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU > N ) {
                INFO = -10
             }
          }
@@ -323,7 +323,7 @@
 
                NTGK = NRU + NRV
 
-               if ( NTGK.GT.0 ) {
+               if ( NTGK > 0 ) {
 
                   // Compute eigenvalues/vectors of the active
                   // submatrix according to RANGE:
@@ -334,7 +334,7 @@
                   ILTGK = 1
                   IUTGK = NTGK / 2
                   if ( ALLSV || VUTGK == ZERO ) {
-                     if ( SVEQ0 || SMIN < EPS || MOD(NTGK,2).GT.0 ) {
+                     if ( SVEQ0 || SMIN < EPS || MOD(NTGK,2) > 0 ) {
                          // Special case: eigenvalue equal to zero or very
                          // small, additional eigenvector is needed.
                          IUTGK = IUTGK + 1
@@ -352,7 +352,7 @@
                   }
                   EMIN = ABS( MAXVAL( S( ISBEG:ISBEG+NSL-1 ) ) )
 
-                  if ( NSL.GT.0 && WANTZ ) {
+                  if ( NSL > 0 && WANTZ ) {
 
                      // Normalize u=Z([2,4,...],:) and v=Z([1,3,...],:),
                      // changing the sign of v as discussed in the leading
@@ -362,7 +362,7 @@
                      // those norms and, if needed, reorthogonalize the
                      // vectors.
 
-                     if ( NSL.GT.1 && VUTGK == ZERO && MOD(NTGK,2) == 0 && EMIN == 0 && .NOT.SPLIT ) {
+                     if ( NSL > 1 && VUTGK == ZERO && MOD(NTGK,2) == 0 && EMIN == 0 && .NOT.SPLIT ) {
 
                         // D=0 at the top or bottom of the active submatrix:
                         // one eigenvalue is equal to zero; concatenate the
@@ -371,7 +371,7 @@
 
                         Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) = Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) + Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 )
                         Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 ) = ZERO
-                        // IF( IUTGK*2.GT.NTGK ) THEN
+                        // IF( IUTGK*2 > NTGK ) THEN
                            // Eigenvalue equal to zero or very small.
                            // NSL = NSL - 1
                         // END IF
@@ -383,7 +383,7 @@
                            INFO = N*2 + 1
                            RETURN
                         }
-                        CALL SSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU != ONE && ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
+                        CALL SSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU != ONE && ABS( NRMU-ORTOL )*SQRT2 > ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -SDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
                               saxpy(NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
@@ -398,7 +398,7 @@
                            INFO = N*2 + 1
                            RETURN
                         }
-                        CALL SSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV != ONE && ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
+                        CALL SSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV != ONE && ABS( NRMV-ORTOL )*SQRT2 > ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -SDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
                               saxpy(NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
@@ -407,7 +407,7 @@
                            sscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );
                         }
                      }
-                     if ( VUTGK == ZERO && IDPTR < IDEND && MOD(NTGK,2).GT.0 ) {
+                     if ( VUTGK == ZERO && IDPTR < IDEND && MOD(NTGK,2) > 0 ) {
 
                         // D=0 in the middle of the active submatrix (one
                         // eigenvalue is equal to zero): save the corresponding
@@ -439,7 +439,7 @@
                   NS = NS + NSL
                   NRU = 0
                   NRV = 0
-               END IF !** NTGK.GT.0 **!
+               END IF !** NTGK > 0 **!
                if ( IROWZ < N*2 && WANTZ ) {
                   Z( 1:IROWZ-1, ICOLZ ) = ZERO
                }

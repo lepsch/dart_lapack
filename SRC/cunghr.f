@@ -41,9 +41,9 @@
       LQUERY = ( LWORK == -1 )
       if ( N < 0 ) {
          INFO = -1
-      } else if ( ILO < 1 || ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
          INFO = -2
-      } else if ( IHI < MIN( ILO, N ) || IHI.GT.N ) {
+      } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
          INFO = -3
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
@@ -99,7 +99,7 @@
          A( J, J ) = ONE
       } // 80
 
-      if ( NH.GT.0 ) {
+      if ( NH > 0 ) {
 
          // Generate Q(ilo+1:ihi,ilo+1:ihi)
 

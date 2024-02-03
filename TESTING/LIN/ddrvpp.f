@@ -191,14 +191,14 @@
                         // with FACT = 'F').
 
                         dcopy(NPP, ASAV, 1, AFAC, 1 );
-                        if ( EQUIL || IEQUED.GT.1 ) {
+                        if ( EQUIL || IEQUED > 1 ) {
 
                            // Compute row and column scale factors to
                            // equilibrate the matrix A.
 
                            dppequ(UPLO, N, AFAC, S, SCOND, AMAX, INFO );
-                           if ( INFO == 0 && N.GT.0 ) {
-                              if (IEQUED.GT.1) SCOND = ZERO;
+                           if ( INFO == 0 && N > 0 ) {
+                              if (IEQUED > 1) SCOND = ZERO;
 
                               // Equilibrate the matrix.
 
@@ -297,9 +297,9 @@
 
                      // --- Test DPPSVX ---
 
-                     if (.NOT.PREFAC && NPP.GT.0) CALL DLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
+                     if (.NOT.PREFAC && NPP > 0) CALL DLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
                      dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
-                     if ( IEQUED.GT.1 && N.GT.0 ) {
+                     if ( IEQUED > 1 && N > 0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.

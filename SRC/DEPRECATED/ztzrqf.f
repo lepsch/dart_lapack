@@ -65,7 +65,7 @@
             A( K, K ) = ALPHA
             TAU( K ) = DCONJG( TAU( K ) )
 
-            if ( TAU( K ) != CZERO && K.GT.1 ) {
+            if ( TAU( K ) != CZERO && K > 1 ) {
 
                // We now perform the operation  A := A*P( k )**H.
 

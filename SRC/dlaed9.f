@@ -36,9 +36,9 @@
 
       if ( K < 0 ) {
          INFO = -1
-      } else if ( KSTART < 1 || KSTART.GT.MAX( 1, K ) ) {
+      } else if ( KSTART < 1 || KSTART > MAX( 1, K ) ) {
          INFO = -2
-      } else if ( MAX( 1, KSTOP ) < KSTART || KSTOP.GT.MAX( 1, K ) ) {
+      } else if ( MAX( 1, KSTOP ) < KSTART || KSTOP > MAX( 1, K ) ) {
          INFO = -3
       } else if ( N < K ) {
          INFO = -4

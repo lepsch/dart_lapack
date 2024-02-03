@@ -57,7 +57,7 @@
       // column N.
 
       DO 10 K = N, 1, -1
-         if ( K.GT.M ) {
+         if ( K > M ) {
             ztrmv('Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          } else {
 

@@ -503,7 +503,7 @@
 
                   // (1) Compute B:=Q**T * B in the matrix B.
 
-                  if ( MINMN.GT.0 ) {
+                  if ( MINMN > 0 ) {
 
                      LWORK_MQR = MAX(1, NRHS)
                      cunmqr('Left', 'Conjugate transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO );

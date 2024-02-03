@@ -74,7 +74,7 @@
          if (K < 1) GO TO 30;
 
          KC = KC - K
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -137,9 +137,9 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 50;
+         if (K > N) GO TO 50;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -190,9 +190,9 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 80;
+         if (K > N) GO TO 80;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -261,7 +261,7 @@
          if (K < 1) GO TO 100;
 
          KC = KC - ( N-K+1 )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 

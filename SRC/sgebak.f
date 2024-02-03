@@ -47,9 +47,9 @@
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
-      } else if ( ILO < 1 || ILO.GT.MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
          INFO = -4
-      } else if ( IHI < MIN( ILO, N ) || IHI.GT.N ) {
+      } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
          INFO = -5
       } else if ( M < 0 ) {
          INFO = -7

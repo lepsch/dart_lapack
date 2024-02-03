@@ -69,7 +69,7 @@
 
             // Only for M >= N
 
-            if ( MIN( M, N ).GT.0 && M.GE.N ) {
+            if ( MIN( M, N ) > 0 && M.GE.N ) {
 
                // Do for each possible value of MB1
 
@@ -78,7 +78,7 @@
 
                   // Only for MB1 > N
 
-                  if ( MB1.GT.N ) {
+                  if ( MB1 > N ) {
 
                      // Do for each possible value of NB1
 
@@ -90,7 +90,7 @@
                         for (INB2 = 1; INB2 <= NNB; INB2++) {
                            NB2 = NBVAL( INB2 )
 
-                           if ( NB1.GT.0 && NB2.GT.0 ) {
+                           if ( NB1 > 0 && NB2 > 0 ) {
 
                               // Test SORHR_COL
 
@@ -127,7 +127,7 @@
 
             // Only for M >= N
 
-            if ( MIN( M, N ).GT.0 && M.GE.N ) {
+            if ( MIN( M, N ) > 0 && M.GE.N ) {
 
                // Do for each possible value of MB1
 
@@ -136,7 +136,7 @@
 
                   // Only for MB1 > N
 
-                  if ( MB1.GT.N ) {
+                  if ( MB1 > N ) {
 
                      // Do for each possible value of NB1
 
@@ -148,7 +148,7 @@
                         for (INB2 = 1; INB2 <= NNB; INB2++) {
                            NB2 = NBVAL( INB2 )
 
-                           if ( NB1.GT.0 && NB2.GT.0 ) {
+                           if ( NB1 > 0 && NB2 > 0 ) {
 
                               // Test SORHR_COL
 

@@ -65,9 +65,9 @@
             SPLUS = SPLUS + DBLE( ZDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) )
             SMINU = DBLE( ZDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) )
             SPLUS = SPLUS*DBLE( RHS( J ) )
-            if ( SPLUS.GT.SMINU ) {
+            if ( SPLUS > SMINU ) {
                RHS( J ) = BP
-            } else if ( SMINU.GT.SPLUS ) {
+            } else if ( SMINU > SPLUS ) {
                RHS( J ) = BM
             } else {
 
@@ -108,7 +108,7 @@
             SPLUS = SPLUS + ABS( WORK( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
          } // 30
-         if (SPLUS.GT.SMINU) CALL ZCOPY( N, WORK, 1, RHS, 1 );
+         if (SPLUS > SMINU) CALL ZCOPY( N, WORK, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
@@ -137,7 +137,7 @@
       zaxpy(N, -CONE, XM, 1, RHS, 1 );
       zgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE );
       zgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE );
-      IF( DZASUM( N, XP, 1 ).GT.DZASUM( N, RHS, 1 ) ) CALL ZCOPY( N, XP, 1, RHS, 1 )
+      IF( DZASUM( N, XP, 1 ) > DZASUM( N, RHS, 1 ) ) CALL ZCOPY( N, XP, 1, RHS, 1 )
 
       // Compute the sum of squares
 

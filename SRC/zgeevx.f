@@ -156,10 +156,10 @@
       ICOND = 0
       ANRM = ZLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          SCALEA = true;
          CSCALE = BIGNUM
       }

@@ -345,7 +345,7 @@
       if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH
       } else {
-         IF( RESLTS( 1 ).GT.THRESH ) WRITE( NOUT, FMT = 9998 )RESLTS( 1 ), THRESH          IF( RESLTS( 2 ).GT.THRESH ) WRITE( NOUT, FMT = 9997 )RESLTS( 2 ), THRESH          IF( RESLTS( 3 ).GT.THRESH ) WRITE( NOUT, FMT = 9996 )RESLTS( 3 ), THRESH          IF( RESLTS( 4 ).GT.THRESH ) WRITE( NOUT, FMT = 9995 )RESLTS( 4 ), THRESH          IF( RESLTS( 5 ).GT.THRESH ) WRITE( NOUT, FMT = 9994 )RESLTS( 5 ), THRESH
+         IF( RESLTS( 1 ) > THRESH ) WRITE( NOUT, FMT = 9998 )RESLTS( 1 ), THRESH          IF( RESLTS( 2 ) > THRESH ) WRITE( NOUT, FMT = 9997 )RESLTS( 2 ), THRESH          IF( RESLTS( 3 ) > THRESH ) WRITE( NOUT, FMT = 9996 )RESLTS( 3 ), THRESH          IF( RESLTS( 4 ) > THRESH ) WRITE( NOUT, FMT = 9995 )RESLTS( 4 ), THRESH          IF( RESLTS( 5 ) > THRESH ) WRITE( NOUT, FMT = 9994 )RESLTS( 5 ), THRESH
       }
  9999 FORMAT( 1X, 'All tests for ', A3, ' routines passed the threshold' )
  9998 FORMAT( ' ZGEEQU failed test with value ', D10.3, ' exceeding', ' threshold ', D10.3 )

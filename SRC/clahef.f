@@ -92,7 +92,7 @@
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             IMAX = ICAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = CABS1( W( IMAX, KW ) )
          } else {
@@ -140,7 +140,7 @@
 
                JMAX = IMAX + ICAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                ROWMAX = CABS1( W( JMAX, KW-1 ) )
-               if ( IMAX.GT.1 ) {
+               if ( IMAX > 1 ) {
                   JMAX = ICAMAX( IMAX-1, W( 1, KW-1 ), 1 )
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, KW-1 ) ) )
                }
@@ -204,7 +204,7 @@
                A( KP, KP ) = REAL( A( KK, KK ) )
                ccopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                clacgv(KK-1-KP, A( KP, KP+1 ), LDA );
-               if (KP.GT.1) CALL CCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               if (KP > 1) CALL CCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
 
                // Interchange rows KK and KP in last K+1 to N columns of A
                // (columns K (or K and K-1 for 2-by-2 pivot) of A will be
@@ -234,7 +234,7 @@
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                ccopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
-               if ( K.GT.1 ) {
+               if ( K > 1 ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
                    // since that was ensured earlier in pivot search:
@@ -265,7 +265,7 @@
                   // A(1:k-2,k-1:k) := U(1:k-2,k:k-1:k) =
                   // = W(1:k-2,kw-1:kw) * ( D(k-1:k,k-1:k)**(-1) )
 
-               if ( K.GT.2 ) {
+               if ( K > 2 ) {
 
                   // Factor out the columns of the inverse of 2-by-2 pivot
                   // block D, so that each column contains 1, to reduce the
@@ -418,7 +418,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB < N ) || K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB < N ) || K > N ) GO TO 90
 
          KSTEP = 1
 
@@ -551,7 +551,7 @@
                // later overwritten). Interchange rows KK and KP
                // in first KK columns of W.
 
-               if (K.GT.1) CALL CSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
+               if (K > 1) CALL CSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
                cswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 

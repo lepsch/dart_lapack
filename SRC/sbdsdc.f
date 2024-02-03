@@ -242,7 +242,7 @@
          KK = I
          P = D( I )
          for (J = II; J <= N; J++) { // 50
-            if ( D( J ).GT.P ) {
+            if ( D( J ) > P ) {
                KK = J
                P = D( J )
             }

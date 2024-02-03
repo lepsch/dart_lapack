@@ -29,7 +29,7 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( MB < 1 || (MB.GT.MIN(M,N) && MIN(M,N).GT.0 )) {
+      } else if ( MB < 1 || (MB > MIN(M,N) && MIN(M,N) > 0 )) {
          INFO = -3
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -5

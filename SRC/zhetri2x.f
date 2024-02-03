@@ -76,14 +76,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
-            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
          }
       }
       INFO = 0
@@ -108,7 +108,7 @@
 
         K=1
         DO WHILE ( K .LE. N )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal NNB
              WORK(K,INVD) = ONE / REAL ( A( K, K ) )
              WORK(K,INVD+1) = 0
@@ -133,7 +133,7 @@
         // inv(U**H)*inv(D)*inv(U)
 
         CUT=N
-        DO WHILE (CUT .GT. 0)
+        DO WHILE (CUT > 0)
            NNB=NB
            if (CUT .LE. NNB) {
               NNB=CUT
@@ -250,14 +250,14 @@
 
             I=1
             DO WHILE ( I .LE. N )
-               if ( IPIV(I) .GT. 0 ) {
+               if ( IPIV(I) > 0 ) {
                   IP=IPIV(I)
                  if (I < IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP );
-                 if (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
+                 if (I > IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
                } else {
                  IP=-IPIV(I)
                  I=I+1
-                 IF ( (I-1) < IP) CALL ZHESWAPR( UPLO, N, A, LDA, I-1 ,IP )                  IF ( (I-1) .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I-1 )
+                 IF ( (I-1) < IP) CALL ZHESWAPR( UPLO, N, A, LDA, I-1 ,IP )                  IF ( (I-1) > IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I-1 )
               }
                I=I+1
             }
@@ -273,7 +273,7 @@
 
         K=N
         DO WHILE ( K .GE. 1 )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal NNB
              WORK(K,INVD) = ONE / REAL ( A( K, K ) )
              WORK(K,INVD+1) = 0
@@ -421,14 +421,14 @@
 
             I=N
             DO WHILE ( I .GE. 1 )
-               if ( IPIV(I) .GT. 0 ) {
+               if ( IPIV(I) > 0 ) {
                   IP=IPIV(I)
                  if (I < IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP  );
-                 if (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
+                 if (I > IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
                } else {
                  IP=-IPIV(I)
                  if (I < IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP );
-                 if (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
+                 if (I > IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I );
                  I=I-1
                }
                I=I-1

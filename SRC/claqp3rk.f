@@ -129,7 +129,7 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-               if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
+               if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                   cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
                }
 
@@ -176,7 +176,7 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-               if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
+               if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                   cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
                }
 
@@ -208,7 +208,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( INFO == 0 && MAXC2NRMK.GT.HUGEVAL ) {
+            if ( INFO == 0 && MAXC2NRMK > HUGEVAL ) {
                INFO = N + K - 1 + KP
             }
 
@@ -304,7 +304,7 @@
          // Apply previous Householder reflectors to column K:
          // A(I:M,K) := A(I:M,K) - A(I:M,1:K-1)*F(K,1:K-1)**H.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             for (J = 1; J <= K - 1; J++) {
                F( K, J ) = CONJG( F( K, J ) )
             }
@@ -372,7 +372,7 @@
             // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                              // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-            if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
+            if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
             }
 
@@ -412,7 +412,7 @@
          // F(1:N,K) := F(1:N,K) - tau(K) * F(1:N,1:K-1) * A(I:M,1:K-1)**H
                      // * A(I:M,K).
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             cgemv('Conjugate Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, CZERO, AUXV( 1 ), 1 );
 
             cgemv('No transpose', N+NRHS, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 );
@@ -498,7 +498,7 @@
       // Loop over the index of the difficult columns from the largest
       // to the smallest index.
 
-      DO WHILE( LSTICC.GT.0 )
+      DO WHILE( LSTICC > 0 )
 
          // LSTICC is the index of the last difficult column is greater
          // than 1.

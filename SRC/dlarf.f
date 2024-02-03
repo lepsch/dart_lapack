@@ -44,13 +44,13 @@
          } else {
             LASTV = N
          }
-         if ( INCV.GT.0 ) {
+         if ( INCV > 0 ) {
             I = 1 + (LASTV-1) * INCV
          } else {
             I = 1
          }
       // Look for the last non-zero row in V.
-         DO WHILE( LASTV.GT.0 && V( I ) == ZERO )
+         DO WHILE( LASTV > 0 && V( I ) == ZERO )
             LASTV = LASTV - 1
             I = I - INCV
          }
@@ -68,7 +68,7 @@
 
          // Form  H * C
 
-         if ( LASTV.GT.0 ) {
+         if ( LASTV > 0 ) {
 
             // w(1:lastc,1) := C(1:lastv,1:lastc)**T * v(1:lastv,1)
 
@@ -82,7 +82,7 @@
 
          // Form  C * H
 
-         if ( LASTV.GT.0 ) {
+         if ( LASTV > 0 ) {
 
             // w(1:lastc,1) := C(1:lastc,1:lastv) * v(1:lastv,1)
 

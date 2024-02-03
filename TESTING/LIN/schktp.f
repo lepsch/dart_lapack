@@ -117,7 +117,7 @@
 *+    TEST 1
                // Form the inverse of A.
 
-               if (N.GT.0) CALL SCOPY( LAP, AP, 1, AINVP, 1 );
+               if (N > 0) CALL SCOPY( LAP, AP, 1, AINVP, 1 );
                SRNAMT = 'STPTRI'
                stptri(UPLO, DIAG, N, AINVP, INFO );
 

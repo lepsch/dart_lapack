@@ -343,7 +343,7 @@
 
             DO 250 I = I1, I2, I3
 
-               if ( WORK( I ).GT.VCRIT ) {
+               if ( WORK( I ) > VCRIT ) {
                   REC = ONE / VMAX
                   dscal(N, REC, VR, 1 );
                   dscal(N, REC, VI, 1 );
@@ -367,10 +367,10 @@
                }
 
                W = ABS( B( I, I ) ) + ABS( B( I+1, I ) )
-               if ( W.GT.SMLNUM ) {
+               if ( W > SMLNUM ) {
                   if ( W < ONE ) {
                      W1 = ABS( XR ) + ABS( XI )
-                     if ( W1.GT.W*BIGNUM ) {
+                     if ( W1 > W*BIGNUM ) {
                         REC = ONE / W1
                         dscal(N, REC, VR, 1 );
                         dscal(N, REC, VI, 1 );

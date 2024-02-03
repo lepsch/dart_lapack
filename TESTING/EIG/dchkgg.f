@@ -89,7 +89,7 @@
          INFO = -10
       } else if ( LDU.LE.1 || LDU < NMAX ) {
          INFO = -19
-      } else if ( LWKOPT.GT.LWORK ) {
+      } else if ( LWKOPT > LWORK ) {
          INFO = -30
       }
 
@@ -171,7 +171,7 @@
             // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
             // RMAGN: used to implement KAMAGN and KBMAGN.
 
-            if (MTYPES.GT.MAXTYP) GO TO 110;
+            if (MTYPES > MAXTYP) GO TO 110;
             IINFO = 0
             if ( KCLASS( JTYPE ) < 3 ) {
 
@@ -185,7 +185,7 @@
                }
                dlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               if (IADD.GT.0 && IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
+               if (IADD > 0 && IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
 
                // Generate B (w/o rotation)
 
@@ -199,7 +199,7 @@
                IADD = KADD( KBZERO( JTYPE ) )
                if (IADD != 0 && IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
 
-               if ( KCLASS( JTYPE ) == 2 && N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 && N > 0 ) {
 
                   // Include rotations
 
@@ -399,7 +399,7 @@
 
             dget52( true , N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
-            if ( DUMMA( 2 ).GT.THRSHN ) {
+            if ( DUMMA( 2 ) > THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
             }
 
@@ -418,7 +418,7 @@
 
             dget52( true , N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 10 ) = DUMMA( 1 )
-            if ( DUMMA( 2 ).GT.THRSHN ) {
+            if ( DUMMA( 2 ) > THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
             }
 
@@ -463,7 +463,7 @@
 
             dget52( false , N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 11 ) = DUMMA( 1 )
-            if ( DUMMA( 2 ).GT.THRESH ) {
+            if ( DUMMA( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
             }
 
@@ -482,7 +482,7 @@
 
             dget52( false , N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 12 ) = DUMMA( 1 )
-            if ( DUMMA( 2 ).GT.THRESH ) {
+            if ( DUMMA( 2 ) > THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
             }
 

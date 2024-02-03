@@ -29,7 +29,7 @@
 
       if ( N < 0 ) {
          INFO = -1
-      } else if ( ( SQRE < 0 ) || ( SQRE.GT.1 ) ) {
+      } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
          INFO = -2
       }
 

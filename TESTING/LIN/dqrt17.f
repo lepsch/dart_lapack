@@ -69,7 +69,7 @@
       dlacpy('All', NROWS, NRHS, B, LDB, C, LDB );
       dgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB );
       NORMRS = DLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
-      if ( NORMRS.GT.SMLNUM ) {
+      if ( NORMRS > SMLNUM ) {
          ISCL = 1
          dlascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
       }

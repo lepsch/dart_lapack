@@ -195,7 +195,7 @@
 
                         // This line is needed on a Sun SPARCstation.
 
-                        if (N.GT.0) DUMMY = A( 1 );
+                        if (N > 0) DUMMY = A( 1 );
 
                         dtrt02(UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, B, LDA, WORK, RESULT( 2 ) );
 

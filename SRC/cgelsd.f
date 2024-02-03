@@ -70,7 +70,7 @@
          MAXWRK = 1
          LIWORK = 1
          LRWORK = 1
-         if ( MINMN.GT.0 ) {
+         if ( MINMN > 0 ) {
             SMLSIZ = ILAENV( 9, 'CGELSD', ' ', 0, 0, 0, 0 )
             MNTHR = ILAENV( 6, 'CGELSD', ' ', M, N, NRHS, -1 )
             NLVL = MAX( INT( LOG( REAL( MINMN ) / REAL( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 )
@@ -92,7 +92,7 @@
                MAXWRK = MAX( MAXWRK, 2*N + N*NRHS )
                MINWRK = MAX( 2*N + MM, 2*N + N*NRHS )
             }
-            if ( N.GT.M ) {
+            if ( N > M ) {
                LRWORK = 10*M + 2*M*SMLSIZ + 8*M*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )
                if ( N.GE.MNTHR ) {
 
@@ -100,7 +100,7 @@
                             // than rows.
 
                   MAXWRK = M + M*ILAENV( 1, 'CGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'CGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'CUNMLQ', 'LC', N, NRHS, M, -1 ) )
-                  if ( NRHS.GT.1 ) {
+                  if ( NRHS > 1 ) {
                      MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS )
                   } else {
                      MAXWRK = MAX( MAXWRK, M*M + 2*M )
@@ -154,13 +154,13 @@
 
       ANRM = CLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
@@ -180,13 +180,13 @@
 
       BNRM = CLANGE( 'M', M, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO && BNRM < SMLNUM ) {
+      if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
          clascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
-      } else if ( BNRM.GT.BIGNUM ) {
+      } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
@@ -227,7 +227,7 @@
 
             // Zero out below R.
 
-            if ( N.GT.1 ) {
+            if ( N > 1 ) {
                claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
             }
          }

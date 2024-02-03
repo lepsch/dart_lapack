@@ -70,7 +70,7 @@
         // P**T * B
         K=N
         DO WHILE ( K .GE. 1 )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
@@ -93,10 +93,10 @@
 
          I=N
          DO WHILE ( I .GE. 1 )
-            if ( IPIV(I) .GT. 0 ) {
+            if ( IPIV(I) > 0 ) {
               S = REAL( ONE ) / REAL( A( I, I ) )
               csscal(NRHS, S, B( I, 1 ), LDB );
-            } else if ( I .GT. 1) {
+            } else if ( I > 1) {
                if ( IPIV(I-1) == IPIV(I) ) {
                   AKM1K = WORK(I)
                   AKM1 = A( I-1, I-1 ) / AKM1K
@@ -122,7 +122,7 @@
 
         K=1
         DO WHILE ( K .LE. N )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
@@ -144,7 +144,7 @@
         // P**T * B
         K=1
         DO WHILE ( K .LE. N )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
@@ -167,7 +167,7 @@
 
          I=1
          DO WHILE ( I .LE. N )
-            if ( IPIV(I) .GT. 0 ) {
+            if ( IPIV(I) > 0 ) {
               S = REAL( ONE ) / REAL( A( I, I ) )
               csscal(NRHS, S, B( I, 1 ), LDB );
             } else {
@@ -194,7 +194,7 @@
 
         K=N
         DO WHILE ( K .GE. 1 )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
@@ -204,7 +204,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( K.GT.1 && KP == -IPIV( K-1 ) ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( K > 1 && KP == -IPIV( K-1 ) ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          }
         }

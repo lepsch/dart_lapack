@@ -48,9 +48,9 @@
          INFO = -9
       } else if ( LDZ < 1 || WANTZ && ( LDZ < MAX( 1, N ) ) ) {
          INFO = -11
-      } else if ( IFST < 1 || IFST.GT.N ) {
+      } else if ( IFST < 1 || IFST > N ) {
          INFO = -12
-      } else if ( ILST < 1 || ILST.GT.N ) {
+      } else if ( ILST < 1 || ILST > N ) {
          INFO = -13
       }
 
@@ -81,7 +81,7 @@
       // Determine the first row of the specified block and find out
       // if it is 1-by-1 or 2-by-2.
 
-      if ( IFST.GT.1 ) {
+      if ( IFST > 1 ) {
          IF( A( IFST, IFST-1 ) != ZERO ) IFST = IFST - 1
       }
       NBF = 1
@@ -92,7 +92,7 @@
       // Determine the first row of the final block
       // and find out if it is 1-by-1 or 2-by-2.
 
-      if ( ILST.GT.1 ) {
+      if ( ILST > 1 ) {
          IF( A( ILST, ILST-1 ) != ZERO ) ILST = ILST - 1
       }
       NBL = 1
@@ -281,7 +281,7 @@
                }
             }
          }
-         if (HERE.GT.ILST) GO TO 20;
+         if (HERE > ILST) GO TO 20;
       }
       ILST = HERE
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)

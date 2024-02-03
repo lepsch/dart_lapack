@@ -72,9 +72,9 @@
       } else if ( ITYPE.LE.3 && LDA < MAX( 1, M ) ) {
          INFO = -9
       } else if ( ITYPE.GE.4 ) {
-         if ( KL < 0 || KL.GT.MAX( M-1, 0 ) ) {
+         if ( KL < 0 || KL > MAX( M-1, 0 ) ) {
             INFO = -2
-         } else if ( KU < 0 || KU.GT.MAX( N-1, 0 ) || ( ( ITYPE == 4 || ITYPE == 5 ) && KL != KU ) ) {
+         } else if ( KU < 0 || KU > MAX( N-1, 0 ) || ( ( ITYPE == 4 || ITYPE == 5 ) && KL != KU ) ) {
             INFO = -3
          } else if ( ( ITYPE == 4 && LDA < KL+1 ) || ( ITYPE == 5 && LDA < KU+1 ) || ( ITYPE == 6 && LDA < 2*KL+KU+1 ) ) {
             INFO = -9
@@ -114,11 +114,11 @@
             MUL = CTOC
             DONE = true;
             CFROMC = ONE
-         } else if ( ABS( CFROM1 ).GT.ABS( CTOC ) && CTOC != ZERO ) {
+         } else if ( ABS( CFROM1 ) > ABS( CTOC ) && CTOC != ZERO ) {
             MUL = SMLNUM
             DONE = false;
             CFROMC = CFROM1
-         } else if ( ABS( CTO1 ).GT.ABS( CFROMC ) ) {
+         } else if ( ABS( CTO1 ) > ABS( CFROMC ) ) {
             MUL = BIGNUM
             DONE = false;
             CTOC = CTO1

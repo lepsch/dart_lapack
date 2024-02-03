@@ -46,7 +46,7 @@
       MNWDTH = TWO * PIVMIN
 
       R = TWIST
-      IF((R < 1) || (R.GT.N)) R = N
+      IF((R < 1) || (R > N)) R = N
 
       // Initialize unconverged intervals in [ WORK(2*I-1), WORK(2*I) ].
       // The Sturm Count, Count( WORK(2*I-1) ) is arranged to be I-1, while
@@ -74,12 +74,12 @@
          // Make sure that [LEFT,RIGHT] contains the desired eigenvalue
          // Compute negcount from dstqds facto L+D+L+^T = L D L^T - LEFT
 
-         // Do while( NEGCNT(LEFT).GT.I-1 )
+         // Do while( NEGCNT(LEFT) > I-1 )
 
          BACK = WERR( II )
          } // 20
          NEGCNT = SLANEG( N, D, LLD, LEFT, PIVMIN, R )
-         if ( NEGCNT.GT.I-1 ) {
+         if ( NEGCNT > I-1 ) {
             LEFT = LEFT - BACK
             BACK = TWO*BACK
             GO TO 20
@@ -121,7 +121,7 @@
       } // 75
 
 
-      // Do while( NINT.GT.0 ), i.e. there are still unconverged intervals
+      // Do while( NINT > 0 ), i.e. there are still unconverged intervals
       // and while (ITER < MAXITR)
 
       ITER = 0
@@ -135,7 +135,7 @@
          II = I - OFFSET
          RGAP = WGAP( II )
          LGAP = RGAP
-         if (II.GT.1) LGAP = WGAP( II-1 );
+         if (II > 1) LGAP = WGAP( II-1 );
          GAP = MIN( LGAP, RGAP )
          NEXT = IWORK( K-1 )
          LEFT = WORK( K-1 )
@@ -176,7 +176,7 @@
       // do another loop if there are still unconverged intervals
       // However, in the last iteration, all intervals are accepted
       // since this is the best we can do.
-      IF( ( NINT.GT.0 ) && (ITER.LE.MAXITR) ) GO TO 80
+      IF( ( NINT > 0 ) && (ITER.LE.MAXITR) ) GO TO 80
 
 
       // At this point, all the intervals have converged

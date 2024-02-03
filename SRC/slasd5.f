@@ -30,7 +30,7 @@
       DELSQ = DEL*( D( 2 )+D( 1 ) )
       if ( I == 1 ) {
          W = ONE + FOUR*RHO*( Z( 2 )*Z( 2 ) / ( D( 1 )+THREE*D( 2 ) )- Z( 1 )*Z( 1 ) / ( THREE*D( 1 )+D( 2 ) ) ) / DEL
-         if ( W.GT.ZERO ) {
+         if ( W > ZERO ) {
             B = DELSQ + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 1 )*Z( 1 )*DELSQ
 
@@ -56,7 +56,7 @@
 
             // The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
 
-            if ( B.GT.ZERO ) {
+            if ( B > ZERO ) {
                TAU = -TWO*C / ( B+SQRT( B*B+FOUR*C ) )
             } else {
                TAU = ( B-SQRT( B*B+FOUR*C ) ) / TWO
@@ -85,7 +85,7 @@
 
          // The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
 
-         if ( B.GT.ZERO ) {
+         if ( B > ZERO ) {
             TAU = ( B+SQRT( B*B+FOUR*C ) ) / TWO
          } else {
             TAU = TWO*C / ( -B+SQRT( B*B+FOUR*C ) )

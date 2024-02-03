@@ -47,7 +47,7 @@
         INFO = -1
       } else if ( N < 0 || N < M ) {
         INFO = -2
-      } else if ( MB < 1 || ( MB.GT.M && M.GT.0 ) ) {
+      } else if ( MB < 1 || ( MB > M && M > 0 ) ) {
         INFO = -3
       } else if ( NB < 0 ) {
         INFO = -4

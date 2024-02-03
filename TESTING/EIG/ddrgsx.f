@@ -200,14 +200,14 @@
                               RESULT( 5 ) = ULPINV
                            }
                         }
-                        if ( J.GT.1 ) {
+                        if ( J > 1 ) {
                            if ( AI( J, J-1 ) != ZERO ) {
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
                         }
                      } else {
-                        if ( ALPHAI( J ).GT.ZERO ) {
+                        if ( ALPHAI( J ) > ZERO ) {
                            I1 = J
                         } else {
                            I1 = J - 1
@@ -219,7 +219,7 @@
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
                            }
-                        } else if ( I1.GT.1 ) {
+                        } else if ( I1 > 1 ) {
                            if ( AI( I1, I1-1 ) != ZERO ) {
                               ILABAD = true;
                               RESULT( 5 ) = ULPINV
@@ -269,9 +269,9 @@
                      DIFTRU = S( MN2 )
 
                      if ( DIFEST( 2 ) == ZERO ) {
-                        if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
+                        if (DIFTRU > ABNRM*ULP) RESULT( 8 ) = ULPINV;
                      } else if ( DIFTRU == ZERO ) {
-                        IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
+                        IF( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
                      }
                      NTEST = NTEST + 1
                   }
@@ -280,7 +280,7 @@
 
                   RESULT( 9 ) = ZERO
                   if ( LINFO == ( MPLUSN+2 ) ) {
-                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
+                     if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
                      NTEST = NTEST + 1
                   }
 
@@ -389,14 +389,14 @@
                   RESULT( 5 ) = ULPINV
                }
             }
-            if ( J.GT.1 ) {
+            if ( J > 1 ) {
                if ( AI( J, J-1 ) != ZERO ) {
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
             }
          } else {
-            if ( ALPHAI( J ).GT.ZERO ) {
+            if ( ALPHAI( J ) > ZERO ) {
                I1 = J
             } else {
                I1 = J - 1
@@ -408,7 +408,7 @@
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
                }
-            } else if ( I1.GT.1 ) {
+            } else if ( I1 > 1 ) {
                if ( AI( I1, I1-1 ) != ZERO ) {
                   ILABAD = true;
                   RESULT( 5 ) = ULPINV
@@ -442,9 +442,9 @@
       NTEST = 8
       RESULT( 8 ) = ZERO
       if ( DIFEST( 2 ) == ZERO ) {
-         if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
+         if (DIFTRU > ABNRM*ULP) RESULT( 8 ) = ULPINV;
       } else if ( DIFTRU == ZERO ) {
-         if ( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
+         if ( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
       }
 
@@ -453,7 +453,7 @@
       NTEST = 9
       RESULT( 9 ) = ZERO
       if ( LINFO == ( MPLUSN+2 ) ) {
-         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
+         if (DIFTRU > ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC > 1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
       }
 
       // Test (10): compare the estimated value of PL and it true value.
@@ -461,9 +461,9 @@
       NTEST = 10
       RESULT( 10 ) = ZERO
       if ( PL( 1 ) == ZERO ) {
-         if (PLTRU.GT.ABNRM*ULP) RESULT( 10 ) = ULPINV;
+         if (PLTRU > ABNRM*ULP) RESULT( 10 ) = ULPINV;
       } else if ( PLTRU == ZERO ) {
-         if ( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) || ( PLTRU*THRESH < PL( 1 ) ) ) {
+         if ( PL( 1 ) > ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU > THRESH*PL( 1 ) ) || ( PLTRU*THRESH < PL( 1 ) ) ) {
          RESULT( 10 ) = ULPINV
       }
 

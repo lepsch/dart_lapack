@@ -41,7 +41,7 @@
       EPS = DLAMCH( 'Epsilon' )
       K = N
       M2 = M+N
-      if ( M.GT.0 ) {
+      if ( M > 0 ) {
          NP1 = N+1
       } else {
          NP1 = 1
@@ -60,12 +60,12 @@
       for (J = 1; J <= N; J++) {
          zlarnv(2, ISEED, J, A( 1, J ) );
       }
-      if ( M.GT.0 ) {
+      if ( M > 0 ) {
          for (J = 1; J <= N; J++) {
             zlarnv(2, ISEED, M-L, A( MIN(N+M,N+1), J ) );
          }
       }
-      if ( L.GT.0 ) {
+      if ( L > 0 ) {
          for (J = 1; J <= N; J++) {
             zlarnv(2, ISEED, MIN(J,L), A( MIN(N+M,N+M-L+1), J ) );
          }
@@ -94,7 +94,7 @@
       zgemm('C', 'N', M2, N, M2, -ONE, Q, M2, A, M2, ONE, R, M2 );
       ANORM = ZLANGE( '1', M2, N, A, M2, RWORK )
       RESID = ZLANGE( '1', M2, N, R, M2, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = RESID / (EPS*ANORM*MAX(1,M2))
       } else {
          RESULT( 1 ) = ZERO
@@ -123,7 +123,7 @@
 
       zgemm('N', 'N', M2, N, M2, -ONE, Q, M2, C, M2, ONE, CF, M2 );
       RESID = ZLANGE( '1', M2, N, CF, M2, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,M2)*CNORM)
       } else {
          RESULT( 3 ) = ZERO
@@ -141,7 +141,7 @@
 
       zgemm('C','N',M2,N,M2,-ONE,Q,M2,C,M2,ONE,CF,M2);
       RESID = ZLANGE( '1', M2, N, CF, M2, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,M2)*CNORM)
       } else {
          RESULT( 4 ) = ZERO
@@ -163,7 +163,7 @@
 
       zgemm('N','N',N,M2,M2,-ONE,D,N,Q,M2,ONE,DF,N);
       RESID = ZLANGE('1',N, M2,DF,N,RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,M2)*DNORM)
       } else {
          RESULT( 5 ) = ZERO
@@ -182,7 +182,7 @@
 
       zgemm('N', 'C', N, M2, M2, -ONE, D, N, Q, M2, ONE, DF, N );
       RESID = ZLANGE( '1', N, M2, DF, N, RWORK )
-      if ( CNORM.GT.ZERO ) {
+      if ( CNORM > ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,M2)*DNORM)
       } else {
          RESULT( 6 ) = ZERO

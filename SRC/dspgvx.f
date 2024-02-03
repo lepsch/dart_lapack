@@ -42,7 +42,7 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      if ( ITYPE < 1 || ITYPE.GT.3 ) {
+      if ( ITYPE < 1 || ITYPE > 3 ) {
          INFO = -1
       } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
@@ -54,13 +54,13 @@
          INFO = -5
       } else {
          if ( VALEIG ) {
-            if ( N.GT.0 && VU.LE.VL ) {
+            if ( N > 0 && VU.LE.VL ) {
                INFO = -9
             }
          } else if ( INDEIG ) {
             if ( IL < 1 ) {
                INFO = -10
-            } else if ( IU < MIN( N, IL ) || IU.GT.N ) {
+            } else if ( IU < MIN( N, IL ) || IU > N ) {
                INFO = -11
             }
          }
@@ -98,7 +98,7 @@
 
          // Backtransform eigenvectors to the original problem.
 
-         if (INFO.GT.0) M = INFO - 1;
+         if (INFO > 0) M = INFO - 1;
          if ( ITYPE == 1 || ITYPE == 2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;

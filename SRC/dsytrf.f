@@ -65,7 +65,7 @@
 
       NBMIN = 2
       LDWORK = N
-      if ( NB.GT.1 && NB < N ) {
+      if ( NB > 1 && NB < N ) {
          IWS = LDWORK*NB
          if ( LWORK < IWS ) {
             NB = MAX( LWORK / LDWORK, 1 )
@@ -91,7 +91,7 @@
 
          if (K < 1) GO TO 40;
 
-         if ( K.GT.NB ) {
+         if ( K > NB ) {
 
             // Factorize columns k-kb+1:k of A and use blocked code to
             // update columns 1:k-kb
@@ -107,7 +107,7 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         if (INFO == 0 && IINFO.GT.0) INFO = IINFO;
+         if (INFO == 0 && IINFO > 0) INFO = IINFO;
 
          // Decrease K and return to the start of the main loop
 
@@ -127,7 +127,7 @@
 
          // If K > N, exit from loop
 
-         if (K.GT.N) GO TO 40;
+         if (K > N) GO TO 40;
 
          if ( K.LE.N-NB ) {
 
@@ -145,12 +145,12 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         if (INFO == 0 && IINFO.GT.0) INFO = IINFO + K - 1;
+         if (INFO == 0 && IINFO > 0) INFO = IINFO + K - 1;
 
          // Adjust IPIV
 
          for (J = K; J <= K + KB - 1; J++) { // 30
-            if ( IPIV( J ).GT.0 ) {
+            if ( IPIV( J ) > 0 ) {
                IPIV( J ) = IPIV( J ) + K - 1
             } else {
                IPIV( J ) = IPIV( J ) - K + 1

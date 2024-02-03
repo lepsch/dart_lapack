@@ -76,7 +76,7 @@
 
       // Compute the QR factorization and update remaining columns
 
-      if ( ITEMP.GT.0 ) {
+      if ( ITEMP > 0 ) {
          MA = MIN( ITEMP, M )
          zgeqr2(M, MA, A, LDA, TAU, WORK, INFO );
          if ( MA < N ) {
@@ -139,7 +139,7 @@
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
                   TEMP2 = TEMP*( RWORK( J ) / RWORK( N+J ) )**2
                   if ( TEMP2 .LE. TOL3Z ) {
-                     if ( M-I.GT.0 ) {
+                     if ( M-I > 0 ) {
                         RWORK( J ) = DZNRM2( M-I, A( I+1, J ), 1 )
                         RWORK( N+J ) = RWORK( J )
                      } else {

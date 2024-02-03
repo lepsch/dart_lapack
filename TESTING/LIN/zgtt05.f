@@ -69,7 +69,7 @@
             DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) )
          } // 10
 
-         if ( XNORM.GT.ONE ) {
+         if ( XNORM > ONE ) {
             GO TO 20
          } else if ( DIFF.LE.OVFL*XNORM ) {
             GO TO 20

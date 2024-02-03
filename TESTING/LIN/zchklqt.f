@@ -72,7 +72,7 @@
 
                // Test ZGELQT and ZUNMLQT
 
-               if ( (NB.LE.MINMN) && (NB.GT.0) ) {
+               if ( (NB.LE.MINMN) && (NB > 0) ) {
                   zlqt04(M, N, NB, RESULT );
 
                   // Print information about the tests that did not

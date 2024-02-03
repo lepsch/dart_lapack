@@ -76,10 +76,10 @@
 
       ISCALE = 0
       TNRM = DLANST( 'M', N, D, E )
-      if ( TNRM.GT.ZERO && TNRM < RMIN ) {
+      if ( TNRM > ZERO && TNRM < RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
-      } else if ( TNRM.GT.RMAX ) {
+      } else if ( TNRM > RMAX ) {
          ISCALE = 1
          SIGMA = RMAX / TNRM
       }

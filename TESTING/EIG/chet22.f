@@ -62,7 +62,7 @@
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )
       } // 10
-      if ( KBAND == 1 && N.GT.1 ) {
+      if ( KBAND == 1 && N > 1 ) {
          for (J = 2; J <= M; J++) { // 20
             JJ1 = NN + ( J-1 )*N + J - 1
             JJ2 = NN + ( J-2 )*N + J
@@ -72,7 +72,7 @@
       }
       WNORM = CLANHE( '1', UPLO, M, WORK( NNP1 ), N, RWORK )
 
-      if ( ANORM.GT.WNORM ) {
+      if ( ANORM > WNORM ) {
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP )
       } else {
          if ( ANORM < ONE ) {

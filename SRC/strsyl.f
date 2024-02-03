@@ -125,7 +125,7 @@
 
             KNEXT = M
             DO 60 K = M, 1, -1
-               if (K.GT.KNEXT) GO TO 60;
+               if (K > KNEXT) GO TO 60;
                if ( K == 1 ) {
                   K1 = K
                   K2 = K
@@ -155,8 +155,8 @@
                      INFO = 1
                   }
                   DB = ABS( VEC( 1, 1 ) )
-                  if ( DA11 < ONE && DB.GT.ONE ) {
-                     if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
+                  if ( DA11 < ONE && DB > ONE ) {
+                     if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
@@ -319,8 +319,8 @@
                      INFO = 1
                   }
                   DB = ABS( VEC( 1, 1 ) )
-                  if ( DA11 < ONE && DB.GT.ONE ) {
-                     if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
+                  if ( DA11 < ONE && DB > ONE ) {
+                     if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
@@ -431,7 +431,7 @@
 
          LNEXT = N
          DO 190 L = N, 1, -1
-            if (L.GT.LNEXT) GO TO 190;
+            if (L > LNEXT) GO TO 190;
             if ( L == 1 ) {
                L1 = L
                L2 = L
@@ -482,8 +482,8 @@
                      INFO = 1
                   }
                   DB = ABS( VEC( 1, 1 ) )
-                  if ( DA11 < ONE && DB.GT.ONE ) {
-                     if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
+                  if ( DA11 < ONE && DB > ONE ) {
+                     if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
@@ -594,7 +594,7 @@
 
          LNEXT = N
          DO 250 L = N, 1, -1
-            if (L.GT.LNEXT) GO TO 250;
+            if (L > LNEXT) GO TO 250;
             if ( L == 1 ) {
                L1 = L
                L2 = L
@@ -615,7 +615,7 @@
 
             KNEXT = M
             DO 240 K = M, 1, -1
-               if (K.GT.KNEXT) GO TO 240;
+               if (K > KNEXT) GO TO 240;
                if ( K == 1 ) {
                   K1 = K
                   K2 = K
@@ -644,8 +644,8 @@
                      INFO = 1
                   }
                   DB = ABS( VEC( 1, 1 ) )
-                  if ( DA11 < ONE && DB.GT.ONE ) {
-                     if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
+                  if ( DA11 < ONE && DB > ONE ) {
+                     if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 

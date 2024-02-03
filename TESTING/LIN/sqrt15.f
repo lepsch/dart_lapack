@@ -63,7 +63,7 @@
          xerbla('SQRT15', 2 );
       }
 
-      if ( RANK.GT.0 ) {
+      if ( RANK > 0 ) {
 
          // Nontrivial case
 
@@ -71,7 +71,7 @@
          for (J = 2; J <= RANK; J++) { // 30
             } // 20
             TEMP = SLARND( 1, ISEED )
-            if ( TEMP.GT.SVMIN ) {
+            if ( TEMP > SVMIN ) {
                S( J ) = ABS( TEMP )
             } else {
                GO TO 20

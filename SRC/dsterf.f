@@ -71,7 +71,7 @@
       L1 = 1
 
       } // 10
-      if (L1.GT.N) GO TO 170       IF( L1.GT.1 ) E( L1-1 ) = ZERO;
+      if (L1 > N) GO TO 170       IF( L1 > 1 ) E( L1-1 ) = ZERO;
       for (M = L1; M <= N - 1; M++) { // 20
          if ( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
             E( M ) = ZERO
@@ -93,7 +93,7 @@
       ANORM = DLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
       if (ANORM == ZERO) GO TO 10;
-      if ( (ANORM.GT.SSFMAX) ) {
+      if ( (ANORM > SSFMAX) ) {
          ISCALE = 1
          dlascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO );
          dlascl('G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
@@ -208,7 +208,7 @@
          M = LEND
 
          } // 120
-         if (M.GT.LEND) E( M-1 ) = ZERO;
+         if (M > LEND) E( M-1 ) = ZERO;
          P = D( L )
          if (M == L) GO TO 140;
 

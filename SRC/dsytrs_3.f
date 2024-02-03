@@ -88,9 +88,9 @@
 
          I = N
          DO WHILE ( I.GE.1 )
-            if ( IPIV( I ).GT.0 ) {
+            if ( IPIV( I ) > 0 ) {
                dscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
-            } else if ( I.GT.1 ) {
+            } else if ( I > 1 ) {
                AKM1K = E( I )
                AKM1 = A( I-1, I-1 ) / AKM1K
                AK = A( I, I ) / AKM1K
@@ -155,7 +155,7 @@
 
          I = 1
          DO WHILE ( I.LE.N )
-            if ( IPIV( I ).GT.0 ) {
+            if ( IPIV( I ) > 0 ) {
                dscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             } else if ( I < N ) {
                AKM1K = E( I )

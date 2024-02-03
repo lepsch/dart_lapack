@@ -95,7 +95,7 @@
       if ( INFO2 != 0 ) {
          NINFO( INFO2 ) = NINFO( INFO2 ) + 1
       } else {
-         IF( ABS( IFST2-IFSTSV ).GT.1 ) RES = RES + ONE / EPS          IF( ABS( ILST2-ILSTSV ).GT.1 ) RES = RES + ONE / EPS
+         IF( ABS( IFST2-IFSTSV ) > 1 ) RES = RES + ONE / EPS          IF( ABS( ILST2-ILSTSV ) > 1 ) RES = RES + ONE / EPS
       }
 
       // Test for small residual, and orthogonality of Q
@@ -126,7 +126,7 @@
          LOC = LOC + 1
       }
       if (LOC < N) GO TO 70;
-      if ( RES.GT.RMAX ) {
+      if ( RES > RMAX ) {
          RMAX = RES
          LMAX = KNT
       }

@@ -143,7 +143,7 @@
 
       } // 140
       TEMP = TWO*( SASUM( N, X, 1 ) / REAL( 3*N ) )
-      if ( TEMP.GT.EST ) {
+      if ( TEMP > EST ) {
          scopy(N, X, 1, V, 1 );
          EST = TEMP
       }

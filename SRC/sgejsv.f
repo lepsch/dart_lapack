@@ -68,7 +68,7 @@
          INFO = - 6
       } else if ( M < 0 ) {
          INFO = - 7
-      } else if ( ( N < 0 ) || ( N .GT. M ) ) {
+      } else if ( ( N < 0 ) || ( N > M ) ) {
          INFO = - 8
       } else if ( LDA < M ) {
          INFO = - 10
@@ -127,7 +127,7 @@
          AAPP = ZERO
          AAQQ = ONE
          slassq(M, A(1,p), 1, AAPP, AAQQ );
-         if ( AAPP .GT. BIG ) {
+         if ( AAPP > BIG ) {
             INFO = - 9
             xerbla('SGEJSV', -INFO );
             RETURN
@@ -357,7 +357,7 @@
       TEMP1  = SQRT( BIG / FLOAT(N) )
 
       slascl('G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR );
-      if ( AAQQ .GT. (AAPP * SFMIN) ) {
+      if ( AAQQ > (AAPP * SFMIN) ) {
           AAQQ = ( AAQQ / AAPP ) * TEMP1
       } else {
           AAQQ = ( AAQQ * TEMP1 ) / AAPP
@@ -380,7 +380,7 @@
          XSC = SMALL
 
          // Now, if the condition number of A is too big,
-         // sigma_max(A) / sigma_min(A) .GT. SQRT(BIG/N) * EPSLN / SFMIN,
+         // sigma_max(A) / sigma_min(A) > SQRT(BIG/N) * EPSLN / SFMIN,
          // as a precaution measure, the full SVD is computed using SGESVJ
          // with accumulated Jacobi rotations. This provides numerically
          // more robust computation, at the cost of slightly increased run
@@ -543,7 +543,7 @@
          }
       }
 
-      L2PERT = L2PERT && ( ABS( A(1,1)/A(NR,NR) ) .GT. SQRT(BIG1) )
+      L2PERT = L2PERT && ( ABS( A(1,1)/A(NR,NR) ) > SQRT(BIG1) )
       // If there is no violent scaling, artificial perturbation is not needed.
 
       // Phase 3:
@@ -577,7 +577,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*ABS(A(q,q))
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) )
+                     IF ( ( (p > q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) )
                   } // 4949
                } // 4947
             } else {
@@ -605,7 +605,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*ABS(A(q,q))
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) )
+                     IF ( ( (p > q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p < q ) ) A(p,q) = SIGN( TEMP1, A(p,q) )
                   } // 1949
                } // 1947
             } else {
@@ -754,7 +754,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*ABS( V(q,q) )
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) )
+                     IF ( ( p > q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) )
                      if (p < q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
@@ -999,7 +999,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p)
                } // 973
                XSC = ONE / SNRM2( N, V(1,q), 1 )
-               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,q), 1 )
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
@@ -1020,7 +1020,7 @@
             TEMP1 = SQRT(FLOAT(M)) * EPSLN
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / SNRM2( M, U(1,p), 1 )
-               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 )
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
@@ -1062,7 +1062,7 @@
             TEMP1 = SQRT(FLOAT(N))*EPSLN
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / SNRM2( N, V(1,p), 1 )
-               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,p), 1 )
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
@@ -1078,7 +1078,7 @@
             TEMP1 = SQRT(FLOAT(M))*EPSLN
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / SNRM2( M, U(1,p), 1 )
-               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 )
             } // 6973
 
             if (ROWPIV) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
@@ -1108,7 +1108,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*ABS( V(q,q) )
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) )
+                  IF ( ( p > q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) ) V(p,q) = SIGN( TEMP1, V(p,q) )
                   if (p < q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
@@ -1157,7 +1157,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p)
                } // 8973
                XSC = ONE / SNRM2( N, V(1,q), 1 )
-               IF ( (XSC < (ONE-TEMP1)) || (XSC .GT. (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,q), 1 )
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.

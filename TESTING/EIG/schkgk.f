@@ -115,7 +115,7 @@
          } // 60
       } // 70
       VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) )
-      if ( VMAX.GT.RMAX ) {
+      if ( VMAX > RMAX ) {
          LMAX( 4 ) = KNT
          RMAX = VMAX
       }
@@ -133,7 +133,7 @@
          } // 80
       } // 90
       VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) )
-      if ( VMAX.GT.RMAX ) {
+      if ( VMAX > RMAX ) {
          LMAX( 4 ) = KNT
          RMAX = VMAX
       }

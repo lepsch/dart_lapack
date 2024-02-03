@@ -50,7 +50,7 @@
 
       // Check for overflow
 
-      if ( ABS( V( 1 ) ).GT.SAFMAX || ABS( V( 2 ) ) .GT. SAFMAX || ABS( V( 3 ) ).GT.SAFMAX || DISNAN( V( 1 ) ) || DISNAN( V( 2 ) ) || DISNAN( V( 3 ) ) ) {
+      if ( ABS( V( 1 ) ) > SAFMAX || ABS( V( 2 ) ) > SAFMAX || ABS( V( 3 ) ) > SAFMAX || DISNAN( V( 1 ) ) || DISNAN( V( 2 ) ) || DISNAN( V( 3 ) ) ) {
          V( 1 ) = ZERO
          V( 2 ) = ZERO
          V( 3 ) = ZERO

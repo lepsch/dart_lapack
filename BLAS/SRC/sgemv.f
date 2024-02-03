@@ -69,12 +69,12 @@
           LENX = M
           LENY = N
       }
-      if (INCX.GT.0) {
+      if (INCX > 0) {
           KX = 1
       } else {
           KX = 1 - (LENX-1)*INCX
       }
-      if (INCY.GT.0) {
+      if (INCY > 0) {
           KY = 1
       } else {
           KY = 1 - (LENY-1)*INCY

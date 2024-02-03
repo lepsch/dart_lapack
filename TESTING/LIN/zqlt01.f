@@ -58,9 +58,9 @@
 
       zlaset('Full', M, M, ROGUE, ROGUE, Q, LDA );
       if ( M.GE.N ) {
-         if (N < M && N.GT.0) CALL ZLACPY( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA )          IF( N.GT.1 ) CALL ZLACPY( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA );
+         if (N < M && N > 0) CALL ZLACPY( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA )          IF( N > 1 ) CALL ZLACPY( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA );
       } else {
-         if (M.GT.1) CALL ZLACPY( 'Upper', M-1, M-1, AF( 1, N-M+2 ), LDA, Q( 1, 2 ), LDA );
+         if (M > 1) CALL ZLACPY( 'Upper', M-1, M-1, AF( 1, N-M+2 ), LDA, Q( 1, 2 ), LDA );
       }
 
       // Generate the m-by-m matrix Q
@@ -72,9 +72,9 @@
 
       zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), L, LDA );
       if ( M.GE.N ) {
-         if (N.GT.0) CALL ZLACPY( 'Lower', N, N, AF( M-N+1, 1 ), LDA, L( M-N+1, 1 ), LDA );
+         if (N > 0) CALL ZLACPY( 'Lower', N, N, AF( M-N+1, 1 ), LDA, L( M-N+1, 1 ), LDA );
       } else {
-         if (N.GT.M && M.GT.0) CALL ZLACPY( 'Full', M, N-M, AF, LDA, L, LDA )          IF( M.GT.0 ) CALL ZLACPY( 'Lower', M, M, AF( 1, N-M+1 ), LDA, L( 1, N-M+1 ), LDA );
+         if (N > M && M > 0) CALL ZLACPY( 'Full', M, N-M, AF, LDA, L, LDA )          IF( M > 0 ) CALL ZLACPY( 'Lower', M, M, AF( 1, N-M+1 ), LDA, L( 1, N-M+1 ), LDA );
       }
 
       // Compute L - Q'*A
@@ -85,7 +85,7 @@
 
       ANORM = ZLANGE( '1', M, N, A, LDA, RWORK )
       RESID = ZLANGE( '1', M, N, L, LDA, RWORK )
-      if ( ANORM.GT.ZERO ) {
+      if ( ANORM > ZERO ) {
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M ) ) ) / ANORM ) / EPS
       } else {
          RESULT( 1 ) = ZERO

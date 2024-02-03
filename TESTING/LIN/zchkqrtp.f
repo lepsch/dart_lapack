@@ -76,7 +76,7 @@
 
                   // Test ZTPQRT and ZTPMQRT
 
-                  if ( (NB.LE.N) && (NB.GT.0) ) {
+                  if ( (NB.LE.N) && (NB > 0) ) {
                      zqrt05(M, N, L, NB, RESULT );
 
                      // Print information about the tests that did not

@@ -78,7 +78,7 @@
          } else {
             TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
          }
-         if (TAU < LBD || TAU .GT. UBD) TAU = ( LBD+UBD )/TWO;
+         if (TAU < LBD || TAU > UBD) TAU = ( LBD+UBD )/TWO;
          if ( D(1) == TAU || D(2) == TAU || D(3) == TAU ) {
             TAU = ZERO
          } else {
@@ -211,7 +211,7 @@
          }
 
          TAU = TAU + ETA
-         if (TAU < LBD || TAU .GT. UBD) TAU = ( LBD + UBD )/TWO;
+         if (TAU < LBD || TAU > UBD) TAU = ( LBD + UBD )/TWO;
 
          FC = ZERO
          ERRETM = ZERO

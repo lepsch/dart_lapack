@@ -81,7 +81,7 @@
             IPIV( I ) = I + 1
          }
       } // 30
-      if ( N.GT.1 ) {
+      if ( N > 1 ) {
          I = N - 1
          if ( CABS1( D( I ) ).GE.CABS1( DL( I ) ) ) {
             if ( CABS1( D( I ) ) != ZERO ) {

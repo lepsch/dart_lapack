@@ -47,7 +47,7 @@
         // PMAX = 3 if H largest in absolute values
 
       PMAX = 1
-      SWAP = ( HA.GT.FA )
+      SWAP = ( HA > FA )
       if ( SWAP ) {
          PMAX = 3
          TEMP = FT
@@ -74,7 +74,7 @@
          SRT = ZERO
       } else {
          GASMAL = true;
-         if ( GA.GT.FA ) {
+         if ( GA > FA ) {
             PMAX = 2
             if ( ( FA / GA ) < DLAMCH( 'EPS' ) ) {
 
@@ -82,7 +82,7 @@
 
                GASMAL = false;
                SSMAX = GA
-               if ( HA.GT.ONE ) {
+               if ( HA > ONE ) {
                   SSMIN = FA / ( GA / HA )
                } else {
                   SSMIN = ( FA / GA )*HA

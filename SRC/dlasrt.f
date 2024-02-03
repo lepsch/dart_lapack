@@ -64,7 +64,7 @@
       START = STACK( 1, STKPNT )
       ENDD = STACK( 2, STKPNT )
       STKPNT = STKPNT - 1
-      if ( ENDD-START.LE.SELECT && ENDD-START.GT.0 ) {
+      if ( ENDD-START.LE.SELECT && ENDD-START > 0 ) {
 
          // Do Insertion sort on D( START:ENDD )
 
@@ -74,7 +74,7 @@
 
             for (I = START + 1; I <= ENDD; I++) { // 30
                DO 20 J = I, START + 1, -1
-                  if ( D( J ).GT.D( J-1 ) ) {
+                  if ( D( J ) > D( J-1 ) ) {
                      DMNMX = D( J )
                      D( J ) = D( J-1 )
                      D( J-1 ) = DMNMX
@@ -102,7 +102,7 @@
 
          }
 
-      } else if ( ENDD-START.GT.SELECT ) {
+      } else if ( ENDD-START > SELECT ) {
 
          // Partition D( START:ENDD ) and stack parts, largest one first
 
@@ -142,14 +142,14 @@
             IF( D( J ) < DMNMX ) GO TO 70
             } // 80
             I = I + 1
-            IF( D( I ).GT.DMNMX ) GO TO 80
+            IF( D( I ) > DMNMX ) GO TO 80
             if ( I < J ) {
                TMP = D( I )
                D( I ) = D( J )
                D( J ) = TMP
                GO TO 60
             }
-            if ( J-START.GT.ENDD-J-1 ) {
+            if ( J-START > ENDD-J-1 ) {
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = START
                STACK( 2, STKPNT ) = J
@@ -173,7 +173,7 @@
             } // 90
             } // 100
             J = J - 1
-            IF( D( J ).GT.DMNMX ) GO TO 100
+            IF( D( J ) > DMNMX ) GO TO 100
             } // 110
             I = I + 1
             IF( D( I ) < DMNMX ) GO TO 110
@@ -183,7 +183,7 @@
                D( J ) = TMP
                GO TO 90
             }
-            if ( J-START.GT.ENDD-J-1 ) {
+            if ( J-START > ENDD-J-1 ) {
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = START
                STACK( 2, STKPNT ) = J
@@ -200,7 +200,7 @@
             }
          }
       }
-      if (STKPNT.GT.0) GO TO 10;
+      if (STKPNT > 0) GO TO 10;
       RETURN
 
       // End of DLASRT

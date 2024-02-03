@@ -102,7 +102,7 @@
          SMAX = WORK( K+I )
          for (J = I + 1; J <= IBND; J++) { // 10
             TEMP = WORK( K+J )
-            if ( TEMP.GT.SMAX ) {
+            if ( TEMP > SMAX ) {
                ISUB = J
                SMAX = TEMP
             }

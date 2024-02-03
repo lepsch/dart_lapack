@@ -131,10 +131,10 @@
 
       ANRM = CLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO && ANRM < SMLNUM ) {
+      if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
-      } else if ( ANRM.GT.BIGNUM ) {
+      } else if ( ANRM > BIGNUM ) {
          SCALEA = true;
          CSCALE = BIGNUM
       }
@@ -281,7 +281,7 @@
       } // 50
       if ( SCALEA ) {
          clascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR );
-         if ( INFO.GT.0 ) {
+         if ( INFO > 0 ) {
             clascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR );
          }
       }

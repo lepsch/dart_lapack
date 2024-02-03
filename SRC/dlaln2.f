@@ -88,8 +88,8 @@
             // Check scaling for  X = B / C
 
             BNORM = ABS( B( 1, 1 ) )
-            if ( CNORM < ONE && BNORM.GT.ONE ) {
-               if (BNORM.GT.BIGNUM*CNORM) SCALE = ONE / BNORM;
+            if ( CNORM < ONE && BNORM > ONE ) {
+               if (BNORM > BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
 
             // Compute X
@@ -118,8 +118,8 @@
             // Check scaling for  X = B / C
 
             BNORM = ABS( B( 1, 1 ) ) + ABS( B( 1, 2 ) )
-            if ( CNORM < ONE && BNORM.GT.ONE ) {
-               if (BNORM.GT.BIGNUM*CNORM) SCALE = ONE / BNORM;
+            if ( CNORM < ONE && BNORM > ONE ) {
+               if (BNORM > BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
 
             // Compute X
@@ -154,7 +154,7 @@
             ICMAX = 0
 
             for (J = 1; J <= 4; J++) { // 10
-               if ( ABS( CRV( J ) ).GT.CMAX ) {
+               if ( ABS( CRV( J ) ) > CMAX ) {
                   CMAX = ABS( CRV( J ) )
                   ICMAX = J
                }
@@ -164,8 +164,8 @@
 
             if ( CMAX < SMINI ) {
                BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) )
-               if ( SMINI < ONE && BNORM.GT.ONE ) {
-                  if (BNORM.GT.BIGNUM*SMINI) SCALE = ONE / BNORM;
+               if ( SMINI < ONE && BNORM > ONE ) {
+                  if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI
                X( 1, 1 ) = TEMP*B( 1, 1 )
@@ -200,7 +200,7 @@
             }
             BR2 = BR2 - LR21*BR1
             BBND = MAX( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) )
-            if ( BBND.GT.ONE && ABS( UR22 ) < ONE ) {
+            if ( BBND > ONE && ABS( UR22 ) < ONE ) {
                IF( BBND.GE.BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND
             }
 
@@ -217,8 +217,8 @@
 
             // Further scaling if  norm(A) norm(X) > overflow
 
-            if ( XNORM.GT.ONE && CMAX.GT.ONE ) {
-               if ( XNORM.GT.BIGNUM / CMAX ) {
+            if ( XNORM > ONE && CMAX > ONE ) {
+               if ( XNORM > BIGNUM / CMAX ) {
                   TEMP = CMAX / BIGNUM
                   X( 1, 1 ) = TEMP*X( 1, 1 )
                   X( 2, 1 ) = TEMP*X( 2, 1 )
@@ -240,7 +240,7 @@
             ICMAX = 0
 
             for (J = 1; J <= 4; J++) { // 20
-               if ( ABS( CRV( J ) )+ABS( CIV( J ) ).GT.CMAX ) {
+               if ( ABS( CRV( J ) )+ABS( CIV( J ) ) > CMAX ) {
                   CMAX = ABS( CRV( J ) ) + ABS( CIV( J ) )
                   ICMAX = J
                }
@@ -250,8 +250,8 @@
 
             if ( CMAX < SMINI ) {
                BNORM = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
-               if ( SMINI < ONE && BNORM.GT.ONE ) {
-                  if (BNORM.GT.BIGNUM*SMINI) SCALE = ONE / BNORM;
+               if ( SMINI < ONE && BNORM > ONE ) {
+                  if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI
                X( 1, 1 ) = TEMP*B( 1, 1 )
@@ -277,7 +277,7 @@
 
                // Code when off-diagonals of pivoted C are real
 
-               if ( ABS( UR11 ).GT.ABS( UI11 ) ) {
+               if ( ABS( UR11 ) > ABS( UI11 ) ) {
                   TEMP = UI11 / UR11
                   UR11R = ONE / ( UR11*( ONE+TEMP**2 ) )
                   UI11R = -TEMP*UR11R
@@ -328,7 +328,7 @@
             BR2 = BR2 - LR21*BR1 + LI21*BI1
             BI2 = BI2 - LI21*BR1 - LR21*BI1
             BBND = MAX( ( ABS( BR1 )+ABS( BI1 ) )* ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ), ABS( BR2 )+ABS( BI2 ) )
-            if ( BBND.GT.ONE && U22ABS < ONE ) {
+            if ( BBND > ONE && U22ABS < ONE ) {
                if ( BBND.GE.BIGNUM*U22ABS ) {
                   SCALE = ONE / BBND
                   BR1 = SCALE*BR1
@@ -356,8 +356,8 @@
 
             // Further scaling if  norm(A) norm(X) > overflow
 
-            if ( XNORM.GT.ONE && CMAX.GT.ONE ) {
-               if ( XNORM.GT.BIGNUM / CMAX ) {
+            if ( XNORM > ONE && CMAX > ONE ) {
+               if ( XNORM > BIGNUM / CMAX ) {
                   TEMP = CMAX / BIGNUM
                   X( 1, 1 ) = TEMP*X( 1, 1 )
                   X( 2, 1 ) = TEMP*X( 2, 1 )

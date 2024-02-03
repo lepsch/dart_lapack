@@ -125,7 +125,7 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
-               if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
+               if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                   dgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
                }
 
@@ -172,7 +172,7 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
-               if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
+               if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                   dgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
                }
 
@@ -204,7 +204,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( INFO == 0 && MAXC2NRMK.GT.HUGEVAL ) {
+            if ( INFO == 0 && MAXC2NRMK > HUGEVAL ) {
                INFO = N + K - 1 + KP
             }
 
@@ -300,7 +300,7 @@
          // Apply previous Householder reflectors to column K:
          // A(I:M,K) := A(I:M,K) - A(I:M,1:K-1)*F(K,1:K-1)**T.
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             dgemv('No transpose', M-I+1, K-1, -ONE, A( I, 1 ), LDA, F( K, 1 ), LDF, ONE, A( I, K ), 1 );
          }
 
@@ -354,7 +354,7 @@
             // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                              // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
-            if ( NRHS.GT.0 && KB < (M-IOFFSET) ) {
+            if ( NRHS > 0 && KB < (M-IOFFSET) ) {
                dgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
             }
 
@@ -394,7 +394,7 @@
          // F(1:N,K) := F(1:N,K) - tau(K) * F(1:N,1:K-1) * A(I:M,1:K-1)**T
                      // * A(I:M,K).
 
-         if ( K.GT.1 ) {
+         if ( K > 1 ) {
             dgemv('Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, ZERO, AUXV( 1 ), 1 );
 
             dgemv('No transpose', N+NRHS, K-1, ONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE, F( 1, K ), 1 );
@@ -480,7 +480,7 @@
       // Loop over the index of the difficult columns from the largest
       // to the smallest index.
 
-      DO WHILE( LSTICC.GT.0 )
+      DO WHILE( LSTICC > 0 )
 
          // LSTICC is the index of the last difficult column is greater
          // than 1.

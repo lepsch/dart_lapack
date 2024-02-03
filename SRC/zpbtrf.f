@@ -71,7 +71,7 @@
 
       NB = MIN( NB, NBMAX )
 
-      if ( NB.LE.1 || NB.GT.KD ) {
+      if ( NB.LE.1 || NB > KD ) {
 
          // Use unblocked code
 
@@ -125,7 +125,7 @@
                   I2 = MIN( KD-IB, N-I-IB+1 )
                   I3 = MIN( IB, N-I-KD+1 )
 
-                  if ( I2.GT.0 ) {
+                  if ( I2 > 0 ) {
 
                      // Update A12
 
@@ -136,7 +136,7 @@
                      zherk('Upper', 'Conjugate transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 );
                   }
 
-                  if ( I3.GT.0 ) {
+                  if ( I3 > 0 ) {
 
                      // Copy the lower triangle of A13 into the work array.
 
@@ -152,7 +152,7 @@
 
                      // Update A23
 
-                     if (I2.GT.0) CALL ZGEMM( 'Conjugate transpose', 'No transpose', I2, I3, IB, -CONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, CONE, AB( 1+IB, I+KD ), LDAB-1 );
+                     if (I2 > 0) CALL ZGEMM( 'Conjugate transpose', 'No transpose', I2, I3, IB, -CONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, CONE, AB( 1+IB, I+KD ), LDAB-1 );
 
                      // Update A33
 
@@ -213,7 +213,7 @@
                   I2 = MIN( KD-IB, N-I-IB+1 )
                   I3 = MIN( IB, N-I-KD+1 )
 
-                  if ( I2.GT.0 ) {
+                  if ( I2 > 0 ) {
 
                      // Update A21
 
@@ -224,7 +224,7 @@
                      zherk('Lower', 'No transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 );
                   }
 
-                  if ( I3.GT.0 ) {
+                  if ( I3 > 0 ) {
 
                      // Copy the upper triangle of A31 into the work array.
 
@@ -240,7 +240,7 @@
 
                      // Update A32
 
-                     if (I2.GT.0) CALL ZGEMM( 'No transpose', 'Conjugate transpose', I3, I2, IB, -CONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, CONE, AB( 1+KD-IB, I+IB ), LDAB-1 );
+                     if (I2 > 0) CALL ZGEMM( 'No transpose', 'Conjugate transpose', I3, I2, IB, -CONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, CONE, AB( 1+KD-IB, I+IB ), LDAB-1 );
 
                      // Update A33
 

@@ -75,7 +75,7 @@
          if (K < 1) GO TO 30;
 
          KC = KC - K
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -139,16 +139,16 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 50;
+         if (K > N) GO TO 50;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
             // Multiply by inv(U**H(K)), where U(K) is the transformation
             // stored in column K of A.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                zlacgv(NRHS, B( K, 1 ), LDB );
                zgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, AP( KC ), 1, ONE, B( K, 1 ), LDB );
                zlacgv(NRHS, B( K, 1 ), LDB );
@@ -167,7 +167,7 @@
             // Multiply by inv(U**H(K+1)), where U(K+1) is the transformation
             // stored in columns K and K+1 of A.
 
-            if ( K.GT.1 ) {
+            if ( K > 1 ) {
                zlacgv(NRHS, B( K, 1 ), LDB );
                zgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, AP( KC ), 1, ONE, B( K, 1 ), LDB );
                zlacgv(NRHS, B( K, 1 ), LDB );
@@ -203,9 +203,9 @@
 
          // If K > N, exit from loop.
 
-         if (K.GT.N) GO TO 80;
+         if (K > N) GO TO 80;
 
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
@@ -275,7 +275,7 @@
          if (K < 1) GO TO 100;
 
          KC = KC - ( N-K+1 )
-         if ( IPIV( K ).GT.0 ) {
+         if ( IPIV( K ) > 0 ) {
 
             // 1 x 1 diagonal block
 
