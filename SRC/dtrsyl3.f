@@ -119,7 +119,7 @@
                 SKIP = false;
                 CYCLE
              }
-             if ( L.GE.M ) {
+             if ( L >= M ) {
                 // A( M, M ) is a 1-by-1 block
                 CYCLE
              }
@@ -134,7 +134,7 @@
           }
        }
        IWORK( NBA + 1 ) = M + 1
-       if ( IWORK( NBA ).GE.IWORK( NBA + 1 ) ) {
+       if ( IWORK( NBA ) >= IWORK( NBA + 1 ) ) {
           IWORK( NBA ) = IWORK( NBA + 1 )
           NBA = NBA - 1
        }
@@ -155,7 +155,7 @@
                 SKIP = false;
                 CYCLE
              }
-             if ( L.GE.N ) {
+             if ( L >= N ) {
                 // B( N, N ) is a 1-by-1 block
                 CYCLE
              }
@@ -170,7 +170,7 @@
           }
        }
        IWORK( PC + NBB + 1 ) = N + 1
-       if ( IWORK( PC + NBB ).GE.IWORK( PC + NBB + 1 ) ) {
+       if ( IWORK( PC + NBB ) >= IWORK( PC + NBB + 1 ) ) {
           IWORK( PC + NBB ) = IWORK( PC + NBB + 1 )
           NBB = NBB - 1
        }

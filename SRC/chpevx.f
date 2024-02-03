@@ -88,7 +88,7 @@
             M = 1
             W( 1 ) = REAL( AP( 1 ) )
          } else {
-            if ( VL < REAL( AP( 1 ) ) && VU.GE.REAL( AP( 1 ) ) ) {
+            if ( VL < REAL( AP( 1 ) ) && VU >= REAL( AP( 1 ) ) ) {
                M = 1
                W( 1 ) = REAL( AP( 1 ) )
             }

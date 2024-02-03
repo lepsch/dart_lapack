@@ -144,7 +144,7 @@
       TOL = CTOL*EPSLN
       ROOTTOL = SQRT( TOL )
 
-      if ( FLOAT( M )*EPSLN.GE.ONE ) {
+      if ( FLOAT( M )*EPSLN >= ONE ) {
          INFO = -4
          xerbla('SGESVJ', -INFO );
          RETURN
@@ -281,7 +281,7 @@
       if ( N == 1 ) {
          if (LSVEC) CALL SLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
          WORK( 1 ) = ONE / SKL
-         if ( SVA( 1 ).GE.SFMIN ) {
+         if ( SVA( 1 ) >= SFMIN ) {
             WORK( 2 ) = ONE
          } else {
             WORK( 2 ) = ZERO
@@ -298,7 +298,7 @@
 
       SN = SQRT( SFMIN / EPSLN )
       TEMP1 = SQRT( BIG / FLOAT( N ) )
-      if ( ( AAPP.LE.SN ) || ( AAQQ.GE.TEMP1 ) || ( ( SN.LE.AAQQ ) && ( AAPP.LE.TEMP1 ) ) ) {
+      if ( ( AAPP.LE.SN ) || ( AAQQ >= TEMP1 ) || ( ( SN.LE.AAQQ ) && ( AAPP.LE.TEMP1 ) ) ) {
          TEMP1 = MIN( BIG, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
@@ -306,11 +306,11 @@
          TEMP1 = MIN( SN / AAQQ, BIG / ( AAPP*SQRT( FLOAT( N ) ) ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.GE.SN ) && ( AAPP.GE.TEMP1 ) ) {
+      } else if ( ( AAQQ >= SN ) && ( AAPP >= TEMP1 ) ) {
          TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.LE.SN ) && ( AAPP.GE.TEMP1 ) ) {
+      } else if ( ( AAQQ.LE.SN ) && ( AAPP >= TEMP1 ) ) {
          TEMP1 = MIN( SN / AAQQ, BIG / ( SQRT( FLOAT( N ) )*AAPP ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
@@ -505,7 +505,7 @@
                         if ( AAQQ > ZERO ) {
 
                            AAPP0 = AAPP
-                           if ( AAQQ.GE.ONE ) {
+                           if ( AAQQ >= ONE ) {
                               ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
@@ -569,8 +569,8 @@
 
                                     APOAQ = WORK( p ) / WORK( q )
                                     AQOAP = WORK( q ) / WORK( p )
-                                    if ( WORK( p ).GE.ONE ) {
-                                       if ( WORK( q ).GE.ONE ) {
+                                    if ( WORK( p ) >= ONE ) {
+                                       if ( WORK( q ) >= ONE ) {
                                           FASTR( 3 ) = T*APOAQ
                                           FASTR( 4 ) = -T*AQOAP
                                           WORK( p ) = WORK( p )*CS
@@ -587,7 +587,7 @@
                                           }
                                        }
                                     } else {
-                                       if ( WORK( q ).GE.ONE ) {
+                                       if ( WORK( q ) >= ONE ) {
                                           saxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                           saxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                           WORK( p ) = WORK( p ) / CS
@@ -597,7 +597,7 @@
                                              saxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                           }
                                        } else {
-                                          IF( WORK( p ).GE.WORK( q ) ) THEN;
+                                          IF( WORK( p ) >= WORK( q ) ) THEN;
                                              saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              saxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              WORK( p ) = WORK( p )*CS
@@ -719,8 +719,8 @@
 
          // Safe Gram matrix computation
 
-                           if ( AAQQ.GE.ONE ) {
-                              if ( AAPP.GE.AAQQ ) {
+                           if ( AAQQ >= ONE ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
@@ -733,7 +733,7 @@
                                  AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ
                               }
                            } else {
-                              if ( AAPP.GE.AAQQ ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = AAPP.LE.( AAQQ / SMALL )
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
@@ -785,9 +785,9 @@
 
                                     APOAQ = WORK( p ) / WORK( q )
                                     AQOAP = WORK( q ) / WORK( p )
-                                    if ( WORK( p ).GE.ONE ) {
+                                    if ( WORK( p ) >= ONE ) {
 
-                                       if ( WORK( q ).GE.ONE ) {
+                                       if ( WORK( q ) >= ONE ) {
                                           FASTR( 3 ) = T*APOAQ
                                           FASTR( 4 ) = -T*AQOAP
                                           WORK( p ) = WORK( p )*CS
@@ -804,7 +804,7 @@
                                           WORK( q ) = WORK( q ) / CS
                                        }
                                     } else {
-                                       if ( WORK( q ).GE.ONE ) {
+                                       if ( WORK( q ) >= ONE ) {
                                           saxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                           saxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                           if ( RSVEC ) {
@@ -814,7 +814,7 @@
                                           WORK( p ) = WORK( p ) / CS
                                           WORK( q ) = WORK( q )*CS
                                        } else {
-                                          IF( WORK( p ).GE.WORK( q ) ) THEN;
+                                          IF( WORK( p ) >= WORK( q ) ) THEN;
                                              saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              saxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              WORK( p ) = WORK( p )*CS
@@ -893,7 +893,7 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( IJBLSK.GE.BLSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
@@ -948,7 +948,7 @@
             GO TO 1994
          }
 
-         if (NOTROT.GE.EMPTSW) GO TO 1994;
+         if (NOTROT >= EMPTSW) GO TO 1994;
 
       } // 1993
       // end i=1:NSWEEP loop

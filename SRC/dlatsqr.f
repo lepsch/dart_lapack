@@ -76,7 +76,7 @@
 
       // The QR Decomposition
 
-      if ( (MB.LE.N) || (MB.GE.M) ) {
+      if ( (MB.LE.N) || (MB >= M) ) {
         dgeqrt(M, N, NB, A, LDA, T, LDT, WORK, INFO );
         RETURN
       }

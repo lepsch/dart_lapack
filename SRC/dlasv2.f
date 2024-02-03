@@ -57,7 +57,7 @@
          FA = HA
          HA = TEMP
 
-         // Now FA .ge. HA
+         // Now FA >= HA
 
       }
       GT = G
@@ -115,7 +115,7 @@
 
             T = TWO - L
 
-            // Note that T .ge. 1
+            // Note that T >= 1
 
             MM = M*M
             TT = T*T

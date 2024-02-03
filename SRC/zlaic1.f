@@ -195,7 +195,7 @@
             // See if root is closer to zero or to ONE
 
             TEST = ONE + TWO*( ZETA1-ZETA2 )*( ZETA1+ZETA2 )
-            if ( TEST.GE.ZERO ) {
+            if ( TEST >= ZERO ) {
 
                // root is close to zero, compute directly
 
@@ -211,7 +211,7 @@
 
                B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF
                C = ZETA1*ZETA1
-               if ( B.GE.ZERO ) {
+               if ( B >= ZERO ) {
                   T = DBLE( -C / ( B+SQRT( B*B+C ) ) )
                } else {
                   T = DBLE( B - SQRT( B*B+C ) )

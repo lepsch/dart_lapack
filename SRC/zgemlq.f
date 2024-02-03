@@ -104,7 +104,7 @@
         RETURN
       }
 
-      IF( ( LEFT && M.LE.K ) || ( RIGHT && N.LE.K ) || ( NB.LE.K ) || ( NB.GE.MAX( M, N, K ) ) ) THEN         CALL ZGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
+      IF( ( LEFT && M.LE.K ) || ( RIGHT && N.LE.K ) || ( NB.LE.K ) || ( NB >= MAX( M, N, K ) ) ) THEN         CALL ZGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
       } else {
         zlamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );
       }

@@ -71,7 +71,7 @@
          INFO = -7
       } else if ( ITYPE.LE.3 && LDA < MAX( 1, M ) ) {
          INFO = -9
-      } else if ( ITYPE.GE.4 ) {
+      } else if ( ITYPE >= 4 ) {
          if ( KL < 0 || KL > MAX( M-1, 0 ) ) {
             INFO = -2
          } else if ( KU < 0 || KU > MAX( N-1, 0 ) || ( ( ITYPE == 4 || ITYPE == 5 ) && KL != KU ) ) {

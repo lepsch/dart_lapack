@@ -103,7 +103,7 @@
                   // pass the threshold.
 
                   for (I = 1; I <= NT; I++) { // 10
-                     if ( RESULT( I ).GE.THRESH ) {
+                     if ( RESULT( I ) >= THRESH ) {
                         if ( NFAIL == 0 && FIRSTT ) {
                            FIRSTT = false;
                            alahdg(NOUT, 'GRQ' );
@@ -143,7 +143,7 @@
                   // pass the threshold.
 
                   for (I = 1; I <= NT; I++) { // 20
-                     if ( RESULT( I ).GE.THRESH ) {
+                     if ( RESULT( I ) >= THRESH ) {
                         if ( NFAIL == 0 && FIRSTT ) {
                            FIRSTT = false;
                            alahdg(NOUT, PATH );

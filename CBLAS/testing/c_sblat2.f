@@ -109,7 +109,7 @@ void main() {
 
       READ( NIN, FMT = * )SNAPS
       READ( NIN, FMT = * )NTRA
-      TRACE = NTRA.GE.0
+      TRACE = NTRA >= 0
       if ( TRACE ) {
          OPEN( NTRA, FILE = SNAPS )
       }
@@ -2136,7 +2136,7 @@ void main() {
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN || ( UPPER && I.LE.J ) || ( LOWER && I.GE.J ) ) THEN                IF( ( I.LE.J && J - I.LE.KU ) || ( I.GE.J && I - J.LE.KL ) ) {
+            if ( GEN || ( UPPER && I.LE.J ) || ( LOWER && I >= J ) ) THEN                IF( ( I.LE.J && J - I.LE.KU ) || ( I >= J && I - J.LE.KL ) ) {
                   A( I, J ) = SBEG( RESET ) + TRANSL
                } else {
                   A( I, J ) = ZERO
@@ -2339,7 +2339,7 @@ void main() {
          ERRI = ABS( YT( I ) - YY( 1 + ( I - 1 )*ABS( INCY ) ) )/EPS
          IF( G( I ) != ZERO ) ERRI = ERRI/G( I )
          ERR = MAX( ERR, ERRI )
-         IF( ERR*SQRT( EPS ).GE.ONE ) GO TO 50
+         IF( ERR*SQRT( EPS ) >= ONE ) GO TO 50
       } // 40
       // If the loop completes, all results are at least half accurate.
       GO TO 70
@@ -2487,7 +2487,7 @@ void main() {
       IC = IC + 1
    10 I = I*MI
       I = I - 1000*( I/1000 )
-      if ( IC.GE.5 ) {
+      if ( IC >= 5 ) {
          IC = 0
          GO TO 10
       }

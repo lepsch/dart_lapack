@@ -50,7 +50,7 @@
 
          // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
 
-         if ( ALPHR.GE.ZERO ) {
+         if ( ALPHR >= ZERO ) {
             // When TAU == ZERO, the vector is special-cased to be
             // all zeros in the application routines.  We do not need
             // to clear it.
@@ -116,7 +116,7 @@
             ALPHR = REAL( SAVEALPHA )
             ALPHI = AIMAG( SAVEALPHA )
             if ( ALPHI == ZERO ) {
-               if ( ALPHR.GE.ZERO ) {
+               if ( ALPHR >= ZERO ) {
                   TAU = ZERO
                } else {
                   TAU = TWO

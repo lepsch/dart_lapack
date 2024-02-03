@@ -247,14 +247,14 @@
 
       // Adjust ABSTOL
 
-      if ( ABSTOL.GE.ZERO ) {
+      if ( ABSTOL >= ZERO ) {
          SAFMIN = DLAMCH('Safe minimum')
          ABSTOL = MAX( ABSTOL, TWO*SAFMIN )
       }
 
       // Adjust RELTOL
 
-      if ( RELTOL.GE.ZERO ) {
+      if ( RELTOL >= ZERO ) {
          RELTOL = MAX( RELTOL, EPS )
       }
 
@@ -339,7 +339,7 @@
 
       JMAXB = MIN( KMAX, MINMN - NX )
 
-      if ( NB.GE.NBMIN && NB < JMAX && JMAXB > 0 ) {
+      if ( NB >= NBMIN && NB < JMAX && JMAXB > 0 ) {
 
          // Loop over the column blocks of the matrix A(1:M,1:JMAXB). Here:
          // J   is the column index of a column block;

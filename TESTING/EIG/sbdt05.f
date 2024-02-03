@@ -60,7 +60,7 @@
       if ( ANORM.LE.ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         if ( ANORM.GE.RESID ) {
+         if ( ANORM >= RESID ) {
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )
          } else {
             if ( ANORM < ONE ) {

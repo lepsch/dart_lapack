@@ -143,7 +143,7 @@
                      RESULT(1) = ( NORMA - NORMARF ) / NORMA / EPS
                      NRUN = NRUN + 1
 
-                     if ( RESULT(1).GE.THRESH ) {
+                     if ( RESULT(1) >= THRESH ) {
                         if ( NFAIL == 0 && NERRS == 0 ) {
                            WRITE( NOUT, * )
                            WRITE( NOUT, FMT = 9999 )

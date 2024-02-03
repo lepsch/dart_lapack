@@ -135,7 +135,7 @@
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
-                  ZEROT = IMAT.GE.2 && IMAT.LE.4
+                  ZEROT = IMAT >= 2 && IMAT.LE.4
                   if (ZEROT && N < IMAT-1) GO TO 80;
 
                   if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
@@ -346,7 +346,7 @@
                            // not pass the threshold.
 
                            for (K = 1; K <= NT; K++) { // 30
-                              if ( RESULT( K ).GE.THRESH ) {
+                              if ( RESULT( K ) >= THRESH ) {
                                  if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'CPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
                                  NFAIL = NFAIL + 1
                               }
@@ -422,7 +422,7 @@
                         // pass the threshold.
 
                         for (K = K1; K <= 6; K++) { // 50
-                           if ( RESULT( K ).GE.THRESH ) {
+                           if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'CPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K )

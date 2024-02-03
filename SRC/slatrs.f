@@ -209,7 +209,7 @@
 
                TJJ = ABS( A( J, J ) )
                XBND = MIN( XBND, MIN( ONE, TJJ )*GROW )
-               if ( TJJ+CNORM( J ).GE.SMLNUM ) {
+               if ( TJJ+CNORM( J ) >= SMLNUM ) {
 
                   // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
 

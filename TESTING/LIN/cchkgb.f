@@ -163,7 +163,7 @@
                      // Skip types 2, 3, or 4 if the matrix size is too
                      // small.
 
-                     ZEROT = IMAT.GE.2 && IMAT.LE.4
+                     ZEROT = IMAT >= 2 && IMAT.LE.4
                      if (ZEROT && N < IMAT-1) GO TO 120;
 
                      if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
@@ -261,7 +261,7 @@
                         // Print information about the tests so far that
                         // did not pass the threshold.
 
-                        if ( RESULT( 1 ).GE.THRESH ) {
+                        if ( RESULT( 1 ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
                            NFAIL = NFAIL + 1
                         }
@@ -372,7 +372,7 @@
                               // not pass the threshold.
 
                               for (K = 2; K <= 6; K++) { // 60
-                                 if ( RESULT( K ).GE.THRESH ) {
+                                 if ( RESULT( K ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
@@ -407,7 +407,7 @@
                            // Print information about the tests that did
                            // not pass the threshold.
 
-                           if ( RESULT( 7 ).GE.THRESH ) {
+                           if ( RESULT( 7 ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
                               NFAIL = NFAIL + 1
                            }

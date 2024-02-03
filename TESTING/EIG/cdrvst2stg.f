@@ -854,7 +854,7 @@
 
                if ( JTYPE.LE.7 ) {
                   KD = 0
-               } else if ( JTYPE.GE.8 && JTYPE.LE.15 ) {
+               } else if ( JTYPE >= 8 && JTYPE.LE.15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
@@ -1307,7 +1307,7 @@
 
                if ( JTYPE.LE.7 ) {
                   KD = 0
-               } else if ( JTYPE.GE.8 && JTYPE.LE.15 ) {
+               } else if ( JTYPE >= 8 && JTYPE.LE.15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW

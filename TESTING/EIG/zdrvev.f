@@ -249,7 +249,7 @@
                // General, random eigenvalues
 
                zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
-               if ( N.GE.4 ) {
+               if ( N >= 4 ) {
                   zlaset('Full', 2, N, CZERO, CZERO, A, LDA );
                   zlaset('Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA );
                   zlaset('Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA );
@@ -414,7 +414,7 @@
                NTEST = 0
                NFAIL = 0
                for (J = 1; J <= 7; J++) { // 230
-                  IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
+                  IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1
                } // 230
 
                if (NFAIL > 0) NTESTF = NTESTF + 1;
@@ -428,7 +428,7 @@
                }
 
                for (J = 1; J <= 7; J++) { // 240
-                  if ( RESULT( J ).GE.THRESH ) {
+                  if ( RESULT( J ) >= THRESH ) {
                      WRITE( NOUNIT, FMT = 9994 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   }
                } // 240

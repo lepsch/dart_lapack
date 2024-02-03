@@ -141,9 +141,9 @@
 
                ztpt01(UPLO, DIAG, N, AP, AINVP, RCONDO, RWORK, RESULT( 1 ) );
 
-               // Print the test ratio if it is .GE. THRESH.
+               // Print the test ratio if it is >= THRESH.
 
-               if ( RESULT( 1 ).GE.THRESH ) {
+               if ( RESULT( 1 ) >= THRESH ) {
                   if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 );
                   NFAIL = NFAIL + 1
                }
@@ -206,7 +206,7 @@
                      // the threshold.
 
                      for (K = 2; K <= 6; K++) { // 20
-                        if ( RESULT( K ).GE.THRESH ) {
+                        if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
@@ -235,9 +235,9 @@
 
                   ztpt06(RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RESULT( 7 ) );
 
-                  // Print the test ratio if it is .GE. THRESH.
+                  // Print the test ratio if it is >= THRESH.
 
-                  if ( RESULT( 7 ).GE.THRESH ) {
+                  if ( RESULT( 7 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) 'ZTPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 );
                      NFAIL = NFAIL + 1
                   }
@@ -298,11 +298,11 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  if ( RESULT( 8 ).GE.THRESH ) {
+                  if ( RESULT( 8 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 );
                      NFAIL = NFAIL + 1
                   }
-                  if ( RESULT( 9 ).GE.THRESH ) {
+                  if ( RESULT( 9 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1
                   }

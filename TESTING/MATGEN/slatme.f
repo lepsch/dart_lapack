@@ -342,7 +342,7 @@
 
       // Scale the matrix to have norm ANORM
 
-      if ( ANORM.GE.ZERO ) {
+      if ( ANORM >= ZERO ) {
          TEMP = SLANGE( 'M', N, N, A, LDA, TEMPA )
          if ( TEMP > ZERO ) {
             ALPHA = ANORM / TEMP

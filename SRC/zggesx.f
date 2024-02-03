@@ -128,7 +128,7 @@
                MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'ZUNGQR', ' ', N, 1, N, -1 ) ) )
             }
             LWRK = MAXWRK
-            if (IJOB.GE.1) LWRK = MAX( LWRK, N*N/2 );
+            if (IJOB >= 1) LWRK = MAX( LWRK, N*N/2 );
          } else {
             MINWRK = 1
             MAXWRK = 1
@@ -280,7 +280,7 @@
 
          ztgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
-         if (IJOB.GE.1) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
+         if (IJOB >= 1) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
          if ( IERR == -21 ) {
 
              // not enough complex workspace

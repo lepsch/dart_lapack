@@ -103,7 +103,7 @@
 
          // Apply Q
 
-         if ( NQ.GE.K ) {
+         if ( NQ >= K ) {
 
             // Q was determined by a call to DGEBRD with nq >= k
 

@@ -57,14 +57,14 @@
          F1 = F
          G1 = G
          SCALE = MAX( ABS( F1 ), ABS( G1 ) )
-         if ( SCALE.GE.SAFMX2 ) {
+         if ( SCALE >= SAFMX2 ) {
             COUNT = 0
             } // 10
             COUNT = COUNT + 1
             F1 = F1*SAFMN2
             G1 = G1*SAFMN2
             SCALE = MAX( ABS( F1 ), ABS( G1 ) )
-            if (SCALE.GE.SAFMX2 && COUNT < 20) GO TO 10;
+            if (SCALE >= SAFMX2 && COUNT < 20) GO TO 10;
             R = SQRT( F1**2+G1**2 )
             CS = F1 / R
             SN = G1 / R

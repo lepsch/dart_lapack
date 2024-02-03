@@ -46,7 +46,7 @@
 
          // H  =  [+/-1, 0; I], sign chosen so ALPHA >= 0.
 
-         if ( ALPHA.GE.ZERO ) {
+         if ( ALPHA >= ZERO ) {
             // When TAU == ZERO, the vector is special-cased to be
             // all zeros in the application routines.  We do not need
             // to clear it.
@@ -104,7 +104,7 @@
             // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
             // (Thanks Pat. Thanks MathWorks.)
 
-            if ( SAVEALPHA.GE.ZERO ) {
+            if ( SAVEALPHA >= ZERO ) {
                TAU = ZERO
             } else {
                TAU = TWO

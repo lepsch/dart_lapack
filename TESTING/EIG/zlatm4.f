@@ -51,7 +51,7 @@
       // and RCOND
 
       if ( ITYPE != 0 ) {
-         if ( ABS( ITYPE ).GE.4 ) {
+         if ( ABS( ITYPE ) >= 4 ) {
             KBEG = MAX( 1, MIN( N, NZ1+1 ) )
             KEND = MAX( KBEG, MIN( N, N-NZ2 ) )
             KLEN = KEND + 1 - KBEG

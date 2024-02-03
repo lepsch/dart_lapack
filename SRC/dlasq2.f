@@ -282,7 +282,7 @@
          QMAX = QMIN
          DO 90 I4 = 4*N0, 8, -4
             IF( Z( I4-5 ).LE.ZERO ) GO TO 100
-            if ( QMIN.GE.FOUR*EMAX ) {
+            if ( QMIN >= FOUR*EMAX ) {
                QMIN = MIN( QMIN, Z( I4-3 ) )
                EMAX = MAX( EMAX, Z( I4-5 ) )
             }
@@ -348,7 +348,7 @@
 
             // When EMIN is very small check for splits.
 
-            if ( PP == 0 && N0-I0.GE.3 ) {
+            if ( PP == 0 && N0-I0 >= 3 ) {
                if ( Z( 4*N0 ).LE.TOL2*QMAX || Z( 4*N0-1 ).LE.TOL2*SIGMA ) {
                   SPLT = I0 - 1
                   QMAX = Z( 4*I0-3 )
@@ -397,7 +397,7 @@
 
          if ( I1 > 1 ) {
             N1 = I1-1
-            DO WHILE( ( I1.GE.2 ) && ( Z(4*I1-5).GE.ZERO ) )
+            DO WHILE( ( I1 >= 2 ) && ( Z(4*I1-5) >= ZERO ) )
                I1 = I1 - 1
             }
             SIGMA = -Z(4*N1-1)

@@ -45,7 +45,7 @@
       // Compute B - U * S * V' one column at a time.
 
       BNORM = ZERO
-      if ( KD.GE.1 ) {
+      if ( KD >= 1 ) {
 
          // B is bidiagonal.
 
@@ -109,7 +109,7 @@
       if ( BNORM.LE.ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         if ( BNORM.GE.RESID ) {
+         if ( BNORM >= RESID ) {
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS )
          } else {
             if ( BNORM < ONE ) {

@@ -32,7 +32,7 @@
 
          NH = IHI - ILO + 1
          NS = 2
-         if (NH.GE.30) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256;
+         if (NH >= 30) NS = 4          IF( NH >= 60 ) NS = 10          IF( NH >= 150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH >= 590 ) NS = 64          IF( NH >= 3000 ) NS = 128          IF( NH >= 6000 ) NS = 256;
          NS = MAX( 2, NS-MOD( NS, 2 ) )
       }
 
@@ -89,11 +89,11 @@
 
             // ASCII character set
 
-            if ( IC.GE.97 && IC.LE.122 ) {
+            if ( IC >= 97 && IC.LE.122 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  if (IC.GE.97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
+                  if (IC >= 97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
                }
             }
 
@@ -101,11 +101,11 @@
 
             // EBCDIC character set
 
-            if ( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) ) {
+            if ( ( IC >= 129 && IC.LE.137 ) || ( IC >= 145 && IC.LE.153 ) || ( IC >= 162 && IC.LE.169 ) ) {
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+                  IF( ( IC >= 129 && IC.LE.137 ) || ( IC >= 145 && IC.LE.153 ) || ( IC >= 162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
                }
             }
 
@@ -113,20 +113,20 @@
 
             // Prime machines:  ASCII+128
 
-            if ( IC.GE.225 && IC.LE.250 ) {
+            if ( IC >= 225 && IC.LE.250 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  if (IC.GE.225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
+                  if (IC >= 225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
                }
             }
          }
 
          if ( SUBNAM( 2:6 ) == 'GGHRD' || SUBNAM( 2:6 ) == 'GGHD3' ) {
             IPARMQ = 1
-            if (NH.GE.K22MIN) IPARMQ = 2;
+            if (NH >= K22MIN) IPARMQ = 2;
          } else if ( SUBNAM( 4:6 ) == 'EXC' ) {
-            if (NH.GE.KACMIN) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ) == 'HSEQR' || SUBNAM( 2:5 ) == 'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2;
+            if (NH >= KACMIN) IPARMQ = 1             IF( NH >= K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ) == 'HSEQR' || SUBNAM( 2:5 ) == 'LAQR' ) THEN             IF( NS >= KACMIN ) IPARMQ = 1             IF( NS >= K22MIN ) IPARMQ = 2;
          }
 
       } else if ( ISPEC == ICOST ) {

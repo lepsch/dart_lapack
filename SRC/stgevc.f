@@ -271,8 +271,8 @@
                // Scale to avoid underflow
 
                SCALE = ONE
-               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ) < SMALL
-               LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
+               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEF ) < SMALL
+               LSB = ABS( SALFAR ) >= SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
                if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   if ( LSA ) {
@@ -309,7 +309,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               if (ACOEFA*ULP < SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -551,8 +551,8 @@
                // Scale to avoid underflow
 
                SCALE = ONE
-               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ) < SMALL
-               LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
+               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEF ) < SMALL
+               LSB = ABS( SALFAR ) >= SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
                if ( LSA || LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   if ( LSA ) {
@@ -595,7 +595,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               if (ACOEFA*ULP < SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -610,7 +610,7 @@
                TEMP = ACOEF*S( JE, JE-1 )
                TEMP2R = ACOEF*S( JE, JE ) - BCOEFR*P( JE, JE )
                TEMP2I = -BCOEFI*P( JE, JE )
-               if ( ABS( TEMP ).GE.ABS( TEMP2R )+ABS( TEMP2I ) ) {
+               if ( ABS( TEMP ) >= ABS( TEMP2R )+ABS( TEMP2I ) ) {
                   WORK( 2*N+JE ) = ONE
                   WORK( 3*N+JE ) = ZERO
                   WORK( 2*N+JE-1 ) = -TEMP2R / TEMP

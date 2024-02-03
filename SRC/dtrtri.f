@@ -70,7 +70,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'DTRTRI', UPLO // DIAG, N, -1, -1, -1 )
-      if ( NB.LE.1 || NB.GE.N ) {
+      if ( NB.LE.1 || NB >= N ) {
 
          // Use unblocked code
 

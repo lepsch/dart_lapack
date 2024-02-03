@@ -118,16 +118,16 @@
       ISOLVE = 1
       IFUNC = 0
       if ( NOTRAN ) {
-         if ( IJOB.GE.3 ) {
+         if ( IJOB >= 3 ) {
             IFUNC = IJOB - 2
             slaset('F', M, N, ZERO, ZERO, C, LDC );
             slaset('F', M, N, ZERO, ZERO, F, LDF );
-         } else if ( IJOB.GE.1 && NOTRAN ) {
+         } else if ( IJOB >= 1 && NOTRAN ) {
             ISOLVE = 2
          }
       }
 
-      if ( ( MB.LE.1 && NB.LE.1 ) || ( MB.GE.M && NB.GE.N ) ) {
+      if ( ( MB.LE.1 && NB.LE.1 ) || ( MB >= M && NB >= N ) ) {
 
          for (IROUND = 1; IROUND <= ISOLVE; IROUND++) { // 30
 
@@ -173,7 +173,7 @@
       P = P + 1
       IWORK( P ) = I
       I = I + MB
-      if (I.GE.M) GO TO 50       IF( A( I, I-1 ) != ZERO ) I = I + 1;
+      if (I >= M) GO TO 50       IF( A( I, I-1 ) != ZERO ) I = I + 1;
       GO TO 40
       } // 50
 
@@ -189,7 +189,7 @@
       Q = Q + 1
       IWORK( Q ) = J
       J = J + NB
-      if (J.GE.N) GO TO 70       IF( B( J, J-1 ) != ZERO ) J = J + 1;
+      if (J >= N) GO TO 70       IF( B( J, J-1 ) != ZERO ) J = J + 1;
       GO TO 60
       } // 70
 

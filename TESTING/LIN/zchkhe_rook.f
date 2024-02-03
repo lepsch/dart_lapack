@@ -122,7 +122,7 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 && IMAT.LE.6
+            ZEROT = IMAT >= 3 && IMAT.LE.6
             if (ZEROT && N < IMAT-2) GO TO 260;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -310,7 +310,7 @@
                   // the threshold.
 
                   for (K = 1; K <= NT; K++) { // 110
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
@@ -365,7 +365,7 @@
 
                      K = 1
                      } // 140
-                     if (K.GE.N) GO TO 150;
+                     if (K >= N) GO TO 150;
 
                      if ( IWORK( K ) > ZERO ) {
 
@@ -451,7 +451,7 @@
 
                      K = 1
                      } // 180
-                     if (K.GE.N) GO TO 190;
+                     if (K >= N) GO TO 190;
 
                      if ( IWORK( K ) < ZERO ) {
 
@@ -489,7 +489,7 @@
                   // the threshold.
 
                   for (K = 3; K <= 4; K++) { // 200
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
@@ -548,7 +548,7 @@
                      // the threshold.
 
                      for (K = 5; K <= 6; K++) { // 210
-                        if ( RESULT( K ).GE.THRESH ) {
+                        if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
@@ -578,7 +578,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  if ( RESULT( 7 ).GE.THRESH ) {
+                  if ( RESULT( 7 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7, RESULT( 7 );
                      NFAIL = NFAIL + 1
                   }

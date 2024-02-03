@@ -201,7 +201,7 @@
             BR2 = BR2 - LR21*BR1
             BBND = MAX( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) )
             if ( BBND > ONE && ABS( UR22 ) < ONE ) {
-               IF( BBND.GE.BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND
+               IF( BBND >= BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND
             }
 
             XR2 = ( BR2*SCALE ) / UR22
@@ -329,7 +329,7 @@
             BI2 = BI2 - LI21*BR1 - LR21*BI1
             BBND = MAX( ( ABS( BR1 )+ABS( BI1 ) )* ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ), ABS( BR2 )+ABS( BI2 ) )
             if ( BBND > ONE && U22ABS < ONE ) {
-               if ( BBND.GE.BIGNUM*U22ABS ) {
+               if ( BBND >= BIGNUM*U22ABS ) {
                   SCALE = ONE / BBND
                   BR1 = SCALE*BR1
                   BI1 = SCALE*BI1

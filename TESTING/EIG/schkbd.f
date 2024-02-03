@@ -256,7 +256,7 @@
 
                IINFO = 0
                BIDIAG = true;
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   UPLO = 'U'
                } else {
                   UPLO = 'L'
@@ -305,7 +305,7 @@
                }
 
                slacpy(' ', M, N, Q, LDQ, PT, LDPT );
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   UPLO = 'U'
                } else {
                   UPLO = 'L'
@@ -412,7 +412,7 @@
             for (I = 1; I <= MNMIN - 1; I++) { // 110
                IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV
             } // 110
-            if ( MNMIN.GE.1 ) {
+            if ( MNMIN >= 1 ) {
                IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV
             }
 
@@ -520,7 +520,7 @@
             for (I = 1; I <= MNMIN - 1; I++) { // 150
                IF( S1( I ) < S1( I+1 ) ) RESULT( 18 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 18 ) = ULPINV
             } // 150
-            if ( MNMIN.GE.1 ) {
+            if ( MNMIN >= 1 ) {
                IF( S1( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV
             }
 
@@ -628,7 +628,7 @@
             for (I = 1; I <= MNMIN - 1; I++) { // 180
                IF( S1( I ) < S1( I+1 ) ) RESULT( 23 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 23 ) = ULPINV
             } // 180
-            if ( MNMIN.GE.1 ) {
+            if ( MNMIN >= 1 ) {
                IF( S1( MNMIN ) < ZERO ) RESULT( 23 ) = ULPINV
             }
 
@@ -722,7 +722,7 @@
             for (I = 1; I <= NS1 - 1; I++) { // 220
                IF( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV
             } // 220
-            if ( NS1.GE.1 ) {
+            if ( NS1 >= 1 ) {
                IF( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV
             }
 
@@ -752,7 +752,7 @@
                }
                VL = MAX( VL,ZERO )
                VU = MAX( VU,ZERO )
-               if (VL.GE.VU) VU = MAX( VU*2, VU+VL+HALF );
+               if (VL >= VU) VU = MAX( VU*2, VU+VL+HALF );
             } else {
                VL = ZERO
                VU = ONE
@@ -820,7 +820,7 @@
             for (I = 1; I <= NS1 - 1; I++) { // 250
                IF( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV
             } // 250
-            if ( NS1.GE.1 ) {
+            if ( NS1 >= 1 ) {
                IF( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV
             }
 
@@ -836,7 +836,7 @@
             } // 270
 
             for (J = 1; J <= 34; J++) { // 280
-               if ( RESULT( J ).GE.THRESH ) {
+               if ( RESULT( J ) >= THRESH ) {
                   if (NFAIL == 0) CALL SLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1
                }

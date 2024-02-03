@@ -41,7 +41,7 @@
       NBMAX = ILAENV( 1, 'CHETRF', UPLO, N, -1, -1, -1 )
       if ( N == 0 ) {
          MINSIZE = 1
-      } else if ( NBMAX.GE.N ) {
+      } else if ( NBMAX >= N ) {
          MINSIZE = N
       } else {
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
@@ -69,7 +69,7 @@
 
       if (N == 0) RETURN;
 
-      if ( NBMAX.GE.N ) {
+      if ( NBMAX >= N ) {
          chetri(UPLO, N, A, LDA, IPIV, WORK, INFO );
       } else {
          chetri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );

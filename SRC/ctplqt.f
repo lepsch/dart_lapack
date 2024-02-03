@@ -29,7 +29,7 @@
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
-      } else if ( L < 0 || (L > MIN(M,N) && MIN(M,N).GE.0)) {
+      } else if ( L < 0 || (L > MIN(M,N) && MIN(M,N) >= 0)) {
          INFO = -3
       } else if ( MB < 1 || (MB > M && M > 0)) {
          INFO = -4
@@ -55,7 +55,7 @@
 
          IB = MIN( M-I+1, MB )
          NB = MIN( N-L+I+IB-1, N )
-         if ( I.GE.L ) {
+         if ( I >= L ) {
             LB = 0
          } else {
             LB = NB-N+L-I+1

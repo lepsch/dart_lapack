@@ -67,7 +67,7 @@
          NB = MAX( 1, ILAENV( 1, 'DGTTRS', TRANS, N, NRHS, -1, -1 ) )
       }
 
-      if ( NB.GE.NRHS ) {
+      if ( NB >= NRHS ) {
          dgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB );
       } else {
          DO 10 J = 1, NRHS, NB

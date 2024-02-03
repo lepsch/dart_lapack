@@ -72,7 +72,7 @@
             NLVL = MAX( INT( LOG( REAL( MINMN ) / REAL( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 )
             LIWORK = 3*MINMN*NLVL + 11*MINMN
             MM = M
-            if ( M.GE.N && M.GE.MNTHR ) {
+            if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
                          // columns.
@@ -80,7 +80,7 @@
                MM = N
                MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, N + NRHS*ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) )
             }
-            if ( M.GE.N ) {
+            if ( M >= N ) {
 
                // Path 1 - overdetermined or exactly determined.
 
@@ -90,7 +90,7 @@
             }
             if ( N > M ) {
                WLALSD = 9*M + 2*M*SMLSIZ + 8*M*NLVL + M*NRHS + ( SMLSIZ + 1 )**2
-               if ( N.GE.MNTHR ) {
+               if ( N >= MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
                             // than rows.
@@ -196,12 +196,12 @@
 
       // Overdetermined case.
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // Path 1 - overdetermined or exactly determined.
 
          MM = M
-         if ( M.GE.MNTHR ) {
+         if ( M >= MNTHR ) {
 
             // Path 1a - overdetermined, with many more rows than columns.
 
@@ -252,13 +252,13 @@
 
          sormbr('P', 'L', 'N', N, NRHS, N, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
-      } else if ( N.GE.MNTHR && LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M, WLALSD ) ) {
+      } else if ( N >= MNTHR && LWORK >= 4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M, WLALSD ) ) {
 
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm.
 
          LDWORK = M
-         IF( LWORK.GE.MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS, 4*M+M*LDA+WLALSD ) )LDWORK = LDA
+         IF( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS, 4*M+M*LDA+WLALSD ) )LDWORK = LDA
          ITAU = 1
          NWORK = M + 1
 

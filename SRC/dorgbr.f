@@ -57,7 +57,7 @@
       if ( INFO == 0 ) {
          WORK( 1 ) = 1
          if ( WANTQ ) {
-            if ( M.GE.K ) {
+            if ( M >= K ) {
                dorgqr(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
             } else {
                if ( M > 1 ) {
@@ -97,7 +97,7 @@
          // Form Q, determined by a call to DGEBRD to reduce an m-by-k
          // matrix
 
-         if ( M.GE.K ) {
+         if ( M >= K ) {
 
             // If m >= k, assume m >= n >= k
 

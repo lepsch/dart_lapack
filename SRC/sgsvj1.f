@@ -174,8 +174,8 @@
 
          // .. Safe Gram matrix computation ..
 
-                           if ( AAQQ.GE.ONE ) {
-                              if ( AAPP.GE.AAQQ ) {
+                           if ( AAQQ >= ONE ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
@@ -187,7 +187,7 @@
                                  CALL SLASCL( 'G', 0, 0, AAPP, D( p ), M, 1, WORK, LDA, IERR )                                  AAPQ = SDOT( M, WORK, 1, A( 1, q ), 1 )*D( q ) / AAQQ
                               }
                            } else {
-                              if ( AAPP.GE.AAQQ ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = AAPP.LE.( AAQQ / SMALL )
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
@@ -238,9 +238,9 @@
 
                                     APOAQ = D( p ) / D( q )
                                     AQOAP = D( q ) / D( p )
-                                    if ( D( p ).GE.ONE ) {
+                                    if ( D( p ) >= ONE ) {
 
-                                       if ( D( q ).GE.ONE ) {
+                                       if ( D( q ) >= ONE ) {
                                           FASTR( 3 ) = T*APOAQ
                                           FASTR( 4 ) = -T*AQOAP
                                           D( p ) = D( p )*CS
@@ -257,7 +257,7 @@
                                           D( q ) = D( q ) / CS
                                        }
                                     } else {
-                                       if ( D( q ).GE.ONE ) {
+                                       if ( D( q ) >= ONE ) {
                                           saxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                           saxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                           if ( RSVEC ) {
@@ -267,7 +267,7 @@
                                           D( p ) = D( p ) / CS
                                           D( q ) = D( q )*CS
                                        } else {
-                                          if ( D( p ).GE.D( q ) ) {
+                                          if ( D( p ) >= D( q ) ) {
                                              saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              saxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              D( p ) = D( p )*CS
@@ -346,8 +346,8 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-       // IF ( NOTROT .GE. EMPTSW )  GO TO 2011
-                        if ( ( i.LE.SWBAND ) && ( IJBLSK.GE.BLSKIP ) ) {
+       // IF ( NOTROT >= EMPTSW )  GO TO 2011
+                        if ( ( i.LE.SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
@@ -368,7 +368,7 @@
                   } else {
                      if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
                      if (AAPP < ZERO) NOTROT = 0;
-***      IF ( NOTROT .GE. EMPTSW )  GO TO 2011
+***      IF ( NOTROT >= EMPTSW )  GO TO 2011
                   }
 
                } // 2100
@@ -380,7 +380,7 @@
             DO 2012 p = igl, MIN( igl+KBL-1, N )
                SVA( p ) = ABS( SVA( p ) )
             } // 2012
-***   IF ( NOTROT .GE. EMPTSW ) GO TO 1994
+***   IF ( NOTROT >= EMPTSW ) GO TO 1994
          } // 2000
 *2000 :: end of the ibr-loop
 
@@ -402,7 +402,7 @@
          }
 
 
-         if (NOTROT.GE.EMPTSW) GO TO 1994;
+         if (NOTROT >= EMPTSW) GO TO 1994;
 
       } // 1993
       // end i=1:NSWEEP loop

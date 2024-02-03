@@ -187,7 +187,7 @@
 
                         RESULT(1) = CLANGE( 'I', N, N, C1, LDC, S_WORK_CLANGE )                         RESULT(1) = RESULT(1) / MAX( ABS( ALPHA ) * NORMA * NORMA + ABS( BETA ) * NORMC, ONE ) / MAX( N , 1 ) / EPS
 
-                        if ( RESULT(1).GE.THRESH ) {
+                        if ( RESULT(1) >= THRESH ) {
                            if ( NFAIL == 0 ) {
                               WRITE( NOUT, * )
                               WRITE( NOUT, FMT = 9999 )

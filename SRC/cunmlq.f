@@ -108,7 +108,7 @@
          }
       }
 
-      if ( NB < NBMIN || NB.GE.K ) {
+      if ( NB < NBMIN || NB >= K ) {
 
          // Use unblocked code
 

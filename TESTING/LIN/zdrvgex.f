@@ -108,7 +108,7 @@
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.5 && IMAT.LE.7
+            ZEROT = IMAT >= 5 && IMAT.LE.7
             if (ZEROT && N < IMAT-4) GO TO 80;
 
             // Set up parameters with ZLATB4 and generate a test matrix
@@ -308,7 +308,7 @@
                         // pass the threshold.
 
                         for (K = 1; K <= NT; K++) { // 30
-                           if ( RESULT( K ).GE.THRESH ) {
+                           if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZGESV ', N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
@@ -408,7 +408,7 @@
 
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 40
-                           if ( RESULT( K ).GE.THRESH ) {
+                           if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
@@ -420,7 +420,7 @@
                         } // 40
                         NRUN = NRUN + 7 - K1
                      } else {
-                        IF( RESULT( 1 ).GE.THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ) >= THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
@@ -429,7 +429,7 @@
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         }
-                        if ( RESULT( 6 ).GE.THRESH ) {
+                        if ( RESULT( 6 ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
@@ -439,7 +439,7 @@
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         }
-                        if ( RESULT( 7 ).GE.THRESH ) {
+                        if ( RESULT( 7 ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
@@ -540,7 +540,7 @@
 
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 45
-                           if ( RESULT( K ).GE.THRESH ) {
+                           if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
@@ -552,7 +552,7 @@
                         } // 45
                         NRUN = NRUN + 7 - K1
                      } else {
-                        IF( RESULT( 1 ).GE.THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ) >= THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
@@ -561,7 +561,7 @@
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         }
-                        if ( RESULT( 6 ).GE.THRESH ) {
+                        if ( RESULT( 6 ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
@@ -571,7 +571,7 @@
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         }
-                        if ( RESULT( 7 ).GE.THRESH ) {
+                        if ( RESULT( 7 ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )

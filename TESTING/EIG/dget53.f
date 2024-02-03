@@ -48,7 +48,7 @@
       // Check for possible overflow.
 
       TEMP = ( SAFMIN*BNORM )*ABSW + ( SAFMIN*ANORM )*SCALES
-      if ( TEMP.GE.ONE ) {
+      if ( TEMP >= ONE ) {
 
          // Scale down to avoid overflow
 

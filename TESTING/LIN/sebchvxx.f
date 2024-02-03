@@ -228,10 +228,10 @@
             NWISE_RCOND = ERRBND_N(K + (COND_I-1)*NRHS)
             CWISE_RCOND = ERRBND_C(K + (COND_I-1)*NRHS)
              // write (*,*) 'nwise : ', n, k, ncond, nwise_rcond,
-      // $           condthresh, ncond.ge.condthresh
+      // $           condthresh, ncond >= condthresh
              // write (*,*) 'nwise2: ', k, nwise_bnd, nwise_err, errthresh
 
-            if (NCOND .GE. CONDTHRESH) {
+            if (NCOND >= CONDTHRESH) {
                NGUAR = 'YES'
                if (NWISE_BND > ERRTHRESH) {
                   TSTRAT(1) = 1/(2.0*EPS)
@@ -257,9 +257,9 @@
                }
             }
              // write (*,*) 'cwise : ', n, k, ccond, cwise_rcond,
-      // $           condthresh, ccond.ge.condthresh
+      // $           condthresh, ccond >= condthresh
              // write (*,*) 'cwise2: ', k, cwise_bnd, cwise_err, errthresh
-            if (CCOND .GE. CONDTHRESH) {
+            if (CCOND >= CONDTHRESH) {
                CGUAR = 'YES'
 
                if (CWISE_BND > ERRTHRESH) {
@@ -288,13 +288,13 @@
 
       // Condition number tests
             TSTRAT(4) = RCOND / ORCOND
-            IF (RCOND .GE. CONDTHRESH && TSTRAT(4) < 1.0) TSTRAT(4) = 1.0 / TSTRAT(4)
+            IF (RCOND >= CONDTHRESH && TSTRAT(4) < 1.0) TSTRAT(4) = 1.0 / TSTRAT(4)
 
             TSTRAT(5) = NCOND / NWISE_RCOND
-            IF (NCOND .GE. CONDTHRESH && TSTRAT(5) < 1.0) TSTRAT(5) = 1.0 / TSTRAT(5)
+            IF (NCOND >= CONDTHRESH && TSTRAT(5) < 1.0) TSTRAT(5) = 1.0 / TSTRAT(5)
 
             TSTRAT(6) = CCOND / NWISE_RCOND
-            IF (CCOND .GE. CONDTHRESH && TSTRAT(6) < 1.0) TSTRAT(6) = 1.0 / TSTRAT(6)
+            IF (CCOND >= CONDTHRESH && TSTRAT(6) < 1.0) TSTRAT(6) = 1.0 / TSTRAT(6)
 
             for (I = 1; I <= NTESTS; I++) {
                if (TSTRAT(I) > THRESH) {

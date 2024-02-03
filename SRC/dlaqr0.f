@@ -100,9 +100,9 @@
 
          // ==== NWR = recommended deflation window size.  At this
          // .    point,  N > NTINY = 15, so there is enough
-         // .    subdiagonal workspace for NWR.GE.2 as required.
+         // .    subdiagonal workspace for NWR >= 2 as required.
          // .    (In fact, there is enough subdiagonal space for
-         // .    NWR.GE.4.) ====
+         // .    NWR >= 4.) ====
 
          NWR = ILAENV( 13, 'DLAQR0', JBCMPZ, N, ILO, IHI, LWORK )
          NWR = MAX( 2, NWR )
@@ -216,7 +216,7 @@
                NW = MIN( NWUPBD, 2*NW )
             }
             if ( NW < NWMAX ) {
-               if ( NW.GE.NH-1 ) {
+               if ( NW >= NH-1 ) {
                   NW = NH
                } else {
                   KWTOP = KBOT - NW + 1
@@ -225,7 +225,7 @@
             }
             if ( NDFL < KEXNW ) {
                NDEC = -1
-            } else if ( NDEC.GE.0 || NW.GE.NWUPBD ) {
+            } else if ( NDEC >= 0 || NW >= NWUPBD ) {
                NDEC = NDEC + 1
                if (NW-NDEC < 2) NDEC = 0;
                NW = NW - NDEC
@@ -321,7 +321,7 @@
                      // .    eigenvalues of the trailing 2-by-2
                      // .    principal submatrix.  ====
 
-                     if ( KS.GE.KBOT ) {
+                     if ( KS >= KBOT ) {
                         AA = H( KBOT-1, KBOT-1 )
                         CC = H( KBOT, KBOT-1 )
                         BB = H( KBOT-1, KBOT )

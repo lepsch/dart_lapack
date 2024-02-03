@@ -208,8 +208,8 @@
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEFF ) < SMALL
-               LSB = ABS1( SALPHA ).GE.SAFMIN && ABS1( BCOEFF ) < SMALL
+               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEFF ) < SMALL
+               LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL
 
                SCALE = ONE
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
@@ -274,7 +274,7 @@
                   IF( ABS1( D ).LE.DMIN ) D = DCMPLX( DMIN )
 
                   if ( ABS1( D ) < ONE ) {
-                     if ( ABS1( SUM ).GE.BIGNUM*ABS1( D ) ) {
+                     if ( ABS1( SUM ) >= BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( SUM )
                         for (JR = JE; JR <= J - 1; JR++) { // 90
                            WORK( JR ) = TEMP*WORK( JR )
@@ -362,8 +362,8 @@
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEFF ) < SMALL
-               LSB = ABS1( SALPHA ).GE.SAFMIN && ABS1( BCOEFF ) < SMALL
+               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEFF ) < SMALL
+               LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL
 
                SCALE = ONE
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
@@ -409,7 +409,7 @@
                   IF( ABS1( D ).LE.DMIN ) D = DCMPLX( DMIN )
 
                   if ( ABS1( D ) < ONE ) {
-                     if ( ABS1( WORK( J ) ).GE.BIGNUM*ABS1( D ) ) {
+                     if ( ABS1( WORK( J ) ) >= BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( WORK( J ) )
                         for (JR = 1; JR <= JE; JR++) { // 180
                            WORK( JR ) = TEMP*WORK( JR )
@@ -425,7 +425,7 @@
 
                      if ( ABS1( WORK( J ) ) > ONE ) {
                         TEMP = ONE / ABS1( WORK( J ) )
-                        if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GE. BIGNUM*TEMP ) {
+                        if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ) >= BIGNUM*TEMP ) {
                            for (JR = 1; JR <= JE; JR++) { // 190
                               WORK( JR ) = TEMP*WORK( JR )
                            } // 190

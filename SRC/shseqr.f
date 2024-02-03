@@ -151,7 +151,7 @@
 
                KBOT = INFO
 
-               if ( N.GE.NL ) {
+               if ( N >= NL ) {
 
                   // ==== Larger matrices have enough subdiagonal scratch
                   // .    space to call SLAQR0 directly. ====

@@ -432,7 +432,7 @@
          RWORK(2) = ONE
          if ( SVA(1) != ZERO ) {
             IWORK(1) = 1
-            if ( ( SVA(1) / SCALEM) .GE. SFMIN ) {
+            if ( ( SVA(1) / SCALEM) >= SFMIN ) {
                IWORK(2) = 1
             } else {
                IWORK(2) = 0
@@ -689,7 +689,7 @@
          // backward error of the order of N*EPSLN*||A||.
          TEMP1 = SQRT(DBLE(N))*EPSLN
          for (p = 2; p <= N; p++) { // 3001
-            if ( ABS(A(p,p)) .GE. (TEMP1*ABS(A(1,1))) ) {
+            if ( ABS(A(p,p)) >= (TEMP1*ABS(A(1,1))) ) {
                NR = NR + 1
             } else {
                GO TO 3002
@@ -731,7 +731,7 @@
             TEMP1  = ABS(A(p,p)) / SVA(IWORK(p))
             MAXPRJ = MIN( MAXPRJ, TEMP1 )
          } // 3051
-         IF ( MAXPRJ**2 .GE. ONE - DBLE(N)*EPSLN ) ALMORT = true;
+         IF ( MAXPRJ**2 >= ONE - DBLE(N)*EPSLN ) ALMORT = true;
       }
 
 
@@ -1132,7 +1132,7 @@
                CONDR2 = ONE / SQRT(TEMP1)
 
 
-               if ( CONDR2 .GE. COND_OK ) {
+               if ( CONDR2 >= COND_OK ) {
                   // .. save the Householder vectors used for Q3
                   // (this overwrites the copy of R2, as it will not be
                   // needed in this branch, but it does not overwrite the

@@ -87,7 +87,7 @@
          // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
          I = N
-         DO WHILE ( I.GE.1 )
+         DO WHILE ( I >= 1 )
             if ( IPIV( I ) > 0 ) {
                sscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             } else if ( I > 1 ) {

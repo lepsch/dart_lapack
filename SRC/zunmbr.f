@@ -106,7 +106,7 @@
 
          // Apply Q
 
-         if ( NQ.GE.K ) {
+         if ( NQ >= K ) {
 
             // Q was determined by a call to ZGEBRD with nq >= k
 

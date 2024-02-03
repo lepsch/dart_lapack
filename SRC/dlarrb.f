@@ -108,7 +108,7 @@
             IWORK( K-1 ) = -1
             // Make sure that I1 always points to the first unconverged interval
             IF((I == I1) && (I < ILAST)) I1 = I + 1
-            IF((PREV.GE.I1) && (I.LE.ILAST)) IWORK( 2*PREV-1 ) = I + 1
+            IF((PREV >= I1) && (I.LE.ILAST)) IWORK( 2*PREV-1 ) = I + 1
          } else {
             // unconverged interval found
             PREV = I
@@ -155,7 +155,7 @@
                I1 = NEXT
             } else {
                // Prev holds the last unconverged interval previously examined
-               if (PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT;
+               if (PREV >= I1) IWORK( 2*PREV-1 ) = NEXT;
             }
             I = NEXT
             GO TO 100

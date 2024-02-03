@@ -117,7 +117,7 @@
                      // Dependent on the the number of diagonals either
                      // ZLARTV or ZROT is used
 
-                     if ( NR.GE.2*KD-1 ) {
+                     if ( NR >= 2*KD-1 ) {
                         for (L = 1; L <= KD - 1; L++) { // 10
                            zlartv(NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 10
@@ -172,7 +172,7 @@
                         } // 30
                      } else {
                         J1END = J1 + KD1*( NR-2 )
-                        if ( J1END.GE.J1 ) {
+                        if ( J1END >= J1 ) {
                            DO 40 JIN = J1, J1END, KD1
                               zrot(KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) );
                            } // 40
@@ -355,7 +355,7 @@
                         } // 150
                      } else {
                         J1END = J1 + KD1*( NR-2 )
-                        if ( J1END.GE.J1 ) {
+                        if ( J1END >= J1 ) {
                            DO 160 J1INC = J1, J1END, KD1
                               zrot(KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) );
                            } // 160

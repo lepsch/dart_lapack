@@ -100,7 +100,7 @@
             if (INFO == 0) INFO = K;
             KP = K
          } else {
-            if ( ABSAKK.GE.ALPHA*COLMAX ) {
+            if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -122,12 +122,12 @@
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, KW-1 ) ) )
                }
 
-               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
+               if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               } else if ( CABS1( W( IMAX, KW-1 ) ).GE.ALPHA*ROWMAX ) {
+               } else if ( CABS1( W( IMAX, KW-1 ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -343,7 +343,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB < N ) || K > N ) GO TO 90
+         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90
 
          // Copy column K of A to column K of W and update it
 
@@ -374,7 +374,7 @@
             if (INFO == 0) INFO = K;
             KP = K
          } else {
-            if ( ABSAKK.GE.ALPHA*COLMAX ) {
+            if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -397,12 +397,12 @@
                   ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) )
                }
 
-               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
+               if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               } else if ( CABS1( W( IMAX, K+1 ) ).GE.ALPHA*ROWMAX ) {
+               } else if ( CABS1( W( IMAX, K+1 ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -597,7 +597,7 @@
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
-            if (JP != JJ && J.GE.1) CALL ZSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J > 1 ) GO TO 120;
+            if (JP != JJ && J >= 1) CALL ZSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J > 1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

@@ -501,7 +501,7 @@
                      } else {
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = CTEMP
                      }
-                     if ( I.GE.1 && MNSUB != MXSUB ) {
+                     if ( I >= 1 && MNSUB != MXSUB ) {
                         if ( MNSUB == ISUB && ISYM == 0 ) {
                            A( MXSUB-MNSUB+1+KUU, MNSUB ) = DCONJG( CTEMP )
                         } else {
@@ -653,7 +653,7 @@
                   for (I = J - KUU; I <= J; I++) { // 520
                      A( I-J+KUU+1, J ) = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      if (I < 1) A( J-I+1+KUU, I+N ) = CZERO;
-                     if ( I.GE.1 && I != J ) {
+                     if ( I >= 1 && I != J ) {
                         if ( ISYM == 0 ) {
                            A( J-I+1+KUU, I ) = DCONJG( A( I-J+KUU+1, J ) )
                         } else {
@@ -694,7 +694,7 @@
          ONORM = ZLANGB( 'M', N, KLL, KUU, A, LDA, TEMPA )
       }
 
-      if ( ANORM.GE.ZERO ) {
+      if ( ANORM >= ZERO ) {
 
          if ( ANORM > ZERO && ONORM == ZERO ) {
 
@@ -718,7 +718,7 @@
                zdscal(N*( N+1 ) / 2, ONE / ONORM, A, 1 );
                zdscal(N*( N+1 ) / 2, ANORM, A, 1 );
 
-            } else if ( IPACK.GE.5 ) {
+            } else if ( IPACK >= 5 ) {
 
                for (J = 1; J <= N; J++) { // 570
                   zdscal(KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 );
@@ -740,7 +740,7 @@
 
                zdscal(N*( N+1 ) / 2, ANORM / ONORM, A, 1 );
 
-            } else if ( IPACK.GE.5 ) {
+            } else if ( IPACK >= 5 ) {
 
                for (J = 1; J <= N; J++) { // 590
                   zdscal(KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 );

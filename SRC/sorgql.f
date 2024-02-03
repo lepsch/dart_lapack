@@ -100,7 +100,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN && NB < K && NX < K ) {
+      if ( NB >= NBMIN && NB < K && NX < K ) {
 
          // Use blocked code after the first block.
          // The last kk columns are handled by the block method.

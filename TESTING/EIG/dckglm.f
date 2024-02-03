@@ -113,7 +113,7 @@
             // Print information about the tests that did not
             // pass the threshold.
 
-            if ( RESID.GE.THRESH ) {
+            if ( RESID >= THRESH ) {
                if ( NFAIL == 0 && FIRSTT ) {
                   FIRSTT = false;
                   alahdg(NOUT, PATH );

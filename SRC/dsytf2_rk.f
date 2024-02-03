@@ -117,7 +117,7 @@
             // Test for interchange
 
             // Equivalent to testing for (used to handle NaN and Inf)
-            // ABSAKK.GE.ALPHA*COLMAX
+            // ABSAKK >= ALPHA*COLMAX
 
             if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
@@ -156,7 +156,7 @@
                   }
 
                   // Equivalent to testing for (used to handle NaN and Inf)
-                  // ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX
+                  // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
                   if ( .NOT.( ABS( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ) ) {
 
@@ -253,7 +253,7 @@
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
 
-                  if ( ABS( A( K, K ) ).GE.SFMIN ) {
+                  if ( ABS( A( K, K ) ) >= SFMIN ) {
 
                      // Perform a rank-1 update of A(1:k-1,1:k-1) as
                      // A := A - U(k)*D(k)*U(k)**T
@@ -410,7 +410,7 @@
             // Test for interchange
 
             // Equivalent to testing for (used to handle NaN and Inf)
-            // ABSAKK.GE.ALPHA*COLMAX
+            // ABSAKK >= ALPHA*COLMAX
 
             if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
@@ -449,7 +449,7 @@
                   }
 
                   // Equivalent to testing for (used to handle NaN and Inf)
-                  // ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX
+                  // ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX
 
                   if ( .NOT.( ABS( A( IMAX, IMAX ) ) < ALPHA*ROWMAX ) ) {
 
@@ -546,7 +546,7 @@
                // Perform a rank-1 update of A(k+1:n,k+1:n) and
                // store L(k) in column k
 
-                  if ( ABS( A( K, K ) ).GE.SFMIN ) {
+                  if ( ABS( A( K, K ) ) >= SFMIN ) {
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T

@@ -87,7 +87,7 @@
 
          // Construct the subdiagonal elements of L
 
-         if ( ABS( A( 1, 1 ) ) .GE. SFMIN ) {
+         if ( ABS( A( 1, 1 ) ) >= SFMIN ) {
             sscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
          } else {
             for (I = 2; I <= M; I++) {

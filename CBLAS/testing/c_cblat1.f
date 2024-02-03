@@ -33,7 +33,7 @@ void main() {      // Test program for the COMPLEX    Level 1 CBLAS.
          MODE = 9999
          if (ICASE.LE.5) {
             check2(SFAC);
-         } else if (ICASE.GE.6) {
+         } else if (ICASE >= 6) {
             check1(SFAC);
          }
          // -- Print

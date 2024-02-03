@@ -37,7 +37,7 @@ void main() {
          MODE = 9999
          if (ICASE.LE.5) {
             check2(SFAC);
-         } else if (ICASE.GE.6) {
+         } else if (ICASE >= 6) {
             check1(SFAC);
          }
          // -- Print
@@ -685,7 +685,7 @@ void main() {
             } else {
                TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (TWO*REAL(N)*ULP)
             }
-            if ((TRAT != TRAT) || (TRAT.GE.THRESH)) {
+            if ((TRAT != TRAT) || (TRAT >= THRESH)) {
                if (FIRST) {
                   FIRST = false;
                   WRITE(NOUT,99999)

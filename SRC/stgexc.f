@@ -207,7 +207,7 @@
             // Current block either 1-by-1 or 2-by-2.
 
             NBNEXT = 1
-            if ( HERE.GE.3 ) {
+            if ( HERE >= 3 ) {
                IF( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK, INFO );
@@ -229,7 +229,7 @@
             // must be swapped individually.
 
             NBNEXT = 1
-            if ( HERE.GE.3 ) {
+            if ( HERE >= 3 ) {
                IF( A( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2
             }
             stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK, INFO );

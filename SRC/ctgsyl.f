@@ -120,16 +120,16 @@
       ISOLVE = 1
       IFUNC = 0
       if ( NOTRAN ) {
-         if ( IJOB.GE.3 ) {
+         if ( IJOB >= 3 ) {
             IFUNC = IJOB - 2
             claset('F', M, N, CZERO, CZERO, C, LDC );
             claset('F', M, N, CZERO, CZERO, F, LDF );
-         } else if ( IJOB.GE.1 && NOTRAN ) {
+         } else if ( IJOB >= 1 && NOTRAN ) {
             ISOLVE = 2
          }
       }
 
-      if ( ( MB.LE.1 && NB.LE.1 ) || ( MB.GE.M && NB.GE.N ) ) {
+      if ( ( MB.LE.1 && NB.LE.1 ) || ( MB >= M && NB >= N ) ) {
 
          // Use unblocked Level 2 solver
 
@@ -176,7 +176,7 @@
       P = P + 1
       IWORK( P ) = I
       I = I + MB
-      if (I.GE.M) GO TO 50;
+      if (I >= M) GO TO 50;
       GO TO 40
       } // 50
       IWORK( P+1 ) = M + 1
@@ -192,7 +192,7 @@
       Q = Q + 1
       IWORK( Q ) = J
       J = J + NB
-      if (J.GE.N) GO TO 70;
+      if (J >= N) GO TO 70;
       GO TO 60
 
       } // 70

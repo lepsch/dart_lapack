@@ -190,14 +190,14 @@
       }
       ITAU = 1
       IWORK = ITAU + IROWS
-      cgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      cgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO >= 0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          INFO = N + 2
          GO TO 80
       }
 
       cunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
-      if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          INFO = N + 3
          GO TO 80
@@ -207,7 +207,7 @@
          claset('Full', N, N, CZERO, CONE, VL, LDVL );
          clacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          cungqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
-         if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+         if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
          if ( IINFO != 0 ) {
             INFO = N + 4
             GO TO 80
@@ -240,7 +240,7 @@
          CHTEMP = 'E'
       }
       chgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO );
-      if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          if ( IINFO > 0 && IINFO.LE.N ) {
             INFO = IINFO
@@ -335,21 +335,21 @@
 
          // Check for significant underflow in imaginary part of ALPHA
 
-         if ( ABS( SALFAI ) < SAFMIN && ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
+         if ( ABS( SALFAI ) < SAFMIN && ABSAI >= MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAI )
          }
 
          // Check for significant underflow in real part of ALPHA
 
-         if ( ABS( SALFAR ) < SAFMIN && ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
+         if ( ABS( SALFAR ) < SAFMIN && ABSAR >= MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = MAX( SCALE, ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAR ) )
          }
 
          // Check for significant underflow in BETA
 
-         if ( ABS( SBETA ) < SAFMIN && ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
+         if ( ABS( SBETA ) < SAFMIN && ABSB >= MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
             SCALE = MAX( SCALE, ( SAFMIN / BNRM1 ) / MAX( SAFMIN, BNRM2*ABSB ) )
          }

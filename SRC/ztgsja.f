@@ -201,7 +201,7 @@
          B1 = DBLE( B( I, N-L+I ) )
          GAMMA = B1 / A1
 
-         if ( (GAMMA.LE.HUGENUM) && (GAMMA.GE.-HUGENUM) ) {
+         if ( (GAMMA.LE.HUGENUM) && (GAMMA >= -HUGENUM) ) {
 
             if ( GAMMA < ZERO ) {
                zdscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
@@ -210,7 +210,7 @@
 
             dlartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );
 
-            if ( ALPHA( K+I ).GE.BETA( K+I ) ) {
+            if ( ALPHA( K+I ) >= BETA( K+I ) ) {
                zdscal(L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA );
             } else {
                zdscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB );

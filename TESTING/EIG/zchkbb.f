@@ -138,7 +138,7 @@
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 150
             K = KK( JWIDTH )
-            if (K.GE.M && K.GE.N) GO TO 150;
+            if (K >= M && K >= N) GO TO 150;
             KL = MAX( 0, MIN( M-1, K ) )
             KU = MAX( 0, MIN( N-1, K ) )
 
@@ -296,7 +296,7 @@
                // Print out tests which fail.
 
                for (JR = 1; JR <= NTEST; JR++) { // 130
-                  if ( RESULT( JR ).GE.THRESH ) {
+                  if ( RESULT( JR ) >= THRESH ) {
                      if (NERRS == 0) CALL DLAHD2( NOUNIT, 'ZBB' );
                      NERRS = NERRS + 1
                      WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR )

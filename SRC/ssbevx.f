@@ -95,7 +95,7 @@
             TMP1 = AB( KD+1, 1 )
          }
          if ( VALEIG ) {
-            IF( .NOT.( VL < TMP1 && VU.GE.TMP1 ) ) M = 0
+            IF( .NOT.( VL < TMP1 && VU >= TMP1 ) ) M = 0
          }
          if ( M == 1 ) {
             W( 1 ) = TMP1

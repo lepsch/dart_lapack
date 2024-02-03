@@ -59,7 +59,7 @@
 
          dlasv2(A, FB, D, S1, S2, SNR, CSR, SNL, CSL );
 
-         if ( ABS( CSL ).GE.ABS( SNL ) || ABS( CSR ).GE.ABS( SNR ) ) {
+         if ( ABS( CSL ) >= ABS( SNL ) || ABS( CSR ) >= ABS( SNR ) ) {
 
             // Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
             // and (1,2) element of |U|**H *|A| and |V|**H *|B|.
@@ -146,7 +146,7 @@
 
          dlasv2(A, FC, D, S1, S2, SNR, CSR, SNL, CSL );
 
-         if ( ABS( CSR ).GE.ABS( SNR ) || ABS( CSL ).GE.ABS( SNL ) ) {
+         if ( ABS( CSR ) >= ABS( SNR ) || ABS( CSL ) >= ABS( SNL ) ) {
 
             // Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
             // and (2,1) element of |U|**H *|A| and |V|**H *|B|.

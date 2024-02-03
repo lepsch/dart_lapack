@@ -111,7 +111,7 @@
          IR( 2, 2 ) = IR( 1, 1 )
          drot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
          drot(2, T( 1, 1 ), 1, T( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
-         if ( SA.GE.SB ) {
+         if ( SA >= SB ) {
             dlartg(S( 1, 1 ), S( 2, 1 ), LI( 1, 1 ), LI( 2, 1 ), DDUM );
          } else {
             dlartg(T( 1, 1 ), T( 2, 1 ), LI( 1, 1 ), LI( 2, 1 ), DDUM );
@@ -273,7 +273,7 @@
             dlacpy('F', M, M, TCPY, LDST, T, LDST );
             dlacpy('F', M, M, IRCOP, LDST, IR, LDST );
             dlacpy('F', M, M, LICOP, LDST, LI, LDST );
-         } else if ( BRQA21.GE.THRESHA ) {
+         } else if ( BRQA21 >= THRESHA ) {
             GO TO 70
          }
 

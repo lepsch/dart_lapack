@@ -97,7 +97,7 @@
       SZ = -SZ
       zrot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, CZ, DCONJG( SZ ) );
       zrot(2, T( 1, 1 ), 1, T( 1, 2 ), 1, CZ, DCONJG( SZ ) );
-      if ( SA.GE.SB ) {
+      if ( SA >= SB ) {
          zlartg(S( 1, 1 ), S( 2, 1 ), CQ, SQ, CDUM );
       } else {
          zlartg(T( 1, 1 ), T( 2, 1 ), CQ, SQ, CDUM );

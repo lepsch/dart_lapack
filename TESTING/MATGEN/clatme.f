@@ -306,7 +306,7 @@
 
       // Scale the matrix to have norm ANORM
 
-      if ( ANORM.GE.ZERO ) {
+      if ( ANORM >= ZERO ) {
          TEMP = CLANGE( 'M', N, N, A, LDA, TEMPA )
          if ( TEMP > ZERO ) {
             RALPHA = ANORM / TEMP

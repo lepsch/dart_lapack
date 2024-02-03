@@ -80,7 +80,7 @@
 
       // The LQ Decomposition
 
-      if ( (M.GE.N) || (NB.LE.M) || (NB.GE.N) ) {
+      if ( (M >= N) || (NB.LE.M) || (NB >= N) ) {
         cgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO);
         RETURN
       }

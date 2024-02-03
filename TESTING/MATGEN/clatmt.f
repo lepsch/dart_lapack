@@ -144,7 +144,7 @@
       } else {
          if (2*LLB < M) GIVENS = true ;
       }
-      if (LDA < M && LDA.GE.MINLDA) GIVENS = true ;
+      if (LDA < M && LDA >= MINLDA) GIVENS = true ;
 
       // Set INFO if an error
 
@@ -263,7 +263,7 @@
             A( ( 1-ISKEW )*J+IOFFST, J ) = CMPLX( D( J ) )
          } // 120
 
-         if (IPACK.LE.2 || IPACK.GE.5) IPACKG = IPACK;
+         if (IPACK.LE.2 || IPACK >= 5) IPACKG = IPACK;
 
       } else if ( GIVENS ) {
 
@@ -503,7 +503,7 @@
 
                // Top-Down -- Generate Upper triangle only
 
-               if ( IPACK.GE.5 ) {
+               if ( IPACK >= 5 ) {
                   IPACKG = 6
                   IOFFG = UUB + 1
                } else {
@@ -594,7 +594,7 @@
 
                // Bottom-Up -- Generate Lower triangle only
 
-               if ( IPACK.GE.5 ) {
+               if ( IPACK >= 5 ) {
                   IPACKG = 5
                   if (IPACK == 6) IOFFG = 1;
                } else {
@@ -700,7 +700,7 @@
                  // then reducing the bandwidth using Householder
                  // transformations.
 
-                 // Note: we should get here only if LDA .ge. N
+                 // Note: we should get here only if LDA >= N
 
          if ( ISYM == 1 ) {
 
@@ -782,7 +782,7 @@
                } // 510
             } // 520
 
-         } else if ( IPACK.GE.5 ) {
+         } else if ( IPACK >= 5 ) {
 
             // 'B' -- The lower triangle is packed as a band matrix.
             // 'Q' -- The upper triangle is packed as a band matrix.
@@ -816,7 +816,7 @@
                IROW = 0
             } // 580
 
-         } else if ( IPACK.GE.5 ) {
+         } else if ( IPACK >= 5 ) {
 
             // Packed Band --
                // 1st row is now in A( UUB+2-j, j), zero above it

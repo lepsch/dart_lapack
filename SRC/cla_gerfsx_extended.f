@@ -227,11 +227,11 @@
 
       // Compute error bounds
 
-         if (N_NORMS .GE. 1) {
+         if (N_NORMS >= 1) {
             ERRS_N( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX)
 
          }
-         if ( N_NORMS .GE. 2 ) {
+         if ( N_NORMS >= 2 ) {
             ERRS_C( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX)
          }
 

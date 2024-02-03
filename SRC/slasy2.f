@@ -221,7 +221,7 @@
          XMAX = ZERO
          for (IP = I; IP <= 4; IP++) { // 70
             for (JP = I; JP <= 4; JP++) { // 60
-               if ( ABS( T16( IP, JP ) ).GE.XMAX ) {
+               if ( ABS( T16( IP, JP ) ) >= XMAX ) {
                   XMAX = ABS( T16( IP, JP ) )
                   IPSV = IP
                   JPSV = JP

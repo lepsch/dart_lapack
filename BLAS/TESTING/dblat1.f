@@ -947,7 +947,7 @@ void main() {
             } else {
                TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (DBLE(N)*ULP)
             }
-            if ((TRAT != TRAT) || (TRAT.GE.THRESH)) {
+            if ((TRAT != TRAT) || (TRAT >= THRESH)) {
                if (FIRST) {
                   FIRST = false;
                   WRITE(NOUT,99999)

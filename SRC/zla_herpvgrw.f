@@ -156,7 +156,7 @@
             }
          }
          K = NCOLS
-         DO WHILE ( K .GE. 1 )
+         DO WHILE ( K >= 1 )
             if ( IPIV( K ) > 0 ) {
                KP = IPIV( K )
                if ( KP != K ) {

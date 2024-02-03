@@ -98,7 +98,7 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 && IMAT.LE.6
+            ZEROT = IMAT >= 3 && IMAT.LE.6
             if (ZEROT && N < IMAT-2) GO TO 160;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -260,7 +260,7 @@
                // the threshold.
 
                for (K = 1; K <= NT; K++) { // 110
-                  if ( RESULT( K ).GE.THRESH ) {
+                  if ( RESULT( K ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
@@ -317,7 +317,7 @@
                   // the threshold.
 
                   for (K = 3; K <= 7; K++) { // 120
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
@@ -339,9 +339,9 @@
 
                RESULT( 8 ) = DGET06( RCOND, RCONDC )
 
-               // Print the test ratio if it is .GE. THRESH.
+               // Print the test ratio if it is >= THRESH.
 
-               if ( RESULT( 8 ).GE.THRESH ) {
+               if ( RESULT( 8 ) >= THRESH ) {
                   if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
                   NFAIL = NFAIL + 1
                }

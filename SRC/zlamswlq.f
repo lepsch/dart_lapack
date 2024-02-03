@@ -87,7 +87,7 @@
         RETURN
       }
 
-      if ((NB.LE.K) || (NB.GE.MAX(M,N,K))) {
+      if ((NB.LE.K) || (NB >= MAX(M,N,K))) {
         zgemlqt(SIDE, TRANS, M, N, K, MB, A, LDA, T, LDT, C, LDC, WORK, INFO );
         RETURN
       }

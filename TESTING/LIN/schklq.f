@@ -152,7 +152,7 @@
 
                         slqt02(M, N, K, A, AF, AQ, AL, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      }
-                     if ( M.GE.K ) {
+                     if ( M >= K ) {
 
                         // Test SORMLQ, using factorization returned
                         // by SLQT01
@@ -195,7 +195,7 @@
                      // pass the threshold.
 
                      for (I = 1; I <= NT; I++) { // 20
-                        if ( RESULT( I ).GE.THRESH ) {
+                        if ( RESULT( I ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1
                         }

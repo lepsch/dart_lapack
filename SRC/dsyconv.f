@@ -80,7 +80,7 @@
          // Convert PERMUTATIONS
 
          I=N
-         DO WHILE ( I .GE. 1 )
+         DO WHILE ( I >= 1 )
             if ( IPIV(I) > 0) {
                IP=IPIV(I)
                if ( I < N) {
@@ -206,7 +206,7 @@
          // Revert PERMUTATIONS
 
             I=N
-            DO WHILE ( I .GE. 1 )
+            DO WHILE ( I >= 1 )
                if ( IPIV(I) > 0 ) {
                   IP=IPIV(I)
                   if (I > 1) {

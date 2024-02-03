@@ -191,7 +191,7 @@
          if (C < ZERO) C = ABS( C );
          if ( C == ZERO ) {
             ETA = RHO - SIGMA*SIGMA
-         } else if ( A.GE.ZERO ) {
+         } else if ( A >= ZERO ) {
             ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
          } else {
             ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -259,7 +259,7 @@
             C = W - DTNSQ1*DPSI - DTNSQ*DPHI
             A = ( DTNSQ+DTNSQ1 )*W - DTNSQ1*DTNSQ*( DPSI+DPHI )
             B = DTNSQ1*DTNSQ*W
-            if ( A.GE.ZERO ) {
+            if ( A >= ZERO ) {
                ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
             } else {
                ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -564,7 +564,7 @@
          // we simply use one Newton step instead. This way
          // will guarantee eta*w < 0.
 
-         if (W*ETA.GE.ZERO) ETA = -W / DW;
+         if (W*ETA >= ZERO) ETA = -W / DW;
 
          ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
          TEMP = TAU + ETA
@@ -789,7 +789,7 @@
             // we simply use one Newton step instead. This way
             // will guarantee eta*w < 0.
 
-            if (W*ETA.GE.ZERO) ETA = -W / DW;
+            if (W*ETA >= ZERO) ETA = -W / DW;
 
             ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
             TEMP=TAU+ETA

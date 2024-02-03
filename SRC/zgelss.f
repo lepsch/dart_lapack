@@ -75,7 +75,7 @@
          if ( MINMN > 0 ) {
             MM = M
             MNTHR = ILAENV( 6, 'ZGELSS', ' ', M, N, NRHS, -1 )
-            if ( M.GE.N && M.GE.MNTHR ) {
+            if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
                          // columns
@@ -89,7 +89,7 @@
                MM = N
                MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, N + NRHS*ILAENV( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) )
             }
-            if ( M.GE.N ) {
+            if ( M >= N ) {
 
                // Path 1 - overdetermined or exactly determined
 
@@ -111,7 +111,7 @@
             }
             if ( N > M ) {
                MINWRK = 2*M + MAX( NRHS, N )
-               if ( N.GE.MNTHR ) {
+               if ( N >= MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
                   // than rows
@@ -235,12 +235,12 @@
 
       // Overdetermined case
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // Path 1 - overdetermined or exactly determined
 
          MM = M
-         if ( M.GE.MNTHR ) {
+         if ( M >= MNTHR ) {
 
             // Path 1a - overdetermined, with many more rows than columns
 
@@ -315,7 +315,7 @@
          // (CWorkspace: need N, prefer N*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS && NRHS > 1 ) {
+         if ( LWORK >= LDB*NRHS && NRHS > 1 ) {
             zgemm('C', 'N', N, NRHS, N, CONE, A, LDA, B, LDB, CZERO, WORK, LDB );
             zlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {
@@ -330,7 +330,7 @@
             zcopy(N, WORK, 1, B, 1 );
          }
 
-      } else if ( N.GE.MNTHR && LWORK.GE.3*M+M*M+MAX( M, NRHS, N-2*M ) ) {
+      } else if ( N >= MNTHR && LWORK >= 3*M+M*M+MAX( M, NRHS, N-2*M ) ) {
 
          // Underdetermined case, M much less than N
 
@@ -338,7 +338,7 @@
          // and sufficient workspace for an efficient algorithm
 
          LDWORK = M
-         IF( LWORK.GE.3*M+M*LDA+MAX( M, NRHS, N-2*M ) ) LDWORK = LDA
+         IF( LWORK >= 3*M+M*LDA+MAX( M, NRHS, N-2*M ) ) LDWORK = LDA
          ITAU = 1
          IWORK = M + 1
 
@@ -404,7 +404,7 @@
          // (CWorkspace: need M*M+2*M, prefer M*M+M+M*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS+IWORK-1 && NRHS > 1 ) {
+         if ( LWORK >= LDB*NRHS+IWORK-1 && NRHS > 1 ) {
             zgemm('C', 'N', M, NRHS, M, CONE, WORK( IL ), LDWORK, B, LDB, CZERO, WORK( IWORK ), LDB );
             zlacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS > 1 ) {
@@ -484,7 +484,7 @@
          // (CWorkspace: need N, prefer N*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS && NRHS > 1 ) {
+         if ( LWORK >= LDB*NRHS && NRHS > 1 ) {
             zgemm('C', 'N', N, NRHS, M, CONE, A, LDA, B, LDB, CZERO, WORK, LDB );
             zlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {

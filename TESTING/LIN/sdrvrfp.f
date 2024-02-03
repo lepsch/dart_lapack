@@ -94,7 +94,7 @@
 
                // If N == 0, only consider the first type
 
-               if (N == 0 && IIT.GE.1) GO TO 120;
+               if (N == 0 && IIT >= 1) GO TO 120;
 
                // Skip types 3, 4, or 5 if the matrix size is too small.
 
@@ -129,7 +129,7 @@
                      // For types 3-5, zero one row and column of the matrix to
                      // test that INFO is returned correctly.
 
-                     ZEROT = IMAT.GE.3 && IMAT.LE.5
+                     ZEROT = IMAT >= 3 && IMAT.LE.5
                      if ( ZEROT ) {
                         if ( IIT == 3 ) {
                            IZERO = 1
@@ -283,7 +283,7 @@
                      // pass the threshold.
 
                      for (K = 1; K <= NT; K++) { // 60
-                        if ( RESULT( K ).GE.THRESH ) {
+                        if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'SPF' )                            WRITE( NOUT, FMT = 9999 )'SPFSV ', UPLO, N, IIT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }

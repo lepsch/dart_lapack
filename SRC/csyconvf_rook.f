@@ -87,7 +87,7 @@
             // in factorization order where i decreases from N to 1
 
             I = N
-            DO WHILE ( I.GE.1 )
+            DO WHILE ( I >= 1 )
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
@@ -270,7 +270,7 @@
             // in reverse factorization order where i decreases from N to 1
 
             I = N
-            DO WHILE ( I.GE.1 )
+            DO WHILE ( I >= 1 )
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange

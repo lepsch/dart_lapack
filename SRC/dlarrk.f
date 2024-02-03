@@ -78,7 +78,7 @@
          IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN          IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
       } // 20
 
-      if (NEGCNT.GE.IW) {
+      if (NEGCNT >= IW) {
          RIGHT = MID
       } else {
          LEFT = MID

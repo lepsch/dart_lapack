@@ -70,7 +70,7 @@
          TPSD = true;
          IF( LSAME( TRANS, 'N' ) ) TPSD = false;
 
-         if ( M.GE.N ) {
+         if ( M >= N ) {
             NB = ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 )
             if ( TPSD ) {
                NB = MAX( NB, ILAENV( 1, 'ZUNMQR', 'LN', M, NRHS, N, -1 ) )
@@ -152,7 +152,7 @@
          IBSCL = 2
       }
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // compute QR factorization of A
 

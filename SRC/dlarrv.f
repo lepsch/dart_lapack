@@ -302,7 +302,7 @@
                      // we are at the right end of the cluster, this is also the
                      // boundary of the child cluster
                      NEWLST = J
-                  } else if ( WGAP( WBEGIN + J -1).GE. MINRGP* ABS( WORK(WBEGIN + J -1) ) ) {
+                  } else if ( WGAP( WBEGIN + J -1) >= MINRGP* ABS( WORK(WBEGIN + J -1) ) ) {
                      // the right relative gap is big enough, the child cluster
                      // (NEWFST,..,NEWLST) is well separated from the following
                      NEWLST = J
@@ -547,7 +547,7 @@
                         }
                         // We only use the RQCORR if it improves the
                         // the iterate reasonably.
-                        if ( ( RQCORR*SGNDEF.GE.ZERO ) && ( LAMBDA + RQCORR.LE. RIGHT) && ( LAMBDA + RQCORR.GE. LEFT) ) {
+                        if ( ( RQCORR*SGNDEF >= ZERO ) && ( LAMBDA + RQCORR.LE. RIGHT) && ( LAMBDA + RQCORR >= LEFT) ) {
                            USEDRQ = true;
                            // Store new midpoint of bisection interval in WORK
                            if (SGNDEF == ONE) {

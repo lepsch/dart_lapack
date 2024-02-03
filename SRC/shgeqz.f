@@ -268,8 +268,8 @@
                      srot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
                      ILAZR2 = false;
-                     if ( ABS( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
-                        if ( JCH+1.GE.ILAST ) {
+                     if ( ABS( T( JCH+1, JCH+1 ) ) >= BTOL ) {
+                        if ( JCH+1 >= ILAST ) {
                            GO TO 80
                         } else {
                            IFIRST = JCH + 1
@@ -758,7 +758,7 @@
                   U1 = ONE
                   U2 = ZERO
                   GO TO 250
-               } else if ( TEMP.GE.TEMP2 ) {
+               } else if ( TEMP >= TEMP2 ) {
                   W11 = T( J+1, J+1 )
                   W21 = T( J+2, J+1 )
                   W12 = T( J+1, J+2 )

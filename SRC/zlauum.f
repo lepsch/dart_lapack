@@ -61,7 +61,7 @@
 
       NB = ILAENV( 1, 'ZLAUUM', UPLO, N, -1, -1, -1 )
 
-      if ( NB.LE.1 || NB.GE.N ) {
+      if ( NB.LE.1 || NB >= N ) {
 
          // Use unblocked code
 

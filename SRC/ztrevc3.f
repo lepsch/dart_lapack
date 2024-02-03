@@ -112,7 +112,7 @@
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.
 
-      if ( OVER && LWORK .GE. N + 2*N*NBMIN ) {
+      if ( OVER && LWORK >= N + 2*N*NBMIN ) {
          NB = (LWORK - N) / (2*N)
          NB = MIN( NB, NBMAX )
          zlaset('F', N, 1+2*NB, CZERO, CZERO, WORK, N );

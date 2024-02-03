@@ -60,7 +60,7 @@
       INFO = 0
       TRANS_TYPE = ILATRANS( TRANS )
       REF_TYPE = INT( ITREF_DEFAULT )
-      if ( NPARAMS .GE. LA_LINRX_ITREF_I ) {
+      if ( NPARAMS >= LA_LINRX_ITREF_I ) {
          if ( PARAMS( LA_LINRX_ITREF_I ) < 0.0 ) {
             PARAMS( LA_LINRX_ITREF_I ) = ITREF_DEFAULT
          } else {
@@ -76,14 +76,14 @@
       UNSTABLE_THRESH = DZTHRESH_DEFAULT
       IGNORE_CWISE = COMPONENTWISE_DEFAULT == 0.0
 
-      if ( NPARAMS.GE.LA_LINRX_ITHRESH_I ) {
+      if ( NPARAMS >= LA_LINRX_ITHRESH_I ) {
          if ( PARAMS( LA_LINRX_ITHRESH_I ) < 0.0 ) {
             PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH
          } else {
             ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) )
          }
       }
-      if ( NPARAMS.GE.LA_LINRX_CWISE_I ) {
+      if ( NPARAMS >= LA_LINRX_CWISE_I ) {
          if ( PARAMS( LA_LINRX_CWISE_I ) < 0.0 ) {
             if ( IGNORE_CWISE ) {
                PARAMS( LA_LINRX_CWISE_I ) = 0.0
@@ -140,15 +140,15 @@
          RCOND = 1.0
          for (J = 1; J <= NRHS; J++) {
             BERR( J ) = 0.0
-            if ( N_ERR_BNDS .GE. 1 ) {
+            if ( N_ERR_BNDS >= 1 ) {
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0
             }
-            if ( N_ERR_BNDS .GE. 2 ) {
+            if ( N_ERR_BNDS >= 2 ) {
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 0.0
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 0.0
             }
-            if ( N_ERR_BNDS .GE. 3 ) {
+            if ( N_ERR_BNDS >= 3 ) {
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = 1.0
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 1.0
             }
@@ -161,15 +161,15 @@
       RCOND = 0.0
       for (J = 1; J <= NRHS; J++) {
          BERR( J ) = 1.0
-         if ( N_ERR_BNDS .GE. 1 ) {
+         if ( N_ERR_BNDS >= 1 ) {
             ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0
             ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0
          }
-         if ( N_ERR_BNDS .GE. 2 ) {
+         if ( N_ERR_BNDS >= 2 ) {
             ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0
             ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0
          }
-         if ( N_ERR_BNDS .GE. 3 ) {
+         if ( N_ERR_BNDS >= 3 ) {
             ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = 0.0
             ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 0.0
          }
@@ -200,7 +200,7 @@
       }
 
       ERR_LBND = MAX( 10.0, SQRT( REAL( N ) ) ) * SLAMCH( 'Epsilon' )
-      if (N_ERR_BNDS .GE. 1 && N_NORMS .GE. 1) {
+      if (N_ERR_BNDS >= 1 && N_NORMS >= 1) {
 
       // Compute scaled normwise condition number cond(A*C).
 
@@ -215,7 +215,7 @@
 
       // Cap the error at 1.0.
 
-            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I && ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) > 1.0) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0
+            IF ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) > 1.0) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0
 
       // Threshold the error (see LAWN).
 
@@ -230,14 +230,14 @@
 
       // Save the condition number.
 
-            if ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) {
+            if ( N_ERR_BNDS >= LA_LINRX_RCOND_I ) {
                ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP
             }
 
          }
       }
 
-      if (N_ERR_BNDS .GE. 1 && N_NORMS .GE. 2) {
+      if (N_ERR_BNDS >= 1 && N_NORMS >= 2) {
 
       // Compute componentwise condition number cond(A*diag(Y(:,J))) for
       // each right-hand side using the current solution as an estimate of
@@ -257,7 +257,7 @@
 
       // Cap the error at 1.0.
 
-            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I && ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) > 1.0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0
+            IF ( N_ERR_BNDS >= LA_LINRX_ERR_I && ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) > 1.0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0
 
       // Threshold the error (see LAWN).
 
@@ -272,7 +272,7 @@
 
       // Save the condition number.
 
-            if ( N_ERR_BNDS .GE. LA_LINRX_RCOND_I ) {
+            if ( N_ERR_BNDS >= LA_LINRX_RCOND_I ) {
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP
             }
 

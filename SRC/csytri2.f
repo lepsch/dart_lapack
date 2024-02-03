@@ -36,7 +36,7 @@
       LQUERY = ( LWORK == -1 )
       // Get blocksize
       NBMAX = ILAENV( 1, 'CSYTRI2', UPLO, N, -1, -1, -1 )
-      if ( NBMAX .GE. N ) {
+      if ( NBMAX >= N ) {
          MINSIZE = N
       } else {
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
@@ -64,7 +64,7 @@
       }
       if (N == 0) RETURN;
 
-      if ( NBMAX .GE. N ) {
+      if ( NBMAX >= N ) {
          csytri(UPLO, N, A, LDA, IPIV, WORK, INFO );
       } else {
          csytri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );

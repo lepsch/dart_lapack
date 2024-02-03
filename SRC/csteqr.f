@@ -277,7 +277,7 @@
             D( L ) = RT2
             E( L-1 ) = ZERO
             L = L - 2
-            if (L.GE.LEND) GO TO 90;
+            if (L >= LEND) GO TO 90;
             GO TO 140
          }
 
@@ -334,7 +334,7 @@
          D( L ) = P
 
          L = L - 1
-         if (L.GE.LEND) GO TO 90;
+         if (L >= LEND) GO TO 90;
          GO TO 140
 
       }

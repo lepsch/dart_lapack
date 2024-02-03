@@ -182,7 +182,7 @@
 
             // Update proposed by Li, Ren-Cang:
             ETA = -W / ( DPSI+DPHI )
-         } else if ( A.GE.ZERO ) {
+         } else if ( A >= ZERO ) {
             ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
          } else {
             ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -255,7 +255,7 @@
             C = W - DELTA( N-1 )*DPSI - DELTA( N )*DPHI
             A = ( DELTA( N-1 )+DELTA( N ) )*W - DELTA( N-1 )*DELTA( N )*( DPSI+DPHI )
             B = DELTA( N-1 )*DELTA( N )*W
-            if ( A.GE.ZERO ) {
+            if ( A >= ZERO ) {
                ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
             } else {
                ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -503,7 +503,7 @@
          // we simply use one Newton step instead. This way
          // will guarantee eta*w < 0.
 
-         if (W*ETA.GE.ZERO) ETA = -W / DW;
+         if (W*ETA >= ZERO) ETA = -W / DW;
          TEMP = TAU + ETA
          if ( TEMP > DLTUB || TEMP < DLTLB ) {
             if ( W < ZERO ) {
@@ -651,7 +651,7 @@
             // we simply use one Newton step instead. This way
             // will guarantee eta*w < 0.
 
-            if (W*ETA.GE.ZERO) ETA = -W / DW;
+            if (W*ETA >= ZERO) ETA = -W / DW;
             TEMP = TAU + ETA
             if ( TEMP > DLTUB || TEMP < DLTLB ) {
                if ( W < ZERO ) {

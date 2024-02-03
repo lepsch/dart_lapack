@@ -66,7 +66,7 @@
          dlarnv(2, ISEED, M, A( 1, J ) );
       }
       if ( TESTZEROS ) {
-         if ( M.GE.4 ) {
+         if ( M >= 4 ) {
             for (J = 1; J <= N; J++) {
                dlarnv(2, ISEED, M/2, A( M/4, J ) );
             }

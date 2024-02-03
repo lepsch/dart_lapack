@@ -195,7 +195,7 @@
                         if ( AAQQ > ZERO ) {
 
                            AAPP0 = AAPP
-                           if ( AAQQ.GE.ONE ) {
+                           if ( AAQQ >= ONE ) {
                               ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*D( p )*D( q ) / AAQQ ) / AAPP
@@ -257,8 +257,8 @@
 
                                     APOAQ = D( p ) / D( q )
                                     AQOAP = D( q ) / D( p )
-                                    if ( D( p ).GE.ONE ) {
-                                       if ( D( q ).GE.ONE ) {
+                                    if ( D( p ) >= ONE ) {
+                                       if ( D( q ) >= ONE ) {
                                           FASTR( 3 ) = T*APOAQ
                                           FASTR( 4 ) = -T*AQOAP
                                           D( p ) = D( p )*CS
@@ -275,7 +275,7 @@
                                           }
                                        }
                                     } else {
-                                       if ( D( q ).GE.ONE ) {
+                                       if ( D( q ) >= ONE ) {
                                           saxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                           saxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                           D( p ) = D( p ) / CS
@@ -285,7 +285,7 @@
                                              saxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                           }
                                        } else {
-                                          if ( D( p ).GE.D( q ) ) {
+                                          if ( D( p ) >= D( q ) ) {
                                              saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              saxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              D( p ) = D( p )*CS
@@ -408,8 +408,8 @@
 
          // .. Safe Gram matrix computation ..
 
-                           if ( AAQQ.GE.ONE ) {
-                              if ( AAPP.GE.AAQQ ) {
+                           if ( AAQQ >= ONE ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
@@ -421,7 +421,7 @@
                                  CALL SLASCL( 'G', 0, 0, AAPP, D( p ), M, 1, WORK, LDA, IERR )                                  AAPQ = SDOT( M, WORK, 1, A( 1, q ), 1 )*D( q ) / AAQQ
                               }
                            } else {
-                              if ( AAPP.GE.AAQQ ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = AAPP.LE.( AAQQ / SMALL )
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
@@ -472,9 +472,9 @@
 
                                     APOAQ = D( p ) / D( q )
                                     AQOAP = D( q ) / D( p )
-                                    if ( D( p ).GE.ONE ) {
+                                    if ( D( p ) >= ONE ) {
 
-                                       if ( D( q ).GE.ONE ) {
+                                       if ( D( q ) >= ONE ) {
                                           FASTR( 3 ) = T*APOAQ
                                           FASTR( 4 ) = -T*AQOAP
                                           D( p ) = D( p )*CS
@@ -491,7 +491,7 @@
                                           D( q ) = D( q ) / CS
                                        }
                                     } else {
-                                       if ( D( q ).GE.ONE ) {
+                                       if ( D( q ) >= ONE ) {
                                           saxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                           saxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                           if ( RSVEC ) {
@@ -501,7 +501,7 @@
                                           D( p ) = D( p ) / CS
                                           D( q ) = D( q )*CS
                                        } else {
-                                          if ( D( p ).GE.D( q ) ) {
+                                          if ( D( p ) >= D( q ) ) {
                                              saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              saxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              D( p ) = D( p )*CS
@@ -579,7 +579,7 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( IJBLSK.GE.BLSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
@@ -632,7 +632,7 @@
             GO TO 1994
          }
 
-         if (NOTROT.GE.EMPTSW) GO TO 1994;
+         if (NOTROT >= EMPTSW) GO TO 1994;
 
       } // 1993
       // end i=1:NSWEEP loop

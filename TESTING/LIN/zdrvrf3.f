@@ -237,7 +237,7 @@
 
                               RESULT( 1 ) = RESULT( 1 ) / SQRT( EPS ) / MAX ( MAX( M, N ), 1 )
 
-                              if ( RESULT( 1 ).GE.THRESH ) {
+                              if ( RESULT( 1 ) >= THRESH ) {
                                  if ( NFAIL == 0 ) {
                                     WRITE( NOUT, * )
                                     WRITE( NOUT, FMT = 9999 )

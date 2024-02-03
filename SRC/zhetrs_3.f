@@ -88,7 +88,7 @@
          // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
          I = N
-         DO WHILE ( I.GE.1 )
+         DO WHILE ( I >= 1 )
             if ( IPIV( I ) > 0 ) {
                S = DBLE( ONE ) / DBLE( A( I, I ) )
                zdscal(NRHS, S, B( I, 1 ), LDB );

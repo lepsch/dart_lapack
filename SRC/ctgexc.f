@@ -80,7 +80,7 @@
             RETURN
          }
          HERE = HERE - 1
-         if (HERE.GE.ILST) GO TO 20;
+         if (HERE >= ILST) GO TO 20;
          HERE = HERE + 1
       }
       ILST = HERE

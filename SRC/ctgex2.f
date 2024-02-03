@@ -97,7 +97,7 @@
       SZ = -SZ
       crot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, CZ, CONJG( SZ ) );
       crot(2, T( 1, 1 ), 1, T( 1, 2 ), 1, CZ, CONJG( SZ ) );
-      if ( SA.GE.SB ) {
+      if ( SA >= SB ) {
          clartg(S( 1, 1 ), S( 2, 1 ), CQ, SQ, CDUM );
       } else {
          clartg(T( 1, 1 ), T( 2, 1 ), CQ, SQ, CDUM );

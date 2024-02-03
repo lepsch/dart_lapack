@@ -57,7 +57,7 @@
       } // 20
 
       for (I = 1; I <= N - 2; I++) { // 30
-         if ( CABS1( D( I ) ).GE.CABS1( DL( I ) ) ) {
+         if ( CABS1( D( I ) ) >= CABS1( DL( I ) ) ) {
 
             // No row interchange required, eliminate DL(I)
 
@@ -83,7 +83,7 @@
       } // 30
       if ( N > 1 ) {
          I = N - 1
-         if ( CABS1( D( I ) ).GE.CABS1( DL( I ) ) ) {
+         if ( CABS1( D( I ) ) >= CABS1( DL( I ) ) ) {
             if ( CABS1( D( I ) ) != ZERO ) {
                FACT = DL( I ) / D( I )
                DL( I ) = FACT

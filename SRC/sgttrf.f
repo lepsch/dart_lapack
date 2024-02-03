@@ -51,7 +51,7 @@
       } // 20
 
       for (I = 1; I <= N - 2; I++) { // 30
-         if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
+         if ( ABS( D( I ) ) >= ABS( DL( I ) ) ) {
 
             // No row interchange required, eliminate DL(I)
 
@@ -77,7 +77,7 @@
       } // 30
       if ( N > 1 ) {
          I = N - 1
-         if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
+         if ( ABS( D( I ) ) >= ABS( DL( I ) ) ) {
             if ( D( I ) != ZERO ) {
                FACT = DL( I ) / D( I )
                DL( I ) = FACT

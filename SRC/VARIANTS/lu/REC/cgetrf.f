@@ -99,7 +99,7 @@
          // Factor the current column
          PIVMAG = ABS( A( J, J ) )
          if ( PIVMAG != ZERO && .NOT.SISNAN( PIVMAG ) ) {
-               if ( PIVMAG .GE. SFMIN ) {
+               if ( PIVMAG >= SFMIN ) {
                   cscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) {

@@ -272,7 +272,7 @@
                               // Test 2: Check correctness of results
                               // for ZGELS.
 
-                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M < N ) ) {
+                              if ( ( ITRAN == 1 && M >= N ) || ( ITRAN == 2 && M < N ) ) {
 
                                  // Solving LS system
 
@@ -288,7 +288,7 @@
                               // did not pass the threshold.
 
                               for (K = 1; K <= 2; K++) {
-                                 if ( RESULT( K ).GE.THRESH ) {
+                                 if ( RESULT( K ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
@@ -361,7 +361,7 @@
                               // Test 4: Check correctness of results
                               // for ZGELST.
 
-                              if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M < N ) ) {
+                              if ( ( ITRAN == 1 && M >= N ) || ( ITRAN == 2 && M < N ) ) {
 
                                  // Solving LS system
 
@@ -377,7 +377,7 @@
                               // did not pass the threshold.
 
                               for (K = 3; K <= 4; K++) {
-                                 if ( RESULT( K ).GE.THRESH ) {
+                                 if ( RESULT( K ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
@@ -454,7 +454,7 @@
                               // Test 6: Check correctness of results
                               // for ZGETSLS.
 
-                                 if ( ( ITRAN == 1 && M.GE.N ) || ( ITRAN == 2 && M < N ) ) {
+                                 if ( ( ITRAN == 1 && M >= N ) || ( ITRAN == 2 && M < N ) ) {
 
                                     // Solving LS system, compute:
                                     // r = norm((B- A*X)**T * A) /
@@ -472,7 +472,7 @@
                                  // did not pass the threshold.
 
                                  for (K = 5; K <= 6; K++) {
-                                    if ( RESULT( K ).GE.THRESH ) {
+                                    if ( RESULT( K ) >= THRESH ) {
                                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
                                           NFAIL = NFAIL + 1
                                     }
@@ -629,7 +629,7 @@
                         // pass the threshold.
 
                         for (K = 7; K <= 18; K++) { // 80
-                           if ( RESULT( K ).GE.THRESH ) {
+                           if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }

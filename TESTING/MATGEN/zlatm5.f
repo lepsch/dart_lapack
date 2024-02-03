@@ -136,7 +136,7 @@
             } // 190
          } // 200
 
-      } else if ( PRTYPE.GE.5 ) {
+      } else if ( PRTYPE >= 5 ) {
          REEPS = HALF*TWO*TWENTY / ALPHA
          IMEPS = ( HALF-TWO ) / ALPHA
          for (I = 1; I <= M; I++) { // 220

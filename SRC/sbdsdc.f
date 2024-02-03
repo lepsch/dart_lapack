@@ -197,7 +197,7 @@
          // A subproblem with E(I) small for I < NM1.
 
                NSIZE = I - START + 1
-            } else if ( ABS( E( I ) ).GE.EPS ) {
+            } else if ( ABS( E( I ) ) >= EPS ) {
 
          // A subproblem with E(NM1) not too small but I = NM1.
 

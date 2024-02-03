@@ -224,7 +224,7 @@
                for (I = 1; I <= MNMIN - 1; I++) { // 70
                   IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 4 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 4 ) = ULPINV
                } // 70
-               if ( MNMIN.GE.1 ) {
+               if ( MNMIN >= 1 ) {
                   IF( SSAV( MNMIN ) < ZERO ) RESULT( 4 ) = ULPINV
                }
 
@@ -312,7 +312,7 @@
                for (I = 1; I <= MNMIN - 1; I++) { // 110
                   IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 11 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 11 ) = ULPINV
                } // 110
-               if ( MNMIN.GE.1 ) {
+               if ( MNMIN >= 1 ) {
                   IF( SSAV( MNMIN ) < ZERO ) RESULT( 11 ) = ULPINV
                }
 
@@ -332,7 +332,7 @@
                   DIF = ZERO
                   if ( M > 0 && N > 0 ) {
                      if ( IJQ == 1 ) {
-                        if ( M.GE.N ) {
+                        if ( M >= N ) {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         } else {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
@@ -348,7 +348,7 @@
                   DIF = ZERO
                   if ( M > 0 && N > 0 ) {
                      if ( IJQ == 1 ) {
-                        if ( M.GE.N ) {
+                        if ( M >= N ) {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         } else {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
@@ -379,7 +379,7 @@
                RESULT( 38 ) = ZERO
                RESULT( 39 ) = ZERO
 
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -410,7 +410,7 @@
                   for (I = 1; I <= MNMIN - 1; I++) { // 199
                      IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 39 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 39 ) = ULPINV
                   } // 199
-                  if ( MNMIN.GE.1 ) {
+                  if ( MNMIN >= 1 ) {
                      IF( SSAV( MNMIN ) < ZERO ) RESULT( 39 ) = ULPINV
                   }
                }
@@ -423,7 +423,7 @@
                RESULT( 17 ) = ZERO
                RESULT( 18 ) = ZERO
 
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -460,7 +460,7 @@
                   for (I = 1; I <= MNMIN - 1; I++) { // 131
                      IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 18 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 18 ) = ULPINV
                   } // 131
-                  if ( MNMIN.GE.1 ) {
+                  if ( MNMIN >= 1 ) {
                      IF( SSAV( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV
                   }
                }
@@ -472,7 +472,7 @@
                RESULT( 20 ) = ZERO
                RESULT( 21 ) = ZERO
                RESULT( 22 ) = ZERO
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   IWTMP = 2*MNMIN*MNMIN + 2*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -509,7 +509,7 @@
                   for (I = 1; I <= MNMIN - 1; I++) { // 134
                      IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 22 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 22 ) = ULPINV
                   } // 134
-                  if ( MNMIN.GE.1 ) {
+                  if ( MNMIN >= 1 ) {
                      IF( SSAV( MNMIN ) < ZERO ) RESULT( 22 ) = ULPINV
                   }
                }
@@ -541,7 +541,7 @@
                for (I = 1; I <= MNMIN - 1; I++) { // 140
                   IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 26 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 26 ) = ULPINV
                } // 140
-               if ( MNMIN.GE.1 ) {
+               if ( MNMIN >= 1 ) {
                   IF( SSAV( MNMIN ) < ZERO ) RESULT( 26 ) = ULPINV
                }
 
@@ -642,7 +642,7 @@
                   }
                   VL = MAX( VL,ZERO )
                   VU = MAX( VU,ZERO )
-                  if (VL.GE.VU) VU = MAX( VU*2, VU+VL+HALF );
+                  if (VL >= VU) VU = MAX( VU*2, VU+VL+HALF );
                } else {
                   VL = ZERO
                   VU = ONE
@@ -670,7 +670,7 @@
                NTEST = 0
                NFAIL = 0
                for (J = 1; J <= 39; J++) { // 190
-                  IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
+                  IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1
                } // 190
 
                if (NFAIL > 0) NTESTF = NTESTF + 1;
@@ -681,7 +681,7 @@
                }
 
                for (J = 1; J <= 39; J++) { // 200
-                  if ( RESULT( J ).GE.THRESH ) {
+                  if ( RESULT( J ) >= THRESH ) {
                      WRITE( NOUNIT, FMT = 9997 )M, N, JTYPE, IWSPC, IOLDSD, J, RESULT( J )
                   }
                } // 200

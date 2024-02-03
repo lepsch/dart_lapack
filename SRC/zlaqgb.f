@@ -45,11 +45,11 @@
       SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 
-      if ( ROWCND.GE.THRESH && AMAX.GE.SMALL && AMAX.LE.LARGE ) {
+      if ( ROWCND >= THRESH && AMAX >= SMALL && AMAX.LE.LARGE ) {
 
          // No row scaling
 
-         if ( COLCND.GE.THRESH ) {
+         if ( COLCND >= THRESH ) {
 
             // No column scaling
 
@@ -66,7 +66,7 @@
             } // 20
             EQUED = 'C'
          }
-      } else if ( COLCND.GE.THRESH ) {
+      } else if ( COLCND >= THRESH ) {
 
          // Row scaling, no column scaling
 

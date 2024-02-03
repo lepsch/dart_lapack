@@ -34,7 +34,7 @@
          Z = ZERO
          W = ZERO
       } else if ( SIGMA == ZERO ) {
-         if ( X .GE. ZERO ) {
+         if ( X >= ZERO ) {
             Z = X
             W = Y
          } else {
@@ -45,7 +45,7 @@
          Z = -SIGMA*SIGMA
          W = ZERO
       } else {
-         if ( X .GE. ZERO ) {
+         if ( X >= ZERO ) {
             S = ONE
          } else {
             S = NEGONE

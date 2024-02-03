@@ -48,7 +48,7 @@
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )
       SAFMAX = ONE/SAFMIN
 
-      if ( ILO .GE. IHI ) {
+      if ( ILO >= IHI ) {
          RETURN
       }
 
@@ -75,7 +75,7 @@
       for (I = 1; I <= NS; I++) {
          // Introduce the shift
          SCALE = SQRT( ABS( ALPHA( I ) ) ) * SQRT( ABS( BETA( I ) ) )
-         if ( SCALE .GE. SAFMIN && SCALE .LE. SAFMAX ) {
+         if ( SCALE >= SAFMIN && SCALE .LE. SAFMAX ) {
             ALPHA( I ) = ALPHA( I )/SCALE
             BETA( I ) = BETA( I )/SCALE
          }

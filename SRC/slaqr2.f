@@ -227,7 +227,7 @@
                EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )* SQRT( ABS( T( K, K+1 ) ) )
             }
 
-            if ( EVI.GE.EVK ) {
+            if ( EVI >= EVK ) {
                I = K
             } else {
                SORTED = false;
@@ -257,7 +257,7 @@
 
       I = JW
       } // 60
-      if ( I.GE.INFQR+1 ) {
+      if ( I >= INFQR+1 ) {
          if ( I == INFQR+1 ) {
             SR( KWTOP+I-1 ) = T( I, I )
             SI( KWTOP+I-1 ) = ZERO

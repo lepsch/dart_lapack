@@ -274,8 +274,8 @@
                      crot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) );
                      if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
                      ILAZR2 = false;
-                     if ( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
-                        if ( JCH+1.GE.ILAST ) {
+                     if ( ABS1( T( JCH+1, JCH+1 ) ) >= BTOL ) {
+                        if ( JCH+1 >= ILAST ) {
                            GO TO 60
                         } else {
                            IFIRST = JCH + 1

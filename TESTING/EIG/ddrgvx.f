@@ -68,7 +68,7 @@
         // following subroutine, as returned by ILAENV.)
 
       MINWRK = 1
-      if ( INFO == 0 && LWORK.GE.1 ) {
+      if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = 2*NMAX*NMAX + 12*NMAX + 16
          MAXWRK = 6*NMAX + NMAX*ILAENV( 1, 'DGEQRF', ' ', NMAX, 1, NMAX, 0 )
          MAXWRK = MAX( MAXWRK, 2*NMAX*NMAX+12*NMAX+16 )
@@ -179,7 +179,7 @@
                      // Print out tests which fail.
 
                      for (J = 1; J <= 4; J++) { // 20
-                        if ( ( RESULT( J ).GE.THRSH2 && J.GE.4 ) || ( RESULT( J ).GE.THRESH && J.LE.3 ) ) {
+                        if ( ( RESULT( J ) >= THRSH2 && J >= 4 ) || ( RESULT( J ) >= THRESH && J.LE.3 ) ) {
 
                         // If this is the first test to fail,
                         // print a header to the data file.
@@ -307,7 +307,7 @@
       // Print out tests which fail.
 
       for (J = 1; J <= 4; J++) { // 130
-         if ( RESULT( J ).GE.THRSH2 ) {
+         if ( RESULT( J ) >= THRSH2 ) {
 
             // If this is the first test to fail,
             // print a header to the data file.

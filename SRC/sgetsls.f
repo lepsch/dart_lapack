@@ -65,7 +65,7 @@
        if ( MIN( M, N, NRHS ) == 0 ) {
          WSIZEO = 1
          WSIZEM = 1
-       } else if ( M.GE.N ) {
+       } else if ( M >= N ) {
          sgeqr(M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 );
          TSZO = INT( TQ( 1 ) )
          LWO  = INT( WORKQ( 1 ) )
@@ -173,7 +173,7 @@
          IBSCL = 2
       }
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // compute QR factorization of A
 

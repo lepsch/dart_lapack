@@ -97,7 +97,7 @@
 
             clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT.GE.8 && IMAT.LE.10
+            ZEROT = IMAT >= 8 && IMAT.LE.10
             if ( IMAT.LE.6 ) {
 
                // Type 1-6:  generate a Hermitian tridiagonal matrix of
@@ -230,7 +230,7 @@
 
             // Print the test ratio if greater than or equal to THRESH.
 
-            if ( RESULT( 1 ).GE.THRESH ) {
+            if ( RESULT( 1 ) >= THRESH ) {
                if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
@@ -313,7 +313,7 @@
                // threshold.
 
                   for (K = 2; K <= 6; K++) { // 70
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
@@ -339,7 +339,7 @@
 
             // Print the test ratio if greater than or equal to THRESH.
 
-            if ( RESULT( 7 ).GE.THRESH ) {
+            if ( RESULT( 7 ) >= THRESH ) {
                if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 7, RESULT( 7 )
                NFAIL = NFAIL + 1

@@ -55,7 +55,7 @@
          NB = MAX( 1, ILAENV( 1, 'DPTTRS', ' ', N, NRHS, -1, -1 ) )
       }
 
-      if ( NB.GE.NRHS ) {
+      if ( NB >= NRHS ) {
          dptts2(N, NRHS, D, E, B, LDB );
       } else {
          DO 10 J = 1, NRHS, NB

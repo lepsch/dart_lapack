@@ -98,7 +98,7 @@
             if (INFO == 0) INFO = K;
             KP = K
          } else {
-            if ( ABSAKK.GE.ALPHA*COLMAX ) {
+            if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -115,12 +115,12 @@
                   ROWMAX = MAX( ROWMAX, ABS( A( JMAX, IMAX ) ) )
                }
 
-               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
+               if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               } else if ( ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX ) {
+               } else if ( ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -264,7 +264,7 @@
             if (INFO == 0) INFO = K;
             KP = K
          } else {
-            if ( ABSAKK.GE.ALPHA*COLMAX ) {
+            if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -281,12 +281,12 @@
                   ROWMAX = MAX( ROWMAX, ABS( A( JMAX, IMAX ) ) )
                }
 
-               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
+               if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               } else if ( ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX ) {
+               } else if ( ABS( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block

@@ -69,7 +69,7 @@
          IUPLO = 0
       }
 
-      if ( NB.GE.NRHS ) {
+      if ( NB >= NRHS ) {
          zptts2(IUPLO, N, NRHS, D, E, B, LDB );
       } else {
          DO 10 J = 1, NRHS, NB

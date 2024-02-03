@@ -76,7 +76,7 @@
         // following subroutine, as returned by ILAENV.)
 
       MINWRK = 1
-      if ( INFO == 0 && LWORK.GE.1 ) {
+      if ( INFO == 0 && LWORK >= 1 ) {
          // MINWRK = MAX( 10*( NSIZE+1 ), 5*NSIZE*NSIZE / 2-2 )
          MINWRK = MAX( 10*( NSIZE+1 ), 5*NSIZE*NSIZE / 2 )
 
@@ -213,7 +213,7 @@
                         } else {
                            I1 = J - 1
                         }
-                        if ( I1.LE.0 || I1.GE.MPLUSN ) {
+                        if ( I1.LE.0 || I1 >= MPLUSN ) {
                            ILABAD = true;
                         } else if ( I1 < MPLUSN-1 ) {
                            if ( AI( I1+2, I1+1 ) != ZERO ) {
@@ -228,7 +228,7 @@
                         }
                         if ( .NOT.ILABAD ) {
                            sget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
-                           if ( IINFO.GE.3 ) {
+                           if ( IINFO >= 3 ) {
                               WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, PRTYPE
                               INFO = ABS( IINFO )
                            }
@@ -259,7 +259,7 @@
 
                   RESULT( 8 ) = ZERO
                   MN2 = MM*( MPLUSN-MM )*2
-                  if ( IFUNC.GE.2 && MN2.LE.NCMAX*NCMAX ) {
+                  if ( IFUNC >= 2 && MN2.LE.NCMAX*NCMAX ) {
 
                      // Note: for either following two causes, there are
                      // almost same number of test cases fail the test.
@@ -290,7 +290,7 @@
                   // Print out tests which fail.
 
                   for (J = 1; J <= 9; J++) { // 20
-                     if ( RESULT( J ).GE.THRESH ) {
+                     if ( RESULT( J ) >= THRESH ) {
 
                         // If this is the first test to fail,
                         // print a header to the data file.
@@ -402,7 +402,7 @@
             } else {
                I1 = J - 1
             }
-            if ( I1.LE.0 || I1.GE.MPLUSN ) {
+            if ( I1.LE.0 || I1 >= MPLUSN ) {
                ILABAD = true;
             } else if ( I1 < MPLUSN-1 ) {
                if ( AI( I1+2, I1+1 ) != ZERO ) {
@@ -417,7 +417,7 @@
             }
             if ( .NOT.ILABAD ) {
                sget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
-               if ( IINFO.GE.3 ) {
+               if ( IINFO >= 3 ) {
                   WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, NPTKNT
                   INFO = ABS( IINFO )
                }
@@ -473,7 +473,7 @@
       // Print out tests which fail.
 
       for (J = 1; J <= NTEST; J++) { // 120
-         if ( RESULT( J ).GE.THRESH ) {
+         if ( RESULT( J ) >= THRESH ) {
 
             // If this is the first test to fail,
             // print a header to the data file.

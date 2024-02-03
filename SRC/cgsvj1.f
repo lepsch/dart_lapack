@@ -182,8 +182,8 @@
 
          // Safe Gram matrix computation
 
-                           if ( AAQQ.GE.ONE ) {
-                              if ( AAPP.GE.AAQQ ) {
+                           if ( AAQQ >= ONE ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
@@ -196,7 +196,7 @@
                                  AAPQ = CDOTC( M, WORK, 1, A( 1, q ), 1 ) / AAQQ
                               }
                            } else {
-                              if ( AAPP.GE.AAQQ ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = AAPP.LE.( AAQQ / SMALL )
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
@@ -315,7 +315,7 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( IJBLSK.GE.BLSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
@@ -370,7 +370,7 @@
             GO TO 1994
          }
 
-         if (NOTROT.GE.EMPTSW) GO TO 1994;
+         if (NOTROT >= EMPTSW) GO TO 1994;
 
       } // 1993
       // end i=1:NSWEEP loop

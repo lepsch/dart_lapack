@@ -103,7 +103,7 @@
 
          J = 0
          } // 10
-         if (J.GE.N) GO TO 20;
+         if (J >= N) GO TO 20;
 
          // each step of the main loop
           // J is the last column of the previous panel
@@ -210,7 +210,7 @@
 
          J = 0
          } // 11
-         if (J.GE.N) GO TO 20;
+         if (J >= N) GO TO 20;
 
          // each step of the main loop
           // J is the last column of the previous panel

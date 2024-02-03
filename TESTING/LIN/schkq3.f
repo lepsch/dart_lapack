@@ -112,7 +112,7 @@
                   } // 30
                } else {
                   slatms(M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO );
-                  if ( IMODE.GE.4 ) {
+                  if ( IMODE >= 4 ) {
                      if ( IMODE == 4 ) {
                         ILOW = 1
                         ISTEP = 1
@@ -173,7 +173,7 @@
                   // the threshold.
 
                   for (K = 1; K <= NTESTS; K++) { // 50
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SGEQP3', M, N, NB, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }

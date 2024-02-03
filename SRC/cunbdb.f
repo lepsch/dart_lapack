@@ -195,7 +195,7 @@
 
             cscal(M-Q-I+1, CMPLX( -Z1*Z4, 0.0E0 ), X12(I,I), LDX12 );
             clacgv(M-Q-I+1, X12(I,I), LDX12 );
-            if ( I .GE. M-Q ) {
+            if ( I >= M-Q ) {
                clarfgp(M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) );
             } else {
                clarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
@@ -205,7 +205,7 @@
             if ( P > I ) {
                clarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
-            if (M-P-Q .GE. 1) CALL CLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
+            if (M-P-Q >= 1) CALL CLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
 
             clacgv(M-Q-I+1, X12(I,I), LDX12 );
 
@@ -304,7 +304,7 @@
             if ( P > I ) {
                clarf('L', M-Q-I+1, P-I, X12(I,I), 1, CONJG(TAUQ2(I)), X12(I,I+1), LDX12, WORK );
             }
-            if (M-P-Q .GE. 1) CALL CLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, CONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK );
+            if (M-P-Q >= 1) CALL CLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, CONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK );
 
          }
 

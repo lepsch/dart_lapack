@@ -156,14 +156,14 @@
                         cqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
                           IF( .NOT. CGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                         NT = NT + 1
-                     } else if ( M.GE.N ) {
+                     } else if ( M >= N ) {
 
                         // Test CUNGQR, using factorization
                         // returned by CQRT01
 
                         cqrt02(M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      }
-                     if ( M.GE.K ) {
+                     if ( M >= K ) {
 
                         // Test CUNMQR, using factorization returned
                         // by CQRT01
@@ -206,7 +206,7 @@
                      // pass the threshold.
 
                      for (I = 1; I <= NTESTS; I++) { // 20
-                        if ( RESULT( I ).GE.THRESH ) {
+                        if ( RESULT( I ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1
                         }

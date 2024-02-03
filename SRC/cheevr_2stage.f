@@ -133,7 +133,7 @@
             M = 1
             W( 1 ) = REAL( A( 1, 1 ) )
          } else {
-            if ( VL < REAL( A( 1, 1 ) ) && VU.GE.REAL( A( 1, 1 ) ) ) {
+            if ( VL < REAL( A( 1, 1 ) ) && VU >= REAL( A( 1, 1 ) ) ) {
                M = 1
                W( 1 ) = REAL( A( 1, 1 ) )
             }

@@ -96,7 +96,7 @@
 
             clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT.GE.8 && IMAT.LE.10
+            ZEROT = IMAT >= 8 && IMAT.LE.10
             if ( IMAT.LE.6 ) {
 
                // Types 1-6:  generate matrices of known condition number.
@@ -301,7 +301,7 @@
                      // the threshold.
 
                      for (K = 2; K <= NT; K++) { // 80
-                        if ( RESULT( K ).GE.THRESH ) {
+                        if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CGTSV ', N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
@@ -331,7 +331,7 @@
 
                   if (INFO != IZERO) CALL ALAERH( PATH, 'CGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                  if ( IFACT.GE.2 ) {
+                  if ( IFACT >= 2 ) {
 
                      // Reconstruct matrix from factors and compute
                      // residual.
@@ -364,7 +364,7 @@
                   // the threshold.
 
                   for (K = K1; K <= NT; K++) { // 100
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
@@ -373,7 +373,7 @@
                   // Check the reciprocal of the condition number.
 
                   RESULT( 6 ) = SGET06( RCOND, RCONDC )
-                  if ( RESULT( 6 ).GE.THRESH ) {
+                  if ( RESULT( 6 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'CGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }

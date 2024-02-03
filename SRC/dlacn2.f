@@ -62,7 +62,7 @@
       EST = DASUM( N, X, 1 )
 
       for (I = 1; I <= N; I++) { // 30
-         if ( X(I).GE.ZERO ) {
+         if ( X(I) >= ZERO ) {
             X(I) = ONE
          } else {
             X(I) = -ONE
@@ -99,7 +99,7 @@
       ESTOLD = EST
       EST = DASUM( N, V, 1 )
       for (I = 1; I <= N; I++) { // 80
-         if ( X(I).GE.ZERO ) {
+         if ( X(I) >= ZERO ) {
             XS = ONE
          } else {
             XS = -ONE
@@ -114,7 +114,7 @@
       if (EST.LE.ESTOLD) GO TO 120;
 
       for (I = 1; I <= N; I++) { // 100
-         if ( X(I).GE.ZERO ) {
+         if ( X(I) >= ZERO ) {
             X(I) = ONE
          } else {
             X(I) = -ONE

@@ -94,7 +94,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO == 0 && LWORK.GE.1 ) {
+      if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = MAX( 10*( NMAX+1 ), 3*NMAX*NMAX )
          NB = MAX( 1, ILAENV( 1, 'SGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'SORMQR', 'LT', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'SORGQR', ' ', NMAX, NMAX, NMAX, -1 ) )
          MAXWRK = MAX( 10*( NMAX+1 ), 2*NMAX+NMAX*NB, 3*NMAX*NMAX )
@@ -351,7 +351,7 @@
                      } else {
                         I1 = J - 1
                      }
-                     if ( I1.LE.0 || I1.GE.N ) {
+                     if ( I1.LE.0 || I1 >= N ) {
                         ILABAD = true;
                      } else if ( I1 < N-1 ) {
                         if ( S( I1+2, I1+1 ) != ZERO ) {
@@ -366,7 +366,7 @@
                      }
                      if ( .NOT.ILABAD ) {
                         sget53(S( I1, I1 ), LDA, T( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IERR );
-                        if ( IERR.GE.3 ) {
+                        if ( IERR >= 3 ) {
                            WRITE( NOUNIT, FMT = 9998 )IERR, J, N, JTYPE, IOLDSD
                            INFO = ABS( IERR )
                         }
@@ -382,7 +382,7 @@
                } // 130
                RESULT( 6+RSUB ) = TEMP1
 
-               if ( ISORT.GE.1 ) {
+               if ( ISORT >= 1 ) {
 
                   // Do test 12
 
@@ -415,7 +415,7 @@
             // Print out tests which fail.
 
             for (JR = 1; JR <= NTEST; JR++) { // 170
-               if ( RESULT( JR ).GE.THRESH ) {
+               if ( RESULT( JR ) >= THRESH ) {
 
                   // If this is the first test to fail,
                   // print a header to the data file.

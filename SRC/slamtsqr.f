@@ -94,7 +94,7 @@
 
       // Determine the block size if it is tall skinny or short and wide
 
-      if ((MB.LE.K) || (MB.GE.MAX(M,N,K))) {
+      if ((MB.LE.K) || (MB >= MAX(M,N,K))) {
         sgemqrt(SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO );
         RETURN
       }

@@ -110,7 +110,7 @@
                // unblocked code
 
                NBMIN = MAX( 2, ILAENV( 2, 'DGEHRD', ' ', N, ILO, IHI, -1 ) )
-               if ( LWORK.GE.(N*NBMIN + TSIZE) ) {
+               if ( LWORK >= (N*NBMIN + TSIZE) ) {
                   NB = (LWORK-TSIZE) / N
                } else {
                   NB = 1
@@ -120,7 +120,7 @@
       }
       LDWORK = N
 
-      if ( NB < NBMIN || NB.GE.NH ) {
+      if ( NB < NBMIN || NB >= NH ) {
 
          // Use unblocked code below
 

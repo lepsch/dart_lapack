@@ -152,7 +152,7 @@
       TOL = CTOL*EPSLN
       ROOTTOL = SQRT( TOL )
 
-      if ( DBLE( M )*EPSLN.GE.ONE ) {
+      if ( DBLE( M )*EPSLN >= ONE ) {
          INFO = -4
          xerbla('ZGESVJ', -INFO );
          RETURN
@@ -289,7 +289,7 @@
       if ( N == 1 ) {
          if (LSVEC) CALL ZLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
          RWORK( 1 ) = ONE / SKL
-         if ( SVA( 1 ).GE.SFMIN ) {
+         if ( SVA( 1 ) >= SFMIN ) {
             RWORK( 2 ) = ONE
          } else {
             RWORK( 2 ) = ZERO
@@ -306,7 +306,7 @@
 
       SN = SQRT( SFMIN / EPSLN )
       TEMP1 = SQRT( BIG / DBLE( N ) )
-      if ( ( AAPP.LE.SN ) || ( AAQQ.GE.TEMP1 ) || ( ( SN.LE.AAQQ ) && ( AAPP.LE.TEMP1 ) ) ) {
+      if ( ( AAPP.LE.SN ) || ( AAQQ >= TEMP1 ) || ( ( SN.LE.AAQQ ) && ( AAPP.LE.TEMP1 ) ) ) {
          TEMP1 = MIN( BIG, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
@@ -314,11 +314,11 @@
          TEMP1 = MIN( SN / AAQQ, BIG / (AAPP*SQRT( DBLE(N)) ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.GE.SN ) && ( AAPP.GE.TEMP1 ) ) {
+      } else if ( ( AAQQ >= SN ) && ( AAPP >= TEMP1 ) ) {
          TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.LE.SN ) && ( AAPP.GE.TEMP1 ) ) {
+      } else if ( ( AAQQ.LE.SN ) && ( AAPP >= TEMP1 ) ) {
          TEMP1 = MIN( SN / AAQQ, BIG / ( SQRT( DBLE( N ) )*AAPP ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
@@ -506,7 +506,7 @@
                         if ( AAQQ > ZERO ) {
 
                            AAPP0 = AAPP
-                           if ( AAQQ.GE.ONE ) {
+                           if ( AAQQ >= ONE ) {
                               ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
@@ -680,8 +680,8 @@
 
          // Safe Gram matrix computation
 
-                           if ( AAQQ.GE.ONE ) {
-                              if ( AAPP.GE.AAQQ ) {
+                           if ( AAQQ >= ONE ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
                               } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
@@ -694,7 +694,7 @@
                                  AAPQ = ZDOTC( M, CWORK(N+1), 1, A( 1, q ), 1 ) / AAQQ
                               }
                            } else {
-                              if ( AAPP.GE.AAQQ ) {
+                              if ( AAPP >= AAQQ ) {
                                  ROTOK = AAPP.LE.( AAQQ / SMALL )
                               } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
@@ -814,7 +814,7 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( IJBLSK.GE.BLSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
@@ -869,7 +869,7 @@
             GO TO 1994
          }
 
-         if (NOTROT.GE.EMPTSW) GO TO 1994;
+         if (NOTROT >= EMPTSW) GO TO 1994;
 
       } // 1993
       // end i=1:NSWEEP loop

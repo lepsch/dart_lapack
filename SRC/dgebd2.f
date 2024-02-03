@@ -43,7 +43,7 @@
          RETURN
       }
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // Reduce to upper bidiagonal form
 

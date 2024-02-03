@@ -206,7 +206,7 @@
          } else {
             ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
          }
-         if ( F*ETA.GE.ZERO ) {
+         if ( F*ETA >= ZERO ) {
             ETA = -F / DF
          }
 

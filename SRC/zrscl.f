@@ -91,7 +91,7 @@
                zdscal(N, SAFMIN, X, INCX );
                if ( (ABS( UR ) > OV) || (ABS( UI ) > OV) ) {
                   // Infs were generated. We do proper scaling to avoid them.
-                  if ( ABSR.GE.ABSI ) {
+                  if ( ABSR >= ABSI ) {
                      // ABS( UR ) <= ABS( UI )
                      UR = (SAFMIN * AR) + SAFMIN * (AI * ( AI / AR ))
                      UI = (SAFMIN * AI) + AR * ( (SAFMIN * AR) / AI )

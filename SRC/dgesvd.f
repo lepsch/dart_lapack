@@ -83,7 +83,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( M.GE.N && MINMN > 0 ) {
+         if ( M >= N && MINMN > 0 ) {
 
             // Compute space needed for DBDSQR
 
@@ -107,7 +107,7 @@
             dorgbr('Q', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
             LWORK_DORGBR_Q = INT( DUM(1) )
 
-            if ( M.GE.MNTHR ) {
+            if ( M >= MNTHR ) {
                if ( WNTUN ) {
 
                   // Path 1 (M much larger than N, JOBU='N')
@@ -260,7 +260,7 @@
             // Compute space needed for DORGBR Q
             dorgbr('Q', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
             LWORK_DORGBR_Q = INT( DUM(1) )
-            if ( N.GE.MNTHR ) {
+            if ( N >= MNTHR ) {
                if ( WNTVN ) {
 
                   // Path 1t(N much larger than M, JOBVT='N')
@@ -431,13 +431,13 @@
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // A has at least as many rows as columns. If A has sufficiently
          // more rows than columns, first reduce using the QR
          // decomposition (if sufficient workspace available)
 
-         if ( M.GE.MNTHR ) {
+         if ( M >= MNTHR ) {
 
             if ( WNTUN ) {
 
@@ -493,18 +493,18 @@
                // N left singular vectors to be overwritten on A and
                // no right singular vectors to be computed
 
-               if ( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) {
+               if ( LWORK >= N*N+MAX( 4*N, BDSPAC ) ) {
 
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1
-                  if ( LWORK.GE.MAX( WRKBL, LDA*N + N ) + LDA*N ) {
+                  if ( LWORK >= MAX( WRKBL, LDA*N + N ) + LDA*N ) {
 
                      // WORK(IU) is LDA by N, WORK(IR) is LDA by N
 
                      LDWRKU = LDA
                      LDWRKR = LDA
-                  } else if ( LWORK.GE.MAX( WRKBL, LDA*N + N ) + N*N ) {
+                  } else if ( LWORK >= MAX( WRKBL, LDA*N + N ) + N*N ) {
 
                      // WORK(IU) is LDA by N, WORK(IR) is N by N
 
@@ -601,18 +601,18 @@
                // N left singular vectors to be overwritten on A and
                // N right singular vectors to be computed in VT
 
-               if ( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) {
+               if ( LWORK >= N*N+MAX( 4*N, BDSPAC ) ) {
 
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1
-                  if ( LWORK.GE.MAX( WRKBL, LDA*N + N ) + LDA*N ) {
+                  if ( LWORK >= MAX( WRKBL, LDA*N + N ) + LDA*N ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
                      LDWRKU = LDA
                      LDWRKR = LDA
-                  } else if ( LWORK.GE.MAX( WRKBL, LDA*N + N ) + N*N ) {
+                  } else if ( LWORK >= MAX( WRKBL, LDA*N + N ) + N*N ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is N by N
 
@@ -741,12 +741,12 @@
                   // N left singular vectors to be computed in U and
                   // no right singular vectors to be computed
 
-                  if ( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) {
+                  if ( LWORK >= N*N+MAX( 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IR = 1
-                     if ( LWORK.GE.WRKBL+LDA*N ) {
+                     if ( LWORK >= WRKBL+LDA*N ) {
 
                         // WORK(IR) is LDA by N
 
@@ -855,19 +855,19 @@
                   // N left singular vectors to be computed in U and
                   // N right singular vectors to be overwritten on A
 
-                  if ( LWORK.GE.2*N*N+MAX( 4*N, BDSPAC ) ) {
+                  if ( LWORK >= 2*N*N+MAX( 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     if ( LWORK.GE.WRKBL+2*LDA*N ) {
+                     if ( LWORK >= WRKBL+2*LDA*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
                         LDWRKU = LDA
                         IR = IU + LDWRKU*N
                         LDWRKR = LDA
-                     } else if ( LWORK.GE.WRKBL+( LDA + N )*N ) {
+                     } else if ( LWORK >= WRKBL+( LDA + N )*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is N by N
 
@@ -1002,12 +1002,12 @@
                   // N left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
-                  if ( LWORK.GE.N*N+MAX( 4*N, BDSPAC ) ) {
+                  if ( LWORK >= N*N+MAX( 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     if ( LWORK.GE.WRKBL+LDA*N ) {
+                     if ( LWORK >= WRKBL+LDA*N ) {
 
                         // WORK(IU) is LDA by N
 
@@ -1134,12 +1134,12 @@
                   // M left singular vectors to be computed in U and
                   // no right singular vectors to be computed
 
-                  if ( LWORK.GE.N*N+MAX( N+M, 4*N, BDSPAC ) ) {
+                  if ( LWORK >= N*N+MAX( N+M, 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IR = 1
-                     if ( LWORK.GE.WRKBL+LDA*N ) {
+                     if ( LWORK >= WRKBL+LDA*N ) {
 
                         // WORK(IR) is LDA by N
 
@@ -1254,19 +1254,19 @@
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be overwritten on A
 
-                  if ( LWORK.GE.2*N*N+MAX( N+M, 4*N, BDSPAC ) ) {
+                  if ( LWORK >= 2*N*N+MAX( N+M, 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     if ( LWORK.GE.WRKBL+2*LDA*N ) {
+                     if ( LWORK >= WRKBL+2*LDA*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
                         LDWRKU = LDA
                         IR = IU + LDWRKU*N
                         LDWRKR = LDA
-                     } else if ( LWORK.GE.WRKBL+( LDA + N )*N ) {
+                     } else if ( LWORK >= WRKBL+( LDA + N )*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is N by N
 
@@ -1406,12 +1406,12 @@
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
-                  if ( LWORK.GE.N*N+MAX( N+M, 4*N, BDSPAC ) ) {
+                  if ( LWORK >= N*N+MAX( N+M, 4*N, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     if ( LWORK.GE.WRKBL+LDA*N ) {
+                     if ( LWORK >= WRKBL+LDA*N ) {
 
                         // WORK(IU) is LDA by N
 
@@ -1624,7 +1624,7 @@
          // columns than rows, first reduce using the LQ decomposition (if
          // sufficient workspace available)
 
-         if ( N.GE.MNTHR ) {
+         if ( N >= MNTHR ) {
 
             if ( WNTVN ) {
 
@@ -1678,19 +1678,19 @@
                // M right singular vectors to be overwritten on A and
                // no left singular vectors to be computed
 
-               if ( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) {
+               if ( LWORK >= M*M+MAX( 4*M, BDSPAC ) ) {
 
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1
-                  if ( LWORK.GE.MAX( WRKBL, LDA*N + M ) + LDA*M ) {
+                  if ( LWORK >= MAX( WRKBL, LDA*N + M ) + LDA*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by M
 
                      LDWRKU = LDA
                      CHUNK = N
                      LDWRKR = LDA
-                  } else if ( LWORK.GE.MAX( WRKBL, LDA*N + M ) + M*M ) {
+                  } else if ( LWORK >= MAX( WRKBL, LDA*N + M ) + M*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is M by M
 
@@ -1789,19 +1789,19 @@
                // M right singular vectors to be overwritten on A and
                // M left singular vectors to be computed in U
 
-               if ( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) {
+               if ( LWORK >= M*M+MAX( 4*M, BDSPAC ) ) {
 
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1
-                  if ( LWORK.GE.MAX( WRKBL, LDA*N + M ) + LDA*M ) {
+                  if ( LWORK >= MAX( WRKBL, LDA*N + M ) + LDA*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by M
 
                      LDWRKU = LDA
                      CHUNK = N
                      LDWRKR = LDA
-                  } else if ( LWORK.GE.MAX( WRKBL, LDA*N + M ) + M*M ) {
+                  } else if ( LWORK >= MAX( WRKBL, LDA*N + M ) + M*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is M by M
 
@@ -1932,12 +1932,12 @@
                   // M right singular vectors to be computed in VT and
                   // no left singular vectors to be computed
 
-                  if ( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) {
+                  if ( LWORK >= M*M+MAX( 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IR = 1
-                     if ( LWORK.GE.WRKBL+LDA*M ) {
+                     if ( LWORK >= WRKBL+LDA*M ) {
 
                         // WORK(IR) is LDA by M
 
@@ -2048,19 +2048,19 @@
                   // M right singular vectors to be computed in VT and
                   // M left singular vectors to be overwritten on A
 
-                  if ( LWORK.GE.2*M*M+MAX( 4*M, BDSPAC ) ) {
+                  if ( LWORK >= 2*M*M+MAX( 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     if ( LWORK.GE.WRKBL+2*LDA*M ) {
+                     if ( LWORK >= WRKBL+2*LDA*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is LDA by M
 
                         LDWRKU = LDA
                         IR = IU + LDWRKU*M
                         LDWRKR = LDA
-                     } else if ( LWORK.GE.WRKBL+( LDA + M )*M ) {
+                     } else if ( LWORK >= WRKBL+( LDA + M )*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is M by M
 
@@ -2193,12 +2193,12 @@
                   // M right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 
-                  if ( LWORK.GE.M*M+MAX( 4*M, BDSPAC ) ) {
+                  if ( LWORK >= M*M+MAX( 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     if ( LWORK.GE.WRKBL+LDA*M ) {
+                     if ( LWORK >= WRKBL+LDA*M ) {
 
                         // WORK(IU) is LDA by N
 
@@ -2325,12 +2325,12 @@
                   // N right singular vectors to be computed in VT and
                   // no left singular vectors to be computed
 
-                  if ( LWORK.GE.M*M+MAX( N + M, 4*M, BDSPAC ) ) {
+                  if ( LWORK >= M*M+MAX( N + M, 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IR = 1
-                     if ( LWORK.GE.WRKBL+LDA*M ) {
+                     if ( LWORK >= WRKBL+LDA*M ) {
 
                         // WORK(IR) is LDA by M
 
@@ -2444,19 +2444,19 @@
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be overwritten on A
 
-                  if ( LWORK.GE.2*M*M+MAX( N + M, 4*M, BDSPAC ) ) {
+                  if ( LWORK >= 2*M*M+MAX( N + M, 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     if ( LWORK.GE.WRKBL+2*LDA*M ) {
+                     if ( LWORK >= WRKBL+2*LDA*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is LDA by M
 
                         LDWRKU = LDA
                         IR = IU + LDWRKU*M
                         LDWRKR = LDA
-                     } else if ( LWORK.GE.WRKBL+( LDA + M )*M ) {
+                     } else if ( LWORK >= WRKBL+( LDA + M )*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is M by M
 
@@ -2594,12 +2594,12 @@
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 
-                  if ( LWORK.GE.M*M+MAX( N + M, 4*M, BDSPAC ) ) {
+                  if ( LWORK >= M*M+MAX( N + M, 4*M, BDSPAC ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
                      IU = 1
-                     if ( LWORK.GE.WRKBL+LDA*M ) {
+                     if ( LWORK >= WRKBL+LDA*M ) {
 
                         // WORK(IU) is LDA by M
 

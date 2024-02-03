@@ -140,8 +140,8 @@
 
          for (J = 1; J <= N; J++) { // 200
             for (I = 1; I <= N; I++) { // 190
-               if ( PIV( I ).GE.PIV( J ) ) {
-                  if ( I.GE.J ) {
+               if ( PIV( I ) >= PIV( J ) ) {
+                  if ( I >= J ) {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
                   } else {
                      PERM( PIV( I ), PIV( J ) ) = CONJG( AFAC( J, I ) )

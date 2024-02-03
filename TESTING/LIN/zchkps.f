@@ -157,7 +157,7 @@
 
                      if (N == 0) COMPRANK = 0;
                      RANKDIFF = RANK - COMPRANK
-                     if ( RESULT.GE.THRESH ) {
+                     if ( RESULT >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
                         NFAIL = NFAIL + 1
                      }

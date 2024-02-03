@@ -279,7 +279,7 @@
          // inv(D) and inv(D) * inv(L)
 
          K = N
-         DO WHILE ( K .GE. 1 )
+         DO WHILE ( K >= 1 )
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
                WORK( K, INVD ) = ONE / DBLE( A( K, K ) )
@@ -342,7 +342,7 @@
             // invD*L21
 
             I = N-CUT-NNB
-            DO WHILE( I.GE.1 )
+            DO WHILE( I >= 1 )
                if ( IPIV( CUT+NNB+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK( I, J ) = WORK( CUT+NNB+I, INVD) * WORK( I, J)
@@ -361,7 +361,7 @@
             // invD1*L11
 
             I = NNB
-            DO WHILE( I.GE.1 )
+            DO WHILE( I >= 1 )
                if ( IPIV( CUT+I ) > 0 ) {
                   for (J = 1; J <= NNB; J++) {
                      WORK( U11+I, J ) = WORK( CUT+I, INVD)*WORK(U11+I,J)

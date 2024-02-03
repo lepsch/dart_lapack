@@ -117,7 +117,7 @@
          slapmt(FORWRD, N, N, Q, LDQ, IWORK );
       }
 
-      if ( P.GE.L && N != L ) {
+      if ( P >= L && N != L ) {
 
          // RQ factorization of (S11 S12): ( S11 S12 ) = ( 0 S12 )*Z
 

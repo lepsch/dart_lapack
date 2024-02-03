@@ -68,7 +68,7 @@
 
         // P**T * B
         K=N
-        DO WHILE ( K .GE. 1 )
+        DO WHILE ( K >= 1 )
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
@@ -91,7 +91,7 @@
 *  Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
          I=N
-         DO WHILE ( I .GE. 1 )
+         DO WHILE ( I >= 1 )
             if ( IPIV(I) > 0 ) {
               sscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             } else if ( I > 1) {
@@ -190,7 +190,7 @@
         // P * B  [ P * (L**T \ (D \ (L \P**T * B) )) ]
 
         K=N
-        DO WHILE ( K .GE. 1 )
+        DO WHILE ( K >= 1 )
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).

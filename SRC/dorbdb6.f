@@ -95,7 +95,7 @@
       // If projection is zero, then stop.
       // Otherwise, project again.
 
-      if ( NORM_NEW .GE. ALPHA * NORM ) {
+      if ( NORM_NEW >= ALPHA * NORM ) {
          RETURN
       }
 

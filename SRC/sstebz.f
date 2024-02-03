@@ -77,7 +77,7 @@
       } else if ( N < 0 ) {
          INFO = -3
       } else if ( IRANGE == 2 ) {
-         if (VL.GE.VU) INFO = -5;
+         if (VL >= VU) INFO = -5;
       } else if ( IRANGE == 3 && ( IL < 1 || IL > MAX( 1, N ) ) ) {
          INFO = -6
       } else if ( IRANGE == 3 && ( IU < MIN( N, IL ) || IU > N ) ) {
@@ -119,7 +119,7 @@
       if ( N == 1 ) {
          NSPLIT = 1
          ISPLIT( 1 ) = 1
-         if ( IRANGE == 2 && ( VL.GE.D( 1 ) || VU < D( 1 ) ) ) {
+         if ( IRANGE == 2 && ( VL >= D( 1 ) || VU < D( 1 ) ) ) {
             M = 0
          } else {
             W( 1 ) = D( 1 )
@@ -216,7 +216,7 @@
             NWU = IWORK( 3 )
          }
 
-         if ( NWL < 0 || NWL.GE.N || NWU < 1 || NWU > N ) {
+         if ( NWL < 0 || NWL >= N || NWU < 1 || NWU > N ) {
             INFO = 4
             RETURN
          }
@@ -265,7 +265,7 @@
 
             // Special Case -- IN=1
 
-            if ( IRANGE == 1 || WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 || WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 || ( WL < D( IBEGIN )-PIVMIN && WU.GE. D( IBEGIN )-PIVMIN ) ) {
+            if ( IRANGE == 1 || WL >= D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 || WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                IBLOCK( M ) = JB
@@ -310,7 +310,7 @@
                }
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
-               if (GL.GE.GU) GO TO 70;
+               if (GL >= GU) GO TO 70;
             }
 
             // Set Up Initial Interval
@@ -364,7 +364,7 @@
             for (JE = 1; JE <= M; JE++) { // 80
                if ( W( JE ).LE.WLU && IDISCL > 0 ) {
                   IDISCL = IDISCL - 1
-               } else if ( W( JE ).GE.WUL && IDISCU > 0 ) {
+               } else if ( W( JE ) >= WUL && IDISCU > 0 ) {
                   IDISCU = IDISCU - 1
                } else {
                   IM = IM + 1

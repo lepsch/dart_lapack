@@ -40,7 +40,7 @@
       NBMAX = ILAENV( 1, 'DSYTRI2', UPLO, N, -1, -1, -1 )
       if ( N == 0 ) {
          MINSIZE = 1
-      } else if ( NBMAX.GE.N ) {
+      } else if ( NBMAX >= N ) {
          MINSIZE = N
       } else {
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
@@ -68,7 +68,7 @@
 
       if (N == 0) RETURN;
 
-      if ( NBMAX.GE.N ) {
+      if ( NBMAX >= N ) {
          dsytri(UPLO, N, A, LDA, IPIV, WORK, INFO );
       } else {
          dsytri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );

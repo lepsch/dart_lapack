@@ -42,7 +42,7 @@
          RETURN
       }
 
-      if ( ILO .GE. IHI ) {
+      if ( ILO >= IHI ) {
          RETURN
       }
 

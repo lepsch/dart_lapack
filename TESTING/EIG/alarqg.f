@@ -32,7 +32,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( NMATS.GE.NTYPES ) {
+      if ( NMATS >= NTYPES ) {
 
          // Test everything if NMATS >= NTYPES.
 

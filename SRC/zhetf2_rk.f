@@ -130,7 +130,7 @@
             // BEGIN pivot search
 
             // Case(1)
-            // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
+            // Equivalent to testing for ABSAKK >= ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
             if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
@@ -172,7 +172,7 @@
 
                   // Case(2)
                   // Equivalent to testing for
-                  // ABS( DBLE( W( IMAX,KW-1 ) ) ).GE.ALPHA*ROWMAX
+                  // ABS( DBLE( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
                   if ( .NOT.( ABS( DBLE( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
@@ -300,7 +300,7 @@
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
 
-                  if ( ABS( DBLE( A( K, K ) ) ).GE.SFMIN ) {
+                  if ( ABS( DBLE( A( K, K ) ) ) >= SFMIN ) {
 
                      // Perform a rank-1 update of A(1:k-1,1:k-1) as
                      // A := A - U(k)*D(k)*U(k)**T
@@ -467,7 +467,7 @@
             // BEGIN pivot search
 
             // Case(1)
-            // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
+            // Equivalent to testing for ABSAKK >= ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
             if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
@@ -509,7 +509,7 @@
 
                   // Case(2)
                   // Equivalent to testing for
-                  // ABS( DBLE( W( IMAX,KW-1 ) ) ).GE.ALPHA*ROWMAX
+                  // ABS( DBLE( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
                   if ( .NOT.( ABS( DBLE( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
@@ -640,7 +640,7 @@
 
                   // Handle division by a small number
 
-                  if ( ABS( DBLE( A( K, K ) ) ).GE.SFMIN ) {
+                  if ( ABS( DBLE( A( K, K ) ) ) >= SFMIN ) {
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T

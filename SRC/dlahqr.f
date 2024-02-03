@@ -110,7 +110,7 @@
             IF( ABS( H( K, K-1 ) ).LE.SMLNUM ) GO TO 40
             TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) )
             if ( TST == ZERO ) {
-               if (K-2.GE.ILO) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1.LE.IHI ) TST = TST + ABS( H( K+1, K ) );
+               if (K-2 >= ILO) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1.LE.IHI ) TST = TST + ABS( H( K+1, K ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation  criterion due to Ahues & Tisseur (LAWN 122,
@@ -135,7 +135,7 @@
 
          // Exit from loop if a submatrix of order 1 or 2 has split off.
 
-         if (L.GE.I-1) GO TO 150;
+         if (L >= I-1) GO TO 150;
          KDEFL = KDEFL + 1
 
          // Now the active submatrix is in rows and columns L to I. If
@@ -189,7 +189,7 @@
             TR = ( H11+H22 ) / TWO
             DET = ( H11-TR )*( H22-TR ) - H12*H21
             RTDISC = SQRT( ABS( DET ) )
-            if ( DET.GE.ZERO ) {
+            if ( DET >= ZERO ) {
 
                // ==== complex conjugate shifts ====
 

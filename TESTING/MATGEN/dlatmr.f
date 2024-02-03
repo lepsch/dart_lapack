@@ -189,7 +189,7 @@
          INFO = -8
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == -1 ) {
          INFO = -10
-      } else if ( IGRADE == -1 || ( IGRADE == 4 && M != N ) || ( ( IGRADE.GE.1 && IGRADE.LE.4 ) && ISYM == 0 ) ) {
+      } else if ( IGRADE == -1 || ( IGRADE == 4 && M != N ) || ( ( IGRADE >= 1 && IGRADE.LE.4 ) && ISYM == 0 ) ) {
          INFO = -11
       } else if ( IGRADE == 4 && DZERO ) {
          INFO = -12
@@ -444,7 +444,7 @@
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP
-                     if (I < 1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 && MNSUB != MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
+                     if (I < 1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I >= 1 && MNSUB != MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
                   } // 250
                } // 260
             } else if ( ISYM == 1 ) {
@@ -572,7 +572,7 @@
                for (J = 1; J <= N; J++) { // 480
                   for (I = J - KUU; I <= J; I++) { // 470
                      A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                     if (I < 1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 && I != J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
+                     if (I < 1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I >= 1 && I != J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
                   } // 470
                } // 480
             } else if ( ISYM == 1 ) {
@@ -607,7 +607,7 @@
          ONORM = DLANGB( 'M', N, KLL, KUU, A, LDA, TEMPA )
       }
 
-      if ( ANORM.GE.ZERO ) {
+      if ( ANORM >= ZERO ) {
 
          if ( ANORM > ZERO && ONORM == ZERO ) {
 
@@ -631,7 +631,7 @@
                dscal(N*( N+1 ) / 2, ONE / ONORM, A, 1 );
                dscal(N*( N+1 ) / 2, ANORM, A, 1 );
 
-            } else if ( IPACK.GE.5 ) {
+            } else if ( IPACK >= 5 ) {
 
                for (J = 1; J <= N; J++) { // 520
                   dscal(KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 );
@@ -653,7 +653,7 @@
 
                dscal(N*( N+1 ) / 2, ANORM / ONORM, A, 1 );
 
-            } else if ( IPACK.GE.5 ) {
+            } else if ( IPACK >= 5 ) {
 
                for (J = 1; J <= N; J++) { // 540
                   dscal(KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 );

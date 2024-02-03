@@ -171,7 +171,7 @@
                TJJS = AB( MAIND, J )
                TJJ = CABS1( TJJS )
 
-               if ( TJJ.GE.SMLNUM ) {
+               if ( TJJ >= SMLNUM ) {
 
                   // M(j) = G(j-1) / abs(A(j,j))
 
@@ -183,7 +183,7 @@
                   XBND = ZERO
                }
 
-               if ( TJJ+CNORM( J ).GE.SMLNUM ) {
+               if ( TJJ+CNORM( J ) >= SMLNUM ) {
 
                   // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
 
@@ -260,7 +260,7 @@
                TJJS = AB( MAIND, J )
                TJJ = CABS1( TJJS )
 
-               if ( TJJ.GE.SMLNUM ) {
+               if ( TJJ >= SMLNUM ) {
 
                   // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 

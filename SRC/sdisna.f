@@ -58,10 +58,10 @@
          INCR = true;
          DECR = true;
          for (I = 1; I <= K - 1; I++) { // 10
-            if (INCR) INCR = INCR && D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR && D( I ).GE.D( I+1 );
+            if (INCR) INCR = INCR && D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR && D( I ) >= D( I+1 );
          } // 10
          if ( SING && K > 0 ) {
-            if (INCR) INCR = INCR && ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR && D( K ).GE.ZERO;
+            if (INCR) INCR = INCR && ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR && D( K ) >= ZERO;
          }
          IF( .NOT.( INCR || DECR ) ) INFO = -4
       }

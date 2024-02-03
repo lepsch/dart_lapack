@@ -44,11 +44,11 @@
 
          // ASCII character set
 
-         if ( IC.GE.97 && IC.LE.122 ) {
+         if ( IC >= 97 && IC.LE.122 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             for (I = 2; I <= 6; I++) { // 20
                IC = ICHAR( SUBNAM( I: I ) )
-               if (IC.GE.97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
+               if (IC >= 97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
             } // 20
          }
 
@@ -56,11 +56,11 @@
 
          // EBCDIC character set
 
-         if ( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) ) {
+         if ( ( IC >= 129 && IC.LE.137 ) || ( IC >= 145 && IC.LE.153 ) || ( IC >= 162 && IC.LE.169 ) ) {
             SUBNAM( 1: 1 ) = CHAR( IC+64 )
             for (I = 2; I <= 6; I++) { // 30
                IC = ICHAR( SUBNAM( I: I ) )
-               IF( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+               IF( ( IC >= 129 && IC.LE.137 ) || ( IC >= 145 && IC.LE.153 ) || ( IC >= 162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
             } // 30
          }
 
@@ -68,11 +68,11 @@
 
          // Prime machines:  ASCII+128
 
-         if ( IC.GE.225 && IC.LE.250 ) {
+         if ( IC >= 225 && IC.LE.250 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             for (I = 2; I <= 6; I++) { // 40
                IC = ICHAR( SUBNAM( I: I ) )
-               if (IC.GE.225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
+               if (IC >= 225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
             } // 40
          }
       }
@@ -84,7 +84,7 @@
       C2 = SUBNAM( 2: 3 )
       C3 = SUBNAM( 4: 6 )
       C4 = C3( 2: 3 )
-      TWOSTAGE = LEN( SUBNAM ).GE.11 && SUBNAM( 11: 11 ) == '2'
+      TWOSTAGE = LEN( SUBNAM ) >= 11 && SUBNAM( 11: 11 ) == '2'
 
       GO TO ( 50, 60, 70 )ISPEC
 

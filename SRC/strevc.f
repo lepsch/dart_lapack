@@ -275,7 +275,7 @@
                  // [ (T(KI-1,KI-1) T(KI-1,KI) ) - (WR + I* WI)]*X = 0.
                  // [ (T(KI,KI-1)   T(KI,KI)   )               ]
 
-               if ( ABS( T( KI-1, KI ) ).GE.ABS( T( KI, KI-1 ) ) ) {
+               if ( ABS( T( KI-1, KI ) ) >= ABS( T( KI, KI-1 ) ) ) {
                   WORK( KI-1+N ) = ONE
                   WORK( KI+N2 ) = WI / T( KI-1, KI )
                } else {
@@ -576,7 +576,7 @@
                   // ((T(KI,KI)    T(KI,KI+1) )**T - (WR - I* WI))*X = 0.
                   // ((T(KI+1,KI) T(KI+1,KI+1))                )
 
-               if ( ABS( T( KI, KI+1 ) ).GE.ABS( T( KI+1, KI ) ) ) {
+               if ( ABS( T( KI, KI+1 ) ) >= ABS( T( KI+1, KI ) ) ) {
                   WORK( KI+N ) = WI / T( KI, KI+1 )
                   WORK( KI+1+N2 ) = ONE
                } else {

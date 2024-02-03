@@ -63,7 +63,7 @@
                INFO = K
                RETURN
             }
-         } else if ( CABS1( D( K ) ).GE.CABS1( DL( K ) ) ) {
+         } else if ( CABS1( D( K ) ) >= CABS1( DL( K ) ) ) {
 
             // No row interchange required
 

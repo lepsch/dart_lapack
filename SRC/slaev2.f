@@ -82,7 +82,7 @@
 
       // Compute the eigenvector
 
-      if ( DF.GE.ZERO ) {
+      if ( DF >= ZERO ) {
          CS = DF + RT
          SGN2 = 1
       } else {

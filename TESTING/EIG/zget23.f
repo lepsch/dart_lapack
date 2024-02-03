@@ -100,7 +100,7 @@
 
       // Compute eigenvalues and eigenvectors, and test them
 
-      if ( LWORK.GE.2*N+N*N ) {
+      if ( LWORK >= 2*N+N*N ) {
          SENSE = 'B'
          ISENSM = 2
       } else {

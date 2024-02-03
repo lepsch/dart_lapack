@@ -94,7 +94,7 @@
 
             slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT.GE.8 && IMAT.LE.10
+            ZEROT = IMAT >= 8 && IMAT.LE.10
             if ( IMAT.LE.6 ) {
 
                // Type 1-6:  generate a symmetric tridiagonal matrix of
@@ -302,7 +302,7 @@
                   // the threshold.
 
                   for (K = 1; K <= NT; K++) { // 70
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SPTSV ', N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
@@ -370,7 +370,7 @@
                // the threshold.
 
                for (K = K1; K <= 6; K++) { // 90
-                  if ( RESULT( K ).GE.THRESH ) {
+                  if ( RESULT( K ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'SPTSVX', FACT, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }

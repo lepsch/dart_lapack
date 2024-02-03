@@ -212,7 +212,7 @@
                for (I = 1; I <= MNMIN - 1; I++) { // 50
                   IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 4 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 4 ) = ULPINV
                } // 50
-               if ( MNMIN.GE.1 ) {
+               if ( MNMIN >= 1 ) {
                   IF( SSAV( MNMIN ) < ZERO ) RESULT( 4 ) = ULPINV
                }
 
@@ -298,7 +298,7 @@
                for (I = 1; I <= MNMIN - 1; I++) { // 90
                   IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 11 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 11 ) = ULPINV
                } // 90
-               if ( MNMIN.GE.1 ) {
+               if ( MNMIN >= 1 ) {
                   IF( SSAV( MNMIN ) < ZERO ) RESULT( 11 ) = ULPINV
                }
 
@@ -318,7 +318,7 @@
                   DIF = ZERO
                   if ( M > 0 && N > 0 ) {
                      if ( IJQ == 1 ) {
-                        if ( M.GE.N ) {
+                        if ( M >= N ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, INFO );
                         } else {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO );
@@ -334,7 +334,7 @@
                   DIF = ZERO
                   if ( M > 0 && N > 0 ) {
                      if ( IJQ == 1 ) {
-                        if ( M.GE.N ) {
+                        if ( M >= N ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
                         } else {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, INFO );
@@ -364,7 +364,7 @@
                RESULT( 38 ) = ZERO
                RESULT( 39 ) = ZERO
 
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -395,7 +395,7 @@
                   for (I = 1; I <= MNMIN - 1; I++) { // 199
                      IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 39 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 39 ) = ULPINV
                   } // 199
-                  if ( MNMIN.GE.1 ) {
+                  if ( MNMIN >= 1 ) {
                      IF( SSAV( MNMIN ) < ZERO ) RESULT( 39 ) = ULPINV
                   }
                }
@@ -408,7 +408,7 @@
                RESULT( 17 ) = ZERO
                RESULT( 18 ) = ZERO
 
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -444,7 +444,7 @@
                   for (I = 1; I <= MNMIN - 1; I++) { // 120
                      IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 18 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 18 ) = ULPINV
                   } // 120
-                  if ( MNMIN.GE.1 ) {
+                  if ( MNMIN >= 1 ) {
                      IF( SSAV( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV
                   }
                }
@@ -456,7 +456,7 @@
                RESULT( 20 ) = ZERO
                RESULT( 21 ) = ZERO
                RESULT( 22 ) = ZERO
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N )
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
@@ -492,7 +492,7 @@
                   for (I = 1; I <= MNMIN - 1; I++) { // 150
                      IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 22 ) = ULPINV                      IF( SSAV( I ) < ZERO ) RESULT( 22 ) = ULPINV
                   } // 150
-                  if ( MNMIN.GE.1 ) {
+                  if ( MNMIN >= 1 ) {
                      IF( SSAV( MNMIN ) < ZERO ) RESULT( 22 ) = ULPINV
                   }
                }
@@ -521,7 +521,7 @@
                for (I = 1; I <= MNMIN - 1; I++) { // 160
                   IF( SSAV( I ) < SSAV( I+1 ) ) RESULT( 26 ) = ULPINV                   IF( SSAV( I ) < ZERO ) RESULT( 26 ) = ULPINV
                } // 160
-               if ( MNMIN.GE.1 ) {
+               if ( MNMIN >= 1 ) {
                   IF( SSAV( MNMIN ) < ZERO ) RESULT( 26 ) = ULPINV
                }
 
@@ -618,7 +618,7 @@
                   }
                   VL = MAX( VL,ZERO )
                   VU = MAX( VU,ZERO )
-                  if (VL.GE.VU) VU = MAX( VU*2, VU+VL+HALF );
+                  if (VL >= VU) VU = MAX( VU*2, VU+VL+HALF );
                } else {
                   VL = ZERO
                   VU = ONE
@@ -641,7 +641,7 @@
                // End of Loop -- Check for RESULT(j) > THRESH
 
                for (J = 1; J <= 39; J++) { // 210
-                  if ( RESULT( J ).GE.THRESH ) {
+                  if ( RESULT( J ) >= THRESH ) {
                      if ( NFAIL == 0 ) {
                         WRITE( NOUT, FMT = 9999 )
                         WRITE( NOUT, FMT = 9998 )

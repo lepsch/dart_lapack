@@ -106,7 +106,7 @@
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 && IMAT.LE.5
+            ZEROT = IMAT >= 3 && IMAT.LE.5
             if (ZEROT && N < IMAT-2) GO TO 120;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -297,7 +297,7 @@
                         // pass the threshold.
 
                         for (K = 1; K <= NT; K++) { // 60
-                           if ( RESULT( K ).GE.THRESH ) {
+                           if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZPOSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
@@ -373,7 +373,7 @@
                      // the threshold.
 
                      for (K = K1; K <= 6; K++) { // 80
-                        if ( RESULT( K ).GE.THRESH ) {
+                        if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZPOSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )

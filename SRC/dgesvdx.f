@@ -115,9 +115,9 @@
          MINWRK = 1
          MAXWRK = 1
          if ( MINMN > 0 ) {
-            if ( M.GE.N ) {
+            if ( M >= N ) {
                MNTHR = ILAENV( 6, 'DGESVD', JOBU // JOBVT, M, N, 0, 0 )
-               if ( M.GE.MNTHR ) {
+               if ( M >= MNTHR ) {
 
                   // Path 1 (M much larger than N)
 
@@ -144,7 +144,7 @@
                }
             } else {
                MNTHR = ILAENV( 6, 'DGESVD', JOBU // JOBVT, M, N, 0, 0 )
-               if ( N.GE.MNTHR ) {
+               if ( N >= MNTHR ) {
 
                   // Path 1t (N much larger than M)
 
@@ -226,13 +226,13 @@
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
       }
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // A has at least as many rows as columns. If A has sufficiently
          // more rows than columns, first reduce A using the QR
          // decomposition.
 
-         if ( M.GE.MNTHR ) {
+         if ( M >= MNTHR ) {
 
             // Path 1 (M much larger than N):
             // A = Q * R = Q * ( QB * B * PB**T )
@@ -361,7 +361,7 @@
          // A has more columns than rows. If A has sufficiently more
          // columns than rows, first reduce A using the LQ decomposition.
 
-         if ( N.GE.MNTHR ) {
+         if ( N >= MNTHR ) {
 
             // Path 1t (N much larger than M):
             // A = L * Q = ( QB * B * PB**T ) * Q

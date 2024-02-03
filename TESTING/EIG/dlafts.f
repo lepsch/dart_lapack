@@ -29,7 +29,7 @@
       // Output for square matrices:
 
          for (K = 1; K <= NTESTS; K++) { // 10
-            if ( RESULT( K ).GE.THRESH ) {
+            if ( RESULT( K ) >= THRESH ) {
 
             // If this is the first test to fail, call DLAHD2
             // to print a header to the data file.
@@ -50,7 +50,7 @@
       // Output for rectangular matrices
 
          for (K = 1; K <= NTESTS; K++) { // 20
-            if ( RESULT( K ).GE.THRESH ) {
+            if ( RESULT( K ) >= THRESH ) {
 
                // If this is the first test to fail, call DLAHD2
                // to print a header to the data file.

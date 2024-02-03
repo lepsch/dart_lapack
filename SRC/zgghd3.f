@@ -119,7 +119,7 @@
                // unblocked code.
 
                NBMIN = MAX( 2, ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) )
-               if ( LWORK.GE.6*N*NBMIN ) {
+               if ( LWORK >= 6*N*NBMIN ) {
                   NB = LWORK / ( 6*N )
                } else {
                   NB = 1
@@ -128,7 +128,7 @@
          }
       }
 
-      if ( NB < NBMIN || NB.GE.NH ) {
+      if ( NB < NBMIN || NB >= NH ) {
 
          // Use unblocked code below
 

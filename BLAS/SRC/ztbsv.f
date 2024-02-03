@@ -228,7 +228,7 @@
                       }
                       X(JX) = TEMP
                       JX = JX - INCX
-                      IF ((N-J).GE.K) KX = KX - INCX
+                      IF ((N-J) >= K) KX = KX - INCX
                   } // 200
               }
           }

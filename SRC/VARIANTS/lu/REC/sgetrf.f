@@ -95,7 +95,7 @@
 
          // Factor the current column
          if ( A( J, J ) != ZERO && .NOT.SISNAN( A( J, J ) ) ) {
-               if ( ABS(A( J, J )) .GE. SFMIN ) {
+               if ( ABS(A( J, J )) >= SFMIN ) {
                   sscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) {

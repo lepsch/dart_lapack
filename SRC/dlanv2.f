@@ -65,7 +65,7 @@
          // If Z is of the order of the machine accuracy, postpone the
          // decision on the nature of eigenvalues
 
-         if ( Z.GE.MULTPL*EPS ) {
+         if ( Z >= MULTPL*EPS ) {
 
             // Real eigenvalues. Compute A and D.
 
@@ -91,7 +91,7 @@
             } // 10
             COUNT = COUNT + 1
             SCALE = MAX( ABS(TEMP), ABS(SIGMA) )
-            if ( SCALE.GE.SAFMX2 ) {
+            if ( SCALE >= SAFMX2 ) {
                SIGMA = SIGMA * SAFMN2
                TEMP = TEMP * SAFMN2
                if (COUNT .LE. 20) GOTO 10;

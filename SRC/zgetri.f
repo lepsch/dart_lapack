@@ -79,7 +79,7 @@
 
       // Solve the equation inv(A)*L = inv(U) for inv(A).
 
-      if ( NB < NBMIN || NB.GE.N ) {
+      if ( NB < NBMIN || NB >= N ) {
 
          // Use unblocked code.
 

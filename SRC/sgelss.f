@@ -71,7 +71,7 @@
          if ( MINMN > 0 ) {
             MM = M
             MNTHR = ILAENV( 6, 'SGELSS', ' ', M, N, NRHS, -1 )
-            if ( M.GE.N && M.GE.MNTHR ) {
+            if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
                          // columns
@@ -86,7 +86,7 @@
                MAXWRK = MAX( MAXWRK, N + LWORK_SGEQRF )
                MAXWRK = MAX( MAXWRK, N + LWORK_SORMQR )
             }
-            if ( M.GE.N ) {
+            if ( M >= N ) {
 
                // Path 1 - overdetermined or exactly determined
 
@@ -117,7 +117,7 @@
 
                BDSPAC = MAX( 1, 5*M )
                MINWRK = MAX( 3*M+NRHS, 3*M+N, BDSPAC )
-               if ( N.GE.MNTHR ) {
+               if ( N >= MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
                   // than rows
@@ -240,12 +240,12 @@
 
       // Overdetermined case
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // Path 1 - overdetermined or exactly determined
 
          MM = M
-         if ( M.GE.MNTHR ) {
+         if ( M >= MNTHR ) {
 
             // Path 1a - overdetermined, with many more rows than columns
 
@@ -313,7 +313,7 @@
          // Multiply B by right singular vectors
          // (Workspace: need N, prefer N*NRHS)
 
-         if ( LWORK.GE.LDB*NRHS && NRHS > 1 ) {
+         if ( LWORK >= LDB*NRHS && NRHS > 1 ) {
             sgemm('T', 'N', N, NRHS, N, ONE, A, LDA, B, LDB, ZERO, WORK, LDB );
             slacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {
@@ -328,13 +328,13 @@
             scopy(N, WORK, 1, B, 1 );
          }
 
-      } else if ( N.GE.MNTHR && LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
+      } else if ( N >= MNTHR && LWORK >= 4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
 
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm
 
          LDWORK = M
-         IF( LWORK.GE.MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA
+         IF( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA
          ITAU = 1
          IWORK = M + 1
 
@@ -394,7 +394,7 @@
          // Multiply B by right singular vectors of L in WORK(IL)
          // (Workspace: need M*M+2*M, prefer M*M+M+M*NRHS)
 
-         if ( LWORK.GE.LDB*NRHS+IWORK-1 && NRHS > 1 ) {
+         if ( LWORK >= LDB*NRHS+IWORK-1 && NRHS > 1 ) {
             sgemm('T', 'N', M, NRHS, M, ONE, WORK( IL ), LDWORK, B, LDB, ZERO, WORK( IWORK ), LDB );
             slacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS > 1 ) {
@@ -468,7 +468,7 @@
          // Multiply B by right singular vectors of A
          // (Workspace: need N, prefer N*NRHS)
 
-         if ( LWORK.GE.LDB*NRHS && NRHS > 1 ) {
+         if ( LWORK >= LDB*NRHS && NRHS > 1 ) {
             sgemm('T', 'N', N, NRHS, M, ONE, A, LDA, B, LDB, ZERO, WORK, LDB );
             slacpy('F', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {

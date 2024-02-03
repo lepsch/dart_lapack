@@ -149,7 +149,7 @@
          ISTARTM = KWTOP
          ISTOPM = IHI
          K = KWBOT-1
-         DO WHILE ( K .GE. KWTOP )
+         DO WHILE ( K >= KWTOP )
 
             // Move bulge down and remove it
             for (K2 = K; K2 <= KWBOT-1; K2++) {

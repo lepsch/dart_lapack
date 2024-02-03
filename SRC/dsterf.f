@@ -114,7 +114,7 @@
          L = LENDSV
       }
 
-      if ( LEND.GE.L ) {
+      if ( LEND >= L ) {
 
          // QL Iteration
 
@@ -222,7 +222,7 @@
             D( L-1 ) = RT2
             E( L-1 ) = ZERO
             L = L - 2
-            if (L.GE.LEND) GO TO 100;
+            if (L >= LEND) GO TO 100;
             GO TO 150
          }
 
@@ -271,7 +271,7 @@
          D( L ) = P
 
          L = L - 1
-         if (L.GE.LEND) GO TO 100;
+         if (L >= LEND) GO TO 100;
          GO TO 150
 
       }

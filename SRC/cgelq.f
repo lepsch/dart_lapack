@@ -72,7 +72,7 @@
 
       // Determine if the workspace size satisfies minimal size
 
-      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB.GE.N ) ) {
+      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB >= N ) ) {
          LWMIN = MAX( 1, N )
          LWOPT = MAX( 1, MB*N )
       } else {
@@ -80,7 +80,7 @@
          LWOPT = MAX( 1, MB*M )
       }
       LMINWS = false;
-      if ( ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) || LWORK < LWOPT ) && ( LWORK.GE.LWMIN ) && ( TSIZE.GE.MINTSZ ) && ( .NOT.LQUERY ) ) {
+      if ( ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) || LWORK < LWOPT ) && ( LWORK >= LWMIN ) && ( TSIZE >= MINTSZ ) && ( .NOT.LQUERY ) ) {
         if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) ) {
           LMINWS = true;
           MB = 1
@@ -91,7 +91,7 @@
           MB = 1
         }
       }
-      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB.GE.N ) ) {
+      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB >= N ) ) {
          LWREQ = MAX( 1, MB*N )
       } else {
          LWREQ = MAX( 1, MB*M )
@@ -138,7 +138,7 @@
 
       // The LQ Decomposition
 
-      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB.GE.N ) ) {
+      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB >= N ) ) {
         cgelqt(M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO );
       } else {
         claswlq(M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO );

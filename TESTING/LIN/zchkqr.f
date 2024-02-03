@@ -156,14 +156,14 @@
                         zqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
                           IF( .NOT. ZGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                         NT = NT + 1
-                     } else if ( M.GE.N ) {
+                     } else if ( M >= N ) {
 
                         // Test ZUNGQR, using factorization
                         // returned by ZQRT01
 
                         zqrt02(M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      }
-                     if ( M.GE.K ) {
+                     if ( M >= K ) {
 
                         // Test ZUNMQR, using factorization returned
                         // by ZQRT01
@@ -206,7 +206,7 @@
                      // pass the threshold.
 
                      for (I = 1; I <= NTESTS; I++) { // 20
-                        if ( RESULT( I ).GE.THRESH ) {
+                        if ( RESULT( I ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1
                         }

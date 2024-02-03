@@ -95,7 +95,7 @@
 
             dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT.GE.8 && IMAT.LE.10
+            ZEROT = IMAT >= 8 && IMAT.LE.10
             if ( IMAT.LE.6 ) {
 
                // Types 1-6:  generate matrices of known condition number.
@@ -191,9 +191,9 @@
 
             dgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
 
-            // Print the test ratio if it is .GE. THRESH.
+            // Print the test ratio if it is >= THRESH.
 
-            if ( RESULT( 1 ).GE.THRESH ) {
+            if ( RESULT( 1 ) >= THRESH ) {
                if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
@@ -254,9 +254,9 @@
 
                RESULT( 7 ) = DGET06( RCOND, RCONDC )
 
-               // Print the test ratio if it is .GE. THRESH.
+               // Print the test ratio if it is >= THRESH.
 
-               if ( RESULT( 7 ).GE.THRESH ) {
+               if ( RESULT( 7 ) >= THRESH ) {
                   if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
                   NFAIL = NFAIL + 1
                }
@@ -326,7 +326,7 @@
                   // the threshold.
 
                   for (K = 2; K <= 6; K++) { // 70
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }

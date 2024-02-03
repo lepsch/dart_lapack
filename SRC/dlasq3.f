@@ -139,7 +139,7 @@
 
       // Check status.
 
-      if ( DMIN.GE.ZERO && DMIN1.GE.ZERO ) {
+      if ( DMIN >= ZERO && DMIN1 >= ZERO ) {
 
          // Success.
 

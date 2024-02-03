@@ -211,9 +211,9 @@
             // ============================================================
 
             // Test for the second and third tolerance stopping criteria.
-            // NOTE: There is no need to test for ABSTOL.GE.ZERO, since
+            // NOTE: There is no need to test for ABSTOL >= ZERO, since
             // MAXC2NRMK is non-negative. Similarly, there is no need
-            // to test for RELTOL.GE.ZERO, since RELMAXC2NRMK is
+            // to test for RELTOL >= ZERO, since RELMAXC2NRMK is
             // non-negative.
             // We need to check the condition only if the
             // column index (same as row index) of the original whole

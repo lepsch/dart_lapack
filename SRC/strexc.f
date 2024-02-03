@@ -176,7 +176,7 @@
             // Current block either 1 by 1 or 2 by 2
 
             NBNEXT = 1
-            if ( HERE.GE.3 ) {
+            if ( HERE >= 3 ) {
                IF( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO );
@@ -198,7 +198,7 @@
             // must be swapped individually
 
             NBNEXT = 1
-            if ( HERE.GE.3 ) {
+            if ( HERE >= 3 ) {
                IF( T( HERE-1, HERE-2 ) != ZERO ) NBNEXT = 2
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO );

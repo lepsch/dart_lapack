@@ -258,7 +258,7 @@
 
                IINFO = 0
                BIDIAG = true;
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   UPLO = 'U'
                } else {
                   UPLO = 'L'
@@ -307,7 +307,7 @@
                }
 
                zlacpy(' ', M, N, Q, LDQ, PT, LDPT );
-               if ( M.GE.N ) {
+               if ( M >= N ) {
                   UPLO = 'U'
                } else {
                   UPLO = 'L'
@@ -414,7 +414,7 @@
             for (I = 1; I <= MNMIN - 1; I++) { // 110
                IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV
             } // 110
-            if ( MNMIN.GE.1 ) {
+            if ( MNMIN >= 1 ) {
                IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV
             }
 
@@ -467,7 +467,7 @@
 
             } // 150
             for (J = 1; J <= 14; J++) { // 160
-               if ( RESULT( J ).GE.THRESH ) {
+               if ( RESULT( J ) >= THRESH ) {
                   if (NFAIL == 0) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1
                }

@@ -92,7 +92,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN && NB < K && NX < K ) {
+      if ( NB >= NBMIN && NB < K && NX < K ) {
 
          // Use blocked code initially
 

@@ -84,7 +84,7 @@
          SHIFT = S2
       }
       QQ = SS*AS12
-      if ( ABS( PP*RTMIN ).GE.ONE ) {
+      if ( ABS( PP*RTMIN ) >= ONE ) {
          DISCR = ( RTMIN*PP )**2 + QQ*SAFMIN
          R = SQRT( ABS( DISCR ) )*RTMAX
       } else {
@@ -103,7 +103,7 @@
             // flush-to-zero threshold and handle numbers above that
             // threshold correctly, it would not be necessary.
 
-      if ( DISCR.GE.ZERO || R == ZERO ) {
+      if ( DISCR >= ZERO || R == ZERO ) {
          SUM = PP + SIGN( R, PP )
          DIFF = PP - SIGN( R, PP )
          WBIG = SHIFT + SUM

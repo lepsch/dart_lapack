@@ -190,7 +190,7 @@
          for (I = Q + 1; I <= P; I++) {
 
             dscal(M-Q-I+1, -Z1*Z4, X12(I,I), LDX12 );
-            if ( I .GE. M-Q ) {
+            if ( I >= M-Q ) {
                dlarfgp(M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) );
             } else {
                dlarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
@@ -200,7 +200,7 @@
             if ( P > I ) {
                dlarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
-            if (M-P-Q .GE. 1) CALL DLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
+            if (M-P-Q >= 1) CALL DLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
 
          }
 
@@ -310,7 +310,7 @@
             if ( P > I ) {
                dlarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
             }
-            if (M-P-Q .GE. 1) CALL DLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, TAUQ2(I), X22(I,Q+1), LDX22, WORK );
+            if (M-P-Q >= 1) CALL DLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, TAUQ2(I), X22(I,Q+1), LDX22, WORK );
 
          }
 

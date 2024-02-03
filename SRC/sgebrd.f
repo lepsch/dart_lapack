@@ -91,7 +91,7 @@
                // a smaller block size.
 
                NBMIN = ILAENV( 2, 'SGEBRD', ' ', M, N, -1, -1 )
-               if ( LWORK.GE.( M+N )*NBMIN ) {
+               if ( LWORK >= ( M+N )*NBMIN ) {
                   NB = LWORK / ( M+N )
                } else {
                   NB = 1
@@ -119,7 +119,7 @@
 
          // Copy diagonal and off-diagonal elements of B back into A
 
-         if ( M.GE.N ) {
+         if ( M >= N ) {
             for (J = I; J <= I + NB - 1; J++) { // 10
                A( J, J ) = D( J )
                A( J, J+1 ) = E( J )

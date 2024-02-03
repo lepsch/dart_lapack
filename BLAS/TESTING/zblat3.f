@@ -61,7 +61,7 @@ void main() {
 
       READ( NIN, FMT = * )SNAPS
       READ( NIN, FMT = * )NTRA
-      TRACE = NTRA.GE.0
+      TRACE = NTRA >= 0
       if ( TRACE ) {
          OPEN( NTRA, FILE = SNAPS, STATUS = 'UNKNOWN' )
       }
@@ -2598,7 +2598,7 @@ void main() {
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN || ( UPPER && I.LE.J ) || ( LOWER && I.GE.J ) ) {
+            if ( GEN || ( UPPER && I.LE.J ) || ( LOWER && I >= J ) ) {
                A( I, J ) = ZBEG( RESET ) + TRANSL
                if ( I != J ) {
                   // Set some elements to zero
@@ -2800,7 +2800,7 @@ void main() {
             ERRI = ABS1( CT( I ) - CC( I, J ) )/EPS
             IF( G( I ) != RZERO ) ERRI = ERRI/G( I )
             ERR = MAX( ERR, ERRI )
-            IF( ERR*SQRT( EPS ).GE.RONE ) GO TO 230
+            IF( ERR*SQRT( EPS ) >= RONE ) GO TO 230
          } // 210
 
       } // 220
@@ -2964,7 +2964,7 @@ void main() {
       J = J*MJ
       I = I - 1000*( I/1000 )
       J = J - 1000*( J/1000 )
-      if ( IC.GE.5 ) {
+      if ( IC >= 5 ) {
          IC = 0
          GO TO 10
       }

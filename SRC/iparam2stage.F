@@ -58,11 +58,11 @@
 
             // ASCII character set
 
-            if ( IC.GE.97 && IC.LE.122 ) {
+            if ( IC >= 97 && IC.LE.122 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 12; I++) { // 100
                   IC = ICHAR( SUBNAM( I: I ) )
-                  if (IC.GE.97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
+                  if (IC >= 97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
                } // 100
             }
 
@@ -70,11 +70,11 @@
 
             // EBCDIC character set
 
-            if ( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) ) {
+            if ( ( IC >= 129 && IC.LE.137 ) || ( IC >= 145 && IC.LE.153 ) || ( IC >= 162 && IC.LE.169 ) ) {
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                for (I = 2; I <= 12; I++) { // 110
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( ( IC.GE.129 && IC.LE.137 ) || ( IC.GE.145 && IC.LE.153 ) || ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+                  IF( ( IC >= 129 && IC.LE.137 ) || ( IC >= 145 && IC.LE.153 ) || ( IC >= 162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
                } // 110
             }
 
@@ -82,11 +82,11 @@
 
             // Prime machines:  ASCII+128
 
-            if ( IC.GE.225 && IC.LE.250 ) {
+            if ( IC >= 225 && IC.LE.250 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 12; I++) { // 120
                  IC = ICHAR( SUBNAM( I: I ) )
-                 if (IC.GE.225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
+                 if (IC >= 225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
                } // 120
             }
          }
@@ -156,7 +156,7 @@
             // This is not correct, it need to call the ALGO and the stage2
             LHOUS = MAX( 1, 4*NI ) + IBI
          }
-         if ( LHOUS.GE.0 ) {
+         if ( LHOUS >= 0 ) {
             IPARAM2STAGE = LHOUS
          } else {
             IPARAM2STAGE = -1

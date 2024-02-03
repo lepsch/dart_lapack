@@ -105,7 +105,7 @@
         RETURN
       }
 
-      IF( ( LEFT && M.LE.K ) || ( RIGHT && N.LE.K ) || ( MB.LE.K ) || ( MB.GE.MAX( M, N, K ) ) ) THEN         CALL CGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
+      IF( ( LEFT && M.LE.K ) || ( RIGHT && N.LE.K ) || ( MB.LE.K ) || ( MB >= MAX( M, N, K ) ) ) THEN         CALL CGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
       } else {
         clamtsqr(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO );
       }

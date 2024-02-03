@@ -89,7 +89,7 @@
             T = SQRT( CONE+SN1*SN1 )
          }
          EVNORM = ABS( T )
-         if ( EVNORM.GE.THRESH ) {
+         if ( EVNORM >= THRESH ) {
             EVSCAL = CONE / T
             CS1 = EVSCAL
             SN1 = SN1*EVSCAL

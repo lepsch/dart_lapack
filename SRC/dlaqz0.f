@@ -124,7 +124,7 @@
       ITEMP1 = ( ( ITEMP1-1 )/4 )*4+4
       NBR = NSR+ITEMP1
 
-      if ( N < NMIN || REC .GE. 2 ) {
+      if ( N < NMIN || REC >= 2 ) {
          dhgeqz(WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, INFO );
          RETURN
       }
@@ -173,11 +173,11 @@
       LD = 0
 
       for (IITER = 1; IITER <= MAXIT; IITER++) {
-         if ( IITER .GE. MAXIT ) {
+         if ( IITER >= MAXIT ) {
             INFO = ISTOP+1
             GOTO 80
          }
-         if ( ISTART+1 .GE. ISTOP ) {
+         if ( ISTART+1 >= ISTOP ) {
             ISTOP = ISTART
             EXIT
          }
@@ -207,7 +207,7 @@
             ESHIFT = ZERO
          }
 
-         if ( ISTART+1 .GE. ISTOP ) {
+         if ( ISTART+1 >= ISTOP ) {
             EXIT
          }
 
@@ -233,7 +233,7 @@
          // Check infinite eigenvalues, this is done without blocking so might
          // slow down the method when many infinite eigenvalues are present
          K = ISTOP
-         DO WHILE ( K.GE.ISTART2 )
+         DO WHILE ( K >= ISTART2 )
 
             if ( ABS( B( K, K ) ) < BTOL ) {
                // A diagonal element of B is negligible, move it
@@ -281,7 +281,7 @@
 
          // istart2 now points to the top of the bottom right
          // unreduced Hessenberg block
-         if ( ISTART2 .GE. ISTOP ) {
+         if ( ISTART2 >= ISTOP ) {
             ISTOP = ISTART2-1
             LD = 0
             ESHIFT = ZERO

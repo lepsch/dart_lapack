@@ -107,7 +107,7 @@
             KP = K
             A( K, K ) = REAL( A( K, K ) )
          } else {
-            if ( ABSAKK.GE.ALPHA*COLMAX ) {
+            if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -124,12 +124,12 @@
                   ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) )
                }
 
-               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
+               if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               } else if ( ABS( REAL( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX ) {
+               } else if ( ABS( REAL( A( IMAX, IMAX ) ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -285,7 +285,7 @@
             KP = K
             A( K, K ) = REAL( A( K, K ) )
          } else {
-            if ( ABSAKK.GE.ALPHA*COLMAX ) {
+            if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -302,12 +302,12 @@
                   ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) )
                }
 
-               if ( ABSAKK.GE.ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
+               if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K
-               } else if ( ABS( REAL( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX ) {
+               } else if ( ABS( REAL( A( IMAX, IMAX ) ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block

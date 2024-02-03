@@ -93,7 +93,7 @@
             NS = 1
             S( 1 ) = ABS( D( 1 ) )
          } else {
-            if ( VL < ABS( D( 1 ) ) && VU.GE.ABS( D( 1 ) ) ) {
+            if ( VL < ABS( D( 1 ) ) && VU >= ABS( D( 1 ) ) ) {
                NS = 1
                S( 1 ) = ABS( D( 1 ) )
             }

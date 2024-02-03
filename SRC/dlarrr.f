@@ -75,7 +75,7 @@
          if (TMP2 < RMIN) YESREL = false ;
          if (.NOT.YESREL) GOTO 11;
          OFFDIG2 = ABS(E(I-1))/(TMP*TMP2)
-         if (OFFDIG+OFFDIG2.GE.RELCOND) YESREL = false ;
+         if (OFFDIG+OFFDIG2 >= RELCOND) YESREL = false ;
          if (.NOT.YESREL) GOTO 11;
          TMP = TMP2
          OFFDIG = OFFDIG2

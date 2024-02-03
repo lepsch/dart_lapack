@@ -69,13 +69,13 @@
          FS = F
          GS = G
          COUNT = 0
-         if ( SCALE.GE.SAFMX2 ) {
+         if ( SCALE >= SAFMX2 ) {
             } // 10
             COUNT = COUNT + 1
             FS = FS*SAFMN2
             GS = GS*SAFMN2
             SCALE = SCALE*SAFMN2
-            if (SCALE.GE.SAFMX2 && COUNT < 20) GO TO 10;
+            if (SCALE >= SAFMX2 && COUNT < 20) GO TO 10;
          } else if ( SCALE.LE.SAFMN2 ) {
             if ( G == CZERO ) {
                CS = ONE

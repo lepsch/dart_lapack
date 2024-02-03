@@ -107,7 +107,7 @@
          WERR(I) = ZERO
          WGAP(I) = ZERO
          EABS = ABS( E(I) )
-         if ( EABS .GE. EMAX ) {
+         if ( EABS >= EMAX ) {
             EMAX = EABS
          }
          TMP1 = EABS + EOLD
@@ -303,7 +303,7 @@
          if (MB == 1) {
             SIGMA = GL
             SGNDEF = ONE
-         } else if ( CNT1 - INDL .GE. INDU - CNT2 ) {
+         } else if ( CNT1 - INDL >= INDU - CNT2 ) {
             if ( ( IRANGE == ALLRNG ) && (.NOT.FORCEB) ) {
                SIGMA = MAX(ISLEFT,GL)
             } else if ( USEDQD ) {

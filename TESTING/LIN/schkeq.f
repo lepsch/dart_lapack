@@ -118,7 +118,7 @@
                   } // 130
                   for (J = 1; J <= N; J++) { // 150
                      for (I = 1; I <= M; I++) { // 140
-                        IF( I.LE.MIN( M, J+KL ) && I.GE. MAX( 1, J-KU ) && J.LE.N ) THEN                            AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J )
+                        IF( I.LE.MIN( M, J+KL ) && I >= MAX( 1, J-KU ) && J.LE.N ) THEN                            AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J )
                         }
                      } // 140
                   } // 150
@@ -154,7 +154,7 @@
                         for (I = 1; I <= M; I++) { // 190
                            RCMAX = ZERO
                            for (J = 1; J <= N; J++) { // 180
-                              if ( I.LE.J+KL && I.GE.J-KU ) {
+                              if ( I.LE.J+KL && I >= J-KU ) {
                                  RATIO = ABS( R( I )*POW( I+J+1 )* C( J ) )
                                  RCMAX = MAX( RCMAX, RATIO )
                               }
@@ -165,7 +165,7 @@
                         for (J = 1; J <= N; J++) { // 210
                            RCMAX = ZERO
                            for (I = 1; I <= M; I++) { // 200
-                              if ( I.LE.J+KL && I.GE.J-KU ) {
+                              if ( I.LE.J+KL && I >= J-KU ) {
                                  RATIO = ABS( R( I )*POW( I+J+1 )* C( J ) )
                                  RCMAX = MAX( RCMAX, RATIO )
                               }

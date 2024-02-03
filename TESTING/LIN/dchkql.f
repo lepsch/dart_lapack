@@ -145,14 +145,14 @@
                         // Test DGEQLF
 
                         dqlt01(M, N, A, AF, AQ, AL, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
-                     } else if ( M.GE.N ) {
+                     } else if ( M >= N ) {
 
                         // Test DORGQL, using factorization
                         // returned by DQLT01
 
                         dqlt02(M, N, K, A, AF, AQ, AL, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      }
-                     if ( M.GE.K ) {
+                     if ( M >= K ) {
 
                         // Test DORMQL, using factorization returned
                         // by DQLT01
@@ -189,7 +189,7 @@
                      // pass the threshold.
 
                      for (I = 1; I <= NT; I++) { // 20
-                        if ( RESULT( I ).GE.THRESH ) {
+                        if ( RESULT( I ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1
                         }

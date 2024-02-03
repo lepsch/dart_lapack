@@ -84,7 +84,7 @@
 
          // Loop over intervals
 
-         if ( KL-KF+1.GE.NBMIN && NBMIN > 0 ) {
+         if ( KL-KF+1 >= NBMIN && NBMIN > 0 ) {
 
             // Begin of Parallel Version of the loop
 
@@ -165,7 +165,7 @@
                      AB( JI, 1 ) = C( JI )
                      NAB( JI, 1 ) = IWORK( JI )
                   }
-                  if ( IWORK( JI ).GE.NVAL( JI ) ) {
+                  if ( IWORK( JI ) >= NVAL( JI ) ) {
                      AB( JI, 2 ) = C( JI )
                      NAB( JI, 2 ) = IWORK( JI )
                   }
@@ -247,7 +247,7 @@
                      AB( JI, 1 ) = TMP1
                      NAB( JI, 1 ) = ITMP1
                   }
-                  if ( ITMP1.GE.NVAL( JI ) ) {
+                  if ( ITMP1 >= NVAL( JI ) ) {
                      AB( JI, 2 ) = TMP1
                      NAB( JI, 2 ) = ITMP1
                   }
@@ -263,7 +263,7 @@
          for (JI = KF; JI <= KL; JI++) { // 110
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) )
             TMP2 = MAX( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) )
-            if ( TMP1 < MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ).GE.NAB( JI, 2 ) ) {
+            if ( TMP1 < MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ) >= NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,
                             // then increment KFNEW

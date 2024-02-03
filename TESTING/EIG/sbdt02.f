@@ -56,7 +56,7 @@
       if ( BNORM.LE.ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         if ( BNORM.GE.RESID ) {
+         if ( BNORM >= RESID ) {
             RESID = ( RESID / BNORM ) / ( REALMN*EPS )
          } else {
             if ( BNORM < ONE ) {

@@ -106,7 +106,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO == 0 && LWORK.GE.1 ) {
+      if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = 3*NMAX*NMAX
          NB = MAX( 1, ILAENV( 1, 'CGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'CUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'CUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) )
          MAXWRK = MAX( NMAX+NMAX*NB, 3*NMAX*NMAX )
@@ -355,7 +355,7 @@
                } // 130
                RESULT( 6+RSUB ) = TEMP1
 
-               if ( ISORT.GE.1 ) {
+               if ( ISORT >= 1 ) {
 
                   // Do test 12
 
@@ -379,7 +379,7 @@
             // Print out tests which fail.
 
             for (JR = 1; JR <= NTEST; JR++) { // 170
-               if ( RESULT( JR ).GE.THRESH ) {
+               if ( RESULT( JR ) >= THRESH ) {
 
                   // If this is the first test to fail,
                   // print a header to the data file.

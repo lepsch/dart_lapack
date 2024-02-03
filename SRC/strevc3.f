@@ -125,7 +125,7 @@
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.
 
-      if ( OVER && LWORK .GE. N + 2*N*NBMIN ) {
+      if ( OVER && LWORK >= N + 2*N*NBMIN ) {
          NB = (LWORK - N) / (2*N)
          NB = MIN( NB, NBMAX )
          slaset('F', N, 1+2*NB, ZERO, ZERO, WORK, N );
@@ -335,7 +335,7 @@
                // [ ( T(KI-1,KI-1) T(KI-1,KI) ) - (WR + I*WI) ]*X = 0.
                // [ ( T(KI,  KI-1) T(KI,  KI) )               ]
 
-               if ( ABS( T( KI-1, KI ) ).GE.ABS( T( KI, KI-1 ) ) ) {
+               if ( ABS( T( KI-1, KI ) ) >= ABS( T( KI, KI-1 ) ) ) {
                   WORK( KI-1 + (IV-1)*N ) = ONE
                   WORK( KI   + (IV  )*N ) = WI / T( KI-1, KI )
                } else {
@@ -722,7 +722,7 @@
                // [ ( T(KI,KI)    T(KI,KI+1)  )**T - (WR - I* WI) ]*X = 0.
                // [ ( T(KI+1,KI) T(KI+1,KI+1) )                   ]
 
-               if ( ABS( T( KI, KI+1 ) ).GE.ABS( T( KI+1, KI ) ) ) {
+               if ( ABS( T( KI, KI+1 ) ) >= ABS( T( KI+1, KI ) ) ) {
                   WORK( KI   + (IV  )*N ) = WI / T( KI, KI+1 )
                   WORK( KI+1 + (IV+1)*N ) = ONE
                } else {
@@ -905,7 +905,7 @@
                // Columns 1:IV of work are valid vectors.
                // When the number of vectors stored reaches NB-1 or NB,
                // or if this was last vector, do the GEMM
-               if ( (IV.GE.NB-1) || (KI2 == N) ) {
+               if ( (IV >= NB-1) || (KI2 == N) ) {
                   sgemm('N', 'N', N, IV, N-KI2+IV, ONE, VL( 1, KI2-IV+1 ), LDVL, WORK( KI2-IV+1 + (1)*N ), N, ZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
                   for (K = 1; K <= IV; K++) {

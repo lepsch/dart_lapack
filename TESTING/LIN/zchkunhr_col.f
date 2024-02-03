@@ -69,7 +69,7 @@
 
             // Only for M >= N
 
-            if ( MIN( M, N ) > 0 && M.GE.N ) {
+            if ( MIN( M, N ) > 0 && M >= N ) {
 
                // Do for each possible value of MB1
 
@@ -100,7 +100,7 @@
                               // not pass the threshold.
 
                               for (T = 1; T <= NTESTS; T++) {
-                                 if ( RESULT( T ).GE.THRESH ) {
+                                 if ( RESULT( T ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T );
                                     NFAIL = NFAIL + 1
                                  }
@@ -127,7 +127,7 @@
 
             // Only for M >= N
 
-            if ( MIN( M, N ) > 0 && M.GE.N ) {
+            if ( MIN( M, N ) > 0 && M >= N ) {
 
                // Do for each possible value of MB1
 
@@ -158,7 +158,7 @@
                               // not pass the threshold.
 
                               for (T = 1; T <= NTESTS; T++) {
-                                 if ( RESULT( T ).GE.THRESH ) {
+                                 if ( RESULT( T ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T );
                                     NFAIL = NFAIL + 1
                                  }

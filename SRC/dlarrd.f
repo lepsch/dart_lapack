@@ -75,7 +75,7 @@
       } else if ( N < 0 ) {
          INFO = -3
       } else if ( IRANGE == VALRNG ) {
-         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL > MAX( 1, N ) ) ) {
+         if ( VL >= VU ) INFO = -5       ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL > MAX( 1, N ) ) ) {
          INFO = -6
       } else if ( IRANGE == INDRNG && ( IU < MIN( N, IL ) || IU > N ) ) {
          INFO = -7
@@ -183,7 +183,7 @@
          }
          // On exit, the interval [WL, WLU] contains a value with negcount NWL,
          // and [WUL, WU] contains a value with negcount NWU.
-         if ( NWL < 0 || NWL.GE.N || NWU < 1 || NWU > N ) {
+         if ( NWL < 0 || NWL >= N || NWU < 1 || NWU > N ) {
             INFO = 4
             RETURN
          }
@@ -216,7 +216,7 @@
 
          if ( IN == 1 ) {
             // 1x1 block
-            if ( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == ALLRNG || ( WL < D( IBEGIN )-PIVMIN && WU.GE. D( IBEGIN )-PIVMIN ) ) {
+            if ( WL >= D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == ALLRNG || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -245,9 +245,9 @@
              // DISC = SQRT( (HALF*(D(IBEGIN)-D(IEND)))**2 + E(IBEGIN)**2 )
              // TMP1 = HALF*(D(IBEGIN)+D(IEND))
              // L1 = TMP1 - DISC
-             // IF( WL.GE. L1-PIVMIN )
+             // IF( WL >= L1-PIVMIN )
       // $         NWL = NWL + 1
-             // IF( WU.GE. L1-PIVMIN )
+             // IF( WU >= L1-PIVMIN )
       // $         NWU = NWU + 1
              // IF( IRANGE == ALLRNG || ( WL < L1-PIVMIN && WU.GE.
       // $          L1-PIVMIN ) ) THEN
@@ -259,9 +259,9 @@
                 // INDEXW( M ) = 1
              // ENDIF
              // L2 = TMP1 + DISC
-             // IF( WL.GE. L2-PIVMIN )
+             // IF( WL >= L2-PIVMIN )
       // $         NWL = NWL + 1
-             // IF( WU.GE. L2-PIVMIN )
+             // IF( WU >= L2-PIVMIN )
       // $         NWU = NWU + 1
              // IF( IRANGE == ALLRNG || ( WL < L2-PIVMIN && WU.GE.
       // $          L2-PIVMIN ) ) THEN
@@ -303,7 +303,7 @@
                // refine search interval if possible, only range (WL,WU] matters
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
-               if (GL.GE.GU) GO TO 70;
+               if (GL >= GU) GO TO 70;
             }
 
             // Find negcount of initial interval boundaries GL and GU
@@ -382,7 +382,7 @@
             // at the end IDISCU =0. Move all eigenvalues up to the left.
             IM=M+1
             DO 81 JE = M, 1, -1
-               if ( W( JE ).GE.WUL && IDISCU > 0 ) {
+               if ( W( JE ) >= WUL && IDISCU > 0 ) {
                   IDISCU = IDISCU - 1
                } else {
                   IM = IM - 1
@@ -428,7 +428,7 @@
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 110
-                     if ( IBLOCK( JE ) != 0 && ( W( JE ).GE.WKILL || IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 && ( W( JE ) >= WKILL || IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }

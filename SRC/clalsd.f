@@ -60,7 +60,7 @@
 
       // Set up the tolerance.
 
-      if ( ( RCOND.LE.ZERO ) || ( RCOND.GE.ONE ) ) {
+      if ( ( RCOND.LE.ZERO ) || ( RCOND >= ONE ) ) {
          RCND = EPS
       } else {
          RCND = RCOND
@@ -275,7 +275,7 @@
 
                NSIZE = I - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
-            } else if ( ABS( E( I ) ).GE.EPS ) {
+            } else if ( ABS( E( I ) ) >= EPS ) {
 
                // A subproblem with E(NM1) not too small but I = NM1.
 

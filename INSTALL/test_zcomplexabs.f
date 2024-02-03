@@ -205,7 +205,7 @@ void main() {
                     Y = DCMPLX( oneHalf * Xj, oneHalf * Xj )
                     R = ABS( Y )
                     relDiff = ABS(R-answerD)/answerD
-                    if ( relDiff .ge. (0.5*eps) ) {
+                    if ( relDiff >= (0.5*eps) ) {
                         caseDFails = caseDFails + 1
                         if (caseDFails == 1) {
                             print *,  "!! Some ABS(x*(1+I)) differ from sqrt(2)*ABS(x)"

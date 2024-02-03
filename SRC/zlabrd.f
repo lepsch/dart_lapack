@@ -34,7 +34,7 @@
 
       if (M.LE.0 || N.LE.0) RETURN;
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // Reduce to upper bidiagonal form
 

@@ -185,7 +185,7 @@
 
                         RESULT(1) = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE )                         RESULT(1) = RESULT(1) / MAX( ABS( ALPHA ) * NORMA + ABS( BETA ) , ONE ) / MAX( N , 1 ) / EPS
 
-                        if ( RESULT(1).GE.THRESH ) {
+                        if ( RESULT(1) >= THRESH ) {
                            if ( NFAIL == 0 ) {
                               WRITE( NOUT, * )
                               WRITE( NOUT, FMT = 9999 )

@@ -50,7 +50,7 @@
 
       UNFLEP = ( SQRT( SQRT( UNFL ) ) / SQRT( OVFL ) )*SVD( 1 ) + UNFL / EPS
 
-      // The value of EPS works best when TOL .GE. 10.
+      // The value of EPS works best when TOL >= 10.
 
       EPS = TOL*MAX( N / 10, 1 )*EPS
 

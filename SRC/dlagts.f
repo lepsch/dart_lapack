@@ -139,7 +139,7 @@
 
          if ( JOB == 2 ) {
             for (K = 1; K <= N; K++) { // 60
-               if ( K.GE.3 ) {
+               if ( K >= 3 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
                } else if ( K == 2 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 )
@@ -166,7 +166,7 @@
             } // 60
          } else {
             for (K = 1; K <= N; K++) { // 80
-               if ( K.GE.3 ) {
+               if ( K >= 3 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
                } else if ( K == 2 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 )

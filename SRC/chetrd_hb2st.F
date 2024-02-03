@@ -265,7 +265,7 @@
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
-                              if ( ( STIND.GE.EDIND-1 ) && ( EDIND == N ) ) {
+                              if ( ( STIND >= EDIND-1 ) && ( EDIND == N ) ) {
                                   BLKLASTIND = N
                               } else {
                                   BLKLASTIND = 0
@@ -292,7 +292,7 @@
 #else
                           chb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW ) );
 #endif
-                          if ( BLKLASTIND.GE.(N-1) ) {
+                          if ( BLKLASTIND >= (N-1) ) {
                               STT = STT + 1
                               EXIT
                           }

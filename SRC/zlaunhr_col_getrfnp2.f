@@ -96,7 +96,7 @@
 
          // Construct the subdiagonal elements of L
 
-         if ( CABS1( A( 1, 1 ) ) .GE. SFMIN ) {
+         if ( CABS1( A( 1, 1 ) ) >= SFMIN ) {
             zscal(M-1, CONE / A( 1, 1 ), A( 2, 1 ), 1 );
          } else {
             for (I = 2; I <= M; I++) {

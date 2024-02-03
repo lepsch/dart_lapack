@@ -139,7 +139,7 @@
             IF( CABS1( H( K, K-1 ) ).LE.SMLNUM ) GO TO 50
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) )
             if ( TST == ZERO ) {
-               if (K-2.GE.ILO) TST = TST + ABS( REAL( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( REAL( H( K+1, K ) ) );
+               if (K-2 >= ILO) TST = TST + ABS( REAL( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( REAL( H( K+1, K ) ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
@@ -164,7 +164,7 @@
 
          // Exit from loop if a submatrix of order 1 has split off.
 
-         if (L.GE.I) GO TO 140;
+         if (L >= I) GO TO 140;
          KDEFL = KDEFL + 1
 
          // Now the active submatrix is in rows and columns L to I. If

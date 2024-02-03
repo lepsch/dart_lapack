@@ -119,7 +119,7 @@
          }
          TMP1 = REAL( CTMP1 )
          if ( VALEIG ) {
-            IF( .NOT.( VL < TMP1 && VU.GE.TMP1 ) ) M = 0
+            IF( .NOT.( VL < TMP1 && VU >= TMP1 ) ) M = 0
          }
          if ( M == 1 ) {
             W( 1 ) = REAL( CTMP1 )

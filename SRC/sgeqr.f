@@ -76,7 +76,7 @@
       LWMIN = MAX( 1, N )
       LWREQ = MAX( 1, N*NB )
       LMINWS = false;
-      if ( ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) || LWORK < LWREQ ) && ( LWORK.GE.N ) && ( TSIZE.GE.MINTSZ ) && ( .NOT.LQUERY ) ) {
+      if ( ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) || LWORK < LWREQ ) && ( LWORK >= N ) && ( TSIZE >= MINTSZ ) && ( .NOT.LQUERY ) ) {
         if ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) ) {
           LMINWS = true;
           NB = 1
@@ -129,7 +129,7 @@
 
       // The QR Decomposition
 
-      if ( ( M.LE.N ) || ( MB.LE.N ) || ( MB.GE.M ) ) {
+      if ( ( M.LE.N ) || ( MB.LE.N ) || ( MB >= M ) ) {
         sgeqrt(M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO );
       } else {
         slatsqr(M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO );

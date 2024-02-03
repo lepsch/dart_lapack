@@ -225,7 +225,7 @@
                         // pass the threshold.
 
                         for (K = 1; K <= 5; K++) { // 40
-                           if ( RESULT( K ).GE.THRESH ) {
+                           if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
@@ -257,7 +257,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     if ( RESULT( 6 ).GE.THRESH ) {
+                     if ( RESULT( 6 ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 ) 'DTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 );
                         NFAIL = NFAIL + 1
                      }
@@ -318,11 +318,11 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     if ( RESULT( 7 ).GE.THRESH ) {
+                     if ( RESULT( 7 ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 );
                         NFAIL = NFAIL + 1
                      }
-                     if ( RESULT( 8 ).GE.THRESH ) {
+                     if ( RESULT( 8 ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 );
                         NFAIL = NFAIL + 1
                      }

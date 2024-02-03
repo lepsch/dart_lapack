@@ -72,7 +72,7 @@
          INFO = -5
       } else if ( LDU < 1 || ( WNTQAS && LDU < M ) || ( WNTQO && M < N && LDU < M ) ) {
          INFO = -8
-      } else if ( LDVT < 1 || ( WNTQA && LDVT < N ) || ( WNTQS && LDVT < MINMN ) || ( WNTQO && M.GE.N && LDVT < N ) ) {
+      } else if ( LDVT < 1 || ( WNTQA && LDVT < N ) || ( WNTQS && LDVT < MINMN ) || ( WNTQO && M >= N && LDVT < N ) ) {
          INFO = -10
       }
 
@@ -87,7 +87,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( M.GE.N && MINMN > 0 ) {
+         if ( M >= N && MINMN > 0 ) {
 
             // There is no complex work space needed for bidiagonal SVD
             // The real work space needed for bidiagonal SVD (sbdsdc) is
@@ -132,7 +132,7 @@
             cunmbr('Q', 'L', 'N', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR );
             LWORK_CUNMBR_QLN_NN = INT( CDUM(1) )
 
-            if ( M.GE.MNTHR1 ) {
+            if ( M >= MNTHR1 ) {
                if ( WNTQN ) {
 
                   // Path 1 (M >> N, JOBZ='N')
@@ -174,7 +174,7 @@
                   MAXWRK = N*N + WRKBL
                   MINWRK = N*N + MAX( 3*N, N + M )
                }
-            } else if ( M.GE.MNTHR2 ) {
+            } else if ( M >= MNTHR2 ) {
 
                // Path 5 (M >> N, but not as much as MNTHR1)
 
@@ -262,7 +262,7 @@
             cunmbr('Q', 'L', 'N', M, M, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
             LWORK_CUNMBR_QLN_MM = INT( CDUM(1) )
 
-            if ( N.GE.MNTHR1 ) {
+            if ( N >= MNTHR1 ) {
                if ( WNTQN ) {
 
                   // Path 1t (N >> M, JOBZ='N')
@@ -304,7 +304,7 @@
                   MAXWRK = M*M + WRKBL
                   MINWRK = M*M + MAX( 3*M, M + N )
                }
-            } else if ( N.GE.MNTHR2 ) {
+            } else if ( N >= MNTHR2 ) {
 
                // Path 5t (N >> M, but not as much as MNTHR1)
 
@@ -392,13 +392,13 @@
          clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // A has at least as many rows as columns. If A has sufficiently
          // more rows than columns, first reduce using the QR
          // decomposition (if sufficient workspace available)
 
-         if ( M.GE.MNTHR1 ) {
+         if ( M >= MNTHR1 ) {
 
             if ( WNTQN ) {
 
@@ -449,7 +449,7 @@
 
                LDWRKU = N
                IR = IU + LDWRKU*N
-               if ( LWORK .GE. M*N + N*N + 3*N ) {
+               if ( LWORK >= M*N + N*N + 3*N ) {
 
                   // WORK(IR) is M by N
 
@@ -698,7 +698,7 @@
 
             }
 
-         } else if ( M.GE.MNTHR2 ) {
+         } else if ( M >= MNTHR2 ) {
 
             // MNTHR2 <= M < MNTHR1
 
@@ -748,7 +748,7 @@
 
                cungbr('Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
-               if ( LWORK .GE. M*N + 3*N ) {
+               if ( LWORK >= M*N + 3*N ) {
 
                   // WORK( IU ) is M by N
 
@@ -918,7 +918,7 @@
                IRU = NRWORK
                IRVT = IRU + N*N
                NRWORK = IRVT + N*N
-               if ( LWORK .GE. M*N + 3*N ) {
+               if ( LWORK >= M*N + 3*N ) {
 
                   // WORK( IU ) is M by N
 
@@ -949,7 +949,7 @@
                clacp2('F', N, N, RWORK( IRVT ), N, VT, LDVT );
                cunmbr('P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
-               if ( LWORK .GE. M*N + 3*N ) {
+               if ( LWORK >= M*N + 3*N ) {
 
                   // Path 6o-fast
                   // Copy real matrix RWORK(IRU) to complex matrix WORK(IU)
@@ -1068,7 +1068,7 @@
          // columns than rows, first reduce using the LQ decomposition (if
          // sufficient workspace available)
 
-         if ( N.GE.MNTHR1 ) {
+         if ( N >= MNTHR1 ) {
 
             if ( WNTQN ) {
 
@@ -1119,7 +1119,7 @@
                // WORK(IVT) is M by M
 
                IL = IVT + LDWKVT*M
-               if ( LWORK .GE. M*N + M*M + 3*M ) {
+               if ( LWORK >= M*N + M*M + 3*M ) {
 
                   // WORK(IL) M by N
 
@@ -1373,7 +1373,7 @@
 
             }
 
-         } else if ( N.GE.MNTHR2 ) {
+         } else if ( N >= MNTHR2 ) {
 
             // MNTHR2 <= N < MNTHR1
 
@@ -1425,7 +1425,7 @@
                cungbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                LDWKVT = M
-               if ( LWORK .GE. M*N + 3*M ) {
+               if ( LWORK >= M*N + 3*M ) {
 
                   // WORK( IVT ) is M by N
 
@@ -1594,7 +1594,7 @@
                // Path 6to (N > M, JOBZ='O')
                LDWKVT = M
                IVT = NWORK
-               if ( LWORK .GE. M*N + 3*M ) {
+               if ( LWORK >= M*N + 3*M ) {
 
                   // WORK( IVT ) is M by N
 
@@ -1628,7 +1628,7 @@
                clacp2('F', M, M, RWORK( IRU ), M, U, LDU );
                cunmbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
-               if ( LWORK .GE. M*N + 3*M ) {
+               if ( LWORK >= M*N + 3*M ) {
 
                   // Path 6to-fast
                   // Copy real matrix RWORK(IRVT) to complex matrix WORK(IVT)

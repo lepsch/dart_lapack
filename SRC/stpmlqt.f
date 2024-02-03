@@ -82,7 +82,7 @@
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
             NB = MIN( M-L+I+IB-1, M )
-            if ( I.GE.L ) {
+            if ( I >= L ) {
                LB = 0
             } else {
                LB = 0
@@ -95,7 +95,7 @@
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
             NB = MIN( N-L+I+IB-1, N )
-            if ( I.GE.L ) {
+            if ( I >= L ) {
                LB = 0
             } else {
                LB = NB-N+L-I+1
@@ -109,7 +109,7 @@
          DO I = KF, 1, -MB
             IB = MIN( MB, K-I+1 )
             NB = MIN( M-L+I+IB-1, M )
-            if ( I.GE.L ) {
+            if ( I >= L ) {
                LB = 0
             } else {
                LB = 0
@@ -123,7 +123,7 @@
          DO I = KF, 1, -MB
             IB = MIN( MB, K-I+1 )
             NB = MIN( N-L+I+IB-1, N )
-            if ( I.GE.L ) {
+            if ( I >= L ) {
                LB = 0
             } else {
                LB = NB-N+L-I+1

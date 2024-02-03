@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( ISPEC.GE.1 && ISPEC.LE.9 ) {
+      if ( ISPEC >= 1 && ISPEC.LE.9 ) {
          IPARMS( ISPEC ) = NVALUE
       }
 

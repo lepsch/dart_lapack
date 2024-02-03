@@ -159,7 +159,7 @@
          IBSCL = 2
       }
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // M > N:
          // Compute the blocked QR factorization of A,

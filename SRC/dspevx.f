@@ -85,7 +85,7 @@
             M = 1
             W( 1 ) = AP( 1 )
          } else {
-            if ( VL < AP( 1 ) && VU.GE.AP( 1 ) ) {
+            if ( VL < AP( 1 ) && VU >= AP( 1 ) ) {
                M = 1
                W( 1 ) = AP( 1 )
             }

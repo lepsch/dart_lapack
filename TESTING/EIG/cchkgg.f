@@ -529,7 +529,7 @@
             // Print out tests which fail.
 
             for (JR = 1; JR <= NTEST; JR++) { // 220
-               if ( RESULT( JR ).GE.THRESH ) {
+               if ( RESULT( JR ) >= THRESH ) {
 
                   // If this is the first test to fail,
                   // print a header to the data file.

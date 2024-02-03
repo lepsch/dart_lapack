@@ -121,7 +121,7 @@
             // BEGIN pivot search
 
             // Case(1)
-            // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
+            // Equivalent to testing for ABSAKK >= ALPHA*COLMAX
             // (used to handle NaN and Inf)
             if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
 
@@ -175,7 +175,7 @@
 
                   // Case(2)
                   // Equivalent to testing for
-                  // ABS( DBLE( W( IMAX,KW-1 ) ) ).GE.ALPHA*ROWMAX
+                  // ABS( DBLE( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
                   if ( .NOT.( ABS( DBLE( W( IMAX,KW-1 ) ) ) < ALPHA*ROWMAX ) ) {
@@ -314,7 +314,7 @@
                   // Handle division by a small number
 
                   T = DBLE( A( K, K ) )
-                  if ( ABS( T ).GE.SFMIN ) {
+                  if ( ABS( T ) >= SFMIN ) {
                      R1 = ONE / T
                      zdscal(K-1, R1, A( 1, K ), 1 );
                   } else {
@@ -457,7 +457,7 @@
 
             // Update the rectangular superdiagonal block
 
-            if (J.GE.2) CALL ZGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
+            if (J >= 2) CALL ZGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
          } // 50
 
          // Put U12 in standard form by partially undoing the interchanges
@@ -505,7 +505,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB && NB < N ) || K > N ) GO TO 90
+         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90
 
          KSTEP = 1
          P = K
@@ -550,7 +550,7 @@
             // BEGIN pivot search
 
             // Case(1)
-            // Equivalent to testing for ABSAKK.GE.ALPHA*COLMAX
+            // Equivalent to testing for ABSAKK >= ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
             if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
@@ -605,7 +605,7 @@
 
                   // Case(2)
                   // Equivalent to testing for
-                  // ABS( DBLE( W( IMAX,K+1 ) ) ).GE.ALPHA*ROWMAX
+                  // ABS( DBLE( W( IMAX,K+1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
                   if ( .NOT.( ABS( DBLE( W( IMAX,K+1 ) ) ) < ALPHA*ROWMAX ) ) {
@@ -740,7 +740,7 @@
                   // Handle division by a small number
 
                   T = DBLE( A( K, K ) )
-                  if ( ABS( T ).GE.SFMIN ) {
+                  if ( ABS( T ) >= SFMIN ) {
                      R1 = ONE / T
                      zdscal(N-K, R1, A( K+1, K ), 1 );
                   } else {
@@ -910,9 +910,9 @@
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
-            if (JP2 != JJ && J.GE.1) CALL ZSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
+            if (JP2 != JJ && J >= 1) CALL ZSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
             JJ = JJ -1
-            if (KSTEP == 2 && JP1 != JJ && J.GE.1) CALL ZSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J > 1 ) GO TO 120;
+            if (KSTEP == 2 && JP1 != JJ && J >= 1) CALL ZSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J > 1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

@@ -64,7 +64,7 @@
          INFO = -5
       } else if ( LDU < 1 || ( WNTQAS && LDU < M ) || ( WNTQO && M < N && LDU < M ) ) {
          INFO = -8
-      } else if ( LDVT < 1 || ( WNTQA && LDVT < N ) || ( WNTQS && LDVT < MINMN ) || ( WNTQO && M.GE.N && LDVT < N ) ) {
+      } else if ( LDVT < 1 || ( WNTQA && LDVT < N ) || ( WNTQS && LDVT < MINMN ) || ( WNTQO && M >= N && LDVT < N ) ) {
          INFO = -10
       }
 
@@ -80,7 +80,7 @@
          MAXWRK = 1
          BDSPAC = 0
          MNTHR  = INT( MINMN*11.0E0 / 6.0E0 )
-         if ( M.GE.N && MINMN > 0 ) {
+         if ( M >= N && MINMN > 0 ) {
 
             // Compute space needed for SBDSDC
 
@@ -123,7 +123,7 @@
             sormbr('Q', 'L', 'N', M, M, N, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
             LWORK_SORMBR_QLN_MM = INT( DUM(1) )
 
-            if ( M.GE.MNTHR ) {
+            if ( M >= MNTHR ) {
                if ( WNTQN ) {
 
                   // Path 1 (M >> N, JOBZ='N')
@@ -242,7 +242,7 @@
             sormbr('Q', 'L', 'N', M, M, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
             LWORK_SORMBR_QLN_MM = INT( DUM(1) )
 
-            if ( N.GE.MNTHR ) {
+            if ( N >= MNTHR ) {
                if ( WNTQN ) {
 
                   // Path 1t (N >> M, JOBZ='N')
@@ -363,13 +363,13 @@
          slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
-      if ( M.GE.N ) {
+      if ( M >= N ) {
 
          // A has at least as many rows as columns. If A has sufficiently
          // more rows than columns, first reduce using the QR
          // decomposition (if sufficient workspace available)
 
-         if ( M.GE.MNTHR ) {
+         if ( M >= MNTHR ) {
 
             if ( WNTQN ) {
 
@@ -415,7 +415,7 @@
 
                // WORK(IR) is LDWRKR by N
 
-               if ( LWORK .GE. LDA*N + N*N + 3*N + BDSPAC ) {
+               if ( LWORK >= LDA*N + N*N + 3*N + BDSPAC ) {
                   LDWRKR = LDA
                } else {
                   LDWRKR = ( LWORK - N*N - 3*N - BDSPAC ) / N
@@ -639,7 +639,7 @@
             } else if ( WNTQO ) {
                // Path 5o (M >= N, JOBZ='O')
                IU = NWORK
-               if ( LWORK .GE. M*N + 3*N + BDSPAC ) {
+               if ( LWORK >= M*N + 3*N + BDSPAC ) {
 
                   // WORK( IU ) is M by N
 
@@ -675,7 +675,7 @@
 
                sormbr('P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
-               if ( LWORK .GE. M*N + 3*N + BDSPAC ) {
+               if ( LWORK >= M*N + 3*N + BDSPAC ) {
 
                   // Path 5o-fast
                   // Overwrite WORK(IU) by left singular vectors of A
@@ -761,7 +761,7 @@
          // columns than rows, first reduce using the LQ decomposition (if
          // sufficient workspace available)
 
-         if ( N.GE.MNTHR ) {
+         if ( N >= MNTHR ) {
 
             if ( WNTQN ) {
 
@@ -809,7 +809,7 @@
                // WORK(IL)  is M by M; it is later resized to M by chunk for gemm
 
                IL = IVT + M*M
-               if ( LWORK .GE. M*N + M*M + 3*M + BDSPAC ) {
+               if ( LWORK >= M*N + M*M + 3*M + BDSPAC ) {
                   LDWRKL = M
                   CHUNK = N
                } else {
@@ -1032,7 +1032,7 @@
                // Path 5to (N > M, JOBZ='O')
                LDWKVT = M
                IVT = NWORK
-               if ( LWORK .GE. M*N + 3*M + BDSPAC ) {
+               if ( LWORK >= M*N + 3*M + BDSPAC ) {
 
                   // WORK( IVT ) is M by N
 
@@ -1065,7 +1065,7 @@
 
                sormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
-               if ( LWORK .GE. M*N + 3*M + BDSPAC ) {
+               if ( LWORK >= M*N + 3*M + BDSPAC ) {
 
                   // Path 5to-fast
                   // Overwrite WORK(IVT) by left singular vectors of A

@@ -133,7 +133,7 @@
             M = 1
             W( 1 ) = DBLE( A( 1, 1 ) )
          } else {
-            if ( VL < DBLE( A( 1, 1 ) ) && VU.GE.DBLE( A( 1, 1 ) ) ) {
+            if ( VL < DBLE( A( 1, 1 ) ) && VU >= DBLE( A( 1, 1 ) ) ) {
                M = 1
                W( 1 ) = DBLE( A( 1, 1 ) )
             }

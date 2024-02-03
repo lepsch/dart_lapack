@@ -138,7 +138,7 @@
          SMAX = MAX( SMAX, ABS( E( I ) ) )
       } // 30
       SMIN = ZERO
-      if ( TOL.GE.ZERO ) {
+      if ( TOL >= ZERO ) {
 
          // Relative accuracy desired
 
@@ -181,10 +181,10 @@
       // Check for convergence or exceeding iteration count
 
       if (M.LE.1) GO TO 160;
-      if ( ITER.GE.N ) {
+      if ( ITER >= N ) {
          ITER = ITER - N
          ITERDIVN = ITERDIVN + 1
-         if (ITERDIVN.GE.MAXITDIVN) GO TO 200;
+         if (ITERDIVN >= MAXITDIVN) GO TO 200;
       }
 
       // Find diagonal block of matrix to work on
@@ -237,7 +237,7 @@
       // (from larger end diagonal element towards smaller)
 
       if ( LL > OLDM || M < OLDLL ) {
-         if ( ABS( D( LL ) ).GE.ABS( D( M ) ) ) {
+         if ( ABS( D( LL ) ) >= ABS( D( M ) ) ) {
 
             // Chase bulge from top (big end) to bottom (small end)
 
@@ -262,7 +262,7 @@
             GO TO 60
          }
 
-         if ( TOL.GE.ZERO ) {
+         if ( TOL >= ZERO ) {
 
             // If relative accuracy desired,
             // apply convergence criterion forward
@@ -289,7 +289,7 @@
             GO TO 60
          }
 
-         if ( TOL.GE.ZERO ) {
+         if ( TOL >= ZERO ) {
 
             // If relative accuracy desired,
             // apply convergence criterion backward
@@ -312,7 +312,7 @@
       // Compute shift.  First, test if shifting would ruin relative
       // accuracy, and if so set the shift to zero.
 
-      if ( TOL.GE.ZERO && N*TOL*( SMIN / SMAX ).LE. MAX( EPS, HNDRTH*TOL ) ) {
+      if ( TOL >= ZERO && N*TOL*( SMIN / SMAX ).LE. MAX( EPS, HNDRTH*TOL ) ) {
 
          // Use a zero shift to avoid loss of relative accuracy
 

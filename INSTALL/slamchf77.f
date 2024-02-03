@@ -47,7 +47,7 @@
          EMAX = IMAX
          SFMIN = RMIN
          SMALL = ONE / RMAX
-         if ( SMALL.GE.SFMIN ) {
+         if ( SMALL >= SFMIN ) {
 
             // Use SMALL plus a bit, to avoid the possibility of rounding
             // causing overflow when computing  1/sfmin.
@@ -820,7 +820,7 @@
          if (Y < ONE) OLDY = Y;
          Y = SLAMC3( Y, Z )
       } // 20
-      if (Y.GE.ONE) Y = OLDY;
+      if (Y >= ONE) Y = OLDY;
 
       // Now multiply by BETA**EMAX to get RMAX.
 

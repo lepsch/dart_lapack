@@ -54,7 +54,7 @@
       for (I = 1; I <= N; I++) { // 30
          if ( I == 1 ) {
             WORK( I, I ) = DF( I )
-            if (N.GE.2) WORK( I, I+1 ) = DUF( I )             IF( N.GE.3 ) WORK( I, I+2 ) = DU2( I );
+            if (N >= 2) WORK( I, I+1 ) = DUF( I )             IF( N >= 3 ) WORK( I, I+2 ) = DU2( I );
          } else if ( I == N ) {
             WORK( I, I ) = DF( I )
          } else {

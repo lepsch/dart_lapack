@@ -45,7 +45,7 @@
 
       // Handle easy cases, including zero matrix
 
-      if ( SHIFT.GE.THREE*MX ) {
+      if ( SHIFT >= THREE*MX ) {
          NUM = N
          RETURN
       }

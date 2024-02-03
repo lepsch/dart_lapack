@@ -210,7 +210,7 @@
 
             G = C / SCLFAC
 
-            DO WHILE( G.GE.R && MAX( R, RA ) < SFMAX2 && MIN( F, C, G, CA ) > SFMIN2 )
+            DO WHILE( G >= R && MAX( R, RA ) < SFMAX2 && MIN( F, C, G, CA ) > SFMIN2 )
                F = F / SCLFAC
                C = C / SCLFAC
                G = G / SCLFAC
@@ -221,12 +221,12 @@
 
             // Now balance.
 
-            IF( ( C+R ).GE.FACTOR*S ) CYCLE
+            IF( ( C+R ) >= FACTOR*S ) CYCLE
             if ( F < ONE && SCALE( I ) < ONE ) {
                IF( F*SCALE( I ).LE.SFMIN1 ) CYCLE
             }
             if ( F > ONE && SCALE( I ) > ONE ) {
-               IF( SCALE( I ).GE.SFMAX1 / F ) CYCLE
+               IF( SCALE( I ) >= SFMAX1 / F ) CYCLE
             }
             G = ONE / F
             SCALE( I ) = SCALE( I )*F

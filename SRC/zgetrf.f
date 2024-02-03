@@ -55,7 +55,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'ZGETRF', ' ', M, N, -1, -1 )
-      if ( NB.LE.1 || NB.GE.MIN( M, N ) ) {
+      if ( NB.LE.1 || NB >= MIN( M, N ) ) {
 
          // Use unblocked code.
 

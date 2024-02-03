@@ -161,7 +161,7 @@
             RWORK( N+J ) = RWORK( J )
          } // 20
 
-         if ( ( NB.GE.NBMIN ) && ( NB < SMINMN ) && ( NX < SMINMN ) ) {
+         if ( ( NB >= NBMIN ) && ( NB < SMINMN ) && ( NX < SMINMN ) ) {
 
             // Use blocked code initially.
 

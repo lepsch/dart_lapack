@@ -161,7 +161,7 @@
 
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
-                  ZEROT = IMAT.GE.2 && IMAT.LE.4
+                  ZEROT = IMAT >= 2 && IMAT.LE.4
                   if (ZEROT && N < IMAT-1) GO TO 120;
 
                   // Set up parameters with SLATB4 and generate a
@@ -370,7 +370,7 @@
                               // not pass the threshold.
 
                               for (K = 1; K <= NT; K++) { // 50
-                                 if ( RESULT( K ).GE.THRESH ) {
+                                 if ( RESULT( K ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'SGBSV ', N, KL, KU, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
@@ -476,7 +476,7 @@
 
                            if ( .NOT.TRFCON ) {
                               for (K = K1; K <= NTESTS; K++) { // 80
-                                 if ( RESULT( K ).GE.THRESH ) {
+                                 if ( RESULT( K ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                                     if ( PREFAC ) {
                                        WRITE( NOUT, FMT = 9995 ) 'SGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
@@ -488,7 +488,7 @@
                               } // 80
                               NRUN = NRUN + NTESTS - K1 + 1
                            } else {
-                              IF( RESULT( 1 ).GE.THRESH && .NOT. PREFAC ) THEN                                  IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                              IF( RESULT( 1 ) >= THRESH && .NOT. PREFAC ) THEN                                  IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'SGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
                                  } else {
@@ -497,7 +497,7 @@
                                  NFAIL = NFAIL + 1
                                  NRUN = NRUN + 1
                               }
-                              if ( RESULT( 6 ).GE.THRESH ) {
+                              if ( RESULT( 6 ) >= THRESH ) {
                                  if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'SGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
@@ -507,7 +507,7 @@
                                  NFAIL = NFAIL + 1
                                  NRUN = NRUN + 1
                               }
-                              if ( RESULT( 7 ).GE.THRESH ) {
+                              if ( RESULT( 7 ) >= THRESH ) {
                                  if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'SGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )

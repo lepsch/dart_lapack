@@ -104,7 +104,7 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 && IMAT.LE.6
+            ZEROT = IMAT >= 3 && IMAT.LE.6
             if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -311,7 +311,7 @@
                      // the threshold.
 
                      for (K = 1; K <= NT; K++) { // 110
-                        if ( RESULT( K ).GE.THRESH ) {
+                        if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CSPSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
@@ -356,7 +356,7 @@
                   }
 
                   if ( INFO == 0 ) {
-                     if ( IFACT.GE.2 ) {
+                     if ( IFACT >= 2 ) {
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -392,7 +392,7 @@
                   // the threshold.
 
                   for (K = K1; K <= 6; K++) { // 140
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CSPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }

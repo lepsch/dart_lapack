@@ -235,7 +235,7 @@
       // If there is enough workspace, perform tests (14) and (15)
       // as well as (10) through (13)
 
-      if ( LWORK.GE.N+( N*N ) / 2 ) {
+      if ( LWORK >= N+( N*N ) / 2 ) {
 
          // Compute both RCONDE and RCONDV with VS
 

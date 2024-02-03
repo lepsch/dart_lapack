@@ -88,7 +88,7 @@
             M = 1
             W( 1 ) = DBLE( AP( 1 ) )
          } else {
-            if ( VL < DBLE( AP( 1 ) ) && VU.GE.DBLE( AP( 1 ) ) ) {
+            if ( VL < DBLE( AP( 1 ) ) && VU >= DBLE( AP( 1 ) ) ) {
                M = 1
                W( 1 ) = DBLE( AP( 1 ) )
             }

@@ -103,7 +103,7 @@
          K2 = 1
          DO WHILE ( K .LE. JW )
             BULGE = false;
-            if ( KWBOT-KWTOP+1 .GE. 2 ) {
+            if ( KWBOT-KWTOP+1 >= 2 ) {
                BULGE = A( KWBOT, KWBOT-1 ) != ZERO
             }
             if ( BULGE ) {
@@ -190,8 +190,8 @@
          ISTARTM = KWTOP
          ISTOPM = IHI
          K = KWBOT-1
-         DO WHILE ( K .GE. KWTOP )
-            if ( ( K .GE. KWTOP+1 ) && A( K+1, K-1 ) != ZERO ) {
+         DO WHILE ( K >= KWTOP )
+            if ( ( K >= KWTOP+1 ) && A( K+1, K-1 ) != ZERO ) {
 
                // Move double pole block down and remove it
                for (K2 = K-1; K2 <= KWBOT-2; K2++) {

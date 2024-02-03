@@ -104,7 +104,7 @@
 
                // Skip types 5, 6, or 7 if the matrix size is too small.
 
-               ZEROT = IMAT.GE.5 && IMAT.LE.7
+               ZEROT = IMAT >= 5 && IMAT.LE.7
                if (ZEROT && N < IMAT-4) GO TO 100;
 
                // Set up parameters with ZLATB4 and generate a test matrix
@@ -222,7 +222,7 @@
                   // pass the threshold.
 
                   for (K = 1; K <= NT; K++) { // 30
-                     if ( RESULT( K ).GE.THRESH ) {
+                     if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
@@ -288,7 +288,7 @@
                         // pass the threshold.
 
                         for (K = 3; K <= 7; K++) { // 40
-                           if ( RESULT( K ).GE.THRESH ) {
+                           if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
@@ -327,7 +327,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     if ( RESULT( 8 ).GE.THRESH ) {
+                     if ( RESULT( 8 ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 );
                         NFAIL = NFAIL + 1
                      }

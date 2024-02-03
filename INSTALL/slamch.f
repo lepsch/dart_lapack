@@ -42,7 +42,7 @@
       } else if ( LSAME( CMACH, 'S' ) ) {
          SFMIN = TINY(ZERO)
          SMALL = ONE / HUGE(ZERO)
-         if ( SMALL.GE.SFMIN ) {
+         if ( SMALL >= SFMIN ) {
 
             // Use SMALL plus a bit, to avoid the possibility of rounding
             // causing overflow when computing  1/sfmin.

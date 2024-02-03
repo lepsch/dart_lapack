@@ -72,7 +72,7 @@
 
       IERR = 0
 
-      WANTP = IJOB == 1 || IJOB.GE.4
+      WANTP = IJOB == 1 || IJOB >= 4
       WANTD1 = IJOB == 2 || IJOB == 4
       WANTD2 = IJOB == 3 || IJOB == 5
       WANTD = WANTD1 || WANTD2

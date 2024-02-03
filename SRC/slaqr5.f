@@ -46,7 +46,7 @@
       // ==== If the active block is empty or 1-by-1, then there
       // .    is nothing to do. ====
 
-      if (KTOP.GE.KBOT) RETURN;
+      if (KTOP >= KBOT) RETURN;
 
       // ==== Shuffle shifts into pairs of real shifts and pairs
       // .    of complex conjugate shifts assuming complex
@@ -202,11 +202,11 @@
                // .    is zero (as done here) is traditional but probably
                // .    unnecessary. ====
 
-               if ( K.GE.KTOP ) {
+               if ( K >= KTOP ) {
                   if ( H( K+1, K ) != ZERO ) {
                      TST1 = ABS( H( K, K ) ) + ABS( H( K+1, K+1 ) )
                      if ( TST1 == ZERO ) {
-                        if (K.GE.KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                         IF( K.GE.KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                         IF( K.GE.KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
+                        if (K >= KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                         IF( K >= KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                         IF( K >= KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
                      }
                      IF( ABS( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H21 = MIN( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H11 = MAX( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )
                         SCL = H11 + H12
@@ -362,7 +362,7 @@
                if ( H( K+1, K ) != ZERO ) {
                   TST1 = ABS( H( K, K ) ) + ABS( H( K+1, K+1 ) )
                   if ( TST1 == ZERO ) {
-                     if (K.GE.KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                      IF( K.GE.KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                      IF( K.GE.KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
+                     if (K >= KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                      IF( K >= KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                      IF( K >= KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
                   }
                   if ( ABS( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) {
                      H12 = MAX( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )

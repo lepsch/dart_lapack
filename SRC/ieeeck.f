@@ -24,7 +24,7 @@
       }
 
       NEGINF = -ONE / ZERO
-      if ( NEGINF.GE.ZERO ) {
+      if ( NEGINF >= ZERO ) {
          IEEECK = 0
          RETURN
       }
@@ -36,7 +36,7 @@
       }
 
       NEGINF = ONE / NEGZRO
-      if ( NEGINF.GE.ZERO ) {
+      if ( NEGINF >= ZERO ) {
          IEEECK = 0
          RETURN
       }
@@ -54,7 +54,7 @@
       }
 
       NEGINF = NEGINF*POSINF
-      if ( NEGINF.GE.ZERO ) {
+      if ( NEGINF >= ZERO ) {
          IEEECK = 0
          RETURN
       }

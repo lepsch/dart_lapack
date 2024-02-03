@@ -130,7 +130,7 @@
 
             H1 = MAX( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
 
-            if ( ( SCALE1*H1 ).GE.ABS( WR1 )*H2 ) {
+            if ( ( SCALE1*H1 ) >= ABS( WR1 )*H2 ) {
 
                // find left rotation matrix Q to zero out B(2,1)
 

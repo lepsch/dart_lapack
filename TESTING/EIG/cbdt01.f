@@ -49,7 +49,7 @@
 
          // B is bidiagonal.
 
-         if ( KD != 0 && M.GE.N ) {
+         if ( KD != 0 && M >= N ) {
 
             // B is upper bidiagonal and M >= N.
 
@@ -93,7 +93,7 @@
 
          // B is diagonal.
 
-         if ( M.GE.N ) {
+         if ( M >= N ) {
             for (J = 1; J <= N; J++) { // 80
                ccopy(M, A( 1, J ), 1, WORK, 1 );
                for (I = 1; I <= N; I++) { // 70
@@ -122,7 +122,7 @@
       if ( ANORM.LE.ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         if ( ANORM.GE.RESID ) {
+         if ( ANORM >= RESID ) {
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )
          } else {
             if ( ANORM < ONE ) {

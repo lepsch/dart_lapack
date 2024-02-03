@@ -49,7 +49,7 @@
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      if ( ( IMAT.GE.6 && IMAT.LE.9 ) || IMAT == 17 ) {
+      if ( ( IMAT >= 6 && IMAT.LE.9 ) || IMAT == 17 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'

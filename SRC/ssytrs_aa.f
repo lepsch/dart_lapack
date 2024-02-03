@@ -117,7 +117,7 @@
             // Pivot, P * B -> B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
 
             K = N
-            DO WHILE ( K.GE.1 )
+            DO WHILE ( K >= 1 )
                KP = IPIV( K )
                if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1
@@ -168,7 +168,7 @@
             // Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
 
             K = N
-            DO WHILE ( K.GE.1 )
+            DO WHILE ( K >= 1 )
                KP = IPIV( K )
                if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1
