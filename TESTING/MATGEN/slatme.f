@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DIST, RSIGN, SIM, UPPER
+      String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N
       REAL               ANORM, COND, CONDS, DMAX
 *     ..
 *     .. Array Arguments ..
-      CHARACTER          EI( * )
+      String             EI( * );
       int                ISEED( 4 )
       REAL               A( LDA, * ), D( * ), DS( * ), WORK( * )
 *     ..

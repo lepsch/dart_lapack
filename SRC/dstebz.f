@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          ORDER, RANGE
+      String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT
       DOUBLE PRECISION   ABSTOL, VL, VU
 *     ..

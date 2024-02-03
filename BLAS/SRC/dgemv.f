@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION ALPHA,BETA
       int     INCX,INCY,LDA,M,N
-      CHARACTER TRANS
+      String    TRANS;
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION A(LDA,*),X(*),Y(*)

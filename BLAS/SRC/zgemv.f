@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       COMPLEX*16 ALPHA,BETA
       int     INCX,INCY,LDA,M,N
-      CHARACTER TRANS
+      String    TRANS;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 A(LDA,*),X(*),Y(*)

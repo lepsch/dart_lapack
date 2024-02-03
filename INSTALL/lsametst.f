@@ -15,9 +15,9 @@
       I1 = ICHAR( 'A' )
       I2 = ICHAR( 'a' )
       IF( I2-I1.EQ.32 ) THEN
-         WRITE( *, * ) ' ASCII character set'
+         WRITE( *, * ) ' ASCII String    set';
       ELSE
-         WRITE( *, * ) ' Non-ASCII character set, IOFF should be ',I2-I1
+         WRITE( *, * ) ' Non-ASCII String    set, IOFF should be ',I2-I1;
       END IF
 *
 *     Test LSAME.

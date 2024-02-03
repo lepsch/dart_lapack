@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          UPLO
+      String             UPLO;
       int                ITYPE, KBAND, LDA, LDU, LDV, N
 *     ..
 *     .. Array Arguments ..
@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER
-      CHARACTER          CUPLO
+      String             CUPLO;
       int                IINFO, J, JCOL, JR, JROW
       REAL               ANORM, ULP, UNFL, VSAVE, WNORM
 *     ..

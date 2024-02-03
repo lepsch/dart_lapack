@@ -8,7 +8,7 @@
       COMPLEX*16 ALPHA
       DOUBLE PRECISION BETA
       int     K,LDA,LDB,LDC,N
-      CHARACTER TRANS,UPLO
+      String    TRANS,UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16 A(LDA,*),B(LDB,*),C(LDC,*)

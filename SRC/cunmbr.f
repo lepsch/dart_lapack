@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          SIDE, TRANS, VECT
+      String             SIDE, TRANS, VECT;
       int                INFO, K, LDA, LDC, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            APPLYQ, LEFT, LQUERY, NOTRAN
-      CHARACTER          TRANST
+      String             TRANST;
       int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW
 *     ..
 *     .. External Functions ..

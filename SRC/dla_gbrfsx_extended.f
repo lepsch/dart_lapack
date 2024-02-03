@@ -17,7 +17,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      CHARACTER          TRANS
+      String             TRANS;
       int                CNT, I, J, M, X_STATE, Z_STATE, Y_PREC_STATE
       DOUBLE PRECISION   YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
       LOGICAL            INCR_PREC
@@ -39,7 +39,7 @@
 *     .. External Subroutines ..
       EXTERNAL           DAXPY, DCOPY, DGBTRS, DGBMV, BLAS_DGBMV_X, BLAS_DGBMV2_X, DLA_GBAMV, DLA_WWADDW, DLAMCH, CHLA_TRANSTYPE, DLA_LIN_BERR
       DOUBLE PRECISION   DLAMCH
-      CHARACTER          CHLA_TRANSTYPE
+      String             CHLA_TRANSTYPE;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN

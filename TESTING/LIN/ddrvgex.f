@@ -29,13 +29,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            EQUIL, NOFACT, PREFAC, TRFCON, ZEROT
-      CHARACTER          DIST, EQUED, FACT, TRANS, TYPE, XTYPE
+      String             DIST, EQUED, FACT, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, ITRAN, IZERO, K, K1, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT, N_ERR_BNDS
       DOUBLE PRECISION   AINVNM, AMAX, ANORM, ANORMI, ANORMO, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW, RPVGRW_SVXX
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN )
+      String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 )
 *     ..

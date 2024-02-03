@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION ALPHA
       int     INCX,N
-      CHARACTER UPLO
+      String    UPLO;
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION AP(*),X(*)

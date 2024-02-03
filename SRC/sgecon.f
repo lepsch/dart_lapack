@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          NORM
+      String             NORM;
       int                INFO, LDA, N
       REAL               ANORM, RCOND
 *     ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ONENRM
-      CHARACTER          NORMIN
+      String             NORMIN;
       int                IX, KASE, KASE1
       REAL               AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL
 *     ..

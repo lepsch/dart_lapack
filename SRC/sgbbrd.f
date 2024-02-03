@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          VECT
+      String             VECT;
       int                INFO, KL, KU, LDAB, LDC, LDPT, LDQ, M, N, NCC
 *     ..
 *     .. Array Arguments ..

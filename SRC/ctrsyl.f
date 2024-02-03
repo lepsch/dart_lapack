@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANA, TRANB
+      String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N
       REAL               SCALE
 *     ..

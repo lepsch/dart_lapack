@@ -43,7 +43,7 @@
       INTRINSIC          CEILING, REAL, MAX, MIN
 *     ..
 *     .. Scalars in Common ..
-      CHARACTER(LEN=32)  SRNAMT
+      String   (LEN=32)  SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SRMNAMC / SRNAMT

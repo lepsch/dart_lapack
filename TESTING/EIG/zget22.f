@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANSA, TRANSE, TRANSW
+      String             TRANSA, TRANSE, TRANSW;
       int                LDA, LDE, N
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          NORMA, NORME
+      String             NORMA, NORME;
       int                ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC
       DOUBLE PRECISION   ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL
       COMPLEX*16         WTEMP

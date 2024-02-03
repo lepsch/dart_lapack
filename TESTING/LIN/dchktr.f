@@ -28,12 +28,12 @@
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          DIAG, NORM, TRANS, UPLO, XTYPE
+      String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
       int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       DOUBLE PRECISION   AINVNM, ANORM, BIGNUM, DLAMCH, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          TRANSS( NTRAN ), UPLOS( 2 )
+      String             TRANSS( NTRAN ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS ), SCALE3( 2 )
 *     ..

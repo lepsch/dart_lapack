@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ILABAD
-      CHARACTER          SENSE
+      String             SENSE;
       int                BDSPAC, I, I1, IFUNC, IINFO, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB
       DOUBLE PRECISION   ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT
 *     ..

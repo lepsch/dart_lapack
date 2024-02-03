@@ -22,12 +22,12 @@
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          UPLO, CFORM, NORM
+      String             UPLO, CFORM, NORM;
       int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN
       DOUBLE PRECISION   EPS, LARGE, NORMA, NORMARF, SMALL
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          UPLOS( 2 ), FORMS( 2 ), NORMS( 4 )
+      String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
       int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..

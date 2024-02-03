@@ -7,7 +7,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          JOBZ, UPLO
+      String             JOBZ, UPLO;
       int                INFO, ITYPE, LDA, LDB, LWORK, N
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER, WANTZ
-      CHARACTER          TRANS
+      String             TRANS;
       int                NEIG, LWMIN, LHTRD, LWTRD, KD, IB
 *     ..
 *     .. External Functions ..

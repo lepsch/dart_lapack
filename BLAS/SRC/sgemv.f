@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       REAL ALPHA,BETA
       int     INCX,INCY,LDA,M,N
-      CHARACTER TRANS
+      String    TRANS;
 *     ..
 *     .. Array Arguments ..
       REAL A(LDA,*),X(*),Y(*)

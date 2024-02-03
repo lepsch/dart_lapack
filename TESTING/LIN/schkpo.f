@@ -27,13 +27,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
-      CHARACTER          DIST, TYPE, UPLO, XTYPE
+      String             DIST, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, K, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN
       REAL               ANORM, CNDNUM, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          UPLOS( 2 )
+      String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
       REAL               RESULT( NTESTS )
 *     ..

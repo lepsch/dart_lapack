@@ -14,7 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      CHARACTER          UPLO
+      String             UPLO;
       String             P2;
       String             C3;
 *     ..

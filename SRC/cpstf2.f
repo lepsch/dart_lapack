@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       REAL               TOL
       int                INFO, LDA, N, RANK
-      CHARACTER          UPLO
+      String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * )

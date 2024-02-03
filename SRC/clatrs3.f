@@ -2,7 +2,7 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DIAG, TRANS, NORMIN, UPLO
+      String             DIAG, TRANS, NORMIN, UPLO;
       int                INFO, LDA, LWORK, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..

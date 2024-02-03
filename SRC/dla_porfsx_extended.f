@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH
-      CHARACTER          UPLO
+      String             UPLO;
       LOGICAL            COLEQU, IGNORE_CWISE
       DOUBLE PRECISION   RTHRESH, DZ_UB
 *     ..

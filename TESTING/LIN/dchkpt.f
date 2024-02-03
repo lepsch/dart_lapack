@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
-      CHARACTER          DIST, TYPE
+      String             DIST, TYPE;
       String             PATH;
       int                I, IA, IMAT, IN, INFO, IRHS, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   AINVNM, ANORM, COND, DMAX, RCOND, RCONDC

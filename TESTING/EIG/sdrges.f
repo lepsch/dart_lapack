@@ -24,7 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN, ILABAD
-      CHARACTER          SORT
+      String             SORT;
       int                I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM
       REAL               SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
 *     ..

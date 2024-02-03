@@ -9,9 +9,9 @@
 
 *     .. Local Scalars ..
       int                N, NRHS, INFO, I ,J, k, NFAIL, LDA, N_AUX_TESTS, LDAB, LDAFB
-      CHARACTER          FACT, TRANS, UPLO, EQUED
+      String             FACT, TRANS, UPLO, EQUED;
       String             C2;
-      CHARACTER(3)       NGUAR, CGUAR
+      String   (3)       NGUAR, CGUAR;
       LOGICAL            printed_guide
       DOUBLE PRECISION   NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH
 

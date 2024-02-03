@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER(LEN=3)   PATH
+      String   (LEN=3)   PATH;
       int                NUNIT
 *     ..
 *
@@ -27,7 +27,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER(LEN=32)  SRNAMT
+      String   (LEN=32)  SRNAMT;
       int                INFOT, NOUT
 *     ..
 *     .. Common blocks ..

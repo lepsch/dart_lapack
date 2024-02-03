@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          UPLO
+      String             UPLO;
       int                INFO, N
       REAL               AMAX, SCOND
 *     ..

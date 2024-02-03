@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          ROWCOL
+      String             ROWCOL;
       int                LDU, LWORK, M, N
       REAL               RESID
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          TRANSU
+      String             TRANSU;
       int                I, J, K, LDWORK, MNMIN
       REAL               EPS
       COMPLEX            TMP, ZDUM

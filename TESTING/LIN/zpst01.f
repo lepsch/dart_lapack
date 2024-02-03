@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   RESID
       int                LDA, LDAFAC, LDPERM, N, RANK
-      CHARACTER          UPLO
+      String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * )

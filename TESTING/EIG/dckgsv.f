@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
-      CHARACTER          DISTA, DISTB, TYPE
+      String             DISTA, DISTB, TYPE;
       String             PATH;
       int                I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
       DOUBLE PRECISION   ANORM, BNORM, CNDNMA, CNDNMB

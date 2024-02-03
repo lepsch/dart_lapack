@@ -29,7 +29,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
-      CHARACTER          SORT
+      String             SORT;
       String             PATH;
       int                I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM
       DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL

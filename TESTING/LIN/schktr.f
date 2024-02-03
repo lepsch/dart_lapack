@@ -28,12 +28,12 @@
       PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          DIAG, NORM, TRANS, UPLO, XTYPE
+      String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
       int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       REAL               AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, SLAMCH
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          TRANSS( NTRAN ), UPLOS( 2 )
+      String             TRANSS( NTRAN ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
       REAL               RESULT( NTESTS ), SCALE3( 2 )
 *     ..

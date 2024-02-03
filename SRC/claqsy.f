@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          EQUED, UPLO
+      String             EQUED, UPLO;
       int                LDA, N
       REAL               AMAX, SCOND
 *     ..

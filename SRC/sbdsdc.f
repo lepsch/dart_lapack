@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          COMPQ, UPLO
+      String             COMPQ, UPLO;
       int                INFO, LDU, LDVT, N
 *     ..
 *     .. Array Arguments ..

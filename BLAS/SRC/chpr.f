@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       REAL ALPHA
       int     INCX,N
-      CHARACTER UPLO
+      String    UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX AP(*),X(*)

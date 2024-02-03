@@ -16,7 +16,7 @@
       PARAMETER          ( NMAX = 4 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          EQ
+      String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS
       REAL               ANRM, CCOND, RCOND, BERR

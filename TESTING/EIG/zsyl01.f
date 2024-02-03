@@ -27,7 +27,7 @@
       PARAMETER          ( MAXM = 185, MAXN = 192, LDSWORK = 36 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          TRANA, TRANB
+      String             TRANA, TRANB;
       int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N       DOUBLE PRECISION   ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM
       COMPLEX*16         RMUL
 *     ..

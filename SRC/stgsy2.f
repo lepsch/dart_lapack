@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANS
+      String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N, PQ
       REAL               RDSCAL, RDSUM, SCALE
 *     ..

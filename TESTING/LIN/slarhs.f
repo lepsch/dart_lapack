@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANS, UPLO, XTYPE
+      String             TRANS, UPLO, XTYPE;
       String             PATH;
       int                INFO, KL, KU, LDA, LDB, LDX, M, N, NRHS
 *     ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI
-      CHARACTER          C1, DIAG
+      String             C1, DIAG;
       String             C2;
       int                J, MB, NX
 *     ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          RANGE
+      String             RANGE;
       int                IL, INFO, IU, M, N, NSPLIT
       REAL               PIVMIN, RTOL1, RTOL2, SPLTOL, VL, VU
 *     ..

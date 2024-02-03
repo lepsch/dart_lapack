@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          FACT, TRANS
+      String             FACT, TRANS;
       int                INFO, LDB, LDX, N, NRHS
       DOUBLE PRECISION   RCOND
 *     ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOFACT, NOTRAN
-      CHARACTER          NORM
+      String             NORM;
       DOUBLE PRECISION   ANORM
 *     ..
 *     .. External Functions ..

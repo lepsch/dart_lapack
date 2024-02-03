@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DIAG, UPLO
+      String             DIAG, UPLO;
       int                N
       DOUBLE PRECISION   RAT, RCOND, RCONDC
 *     ..

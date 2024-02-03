@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DIRECT, PIVOT, SIDE
+      String             DIRECT, PIVOT, SIDE;
       int                LDA, M, N
 *     ..
 *     .. Array Arguments ..

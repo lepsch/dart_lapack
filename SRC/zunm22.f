@@ -7,7 +7,7 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      CHARACTER          SIDE, TRANS
+      String             SIDE, TRANS;
       int                M, N, N1, N2, LDQ, LDC, LWORK, INFO
 *     ..
 *     .. Array Arguments ..

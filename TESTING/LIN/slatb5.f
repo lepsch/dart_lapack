@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       REAL               ANORM, CNDNUM
       int                IMAT, KL, KU, MODE, N
-      CHARACTER          DIST, TYPE
+      String             DIST, TYPE;
       String             PATH;
 *     ..
 *

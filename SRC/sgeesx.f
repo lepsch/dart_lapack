@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          JOBVS, SENSE, SORT
+      String             JOBVS, SENSE, SORT;
       int                INFO, LDA, LDVS, LIWORK, LWORK, N, SDIM
       REAL               RCONDE, RCONDV
 *     ..

@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FATAL, TSTDRV, TSTERR
-      CHARACTER          C1
+      String             C1;
       String             C2;
       String             PATH;
       String             INTSTR;

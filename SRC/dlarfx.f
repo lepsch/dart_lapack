@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          SIDE
+      String             SIDE;
       int                LDC, M, N
       DOUBLE PRECISION   TAU
 *     ..

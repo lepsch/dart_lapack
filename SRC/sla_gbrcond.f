@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANS
+      String             TRANS;
       int                N, LDAB, LDAFB, INFO, KL, KU, CMODE
 *     ..
 *     .. Array Arguments ..

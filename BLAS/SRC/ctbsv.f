@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int     INCX,K,LDA,N
-      CHARACTER DIAG,TRANS,UPLO
+      String    DIAG,TRANS,UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX A(LDA,*),X(*)

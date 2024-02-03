@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       int                INFO, LDA, N
       DOUBLE PRECISION   AMAX, SCOND
-      CHARACTER          UPLO
+      String             UPLO;
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), S( * ), WORK( * )

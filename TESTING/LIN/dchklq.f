@@ -25,7 +25,7 @@
       PARAMETER          ( ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          DIST, TYPE
+      String             DIST, TYPE;
       String             PATH;
       int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX
       DOUBLE PRECISION   ANORM, CNDNUM

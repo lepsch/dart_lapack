@@ -27,7 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADMM, BADNN, BIDIAG
-      CHARACTER          UPLO
+      String             UPLO;
       String             PATH;
       int                I, IINFO, IMODE, ITYPE, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MQ, MTYPES, N, NFAIL, NMAX, NTEST
       DOUBLE PRECISION   AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL

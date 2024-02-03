@@ -24,7 +24,7 @@
       PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          NORMIN, TRANS
+      String             NORMIN, TRANS;
       int                I, IERR, ITS, J
       REAL               GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM
       COMPLEX            CDUM, EI, EJ, TEMP, X

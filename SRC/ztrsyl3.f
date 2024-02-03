@@ -2,7 +2,7 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANA, TRANB
+      String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, LDSWORK, M, N
       DOUBLE PRECISION   SCALE
 *     ..

@@ -21,7 +21,7 @@
       PARAMETER          ( NTESTS = 6 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER(LEN=3)   PATH
+      String   (LEN=3)   PATH;
       int                I, IMB1, INB1, INB2, J, T, M, N, MB1, NB1, NB2, NFAIL, NERRS, NRUN
 *
 *     .. Local Arrays ..
@@ -35,7 +35,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER(LEN=32)  SRNAMT
+      String   (LEN=32)  SRNAMT;
       int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..

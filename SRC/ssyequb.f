@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       int                INFO, LDA, N
       REAL               AMAX, SCOND
-      CHARACTER          UPLO
+      String             UPLO;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), S( * ), WORK( * )

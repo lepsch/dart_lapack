@@ -28,13 +28,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
-      CHARACTER          DIST, TYPE, UPLO
+      String             DIST, TYPE, UPLO;
       String             PATH;
       int                I, IA, IMAT, IN, INFO, IRHS, IUPLO, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          UPLOS( 2 )
+      String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
       COMPLEX*16         Z( 3 )

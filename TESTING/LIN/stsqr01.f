@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER         TSSW
+      String            TSSW;
       int               M, N, MB, NB
 *     .. Return values ..
       REAL              RESULT(6)

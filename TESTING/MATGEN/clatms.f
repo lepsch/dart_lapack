@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DIST, PACK, SYM
+      String             DIST, PACK, SYM;
       int                INFO, KL, KU, LDA, M, MODE, N
       REAL               COND, DMAX
 *     ..

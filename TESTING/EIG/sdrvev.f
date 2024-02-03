@@ -31,7 +31,7 @@
       REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, TNRM, ULP, ULPINV, UNFL, VMX, VRMX, VTST
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          ADUMMA( 1 )
+      String             ADUMMA( 1 );
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       REAL               DUM( 1 ), RES( 2 )
 *     ..

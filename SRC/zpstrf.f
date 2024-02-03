@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   TOL
       int                INFO, LDA, N, RANK
-      CHARACTER          UPLO
+      String             UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * )

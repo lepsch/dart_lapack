@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          ROWCOL
+      String             ROWCOL;
       int                LDU, LWORK, M, N
       DOUBLE PRECISION   RESID
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          TRANSU
+      String             TRANSU;
       int                I, J, K, LDWORK, MNMIN
       DOUBLE PRECISION   EPS
       COMPLEX*16         TMP, ZDUM

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                IHI, ILO, INFO, LDH, LDZ, LWORK, N
-      CHARACTER          COMPZ, JOB
+      String             COMPZ, JOB;
 *     ..
 *     .. Array Arguments ..
       REAL               H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * )

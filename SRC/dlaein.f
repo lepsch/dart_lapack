@@ -20,7 +20,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TENTH = 1.0D-1 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          NORMIN, TRANS
+      String             NORMIN, TRANS;
       int                I, I1, I2, I3, IERR, ITS, J
       DOUBLE PRECISION   ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y
 *     ..

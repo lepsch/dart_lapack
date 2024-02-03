@@ -13,7 +13,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            CORZ, SORD
-      CHARACTER          C1, C3
+      String             C1, C3;
       String             P2;
       String             SYM;
 *     ..

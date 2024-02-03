@@ -41,12 +41,12 @@
 *     .. Local Scalars ..
       LOGICAL            ZEROT
       int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS
-      CHARACTER          DIST, CTYPE, UPLO, CFORM
+      String             DIST, CTYPE, UPLO, CFORM;
       int                KL, KU, MODE
       REAL               ANORM, AINVNM, CNDNUM, RCONDC
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          UPLOS( 2 ), FORMS( 2 )
+      String             UPLOS( 2 ), FORMS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
       REAL               RESULT( NTESTS )
 *     ..

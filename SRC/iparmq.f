@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                IHI, ILO, ISPEC, LWORK, N
-      CHARACTER          NAME*( * ), OPTS*( * )
+      String             NAME*( * ), OPTS*( * );
 *
 *  ================================================================
 *     .. Parameters ..
@@ -20,7 +20,7 @@
 *     .. Local Scalars ..
       int                NH, NS
       int                I, IC, IZ
-      CHARACTER          SUBNAM*6
+      String             SUBNAM*6;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          LOG, MAX, MOD, NINT, REAL

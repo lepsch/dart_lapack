@@ -16,11 +16,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, OK1, OK2
-      CHARACTER          UPLO, CFORM
+      String             UPLO, CFORM;
       int                I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          UPLOS( 2 ), FORMS( 2 )
+      String             UPLOS( 2 ), FORMS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 )
 *     ..
 *     .. External Functions ..

@@ -20,7 +20,7 @@
       PARAMETER          ( ROGUE = -1.0D+10 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          SIDE, TRANS
+      String             SIDE, TRANS;
       int                INFO, ISIDE, ITRANS, J, MC, MINMN, NC
       DOUBLE PRECISION   CNORM, EPS, RESID
 *     ..

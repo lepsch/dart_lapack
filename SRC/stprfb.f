@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER DIRECT, SIDE, STOREV, TRANS
+      String    DIRECT, SIDE, STOREV, TRANS;
       int       K, L, LDA, LDB, LDT, LDV, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..

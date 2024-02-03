@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int     INCX,LDA,N
-      CHARACTER DIAG,TRANS,UPLO
+      String    DIAG,TRANS,UPLO;
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION A(LDA,*),X(*)

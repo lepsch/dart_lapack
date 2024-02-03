@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANS
+      String             TRANS;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
@@ -30,7 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
-      CHARACTER          TRANSN, TRANST
+      String             TRANSN, TRANST;
       int                COUNT, I, J, K, KASE, NZ
       DOUBLE PRECISION   EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
       COMPLEX*16         ZDUM

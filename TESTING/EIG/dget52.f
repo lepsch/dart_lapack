@@ -20,7 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ILCPLX
-      CHARACTER          NORMAB, TRANS
+      String             NORMAB, TRANS;
       int                J, JVEC
       DOUBLE PRECISION   ABMAX, ACOEF, ALFMAX, ANORM, BCOEFI, BCOEFR, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SALFI, SALFR, SBETA, SCALE, TEMP1, ULP
 *     ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          COMPQ, JOB
+      String             COMPQ, JOB;
       int                INFO, LDQ, LDT, LIWORK, LWORK, M, N
       DOUBLE PRECISION   S, SEP
 *     ..

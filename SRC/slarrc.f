@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          JOBT
+      String             JOBT;
       int                EIGCNT, INFO, LCNT, N, RCNT
       REAL               PIVMIN, VL, VU
 *     ..

@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       REAL               COND, DMAX
       int                INFO, KL, KU, LDA, M, MODE, N, RANK
-      CHARACTER          DIST, PACK, SYM
+      String             DIST, PACK, SYM;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), WORK( * )

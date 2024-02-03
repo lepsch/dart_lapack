@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION ALPHA,BETA
       int     LDA,LDB,LDC,M,N
-      CHARACTER SIDE,UPLO
+      String    SIDE,UPLO;
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION A(LDA,*),B(LDB,*),C(LDC,*)

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DIRECT, SIDE, STOREV, TRANS
+      String             DIRECT, SIDE, STOREV, TRANS;
       int                K, LDC, LDT, LDV, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..
@@ -19,7 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          TRANST
+      String             TRANST;
       int                I, J
 *     ..
 *     .. External Functions ..

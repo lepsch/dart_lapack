@@ -8,7 +8,7 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      CHARACTER          COMPQ, COMPZ
+      String             COMPQ, COMPZ;
       int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N, LWORK
 *     ..
 *     .. Array Arguments ..

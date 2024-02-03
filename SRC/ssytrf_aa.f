@@ -7,7 +7,7 @@
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
-      CHARACTER          UPLO
+      String             UPLO;
       int                N, LDA, LWORK, INFO
 *     ..
 *     .. Array Arguments ..

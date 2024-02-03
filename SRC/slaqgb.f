@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          EQUED
+      String             EQUED;
       int                KL, KU, LDAB, M, N
       REAL               AMAX, COLCND, ROWCND
 *     ..

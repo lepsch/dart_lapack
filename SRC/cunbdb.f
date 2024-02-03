@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          SIGNS, TRANS
+      String             SIGNS, TRANS;
       int                INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q
 *     ..
 *     .. Array Arguments ..

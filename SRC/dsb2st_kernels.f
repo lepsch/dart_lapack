@@ -7,7 +7,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          UPLO
+      String             UPLO;
       LOGICAL            WANTZ
       int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT
 *     ..

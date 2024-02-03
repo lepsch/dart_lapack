@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          SIDE
+      String             SIDE;
       int                INCV, L, LDC, M, N
       COMPLEX            TAU
 *     ..

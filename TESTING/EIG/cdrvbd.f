@@ -29,7 +29,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADMM, BADNN
-      CHARACTER          JOBQ, JOBU, JOBVT, RANGE
+      String             JOBQ, JOBU, JOBVT, RANGE;
       int                I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK
       REAL               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
 *     ..
@@ -37,7 +37,7 @@
       int                LIWORK, NUMRANK
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 )
+      String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
       int                IOLDSD( 4 ), ISEED2( 4 )
       REAL               RESULT( 39 )
 *     ..

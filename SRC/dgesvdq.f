@@ -1,7 +1,7 @@
       SUBROUTINE DGESVDQ( JOBA, JOBP, JOBR, JOBU, JOBV, M, N, A, LDA, S, U, LDU, V, LDV, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, INFO )
 *     .. Scalar Arguments ..
       IMPLICIT    NONE
-      CHARACTER   JOBA, JOBP, JOBR, JOBU, JOBV
+      String      JOBA, JOBP, JOBR, JOBU, JOBV;
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO
 *     ..
 *     .. Array Arguments ..

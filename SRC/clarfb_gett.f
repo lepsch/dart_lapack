@@ -6,7 +6,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          IDENT
+      String             IDENT;
       int                K, LDA, LDB, LDT, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..

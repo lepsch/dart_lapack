@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANS
+      String             TRANS;
       LOGICAL            CAPPLY
       int                N, LDA, LDAF, INFO
 *     ..

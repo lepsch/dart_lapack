@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          UPLO
+      String             UPLO;
       int                INFO, KD, LDAB, N
       DOUBLE PRECISION   ANORM, RCOND
 *     ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      CHARACTER          NORMIN
+      String             NORMIN;
       int                IX, KASE
       DOUBLE PRECISION   AINVNM, SCALE, SCALEL, SCALEU, SMLNUM
 *     ..

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DISTA, DISTB, TYPE
+      String             DISTA, DISTB, TYPE;
       String             PATH;
       int                IMAT, KLA, KLB, KUA, KUB, M, MODEA, MODEB, N, P
       DOUBLE PRECISION   ANORM, BNORM, CNDNMA, CNDNMB

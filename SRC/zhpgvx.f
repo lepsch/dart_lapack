@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          JOBZ, RANGE, UPLO
+      String             JOBZ, RANGE, UPLO;
       int                IL, INFO, ITYPE, IU, LDZ, M, N
       DOUBLE PRECISION   ABSTOL, VL, VU
 *     ..
@@ -19,7 +19,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, UPPER, VALEIG, WANTZ
-      CHARACTER          TRANS
+      String             TRANS;
       int                J
 *     ..
 *     .. External Functions ..

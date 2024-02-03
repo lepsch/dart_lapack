@@ -156,7 +156,7 @@ C        ILAENV = 0
 *     ..
 *     .. Scalar Arguments ..
       int                IHI, ILO, ISPEC, LWORK, N
-      CHARACTER          NAME*( * ), OPTS*( * )
+      String             NAME*( * ), OPTS*( * );
 *     ..
 *     .. Local Scalars ..
       int                NH, NS

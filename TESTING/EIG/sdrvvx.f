@@ -24,13 +24,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
-      CHARACTER          BALANC
+      String             BALANC;
       String             PATH;
       int                I, IBAL, IINFO, IMODE, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT
       REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          ADUMMA( 1 ), BAL( 4 )
+      String             ADUMMA( 1 ), BAL( 4 );
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            COMP
-      CHARACTER          BALANC
+      String             BALANC;
       int                INFO, ISRT, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT
       DOUBLE PRECISION   THRESH
 *     ..
@@ -26,12 +26,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BALOK, NOBAL
-      CHARACTER          SENSE
+      String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN       DOUBLE PRECISION   ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN, VRMX, VTST
       COMPLEX*16         CTMP
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          SENS( 2 )
+      String             SENS( 2 );
       DOUBLE PRECISION   RES( 2 )
       COMPLEX*16         CDUM( 1 )
 *     ..

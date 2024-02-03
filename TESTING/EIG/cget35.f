@@ -22,7 +22,7 @@
       PARAMETER          ( CONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          TRANA, TRANB
+      String             TRANA, TRANB;
       int                I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N       REAL               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM
       COMPLEX            RMUL
 *     ..

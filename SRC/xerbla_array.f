@@ -8,7 +8,7 @@
       int     SRNAME_LEN, INFO
 *     ..
 *     .. Array Arguments ..
-      CHARACTER(1) SRNAME_ARRAY(SRNAME_LEN)
+      String   (1) SRNAME_ARRAY(SRNAME_LEN);
 *     ..
 *
 * =====================================================================

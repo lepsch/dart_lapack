@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TYPE
+      String             TYPE;
       int                INFO, KL, KU, LDA, M, N
       REAL               CFROM, CTO
 *     ..

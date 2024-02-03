@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANSR, DIAG, SIDE, TRANS, UPLO
+      String             TRANSR, DIAG, SIDE, TRANS, UPLO;
       int                LDB, M, N
       DOUBLE PRECISION   ALPHA
 *     ..

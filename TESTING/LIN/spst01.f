@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       REAL               RESID
       int                LDA, LDAFAC, LDPERM, N, RANK
-      CHARACTER          UPLO
+      String             UPLO;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * )

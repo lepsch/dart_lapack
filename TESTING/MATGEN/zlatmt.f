@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   COND, DMAX
       int                INFO, KL, KU, LDA, M, MODE, N, RANK
-      CHARACTER          DIST, PACK, SYM
+      String             DIST, PACK, SYM;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ), WORK( * )

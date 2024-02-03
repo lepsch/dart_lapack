@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          JOBZ, RANGE
+      String             JOBZ, RANGE;
       LOGICAL            TRYRAC
       int                IL, INFO, IU, LDZ, NZC, LIWORK, LWORK, M, N
       REAL               VL, VU

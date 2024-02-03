@@ -27,12 +27,12 @@
 *     .. Local Scalars ..
       DOUBLE PRECISION   ANORM, CNDNUM, RESULT, TOL
       int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF
-      CHARACTER          DIST, TYPE, UPLO
+      String             DIST, TYPE, UPLO;
       String             PATH;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
-      CHARACTER          UPLOS( 2 )
+      String             UPLOS( 2 );
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZERRPS, ZLACPY, ZLATB5, ZLATMT, ZPST01, ZPSTRF

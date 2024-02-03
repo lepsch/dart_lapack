@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       COMPLEX ALPHA,BETA
       int     LDA,LDB,LDC,M,N
-      CHARACTER SIDE,UPLO
+      String    SIDE,UPLO;
 *     ..
 *     .. Array Arguments ..
       COMPLEX A(LDA,*),B(LDB,*),C(LDC,*)

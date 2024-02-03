@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          HOWMNY, JOB
+      String             HOWMNY, JOB;
       int                INFO, LDT, LDVL, LDVR, LDWORK, M, MM, N
 *     ..
 *     .. Array Arguments ..
@@ -22,7 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            SOMCON, WANTBH, WANTS, WANTSP
-      CHARACTER          NORMIN
+      String             NORMIN;
       int                I, IERR, IX, J, K, KASE, KS
       DOUBLE PRECISION   BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM
       COMPLEX*16         CDUM, PROD

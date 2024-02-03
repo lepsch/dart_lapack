@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          TRANS, EQUED
+      String             TRANS, EQUED;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS
       REAL               RCOND
 *     ..
@@ -33,7 +33,7 @@
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER(1)       NORM
+      String   (1)       NORM;
       LOGICAL            ROWEQU, COLEQU, NOTRAN
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE
       int                N_NORMS

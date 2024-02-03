@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          FACT, UPLO
+      String             FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS
       REAL               RCOND
 *     ..

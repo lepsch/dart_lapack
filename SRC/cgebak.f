@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          JOB, SIDE
+      String             JOB, SIDE;
       int                IHI, ILO, INFO, LDV, M, N
 *     ..
 *     .. Array Arguments ..

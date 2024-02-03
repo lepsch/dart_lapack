@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          UPLO
+      String             UPLO;
       int                N, LDA, LDAF, INFO, CMODE
 *     ..
 *     .. Array Arguments
@@ -16,7 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      CHARACTER          NORMIN
+      String             NORMIN;
       int                KASE, I, J
       DOUBLE PRECISION   AINVNM, SMLNUM, TMP
       LOGICAL            UP

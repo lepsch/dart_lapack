@@ -28,13 +28,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            EQUIL, NOFACT, PREFAC, ZEROT
-      CHARACTER          DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE
+      String             DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IEQUED, IFACT, IKD, IMAT, IN, INFO, IOFF, IUPLO, IW, IZERO, K, K1, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKD, NRUN, NT
       REAL               AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          EQUEDS( 2 ), FACTS( 3 )
+      String             EQUEDS( 2 ), FACTS( 3 );
       int                ISEED( 4 ), ISEEDY( 4 ), KDVAL( NBW )
       REAL               RESULT( NTESTS )
 *     ..

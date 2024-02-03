@@ -16,7 +16,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
-      CHARACTER          C1
+      String             C1;
       String             INTSTR;
       String             LINE;
       int                I, I1, IC, J, K, LENP, NT

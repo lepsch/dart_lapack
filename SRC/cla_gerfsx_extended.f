@@ -18,7 +18,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      CHARACTER          TRANS
+      String             TRANS;
       int                CNT, I, J,  X_STATE, Z_STATE, Y_PREC_STATE
       REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
       LOGICAL            INCR_PREC
@@ -41,7 +41,7 @@
 *     .. External Subroutines ..
       EXTERNAL           CAXPY, CCOPY, CGETRS, CGEMV, BLAS_CGEMV_X, BLAS_CGEMV2_X, CLA_GEAMV, CLA_WWADDW, SLAMCH, CHLA_TRANSTYPE, CLA_LIN_BERR
       REAL               SLAMCH
-      CHARACTER          CHLA_TRANSTYPE
+      String             CHLA_TRANSTYPE;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN

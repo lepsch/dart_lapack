@@ -24,7 +24,7 @@
       PARAMETER          ( EPSIN = 5.9605D-8 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          SORT
+      String             SORT;
       int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, LIWORK, RSUB, SDIM, SDIM1       DOUBLE PRECISION   ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TMP, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VRMIN, WNORM
 *     ..
 *     .. Local Arrays ..

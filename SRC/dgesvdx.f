@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          JOBU, JOBVT, RANGE
+      String             JOBU, JOBVT, RANGE;
       int                IL, INFO, IU, LDA, LDU, LDVT, LWORK, M, N, NS
       DOUBLE PRECISION   VL, VU
 *     ..
@@ -21,7 +21,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          JOBZ, RNGTGK
+      String             JOBZ, RNGTGK;
       LOGICAL            ALLS, INDS, LQUERY, VALS, WANTU, WANTVT
       int                I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL, ITAU, ITAUP, ITAUQ, ITEMP, ITGKZ, IUTGK, J, MAXWRK, MINMN, MINWRK, MNTHR
       DOUBLE PRECISION   ABSTOL, ANRM, BIGNUM, EPS, SMLNUM

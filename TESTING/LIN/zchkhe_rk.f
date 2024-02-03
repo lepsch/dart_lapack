@@ -34,13 +34,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TRFCON, ZEROT
-      CHARACTER          DIST, TYPE, UPLO, XTYPE
+      String             DIST, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
       int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, ITEMP, ITEMP2, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
       DOUBLE PRECISION   ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, DTEMP
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          UPLOS( 2 )
+      String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 ), IDUMMY( 1 )
       DOUBLE PRECISION   RESULT( NTESTS )
       COMPLEX*16         BLOCK( 2, 2 ), ZDUMMY( 1 )

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DIST, GRADE, PACK, PIVTNG, RSIGN, SYM
+      String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N
       DOUBLE PRECISION   ANORM, COND, CONDL, CONDR, SPARSE
       COMPLEX*16         DMAX

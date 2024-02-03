@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          DIST, TYPE
+      String             DIST, TYPE;
       String             PATH;
       int                IMAT, KL, KU, M, MODE, N
       REAL               ANORM, CNDNUM

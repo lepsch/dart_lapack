@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          UPLO
+      String             UPLO;
       int                N, LDA, LDAF, INFO, CMODE
       DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
 *     ..

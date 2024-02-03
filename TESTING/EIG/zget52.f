@@ -22,7 +22,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          NORMAB, TRANS
+      String             NORMAB, TRANS;
       int                J, JVEC
       DOUBLE PRECISION   ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP
       COMPLEX*16         ACOEFF, ALPHAI, BCOEFF, BETAI, X

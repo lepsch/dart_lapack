@@ -18,7 +18,7 @@
       PARAMETER          ( ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          EQ
+      String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS
       DOUBLE PRECISION   RCOND, RPVGRW, BERR

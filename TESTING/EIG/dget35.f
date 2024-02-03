@@ -18,7 +18,7 @@
       PARAMETER          ( TWO = 2.0D0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER          TRANA, TRANB
+      String             TRANA, TRANB;
       int                I, IMA, IMB, IMLDA1, IMLDA2, IMLDB1, IMLOFF, INFO, ISGN, ITRANA, ITRANB, J, M, N       DOUBLE PRECISION   BIGNUM, CNRM, EPS, RES, RES1, RMUL, SCALE, SMLNUM, TNRM, XNRM
 *     ..
 *     .. Local Arrays ..

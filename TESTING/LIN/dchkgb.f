@@ -26,13 +26,13 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TRFCON, ZEROT
-      CHARACTER          DIST, NORM, TRANS, TYPE, XTYPE
+      String             DIST, NORM, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, I1, I2, IKL, IKU, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN, IZERO, J, K, KL, KOFF, KU, LDA, LDAFAC, LDB, M, MODE, N, NB, NERRS, NFAIL, NIMAT, NKL, NKU, NRHS, NRUN
       DOUBLE PRECISION   AINVNM, ANORM, ANORMI, ANORMO, CNDNUM, RCOND, RCONDC, RCONDI, RCONDO
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          TRANSS( NTRAN )
+      String             TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 ), KLVAL( NBW ), KUVAL( NBW )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..

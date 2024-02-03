@@ -44,7 +44,7 @@
       DOUBLE PRECISION   AA, BB, CC, CS, DD, SN, SS, SWAP
       int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
       LOGICAL            SORTED
-      CHARACTER          JBCMPZ*2
+      String             JBCMPZ*2;
 *     ..
 *     .. External Functions ..
       int                ILAENV
